@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ <!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="logMapper">
+
+    <insert id="addWebServiceLog" >
+        insert into web_service_log (origin, call_type, endpoint, query_string, total_rows_expected, data_store_counts)
+        values (#{origin}, #{callType}, #{endpoint}, #{queryString}, #{totalRowsExpected,jdbcType=NUMERIC}, #{dataStoreCounts,jdbcType=CHAR})
+    </insert>
+    
+</mapper>
