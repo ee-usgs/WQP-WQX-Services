@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<mapper namespace="coreMapper">
+
+    <!-- **********************************************************************************************************************
+         *** result maps
+         ********************************************************************************************************************** -->
+ 
+    <resultMap id="station" type="Station">
+        <id property="id" column="station_id"/>
+        <result property="details" column="station_clob" />
+        <association property="organization" javaType="Organization">
+            <id property="id" column="organization_id"/>
+            <result property="details" column="organization_clob"/>
+        </association>
+    </resultMap>
+
+    <resultMap id="result" type="Activity">
+        <result property="details" column="activity_clob" />
+        <association property="organization" javaType="Organization">
+            <id property="id" column="organization_id"/>
+            <result property="details" column="organization_clob"/>
+        </association>
+        <collection property="resultsASDF" javaType="ArrayList" ofType="String" >
+            <result property="valueOf" column="result_clob" />
+        </collection> 
+    </resultMap>
+
+    <resultMap id="simplestation" type="SimpleStation">
+        <id property="id" column="station_id"/>
+        <result property="primarySiteType" column="primary_site_type"/>
+        <result property="latitude" column="latitude"/>
+        <result property="longitude" column="longitude"/>
+        <association property="organization" javaType="Organization">
+            <id property="id" column="organization_id"/>
+        </association>
+    </resultMap>
+
+    <!-- **********************************************************************************************************************
+         *** column oriented
+         ********************************************************************************************************************** -->
+
+    <sql id="analyticalMethod">
+        nemi_url in <foreach item="i" collection="analyticalmethod" open="(" separator="," close=")">#{i}</foreach>
+    </sql>
+
+    <sql id="bBox">
+        sdo_inside(geom, sdo_geometry(2003, 8307, null, sdo_elem_info_array(1, 1003, 3), sdo_ordinate_array(#{bBox[0]},#{bBox[1]}, #{bBox[2]}, #{bBox[3]}))) = 'TRUE'
+    </sql>
+
+    <sql id="within">
+        sdo_within_distance(geom, sdo_geometry(2001, 8307, sdo_point_type(#{long[0]}, #{lat[0]}, null), null, null), 'DISTANCE='||#{within[0]}||' UNIT=MILE') = 'TRUE'
+    </sql>
+
+    <sql id="countrycode">
+        country_cd in 
+        <foreach item="i" collection="countrycode" open="(" separator="," close=")">#{i}</foreach> and 1 = 1
+    </sql>
+
+    <sql id="statecode">
+        (country_cd, 
+         state_cd) in <foreach item="i" collection="statecode" open="(" separator="," close=")">(NVL(#{i[0],jdbcType=CHAR},'US'),#{i[1]})</foreach> and 1 = 1
+    </sql>
+
+    <sql id="countycode">
+        (country_cd, 
+         state_cd, 
+         county_cd) in <foreach item="i" collection="countycode" open="(" separator="," close=")">(NVL(#{i[0],jdbcType=CHAR},'US'),#{i[1]},#{i[2]})</foreach> and 1 = 1
+    </sql>
+
+    <sql id="huc">
+        <foreach item="i" collection="huc" separator=" or ">
+            huc_8 like #{i}</foreach>
+    </sql>
+
+    <sql id="siteType">
+        site_type in <foreach item="i" collection="siteType" open="(" separator="," close=")">#{i}</foreach>
+    </sql>
+
+    <sql id="organization">
+        organization_id in <foreach item="i" collection="organization" open="(" separator="," close=")">#{i}</foreach>
+    </sql>
+
+    <sql id="sampleMedia">
+        sample_media in <foreach item="i" collection="sampleMedia" open="(" separator="," close=")">#{i}</foreach>
+    </sql>
+
+    <sql id="characteristicName">
+        characteristic_name in <foreach item="i" collection="characteristicName" open="(" separator="," close=")">#{i}</foreach>
+    </sql>
+
+    <sql id="characteristicType">
+        characteristic_type in <foreach item="i" collection="characteristicType" open="(" separator="," close=")">#{i}</foreach>
+    </sql>
+
+    <sql id="startDateLoHi">
+        activity_start_date
+        <choose>
+            <when test="startDateLo != null &amp;&amp; startDateHi != null">
+        &gt;= to_date(#{startDateLo[0]}, 'MM-DD-YYYY') and activity_start_date &lt; to_date(#{startDateHi[0]},'MM-DD-YYYY')+1
+            </when>
+            <when test="startDateLo != null">
+        &gt;= to_date(#{startDateLo[0]}, 'MM-DD-YYYY')
+            </when>
+            <otherwise>
+        &lt; to_date(#{startDateHi[0]}, 'MM-DD-YYYY')+1
+            </otherwise>
+        </choose>
+    </sql>
+
+    <sql id="dynaTab">
+        <if test="siteid != null">
+            ,(select /*+ cardinality(dyn 1) */ /* should use this with 11.2.0.3+: dynamic_sampling(dyn 10) */ column_value
+                from table(pkg_dynamic_list.get_table(#{siteid,typeHandler=ArrayParameterTypeHandler})) dyn) dynamic_siteid
+        </if>
+    </sql>
+
+    <sql id="dynaWhere">
+        <if test="siteid != null">
+            and (station_id = dynamic_siteid.column_value)
+        </if>
+    </sql>
+
+    <!-- **********************************************************************************************************************
+         *** Result
+         ********************************************************************************************************************** -->
+
+    <sql id="baseWhereResultClauses">
+        <if test="sampleMedia != null">
+            and (<include refid="coreMapper.sampleMedia" />)
+        </if>
+        <if test="characteristicName != null">
+            and (<include refid="coreMapper.characteristicName" />)
+        </if>
+        <if test="characteristicType != null">
+            and (<include refid="coreMapper.characteristicType" />)
+        </if>
+        <if test="startDateLo != null || startDateHi != null">
+            and (<include refid="coreMapper.startDateLoHi" />)
+        </if>
+    </sql>
+
+    <select id="resultsWQXCount" parameterType="map" resultType="Integer">
+        select count(*) resultsCount
+            <include refid="dataMapper.resultsBase" />
+    </select>
+
+    <select id="resultsWQXSelect" resultMap="coreMapper.result" fetchSize="1024" useCache="false" resultSetType="FORWARD_ONLY" resultOrdered="true">
+        select organization_id,
+               organization_clob,
+               activity_clob,
+               result_clob
+            <include refid="dataMapper.resultsBase" />
+             order by activity_pk, result_pk
+    </select>
+
+    <!-- **********************************************************************************************************************
+         *** Station
+         ********************************************************************************************************************** -->
+
+    <sql id="baseWhereStationClauses">
+        <if test="bBox != null &amp;&amp; bBox.length == 4">
+            and (<include refid="coreMapper.bBox" />)
+        </if>
+        <if test="within != null &amp;&amp; lat != null &amp;&amp; long != null">
+            and (<include refid="coreMapper.within" />)
+        </if>
+        <if test="statecode != null &amp;&amp; countycode == null">
+            and (<include refid="coreMapper.statecode" />)
+        </if>
+        <if test="countrycode != null">
+            and (<include refid="coreMapper.countrycode" />)
+        </if>
+        <if test="countycode != null">
+            and (<include refid="coreMapper.countycode" />)
+        </if>
+        <if test="huc != null">
+            and (<include refid="coreMapper.huc" />)
+        </if>
+        <if test="siteType != null">
+            and (<include refid="coreMapper.siteType" />)
+        </if>
+        <if test ="organization != null">
+            and (<include refid="coreMapper.organization" />)
+        </if>
+    </sql>
+
+    <select id="stationsWQXCount" parameterType="map" resultType="Integer">
+        select count(distinct(station_id)) stationsCount
+        <include refid="dataMapper.stationsBase"/>
+    </select>
+
+    <select id="stationsWQXSelect" resultMap="coreMapper.station" resultOrdered="true">
+        select organization_id, organization_clob, station_id, station_clob
+        <include refid="dataMapper.stationsBase"/>
+            order by organization_id,
+                     station_id
+    </select>
+
+    <select id="stationsKMLSelect" resultType="String">
+        select xmlserialize(content XMLtransform(station_details, #{stylesheet}) as clob no indent) test
+        <include refid="dataMapper.stationsBase"/>
+            order by organization_id,
+                     station_id
+    </select>
+
+    <!-- **********************************************************************************************************************
+         *** SimpleStation
+         ********************************************************************************************************************** -->
+
+    <sql id="simplestationColumns">
+        distinct organization_id,
+                 station_id,
+                 primary_site_type,
+                 to_char(x, 'FM990.0000000') longitude,
+                 to_char(y, 'FM90.0000000') latitude
+    </sql>
+
+    <select id="simpleStationsSelect" resultMap="coreMapper.simplestation"  resultOrdered="true">
+        select distinct organization_id,
+               station_id,
+               primary_site_type,
+               to_char(x, 'FM990.0000000') longitude,
+               to_char(y, 'FM90.0000000') latitude
+          from (<include refid="dataMapper.simplestationsBase"/>)
+            order by organization_id,
+                     station_id
+    </select>
+
+    <!-- **********************************************************************************************************************
+         *** BiologicalResult/Station
+         ********************************************************************************************************************** -->
+
+    <sql id="biologicalResultsBase">
+          from <include refid="dataMapper.dbSchema"/>biological_result
+        <include refid="coreMapper.dynaTab" />
+        <where>
+            <include refid="coreMapper.baseWhereStationClauses" />
+            <include refid="coreMapper.baseWhereResultClauses" />
+            <include refid="coreMapper.dynaWhere" />
+        </where>
+    </sql>
+
+    <select id="biologicalResultsWQXCount" parameterType="map" resultType="Integer">
+        select count(*) resultsCount
+            <include refid="coreMapper.biologicalResultsBase" />
+    </select>
+
+    <select id="biologicalResultsWQXSelect" parameterType="map" resultMap="coreMapper.result" fetchSize="1024" useCache="false" resultSetType="FORWARD_ONLY" resultOrdered="true">
+        select organization_id,
+               organization_clob,
+               activity_clob,
+               result_clob
+            <include refid="coreMapper.biologicalResultsBase" />
+             order by organization_id, activity_pk, result_pk
+    </select>
+
+    <select id="biologicalstationsWQXCount" parameterType="map" resultType="Integer">
+        select count(distinct station_pk) resultsCount
+            <include refid="coreMapper.biologicalResultsBase" />
+    </select>
+
+</mapper>
