@@ -1,6 +1,5 @@
 package gov.usgs.cida.wqp.webservice;
 
-import gov.usgs.cida.wqp.count.IRowCountDao;
 import gov.usgs.cida.wqp.parameter.HashMapParameterHandler;
 import gov.usgs.cida.wqp.parameter.IParameterHandler;
 import gov.usgs.cida.wqp.parameter.ParameterMap;
@@ -134,11 +133,6 @@ public class StationController implements HttpConstants, MybatisConstants, Valid
 		this.environment = environment;
 	}
 	
-	@Autowired
-    protected IRowCountDao rowCountDao;
-    public void setRowCountDao(final IRowCountDao inRowCountDao) {
-        rowCountDao = inRowCountDao;
-    }
     
     @Autowired
     protected IStationDao stationDao;

@@ -1,12 +1,11 @@
 package gov.usgs.cida.wqp.springinit;
 
 
-import javax.sql.DataSource;
-
-import gov.usgs.cida.wqp.count.RowCountDao;
 import gov.usgs.cida.wqp.station.dao.IStationDao;
 import gov.usgs.cida.wqp.station.dao.StationDao;
 import gov.usgs.cida.wqp.util.JndiUtils;
+
+import javax.sql.DataSource;
 
 import org.apache.log4j.Logger;
 import org.mybatis.spring.SqlSessionFactoryBean;
@@ -56,10 +55,6 @@ public class SpringConfig extends WebMvcConfigurerAdapter {
 		return mybatis;
 	}
    
-	@Bean
-	public RowCountDao rowCountDao() throws Exception {
-		return new RowCountDao(sqlSessionFactory().getObject());
-	}
 	@Bean
 	public IStationDao stationDao() throws Exception {
 		return new StationDao(sqlSessionFactory().getObject());
