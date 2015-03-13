@@ -9,16 +9,18 @@ import org.junit.Test;
 public class SplitAndReplaceTransformerTest extends BaseSpringTest implements ValidationConstants {
 
     @Test
-    public void testSplitAndReplace() {
+    public void testSplitAndReplace_default() {
         SplitAndReplaceTransformer transformer = new SplitAndReplaceTransformer(DEFAULT_DELIMITER, REGEX_HUC_WILDCARD_IN, REGEX_HUC_WILDCARD_OUT);
-        String[] split = (String[]) transformer.transform("a;b*;c");
+        String[] split = transformer.transform("a;b*;c");
         assertEquals(3, split.length);
         assertEquals("a", split[0]);
         assertEquals("b%", split[1]);
         assertEquals("c", split[2]);
-        
-        transformer = new SplitAndReplaceTransformer("x", "duck", "quack");
-        split = (String[]) transformer.transform("axbxduckxd");
+    }        
+    @Test
+    public void testSplitAndReplace_custom() {
+    	SplitAndReplaceTransformer transformer = new SplitAndReplaceTransformer("x", "duck", "quack");
+    	String[] split = transformer.transform("axbxduckxd");
         assertEquals(4, split.length);
         assertEquals("a", split[0]);
         assertEquals("b", split[1]);

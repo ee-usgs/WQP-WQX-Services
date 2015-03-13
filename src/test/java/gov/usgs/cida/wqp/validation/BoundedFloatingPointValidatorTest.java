@@ -14,50 +14,63 @@ import org.junit.Test;
 public class BoundedFloatingPointValidatorTest extends BaseSpringTest implements ValidationConstants {
 
     @Test
-    public void testConstructors() {
+    public void testConstructors_nullParameter() {
         try {
-            new BoundedFloatingPointValidator(null, null, null);
+            new BoundedFloatingPointValidator(null, "0", "1");
             fail("Should have gotten an IllegalArgumentException");
         } catch (IllegalArgumentException e) {
             assertEquals("The Parameter being validated must be provided.", e.getMessage());
         }
-
+    }
+    @Test
+    public void testConstructors_nullMin() {
         try {
             new BoundedFloatingPointValidator(Parameters.WITHIN, null, null);
             fail("Should have gotten an IllegalArgumentException");
         } catch (IllegalArgumentException e) {
             assertEquals("minBound is not a valid number.", e.getMessage());
         }
-
+    }
+    @Test
+    public void testConstructors_nullMax() {
         try {
             new BoundedFloatingPointValidator(Parameters.WITHIN, "10.5", null);
             fail("Should have gotten an IllegalArgumentException");
         } catch (IllegalArgumentException e) {
             assertEquals("maxBound is not a valid number.", e.getMessage());
         }
-
+    }
+    @Test
+    public void testConstructors_maxLessThanMin() {
         try {
             new BoundedFloatingPointValidator(Parameters.WITHIN, "10.5", "8.2");
             fail("Should have gotten an IllegalArgumentException");
         } catch (IllegalArgumentException e) {
             assertEquals("minBound must be less than maxBound.", e.getMessage());
         }
-
+    }
+    @Test
+    public void testConstructors_defaults() {
         BoundedFloatingPointValidator validator = new BoundedFloatingPointValidator(Parameters.WITHIN);
         assertEquals(DEFAULT_MIN_OCCURS, validator.getMinOccurs()); 
         assertEquals(DEFAULT_MAX_OCCURS, validator.getMaxOccurs()); 
         assertEquals(DEFAULT_DELIMITER, validator.getDelimiter());
         assertEquals(-Double.MAX_VALUE, validator.minBound, .1);
         assertEquals(Double.MAX_VALUE, validator.maxBound, .1);
-
-        validator = new BoundedFloatingPointValidator(Parameters.WITHIN, "3", "12");
+    }
+    
+    @Test
+    public void testConstructors_customRange() {
+        BoundedFloatingPointValidator validator = new BoundedFloatingPointValidator(Parameters.WITHIN, "3", "12");
         assertEquals(DEFAULT_MIN_OCCURS, validator.getMinOccurs()); 
         assertEquals(DEFAULT_MAX_OCCURS, validator.getMaxOccurs()); 
         assertEquals(DEFAULT_DELIMITER, validator.getDelimiter());
         assertEquals(Double.valueOf("3"), validator.minBound, .1);
         assertEquals(Double.valueOf("12"), validator.maxBound, .1);
-
-        validator = new BoundedFloatingPointValidator(Parameters.WITHIN, 1, 2, "x", "3", "4");
+    }
+    @Test
+    public void testConstructors_customDeliminatorAndOcurrs() {
+        BoundedFloatingPointValidator validator = new BoundedFloatingPointValidator(Parameters.WITHIN, 1, 2, "x", "3", "4");
         assertEquals(1, validator.getMinOccurs()); 
         assertEquals(2, validator.getMaxOccurs()); 
         assertEquals("x", validator.getDelimiter());

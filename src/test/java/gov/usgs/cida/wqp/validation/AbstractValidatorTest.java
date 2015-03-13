@@ -28,56 +28,70 @@ public class AbstractValidatorTest extends BaseSpringTest implements ValidationC
     }
     
     @Test
-    public void testConstructor() {
+    public void testConstructor_nullParameter() {
         try {
             new TestValidator(null);
             fail("Should have gotten an IllegalArgumentException");
         } catch (IllegalArgumentException e) {
             assertEquals("The Parameter being validated must be provided.", e.getMessage());
         }
-        
+    }
+    @Test
+    public void testConstructor_nullParameter2() {
         try {
-            new TestValidator(null, -1, 0, null);
+            new TestValidator(null, 1, 0, DEFAULT_DELIMITER);
             fail("Should have gotten an IllegalArgumentException");
         } catch (IllegalArgumentException e) {
             assertEquals("The Parameter being validated must be provided.", e.getMessage());
         }
-        
+    }        
+    @Test
+    public void testConstructor_minOccurTooSmall() {
         try {
-            new TestValidator(Parameters.COUNTRY, -1, 0, null);
+            new TestValidator(Parameters.COUNTRY, -1, 0, DEFAULT_DELIMITER);
             fail("Should have gotten an IllegalArgumentException");
         } catch (IllegalArgumentException e) {
             assertEquals("minOccurs must be >= 0.", e.getMessage());
         }
-        
+    }        
+    @Test
+    public void testConstructor_maxOccurZero() {
         try {
             new TestValidator(Parameters.COUNTRY, 0, 0, null);
             fail("Should have gotten an IllegalArgumentException");
         } catch (IllegalArgumentException e) {
             assertEquals("maxOccurs must be > 0.", e.getMessage());
         }
-        
+    }
+    @Test
+    public void testConstructor_maxOccurTooSmall() {
         try {
             new TestValidator(Parameters.COUNTRY, 9, 1, null);
             fail("Should have gotten an IllegalArgumentException");
         } catch (IllegalArgumentException e) {
             assertEquals("maxOccurs must be > minOccurs.", e.getMessage());
         }
-        
+    }
+    @Test
+    public void testConstructor_nullDelimiter() {
         try {
             new TestValidator(Parameters.COUNTRY, 1, 9, null);
             fail("Should have gotten an IllegalArgumentException");
         } catch (IllegalArgumentException e) {
             assertEquals("delimiter must be defined if maxOccurs > minOccurs.", e.getMessage());
         }
-        
+    }        
+    @Test
+    public void testConstructor_emptyStringDelimiter() {
         try {
             new TestValidator(Parameters.COUNTRY, 1, 9, "");
             fail("Should have gotten an IllegalArgumentException");
         } catch (IllegalArgumentException e) {
             assertEquals("delimiter must be defined if maxOccurs > minOccurs.", e.getMessage());
         }
-        
+    }
+    @Test
+    public void testConstructor_defaults() {
         TestValidator rv = new TestValidator(Parameters.COUNTRY);
         assertEquals(DEFAULT_MIN_OCCURS, rv.getMinOccurs());
         assertEquals(DEFAULT_MAX_OCCURS, rv.getMaxOccurs());

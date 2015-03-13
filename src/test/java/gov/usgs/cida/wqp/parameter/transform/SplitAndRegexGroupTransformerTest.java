@@ -1,7 +1,6 @@
 package gov.usgs.cida.wqp.parameter.transform;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import gov.usgs.cida.wqp.BaseSpringTest;
@@ -25,7 +24,7 @@ public class SplitAndRegexGroupTransformerTest extends BaseSpringTest implements
     @Test
     public void testSplitAndReplace() {
         SplitAndRegexGroupTransformer transformer = new SplitAndRegexGroupTransformer(DEFAULT_DELIMITER, REGEX_FIPS_STATE);
-        String[][] split = (String[][]) transformer.transform("US:01;US:55;CN:04");
+        String[][] split = transformer.transform("US:01;US:55;CN:04");
         assertEquals(3, split.length);
         assertEquals(2, split[0].length);
         assertEquals("US", split[0][0]);
@@ -41,8 +40,7 @@ public class SplitAndRegexGroupTransformerTest extends BaseSpringTest implements
     @Test
     public void testState() {
     	SplitAndRegexGroupTransformer transformer = new SplitAndRegexGroupTransformer(DEFAULT_DELIMITER, REGEX_FIPS_STATE);
-        assertNotNull(transformer);
-        String[][] split = (String[][]) transformer.transform("US:01;US:55;CN:90");
+        String[][] split = transformer.transform("US:01;US:55;CN:90");
         assertEquals(3, split.length);
         assertEquals(2, split[0].length);
         assertEquals("US", split[0][0]);
@@ -58,8 +56,7 @@ public class SplitAndRegexGroupTransformerTest extends BaseSpringTest implements
     @Test
     public void testCounty() {
     	SplitAndRegexGroupTransformer transformer = new SplitAndRegexGroupTransformer(DEFAULT_DELIMITER, REGEX_FIPS_COUNTY);
-        assertNotNull(transformer);
-        String[][] split = (String[][]) transformer.transform("US:01:121;US:55:027;CN:90:000");
+        String[][] split = transformer.transform("US:01:121;US:55:027;CN:90:000");
         assertEquals(3, split.length);
         assertEquals(3, split[0].length);
         assertEquals("US", split[0][0]);

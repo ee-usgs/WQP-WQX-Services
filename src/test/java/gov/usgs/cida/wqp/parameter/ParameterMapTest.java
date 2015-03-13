@@ -16,7 +16,7 @@ import org.junit.Test;
 public class ParameterMapTest extends BaseSpringTest {
 
     @Test
-    public void mergeNameVRTest() {
+    public void testMergeNameVR_null() {
         ParameterMap pm = new ParameterMap();
         List<String> vms = new ArrayList<String>();
         vms.add("xyz");
@@ -29,7 +29,14 @@ public class ParameterMapTest extends BaseSpringTest {
         assertTrue(pm.getValidationMessages().get("test").contains("xyz"));
         assertTrue(pm.getValidationMessages().get("test").contains("qrs"));
         assertNull(pm.getQueryParameters().get("test"));
-        
+    }
+    @Test
+    public void testMergeNameVR_string() {
+        ParameterMap pm = new ParameterMap();
+        List<String> vms = new ArrayList<String>();
+        vms.add("xyz");
+        vms.add("qrs");
+        pm.merge("test", vms);
         List<String> vms2 = new ArrayList<String>();
         vms2.add("wow");
         vms2.add("allis");
@@ -47,7 +54,7 @@ public class ParameterMapTest extends BaseSpringTest {
     }
     
     @Test
-    public void mergeNameListTest() {
+    public void testMergeNameList_twoEntries() {
         ParameterMap pm = new ParameterMap();
         List<String> vms = new ArrayList<String>();
         vms.add("xyz");
@@ -60,7 +67,14 @@ public class ParameterMapTest extends BaseSpringTest {
         assertTrue(pm.getValidationMessages().get("test").contains("xyz"));
         assertTrue(pm.getValidationMessages().get("test").contains("qrs"));
         assertNull(pm.getQueryParameters().get("test"));
-        
+    }
+    @Test
+    public void testMergeNameList_fourEntries() {
+        ParameterMap pm = new ParameterMap();
+        List<String> vms = new ArrayList<String>();
+        vms.add("xyz");
+        vms.add("qrs");
+        pm.merge("test", vms);
         List<String> vms2 = new ArrayList<String>();
         vms2.add("wow");
         vms2.add("allis");
@@ -77,14 +91,17 @@ public class ParameterMapTest extends BaseSpringTest {
     }
     
     @Test
-    public void mergeNameObjectTest() {
+    public void testMergeNameObject_null() {
         ParameterMap pm = new ParameterMap();
         Object o = null;
         pm.merge("test", o);
         assertTrue(pm.isValid());
         assertEquals(0, pm.getValidationMessages().size());
         assertNull(pm.getQueryParameters().get("test"));
-
+    }
+    @Test
+    public void testMergeNameObject_string() {
+        ParameterMap pm = new ParameterMap();
         pm.merge("test", "sdfjlhg");
         assertTrue(pm.isValid());
         assertEquals(0, pm.getValidationMessages().size());
@@ -93,7 +110,7 @@ public class ParameterMapTest extends BaseSpringTest {
     }
     
     @Test
-    public void mergeMapTest() {
+    public void testMergeMap() {
         ParameterMap pm1 = new ParameterMap();
         List<String> vms = new ArrayList<String>();
         vms.add("xyz");

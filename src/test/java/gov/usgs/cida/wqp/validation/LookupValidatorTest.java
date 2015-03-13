@@ -26,21 +26,25 @@ public class LookupValidatorTest extends BaseSpringTest implements ValidationCon
     }
     
     @Test
-    public void testConstructors() {
+    public void testConstructors_nullParameter() {
         try {
             new LookupValidator(null);
             fail("Should have gotten an IllegalArgumentException");
         } catch (IllegalArgumentException e) {
             assertEquals("The Parameter being validated must be provided.", e.getMessage());
         }
-        
+    }        
+    @Test
+    public void testConstructors_nullParmeter2() {
         try {
             new LookupValidator(null, -1, 0, null);
             fail("Should have gotten an IllegalArgumentException");
         } catch (IllegalArgumentException e) {
             assertEquals("The Parameter being validated must be provided.", e.getMessage());
         }
-        
+    }
+    @Test
+    public void testConstructors_defaults() {
         AbstractValidator<?> validator = new LookupValidator(Parameters.COUNTRY);
         assertEquals(DEFAULT_MIN_OCCURS, validator.getMinOccurs());
         assertEquals(IN_CLAUSE_LIMIT, validator.getMaxOccurs());
