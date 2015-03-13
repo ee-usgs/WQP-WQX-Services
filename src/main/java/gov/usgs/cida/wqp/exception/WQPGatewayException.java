@@ -7,12 +7,12 @@ public class WQPGatewayException extends Exception {
 	
 	private static final long serialVersionUID = 126269528002852327L;
 	
-	private final WQPGatewayExceptionID exceptionid;		// uniquely generated id for this exception
-	private final String classname; 					// the name of the class that threw the exception
-	private final String method; 						// the name of the method that threw the exception
-	private final String message; 						// a detailed message 
-	private WQPGatewayException previous = null; 			// the exception which was caught
-	private String delimeter = "\n"; 					// line separator
+	private final WQPGatewayExceptionID exceptionid;    // uniquely generated id for this exception
+	private final String classname;                     // the name of the class that threw the exception
+	private final String method;                        // the name of the method that threw the exception
+	private final String message;                       // a detailed message 
+	private WQPGatewayException previous = null;        // the exception which was caught
+	private String delimeter = "\n";                    // line separator
 	
 	public WQPGatewayException(final WQPGatewayExceptionID id, final String classname, final String method, final String message) {
 		this(id, classname, method, message, null);

@@ -1,12 +1,30 @@
 package gov.usgs.cida.wqp.springinit;
 
 
-import javax.sql.DataSource;
-
-import gov.usgs.cida.wqp.count.RowCountDao;
+import gov.usgs.cida.wqp.parameter.HashMapParameterHandler;
+import gov.usgs.cida.wqp.parameter.Parameters;
+import gov.usgs.cida.wqp.parameter.transform.SplitAndRegexGroupTransformer;
+import gov.usgs.cida.wqp.parameter.transform.SplitAndReplaceTransformer;
+import gov.usgs.cida.wqp.parameter.transform.Transformer;
 import gov.usgs.cida.wqp.station.dao.IStationDao;
 import gov.usgs.cida.wqp.station.dao.StationDao;
+import gov.usgs.cida.wqp.util.HttpConstants;
 import gov.usgs.cida.wqp.util.JndiUtils;
+import gov.usgs.cida.wqp.util.MybatisConstants;
+import gov.usgs.cida.wqp.validation.AbstractValidator;
+import gov.usgs.cida.wqp.validation.BoundedFloatingPointValidator;
+import gov.usgs.cida.wqp.validation.DateFormatValidator;
+import gov.usgs.cida.wqp.validation.LatLonBoundingBoxValidator;
+import gov.usgs.cida.wqp.validation.LatitudeValidator;
+import gov.usgs.cida.wqp.validation.LongitudeValidator;
+import gov.usgs.cida.wqp.validation.LookupValidator;
+import gov.usgs.cida.wqp.validation.RegexValidator;
+import gov.usgs.cida.wqp.validation.ValidationConstants;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.sql.DataSource;
 
 import org.apache.log4j.Logger;
 import org.mybatis.spring.SqlSessionFactoryBean;
@@ -34,9 +52,82 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @ComponentScan(basePackages= {"gov.usgs.cida.wqp"})
 @EnableWebMvc
 @PropertySource(value = {"file:${catalina.base}/conf/wqpgateway.properties"})		// Unfortunately this is Tomcat specific.  For us its ok
-public class SpringConfig extends WebMvcConfigurerAdapter {
+public class SpringConfig extends WebMvcConfigurerAdapter implements HttpConstants, MybatisConstants, ValidationConstants  {
 	private final Logger log = Logger.getLogger(getClass());
 
+	
+	static final Map<Parameters, AbstractValidator<?>> VALIDATOR_MAP = new HashMap<Parameters, AbstractValidator<?>>();
+
+	static {
+		// one float value
+		VALIDATOR_MAP.put(Parameters.LATITUDE, new LatitudeValidator(Parameters.LATITUDE));
+		// one float value
+		VALIDATOR_MAP.put(Parameters.LONGITUDE, new LongitudeValidator(Parameters.LONGITUDE));
+		// comma list of four float values
+		VALIDATOR_MAP.put(Parameters.BBOX, new LatLonBoundingBoxValidator(Parameters.BBOX));
+		// one float value
+		 // TODO seems silly to require a string
+		AbstractValidator<double[]> floatValidator = new BoundedFloatingPointValidator(Parameters.WITHIN,""+DEFAULT_MIN_OCCURS,""+UNBOUNDED);
+		VALIDATOR_MAP.put(Parameters.WITHIN, floatValidator);
+
+//		VALIDATOR_MAP.put(Parameters.ANALYTICAL_METHOD,
+//				new RegexValidator(REGEX_ANALYTICAL_METHOD).maxOccurs(IN_CLAUSE_LIMIT));
+		
+		// one short country code string
+		VALIDATOR_MAP.put(Parameters.COUNTRY, new RegexValidator<String[]>(Parameters.COUNTRY,REGEX_FIPS_COUNTRY));
+		// country:state code string
+		AbstractValidator<String[][]> stateValidator = new RegexValidator<String[][]>(Parameters.STATE,REGEX_FIPS_STATE);
+		Transformer<String[][]> stateTransformer  = new SplitAndRegexGroupTransformer(DEFAULT_DELIMITER,REGEX_FIPS_STATE);
+    	stateValidator.setTransformer(stateTransformer);
+		VALIDATOR_MAP.put(Parameters.STATE, stateValidator);
+		// country:state:county code string
+		AbstractValidator<String[][]> countyValidator = new RegexValidator<String[][]>(Parameters.COUNTY,REGEX_FIPS_COUNTY);
+    	Transformer<String[][]> countyTransformer = new SplitAndRegexGroupTransformer(DEFAULT_DELIMITER,REGEX_FIPS_COUNTY);
+		countyValidator.setTransformer(countyTransformer);
+		VALIDATOR_MAP.put(Parameters.COUNTY, countyValidator);
+		// semicolon list of 8digit HUC codes
+		AbstractValidator<String[]> hucValidator = new RegexValidator<String[]>(Parameters.HUC,REGEX_HUC);
+        Transformer<String[]> hucTransformer = new SplitAndReplaceTransformer(DEFAULT_DELIMITER, REGEX_HUC_WILDCARD_IN, REGEX_HUC_WILDCARD_OUT);
+		hucValidator.setTransformer(hucTransformer);
+		VALIDATOR_MAP.put(Parameters.HUC, hucValidator);
+		// semicolon list of 5digit pCodes
+		VALIDATOR_MAP.put(Parameters.PCODE, new RegexValidator<String[]>(Parameters.PCODE,REGEX_PCODE));
+		// agency-site string
+		VALIDATOR_MAP.put(Parameters.SITEID,
+				new RegexValidator<String[]>(Parameters.SITEID,DEFAULT_MIN_OCCURS, UNBOUNDED, DEFAULT_DELIMITER, REGEX_SITEID));
+		// one string 'yes' or omitted
+		VALIDATOR_MAP.put(Parameters.ZIP, new RegexValidator<String[]>(Parameters.ZIP,1, 1, null, "zip"));
+		// one string 'yes' or omitted
+		VALIDATOR_MAP.put(Parameters.MIMETYPE, new RegexValidator<String[]>(Parameters.MIMETYPE,1, 1, null,REGEX_MIMETYPES));
+		// semicolon list of string activity IDs
+		VALIDATOR_MAP.put(Parameters.ACTIVITY_ID, new RegexValidator<String[]>(Parameters.ACTIVITY_ID,REGEX_ACTIVITY_ID));
+		// semicolon (or pipe) list of databases to include
+		VALIDATOR_MAP.put(Parameters.PROVIDERS, new RegexValidator<String[]>(Parameters.PROVIDERS,REGEX_PROVIDERS));
+		// semicolon (or pipe) list of databases to exclude as 'command.avoid'
+		VALIDATOR_MAP.put(Parameters.AVOID, new RegexValidator<String[]>(Parameters.AVOID,REGEX_PROVIDERS));
+		
+
+		// semicolon list of string characteristic types 
+		VALIDATOR_MAP.put(Parameters.CHARACTERISTIC_TYPE, new LookupValidator(Parameters.CHARACTERISTIC_TYPE));
+		// semicolon list of string characteristic name
+		VALIDATOR_MAP.put(Parameters.CHARACTERISTIC_NAME, new LookupValidator(Parameters.CHARACTERISTIC_NAME));
+		// one string ORG name
+		VALIDATOR_MAP.put(Parameters.ORGANIZATION, new LookupValidator(Parameters.ORGANIZATION));
+		// semicolon list of string media type names
+		VALIDATOR_MAP.put(Parameters.SAMPLE_MEDIA, new LookupValidator(Parameters.SAMPLE_MEDIA));
+		// one string site type name
+		VALIDATOR_MAP.put(Parameters.SITE_TYPE, new LookupValidator(Parameters.SITE_TYPE));
+		
+		// one string date MM-DD-YYYY
+		VALIDATOR_MAP.put(Parameters.START_DATE_LO, new DateFormatValidator(Parameters.START_DATE_LO, FORMAT_DATE));
+		// one string date MM-DD-YYYY
+		VALIDATOR_MAP.put(Parameters.START_DATE_HI, new DateFormatValidator(Parameters.START_DATE_HI, FORMAT_DATE));
+		
+    	HashMapParameterHandler.setValidatorMap(VALIDATOR_MAP);
+	}
+	
+	
+	
 	@Autowired
 	private Environment environment;
 	
@@ -56,10 +147,6 @@ public class SpringConfig extends WebMvcConfigurerAdapter {
 		return mybatis;
 	}
    
-	@Bean
-	public RowCountDao rowCountDao() throws Exception {
-		return new RowCountDao(sqlSessionFactory().getObject());
-	}
 	@Bean
 	public IStationDao stationDao() throws Exception {
 		return new StationDao(sqlSessionFactory().getObject());

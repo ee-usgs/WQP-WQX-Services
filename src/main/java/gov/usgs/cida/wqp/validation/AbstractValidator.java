@@ -2,8 +2,9 @@ package gov.usgs.cida.wqp.validation;
 
 
 import gov.usgs.cida.wqp.parameter.Parameters;
-
-import java.util.regex.Pattern;
+import gov.usgs.cida.wqp.parameter.transform.NoopTransformer;
+import gov.usgs.cida.wqp.parameter.transform.SplitTransformer;
+import gov.usgs.cida.wqp.parameter.transform.Transformer;
 
 import org.apache.log4j.Logger;
 
@@ -11,7 +12,7 @@ import org.apache.log4j.Logger;
  *
  * @author tkunicki
  */
-public abstract class AbstractValidator implements ValidationConstants {
+public abstract class AbstractValidator<T> implements ValidationConstants {
 	private final Logger log = Logger.getLogger(getClass());
 
 	public static final String BASE_ERROR_MESSAGE_FORMAT= "The value of %s=%s %s";
@@ -25,13 +26,20 @@ public abstract class AbstractValidator implements ValidationConstants {
     protected final int minOccurs;
     protected final int maxOccurs;
     protected final String delimiter;
-    protected final Pattern splitPattern;
 
+    protected Transformer<T> transformer;
+    
+    public void setTransformer(Transformer<T> transformer) {
+		this.transformer = transformer;
+	}
+    
+    
     protected AbstractValidator(Parameters inParameter) {
         this(inParameter, DEFAULT_MIN_OCCURS, DEFAULT_MAX_OCCURS, DEFAULT_DELIMITER);
     }
 
-    protected AbstractValidator(Parameters inParameter, int inMinOccurs, int inMaxOccurs, String inDelimiter) {
+    @SuppressWarnings("unchecked")
+	protected AbstractValidator(Parameters inParameter, int inMinOccurs, int inMaxOccurs, String inDelimiter) {
         log.trace(getClass());
 
         parameter = inParameter;
@@ -55,7 +63,11 @@ public abstract class AbstractValidator implements ValidationConstants {
             throw new IllegalArgumentException("delimiter must be defined if maxOccurs > minOccurs.");
         }
 
-        splitPattern = delimiter == null || delimiter.length() == 0 ? null : Pattern.compile(delimiter);
+        if (delimiter == null || delimiter.length() == 0) {
+        	setTransformer( (Transformer<T>) new NoopTransformer() ); // default noop transformer
+        } else {
+        	setTransformer( (Transformer<T>) new SplitTransformer(delimiter)); // default splitting transformer
+        }
     }
 
     public int getMinOccurs() {
@@ -70,41 +82,12 @@ public abstract class AbstractValidator implements ValidationConstants {
         return delimiter;
     }
 
-    public String[] split(String value) {
-        String[] rtn = null;
-        if (value == null) {
-            rtn = new String[0];
-        } else if (splitPattern == null) {
-            rtn = new String[]{value};
-        } else {
-            rtn =  splitPattern.split(pruneDelimiters(value), -1);
-        }
-        return rtn;
-    }
 
     protected String getErrorMessage(String parameterValue, String msg) {
         return String.format(BASE_ERROR_MESSAGE_FORMAT, parameter.toString(), parameterValue, msg);
     }
+        
     
-    /**
-     * Removes consecutive occurrences of the delimiter as well as the leading and trailing delimiter, 
-     * if the parameter takes delimiters.
-     * 
-     * @param parameterValue
-     * @return pruned parameterValue 
-     */
-    public String pruneDelimiters(final String parameterValue) {
-        String param = parameterValue;
-        if (getDelimiter() != null && getDelimiter().length() > 0) {
-            // replace consecutive occurrences of delimiter
-            param = param.replaceAll(getDelimiter() + "+",  getDelimiter());
-            // replace leading and trailing occurrence of delimiter
-            param = param.replaceAll("^" + getDelimiter() + "|" + getDelimiter() + "$", "");
-        }
-        return param;
-    }
-    
-    
-    public abstract ValidationResult validate(String value);
+    public abstract ValidationResult<T> validate(String value);
 
 }

@@ -20,7 +20,7 @@ public class SplitAndReplaceTransformer extends SplitTransformer {
     }
 
     @Override
-    public Object transform(String value) {
+    public String[] transform(String value) {
         String[] strings = split(value);
         for (int i = 0; i < strings.length; ++i) {
             strings[i] = strings[i].replaceAll(regex, replace);

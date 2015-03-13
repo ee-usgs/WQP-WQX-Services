@@ -25,17 +25,17 @@ import org.apache.log4j.Logger;
 public class HashMapParameterHandler implements IParameterHandler {
 	private final Logger log = Logger.getLogger(getClass());
 
-    private static Map<Parameters, AbstractValidator> VALIDATOR_MAP;
+    private static Map<Parameters, AbstractValidator<?>> VALIDATOR_MAP;
 
     private static final Set<Parameters> WITHIN_GROUP;
     private static final List<Set<Parameters>> GROUP_LIST;
 
     
-    public static void setValidatorMap(final Map<Parameters, AbstractValidator> inValidatoryMap) {
+    public static void setValidatorMap(final Map<Parameters, AbstractValidator<?>> inValidatoryMap) {
         VALIDATOR_MAP = inValidatoryMap;
     }
 
-    public static AbstractValidator getValidator(final Parameters inParameters) {
+    public static AbstractValidator<?> getValidator(final Parameters inParameters) {
         return VALIDATOR_MAP.get(inParameters);
     }
 
@@ -117,7 +117,7 @@ public class HashMapParameterHandler implements IParameterHandler {
                     isOk = false;
                 }
                 if (!isOk) {
-                    ValidationResult vr = new ValidationResult();
+                    ValidationResult<?> vr = new ValidationResult<Object>();
                     vr.setValid(false);
                     vr.getValidationMessages().add("Parameter Name '"+ parameterName +"' is not valid.  This service will NOT return ANY results until this parameter is removed from the query.");
                     rtn.merge(parameterName, vr);
@@ -133,12 +133,12 @@ public class HashMapParameterHandler implements IParameterHandler {
         for (Entry<String, String[]> entry : inMap.entrySet()) {
             String parameterName = entry.getKey();
             if (entry.getValue().length == 1) {
-            	AbstractValidator validator = getValidator(Parameters.fromName(parameterName));
+            	AbstractValidator<?> validator = getValidator(Parameters.fromName(parameterName));
                 if (validator != null) {
                     rtnMap.merge(parameterName, validator.validate(entry.getValue()[0]));
                 }
             } else {
-                ValidationResult vr = new ValidationResult();
+                ValidationResult<?> vr = new ValidationResult<Object>();
                 vr.setValid(false);
                 vr.getValidationMessages().add("expected parameter value String[] of length == 1");
                 rtnMap.merge(parameterName, vr);
@@ -163,7 +163,7 @@ public class HashMapParameterHandler implements IParameterHandler {
                 //if the user queried by one, but not all of the set, throw an error.
                 if (!containsSet.isEmpty() &&  !userParameterSet.containsAll(definedParameterGroup)) {
                     missingSet.removeAll(containsSet);
-                    ValidationResult vr = new ValidationResult();
+                    ValidationResult<?> vr = new ValidationResult<Object>();
                     vr.setValid(false);
                     vr.getValidationMessages().add("Parameter(s) " + formatGroupSet(containsSet) + " require(s) " + formatGroupSet(missingSet));
                     rtn.merge("Group", vr);

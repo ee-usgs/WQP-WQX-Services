@@ -9,7 +9,7 @@ import gov.usgs.cida.wqp.parameter.Parameters;
  *
  * @author tkunicki
  */
-public class LatLonBoundingBoxValidator extends AbstractValidator {
+public class LatLonBoundingBoxValidator extends AbstractValidator<String[]> {
 	private final Logger log = Logger.getLogger(getClass());
 
     public static final String ERROR_MESSAGE = "is not a valid bounding box.";
@@ -20,17 +20,17 @@ public class LatLonBoundingBoxValidator extends AbstractValidator {
     }
 
     @Override
-    public ValidationResult validate(String value) {
-        ValidationResult vr = new ValidationResult();
+    public ValidationResult<String[]> validate(String value) {
+        ValidationResult<String[]> vr = new ValidationResult<String[]>();
         if (value == null || value.length() == 0) {
             if (getMinOccurs() != 0) {
                 //This won't happen unless the hard-coded constructor is changed...
                 vr.setValid(false);
                 vr.getValidationMessages().add(getErrorMessage(value, IS_NOT_BETWEEN + getMinOccurs() + AND + getMaxOccurs() + " occurances."));
-                vr.setTransformedValue(value);
+                vr.setTransformedValue(new String[]{value});
             }
         } else {
-            String[] strings = split(value);
+            String[] strings = transformer.transform(value);
             if (!isValid(strings)) {
                 vr.setValid(false);
                 vr.getValidationMessages().add(getErrorMessage(value, ERROR_MESSAGE));
