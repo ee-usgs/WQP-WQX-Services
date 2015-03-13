@@ -46,7 +46,7 @@ public class ParameterMap {
         queryParameters = inQueryParameters;
     }
 
-    public void merge(final String inParameterName, final ValidationResult inValidationResult) {
+    public void merge(final String inParameterName, final ValidationResult<?> inValidationResult) {
         if (!validationMessages.containsKey(inParameterName)) {
             validationMessages.put(inParameterName, inValidationResult.getValidationMessages());
         } else {

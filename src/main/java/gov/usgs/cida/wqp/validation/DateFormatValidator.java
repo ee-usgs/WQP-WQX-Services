@@ -14,7 +14,7 @@ import org.apache.log4j.Logger;
  *
  * @author tkunicki
  */
-public class DateFormatValidator extends AbstractValidator {
+public class DateFormatValidator extends AbstractValidator<String[]> {
 	private final Logger log = Logger.getLogger(getClass());
 
     protected final String formatString;
@@ -35,9 +35,9 @@ public class DateFormatValidator extends AbstractValidator {
     }
 
     @Override
-    public ValidationResult validate(String value) {
-        ValidationResult vr = new ValidationResult();
-        String[] strings = split(value);
+    public ValidationResult<String[]> validate(String value) {
+        ValidationResult<String[]> vr = new ValidationResult<String[]>();
+        String[] strings = transformer.transform(value);
         if (strings.length < getMinOccurs() || strings.length > getMaxOccurs()) {
             vr.setValid(false);
             vr.getValidationMessages().add(getErrorMessage(value, IS_NOT_BETWEEN + getMinOccurs() + AND + getMaxOccurs() + " occurances."));

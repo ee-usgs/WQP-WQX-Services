@@ -11,10 +11,10 @@ import org.apache.log4j.Logger;
  *
  * @author duselmann
  */
-public class LookupValidator extends AbstractValidator {
+public class LookupValidator extends AbstractValidator<String[]> {
 	private final Logger log = Logger.getLogger(getClass());
 
-	private CodesService codesService = new CodesService(); // TODO this might be better to instantiate on use.
+	private CodesService codesService = new CodesService();
 	private Parameters parameter;
 
     public LookupValidator(Parameters inParameter)  {
@@ -29,9 +29,9 @@ public class LookupValidator extends AbstractValidator {
 
 
     @Override
-    public ValidationResult validate(final String value) {
-        ValidationResult vr = new ValidationResult();
-        String[] strings = split(value);
+    public ValidationResult<String[]> validate(final String value) {
+        ValidationResult<String[]> vr = new ValidationResult<String[]>();
+        String[] strings = transformer.transform(value);
         if (strings.length < getMinOccurs() || strings.length > getMaxOccurs()) {
             vr.setValid(false);
             vr.getValidationMessages().add(getErrorMessage(value, IS_NOT_BETWEEN + getMinOccurs() + " and " + getMaxOccurs() + " occurences."));
@@ -47,5 +47,10 @@ public class LookupValidator extends AbstractValidator {
         vr.setTransformedValue(strings);
         return vr;
     }
+
+    
+	public void setCodesService(CodesService codesService) {
+		this.codesService = codesService;
+	}
 
 }

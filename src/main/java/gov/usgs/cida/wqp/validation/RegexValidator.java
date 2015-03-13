@@ -2,8 +2,6 @@ package gov.usgs.cida.wqp.validation;
 
 
 import gov.usgs.cida.wqp.parameter.Parameters;
-import gov.usgs.cida.wqp.parameter.transform.ITransformer;
-import gov.usgs.cida.wqp.parameter.transform.ParameterTransformer;
 
 import java.util.regex.Pattern;
 
@@ -11,16 +9,15 @@ import org.apache.log4j.Logger;
 
 /**
  *
- * @author tkunicki
+ * @author duselman
  */
-public class RegexValidator extends AbstractValidator {
+public class RegexValidator<T> extends AbstractValidator<T> {
 	private final Logger log = Logger.getLogger(getClass());
 
     public static final String ERROR_MESSAGE = "must match the format ";
 
     private String regex;
     private Pattern validatePattern;
-
     
     public RegexValidator(Parameters inParameter, String inRegex)  {
         this(inParameter, DEFAULT_MIN_OCCURS, IN_CLAUSE_LIMIT, DEFAULT_DELIMITER, inRegex);
@@ -66,12 +63,12 @@ public class RegexValidator extends AbstractValidator {
     public String getValidatePattern() {
         return validatePattern.toString();
     }
-
+    
     @Override
-    public ValidationResult validate(String value) {
-        ValidationResult vr = new ValidationResult();
+    public ValidationResult<T> validate(String value) {
+        ValidationResult<T> vr = new ValidationResult<T>();
         if (value != null && value.length() > 0) {
-            if (!validatePattern.matcher(value).matches()) {
+            if ( ! validatePattern.matcher(value).matches() ) {
                 vr.setValid(false);
                 vr.getValidationMessages().add(getErrorMessage(value, ERROR_MESSAGE + regex));
             }
@@ -81,14 +78,10 @@ public class RegexValidator extends AbstractValidator {
                 vr.getValidationMessages().add(getErrorMessage(value, ERROR_MESSAGE + regex));
             }
         }
-        if (vr.isValid()) {
-            ITransformer transformer = ParameterTransformer.getTransformer(parameter);
-            if (null == transformer) {
-                transformer = ParameterTransformer.getDefaultTransformer();
-            }
-            vr.setTransformedValue(transformer.transform(value));
+        if ( vr.isValid() ) {
+            vr.setTransformedValue( transformer.transform(value) );
         } else {
-            vr.setTransformedValue(new String[]{value});
+            vr.setRawValue(new String[]{value});
         }
         return vr;
     }

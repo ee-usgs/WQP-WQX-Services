@@ -5,13 +5,14 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-public class ValidationResult {
+public class ValidationResult<T> {
 	private final Logger log = Logger.getLogger(getClass());
 
 	public static final String ERROR_MESSAGE = "must match the format ";
 
     private boolean valid = true;
-    private Object transformedValue;
+    private T transformedValue;
+    private Object[] rawValue;
     private List<String> validationMessages = new ArrayList<String>();
 
     
@@ -19,9 +20,9 @@ public class ValidationResult {
         log.trace(getClass());
     }
     
-    public ValidationResult(boolean isValid, Object inTransformedValue, List<String> inMessages) {
+    public ValidationResult(boolean isValid, T transformedValue, List<String> inMessages) {
         valid = isValid;
-        transformedValue = inTransformedValue;
+        this.transformedValue = transformedValue;
         validationMessages = inMessages;
     }
     
@@ -33,14 +34,22 @@ public class ValidationResult {
         valid = inValid;
     }
 
-    public Object getTransformedValue() {
+    public T getTransformedValue() {
         return transformedValue;
     }
 
-    public void setTransformedValue(final Object inTransformedValue) {
-        transformedValue = inTransformedValue;
+    public void setTransformedValue(final T transformedValue) {
+        this.transformedValue = transformedValue;
     }
 
+    public void setRawValue(Object[] rawValue) {
+		this.rawValue = rawValue;
+	}
+    
+    public Object[] getRawValue() {
+		return rawValue;
+	}
+    
     public List<String> getValidationMessages() {
         return validationMessages;
     }
@@ -49,15 +58,15 @@ public class ValidationResult {
         validationMessages = inValidationMessages;
     }
     
-    public ValidationResult merge(final ValidationResult inValidationResult) {
-        if (!inValidationResult.isValid()) {
+    public ValidationResult<T> merge(final ValidationResult<T> validationResult) {
+        if ( ! validationResult.isValid() ) {
             setValid(false);
         }
-        if (null != inValidationResult.getTransformedValue()) {
-            setTransformedValue(inValidationResult.getTransformedValue());
+        if (null != validationResult.getTransformedValue()) {
+            setTransformedValue(validationResult.getTransformedValue());
         }
-        if (null != inValidationResult.getValidationMessages()) {
-            validationMessages.addAll(inValidationResult.getValidationMessages());
+        if (null != validationResult.getValidationMessages()) {
+            validationMessages.addAll(validationResult.getValidationMessages());
         }
         return this;
     }

@@ -3,18 +3,19 @@ package gov.usgs.cida.wqp.validation;
 import org.apache.log4j.Logger;
 
 import gov.usgs.cida.wqp.parameter.Parameters;
+import gov.usgs.cida.wqp.parameter.transform.SplitDoubleTransformer;
 
 
 /**
  *
  * @author tkunicki
  */
-public class BoundedFloatingPointValidator extends AbstractValidator {
+public class BoundedFloatingPointValidator extends AbstractValidator<double[]> {
 	private final Logger log = Logger.getLogger(getClass());
 
     protected final double minBound;
     protected final double maxBound;
-    protected ValidationResult vr = new ValidationResult();
+    protected ValidationResult<double[]> vr = new ValidationResult<double[]>();
 
     public BoundedFloatingPointValidator(Parameters inParameter)  {
         super(inParameter);
@@ -43,12 +44,13 @@ public class BoundedFloatingPointValidator extends AbstractValidator {
         if (maxBound < minBound) {
             throw new IllegalArgumentException("minBound must be less than maxBound.");
         }
+        setTransformer(new SplitDoubleTransformer(delimiter));
     }
 
     @Override
-    public ValidationResult validate(String value) {
-        vr = new ValidationResult();
-        double[] doubles = stringAsDoubles(value);
+    public ValidationResult<double[]> validate(String value) {
+        vr = new ValidationResult<double[]>();
+        double[] doubles = transformer.transform(value);
         if (doubles.length < getMinOccurs() || doubles.length > getMaxOccurs()) {
             vr.setValid(false);
             vr.getValidationMessages().add(getErrorMessage(value, IS_NOT_BETWEEN + getMinOccurs() + AND + getMaxOccurs() + " occurances."));
@@ -59,33 +61,16 @@ public class BoundedFloatingPointValidator extends AbstractValidator {
                 vr.getValidationMessages().add(getErrorMessage(String.valueOf(d), IS_NOT_BETWEEN + minBound + AND + maxBound));
             }
         }
+        
+        ValidationResult<double[]> vrd = transformer.getValdiationResult();
+        // cannot use merge because the transform does not know about parameters
+        for (String msgNeedParam : vrd.getValidationMessages() ) {
+        	vr.setValid(false);
+        	String msgWithParam = msgNeedParam.replace("PARAM", parameter.toString());
+        	vr.getValidationMessages().add(msgWithParam);
+        }
         vr.setTransformedValue(doubles);
         return vr;
-    }
-
-    protected double[] stringAsDoubles(String value) {
-        String[] strings = split(value);
-        if (strings == null) {
-            //This will not happen unless split(value) is changed. 
-            return new double[0];
-        }
-        double[] doubles = new double[strings.length];
-        for (int i = 0; i < strings.length; ++i) {
-            if (strings[i].equals(strings[i].trim())) {
-                try {
-                    doubles[i] = Double.parseDouble(strings[i]);
-                } catch (NumberFormatException e) {
-                    vr.setValid(false);
-                    vr.getValidationMessages().add(getErrorMessage(strings[i], "is not a valid number."));
-                    doubles[i] = Double.NaN;
-                }
-            } else {
-                vr.setValid(false);
-                vr.getValidationMessages().add(getErrorMessage(strings[i], "has leading or trailing whitespace."));
-                doubles[i] = Double.NaN;
-            }
-        }
-        return doubles;
     }
 
 }
