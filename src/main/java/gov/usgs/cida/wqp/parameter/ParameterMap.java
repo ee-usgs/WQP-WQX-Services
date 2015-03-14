@@ -34,58 +34,58 @@ public class ParameterMap {
         return validationMessages;
     }
 
-    public void setValidationMessages(final Map<String, List<String>> inValidationMessages) {
-        validationMessages = inValidationMessages;
+    public void setValidationMessages(final Map<String, List<String>> validationMessages) {
+        this.validationMessages = validationMessages;
     }
 
     public Map<String, Object> getQueryParameters() {
         return queryParameters;
     }
 
-    public void setQueryParameters(final Map<String, Object> inQueryParameters) {
-        queryParameters = inQueryParameters;
+    public void setQueryParameters(final Map<String, Object> queryParameters) {
+        this.queryParameters = queryParameters;
     }
 
-    public void merge(final String inParameterName, final ValidationResult<?> inValidationResult) {
-        if (!validationMessages.containsKey(inParameterName)) {
-            validationMessages.put(inParameterName, inValidationResult.getValidationMessages());
+    public void merge(final String parameterName, final ValidationResult<?> validationResult) {
+        if (!validationMessages.containsKey(parameterName)) {
+            validationMessages.put(parameterName, validationResult.getValidationMessages());
         } else {
-            validationMessages.get(inParameterName).addAll(inValidationResult.getValidationMessages());
+            validationMessages.get(parameterName).addAll(validationResult.getValidationMessages());
         }
-        if (null != inValidationResult.getTransformedValue()) {
-            queryParameters.put(inParameterName, inValidationResult.getTransformedValue());
+        if (null != validationResult.getTransformedValue()) {
+            queryParameters.put(parameterName, validationResult.getTransformedValue());
         }
-        if (!inValidationResult.isValid()) {
+        if (!validationResult.isValid()) {
             setValid(false);
         }
     }
     
-    public void merge(final String inParameterName, final List<String> inValidationMessage) {
-        if (!validationMessages.containsKey(inParameterName)) {
-            validationMessages.put(inParameterName, inValidationMessage);
+    public void merge(final String parameterName, final List<String> validationMessage) {
+        if (!validationMessages.containsKey(parameterName)) {
+            validationMessages.put(parameterName, validationMessage);
         } else {
-            validationMessages.get(inParameterName).addAll(inValidationMessage);
+            validationMessages.get(parameterName).addAll(validationMessage);
         }
     }
     
-    public void merge(final String inParameterName, final Object inQueryParameter) {
-        if (null != inQueryParameter) {
-            queryParameters.put(inParameterName, inQueryParameter);
+    public void merge(final String parameterName, final Object queryParameter) {
+        if (null != queryParameter) {
+            queryParameters.put(parameterName, queryParameter);
         }
     }
     
-    public void merge(final ParameterMap inParameterMap) {
-        if (null != inParameterMap.getValidationMessages() && !inParameterMap.getValidationMessages().isEmpty()) {
-            for (Entry<String, List<String>> entry : inParameterMap.getValidationMessages().entrySet()) {
+    public void merge(final ParameterMap parameterMap) {
+        if (null != parameterMap.getValidationMessages() && !parameterMap.getValidationMessages().isEmpty()) {
+            for (Entry<String, List<String>> entry : parameterMap.getValidationMessages().entrySet()) {
                 merge(entry.getKey(), entry.getValue());
             }
         }
-        if (null != inParameterMap.getQueryParameters() && !inParameterMap.getQueryParameters().isEmpty()) {
-            for (Entry<String, Object> entry : inParameterMap.getQueryParameters().entrySet()) {
+        if (null != parameterMap.getQueryParameters() && !parameterMap.getQueryParameters().isEmpty()) {
+            for (Entry<String, Object> entry : parameterMap.getQueryParameters().entrySet()) {
                 merge(entry.getKey(), entry.getValue());
             }
         }
-        if (!inParameterMap.isValid()) {
+        if (!parameterMap.isValid()) {
             setValid(false);
         }
     }

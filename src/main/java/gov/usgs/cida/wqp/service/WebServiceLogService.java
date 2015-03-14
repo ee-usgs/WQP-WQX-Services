@@ -1,7 +1,6 @@
 package gov.usgs.cida.wqp.service;
 
 
-import gov.usgs.cida.wqp.util.EndPoint;
 import gov.usgs.cida.wqp.util.HttpConstants;
 
 import java.util.HashMap;

@@ -42,4 +42,5 @@ public interface HttpConstants extends XmlConstants {
     public static final String BIOLOGICAL_RESULT_ENPOINT = ENDPOINT_BIOLOGICAL_RESULT + SEARCH_ENPOINT;
 
     public static final String HEADER_RESULT = ENDPOINT_RESULT;
+    
 }

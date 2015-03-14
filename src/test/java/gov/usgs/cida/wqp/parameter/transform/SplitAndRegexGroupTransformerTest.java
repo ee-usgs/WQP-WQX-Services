@@ -35,6 +35,7 @@ public class SplitAndRegexGroupTransformerTest extends BaseSpringTest implements
         assertEquals(2, split[2].length);
         assertEquals("CN", split[2][0]);
         assertEquals("04", split[2][1]);
+        assertTrue(transformer.getValdiationResult().isValid());
     }
     
     @Test
@@ -51,6 +52,7 @@ public class SplitAndRegexGroupTransformerTest extends BaseSpringTest implements
         assertEquals(2, split[2].length);
         assertEquals("CN", split[2][0]);
         assertEquals("90", split[2][1]);
+        assertTrue(transformer.getValdiationResult().isValid());
     }
 
     @Test
@@ -70,6 +72,7 @@ public class SplitAndRegexGroupTransformerTest extends BaseSpringTest implements
         assertEquals("CN", split[2][0]);
         assertEquals("90", split[2][1]);
         assertEquals("000", split[2][2]);
+        assertTrue(transformer.getValdiationResult().isValid());
     }
 
 }

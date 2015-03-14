@@ -7,14 +7,10 @@ import gov.usgs.cida.wqp.station.dao.IStationDao;
 import gov.usgs.cida.wqp.station.dao.MapResultHandler;
 import gov.usgs.cida.wqp.util.CharacterSeparatedValue;
 import gov.usgs.cida.wqp.util.HttpConstants;
+import gov.usgs.cida.wqp.util.HttpUtils;
 import gov.usgs.cida.wqp.util.MybatisConstants;
-import gov.usgs.cida.wqp.util.SchemaRoot;
-import gov.usgs.cida.wqp.util.WarningHeader;
 import gov.usgs.cida.wqp.validation.ParameterValidation;
 import gov.usgs.cida.wqp.validation.ValidationConstants;
-
-import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,7 +19,6 @@ import org.apache.ibatis.session.ResultHandler;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 //import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,7 +31,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class StationController implements HttpConstants, MybatisConstants, ValidationConstants {
 	private final Logger log = Logger.getLogger(getClass());
 
-	
+		
 	/* ========================================================================
 	 * Beans		===========================================================
 	 * ========================================================================
@@ -64,9 +59,6 @@ public class StationController implements HttpConstants, MybatisConstants, Valid
     	log.trace(getClass());
 	}
     
-
-	
-	
 	/* ========================================================================
 	 * Actions		===========================================================
 	 * ========================================================================
@@ -95,10 +87,12 @@ public class StationController implements HttpConstants, MybatisConstants, Valid
 
         ParameterMap pm = new ParameterValidation().preProcess(request, parameterHandler);
 
+        HttpUtils httpUtils = new HttpUtils();
+        
         if (pm.isValid()) {
-            addCountHeader(pm, response);
+        	httpUtils.addCountHeader(pm, response, stationDao);
         } else {
-            writeWarningHeaders(response, pm.getValidationMessages(), SchemaRoot.WQX.getEmptyDocument());
+        	httpUtils.writeWarningHeaders(response, pm.getValidationMessages(), WQX_EMPTY_DOC);
         }
         log.info("Processing Head complete:" + request.getQueryString());
     }
@@ -117,10 +111,13 @@ public class StationController implements HttpConstants, MybatisConstants, Valid
         ParameterMap pm = new ParameterValidation().preProcess(request, parameterHandler);
         log.debug("pm.isValid:" + pm.isValid());
 
+        HttpUtils httpUtils = new HttpUtils();
+
         if (pm.isValid()) {
+        	
         	// TODO pass the next two lines on to CDAT
             response.addHeader(HEADER_CONTENT_TYPE, MIME_TYPE_TEXT_CSV); // TODO from request (pm)
-            int count = addCountHeader(pm, response);
+            int count = httpUtils.addCountHeader(pm, response, stationDao);
             response.setHeader("Content-Disposition","attachment; filename=stations.csv");
 //            response.setContentLength(11*1024);
 
@@ -135,60 +132,14 @@ public class StationController implements HttpConstants, MybatisConstants, Valid
                     
                 } catch (Exception e) {
                     log.warn(e.getMessage());
-                    handleException(response, e, SchemaRoot.WQX.getEmptyDocument());
+                    httpUtils.handleException(response, WQX_EMPTY_DOC, e);
                 }
             } else {
-                writeEmptyDocument(response, SchemaRoot.WQX.getEmptyDocument());
+            	httpUtils.writeDocument(response, WQX_EMPTY_DOC);
             }
         } else {
-            writeWarningHeaders(response, pm.getValidationMessages(), SchemaRoot.WQX.getEmptyDocument());
+        	httpUtils.writeWarningHeaders(response, pm.getValidationMessages(), WQX_EMPTY_DOC);
         }
         log.info("Processing Get complete:" + request.getQueryString());
-    }
-	
-	
-	
-	
-	
-	
-	/*
-	 * HELPER METHODS THAT COULD LIVE IN HELPER CLASSES
-	 */
-	
-	
-    // TODO this could be generalized as it was in SWSF
-    protected int addCountHeader(ParameterMap pm, HttpServletResponse response) {
-//        String count = rowCountDao.retrieveRowCount(sqlmapName, pm.getQueryParameters());
-    	Integer count = stationDao.getCount(pm.getQueryParameters());
-        log.trace("station count : " + count);
-        response.addHeader(HEADER_SITE_COUNT, count.toString());
-        return count;
-    }
-    
-    protected void handleException(HttpServletResponse response, final Exception e, final String emptyXmlDoc) {
-        int refNbr = e.hashCode();
-        response.setStatus(HttpStatus.BAD_REQUEST.value());
-        writeEmptyDocument(response, emptyXmlDoc);
-        response.addHeader(HEADER_WARNING, new WarningHeader(null, "Unexpected Error:" + refNbr, null).toString());
-        log.info(refNbr + e.getMessage());
-    }
-
-    protected void writeWarningHeaders(final HttpServletResponse response, final Map<String, List<String>> validationMessages,
-            final String emptyXmlDoc) {
-        response.setStatus(HttpStatus.BAD_REQUEST.value());
-//        writeEmptyDocument(response, emptyXmlDoc);
-        for (List<String> msgs : validationMessages.values()) {
-            for (String msg : msgs) {
-                response.addHeader(HEADER_WARNING, new WarningHeader(null, msg, null).toString());
-            }
-        }
-    }
-    
-    protected void writeEmptyDocument(final HttpServletResponse response, final String emptyXmlDoc) {
-        try {
-            response.getWriter().write(emptyXmlDoc);
-        } catch (Exception e) {
-            log.info("Tried to write empty document but couldn't", e);
-        }
     }
 }

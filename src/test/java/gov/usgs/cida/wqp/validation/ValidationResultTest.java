@@ -61,6 +61,13 @@ public class ValidationResultTest extends BaseSpringTest implements ValidationCo
         assertTrue(vr.getValidationMessages().contains("way"));
         assertNotNull(vr.getTransformedValue());
         assertEquals("zzz", vr.getTransformedValue());
-
+    }
+    @Test 
+    public void testSetValidationMessages() {
+    	ValidationResult<Object> vr = new ValidationResult<Object>();
+    	List<String> vms = new ArrayList<String>();
+    	vms.add("abc");
+    	vr.setValidationMessages(vms);
+    	assertEquals(vms, vr.getValidationMessages());
     }
 }

@@ -1,4 +1,4 @@
-package gov.usgs.cida.wqp.util;
+package gov.usgs.cida.wqp.service;
 
 import java.util.HashMap;
 import java.util.Map;

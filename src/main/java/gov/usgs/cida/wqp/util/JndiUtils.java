@@ -8,14 +8,17 @@ import javax.sql.DataSource;
 import org.apache.log4j.Logger;
 
 public class JndiUtils {
+	public static final String ENV_CTX = "java:/comp/env";
+	
 	private static final Logger LOG = Logger.getLogger(JndiUtils.class);
 	
 	private static Context envContext;
+	
 
 	static {
 		try {
 			Context initContext = new InitialContext();
-			envContext  = (Context)initContext.lookup("java:/comp/env");
+			envContext  = (Context)initContext.lookup(ENV_CTX);
 		} catch (NamingException e) {
 			envContext = null;
 			// TODO should fail fast here
