@@ -37,13 +37,13 @@ public class MapResultHandler implements ResultHandler, Closeable {
 	
 	@Override
 	public void handleResult(ResultContext context) {
-		log.trace("streaming handle result : " + (context==null ?"null" :"context"));
+		log.trace("streaming handle result : {}", (context==null ?"null" :"context"));
 		
 		try {
 			//context.getResultCount();
 			@SuppressWarnings("unchecked")
 			Map<String,Object> entry = (Map<String,Object>) context.getResultObject();
-			log.trace("streaming handle result : " + (entry==null ?"null" :"entry"));
+			log.trace("streaming handle result : {}", (entry==null ?"null" :"entry"));
 			
 			if ( ! hasHeader() ) {
 				log.trace("streaming handle result : preheader");
@@ -60,7 +60,7 @@ public class MapResultHandler implements ResultHandler, Closeable {
 	
 	
 	private void write(Map<String, ? extends Object> values) {
-		log.trace("need entry: " + values);
+		log.trace("need entry: {}", values);
 
 		try {
 			String sep = "";
@@ -83,7 +83,7 @@ public class MapResultHandler implements ResultHandler, Closeable {
 	
 	private void doHeader(Collection<String> columns) {
 		headers.set( new ArrayList<String>(columns) );
-		log.trace("need headers: " + headers.get());
+		log.trace("need headers: {}", headers.get());
 		
 		// this makes the Java DRY
 		Map<String,	String> headerMap = new HashMap<String, String>();

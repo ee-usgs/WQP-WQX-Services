@@ -41,7 +41,7 @@ public class HttpUtils implements HttpConstants {
     
     public int addCountHeader(HttpServletResponse response, Integer count) {
     	String countStr = count==null ?"none" :count.toString();
-        log.trace("station count : " + count);
+        log.trace("station count : {}", count);
         response.addHeader(HEADER_SITE_COUNT, countStr);
         return count;
     }
@@ -51,7 +51,7 @@ public class HttpUtils implements HttpConstants {
         response.setStatus(HttpStatus.BAD_REQUEST.value());
         writeDocument(response, document);
         response.addHeader(HEADER_WARNING, warningHeader(null, "Unexpected Error:" + refNbr, null));
-        log.info(refNbr + e.getMessage());
+        log.info("{} {}", refNbr, e.getMessage());
     }
 
     public void writeWarningHeaders(HttpServletResponse response, Map<String, List<String>> validationMessages, String document) {

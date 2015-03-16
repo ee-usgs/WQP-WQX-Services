@@ -72,7 +72,7 @@ public class StationController implements HttpConstants, MybatisConstants, Valid
     @RequestMapping(value=STATION_SEARCH_ENPOINT, method=RequestMethod.HEAD)
     @Async
     public void stationHeadRequest(HttpServletRequest request, HttpServletResponse response) {
-        log.info("Processing Head:" + request.getQueryString());
+        log.info("Processing Head: {}", request.getQueryString());
         
         SCManager session = null;
 		try {
@@ -81,7 +81,7 @@ public class StationController implements HttpConstants, MybatisConstants, Valid
 			if (session != null) {
 				session.close();
 			}
-		    log.info("Processing Head complete:" + request.getQueryString());
+		    log.info("Processing Head complete: {}", request.getQueryString());
 		}
 
     }
@@ -94,7 +94,7 @@ public class StationController implements HttpConstants, MybatisConstants, Valid
         if ( ! pm.isValid() ) {
             HttpUtils httpUtils = new HttpUtils();
         	httpUtils.writeWarningHeaders(response, pm.getValidationMessages(), WQX_EMPTY_DOC);
-	        log.info("Processing Head invalid params end:" + request.getQueryString());
+	        log.info("Processing Head invalid params end:{}", request.getQueryString());
         	return null;
         }
         
@@ -116,7 +116,7 @@ public class StationController implements HttpConstants, MybatisConstants, Valid
     @Async
     public void stationGetRequest(HttpServletRequest request, HttpServletResponse response) {
         log.trace(""); // blank line during trace       
-        log.info("Processing Get:" + request.getQueryString()); // TODO use SLF4J to avoid string concatenation inline       
+        log.info("Processing Get: {}", request.getQueryString()); // TODO use SLF4J to avoid string concatenation inline       
 
         ParameterMap pm = new ParameterValidation().preProcess(request, parameterHandler);
         
@@ -138,7 +138,7 @@ public class StationController implements HttpConstants, MybatisConstants, Valid
 			if (session != null) {
 				session.close();
 			}
-	        log.info("Processing Get complete:" + request.getQueryString());
+	        log.info("Processing Get complete: {}", request.getQueryString());
 		}
     }
 

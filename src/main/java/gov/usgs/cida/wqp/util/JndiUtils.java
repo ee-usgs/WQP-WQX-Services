@@ -33,9 +33,9 @@ public class JndiUtils {
 		try {
 			ds = (DataSource) envContext.lookup(lookupResource);
 		} catch (NamingException e) {
-			LOG.error("JNDI ERROR: Cannot access Tomcat " + lookupResource, e);
+			LOG.error("JNDI ERROR: Cannot access Tomcat {}", lookupResource, e);
 		} catch (ClassCastException e) {
-			LOG.error("JNDI ERROR: This resouce is not a DataSource. " + lookupResource, e);
+			LOG.error("JNDI ERROR: This resouce is not a DataSource. {}", lookupResource, e);
 		}
 		
 		return ds;

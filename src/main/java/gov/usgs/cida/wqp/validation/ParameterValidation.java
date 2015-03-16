@@ -29,10 +29,10 @@ public class ParameterValidation {
             log.trace("got parameters");
 
             Map<String, String[]> requestParams = new HashMap<String, String[]>(request.getParameterMap());
-            log.debug("requestParams:" + requestParams);
+            log.debug("requestParams: {}", requestParams);
             pm = parameterHandler.validateAndTransform(requestParams);
-            log.debug("pm:" + pm);
-            log.debug("queryParms:" + pm.getQueryParameters());
+            log.debug("pm: {}", pm);
+            log.debug("queryParms: {}", pm.getQueryParameters());
         }
         return pm;
     }
