@@ -14,7 +14,8 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -23,7 +24,7 @@ import org.apache.log4j.Logger;
  *
  */
 public class HashMapParameterHandler implements IParameterHandler {
-	private final Logger log = Logger.getLogger(getClass());
+	private final Logger log = LoggerFactory.getLogger(getClass());
 
     private static Map<Parameters, AbstractValidator<?>> VALIDATOR_MAP;
 
@@ -52,7 +53,7 @@ public class HashMapParameterHandler implements IParameterHandler {
     }
 
     public HashMapParameterHandler() {
-        log.trace(getClass());
+        log.trace(getClass().getName());
 	}
     
     @Override

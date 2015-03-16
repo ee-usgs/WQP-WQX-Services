@@ -5,21 +5,22 @@ import gov.usgs.cida.wqp.validation.ValidationResult;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author tkunicki
  */
 public class SplitAndRegexGroupTransformer implements Transformer<String[][]> {
-	private final Logger log = Logger.getLogger(getClass());
+	private final Logger log = LoggerFactory.getLogger(getClass());
 
     private final Pattern regexPattern;
     private final SplitTransformer splitter;
 
     public SplitAndRegexGroupTransformer(String delimiter, String regex) {
         splitter = new SplitTransformer(delimiter);
-    	log.trace(getClass());
+    	log.trace(getClass().getName());
         regexPattern = Pattern.compile(regex);
     }
 

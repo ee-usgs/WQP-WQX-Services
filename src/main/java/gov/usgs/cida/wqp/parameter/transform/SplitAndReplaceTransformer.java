@@ -1,20 +1,21 @@
 package gov.usgs.cida.wqp.parameter.transform;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author tkunicki
  */
 public class SplitAndReplaceTransformer extends SplitTransformer {
-	private final Logger log = Logger.getLogger(getClass());
+	private final Logger log = LoggerFactory.getLogger(getClass());
 
     private final String regex;
     private final String replace;
 
     public SplitAndReplaceTransformer(String delimiter, String regex, String replace) {
         super(delimiter);
-    	log.trace(getClass());
+    	log.trace(getClass().getName());
         this.regex = regex;
         this.replace = replace;
     }

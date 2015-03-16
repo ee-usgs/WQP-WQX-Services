@@ -16,7 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.ibatis.session.ResultHandler;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
@@ -29,7 +30,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class StationController implements HttpConstants, MybatisConstants, ValidationConstants {
-	private final Logger log = Logger.getLogger(getClass());
+	private final Logger log = LoggerFactory.getLogger(getClass());
 
 		
 	/* ========================================================================
@@ -42,13 +43,12 @@ public class StationController implements HttpConstants, MybatisConstants, Valid
 		this.environment = environment;
 	}
 	
-    
     @Autowired
     protected IStationDao stationDao;
     public void setStationDao(IStationDao stationDao) {
 		this.stationDao = stationDao;
 	}
-	
+    	
     protected IParameterHandler parameterHandler = new HashMapParameterHandler();
     public void setParameterHandler(IParameterHandler inParameterHandler) {
         parameterHandler = inParameterHandler;
@@ -56,7 +56,7 @@ public class StationController implements HttpConstants, MybatisConstants, Valid
     
     
     public StationController() {
-    	log.trace(getClass());
+    	log.trace(getClass().getName());
 	}
     
 	/* ========================================================================
@@ -103,7 +103,7 @@ public class StationController implements HttpConstants, MybatisConstants, Valid
 	@RequestMapping(value=STATION_SEARCH_ENPOINT, method=RequestMethod.GET, produces=MIME_TYPE_TEXT_CSV)
     @ResponseBody
     public void stationGetRequest(HttpServletRequest request, HttpServletResponse response) {
-        log.info("");        
+        log.trace(""); // blank line during trace       
         log.info("Processing Get:" + request.getQueryString()); // TODO use SLF4J to avoid string concatenation inline       
 
         response.setCharacterEncoding(DEFAULT_ENCODING);
@@ -142,4 +142,5 @@ public class StationController implements HttpConstants, MybatisConstants, Valid
         }
         log.info("Processing Get complete:" + request.getQueryString());
     }
+
 }

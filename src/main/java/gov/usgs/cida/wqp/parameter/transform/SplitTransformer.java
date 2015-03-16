@@ -6,14 +6,15 @@ import gov.usgs.cida.wqp.validation.ValidationResult;
 
 import java.util.regex.Pattern;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author tkunicki
  */
 public class SplitTransformer implements Transformer<String[]>, ValidationConstants {
-	private final Logger log = Logger.getLogger(getClass());
+	private final Logger log = LoggerFactory.getLogger(getClass());
 
     private final Pattern splitPattern;
     private final String delimiter;
@@ -23,7 +24,7 @@ public class SplitTransformer implements Transformer<String[]>, ValidationConsta
     }
     
     public SplitTransformer(String delimiter) {
-        log.trace(getClass());
+        log.trace(getClass().getName());
 
         this.delimiter = delimiter;
         if (null == delimiter || 0 == delimiter.length()) {

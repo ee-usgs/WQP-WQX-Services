@@ -5,12 +5,13 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class JndiUtils {
 	public static final String ENV_CTX = "java:/comp/env";
 	
-	private static final Logger LOG = Logger.getLogger(JndiUtils.class);
+	private static final Logger LOG = LoggerFactory.getLogger(JndiUtils.class);
 	
 	private static Context envContext;
 	

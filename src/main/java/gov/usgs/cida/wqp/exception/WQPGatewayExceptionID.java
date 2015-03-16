@@ -1,15 +1,16 @@
 package gov.usgs.cida.wqp.exception;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class WQPGatewayExceptionID {
-	private final Logger log = Logger.getLogger(getClass());
+	private final Logger log = LoggerFactory.getLogger(getClass());
 	
 	private final Long exceptionId;
     private String name;
 
     private WQPGatewayExceptionID( String name, int id ) {
-        log.trace(getClass());
+        log.trace(getClass().getName());
         
     	this.name = name;
     	this.exceptionId = Long.valueOf(id);

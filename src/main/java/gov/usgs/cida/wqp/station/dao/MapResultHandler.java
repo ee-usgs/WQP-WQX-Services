@@ -13,11 +13,13 @@ import java.util.Map;
 
 import org.apache.ibatis.session.ResultContext;
 import org.apache.ibatis.session.ResultHandler;
-import org.apache.log4j.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 public class MapResultHandler implements ResultHandler, Closeable {
-	private final Logger log = Logger.getLogger(getClass());
+	private final Logger log = LoggerFactory.getLogger(getClass());
 
 	private final CharacterSeparatedValue transformer; // TODO need to generalize
 	private final OutputStream stream;  // TODO will use StreamContainer later
@@ -51,7 +53,7 @@ public class MapResultHandler implements ResultHandler, Closeable {
 			
 			write(entry);
 		} catch (RuntimeException e) {
-			log.warn(e);
+			log.warn("Error MapResultHandler", e);
 			throw e;
 		} 
 	}

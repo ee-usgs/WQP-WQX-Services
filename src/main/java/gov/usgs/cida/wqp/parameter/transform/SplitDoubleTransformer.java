@@ -4,7 +4,8 @@ package gov.usgs.cida.wqp.parameter.transform;
 import gov.usgs.cida.wqp.validation.ValidationConstants;
 import gov.usgs.cida.wqp.validation.ValidationResult;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 
@@ -13,7 +14,7 @@ import org.apache.log4j.Logger;
  * @author tkunicki
  */
 public class SplitDoubleTransformer implements Transformer<double[]>, ValidationConstants {
-	private final Logger log = Logger.getLogger(getClass());
+	private final Logger log = LoggerFactory.getLogger(getClass());
 
 	private SplitTransformer splitter;
 	private ValidationResult<double[]> vr;
@@ -24,7 +25,7 @@ public class SplitDoubleTransformer implements Transformer<double[]>, Validation
     }
     
     public SplitDoubleTransformer(String delimiter) {
-        log.trace(getClass());
+        log.trace(getClass().getName());
         
         if (null == delimiter || 0 == delimiter.length()) {
             throw new IllegalArgumentException("A Delimiter must be provided.");

@@ -7,15 +7,15 @@ import java.util.Map;
 
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.log4j.Logger;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 
 public class StationDao extends SqlSessionDaoSupport implements IStationDao {
-	private final Logger log = Logger.getLogger(getClass());
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
     public StationDao(SqlSessionFactory sqlSessionFactory) {
-        log.trace(getClass());
+        log.trace(getClass().getName());
 		setSqlSessionFactory(sqlSessionFactory);
 	}
     
@@ -35,7 +35,7 @@ public class StationDao extends SqlSessionDaoSupport implements IStationDao {
     	try {
     		getSqlSession().select("dataMapper.selectStationsMapList", parameterMap, handler);
     	} catch (Exception e) {
-    		log.error(e);
+    		log.error("Station ResultHandler error", e);
     		e.printStackTrace();
     	}
     }

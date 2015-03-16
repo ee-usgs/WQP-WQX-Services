@@ -3,12 +3,14 @@ package gov.usgs.cida.wqp.service;
 
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.springframework.transaction.annotation.Transactional;
 
 public class WebServiceLogDao extends SqlSessionDaoSupport implements IWebServiceLogDao {
-	private final Logger log = Logger.getLogger(getClass());
+	private final Logger log = LoggerFactory.getLogger(getClass());
    
     public static final String ORIGIN = "origin";
     public static final String CALL_TYPE = "callType";
@@ -19,7 +21,7 @@ public class WebServiceLogDao extends SqlSessionDaoSupport implements IWebServic
 
     
 	public WebServiceLogDao() {
-        log.trace(getClass());
+        log.trace(getClass().getName());
 	}
 
     

@@ -7,15 +7,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ParameterMap {
-	private final Logger log = Logger.getLogger(getClass());
+	private final Logger log = LoggerFactory.getLogger(getClass());
 
     private boolean valid = true;
 
     public ParameterMap() {
-        log.trace(getClass());
+        log.trace(getClass().getName());
 	}
     
     private Map<String, List<String>> validationMessages = new HashMap<String, List<String>>();

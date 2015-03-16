@@ -26,7 +26,8 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -53,7 +54,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @EnableWebMvc
 @PropertySource(value = {"file:${catalina.base}/conf/wqpgateway.properties"})		// Unfortunately this is Tomcat specific.  For us its ok
 public class SpringConfig extends WebMvcConfigurerAdapter implements HttpConstants, MybatisConstants, ValidationConstants  {
-	private final Logger log = Logger.getLogger(getClass());
+	private final Logger log = LoggerFactory.getLogger(getClass());
 
 	
 	static final Map<Parameters, AbstractValidator<?>> VALIDATOR_MAP = new HashMap<Parameters, AbstractValidator<?>>();
@@ -132,7 +133,7 @@ public class SpringConfig extends WebMvcConfigurerAdapter implements HttpConstan
 	private Environment environment;
 	
 	public SpringConfig() {
-        log.trace(getClass());
+        log.trace(getClass().getName());
 	}
 
 	@Bean
