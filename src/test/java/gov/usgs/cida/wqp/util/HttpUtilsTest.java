@@ -2,8 +2,6 @@ package gov.usgs.cida.wqp.util;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import gov.usgs.cida.wqp.parameter.ParameterMap;
-import gov.usgs.cida.wqp.station.dao.IStationDao;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
@@ -12,7 +10,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.junit.Test;
-import org.mockito.Mockito;
 import org.springframework.mock.web.MockHttpServletResponse;
 
 public class HttpUtilsTest implements HttpConstants, MybatisConstants {
@@ -69,13 +66,9 @@ public class HttpUtilsTest implements HttpConstants, MybatisConstants {
 	
     @Test
     public void test_addCountHeader() {
-    	ParameterMap pm = new ParameterMap();
-    	
     	MockHttpServletResponse response = new MockHttpServletResponse();
-        IStationDao stationDao = Mockito.mock(IStationDao.class);
-        Mockito.when(stationDao.getCount(pm.getQueryParameters())).thenReturn(Integer.valueOf(10));
         
-        utils.addCountHeader(pm, response, stationDao);
+    	utils.addCountHeader(response, 10);
         
         assertEquals(1, response.getHeaderNames().size());
         assertTrue(response.containsHeader(HEADER_SITE_COUNT));

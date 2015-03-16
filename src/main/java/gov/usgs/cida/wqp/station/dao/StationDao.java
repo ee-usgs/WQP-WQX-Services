@@ -7,13 +7,17 @@ import java.util.Map;
 
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.mybatis.spring.support.SqlSessionDaoSupport;
 
-public class StationDao extends SqlSessionDaoSupport implements IStationDao {
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.mybatis.spring.support.SqlSessionDaoSupport;
 
+public class StationDao extends SqlSessionDaoSupport implements IStationDao, ICountDao {
+	private final Logger log = LoggerFactory.getLogger(getClass());
+
+	public static final String COUNT_QUERY_ID = "selectStationsCount";
+	
     public StationDao(SqlSessionFactory sqlSessionFactory) {
         log.trace(getClass().getName());
 		setSqlSessionFactory(sqlSessionFactory);
@@ -42,6 +46,11 @@ import org.slf4j.LoggerFactory;
     
     @Override
     public int getCount(Map<String, Object> parameterMap) {
-        return getSqlSession().selectOne("selectStationsCount", parameterMap);
+        return getCount(COUNT_QUERY_ID, parameterMap);
+    }
+    
+    @Override
+    public int getCount(String queryId, Map<String, Object> parameterMap) {
+        return getSqlSession().selectOne(queryId, parameterMap);
     }
 }

@@ -1,8 +1,5 @@
 package gov.usgs.cida.wqp.util;
 
-import gov.usgs.cida.wqp.parameter.ParameterMap;
-import gov.usgs.cida.wqp.station.dao.IStationDao;
-
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -42,12 +39,10 @@ public class HttpUtils implements HttpConstants {
     }
 
     
-    // TODO the count fetch could be generalized as it was in SWSF
-    public int addCountHeader(ParameterMap pm, HttpServletResponse response, IStationDao stationDao) {
-//        String count = rowCountDao.retrieveRowCount(sqlmapName, pm.getQueryParameters());
-    	Integer count = stationDao.getCount(pm.getQueryParameters());
+    public int addCountHeader(HttpServletResponse response, Integer count) {
+    	String countStr = count==null ?"none" :count.toString();
         log.trace("station count : " + count);
-        response.addHeader(HEADER_SITE_COUNT, count.toString());
+        response.addHeader(HEADER_SITE_COUNT, countStr);
         return count;
     }
     

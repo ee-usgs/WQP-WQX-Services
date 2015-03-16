@@ -6,6 +6,7 @@ import gov.usgs.cida.wqp.parameter.Parameters;
 import gov.usgs.cida.wqp.parameter.transform.SplitAndRegexGroupTransformer;
 import gov.usgs.cida.wqp.parameter.transform.SplitAndReplaceTransformer;
 import gov.usgs.cida.wqp.parameter.transform.Transformer;
+import gov.usgs.cida.wqp.station.dao.ICountDao;
 import gov.usgs.cida.wqp.station.dao.IStationDao;
 import gov.usgs.cida.wqp.station.dao.StationDao;
 import gov.usgs.cida.wqp.util.HttpConstants;
@@ -150,6 +151,11 @@ public class SpringConfig extends WebMvcConfigurerAdapter implements HttpConstan
    
 	@Bean
 	public IStationDao stationDao() throws Exception {
+		return new StationDao(sqlSessionFactory().getObject());
+	}
+
+	@Bean
+	public ICountDao countDao() throws Exception {
 		return new StationDao(sqlSessionFactory().getObject());
 	}
 	
