@@ -6,6 +6,7 @@
 
     <!-- Global configuration settings for the mapping.-->
     <settings>
+	    <setting name="callSettersOnNulls" value="true"/>
         <setting name="cacheEnabled" value="true"/>
         <setting name="lazyLoadingEnabled" value="false"/>
         <setting name="aggressiveLazyLoading" value="false"/>
