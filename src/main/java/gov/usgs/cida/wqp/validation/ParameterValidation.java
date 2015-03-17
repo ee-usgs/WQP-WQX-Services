@@ -8,17 +8,18 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ParameterValidation {
-	private final Logger log = Logger.getLogger(getClass());
+	private final Logger log = LoggerFactory.getLogger(getClass());
 
 	public ParameterValidation() {
-    	log.trace(getClass());
+    	log.trace(getClass().getName());
 	}
 	
     public ParameterMap preProcess(HttpServletRequest request, IParameterHandler parameterHandler) {
-    	Logger log = Logger.getLogger(getClass());
+    	Logger log = LoggerFactory.getLogger(getClass());
     	
         ParameterMap pm = new ParameterMap();
         if (request.getParameterMap().isEmpty()) {
@@ -28,10 +29,10 @@ public class ParameterValidation {
             log.trace("got parameters");
 
             Map<String, String[]> requestParams = new HashMap<String, String[]>(request.getParameterMap());
-            log.debug("requestParams:" + requestParams);
+            log.debug("requestParams: {}", requestParams);
             pm = parameterHandler.validateAndTransform(requestParams);
-            log.debug("pm:" + pm);
-            log.debug("queryParms:" + pm.getQueryParameters());
+            log.debug("pm: {}", pm);
+            log.debug("queryParms: {}", pm.getQueryParameters());
         }
         return pm;
     }

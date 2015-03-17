@@ -14,7 +14,8 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -23,12 +24,12 @@ import org.apache.log4j.Logger;
  *
  */
 public class HashMapParameterHandler implements IParameterHandler {
-	private final Logger log = Logger.getLogger(getClass());
+	private final Logger log = LoggerFactory.getLogger(getClass());
 
     private static Map<Parameters, AbstractValidator<?>> VALIDATOR_MAP;
 
     private static final Set<Parameters> WITHIN_GROUP;
-    private static final List<Set<Parameters>> GROUP_LIST;
+    static final List<Set<Parameters>> GROUP_LIST;
 
     
     public static void setValidatorMap(final Map<Parameters, AbstractValidator<?>> inValidatoryMap) {
@@ -52,7 +53,7 @@ public class HashMapParameterHandler implements IParameterHandler {
     }
 
     public HashMapParameterHandler() {
-        log.trace(getClass());
+        log.trace(getClass().getName());
 	}
     
     @Override
@@ -108,7 +109,7 @@ public class HashMapParameterHandler implements IParameterHandler {
                 String parameterName = pName;
                 if (Parameters.isValid(parameterName)) {
                     Parameters parameter = Parameters.fromName(parameterName);
-                    if (!VALIDATOR_MAP.containsKey(parameter) /*&& !Parameters.NON_OUTPUT.contains(parameterName)*/ ) {
+                    if ( ! VALIDATOR_MAP.containsKey(parameter) ) {
                         isOk = false;
                     } else {
                         userParameterSet.add(parameter);
@@ -116,7 +117,7 @@ public class HashMapParameterHandler implements IParameterHandler {
                 } else {
                     isOk = false;
                 }
-                if (!isOk) {
+                if ( ! isOk ) {
                     ValidationResult<?> vr = new ValidationResult<Object>();
                     vr.setValid(false);
                     vr.getValidationMessages().add("Parameter Name '"+ parameterName +"' is not valid.  This service will NOT return ANY results until this parameter is removed from the query.");
@@ -178,7 +179,6 @@ public class HashMapParameterHandler implements IParameterHandler {
         Iterator<String> iterator = containsSet.iterator();
         builder.append("'").append(iterator.next()).append("'");
         for (int i = containsSet.size() - 2; i > 0; --i) {
-            //untested since the only group defined has but three entries and will never get here.
             builder.append(", '").append(iterator.next()).append("'");
         }
         if (iterator.hasNext()) {

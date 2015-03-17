@@ -13,4 +13,6 @@ public interface MybatisConstants {
     
     public static final String BIOLOGICAL_RESULTS_WQX_COUNTID = RESULTS_MAPPER_NAMESPACE + ".biologicalResultsWQXCount";
     
+	public static final String ENTRIES = "ENTRIES";
+	public static final String DATA_SOURCE = "DATA_SOURCE";
 }

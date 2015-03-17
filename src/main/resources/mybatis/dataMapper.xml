@@ -337,16 +337,56 @@
     </select>
 
 
-    <select id="selectStationsMapList" resultType="map"  resultOrdered="true">
+    <select id="selectStationsMapList" resultType="java.util.LinkedHashMap"  resultOrdered="true">
         select distinct 
-DATA_SOURCE_ID, DATA_SOURCE, STATION_ID, SITE_ID, ORGANIZATION, SITE_TYPE, HUC_12, GOVERNMENTAL_UNIT_CODE, STATION_NAME, ORGANIZATION_NAME, DESCRIPTION_TEXT, STATION_TYPE_NAME, LATITUDE, LONGITUDE, MAP_SCALE, GEOPOSITIONING_METHOD, HDATUM_ID_CODE, ELEVATION_VALUE, ELEVATION_UNIT, ELEVATION_METHOD, VDATUM_ID_CODE, DRAIN_AREA_VALUE, DRAIN_AREA_UNIT, CONTRIB_DRAIN_AREA_VALUE, CONTRIB_DRAIN_AREA_UNIT, GEOPOSITION_ACCY_VALUE, GEOPOSITION_ACCY_UNIT, VERTICAL_ACCURACY_VALUE, VERTICAL_ACCURACY_UNIT, NAT_AQFR_NAME, AQFR_NAME, AQFR_TYPE_NAME, CONSTRUCTION_DATE, WELL_DEPTH_VALUE, WELL_DEPTH_UNIT, HOLE_DEPTH_VALUE, HOLE_DEPTH_UNIT, COUNTRY_CODE, STATE_CODE, STATE_FIPS_CODE, COUNTY_CODE, COUNTY_FIPS_CODE
+			ORGANIZATION,
+			ORGANIZATION_NAME,
+			SITE_ID,
+			STATION_NAME,
+			STATION_TYPE_NAME,
+			DESCRIPTION_TEXT,
+			HUC_8 ,
+			HUC_12 ,
+			DRAIN_AREA_VALUE,
+			DRAIN_AREA_UNIT,
+			CONTRIB_DRAIN_AREA_VALUE,
+			CONTRIB_DRAIN_AREA_UNIT,
+			LATITUDE,
+			LONGITUDE,
+			MAP_SCALE,
+			GEOPOSITION_ACCY_VALUE,
+			GEOPOSITION_ACCY_UNIT,
+			GEOPOSITIONING_METHOD,
+			HDATUM_ID_CODE,
+			ELEVATION_VALUE,
+			ELEVATION_UNIT,
+			VERTICAL_ACCURACY_VALUE,
+			VERTICAL_ACCURACY_UNIT,
+			ELEVATION_METHOD,
+			VDATUM_ID_CODE,
+			COUNTRY_CODE,
+			STATE_CODE,
+			COUNTY_CODE,
+			NAT_AQFR_NAME,
+			AQFR_NAME,
+			AQFR_TYPE_NAME,
+			CONSTRUCTION_DATE,
+			WELL_DEPTH_VALUE,
+			WELL_DEPTH_UNIT,
+			HOLE_DEPTH_VALUE,
+			HOLE_DEPTH_UNIT,
+			STATION_ID, 
+			SITE_TYPE, 
+			GOVERNMENTAL_UNIT_CODE,
+			DATA_SOURCE			
         <include refid="dataMapper.stationsBase"/>
             order by organization,
                      station_id
     </select>
-    <select id="selectStationsCount" resultType="java.lang.Integer">
-        select count(*)
-          from (<include refid="dataMapper.simplestationsBase"/>)
+    <select id="selectStationsCount" resultType="java.util.LinkedHashMap">
+        select DATA_SOURCE, count(*) ENTRIES
+          <include refid="dataMapper.stationsBase"/>
+          group by rollup(DATA_SOURCE)
     </select>
 
     <!-- **********************************************************************************************************************

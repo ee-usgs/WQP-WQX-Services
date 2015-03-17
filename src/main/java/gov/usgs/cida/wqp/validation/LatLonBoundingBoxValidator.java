@@ -1,6 +1,7 @@
 package gov.usgs.cida.wqp.validation;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import gov.usgs.cida.wqp.parameter.Parameters;
 
@@ -10,13 +11,13 @@ import gov.usgs.cida.wqp.parameter.Parameters;
  * @author tkunicki
  */
 public class LatLonBoundingBoxValidator extends AbstractValidator<String[]> {
-	private final Logger log = Logger.getLogger(getClass());
+	private final Logger log = LoggerFactory.getLogger(getClass());
 
     public static final String ERROR_MESSAGE = "is not a valid bounding box.";
     
     public LatLonBoundingBoxValidator(Parameters inParameter) {
         super(inParameter, 0, 1, ",");
-    	log.trace(getClass());
+    	log.trace(getClass().getName());
     }
 
     @Override

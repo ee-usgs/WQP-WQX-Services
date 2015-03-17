@@ -5,17 +5,21 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class JndiUtils {
-	private static final Logger LOG = Logger.getLogger(JndiUtils.class);
+	public static final String ENV_CTX = "java:/comp/env";
+	
+	private static final Logger LOG = LoggerFactory.getLogger(JndiUtils.class);
 	
 	private static Context envContext;
+	
 
 	static {
 		try {
 			Context initContext = new InitialContext();
-			envContext  = (Context)initContext.lookup("java:/comp/env");
+			envContext  = (Context)initContext.lookup(ENV_CTX);
 		} catch (NamingException e) {
 			envContext = null;
 			// TODO should fail fast here
@@ -29,9 +33,9 @@ public class JndiUtils {
 		try {
 			ds = (DataSource) envContext.lookup(lookupResource);
 		} catch (NamingException e) {
-			LOG.error("JNDI ERROR: Cannot access Tomcat " + lookupResource, e);
+			LOG.error("JNDI ERROR: Cannot access Tomcat {}", lookupResource, e);
 		} catch (ClassCastException e) {
-			LOG.error("JNDI ERROR: This resouce is not a DataSource. " + lookupResource, e);
+			LOG.error("JNDI ERROR: This resouce is not a DataSource. {}", lookupResource, e);
 		}
 		
 		return ds;

@@ -4,7 +4,8 @@ package gov.usgs.cida.wqp.validation;
 import gov.usgs.cida.wqp.parameter.Parameters;
 import gov.usgs.cida.wqp.service.CodesService;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -12,7 +13,7 @@ import org.apache.log4j.Logger;
  * @author duselmann
  */
 public class LookupValidator extends AbstractValidator<String[]> {
-	private final Logger log = Logger.getLogger(getClass());
+	private final Logger log = LoggerFactory.getLogger(getClass());
 
 	private CodesService codesService = new CodesService();
 	private Parameters parameter;
@@ -24,7 +25,7 @@ public class LookupValidator extends AbstractValidator<String[]> {
     public LookupValidator(Parameters parameter, int minOccurs, int maxOccurs, String delimiter)  {
         super(parameter, minOccurs, maxOccurs, delimiter);
         this.parameter=parameter;
-    	log.trace(getClass());
+    	log.trace(getClass().getName());
     }
 
 

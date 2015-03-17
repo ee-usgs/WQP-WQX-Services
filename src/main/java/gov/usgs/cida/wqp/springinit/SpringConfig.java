@@ -6,6 +6,7 @@ import gov.usgs.cida.wqp.parameter.Parameters;
 import gov.usgs.cida.wqp.parameter.transform.SplitAndRegexGroupTransformer;
 import gov.usgs.cida.wqp.parameter.transform.SplitAndReplaceTransformer;
 import gov.usgs.cida.wqp.parameter.transform.Transformer;
+import gov.usgs.cida.wqp.station.dao.ICountDao;
 import gov.usgs.cida.wqp.station.dao.IStationDao;
 import gov.usgs.cida.wqp.station.dao.StationDao;
 import gov.usgs.cida.wqp.util.HttpConstants;
@@ -26,7 +27,8 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -53,7 +55,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @EnableWebMvc
 @PropertySource(value = {"file:${catalina.base}/conf/wqpgateway.properties"})		// Unfortunately this is Tomcat specific.  For us its ok
 public class SpringConfig extends WebMvcConfigurerAdapter implements HttpConstants, MybatisConstants, ValidationConstants  {
-	private final Logger log = Logger.getLogger(getClass());
+	private final Logger log = LoggerFactory.getLogger(getClass());
 
 	
 	static final Map<Parameters, AbstractValidator<?>> VALIDATOR_MAP = new HashMap<Parameters, AbstractValidator<?>>();
@@ -132,7 +134,7 @@ public class SpringConfig extends WebMvcConfigurerAdapter implements HttpConstan
 	private Environment environment;
 	
 	public SpringConfig() {
-        log.trace(getClass());
+        log.trace(getClass().getName());
 	}
 
 	@Bean
@@ -149,6 +151,11 @@ public class SpringConfig extends WebMvcConfigurerAdapter implements HttpConstan
    
 	@Bean
 	public IStationDao stationDao() throws Exception {
+		return new StationDao(sqlSessionFactory().getObject());
+	}
+
+	@Bean
+	public ICountDao countDao() throws Exception {
 		return new StationDao(sqlSessionFactory().getObject());
 	}
 	

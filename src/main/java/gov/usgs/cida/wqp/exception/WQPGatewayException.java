@@ -1,9 +1,11 @@
 package gov.usgs.cida.wqp.exception;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class WQPGatewayException extends Exception {
-	private final Logger log = Logger.getLogger(getClass());
+	private final Logger log = LoggerFactory.getLogger(getClass());
+
 	
 	private static final long serialVersionUID = 126269528002852327L;
 	
@@ -19,7 +21,7 @@ public class WQPGatewayException extends Exception {
 	}
 
 	public WQPGatewayException(final WQPGatewayExceptionID id, final String classname, final String method, final String message, final WQPGatewayException previous) {
-        log.trace(getClass());
+        log.trace(getClass().getName());
         
 		this.exceptionid	= id;
 		this.classname  	= classname;

@@ -1,9 +1,10 @@
-package gov.usgs.cida.wqp.util;
+package gov.usgs.cida.wqp.service;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static gov.usgs.cida.wqp.util.HttpConstants.*;
 
@@ -21,7 +22,7 @@ public enum EndPoint {
         }
     }
     
-	private final Logger log = Logger.getLogger(getClass());
+	private final Logger log = LoggerFactory.getLogger(getClass());
     
     public final String COUNT_HEADER_NAME;
     public final String NAME;
@@ -29,7 +30,7 @@ public enum EndPoint {
     
     
     private EndPoint (final String endpointName, final String endpointUri, final String headerName) {
-        log.trace(getClass());
+        log.trace(getClass().getName());
         
         NAME = endpointName;
         URI  = endpointUri;

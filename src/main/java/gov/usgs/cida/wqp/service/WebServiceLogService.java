@@ -1,7 +1,6 @@
 package gov.usgs.cida.wqp.service;
 
 
-import gov.usgs.cida.wqp.util.EndPoint;
 import gov.usgs.cida.wqp.util.HttpConstants;
 
 import java.util.HashMap;
@@ -10,17 +9,19 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class WebServiceLogService implements IWebServiceLogService, HttpConstants {
-	private final Logger log = Logger.getLogger(getClass());
+	private final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
     private IWebServiceLogDao dao;
 
 	public WebServiceLogService() {
-        log.trace(getClass());
+        log.trace(getClass().getName());
 	}
     
     

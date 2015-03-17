@@ -1,42 +1,40 @@
 package gov.usgs.cida.wqp.webservice;
 
+import gov.cida.cdat.control.Control;
+import gov.cida.cdat.control.SCManager;
+import gov.cida.cdat.control.Time;
 import gov.usgs.cida.wqp.parameter.HashMapParameterHandler;
 import gov.usgs.cida.wqp.parameter.IParameterHandler;
 import gov.usgs.cida.wqp.parameter.ParameterMap;
+import gov.usgs.cida.wqp.station.dao.ICountDao;
 import gov.usgs.cida.wqp.station.dao.IStationDao;
-import gov.usgs.cida.wqp.station.dao.MapResultHandler;
-import gov.usgs.cida.wqp.util.CharacterSeparatedValue;
+import gov.usgs.cida.wqp.station.dao.StationDao;
 import gov.usgs.cida.wqp.util.HttpConstants;
+import gov.usgs.cida.wqp.util.HttpUtils;
 import gov.usgs.cida.wqp.util.MybatisConstants;
-import gov.usgs.cida.wqp.util.SchemaRoot;
-import gov.usgs.cida.wqp.util.WarningHeader;
 import gov.usgs.cida.wqp.validation.ParameterValidation;
 import gov.usgs.cida.wqp.validation.ValidationConstants;
-
-import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.ibatis.session.ResultHandler;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
-import org.springframework.http.HttpStatus;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Controller;
-//import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.context.request.async.DeferredResult;
-import org.springframework.web.servlet.ModelAndView;
+//import org.springframework.web.bind.annotation.PathVariable;
+//import org.springframework.web.context.request.async.DeferredResult;
+//import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class StationController implements HttpConstants, MybatisConstants, ValidationConstants {
-	private final Logger log = Logger.getLogger(getClass());
+	private final Logger log = LoggerFactory.getLogger(getClass());
 
-	
+		
 	/* ========================================================================
 	 * Beans		===========================================================
 	 * ========================================================================
@@ -47,13 +45,12 @@ public class StationController implements HttpConstants, MybatisConstants, Valid
 		this.environment = environment;
 	}
 	
-    
     @Autowired
     protected IStationDao stationDao;
     public void setStationDao(IStationDao stationDao) {
 		this.stationDao = stationDao;
 	}
-	
+    	
     protected IParameterHandler parameterHandler = new HashMapParameterHandler();
     public void setParameterHandler(IParameterHandler inParameterHandler) {
         parameterHandler = inParameterHandler;
@@ -61,134 +58,88 @@ public class StationController implements HttpConstants, MybatisConstants, Valid
     
     
     public StationController() {
-    	log.trace(getClass());
+    	log.trace(getClass().getName());
 	}
     
-
-	
-	
 	/* ========================================================================
 	 * Actions		===========================================================
 	 * ========================================================================
 	 */
-	@RequestMapping(value="foo", method=RequestMethod.GET)
-    public DeferredResult<ModelAndView> stationSearch() {
-		log.info("stationSearch called");
-		
-		ModelAndView mv = new ModelAndView("index.jsp");
-		mv.addObject("version", environment.getProperty("app.version"));
-
-		DeferredResult<ModelAndView> finalResult = new DeferredResult<ModelAndView>();
-		finalResult.setResult(mv);
-		return finalResult;
-    }
 	
 	/**
 	 * Station HEAD request 
 	 */
     @RequestMapping(value=STATION_SEARCH_ENPOINT, method=RequestMethod.HEAD)
-    @ResponseBody
+    @Async
     public void stationHeadRequest(HttpServletRequest request, HttpServletResponse response) {
-        log.info("Processing Head:" + request.getQueryString());
+        log.info("Processing Head: {}", request.getQueryString());
         
-        response.setCharacterEncoding(DEFAULT_ENCODING);
+        SCManager session = null;
+		try {
+			session = doHeader(request, response);
+		} finally {
+			if (session != null) {
+				session.close();
+			}
+		    log.info("Processing Head complete: {}", request.getQueryString());
+		}
 
-        ParameterMap pm = new ParameterValidation().preProcess(request, parameterHandler);
-
-        if (pm.isValid()) {
-            addCountHeader(pm, response);
-        } else {
-            writeWarningHeaders(response, pm.getValidationMessages(), SchemaRoot.WQX.getEmptyDocument());
-        }
-        log.info("Processing Head complete:" + request.getQueryString());
     }
 	
+    
+    private SCManager doHeader(HttpServletRequest request, HttpServletResponse response) {
+        response.setCharacterEncoding(DEFAULT_ENCODING);
+        ParameterMap pm = new ParameterValidation().preProcess(request, parameterHandler);
+
+        if ( ! pm.isValid() ) {
+            HttpUtils httpUtils = new HttpUtils();
+        	httpUtils.writeWarningHeaders(response, pm.getValidationMessages(), WQX_EMPTY_DOC);
+	        log.info("Processing Head invalid params end:{}", request.getQueryString());
+        	return null;
+        }
+        
+		SCManager session = SCManager.open();
+		HeaderWorker header = new HeaderWorker(response, StationDao.COUNT_QUERY_ID, pm);
+		header.setCountDao((ICountDao)stationDao);
+		String stationCount = session.addWorker("StationCount", header);
+		session.send(stationCount, Control.Start);
+
+		session.waitForComplete(stationCount, Time.SECOND.asMS());
+		return session;
+	}
+    
+    
     /**
      * station search request
      */
 	@RequestMapping(value=STATION_SEARCH_ENPOINT, method=RequestMethod.GET, produces=MIME_TYPE_TEXT_CSV)
-    @ResponseBody
+    @Async
     public void stationGetRequest(HttpServletRequest request, HttpServletResponse response) {
-        log.info("");        
-        log.info("Processing Get:" + request.getQueryString()); // TODO use SLF4J to avoid string concatenation inline       
-
-        response.setCharacterEncoding(DEFAULT_ENCODING);
+        log.trace(""); // blank line during trace       
+        log.info("Processing Get: {}", request.getQueryString()); // TODO use SLF4J to avoid string concatenation inline       
 
         ParameterMap pm = new ParameterValidation().preProcess(request, parameterHandler);
-        log.debug("pm.isValid:" + pm.isValid());
+        
+        SCManager session = null;
+		try {
+			session = doHeader(request, response);
+			
+			if (session != null) {
+				StationWorker station = new StationWorker(response, pm);
+				station.setStationDao(stationDao);
+				String stationName = session.addWorker("Station", station);				
+				session.send(stationName, Control.Start);
 
-        if (pm.isValid()) {
-        	// TODO pass the next two lines on to CDAT
-            response.addHeader(HEADER_CONTENT_TYPE, MIME_TYPE_TEXT_CSV); // TODO from request (pm)
-            int count = addCountHeader(pm, response);
-            response.setHeader("Content-Disposition","attachment; filename=stations.csv");
-//            response.setContentLength(11*1024);
-
-            if (count > 0 && count<1000) { // Only grab the data if there is some. TODO eventually parallel cDAT workers
-                try {
-                	log.trace("fetching station data with streaming handler - started");
-                	// TODO pass the next two lines on to CDAT
-                    ResultHandler handler = new MapResultHandler(response.getOutputStream(), CharacterSeparatedValue.CSV);
-                    stationDao.stream(pm.getQueryParameters(), handler);
-                    
-                	log.trace("fetching station data with streaming handler - finished");
-                    
-                } catch (Exception e) {
-                    log.warn(e.getMessage());
-                    handleException(response, e, SchemaRoot.WQX.getEmptyDocument());
-                }
-            } else {
-                writeEmptyDocument(response, SchemaRoot.WQX.getEmptyDocument());
-            }
-        } else {
-            writeWarningHeaders(response, pm.getValidationMessages(), SchemaRoot.WQX.getEmptyDocument());
-        }
-        log.info("Processing Get complete:" + request.getQueryString());
-    }
-	
-	
-	
-	
-	
-	
-	/*
-	 * HELPER METHODS THAT COULD LIVE IN HELPER CLASSES
-	 */
-	
-	
-    // TODO this could be generalized as it was in SWSF
-    protected int addCountHeader(ParameterMap pm, HttpServletResponse response) {
-//        String count = rowCountDao.retrieveRowCount(sqlmapName, pm.getQueryParameters());
-    	Integer count = stationDao.getCount(pm.getQueryParameters());
-        log.trace("station count : " + count);
-        response.addHeader(HEADER_SITE_COUNT, count.toString());
-        return count;
-    }
-    
-    protected void handleException(HttpServletResponse response, final Exception e, final String emptyXmlDoc) {
-        int refNbr = e.hashCode();
-        response.setStatus(HttpStatus.BAD_REQUEST.value());
-        writeEmptyDocument(response, emptyXmlDoc);
-        response.addHeader(HEADER_WARNING, new WarningHeader(null, "Unexpected Error:" + refNbr, null).toString());
-        log.info(refNbr + e.getMessage());
+				session.waitForComplete(stationName, Time.SECOND.asMS());				
+			}
+		} catch (Exception e) {
+			log.error("Error openging outputstream",e);
+		} finally {
+			if (session != null) {
+				session.close();
+			}
+	        log.info("Processing Get complete: {}", request.getQueryString());
+		}
     }
 
-    protected void writeWarningHeaders(final HttpServletResponse response, final Map<String, List<String>> validationMessages,
-            final String emptyXmlDoc) {
-        response.setStatus(HttpStatus.BAD_REQUEST.value());
-//        writeEmptyDocument(response, emptyXmlDoc);
-        for (List<String> msgs : validationMessages.values()) {
-            for (String msg : msgs) {
-                response.addHeader(HEADER_WARNING, new WarningHeader(null, msg, null).toString());
-            }
-        }
-    }
-    
-    protected void writeEmptyDocument(final HttpServletResponse response, final String emptyXmlDoc) {
-        try {
-            response.getWriter().write(emptyXmlDoc);
-        } catch (Exception e) {
-            log.info("Tried to write empty document but couldn't", e);
-        }
-    }
 }

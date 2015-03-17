@@ -41,6 +41,49 @@ public class HashMapParameterHandlerTest extends BaseSpringTest {
         assertTrue(pm.isValid());
     }
     @Test
+    public void testValidateParameterGroups_userSetOf4_valid() {
+        Set<Parameters> userParameterSet = new HashSet<Parameters>();
+        userParameterSet.add(Parameters.COUNTY);
+        userParameterSet.add(Parameters.MIMETYPE);
+        userParameterSet.add(Parameters.COUNTRY);
+        userParameterSet.add(Parameters.STATE);
+        
+    	try { 
+	        HashMapParameterHandler.GROUP_LIST.add(userParameterSet);
+	
+	        ParameterMap pm = handler.validateParameterGroups(userParameterSet);
+	        assertTrue(pm.isValid());
+    	} finally {
+	        HashMapParameterHandler.GROUP_LIST.remove(userParameterSet);
+    	}
+    }
+    @Test
+    public void testValidateParameterGroups_userSetOf4_invalid() {
+        Set<Parameters> parameterGroup = new HashSet<Parameters>();
+        parameterGroup.add(Parameters.COUNTY);
+        parameterGroup.add(Parameters.MIMETYPE);
+        parameterGroup.add(Parameters.COUNTRY);
+        parameterGroup.add(Parameters.STATE);
+        
+        Set<Parameters> userParameterSet = new HashSet<Parameters>();
+        userParameterSet.add(Parameters.COUNTY);
+        userParameterSet.add(Parameters.COUNTRY);
+        userParameterSet.add(Parameters.STATE);
+        
+    	try { 
+	        HashMapParameterHandler.GROUP_LIST.add(parameterGroup);
+	        ParameterMap pm = handler.validateParameterGroups(userParameterSet);
+	        assertFalse(pm.isValid());
+	        assertEquals(1, pm.getValidationMessages().size());
+	        assertTrue(pm.getValidationMessages().containsKey("Group"));
+	        List<String> vm = pm.getValidationMessages().get("Group");
+	        assertEquals(1, vm.size());
+	        assertEquals("Parameter(s) 'countrycode', 'countycode' and 'statecode' require(s) 'mimeType'", vm.get(0));
+    	} finally {
+	        HashMapParameterHandler.GROUP_LIST.remove(parameterGroup);
+    	}
+    }
+    @Test
     public void testValidateParameterGroups_withinParam() {
         Set<Parameters> userParameterSet = new HashSet<Parameters>();    
         userParameterSet.add(Parameters.WITHIN);

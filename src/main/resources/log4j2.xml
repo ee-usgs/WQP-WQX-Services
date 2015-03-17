@@ -1,7 +1,23 @@
-# Define the root logger with appender file
-log = ./
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+  <Appenders>
+    <Console name="Console" target="SYSTEM_OUT">
+      <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+    </Console>
+  </Appenders>
+  <Loggers>
+  	<Logger name="gov" level="TRACE"/>
+    <Root level="error">
+      <AppenderRef ref="Console"/>
+    </Root>
+  </Loggers>
+</Configuration>
 
-# Root logger option
+
+<!-- 
+  	<Logger name="org.mybatis" level="INFO"/>
+  	<Logger name="org.apache.ibatis" level="INFO"/>
+
 log4j.rootLogger=INFO, file, stdout
 
 log4j.logger.gov=TRACE
@@ -21,3 +37,4 @@ log4j.appender.stdout=org.apache.log4j.ConsoleAppender
 log4j.appender.stdout.Target=System.out
 log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
 log4j.appender.stdout.layout.ConversionPattern=%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n
+ -->

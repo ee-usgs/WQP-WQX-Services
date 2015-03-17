@@ -3,16 +3,19 @@ package gov.usgs.cida.wqp.parameter;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public enum Parameters {
     ANALYTICAL_METHOD("analyticalmethod"),
     SITEID("siteid"),
     START_DATE_HI("startDateHi"),
     START_DATE_LO("startDateLo"),
-    //activityId and pCode are nwis only
+    
+    //activityId and pCode are NWIS only
     ACTIVITY_ID("activityId"),
     PCODE("pCode"),
+    
     CHARACTERISTIC_NAME("characteristicName"),
     CHARACTERISTIC_TYPE("characteristicType"),
     SAMPLE_MEDIA("sampleMedia"),
@@ -35,23 +38,23 @@ public enum Parameters {
     AVOID("command.avoid"),
     TIMEZONE_TYPE("timezoneType");
 
-	private final Logger log = Logger.getLogger(getClass());
+	private final Logger log = LoggerFactory.getLogger(getClass());
 	
     private final String parameterName;
     private static Map<String, Parameters> validParameterNames;
     
     private Parameters(String value) {
-        log.trace(getClass());
+        log.trace(getClass().getName());
         parameterName = value;
         putParameterName(value, this);        
     }
     
-    private static void putParameterName(String valueIn, Parameters param) {
-        if (valueIn == null || getValidParameterNames().containsKey(valueIn)) {
-            //This is a configuration error and can only happen if you duplicate values above...
-            throw new IllegalStateException("overloaded parameter value: " +  valueIn +", please verify the enum definition for Parameters");
+    private static void putParameterName(String value, Parameters param) {
+        if (value == null || getValidParameterNames().containsKey(value)) {
+            //This is a configuration error and can only happen if you duplicate values above...not unit testable
+            throw new IllegalStateException("overloaded parameter value: " +  value +", please verify the enum definition for Parameters");
         } else {
-            getValidParameterNames().put(valueIn, param);
+            getValidParameterNames().put(value, param);
         }
     }
     
