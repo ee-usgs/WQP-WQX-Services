@@ -5,15 +5,11 @@ import gov.usgs.cida.wqp.util.CharacterSeparatedValue;
 import java.io.Closeable;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.apache.ibatis.session.ResultContext;
 import org.apache.ibatis.session.ResultHandler;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,15 +19,13 @@ public class MapResultHandler implements ResultHandler, Closeable {
 
 	private final CharacterSeparatedValue transformer; // TODO need to generalize
 	private final OutputStream stream;  // TODO will use StreamContainer later
-	private final ThreadLocal<List<String>> headers;
-	
+	private boolean doHeaders = true;
 	
 	public MapResultHandler(OutputStream consumer, CharacterSeparatedValue transformer) {
 		log.trace("streaming handler constructed");
 		
 		this.transformer = transformer;
 		this.stream = consumer;
-		this.headers = new ThreadLocal<List<String>>();
 	}
 	
 	
@@ -45,9 +39,9 @@ public class MapResultHandler implements ResultHandler, Closeable {
 			Map<String,Object> entry = (Map<String,Object>) context.getResultObject();
 			log.trace("streaming handle result : {}", (entry==null ?"null" :"entry"));
 			
-			if ( ! hasHeader() ) {
+			if (doHeaders) {
 				log.trace("streaming handle result : preheader");
-				doHeader( entry.keySet() );
+				doHeader(entry);
 				log.trace("streaming handle result : postheader");
 			}
 			
@@ -59,16 +53,16 @@ public class MapResultHandler implements ResultHandler, Closeable {
 	}
 	
 	
-	private void write(Map<String, ? extends Object> values) {
-		log.trace("need entry: {}", values);
+	private void write(Map<String, Object> entry) {
+		log.trace("need entry: {}", entry);
 
 		try {
 			String sep = "";
-			for (String column : headers.get()) {
+			for (Map.Entry<String,Object> column : entry.entrySet()) {
 				stream.write(sep.getBytes());
 				String initialValue = "";
-				if ( null != values.get(column) ) {
-					initialValue = values.get(column).toString();
+				if ( null != column.getValue() ) {
+					initialValue = column.getValue().toString();
 				}
 				String writeValue = transformer.encode(initialValue);
 				stream.write( writeValue.getBytes() );
@@ -81,24 +75,18 @@ public class MapResultHandler implements ResultHandler, Closeable {
 	}
 	
 	
-	private void doHeader(Collection<String> columns) {
-		headers.set( new ArrayList<String>(columns) );
-		log.trace("need headers: {}", headers.get());
-		
+	private void doHeader(Map<String,Object> headerEntry) {
+		doHeaders = false;
 		// this makes the Java DRY
-		Map<String,	String> headerMap = new HashMap<String, String>();
-		for (String column : headers.get()) {
-			headerMap.put(column, column);
+		Map<String,	Object> headerMap = new LinkedHashMap<String, Object>();
+		for (Map.Entry<String,Object> column : headerEntry.entrySet()) {
+			headerMap.put(column.getKey(), column.getKey());
 		}
 		
 		write(headerMap);
 	}
 
 	
-	private boolean hasHeader() {
-		return headers.get() != null;
-	}
-
 	
 	@Override
 	public void close() throws IOException {

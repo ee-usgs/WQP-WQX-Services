@@ -1,16 +1,13 @@
 package gov.usgs.cida.wqp.station.dao;
 
-import gov.usgs.cida.wqp.station.SimpleStation;
 
 import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.SqlSessionFactory;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 
 public class StationDao extends SqlSessionDaoSupport implements IStationDao, ICountDao {
@@ -22,12 +19,6 @@ public class StationDao extends SqlSessionDaoSupport implements IStationDao, ICo
         log.trace(getClass().getName());
 		setSqlSessionFactory(sqlSessionFactory);
 	}
-    
-    
-    @Override
-    public List<SimpleStation> get(Map<String, Object> parameterMap) {
-        return getSqlSession().selectList("simpleStationsSelect", parameterMap);
-    }
     
     @Override
     public List<Map<String,Object>> getMapList(Map<String, Object> parameterMap) {
@@ -45,12 +36,12 @@ public class StationDao extends SqlSessionDaoSupport implements IStationDao, ICo
     }
     
     @Override
-    public int getCount(Map<String, Object> parameterMap) {
-        return getCount(COUNT_QUERY_ID, parameterMap);
+    public List<Map<String, Object>> getCounts(Map<String, Object> parameterMap) {
+        return getCounts(COUNT_QUERY_ID, parameterMap);
     }
     
     @Override
-    public int getCount(String queryId, Map<String, Object> parameterMap) {
-        return getSqlSession().selectOne(queryId, parameterMap);
+    public List<Map<String, Object>> getCounts(String queryId, Map<String, Object> parameterMap) {
+        return getSqlSession().selectList(queryId, parameterMap);
     }
 }

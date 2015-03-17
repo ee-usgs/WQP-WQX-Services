@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.http.HttpStatus;
 
 
@@ -39,11 +38,41 @@ public class HttpUtils implements HttpConstants {
     }
 
     
-    public int addCountHeader(HttpServletResponse response, Integer count) {
-    	String countStr = count==null ?"none" :count.toString();
-        log.trace("station count : {}", count);
-        response.addHeader(HEADER_SITE_COUNT, countStr);
-        return count;
+    public int addCountHeader(HttpServletResponse response, List<Map<String, Object>> counts) {
+    	if (counts == null || counts.isEmpty()) {
+            response.addHeader(HEADER_TOTAL_SITE_COUNT, "0");
+            return 0;
+    	}
+        log.trace("station counts : {}", counts);
+        
+        int total = -1;
+        for (Map<String, Object> count : counts) {
+            log.trace("station count : {}", count);
+        	
+        	Object entries  = count.get(MybatisConstants.ENTRIES);
+        	entries = entries==null ?"0" :entries;
+        	
+        	Object site = count.get(MybatisConstants.DATA_SOURCE);
+        	if (site==null) {
+        		site = HEADER_TOTAL_SITE_COUNT;
+        		try {
+        			total = Integer.parseInt(entries.toString());
+        		} catch(Exception e) {
+        			total = 0;
+        		}
+        	} else {
+        		site = site+HEADER_DELIMITER+HEADER_SITE_COUNT;
+        	}
+        	
+            log.trace("station count header : {},{}", site,entries);
+        	response.addHeader(site.toString(), entries.toString());
+        }        
+        if (total == -1) {
+            response.addHeader(HEADER_TOTAL_SITE_COUNT, "0");
+            total = 0;
+        	
+        }
+        return total;
     }
     
     public void handleException(HttpServletResponse response, String document, Exception e) {
@@ -51,7 +80,7 @@ public class HttpUtils implements HttpConstants {
         response.setStatus(HttpStatus.BAD_REQUEST.value());
         writeDocument(response, document);
         response.addHeader(HEADER_WARNING, warningHeader(null, "Unexpected Error:" + refNbr, null));
-        log.info("{} {}", refNbr, e.getMessage());
+        log.error("{} {}", refNbr, e.getMessage());
     }
 
     public void writeWarningHeaders(HttpServletResponse response, Map<String, List<String>> validationMessages, String document) {
@@ -68,7 +97,7 @@ public class HttpUtils implements HttpConstants {
         try {
             response.getWriter().write(document);
         } catch (Exception e) {
-            log.info("Tried to write empty document but couldn't", e);
+            log.error("Tried to write empty document but couldn't", e);
         }
     }
     

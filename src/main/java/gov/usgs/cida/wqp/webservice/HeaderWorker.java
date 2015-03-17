@@ -8,11 +8,13 @@ import gov.usgs.cida.wqp.station.dao.ICountDao;
 import gov.usgs.cida.wqp.util.HttpConstants;
 import gov.usgs.cida.wqp.util.HttpUtils;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class HeaderWorker extends Worker implements HttpConstants {
@@ -23,7 +25,7 @@ public class HeaderWorker extends Worker implements HttpConstants {
 	private final ParameterMap parameters;
     private final HttpUtils httpUtils = new HttpUtils();
 
-	private int count;
+	private List<Map<String, Object>> counts;
 	
 	@Autowired
 	private ICountDao countDao;
@@ -49,7 +51,7 @@ public class HeaderWorker extends Worker implements HttpConstants {
 	@Override
 	public boolean process() throws CdatException {
 		log.trace("station count");
-		count = countDao.getCount(countQueryId, parameters.getQueryParameters());
+		counts = countDao.getCounts(countQueryId, parameters.getQueryParameters());
 		return false;
 	}
 	
@@ -58,8 +60,8 @@ public class HeaderWorker extends Worker implements HttpConstants {
 		log.trace("station header start");
         response.setCharacterEncoding(DEFAULT_ENCODING);
         response.addHeader(HEADER_CONTENT_TYPE, MIME_TYPE_TEXT_CSV); // TODO from request (pm)
-        httpUtils.addCountHeader(response, count);
-        response.setHeader("Content-Disposition","attachment; filename=stations.csv");
+        httpUtils.addCountHeader(response, counts);
+        response.setHeader("Content-Disposition","attachment; filename=station.csv"); // TODO this will be based on request format
 //        response.setContentLength(11*1024); // TODO this would be nice if possible to determine
 		log.trace("station header finish");
 	}
