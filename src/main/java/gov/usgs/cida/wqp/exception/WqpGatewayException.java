@@ -1,19 +1,25 @@
 package gov.usgs.cida.wqp.exception;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-public class WQPGatewayException extends Exception {
+
+public class WqpGatewayException extends Exception {
+	
 	private final Logger log = LoggerFactory.getLogger(getClass());
 	private static final long serialVersionUID = 126269528002852327L;
-	private final WQPGatewayExceptionID exceptionid;    // uniquely generated id for this exception
+	private final WqpGatewayExceptionId exceptionid;    // uniquely generated id for this exception
 	private final String classname;                     // the name of the class that threw the exception
 	private final String method;                        // the name of the method that threw the exception
 	private final String message;                       // a detailed message
-	private WQPGatewayException previous = null;        // the exception which was caught
+	private WqpGatewayException previous = null;        // the exception which was caught
 	private String delimeter = "\n";                    // line separator
-	public WQPGatewayException(final WQPGatewayExceptionID id, final String classname, final String method, final String message) {
+	
+	public WqpGatewayException(final WqpGatewayExceptionId id, final Class<?> clazz, final String method, final String message) {
+		this(id, clazz.getName(), method, message, null);
+	}
+	public WqpGatewayException(final WqpGatewayExceptionId id, final String classname, final String method, final String message) {
 		this(id, classname, method, message, null);
 	}
-	public WQPGatewayException(final WQPGatewayExceptionID id, final String classname, final String method, final String message, final WQPGatewayException previous) {
+	public WqpGatewayException(final WqpGatewayExceptionId id, final String classname, final String method, final String message, final WqpGatewayException previous) {
 		log.trace(getClass().getName());
 		this.exceptionid = id;
 		this.classname   = classname;
@@ -27,7 +33,7 @@ public class WQPGatewayException extends Exception {
 	public String traceBack(final String sep) {
 		this.delimeter = sep;
 		int level = 0;
-		WQPGatewayException e = this;
+		WqpGatewayException e = this;
 		final StringBuffer text = new StringBuffer(line("WQPGatewayException Trace: Calling sequence (top to bottom)"));
 		while (e != null) {
 			level++;
@@ -51,7 +57,7 @@ public class WQPGatewayException extends Exception {
 	public String toString() {
 		return this.traceBack();
 	}
-	public WQPGatewayExceptionID getExceptionid() {
+	public WqpGatewayExceptionId getExceptionid() {
 		return this.exceptionid;
 	}
 	public String getClassname() {
@@ -60,7 +66,7 @@ public class WQPGatewayException extends Exception {
 	public String getMethod() {
 		return this.method;
 	}
-	public WQPGatewayException getPrevious() {
+	public WqpGatewayException getPrevious() {
 		return this.previous;
 	}
 	public String getMessageOnly() {
