@@ -1,15 +1,11 @@
 package gov.usgs.cida.wqp.util;
-
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 public abstract class XmlUtils {
 	public static String nonQnameSeparators = "[()/@]";
 	public static String nonQnameChars = "[^-_.:0-9A-Za-z]";
 	public static String allNonQnameChars = nonQnameSeparators + nonQnameChars;
 	public static String nonQnameReplacements = "[()/@]" + "[^-_.:0-9A-Za-z]";
-	
 	public static Pattern replaceNonQnameSeparators = Pattern.compile(nonQnameSeparators);
 	public static Pattern removeNonQname = Pattern.compile(nonQnameChars);
 	public static Pattern removeLeftAngleBracket = Pattern.compile("<");
@@ -19,7 +15,7 @@ public abstract class XmlUtils {
 	 * Performs a quick, possibly incomplete removal or replacement of illegal
 	 * characters in an element name. ".", "-", and "_" are legal in a name, and
 	 * ":" is part of a namespace
-	 * 
+	 *
 	 * @param aName
 	 * @return
 	 */
@@ -30,11 +26,10 @@ public abstract class XmlUtils {
 		}
 		return aName;
 	}
-	
 	/**
 	 * Removes or replaces illegal characters in an element name. ".", "-", and
 	 * "_" are legal in a name, and ":" is part of a namespace
-	 * 
+	 *
 	 * @param aName
 	 * @return
 	 */
@@ -43,7 +38,6 @@ public abstract class XmlUtils {
 		matcher = removeNonQname.matcher(matcher.replaceAll("_"));
 		return matcher.replaceAll("");
 	}
-	
 	public static String escapeAngleBrackets(String aString) {
 		if (aString.indexOf('<') >= 0) {
 			aString = removeLeftAngleBracket.matcher(aString).replaceAll("&lt;");
@@ -53,10 +47,9 @@ public abstract class XmlUtils {
 		}
 		return aString;
 	}
-	
 	public static String quickTagContentEscape(String aString) {
-		if (aString.indexOf('&') >= 0 
-				&& aString.indexOf("&amp;") < 0 
+		if (aString.indexOf('&') >= 0
+				&& aString.indexOf("&amp;") < 0
 				&& aString.indexOf("&quot;") < 0
 				&& aString.indexOf("&lt;") < 0
 				&& aString.indexOf("&gt;") < 0
@@ -65,7 +58,6 @@ public abstract class XmlUtils {
 		}
 		return escapeAngleBrackets(aString);
 	}
-	
 	public static final Pattern lessThan= Pattern.compile("&lt;");
 	public static final Pattern greaterThan= Pattern.compile("&gt;");
 	public static final Pattern quote= Pattern.compile("&quot;");
@@ -93,5 +85,4 @@ public abstract class XmlUtils {
 		}
 		return aString;
 	}
-
 }
