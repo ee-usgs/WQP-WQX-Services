@@ -4,7 +4,7 @@ import gov.usgs.cida.wqp.validation.ValidationResult;
  *
  * @author duselman
  */
-public class NoopTransformer implements Transformer<String> {
+public class NoopTransformer implements ParameterTransformer<String> {
 	public String transform(String value) {
 		return value;
 	}

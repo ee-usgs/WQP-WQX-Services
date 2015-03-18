@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author tkunicki
  */
-public class SplitTransformer implements Transformer<String[]>, ValidationConstants {
+public class SplitTransformer implements ParameterTransformer<String[]>, ValidationConstants {
 	private final Logger log = LoggerFactory.getLogger(getClass());
 	private final Pattern splitPattern;
 	private final String delimiter;

@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author tkunicki
  */
-public class SplitDoubleTransformer implements Transformer<double[]>, ValidationConstants {
+public class SplitDoubleTransformer implements ParameterTransformer<double[]>, ValidationConstants {
 	private final Logger log = LoggerFactory.getLogger(getClass());
 	private SplitTransformer splitter;
 	private ValidationResult<double[]> vr;

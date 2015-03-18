@@ -3,7 +3,7 @@ import gov.usgs.cida.wqp.parameter.HashMapParameterHandler;
 import gov.usgs.cida.wqp.parameter.Parameters;
 import gov.usgs.cida.wqp.parameter.transform.SplitAndRegexGroupTransformer;
 import gov.usgs.cida.wqp.parameter.transform.SplitAndReplaceTransformer;
-import gov.usgs.cida.wqp.parameter.transform.Transformer;
+import gov.usgs.cida.wqp.parameter.transform.ParameterTransformer;
 import gov.usgs.cida.wqp.station.dao.ICountDao;
 import gov.usgs.cida.wqp.station.dao.IStationDao;
 import gov.usgs.cida.wqp.station.dao.StationDao;
@@ -67,17 +67,17 @@ public class SpringConfig extends WebMvcConfigurerAdapter implements HttpConstan
 		VALIDATOR_MAP.put(Parameters.COUNTRY, new RegexValidator<String[]>(Parameters.COUNTRY,REGEX_FIPS_COUNTRY));
 		// country:state code string
 		AbstractValidator<String[][]> stateValidator = new RegexValidator<String[][]>(Parameters.STATE,REGEX_FIPS_STATE);
-		Transformer<String[][]> stateTransformer  = new SplitAndRegexGroupTransformer(DEFAULT_DELIMITER,REGEX_FIPS_STATE);
+		ParameterTransformer<String[][]> stateTransformer  = new SplitAndRegexGroupTransformer(DEFAULT_DELIMITER,REGEX_FIPS_STATE);
 		stateValidator.setTransformer(stateTransformer);
 		VALIDATOR_MAP.put(Parameters.STATE, stateValidator);
 		// country:state:county code string
 		AbstractValidator<String[][]> countyValidator = new RegexValidator<String[][]>(Parameters.COUNTY,REGEX_FIPS_COUNTY);
-		Transformer<String[][]> countyTransformer = new SplitAndRegexGroupTransformer(DEFAULT_DELIMITER,REGEX_FIPS_COUNTY);
+		ParameterTransformer<String[][]> countyTransformer = new SplitAndRegexGroupTransformer(DEFAULT_DELIMITER,REGEX_FIPS_COUNTY);
 		countyValidator.setTransformer(countyTransformer);
 		VALIDATOR_MAP.put(Parameters.COUNTY, countyValidator);
 		// semicolon list of 8digit HUC codes
 		AbstractValidator<String[]> hucValidator = new RegexValidator<String[]>(Parameters.HUC,REGEX_HUC);
-		Transformer<String[]> hucTransformer = new SplitAndReplaceTransformer(DEFAULT_DELIMITER, REGEX_HUC_WILDCARD_IN, REGEX_HUC_WILDCARD_OUT);
+		ParameterTransformer<String[]> hucTransformer = new SplitAndReplaceTransformer(DEFAULT_DELIMITER, REGEX_HUC_WILDCARD_IN, REGEX_HUC_WILDCARD_OUT);
 		hucValidator.setTransformer(hucTransformer);
 		VALIDATOR_MAP.put(Parameters.HUC, hucValidator);
 		// semicolon list of 5digit pCodes

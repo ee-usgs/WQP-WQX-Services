@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author tkunicki
  */
-public class SplitAndRegexGroupTransformer implements Transformer<String[][]> {
+public class SplitAndRegexGroupTransformer implements ParameterTransformer<String[][]> {
 	private final Logger log = LoggerFactory.getLogger(getClass());
 	private final Pattern regexPattern;
 	private final SplitTransformer splitter;
