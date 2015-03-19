@@ -116,13 +116,13 @@
          *** result maps
          ********************************************************************************************************************** -->
  
-    <resultMap id="station" type="Station">
+    <resultMap id="station" type="LinkedHashMap">
         <id property="id" column="station_id"/>
         <!--  result property="details" column="station_clob" / -->
     </resultMap>
 
 
-    <resultMap id="simplestation" type="SimpleStation">
+    <resultMap id="simplestation" type="LinkedHashMap">
         <id property="id" column="station_id"/>
         <result property="primarySiteType" column="site_type"/>
         <result property="latitude" column="latitude"/>

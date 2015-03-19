@@ -2,7 +2,7 @@ package gov.usgs.cida.wqp.validation;
 import gov.usgs.cida.wqp.parameter.Parameters;
 import gov.usgs.cida.wqp.parameter.transform.NoopTransformer;
 import gov.usgs.cida.wqp.parameter.transform.SplitTransformer;
-import gov.usgs.cida.wqp.parameter.transform.Transformer;
+import gov.usgs.cida.wqp.parameter.transform.ParameterTransformer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 /**
@@ -21,8 +21,8 @@ public abstract class AbstractValidator<T> implements ValidationConstants {
 	protected final int minOccurs;
 	protected final int maxOccurs;
 	protected final String delimiter;
-	protected Transformer<T> transformer;
-	public void setTransformer(Transformer<T> transformer) {
+	protected ParameterTransformer<T> transformer;
+	public void setTransformer(ParameterTransformer<T> transformer) {
 		this.transformer = transformer;
 	}
 	protected AbstractValidator(Parameters inParameter) {
@@ -51,9 +51,9 @@ public abstract class AbstractValidator<T> implements ValidationConstants {
 			throw new IllegalArgumentException("delimiter must be defined if maxOccurs > minOccurs.");
 		}
 		if (delimiter == null || delimiter.length() == 0) {
-			setTransformer( (Transformer<T>) new NoopTransformer() ); // default noop transformer
+			setTransformer( (ParameterTransformer<T>) new NoopTransformer() ); // default noop transformer
 		} else {
-			setTransformer( (Transformer<T>) new SplitTransformer(delimiter)); // default splitting transformer
+			setTransformer( (ParameterTransformer<T>) new SplitTransformer(delimiter)); // default splitting transformer
 		}
 	}
 	public int getMinOccurs() {

@@ -1,9 +1,14 @@
 package gov.usgs.cida.wqp.springinit;
+import gov.usgs.cida.wqp.util.WqpConfig;
+import gov.usgs.cida.wqp.util.WqpConfigConstants;
+
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration.Dynamic;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
@@ -18,6 +23,11 @@ public class SpringInitializer implements WebApplicationInitializer {
 	 *  gets invoked automatically when application context loads
 	 */
 	public void onStartup(ServletContext servletContext) throws ServletException {
+
+		// TODO placeholder until we have the env properties loading
+		WqpConfig.set(WqpConfigConstants.CODES_URL, "http://cida-eros-wqpdev.er.usgs.gov:8082/qw_portal_services/codes/");
+		
+		
 		log.error("Logging Enabled");
 		log.warn("Logging Enabled");
 		log.info("Logging Enabled");
@@ -25,14 +35,7 @@ public class SpringInitializer implements WebApplicationInitializer {
 		log.trace("Logging Enabled");
 		AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();
 		ctx.register(SpringConfig.class);
-//		ctx.register(MyBatisConfig.class);
-		// Add the servlet mapping manually and make it initialize automatically
-		// 		Need to include the following for class Dynamic
-		//			<dependency>
-		//				<groupId>javax.servlet</groupId>
-		//				<artifactId>javax.servlet-api</artifactId>
-		//				<version>3.1.0</version>
-		//			</dependency>
+//		ctx.register(MyBatisConfig.class) // TODO it would be nice to have individual configurations
 		Dynamic servlet = servletContext.addServlet("springDispatcher", new DispatcherServlet(ctx));
 		servlet.addMapping("/");
 		servlet.setAsyncSupported(true);

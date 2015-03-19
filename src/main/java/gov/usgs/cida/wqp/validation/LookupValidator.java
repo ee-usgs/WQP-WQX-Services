@@ -1,6 +1,8 @@
 package gov.usgs.cida.wqp.validation;
+import gov.usgs.cida.wqp.exception.WqpGatewayException;
 import gov.usgs.cida.wqp.parameter.Parameters;
 import gov.usgs.cida.wqp.service.CodesService;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 /**
@@ -28,10 +30,14 @@ public class LookupValidator extends AbstractValidator<String[]> {
 			vr.getValidationMessages().add(getErrorMessage(value, IS_NOT_BETWEEN + getMinOccurs() + " and " + getMaxOccurs() + " occurences."));
 		}
 		for (String code : strings) {
-			String valid = codesService.fetch(parameter, code);
-			if ( ! code.equalsIgnoreCase(valid) ) {
+			try {
+				if ( ! codesService.validate(parameter, code) ) {
+					vr.setValid(false);
+					vr.getValidationMessages().add(getErrorMessage(code, "is not in the list of enumerated values"));
+				}
+			} catch (WqpGatewayException e) {
 				vr.setValid(false);
-				vr.getValidationMessages().add(getErrorMessage(code, "is not in the list of enumerated values"));
+				vr.getValidationMessages().add(getErrorMessage(code, "Server error: We cannot access the list of enumerated values to validate your parameter."));
 			}
 		}
 		vr.setTransformedValue(strings);

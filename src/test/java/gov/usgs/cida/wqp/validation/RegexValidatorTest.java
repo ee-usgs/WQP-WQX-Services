@@ -274,4 +274,19 @@ public class RegexValidatorTest extends BaseSpringTest implements ValidationCons
 		assertEquals("The value of statecode=US:55;CV must match the format (?:([A-Z]{2}):)?([0-9]{1,2})", vr.getValidationMessages().get(0));
 		assertArrayEquals(new String[]{"US:55;CV"}, (String[])vr.getRawValue());
 	}
+	@Test
+	public void testMimeType() {
+		AbstractValidator<?> validator = HashMapParameterHandler.getValidator(Parameters.MIMETYPE);
+		ValidationResult<?> vr = validator.validate("csv");
+		assertTrue(vr.isValid());
+	}
+	@Test
+	public void testMimeType_mismatch() {
+		AbstractValidator<?> validator = HashMapParameterHandler.getValidator(Parameters.MIMETYPE);
+		ValidationResult<?> vr = validator.validate("cvs"); // intentional typo
+		assertFalse(vr.isValid());
+		assertEquals(1, vr.getValidationMessages().size());
+		assertEquals("The value of mimeType=cvs must match the format csv|tsv|tab|xlsx|xml|kml|kmz", vr.getValidationMessages().get(0));
+		assertArrayEquals(new String[]{"cvs"}, (String[])vr.getRawValue());
+	}
 }
