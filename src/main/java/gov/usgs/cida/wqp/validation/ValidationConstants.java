@@ -1,5 +1,5 @@
 package gov.usgs.cida.wqp.validation;
-public interface ValidationConstants {
+public interface ValidationConstants { // TODO these should be defaults with WqpConfig and wqpgateway.properties overrides
 	public static final String DEFAULT_DELIMITER = ";";
 	public static final int UNBOUNDED = Integer.MAX_VALUE;
 	public static final int IN_CLAUSE_LIMIT = 1000;
@@ -15,7 +15,7 @@ public interface ValidationConstants {
 	public static final String REGEX_SITEID			= "[\\w]+\\-.+\\S";
 	public static final String REGEX_HUC			= "(?:[0-9]{8})|(?:[0-9]{2,7}\\*)";
 	public static final String REGEX_PCODE			= "[0-9]{5}";
-	public static final String REGEX_MIMETYPES		= "csv|tsv|xlsx|xml|kml"; // TODO refine
+	public static final String REGEX_MIMETYPES		= "csv|tsv|tab|xlsx|xml|kml|kmz"; // TODO refine
 	public static final String REGEX_PROVIDERS		= "NWIS|STORAT|STEWARDS"; // TODO refine
 	public static final String FORMAT_DATE			= "MM-dd-yyyy";
 	public static final String REGEX_ACTIVITY_ID	= ".+";
