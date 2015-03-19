@@ -1,9 +1,9 @@
 package gov.usgs.cida.wqp.springinit;
 import gov.usgs.cida.wqp.parameter.HashMapParameterHandler;
 import gov.usgs.cida.wqp.parameter.Parameters;
+import gov.usgs.cida.wqp.parameter.transform.ParameterTransformer;
 import gov.usgs.cida.wqp.parameter.transform.SplitAndRegexGroupTransformer;
 import gov.usgs.cida.wqp.parameter.transform.SplitAndReplaceTransformer;
-import gov.usgs.cida.wqp.parameter.transform.ParameterTransformer;
 import gov.usgs.cida.wqp.station.dao.ICountDao;
 import gov.usgs.cida.wqp.station.dao.IStationDao;
 import gov.usgs.cida.wqp.station.dao.StationDao;
@@ -19,12 +19,15 @@ import gov.usgs.cida.wqp.validation.LongitudeValidator;
 import gov.usgs.cida.wqp.validation.LookupValidator;
 import gov.usgs.cida.wqp.validation.RegexValidator;
 import gov.usgs.cida.wqp.validation.ValidationConstants;
+
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.sql.DataSource;
+
+import org.mybatis.spring.SqlSessionFactoryBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -64,8 +67,8 @@ public class SpringConfig extends WebMvcConfigurerAdapter implements HttpConstan
 		AbstractValidator<double[]> floatValidator = new BoundedFloatingPointValidator(Parameters.WITHIN,""+DEFAULT_MIN_OCCURS,""+UNBOUNDED);
 		VALIDATOR_MAP.put(Parameters.WITHIN, floatValidator);
 
-//		VALIDATOR_MAP.put(Parameters.ANALYTICAL_METHOD,
-//				new RegexValidator(REGEX_ANALYTICAL_METHOD).maxOccurs(IN_CLAUSE_LIMIT));
+		VALIDATOR_MAP.put(Parameters.ANALYTICAL_METHOD, new RegexValidator<String>(Parameters.ANALYTICAL_METHOD, REGEX_ANALYTICAL_METHOD));
+		
 		// one short country code string
 		VALIDATOR_MAP.put(Parameters.COUNTRY, new RegexValidator<String[]>(Parameters.COUNTRY,REGEX_FIPS_COUNTRY));
 		// country:state code string
