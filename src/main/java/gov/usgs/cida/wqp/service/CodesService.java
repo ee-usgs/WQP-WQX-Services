@@ -1,6 +1,7 @@
 package gov.usgs.cida.wqp.service;
 
 import static gov.usgs.cida.wqp.exception.WqpGatewayExceptionId.*;
+import gov.cida.cdat.exception.producer.FileNotFoundException;
 import gov.cida.cdat.io.Closer;
 import gov.cida.cdat.io.container.DataPipe;
 import gov.cida.cdat.io.container.SimpleStreamContainer;
@@ -34,6 +35,9 @@ public class CodesService implements WqpConfigConstants {
 		try {
 			pipe.open();
 			pipe.processAll();
+		} catch (FileNotFoundException e) {
+			// if the server responds with no file then the parameter returned no matches
+			return "";
 		} catch (Exception e) {
 			log.error("Cannot contact Codes Webservice at {}, exception to follow", WqpConfig.get(CODES_URL));
 			log.error("Cannot contact Codes Webservice: exception", e);
@@ -93,7 +97,7 @@ public class CodesService implements WqpConfigConstants {
 				throw new WqpGatewayException(UNDEFINED_WQP_CONFIG_PARAM, getClass(), "mokeCodesUrl", CODES_URL);
 			}
 			String mimeType = WqpConfig.get(CODES_MIME_TYPE, DEFAULT_MIME_TYPE);
-			String urlStr =  codesUrl +"/"+ codeType +"/"+ code + "?mimeType="+ mimeType;
+			String urlStr =  codesUrl +"/"+ codeType +"/"+ code + "?mimetype="+ mimeType;
 			url = new URL(urlStr);
 		} catch (MalformedURLException e) {
 			throw new WqpGatewayException(URL_PARSING_EXCEPTION, getClass(), "mokeCodesUrl",

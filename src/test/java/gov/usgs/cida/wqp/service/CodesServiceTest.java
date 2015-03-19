@@ -3,6 +3,7 @@ package gov.usgs.cida.wqp.service;
 import static gov.usgs.cida.wqp.exception.WqpGatewayExceptionId.*;
 import static org.junit.Assert.*;
 import gov.cida.cdat.exception.StreamInitException;
+import gov.cida.cdat.exception.producer.FileNotFoundException;
 import gov.cida.cdat.io.container.UrlStreamContainer;
 import gov.usgs.cida.wqp.TestUtils;
 import gov.usgs.cida.wqp.exception.WqpGatewayException;
@@ -70,7 +71,7 @@ public class CodesServiceTest implements WqpConfigConstants {
 		
 		URL actualUrl = new CodesService().makeCodesUrl(Parameters.PROVIDERS, "provider");
 		
-		String expectedUrl = baseUrl +"/"+ Parameters.PROVIDERS +"/provider?mimeType=json";
+		String expectedUrl = baseUrl +"/"+ Parameters.PROVIDERS +"/provider?mimetype=json";
 		
 		assertEquals(expectedUrl, actualUrl.toString());
 	}
@@ -87,7 +88,7 @@ public class CodesServiceTest implements WqpConfigConstants {
 			
 			URL actualUrl = new CodesService().makeCodesUrl(Parameters.PROVIDERS, "provider");
 			
-			String expectedUrl = baseUrl +"/"+ Parameters.PROVIDERS +"/provider?mimeType="+mimeType;
+			String expectedUrl = baseUrl +"/"+ Parameters.PROVIDERS +"/provider?mimetype="+mimeType;
 			
 			assertEquals(expectedUrl, actualUrl.toString());
 			
@@ -234,6 +235,29 @@ public class CodesServiceTest implements WqpConfigConstants {
 
 	
 	@Test
+	public void testFetch_testServer404() throws Exception {
+		// mock the url stream
+		String actual = new CodesService(){
+			@SuppressWarnings("unchecked")
+			protected UrlStreamContainer makeProvider(Parameters codeType, String code) throws WqpGatewayException {
+				UrlStreamContainer urlContainer = Mockito.mock(UrlStreamContainer.class);
+				try {
+					TestUtils.refectSetValue(urlContainer, "logger", logger);
+					Mockito.when(urlContainer.getName()).thenReturn("TestStream");
+					Mockito.when(urlContainer.open()).thenThrow(FileNotFoundException.class); // this is unchecked, why?
+				} catch (StreamInitException e) {
+					fail("Failed to mock url container open()");
+				}
+				
+				return urlContainer;
+			};
+		}.fetch(Parameters.PROVIDERS, "b");
+		
+		String expect = "";
+		assertEquals(expect,actual);
+	}
+	
+	@Test
 	public void testMakeProvider() throws Exception {
 		String baseUrl = "https://wqp.codes.usgs.gov/codes/";
 		WqpConfig.set(CODES_URL, baseUrl);
@@ -244,8 +268,24 @@ public class CodesServiceTest implements WqpConfigConstants {
 		assertNotNull("expect url instance", value);
 		
 		URL actualUrl = (URL)value;
-		String expectedUrl = baseUrl +"/"+ Parameters.PROVIDERS +"/provider?mimeType=json";
+		String expectedUrl = baseUrl +"/"+ Parameters.PROVIDERS +"/provider?mimetype=json";
 		assertEquals(expectedUrl, actualUrl.toString());
 	}
+	
+	
+	// integration test
+	public static void main(String[] args) throws Exception {
+		WqpConfig.set(CODES_URL, "http://cida-eros-wqpdev.er.usgs.gov:8082/qw_portal_services/codes/");
+		
+		String value = new CodesService().fetch(Parameters.PROVIDERS, "NWIS");
+		System.out.println(value);
+		
+		boolean valid = new CodesService().validate(Parameters.PROVIDERS, "NWIS");
+		System.out.println(valid);
+
+		boolean invalid = new CodesService().validate(Parameters.PROVIDERS, "SWIN");
+		System.out.println(invalid);
+	}
+	
 	
 }
