@@ -25,14 +25,7 @@ public class SpringInitializer implements WebApplicationInitializer {
 		log.trace("Logging Enabled");
 		AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();
 		ctx.register(SpringConfig.class);
-//		ctx.register(MyBatisConfig.class);
-		// Add the servlet mapping manually and make it initialize automatically
-		// 		Need to include the following for class Dynamic
-		//			<dependency>
-		//				<groupId>javax.servlet</groupId>
-		//				<artifactId>javax.servlet-api</artifactId>
-		//				<version>3.1.0</version>
-		//			</dependency>
+//		ctx.register(MyBatisConfig.class) // TODO it would be nice to have individual configurations
 		Dynamic servlet = servletContext.addServlet("springDispatcher", new DispatcherServlet(ctx));
 		servlet.addMapping("/");
 		servlet.setAsyncSupported(true);

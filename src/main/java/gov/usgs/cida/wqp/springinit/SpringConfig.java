@@ -46,10 +46,12 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @Configuration
 @ComponentScan(basePackages= {"gov.usgs.cida.wqp"})
 @EnableWebMvc
-@PropertySource(value = {"file:${catalina.base}/conf/wqpgateway.properties"})		// Unfortunately this is Tomcat specific.  For us its ok
+@PropertySource(value = {"file:${catalina.base}/conf/wqpgateway.properties"})
 public class SpringConfig extends WebMvcConfigurerAdapter implements HttpConstants, MybatisConstants, ValidationConstants  {
 	private final Logger log = LoggerFactory.getLogger(getClass());
+	
 	static final Map<Parameters, AbstractValidator<?>> VALIDATOR_MAP = new HashMap<Parameters, AbstractValidator<?>>();
+
 	static {
 		// one float value
 		VALIDATOR_MAP.put(Parameters.LATITUDE, new LatitudeValidator(Parameters.LATITUDE));
@@ -58,9 +60,10 @@ public class SpringConfig extends WebMvcConfigurerAdapter implements HttpConstan
 		// comma list of four float values
 		VALIDATOR_MAP.put(Parameters.BBOX, new LatLonBoundingBoxValidator(Parameters.BBOX));
 		// one float value
-		 // TODO seems silly to require a string
+		 // TODO seems silly to require a string for numerical values
 		AbstractValidator<double[]> floatValidator = new BoundedFloatingPointValidator(Parameters.WITHIN,""+DEFAULT_MIN_OCCURS,""+UNBOUNDED);
 		VALIDATOR_MAP.put(Parameters.WITHIN, floatValidator);
+
 //		VALIDATOR_MAP.put(Parameters.ANALYTICAL_METHOD,
 //				new RegexValidator(REGEX_ANALYTICAL_METHOD).maxOccurs(IN_CLAUSE_LIMIT));
 		// one short country code string
@@ -111,11 +114,13 @@ public class SpringConfig extends WebMvcConfigurerAdapter implements HttpConstan
 		VALIDATOR_MAP.put(Parameters.START_DATE_HI, new DateFormatValidator(Parameters.START_DATE_HI, FORMAT_DATE));
 		HashMapParameterHandler.setValidatorMap(VALIDATOR_MAP);
 	}
+	
 	@Autowired
 	private Environment environment;
 	public SpringConfig() {
 		log.trace(getClass().getName());
 	}
+	
 	@Bean
 	public SqlSessionFactoryBean sqlSessionFactory() {
 		SqlSessionFactoryBean mybatis = new SqlSessionFactoryBean();
@@ -125,14 +130,17 @@ public class SpringConfig extends WebMvcConfigurerAdapter implements HttpConstan
 		mybatis.setDataSource(ds);
 		return mybatis;
 	}
+	
 	@Bean
 	public IStationDao stationDao() throws Exception {
 		return new StationDao(sqlSessionFactory().getObject());
 	}
+	
 	@Bean
 	public ICountDao countDao() throws Exception {
 		return new StationDao(sqlSessionFactory().getObject());
 	}
+	
 	/**
 	 * Expose the resources (properties defined above) as an Environment to all
 	 * classes.  Must declare a class variable with:
@@ -144,6 +152,7 @@ public class SpringConfig extends WebMvcConfigurerAdapter implements HttpConstan
 	public static PropertySourcesPlaceholderConfigurer propertyPlaceHolderConfigurer() {
 		return new PropertySourcesPlaceholderConfigurer();
 	}
+
 	/**
 	 * Our resources
 	 */
@@ -151,6 +160,7 @@ public class SpringConfig extends WebMvcConfigurerAdapter implements HttpConstan
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/schema/**").addResourceLocations("/WEB-INF/classes/schema/");
 	}
+	
 	/**
 	 * The caveat of mapping DispatcherServlet to "/" is that by default it breaks the ability to serve
 	 * static resources like images and CSS files. To remedy this, I need to configure Spring MVC to
@@ -164,6 +174,7 @@ public class SpringConfig extends WebMvcConfigurerAdapter implements HttpConstan
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
 		configurer.enable();
 	}
+
 	@Bean
 	public InternalResourceViewResolver setupViewResolver() {
 		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
