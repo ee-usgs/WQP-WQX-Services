@@ -16,7 +16,7 @@ public interface ValidationConstants { // TODO these should be defaults with Wqp
 	public static final String REGEX_HUC			= "(?:[0-9]{8})|(?:[0-9]{2,7}\\*)";
 	public static final String REGEX_PCODE			= "[0-9]{5}";
 	public static final String REGEX_MIMETYPES		= "csv|tsv|tab|xlsx|xml|kml|kmz"; // TODO refine
-	public static final String REGEX_PROVIDERS		= "NWIS|STORAT|STEWARDS"; // TODO refine
+	public static final String REGEX_PROVIDERS		= "NWIS|STORET|STEWARDS"; // TODO refine
 	public static final String FORMAT_DATE			= "MM-dd-yyyy";
 	public static final String REGEX_ACTIVITY_ID	= ".+";
 	public static final String REGEX_ANALYTICAL_METHOD	= ".+";
