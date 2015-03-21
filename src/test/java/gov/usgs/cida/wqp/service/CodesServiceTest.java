@@ -1,13 +1,13 @@
 package gov.usgs.cida.wqp.service;
 
-import static gov.usgs.cida.wqp.exception.WqpGatewayExceptionId.*;
+import static gov.usgs.cida.wqp.exception.WqpExceptionId.*;
 import static org.junit.Assert.*;
 import gov.cida.cdat.exception.StreamInitException;
 import gov.cida.cdat.exception.producer.FileNotFoundException;
 import gov.cida.cdat.io.container.UrlStreamContainer;
 import gov.usgs.cida.wqp.BaseSpringTest;
 import gov.usgs.cida.wqp.TestUtils;
-import gov.usgs.cida.wqp.exception.WqpGatewayException;
+import gov.usgs.cida.wqp.exception.WqpException;
 import gov.usgs.cida.wqp.parameter.Parameters;
 import gov.usgs.cida.wqp.util.WqpEnv;
 import gov.usgs.cida.wqp.util.WqpEnvProperties;
@@ -31,7 +31,7 @@ public class CodesServiceTest extends BaseSpringTest implements WqpEnvProperties
 		try {
 			new CodesService().makeCodesUrl(null, "provider");
 			fail("should have thrown exception on null parameter");
-		} catch (WqpGatewayException e) {
+		} catch (WqpException e) {
 			assertEquals("Expect param exception", METHOD_PARAM_NULL, e.getExceptionid());
 		}
 	}
@@ -40,7 +40,7 @@ public class CodesServiceTest extends BaseSpringTest implements WqpEnvProperties
 		try {
 			new CodesService().makeCodesUrl(Parameters.PROVIDERS, null);
 			fail("should have thrown exception on null code");
-		} catch (WqpGatewayException e) {
+		} catch (WqpException e) {
 			assertEquals("Expect param exception", METHOD_PARAM_NULL, e.getExceptionid());
 		}
 	}
@@ -49,7 +49,7 @@ public class CodesServiceTest extends BaseSpringTest implements WqpEnvProperties
 		try {
 			new CodesService().makeCodesUrl(Parameters.PROVIDERS, "");
 			fail("should have thrown exception on empty string");
-		} catch (WqpGatewayException e) {
+		} catch (WqpException e) {
 			assertEquals("Expect param exception", METHOD_PARAM_EMPTY, e.getExceptionid());
 		}
 	}
@@ -60,7 +60,7 @@ public class CodesServiceTest extends BaseSpringTest implements WqpEnvProperties
 		try {
 			new CodesService().makeCodesUrl(Parameters.PROVIDERS, "provider");
 			fail("should have thrown exception when no codes url");
-		} catch (WqpGatewayException e) {
+		} catch (WqpException e) {
 			assertTrue("Expect config exception", e.getExceptionid() == UNDEFINED_WQP_CONFIG_PARAM);
 		}
 	}
@@ -110,7 +110,7 @@ public class CodesServiceTest extends BaseSpringTest implements WqpEnvProperties
 			URL actualUrl = new CodesService().makeCodesUrl(Parameters.PROVIDERS, "provider");
 			System.out.println(actualUrl.toString());
 			fail("should have thrown exception on bad URL");
-		} catch (WqpGatewayException e) {
+		} catch (WqpException e) {
 			assertEquals("Expect URL exception", URL_PARSING_EXCEPTION, e.getExceptionid());
 		}
 	}
@@ -121,7 +121,7 @@ public class CodesServiceTest extends BaseSpringTest implements WqpEnvProperties
 		try {
 			new CodesService().validate(null, "provider");
 			fail("should have thrown exception on null parameter");
-		} catch (WqpGatewayException e) {
+		} catch (WqpException e) {
 			assertTrue("Expect param exception", e.getExceptionid() == METHOD_PARAM_NULL);
 		}
 	}
@@ -130,7 +130,7 @@ public class CodesServiceTest extends BaseSpringTest implements WqpEnvProperties
 		try {
 			new CodesService().validate(Parameters.PROVIDERS, null);
 			fail("should have thrown exception on null code");
-		} catch (WqpGatewayException e) {
+		} catch (WqpException e) {
 			assertEquals("Expect param exception", METHOD_PARAM_NULL, e.getExceptionid());
 		}
 	}
@@ -146,7 +146,7 @@ public class CodesServiceTest extends BaseSpringTest implements WqpEnvProperties
 		// mock the fetcher
 		boolean actual = new CodesService(){
 			@Override
-			public String fetch(Parameters codeType, String code) throws WqpGatewayException {
+			public String fetch(Parameters codeType, String code) throws WqpException {
 				return "provider";
 			}
 		}.validate(Parameters.PROVIDERS, "provider");
@@ -159,7 +159,7 @@ public class CodesServiceTest extends BaseSpringTest implements WqpEnvProperties
 		// mock the fetcher
 		boolean actual = new CodesService(){
 			@Override
-			public String fetch(Parameters codeType, String code) throws WqpGatewayException {
+			public String fetch(Parameters codeType, String code) throws WqpException {
 				return "someOtherCode";
 			}
 		}.validate(Parameters.PROVIDERS, "invalidCode");
@@ -174,7 +174,7 @@ public class CodesServiceTest extends BaseSpringTest implements WqpEnvProperties
 		try {
 			new CodesService().fetch(Parameters.PROVIDERS, "b");
 			fail("should have thrown exception when no codes url");
-		} catch (WqpGatewayException e) {
+		} catch (WqpException e) {
 			assertEquals("Expect config exception", UNDEFINED_WQP_CONFIG_PARAM, e.getExceptionid());
 		}
 	}
@@ -185,7 +185,7 @@ public class CodesServiceTest extends BaseSpringTest implements WqpEnvProperties
 		
 		// mock the url stream
 		String actualStr = new CodesService(){
-			protected UrlStreamContainer makeProvider(Parameters codeType, String code) throws WqpGatewayException {
+			protected UrlStreamContainer makeProvider(Parameters codeType, String code) throws WqpException {
 				UrlStreamContainer urlContainer = Mockito.mock(UrlStreamContainer.class);
 				ByteArrayInputStream bais = new ByteArrayInputStream(baseStr.getBytes());
 				try {
@@ -208,7 +208,7 @@ public class CodesServiceTest extends BaseSpringTest implements WqpEnvProperties
 		try {
 			// mock the url stream
 			new CodesService(){
-				protected UrlStreamContainer makeProvider(Parameters codeType, String code) throws WqpGatewayException {
+				protected UrlStreamContainer makeProvider(Parameters codeType, String code) throws WqpException {
 					UrlStreamContainer urlContainer = Mockito.mock(UrlStreamContainer.class);
 					InputStream out = new InputStream() {
 						@Override
@@ -229,7 +229,7 @@ public class CodesServiceTest extends BaseSpringTest implements WqpEnvProperties
 			}.fetch(Parameters.PROVIDERS, "b");
 			
 			fail("should throw connection exception");
-		} catch (WqpGatewayException e) {
+		} catch (WqpException e) {
 			assertEquals("Expecting server request error", SERVER_REQUEST_IO_ERROR, e.getExceptionid());
 		}
 	}
@@ -240,7 +240,7 @@ public class CodesServiceTest extends BaseSpringTest implements WqpEnvProperties
 		// mock the url stream
 		String actual = new CodesService(){
 			@SuppressWarnings("unchecked")
-			protected UrlStreamContainer makeProvider(Parameters codeType, String code) throws WqpGatewayException {
+			protected UrlStreamContainer makeProvider(Parameters codeType, String code) throws WqpException {
 				UrlStreamContainer urlContainer = Mockito.mock(UrlStreamContainer.class);
 				try {
 					TestUtils.refectSetValue(urlContainer, "logger", logger);

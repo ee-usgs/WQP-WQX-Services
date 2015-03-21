@@ -1,12 +1,12 @@
 package gov.usgs.cida.wqp.service;
 
-import static gov.usgs.cida.wqp.exception.WqpGatewayExceptionId.*;
+import static gov.usgs.cida.wqp.exception.WqpExceptionId.*;
 import gov.cida.cdat.exception.producer.FileNotFoundException;
 import gov.cida.cdat.io.Closer;
 import gov.cida.cdat.io.container.DataPipe;
 import gov.cida.cdat.io.container.SimpleStreamContainer;
 import gov.cida.cdat.io.container.UrlStreamContainer;
-import gov.usgs.cida.wqp.exception.WqpGatewayException;
+import gov.usgs.cida.wqp.exception.WqpException;
 import gov.usgs.cida.wqp.parameter.Parameters;
 import gov.usgs.cida.wqp.util.WqpEnv;
 import gov.usgs.cida.wqp.util.WqpEnvProperties;
@@ -25,7 +25,7 @@ public class CodesService implements WqpEnvProperties {
 	
 	public static final String DEFAULT_MIME_TYPE = "json";
 	
-	public String fetch(Parameters codeType, String code) throws WqpGatewayException {
+	public String fetch(Parameters codeType, String code) throws WqpException {
 		UrlStreamContainer producer = makeProvider(codeType,code);
 		
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -41,7 +41,7 @@ public class CodesService implements WqpEnvProperties {
 		} catch (Exception e) {
 			log.error("Cannot contact Codes Webservice at {}, exception to follow", WqpEnv.get(CODES_URL));
 			log.error("Cannot contact Codes Webservice: exception", e);
-			throw new WqpGatewayException(SERVER_REQUEST_IO_ERROR, getClass(), "fetch", "Cannot reach codes service");
+			throw new WqpException(SERVER_REQUEST_IO_ERROR, getClass(), "fetch", "Cannot reach codes service");
 		} finally {
 			Closer.close(pipe);
 		}
@@ -55,20 +55,20 @@ public class CodesService implements WqpEnvProperties {
 	 * @param codeType
 	 * @param code
 	 * @return
-	 * @throws WqpGatewayException
+	 * @throws WqpException
 	 */
-	protected UrlStreamContainer makeProvider(Parameters codeType, String code) throws WqpGatewayException {
+	protected UrlStreamContainer makeProvider(Parameters codeType, String code) throws WqpException {
 		URL url = makeCodesUrl(codeType, code);
 		return  new UrlStreamContainer(url);
 	}
 
-	public boolean validate(Parameters codeType, String code) throws WqpGatewayException {
+	public boolean validate(Parameters codeType, String code) throws WqpException {
 		log.trace("validating {}={}",codeType, code);
 		String response = null;
 		
 		try {
 			response = fetch(codeType, code);
-		} catch (WqpGatewayException e) {
+		} catch (WqpException e) {
 			// the empty sting will be a considered false validation
 			if (e.getExceptionid() != METHOD_PARAM_EMPTY) {
 				throw e;
@@ -79,17 +79,17 @@ public class CodesService implements WqpEnvProperties {
 		return ! StringUtils.isEmpty(response) && response.contains(code);
 	}
 	
-	protected URL makeCodesUrl(Parameters codeType, String code) throws WqpGatewayException {
+	protected URL makeCodesUrl(Parameters codeType, String code) throws WqpException {
 		log.trace("making codes url");
 		
 		if (codeType == null) {
-			throw new WqpGatewayException(METHOD_PARAM_NULL, getClass(), "mokeCodesUrl", "codeType");
+			throw new WqpException(METHOD_PARAM_NULL, getClass(), "mokeCodesUrl", "codeType");
 		}
 		if (code == null) {
-			throw new WqpGatewayException(METHOD_PARAM_NULL, getClass(), "mokeCodesUrl", "code");
+			throw new WqpException(METHOD_PARAM_NULL, getClass(), "mokeCodesUrl", "code");
 		}
 		if ( StringUtils.isEmpty(code) ) {
-			throw new WqpGatewayException(METHOD_PARAM_EMPTY, getClass(), "mokeCodesUrl", "code");
+			throw new WqpException(METHOD_PARAM_EMPTY, getClass(), "mokeCodesUrl", "code");
 		}
 		
 		URL url = null;
@@ -97,14 +97,14 @@ public class CodesService implements WqpEnvProperties {
 			
 			String codesUrl = WqpEnv.get(CODES_URL);
 			if ( StringUtils.isEmpty(codesUrl) ) {
-				throw new WqpGatewayException(UNDEFINED_WQP_CONFIG_PARAM, getClass(), "mokeCodesUrl", CODES_URL);
+				throw new WqpException(UNDEFINED_WQP_CONFIG_PARAM, getClass(), "mokeCodesUrl", CODES_URL);
 			}
 			String mimeType = WqpEnv.get(CODES_MIME_TYPE, DEFAULT_MIME_TYPE);
 			String urlStr =  codesUrl +"/"+ codeType +"/"+ code + "?mimetype="+ mimeType;
 			log.trace("making codes url : {}", urlStr);
 			url = new URL(urlStr);
 		} catch (MalformedURLException e) {
-			throw new WqpGatewayException(URL_PARSING_EXCEPTION, getClass(), "mokeCodesUrl",
+			throw new WqpException(URL_PARSING_EXCEPTION, getClass(), "mokeCodesUrl",
 					"Invalid Code Lookup URL. Ensure that the wqpgateway.properties has a properly formated URL for " + CODES_URL);
 		}
 		return url;
