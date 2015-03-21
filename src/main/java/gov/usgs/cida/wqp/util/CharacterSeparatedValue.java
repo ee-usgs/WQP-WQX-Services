@@ -1,22 +1,30 @@
 package gov.usgs.cida.wqp.util;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 public class CharacterSeparatedValue {
+	
 	public static final Pattern QUOTE = Pattern.compile("\"");
-	public static final String COMMA = ",";
-	public static final String TAB = "\t";
-	public static final String NEW_LINE = "\n";
-	public static final String NEW_LINE_CR = "\r\n";
+	public static final String  COMMA = ",";
+	public static final String  TAB = "\t";
+	public static final String  NEW_LINE = "\n";
+	public static final String  NEW_LINE_CR = "\r\n";
+	
 	public static final CharacterSeparatedValue CSV = new CharacterSeparatedValue(COMMA);
 	public static final CharacterSeparatedValue TSV = new CharacterSeparatedValue(TAB);
+
 	private final String valueSeparator;
 	private final String entrySeparator;
+	
 	public CharacterSeparatedValue() {
 		this(COMMA, NEW_LINE);
 	}
+	
 	public CharacterSeparatedValue(String valueSeparator) {
 		this(valueSeparator, NEW_LINE);
 	}
+	
 	public CharacterSeparatedValue(String valueSeparator, String entrySeparator) {
 		if (valueSeparator == null || entrySeparator == null) {
 			throw new RuntimeException("Separators must provided for " + getClass());
@@ -27,6 +35,7 @@ public class CharacterSeparatedValue {
 		this.valueSeparator = valueSeparator;
 		this.entrySeparator = entrySeparator;
 	}
+	
 	public String encode(final String value) {
 		if (value == null) {
 			return "";
@@ -45,6 +54,7 @@ public class CharacterSeparatedValue {
 		}
 		return processing;
 	}
+	
 	public String getValueSeparator() {
 		return valueSeparator;
 	}

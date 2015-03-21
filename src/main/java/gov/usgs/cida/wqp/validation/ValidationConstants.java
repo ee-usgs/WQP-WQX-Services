@@ -1,25 +1,28 @@
 package gov.usgs.cida.wqp.validation;
 public interface ValidationConstants { // TODO these should be defaults with WqpConfig and wqpgateway.properties overrides
-	public static final String DEFAULT_DELIMITER = ";";
-	public static final int UNBOUNDED = Integer.MAX_VALUE;
-	public static final int IN_CLAUSE_LIMIT = 1000;
-	public static final int DEFAULT_MIN_OCCURS = 0;
-	public static final int DEFAULT_MAX_OCCURS = 1;
-	public static final double MAX_LATITUDE	=   90;
-	public static final double MIN_LATITUDE	=  -90;
-	public static final double MAX_LONGITUDE=  180;
-	public static final double MIN_LONGITUDE= -180;
-	public static final String REGEX_FIPS_COUNTRY	= "[A-Z]{2}";
-	public static final String REGEX_FIPS_STATE		= "(?:([A-Z]{2}):)?([0-9]{1,2})";
-	public static final String REGEX_FIPS_COUNTY	= "(?:([A-Z]{2}):)?([0-9]{1,2}):([0-9]{3}|N/A)";
-	public static final String REGEX_SITEID			= "[\\w]+\\-.+\\S";
-	public static final String REGEX_HUC			= "(?:[0-9]{8})|(?:[0-9]{2,7}\\*)";
-	public static final String REGEX_PCODE			= "[0-9]{5}";
-	public static final String REGEX_MIMETYPES		= "csv|tsv|tab|xlsx|xml|kml|kmz"; // TODO refine
-	public static final String REGEX_PROVIDERS		= "NWIS|STORET|STEWARDS"; // TODO refine
-	public static final String FORMAT_DATE			= "MM-dd-yyyy";
-	public static final String REGEX_ACTIVITY_ID	= ".+";
-	public static final String REGEX_ANALYTICAL_METHOD	= ".+";
-	public static final String REGEX_HUC_WILDCARD_IN	= "\\*";
-	public static final String REGEX_HUC_WILDCARD_OUT	= "%";
+	
+	int UNBOUNDED          = Integer.MAX_VALUE;
+	int IN_CLAUSE_LIMIT    = 1000;
+	int DEFAULT_MIN_OCCURS = 0;
+	int DEFAULT_MAX_OCCURS = 1;
+	
+	double MAX_LATITUDE	=   90;
+	double MIN_LATITUDE	=  -90;
+	double MAX_LONGITUDE=  180;
+	double MIN_LONGITUDE= -180;
+	
+	String DEFAULT_DELIMITER    = ";"; // parameter delimiter
+	String FORMAT_DATE			= "MM-dd-yyyy";
+	String REGEX_FIPS_COUNTRY	= "[A-Z]{2}";
+	String REGEX_FIPS_STATE		= "(?:([A-Z]{2}):)?([0-9]{1,2})";
+	String REGEX_FIPS_COUNTY	= "(?:([A-Z]{2}):)?([0-9]{1,2}):([0-9]{3}|N/A)";
+	String REGEX_SITEID			= "[\\w]+\\-.+\\S";
+	String REGEX_HUC			= "(?:[0-9]{8})|(?:[0-9]{2,7}\\*)";
+	String REGEX_PCODE			= "[0-9]{5}";
+	String REGEX_MIMETYPES		= "csv|tsv|tab|xlsx|xml|kml|kmz"; // TODO refine
+	String REGEX_PROVIDERS		= "NWIS|STORET|STEWARDS"; // TODO refine
+	String REGEX_ACTIVITY_ID	= ".+";
+	String REGEX_ANALYTICAL_METHOD	= ".+";
+	String REGEX_HUC_WILDCARD_IN	= "\\*";
+	String REGEX_HUC_WILDCARD_OUT	= "%";
 }
