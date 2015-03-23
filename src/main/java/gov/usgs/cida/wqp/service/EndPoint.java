@@ -34,7 +34,11 @@ public enum EndPoint {
 		if (code == null || code.isEmpty()) {
 			return null;
 		}
-		String endpoint = code.substring(code.indexOf('/', 2), code.length()).toUpperCase();
-		return codeMap.get(endpoint);
+		try {
+			String endpoint = code.substring(code.indexOf('/', 2), code.length()).toUpperCase();
+			return codeMap.get(endpoint);
+		} catch (StringIndexOutOfBoundsException e) {
+			return null;
+		}
 	}
 }
