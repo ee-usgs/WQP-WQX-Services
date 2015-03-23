@@ -2,6 +2,7 @@ package gov.usgs.cida.wqp.service;
 
 import static gov.usgs.cida.wqp.exception.WqpExceptionId.*;
 import static org.junit.Assert.*;
+
 import gov.cida.cdat.exception.StreamInitException;
 import gov.cida.cdat.exception.producer.FileNotFoundException;
 import gov.cida.cdat.io.container.UrlStreamContainer;
