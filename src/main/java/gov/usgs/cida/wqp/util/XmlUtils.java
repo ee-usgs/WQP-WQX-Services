@@ -1,16 +1,9 @@
 package gov.usgs.cida.wqp.util;
+
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-public abstract class XmlUtils {
-	public static String nonQnameSeparators = "[()/@]";
-	public static String nonQnameChars = "[^-_.:0-9A-Za-z]";
-	public static String allNonQnameChars = nonQnameSeparators + nonQnameChars;
-	public static String nonQnameReplacements = "[()/@]" + "[^-_.:0-9A-Za-z]";
-	public static Pattern replaceNonQnameSeparators = Pattern.compile(nonQnameSeparators);
-	public static Pattern removeNonQname = Pattern.compile(nonQnameChars);
-	public static Pattern removeLeftAngleBracket = Pattern.compile("<");
-	public static Pattern removeRightAngleBracket = Pattern.compile(">");
-	public static Pattern removeAmpersand = Pattern.compile("&");
+
+public abstract class XmlUtils implements XmlConstants {
+	
 	/**
 	 * Performs a quick, possibly incomplete removal or replacement of illegal
 	 * characters in an element name. ".", "-", and "_" are legal in a name, and
@@ -21,11 +14,12 @@ public abstract class XmlUtils {
 	 */
 	public static String xmlQuickSanitize(String aName) {
 		if (aName.indexOf('/') >= 0 || aName.indexOf('@') >= 0) {
-			Matcher matcher = replaceNonQnameSeparators.matcher(aName);
+			Matcher matcher = NON_QNAME_SEPARATORS.matcher(aName);
 			aName = matcher.replaceAll("_");
 		}
 		return aName;
 	}
+	
 	/**
 	 * Removes or replaces illegal characters in an element name. ".", "-", and
 	 * "_" are legal in a name, and ":" is part of a namespace
@@ -34,19 +28,21 @@ public abstract class XmlUtils {
 	 * @return
 	 */
 	public static String xmlFullSanitize(String aName) {
-		Matcher matcher = replaceNonQnameSeparators.matcher(aName);
-		matcher = removeNonQname.matcher(matcher.replaceAll("_"));
+		Matcher matcher = NON_QNAME_SEPARATORS.matcher(aName);
+		matcher = NON_QNAME_CHARS.matcher(matcher.replaceAll("_"));
 		return matcher.replaceAll("");
 	}
+	
 	public static String escapeAngleBrackets(String aString) {
 		if (aString.indexOf('<') >= 0) {
-			aString = removeLeftAngleBracket.matcher(aString).replaceAll("&lt;");
+			aString = LEFT_ANGLE_BRACKET.matcher(aString).replaceAll("&lt;");
 		}
 		if (aString.indexOf('>') >= 0) {
-			aString = removeRightAngleBracket.matcher(aString).replaceAll("&gt;");
+			aString = RIGHT_ANGLE_BRACKET.matcher(aString).replaceAll("&gt;");
 		}
 		return aString;
 	}
+	
 	public static String quickTagContentEscape(String aString) {
 		if (aString.indexOf('&') >= 0
 				&& aString.indexOf("&amp;") < 0
@@ -54,15 +50,11 @@ public abstract class XmlUtils {
 				&& aString.indexOf("&lt;") < 0
 				&& aString.indexOf("&gt;") < 0
 				&& aString.indexOf("&apos;") < 0) {
-			aString = removeAmpersand.matcher(aString).replaceAll("&amp;");
+			aString = AMPERSAND.matcher(aString).replaceAll("&amp;");
 		}
 		return escapeAngleBrackets(aString);
 	}
-	public static final Pattern lessThan= Pattern.compile("&lt;");
-	public static final Pattern greaterThan= Pattern.compile("&gt;");
-	public static final Pattern quote= Pattern.compile("&quot;");
-	public static final Pattern apostrophe= Pattern.compile("&apos;");
-	public static final Pattern ampersand= Pattern.compile("&amp;");
+	
 	/**
 	 * Replace the five standard xml entities: &lt; &gt; &quot; &apos; &amp;
 	 * @param aString
@@ -71,17 +63,17 @@ public abstract class XmlUtils {
 	public static String unEscapeXMLEntities(String aString) {
 		//
 		if (aString.indexOf('&') >= 0) {
-			Matcher matcher = lessThan.matcher(aString);
-			String result = matcher.replaceAll("<");
-			matcher = greaterThan.matcher(result);
-			result = matcher.replaceAll(">");
-			matcher = quote.matcher(result);
-			result = matcher.replaceAll("\"");
-			matcher = apostrophe.matcher(result);
-			result = matcher.replaceAll("'");
-			matcher = ampersand.matcher(result);
-			result = matcher.replaceAll("&");
-			return result;
+			Matcher matcher = LESS_THAN.matcher(aString);
+			String results = matcher.replaceAll("<");
+			matcher = GREATER_THAN.matcher(results);
+			results = matcher.replaceAll(">");
+			matcher = QUOTE.matcher(results);
+			results = matcher.replaceAll("\"");
+			matcher = APOS.matcher(results);
+			results = matcher.replaceAll("'");
+			matcher = AMP.matcher(results);
+			results = matcher.replaceAll("&");
+			return results;
 		}
 		return aString;
 	}

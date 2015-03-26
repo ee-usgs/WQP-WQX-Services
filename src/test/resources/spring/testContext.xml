@@ -16,28 +16,6 @@
            </property>
     </bean>
     
-    <bean id="parameterHandler" class="gov.usgs.cida.qw.parameter.HashMapParameterHandler" autowire="byName">
-        <property name="validatorMap">
-            <map key-type="gov.usgs.cida.qw.parameter.Parameters">
-                <entry key="BBOX"><ref bean="bboxValidator"/></entry>
-                <entry key="CHARACTERISTIC_NAME"><ref bean="characteristicNameValidator"/></entry>
-                <entry key="COUNTRY"><ref bean="countryValidator"/></entry>
-                <entry key="COUNTY"><ref bean="countyValidator"/></entry>
-                <entry key="HUC"><ref bean="hucValidator"/></entry>
-                <entry key="ORGANIZATION"><ref bean="organizationValidator"/></entry>
-                <entry key="LATITUDE"><ref bean="latitudeValidator"/></entry>
-                <entry key="LONGITUDE"><ref bean="longitudeValidator"/></entry>
-                <entry key="SAMPLE_MEDIA"><ref bean="sampleMediaValidator"/></entry>
-                <entry key="SITE_TYPE"><ref bean="siteTypeValidator"/></entry>
-                <entry key="SITEID"><ref bean="siteIdValidator"/></entry>
-                <entry key="STATE"><ref bean="stateValidator"/></entry>
-                <entry key="START_DATE_HI"><ref bean="startDateHiValidator"/></entry>
-                <entry key="START_DATE_LO"><ref bean="startDateLoValidator"/></entry>
-                <entry key="WITHIN"><ref bean="withinValidator"/></entry>
-            </map>
-        </property>
-    </bean>
-
     <bean id="webServiceLogDaoTest" class="gov.usgs.cida.qw.dao.WebServiceLogDaoTest" autowire="byName"/>
  -->
 

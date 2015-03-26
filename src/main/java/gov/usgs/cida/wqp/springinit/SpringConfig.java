@@ -10,6 +10,8 @@ import gov.usgs.cida.wqp.station.dao.StationDao;
 import gov.usgs.cida.wqp.util.HttpConstants;
 import gov.usgs.cida.wqp.util.JndiUtils;
 import gov.usgs.cida.wqp.util.MybatisConstants;
+import gov.usgs.cida.wqp.util.WqpEnv;
+import gov.usgs.cida.wqp.util.WqpEnvProperties;
 import gov.usgs.cida.wqp.validation.AbstractValidator;
 import gov.usgs.cida.wqp.validation.BoundedFloatingPointValidator;
 import gov.usgs.cida.wqp.validation.DateFormatValidator;
@@ -28,7 +30,7 @@ import javax.sql.DataSource;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -47,10 +49,11 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
  * used to reside in /WEB-INF.
  */
 @Configuration
-@ComponentScan(basePackages= {"gov.usgs.cida.wqp"})
+@ComponentScan(basePackages= {WqpEnv.BASE_PACKAGE})
 @EnableWebMvc
-@PropertySource(value = {"file:${catalina.base}/conf/wqpgateway.properties"})
-public class SpringConfig extends WebMvcConfigurerAdapter implements HttpConstants, MybatisConstants, ValidationConstants  {
+@PropertySource(value = {WqpEnv.PROPERTIES_FILE}) // TODO this might not work because of the container path var
+public class SpringConfig extends WebMvcConfigurerAdapter implements EnvironmentAware,
+		HttpConstants, MybatisConstants, ValidationConstants, WqpEnvProperties  {
 	private final Logger log = LoggerFactory.getLogger(getClass());
 	
 	static final Map<Parameters, AbstractValidator<?>> VALIDATOR_MAP = new HashMap<Parameters, AbstractValidator<?>>();
@@ -68,7 +71,6 @@ public class SpringConfig extends WebMvcConfigurerAdapter implements HttpConstan
 		VALIDATOR_MAP.put(Parameters.WITHIN, floatValidator);
 
 		VALIDATOR_MAP.put(Parameters.ANALYTICAL_METHOD, new RegexValidator<String>(Parameters.ANALYTICAL_METHOD, REGEX_ANALYTICAL_METHOD));
-		
 		// one short country code string
 		VALIDATOR_MAP.put(Parameters.COUNTRY, new RegexValidator<String[]>(Parameters.COUNTRY,REGEX_FIPS_COUNTRY));
 		// country:state code string
@@ -97,10 +99,11 @@ public class SpringConfig extends WebMvcConfigurerAdapter implements HttpConstan
 		VALIDATOR_MAP.put(Parameters.MIMETYPE, new RegexValidator<String[]>(Parameters.MIMETYPE,1, 1, null,REGEX_MIMETYPES));
 		// semicolon list of string activity IDs
 		VALIDATOR_MAP.put(Parameters.ACTIVITY_ID, new RegexValidator<String[]>(Parameters.ACTIVITY_ID,REGEX_ACTIVITY_ID));
-		// semicolon (or pipe) list of databases to include
-		VALIDATOR_MAP.put(Parameters.PROVIDERS, new RegexValidator<String[]>(Parameters.PROVIDERS,REGEX_PROVIDERS));
 		// semicolon (or pipe) list of databases to exclude as 'command.avoid'
 		VALIDATOR_MAP.put(Parameters.AVOID, new RegexValidator<String[]>(Parameters.AVOID,REGEX_PROVIDERS));
+		
+		// semicolon (or pipe) list of databases to include
+		VALIDATOR_MAP.put(Parameters.PROVIDERS, new LookupValidator(Parameters.PROVIDERS));
 		// semicolon list of string characteristic types
 		VALIDATOR_MAP.put(Parameters.CHARACTERISTIC_TYPE, new LookupValidator(Parameters.CHARACTERISTIC_TYPE));
 		// semicolon list of string characteristic name
@@ -111,6 +114,7 @@ public class SpringConfig extends WebMvcConfigurerAdapter implements HttpConstan
 		VALIDATOR_MAP.put(Parameters.SAMPLE_MEDIA, new LookupValidator(Parameters.SAMPLE_MEDIA));
 		// one string site type name
 		VALIDATOR_MAP.put(Parameters.SITE_TYPE, new LookupValidator(Parameters.SITE_TYPE));
+		
 		// one string date MM-DD-YYYY
 		VALIDATOR_MAP.put(Parameters.START_DATE_LO, new DateFormatValidator(Parameters.START_DATE_LO, FORMAT_DATE));
 		// one string date MM-DD-YYYY
@@ -118,8 +122,14 @@ public class SpringConfig extends WebMvcConfigurerAdapter implements HttpConstan
 		HashMapParameterHandler.setValidatorMap(VALIDATOR_MAP);
 	}
 	
-	@Autowired
-	private Environment environment;
+	
+	@Override
+	public void setEnvironment(Environment env) {
+		log.trace("setting evnironment");
+		WqpEnv.setEnv(env);
+	}
+	
+	
 	public SpringConfig() {
 		log.trace(getClass().getName());
 	}
@@ -127,9 +137,9 @@ public class SpringConfig extends WebMvcConfigurerAdapter implements HttpConstan
 	@Bean
 	public SqlSessionFactoryBean sqlSessionFactory() {
 		SqlSessionFactoryBean mybatis = new SqlSessionFactoryBean();
-		Resource mybatisConfig = new ClassPathResource("/mybatis/mybatisConfig.xml"); // TODO string
+		Resource mybatisConfig = new ClassPathResource(WqpEnv.get(MYBATIS_CONF));
 		mybatis.setConfigLocation(mybatisConfig);
-		DataSource ds = JndiUtils.jndiDataSource("jdbc/WQPQW"); // TODO string
+		DataSource ds = JndiUtils.jndiDataSource(WqpEnv.get(JNDI_DATASOURCE));
 		mybatis.setDataSource(ds);
 		return mybatis;
 	}
@@ -161,7 +171,6 @@ public class SpringConfig extends WebMvcConfigurerAdapter implements HttpConstan
 	 */
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/schema/**").addResourceLocations("/WEB-INF/classes/schema/");
 	}
 	
 	/**
@@ -181,7 +190,7 @@ public class SpringConfig extends WebMvcConfigurerAdapter implements HttpConstan
 	@Bean
 	public InternalResourceViewResolver setupViewResolver() {
 		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-		resolver.setPrefix("/WEB-INF/views/");
+		resolver.setPrefix(WqpEnv.get(JSP_VIEWS));
 		resolver.setSuffix("");		// Making this empty so we can explicitly call each view we require (i.e. .jsp and .xml)
 		return resolver;
 	}

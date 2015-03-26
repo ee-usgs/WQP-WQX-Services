@@ -1,5 +1,5 @@
 package gov.usgs.cida.wqp.validation;
-import gov.usgs.cida.wqp.exception.WqpGatewayException;
+import gov.usgs.cida.wqp.exception.WqpException;
 import gov.usgs.cida.wqp.parameter.Parameters;
 import gov.usgs.cida.wqp.service.CodesService;
 
@@ -35,7 +35,7 @@ public class LookupValidator extends AbstractValidator<String[]> {
 					vr.setValid(false);
 					vr.getValidationMessages().add(getErrorMessage(code, "is not in the list of enumerated values"));
 				}
-			} catch (WqpGatewayException e) {
+			} catch (WqpException e) {
 				vr.setValid(false);
 				vr.getValidationMessages().add(getErrorMessage(code, "Server error: We cannot access the list of enumerated values to validate your parameter."));
 			}
