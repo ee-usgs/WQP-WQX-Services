@@ -100,7 +100,7 @@ public class SpringConfig extends WebMvcConfigurerAdapter implements Environment
 		// semicolon list of string activity IDs
 		VALIDATOR_MAP.put(Parameters.ACTIVITY_ID, new RegexValidator<String[]>(Parameters.ACTIVITY_ID,REGEX_ACTIVITY_ID));
 		// semicolon (or pipe) list of databases to exclude as 'command.avoid'
-		VALIDATOR_MAP.put(Parameters.AVOID, new RegexValidator<String[]>(Parameters.AVOID,REGEX_PROVIDERS));
+		VALIDATOR_MAP.put(Parameters.AVOID, new RegexValidator<String[]>(Parameters.AVOID,REGEX_AVOID));
 		
 		// semicolon (or pipe) list of databases to include
 		VALIDATOR_MAP.put(Parameters.PROVIDERS, new LookupValidator(Parameters.PROVIDERS));
