@@ -38,7 +38,7 @@ public class StationWorker extends Worker implements HttpConstants {
 	public void begin() throws CdatException {
 		super.begin();
 		try {
-			this.out = response.getOutputStream();
+			this.out = new StationColumnMapper( response.getOutputStream() );
 		} catch (Exception e) {
 			log.warn(e.getMessage());
 			try {
