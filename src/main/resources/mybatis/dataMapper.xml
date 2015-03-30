@@ -377,7 +377,7 @@
 			DATA_SOURCE			
         <include refid="dataMapper.stationsBase"/>
             order by organization,
-                     station_id
+                     site_id
     </select>
     <select id="selectStationsCount" resultType="java.util.LinkedHashMap">
         select DATA_SOURCE, count(*) ENTRIES
