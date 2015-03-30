@@ -14,19 +14,18 @@ public class StationColumnMapper extends TransformOutputStream {
 	static {
 		patterns = new ManyPatternTransformer();
 		
-//		DATA_SOURCE,
-		patterns.addMapping("ORGANIZATION","OrganizationIdentifier");
 		patterns.addMapping("ORGANIZATION_NAME","OrganizationFormalName");
+		patterns.addMapping("ORGANIZATION","OrganizationIdentifier");
 		patterns.addMapping("SITE_ID","MonitoringLocationIdentifier");
 		patterns.addMapping("STATION_NAME","MonitoringLocationName");
 		patterns.addMapping("STATION_TYPE_NAME","MonitoringLocationTypeName");
 		patterns.addMapping("DESCRIPTION_TEXT","MonitoringLocationDescriptionText");
 		patterns.addMapping("HUC_8", "HUCEightDigitCode");
 		patterns.addMapping("HUC_12", "HUCTwelveDigitCode");
-		patterns.addMapping("DRAIN_AREA_VALUE","DrainageAreaMeasure/MeasureValue");
-		patterns.addMapping("DRAIN_AREA_UNIT","DrainageAreaMeasure/MeasureUnitCode");
 		patterns.addMapping("CONTRIB_DRAIN_AREA_VALUE","ContributingDrainageAreaMeasure/MeasureValue");
 		patterns.addMapping("CONTRIB_DRAIN_AREA_UNIT","ContributingDrainageAreaMeasure/MeasureUnitCode");
+		patterns.addMapping("DRAIN_AREA_VALUE","DrainageAreaMeasure/MeasureValue");
+		patterns.addMapping("DRAIN_AREA_UNIT","DrainageAreaMeasure/MeasureUnitCode");
 		patterns.addMapping("LATITUDE","LatitudeMeasure");
 		patterns.addMapping("LONGITUDE","LongitudeMeasure");
 		patterns.addMapping("MAP_SCALE","SourceMapScaleNumeric");
@@ -54,6 +53,7 @@ public class StationColumnMapper extends TransformOutputStream {
 //		STATION_ID,
 //		SITE_TYPE,
 //		GOVERNMENTAL_UNIT_CODE	
+//		DATA_SOURCE,
 		
 		transform = new TerminatingTransformer("\n".getBytes(), patterns);
 	}

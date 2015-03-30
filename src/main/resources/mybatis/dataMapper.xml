@@ -346,7 +346,6 @@
 			STATION_TYPE_NAME,
 			DESCRIPTION_TEXT,
 			HUC_8 ,
-			HUC_12 ,
 			DRAIN_AREA_VALUE,
 			DRAIN_AREA_UNIT,
 			CONTRIB_DRAIN_AREA_VALUE,
@@ -375,9 +374,6 @@
 			WELL_DEPTH_UNIT,
 			HOLE_DEPTH_VALUE,
 			HOLE_DEPTH_UNIT,
-			STATION_ID, 
-			SITE_TYPE, 
-			GOVERNMENTAL_UNIT_CODE,
 			DATA_SOURCE			
         <include refid="dataMapper.stationsBase"/>
             order by organization,
