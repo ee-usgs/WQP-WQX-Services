@@ -4,13 +4,17 @@ import gov.cida.cdat.control.Worker;
 import gov.cida.cdat.exception.CdatException;
 import gov.cida.cdat.exception.StreamInitException;
 import gov.usgs.cida.wqp.parameter.ParameterMap;
+import gov.usgs.cida.wqp.parameter.Parameters;
 import gov.usgs.cida.wqp.station.dao.IStationDao;
 import gov.usgs.cida.wqp.station.dao.MapResultHandler;
 import gov.usgs.cida.wqp.util.CharacterSeparatedValue;
 import gov.usgs.cida.wqp.util.HttpConstants;
 import gov.usgs.cida.wqp.util.HttpUtils;
+
 import java.io.OutputStream;
+
 import javax.servlet.http.HttpServletResponse;
+
 import org.apache.ibatis.session.ResultHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,7 +56,14 @@ public class StationWorker extends Worker implements HttpConstants {
 	@Override
 	public boolean process() throws CdatException {
 		log.trace("fetching station data with streaming handler - started");
-		ResultHandler handler = new MapResultHandler(out, CharacterSeparatedValue.CSV);
+
+		String mimeType    = (String) parameters.getQueryParameters().get(Parameters.MIMETYPE.toString());
+		CharacterSeparatedValue contentTransformer = CharacterSeparatedValue.CSV;
+		if ("tsv".equals(mimeType)) {
+			contentTransformer = CharacterSeparatedValue.TSV;
+		}
+		
+		ResultHandler handler = new MapResultHandler(out, contentTransformer);
 		stationDao.stream(parameters.getQueryParameters(), handler);
 		log.trace("fetching station data with streaming handler - finished");
 		return false;

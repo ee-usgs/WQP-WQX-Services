@@ -101,7 +101,7 @@ public class StationController implements HttpConstants, MybatisConstants, Valid
 	/**
 	 * station search request
 	 */
-	@RequestMapping(value=STATION_SEARCH_ENPOINT, method=RequestMethod.GET, produces=MIME_TYPE_TEXT_CSV)
+	@RequestMapping(value=STATION_SEARCH_ENPOINT, method=RequestMethod.GET)
 	@Async
 	public void stationGetRequest(HttpServletRequest request, HttpServletResponse response) {
 		log.trace(""); // blank line during trace
