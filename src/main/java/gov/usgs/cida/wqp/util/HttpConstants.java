@@ -21,6 +21,7 @@ public interface HttpConstants extends XmlConstants {
 	String MIME_TYPE_APPLICATION_JSON = "application/json";
 	String MIME_TYPE_APPLICATION_ZIP = "application/zip";
 	String MIME_TYPE_TEXT_CSV = "text/csv";
+	String MIME_TYPE_TEXT_TSV = "text/tab-separated-values";
 	String ENDPOINT_RESULT = "Result";
 	String ENDPOINT_STATION = "Station";
 	String ENDPOINT_SIMPLE_STATION = "simplestation";

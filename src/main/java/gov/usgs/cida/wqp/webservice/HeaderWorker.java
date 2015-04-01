@@ -3,12 +3,16 @@ import gov.cida.cdat.control.Message;
 import gov.cida.cdat.control.Worker;
 import gov.cida.cdat.exception.CdatException;
 import gov.usgs.cida.wqp.parameter.ParameterMap;
+import gov.usgs.cida.wqp.parameter.Parameters;
 import gov.usgs.cida.wqp.station.dao.ICountDao;
 import gov.usgs.cida.wqp.util.HttpConstants;
 import gov.usgs.cida.wqp.util.HttpUtils;
+
 import java.util.List;
 import java.util.Map;
+
 import javax.servlet.http.HttpServletResponse;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,9 +50,16 @@ public class HeaderWorker extends Worker implements HttpConstants {
 	public void end() {
 		log.trace("station header start");
 		response.setCharacterEncoding(DEFAULT_ENCODING);
-		response.addHeader(HEADER_CONTENT_TYPE, MIME_TYPE_TEXT_CSV); // TODO from request (pm)
+		
+		String mimeType    = (String) parameters.getQueryParameters().get(Parameters.MIMETYPE.toString());
+		String contentType = MIME_TYPE_TEXT_CSV;
+		if ("tsv".equals(mimeType)) {
+			contentType = MIME_TYPE_TEXT_TSV;
+		}
+		response.addHeader(HEADER_CONTENT_TYPE, contentType);
+
 		httpUtils.addCountHeader(response, counts);
-		response.setHeader("Content-Disposition","attachment; filename=station.csv"); // TODO this will be based on request format
+		response.setHeader("Content-Disposition","attachment; filename=station."+mimeType);
 //		response.setContentLength(11*1024); // TODO this would be nice if possible to determine
 		log.trace("station header finish");
 	}
