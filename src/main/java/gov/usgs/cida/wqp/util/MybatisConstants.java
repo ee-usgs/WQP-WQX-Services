@@ -1,4 +1,5 @@
 package gov.usgs.cida.wqp.util;
+
 public interface MybatisConstants {
 	String CODES_MAPPER_NAMESPACE = "dataMapper";
 	String STATIONS_MAPPER_NAMESPACE = "dataMapper";

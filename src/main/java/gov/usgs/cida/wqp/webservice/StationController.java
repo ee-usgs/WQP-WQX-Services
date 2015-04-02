@@ -40,6 +40,7 @@ public class StationController implements HttpConstants, MybatisConstants, Valid
 	public void setEnvironment(Environment environment) {
 		this.environment = environment;
 	}
+	
 	@Autowired
 	protected IStationDao stationDao;
 	public void setStationDao(IStationDao stationDao) {
@@ -77,6 +78,7 @@ public class StationController implements HttpConstants, MybatisConstants, Valid
 			log.info("Processing Head complete: {}", request.getQueryString());
 		}
 	}
+	
 	/**
 	 * Shared header helper method share for both the HEAD and GET requests
 	 * @param request
@@ -99,6 +101,7 @@ public class StationController implements HttpConstants, MybatisConstants, Valid
 		session.waitForComplete(stationCount, Time.SECOND.asMS());
 		return session;
 	}
+	
 	/**
 	 * station search request
 	 */

@@ -1,22 +1,27 @@
 package gov.usgs.cida.wqp.parameter.transform;
+
 import gov.usgs.cida.wqp.validation.ValidationResult;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 /**
  *
  * @author tkunicki
  */
 public class SplitAndRegexGroupTransformer implements ParameterTransformer<String[][]> {
 	private final Logger log = LoggerFactory.getLogger(getClass());
+	
 	private final Pattern regexPattern;
 	private final SplitTransformer splitter;
+	
 	public SplitAndRegexGroupTransformer(String delimiter, String regex) {
 		splitter = new SplitTransformer(delimiter);
 		log.trace(getClass().getName());
 		regexPattern = Pattern.compile(regex);
 	}
+	
 	@Override
 	public String[][] transform(String value) {
 		if (null != value) {
@@ -36,6 +41,7 @@ public class SplitAndRegexGroupTransformer implements ParameterTransformer<Strin
 			throw new IllegalArgumentException();
 		}
 	}
+	
 	@Override
 	public ValidationResult<String[][]> getValdiationResult() {
 		return new ValidationResult<String[][]>();

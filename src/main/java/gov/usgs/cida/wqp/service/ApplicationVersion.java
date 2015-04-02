@@ -1,15 +1,20 @@
 package gov.usgs.cida.wqp.service;
+
 import java.util.Properties;
 import javax.servlet.ServletContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.context.ServletContextAware;
+
 public final class ApplicationVersion implements ServletContextAware {
 	private final Logger log = LoggerFactory.getLogger(getClass());
+	
 	private static ServletContext servletContext;
+	
 	public ApplicationVersion() {
 		log.trace(getClass().getName());
 	}
+	
 	public static String getVersion() {
 		String currentVersion = "";
 		try {
@@ -24,6 +29,7 @@ public final class ApplicationVersion implements ServletContextAware {
 		}
 		return currentVersion;
 	}
+	
 	public void setServletContext(final ServletContext inServletContext) {
 		servletContext = inServletContext;
 	}

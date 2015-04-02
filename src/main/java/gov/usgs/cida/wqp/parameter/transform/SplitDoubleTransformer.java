@@ -1,19 +1,24 @@
 package gov.usgs.cida.wqp.parameter.transform;
+
 import gov.usgs.cida.wqp.validation.ValidationConstants;
 import gov.usgs.cida.wqp.validation.ValidationResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 /**
  *
  * @author tkunicki
  */
 public class SplitDoubleTransformer implements ParameterTransformer<double[]>, ValidationConstants {
 	private final Logger log = LoggerFactory.getLogger(getClass());
+	
 	private SplitTransformer splitter;
 	private ValidationResult<double[]> vr;
+	
 	public SplitDoubleTransformer() {
 		this(DEFAULT_DELIMITER);
 	}
+	
 	public SplitDoubleTransformer(String delimiter) {
 		log.trace(getClass().getName());
 		if (null == delimiter || 0 == delimiter.length()) {
@@ -21,10 +26,12 @@ public class SplitDoubleTransformer implements ParameterTransformer<double[]>, V
 		}
 		splitter = new SplitTransformer(delimiter);
 	}
+	
 	@Override
 	public double[] transform(String value) {
 		return stringAsDoubles(value);
 	}
+	
 	protected double[] stringAsDoubles(String value) {
 		String[] strings = splitter.transform(value);
 		if (strings == null) {
@@ -50,6 +57,7 @@ public class SplitDoubleTransformer implements ParameterTransformer<double[]>, V
 		}
 		return doubles;
 	}
+	
 	protected String getErrorMessage(String parameterValue, String msg) {
 		return String.format("The value of PARAM=%s %s", parameterValue, msg);
 	}
