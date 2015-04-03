@@ -120,18 +120,18 @@
         </choose>
     </sql>
 
-    <sql id="dynaTab">
-        <if test="siteid != null">
-            ,(select /*+ cardinality(dyn 1) */ column_value
-                from table(pkg_dynamic_list.get_table(#{siteid,typeHandler=ArrayParameterTypeHandler})) dyn) dynamic_siteid
-        </if>
-    </sql>
+<!--     <sql id="dynaTab"> -->
+<!--         <if test="siteid != null"> -->
+<!--             ,(select /*+ cardinality(dyn 1) */ column_value -->
+<!--                 from table(pkg_dynamic_list.get_table(#{siteid,typeHandler=ArrayParameterTypeHandler})) dyn) dynamic_siteid -->
+<!--         </if> -->
+<!--     </sql> -->
 
-    <sql id="dynaWhere">
-        <if test="siteid != null">
-            and (site_id = dynamic_siteid.column_value)
-        </if>
-    </sql>
+<!--     <sql id="dynaWhere"> -->
+<!--         <if test="siteid != null"> -->
+<!--             and (site_id = dynamic_siteid.column_value) -->
+<!--         </if> -->
+<!--     </sql> -->
 
     <!-- **********************************************************************************************************************
          *** Result

@@ -13,8 +13,9 @@
 
     <sql id="stationsBase">
         from <include refid="dataMapper.dbSchema"/>station s
-        <include refid="dataMapper.dynaTab" />
+<!--         <include refid="dataMapper.dynaTab" /> -->
           <where>
+          		<include refid="dataMapper.baseWhereStationGeoClauses" />
             <include refid="dataMapper.baseWhereStationClauses" />
               <if test="sampleMedia != null || characteristicName != null || characteristicType != null || startDateLo != null || startDateHi != null ||
                         activityId != null || analyticalmethod != null || pCode != null">
@@ -25,7 +26,7 @@
                                      <include refid="dataMapper.baseWhereResultClauses" />
                              )
             </if>
-            <include refid="dataMapper.dynaWhere" />
+<!--             <include refid="dataMapper.dynaWhere" /> -->
         </where>
     </sql>
 
@@ -35,21 +36,21 @@
                   startDateLo == null &amp;&amp; startDateHi == null &amp;&amp;
                   activityId == null &amp;&amp; analyticalmethod == null &amp;&amp; pCode == null">
 			<include refid="dataMapper.dbSchema"/>station_sum s
-        	<include refid="dataMapper.dynaTab" />
+<!--         	<include refid="dataMapper.dynaTab" /> -->
           	<where>
           		<include refid="dataMapper.baseWhereStationGeoClauses" />
             	<include refid="dataMapper.baseWhereStationClauses" />
-             	<include refid="dataMapper.dynaWhere" />
+<!--              	<include refid="dataMapper.dynaWhere" /> -->
             </where>
         </if>
         <if test="startDateLo != NULL || startDateHi != NULL || activityId != null">
        		<if test="bBox == NULL &amp;&amp; within == NULL">
 				<include refid="dataMapper.dbSchema"/>pc_result_sum s
-                <include refid="dataMapper.dynaTab" />
+<!--                 <include refid="dataMapper.dynaTab" /> -->
 	            <where>
 					<include refid="dataMapper.baseWhereStationClauses" />
 					<include refid="dataMapper.baseWhereResultClauses" />
-					<include refid="dataMapper.dynaWhere" />
+<!-- 					<include refid="dataMapper.dynaWhere" /> -->
 				</where>
         	</if>
         </if>
@@ -57,11 +58,11 @@
                   analyticalmethod != null || pCode != null">
         	<if test="startDateLo == NULL &amp;&amp; startDateHi == NULL &amp;&amp; within == NULL &amp;&amp; bBox == NULL">
             	<include refid="dataMapper.dbSchema"/>pc_result_ct_sum s
-                <include refid="dataMapper.dynaTab" />
+<!--                 <include refid="dataMapper.dynaTab" /> -->
                	<where>
 					<include refid="dataMapper.baseWhereStationClauses" />
 					<include refid="dataMapper.baseWhereResultClauses" />
-					<include refid="dataMapper.dynaWhere" />
+<!-- 					<include refid="dataMapper.dynaWhere" /> -->
 				</where>
              </if>
      	</if>
@@ -76,13 +77,13 @@
 	            		<include refid="dataMapper.baseWhereStationGeoClauses" />
                		</where>
                	) s
-                <include refid="dataMapper.dynaTab" />
+<!--                 <include refid="dataMapper.dynaTab" /> -->
               	<where>
 		        	<trim prefix=" (" suffix=")" prefixOverrides="AND">
 	            		<include refid="dataMapper.baseWhereStationClauses" />
 	            		<include refid="dataMapper.baseWhereStationClauses" />
  						<include refid="dataMapper.baseWhereResultClauses" />
-						<include refid="dataMapper.dynaWhere" />
+<!-- 						<include refid="dataMapper.dynaWhere" /> -->
 					</trim>
                 	and s.site_id = a.site_id
                 	and s.data_source_id = a.data_source_id
@@ -95,22 +96,6 @@
     <sql id="resultsCountBase">
         <include refid="dataMapper.stationsCountBase"/>
     </sql>
-
-    <!-- **********************************************************************************************************************
-         *** SimpleStation
-         ********************************************************************************************************************** -->
-
-    <sql id="simplestationsBase">
-        select station_id,
-               site_id,
-               site_type,
-               s.geom.sdo_point.x x,
-               s.geom.sdo_point.y y,
-               organization
-        <include refid="dataMapper.stationsBase"/>
-    </sql>
-    
-
 
     <!-- **********************************************************************************************************************
          *** result maps
@@ -212,18 +197,18 @@
         </choose>
     </sql>
 
-    <sql id="dynaTab">
-        <if test="siteid != null">
-            ,(select /*+ cardinality(dyn 1) */ column_value
-                from table(pkg_dynamic_list.get_table(#{siteid,typeHandler=ArrayParameterTypeHandler})) dyn) dynamic_siteid
-        </if>
-    </sql>
+<!--     <sql id="dynaTab"> -->
+<!--         <if test="siteid != null"> -->
+<!--             ,(select /*+ cardinality(dyn 1) */ column_value -->
+<!--                 from table(pkg_dynamic_list.get_table(#{siteid,typeHandler=ArrayParameterTypeHandler})) dyn) dynamic_siteid -->
+<!--         </if> -->
+<!--     </sql> -->
 
-    <sql id="dynaWhere">
-        <if test="siteid != null">
-            and (site_id = dynamic_siteid.column_value)
-        </if>
-    </sql>
+<!--     <sql id="dynaWhere"> -->
+<!--         <if test="siteid != null"> -->
+<!--             and (site_id = dynamic_siteid.column_value) -->
+<!--         </if> -->
+<!--     </sql> -->
 
     <!-- **********************************************************************************************************************
          *** Result
@@ -297,6 +282,11 @@
         <if test ="organization != null">
             and (<include refid="dataMapper.organization" />)
         </if>
+        
+        <if test="siteid != null">
+        	and (site_id in <foreach item="i" collection="siteid" open="(" separator="," close=")">#{i}</foreach>)
+        </if>
+        
     </sql>
 
     <select id="stationsWQXCount" parameterType="map" resultType="String">
@@ -319,21 +309,10 @@
             order by organization
     </select>
 
-    <!-- **********************************************************************************************************************
-         *** SimpleStation
-         ********************************************************************************************************************** -->
-
-
-    <select id="selectStations" resultMap="dataMapper.station"  resultOrdered="true">
-        select distinct 
-		     organization,
-		     station_id,
-		     site_type,
-		     to_char(x, 'FM990.0000000') longitude,
-		     to_char(y, 'FM90.0000000') latitude
-          from (<include refid="dataMapper.simplestationsBase"/>)
-            order by organization,
-                     station_id
+    <select id="selectStationsCount" resultType="java.util.LinkedHashMap">
+        select DATA_SOURCE, count(*) ENTRIES
+          <include refid="dataMapper.stationsBase"/>
+          group by rollup(DATA_SOURCE)
     </select>
 
 
@@ -379,23 +358,18 @@
             order by organization,
                      site_id
     </select>
-    <select id="selectStationsCount" resultType="java.util.LinkedHashMap">
-        select DATA_SOURCE, count(*) ENTRIES
-          <include refid="dataMapper.stationsBase"/>
-          group by rollup(DATA_SOURCE)
-    </select>
-
+    
     <!-- **********************************************************************************************************************
          *** BiologicalResult/Station
          ********************************************************************************************************************** -->
 
     <sql id="biologicalResultsBase">
           from <include refid="dataMapper.dbSchema"/>biological_result
-        <include refid="dataMapper.dynaTab" />
+<!--         <include refid="dataMapper.dynaTab" /> -->
         <where>
             <include refid="dataMapper.baseWhereStationClauses" />
             <include refid="dataMapper.baseWhereResultClauses" />
-            <include refid="dataMapper.dynaWhere" />
+<!--             <include refid="dataMapper.dynaWhere" /> -->
         </where>
     </sql>
 

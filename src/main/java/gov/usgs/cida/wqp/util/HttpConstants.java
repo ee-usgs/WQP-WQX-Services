@@ -13,12 +13,8 @@ public interface HttpConstants extends XmlConstants {
 	String HEADER_CORS_VALUE = "*";
 	String HEADER_CONTENT_TYPE = "Content-Type";
 	String HEADER_CONTENT_DISPOSITION = "Content-disposition";
-	String MIME_TYPE_FI = "fi";
 	String MIME_TYPE_APPLICATION_FI = "application/fastinfoset";
 	String MIME_TYPE_TEXT = "application/text";
-	String MIME_TYPE_XML = "xml";
-	String MIME_TYPE_APPLICATION_XML = "application/xml";
-	String MIME_TYPE_APPLICATION_JSON = "application/json";
 	String MIME_TYPE_APPLICATION_ZIP = "application/zip";
 	String MIME_TYPE_TEXT_CSV = "text/csv";
 	String MIME_TYPE_TEXT_TSV = "text/tab-separated-values";
@@ -33,4 +29,8 @@ public interface HttpConstants extends XmlConstants {
 	String SIMPLE_STATION_ENDPOINT = ENDPOINT_SIMPLE_STATION + SEARCH_ENPOINT;
 	String BIOLOGICAL_RESULT_ENPOINT = ENDPOINT_BIOLOGICAL_RESULT + SEARCH_ENPOINT;
 	String HEADER_RESULT = ENDPOINT_RESULT;
+	String MEDIA_TYPE_CSV = "csv";
+	String MEDIA_TYPE_TSV = "tsv";
+	String MEDIA_TYPE_XML = "xml";
+	String MEDIA_TYPE_JSON = "json";
 }

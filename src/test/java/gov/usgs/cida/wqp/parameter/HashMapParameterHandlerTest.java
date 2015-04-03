@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import gov.usgs.cida.wqp.BaseSpringTest;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -12,9 +13,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import javax.annotation.Resource;
+
 import org.junit.Test;
 public class HashMapParameterHandlerTest extends BaseSpringTest {
-	HashMapParameterHandler handler = new HashMapParameterHandler();
+	@Resource
+	HashMapParameterHandler handler;
 	@Test
 	public void testValidateParameterGroups_null() {
 		ParameterMap pm = handler.validateParameterGroups(null);

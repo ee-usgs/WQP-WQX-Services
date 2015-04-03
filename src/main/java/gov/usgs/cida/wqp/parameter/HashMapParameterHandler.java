@@ -23,9 +23,6 @@ public class HashMapParameterHandler implements IParameterHandler {
 	private static Map<Parameters, AbstractValidator<?>> VALIDATOR_MAP;
 	private static final Set<Parameters> WITHIN_GROUP;
 	static final List<Set<Parameters>> GROUP_LIST;
-	public static void setValidatorMap(final Map<Parameters, AbstractValidator<?>> inValidatoryMap) {
-		VALIDATOR_MAP = inValidatoryMap;
-	}
 	public static AbstractValidator<?> getValidator(final Parameters inParameters) {
 		return VALIDATOR_MAP.get(inParameters);
 	}
@@ -39,8 +36,9 @@ public class HashMapParameterHandler implements IParameterHandler {
 		GROUP_LIST = new ArrayList<Set<Parameters>>();
 		GROUP_LIST.add(WITHIN_GROUP);
 	}
-	public HashMapParameterHandler() {
+	public HashMapParameterHandler(Map<Parameters, AbstractValidator<?>> inValidatoryMap) {
 		log.trace(getClass().getName());
+		VALIDATOR_MAP = inValidatoryMap;
 	}
 	@Override
 	public ParameterMap validateAndTransform(final Object inObject) {
