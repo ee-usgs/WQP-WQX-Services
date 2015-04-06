@@ -156,6 +156,7 @@ public class SpringConfig extends WebMvcConfigurerAdapter implements Environment
         	.mediaType(MEDIA_TYPE_TSV, new MediaType("text","tab-separated-values"))
         	.mediaType(MEDIA_TYPE_XML, MediaType.APPLICATION_XML)
         	.mediaType(MEDIA_TYPE_JSON, MediaType.APPLICATION_JSON)
+        	.mediaType(MEDIA_TYPE_XLSX, new MediaType("text","vnd.openxmlformats-officedocument.spreadsheetml.sheet"))
         	;
     }
     

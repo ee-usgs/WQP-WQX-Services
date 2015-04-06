@@ -396,6 +396,11 @@
 			<artifactId>commons-lang3</artifactId>
 			<version>${commons-lang3-version}</version>
 		</dependency>
+		<dependency>
+		   	<groupId>org.apache.poi</groupId>
+		   	<artifactId>poi-ooxml</artifactId>
+		   	<version>3.11</version>
+		</dependency>
 		<!-- ================================================================== -->
 		<!-- Spring 4 dependencies -->
 		<!-- http://docs.spring.io/spring/docs/current/spring-framework-reference/htmlsingle/#overview-core-container -->

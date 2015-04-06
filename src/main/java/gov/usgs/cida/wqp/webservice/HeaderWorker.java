@@ -63,7 +63,8 @@ public class HeaderWorker extends Worker implements HttpConstants {
 
 		httpUtils.addCountHeader(response, counts);
 		
-		if (contentType.contentEquals(MIME_TYPE_TEXT_CSV) || contentType.contentEquals(MIME_TYPE_TEXT_TSV)) {
+		if (contentType.contentEquals(MIME_TYPE_TEXT_CSV) || contentType.contentEquals(MIME_TYPE_TEXT_TSV)
+				|| contentType.contentEquals(MIME_TYPE_XLSX)) {
 			response.setHeader("Content-Disposition","attachment; filename=station."+PutSomeWhereElse.getMimeType(parameters, defaultMimetype));
 		}
 //		response.setContentLength(11*1024); // TODO this would be nice if possible to determine

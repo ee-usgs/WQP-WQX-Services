@@ -91,7 +91,7 @@ public class SimpleStationController implements HttpConstants, MybatisConstants,
 	/**
 	 * station search request
 	 */
-	@RequestMapping(value=SIMPLE_STATION_ENDPOINT, method=RequestMethod.GET, produces={MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+	@RequestMapping(value=SIMPLE_STATION_ENDPOINT, method=RequestMethod.GET) //, produces={MIME_TYPE_XLSX, MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
 	@Async
 	public void stationGetRequest(HttpServletRequest request, HttpServletResponse response) {
 		log.trace(""); // blank line during trace
@@ -107,6 +107,9 @@ public class SimpleStationController implements HttpConstants, MybatisConstants,
 				switch (mimeType) {
 				case MEDIA_TYPE_JSON:
 					transformer = new SimpleStationJsonTransformer( response.getOutputStream());
+					break;
+				case MEDIA_TYPE_XLSX:
+					transformer = new XlsxTransformer( response.getOutputStream(), XXXStationColumnMapper.getMappings());
 					break;
 				default:
 					transformer = new XmlTransformer( response.getOutputStream(), new SimpleStationXmlMapping());
