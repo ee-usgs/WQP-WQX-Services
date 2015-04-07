@@ -22,6 +22,7 @@
 	<mappers>
 		<mapper resource="mybatis/logMapper.xml"/>
 		<mapper resource="mybatis/dataMapper.xml"/>
+		<mapper resource="mybatis/simpleStation.xml"/>
 	 </mappers>
 	
 </configuration>

@@ -19,7 +19,7 @@ public interface ValidationConstants { // TODO these should be defaults with Wqp
 	String REGEX_SITEID			= "[\\w]+\\-.+\\S";
 	String REGEX_HUC			= "(?:[0-9]{8})|(?:[0-9]{2,7}\\*)";
 	String REGEX_PCODE			= "[0-9]{5}";
-	String REGEX_MIMETYPES		= "csv|tsv|tab|xlsx|xml|kml|kmz"; // TODO refine
+	String REGEX_MIMETYPES		= "csv|tsv|tab|xlsx|xml|kml|kmz|json"; // TODO refine
 	String REGEX_AVOID			= "NWIS|STORET";
 	String REGEX_ACTIVITY_ID	= ".+";
 	String REGEX_ANALYTICAL_METHOD	= ".+";

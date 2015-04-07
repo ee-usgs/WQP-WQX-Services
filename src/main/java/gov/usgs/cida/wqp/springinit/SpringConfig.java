@@ -1,5 +1,6 @@
 package gov.usgs.cida.wqp.springinit;
 import gov.usgs.cida.wqp.parameter.HashMapParameterHandler;
+import gov.usgs.cida.wqp.parameter.IParameterHandler;
 import gov.usgs.cida.wqp.parameter.Parameters;
 import gov.usgs.cida.wqp.parameter.transform.ParameterTransformer;
 import gov.usgs.cida.wqp.parameter.transform.SplitAndRegexGroupTransformer;
@@ -21,6 +22,7 @@ import gov.usgs.cida.wqp.validation.LongitudeValidator;
 import gov.usgs.cida.wqp.validation.LookupValidator;
 import gov.usgs.cida.wqp.validation.RegexValidator;
 import gov.usgs.cida.wqp.validation.ValidationConstants;
+import gov.usgs.cida.wqp.webservice.SimpleStation.SimpleStationDao;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -35,10 +37,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.PropertySources;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+import org.springframework.http.MediaType;
+import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -51,7 +56,12 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @Configuration
 @ComponentScan(basePackages= {WqpEnv.BASE_PACKAGE})
 @EnableWebMvc
-@PropertySource(value = {WqpEnv.PROPERTIES_FILE}) // TODO this might not work because of the container path var
+@PropertySources({
+	//This will get the defaults
+	@PropertySource(value = "classpath:" + WqpEnv.PROPERTIES_FILE),
+	//This will override with values from the containers file if the file can be found
+	@PropertySource(value = WqpEnv.CONTAINER_PROPERTIES_FILE, ignoreResourceNotFound = true)
+})
 public class SpringConfig extends WebMvcConfigurerAdapter implements EnvironmentAware,
 		HttpConstants, MybatisConstants, ValidationConstants, WqpEnvProperties  {
 	private final Logger log = LoggerFactory.getLogger(getClass());
@@ -119,7 +129,6 @@ public class SpringConfig extends WebMvcConfigurerAdapter implements Environment
 		VALIDATOR_MAP.put(Parameters.START_DATE_LO, new DateFormatValidator(Parameters.START_DATE_LO, FORMAT_DATE));
 		// one string date MM-DD-YYYY
 		VALIDATOR_MAP.put(Parameters.START_DATE_HI, new DateFormatValidator(Parameters.START_DATE_HI, FORMAT_DATE));
-		HashMapParameterHandler.setValidatorMap(VALIDATOR_MAP);
 	}
 	
 	
@@ -134,6 +143,20 @@ public class SpringConfig extends WebMvcConfigurerAdapter implements Environment
 		log.trace(getClass().getName());
 	}
 	
+    @Override
+    public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
+        configurer
+        	.ignoreAcceptHeader(true)
+        	.favorPathExtension(false)
+        	.favorParameter(true)
+        	.parameterName("mimeType")
+        	.mediaType(MEDIA_TYPE_CSV, new MediaType("text","csv"))
+        	.mediaType(MEDIA_TYPE_TSV, new MediaType("text","tab-separated-values"))
+        	.mediaType(MEDIA_TYPE_XML, MediaType.APPLICATION_XML)
+        	.mediaType(MEDIA_TYPE_JSON, MediaType.APPLICATION_JSON)
+        	;
+    }
+    
 	@Bean
 	public SqlSessionFactoryBean sqlSessionFactory() {
 		SqlSessionFactoryBean mybatis = new SqlSessionFactoryBean();
@@ -154,6 +177,16 @@ public class SpringConfig extends WebMvcConfigurerAdapter implements Environment
 		return new StationDao(sqlSessionFactory().getObject());
 	}
 	
+	@Bean
+	public SimpleStationDao simpleStationDao() throws Exception {
+		return new SimpleStationDao(sqlSessionFactory().getObject());
+	}
+	
+	@Bean
+	public IParameterHandler hashMapParameterHandler() throws Exception {
+		return new HashMapParameterHandler(VALIDATOR_MAP);
+	}
+
 	/**
 	 * Expose the resources (properties defined above) as an Environment to all
 	 * classes.  Must declare a class variable with:
