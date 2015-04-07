@@ -164,7 +164,7 @@
 			 		<includes>
 			  			<include>**/*.class</include>
 			 		</includes>
-			 		<excludedGroups>gov.usgs.cida.qw.IntegrationTest</excludedGroups>
+			 		<excludedGroups>gov.usgs.cida.wqp.IntegrationTest</excludedGroups>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -469,7 +469,6 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
-			<scope>package</scope>
 		</dependency>
 <!-- 	    <dependency> -->
 <!-- 	      <groupId>org.springframework.batch</groupId> -->
