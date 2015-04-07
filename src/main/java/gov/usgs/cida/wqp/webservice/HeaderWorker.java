@@ -62,7 +62,7 @@ public class HeaderWorker extends Worker implements HttpConstants {
 		response.addHeader(HEADER_CONTENT_TYPE, contentType);
 
 		httpUtils.addCountHeader(response, counts);
-		
+//TODO - FIGURE OUT A BETTER WAY TO SPECIFY IF OUTPUT SHOULD BE AN ATTACHMENT - (OR IF THEY ALL REALLY ARE) - ALL SIMPLESTATION SHOULD BE!!!		
 		if (contentType.contentEquals(MIME_TYPE_TEXT_CSV) || contentType.contentEquals(MIME_TYPE_TEXT_TSV)
 				|| contentType.contentEquals(MIME_TYPE_XLSX)) {
 			response.setHeader("Content-Disposition","attachment; filename=station."+PutSomeWhereElse.getMimeType(parameters, defaultMimetype));
