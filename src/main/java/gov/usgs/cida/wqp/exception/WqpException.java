@@ -16,9 +16,11 @@ public class WqpException extends Exception {
 	public WqpException(final WqpExceptionId id, final Class<?> clazz, final String method, final String message) {
 		this(id, clazz.getName(), method, message, null);
 	}
+	
 	public WqpException(final WqpExceptionId id, final String classname, final String method, final String message) {
 		this(id, classname, method, message, null);
 	}
+	
 	public WqpException(final WqpExceptionId id, final String classname, final String method, final String message, final WqpException previous) {
 		log.trace(getClass().getName());
 		this.exceptionid = id;
@@ -27,9 +29,11 @@ public class WqpException extends Exception {
 		this.message     = message;
 		this.previous    = previous;
 	}
+	
 	public String traceBack() {
 		return traceBack("\n");
 	}
+	
 	public String traceBack(final String sep) {
 		int level = 0;
 		WqpException e = this;
@@ -45,6 +49,7 @@ public class WqpException extends Exception {
 		}
 		return text.toString();
 	}
+	
 	private String line(final String s) {
 		return s + this.delimeter;
 	}

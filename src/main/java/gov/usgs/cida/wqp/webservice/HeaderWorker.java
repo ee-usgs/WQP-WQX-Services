@@ -17,13 +17,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 public class HeaderWorker extends Worker implements HttpConstants {
 	private final Logger log = LoggerFactory.getLogger(getClass());
+	
 	private final HttpServletResponse response;
 	private final String countQueryId;
 	private final ParameterMap parameters;
 	private final HttpUtils httpUtils = new HttpUtils();
+	
 	private List<Map<String, Object>> counts;
+	
 	private ICountDao countDao;
+	
 	private String defaultMimetype;
+	
 	public HeaderWorker(HttpServletResponse response, String countQueryId, ParameterMap parameters, ICountDao countDao, String defaultMimetype) {
 		this.response = response;
 		this.countQueryId = countQueryId;
@@ -31,19 +36,23 @@ public class HeaderWorker extends Worker implements HttpConstants {
 		this.countDao = countDao;
 		this.defaultMimetype = defaultMimetype;
 	}
+	
 	@Override
 	public Message onReceive(Message msg) {
 		return super.onReceive(msg);
 	}
+	
 	@Override
 	public void begin() throws CdatException {
 	}
+	
 	@Override
 	public boolean process() throws CdatException {
 		log.trace("station count");
 		counts = countDao.getCounts(countQueryId, parameters.getQueryParameters());
 		return false;
 	}
+	
 	@Override
 	public void end() {
 		log.trace("station header start");

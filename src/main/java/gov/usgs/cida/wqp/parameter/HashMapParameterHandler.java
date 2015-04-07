@@ -1,4 +1,5 @@
 package gov.usgs.cida.wqp.parameter;
+
 import gov.usgs.cida.wqp.validation.AbstractValidator;
 import gov.usgs.cida.wqp.validation.ValidationResult;
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 /**
  * Was QWMapParameterValidator
  * @author drsteini
@@ -20,26 +22,34 @@ import org.slf4j.LoggerFactory;
  */
 public class HashMapParameterHandler implements IParameterHandler {
 	private final Logger log = LoggerFactory.getLogger(getClass());
+	
 	private static Map<Parameters, AbstractValidator<?>> VALIDATOR_MAP;
 	private static final Set<Parameters> WITHIN_GROUP;
+	
 	static final List<Set<Parameters>> GROUP_LIST;
-	public static AbstractValidator<?> getValidator(final Parameters inParameters) {
-		return VALIDATOR_MAP.get(inParameters);
-	}
 	static {
 		WITHIN_GROUP = new HashSet<Parameters>();
 		WITHIN_GROUP.add(Parameters.LATITUDE);
 		WITHIN_GROUP.add(Parameters.LONGITUDE);
 		WITHIN_GROUP.add(Parameters.WITHIN);
-	}
-	static {
+
 		GROUP_LIST = new ArrayList<Set<Parameters>>();
 		GROUP_LIST.add(WITHIN_GROUP);
 	}
+	
+	public static void setValidatorMap(final Map<Parameters, AbstractValidator<?>> inValidatoryMap) {
+		VALIDATOR_MAP = inValidatoryMap;
+	}
+	
+	public static AbstractValidator<?> getValidator(final Parameters inParameters) {
+		return VALIDATOR_MAP.get(inParameters);
+	}
+	
 	public HashMapParameterHandler(Map<Parameters, AbstractValidator<?>> inValidatoryMap) {
 		log.trace(getClass().getName());
 		VALIDATOR_MAP = inValidatoryMap;
 	}
+	
 	@Override
 	public ParameterMap validateAndTransform(final Object inObject) {
 		ParameterMap out = new ParameterMap();
@@ -53,6 +63,7 @@ public class HashMapParameterHandler implements IParameterHandler {
 		}
 		return out;
 	}
+	
 	public Map<String, String[]> pruneParameters(final Map<?, ?> inParameters) {
 		Map<String, String[]> rtn = new HashMap<String, String[]>();
 		Iterator<?> entryIterator = inParameters.entrySet().iterator();
@@ -77,6 +88,7 @@ public class HashMapParameterHandler implements IParameterHandler {
 		}
 		return rtn;
 	}
+	
 	@Override
 	public ParameterMap validateParameterNamesAndGroups(Set<String> inParameterNames) {
 		ParameterMap rtn = new ParameterMap();
@@ -106,6 +118,7 @@ public class HashMapParameterHandler implements IParameterHandler {
 		}
 		return rtn;
 	}
+	
 	public ParameterMap validateAndTransformParameterValues(Map<String, String[]> inMap) {
 		ParameterMap rtnMap = new ParameterMap();
 		for (Entry<String, String[]> entry : inMap.entrySet()) {
@@ -124,6 +137,7 @@ public class HashMapParameterHandler implements IParameterHandler {
 		}
 		return rtnMap;
 	}
+	
 	public ParameterMap validateParameterGroups(Set<Parameters> userParameterSet) {
 		ParameterMap rtn = new ParameterMap();
 		if (null != userParameterSet) {
@@ -149,6 +163,7 @@ public class HashMapParameterHandler implements IParameterHandler {
 		}
 		return rtn;
 	}
+	
 	private String formatGroupSet(SortedSet<String> containsSet) {
 		StringBuilder builder = new StringBuilder();
 		Iterator<String> iterator = containsSet.iterator();

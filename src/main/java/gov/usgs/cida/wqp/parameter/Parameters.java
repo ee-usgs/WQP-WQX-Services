@@ -1,8 +1,10 @@
 package gov.usgs.cida.wqp.parameter;
+
 import java.util.HashMap;
 import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 public enum Parameters {
 	ANALYTICAL_METHOD("analyticalmethod"),
 	SITEID("siteid"),
@@ -32,14 +34,18 @@ public enum Parameters {
 	PROVIDERS("providers"),
 	AVOID("command.avoid"),
 	TIMEZONE_TYPE("timezoneType");
+	
 	private final Logger log = LoggerFactory.getLogger(getClass());
+	
 	private final String parameterName;
 	private static Map<String, Parameters> validParameterNames;
+	
 	private Parameters(String value) {
 		log.trace(getClass().getName());
 		parameterName = value;
 		putParameterName(value, this);
 	}
+	
 	private static void putParameterName(String value, Parameters param) {
 		if (value == null || getValidParameterNames().containsKey(value)) {
 			//This is a configuration error and can only happen if you duplicate values above...not unit testable
@@ -48,12 +54,14 @@ public enum Parameters {
 			getValidParameterNames().put(value, param);
 		}
 	}
+	
 	private static Map<String, Parameters> getValidParameterNames() {
 		if (validParameterNames == null) {
 			validParameterNames = new HashMap<String, Parameters>();
 		}
 		return validParameterNames;
 	}
+	
 	@Override
 	public String toString() {
 		return parameterName;

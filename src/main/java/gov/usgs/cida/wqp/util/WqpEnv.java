@@ -19,6 +19,7 @@ public abstract class WqpEnv {
 		T transformed = transformer.transform(value);
 		return transformed;
 	}
+	
 	public static <T> T get(String property, Transformer<T> transformer, T defaultValue) {
 		T value = get(property, transformer);
 		return value==null ?defaultValue :value;
@@ -31,6 +32,7 @@ public abstract class WqpEnv {
 		}
 		return value;
 	}
+	
 	public static String get(String property, String defaultValue) {
 		String value = get(property);
 		return value==null ?defaultValue :value;
@@ -41,5 +43,4 @@ public abstract class WqpEnv {
 	public static void setEnv(Environment env) {
 		WqpEnv.env = env;
 	}
-	
 }

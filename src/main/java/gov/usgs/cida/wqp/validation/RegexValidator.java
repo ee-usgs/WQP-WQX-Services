@@ -9,12 +9,15 @@ import org.slf4j.LoggerFactory;
  */
 public class RegexValidator<T> extends AbstractValidator<T> {
 	private final Logger log = LoggerFactory.getLogger(getClass());
+	
 	public static final String ERROR_MESSAGE = "must match the format ";
 	private String regex;
 	private Pattern validatePattern;
+	
 	public RegexValidator(Parameters inParameter, String inRegex)  {
 		this(inParameter, DEFAULT_MIN_OCCURS, IN_CLAUSE_LIMIT, DEFAULT_DELIMITER, inRegex);
 	}
+	
 	public RegexValidator(Parameters inParameter, int minOccurs, int maxOccurs, String delimiter, String inRegex)  {
 		super(inParameter, minOccurs, maxOccurs, delimiter);
 		log.trace(getClass().getName());
@@ -47,9 +50,11 @@ public class RegexValidator<T> extends AbstractValidator<T> {
 		}
 		validatePattern = Pattern.compile(validateRegExBuilder.toString());
 	}
+	
 	public String getValidatePattern() {
 		return validatePattern.toString();
 	}
+	
 	@Override
 	public ValidationResult<T> validate(String value) {
 		ValidationResult<T> vr = new ValidationResult<T>();

@@ -21,23 +21,30 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 public class StationWorker extends Worker implements HttpConstants {
 	private final Logger log = LoggerFactory.getLogger(getClass());
+	
 	private final HttpServletResponse response;
 	private final ParameterMap parameters;
 	private final HttpUtils httpUtils = new HttpUtils();
+	
 	private OutputStream out;
+	
 	@Autowired
 	protected IStationDao stationDao;
+	
 	public void setStationDao(IStationDao stationDao) {
 		this.stationDao = stationDao;
 	}
+	
 	public StationWorker(HttpServletResponse response, ParameterMap parameters) {
 		this.response = response;
 		this.parameters = parameters;
 	}
+	
 	@Override
 	public Message onReceive(Message msg) {
 		return super.onReceive(msg);
 	}
+	
 	@Override
 	public void begin() throws CdatException {
 		super.begin();
@@ -53,6 +60,7 @@ public class StationWorker extends Worker implements HttpConstants {
 			}
 		}
 	}
+	
 	@Override
 	public boolean process() throws CdatException {
 		log.trace("fetching station data with streaming handler - started");
@@ -68,6 +76,7 @@ public class StationWorker extends Worker implements HttpConstants {
 		log.trace("fetching station data with streaming handler - finished");
 		return false;
 	}
+	
 	@Override
 	public void end() {
 		super.end();

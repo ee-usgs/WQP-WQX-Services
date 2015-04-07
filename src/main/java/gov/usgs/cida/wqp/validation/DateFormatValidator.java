@@ -12,11 +12,14 @@ import org.slf4j.LoggerFactory;
  */
 public class DateFormatValidator extends AbstractValidator<String[]> {
 	private final Logger log = LoggerFactory.getLogger(getClass());
+	
 	protected final String formatString;
 	protected static final String MUST_BE_VALID = "must be a valid date in the format ";
+	
 	public DateFormatValidator(Parameters inParameter, String inFormatString)  {
 		this(inParameter, DEFAULT_MIN_OCCURS, DEFAULT_MAX_OCCURS, DEFAULT_DELIMITER, inFormatString);
 	}
+	
 	public DateFormatValidator(Parameters inParameter, int minOccurs, int maxOccurs, String delimiter, String inFormatString)  {
 		super(inParameter, minOccurs, maxOccurs, delimiter);
 		log.trace(getClass().getName());
@@ -25,6 +28,7 @@ public class DateFormatValidator extends AbstractValidator<String[]> {
 		}
 		formatString = inFormatString;
 	}
+	
 	@Override
 	public ValidationResult<String[]> validate(String value) {
 		ValidationResult<String[]> vr = new ValidationResult<String[]>();

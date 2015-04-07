@@ -1,4 +1,5 @@
 package gov.usgs.cida.wqp.springinit;
+
 import gov.usgs.cida.wqp.parameter.HashMapParameterHandler;
 import gov.usgs.cida.wqp.parameter.IParameterHandler;
 import gov.usgs.cida.wqp.parameter.Parameters;
@@ -49,6 +50,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+
 /**
  * This class takes the place of the old Spring servlet.xml configuration that
  * used to reside in /WEB-INF.

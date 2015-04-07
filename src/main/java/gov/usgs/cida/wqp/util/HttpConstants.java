@@ -1,4 +1,5 @@
 package gov.usgs.cida.wqp.util;
+
 public interface HttpConstants extends XmlConstants {
 	String DEFAULT_ENCODING = "UTF-8";
 	int    HEADER_WARNING_DEFAULT_CODE = 299;

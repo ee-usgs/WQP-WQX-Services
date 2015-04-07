@@ -1,9 +1,11 @@
 package gov.usgs.cida.wqp.service;
+
 import java.util.HashMap;
 import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import static gov.usgs.cida.wqp.util.HttpConstants.*;
+
 public enum EndPoint {
 	RESULT  (ENDPOINT_RESULT, RESULT_SEARCH_ENPOINT, HEADER_RESULT),
 	STATION (ENDPOINT_STATION, STATION_SEARCH_ENPOINT,  HEADER_SITE),

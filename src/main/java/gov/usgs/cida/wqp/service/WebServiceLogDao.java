@@ -1,9 +1,11 @@
 package gov.usgs.cida.wqp.service;
+
 import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.springframework.transaction.annotation.Transactional;
+
 public class WebServiceLogDao extends SqlSessionDaoSupport implements IWebServiceLogDao {
 	private final Logger log = LoggerFactory.getLogger(getClass());
 	

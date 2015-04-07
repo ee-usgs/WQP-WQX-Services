@@ -16,6 +16,7 @@ import org.springframework.web.servlet.DispatcherServlet;
  */
 public class SpringInitializer implements WebApplicationInitializer {
 	private final Logger log = LoggerFactory.getLogger(getClass());
+	
 	/**
 	 *  gets invoked automatically when application context loads
 	 */

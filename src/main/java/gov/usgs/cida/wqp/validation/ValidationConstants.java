@@ -1,4 +1,5 @@
 package gov.usgs.cida.wqp.validation;
+
 public interface ValidationConstants { // TODO these should be defaults with WqpConfig and wqpgateway.properties overrides
 	
 	int UNBOUNDED          = Integer.MAX_VALUE;

@@ -1,17 +1,27 @@
 package gov.usgs.cida.wqp.exception;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 public class WqpExceptionId {
 	private final Logger log = LoggerFactory.getLogger(getClass());
+	
 	private final Long exceptionId;
 	private String name;
+	
 	private WqpExceptionId( String name, int id ) {
 		log.trace(getClass().getName());
 		this.name = name;
 		this.exceptionId = Long.valueOf(id);
 	}
-	public String toString() { return this.name; }
-	public Long value() { return this.exceptionId; }
+	
+	public String toString() {
+		return this.name;
+	}
+	public Long value() {
+		return this.exceptionId;
+	}
+	
 	//-----------------------------------------
 	// EXCEPTION DEFINITIONS
 	//-----------------------------------------

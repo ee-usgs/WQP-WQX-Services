@@ -1,4 +1,5 @@
 package gov.usgs.cida.wqp.station.dao;
+
 import gov.usgs.cida.wqp.util.CharacterSeparatedValue;
 import java.io.Closeable;
 import java.io.IOException;
@@ -9,16 +10,21 @@ import org.apache.ibatis.session.ResultContext;
 import org.apache.ibatis.session.ResultHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 public class MapResultHandler implements ResultHandler, Closeable {
 	private final Logger log = LoggerFactory.getLogger(getClass());
+	
 	private final CharacterSeparatedValue transformer; // TODO need to generalize
 	private final OutputStream stream;  // TODO will use StreamContainer later
+	
 	private boolean doHeaders = true;
+	
 	public MapResultHandler(OutputStream consumer, CharacterSeparatedValue transformer) {
 		log.trace("streaming handler constructed");
 		this.transformer = transformer;
 		this.stream = consumer;
 	}
+	
 	@Override
 	public void handleResult(ResultContext context) {
 		log.trace("streaming handle result : {}", (context==null ?"null" :"context"));
@@ -38,6 +44,7 @@ public class MapResultHandler implements ResultHandler, Closeable {
 			throw e;
 		}
 	}
+	
 	private void write(Map<String, Object> entry) {
 		log.trace("need entry: {}", entry);
 		try {
@@ -57,6 +64,7 @@ public class MapResultHandler implements ResultHandler, Closeable {
 			throw new RuntimeException("Failed writing header",e);
 		}
 	}
+	
 	private void doHeader(Map<String,Object> headerEntry) {
 		doHeaders = false;
 		// this makes the Java DRY
@@ -66,6 +74,7 @@ public class MapResultHandler implements ResultHandler, Closeable {
 		}
 		write(headerMap);
 	}
+	
 	@Override
 	public void close() throws IOException {
 		try {
