@@ -3,6 +3,9 @@ package gov.usgs.cida.wqp.webservice.SimpleStation;
 import java.util.HashMap;
 import java.util.Map;
 
+//TODO Refactor as part of StationColumnMapper - The only real difference is that this is a map used to lookup
+//TODO 		the column header while "object" transforming where the other is a list of transformers for use in a "byte"
+//TODO 		transformer...
 public class XXXStationColumnMapper {
 
 	private static Map<String, String> mappings;
@@ -45,6 +48,7 @@ public class XXXStationColumnMapper {
 		mappings.put("WELL_DEPTH_UNIT","WellDepthMeasure/MeasureUnitCode");
 		mappings.put("HOLE_DEPTH_VALUE","WellHoleDepthMeasure/MeasureValue");
 		mappings.put("HOLE_DEPTH_UNIT","WellHoleDepthMeasure/MeasureUnitCode");
+		mappings.put("DATA_SOURCE","ProviderName");
 	}
 	
 	public static Map<String, String> getMappings() {

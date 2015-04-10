@@ -3,10 +3,11 @@ package gov.usgs.cida.wqp.webservice.SimpleStation;
 import gov.cida.cdat.control.Control;
 import gov.cida.cdat.control.SCManager;
 import gov.cida.cdat.control.Time;
+import gov.usgs.cida.wqp.dao.ICountDao;
+import gov.usgs.cida.wqp.dao.IDao;
+import gov.usgs.cida.wqp.dao.IStreamingDao;
 import gov.usgs.cida.wqp.parameter.IParameterHandler;
 import gov.usgs.cida.wqp.parameter.ParameterMap;
-import gov.usgs.cida.wqp.station.dao.ICountDao;
-import gov.usgs.cida.wqp.station.dao.StationDao;
 import gov.usgs.cida.wqp.util.HttpConstants;
 import gov.usgs.cida.wqp.util.HttpUtils;
 import gov.usgs.cida.wqp.util.MybatisConstants;
@@ -31,17 +32,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class SimpleStationController implements HttpConstants, MybatisConstants, ValidationConstants {
 	private final Logger log = LoggerFactory.getLogger(getClass());
 
-	protected SimpleStationDao simpleStationDao;
+	protected IStreamingDao streamingDao;
+	protected ICountDao countDao;
 
 	protected IParameterHandler parameterHandler;
 
 	@Autowired
 	public SimpleStationController(
-			SimpleStationDao inSimpleStationDao,
+			IStreamingDao inStreamingDao,
+			ICountDao inCountDao,
 			IParameterHandler inParameterHandler) {
 		log.trace(getClass().getName());
-		simpleStationDao = inSimpleStationDao;
+		streamingDao = inStreamingDao;
 		parameterHandler = inParameterHandler;
+		countDao = inCountDao;
 	}
 
 	/**
@@ -78,11 +82,12 @@ public class SimpleStationController implements HttpConstants, MybatisConstants,
 			return null;
 		}
 		SCManager session = SCManager.open();
-		HeaderWorker header = new HeaderWorker(response, StationDao.COUNT_QUERY_ID, pm, (ICountDao) simpleStationDao, MEDIA_TYPE_XML);
+		HeaderWorker header = new HeaderWorker(response, ICountDao.STATION_NAMESPACE, pm, countDao, MEDIA_TYPE_XML);
 		String stationCount = session.addWorker("SimpleStationCount", header);
 		session.send(stationCount, Control.Start);
 		session.waitForComplete(stationCount, Time.SECOND.asMS());
 		if (header.hasError()) {
+			//TODO We can't just eat these.
 			throw new RuntimeException(header.getCurrentError());
 		}
 		return session;
@@ -91,7 +96,7 @@ public class SimpleStationController implements HttpConstants, MybatisConstants,
 	/**
 	 * station search request
 	 */
-	@RequestMapping(value=SIMPLE_STATION_ENDPOINT, method=RequestMethod.GET) //, produces={MIME_TYPE_XLSX, MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+	@RequestMapping(value=SIMPLE_STATION_ENDPOINT, method=RequestMethod.GET, produces={MIME_TYPE_XLSX, MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
 	@Async
 	public void stationGetRequest(HttpServletRequest request, HttpServletResponse response) {
 		log.trace(""); // blank line during trace
@@ -108,6 +113,7 @@ public class SimpleStationController implements HttpConstants, MybatisConstants,
 				case MEDIA_TYPE_JSON:
 					transformer = new SimpleStationJsonTransformer( response.getOutputStream());
 					break;
+				//TODO here only for demo purposes needs to be removed before going to production.	
 				case MEDIA_TYPE_XLSX:
 					transformer = new XlsxTransformer( response.getOutputStream(), XXXStationColumnMapper.getMappings());
 					break;
@@ -116,17 +122,19 @@ public class SimpleStationController implements HttpConstants, MybatisConstants,
 					break;
 				}
 					
-				SimpleStationWorker worker = new SimpleStationWorker(response, pm, transformer);
-				worker.setDao(simpleStationDao);
+				SimpleStationWorker worker = new SimpleStationWorker(response, IDao.SIMPLE_STATION_NAMESPACE, pm, streamingDao, transformer);
 				String stationName = session.addWorker("SimpleStation", worker);
 				session.send(stationName, Control.Start);
 				session.waitForComplete(stationName, Time.SECOND.asMS());
 				if (worker.hasError()) {
+					//TODO We can't just eat these.
 					throw new RuntimeException(worker.getCurrentError());
 				}
 			}
 		} catch (Exception e) {
+			//TODO We can't just eat these.
 			log.error("Error openging outputstream",e);
+			throw new RuntimeException(e);
 		} finally {
 			if (session != null) {
 				session.close();

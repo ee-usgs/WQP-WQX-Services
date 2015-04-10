@@ -1,17 +1,24 @@
 package gov.usgs.cida.wqp.webservice;
+
+import java.io.IOException;
+
 import gov.cida.cdat.control.Control;
 import gov.cida.cdat.control.SCManager;
 import gov.cida.cdat.control.Time;
+import gov.usgs.cida.wqp.dao.ICountDao;
+import gov.usgs.cida.wqp.dao.IDao;
+import gov.usgs.cida.wqp.dao.IStreamingDao;
 import gov.usgs.cida.wqp.parameter.IParameterHandler;
 import gov.usgs.cida.wqp.parameter.ParameterMap;
-import gov.usgs.cida.wqp.station.dao.ICountDao;
-import gov.usgs.cida.wqp.station.dao.IStationDao;
-import gov.usgs.cida.wqp.station.dao.StationDao;
 import gov.usgs.cida.wqp.util.HttpConstants;
 import gov.usgs.cida.wqp.util.HttpUtils;
-import gov.usgs.cida.wqp.util.MybatisConstants;
+import gov.usgs.cida.wqp.util.PutSomeWhereElse;
 import gov.usgs.cida.wqp.validation.ParameterValidation;
 import gov.usgs.cida.wqp.validation.ValidationConstants;
+import gov.usgs.cida.wqp.webservice.SimpleStation.SimpleStationWorker;
+import gov.usgs.cida.wqp.webservice.SimpleStation.TransformOutputStream;
+import gov.usgs.cida.wqp.webservice.SimpleStation.XXXStationColumnMapper;
+import gov.usgs.cida.wqp.webservice.SimpleStation.XlsxTransformer;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,42 +26,32 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-//import org.springframework.web.bind.annotation.PathVariable;
-//import org.springframework.web.context.request.async.DeferredResult;
-//import org.springframework.web.servlet.ModelAndView;
 @Controller
-public class StationController implements HttpConstants, MybatisConstants, ValidationConstants {
+public class StationController implements HttpConstants, ValidationConstants {
 	private final Logger log = LoggerFactory.getLogger(getClass());
 
 	/* ========================================================================
 	 * Beans		===========================================================
 	 * ========================================================================
 	 */
-	@Autowired
-	private Environment environment;
-	public void setEnvironment(Environment environment) {
-		this.environment = environment;
-	}
-	
-	@Autowired
-	protected IStationDao stationDao;
-	public void setStationDao(IStationDao stationDao) {
-		this.stationDao = stationDao;
-	}
+	protected IStreamingDao streamingDao;
+	protected ICountDao countDao;
 
-	@Autowired
 	protected IParameterHandler parameterHandler;
-	public void setParameterHandler(IParameterHandler inParameterHandler) {
-		parameterHandler = inParameterHandler;
-	}
 
-	public StationController() {
+	@Autowired
+	public StationController(
+			IStreamingDao inStreamingDao,
+			ICountDao inCountDao,
+			IParameterHandler inParameterHandler) {
 		log.trace(getClass().getName());
+		streamingDao = inStreamingDao;
+		parameterHandler = inParameterHandler;
+		countDao = inCountDao;
 	}
 
 	/* ========================================================================
@@ -95,10 +92,14 @@ public class StationController implements HttpConstants, MybatisConstants, Valid
 			return null;
 		}
 		SCManager session = SCManager.open();
-		HeaderWorker header = new HeaderWorker(response, StationDao.COUNT_QUERY_ID, pm, (ICountDao)stationDao, MEDIA_TYPE_CSV);
+		HeaderWorker header = new HeaderWorker(response, IDao.STATION_NAMESPACE, pm, countDao, MEDIA_TYPE_CSV);
 		String stationCount = session.addWorker("StationCount", header);
 		session.send(stationCount, Control.Start);
 		session.waitForComplete(stationCount, Time.SECOND.asMS());
+		if (header.hasError()) {
+			//TODO We can't just eat these.
+			throw new RuntimeException(header.getCurrentError());
+		}
 		return session;
 	}
 	
@@ -115,19 +116,33 @@ public class StationController implements HttpConstants, MybatisConstants, Valid
 		try {
 			session = doHeader(request, response);
 			if (session != null) {
-				StationWorker station = new StationWorker(response, pm);
-				station.setStationDao(stationDao);
-				String stationName = session.addWorker("Station", station);
+				//TODO refactor to allow WQX&xlsx&json to all behave nicely
+				String stationName;
+				String mimeType = PutSomeWhereElse.getMimeType(pm, MEDIA_TYPE_CSV);
+				if (MEDIA_TYPE_XLSX.equalsIgnoreCase(mimeType)) {
+					stationName = doUglyStuff(session, response, pm);
+				} else {
+				StationWorker station = new StationWorker(response, IDao.STATION_NAMESPACE, pm, streamingDao);
+				stationName = session.addWorker("Station", station);
+				}
 				session.send(stationName, Control.Start);
 				session.waitForComplete(stationName, Time.SECOND.asMS());
 			}
 		} catch (Exception e) {
+			//TODO We can't just eat these.
 			log.error("Error openging outputstream",e);
+			throw new RuntimeException(e);
 		} finally {
 			if (session != null) {
 				session.close();
 			}
 			log.info("Processing Get complete: {}", request.getQueryString());
 		}
+	}
+	
+	private String doUglyStuff(SCManager session, HttpServletResponse response, ParameterMap pm) throws IOException {
+		TransformOutputStream transformer = new XlsxTransformer(response.getOutputStream(), XXXStationColumnMapper.getMappings());
+		SimpleStationWorker worker = new SimpleStationWorker(response, IDao.STATION_NAMESPACE, pm, streamingDao, transformer);
+		return session.addWorker("Station", worker);
 	}
 }

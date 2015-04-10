@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<mapper namespace="station">
+
+	<select id="select" resultType="java.util.LinkedHashMap" resultOrdered="true">
+		select organization,
+			   organization_name,
+			   site_id,
+			   station_name,
+			   station_type_name,
+			   description_text,
+			   huc_8,
+			   drain_area_value,
+			   drain_area_unit,
+			   contrib_drain_area_value,
+			   contrib_drain_area_unit,
+			   latitude,
+			   longitude,
+			   map_scale,
+			   geoposition_accy_value,
+			   geoposition_accy_unit,
+			   geopositioning_method,
+			   hdatum_id_code,
+			   elevation_value,
+			   elevation_unit,
+			   vertical_accuracy_value,
+			   vertical_accuracy_unit,
+			   elevation_method,
+			   vdatum_id_code,
+			   country_code,
+			   state_fips_code,
+			   county_fips_code,
+			   nat_aqfr_name,
+			   aqfr_name,
+			   aqfr_type_name,
+			   construction_date,
+			   well_depth_value,
+			   well_depth_unit,
+			   hole_depth_value,
+			   hole_depth_unit,
+			   data_source
+		<include refid="dynamicWhere.stationsBase"/>
+		   order by organization,
+					site_id
+	</select>
+
+	<select id="count" resultType="java.util.LinkedHashMap">
+		select data_source, count(distinct s.station_id) entries
+		<include refid="dynamicWhere.stationsCountBase"/>
+		group by rollup(data_source)
+	</select>
+
+</mapper>

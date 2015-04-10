@@ -2,8 +2,8 @@ package gov.usgs.cida.wqp.webservice;
 import gov.cida.cdat.control.Message;
 import gov.cida.cdat.control.Worker;
 import gov.cida.cdat.exception.CdatException;
+import gov.usgs.cida.wqp.dao.ICountDao;
 import gov.usgs.cida.wqp.parameter.ParameterMap;
-import gov.usgs.cida.wqp.station.dao.ICountDao;
 import gov.usgs.cida.wqp.util.HttpConstants;
 import gov.usgs.cida.wqp.util.HttpUtils;
 import gov.usgs.cida.wqp.util.PutSomeWhereElse;
@@ -63,10 +63,11 @@ public class HeaderWorker extends Worker implements HttpConstants {
 
 		httpUtils.addCountHeader(response, counts);
 //TODO - FIGURE OUT A BETTER WAY TO SPECIFY IF OUTPUT SHOULD BE AN ATTACHMENT - (OR IF THEY ALL REALLY ARE) - ALL SIMPLESTATION SHOULD BE!!!		
-		if (contentType.contentEquals(MIME_TYPE_TEXT_CSV) || contentType.contentEquals(MIME_TYPE_TEXT_TSV)
-				|| contentType.contentEquals(MIME_TYPE_XLSX)) {
-			response.setHeader("Content-Disposition","attachment; filename=station."+PutSomeWhereElse.getMimeType(parameters, defaultMimetype));
-		}
+//TODO - the filename alse needs to change based on the endpoint selected - station/simplestation/result...
+//		if (contentType.contentEquals(MIME_TYPE_TEXT_CSV) || contentType.contentEquals(MIME_TYPE_TEXT_TSV)
+//				|| contentType.contentEquals(MIME_TYPE_XLSX)) {
+			response.setHeader("Content-Disposition","attachment; filename=simplestation."+PutSomeWhereElse.getMimeType(parameters, defaultMimetype));
+//		}
 //		response.setContentLength(11*1024); // TODO this would be nice if possible to determine
 		log.trace("station header finish");
 	}

@@ -40,8 +40,8 @@ public class StationColumnMapper extends TransformOutputStream {
 		patterns.addMapping("ELEVATION_METHOD","VerticalCollectionMethodName");
 		patterns.addMapping("VDATUM_ID_CODE","VerticalCoordinateReferenceSystemDatumName");
 		patterns.addMapping("COUNTRY_CODE","CountryCode");
-		patterns.addMapping("STATE_CODE","StateCode");
-		patterns.addMapping("COUNTY_CODE","CountyCode");
+		patterns.addMapping("STATE_FIPS_CODE","StateCode");
+		patterns.addMapping("COUNTY_FIPS_CODE","CountyCode");
 		patterns.addMapping("NAT_AQFR_NAME","AquiferName");
 		patterns.addMapping("AQFR_NAME","FormationTypeText");
 		patterns.addMapping("AQFR_TYPE_NAME","AquiferTypeName");
@@ -50,10 +50,7 @@ public class StationColumnMapper extends TransformOutputStream {
 		patterns.addMapping("WELL_DEPTH_UNIT","WellDepthMeasure/MeasureUnitCode");
 		patterns.addMapping("HOLE_DEPTH_VALUE","WellHoleDepthMeasure/MeasureValue");
 		patterns.addMapping("HOLE_DEPTH_UNIT","WellHoleDepthMeasure/MeasureUnitCode");
-//		STATION_ID,
-//		SITE_TYPE,
-//		GOVERNMENTAL_UNIT_CODE	
-//		DATA_SOURCE,
+		patterns.addMapping("DATA_SOURCE","ProviderName");
 		
 		transform = new TerminatingTransformer("\n".getBytes(), patterns);
 	}

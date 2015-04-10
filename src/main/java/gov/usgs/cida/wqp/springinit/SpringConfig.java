@@ -6,9 +6,6 @@ import gov.usgs.cida.wqp.parameter.Parameters;
 import gov.usgs.cida.wqp.parameter.transform.ParameterTransformer;
 import gov.usgs.cida.wqp.parameter.transform.SplitAndRegexGroupTransformer;
 import gov.usgs.cida.wqp.parameter.transform.SplitAndReplaceTransformer;
-import gov.usgs.cida.wqp.station.dao.ICountDao;
-import gov.usgs.cida.wqp.station.dao.IStationDao;
-import gov.usgs.cida.wqp.station.dao.StationDao;
 import gov.usgs.cida.wqp.util.HttpConstants;
 import gov.usgs.cida.wqp.util.JndiUtils;
 import gov.usgs.cida.wqp.util.MybatisConstants;
@@ -23,7 +20,6 @@ import gov.usgs.cida.wqp.validation.LongitudeValidator;
 import gov.usgs.cida.wqp.validation.LookupValidator;
 import gov.usgs.cida.wqp.validation.RegexValidator;
 import gov.usgs.cida.wqp.validation.ValidationConstants;
-import gov.usgs.cida.wqp.webservice.SimpleStation.SimpleStationDao;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -78,7 +74,7 @@ public class SpringConfig extends WebMvcConfigurerAdapter implements Environment
 		// comma list of four float values
 		VALIDATOR_MAP.put(Parameters.BBOX, new LatLonBoundingBoxValidator(Parameters.BBOX));
 		// one float value
-		 // TODO seems silly to require a string for numerical values
+		// TODO seems silly to require a string for numerical values
 		AbstractValidator<double[]> floatValidator = new BoundedFloatingPointValidator(Parameters.WITHIN,""+DEFAULT_MIN_OCCURS,""+UNBOUNDED);
 		VALIDATOR_MAP.put(Parameters.WITHIN, floatValidator);
 
@@ -106,14 +102,16 @@ public class SpringConfig extends WebMvcConfigurerAdapter implements Environment
 		VALIDATOR_MAP.put(Parameters.SITEID,
 				new RegexValidator<String[]>(Parameters.SITEID,DEFAULT_MIN_OCCURS, UNBOUNDED, DEFAULT_DELIMITER, REGEX_SITEID));
 		// one string 'yes' or omitted
-		VALIDATOR_MAP.put(Parameters.ZIP, new RegexValidator<String[]>(Parameters.ZIP,1, 1, null, "zip"));
+		VALIDATOR_MAP.put(Parameters.ZIP, new RegexValidator<String[]>(Parameters.ZIP,1, 1, null, "yes"));
 		// one string 'yes' or omitted
 		VALIDATOR_MAP.put(Parameters.MIMETYPE, new RegexValidator<String[]>(Parameters.MIMETYPE,1, 1, null,REGEX_MIMETYPES));
+
+		//TODO - Activity is not currently supported
 		// semicolon list of string activity IDs
-		VALIDATOR_MAP.put(Parameters.ACTIVITY_ID, new RegexValidator<String[]>(Parameters.ACTIVITY_ID,REGEX_ACTIVITY_ID));
+		//VALIDATOR_MAP.put(Parameters.ACTIVITY_ID, new RegexValidator<String[]>(Parameters.ACTIVITY_ID,REGEX_ACTIVITY_ID));
+
 		// semicolon (or pipe) list of databases to exclude as 'command.avoid'
 		VALIDATOR_MAP.put(Parameters.AVOID, new RegexValidator<String[]>(Parameters.AVOID,REGEX_AVOID));
-		
 		// semicolon (or pipe) list of databases to include
 		VALIDATOR_MAP.put(Parameters.PROVIDERS, new LookupValidator(Parameters.PROVIDERS));
 		// semicolon list of string characteristic types
@@ -156,7 +154,7 @@ public class SpringConfig extends WebMvcConfigurerAdapter implements Environment
         	.mediaType(MEDIA_TYPE_TSV, new MediaType("text","tab-separated-values"))
         	.mediaType(MEDIA_TYPE_XML, MediaType.APPLICATION_XML)
         	.mediaType(MEDIA_TYPE_JSON, MediaType.APPLICATION_JSON)
-        	.mediaType(MEDIA_TYPE_XLSX, new MediaType("text","vnd.openxmlformats-officedocument.spreadsheetml.sheet"))
+        	.mediaType(MEDIA_TYPE_XLSX, new MediaType("application","vnd.openxmlformats-officedocument.spreadsheetml.sheet"))
         	;
     }
     
@@ -168,21 +166,6 @@ public class SpringConfig extends WebMvcConfigurerAdapter implements Environment
 		DataSource ds = JndiUtils.jndiDataSource(WqpEnv.get(JNDI_DATASOURCE));
 		mybatis.setDataSource(ds);
 		return mybatis;
-	}
-	
-	@Bean
-	public IStationDao stationDao() throws Exception {
-		return new StationDao(sqlSessionFactory().getObject());
-	}
-	
-	@Bean
-	public ICountDao countDao() throws Exception {
-		return new StationDao(sqlSessionFactory().getObject());
-	}
-	
-	@Bean
-	public SimpleStationDao simpleStationDao() throws Exception {
-		return new SimpleStationDao(sqlSessionFactory().getObject());
 	}
 	
 	@Bean
