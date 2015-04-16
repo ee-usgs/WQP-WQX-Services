@@ -1,7 +1,6 @@
 package gov.usgs.cida.wqp.webservice.SimpleStation;
 
-import gov.cida.cdat.transform.RegexTransformer;
-import gov.usgs.cida.wqp.webservice.StationColumnMapper;
+import gov.usgs.cida.wqp.service.ILogService;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -9,22 +8,17 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.math.BigDecimal;
-import java.util.Deque;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.poi.ss.util.CellReference;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class XlsxTransformer extends TransformOutputStream {
 	private final Logger log = LoggerFactory.getLogger(getClass());
@@ -58,8 +52,8 @@ public class XlsxTransformer extends TransformOutputStream {
 	/** Default output buffer size. */
 	private static final int DEFAULT_BUFFER_SIZE = 1024;
 
-	public XlsxTransformer(OutputStream target, Map<String, String> mapping) {
-		super(target, null);
+	public XlsxTransformer(OutputStream target, ILogService webServiceLogService, BigDecimal logId, Map<String, String> mapping) {
+		super(target, webServiceLogService, logId, null);
 		this.mapping = mapping;
 	}
 
@@ -80,6 +74,7 @@ public class XlsxTransformer extends TransformOutputStream {
 
 		if (first) {
 			writeHeader();
+			webServiceLogService.logFirstRowComplete(logId);
 			first = false;
 		}
 		writeData();
@@ -179,11 +174,6 @@ public class XlsxTransformer extends TransformOutputStream {
 		}
 	}
 
-	
-	private String getValue(String key) {
-		return StringEscapeUtils.escapeXml11(result.get(key).toString());
-	}
-	
 	
 	/** 
 	 * Converts a string to a byte array and stream it.

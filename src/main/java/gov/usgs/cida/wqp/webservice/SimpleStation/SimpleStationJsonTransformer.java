@@ -1,7 +1,10 @@
 package gov.usgs.cida.wqp.webservice.SimpleStation;
 
+import gov.usgs.cida.wqp.service.ILogService;
+
 import java.io.IOException;
 import java.io.OutputStream;
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,8 +17,8 @@ public class SimpleStationJsonTransformer extends TransformOutputStream implemen
 	/** Is this the first write to the stream. */
 	private boolean first = true;
 	
-	public SimpleStationJsonTransformer(OutputStream target) {
-		super(target, null);
+	public SimpleStationJsonTransformer(OutputStream target, ILogService webServiceLogService, BigDecimal logId) {
+		super(target, webServiceLogService, logId, null);
 		groupings = new HashMap<>();
 	}
 
@@ -31,6 +34,7 @@ public class SimpleStationJsonTransformer extends TransformOutputStream implemen
 		}
 		if (first) {
 			prepareHeader();
+			webServiceLogService.logFirstRowComplete(logId);
 		}
 		prepareData();
 	}

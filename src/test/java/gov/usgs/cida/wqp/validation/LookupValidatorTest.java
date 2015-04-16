@@ -22,7 +22,7 @@ public class LookupValidatorTest extends BaseSpringTest implements ValidationCon
 	@Test
 	public void testConstructors_nullParameter() {
 		try {
-			new LookupValidator(null);
+			new LookupValidator(null, null);
 			fail("Should have gotten an IllegalArgumentException");
 		} catch (IllegalArgumentException e) {
 			assertEquals("The Parameter being validated must be provided.", e.getMessage());
@@ -31,7 +31,7 @@ public class LookupValidatorTest extends BaseSpringTest implements ValidationCon
 	@Test
 	public void testConstructors_nullParmeter2() {
 		try {
-			new LookupValidator(null, -1, 0, null);
+			new LookupValidator(null, null, -1, 0, null);
 			fail("Should have gotten an IllegalArgumentException");
 		} catch (IllegalArgumentException e) {
 			assertEquals("The Parameter being validated must be provided.", e.getMessage());
@@ -39,14 +39,14 @@ public class LookupValidatorTest extends BaseSpringTest implements ValidationCon
 	}
 	@Test
 	public void testConstructors_defaults() {
-		AbstractValidator<?> validator = new LookupValidator(Parameters.COUNTRY);
+		AbstractValidator<?> validator = new LookupValidator(null, Parameters.COUNTRY);
 		assertEquals(DEFAULT_MIN_OCCURS, validator.getMinOccurs());
 		assertEquals(IN_CLAUSE_LIMIT, validator.getMaxOccurs());
 		assertEquals(DEFAULT_DELIMITER, validator.getDelimiter());
 	}
 	@Test
 	public void testNullValue() {
-		LookupValidator validator = new LookupValidator(Parameters.COUNTRY, 1, 2, ";");
+		LookupValidator validator = new LookupValidator(null, Parameters.COUNTRY, 1, 2, ";");
 		validator.setCodesService(new TestCodeServiceMatch());
 		ValidationResult<String[]> vr = validator.validate(null);
 		assertFalse(vr.isValid());
@@ -56,7 +56,7 @@ public class LookupValidatorTest extends BaseSpringTest implements ValidationCon
 	}
 	@Test
 	public void testEmptyStringValue() {
-		LookupValidator validator = new LookupValidator(Parameters.COUNTRY, 1, 2, ";");
+		LookupValidator validator = new LookupValidator(null, Parameters.COUNTRY, 1, 2, ";");
 		validator.setCodesService(new TestCodeServiceMismatch());
 		ValidationResult<String[]> vr = validator.validate("asdf");
 		assertFalse(vr.isValid());
@@ -66,7 +66,7 @@ public class LookupValidatorTest extends BaseSpringTest implements ValidationCon
 	}
 	@Test
 	public void testTooManyInvalidStringValue() {
-		LookupValidator validator = new LookupValidator(Parameters.COUNTRY, 1, 2, ";");
+		LookupValidator validator = new LookupValidator(null, Parameters.COUNTRY, 1, 2, ";");
 		validator.setCodesService(new TestCodeServiceMismatch());
 		ValidationResult<String[]> vr = validator.validate("AA;BB;CC");
 		assertFalse(vr.isValid());
@@ -79,7 +79,7 @@ public class LookupValidatorTest extends BaseSpringTest implements ValidationCon
 	}
 	@Test
 	public void testNotFoundValue() {
-		LookupValidator validator = new LookupValidator(Parameters.COUNTRY, 1, 2, "-");
+		LookupValidator validator = new LookupValidator(null, Parameters.COUNTRY, 1, 2, "-");
 		validator.setCodesService(new TestCodeServiceMismatch());
 		ValidationResult<String[]> vr = validator.validate("AA;BB;CC");
 		assertFalse(vr.isValid());

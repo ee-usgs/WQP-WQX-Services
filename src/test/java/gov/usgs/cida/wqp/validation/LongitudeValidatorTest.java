@@ -11,7 +11,7 @@ public class LongitudeValidatorTest extends BaseSpringTest implements Validation
 	@Test
 	public void testConstructor_minTooLarge() {
 		try {
-			new LongitudeValidator(Parameters.LONGITUDE, "500", "-80");
+			new LongitudeValidator(Parameters.LONGITUDE, 500, -80);
 		} catch (Exception e) {
 			assertEquals(e.getClass(), IllegalArgumentException.class);
 			//Used to be "minBound must be between -180.0 and 180.0 (inclusive)", but the BoundedFloatingPointValidator was changed to
@@ -22,7 +22,7 @@ public class LongitudeValidatorTest extends BaseSpringTest implements Validation
 	@Test
 	public void testConstructor_minTooSmall() {
 		try {
-			new LongitudeValidator(Parameters.LONGITUDE, "-500", "-80");
+			new LongitudeValidator(Parameters.LONGITUDE, -500, -80);
 		} catch (Exception e) {
 			assertEquals(e.getClass(), IllegalArgumentException.class);
 			assertEquals("minBound must be between -180.0 and 180.0 (inclusive)", e.getMessage());
@@ -31,7 +31,7 @@ public class LongitudeValidatorTest extends BaseSpringTest implements Validation
 	@Test
 	public void testConstructor_maxTooLarge() {
 		try {
-			new LongitudeValidator(Parameters.LONGITUDE, "-80", "500");
+			new LongitudeValidator(Parameters.LONGITUDE, -80, 500);
 		} catch (Exception e) {
 			assertEquals(e.getClass(), IllegalArgumentException.class);
 			assertEquals("maxBound must be between -180.0 and 180.0 (inclusive)", e.getMessage());
@@ -40,7 +40,7 @@ public class LongitudeValidatorTest extends BaseSpringTest implements Validation
 	@Test
 	public void testConstructor_maxTooSmall() {
 		try {
-			new LongitudeValidator(Parameters.LONGITUDE, "-80", "-500");
+			new LongitudeValidator(Parameters.LONGITUDE, -80, -500);
 		} catch (Exception e) {
 			assertEquals(e.getClass(), IllegalArgumentException.class);
 			//Used to be "maxBound must be between -180.0 and 180.0 (inclusive)", but the BoundedFloatingPointValidator was changed to

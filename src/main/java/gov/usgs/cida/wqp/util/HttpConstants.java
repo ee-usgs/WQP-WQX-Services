@@ -10,8 +10,17 @@ public interface HttpConstants extends XmlConstants {
 	String HEADER_TOTAL = "Total";
 	String HEADER_SITE_COUNT = HEADER_SITE + HEADER_DELIMITER + HEADER_COUNT;
 	String HEADER_TOTAL_SITE_COUNT = HEADER_TOTAL + HEADER_DELIMITER + HEADER_SITE_COUNT;
+	
 	String HEADER_CORS = "Access-Control-Allow-Origin";
 	String HEADER_CORS_VALUE = "*";
+	String HEADER_CORS_METHODS = "Access-Control-Allow-Methods";
+	String HEADER_CORS_METHODS_VALUE = "GET, HEAD, OPTIONS";
+	String HEADER_CORS_MAX_AGE = "Access-Control-Max-Age";
+	String HEADER_CORS_MAX_AGE_VALUE = "3600";
+	String HEADER_CORS_ALLOW_HEADERS = "Access-Control-Allow-Headers";
+	String HEADER_CORS_ALLOW_HEADERS_VALUE = "Origin, X-Requested-With, Content-Type, Accept, Authorization";
+	String HEADER_CORS_EXPOSE_HEADERS = "Access-Control-Expose-Headers";
+	
 	String HEADER_CONTENT_TYPE = "Content-Type";
 	String HEADER_CONTENT_DISPOSITION = "Content-disposition";
 	String MIME_TYPE_APPLICATION_FI = "application/fastinfoset";

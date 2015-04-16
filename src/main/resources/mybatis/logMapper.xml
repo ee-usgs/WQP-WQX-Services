@@ -2,9 +2,24 @@
  <!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 <mapper namespace="logMapper">
 
-    <insert id="addWebServiceLog" >
-        insert into web_service_log (origin, call_type, endpoint, query_string, total_rows_expected, data_store_counts)
-        values (#{origin}, #{callType}, #{endpoint}, #{queryString}, #{totalRowsExpected,jdbcType=NUMERIC}, #{dataStoreCounts,jdbcType=CHAR})
-    </insert>
-    
+	<!-- Note that because these are logs we are going against the normal best practice of having JAVA land control
+	     the transactionality of the database updates. We are only doing this so that the logs will persist no matter
+	     what the outcome of the JAVA side is. -->
+	     
+	<select id="insert" parameterType="map" statementType="CALLABLE" resultType="int" >
+		{#{id,mode=OUT,jdbcType=NUMERIC} = call log_helper.add_log(#{origin,jdbcType=CHAR}, #{callType,jdbcType=CHAR}, #{endPoint,jdbcType=CHAR}, #{queryString,jdbcType=CHAR})}
+	</select>
+	
+	<select id="head" parameterType="map" statementType="CALLABLE" >
+		{call log_helper.log_head_complete(#{id}, #{totalRowsExpected,jdbcType=NUMERIC}, #{dataStoreCounts,jdbcType=CHAR})}
+	</select>
+	
+	<select id="firstRow" parameterType="map" statementType="CALLABLE" >
+		{call log_helper.log_first_row(#{id})}
+	</select>
+	
+	<select id="complete" parameterType="map" statementType="CALLABLE" >
+		{call log_helper.log_request_complete(#{id}, #{httpStatusCode,jdbcType=CHAR})}
+	</select>
+	
 </mapper>

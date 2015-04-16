@@ -2,7 +2,7 @@ package gov.usgs.cida.wqp.validation;
 
 public interface ValidationConstants { // TODO these should be defaults with WqpConfig and wqpgateway.properties overrides
 	
-	int UNBOUNDED          = Integer.MAX_VALUE;
+//	int UNBOUNDED          = Integer.MAX_VALUE;
 	int IN_CLAUSE_LIMIT    = 1000;
 	int DEFAULT_MIN_OCCURS = 0;
 	int DEFAULT_MAX_OCCURS = 1;
@@ -22,8 +22,7 @@ public interface ValidationConstants { // TODO these should be defaults with Wqp
 	String REGEX_PCODE			= "[0-9]{5}";
 	String REGEX_MIMETYPES		= "csv|tsv|tab|xlsx|xml|kml|kmz|json"; // TODO refine
 	String REGEX_AVOID			= "NWIS|STORET";
-	//TODO - Activity is not currently supported
-	//String REGEX_ACTIVITY_ID	= ".+";
+	String REGEX_ZIP			= "yes";
 	String REGEX_ANALYTICAL_METHOD	= ".+";
 	String REGEX_HUC_WILDCARD_IN	= "\\*";
 	String REGEX_HUC_WILDCARD_OUT	= "%";

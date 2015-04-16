@@ -26,7 +26,10 @@ public class ParameterMap {
 			validationMessages.get(parameterName).addAll(validationResult.getValidationMessages());
 		}
 		if (null != validationResult.getTransformedValue()) {
-			queryParameters.put(parameterName, validationResult.getTransformedValue());
+			//We need to convert the actual parameter name sent to MyBatis because it tries to interpret
+			//"command.avoid" as the avoid property of the command object. This parameter should be considered 
+			//deprecated and is being replaced with the providers parameter.  
+			queryParameters.put(parameterName.replace(".", ""), validationResult.getTransformedValue());
 		}
 		if (!validationResult.isValid()) {
 			setValid(false);
