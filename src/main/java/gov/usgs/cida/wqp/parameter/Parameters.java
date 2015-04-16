@@ -11,7 +11,8 @@ public enum Parameters {
 	START_DATE_HI("startDateHi"),
 	START_DATE_LO("startDateLo"),
 	//activityId and pCode are NWIS only
-	ACTIVITY_ID("activityId"),
+	//TODO - Activity is not currently supported
+	//ACTIVITY_ID("activityId"),
 	PCODE("pCode"),
 	CHARACTERISTIC_NAME("characteristicName"),
 	CHARACTERISTIC_TYPE("characteristicType"),

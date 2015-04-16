@@ -60,6 +60,8 @@ public class TestSpringConfig extends SpringConfig {
 	public DatabaseConfigBean dbUnitDatabaseConfig() {
 		DatabaseConfigBean dbUnitDbConfig = new DatabaseConfigBean();
 		dbUnitDbConfig.setDatatypeFactory(new OracleDataTypeFactory());
+		dbUnitDbConfig.setSkipOracleRecyclebinTables(true);
+		dbUnitDbConfig.setQualifiedTableNames(false);
 		return dbUnitDbConfig;
 	}
 	

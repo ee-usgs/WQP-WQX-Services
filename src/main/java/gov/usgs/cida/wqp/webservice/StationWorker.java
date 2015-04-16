@@ -1,11 +1,12 @@
 package gov.usgs.cida.wqp.webservice;
+
 import gov.cida.cdat.control.Message;
 import gov.cida.cdat.control.Worker;
 import gov.cida.cdat.exception.CdatException;
 import gov.cida.cdat.exception.StreamInitException;
+import gov.usgs.cida.wqp.dao.IStreamingDao;
 import gov.usgs.cida.wqp.parameter.ParameterMap;
 import gov.usgs.cida.wqp.parameter.Parameters;
-import gov.usgs.cida.wqp.station.dao.IStationDao;
 import gov.usgs.cida.wqp.station.dao.MapResultHandler;
 import gov.usgs.cida.wqp.util.CharacterSeparatedValue;
 import gov.usgs.cida.wqp.util.HttpConstants;
@@ -18,26 +19,24 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.ibatis.session.ResultHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+
 public class StationWorker extends Worker implements HttpConstants {
 	private final Logger log = LoggerFactory.getLogger(getClass());
-	
+	private final String nameSpace;
 	private final HttpServletResponse response;
 	private final ParameterMap parameters;
 	private final HttpUtils httpUtils = new HttpUtils();
 	
 	private OutputStream out;
 	
-	@Autowired
-	protected IStationDao stationDao;
+	protected IStreamingDao streamingDao;
 	
-	public void setStationDao(IStationDao stationDao) {
-		this.stationDao = stationDao;
-	}
-	
-	public StationWorker(HttpServletResponse response, ParameterMap parameters) {
+	public StationWorker(HttpServletResponse response, String nameSpace, ParameterMap parameters, 
+			IStreamingDao streamingDao) {
 		this.response = response;
+		this.nameSpace = nameSpace;
 		this.parameters = parameters;
+		this.streamingDao = streamingDao;
 	}
 	
 	@Override
@@ -72,7 +71,7 @@ public class StationWorker extends Worker implements HttpConstants {
 		}
 		
 		ResultHandler handler = new MapResultHandler(out, contentTransformer);
-		stationDao.stream(parameters.getQueryParameters(), handler);
+		streamingDao.stream(nameSpace, parameters.getQueryParameters(), handler);
 		log.trace("fetching station data with streaming handler - finished");
 		return false;
 	}

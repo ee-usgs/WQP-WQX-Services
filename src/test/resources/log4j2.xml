@@ -6,12 +6,13 @@
     </Console>
   </Appenders>
   <Loggers>
-  	<Logger name="gov" level="TRACE"/>
-  	<Logger name="org.springframework" level="DEBUG"/>
-  	<Logger name="org.dbunit" level="DEBUG"/>
+  	<Logger name="gov" level="INFO"/>
+  	<Logger name="org.springframework" level="INFO"/>
+  	<Logger name="org.dbunit" level="INFO"/>
   	<Logger name="org.mybatis" level="DEBUG"/>
+  	<Logger name="org.apache.ibatis" level="DEBUG"/>
   	<Logger name="java.sql" level="DEBUG"/>
-    <Root level="error">
+    <Root level="DEBUG">
       <AppenderRef ref="Console"/>
     </Root>
   </Loggers>

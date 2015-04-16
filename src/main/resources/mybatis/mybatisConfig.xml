@@ -7,7 +7,7 @@
 	<!-- Global configuration settings for the mapping.-->
 	<settings>
 		<setting name="callSettersOnNulls" value="true"/>
-		<setting name="cacheEnabled" value="true"/>
+		<setting name="cacheEnabled" value="false"/>
 		<setting name="lazyLoadingEnabled" value="false"/>
 		<setting name="aggressiveLazyLoading" value="false"/>
 	</settings>
@@ -21,7 +21,8 @@
    
 	<mappers>
 		<mapper resource="mybatis/logMapper.xml"/>
-		<mapper resource="mybatis/dataMapper.xml"/>
+		<mapper resource="mybatis/dynamicWhere.xml"/>
+		<mapper resource="mybatis/station.xml"/>
 		<mapper resource="mybatis/simpleStation.xml"/>
 	 </mappers>
 	

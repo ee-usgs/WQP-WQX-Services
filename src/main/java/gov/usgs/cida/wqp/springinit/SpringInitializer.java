@@ -1,5 +1,8 @@
 package gov.usgs.cida.wqp.springinit;
 
+import gov.usgs.cida.wqp.util.CORSFilter;
+
+import javax.servlet.FilterRegistration;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration.Dynamic;
@@ -29,6 +32,8 @@ public class SpringInitializer implements WebApplicationInitializer {
 		AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();
 		ctx.register(SpringConfig.class);
 //		ctx.register(MyBatisConfig.class) // TODO it would be nice to have individual configurations
+		FilterRegistration corsFilter = servletContext.addFilter("corsFilter", CORSFilter.class);
+		corsFilter.addMappingForUrlPatterns(null, true, "/*");
 		Dynamic servlet = servletContext.addServlet("springDispatcher", new DispatcherServlet(ctx));
 		servlet.addMapping("/");
 		servlet.setAsyncSupported(true);

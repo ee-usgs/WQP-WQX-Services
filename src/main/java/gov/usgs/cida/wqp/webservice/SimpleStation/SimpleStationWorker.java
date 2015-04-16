@@ -3,6 +3,7 @@ import gov.cida.cdat.control.Message;
 import gov.cida.cdat.control.Worker;
 import gov.cida.cdat.exception.CdatException;
 import gov.cida.cdat.exception.StreamInitException;
+import gov.usgs.cida.wqp.dao.IStreamingDao;
 import gov.usgs.cida.wqp.parameter.ParameterMap;
 import gov.usgs.cida.wqp.util.HttpConstants;
 import gov.usgs.cida.wqp.util.HttpUtils;
@@ -16,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 public class SimpleStationWorker extends Worker implements HttpConstants {
 	private final Logger log = LoggerFactory.getLogger(getClass());
+	private final String nameSpace;
 	private final HttpServletResponse response;
 	private final ParameterMap parameters;
 	private final HttpUtils httpUtils = new HttpUtils();
@@ -23,14 +25,14 @@ public class SimpleStationWorker extends Worker implements HttpConstants {
 
 	private final TransformOutputStream transformer;
 	
-	protected SimpleStationDao simpleStationDao;
-	public void setDao(SimpleStationDao simpleStationDao) {
-		this.simpleStationDao = simpleStationDao;
-	}
+	protected IStreamingDao streamingDao;
 	
-	public SimpleStationWorker(HttpServletResponse response, ParameterMap parameters, TransformOutputStream transformer) {
+	public SimpleStationWorker(HttpServletResponse response, String nameSpace, ParameterMap parameters, 
+			IStreamingDao streamingDao, TransformOutputStream transformer) {
 		this.response = response;
+		this.nameSpace = nameSpace;
 		this.parameters = parameters;
+		this.streamingDao = streamingDao;
 		this.transformer = transformer;
 	}
 	
@@ -59,7 +61,7 @@ public class SimpleStationWorker extends Worker implements HttpConstants {
 	public boolean process() throws CdatException {
 		log.trace("fetching simple station data with streaming handler - started");
 		ResultHandler handler = new StreamingResultHandler(out);
-		simpleStationDao.stream(parameters.getQueryParameters(), handler);
+		streamingDao.stream(nameSpace, parameters.getQueryParameters(), handler);
 		log.trace("fetching simple station data with streaming handler - finished");
 		return false;
 	}

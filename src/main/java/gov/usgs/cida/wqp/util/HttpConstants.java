@@ -19,6 +19,7 @@ public interface HttpConstants extends XmlConstants {
 	String MIME_TYPE_APPLICATION_ZIP = "application/zip";
 	String MIME_TYPE_TEXT_CSV = "text/csv";
 	String MIME_TYPE_TEXT_TSV = "text/tab-separated-values";
+	String MIME_TYPE_XLSX = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
 	String ENDPOINT_RESULT = "Result";
 	String ENDPOINT_STATION = "Station";
 	String ENDPOINT_SIMPLE_STATION = "simplestation";
@@ -34,4 +35,5 @@ public interface HttpConstants extends XmlConstants {
 	String MEDIA_TYPE_TSV = "tsv";
 	String MEDIA_TYPE_XML = "xml";
 	String MEDIA_TYPE_JSON = "json";
+	String MEDIA_TYPE_XLSX = "xlsx";
 }
