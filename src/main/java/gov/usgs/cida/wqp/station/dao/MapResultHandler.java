@@ -1,11 +1,15 @@
 package gov.usgs.cida.wqp.station.dao;
 
+import gov.usgs.cida.wqp.service.ILogService;
 import gov.usgs.cida.wqp.util.CharacterSeparatedValue;
+
 import java.io.Closeable;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.math.BigDecimal;
 import java.util.LinkedHashMap;
 import java.util.Map;
+
 import org.apache.ibatis.session.ResultContext;
 import org.apache.ibatis.session.ResultHandler;
 import org.slf4j.Logger;
@@ -16,13 +20,17 @@ public class MapResultHandler implements ResultHandler, Closeable {
 	
 	private final CharacterSeparatedValue transformer; // TODO need to generalize
 	private final OutputStream stream;  // TODO will use StreamContainer later
+	private final ILogService logService;
+	private final BigDecimal logId;
 	
 	private boolean doHeaders = true;
 	
-	public MapResultHandler(OutputStream consumer, CharacterSeparatedValue transformer) {
+	public MapResultHandler(OutputStream consumer, CharacterSeparatedValue transformer, ILogService logService, BigDecimal logId) {
 		log.trace("streaming handler constructed");
 		this.transformer = transformer;
 		this.stream = consumer;
+		this.logService = logService;
+		this.logId = logId;
 	}
 	
 	@Override
@@ -37,6 +45,7 @@ public class MapResultHandler implements ResultHandler, Closeable {
 				log.trace("streaming handle result : preheader");
 				doHeader(entry);
 				log.trace("streaming handle result : postheader");
+				logService.logFirstRowComplete(logId);
 			}
 			write(entry);
 		} catch (RuntimeException e) {

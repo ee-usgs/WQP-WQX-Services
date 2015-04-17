@@ -45,19 +45,19 @@ public class StationController implements HttpConstants, ValidationConstants {
 
 	protected IParameterHandler parameterHandler;
 
-	protected ILogService webServiceLogService;
+	protected ILogService logService;
 
 	@Autowired
 	public StationController(
 			IStreamingDao inStreamingDao,
 			ICountDao inCountDao,
 			IParameterHandler inParameterHandler,
-			ILogService inWebServiceLogService) {
+			ILogService inLogService) {
 		log.trace(getClass().getName());
 		streamingDao = inStreamingDao;
 		parameterHandler = inParameterHandler;
 		countDao = inCountDao;
-		webServiceLogService = inWebServiceLogService;
+		logService = inLogService;
 	}
 
 	/* ========================================================================
@@ -71,7 +71,7 @@ public class StationController implements HttpConstants, ValidationConstants {
 	@Async
 	public void stationHeadRequest(HttpServletRequest request, HttpServletResponse response) {
 		log.info("Processing Head: {}", request.getQueryString());
-		BigDecimal logId = webServiceLogService.logRequest(request, response);
+		BigDecimal logId = logService.logRequest(request, response);
 		SCManager session = null;
 		try {
 			session = doHeader(request, response, logId);
@@ -81,7 +81,7 @@ public class StationController implements HttpConstants, ValidationConstants {
 			}
 			log.info("Processing Head complete: {}", request.getQueryString());
 		}
-		webServiceLogService.logRequestComplete(logId, String.valueOf(response.getStatus()));
+		logService.logRequestComplete(logId, String.valueOf(response.getStatus()));
 	}
 	
 	/**
@@ -108,7 +108,7 @@ public class StationController implements HttpConstants, ValidationConstants {
 			//TODO We can't just eat these.
 			throw new RuntimeException(header.getCurrentError());
 		}
-		webServiceLogService.logHeadComplete(response, logId);
+		logService.logHeadComplete(response, logId);
 		return session;
 	}
 	
@@ -120,7 +120,7 @@ public class StationController implements HttpConstants, ValidationConstants {
 	public void stationGetRequest(HttpServletRequest request, HttpServletResponse response) {
 		log.trace(""); // blank line during trace
 		log.info("Processing Get: {}", request.getQueryString()); // TODO use SLF4J to avoid string concatenation inline
-		BigDecimal logId = webServiceLogService.logRequest(request, response);
+		BigDecimal logId = logService.logRequest(request, response);
 		ParameterMap pm = new ParameterValidation().preProcess(request, parameterHandler);
 		SCManager session = null;
 		try {
@@ -132,7 +132,7 @@ public class StationController implements HttpConstants, ValidationConstants {
 				if (MEDIA_TYPE_XLSX.equalsIgnoreCase(mimeType)) {
 					stationName = doUglyStuff(session, response, pm, logId);
 				} else {
-				StationWorker station = new StationWorker(response, IDao.STATION_NAMESPACE, pm, streamingDao);
+				StationWorker station = new StationWorker(response, IDao.STATION_NAMESPACE, pm, streamingDao, logService, logId);
 				stationName = session.addWorker("Station", station);
 				}
 				session.send(stationName, Control.Start);
@@ -148,11 +148,11 @@ public class StationController implements HttpConstants, ValidationConstants {
 			}
 			log.info("Processing Get complete: {}", request.getQueryString());
 		}
-		webServiceLogService.logRequestComplete(logId, String.valueOf(response.getStatus()));
+		logService.logRequestComplete(logId, String.valueOf(response.getStatus()));
 	}
 	
 	private String doUglyStuff(SCManager session, HttpServletResponse response, ParameterMap pm, BigDecimal logId) throws IOException {
-		TransformOutputStream transformer = new XlsxTransformer(response.getOutputStream(), webServiceLogService, logId, XXXStationColumnMapper.getMappings());
+		TransformOutputStream transformer = new XlsxTransformer(response.getOutputStream(), logService, logId, XXXStationColumnMapper.getMappings());
 		SimpleStationWorker worker = new SimpleStationWorker(response, IDao.STATION_NAMESPACE, pm, streamingDao, transformer);
 		return session.addWorker("Station", worker);
 	}

@@ -29,8 +29,8 @@ public class XmlTransformer extends TransformOutputStream {
 	/** Is this the first write to the stream. */
 	private boolean first = true;
 	
-	public XmlTransformer(OutputStream target, ILogService webServiceLogService, BigDecimal logId, IXmlMapping mapping) {
-		super(target, webServiceLogService, logId, null);
+	public XmlTransformer(OutputStream target, ILogService logService, BigDecimal logId, IXmlMapping mapping) {
+		super(target, logService, logId, null);
 		this.mapping = mapping;
 		groupings = new HashMap<>();
 		for (String key : mapping.getHardBreak().keySet()) {
@@ -50,7 +50,7 @@ public class XmlTransformer extends TransformOutputStream {
 		}
 		if (first) {
 			prepareHeader();
-			webServiceLogService.logFirstRowComplete(logId);
+			logService.logFirstRowComplete(logId);
 			first = false;
 		}
 		prepareData();
