@@ -47,6 +47,8 @@ public class StationController implements HttpConstants, ValidationConstants {
 
 	protected ILogService logService;
 
+	protected ParameterMap pm;
+
 	@Autowired
 	public StationController(
 			IStreamingDao inStreamingDao,
@@ -92,7 +94,7 @@ public class StationController implements HttpConstants, ValidationConstants {
 	 */
 	private SCManager doHeader(HttpServletRequest request, HttpServletResponse response, BigDecimal logId) {
 		response.setCharacterEncoding(DEFAULT_ENCODING);
-		ParameterMap pm = new ParameterValidation().preProcess(request, parameterHandler);
+		pm = new ParameterValidation().preProcess(request, parameterHandler);
 		if ( ! pm.isValid() ) {
 			HttpUtils httpUtils = new HttpUtils();
 			httpUtils.writeWarningHeaders(response, pm.getValidationMessages(), WQX_EMPTY_DOC);
@@ -121,7 +123,6 @@ public class StationController implements HttpConstants, ValidationConstants {
 		log.trace(""); // blank line during trace
 		log.info("Processing Get: {}", request.getQueryString()); // TODO use SLF4J to avoid string concatenation inline
 		BigDecimal logId = logService.logRequest(request, response);
-		ParameterMap pm = new ParameterValidation().preProcess(request, parameterHandler);
 		SCManager session = null;
 		try {
 			session = doHeader(request, response, logId);

@@ -107,7 +107,7 @@ public class CodesService implements WqpEnvProperties {
 				throw new WqpException(UNDEFINED_WQP_CONFIG_PARAM, getClass(), "mokeCodesUrl", CODES_URL);
 			}
 			String mimeType = WqpEnv.get(CODES_MIME_TYPE, DEFAULT_MIME_TYPE);
-			String urlStr =  codesUrl +"/"+ codeType +"/"+ URLEncoder.encode(code, HttpConstants.DEFAULT_ENCODING) + "?mimetype="+ mimeType;
+			String urlStr =  codesUrl +"/"+ codeType +"?value="+ URLEncoder.encode(code, HttpConstants.DEFAULT_ENCODING) + "&mimeType="+ mimeType;
 			log.trace("making codes url : {}", urlStr);
 			url = new URL(urlStr);
 		} catch (MalformedURLException | UnsupportedEncodingException e) {

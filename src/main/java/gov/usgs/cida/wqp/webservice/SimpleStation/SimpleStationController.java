@@ -41,6 +41,8 @@ public class SimpleStationController implements HttpConstants, MybatisConstants,
 	protected IParameterHandler parameterHandler;
 
 	protected ILogService logService;
+	
+	protected ParameterMap pm;
 
 	@Autowired
 	public SimpleStationController(
@@ -83,7 +85,7 @@ public class SimpleStationController implements HttpConstants, MybatisConstants,
 	 */
 	private SCManager doHeader(HttpServletRequest request, HttpServletResponse response, BigDecimal logId) {
 		response.setCharacterEncoding(DEFAULT_ENCODING);
-		ParameterMap pm = new ParameterValidation().preProcess(request, parameterHandler);
+		pm = new ParameterValidation().preProcess(request, parameterHandler);
 		if ( ! pm.isValid() ) {
 			HttpUtils httpUtils = new HttpUtils();
 			httpUtils.writeWarningHeaders(response, pm.getValidationMessages(), WQX_EMPTY_DOC);
@@ -113,7 +115,6 @@ public class SimpleStationController implements HttpConstants, MybatisConstants,
 		log.info("Processing Get: {}", request.getQueryString());
 		BigDecimal logId = logService.logRequest(request, response);
 		
-		ParameterMap pm = new ParameterValidation().preProcess(request, parameterHandler);
 		SCManager session = null;
 		try {
 			session = doHeader(request, response, logId);
