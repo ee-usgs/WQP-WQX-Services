@@ -73,7 +73,7 @@ public class CodesServiceTest extends BaseSpringTest implements WqpEnvProperties
 		
 		URL actualUrl = new CodesService().makeCodesUrl(Parameters.PROVIDERS, "provider");
 		
-		String expectedUrl = baseUrl +"/"+ Parameters.PROVIDERS +"/provider?mimetype=json";
+		String expectedUrl = baseUrl +"/"+ Parameters.PROVIDERS +"?value=provider&mimeType=json";
 		
 		assertEquals(expectedUrl, actualUrl.toString());
 	}
@@ -90,7 +90,7 @@ public class CodesServiceTest extends BaseSpringTest implements WqpEnvProperties
 			
 			URL actualUrl = new CodesService().makeCodesUrl(Parameters.PROVIDERS, "provider");
 			
-			String expectedUrl = baseUrl +"/"+ Parameters.PROVIDERS +"/provider?mimetype="+mimeType;
+			String expectedUrl = baseUrl +"/"+ Parameters.PROVIDERS +"?value=provider&mimeType="+mimeType;
 			
 			assertEquals(expectedUrl, actualUrl.toString());
 			
@@ -270,7 +270,7 @@ public class CodesServiceTest extends BaseSpringTest implements WqpEnvProperties
 		assertNotNull("expect url instance", value);
 		
 		URL actualUrl = (URL)value;
-		String expectedUrl = baseUrl +"/"+ Parameters.PROVIDERS +"/provider?mimetype=json";
+		String expectedUrl = baseUrl +"/"+ Parameters.PROVIDERS +"?value=provider&mimeType=json";
 		assertEquals(expectedUrl, actualUrl.toString());
 	}
 	
