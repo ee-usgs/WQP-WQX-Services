@@ -52,8 +52,8 @@ public class XlsxTransformer extends TransformOutputStream {
 	/** Default output buffer size. */
 	private static final int DEFAULT_BUFFER_SIZE = 1024;
 
-	public XlsxTransformer(OutputStream target, ILogService webServiceLogService, BigDecimal logId, Map<String, String> mapping) {
-		super(target, webServiceLogService, logId, null);
+	public XlsxTransformer(OutputStream target, ILogService logService, BigDecimal logId, Map<String, String> mapping) {
+		super(target, logService, logId, null);
 		this.mapping = mapping;
 	}
 
@@ -74,7 +74,7 @@ public class XlsxTransformer extends TransformOutputStream {
 
 		if (first) {
 			writeHeader();
-			webServiceLogService.logFirstRowComplete(logId);
+			logService.logFirstRowComplete(logId);
 			first = false;
 		}
 		writeData();

@@ -14,14 +14,14 @@ import java.util.Map;
 public abstract class TransformOutputStream extends OutputStream {
 
 	protected OutputStream target;
-	protected ILogService webServiceLogService;
+	protected ILogService logService;
 	protected BigDecimal logId;
 	private Transformer transform;
 	protected Map<String, Object> result;
 	
-	public TransformOutputStream(OutputStream target, ILogService webServiceLogService, BigDecimal logId, Transformer transform) {
+	public TransformOutputStream(OutputStream target, ILogService logService, BigDecimal logId, Transformer transform) {
 		this.target = target;
-		this.webServiceLogService = webServiceLogService;
+		this.logService = logService;
 		this.logId = logId;
 		this.transform = transform;
 	}

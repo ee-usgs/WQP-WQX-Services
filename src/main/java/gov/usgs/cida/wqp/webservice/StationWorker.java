@@ -7,12 +7,14 @@ import gov.cida.cdat.exception.StreamInitException;
 import gov.usgs.cida.wqp.dao.IStreamingDao;
 import gov.usgs.cida.wqp.parameter.ParameterMap;
 import gov.usgs.cida.wqp.parameter.Parameters;
+import gov.usgs.cida.wqp.service.ILogService;
 import gov.usgs.cida.wqp.station.dao.MapResultHandler;
 import gov.usgs.cida.wqp.util.CharacterSeparatedValue;
 import gov.usgs.cida.wqp.util.HttpConstants;
 import gov.usgs.cida.wqp.util.HttpUtils;
 
 import java.io.OutputStream;
+import java.math.BigDecimal;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -26,17 +28,21 @@ public class StationWorker extends Worker implements HttpConstants {
 	private final HttpServletResponse response;
 	private final ParameterMap parameters;
 	private final HttpUtils httpUtils = new HttpUtils();
+	private final ILogService logService;
+	private final BigDecimal logId;
 	
 	private OutputStream out;
 	
 	protected IStreamingDao streamingDao;
 	
 	public StationWorker(HttpServletResponse response, String nameSpace, ParameterMap parameters, 
-			IStreamingDao streamingDao) {
+			IStreamingDao streamingDao, ILogService logService, BigDecimal logId) {
 		this.response = response;
 		this.nameSpace = nameSpace;
 		this.parameters = parameters;
 		this.streamingDao = streamingDao;
+		this.logService = logService;
+		this.logId = logId;
 	}
 	
 	@Override
@@ -70,7 +76,7 @@ public class StationWorker extends Worker implements HttpConstants {
 			contentTransformer = CharacterSeparatedValue.TSV;
 		}
 		
-		ResultHandler handler = new MapResultHandler(out, contentTransformer);
+		ResultHandler handler = new MapResultHandler(out, contentTransformer, logService, logId);
 		streamingDao.stream(nameSpace, parameters.getQueryParameters(), handler);
 		log.trace("fetching station data with streaming handler - finished");
 		return false;

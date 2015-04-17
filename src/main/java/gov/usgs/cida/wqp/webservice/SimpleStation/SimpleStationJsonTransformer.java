@@ -17,8 +17,8 @@ public class SimpleStationJsonTransformer extends TransformOutputStream implemen
 	/** Is this the first write to the stream. */
 	private boolean first = true;
 	
-	public SimpleStationJsonTransformer(OutputStream target, ILogService webServiceLogService, BigDecimal logId) {
-		super(target, webServiceLogService, logId, null);
+	public SimpleStationJsonTransformer(OutputStream target, ILogService logService, BigDecimal logId) {
+		super(target, logService, logId, null);
 		groupings = new HashMap<>();
 	}
 
@@ -34,7 +34,7 @@ public class SimpleStationJsonTransformer extends TransformOutputStream implemen
 		}
 		if (first) {
 			prepareHeader();
-			webServiceLogService.logFirstRowComplete(logId);
+			logService.logFirstRowComplete(logId);
 		}
 		prepareData();
 	}

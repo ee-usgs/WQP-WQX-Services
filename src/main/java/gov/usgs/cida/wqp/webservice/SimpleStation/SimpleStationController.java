@@ -40,19 +40,19 @@ public class SimpleStationController implements HttpConstants, MybatisConstants,
 
 	protected IParameterHandler parameterHandler;
 
-	protected ILogService webServiceLogService;
+	protected ILogService logService;
 
 	@Autowired
 	public SimpleStationController(
 			IStreamingDao inStreamingDao,
 			ICountDao inCountDao,
 			IParameterHandler inParameterHandler,
-			ILogService inWebServiceLogService) {
+			ILogService inLogService) {
 		log.trace(getClass().getName());
 		streamingDao = inStreamingDao;
 		parameterHandler = inParameterHandler;
 		countDao = inCountDao;
-		webServiceLogService = inWebServiceLogService;
+		logService = inLogService;
 	}
 
 	/**
@@ -62,12 +62,12 @@ public class SimpleStationController implements HttpConstants, MybatisConstants,
 	@Async
 	public void simpleStationHeadRequest(HttpServletRequest request, HttpServletResponse response) {
 		log.info("Processing Head: {}", request.getQueryString());
-		BigDecimal logId = webServiceLogService.logRequest(request, response);
+		BigDecimal logId = logService.logRequest(request, response);
 		SCManager session = null;
 		try {
 			session = doHeader(request, response, logId);
 		} finally {
-			webServiceLogService.logRequestComplete(logId, String.valueOf(response.getStatus()));
+			logService.logRequestComplete(logId, String.valueOf(response.getStatus()));
 			if (session != null) {
 				session.close();
 			}
@@ -99,7 +99,7 @@ public class SimpleStationController implements HttpConstants, MybatisConstants,
 			//TODO We can't just eat these.
 			throw new RuntimeException(header.getCurrentError());
 		}
-		webServiceLogService.logHeadComplete(response, logId);
+		logService.logHeadComplete(response, logId);
 		return session;
 	}
 	
@@ -111,7 +111,7 @@ public class SimpleStationController implements HttpConstants, MybatisConstants,
 	public void stationGetRequest(HttpServletRequest request, HttpServletResponse response) {
 		log.trace(""); // blank line during trace
 		log.info("Processing Get: {}", request.getQueryString());
-		BigDecimal logId = webServiceLogService.logRequest(request, response);
+		BigDecimal logId = logService.logRequest(request, response);
 		
 		ParameterMap pm = new ParameterValidation().preProcess(request, parameterHandler);
 		SCManager session = null;
@@ -122,14 +122,14 @@ public class SimpleStationController implements HttpConstants, MybatisConstants,
 				String mimeType = PutSomeWhereElse.getMimeType(pm, MEDIA_TYPE_XML);
 				switch (mimeType) {
 				case MEDIA_TYPE_JSON:
-					transformer = new SimpleStationJsonTransformer(response.getOutputStream(), webServiceLogService, logId);
+					transformer = new SimpleStationJsonTransformer(response.getOutputStream(), logService, logId);
 					break;
 				//TODO here only for demo purposes needs to be removed before going to production.	
 				case MEDIA_TYPE_XLSX:
-					transformer = new XlsxTransformer(response.getOutputStream(), webServiceLogService, logId, XXXStationColumnMapper.getMappings());
+					transformer = new XlsxTransformer(response.getOutputStream(), logService, logId, XXXStationColumnMapper.getMappings());
 					break;
 				default:
-					transformer = new XmlTransformer(response.getOutputStream(), webServiceLogService, logId, new SimpleStationXmlMapping());
+					transformer = new XmlTransformer(response.getOutputStream(), logService, logId, new SimpleStationXmlMapping());
 					break;
 				}
 					
@@ -147,7 +147,7 @@ public class SimpleStationController implements HttpConstants, MybatisConstants,
 			log.error("Error openging outputstream",e);
 			throw new RuntimeException(e);
 		} finally {
-			webServiceLogService.logRequestComplete(logId, String.valueOf(response.getStatus()));
+			logService.logRequestComplete(logId, String.valueOf(response.getStatus()));
 			if (session != null) {
 				session.close();
 			}
