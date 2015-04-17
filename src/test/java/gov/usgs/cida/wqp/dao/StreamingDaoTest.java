@@ -172,40 +172,27 @@ public class StreamingDaoTest extends BaseSpringTest {
 		Map<String, Object> parms = new HashMap<>();
 		TestResultHandler handler = new TestResultHandler();
 
-		parms.put(Parameters.BBOX.toString(), new String[]{"-89", "43", "-88", "44"});
-		parms.put(Parameters.COUNTRY.toString(), new String[]{"MX", "US"});
-		parms.put(Parameters.COUNTY.toString(), new String[]{"US:19:015", "US:30:003", "US:55:017", "US:55:021", "US:55:027"});
-		parms.put(Parameters.HUC.toString(), new String[]{"07","0708","070801","07090002", "07080105"});
-		parms.put(Parameters.ORGANIZATION.toString(), new String[]{"ARS", "11NPSWRD", "USGS-WI", "WIDNR_WQX"});
-		parms.put(Parameters.PROVIDERS.toString(), new String[]{"NWIS", "STEWARDS", "STORET"});
-		parms.put(Parameters.SITEID.toString(), new String[]{"11NPSWRD-BICA_MFG_B", "WIDNR_WQX-10030952", "USGS-05425700",
-			"USGS-431925089002701", "ARS-IAWC-IAWC225", "ARS-IAWC-IAWC410"});
-		parms.put(Parameters.SITE_TYPE.toString(), new String[]{"Lake, Reservoir, Impoundment", "Land", "Stream", "Well"});
-		parms.put(Parameters.STATE.toString(), new String[]{"US:19", "US:30", "US:55"});
-		parms.put(Parameters.WITHIN.toString(), new String[]{"1000"});
-		parms.put(Parameters.LATITUDE.toString(), new String[]{"43.3836014"});
-		parms.put(Parameters.LONGITUDE.toString(), new String[]{"-88.9773314"});
 		parms.put(Parameters.ANALYTICAL_METHOD.toString(), new String[]{"https://www.nemi.gov/methods/method_summary/4665/",
 			"https://www.nemi.gov/methods/method_summary/8896/"});
+		parms.put(Parameters.BBOX.toString(), new String[]{"-89", "43", "-88", "44"});
 		parms.put(Parameters.CHARACTERISTIC_NAME.toString(), new String[]{"Beryllium", "Nitrate"});
 		parms.put(Parameters.CHARACTERISTIC_TYPE.toString(), new String[]{"Inorganics, Minor, Metals", "Nutrient"});
-		parms.put(Parameters.PCODE.toString(), new String[]{"00032", "00004"});
-		parms.put(Parameters.SAMPLE_MEDIA.toString(), new String[]{"Other", "Sediment", "Water"});
 		parms.put(Parameters.COUNTRY.toString(), new String[]{"MX", "US"});
 		parms.put(Parameters.COUNTY.toString(), new String[]{"US:19:015", "US:30:003", "US:55:017", "US:55:021", "US:55:027"});
 		parms.put(Parameters.HUC.toString(), new String[]{"07","0708","070801","07090002", "07080105"});
+		parms.put(Parameters.LATITUDE.toString(), new String[]{"43.3836014"});
+		parms.put(Parameters.LONGITUDE.toString(), new String[]{"-88.9773314"});
 		parms.put(Parameters.ORGANIZATION.toString(), new String[]{"ARS", "11NPSWRD", "USGS-WI", "WIDNR_WQX"});
 		parms.put(Parameters.PROVIDERS.toString(), new String[]{"NWIS", "STEWARDS", "STORET"});
 		parms.put(Parameters.SITEID.toString(), new String[]{"11NPSWRD-BICA_MFG_B", "WIDNR_WQX-10030952", "USGS-05425700",
 			"USGS-431925089002701", "ARS-IAWC-IAWC225", "ARS-IAWC-IAWC410"});
 		parms.put(Parameters.SITE_TYPE.toString(), new String[]{"Lake, Reservoir, Impoundment", "Land", "Stream", "Well"});
 		parms.put(Parameters.STATE.toString(), new String[]{"US:19", "US:30", "US:55"});
+		parms.put(Parameters.PCODE.toString(), new String[]{"00032", "00004"});
+		parms.put(Parameters.SAMPLE_MEDIA.toString(), new String[]{"Other", "Sediment", "Water"});
 		parms.put(Parameters.START_DATE_HI.toString(), new String[]{"10-11-2012"});
 		parms.put(Parameters.START_DATE_LO.toString(), new String[]{"10-11-2012"});
-		parms.put(Parameters.BBOX.toString(), new String[]{"-89", "43", "-88", "44"});
 		parms.put(Parameters.WITHIN.toString(), new String[]{"1000"});
-		parms.put(Parameters.LATITUDE.toString(), new String[]{"43.3836014"});
-		parms.put(Parameters.LONGITUDE.toString(), new String[]{"-88.9773314"});
 		streamingDao.stream(nameSpace, parms, handler);
 	}
 	

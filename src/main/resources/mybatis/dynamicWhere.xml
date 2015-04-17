@@ -23,6 +23,15 @@
         characteristic_type in <foreach item="i" collection="characteristicType" open="(" separator="," close=")">#{i}</foreach>
     </sql>
 
+    <sql id="commandavoid">
+        data_source_id in (select data_source_id
+                             from data_source
+                            where data_source != 'STEWARDS'
+                                  <foreach item="i" collection="commandavoid">
+                                  and data_source != #{i}
+                                  </foreach>)
+    </sql>
+
     <sql id="countrycode">
         country_code in 
         <foreach item="i" collection="countrycode" open="(" separator="," close=")">#{i}</foreach>
@@ -102,6 +111,9 @@
         </if>
         <if test="countycode != null">
             and (<include refid="dynamicWhere.countycode" />)
+        </if>
+        <if test="commandavoid != null">
+        	and (<include refid="dynamicWhere.commandavoid" />)
         </if>
         <if test="huc != null">
             and (<include refid="dynamicWhere.huc" />)

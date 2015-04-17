@@ -1,16 +1,19 @@
 package gov.usgs.cida.wqp.webservice.SimpleStation;
 
+import gov.usgs.cida.wqp.service.ILogService;
+
 import java.io.IOException;
 import java.io.OutputStream;
+import java.math.BigDecimal;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.apache.commons.lang3.StringEscapeUtils;
 
 public class XmlTransformer extends TransformOutputStream {
@@ -26,8 +29,8 @@ public class XmlTransformer extends TransformOutputStream {
 	/** Is this the first write to the stream. */
 	private boolean first = true;
 	
-	public XmlTransformer(OutputStream target, IXmlMapping mapping) {
-		super(target, null);
+	public XmlTransformer(OutputStream target, ILogService webServiceLogService, BigDecimal logId, IXmlMapping mapping) {
+		super(target, webServiceLogService, logId, null);
 		this.mapping = mapping;
 		groupings = new HashMap<>();
 		for (String key : mapping.getHardBreak().keySet()) {
@@ -47,6 +50,7 @@ public class XmlTransformer extends TransformOutputStream {
 		}
 		if (first) {
 			prepareHeader();
+			webServiceLogService.logFirstRowComplete(logId);
 			first = false;
 		}
 		prepareData();

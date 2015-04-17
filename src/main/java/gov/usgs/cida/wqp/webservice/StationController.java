@@ -1,6 +1,7 @@
 package gov.usgs.cida.wqp.webservice;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 
 import gov.cida.cdat.control.Control;
 import gov.cida.cdat.control.SCManager;
@@ -10,6 +11,7 @@ import gov.usgs.cida.wqp.dao.IDao;
 import gov.usgs.cida.wqp.dao.IStreamingDao;
 import gov.usgs.cida.wqp.parameter.IParameterHandler;
 import gov.usgs.cida.wqp.parameter.ParameterMap;
+import gov.usgs.cida.wqp.service.ILogService;
 import gov.usgs.cida.wqp.util.HttpConstants;
 import gov.usgs.cida.wqp.util.HttpUtils;
 import gov.usgs.cida.wqp.util.PutSomeWhereElse;
@@ -43,15 +45,19 @@ public class StationController implements HttpConstants, ValidationConstants {
 
 	protected IParameterHandler parameterHandler;
 
+	protected ILogService webServiceLogService;
+
 	@Autowired
 	public StationController(
 			IStreamingDao inStreamingDao,
 			ICountDao inCountDao,
-			IParameterHandler inParameterHandler) {
+			IParameterHandler inParameterHandler,
+			ILogService inWebServiceLogService) {
 		log.trace(getClass().getName());
 		streamingDao = inStreamingDao;
 		parameterHandler = inParameterHandler;
 		countDao = inCountDao;
+		webServiceLogService = inWebServiceLogService;
 	}
 
 	/* ========================================================================
@@ -65,15 +71,17 @@ public class StationController implements HttpConstants, ValidationConstants {
 	@Async
 	public void stationHeadRequest(HttpServletRequest request, HttpServletResponse response) {
 		log.info("Processing Head: {}", request.getQueryString());
+		BigDecimal logId = webServiceLogService.logRequest(request, response);
 		SCManager session = null;
 		try {
-			session = doHeader(request, response);
+			session = doHeader(request, response, logId);
 		} finally {
 			if (session != null) {
 				session.close();
 			}
 			log.info("Processing Head complete: {}", request.getQueryString());
 		}
+		webServiceLogService.logRequestComplete(logId, String.valueOf(response.getStatus()));
 	}
 	
 	/**
@@ -82,7 +90,7 @@ public class StationController implements HttpConstants, ValidationConstants {
 	 * @param response
 	 * @return cDAT session opened here for use on the GET request - bit kluggy but DRY'er code
 	 */
-	private SCManager doHeader(HttpServletRequest request, HttpServletResponse response) {
+	private SCManager doHeader(HttpServletRequest request, HttpServletResponse response, BigDecimal logId) {
 		response.setCharacterEncoding(DEFAULT_ENCODING);
 		ParameterMap pm = new ParameterValidation().preProcess(request, parameterHandler);
 		if ( ! pm.isValid() ) {
@@ -100,6 +108,7 @@ public class StationController implements HttpConstants, ValidationConstants {
 			//TODO We can't just eat these.
 			throw new RuntimeException(header.getCurrentError());
 		}
+		webServiceLogService.logHeadComplete(response, logId);
 		return session;
 	}
 	
@@ -111,16 +120,17 @@ public class StationController implements HttpConstants, ValidationConstants {
 	public void stationGetRequest(HttpServletRequest request, HttpServletResponse response) {
 		log.trace(""); // blank line during trace
 		log.info("Processing Get: {}", request.getQueryString()); // TODO use SLF4J to avoid string concatenation inline
+		BigDecimal logId = webServiceLogService.logRequest(request, response);
 		ParameterMap pm = new ParameterValidation().preProcess(request, parameterHandler);
 		SCManager session = null;
 		try {
-			session = doHeader(request, response);
+			session = doHeader(request, response, logId);
 			if (session != null) {
 				//TODO refactor to allow WQX&xlsx&json to all behave nicely
 				String stationName;
 				String mimeType = PutSomeWhereElse.getMimeType(pm, MEDIA_TYPE_CSV);
 				if (MEDIA_TYPE_XLSX.equalsIgnoreCase(mimeType)) {
-					stationName = doUglyStuff(session, response, pm);
+					stationName = doUglyStuff(session, response, pm, logId);
 				} else {
 				StationWorker station = new StationWorker(response, IDao.STATION_NAMESPACE, pm, streamingDao);
 				stationName = session.addWorker("Station", station);
@@ -138,10 +148,11 @@ public class StationController implements HttpConstants, ValidationConstants {
 			}
 			log.info("Processing Get complete: {}", request.getQueryString());
 		}
+		webServiceLogService.logRequestComplete(logId, String.valueOf(response.getStatus()));
 	}
 	
-	private String doUglyStuff(SCManager session, HttpServletResponse response, ParameterMap pm) throws IOException {
-		TransformOutputStream transformer = new XlsxTransformer(response.getOutputStream(), XXXStationColumnMapper.getMappings());
+	private String doUglyStuff(SCManager session, HttpServletResponse response, ParameterMap pm, BigDecimal logId) throws IOException {
+		TransformOutputStream transformer = new XlsxTransformer(response.getOutputStream(), webServiceLogService, logId, XXXStationColumnMapper.getMappings());
 		SimpleStationWorker worker = new SimpleStationWorker(response, IDao.STATION_NAMESPACE, pm, streamingDao, transformer);
 		return session.addWorker("Station", worker);
 	}

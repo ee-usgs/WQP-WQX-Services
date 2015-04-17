@@ -30,6 +30,9 @@ public class PutSomeWhereElse implements HttpConstants {
 			case MEDIA_TYPE_JSON:
 				contentType = MediaType.APPLICATION_JSON_VALUE;
 				break;
+			case MEDIA_TYPE_XLSX:
+				contentType = MIME_TYPE_XLSX;
+				break;
 			default:
 				contentType = MIME_TYPE_TEXT_CSV;
 				break;

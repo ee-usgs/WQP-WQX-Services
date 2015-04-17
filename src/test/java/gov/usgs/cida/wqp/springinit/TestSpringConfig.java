@@ -1,8 +1,17 @@
 package gov.usgs.cida.wqp.springinit;
 
+import static org.mockito.Mockito.mock;
+import gov.usgs.cida.wqp.parameter.HashMapParameterHandler;
+import gov.usgs.cida.wqp.parameter.IParameterHandler;
+import gov.usgs.cida.wqp.parameter.Parameters;
+import gov.usgs.cida.wqp.service.CodesService;
 import gov.usgs.cida.wqp.util.WqpEnv;
+import gov.usgs.cida.wqp.validation.AbstractValidator;
+import gov.usgs.cida.wqp.validation.LookupValidator;
 
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 import oracle.jdbc.pool.OracleDataSource;
 
@@ -12,6 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.ClassPathResource;
@@ -28,7 +38,6 @@ public class TestSpringConfig extends SpringConfig {
 
 	@Override
 	public void setEnvironment(Environment env) {
-//		log.trace("setting evnironment");
 		WqpEnv.setEnv(env);
 	}
 
@@ -73,5 +82,11 @@ public class TestSpringConfig extends SpringConfig {
 		dbUnitDatabaseConnection.setSchema("WQP_CORE");
 		return dbUnitDatabaseConnection;
 	}
+
+
+	@Bean
+	public CodesService codesService() {
+		return mock(CodesService.class);
+	};
 
 }

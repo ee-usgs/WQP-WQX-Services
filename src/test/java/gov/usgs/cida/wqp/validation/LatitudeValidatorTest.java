@@ -11,7 +11,7 @@ public class LatitudeValidatorTest extends BaseSpringTest implements ValidationC
 	@Test
 	public void testConstructor_minToLarge() {
 		try {
-			new LatitudeValidator(Parameters.LATITUDE, "500", "-80");
+			new LatitudeValidator(Parameters.LATITUDE, 500, -80);
 		} catch (Exception e) {
 			assertEquals(e.getClass(), IllegalArgumentException.class);
 			//Used to be "minBound must be between -90.0 and 90.0 (inclusive)", but the BoundedFloatingPointValidator was changed to
@@ -22,7 +22,7 @@ public class LatitudeValidatorTest extends BaseSpringTest implements ValidationC
 	@Test
 	public void testConstructor_minToSmall() {
 		try {
-			new LatitudeValidator(Parameters.LATITUDE, "-500", "-80");
+			new LatitudeValidator(Parameters.LATITUDE, -500, -80);
 		} catch (Exception e) {
 			assertEquals(e.getClass(), IllegalArgumentException.class);
 			assertEquals("minBound must be between -90.0 and 90.0 (inclusive)", e.getMessage());
@@ -31,7 +31,7 @@ public class LatitudeValidatorTest extends BaseSpringTest implements ValidationC
 	@Test
 	public void testConstructor_maxToLarge() {
 		try {
-			new LatitudeValidator(Parameters.LATITUDE, "-80", "500");
+			new LatitudeValidator(Parameters.LATITUDE, -80, 500);
 		} catch (Exception e) {
 			assertEquals(e.getClass(), IllegalArgumentException.class);
 			assertEquals("maxBound must be between -90.0 and 90.0 (inclusive)", e.getMessage());
@@ -40,7 +40,7 @@ public class LatitudeValidatorTest extends BaseSpringTest implements ValidationC
 	@Test
 	public void testConstructor_maxToSmall() {
 		try {
-			new LatitudeValidator(Parameters.LATITUDE, "-80", "-500");
+			new LatitudeValidator(Parameters.LATITUDE, -80, -500);
 		} catch (Exception e) {
 			assertEquals(e.getClass(), IllegalArgumentException.class);
 			//Used to be "maxBound must be between -90.0 and 90.0 (inclusive)", but the BoundedFloatingPointValidator was changed to

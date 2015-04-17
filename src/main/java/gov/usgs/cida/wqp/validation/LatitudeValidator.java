@@ -10,14 +10,14 @@ public class LatitudeValidator extends BoundedFloatingPointValidator {
 	private final Logger log = LoggerFactory.getLogger(getClass());
 	
 	public LatitudeValidator(Parameters inParameter)  {
-		this(inParameter, String.valueOf(MIN_LATITUDE), String.valueOf(MAX_LATITUDE));
+		this(inParameter, MIN_LATITUDE, MAX_LATITUDE);
 	}
 	
-	public LatitudeValidator(Parameters inParameter, String inMinBound, String inMaxBound)  {
+	public LatitudeValidator(Parameters inParameter, double inMinBound, double inMaxBound)  {
 		this(inParameter, DEFAULT_MIN_OCCURS, DEFAULT_MAX_OCCURS, DEFAULT_DELIMITER, inMinBound, inMaxBound);
 	}
 	
-	public LatitudeValidator(Parameters inParameter, int minOccurs, int maxOccurs, String delimiter, String inMinBound, String inMaxBound)  {
+	public LatitudeValidator(Parameters inParameter, int minOccurs, int maxOccurs, String delimiter, double inMinBound, double inMaxBound)  {
 		super(inParameter, minOccurs, maxOccurs, delimiter, inMinBound, inMaxBound);
 		log.trace(getClass().getName());
 		if (maxBound < MIN_LATITUDE || maxBound > MAX_LATITUDE) {

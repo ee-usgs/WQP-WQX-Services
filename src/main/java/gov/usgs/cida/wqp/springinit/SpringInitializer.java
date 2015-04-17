@@ -15,7 +15,7 @@ import org.springframework.web.servlet.DispatcherServlet;
 /**
  * Create ApplicationContext using the AnnotationConfigWebApplicationContext to avoid using beans XML files.
  *
- * @author duselmann
+ * @author drsteini
  */
 public class SpringInitializer implements WebApplicationInitializer {
 	private final Logger log = LoggerFactory.getLogger(getClass());
@@ -32,8 +32,10 @@ public class SpringInitializer implements WebApplicationInitializer {
 		AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();
 		ctx.register(SpringConfig.class);
 //		ctx.register(MyBatisConfig.class) // TODO it would be nice to have individual configurations
+
 		FilterRegistration corsFilter = servletContext.addFilter("corsFilter", CORSFilter.class);
 		corsFilter.addMappingForUrlPatterns(null, true, "/*");
+		
 		Dynamic servlet = servletContext.addServlet("springDispatcher", new DispatcherServlet(ctx));
 		servlet.addMapping("/");
 		servlet.setAsyncSupported(true);

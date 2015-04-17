@@ -7,7 +7,10 @@
   </Appenders>
   <Loggers>
   	<Logger name="gov" level="TRACE"/>
-    <Root level="error">
+  	<Logger name="org.mybatis" level="DEBUG"/>
+  	<Logger name="org.apache.ibatis" level="DEBUG"/>
+  	<Logger name="java.sql" level="DEBUG"/>
+    <Root level="DEBUG">
       <AppenderRef ref="Console"/>
     </Root>
   </Loggers>

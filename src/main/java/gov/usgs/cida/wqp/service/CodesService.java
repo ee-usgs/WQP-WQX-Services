@@ -1,6 +1,10 @@
 package gov.usgs.cida.wqp.service;
 
-import static gov.usgs.cida.wqp.exception.WqpExceptionId.*;
+import static gov.usgs.cida.wqp.exception.WqpExceptionId.METHOD_PARAM_EMPTY;
+import static gov.usgs.cida.wqp.exception.WqpExceptionId.METHOD_PARAM_NULL;
+import static gov.usgs.cida.wqp.exception.WqpExceptionId.SERVER_REQUEST_IO_ERROR;
+import static gov.usgs.cida.wqp.exception.WqpExceptionId.UNDEFINED_WQP_CONFIG_PARAM;
+import static gov.usgs.cida.wqp.exception.WqpExceptionId.URL_PARSING_EXCEPTION;
 import gov.cida.cdat.exception.producer.FileNotFoundException;
 import gov.cida.cdat.io.Closer;
 import gov.cida.cdat.io.container.DataPipe;
@@ -8,13 +12,16 @@ import gov.cida.cdat.io.container.SimpleStreamContainer;
 import gov.cida.cdat.io.container.UrlStreamContainer;
 import gov.usgs.cida.wqp.exception.WqpException;
 import gov.usgs.cida.wqp.parameter.Parameters;
+import gov.usgs.cida.wqp.util.HttpConstants;
 import gov.usgs.cida.wqp.util.WqpEnv;
 import gov.usgs.cida.wqp.util.WqpEnvProperties;
 
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -100,10 +107,10 @@ public class CodesService implements WqpEnvProperties {
 				throw new WqpException(UNDEFINED_WQP_CONFIG_PARAM, getClass(), "mokeCodesUrl", CODES_URL);
 			}
 			String mimeType = WqpEnv.get(CODES_MIME_TYPE, DEFAULT_MIME_TYPE);
-			String urlStr =  codesUrl +"/"+ codeType +"/"+ code + "?mimetype="+ mimeType;
+			String urlStr =  codesUrl +"/"+ codeType +"/"+ URLEncoder.encode(code, HttpConstants.DEFAULT_ENCODING) + "?mimetype="+ mimeType;
 			log.trace("making codes url : {}", urlStr);
 			url = new URL(urlStr);
-		} catch (MalformedURLException e) {
+		} catch (MalformedURLException | UnsupportedEncodingException e) {
 			throw new WqpException(URL_PARSING_EXCEPTION, getClass(), "mokeCodesUrl",
 					"Invalid Code Lookup URL. Ensure that the wqpgateway.properties has a properly formated URL for " + CODES_URL);
 		}

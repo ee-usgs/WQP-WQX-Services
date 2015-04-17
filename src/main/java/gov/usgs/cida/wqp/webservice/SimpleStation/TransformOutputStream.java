@@ -2,21 +2,27 @@ package gov.usgs.cida.wqp.webservice.SimpleStation;
 
 import gov.cida.cdat.io.Closer;
 import gov.cida.cdat.transform.Transformer;
+import gov.usgs.cida.wqp.service.ILogService;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.OutputStream;
+import java.math.BigDecimal;
 import java.util.Map;
 
 public abstract class TransformOutputStream extends OutputStream {
 
 	protected OutputStream target;
+	protected ILogService webServiceLogService;
+	protected BigDecimal logId;
 	private Transformer transform;
 	protected Map<String, Object> result;
 	
-	public TransformOutputStream(OutputStream target, Transformer transform) {
+	public TransformOutputStream(OutputStream target, ILogService webServiceLogService, BigDecimal logId, Transformer transform) {
 		this.target = target;
+		this.webServiceLogService = webServiceLogService;
+		this.logId = logId;
 		this.transform = transform;
 	}
 

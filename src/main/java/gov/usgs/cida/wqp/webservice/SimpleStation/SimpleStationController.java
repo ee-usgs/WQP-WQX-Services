@@ -1,5 +1,7 @@
 package gov.usgs.cida.wqp.webservice.SimpleStation;
 
+import java.math.BigDecimal;
+
 import gov.cida.cdat.control.Control;
 import gov.cida.cdat.control.SCManager;
 import gov.cida.cdat.control.Time;
@@ -8,6 +10,7 @@ import gov.usgs.cida.wqp.dao.IDao;
 import gov.usgs.cida.wqp.dao.IStreamingDao;
 import gov.usgs.cida.wqp.parameter.IParameterHandler;
 import gov.usgs.cida.wqp.parameter.ParameterMap;
+import gov.usgs.cida.wqp.service.ILogService;
 import gov.usgs.cida.wqp.util.HttpConstants;
 import gov.usgs.cida.wqp.util.HttpUtils;
 import gov.usgs.cida.wqp.util.MybatisConstants;
@@ -37,15 +40,19 @@ public class SimpleStationController implements HttpConstants, MybatisConstants,
 
 	protected IParameterHandler parameterHandler;
 
+	protected ILogService webServiceLogService;
+
 	@Autowired
 	public SimpleStationController(
 			IStreamingDao inStreamingDao,
 			ICountDao inCountDao,
-			IParameterHandler inParameterHandler) {
+			IParameterHandler inParameterHandler,
+			ILogService inWebServiceLogService) {
 		log.trace(getClass().getName());
 		streamingDao = inStreamingDao;
 		parameterHandler = inParameterHandler;
 		countDao = inCountDao;
+		webServiceLogService = inWebServiceLogService;
 	}
 
 	/**
@@ -55,10 +62,12 @@ public class SimpleStationController implements HttpConstants, MybatisConstants,
 	@Async
 	public void simpleStationHeadRequest(HttpServletRequest request, HttpServletResponse response) {
 		log.info("Processing Head: {}", request.getQueryString());
+		BigDecimal logId = webServiceLogService.logRequest(request, response);
 		SCManager session = null;
 		try {
-			session = doHeader(request, response);
+			session = doHeader(request, response, logId);
 		} finally {
+			webServiceLogService.logRequestComplete(logId, String.valueOf(response.getStatus()));
 			if (session != null) {
 				session.close();
 			}
@@ -72,7 +81,7 @@ public class SimpleStationController implements HttpConstants, MybatisConstants,
 	 * @param response
 	 * @return cDAT session opened here for use on the GET request - bit kluggy but DRY'er code
 	 */
-	private SCManager doHeader(HttpServletRequest request, HttpServletResponse response) {
+	private SCManager doHeader(HttpServletRequest request, HttpServletResponse response, BigDecimal logId) {
 		response.setCharacterEncoding(DEFAULT_ENCODING);
 		ParameterMap pm = new ParameterValidation().preProcess(request, parameterHandler);
 		if ( ! pm.isValid() ) {
@@ -90,6 +99,7 @@ public class SimpleStationController implements HttpConstants, MybatisConstants,
 			//TODO We can't just eat these.
 			throw new RuntimeException(header.getCurrentError());
 		}
+		webServiceLogService.logHeadComplete(response, logId);
 		return session;
 	}
 	
@@ -100,25 +110,26 @@ public class SimpleStationController implements HttpConstants, MybatisConstants,
 	@Async
 	public void stationGetRequest(HttpServletRequest request, HttpServletResponse response) {
 		log.trace(""); // blank line during trace
-		log.info("Processing Get: {}", request.getQueryString()); // TODO use SLF4J to avoid string concatenation inline
+		log.info("Processing Get: {}", request.getQueryString());
+		BigDecimal logId = webServiceLogService.logRequest(request, response);
 		
 		ParameterMap pm = new ParameterValidation().preProcess(request, parameterHandler);
 		SCManager session = null;
 		try {
-			session = doHeader(request, response);
+			session = doHeader(request, response, logId);
 			if (session != null) {
 				TransformOutputStream transformer;
 				String mimeType = PutSomeWhereElse.getMimeType(pm, MEDIA_TYPE_XML);
 				switch (mimeType) {
 				case MEDIA_TYPE_JSON:
-					transformer = new SimpleStationJsonTransformer( response.getOutputStream());
+					transformer = new SimpleStationJsonTransformer(response.getOutputStream(), webServiceLogService, logId);
 					break;
 				//TODO here only for demo purposes needs to be removed before going to production.	
 				case MEDIA_TYPE_XLSX:
-					transformer = new XlsxTransformer( response.getOutputStream(), XXXStationColumnMapper.getMappings());
+					transformer = new XlsxTransformer(response.getOutputStream(), webServiceLogService, logId, XXXStationColumnMapper.getMappings());
 					break;
 				default:
-					transformer = new XmlTransformer( response.getOutputStream(), new SimpleStationXmlMapping());
+					transformer = new XmlTransformer(response.getOutputStream(), webServiceLogService, logId, new SimpleStationXmlMapping());
 					break;
 				}
 					
@@ -136,6 +147,7 @@ public class SimpleStationController implements HttpConstants, MybatisConstants,
 			log.error("Error openging outputstream",e);
 			throw new RuntimeException(e);
 		} finally {
+			webServiceLogService.logRequestComplete(logId, String.valueOf(response.getStatus()));
 			if (session != null) {
 				session.close();
 			}

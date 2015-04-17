@@ -188,7 +188,7 @@ public class RegexValidatorTest extends BaseSpringTest implements ValidationCons
 		ValidationResult<?> vr = validator.validate("US:55:027");
 		assertTrue(vr.isValid());
 		assertEquals(0, vr.getValidationMessages().size());
-		assertArrayEquals(new String[][]{new String[]{"US","55","027"}}, (String[][])vr.getTransformedValue());
+		assertArrayEquals(new String[]{"US:55:027"}, (String[])vr.getTransformedValue());
 	}
 	@Test
 	public void testCounty_mismatch() throws Exception {
@@ -229,7 +229,7 @@ public class RegexValidatorTest extends BaseSpringTest implements ValidationCons
 		AbstractValidator<?> validator = HashMapParameterHandler.getValidator(Parameters.SITEID);
 		assertNotNull(validator);
 		assertEquals(DEFAULT_MIN_OCCURS, validator.getMinOccurs());
-		assertEquals(UNBOUNDED, validator.getMaxOccurs());
+		assertEquals(IN_CLAUSE_LIMIT, validator.getMaxOccurs());
 		assertEquals(DEFAULT_DELIMITER, validator.getDelimiter());
 	}
 	@Test
@@ -263,7 +263,7 @@ public class RegexValidatorTest extends BaseSpringTest implements ValidationCons
 		ValidationResult<?> vr = validator.validate("US:55");
 		assertTrue(vr.isValid());
 		assertEquals(0, vr.getValidationMessages().size());
-		assertArrayEquals(new String[][]{new String[]{"US","55"}}, (String[][])vr.getTransformedValue());
+		assertArrayEquals(new String[]{"US:55"}, (String[])vr.getTransformedValue());
 	}
 	@Test
 	public void testState_mismatch() {

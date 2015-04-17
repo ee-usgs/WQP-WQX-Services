@@ -45,11 +45,10 @@ public class CountDaoTest extends BaseSpringTest {
 //		counts = countDao.getCounts(ICountDao.STATION_NAMESPACE, parms);
 //		assertResults(counts, "0", "0", "0", "0");
 
-		//"command.avoid"
-//		parms.clear();
-//		parms.put(Parameters.AVOID.toString(), new String[]{"STORET"});
-//		counts = countDao.getCounts(ICountDao.STATION_NAMESPACE, parms);
-//		assertResults(counts, 4, "6", "2", "2", "2");
+		parms.clear();
+		parms.put("commandavoid", new String[]{"STORET"});
+		counts = countDao.getCounts(ICountDao.STATION_NAMESPACE, parms);
+		assertResults(counts, 2, "2", "2", null, null);
 		
 		parms.clear();
 		parms.put(Parameters.COUNTRY.toString(), new String[]{"US"});
@@ -189,9 +188,15 @@ public class CountDaoTest extends BaseSpringTest {
 		List<Map<String, Object>> counts = countDao.getCounts(ICountDao.STATION_NAMESPACE, parms);
 		assertResults(counts, 4, "6", "2", "2", "2");
 
+		parms.put("commandavoid", new String[]{"NWIS", "STORET"});
+		counts = countDao.getCounts(ICountDao.STATION_NAMESPACE, parms);
+		assertTrue(counts.isEmpty());
+		
+		
 		//Counts against pc_result_ct_sum
 		
 		parms.clear();
+		parms.put("commandavoid", new String[]{"STORET"});
 		parms.put(Parameters.ANALYTICAL_METHOD.toString(), new String[]{"https://www.nemi.gov/methods/method_summary/4665/",
 			"https://www.nemi.gov/methods/method_summary/8896/"});
 		parms.put(Parameters.CHARACTERISTIC_NAME.toString(), new String[]{"Beryllium", "Nitrate"});

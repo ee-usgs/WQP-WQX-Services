@@ -38,9 +38,7 @@ public class RegexValidator<T> extends AbstractValidator<T> {
 			validateRegExBuilder.append("{").append(minOccurs);
 			if (maxOccurs != minOccurs) {
 				validateRegExBuilder.append(",");
-				if (maxOccurs != UNBOUNDED) {
-					validateRegExBuilder.append(maxOccurs);
-				}
+				validateRegExBuilder.append(maxOccurs);
 			}
 			validateRegExBuilder.append("}");
 		} else {

@@ -12,34 +12,16 @@ public class BoundedFloatingPointValidatorTest extends BaseSpringTest implements
 	@Test
 	public void testConstructors_nullParameter() {
 		try {
-			new BoundedFloatingPointValidator(null, "0", "1");
+			new BoundedFloatingPointValidator(null, 0, 1);
 			fail("Should have gotten an IllegalArgumentException");
 		} catch (IllegalArgumentException e) {
 			assertEquals("The Parameter being validated must be provided.", e.getMessage());
 		}
 	}
 	@Test
-	public void testConstructors_nullMin() {
-		try {
-			new BoundedFloatingPointValidator(Parameters.WITHIN, null, null);
-			fail("Should have gotten an IllegalArgumentException");
-		} catch (IllegalArgumentException e) {
-			assertEquals("minBound is not a valid number.", e.getMessage());
-		}
-	}
-	@Test
-	public void testConstructors_nullMax() {
-		try {
-			new BoundedFloatingPointValidator(Parameters.WITHIN, "10.5", null);
-			fail("Should have gotten an IllegalArgumentException");
-		} catch (IllegalArgumentException e) {
-			assertEquals("maxBound is not a valid number.", e.getMessage());
-		}
-	}
-	@Test
 	public void testConstructors_maxLessThanMin() {
 		try {
-			new BoundedFloatingPointValidator(Parameters.WITHIN, "10.5", "8.2");
+			new BoundedFloatingPointValidator(Parameters.WITHIN, 10.5, 8.2);
 			fail("Should have gotten an IllegalArgumentException");
 		} catch (IllegalArgumentException e) {
 			assertEquals("minBound must be less than maxBound.", e.getMessage());
@@ -56,7 +38,7 @@ public class BoundedFloatingPointValidatorTest extends BaseSpringTest implements
 	}
 	@Test
 	public void testConstructors_customRange() {
-		BoundedFloatingPointValidator validator = new BoundedFloatingPointValidator(Parameters.WITHIN, "3", "12");
+		BoundedFloatingPointValidator validator = new BoundedFloatingPointValidator(Parameters.WITHIN, 3, 12);
 		assertEquals(DEFAULT_MIN_OCCURS, validator.getMinOccurs());
 		assertEquals(DEFAULT_MAX_OCCURS, validator.getMaxOccurs());
 		assertEquals(DEFAULT_DELIMITER, validator.getDelimiter());
@@ -65,7 +47,7 @@ public class BoundedFloatingPointValidatorTest extends BaseSpringTest implements
 	}
 	@Test
 	public void testConstructors_customDeliminatorAndOcurrs() {
-		BoundedFloatingPointValidator validator = new BoundedFloatingPointValidator(Parameters.WITHIN, 1, 2, "x", "3", "4");
+		BoundedFloatingPointValidator validator = new BoundedFloatingPointValidator(Parameters.WITHIN, 1, 2, "x", 3, 4);
 		assertEquals(1, validator.getMinOccurs());
 		assertEquals(2, validator.getMaxOccurs());
 		assertEquals("x", validator.getDelimiter());
@@ -74,7 +56,7 @@ public class BoundedFloatingPointValidatorTest extends BaseSpringTest implements
 	}
 	@Test
 	public void testNullValue() {
-		BoundedFloatingPointValidator validator = new BoundedFloatingPointValidator(Parameters.WITHIN, 1, 2, ";", "3", "4");
+		BoundedFloatingPointValidator validator = new BoundedFloatingPointValidator(Parameters.WITHIN, 1, 2, ";", 3, 4);
 		ValidationResult<double[]> vr = validator.validate(null);
 		assertFalse(vr.isValid());
 		assertEquals(1, vr.getValidationMessages().size());
@@ -84,7 +66,7 @@ public class BoundedFloatingPointValidatorTest extends BaseSpringTest implements
 	}
 	@Test
 	public void testEmptyStringValue() {
-		BoundedFloatingPointValidator validator = new BoundedFloatingPointValidator(Parameters.WITHIN, 1, 2, ";", "3", "4");
+		BoundedFloatingPointValidator validator = new BoundedFloatingPointValidator(Parameters.WITHIN, 1, 2, ";", 3, 4);
 		ValidationResult<double[]> vr = validator.validate("");
 		assertFalse(vr.isValid());
 		assertEquals(1, vr.getValidationMessages().size());
@@ -96,7 +78,7 @@ public class BoundedFloatingPointValidatorTest extends BaseSpringTest implements
 	}
 	@Test
 	public void testThreeValues() {
-		BoundedFloatingPointValidator validator = new BoundedFloatingPointValidator(Parameters.WITHIN, 1, 2, ";", "3", "4");
+		BoundedFloatingPointValidator validator = new BoundedFloatingPointValidator(Parameters.WITHIN, 1, 2, ";", 3, 4);
 		ValidationResult<double[]> vr = validator.validate("1;2;3.5");
 		assertFalse(vr.isValid());
 		assertEquals(3, vr.getValidationMessages().size());
@@ -112,7 +94,7 @@ public class BoundedFloatingPointValidatorTest extends BaseSpringTest implements
 	}
 	@Test
 	public void testIntegersValues() {
-		BoundedFloatingPointValidator validator = new BoundedFloatingPointValidator(Parameters.WITHIN, 1, 2, ";", "3", "4");
+		BoundedFloatingPointValidator validator = new BoundedFloatingPointValidator(Parameters.WITHIN, 1, 2, ";", 3, 4);
 		ValidationResult<double[]> vr = validator.validate("5;6");
 		assertFalse(vr.isValid());
 		assertEquals(2, vr.getValidationMessages().size());
@@ -149,7 +131,7 @@ public class BoundedFloatingPointValidatorTest extends BaseSpringTest implements
 		ValidationResult<?> vr = validator.validate("-2");
 		assertFalse(vr.isValid());
 		assertEquals(1, vr.getValidationMessages().size());
-		assertEquals("The value of within=-2.0 is not between 0.0 and 2.147483647E9", vr.getValidationMessages().get(0));
+		assertEquals("The value of within=-2.0 is not between 0.0 and 1.7976931348623157E308", vr.getValidationMessages().get(0));
 		double[]val = (double[])vr.getTransformedValue();
 		assertEquals(1, val.length);
 		assertEquals(-2.0, val[0], .01);

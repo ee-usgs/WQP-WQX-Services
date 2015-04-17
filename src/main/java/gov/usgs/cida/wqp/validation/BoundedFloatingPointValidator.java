@@ -21,23 +21,15 @@ public class BoundedFloatingPointValidator extends AbstractValidator<double[]> {
 		maxBound = Double.MAX_VALUE;
 	}
 	
-	public BoundedFloatingPointValidator(Parameters inParameter, String inMinBound, String inMaxBound)  {
+	public BoundedFloatingPointValidator(Parameters inParameter, double inMinBound, double inMaxBound)  {
 		this(inParameter, DEFAULT_MIN_OCCURS, DEFAULT_MAX_OCCURS, DEFAULT_DELIMITER, inMinBound, inMaxBound);
 	}
 	
-	public BoundedFloatingPointValidator(Parameters inParameter, int minOccurs, int maxOccurs, String delimiter, String inMinBound, String inMaxBound)  {
+	public BoundedFloatingPointValidator(Parameters inParameter, int minOccurs, int maxOccurs, String delimiter, double inMinBound, double inMaxBound)  {
 		super(inParameter, minOccurs, maxOccurs, delimiter);
 		log.trace(getClass().getName());
-		try {
-			minBound = Double.parseDouble(inMinBound);
-		} catch (Exception e) {
-			throw new IllegalArgumentException("minBound is not a valid number.", e);
-		}
-		try {
-			maxBound = Double.parseDouble(inMaxBound);
-		} catch (Exception e) {
-			throw new IllegalArgumentException("maxBound is not a valid number.", e);
-		}
+		minBound = inMinBound;
+		maxBound = inMaxBound;
 		if (maxBound < minBound) {
 			throw new IllegalArgumentException("minBound must be less than maxBound.");
 		}

@@ -12,16 +12,17 @@ import org.slf4j.LoggerFactory;
 public class LookupValidator extends AbstractValidator<String[]> {
 	private final Logger log = LoggerFactory.getLogger(getClass());
 	
-	private CodesService codesService = new CodesService();
+	private CodesService codesService;
 	private Parameters parameter;
 	
-	public LookupValidator(Parameters inParameter)  {
-		this(inParameter, DEFAULT_MIN_OCCURS, IN_CLAUSE_LIMIT, DEFAULT_DELIMITER);
+	public LookupValidator(CodesService inCodesService, Parameters inParameter)  {
+		this(inCodesService, inParameter, DEFAULT_MIN_OCCURS, IN_CLAUSE_LIMIT, DEFAULT_DELIMITER);
 	}
 	
-	public LookupValidator(Parameters parameter, int minOccurs, int maxOccurs, String delimiter)  {
+	public LookupValidator(CodesService inCodesService, Parameters parameter, int minOccurs, int maxOccurs, String delimiter)  {
 		super(parameter, minOccurs, maxOccurs, delimiter);
 		this.parameter=parameter;
+		codesService = inCodesService;
 		log.trace(getClass().getName());
 	}
 	
