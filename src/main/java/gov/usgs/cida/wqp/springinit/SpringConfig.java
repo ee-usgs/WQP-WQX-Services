@@ -226,6 +226,12 @@ public class SpringConfig extends WebMvcConfigurerAdapter implements Environment
 	}
 	
 	@Bean
+	public LookupValidator projectValidator() {
+		// semicolon list of string project ids
+		return new LookupValidator(codesService(), Parameters.PROJECT);
+	}
+	
+	@Bean
 	public LookupValidator providerValidator() {
 		// semicolon list of databases to include
 		return new LookupValidator(codesService(), Parameters.PROVIDERS);
@@ -295,6 +301,7 @@ public class SpringConfig extends WebMvcConfigurerAdapter implements Environment
 		validatorMap.put(Parameters.MIMETYPE, mimeTypeValidator());
 		validatorMap.put(Parameters.ORGANIZATION, organizationValidator());
 		validatorMap.put(Parameters.PCODE, parameterCodeValidator());
+		validatorMap.put(Parameters.PROJECT, projectValidator());
 		validatorMap.put(Parameters.PROVIDERS, providerValidator());
 		validatorMap.put(Parameters.SAMPLE_MEDIA, sampleMediaValidator());
 		validatorMap.put(Parameters.SITE_TYPE, siteTypeValidator());
