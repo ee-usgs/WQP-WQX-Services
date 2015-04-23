@@ -136,6 +136,11 @@ public class CountDaoTest extends BaseSpringTest {
 		assertResults(counts, 2, "1", "1", null, null);
 
 		parms.clear();
+		parms.put(Parameters.PROJECT.toString(), new String[]{"NAWQA"});
+		counts = countDao.getCounts(ICountDao.STATION_NAMESPACE, parms);
+		assertResults(counts, 2, "2", "2", null, null);
+
+		parms.clear();
 		parms.put(Parameters.SAMPLE_MEDIA.toString(), new String[]{"Water"});
 		counts = countDao.getCounts(ICountDao.STATION_NAMESPACE, parms);
 		assertResults(counts, 2, "1", null, "1", null);
@@ -202,6 +207,7 @@ public class CountDaoTest extends BaseSpringTest {
 		parms.put(Parameters.CHARACTERISTIC_NAME.toString(), new String[]{"Beryllium", "Nitrate"});
 		parms.put(Parameters.CHARACTERISTIC_TYPE.toString(), new String[]{"Inorganics, Minor, Metals", "Nutrient"});
 		parms.put(Parameters.PCODE.toString(), new String[]{"00032", "00004"});
+		parms.put(Parameters.PROJECT.toString(), new String[]{"NAWQA", "CEAP"});
 		parms.put(Parameters.SAMPLE_MEDIA.toString(), new String[]{"Other", "Sediment", "Water"});
 		parms.put(Parameters.COUNTRY.toString(), new String[]{"MX", "US"});
 		parms.put(Parameters.COUNTY.toString(), new String[]{"US:19:015", "US:30:003", "US:55:017", "US:55:021", "US:55:027"});

@@ -2,6 +2,8 @@ package gov.usgs.cida.wqp.webservice.SimpleStation;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.head;
@@ -22,7 +24,6 @@ import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -34,9 +35,6 @@ import org.springframework.web.context.WebApplicationContext;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DatabaseSetups;
 import com.github.springtestdbunit.annotation.DatabaseTearDown;
-
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyString;
 
 @Category(IntegrationTest.class)
 @WebAppConfiguration
@@ -160,6 +158,7 @@ public class SimpleStationControllerTest extends BaseSpringTest implements HttpC
     			"&long=-88.9773314" + 
     			"&organization=ARS;11NPSWRD;USGS-WI;WIDNR_WQX" + 
     			"&pCode=00032;00004" +
+    			"&project=CEAP;NAWQA" +
     			"&sampleMedia=Other;Sediment;Water" +
     			"&providers=NWIS;STEWARDS;STORET" +
     			"&siteid=11NPSWRD-BICA_MFG_B;WIDNR_WQX-10030952;USGS-05425700;USGS-431925089002701;ARS-IAWC-IAWC225;ARS-IAWC-IAWC410" +

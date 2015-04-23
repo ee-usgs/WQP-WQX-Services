@@ -60,6 +60,10 @@
         p_code in <foreach item="i" collection="pCode" open="(" separator="," close=")">#{i}</foreach>
     </sql>
 
+    <sql id="project">
+        project_id in <foreach item="i" collection="project" open="(" separator="," close=")">#{i}</foreach>
+    </sql>
+
     <sql id="providers">
         data_source_id in (select data_source_id
                              from data_source
@@ -150,7 +154,7 @@
 			<include refid="dynamicWhere.baseWhereStationGeoClauses" />
 			<include refid="dynamicWhere.baseWhereStationClauses" />
 			<if test="sampleMedia != null || characteristicName != null || characteristicType != null || startDateLo != null || startDateHi != null ||
-                      activityId != null || analyticalmethod != null || pCode != null">
+                      activityId != null || analyticalmethod != null || pCode != null || project != null">
             	and exists (select null from
                                    pc_result
                              where s.site_id = pc_result.site_id and
@@ -164,8 +168,8 @@
     <sql id="stationsCountBase">
 		from 
 		<if test="sampleMedia == null &amp;&amp; characteristicName == null &amp;&amp; characteristicType == null &amp;&amp;
-                  startDateLo == null &amp;&amp; startDateHi == null &amp;&amp;
-                  activityId == null &amp;&amp; analyticalmethod == null &amp;&amp; pCode == null">
+                  startDateLo == null &amp;&amp; startDateHi == null &amp;&amp; activityId == null &amp;&amp;
+                  analyticalmethod == null &amp;&amp; pCode == null &amp;&amp; project == null">
 			station_sum s
           	<where>
           		<include refid="dynamicWhere.baseWhereStationGeoClauses" />
@@ -182,7 +186,7 @@
         	</if>
         </if>
         <if test="sampleMedia != NULL || characteristicName != NULL || characteristicType != NULL || 
-                  analyticalmethod != null || pCode != null">
+                  analyticalmethod != null || pCode != null || project != null">
         	<if test="startDateLo == NULL &amp;&amp; startDateHi == NULL &amp;&amp; within == NULL &amp;&amp; bBox == NULL">
 				pc_result_ct_sum s
                	<where>
@@ -193,8 +197,8 @@
      	</if>
         <if test="within != NULL || bBox != NULL">
         	<if test="sampleMedia != NULL || characteristicName != NULL || characteristicType != NULL ||
-                      startDateLo != NULL || startDateHi != NULL ||
-                      activityId != null || analyticalmethod != null || pCode != null">
+                      startDateLo != NULL || startDateHi != NULL || activityId != null || 
+                      analyticalmethod != null || pCode != null || project != null">
 				pc_result_nr_sum a,
                 (select /*+ index_combine(s) */ data_source_id, station_id, site_id
                    from station
@@ -233,6 +237,9 @@
         </if>
         <if test="pCode != null">
             and (<include refid="dynamicWhere.pCode" />)
+        </if>
+        <if test="project != null">
+            and (<include refid="dynamicWhere.project" />)
         </if>
         <if test="sampleMedia != null">
             and (<include refid="dynamicWhere.sampleMedia" />)
