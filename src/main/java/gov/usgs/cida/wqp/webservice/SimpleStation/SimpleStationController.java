@@ -10,11 +10,12 @@ import gov.usgs.cida.wqp.dao.IDao;
 import gov.usgs.cida.wqp.dao.IStreamingDao;
 import gov.usgs.cida.wqp.parameter.IParameterHandler;
 import gov.usgs.cida.wqp.parameter.ParameterMap;
+import gov.usgs.cida.wqp.parameter.Parameters;
 import gov.usgs.cida.wqp.service.ILogService;
 import gov.usgs.cida.wqp.util.HttpConstants;
 import gov.usgs.cida.wqp.util.HttpUtils;
+import gov.usgs.cida.wqp.util.MimeType;
 import gov.usgs.cida.wqp.util.MybatisConstants;
-import gov.usgs.cida.wqp.util.PutSomeWhereElse;
 import gov.usgs.cida.wqp.validation.ParameterValidation;
 import gov.usgs.cida.wqp.validation.ValidationConstants;
 import gov.usgs.cida.wqp.webservice.HeaderWorker;
@@ -93,7 +94,7 @@ public class SimpleStationController implements HttpConstants, MybatisConstants,
 			return null;
 		}
 		SCManager session = SCManager.open();
-		HeaderWorker header = new HeaderWorker(response, ICountDao.STATION_NAMESPACE, pm, countDao, MEDIA_TYPE_XML);
+		HeaderWorker header = new HeaderWorker(response, ICountDao.STATION_NAMESPACE, pm, countDao, MimeType.xml);
 		String stationCount = session.addWorker("SimpleStationCount", header);
 		session.send(stationCount, Control.Start);
 		session.waitForComplete(stationCount, Time.SECOND.asMS());
@@ -108,7 +109,7 @@ public class SimpleStationController implements HttpConstants, MybatisConstants,
 	/**
 	 * station search request
 	 */
-	@RequestMapping(value=SIMPLE_STATION_ENDPOINT, method=RequestMethod.GET, produces={MIME_TYPE_XLSX, MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+	@RequestMapping(value=SIMPLE_STATION_ENDPOINT, method=RequestMethod.GET, produces={MIME_TYPE_XLSX, MIME_TYPE_XML, MIME_TYPE_JSON})
 	@Async
 	public void stationGetRequest(HttpServletRequest request, HttpServletResponse response) {
 		log.trace(""); // blank line during trace
@@ -120,16 +121,17 @@ public class SimpleStationController implements HttpConstants, MybatisConstants,
 			session = doHeader(request, response, logId);
 			if (session != null) {
 				TransformOutputStream transformer;
-				String mimeType = PutSomeWhereElse.getMimeType(pm, MEDIA_TYPE_XML);
+				String mimeTypeParam = pm.getParameter(Parameters.MIMETYPE);
+				MimeType mimeType = MimeType.xml.fromString(mimeTypeParam);
 				switch (mimeType) {
-				case MEDIA_TYPE_JSON:
+				case json:
 					transformer = new SimpleStationJsonTransformer(response.getOutputStream(), logService, logId);
 					break;
-				//TODO here only for demo purposes needs to be removed before going to production.	
-				case MEDIA_TYPE_XLSX:
+				//TODO here only for demo purposes needs to be removed before going to production.
+				case xlsx:
 					transformer = new XlsxTransformer(response.getOutputStream(), logService, logId, XXXStationColumnMapper.getMappings());
 					break;
-				default:
+				default: // xml
 					transformer = new XmlTransformer(response.getOutputStream(), logService, logId, new SimpleStationXmlMapping());
 					break;
 				}

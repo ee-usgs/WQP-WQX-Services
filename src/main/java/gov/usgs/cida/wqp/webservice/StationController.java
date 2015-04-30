@@ -1,26 +1,27 @@
 package gov.usgs.cida.wqp.webservice;
 
-import java.io.IOException;
-import java.math.BigDecimal;
-
 import gov.cida.cdat.control.Control;
 import gov.cida.cdat.control.SCManager;
 import gov.cida.cdat.control.Time;
+import gov.cida.cdat.control.Worker;
 import gov.usgs.cida.wqp.dao.ICountDao;
 import gov.usgs.cida.wqp.dao.IDao;
 import gov.usgs.cida.wqp.dao.IStreamingDao;
 import gov.usgs.cida.wqp.parameter.IParameterHandler;
 import gov.usgs.cida.wqp.parameter.ParameterMap;
+import gov.usgs.cida.wqp.parameter.Parameters;
 import gov.usgs.cida.wqp.service.ILogService;
 import gov.usgs.cida.wqp.util.HttpConstants;
 import gov.usgs.cida.wqp.util.HttpUtils;
-import gov.usgs.cida.wqp.util.PutSomeWhereElse;
+import gov.usgs.cida.wqp.util.MimeType;
 import gov.usgs.cida.wqp.validation.ParameterValidation;
 import gov.usgs.cida.wqp.validation.ValidationConstants;
 import gov.usgs.cida.wqp.webservice.SimpleStation.SimpleStationWorker;
 import gov.usgs.cida.wqp.webservice.SimpleStation.TransformOutputStream;
 import gov.usgs.cida.wqp.webservice.SimpleStation.XXXStationColumnMapper;
 import gov.usgs.cida.wqp.webservice.SimpleStation.XlsxTransformer;
+
+import java.math.BigDecimal;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -102,7 +103,7 @@ public class StationController implements HttpConstants, ValidationConstants {
 			return null;
 		}
 		SCManager session = SCManager.open();
-		HeaderWorker header = new HeaderWorker(response, IDao.STATION_NAMESPACE, pm, countDao, MEDIA_TYPE_CSV);
+		HeaderWorker header = new HeaderWorker(response, IDao.STATION_NAMESPACE, pm, countDao, MimeType.csv);
 		String stationCount = session.addWorker("StationCount", header);
 		session.send(stationCount, Control.Start);
 		session.waitForComplete(stationCount, Time.SECOND.asMS());
@@ -121,21 +122,28 @@ public class StationController implements HttpConstants, ValidationConstants {
 	@Async
 	public void stationGetRequest(HttpServletRequest request, HttpServletResponse response) {
 		log.trace(""); // blank line during trace
-		log.info("Processing Get: {}", request.getQueryString()); // TODO use SLF4J to avoid string concatenation inline
+		log.info("Processing Get: {}", request.getQueryString());
 		BigDecimal logId = logService.logRequest(request, response);
 		SCManager session = null;
 		try {
 			session = doHeader(request, response, logId);
 			if (session != null) {
-				//TODO refactor to allow WQX&xlsx&json to all behave nicely
+				String mimeTypeParam = pm.getParameter(Parameters.MIMETYPE);
+				MimeType mimeType = MimeType.csv.fromString(mimeTypeParam);
+				
 				String stationName;
-				String mimeType = PutSomeWhereElse.getMimeType(pm, MEDIA_TYPE_CSV);
-				if (MEDIA_TYPE_XLSX.equalsIgnoreCase(mimeType)) {
-					stationName = doUglyStuff(session, response, pm, logId);
-				} else {
-				StationWorker station = new StationWorker(response, IDao.STATION_NAMESPACE, pm, streamingDao, logService, logId);
-				stationName = session.addWorker("Station", station);
+				Worker worker;
+				switch (mimeType) {
+					case xlsx:
+						TransformOutputStream transformer = new XlsxTransformer(response.getOutputStream(), logService, logId, XXXStationColumnMapper.getMappings());
+						worker = new SimpleStationWorker(response, IDao.STATION_NAMESPACE, pm, streamingDao, transformer);
+						break;
+					case json: // TODO
+					default:
+						worker = new StationWorker(response, IDao.STATION_NAMESPACE, pm, streamingDao, logService, logId);
 				}
+				
+				stationName = session.addWorker("Station", worker);
 				session.send(stationName, Control.Start);
 				session.waitForComplete(stationName, Time.SECOND.asMS());
 			}
@@ -150,11 +158,5 @@ public class StationController implements HttpConstants, ValidationConstants {
 			log.info("Processing Get complete: {}", request.getQueryString());
 		}
 		logService.logRequestComplete(logId, String.valueOf(response.getStatus()));
-	}
-	
-	private String doUglyStuff(SCManager session, HttpServletResponse response, ParameterMap pm, BigDecimal logId) throws IOException {
-		TransformOutputStream transformer = new XlsxTransformer(response.getOutputStream(), logService, logId, XXXStationColumnMapper.getMappings());
-		SimpleStationWorker worker = new SimpleStationWorker(response, IDao.STATION_NAMESPACE, pm, streamingDao, transformer);
-		return session.addWorker("Station", worker);
 	}
 }

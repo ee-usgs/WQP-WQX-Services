@@ -4,9 +4,10 @@ import gov.cida.cdat.control.Worker;
 import gov.cida.cdat.exception.CdatException;
 import gov.usgs.cida.wqp.dao.ICountDao;
 import gov.usgs.cida.wqp.parameter.ParameterMap;
+import gov.usgs.cida.wqp.parameter.Parameters;
 import gov.usgs.cida.wqp.util.HttpConstants;
 import gov.usgs.cida.wqp.util.HttpUtils;
-import gov.usgs.cida.wqp.util.PutSomeWhereElse;
+import gov.usgs.cida.wqp.util.MimeType;
 
 import java.util.List;
 import java.util.Map;
@@ -26,15 +27,17 @@ public class HeaderWorker extends Worker implements HttpConstants {
 	private List<Map<String, Object>> counts;
 	
 	private ICountDao countDao;
+
+	private MimeType mimeType;
 	
-	private String defaultMimetype;
-	
-	public HeaderWorker(HttpServletResponse response, String countQueryId, ParameterMap parameters, ICountDao countDao, String defaultMimetype) {
+	public HeaderWorker(HttpServletResponse response, String countQueryId, ParameterMap parameters, ICountDao countDao, MimeType mimeType) {
 		this.response = response;
 		this.countQueryId = countQueryId;
 		this.parameters = parameters;
 		this.countDao = countDao;
-		this.defaultMimetype = defaultMimetype;
+		
+		String mimeTypeParam = (String) parameters.getQueryParameters().get(Parameters.MIMETYPE.toString());
+		this.mimeType = mimeType.fromString(mimeTypeParam);
 	}
 	
 	@Override
@@ -57,18 +60,10 @@ public class HeaderWorker extends Worker implements HttpConstants {
 	public void end() {
 		log.trace("station header start");
 		response.setCharacterEncoding(DEFAULT_ENCODING);
-		
-		String contentType = PutSomeWhereElse.getContentType(parameters, defaultMimetype);
-		response.addHeader(HEADER_CONTENT_TYPE, contentType);
-
+		response.addHeader(HEADER_CONTENT_TYPE, mimeType.getMimeType());
 		httpUtils.addCountHeader(response, counts);
-//TODO - FIGURE OUT A BETTER WAY TO SPECIFY IF OUTPUT SHOULD BE AN ATTACHMENT - (OR IF THEY ALL REALLY ARE) - ALL SIMPLESTATION SHOULD BE!!!		
-//TODO - the filename alse needs to change based on the endpoint selected - station/simplestation/result...
-//		if (contentType.contentEquals(MIME_TYPE_TEXT_CSV) || contentType.contentEquals(MIME_TYPE_TEXT_TSV)
-//				|| contentType.contentEquals(MIME_TYPE_XLSX)) {
-			response.setHeader("Content-Disposition","attachment; filename=simplestation."+PutSomeWhereElse.getMimeType(parameters, defaultMimetype));
-//		}
-//		response.setContentLength(11*1024); // TODO this would be nice if possible to determine
+		response.setHeader("Content-Disposition","attachment; filename=simplestation."+mimeType);
+		//response.setContentLength(byteLength); // TODO this would be nice if possible to determine
 		log.trace("station header finish");
 	}
 }
