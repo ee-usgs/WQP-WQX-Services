@@ -5,6 +5,8 @@ import org.springframework.http.MediaType;
 
 public enum MimeType implements HttpConstants {
 
+	// lower case make toString produce the file extension
+	
 	csv(MIME_TYPE_TEXT_CSV),
 	json(MIME_TYPE_JSON),
 	tsv(MIME_TYPE_TEXT_TSV),
