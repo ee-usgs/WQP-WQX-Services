@@ -1,5 +1,7 @@
 package gov.usgs.cida.wqp.util;
 
+import org.springframework.http.MediaType;
+
 public interface HttpConstants extends XmlConstants {
 	String DEFAULT_ENCODING = "UTF-8";
 	int    HEADER_WARNING_DEFAULT_CODE = 299;
@@ -23,12 +25,6 @@ public interface HttpConstants extends XmlConstants {
 	
 	String HEADER_CONTENT_TYPE = "Content-Type";
 	String HEADER_CONTENT_DISPOSITION = "Content-disposition";
-	String MIME_TYPE_APPLICATION_FI = "application/fastinfoset";
-	String MIME_TYPE_TEXT = "application/text";
-	String MIME_TYPE_APPLICATION_ZIP = "application/zip";
-	String MIME_TYPE_TEXT_CSV = "text/csv";
-	String MIME_TYPE_TEXT_TSV = "text/tab-separated-values";
-	String MIME_TYPE_XLSX = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
 	String ENDPOINT_RESULT = "Result";
 	String ENDPOINT_STATION = "Station";
 	String ENDPOINT_SIMPLE_STATION = "simplestation";
@@ -40,9 +36,19 @@ public interface HttpConstants extends XmlConstants {
 	String SIMPLE_STATION_ENDPOINT = ENDPOINT_SIMPLE_STATION + SEARCH_ENPOINT;
 	String BIOLOGICAL_RESULT_ENPOINT = ENDPOINT_BIOLOGICAL_RESULT + SEARCH_ENPOINT;
 	String HEADER_RESULT = ENDPOINT_RESULT;
-	String MEDIA_TYPE_CSV = "csv";
-	String MEDIA_TYPE_TSV = "tsv";
-	String MEDIA_TYPE_XML = "xml";
-	String MEDIA_TYPE_JSON = "json";
-	String MEDIA_TYPE_XLSX = "xlsx";
+	
+	
+	String MIME_TYPE_ZIP      = "application/zip";
+	String MIME_TYPE_TEXT_CSV = "text/csv";
+	String MIME_TYPE_TEXT_TSV = "text/tab-separated-values";
+	String MIME_TYPE_XLSX     = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+	String MIME_TYPE_XML      = MediaType.APPLICATION_XML_VALUE;
+	String MIME_TYPE_JSON     = MediaType.APPLICATION_JSON_VALUE;
+	
+//	String MEDIA_TYPE_XML     = "xml";
+//	String MEDIA_TYPE_ZIP     = "zip";
+//	String MEDIA_TYPE_CSV     = "csv";
+//	String MEDIA_TYPE_TSV     = "tsv";
+//	String MEDIA_TYPE_XLSX    = "xlsx";
+//	String MEDIA_TYPE_JSON    = "json";
 }

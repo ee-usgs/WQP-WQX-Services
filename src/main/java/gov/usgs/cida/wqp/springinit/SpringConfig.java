@@ -1,5 +1,7 @@
 package gov.usgs.cida.wqp.springinit;
 
+
+import static gov.usgs.cida.wqp.util.MimeType.*;
 import gov.usgs.cida.wqp.parameter.HashMapParameterHandler;
 import gov.usgs.cida.wqp.parameter.IParameterHandler;
 import gov.usgs.cida.wqp.parameter.Parameters;
@@ -39,7 +41,6 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
-import org.springframework.http.MediaType;
 import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -77,16 +78,15 @@ public class SpringConfig extends WebMvcConfigurerAdapter implements Environment
     @Override
     public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
         configurer
-        	.ignoreAcceptHeader(true)
         	.favorPathExtension(false)
         	.favorParameter(true)
         	.parameterName("mimeType")
-        	.mediaType(MEDIA_TYPE_CSV, new MediaType("text","csv"))
-        	.mediaType(MEDIA_TYPE_TSV, new MediaType("text","tab-separated-values"))
-        	.mediaType(MEDIA_TYPE_XML, MediaType.APPLICATION_XML)
-        	.mediaType(MEDIA_TYPE_JSON, MediaType.APPLICATION_JSON)
-        	.mediaType(MEDIA_TYPE_XLSX, new MediaType("application","vnd.openxmlformats-officedocument.spreadsheetml.sheet"))
-        	;
+        	.mediaType(csv.mimeType,  csv.mediaType)
+        	.mediaType(tsv.mimeType,  tsv.mediaType)
+        	.mediaType(xml.mimeType,  xml.mediaType)
+        	.mediaType(json.mimeType, json.mediaType)
+        	.mediaType(xlsx.mimeType, xlsx.mediaType)
+        	.ignoreAcceptHeader(true);
     }
     
 	@Bean

@@ -1,10 +1,12 @@
 package gov.usgs.cida.wqp.parameter;
 
 import gov.usgs.cida.wqp.validation.ValidationResult;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -84,4 +86,12 @@ public class ParameterMap {
 	public void setQueryParameters(final Map<String, Object> queryParameters) {
 		this.queryParameters = queryParameters;
 	}
+	
+	public String getParameter(Parameters param) {
+		if (param == null) {
+			return null; // TODO should this be the empty string?
+		}
+		return (String) getQueryParameters().get(param.toString());		
+	}
+	
 }
