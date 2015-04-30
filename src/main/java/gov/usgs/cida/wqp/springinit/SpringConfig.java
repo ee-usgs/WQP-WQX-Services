@@ -81,11 +81,11 @@ public class SpringConfig extends WebMvcConfigurerAdapter implements Environment
         	.favorPathExtension(false)
         	.favorParameter(true)
         	.parameterName("mimeType")
-        	.mediaType(csv.mimeType,  csv.mediaType)
-        	.mediaType(tsv.mimeType,  tsv.mediaType)
-        	.mediaType(xml.mimeType,  xml.mediaType)
-        	.mediaType(json.mimeType, json.mediaType)
-        	.mediaType(xlsx.mimeType, xlsx.mediaType)
+        	.mediaType(csv.getExtension(),  csv.mediaType)
+        	.mediaType(tsv.getExtension(),  tsv.mediaType)
+        	.mediaType(xml.getExtension(),  xml.mediaType)
+        	.mediaType(json.getExtension(), json.mediaType)
+        	.mediaType(xlsx.getExtension(), xlsx.mediaType)
         	.ignoreAcceptHeader(true);
     }
     
