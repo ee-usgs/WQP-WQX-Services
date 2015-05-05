@@ -1,10 +1,9 @@
 package gov.usgs.cida.wqp.webservice.SimpleStation;
 
-import java.math.BigDecimal;
-
 import gov.cida.cdat.control.Control;
 import gov.cida.cdat.control.SCManager;
 import gov.cida.cdat.control.Time;
+import gov.cida.cdat.io.Closer;
 import gov.usgs.cida.wqp.dao.ICountDao;
 import gov.usgs.cida.wqp.dao.IDao;
 import gov.usgs.cida.wqp.dao.IStreamingDao;
@@ -19,6 +18,9 @@ import gov.usgs.cida.wqp.util.MybatisConstants;
 import gov.usgs.cida.wqp.validation.ParameterValidation;
 import gov.usgs.cida.wqp.validation.ValidationConstants;
 import gov.usgs.cida.wqp.webservice.HeaderWorker;
+import gov.usgs.cida.wqp.webservice.StationController;
+
+import java.math.BigDecimal;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,10 +29,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.context.request.async.DeferredResult;
 
 @Controller
 public class SimpleStationController implements HttpConstants, MybatisConstants, ValidationConstants {
@@ -62,20 +64,32 @@ public class SimpleStationController implements HttpConstants, MybatisConstants,
 	 * SimpleStation HEAD request
 	 */
 	@RequestMapping(value=SIMPLE_STATION_ENDPOINT, method=RequestMethod.HEAD, produces={MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
-	@Async
-	public void simpleStationHeadRequest(HttpServletRequest request, HttpServletResponse response) {
+	public DeferredResult<String> simpleStationHeadRequest(HttpServletRequest request, HttpServletResponse response) {
 		log.info("Processing Head: {}", request.getQueryString());
 		BigDecimal logId = logService.logRequest(request, response);
 		SCManager session = null;
+		
+		DeferredResult<String> deferral = new DeferredResult<String>();
 		try {
-			session = doHeader(request, response, logId);
+			session = doHeaderOnly(request, response, logId, deferral);
 		} finally {
 			logService.logRequestComplete(logId, String.valueOf(response.getStatus()));
-			if (session != null) {
-				session.close();
-			}
+			Closer.close(session);
 			log.info("Processing Head complete: {}", request.getQueryString());
 		}
+		return deferral;
+	}
+	
+	private SCManager doHeaderOnly(HttpServletRequest request, HttpServletResponse response, BigDecimal logId, DeferredResult<String> deferral) {
+		return doHeader(request, response, logId, deferral);
+	}
+	private SCManager doHeaderPlus(HttpServletRequest request, HttpServletResponse response, BigDecimal logId, DeferredResult<String> deferral) {
+		DeferredResult<String> deferralProxy = new DeferredResult<String>();
+		SCManager session = doHeader(request, response, logId, deferralProxy);
+		if ("faulure".equals( deferralProxy.getResult() )) {
+			deferral.setResult( (String) deferralProxy.getResult() );
+		}
+		return session;
 	}
 	
 	/**
@@ -84,7 +98,7 @@ public class SimpleStationController implements HttpConstants, MybatisConstants,
 	 * @param response
 	 * @return cDAT session opened here for use on the GET request - bit kluggy but DRY'er code
 	 */
-	private SCManager doHeader(HttpServletRequest request, HttpServletResponse response, BigDecimal logId) {
+	private SCManager doHeader(HttpServletRequest request, HttpServletResponse response, BigDecimal logId,  DeferredResult<String> deferral) {
 		response.setCharacterEncoding(DEFAULT_ENCODING);
 		pm = new ParameterValidation().preProcess(request, parameterHandler);
 		if ( ! pm.isValid() ) {
@@ -97,7 +111,9 @@ public class SimpleStationController implements HttpConstants, MybatisConstants,
 		HeaderWorker header = new HeaderWorker(response, ICountDao.STATION_NAMESPACE, pm, countDao, MimeType.xml);
 		String stationCount = session.addWorker("SimpleStationCount", header);
 		session.send(stationCount, Control.Start);
-		session.waitForComplete(stationCount, Time.SECOND.asMS());
+
+		StationController.waitForComplete(session, stationCount, deferral);
+
 		if (header.hasError()) {
 			//TODO We can't just eat these.
 			throw new RuntimeException(header.getCurrentError());
@@ -110,15 +126,15 @@ public class SimpleStationController implements HttpConstants, MybatisConstants,
 	 * station search request
 	 */
 	@RequestMapping(value=SIMPLE_STATION_ENDPOINT, method=RequestMethod.GET, produces={MIME_TYPE_XLSX, MIME_TYPE_XML, MIME_TYPE_JSON})
-	@Async
-	public void stationGetRequest(HttpServletRequest request, HttpServletResponse response) {
+	public DeferredResult<String> stationGetRequest(HttpServletRequest request, HttpServletResponse response) {
 		log.trace(""); // blank line during trace
 		log.info("Processing Get: {}", request.getQueryString());
 		BigDecimal logId = logService.logRequest(request, response);
 		
 		SCManager session = null;
+		DeferredResult<String> deferral = new DeferredResult<String>();
 		try {
-			session = doHeader(request, response, logId);
+			session = doHeaderPlus(request, response, logId, deferral);
 			if (session != null) {
 				TransformOutputStream transformer;
 				String mimeTypeParam = pm.getParameter(Parameters.MIMETYPE);
@@ -140,10 +156,8 @@ public class SimpleStationController implements HttpConstants, MybatisConstants,
 				String stationName = session.addWorker("SimpleStation", worker);
 				session.send(stationName, Control.Start);
 				session.waitForComplete(stationName, Time.SECOND.asMS());
-				if (worker.hasError()) {
-					//TODO We can't just eat these.
-					throw new RuntimeException(worker.getCurrentError());
-				}
+
+				StationController.listenForComplete(session, stationName, deferral);
 			}
 		} catch (Exception e) {
 			//TODO We can't just eat these.
@@ -156,6 +170,7 @@ public class SimpleStationController implements HttpConstants, MybatisConstants,
 			}
 			log.info("Processing Get complete: {}", request.getQueryString());
 		}
+		return deferral;
 	}
 
 }
