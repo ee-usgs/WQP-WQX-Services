@@ -302,6 +302,7 @@
             <version>11.2.0.2.0-1</version>
             <scope>provided</scope>
         </dependency>
+        
 		<!-- ================================================================== -->
 		<!-- Testing dependencies -->
 		<!-- ================================================================== -->
@@ -335,6 +336,17 @@
 			<version>0.2</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+        <dependency>
+            <groupId>com.github.springtestdbunit</groupId>
+            <artifactId>spring-test-dbunit</artifactId>
+            <version>1.2.1</version>
+            <scope>test</scope>
+        </dependency>		
 		<!-- ================================================================== -->
 		<!-- Logging dependencies -->
 		<!-- ================================================================== -->
@@ -400,6 +412,7 @@
 		   	<artifactId>poi-ooxml</artifactId>
 		   	<version>3.11</version>
 		</dependency>
+		
 		<!-- ================================================================== -->
 		<!-- Spring 4 dependencies -->
 		<!-- http://docs.spring.io/spring/docs/current/spring-framework-reference/htmlsingle/#overview-core-container -->
@@ -484,17 +497,6 @@
 <!-- 	      <version>2.1.9.RELEASE</version> -->
 <!-- 		  <scope>package</scope> -->
 <!-- 	    </dependency> -->
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-        <dependency>
-            <groupId>com.github.springtestdbunit</groupId>
-            <artifactId>spring-test-dbunit</artifactId>
-            <version>1.2.1</version>
-            <scope>test</scope>
-        </dependency>
 
    		
 		<!-- ================================================================== -->
