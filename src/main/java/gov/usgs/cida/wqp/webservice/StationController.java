@@ -75,14 +75,14 @@ public class StationController implements HttpConstants, ValidationConstants {
 	 * Station HEAD request
 	 */
 	@RequestMapping(value=STATION_SEARCH_ENPOINT, method=RequestMethod.HEAD)
-	public DeferredResult<Boolean> stationHeadRequest(HttpServletRequest request, HttpServletResponse response) {
+	public DeferredResult<String> stationHeadRequest(HttpServletRequest request, HttpServletResponse response) {
 		log.info("Processing Head: {}", request.getQueryString());
 		BigDecimal logId = logService.logRequest(request, response);
 		SCManager session = null;
 		
-		DeferredResult<Boolean> deferral = new DeferredResult<Boolean>();
+		DeferredResult<String> deferral = new DeferredResult<String>();
 		try {
-			session = doHeader(request, response, logId, deferral);
+			session = doHeaderOnly(request, response, logId, deferral);
 		} finally {
 			Closer.close(session);
 			log.info("Processing Head complete: {}", request.getQueryString());
@@ -91,13 +91,26 @@ public class StationController implements HttpConstants, ValidationConstants {
 		return deferral;
 	}
 	
+	private SCManager doHeaderOnly(HttpServletRequest request, HttpServletResponse response, BigDecimal logId, DeferredResult<String> deferral) {
+		return doHeader(request, response, logId, deferral);
+	}
+	private SCManager doHeaderPlus(HttpServletRequest request, HttpServletResponse response, BigDecimal logId, DeferredResult<String> deferral) {
+		DeferredResult<String> deferralProxy = new DeferredResult<String>();
+		SCManager session = doHeader(request, response, logId, deferralProxy);
+		if ("faulure".equals( deferralProxy.getResult() )) {
+			deferral.setResult( (String) deferralProxy.getResult() );
+		}
+		return session;
+	}
+	
+	
 	/**
 	 * Shared header helper method share for both the HEAD and GET requests
 	 * @param request
 	 * @param response
 	 * @return cDAT session opened here for use on the GET request - bit kluggy but DRY'er code
 	 */
-	private SCManager doHeader(HttpServletRequest request, HttpServletResponse response, BigDecimal logId, DeferredResult<Boolean> deferral) {
+	private SCManager doHeader(HttpServletRequest request, HttpServletResponse response, BigDecimal logId, DeferredResult<String> deferral) {
 		response.setCharacterEncoding(DEFAULT_ENCODING);
 		pm = new ParameterValidation().preProcess(request, parameterHandler);
 		if ( ! pm.isValid() ) {
@@ -125,15 +138,15 @@ public class StationController implements HttpConstants, ValidationConstants {
 	 * station search request
 	 */
 	@RequestMapping(value=STATION_SEARCH_ENPOINT, method=RequestMethod.GET)
-	public DeferredResult<Boolean> stationGetRequest(HttpServletRequest request, HttpServletResponse response) {
+	public DeferredResult<String> stationGetRequest(HttpServletRequest request, HttpServletResponse response) {
 		log.trace(""); // blank line during trace
 		log.info("Processing Get: {}", request.getQueryString());
 		BigDecimal logId = logService.logRequest(request, response);
 
 		SCManager session = null;
-		DeferredResult<Boolean> deferral = new DeferredResult<Boolean>();
+		DeferredResult<String> deferral = new DeferredResult<String>();
 		try {
-			session = doHeader(request, response, logId, deferral);
+			session = doHeaderPlus(request, response, logId, deferral);
 			if (session != null) {
 				String mimeTypeParam = pm.getParameter(Parameters.MIMETYPE);
 				MimeType mimeType = MimeType.csv.fromString(mimeTypeParam);
@@ -175,13 +188,15 @@ public class StationController implements HttpConstants, ValidationConstants {
 	 * @param workerName
 	 * @param deferral
 	 */
-	public static void listenForComplete(SCManager session, String workerName, final DeferredResult<Boolean> deferral) {
+	public static void listenForComplete(SCManager session, String workerName, final DeferredResult<String> deferral) {
 		session.send(workerName, Control.onComplete, new Callback(){
 			@Override
 			public void onComplete(Throwable error, Message signal) {
-				deferral.setResult(signal!=null && error == null);
 				if (signal == null || error != null) {
 					deferral.setErrorResult(error);
+					deferral.setResult("failure");
+				} else {
+					deferral.setResult("success");
 				}
 			}
 		});
@@ -192,13 +207,15 @@ public class StationController implements HttpConstants, ValidationConstants {
 	 * @param workerName
 	 * @param deferral
 	 */
-	public static void waitForComplete(SCManager session, String workerName, final DeferredResult<Boolean> deferral) {
+	public static void waitForComplete(SCManager session, String workerName, final DeferredResult<String> deferral) {
 		session.request(workerName,  Message.create(Control.onComplete), Time.HOUR, new Callback(){
 			@Override
 			public void onComplete(Throwable error, Message signal) {
-				deferral.setResult(signal!=null && error == null);
 				if (signal == null || error != null) {
 					deferral.setErrorResult(error);
+					deferral.setResult("failure");
+				} else {
+					deferral.setResult("success");
 				}
 			}
 		});

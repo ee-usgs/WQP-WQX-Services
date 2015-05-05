@@ -64,14 +64,14 @@ public class SimpleStationController implements HttpConstants, MybatisConstants,
 	 * SimpleStation HEAD request
 	 */
 	@RequestMapping(value=SIMPLE_STATION_ENDPOINT, method=RequestMethod.HEAD, produces={MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
-	public DeferredResult<Boolean> simpleStationHeadRequest(HttpServletRequest request, HttpServletResponse response) {
+	public DeferredResult<String> simpleStationHeadRequest(HttpServletRequest request, HttpServletResponse response) {
 		log.info("Processing Head: {}", request.getQueryString());
 		BigDecimal logId = logService.logRequest(request, response);
 		SCManager session = null;
 		
-		DeferredResult<Boolean> deferral = new DeferredResult<Boolean>();
+		DeferredResult<String> deferral = new DeferredResult<String>();
 		try {
-			session = doHeader(request, response, logId, deferral);
+			session = doHeaderOnly(request, response, logId, deferral);
 		} finally {
 			logService.logRequestComplete(logId, String.valueOf(response.getStatus()));
 			Closer.close(session);
@@ -80,13 +80,25 @@ public class SimpleStationController implements HttpConstants, MybatisConstants,
 		return deferral;
 	}
 	
+	private SCManager doHeaderOnly(HttpServletRequest request, HttpServletResponse response, BigDecimal logId, DeferredResult<String> deferral) {
+		return doHeader(request, response, logId, deferral);
+	}
+	private SCManager doHeaderPlus(HttpServletRequest request, HttpServletResponse response, BigDecimal logId, DeferredResult<String> deferral) {
+		DeferredResult<String> deferralProxy = new DeferredResult<String>();
+		SCManager session = doHeader(request, response, logId, deferralProxy);
+		if ("faulure".equals( deferralProxy.getResult() )) {
+			deferral.setResult( (String) deferralProxy.getResult() );
+		}
+		return session;
+	}
+	
 	/**
 	 * Shared header helper method share for both the HEAD and GET requests
 	 * @param request
 	 * @param response
 	 * @return cDAT session opened here for use on the GET request - bit kluggy but DRY'er code
 	 */
-	private SCManager doHeader(HttpServletRequest request, HttpServletResponse response, BigDecimal logId,  DeferredResult<Boolean> deferral) {
+	private SCManager doHeader(HttpServletRequest request, HttpServletResponse response, BigDecimal logId,  DeferredResult<String> deferral) {
 		response.setCharacterEncoding(DEFAULT_ENCODING);
 		pm = new ParameterValidation().preProcess(request, parameterHandler);
 		if ( ! pm.isValid() ) {
@@ -114,15 +126,15 @@ public class SimpleStationController implements HttpConstants, MybatisConstants,
 	 * station search request
 	 */
 	@RequestMapping(value=SIMPLE_STATION_ENDPOINT, method=RequestMethod.GET, produces={MIME_TYPE_XLSX, MIME_TYPE_XML, MIME_TYPE_JSON})
-	public DeferredResult<Boolean> stationGetRequest(HttpServletRequest request, HttpServletResponse response) {
+	public DeferredResult<String> stationGetRequest(HttpServletRequest request, HttpServletResponse response) {
 		log.trace(""); // blank line during trace
 		log.info("Processing Get: {}", request.getQueryString());
 		BigDecimal logId = logService.logRequest(request, response);
 		
 		SCManager session = null;
-		DeferredResult<Boolean> deferral = new DeferredResult<Boolean>();
+		DeferredResult<String> deferral = new DeferredResult<String>();
 		try {
-			session = doHeader(request, response, logId, deferral);
+			session = doHeaderPlus(request, response, logId, deferral);
 			if (session != null) {
 				TransformOutputStream transformer;
 				String mimeTypeParam = pm.getParameter(Parameters.MIMETYPE);
