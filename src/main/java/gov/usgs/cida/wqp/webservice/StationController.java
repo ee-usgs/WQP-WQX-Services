@@ -19,10 +19,7 @@ import gov.usgs.cida.wqp.util.HttpUtils;
 import gov.usgs.cida.wqp.util.MimeType;
 import gov.usgs.cida.wqp.validation.ParameterValidation;
 import gov.usgs.cida.wqp.validation.ValidationConstants;
-import gov.usgs.cida.wqp.webservice.SimpleStation.SimpleStationWorker;
-import gov.usgs.cida.wqp.webservice.SimpleStation.TransformOutputStream;
-import gov.usgs.cida.wqp.webservice.SimpleStation.XXXStationColumnMapper;
-import gov.usgs.cida.wqp.webservice.SimpleStation.XlsxTransformer;
+
 
 import java.math.BigDecimal;
 
@@ -38,7 +35,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.context.request.async.DeferredResult;
 
 @Controller
-public class StationController implements HttpConstants, ValidationConstants {
+public class StationController extends BaseController implements HttpConstants, ValidationConstants {
 	private final Logger log = LoggerFactory.getLogger(getClass());
 
 	/* ========================================================================
@@ -155,9 +152,9 @@ public class StationController implements HttpConstants, ValidationConstants {
 				Worker worker;
 				switch (mimeType) {
 					case xlsx:
-						TransformOutputStream transformer = new XlsxTransformer(response.getOutputStream(), logService, logId, XXXStationColumnMapper.getMappings());
-						worker = new SimpleStationWorker(response, IDao.STATION_NAMESPACE, pm, streamingDao, transformer);
-						break;
+//						TransformOutputStream transformer = new XlsxTransformer(response.getOutputStream(), logService, logId, XXXStationColumnMapper.getMappings());
+//						worker = new SimpleStationWorker(response, IDao.STATION_NAMESPACE, pm, streamingDao, transformer);
+//						break;
 					case json: // TODO
 					default:
 						worker = new StationWorker(response, IDao.STATION_NAMESPACE, pm, streamingDao, logService, logId);
