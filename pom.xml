@@ -56,7 +56,6 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<cida.maven.url>http://internal.cida.usgs.gov/maven</cida.maven.url>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring.version>4.1.5.RELEASE</spring.version>
 		<warName>wqp</warName>
 		<mybatis-version>3.2.8</mybatis-version>
@@ -427,6 +426,10 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
