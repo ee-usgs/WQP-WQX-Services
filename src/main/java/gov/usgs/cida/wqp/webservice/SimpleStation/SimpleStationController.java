@@ -1,8 +1,9 @@
 package gov.usgs.cida.wqp.webservice.SimpleStation;
 
-import gov.cida.cdat.control.Control;
 import gov.cida.cdat.control.SCManager;
 import gov.cida.cdat.control.Time;
+import gov.cida.cdat.io.Closer;
+import gov.cida.cdat.io.TransformOutputStream;
 import gov.cida.cdat.io.container.SimpleStreamContainer;
 import gov.cida.cdat.io.container.StreamContainer;
 import gov.cida.cdat.transform.IXmlMapping;
@@ -23,12 +24,12 @@ import gov.usgs.cida.wqp.util.MimeType;
 import gov.usgs.cida.wqp.util.MybatisConstants;
 import gov.usgs.cida.wqp.validation.ParameterValidation;
 import gov.usgs.cida.wqp.validation.ValidationConstants;
+import gov.usgs.cida.wqp.webservice.AsyncUtils;
 import gov.usgs.cida.wqp.webservice.BaseController;
 import gov.usgs.cida.wqp.webservice.HeaderWorker;
+import gov.usgs.cida.wqp.webservice.StationColumnMapper;
 
 import java.io.OutputStream;
-import java.math.BigDecimal;
-
 import java.math.BigDecimal;
 
 import javax.servlet.http.HttpServletRequest;
@@ -76,7 +77,7 @@ public class SimpleStationController extends BaseController implements HttpConst
 		BigDecimal logId = logService.logRequest(request, response);
 		SCManager session = null;
 		
-		DeferredResult<String> deferral = new DeferredResult<String>();
+		DeferredResult<String> deferral = new DeferredResult<String>(Time.HOUR.asMS());
 		try {
 			session = doHeaderOnly(request, response, logId, deferral);
 		} finally {
@@ -91,7 +92,7 @@ public class SimpleStationController extends BaseController implements HttpConst
 		return doHeader(request, response, logId, deferral);
 	}
 	private SCManager doHeaderPlus(HttpServletRequest request, HttpServletResponse response, BigDecimal logId, DeferredResult<String> deferral) {
-		DeferredResult<String> deferralProxy = new DeferredResult<String>();
+		DeferredResult<String> deferralProxy = new DeferredResult<String>(Time.HOUR.asMS());
 		SCManager session = doHeader(request, response, logId, deferralProxy);
 		if ("faulure".equals( deferralProxy.getResult() )) {
 			deferral.setResult( (String) deferralProxy.getResult() );
@@ -114,12 +115,11 @@ public class SimpleStationController extends BaseController implements HttpConst
 			log.info("Processing Head invalid params end:{}", request.getQueryString());
 			return null;
 		}
-		SCManager session = SCManager.open();
+		SCManager   session = SCManager.open().setAutoStart(true);
 		HeaderWorker header = new HeaderWorker(response, ICountDao.STATION_NAMESPACE, pm, countDao, MimeType.xml);
 		String stationCount = session.addWorker("SimpleStationCount", header);
-		session.send(stationCount, Control.Start);
 
-		StationController.waitForComplete(session, stationCount, deferral);
+		AsyncUtils.waitForComplete(session, stationCount, deferral);
 
 		if (header.hasError()) {
 			//TODO We can't just eat these.
@@ -139,7 +139,7 @@ public class SimpleStationController extends BaseController implements HttpConst
 		BigDecimal logId = logService.logRequest(request, response);
 		
 		SCManager session = null;
-		DeferredResult<String> deferral = new DeferredResult<String>();
+		DeferredResult<String> deferral = new DeferredResult<String>(Time.HOUR.asMS());
 		try {
 			session = doHeaderPlus(request, response, logId, deferral);
 			if (session != null) {
@@ -166,15 +166,13 @@ public class SimpleStationController extends BaseController implements HttpConst
 						transformer = new MapToXmlTransformer(mapping, xmlRootNode);
 						break;
 				}
-				TransformOutputStream transformStream = new ObjectTransformer(responseStream, logService, logId, transformer);
+				TransformOutputStream transformStream = new ObjectTransformStream(responseStream, logService, logId, transformer);
 				StreamContainer<TransformOutputStream> transformProvider = new SimpleStreamContainer<TransformOutputStream>(transformStream);
 				
 				SimpleStationWorker worker = new SimpleStationWorker(IDao.SIMPLE_STATION_NAMESPACE, pm, streamingDao, transformProvider);
 				String stationName = session.addWorker("SimpleStation", worker);
-				session.send(stationName, Control.Start);
-				session.waitForComplete(stationName, Time.SECOND.asMS());
 
-				StationController.listenForComplete(session, stationName, deferral);
+				AsyncUtils.listenForComplete(session, stationName, deferral, true);
 			}
 		} catch (Exception e) {
 			//TODO We can't just eat these.
@@ -182,9 +180,7 @@ public class SimpleStationController extends BaseController implements HttpConst
 			throw new RuntimeException(e);
 		} finally {
 			logService.logRequestComplete(logId, String.valueOf(response.getStatus()));
-			if (session != null) {
-				session.close();
-			}
+//			Closer.close(session); // handled in the AsyncUtils
 			log.info("Processing Get complete: {}", request.getQueryString());
 		}
 		return deferral;

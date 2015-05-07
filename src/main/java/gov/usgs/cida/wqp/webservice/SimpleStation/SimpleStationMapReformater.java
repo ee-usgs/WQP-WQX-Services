@@ -56,7 +56,7 @@ public class SimpleStationMapReformater extends Transformer {
 		properties.put("MonitoringLocationName",escapeValue(map,KEY_STATION_NAME));
 		properties.put("ResolvedMonitoringLocationTypeName",escapeValue(map,KEY_SITE_TYPE));
 		
-		return transformFurther.transform(obj);
+		return transformFurther.transform(rowMap);
 		
 		// TODO keep this for a bit while we trouble shoot but then it can be deleted
 //		writeToStream("{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[");
@@ -82,5 +82,10 @@ public class SimpleStationMapReformater extends Transformer {
 	String escapeValue(Map<String,String> map, String key) {
 		Object value = map.get(key);
 		return transform.encode( value==null ?"" :value.toString() );
+	}
+	
+	@Override
+	public byte[] getRemaining() {
+		return transformFurther.getRemaining();
 	}
 }

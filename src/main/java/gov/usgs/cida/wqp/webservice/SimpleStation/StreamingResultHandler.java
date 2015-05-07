@@ -26,7 +26,8 @@ public class StreamingResultHandler implements ResultHandler, Closeable {
 	public void handleResult(ResultContext context) {
 		log.trace("streaming handle result : {}", (context==null ?"null" :"context"));
 		try {
-			stream.write(context.getResultObject());
+			Object object = context.getResultObject();
+			stream.write(object);
 		} catch (Exception e) {
 			log.warn("Error MapResultHandler", e);
 			throw new RuntimeException("Error MapResultHandler", e);

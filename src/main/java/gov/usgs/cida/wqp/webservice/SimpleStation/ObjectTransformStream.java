@@ -12,7 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-public class ObjectTransformer extends TransformOutputStream {
+public class ObjectTransformStream extends TransformOutputStream {
 	private final Logger log = LoggerFactory.getLogger(getClass());
 
 	private ILogService logService;
@@ -21,7 +21,7 @@ public class ObjectTransformer extends TransformOutputStream {
 	boolean first = true;
 	
 	
-	public ObjectTransformer(OutputStream target, ILogService logService, BigDecimal logId, Transformer transform) {
+	public ObjectTransformStream(OutputStream target, ILogService logService, BigDecimal logId, Transformer transform) {
 		super(target, transform);
 		this.logService = logService;
 		this.logId = logId;

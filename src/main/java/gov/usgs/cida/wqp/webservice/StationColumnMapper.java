@@ -77,6 +77,8 @@ public class StationColumnMapper extends TransformOutputStream {
 		mappings.put("COUNTRY_CODE","CountryCode");
 		mappings.put("STATE_CODE","StateCode");
 		mappings.put("COUNTY_CODE","CountyCode");
+		mappings.put("STATE_FIPS_CODE","StateCode");
+		mappings.put("COUNTY_FIPS_CODE","CountyCode");
 		mappings.put("NAT_AQFR_NAME","AquiferName");
 		mappings.put("AQFR_NAME","FormationTypeText");
 		mappings.put("AQFR_TYPE_NAME","AquiferTypeName");
@@ -85,6 +87,7 @@ public class StationColumnMapper extends TransformOutputStream {
 		mappings.put("WELL_DEPTH_UNIT","WellDepthMeasure/MeasureUnitCode");
 		mappings.put("HOLE_DEPTH_VALUE","WellHoleDepthMeasure/MeasureValue");
 		mappings.put("HOLE_DEPTH_UNIT","WellHoleDepthMeasure/MeasureUnitCode");
+		mappings.put("DATA_SOURCE","DataSource");
 		
 		patterns  = new ManyPatternTransformer(mappings);
 		transform = new TerminatingTransformer("\n".getBytes(), patterns);
