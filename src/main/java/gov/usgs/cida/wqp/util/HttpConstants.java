@@ -1,5 +1,7 @@
 package gov.usgs.cida.wqp.util;
 
+import gov.cida.cdat.transform.XmlConstants;
+
 import org.springframework.http.MediaType;
 
 public interface HttpConstants extends XmlConstants {
@@ -38,12 +40,12 @@ public interface HttpConstants extends XmlConstants {
 	String HEADER_RESULT = ENDPOINT_RESULT;
 	
 	
-	String MIME_TYPE_ZIP      = "application/zip";
-	String MIME_TYPE_TEXT_CSV = "text/csv";
-	String MIME_TYPE_TEXT_TSV = "text/tab-separated-values";
-	String MIME_TYPE_XLSX     = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-	String MIME_TYPE_XML      = MediaType.APPLICATION_XML_VALUE;
-	String MIME_TYPE_JSON     = MediaType.APPLICATION_JSON_VALUE;
+	String MIME_TYPE_ZIP  = "application/zip";
+	String MIME_TYPE_CSV  = "text/csv";
+	String MIME_TYPE_TSV  = "text/tab-separated-values";
+	String MIME_TYPE_XLSX = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+	String MIME_TYPE_XML  = MediaType.APPLICATION_XML_VALUE;
+	String MIME_TYPE_JSON = MediaType.APPLICATION_JSON_VALUE;
 	
 //	String MEDIA_TYPE_XML     = "xml";
 //	String MEDIA_TYPE_ZIP     = "zip";

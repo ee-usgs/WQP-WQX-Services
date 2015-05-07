@@ -1,16 +1,12 @@
 package gov.usgs.cida.wqp.webservice.SimpleStation;
-import gov.cida.cdat.io.Closer;
 import gov.cida.cdat.io.TransformOutputStream;
-
-import java.io.Closeable;
-import java.io.IOException;
 
 import org.apache.ibatis.session.ResultContext;
 import org.apache.ibatis.session.ResultHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class StreamingResultHandler implements ResultHandler, Closeable {
+public class StreamingResultHandler implements ResultHandler {
 
 	private final Logger log = LoggerFactory.getLogger(getClass());
 	private final TransformOutputStream stream;  // TODO will use StreamContainer later
@@ -32,11 +28,5 @@ public class StreamingResultHandler implements ResultHandler, Closeable {
 			log.warn("Error MapResultHandler", e);
 			throw new RuntimeException("Error MapResultHandler", e);
 		}
-	}
-	
-	
-	@Override
-	public void close() throws IOException {
-		Closer.close(stream);
 	}
 }

@@ -88,6 +88,7 @@ public class SimpleStationController extends BaseController implements HttpConst
 		return deferral;
 	}
 	
+	
 	private SCManager doHeaderOnly(HttpServletRequest request, HttpServletResponse response, BigDecimal logId, DeferredResult<String> deferral) {
 		return doHeader(request, response, logId, deferral);
 	}
@@ -99,6 +100,7 @@ public class SimpleStationController extends BaseController implements HttpConst
 		}
 		return session;
 	}
+	
 	
 	/**
 	 * Shared header helper method share for both the HEAD and GET requests
@@ -116,7 +118,7 @@ public class SimpleStationController extends BaseController implements HttpConst
 			return null;
 		}
 		SCManager   session = SCManager.open().setAutoStart(true);
-		HeaderWorker header = new HeaderWorker(response, ICountDao.STATION_NAMESPACE, pm, countDao, MimeType.xml);
+		HeaderWorker header = new HeaderWorker(response, ICountDao.SIMPLE_STATION_NAMESPACE, pm, countDao, MimeType.xml);
 		String stationCount = session.addWorker("SimpleStationCount", header);
 
 		AsyncUtils.waitForComplete(session, stationCount, deferral);
@@ -128,6 +130,7 @@ public class SimpleStationController extends BaseController implements HttpConst
 		logService.logHeadComplete(response, logId);
 		return session;
 	}
+	
 	
 	/**
 	 * station search request

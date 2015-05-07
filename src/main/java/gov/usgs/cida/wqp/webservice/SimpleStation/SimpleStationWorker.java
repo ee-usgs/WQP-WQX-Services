@@ -18,10 +18,11 @@ public class SimpleStationWorker extends Worker implements HttpConstants {
 	
 	private final String nameSpace;
 	private final ParameterMap parameters;
-	private final StreamContainer<? extends TransformOutputStream> transform;
 	private final IStreamingDao streamingDao;
+	private final StreamContainer<? extends TransformOutputStream> transform;
 	
 	private ResultHandler handler;
+	
 	
 	
 	public SimpleStationWorker(String nameSpace, ParameterMap parameters, 
@@ -50,7 +51,6 @@ public class SimpleStationWorker extends Worker implements HttpConstants {
 	@Override
 	public boolean process() throws CdatException {
 		streamingDao.stream(nameSpace, parameters.getQueryParameters(), handler);
-		log.trace("fetching simple station data with streaming handler - finished");
 		return false; // false means there is not more data - that no more calls are necessary
 	}
 	
@@ -58,6 +58,6 @@ public class SimpleStationWorker extends Worker implements HttpConstants {
 	@Override
 	public void end() {
 		Closer.close(transform); // note this StreamContainer calls flush
-		// transformer.end(); TODO asdf must flush the end wrappoer which could be nothing for csv/tsv but will be closing markup for xml and json
+		log.trace("fetching simple station data with streaming handler - finished");
 	}
 }

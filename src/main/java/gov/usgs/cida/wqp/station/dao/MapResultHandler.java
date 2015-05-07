@@ -1,7 +1,8 @@
 package gov.usgs.cida.wqp.station.dao;
 
+import gov.cida.cdat.io.Closer;
+import gov.cida.cdat.transform.CharacterSeparatedValue;
 import gov.usgs.cida.wqp.service.ILogService;
-import gov.usgs.cida.wqp.util.CharacterSeparatedValue;
 
 import java.io.Closeable;
 import java.io.IOException;
@@ -84,12 +85,9 @@ public class MapResultHandler implements ResultHandler, Closeable {
 		write(headerMap);
 	}
 	
+	
 	@Override
 	public void close() throws IOException {
-		try {
-			stream.close();
-		} catch (Exception e) {
-			// TODO will use Closer later
-		}
+		Closer.close(stream);
 	}
 }

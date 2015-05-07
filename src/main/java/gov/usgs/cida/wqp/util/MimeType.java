@@ -7,9 +7,9 @@ public enum MimeType implements HttpConstants {
 
 	// lower case make toString produce the file extension
 	
-	csv(MIME_TYPE_TEXT_CSV),
+	csv(MIME_TYPE_CSV),
 	json(MIME_TYPE_JSON),
-	tsv(MIME_TYPE_TEXT_TSV),
+	tsv(MIME_TYPE_TSV),
 	xlsx(MIME_TYPE_XLSX),
 	xml(MIME_TYPE_XML),
 	zip(MIME_TYPE_ZIP);
