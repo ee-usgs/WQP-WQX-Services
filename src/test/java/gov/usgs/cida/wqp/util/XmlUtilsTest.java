@@ -1,6 +1,8 @@
 package gov.usgs.cida.wqp.util;
 
 import static org.junit.Assert.*;
+import gov.cida.cdat.transform.XmlConstants;
+import gov.cida.cdat.transform.XmlUtils;
 
 import org.junit.Test;
 

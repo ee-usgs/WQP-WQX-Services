@@ -1,9 +1,16 @@
 package gov.usgs.cida.wqp.webservice.SimpleStation;
 
-import gov.cida.cdat.control.Control;
 import gov.cida.cdat.control.SCManager;
 import gov.cida.cdat.control.Time;
 import gov.cida.cdat.io.Closer;
+import gov.cida.cdat.io.TransformOutputStream;
+import gov.cida.cdat.io.container.SimpleStreamContainer;
+import gov.cida.cdat.io.container.StreamContainer;
+import gov.cida.cdat.transform.IXmlMapping;
+import gov.cida.cdat.transform.MapToJsonTransformer;
+import gov.cida.cdat.transform.MapToXlsxTransformer;
+import gov.cida.cdat.transform.MapToXmlTransformer;
+import gov.cida.cdat.transform.Transformer;
 import gov.usgs.cida.wqp.dao.ICountDao;
 import gov.usgs.cida.wqp.dao.IDao;
 import gov.usgs.cida.wqp.dao.IStreamingDao;
@@ -17,9 +24,12 @@ import gov.usgs.cida.wqp.util.MimeType;
 import gov.usgs.cida.wqp.util.MybatisConstants;
 import gov.usgs.cida.wqp.validation.ParameterValidation;
 import gov.usgs.cida.wqp.validation.ValidationConstants;
+import gov.usgs.cida.wqp.webservice.AsyncUtils;
+import gov.usgs.cida.wqp.webservice.BaseController;
 import gov.usgs.cida.wqp.webservice.HeaderWorker;
-import gov.usgs.cida.wqp.webservice.StationController;
+import gov.usgs.cida.wqp.webservice.StationColumnMapper;
 
+import java.io.OutputStream;
 import java.math.BigDecimal;
 
 import javax.servlet.http.HttpServletRequest;
@@ -35,30 +45,28 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.context.request.async.DeferredResult;
 
 @Controller
-public class SimpleStationController implements HttpConstants, MybatisConstants, ValidationConstants {
+public class SimpleStationController extends BaseController implements HttpConstants, MybatisConstants, ValidationConstants {
 	private final Logger log = LoggerFactory.getLogger(getClass());
 
 	protected IStreamingDao streamingDao;
 	protected ICountDao countDao;
-
 	protected IParameterHandler parameterHandler;
-
 	protected ILogService logService;
-	
 	protected ParameterMap pm;
 
+	
 	@Autowired
-	public SimpleStationController(
-			IStreamingDao inStreamingDao,
-			ICountDao inCountDao,
-			IParameterHandler inParameterHandler,
-			ILogService inLogService) {
+	public SimpleStationController(IStreamingDao streamingDao, ICountDao countDao, 
+			IParameterHandler parameterHandler, ILogService logService) {
+		
 		log.trace(getClass().getName());
-		streamingDao = inStreamingDao;
-		parameterHandler = inParameterHandler;
-		countDao = inCountDao;
-		logService = inLogService;
+		
+		this.streamingDao     = streamingDao;
+		this.parameterHandler = parameterHandler;
+		this.countDao         = countDao;
+		this.logService       = logService;
 	}
+	
 
 	/**
 	 * SimpleStation HEAD request
@@ -69,7 +77,7 @@ public class SimpleStationController implements HttpConstants, MybatisConstants,
 		BigDecimal logId = logService.logRequest(request, response);
 		SCManager session = null;
 		
-		DeferredResult<String> deferral = new DeferredResult<String>();
+		DeferredResult<String> deferral = new DeferredResult<String>(Time.HOUR.asMS());
 		try {
 			session = doHeaderOnly(request, response, logId, deferral);
 		} finally {
@@ -80,17 +88,19 @@ public class SimpleStationController implements HttpConstants, MybatisConstants,
 		return deferral;
 	}
 	
+	
 	private SCManager doHeaderOnly(HttpServletRequest request, HttpServletResponse response, BigDecimal logId, DeferredResult<String> deferral) {
 		return doHeader(request, response, logId, deferral);
 	}
 	private SCManager doHeaderPlus(HttpServletRequest request, HttpServletResponse response, BigDecimal logId, DeferredResult<String> deferral) {
-		DeferredResult<String> deferralProxy = new DeferredResult<String>();
+		DeferredResult<String> deferralProxy = new DeferredResult<String>(Time.HOUR.asMS());
 		SCManager session = doHeader(request, response, logId, deferralProxy);
 		if ("faulure".equals( deferralProxy.getResult() )) {
 			deferral.setResult( (String) deferralProxy.getResult() );
 		}
 		return session;
 	}
+	
 	
 	/**
 	 * Shared header helper method share for both the HEAD and GET requests
@@ -107,12 +117,11 @@ public class SimpleStationController implements HttpConstants, MybatisConstants,
 			log.info("Processing Head invalid params end:{}", request.getQueryString());
 			return null;
 		}
-		SCManager session = SCManager.open();
-		HeaderWorker header = new HeaderWorker(response, ICountDao.STATION_NAMESPACE, pm, countDao, MimeType.xml);
+		SCManager   session = SCManager.open().setAutoStart(true);
+		HeaderWorker header = new HeaderWorker(response, ICountDao.SIMPLE_STATION_NAMESPACE, pm, countDao, MimeType.xml);
 		String stationCount = session.addWorker("SimpleStationCount", header);
-		session.send(stationCount, Control.Start);
 
-		StationController.waitForComplete(session, stationCount, deferral);
+		AsyncUtils.waitForComplete(session, stationCount, deferral);
 
 		if (header.hasError()) {
 			//TODO We can't just eat these.
@@ -121,6 +130,7 @@ public class SimpleStationController implements HttpConstants, MybatisConstants,
 		logService.logHeadComplete(response, logId);
 		return session;
 	}
+	
 	
 	/**
 	 * station search request
@@ -132,32 +142,40 @@ public class SimpleStationController implements HttpConstants, MybatisConstants,
 		BigDecimal logId = logService.logRequest(request, response);
 		
 		SCManager session = null;
-		DeferredResult<String> deferral = new DeferredResult<String>();
+		DeferredResult<String> deferral = new DeferredResult<String>(Time.HOUR.asMS());
 		try {
 			session = doHeaderPlus(request, response, logId, deferral);
 			if (session != null) {
-				TransformOutputStream transformer;
+				
+				Transformer transformer; 
+				OutputStream responseStream = response.getOutputStream();
 				String mimeTypeParam = pm.getParameter(Parameters.MIMETYPE);
 				MimeType mimeType = MimeType.xml.fromString(mimeTypeParam);
+				
 				switch (mimeType) {
-				case json:
-					transformer = new SimpleStationJsonTransformer(response.getOutputStream(), logService, logId);
-					break;
-				//TODO here only for demo purposes needs to be removed before going to production.
-				case xlsx:
-					transformer = new XlsxTransformer(response.getOutputStream(), logService, logId, XXXStationColumnMapper.getMappings());
-					break;
-				default: // xml
-					transformer = new XmlTransformer(response.getOutputStream(), logService, logId, new SimpleStationXmlMapping());
-					break;
+					case json:
+						String header = "{\"type\":\"FeatureCollection\",\"features\":[";
+						String footer = "]}";
+						transformer = new MapToJsonTransformer(header, footer);
+						transformer = new SimpleStationMapReformater(transformer);
+						break;
+					case xlsx:
+						transformer = new MapToXlsxTransformer(responseStream, StationColumnMapper.mappings);
+						break;
+					case xml:
+					default:
+						IXmlMapping mapping = new SimpleStationXmlMapping();
+						String xmlRootNode  = "<" + mapping.getRoot() + " " + mapping.getRootNamespace() + ">";
+						transformer = new MapToXmlTransformer(mapping, xmlRootNode);
+						break;
 				}
-					
-				SimpleStationWorker worker = new SimpleStationWorker(response, IDao.SIMPLE_STATION_NAMESPACE, pm, streamingDao, transformer);
+				TransformOutputStream transformStream = new ObjectTransformStream(responseStream, logService, logId, transformer);
+				StreamContainer<TransformOutputStream> transformProvider = new SimpleStreamContainer<TransformOutputStream>(transformStream);
+				
+				SimpleStationWorker worker = new SimpleStationWorker(IDao.SIMPLE_STATION_NAMESPACE, pm, streamingDao, transformProvider);
 				String stationName = session.addWorker("SimpleStation", worker);
-				session.send(stationName, Control.Start);
-				session.waitForComplete(stationName, Time.SECOND.asMS());
 
-				StationController.listenForComplete(session, stationName, deferral);
+				AsyncUtils.listenForComplete(session, stationName, deferral, true);
 			}
 		} catch (Exception e) {
 			//TODO We can't just eat these.
@@ -165,9 +183,7 @@ public class SimpleStationController implements HttpConstants, MybatisConstants,
 			throw new RuntimeException(e);
 		} finally {
 			logService.logRequestComplete(logId, String.valueOf(response.getStatus()));
-			if (session != null) {
-				session.close();
-			}
+//			Closer.close(session); // handled in the AsyncUtils
 			log.info("Processing Get complete: {}", request.getQueryString());
 		}
 		return deferral;
