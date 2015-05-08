@@ -18,4 +18,10 @@
                       station_id
     </select>
 
+	<select id="count" resultType="java.util.LinkedHashMap">
+		select data_source, count(distinct s.station_id) entries
+		<include refid="dynamicWhere.stationsCountBase"/>
+		group by rollup(data_source)
+	</select>
+
 </mapper>

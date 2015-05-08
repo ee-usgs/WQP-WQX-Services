@@ -71,7 +71,7 @@ public class SimpleStationController extends BaseController implements HttpConst
 	/**
 	 * SimpleStation HEAD request
 	 */
-	@RequestMapping(value=SIMPLE_STATION_ENDPOINT, method=RequestMethod.HEAD, produces={MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+	@RequestMapping(value=SIMPLE_STATION_ENDPOINT, method=RequestMethod.HEAD)
 	public DeferredResult<String> simpleStationHeadRequest(HttpServletRequest request, HttpServletResponse response) {
 		log.info("Processing Head: {}", request.getQueryString());
 		BigDecimal logId = logService.logRequest(request, response);
@@ -166,7 +166,7 @@ public class SimpleStationController extends BaseController implements HttpConst
 					default:
 						IXmlMapping mapping = new SimpleStationXmlMapping();
 						String xmlRootNode  = "<" + mapping.getRoot() + " " + mapping.getRootNamespace() + ">";
-						transformer = new MapToXmlTransformer(mapping, xmlRootNode);
+						transformer = new MapToXmlTransformer(mapping, xmlRootNode, StationColumnMapper.VALUE_PROVIDER);
 						break;
 				}
 				TransformOutputStream transformStream = new ObjectTransformStream(responseStream, logService, logId, transformer);

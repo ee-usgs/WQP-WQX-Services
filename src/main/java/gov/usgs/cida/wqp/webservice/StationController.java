@@ -77,7 +77,7 @@ public class StationController extends BaseController implements HttpConstants, 
 	/**
 	 * Station HEAD request
 	 */
-	@RequestMapping(value=STATION_SEARCH_ENPOINT, method=RequestMethod.HEAD, produces={MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+	@RequestMapping(value=STATION_SEARCH_ENPOINT, method=RequestMethod.HEAD)
 	public DeferredResult<String> stationHeadRequest(HttpServletRequest request, HttpServletResponse response) {
 		log.info("Processing Head: {}", request.getQueryString());
 		BigDecimal logId = logService.logRequest(request, response);
@@ -171,7 +171,7 @@ public class StationController extends BaseController implements HttpConstants, 
 					case xml:
 						IXmlMapping mapping = new SimpleStationXmlMapping();
 						String xmlRootNode  = "<" + mapping.getRoot() + " " + mapping.getRootNamespace() + ">";
-						transformer = new MapToXmlTransformer(mapping, xmlRootNode);
+						transformer = new MapToXmlTransformer(mapping, xmlRootNode, StationColumnMapper.VALUE_PROVIDER);
 						break;
 					case tsv:
 						transformer = CharacterSeparatedValue.TSV;

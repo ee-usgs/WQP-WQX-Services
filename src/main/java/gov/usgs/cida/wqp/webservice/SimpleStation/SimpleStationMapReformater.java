@@ -2,6 +2,7 @@ package gov.usgs.cida.wqp.webservice.SimpleStation;
 
 import static gov.usgs.cida.wqp.webservice.StationColumnMapper.*;
 
+import java.math.BigDecimal;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -41,13 +42,16 @@ public class SimpleStationMapReformater extends Transformer {
 		}
 		
 		LinkedHashMap<String,Object> rowMap = new LinkedHashMap<>();
-		LinkedList<String> coords = new LinkedList<String>();
+		LinkedList<BigDecimal> coords = new LinkedList<>();
 		LinkedHashMap<String,String> properties = new LinkedHashMap<>();
+		LinkedHashMap<String, Object> geom = new LinkedHashMap<>();
 		
 		rowMap.put("type", "Feature");
-		rowMap.put("geometry", coords);
-		coords.add(escapeValue(map,KEY_LONGITUDE));
-		coords.add(escapeValue(map,KEY_LATITUDE));
+		rowMap.put("geometry", geom);
+		geom.put("type","Point");
+		geom.put("coordinates",coords);				
+		coords.add(new BigDecimal(map.get(KEY_LONGITUDE)));
+		coords.add(new BigDecimal(map.get(KEY_LATITUDE)));
 		rowMap.put("properties", properties);
 		properties.put("ProviderName",escapeValue(map,KEY_DATA_SOURCE));
 		properties.put("OrganizationIdentifier",escapeValue(map,KEY_ORGANIZATION));

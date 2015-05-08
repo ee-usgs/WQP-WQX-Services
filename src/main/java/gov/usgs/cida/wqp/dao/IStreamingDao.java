@@ -6,7 +6,7 @@ import org.apache.ibatis.session.ResultHandler;
 
 public interface IStreamingDao extends IDao {
 	
-	static String QUERY_SELECT_ID = ".select";
+	String QUERY_SELECT_ID = ".select";
 	
 	/** 
 	 * This Dao will stream all of the data for the given type and parameters.
