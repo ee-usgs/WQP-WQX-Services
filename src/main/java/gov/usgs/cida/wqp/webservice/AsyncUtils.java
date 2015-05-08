@@ -9,7 +9,6 @@ import gov.cida.cdat.io.Closer;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.context.request.async.DeferredResult;
 
 public class AsyncUtils {
 	private static final Logger log = LoggerFactory.getLogger(AsyncUtils.class);
@@ -21,14 +20,14 @@ public class AsyncUtils {
 	 * @param workerName
 	 * @param deferral
 	 */
-	public static void listenForComplete(SCManager session, String workerName, final DeferredResult<String> deferral) {
-		listenForComplete(session, workerName, deferral, false);
+	public static void listenForComplete(SCManager session, String workerName) {
+		listenForComplete(session, workerName, false);
 	}
-	public static void listenForComplete(final SCManager session, String workerName, final DeferredResult<String> deferral, final boolean closeSession) {
+	public static void listenForComplete(final SCManager session, String workerName, final boolean closeSession) {
 		session.send(workerName, Control.onComplete, Time.HOUR, new Callback(){
 			@Override
 			public void onComplete(Throwable error, Message signal) {
-				applyResult(deferral, error, signal);
+				applyResult(error, signal);
 				
 				if (closeSession) {
 					Closer.close(session);
@@ -42,10 +41,10 @@ public class AsyncUtils {
 	 * @param workerName
 	 * @param deferral
 	 */
-	public static void waitForComplete(SCManager session, String workerName, final DeferredResult<String> deferral) {
-		waitForComplete(session, workerName, deferral, false);
+	public static void waitForComplete(SCManager session, String workerName) {
+		waitForComplete(session, workerName, false);
 	}
-	public static void waitForComplete(SCManager session, String workerName, final DeferredResult<String> deferral, final boolean closeSession) {
+	public static void waitForComplete(SCManager session, String workerName, final boolean closeSession) {
 		final Throwable[] problem = new Throwable[1];
 		final Message[]  response = new Message[1];
 		
@@ -61,7 +60,7 @@ public class AsyncUtils {
 		
 		Time.waitForResponse(response, Time.SECOND, Time.HOUR);
 		
-		applyResult(deferral, problem[0], response[0]);
+		applyResult(problem[0], response[0]);
 		
 		if (closeSession) {
 			Closer.close(session);
@@ -71,16 +70,11 @@ public class AsyncUtils {
 	
 	static final String APPLY_DeferredResult_MSG = "Applying DeferredResult from worker run.";
 	
-	static void applyResult(DeferredResult<String> deferral, Throwable error, Message signal) {
+	static void applyResult(Throwable error, Message signal) {
 		log.trace("{} signal:{}",APPLY_DeferredResult_MSG,signal);
 		if (error != null) {
 			log.warn("{} ERROR:{}",APPLY_DeferredResult_MSG,error.getMessage());
 			log.error("{}",error);
-			deferral.setErrorResult(error);
-		} else if (signal != null  &&  "done".equalsIgnoreCase( signal.get(Control.onComplete) ) ) {
-			deferral.setResult("success");
-		} else {
-			deferral.setResult("failure");
 		}
 	}
 }

@@ -30,6 +30,8 @@ public class HeaderWorker extends Worker implements HttpConstants {
 
 	private MimeType mimeType;
 	
+	private String filename = "data";
+	
 	public HeaderWorker(HttpServletResponse response, String countQueryId, ParameterMap parameters, ICountDao countDao, MimeType mimeType) {
 		this.response = response;
 		this.countQueryId = countQueryId;
@@ -38,6 +40,13 @@ public class HeaderWorker extends Worker implements HttpConstants {
 		
 		String mimeTypeParam = (String) parameters.getQueryParameters().get(Parameters.MIMETYPE.toString());
 		this.mimeType = mimeType.fromString(mimeTypeParam);
+	}
+	
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
+	public String getFilename() {
+		return filename;
 	}
 	
 	@Override
@@ -62,7 +71,7 @@ public class HeaderWorker extends Worker implements HttpConstants {
 		response.setCharacterEncoding(DEFAULT_ENCODING);
 		response.addHeader(HEADER_CONTENT_TYPE, mimeType.getMimeType());
 		httpUtils.addCountHeader(response, counts);
-		response.setHeader("Content-Disposition","attachment; filename=simplestation."+mimeType);
+		response.setHeader("Content-Disposition","attachment; filename="+filename+"."+mimeType);
 		//response.setContentLength(byteLength); // TODO this would be nice if possible to determine
 		log.trace("station header finish");
 	}

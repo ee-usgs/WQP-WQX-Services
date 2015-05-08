@@ -1,7 +1,6 @@
 package gov.usgs.cida.wqp.webservice.station;
 
 import gov.cida.cdat.control.SCManager;
-import gov.cida.cdat.control.Time;
 import gov.cida.cdat.io.Closer;
 import gov.cida.cdat.io.TransformOutputStream;
 import gov.cida.cdat.io.container.SimpleStreamContainer;
@@ -42,10 +41,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.context.request.async.DeferredResult;
 
 @Controller
 public class StationController extends BaseController implements HttpConstants, ValidationConstants {
@@ -82,33 +81,19 @@ public class StationController extends BaseController implements HttpConstants, 
 	 * Station HEAD request
 	 */
 	@RequestMapping(value=STATION_SEARCH_ENPOINT, method=RequestMethod.HEAD)
-	public DeferredResult<String> stationHeadRequest(HttpServletRequest request, HttpServletResponse response) {
+	@Async
+	public void stationHeadRequest(HttpServletRequest request, HttpServletResponse response) {
 		log.info("Processing Head: {}", request.getQueryString());
 		BigDecimal logId = logService.logRequest(request, response);
 		SCManager session = null;
 		
-		DeferredResult<String> deferral = new DeferredResult<String>(Time.HOUR.asMS());
 		try {
-			session = doHeaderOnly(request, response, logId, deferral);
+			session = doHeader(request, response, logId);
 		} finally {
 			logService.logRequestComplete(logId, String.valueOf(response.getStatus()));
 			Closer.close(session);
 			log.info("Processing Head complete: {}", request.getQueryString());
 		}
-		return deferral;
-	}
-	
-	
-	private SCManager doHeaderOnly(HttpServletRequest request, HttpServletResponse response, BigDecimal logId, DeferredResult<String> deferral) {
-		return doHeader(request, response, logId, deferral);
-	}
-	private SCManager doHeaderPlus(HttpServletRequest request, HttpServletResponse response, BigDecimal logId, DeferredResult<String> deferral) {
-		DeferredResult<String> deferralProxy = new DeferredResult<String>();
-		SCManager session = doHeader(request, response, logId, deferralProxy);
-		if ("faulure".equals( deferralProxy.getResult() )) {
-			deferral.setResult( (String) deferralProxy.getResult() );
-		}
-		return session;
 	}
 	
 	
@@ -118,7 +103,7 @@ public class StationController extends BaseController implements HttpConstants, 
 	 * @param response
 	 * @return cDAT session opened here for use on the GET request - bit kluggy but DRY'er code
 	 */
-	private SCManager doHeader(HttpServletRequest request, HttpServletResponse response, BigDecimal logId, DeferredResult<String> deferral) {
+	private SCManager doHeader(HttpServletRequest request, HttpServletResponse response, BigDecimal logId) {
 		response.setCharacterEncoding(DEFAULT_ENCODING);
 		pm = new ParameterValidation().preProcess(request, parameterHandler);
 		if ( ! pm.isValid() ) {
@@ -129,9 +114,10 @@ public class StationController extends BaseController implements HttpConstants, 
 		}
 		SCManager   session = SCManager.open().setAutoStart(true);
 		HeaderWorker header = new HeaderWorker(response, IDao.STATION_NAMESPACE, pm, countDao, MimeType.csv);
+		header.setFilename(ICountDao.STATION_NAMESPACE);
 		String stationCount = session.addWorker("StationCount", header);
 
-		AsyncUtils.waitForComplete(session, stationCount, deferral);
+		AsyncUtils.waitForComplete(session, stationCount);
 		
 		if (header.hasError()) {
 			//TODO We can't just eat these.
@@ -146,15 +132,15 @@ public class StationController extends BaseController implements HttpConstants, 
 	 * station search request
 	 */
 	@RequestMapping(value=STATION_SEARCH_ENPOINT, method=RequestMethod.GET, produces={MIME_TYPE_XLSX, MIME_TYPE_XML, MIME_TYPE_JSON, MIME_TYPE_CSV, MIME_TYPE_TSV})
-	public DeferredResult<String> stationGetRequest(HttpServletRequest request, HttpServletResponse response) {
+	@Async
+	public void stationGetRequest(HttpServletRequest request, HttpServletResponse response) {
 		log.trace(""); // blank line during trace
 		log.info("Processing Get: {}", request.getQueryString());
 		BigDecimal logId = logService.logRequest(request, response);
 
 		SCManager session = null;
-		DeferredResult<String> deferral = new DeferredResult<String>(Time.HOUR.asMS());
 		try {
-			session = doHeaderPlus(request, response, logId, deferral);
+			session = doHeader(request, response, logId);
 			if (session != null) {
 				
 				Transformer transformer;
@@ -193,7 +179,7 @@ public class StationController extends BaseController implements HttpConstants, 
 				StationWorker worker = new StationWorker(IDao.STATION_NAMESPACE, pm, streamingDao, transformProvider);
 				String stationName = session.addWorker("Station", worker);
 
-				AsyncUtils.waitForComplete(session, stationName, deferral, true);
+				AsyncUtils.waitForComplete(session, stationName, true);
 			}
 		} catch (Exception e) {
 			//TODO We can't just eat these.
@@ -204,6 +190,5 @@ public class StationController extends BaseController implements HttpConstants, 
 			log.info("Processing Get complete: {}", request.getQueryString());
 		}
 		logService.logRequestComplete(logId, String.valueOf(response.getStatus()));
-		return deferral;
 	}
 }

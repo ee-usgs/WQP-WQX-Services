@@ -56,7 +56,7 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
             .andExpect(content().contentType(MIME_TYPE_CSV))
             .andExpect(content().encoding(DEFAULT_ENCODING))
             //TODO - this is wrong - should be station.csv
-            .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=simplestation.csv"))
+            .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=station.csv"))
             .andExpect(header().string("Total-Site-Count", "6"))
             .andExpect(header().string("NWIS-Site-Count", "2"))
             .andExpect(header().string("STEWARDS-Site-Count", "2"))
@@ -72,7 +72,7 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
         	.andExpect(content().contentType(MIME_TYPE_CSV))
         	.andExpect(content().encoding(DEFAULT_ENCODING))
             //TODO - this is wrong - should be station.csv
-        	.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=simplestation.csv"))
+        	.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=station.csv"))
         	.andExpect(header().string("Total-Site-Count", "6"))
         	.andExpect(header().string("NWIS-Site-Count", "2"))
         	.andExpect(header().string("STEWARDS-Site-Count", "2"))
@@ -93,7 +93,7 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
             .andExpect(content().contentType(MIME_TYPE_TSV))
             .andExpect(content().encoding(DEFAULT_ENCODING))
             //TODO - this is wrong - should be station.tsv
-            .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=simplestation.tsv"))
+            .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=station.tsv"))
             .andExpect(header().string("Total-Site-Count", "6"))
             .andExpect(header().string("NWIS-Site-Count", "2"))
             .andExpect(header().string("STEWARDS-Site-Count", "2"))
@@ -109,7 +109,7 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
         	.andExpect(content().contentType(MIME_TYPE_TSV))
         	.andExpect(content().encoding(DEFAULT_ENCODING))
             //TODO - this is wrong - should be station.tsv
-        	.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=simplestation.tsv"))
+        	.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=station.tsv"))
         	.andExpect(header().string("Total-Site-Count", "6"))
         	.andExpect(header().string("NWIS-Site-Count", "2"))
         	.andExpect(header().string("STEWARDS-Site-Count", "2"))
@@ -130,7 +130,7 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
     		.andExpect(content().contentType(MIME_TYPE_XLSX))
     		.andExpect(content().encoding(DEFAULT_ENCODING))
     		//TODO - this is wrong - should be station.xlsx
-    		.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=simplestation.xlsx"))
+    		.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=station.xlsx"))
     		.andExpect(header().string("Total-Site-Count", "6"))
     		.andExpect(header().string("NWIS-Site-Count", "2"))
     		.andExpect(header().string("STEWARDS-Site-Count", "2"))
@@ -146,7 +146,7 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
     		.andExpect(content().contentType(MIME_TYPE_XLSX))
     		.andExpect(content().encoding(DEFAULT_ENCODING))
     		//TODO - this is wrong - should be station.xlsx
-    		.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=simplestation.xlsx"))
+    		.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=station.xlsx"))
     		.andExpect(header().string("Total-Site-Count", "6"))
     		.andExpect(header().string("NWIS-Site-Count", "2"))
     		.andExpect(header().string("STEWARDS-Site-Count", "2"))
