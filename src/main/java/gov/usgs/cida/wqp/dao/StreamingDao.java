@@ -10,8 +10,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class StreamingDao extends BaseDao implements IStreamingDao {
 	
-	public static final String QUERY_SELECT_ID = ".select";
-	
 	@Autowired
 	public StreamingDao(SqlSessionFactory sqlSessionFactory) {
 		super(sqlSessionFactory);

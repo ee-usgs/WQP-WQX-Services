@@ -97,12 +97,13 @@ public class SimpleStationControllerTest extends BaseSpringTest implements HttpC
             .andReturn();
 
         assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues("Access-Control-Expose-Headers"));
+        try { Thread.sleep(1000);} catch (Exception e) {};
         assertThat(new JSONObject(rtn.getResponse().getContentAsString()),
         		sameJSONObjectAs(new JSONObject(getCompareFile("simpleStation.json"))));
     }
 
     @Test
-    public void getAsXmlTest() throws Exception {
+    public void getAsXmlTest_HEAD() throws Exception {
         MvcResult rtn = mockMvc.perform(head("/simplestation/search?mimeType=xml"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_XML_VALUE))
@@ -120,8 +121,11 @@ public class SimpleStationControllerTest extends BaseSpringTest implements HttpC
 
     	assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues("Access-Control-Expose-Headers"));
     	assertEquals("", rtn.getResponse().getContentAsString());
-        
-        rtn = mockMvc.perform(get("/simplestation/search?mimeType=xml"))
+    }
+    
+    @Test
+    public void getAsXmlTest_GET() throws Exception {
+    	MvcResult rtn = mockMvc.perform(get("/simplestation/search?mimeType=xml"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_XML_VALUE))
             .andExpect(content().encoding(DEFAULT_ENCODING))
@@ -137,6 +141,7 @@ public class SimpleStationControllerTest extends BaseSpringTest implements HttpC
             .andReturn();
 
         assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues("Access-Control-Expose-Headers"));
+        try { Thread.sleep(1000);} catch (Exception e) {};
         assertEquals(harmonizeXml(getCompareFile("simpleStation.xml")), harmonizeXml(rtn.getResponse().getContentAsString()));
     }
 
