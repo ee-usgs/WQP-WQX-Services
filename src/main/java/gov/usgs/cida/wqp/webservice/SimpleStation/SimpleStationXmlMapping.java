@@ -19,7 +19,7 @@ public class SimpleStationXmlMapping implements IXmlMapping, IWqxOutbound {
 	
 	static {
 		HARD_BREAK.put(KEY_DATA_SOURCE, VALUE_WQX_OUTBOUND);
-		HARD_BREAK.put(VALUE_ORGANIZATION, VALUE_PROVIDER);
+		HARD_BREAK.put(KEY_ORGANIZATION, VALUE_PROVIDER);
 		HARD_BREAK.put(KEY_SITE_ID, VALUE_ORGANIZATION);
 	}
 	
@@ -30,7 +30,7 @@ public class SimpleStationXmlMapping implements IXmlMapping, IWqxOutbound {
 		COLUMN_POSITION.put(KEY_DATA_SOURCE,
 				new LinkedList<String>(Arrays.asList(VALUE_PROVIDER,
 						VALUE_PROVIDER_NAME)));
-		COLUMN_POSITION.put(VALUE_ORGANIZATION,
+		COLUMN_POSITION.put(KEY_ORGANIZATION,
 				new LinkedList<String>(Arrays.asList(VALUE_PROVIDER,
 						VALUE_ORGANIZATION,
 						VALUE_ORGANIZATION_DESCRIPTION,
@@ -78,8 +78,8 @@ public class SimpleStationXmlMapping implements IXmlMapping, IWqxOutbound {
 	static {
 		GROUPING.put(KEY_DATA_SOURCE,
 				new LinkedList<String>(Arrays.asList(KEY_DATA_SOURCE)));
-		GROUPING.put(VALUE_ORGANIZATION,
-				new LinkedList<String>(Arrays.asList(VALUE_ORGANIZATION, KEY_ORGANIZATION_NAME)));
+		GROUPING.put(KEY_ORGANIZATION,
+				new LinkedList<String>(Arrays.asList(KEY_ORGANIZATION, KEY_ORGANIZATION_NAME)));
 		GROUPING.put(KEY_SITE_ID,
 				new LinkedList<String>(Arrays.asList(KEY_SITE_ID,
 						KEY_STATION_NAME,
