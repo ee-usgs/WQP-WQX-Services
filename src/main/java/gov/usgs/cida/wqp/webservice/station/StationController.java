@@ -1,4 +1,4 @@
-package gov.usgs.cida.wqp.webservice;
+package gov.usgs.cida.wqp.webservice.station;
 
 import gov.cida.cdat.control.SCManager;
 import gov.cida.cdat.control.Time;
@@ -24,7 +24,12 @@ import gov.usgs.cida.wqp.util.HttpUtils;
 import gov.usgs.cida.wqp.util.MimeType;
 import gov.usgs.cida.wqp.validation.ParameterValidation;
 import gov.usgs.cida.wqp.validation.ValidationConstants;
-import gov.usgs.cida.wqp.webservice.SimpleStation.ObjectTransformStream;
+import gov.usgs.cida.wqp.webservice.AsyncUtils;
+import gov.usgs.cida.wqp.webservice.BaseController;
+import gov.usgs.cida.wqp.webservice.HeaderWorker;
+import gov.usgs.cida.wqp.webservice.ObjectTransformStream;
+import gov.usgs.cida.wqp.webservice.StationColumnMapping;
+import gov.usgs.cida.wqp.webservice.StationWorker;
 import gov.usgs.cida.wqp.webservice.SimpleStation.SimpleStationMapReformater;
 import gov.usgs.cida.wqp.webservice.SimpleStation.SimpleStationXmlMapping;
 
@@ -37,7 +42,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -166,21 +170,21 @@ public class StationController extends BaseController implements HttpConstants, 
 						transformer = new SimpleStationMapReformater(transformer); // TODO need to enhance the LinkedHashMap to include station fields
 						break;
 					case xlsx:
-						transformer = new MapToXlsxTransformer(responseStream, StationColumnMapper.mappings);
+						transformer = new MapToXlsxTransformer(responseStream, StationColumnMapping.mappings);
 						break;
 					case xml:
 						IXmlMapping mapping = new SimpleStationXmlMapping();
 						String xmlRootNode  = "<" + mapping.getRoot() + " " + mapping.getRootNamespace() + ">";
-						transformer = new MapToXmlTransformer(mapping, xmlRootNode, StationColumnMapper.VALUE_PROVIDER);
+						transformer = new MapToXmlTransformer(mapping, xmlRootNode, StationColumnMapping.VALUE_PROVIDER);
 						break;
 					case tsv:
 						transformer = CharacterSeparatedValue.TSV;
-						responseStream = new StationColumnMapper(responseStream); // column rename
+						responseStream = new StationColumnMapping(responseStream); // column rename
 						break;
 					case csv:
 					default:
 						transformer = CharacterSeparatedValue.CSV;
-						responseStream = new StationColumnMapper(responseStream); // column rename
+						responseStream = new StationColumnMapping(responseStream); // column rename
 
 				}
 				TransformOutputStream transformStream = new ObjectTransformStream(responseStream, logService, logId, transformer);
@@ -189,7 +193,7 @@ public class StationController extends BaseController implements HttpConstants, 
 				StationWorker worker = new StationWorker(IDao.STATION_NAMESPACE, pm, streamingDao, transformProvider);
 				String stationName = session.addWorker("Station", worker);
 
-				AsyncUtils.listenForComplete(session, stationName, deferral, true);
+				AsyncUtils.waitForComplete(session, stationName, deferral, true);
 			}
 		} catch (Exception e) {
 			//TODO We can't just eat these.

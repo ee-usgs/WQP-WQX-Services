@@ -1,4 +1,4 @@
-package gov.usgs.cida.wqp.webservice.SimpleStation;
+package gov.usgs.cida.wqp.webservice;
 import gov.cida.cdat.io.TransformOutputStream;
 
 import org.apache.ibatis.session.ResultContext;

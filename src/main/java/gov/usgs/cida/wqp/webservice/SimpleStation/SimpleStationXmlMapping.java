@@ -1,6 +1,6 @@
 package gov.usgs.cida.wqp.webservice.SimpleStation;
 
-import static gov.usgs.cida.wqp.webservice.StationColumnMapper.*;
+import static gov.usgs.cida.wqp.webservice.StationColumnMapping.*;
 import gov.cida.cdat.transform.IXmlMapping;
 
 import java.util.Arrays;
@@ -9,7 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-public class SimpleStationXmlMapping implements IXmlMapping, IWqxOutbound {
+public class SimpleStationXmlMapping implements IXmlMapping {
 	
 	public static final String VALUE_WQX_OUTBOUND = "WQX-Outbound"; // root node
 	public static final String ROOT_NAMESPACE     = "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"";

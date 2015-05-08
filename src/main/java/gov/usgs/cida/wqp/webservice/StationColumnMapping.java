@@ -8,7 +8,7 @@ import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-public class StationColumnMapper extends TransformOutputStream {
+public class StationColumnMapping extends TransformOutputStream {
 
 	// Station Keys
 	public static final String KEY_DATA_SOURCE       = "DATA_SOURCE";
@@ -93,7 +93,7 @@ public class StationColumnMapper extends TransformOutputStream {
 		transform = new TerminatingTransformer("\n".getBytes(), patterns);
 	}
 	
-	public StationColumnMapper(OutputStream target) {
+	public StationColumnMapping(OutputStream target) {
 		super(target, transform);
 	}
 
