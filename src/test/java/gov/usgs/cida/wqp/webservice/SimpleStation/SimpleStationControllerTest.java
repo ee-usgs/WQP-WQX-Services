@@ -97,7 +97,6 @@ public class SimpleStationControllerTest extends BaseSpringTest implements HttpC
             .andReturn();
 
         assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues("Access-Control-Expose-Headers"));
-        try { Thread.sleep(2000);} catch (Exception e) {};// wait for the database setup
         assertThat(new JSONObject(rtn.getResponse().getContentAsString()),
         		sameJSONObjectAs(new JSONObject(getCompareFile("simpleStation.json"))));
     }
@@ -141,7 +140,6 @@ public class SimpleStationControllerTest extends BaseSpringTest implements HttpC
             .andReturn();
 
         assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues("Access-Control-Expose-Headers"));
-        try { Thread.sleep(2000);} catch (Exception e) {};// wait for the database setup
         assertEquals(harmonizeXml(getCompareFile("simpleStation.xml")), harmonizeXml(rtn.getResponse().getContentAsString()));
     }
 

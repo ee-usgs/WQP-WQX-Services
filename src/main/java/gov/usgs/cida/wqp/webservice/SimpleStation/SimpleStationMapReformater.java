@@ -1,6 +1,6 @@
 package gov.usgs.cida.wqp.webservice.SimpleStation;
 
-import static gov.usgs.cida.wqp.webservice.StationColumnMapper.*;
+import static gov.usgs.cida.wqp.webservice.StationColumnMapping.*;
 
 import java.math.BigDecimal;
 import java.util.LinkedHashMap;

@@ -1,4 +1,4 @@
-package gov.usgs.cida.wqp.webservice;
+package gov.usgs.cida.wqp.webservice.station;
 
 import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;

@@ -27,7 +27,9 @@ import gov.usgs.cida.wqp.validation.ValidationConstants;
 import gov.usgs.cida.wqp.webservice.AsyncUtils;
 import gov.usgs.cida.wqp.webservice.BaseController;
 import gov.usgs.cida.wqp.webservice.HeaderWorker;
-import gov.usgs.cida.wqp.webservice.StationColumnMapper;
+import gov.usgs.cida.wqp.webservice.ObjectTransformStream;
+import gov.usgs.cida.wqp.webservice.StationColumnMapping;
+import gov.usgs.cida.wqp.webservice.StationWorker;
 
 import java.io.OutputStream;
 import java.math.BigDecimal;
@@ -38,7 +40,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -160,22 +161,22 @@ public class SimpleStationController extends BaseController implements HttpConst
 						transformer = new SimpleStationMapReformater(transformer);
 						break;
 					case xlsx:
-						transformer = new MapToXlsxTransformer(responseStream, StationColumnMapper.mappings);
+						transformer = new MapToXlsxTransformer(responseStream, StationColumnMapping.mappings);
 						break;
 					case xml:
 					default:
 						IXmlMapping mapping = new SimpleStationXmlMapping();
 						String xmlRootNode  = "<" + mapping.getRoot() + " " + mapping.getRootNamespace() + ">";
-						transformer = new MapToXmlTransformer(mapping, xmlRootNode, StationColumnMapper.VALUE_PROVIDER);
+						transformer = new MapToXmlTransformer(mapping, xmlRootNode, StationColumnMapping.VALUE_PROVIDER);
 						break;
 				}
 				TransformOutputStream transformStream = new ObjectTransformStream(responseStream, logService, logId, transformer);
 				StreamContainer<TransformOutputStream> transformProvider = new SimpleStreamContainer<TransformOutputStream>(transformStream);
 				
-				SimpleStationWorker worker = new SimpleStationWorker(IDao.SIMPLE_STATION_NAMESPACE, pm, streamingDao, transformProvider);
+				StationWorker worker = new StationWorker(IDao.SIMPLE_STATION_NAMESPACE, pm, streamingDao, transformProvider);
 				String stationName = session.addWorker("SimpleStation", worker);
 
-				AsyncUtils.listenForComplete(session, stationName, deferral, true);
+				AsyncUtils.waitForComplete(session, stationName, deferral, true);
 			}
 		} catch (Exception e) {
 			//TODO We can't just eat these.

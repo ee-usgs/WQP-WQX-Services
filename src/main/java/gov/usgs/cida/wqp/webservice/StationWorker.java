@@ -9,7 +9,6 @@ import gov.cida.cdat.io.container.StreamContainer;
 import gov.usgs.cida.wqp.dao.IStreamingDao;
 import gov.usgs.cida.wqp.parameter.ParameterMap;
 import gov.usgs.cida.wqp.util.HttpConstants;
-import gov.usgs.cida.wqp.webservice.SimpleStation.StreamingResultHandler;
 
 import org.apache.ibatis.session.ResultHandler;
 import org.slf4j.Logger;
