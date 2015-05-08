@@ -114,6 +114,7 @@ public class StationController extends BaseController implements HttpConstants, 
 		}
 		SCManager   session = SCManager.open().setAutoStart(true);
 		HeaderWorker header = new HeaderWorker(response, IDao.STATION_NAMESPACE, pm, countDao, MimeType.csv);
+		header.setFilename(ICountDao.STATION_NAMESPACE);
 		String stationCount = session.addWorker("StationCount", header);
 
 		AsyncUtils.waitForComplete(session, stationCount);

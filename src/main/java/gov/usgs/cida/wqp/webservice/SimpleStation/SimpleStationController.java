@@ -105,6 +105,7 @@ public class SimpleStationController extends BaseController implements HttpConst
 		}
 		SCManager   session = SCManager.open().setAutoStart(true);
 		HeaderWorker header = new HeaderWorker(response, ICountDao.SIMPLE_STATION_NAMESPACE, pm, countDao, MimeType.xml);
+		header.setFilename(ICountDao.SIMPLE_STATION_NAMESPACE.toLowerCase());
 		String stationCount = session.addWorker("SimpleStationCount", header);
 
 		AsyncUtils.waitForComplete(session, stationCount);
