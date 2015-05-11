@@ -6,13 +6,32 @@ import gov.cida.cdat.control.Message;
 import gov.cida.cdat.control.SCManager;
 import gov.cida.cdat.control.Time;
 import gov.cida.cdat.io.Closer;
+import gov.usgs.cida.wqp.util.WqpEnv;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class AsyncUtils {
 	private static final Logger log = LoggerFactory.getLogger(AsyncUtils.class);
-
+	private static final String QueryTimeMax = "query.time.max";
+	
+	
+	static {
+		try {
+			String sec = WqpEnv.get(QueryTimeMax);
+			long seconds = Long.parseLong(sec);
+			setDefaultWaitTime(seconds);
+		} catch (Exception e) {
+			queryWaitTime = Time.HOUR;
+		}
+	}
+	
+	
+	private static Time queryWaitTime = Time.HOUR;
+	public static void setDefaultWaitTime(long sec) {
+		Time.CUSTOM.setDuration(sec, "sec");
+		queryWaitTime = Time.CUSTOM;
+	}
 	
 	/**
 	 * Asynchronous/Non-blocking implementation. This way many works can be issued simultaneously.
@@ -24,7 +43,7 @@ public class AsyncUtils {
 		listenForComplete(session, workerName, false);
 	}
 	public static void listenForComplete(final SCManager session, String workerName, final boolean closeSession) {
-		session.send(workerName, Control.onComplete, Time.HOUR, new Callback(){
+		session.send(workerName, Control.onComplete, queryWaitTime, new Callback(){
 			@Override
 			public void onComplete(Throwable error, Message signal) {
 				applyResult(error, signal);
@@ -49,7 +68,7 @@ public class AsyncUtils {
 		final Message[]  response = new Message[1];
 		
 
-		session.send(workerName, Control.onComplete, Time.HOUR, new Callback(){
+		session.send(workerName, Control.onComplete, queryWaitTime, new Callback(){
 			@Override
 			public void onComplete(Throwable error, Message signal) {
 				problem[0] = error;
@@ -58,7 +77,7 @@ public class AsyncUtils {
 			}
 		});
 		
-		Time.waitForResponse(response, Time.SECOND, Time.HOUR);
+		Time.waitForResponse(response, Time.SECOND, queryWaitTime);
 		
 		applyResult(problem[0], response[0]);
 		
