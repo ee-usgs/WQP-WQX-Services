@@ -1,5 +1,6 @@
 .classpath
 .project
 .settings
-wqpgateway.log*
+*.log*
 /target
+java_pid*

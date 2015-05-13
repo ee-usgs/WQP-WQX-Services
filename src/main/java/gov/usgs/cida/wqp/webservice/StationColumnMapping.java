@@ -1,14 +1,14 @@
 package gov.usgs.cida.wqp.webservice;
 
-import gov.cida.cdat.io.TransformOutputStream;
-import gov.cida.cdat.transform.ManyPatternTransformer;
-import gov.cida.cdat.transform.TerminatingTransformer;
+//import gov.cida.cdat.io.TransformOutputStream;
+//import gov.cida.cdat.transform.ManyPatternTransformer;
+//import gov.cida.cdat.transform.TerminatingTransformer;
 
 import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-public class StationColumnMapping extends TransformOutputStream {
+public class StationColumnMapping /*extends TransformOutputStream*/ {
 
 	// Station Keys
 	public static final String KEY_DATA_SOURCE       = "DATA_SOURCE";
@@ -42,8 +42,8 @@ public class StationColumnMapping extends TransformOutputStream {
 	
 	
 	
-	public static final TerminatingTransformer transform;
-	public static final ManyPatternTransformer patterns;
+//	public static final TerminatingTransformer transform;
+//	public static final ManyPatternTransformer patterns;
 	public static final Map<String, String> mappings;
 	
 	
@@ -89,12 +89,12 @@ public class StationColumnMapping extends TransformOutputStream {
 		mappings.put("HOLE_DEPTH_UNIT","WellHoleDepthMeasure/MeasureUnitCode");
 		mappings.put("DATA_SOURCE","DataSource");
 		
-		patterns  = new ManyPatternTransformer(mappings);
-		transform = new TerminatingTransformer("\n".getBytes(), patterns);
+//		patterns  = new ManyPatternTransformer(mappings);
+//		transform = new TerminatingTransformer("\n".getBytes(), patterns);
 	}
 	
 	public StationColumnMapping(OutputStream target) {
-		super(target, transform);
+//		super(target, transform);
 	}
 
 }

@@ -1,6 +1,7 @@
 package gov.usgs.cida.wqp.webservice.SimpleStation;
 
 import static gov.usgs.cida.wqp.webservice.StationColumnMapping.*;
+import static gov.cida.cdat.io.TransformOutputStream.*;
 
 import java.math.BigDecimal;
 import java.util.LinkedHashMap;
@@ -85,7 +86,7 @@ public class SimpleStationMapReformater extends Transformer {
 	
 	String escapeValue(Map<String,String> map, String key) {
 		Object value = map.get(key);
-		return transform.encode( value==null ?"" :value.toString() );
+		return transformFurther.encode( value==null ?"" :value.toString() );
 	}
 	
 	@Override

@@ -164,13 +164,17 @@ public class StationController extends BaseController implements HttpConstants, 
 						transformer = new MapToXmlTransformer(mapping, xmlRootNode, StationColumnMapping.VALUE_PROVIDER);
 						break;
 					case tsv:
-						transformer = CharacterSeparatedValue.TSV;
-						responseStream = new StationColumnMapping(responseStream); // column rename
+//						public static final CharacterSeparatedValue CSV = new CharacterSeparatedValue(COMMA);
+
+						CharacterSeparatedValue tsv = new CharacterSeparatedValue(CharacterSeparatedValue.TAB);
+						tsv.setFieldMappings(StationColumnMapping.mappings);
+						transformer = tsv;
 						break;
 					case csv:
 					default:
-						transformer = CharacterSeparatedValue.CSV;
-						responseStream = new StationColumnMapping(responseStream); // column rename
+						CharacterSeparatedValue csv = new CharacterSeparatedValue(CharacterSeparatedValue.COMMA);
+						csv.setFieldMappings(StationColumnMapping.mappings);
+						transformer = csv;
 
 				}
 				TransformOutputStream transformStream = new ObjectTransformStream(responseStream, logService, logId, transformer);
