@@ -1,6 +1,7 @@
 package gov.usgs.cida.wqp.util;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,6 +9,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import org.junit.Test;
 import org.springframework.mock.web.MockHttpServletResponse;
 public class HttpUtilsTest implements HttpConstants, MybatisConstants {
@@ -53,7 +55,7 @@ public class HttpUtilsTest implements HttpConstants, MybatisConstants {
 	private void addEntry(String ds, Integer en, List<Map<String, Object>>  list) {
 		Map<String, Object> count = new HashMap<String, Object>();
 		count.put(DATA_SOURCE,ds);
-		count.put(ENTRIES,en);
+		count.put(STATION_COUNT,en);
 		list.add(count);
 	}
 	@Test

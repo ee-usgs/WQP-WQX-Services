@@ -249,4 +249,24 @@
         </if>
     </sql>
 
+    <sql id="pcResultsCountBase">
+        <include refid="dynamicWhere.stationsCountBase"/>
+    </sql>
+
+    <sql id="pcResultsBase">
+		from pc_result
+        <where>
+            <include refid="dynamicWhere.baseWhereStationClauses" />
+            <include refid="dynamicWhere.baseWhereResultClauses" />
+            <if test="(bBox != null &amp;&amp; bBox.length == 4) || (within != null &amp;&amp; lat != null &amp;&amp; long != null)">
+            	and exists (select null
+            	              from station
+            	             where station.site_id = pc_result.site_id and
+                                   station.data_source_id = pc_result.data_source_id
+                                   <include refid="dynamicWhere.baseWhereStationGeoClauses" />
+                           )
+            </if>
+        </where>
+    </sql>
+
 </mapper>

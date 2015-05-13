@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<mapper namespace="pcresult">
+
+    <select id="select" resultType="java.util.LinkedHashMap" fetchSize="1024">
+        select *
+		<include refid="dynamicWhere.pcResultsBase"/>
+			order by data_source,
+			         organization,
+			         site_id,
+			         event_date,
+			         activity
+	</select>
+        
+	<select id="count" resultType="java.util.LinkedHashMap">
+		select data_source,
+		       count(distinct s.site_id) station_count,
+               sum(pc_result_count) pc_result_count
+		<include refid="dynamicWhere.pcResultsCountBase"/>
+		group by rollup(data_source)
+	</select>
+
+</mapper>

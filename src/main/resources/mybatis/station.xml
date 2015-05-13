@@ -3,7 +3,7 @@
 
 <mapper namespace="station">
 
-	<select id="select" resultType="java.util.LinkedHashMap" resultOrdered="true">
+	<select id="select" resultType="java.util.LinkedHashMap" resultOrdered="true" fetchSize="1024" >
 		select organization,
 			   organization_name,
 			   site_id,
@@ -41,12 +41,13 @@
 			   hole_depth_unit,
 			   data_source
 		<include refid="dynamicWhere.stationsBase"/>
-		   order by organization,
+		   order by data_source,
+                    organization,
 					site_id
 	</select>
 
 	<select id="count" resultType="java.util.LinkedHashMap">
-		select data_source, count(distinct s.site_id) entries
+		select data_source, count(distinct s.site_id) station_count
 		<include refid="dynamicWhere.stationsCountBase"/>
 		group by rollup(data_source)
 	</select>

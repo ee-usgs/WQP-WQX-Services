@@ -41,7 +41,7 @@ public class HttpUtils implements HttpConstants {
 		int total = -1;
 		for (Map<String, Object> count : counts) {
 			log.trace("station count : {}", count);
-			Object entries  = count.get(MybatisConstants.ENTRIES);
+			Object entries  = count.get(MybatisConstants.STATION_COUNT);
 			entries = entries==null ?"0" :entries;
 			Object site = count.get(MybatisConstants.DATA_SOURCE);
 			if (site==null) {
