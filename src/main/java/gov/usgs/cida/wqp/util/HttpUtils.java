@@ -32,36 +32,55 @@ public class HttpUtils implements HttpConstants {
 		return code + " WQP " + quote(text) +" "+ date;
 	}
 	
-	public int addCountHeader(HttpServletResponse response, List<Map<String, Object>> counts) {
-		if (counts == null || counts.isEmpty()) {
-			response.addHeader(HEADER_TOTAL_SITE_COUNT, "0");
-			return 0;
-		}
+	public void addSiteHeaders(HttpServletResponse response, List<Map<String, Object>> counts) {
 		log.trace("station counts : {}", counts);
-		int total = -1;
+		response.addHeader(HEADER_TOTAL_SITE_COUNT, "0");
+		
 		for (Map<String, Object> count : counts) {
-			log.trace("station count : {}", count);
-			Object entries  = count.get(MybatisConstants.STATION_COUNT);
-			entries = entries==null ?"0" :entries;
-			Object site = count.get(MybatisConstants.DATA_SOURCE);
-			if (site==null) {
-				site = HEADER_TOTAL_SITE_COUNT;
-				try {
-					total = Integer.parseInt(entries.toString());
-				} catch(Exception e) {
-					total = 0;
-				}
+			log.trace("result count : {}", count);
+			response.setHeader(determineHeaderName(count, HEADER_SITE_COUNT), determineHeaderValue(count, MybatisConstants.STATION_COUNT));
+		}
+	}
+
+	public void addPcResultHeaders(HttpServletResponse response, List<Map<String, Object>> counts) {
+		log.trace("result counts : {}", counts);
+		response.addHeader(HEADER_TOTAL_SITE_COUNT, "0");
+		response.addHeader(HEADER_TOTAL_RESULT_COUNT, "0");
+		
+		for (Map<String, Object> count : counts) {
+			log.trace("result count : {}", count);
+			response.setHeader(determineHeaderName(count, HEADER_SITE_COUNT), determineHeaderValue(count, MybatisConstants.STATION_COUNT));
+			response.setHeader(determineHeaderName(count, HEADER_RESULT_COUNT), determineHeaderValue(count, MybatisConstants.PC_RESULT_COUNT));
+		}
+	}
+
+	protected String determineHeaderName(Map<String, Object> count, String suffix) {
+		String mySuffix = suffix==null ?"" :suffix;
+		if (null == count) {
+			return HEADER_TOTAL + HEADER_DELIMITER + mySuffix;
+		} else {
+			Object provider = count.get(MybatisConstants.DATA_SOURCE);
+			
+			if (provider==null) {
+				provider = HEADER_TOTAL + HEADER_DELIMITER + mySuffix;
 			} else {
-				site = site+HEADER_DELIMITER+HEADER_SITE_COUNT;
+				provider = provider + HEADER_DELIMITER + mySuffix;
 			}
-			log.trace("station count header : {},{}", site,entries);
-			response.addHeader(site.toString(), entries.toString());
+			log.trace("determine count header : {}", provider.toString());
+	
+			return provider.toString();
 		}
-		if (total == -1) {
-			response.addHeader(HEADER_TOTAL_SITE_COUNT, "0");
-			total = 0;
+	}
+	
+	protected String determineHeaderValue(Map<String, Object> count, String key) {
+		if (null == count || count.isEmpty() || null == key || !count.containsKey(key)) {
+			return "0";
+		} else {
+			Object results = count.get(key);
+			results = results==null ?"0" :results;
+			log.trace("determine count value : {}", results.toString());
+			return results.toString();
 		}
-		return total;
 	}
 	
 	public void handleException(HttpServletResponse response, String document, Exception e) {
@@ -72,9 +91,8 @@ public class HttpUtils implements HttpConstants {
 		log.error("{} {}", refNbr, e.getMessage());
 	}
 	
-	public void writeWarningHeaders(HttpServletResponse response, Map<String, List<String>> validationMessages, String document) {
+	public void writeWarningHeaders(HttpServletResponse response, Map<String, List<String>> validationMessages) {
 		response.setStatus(HttpStatus.BAD_REQUEST.value());
-		writeDocument(response, document);
 		for (List<String> msgs : validationMessages.values()) {
 			for (String msg : msgs) {
 				response.addHeader(HEADER_WARNING, warningHeader(null, msg, null));

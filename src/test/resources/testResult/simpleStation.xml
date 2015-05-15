@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<WQX-Outbound xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<WQX-Outbound>
 	<Provider>
 		<ProviderName>NWIS</ProviderName>
 		<Organization>

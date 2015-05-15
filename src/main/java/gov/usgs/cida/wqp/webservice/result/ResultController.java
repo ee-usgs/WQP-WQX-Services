@@ -1,10 +1,7 @@
 package gov.usgs.cida.wqp.webservice.result;
 
-import gov.cida.cdat.control.SCManager;
-import gov.cida.cdat.io.Closer;
+import static gov.usgs.cida.wqp.mapping.SimpleStationXmlMapping.WQX_PROVIDER;
 import gov.cida.cdat.io.TransformOutputStream;
-import gov.cida.cdat.io.container.SimpleStreamContainer;
-import gov.cida.cdat.io.container.StreamContainer;
 import gov.cida.cdat.transform.CharacterSeparatedValue;
 import gov.cida.cdat.transform.IXmlMapping;
 import gov.cida.cdat.transform.MapToJsonTransformer;
@@ -14,6 +11,8 @@ import gov.cida.cdat.transform.Transformer;
 import gov.usgs.cida.wqp.dao.ICountDao;
 import gov.usgs.cida.wqp.dao.IDao;
 import gov.usgs.cida.wqp.dao.IStreamingDao;
+import gov.usgs.cida.wqp.mapping.ResultColumnMapping;
+import gov.usgs.cida.wqp.mapping.SimpleStationXmlMapping;
 import gov.usgs.cida.wqp.parameter.IParameterHandler;
 import gov.usgs.cida.wqp.parameter.ParameterMap;
 import gov.usgs.cida.wqp.parameter.Parameters;
@@ -24,15 +23,11 @@ import gov.usgs.cida.wqp.util.MimeType;
 import gov.usgs.cida.wqp.util.MybatisConstants;
 import gov.usgs.cida.wqp.validation.ParameterValidation;
 import gov.usgs.cida.wqp.validation.ValidationConstants;
-import gov.usgs.cida.wqp.webservice.AsyncUtils;
 import gov.usgs.cida.wqp.webservice.BaseController;
-import gov.usgs.cida.wqp.webservice.HeaderWorker;
 import gov.usgs.cida.wqp.webservice.ObjectTransformStream;
 import gov.usgs.cida.wqp.webservice.StationColumnMapping;
-import gov.usgs.cida.wqp.webservice.StationWorker;
 import gov.usgs.cida.wqp.webservice.StreamingResultHandler;
-import gov.usgs.cida.wqp.webservice.simpleStation.SimpleStationMapReformater;
-import gov.usgs.cida.wqp.webservice.simpleStation.SimpleStationXmlMapping;
+import gov.usgs.cida.wqp.webservice.SimpleStation.SimpleStationMapReformater;
 
 import java.io.OutputStream;
 import java.math.BigDecimal;
@@ -46,7 +41,6 @@ import org.apache.ibatis.session.ResultHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -92,7 +86,7 @@ public class ResultController extends BaseController implements HttpConstants, M
 		pm = new ParameterValidation().preProcess(request, parameterHandler);
 		if ( ! pm.isValid() ) {
 			HttpUtils httpUtils = new HttpUtils();
-			httpUtils.writeWarningHeaders(response, pm.getValidationMessages(), WQX_EMPTY_DOC);
+			httpUtils.writeWarningHeaders(response, pm.getValidationMessages());
 			log.info("Processing Head invalid params end:{}", request.getQueryString());
 		}
 		String mimeTypeParam = (String) pm.getQueryParameters().get(Parameters.MIMETYPE.toString());
@@ -103,7 +97,7 @@ public class ResultController extends BaseController implements HttpConstants, M
 
 		response.setCharacterEncoding(DEFAULT_ENCODING);
 		response.addHeader(HEADER_CONTENT_TYPE, mimeType.getMimeType());
-		httpUtils.addCountHeader(response, counts);
+		httpUtils.addSiteHeaders(response, counts);
 		response.setHeader("Content-Disposition","attachment; filename="+ICountDao.SIMPLE_STATION_NAMESPACE.toLowerCase()+"."+mimeType);
 
 		logService.logHeadComplete(response, logId);
@@ -114,7 +108,6 @@ public class ResultController extends BaseController implements HttpConstants, M
 		log.info("Processing Get: {}", request.getQueryString());
 		BigDecimal logId = logService.logRequest(request, response);
 		
-		SCManager session = null;
 		try {
 			doHeaderXXX(request, response, logId);
 			
@@ -136,8 +129,7 @@ public class ResultController extends BaseController implements HttpConstants, M
 					case xml:
 					default:
 						IXmlMapping mapping = new SimpleStationXmlMapping();
-						String xmlRootNode  = "<" + mapping.getRoot() + " " + mapping.getRootNamespace() + ">";
-						transformer = new MapToXmlTransformer(mapping, xmlRootNode, StationColumnMapping.VALUE_PROVIDER);
+						transformer = new MapToXmlTransformer(mapping, WQX_PROVIDER);
 						break;
 				}
 				TransformOutputStream transformStream = new ObjectTransformStream(responseStream, logService, logId, transformer);
@@ -145,6 +137,8 @@ public class ResultController extends BaseController implements HttpConstants, M
 				ResultHandler handler = new StreamingResultHandler(transformStream);
 				streamingDao.stream(IDao.SIMPLE_STATION_NAMESPACE, pm.getQueryParameters(), handler);
 
+				transformStream.flush();
+				transformStream.close();
 
 		} catch (Exception e) {
 			//TODO We can't just eat these.
@@ -192,7 +186,7 @@ public class ResultController extends BaseController implements HttpConstants, M
 		pm = new ParameterValidation().preProcess(request, parameterHandler);
 		if ( ! pm.isValid() ) {
 			HttpUtils httpUtils = new HttpUtils();
-			httpUtils.writeWarningHeaders(response, pm.getValidationMessages(), WQX_EMPTY_DOC);
+			httpUtils.writeWarningHeaders(response, pm.getValidationMessages());
 			log.info("Processing Head invalid params end:{}", request.getQueryString());
 //			return null;
 		}
@@ -216,8 +210,8 @@ public class ResultController extends BaseController implements HttpConstants, M
 
 		response.setCharacterEncoding(DEFAULT_ENCODING);
 		response.addHeader(HEADER_CONTENT_TYPE, mimeType.getMimeType());
-		httpUtils.addCountHeader(response, counts);
-		response.setHeader("Content-Disposition","attachment; filename="+IDao.RESULT_NAMESPACE.toLowerCase()+"."+mimeType);
+		httpUtils.addPcResultHeaders(response, counts);
+		response.setHeader("Content-Disposition","attachment; filename="+ENDPOINT_RESULT.toLowerCase()+"."+mimeType);
 
 		logService.logHeadComplete(response, logId);
 //		return session;
@@ -227,14 +221,14 @@ public class ResultController extends BaseController implements HttpConstants, M
 	/**
 	 * result search request
 	 */
-	@RequestMapping(value=RESULT_SEARCH_ENPOINT, method=RequestMethod.GET, produces=MIME_TYPE_XLSX) //{MIME_TYPE_TSV, MIME_TYPE_CSV, MIME_TYPE_XLSX})
+	@RequestMapping(value=RESULT_SEARCH_ENPOINT, method=RequestMethod.GET, produces={MIME_TYPE_TSV, MIME_TYPE_CSV, MIME_TYPE_XLSX})
 //	@Async
 	public void stationGetRequest(HttpServletRequest request, HttpServletResponse response) {
 		log.trace(""); // blank line during trace
 		log.info("Processing Get: {}", request.getQueryString());
 		BigDecimal logId = logService.logRequest(request, response);
 		
-		SCManager session = null;
+//		SCManager session = null;
 		try {
 //			session = doHeader(request, response, logId);
 			doHeader(request, response, logId);
@@ -250,13 +244,15 @@ public class ResultController extends BaseController implements HttpConstants, M
 						transformer = new MapToXlsxTransformer(responseStream, ResultColumnMapping.mappings);
 						break;
 					case tsv:
-						transformer = CharacterSeparatedValue.TSV;
-						responseStream = new ResultColumnMapping(responseStream); // column rename
+						CharacterSeparatedValue tsv = new CharacterSeparatedValue(CharacterSeparatedValue.TAB);
+						tsv.setFieldMappings(ResultColumnMapping.mappings);
+						transformer = tsv;
 						break;
 					case csv:
 					default:
-						transformer = CharacterSeparatedValue.CSV;
-						responseStream = new ResultColumnMapping(responseStream); // column rename
+						CharacterSeparatedValue csv = new CharacterSeparatedValue(CharacterSeparatedValue.COMMA);
+						csv.setFieldMappings(ResultColumnMapping.mappings);
+						transformer = csv;
 				}
 				TransformOutputStream transformStream = new ObjectTransformStream(responseStream, logService, logId, transformer);
 //				StreamContainer<TransformOutputStream> transformProvider = new SimpleStreamContainer<TransformOutputStream>(transformStream);
@@ -270,6 +266,8 @@ public class ResultController extends BaseController implements HttpConstants, M
 
 //				AsyncUtils.waitForComplete(session, stationName, true);
 //			}
+				transformStream.flush();
+				transformStream.close();
 		} catch (Exception e) {
 			//TODO We can't just eat these.
 			log.error("Error openging outputstream",e);

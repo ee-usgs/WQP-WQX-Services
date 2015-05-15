@@ -62,25 +62,6 @@ public class SimpleStationMapReformater extends Transformer {
 		properties.put("ResolvedMonitoringLocationTypeName",escapeValue(map,KEY_SITE_TYPE));
 		
 		return transformFurther.transform(rowMap);
-		
-		// TODO keep this for a bit while we trouble shoot but then it can be deleted
-//		writeToStream("{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[");
-//		writeToStream(getValue(K_LONGITUDE));
-//		writeToStream(",");
-//		writeToStream(getValue(K_LATITUDE));
-//		writeToStream("]},\"properties\":{\"ProviderName\":\"");
-//		writeToStream(getValue(K_DATA_SOURCE));
-//		writeToStream("\",\"OrganizationIdentifier\":\"");
-//		writeToStream(getValue(K_ORGANIZATION));
-//		writeToStream("\",\"OrganizationFormalName\":\"");
-//		writeToStream(getValue(K_ORGANIZATION_NAME));
-//		writeToStream("\",\"MonitoringLocationIdentifier\":\"");
-//		writeToStream(getValue(K_SITE_ID));
-//		writeToStream("\",\"MonitoringLocationName\":\"");
-//		writeToStream(getValue(K_STATION_NAME));
-//		writeToStream("\",\"ResolvedMonitoringLocationTypeName\":\"");
-//		writeToStream(getValue(K_SITE_TYPE));
-//		writeToStream("\"}}");
 	}
 
 	

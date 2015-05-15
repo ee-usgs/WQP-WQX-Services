@@ -6,7 +6,7 @@
     </Console>
   </Appenders>
   <Loggers>
-  	<Logger name="gov" level="INFO"/>
+  	<Logger name="gov" level="TRACE"/>
   	<Logger name="org.springframework" level="INFO"/>
   	<Logger name="org.dbunit" level="INFO"/>
   	<Logger name="org.mybatis" level="DEBUG"/>
