@@ -72,8 +72,9 @@ public class HashMapParameterHandler implements IParameterHandler {
 			if (entry instanceof Map.Entry<?,?>) {
 				Object value = ((Map.Entry<?,?>)entry).getValue();
 				Object key = ((Map.Entry<?,?>)entry).getKey();
-				if (value instanceof String[] && key instanceof String) {
-					String[] strings = (String[]) value;
+//				if (value instanceof String[] && key instanceof String) { //TODO should the prune remove parameters we don't care about?
+				if (value instanceof String[] && key instanceof String && Parameters.isValid((String) key)) {
+				String[] strings = (String[]) value;
 					List<String> nonTrivialValues = new ArrayList<String>();
 					for(String string : strings) {
 						if (string != null && string.length() > 0) {
@@ -97,15 +98,15 @@ public class HashMapParameterHandler implements IParameterHandler {
 			for (String pName : inParameterNames) {
 				boolean isOk = true;
 				String parameterName = pName;
-				if (Parameters.isValid(parameterName)) {
+				if (Parameters.isValid(parameterName)) {//TODO should the prune remove parameters we don't care about?
 					Parameters parameter = Parameters.fromName(parameterName);
-					if ( ! VALIDATOR_MAP.containsKey(parameter) ) {
+					if ( ! VALIDATOR_MAP.containsKey(parameter) ) {//TODO catch in configuration?
 						isOk = false;
 					} else {
 						userParameterSet.add(parameter);
 					}
 				} else {
-					isOk = false;
+					isOk = false; //TODO possibly allow extra parameters!!!!
 				}
 				if ( ! isOk ) {
 					ValidationResult<?> vr = new ValidationResult<Object>();

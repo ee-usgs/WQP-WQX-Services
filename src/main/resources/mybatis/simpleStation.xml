@@ -3,7 +3,7 @@
 
 <mapper namespace="simpleStation">
 
-    <select id="select" resultType="java.util.LinkedHashMap">
+    <select id="select" resultType="java.util.LinkedHashMap" fetchSize="1024">
         select data_source,
         	   organization,
         	   organization_name,
@@ -19,7 +19,7 @@
     </select>
 
 	<select id="count" resultType="java.util.LinkedHashMap">
-		select data_source, count(distinct s.site_id) entries
+		select data_source, count(distinct s.site_id) station_count
 		<include refid="dynamicWhere.stationsCountBase"/>
 		group by rollup(data_source)
 	</select>

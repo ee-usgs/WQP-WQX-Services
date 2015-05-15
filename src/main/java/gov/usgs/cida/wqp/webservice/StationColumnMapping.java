@@ -1,20 +1,14 @@
 package gov.usgs.cida.wqp.webservice;
 
-//import gov.cida.cdat.io.TransformOutputStream;
-//import gov.cida.cdat.transform.ManyPatternTransformer;
-//import gov.cida.cdat.transform.TerminatingTransformer;
+import gov.usgs.cida.wqp.mapping.BaseColumn;
 
-import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-public class StationColumnMapping /*extends TransformOutputStream*/ {
+public class StationColumnMapping extends BaseColumn {
 
 	// Station Keys
 	public static final String KEY_DATA_SOURCE       = "DATA_SOURCE";
-	public static final String KEY_ORGANIZATION      = "ORGANIZATION";
-	public static final String KEY_ORGANIZATION_NAME = "ORGANIZATION_NAME";
-	public static final String KEY_SITE_ID           = "SITE_ID";
 	public static final String KEY_STATION_NAME      = "STATION_NAME";
 	public static final String KEY_LATITUDE          = "LATITUDE";
 	public static final String KEY_LONGITUDE         = "LONGITUDE";
@@ -25,16 +19,9 @@ public class StationColumnMapping /*extends TransformOutputStream*/ {
 	// Station Values
 	public static final String VALUE_LATITUDE_MEASURE   = "LatitudeMeasure";
 	public static final String VALUE_LONGITUDE_MEASURE  = "LongitudeMeasure";
-	public static final String VALUE_ORGANIZATION_IDENTIFIER  = "OrganizationIdentifier";
-	public static final String VALUE_ORGANIZATION_FORMAL_NAME = "OrganizationFormalName";
 	public static final String VALUE_MONITORING_LOCATION_NAME = "MonitoringLocationName";
-	public static final String VALUE_MONITORING_LOCATION_IDENTIFIER = "MonitoringLocationIdentifier";
 
 	// Station WQX values
-	public static final String VALUE_PROVIDER           = "Provider";
-	public static final String VALUE_PROVIDER_NAME      = "ProviderName"; 
-	public static final String VALUE_ORGANIZATION       = "Organization";
-	public static final String VALUE_ORGANIZATION_DESCRIPTION = "OrganizationDescription";
 	public static final String VALUE_MONITORING_LOCATION      = "MonitoringLocation";
 	public static final String VALUE_MONITORING_LOCATION_IDENTITY   = "MonitoringLocationIdentity";
 	public static final String VALUE_RESOLVED_MONITORING_LOCATION   = "ResolvedMonitoringLocationTypeName";
@@ -42,10 +29,7 @@ public class StationColumnMapping /*extends TransformOutputStream*/ {
 	
 	
 	
-//	public static final TerminatingTransformer transform;
-//	public static final ManyPatternTransformer patterns;
 	public static final Map<String, String> mappings;
-	
 	
 	static {
 		mappings = new HashMap<String,String>();
@@ -88,13 +72,6 @@ public class StationColumnMapping /*extends TransformOutputStream*/ {
 		mappings.put("HOLE_DEPTH_VALUE","WellHoleDepthMeasure/MeasureValue");
 		mappings.put("HOLE_DEPTH_UNIT","WellHoleDepthMeasure/MeasureUnitCode");
 		mappings.put("DATA_SOURCE","DataSource");
-		
-//		patterns  = new ManyPatternTransformer(mappings);
-//		transform = new TerminatingTransformer("\n".getBytes(), patterns);
-	}
-	
-	public StationColumnMapping(OutputStream target) {
-//		super(target, transform);
 	}
 
 }

@@ -1,8 +1,8 @@
 package gov.usgs.cida.wqp.parameter;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import gov.usgs.cida.wqp.BaseSpringTest;
 
@@ -17,19 +17,24 @@ import java.util.Set;
 import javax.annotation.Resource;
 
 import org.junit.Test;
+
 public class HashMapParameterHandlerTest extends BaseSpringTest {
+
 	@Resource
 	HashMapParameterHandler handler;
+	
 	@Test
 	public void testValidateParameterGroups_null() {
 		ParameterMap pm = handler.validateParameterGroups(null);
 		assertTrue(pm.isValid());
 	}
+	
 	@Test
 	public void testValidateParameterGroups_emptySet() {
 		ParameterMap pm = handler.validateParameterGroups(Collections.<Parameters> emptySet());
 		assertTrue(pm.isValid());
 	}
+	
 	@Test
 	public void testValidateParameterGroups_userSet() {
 		Set<Parameters> userParameterSet = new HashSet<Parameters>();
@@ -38,6 +43,7 @@ public class HashMapParameterHandlerTest extends BaseSpringTest {
 		ParameterMap pm = handler.validateParameterGroups(userParameterSet);
 		assertTrue(pm.isValid());
 	}
+	
 	@Test
 	public void testValidateParameterGroups_userSetOf4_valid() {
 		Set<Parameters> userParameterSet = new HashSet<Parameters>();
@@ -53,6 +59,7 @@ public class HashMapParameterHandlerTest extends BaseSpringTest {
 			HashMapParameterHandler.GROUP_LIST.remove(userParameterSet);
 		}
 	}
+	
 	@Test
 	public void testValidateParameterGroups_userSetOf4_invalid() {
 		Set<Parameters> parameterGroup = new HashSet<Parameters>();
@@ -77,6 +84,7 @@ public class HashMapParameterHandlerTest extends BaseSpringTest {
 			HashMapParameterHandler.GROUP_LIST.remove(parameterGroup);
 		}
 	}
+	
 	@Test
 	public void testValidateParameterGroups_withinParam() {
 		Set<Parameters> userParameterSet = new HashSet<Parameters>();
@@ -89,6 +97,7 @@ public class HashMapParameterHandlerTest extends BaseSpringTest {
 		assertEquals(1, vm.size());
 		assertEquals("Parameter(s) 'within' require(s) 'lat' and 'long'", vm.get(0));
 	}
+	
 	@Test
 	public void testValidateParameterGroups_withinAndlatitudeParams() {
 		Set<Parameters> userParameterSet = new HashSet<Parameters>();
@@ -102,6 +111,7 @@ public class HashMapParameterHandlerTest extends BaseSpringTest {
 		assertEquals(1, vm.size());
 		assertEquals("Parameter(s) 'lat' and 'within' require(s) 'long'", vm.get(0));
 	}
+	
 	@Test
 	public void testValidateParameterGroups_allRequiredParams() {
 		Set<Parameters> userParameterSet = new HashSet<Parameters>();
@@ -111,23 +121,26 @@ public class HashMapParameterHandlerTest extends BaseSpringTest {
 		ParameterMap pm = handler.validateParameterGroups(userParameterSet);
 		assertTrue(pm.isValid());
 	}
+	
 	@Test
 	public void testValidateParameterNames_null() {
-		//These tests skip the groups.
 		ParameterMap pm = handler.validateParameterNamesAndGroups(null);
 		assertTrue(pm.isValid());
 	}
+	
 	@Test
 	public void testValidateParameterNames_emptySet() {
 		ParameterMap pm = handler.validateParameterNamesAndGroups(Collections.<String> emptySet());
 		assertTrue(pm.isValid());
 	}
+	
 	@Test
 	public void testValidateParameterNames_validSet() {
 		ParameterMap pm = handler.validateParameterNamesAndGroups(new HashSet<String>(Arrays.asList(Parameters.COUNTY.toString(), Parameters.MIMETYPE.toString())));
 		assertTrue(pm.isValid());
 		assertEquals(0, pm.getValidationMessages().size());
 	}
+	
 	@Test
 	public void testValidateParameterNames_invalidSet() {
 		ParameterMap pm = handler.validateParameterNamesAndGroups(new HashSet<String>(Arrays.asList("IamNotHere")));
@@ -138,6 +151,7 @@ public class HashMapParameterHandlerTest extends BaseSpringTest {
 		assertEquals(1, vm.size());
 		assertEquals("Parameter Name 'IamNotHere' is not valid.  This service will NOT return ANY results until this parameter is removed from the query.", vm.get(0));
 	}
+	
 	@Test
 	public void testValidateParameterNames_invalidParam() {
 		ParameterMap pm = handler.validateParameterNamesAndGroups(new HashSet<String>(Arrays.asList(Parameters.COUNTY.toString(), "asdf")));
@@ -148,9 +162,9 @@ public class HashMapParameterHandlerTest extends BaseSpringTest {
 		assertEquals(1, vm.size());
 		assertEquals("Parameter Name 'asdf' is not valid.  This service will NOT return ANY results until this parameter is removed from the query.", vm.get(0));
 	}
+	
 	@Test
 	public void testValidateParameterNamesAndGroups_countyAndMimeTypeAndWithin() {
-		//These tests also hit groups.
 		Set<String> userParameterSet = new HashSet<String>();
 		userParameterSet.add(Parameters.COUNTY.toString());
 		userParameterSet.add(Parameters.MIMETYPE.toString());
@@ -163,6 +177,7 @@ public class HashMapParameterHandlerTest extends BaseSpringTest {
 		assertEquals(1, vm.size());
 		assertEquals("Parameter(s) 'within' require(s) 'lat' and 'long'", vm.get(0));
 	}
+	
 	@Test
 	public void testValidateParameterNamesAndGroups_countyAndMimeTypeAndWithinAndLatLong() {
 		Set<String> userParameterSet = new HashSet<String>();
@@ -173,6 +188,7 @@ public class HashMapParameterHandlerTest extends BaseSpringTest {
 		userParameterSet.add(Parameters.LONGITUDE.toString());
 		assertTrue(handler.validateParameterNamesAndGroups(userParameterSet).isValid());
 	}
+	
 	@Test
 	public void testValidateParameterNamesAndGroups_withInvalidParam() {
 		Set<String> userParameterSet = new HashSet<String>();
@@ -190,6 +206,7 @@ public class HashMapParameterHandlerTest extends BaseSpringTest {
 		assertEquals(1, vm.size());
 		assertEquals("Parameter Name 'IamNotHere' is not valid.  This service will NOT return ANY results until this parameter is removed from the query.", vm.get(0));
 	}
+	
 	@Test
 	public void testValidateParameterNamesAndGroups_withInvalidParamAndInvalidGroup() {
 		Set<String> userParameterSet = new HashSet<String>();
@@ -210,21 +227,28 @@ public class HashMapParameterHandlerTest extends BaseSpringTest {
 		assertEquals(1, vm.size());
 		assertEquals("Parameter Name 'IamNotHere' is not valid.  This service will NOT return ANY results until this parameter is removed from the query.", vm.get(0));
 	}
+	
 	@Test
 	public void testPrune_emptySet() {
 		HashMap<String, String[]> parameters = new HashMap<String, String[]>();
 		assertEquals("Empty gives back empty", new HashMap<String, String[]>(), handler.pruneParameters(parameters));
 	}
+	
+	@Test
 	public void testPrune_nullValue() {
 		HashMap<String, String[]> parameters = new HashMap<String, String[]>();
 		parameters.put("countrycode", null);
 		assertEquals("null value gives back empty", new HashMap<String, String[]>(), handler.pruneParameters(parameters));
 	}
+	
+	@Test
 	public void testPrune_emptyStringValue() {
 		HashMap<String, String[]> parameters = new HashMap<String, String[]>();
 		parameters.put("countrycode", new String[]{""});
 		assertEquals("Empty String gives back empty", new HashMap<String, String[]>(), handler.pruneParameters(parameters));
 	}
+	
+	@Test
 	public void testPrune_emptyStringAndValidStringAndNullValue() {
 		HashMap<String, String[]> parameters = new HashMap<String, String[]>();
 		parameters.put("countrycode", new String[]{"", "US", null});
@@ -234,17 +258,23 @@ public class HashMapParameterHandlerTest extends BaseSpringTest {
 		assertEquals(1, ((String[]) pruned.get("countrycode")).length);
 		assertEquals("US", ((String[]) pruned.get("countrycode"))[0]);
 	}
+	
+	@Test
 	public void testPrune_emptyStringAndNullValue() {
 		HashMap<String, String[]> parameters = new HashMap<String, String[]>();
-		parameters.put("othercode", new String[]{"", null});
+		parameters.put("countrycode", new String[]{"", null});
 		Map<String, String[]> pruned = handler.pruneParameters(parameters);
-		assertEquals(1, pruned.keySet().size());
-		assertNotNull(pruned.get("countrycode"));
-		assertNull(pruned.get("othercode"));
-		assertEquals(1, ((String[]) pruned.get("countrycode")).length);
-		assertEquals("US", ((String[]) pruned.get("countrycode"))[0]);
-		assertEquals(2, parameters.keySet().size());
+		assertEquals(0, pruned.keySet().size());
 	}
+	
+	@Test
+	public void testPrune_undocumentedParameter() {
+		HashMap<String, String[]> parameters = new HashMap<String, String[]>();
+		parameters.put("othercode", new String[]{"abc", null});
+		Map<String, String[]> pruned = handler.pruneParameters(parameters);
+		assertEquals(0, pruned.keySet().size());
+	}
+	
 	@Test
 	public void testValidateAndTransformParameterValues() {
 		//TODO more of an entire process test
@@ -258,6 +288,7 @@ public class HashMapParameterHandlerTest extends BaseSpringTest {
 		assertEquals(1, vm.size());
 		assertEquals("expected parameter value String[] of length == 1", vm.get(0));
 	}
+	
 	@Test
 	public void testValidateAndTransform() {
 		//TODO more of an entire process test
@@ -267,4 +298,5 @@ public class HashMapParameterHandlerTest extends BaseSpringTest {
 		assertEquals(1, pm.getValidationMessages().size());
 		assertEquals(1, ((String[]) pm.getQueryParameters().get("countrycode")).length);
 	}
+
 }

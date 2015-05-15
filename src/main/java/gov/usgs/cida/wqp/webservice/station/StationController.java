@@ -1,5 +1,6 @@
 package gov.usgs.cida.wqp.webservice.station;
 
+import static gov.usgs.cida.wqp.mapping.SimpleStationXmlMapping.WQX_PROVIDER;
 import gov.cida.cdat.control.SCManager;
 import gov.cida.cdat.io.Closer;
 import gov.cida.cdat.io.TransformOutputStream;
@@ -14,6 +15,7 @@ import gov.cida.cdat.transform.Transformer;
 import gov.usgs.cida.wqp.dao.ICountDao;
 import gov.usgs.cida.wqp.dao.IDao;
 import gov.usgs.cida.wqp.dao.IStreamingDao;
+import gov.usgs.cida.wqp.mapping.SimpleStationXmlMapping;
 import gov.usgs.cida.wqp.parameter.IParameterHandler;
 import gov.usgs.cida.wqp.parameter.ParameterMap;
 import gov.usgs.cida.wqp.parameter.Parameters;
@@ -30,7 +32,6 @@ import gov.usgs.cida.wqp.webservice.ObjectTransformStream;
 import gov.usgs.cida.wqp.webservice.StationColumnMapping;
 import gov.usgs.cida.wqp.webservice.StationWorker;
 import gov.usgs.cida.wqp.webservice.SimpleStation.SimpleStationMapReformater;
-import gov.usgs.cida.wqp.webservice.SimpleStation.SimpleStationXmlMapping;
 
 import java.io.OutputStream;
 import java.math.BigDecimal;
@@ -108,7 +109,7 @@ public class StationController extends BaseController implements HttpConstants, 
 		pm = new ParameterValidation().preProcess(request, parameterHandler);
 		if ( ! pm.isValid() ) {
 			HttpUtils httpUtils = new HttpUtils();
-			httpUtils.writeWarningHeaders(response, pm.getValidationMessages(), WQX_EMPTY_DOC);
+			httpUtils.writeWarningHeaders(response, pm.getValidationMessages());
 			log.info("Processing Head invalid params end:{}", request.getQueryString());
 			return null;
 		}
@@ -160,8 +161,7 @@ public class StationController extends BaseController implements HttpConstants, 
 						break;
 					case xml:
 						IXmlMapping mapping = new SimpleStationXmlMapping();
-						String xmlRootNode  = "<" + mapping.getRoot() + " " + mapping.getRootNamespace() + ">";
-						transformer = new MapToXmlTransformer(mapping, xmlRootNode, StationColumnMapping.VALUE_PROVIDER);
+						transformer = new MapToXmlTransformer(mapping, WQX_PROVIDER);
 						break;
 					case tsv:
 //						public static final CharacterSeparatedValue CSV = new CharacterSeparatedValue(COMMA);

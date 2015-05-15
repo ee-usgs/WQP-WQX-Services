@@ -70,7 +70,7 @@ public class HeaderWorker extends Worker implements HttpConstants {
 		log.trace("station header start");
 		response.setCharacterEncoding(DEFAULT_ENCODING);
 		response.addHeader(HEADER_CONTENT_TYPE, mimeType.getMimeType());
-		httpUtils.addCountHeader(response, counts);
+		httpUtils.addSiteHeaders(response, counts);
 		response.setHeader("Content-Disposition","attachment; filename="+filename+"."+mimeType);
 		//response.setContentLength(byteLength); // TODO this would be nice if possible to determine
 		log.trace("station header finish");

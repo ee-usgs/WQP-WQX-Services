@@ -19,14 +19,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DatabaseSetups;
-import com.github.springtestdbunit.annotation.DatabaseTearDown;
 
 @Category(IntegrationTest.class)
 @DatabaseSetups({
 	@DatabaseSetup("classpath:/testData/clearAll.xml"),
 	@DatabaseSetup("classpath:/testData/simpleStation.xml")
 })
-@DatabaseTearDown("classpath:/testData/clearAll.xml")
 public class StreamingDaoTest extends BaseSpringTest {
 
 	@Autowired 
@@ -43,14 +41,20 @@ public class StreamingDaoTest extends BaseSpringTest {
 	
 	@Test
 	public void stationTests() {
-		singleParameterTests(IStreamingDao.STATION_NAMESPACE);
-		multipleParameterTests(IStreamingDao.STATION_NAMESPACE);
+		singleParameterTests(IDao.STATION_NAMESPACE);
+		multipleParameterTests(IDao.STATION_NAMESPACE);
 	}
 	
 	@Test
 	public void simpleStationTests() {
-		singleParameterTests(IStreamingDao.SIMPLE_STATION_NAMESPACE);
-		multipleParameterTests(IStreamingDao.SIMPLE_STATION_NAMESPACE);
+		singleParameterTests(IDao.SIMPLE_STATION_NAMESPACE);
+		multipleParameterTests(IDao.SIMPLE_STATION_NAMESPACE);
+	}
+	
+	@Test
+	public void resultTests() {
+		singleParameterTests(IDao.RESULT_NAMESPACE);
+		multipleParameterTests(IDao.RESULT_NAMESPACE);
 	}
 	
 	private void singleParameterTests(String nameSpace) {

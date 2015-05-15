@@ -1,5 +1,6 @@
 package gov.usgs.cida.wqp.webservice.SimpleStation;
 
+import static gov.usgs.cida.wqp.mapping.SimpleStationXmlMapping.WQX_PROVIDER;
 import gov.cida.cdat.control.SCManager;
 import gov.cida.cdat.io.Closer;
 import gov.cida.cdat.io.TransformOutputStream;
@@ -7,12 +8,12 @@ import gov.cida.cdat.io.container.SimpleStreamContainer;
 import gov.cida.cdat.io.container.StreamContainer;
 import gov.cida.cdat.transform.IXmlMapping;
 import gov.cida.cdat.transform.MapToJsonTransformer;
-import gov.cida.cdat.transform.MapToXlsxTransformer;
 import gov.cida.cdat.transform.MapToXmlTransformer;
 import gov.cida.cdat.transform.Transformer;
 import gov.usgs.cida.wqp.dao.ICountDao;
 import gov.usgs.cida.wqp.dao.IDao;
 import gov.usgs.cida.wqp.dao.IStreamingDao;
+import gov.usgs.cida.wqp.mapping.SimpleStationXmlMapping;
 import gov.usgs.cida.wqp.parameter.IParameterHandler;
 import gov.usgs.cida.wqp.parameter.ParameterMap;
 import gov.usgs.cida.wqp.parameter.Parameters;
@@ -27,7 +28,6 @@ import gov.usgs.cida.wqp.webservice.AsyncUtils;
 import gov.usgs.cida.wqp.webservice.BaseController;
 import gov.usgs.cida.wqp.webservice.HeaderWorker;
 import gov.usgs.cida.wqp.webservice.ObjectTransformStream;
-import gov.usgs.cida.wqp.webservice.StationColumnMapping;
 import gov.usgs.cida.wqp.webservice.StationWorker;
 
 import java.io.OutputStream;
@@ -45,6 +45,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
+@RequestMapping(value=HttpConstants.SIMPLE_STATION_ENDPOINT, produces={HttpConstants.MIME_TYPE_XML, HttpConstants.MIME_TYPE_JSON})
 public class SimpleStationController extends BaseController implements HttpConstants, MybatisConstants, ValidationConstants {
 	private final Logger log = LoggerFactory.getLogger(getClass());
 
@@ -71,7 +72,7 @@ public class SimpleStationController extends BaseController implements HttpConst
 	/**
 	 * SimpleStation HEAD request
 	 */
-	@RequestMapping(value=SIMPLE_STATION_ENDPOINT, method=RequestMethod.HEAD)
+	@RequestMapping(method=RequestMethod.HEAD)
 	@Async
 	public void simpleStationHeadRequest(HttpServletRequest request, HttpServletResponse response) {
 		log.info("Processing Head: {}", request.getQueryString());
@@ -99,7 +100,7 @@ public class SimpleStationController extends BaseController implements HttpConst
 		pm = new ParameterValidation().preProcess(request, parameterHandler);
 		if ( ! pm.isValid() ) {
 			HttpUtils httpUtils = new HttpUtils();
-			httpUtils.writeWarningHeaders(response, pm.getValidationMessages(), WQX_EMPTY_DOC);
+			httpUtils.writeWarningHeaders(response, pm.getValidationMessages());
 			log.info("Processing Head invalid params end:{}", request.getQueryString());
 			return null;
 		}
@@ -122,7 +123,7 @@ public class SimpleStationController extends BaseController implements HttpConst
 	/**
 	 * station search request
 	 */
-	@RequestMapping(value=SIMPLE_STATION_ENDPOINT, method=RequestMethod.GET, produces={MIME_TYPE_XLSX, MIME_TYPE_XML, MIME_TYPE_JSON})
+	@RequestMapping(method=RequestMethod.GET)
 	@Async
 	public void stationGetRequest(HttpServletRequest request, HttpServletResponse response) {
 		log.trace(""); // blank line during trace
@@ -146,14 +147,10 @@ public class SimpleStationController extends BaseController implements HttpConst
 						transformer = new MapToJsonTransformer(header, footer);
 						transformer = new SimpleStationMapReformater(transformer);
 						break;
-					case xlsx:
-						transformer = new MapToXlsxTransformer(responseStream, StationColumnMapping.mappings);
-						break;
 					case xml:
 					default:
 						IXmlMapping mapping = new SimpleStationXmlMapping();
-						String xmlRootNode  = "<" + mapping.getRoot() + " " + mapping.getRootNamespace() + ">";
-						transformer = new MapToXmlTransformer(mapping, xmlRootNode, StationColumnMapping.VALUE_PROVIDER);
+						transformer = new MapToXmlTransformer(mapping, WQX_PROVIDER);
 						break;
 				}
 				TransformOutputStream transformStream = new ObjectTransformStream(responseStream, logService, logId, transformer);
@@ -170,7 +167,6 @@ public class SimpleStationController extends BaseController implements HttpConst
 			throw new RuntimeException(e);
 		} finally {
 			logService.logRequestComplete(logId, String.valueOf(response.getStatus()));
-//			Closer.close(session); // handled in the AsyncUtils
 			log.info("Processing Get complete: {}", request.getQueryString());
 		}
 	}
