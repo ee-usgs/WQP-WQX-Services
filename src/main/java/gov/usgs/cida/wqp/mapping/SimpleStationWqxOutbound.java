@@ -10,17 +10,14 @@ import static gov.usgs.cida.wqp.webservice.StationColumnMapping.KEY_SITE_TYPE;
 import static gov.usgs.cida.wqp.webservice.StationColumnMapping.KEY_STATION_NAME;
 
 import java.util.Arrays;
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-public class SimpleStationXmlMapping extends BaseWqx {
+public class SimpleStationWqxOutbound extends BaseWqx {
 	
 	public static final String ROOT_NODE = "WQX-Outbound";
 
-	public static final Map<String, String> HARD_BREAK = new LinkedHashMap<>();
-	
 	static {
 		HARD_BREAK.put(KEY_DATA_SOURCE, ROOT_NODE);
 		HARD_BREAK.put(KEY_ORGANIZATION, WQX_PROVIDER);
@@ -28,8 +25,6 @@ public class SimpleStationXmlMapping extends BaseWqx {
 	}
 	
 
-	public static final Map<String, List<String>> COLUMN_POSITION = new LinkedHashMap<>();
-	
 	static {
 		COLUMN_POSITION.put(KEY_DATA_SOURCE,
 				new LinkedList<String>(Arrays.asList(WQX_PROVIDER,
@@ -77,8 +72,6 @@ public class SimpleStationXmlMapping extends BaseWqx {
 	}
 	
 
-	public static final Map<String, List<String>> GROUPING = new LinkedHashMap<>();
-	
 	static {
 		GROUPING.put(KEY_DATA_SOURCE,
 				new LinkedList<String>(Arrays.asList(KEY_DATA_SOURCE)));
@@ -101,18 +94,6 @@ public class SimpleStationXmlMapping extends BaseWqx {
 	@Override
 	public String getHeader() {
 		return "<" + ROOT_NODE + ">";
-	}
-
-	public Map<String, List<String>> getStructure() {
-		return COLUMN_POSITION;
-	}
-
-	public Map<String, String> getHardBreak() {
-		return HARD_BREAK;
-	}
-
-	public Map<String, List<String>> getGrouping() {
-		return GROUPING;
 	}
 
 }

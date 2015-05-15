@@ -1,6 +1,6 @@
 package gov.usgs.cida.wqp.webservice.station;
 
-import static gov.usgs.cida.wqp.mapping.SimpleStationXmlMapping.WQX_PROVIDER;
+import static gov.usgs.cida.wqp.mapping.BaseWqx.WQX_PROVIDER;
 import gov.cida.cdat.control.SCManager;
 import gov.cida.cdat.io.Closer;
 import gov.cida.cdat.io.TransformOutputStream;
@@ -15,7 +15,7 @@ import gov.cida.cdat.transform.Transformer;
 import gov.usgs.cida.wqp.dao.ICountDao;
 import gov.usgs.cida.wqp.dao.IDao;
 import gov.usgs.cida.wqp.dao.IStreamingDao;
-import gov.usgs.cida.wqp.mapping.SimpleStationXmlMapping;
+import gov.usgs.cida.wqp.mapping.SimpleStationWqxOutbound;
 import gov.usgs.cida.wqp.parameter.IParameterHandler;
 import gov.usgs.cida.wqp.parameter.ParameterMap;
 import gov.usgs.cida.wqp.parameter.Parameters;
@@ -160,7 +160,7 @@ public class StationController extends BaseController implements HttpConstants, 
 						transformer = new MapToXlsxTransformer(responseStream, StationColumnMapping.mappings);
 						break;
 					case xml:
-						IXmlMapping mapping = new SimpleStationXmlMapping();
+						IXmlMapping mapping = new SimpleStationWqxOutbound();
 						transformer = new MapToXmlTransformer(mapping, WQX_PROVIDER);
 						break;
 					case tsv:
