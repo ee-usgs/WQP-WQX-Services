@@ -1,6 +1,7 @@
 package gov.usgs.cida.wqp.webservice.result;
 
-import static gov.usgs.cida.wqp.mapping.SimpleStationXmlMapping.WQX_PROVIDER;
+import static gov.usgs.cida.wqp.mapping.BaseWqx.WQX_ORGANIZATION;
+import static gov.usgs.cida.wqp.mapping.BaseWqx.WQX_PROVIDER;
 import gov.cida.cdat.io.TransformOutputStream;
 import gov.cida.cdat.transform.CharacterSeparatedValue;
 import gov.cida.cdat.transform.IXmlMapping;
@@ -11,8 +12,9 @@ import gov.cida.cdat.transform.Transformer;
 import gov.usgs.cida.wqp.dao.ICountDao;
 import gov.usgs.cida.wqp.dao.IDao;
 import gov.usgs.cida.wqp.dao.IStreamingDao;
-import gov.usgs.cida.wqp.mapping.ResultColumnMapping;
-import gov.usgs.cida.wqp.mapping.SimpleStationXmlMapping;
+import gov.usgs.cida.wqp.mapping.ResultColumn;
+import gov.usgs.cida.wqp.mapping.ResultWqx;
+import gov.usgs.cida.wqp.mapping.SimpleStationWqxOutbound;
 import gov.usgs.cida.wqp.parameter.IParameterHandler;
 import gov.usgs.cida.wqp.parameter.ParameterMap;
 import gov.usgs.cida.wqp.parameter.Parameters;
@@ -128,8 +130,8 @@ public class ResultController extends BaseController implements HttpConstants, M
 						break;
 					case xml:
 					default:
-						IXmlMapping mapping = new SimpleStationXmlMapping();
-						transformer = new MapToXmlTransformer(mapping, WQX_PROVIDER);
+						IXmlMapping mapping = new SimpleStationWqxOutbound();
+						transformer = new MapToXmlTransformer(mapping, WQX_ORGANIZATION);
 						break;
 				}
 				TransformOutputStream transformStream = new ObjectTransformStream(responseStream, logService, logId, transformer);
@@ -156,7 +158,7 @@ public class ResultController extends BaseController implements HttpConstants, M
 	/**
 	 * Result HEAD request
 	 */
-	@RequestMapping(value=RESULT_SEARCH_ENPOINT, method=RequestMethod.HEAD, produces={MIME_TYPE_TSV, MIME_TYPE_CSV, MIME_TYPE_XLSX})
+	@RequestMapping(value=RESULT_SEARCH_ENPOINT, method=RequestMethod.HEAD, produces={MIME_TYPE_TSV, MIME_TYPE_CSV, MIME_TYPE_XLSX, MIME_TYPE_XML})
 //	@Async
 	public void resultHeadRequest(HttpServletRequest request, HttpServletResponse response) {
 		log.info("Processing Head: {}", request.getQueryString());
@@ -221,7 +223,7 @@ public class ResultController extends BaseController implements HttpConstants, M
 	/**
 	 * result search request
 	 */
-	@RequestMapping(value=RESULT_SEARCH_ENPOINT, method=RequestMethod.GET, produces={MIME_TYPE_TSV, MIME_TYPE_CSV, MIME_TYPE_XLSX})
+	@RequestMapping(value=RESULT_SEARCH_ENPOINT, method=RequestMethod.GET, produces={MIME_TYPE_TSV, MIME_TYPE_CSV, MIME_TYPE_XLSX, MIME_TYPE_XML})
 //	@Async
 	public void stationGetRequest(HttpServletRequest request, HttpServletResponse response) {
 		log.trace(""); // blank line during trace
@@ -241,17 +243,21 @@ public class ResultController extends BaseController implements HttpConstants, M
 				
 				switch (mimeType) {
 					case xlsx:
-						transformer = new MapToXlsxTransformer(responseStream, ResultColumnMapping.mappings);
+						transformer = new MapToXlsxTransformer(responseStream, ResultColumn.mappings);
 						break;
 					case tsv:
 						CharacterSeparatedValue tsv = new CharacterSeparatedValue(CharacterSeparatedValue.TAB);
-						tsv.setFieldMappings(ResultColumnMapping.mappings);
+						tsv.setFieldMappings(ResultColumn.mappings);
 						transformer = tsv;
+						break;
+					case xml:
+						IXmlMapping mapping = new ResultWqx();
+						transformer = new MapToXmlTransformer(mapping, WQX_ORGANIZATION);
 						break;
 					case csv:
 					default:
 						CharacterSeparatedValue csv = new CharacterSeparatedValue(CharacterSeparatedValue.COMMA);
-						csv.setFieldMappings(ResultColumnMapping.mappings);
+						csv.setFieldMappings(ResultColumn.mappings);
 						transformer = csv;
 				}
 				TransformOutputStream transformStream = new ObjectTransformStream(responseStream, logService, logId, transformer);

@@ -3,7 +3,7 @@ package gov.usgs.cida.wqp.mapping;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class ResultColumnMapping extends BaseColumn {
+public class ResultColumn extends BaseColumn {
 
 	// Result Keys
 	public static final String KEY_ACTIVITY = "ACTIVITY";
@@ -33,6 +33,7 @@ public class ResultColumnMapping extends BaseColumn {
 	public static final String KEY_SAMPLE_COLLECT_METHOD_CTX = "SAMPLE_COLLECT_METHOD_CTX";
 	public static final String KEY_SAMPLE_COLLECT_METHOD_NAME = "SAMPLE_COLLECT_METHOD_NAME";
 	public static final String KEY_SAMPLE_COLLECT_EQUIP_NAME = "SAMPLE_COLLECT_EQUIP_NAME";
+	public static final String KEY_RESULT_ID = "RESULT_ID";
 	public static final String KEY_RESULT_DETECTION_CONDITION_TX = "RESULT_DETECTION_CONDITION_TX";
 	public static final String KEY_CHARACTERISTIC_NAME = "CHARACTERISTIC_NAME";
 	public static final String KEY_SAMPLE_FRACTION_TYPE = "SAMPLE_FRACTION_TYPE";
