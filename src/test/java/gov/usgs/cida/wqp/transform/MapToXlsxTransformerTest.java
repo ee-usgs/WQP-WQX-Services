@@ -12,7 +12,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -22,6 +21,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -33,25 +33,31 @@ public class MapToXlsxTransformerTest {
     protected ILogService logService;
 	protected BigDecimal logId = new BigDecimal(1);
 	private int rowCount = 1;
+	protected MapToXlsxTransformer transformer;
+	protected ByteArrayOutputStream baos;
+	protected Map<String, String> mapping;
 
     @Before
     public void initTest() throws Exception {
         MockitoAnnotations.initMocks(this);
-    }
-
-	@Test
-	public void writeTest() throws Exception {
-
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		Map<String, String> mapping = new HashMap<>();
+		baos = new ByteArrayOutputStream();
+		mapping = new LinkedHashMap<>();
 		mapping.put("A", "colA");
 		mapping.put("B", "colB");
 		mapping.put("C", "colC");
 		mapping.put("D", "colD");
 		mapping.put("E", "colE");
 		mapping.put("F", "colF");
-		
-		MapToXlsxTransformer transformer = new MapToXlsxTransformer(baos, mapping, logService, logId);
+        transformer = new MapToXlsxTransformer(baos, mapping, logService, logId);
+    }
+
+    @After
+    public void closeTest() throws IOException {
+    	transformer.close();
+    }
+
+	@Test
+	public void writeTest() throws Exception {
 		try {
 			transformer.write(getTestRow());
 			transformer.end();
@@ -101,8 +107,6 @@ public class MapToXlsxTransformerTest {
 			assertEquals("Wed Dec 31 18:00:10 CST 1969", row1.getCell(3).getStringCellValue());
 			assertNull(row1.getCell(4));
 			assertEquals(29382.2398, row1.getCell(5).getNumericCellValue(), 0);
-
-			transformer.close();
 		} catch (IOException e) {
 			fail(e.getLocalizedMessage());
 		}
@@ -111,16 +115,6 @@ public class MapToXlsxTransformerTest {
 	
 	@Test
 	public void bunchOfRows() throws Exception {
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		Map<String, String> mapping = new HashMap<>();
-		mapping.put("A", "colA");
-		mapping.put("B", "colB");
-		mapping.put("C", "colC");
-		mapping.put("D", "colD");
-		mapping.put("E", "colE");
-		mapping.put("F", "colF");
-		
-		MapToXlsxTransformer transformer = new MapToXlsxTransformer(baos, mapping, logService, logId);
 		try {
 			for (int i = 0; i < 1000; i++) {
 				transformer.write(getTestRow());
@@ -139,8 +133,6 @@ public class MapToXlsxTransformerTest {
 			assertNotNull(lastRow);
 			assertEquals("1000", lastRow.getCell(2).getStringCellValue());
 			assertEquals(1000, sheet.getLastRowNum());
-	
-			transformer.close();
 		} catch (IOException e) {
 			fail(e.getLocalizedMessage());
 		}

@@ -1,18 +1,7 @@
 package gov.usgs.cida.wqp.mapping;
 
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
 
-public abstract class BaseWqx implements IXmlMapping {
-
-	public static final Map<String, String> HARD_BREAK = new LinkedHashMap<>();
-
-	public static final Map<String, List<String>> COLUMN_POSITION = new LinkedHashMap<>();
-	
-	public static final Map<String, List<String>> GROUPING = new LinkedHashMap<>();
-	
-
+public abstract class BaseWqx {
 
 	public static final String ROOT_NODE = "WQX";
 	public static final String ROOT_NAMESPACE = "xmlns='http://qwwebservices.usgs.gov/schemas/WQX-Outbound/2_0/' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='http://qwwebservices.usgs.gov/schemas/WQX-Outbound/2_0/ http://qwwebservices.usgs.gov/schemas/WQX-Outbound/2_0/index.xsd'";
@@ -127,18 +116,6 @@ public abstract class BaseWqx implements IXmlMapping {
 
 	public String getHeader() {
 		return "<" + ROOT_NODE + " " + ROOT_NAMESPACE + ">";
-	}
-
-	public Map<String, List<String>> getStructure() {
-		return COLUMN_POSITION;
-	}
-
-	public Map<String, String> getHardBreak() {
-		return HARD_BREAK;
-	}
-
-	public Map<String, List<String>> getGrouping() {
-		return GROUPING;
 	}
 
 }

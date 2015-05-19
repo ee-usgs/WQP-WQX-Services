@@ -64,10 +64,20 @@ import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_TEMPERATURE_BASIS_LEVEL
 import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_WEIGHT_BASIS_TYPE;
 
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
-public class ResultWqx extends BaseWqx {
+public class ResultWqx extends BaseWqx implements IXmlMapping {
 
+	public static final Map<String, String> HARD_BREAK = new LinkedHashMap<>();
+
+	public static final Map<String, List<String>> COLUMN_POSITION = new LinkedHashMap<>();
+	
+	public static final Map<String, List<String>> GROUPING = new LinkedHashMap<>();
+
+	
 	static {
 		HARD_BREAK.put(KEY_ORGANIZATION, ROOT_NODE);
 		HARD_BREAK.put(KEY_ACTIVITY, WQX_ORGANIZATION);
@@ -518,9 +528,20 @@ public class ResultWqx extends BaseWqx {
 						)));
 	}
 
-	@Override
 	public String getEntryNodeName() {
 		return WQX_ORGANIZATION;
+	}
+
+	public Map<String, List<String>> getStructure() {
+		return COLUMN_POSITION;
+	}
+
+	public Map<String, String> getHardBreak() {
+		return HARD_BREAK;
+	}
+
+	public Map<String, List<String>> getGrouping() {
+		return GROUPING;
 	}
 
 }
