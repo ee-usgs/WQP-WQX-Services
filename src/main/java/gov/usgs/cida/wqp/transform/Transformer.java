@@ -77,5 +77,7 @@ public abstract class Transformer extends OutputStream implements ITransformer {
 
 	public void end() throws IOException {
 		target.flush();
+		this.close();
 	}
+
 }

@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -21,37 +22,46 @@ public class MapToDelimitedTransformerTest {
 	@Mock
     protected ILogService logService;
 	protected BigDecimal logId = new BigDecimal(1);
+	protected MapToDelimitedTransformer csv;
+	protected MapToDelimitedTransformer tsv;
+	protected ByteArrayOutputStream baos;
+	protected Map<String, String> mapping;
 
     @Before
     public void initTest() throws Exception {
         MockitoAnnotations.initMocks(this);
-    }
-
-	@Test
-	public void writeDataTest() {
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		Map<String, String> mapping = new HashMap<>();
+		baos = new ByteArrayOutputStream();
+		mapping = new HashMap<>();
 		mapping.put("A", "colA");
 		mapping.put("B", "colB");
-		
-		MapToDelimitedTransformer transformer = new MapToDelimitedTransformer(baos, mapping, logService, logId, ";");
+		csv = new MapToDelimitedTransformer(baos, mapping, logService, logId, ",");
+		tsv = new MapToDelimitedTransformer(baos, mapping, logService, logId, "\t");
+    }
+
+    @After
+    public void closeTest() throws IOException {
+    	csv.close();
+    	tsv.close();
+    }
+
+    @Test
+	public void writeDataTest() {
 		Map<String, Object> result = new HashMap<>();
     	result.put("A", "1");
     	result.put("B", "2");
     	result.put("C", "3");
 
 		try {
-			transformer.write(result);
+			csv.write(result);
 			assertEquals(13, baos.size());
-			assertEquals("colA;colB\n1;2", new String(baos.toByteArray(), "UTF-8"));
+			assertEquals("colA,colB\n1,2", new String(baos.toByteArray(), "UTF-8"));
 
 	    	result.put("A", "11");
 	    	result.put("B", "12");
-			transformer.write(result);
+			csv.write(result);
 			assertEquals(19, baos.size());
-			assertEquals("colA;colB\n1;2\n11;12", new String(baos.toByteArray(), "UTF-8"));
+			assertEquals("colA,colB\n1,2\n11,12", new String(baos.toByteArray(), "UTF-8"));
 	    	
-			transformer.close();
 		} catch (IOException e) {
 			fail(e.getLocalizedMessage());
 		}
@@ -60,20 +70,13 @@ public class MapToDelimitedTransformerTest {
 
 	@Test
 	public void writeDataMapTest() {
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		Map<String, String> mapping = new HashMap<>();
-		mapping.put("A", "colA");
-		mapping.put("B", "colB");
-		
-		MapToDelimitedTransformer transformer = new MapToDelimitedTransformer(baos, mapping, logService, logId, "\t");
-
 		Map<String, Object> result = new HashMap<>();
     	result.put("A", "1\r\n\t");
     	result.put("B", "2");
     	result.put("C", "3");
 
 		try {
-			transformer.writeData(result);
+			tsv.writeData(result);
 			assertEquals(7, baos.size());
 			assertEquals("\n1   \t2", new String(baos.toByteArray(), "UTF-8"));
 
@@ -82,24 +85,24 @@ public class MapToDelimitedTransformerTest {
 	    	result.put("C", "3");
 	    	result.put("A", "1");
 	    	result.put("B", "2");
-			transformer.writeData(result);
+			tsv.writeData(result);
 			assertEquals(4, baos.size());
 			assertEquals("\n1\t2", new String(baos.toByteArray(), "UTF-8"));
 	    	
 			baos.reset();
 	    	result.put("A", null);
-			transformer.writeData(result);
+	    	tsv.writeData(result);
 			assertEquals(3, baos.size());
 			assertEquals("\n\t2", new String(baos.toByteArray(), "UTF-8"));
-			transformer.close();
+			tsv.close();
 	    	
 			
-			transformer = new MapToDelimitedTransformer(baos, mapping, logService, logId, ",");
+			tsv = new MapToDelimitedTransformer(baos, mapping, logService, logId, ",");
 			baos.reset();
 			result.clear();
 	    	result.put("A", "b,1");
 	    	result.put("B", "2\"x\td\"34\"");
-			transformer.writeData(result);
+	    	tsv.writeData(result);
 			assertEquals(21, baos.size());
 			assertEquals("\n\"b,1\",\"2\"\"x\td\"\"34\"\"\"", new String(baos.toByteArray(), "UTF-8"));
 
@@ -107,11 +110,10 @@ public class MapToDelimitedTransformerTest {
 			result.clear();
 	    	result.put("A", "\"sdjfhjks\"");
 	    	result.put("B", "\"");
-			transformer.writeData(result);
+	    	tsv.writeData(result);
 			assertEquals(20, baos.size());
 			assertEquals("\n\"\"\"sdjfhjks\"\"\",\"\"\"\"", new String(baos.toByteArray(), "UTF-8"));
 
-			transformer.close();
 		} catch (IOException e) {
 			fail(e.getLocalizedMessage());
 		}
@@ -120,33 +122,26 @@ public class MapToDelimitedTransformerTest {
 	
 	@Test
 	public void writeHeaderTest() {
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		Map<String, String> mapping = new HashMap<>();
-		mapping.put("A", "colA");
-		mapping.put("B", "colB");
-		
-		MapToDelimitedTransformer transformer = new MapToDelimitedTransformer(baos, mapping, logService, logId, ";");
-
 		Map<String, Object> result = new HashMap<>();
     	result.put("A", "1");
     	result.put("B", "2");
     	result.put("C", "3");
 
 		try {
-			transformer.writeHeader();
+			csv.writeHeader();
 			assertEquals(9, baos.size());
-			assertEquals("colA;colB", new String(baos.toByteArray(), "UTF-8"));
+			assertEquals("colA,colB", new String(baos.toByteArray(), "UTF-8"));
 	    	
 			baos.reset();
 			result.clear();
 	    	result.put("C", "3");
 	    	result.put("A", "1");
 	    	result.put("B", "2");
-			transformer.writeHeader();
+	    	csv.writeHeader();
 			assertEquals(9, baos.size());
-			assertEquals("colA;colB", new String(baos.toByteArray(), "UTF-8"));
+			assertEquals("colA,colB", new String(baos.toByteArray(), "UTF-8"));
 
-	    	transformer.close();
+			csv.close();
 		} catch (IOException e) {
 			fail(e.getLocalizedMessage());
 		}
