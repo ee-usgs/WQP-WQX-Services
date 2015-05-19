@@ -25,7 +25,6 @@ import org.springframework.web.context.WebApplicationContext;
 
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DatabaseSetups;
-import com.github.springtestdbunit.annotation.DatabaseTearDown;
 
 @Category(IntegrationTest.class)
 @WebAppConfiguration
@@ -33,7 +32,7 @@ import com.github.springtestdbunit.annotation.DatabaseTearDown;
 	@DatabaseSetup("classpath:/testData/clearAll.xml"),
 	@DatabaseSetup("classpath:/testData/station.xml")
 })
-@DatabaseTearDown("classpath:/testData/clearAll.xml")
+
 public class StationControllerTest extends BaseSpringTest implements HttpConstants {
 
     @Autowired

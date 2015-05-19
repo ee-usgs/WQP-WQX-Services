@@ -1,6 +1,6 @@
 package gov.usgs.cida.wqp.util;
 
-import gov.cida.cdat.transform.XmlConstants;
+import gov.usgs.cida.wqp.transform.XmlConstants;
 
 import org.springframework.http.MediaType;
 

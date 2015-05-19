@@ -1,24 +1,33 @@
 package gov.usgs.cida.wqp.validation;
+
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.when;
 import gov.usgs.cida.wqp.BaseSpringTest;
+import gov.usgs.cida.wqp.exception.WqpException;
 import gov.usgs.cida.wqp.parameter.Parameters;
 import gov.usgs.cida.wqp.service.CodesService;
+
+import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+
 public class LookupValidatorTest extends BaseSpringTest implements ValidationConstants {
 	// Each individual end point should do it's own unit/integration test against the database.
-	private class TestCodeServiceMatch extends CodesService {
-		public String fetch(Parameters codeType, String code) {
-			return code;
-		}
-	}
-	private class TestCodeServiceMismatch extends CodesService {
-		public String fetch(Parameters codeType, String code) {
-			return "";
-		}
-	}
+
+	@Mock
+    protected CodesService codesService;
+
+    @Before
+    public void initTest() throws Exception {
+        MockitoAnnotations.initMocks(this);
+    }
+
 	@Test
 	public void testConstructors_nullParameter() {
 		try {
@@ -39,15 +48,14 @@ public class LookupValidatorTest extends BaseSpringTest implements ValidationCon
 	}
 	@Test
 	public void testConstructors_defaults() {
-		AbstractValidator<?> validator = new LookupValidator(null, Parameters.COUNTRY);
+		AbstractValidator<?> validator = new LookupValidator(codesService, Parameters.COUNTRY);
 		assertEquals(DEFAULT_MIN_OCCURS, validator.getMinOccurs());
 		assertEquals(IN_CLAUSE_LIMIT, validator.getMaxOccurs());
 		assertEquals(DEFAULT_DELIMITER, validator.getDelimiter());
 	}
 	@Test
 	public void testNullValue() {
-		LookupValidator validator = new LookupValidator(null, Parameters.COUNTRY, 1, 2, ";");
-		validator.setCodesService(new TestCodeServiceMatch());
+		LookupValidator validator = new LookupValidator(codesService, Parameters.COUNTRY, 1, 2, ";");
 		ValidationResult<String[]> vr = validator.validate(null);
 		assertFalse(vr.isValid());
 		assertEquals(1, vr.getValidationMessages().size());
@@ -56,8 +64,7 @@ public class LookupValidatorTest extends BaseSpringTest implements ValidationCon
 	}
 	@Test
 	public void testEmptyStringValue() {
-		LookupValidator validator = new LookupValidator(null, Parameters.COUNTRY, 1, 2, ";");
-		validator.setCodesService(new TestCodeServiceMismatch());
+		LookupValidator validator = new LookupValidator(codesService, Parameters.COUNTRY, 1, 2, ";");
 		ValidationResult<String[]> vr = validator.validate("asdf");
 		assertFalse(vr.isValid());
 		assertEquals(1, vr.getValidationMessages().size());
@@ -66,8 +73,7 @@ public class LookupValidatorTest extends BaseSpringTest implements ValidationCon
 	}
 	@Test
 	public void testTooManyInvalidStringValue() {
-		LookupValidator validator = new LookupValidator(null, Parameters.COUNTRY, 1, 2, ";");
-		validator.setCodesService(new TestCodeServiceMismatch());
+		LookupValidator validator = new LookupValidator(codesService, Parameters.COUNTRY, 1, 2, ";");
 		ValidationResult<String[]> vr = validator.validate("AA;BB;CC");
 		assertFalse(vr.isValid());
 		assertEquals(4, vr.getValidationMessages().size());
@@ -79,12 +85,25 @@ public class LookupValidatorTest extends BaseSpringTest implements ValidationCon
 	}
 	@Test
 	public void testNotFoundValue() {
-		LookupValidator validator = new LookupValidator(null, Parameters.COUNTRY, 1, 2, "-");
-		validator.setCodesService(new TestCodeServiceMismatch());
+		LookupValidator validator = new LookupValidator(codesService, Parameters.COUNTRY, 1, 2, "-");
 		ValidationResult<String[]> vr = validator.validate("AA;BB;CC");
 		assertFalse(vr.isValid());
 		assertEquals(1, vr.getValidationMessages().size());
 		assertEquals("The value of countrycode=AA;BB;CC is not in the list of enumerated values", vr.getValidationMessages().get(0));
 		assertArrayEquals(new String[]{"AA;BB;CC"}, (String[])vr.getTransformedValue());
+	}
+	
+	@Test
+	public void testOkValue() {
+		try {
+			when(codesService.validate(any(Parameters.class), any(String.class))).thenReturn(true);
+			LookupValidator validator = new LookupValidator(codesService, Parameters.COUNTRY, 1, 2, "-");
+			ValidationResult<String[]> vr = validator.validate("AA;BB;CC");
+			assertTrue(vr.isValid());
+			assertEquals(0, vr.getValidationMessages().size());
+			assertArrayEquals(new String[]{"AA;BB;CC"}, (String[])vr.getTransformedValue());
+		} catch (WqpException e) {
+			fail(e.getLocalizedMessage());
+		}
 	}
 }

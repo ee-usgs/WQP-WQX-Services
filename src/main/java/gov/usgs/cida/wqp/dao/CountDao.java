@@ -1,5 +1,7 @@
 package gov.usgs.cida.wqp.dao;
 
+import gov.usgs.cida.wqp.dao.intfc.ICountDao;
+
 import java.util.List;
 import java.util.Map;
 

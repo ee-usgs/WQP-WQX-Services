@@ -14,16 +14,16 @@ public abstract class WqpEnv {
 	public static Environment env;
 	public static final Map<String,String> runtime = new HashMap<String, String>();
 	
-	public static <T> T get(String property, Transformer<T> transformer) {
-		String value = get(property);
-		T transformed = transformer.transform(value);
-		return transformed;
-	}
-	
-	public static <T> T get(String property, Transformer<T> transformer, T defaultValue) {
-		T value = get(property, transformer);
-		return value==null ?defaultValue :value;
-	}
+//	public static <T> T get(String property, Transformer<T> transformer) {
+//		String value = get(property);
+//		T transformed = transformer.transform(value);
+//		return transformed;
+//	}
+//	
+//	public static <T> T get(String property, Transformer<T> transformer, T defaultValue) {
+//		T value = get(property, transformer);
+//		return value==null ?defaultValue :value;
+//	}
 
 	public static String get(String property) {
 		String value = runtime.get(property);

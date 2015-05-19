@@ -49,7 +49,4 @@ public class LookupValidator extends AbstractValidator<String[]> {
 		return vr;
 	}
 	
-	public void setCodesService(CodesService codesService) {
-		this.codesService = codesService;
-	}
 }

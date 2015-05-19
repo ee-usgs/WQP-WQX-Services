@@ -1,5 +1,6 @@
-package gov.usgs.cida.wqp.webservice;
-import gov.cida.cdat.io.TransformOutputStream;
+package gov.usgs.cida.wqp.dao;
+
+import gov.usgs.cida.wqp.transform.intfc.ITransformer;
 
 import org.apache.ibatis.session.ResultContext;
 import org.apache.ibatis.session.ResultHandler;
@@ -9,21 +10,20 @@ import org.slf4j.LoggerFactory;
 public class StreamingResultHandler implements ResultHandler {
 
 	private final Logger log = LoggerFactory.getLogger(getClass());
-	private final TransformOutputStream stream;  // TODO will use StreamContainer later
+	private final ITransformer transformer;
 	
 	
-	public StreamingResultHandler(TransformOutputStream consumer) {
+	public StreamingResultHandler(ITransformer transformer) {
 		log.trace("streaming handler constructed");
-		this.stream = consumer;
+		this.transformer = transformer;
 	}
-	
-	
+
 	@Override
 	public void handleResult(ResultContext context) {
 		log.trace("streaming handle result : {}", (context==null ?"null" :"context"));
 		try {
 			Object object = context.getResultObject();
-			stream.write(object);
+			transformer.write(object);
 		} catch (Exception e) {
 			log.warn("Error MapResultHandler", e);
 			throw new RuntimeException("Error MapResultHandler", e);

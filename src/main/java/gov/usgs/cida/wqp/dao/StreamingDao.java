@@ -1,5 +1,7 @@
 package gov.usgs.cida.wqp.dao;
 
+import gov.usgs.cida.wqp.dao.intfc.IStreamingDao;
+
 import java.util.Map;
 
 import org.apache.ibatis.session.ResultHandler;

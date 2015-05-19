@@ -1,52 +1,43 @@
 package gov.usgs.cida.wqp.webservice.SimpleStation;
 
-import static gov.usgs.cida.wqp.mapping.BaseWqx.WQX_PROVIDER;
-import gov.cida.cdat.control.SCManager;
-import gov.cida.cdat.io.Closer;
-import gov.cida.cdat.io.TransformOutputStream;
-import gov.cida.cdat.io.container.SimpleStreamContainer;
-import gov.cida.cdat.io.container.StreamContainer;
-import gov.cida.cdat.transform.IXmlMapping;
-import gov.cida.cdat.transform.MapToJsonTransformer;
-import gov.cida.cdat.transform.MapToXmlTransformer;
-import gov.cida.cdat.transform.Transformer;
-import gov.usgs.cida.wqp.dao.ICountDao;
-import gov.usgs.cida.wqp.dao.IDao;
-import gov.usgs.cida.wqp.dao.IStreamingDao;
+import gov.usgs.cida.wqp.dao.StreamingResultHandler;
+import gov.usgs.cida.wqp.dao.intfc.ICountDao;
+import gov.usgs.cida.wqp.dao.intfc.IDao;
+import gov.usgs.cida.wqp.dao.intfc.IStreamingDao;
 import gov.usgs.cida.wqp.mapping.SimpleStationWqxOutbound;
+import gov.usgs.cida.wqp.mapping.StationColumn;
 import gov.usgs.cida.wqp.parameter.IParameterHandler;
 import gov.usgs.cida.wqp.parameter.ParameterMap;
 import gov.usgs.cida.wqp.parameter.Parameters;
 import gov.usgs.cida.wqp.service.ILogService;
+import gov.usgs.cida.wqp.transform.MapToJsonTransformer;
+import gov.usgs.cida.wqp.transform.MapToXmlTransformer;
+import gov.usgs.cida.wqp.transform.Transformer;
 import gov.usgs.cida.wqp.util.HttpConstants;
 import gov.usgs.cida.wqp.util.HttpUtils;
 import gov.usgs.cida.wqp.util.MimeType;
-import gov.usgs.cida.wqp.util.MybatisConstants;
 import gov.usgs.cida.wqp.validation.ParameterValidation;
-import gov.usgs.cida.wqp.validation.ValidationConstants;
-import gov.usgs.cida.wqp.webservice.AsyncUtils;
 import gov.usgs.cida.wqp.webservice.BaseController;
-import gov.usgs.cida.wqp.webservice.HeaderWorker;
-import gov.usgs.cida.wqp.webservice.ObjectTransformStream;
-import gov.usgs.cida.wqp.webservice.StationWorker;
 
 import java.io.OutputStream;
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.ibatis.session.ResultHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 @RequestMapping(value=HttpConstants.SIMPLE_STATION_ENDPOINT, produces={HttpConstants.MIME_TYPE_XML, HttpConstants.MIME_TYPE_JSON})
-public class SimpleStationController extends BaseController implements HttpConstants, MybatisConstants, ValidationConstants {
+public class SimpleStationController extends BaseController {
 	private final Logger log = LoggerFactory.getLogger(getClass());
 
 	protected IStreamingDao streamingDao;
@@ -67,23 +58,19 @@ public class SimpleStationController extends BaseController implements HttpConst
 		this.countDao         = countDao;
 		this.logService       = logService;
 	}
-	
 
 	/**
 	 * SimpleStation HEAD request
 	 */
 	@RequestMapping(method=RequestMethod.HEAD)
-	@Async
 	public void simpleStationHeadRequest(HttpServletRequest request, HttpServletResponse response) {
 		log.info("Processing Head: {}", request.getQueryString());
 		BigDecimal logId = logService.logRequest(request, response);
-		SCManager session = null;
 		
 		try {
-			session = doHeader(request, response, logId);
+			doHeader(request, response, logId);
 		} finally {
 			logService.logRequestComplete(logId, String.valueOf(response.getStatus()));
-			Closer.close(session);
 			log.info("Processing Head complete: {}", request.getQueryString());
 		}
 	}
@@ -93,47 +80,44 @@ public class SimpleStationController extends BaseController implements HttpConst
 	 * Shared header helper method share for both the HEAD and GET requests
 	 * @param request
 	 * @param response
-	 * @return cDAT session opened here for use on the GET request - bit kluggy but DRY'er code
 	 */
-	private SCManager doHeader(HttpServletRequest request, HttpServletResponse response, BigDecimal logId) {
+	private boolean doHeader(HttpServletRequest request, HttpServletResponse response, BigDecimal logId) {
 		response.setCharacterEncoding(DEFAULT_ENCODING);
 		pm = new ParameterValidation().preProcess(request, parameterHandler);
 		if ( ! pm.isValid() ) {
 			HttpUtils httpUtils = new HttpUtils();
 			httpUtils.writeWarningHeaders(response, pm.getValidationMessages());
 			log.info("Processing Head invalid params end:{}", request.getQueryString());
-			return null;
+			return false;
 		}
-		SCManager   session = SCManager.open().setAutoStart(true);
-		HeaderWorker header = new HeaderWorker(response, ICountDao.SIMPLE_STATION_NAMESPACE, pm, countDao, MimeType.xml);
-		header.setFilename(ICountDao.SIMPLE_STATION_NAMESPACE.toLowerCase());
-		String stationCount = session.addWorker("SimpleStationCount", header);
+		String mimeTypeParam = (String) pm.getQueryParameters().get(Parameters.MIMETYPE.toString());
+		MimeType mimeType = MimeType.xml.fromString(mimeTypeParam);
+		HttpUtils httpUtils = new HttpUtils();
 
-		AsyncUtils.waitForComplete(session, stationCount);
+		List<Map<String, Object>> counts = countDao.getCounts(ICountDao.SIMPLE_STATION_NAMESPACE, pm.getQueryParameters());
 
-		if (header.hasError()) {
-			//TODO We can't just eat these.
-			throw new RuntimeException(header.getCurrentError());
-		}
+		response.setCharacterEncoding(DEFAULT_ENCODING);
+		response.addHeader(HEADER_CONTENT_TYPE, mimeType.getMimeType());
+		httpUtils.addSiteHeaders(response, counts);
+		response.setHeader("Content-Disposition","attachment; filename="+ICountDao.SIMPLE_STATION_NAMESPACE.toLowerCase()+"."+mimeType);
+
 		logService.logHeadComplete(response, logId);
-		return session;
+		return true;
 	}
 	
 	
 	/**
-	 * station search request
+	 * SimpleStation search request
 	 */
 	@RequestMapping(method=RequestMethod.GET)
-	@Async
 	public void stationGetRequest(HttpServletRequest request, HttpServletResponse response) {
 		log.trace(""); // blank line during trace
 		log.info("Processing Get: {}", request.getQueryString());
 		BigDecimal logId = logService.logRequest(request, response);
 		
-		SCManager session = null;
-		try {
-			session = doHeader(request, response, logId);
-			if (session != null) {
+		if (doHeader(request, response, logId)) {
+			try {
+				doHeader(request, response, logId);
 				
 				Transformer transformer; 
 				OutputStream responseStream = response.getOutputStream();
@@ -142,32 +126,29 @@ public class SimpleStationController extends BaseController implements HttpConst
 				
 				switch (mimeType) {
 					case json:
-						String header = "{\"type\":\"FeatureCollection\",\"features\":[";
-						String footer = "]}";
-						transformer = new MapToJsonTransformer(header, footer);
-						transformer = new SimpleStationMapReformater(transformer);
+						transformer = new MapToJsonTransformer(responseStream, StationColumn.mappings, logService, logId);
 						break;
 					case xml:
 					default:
-						IXmlMapping mapping = new SimpleStationWqxOutbound();
-						transformer = new MapToXmlTransformer(mapping, WQX_PROVIDER);
+						transformer = new MapToXmlTransformer(responseStream, new SimpleStationWqxOutbound(), logService, logId);
 						break;
 				}
-				TransformOutputStream transformStream = new ObjectTransformStream(responseStream, logService, logId, transformer);
-				StreamContainer<TransformOutputStream> transformProvider = new SimpleStreamContainer<TransformOutputStream>(transformStream);
 				
-				StationWorker worker = new StationWorker(IDao.SIMPLE_STATION_NAMESPACE, pm, streamingDao, transformProvider);
-				String stationName = session.addWorker("SimpleStation", worker);
+				ResultHandler handler = new StreamingResultHandler(transformer);
+				streamingDao.stream(IDao.SIMPLE_STATION_NAMESPACE, pm.getQueryParameters(), handler);
 
-				AsyncUtils.waitForComplete(session, stationName, true);
+				transformer.end();
+	
+			} catch (Exception e) {
+				//TODO We can't just eat these.
+				log.error("Error openging outputstream",e);
+				throw new RuntimeException(e);
+			} finally {
+				logService.logRequestComplete(logId, String.valueOf(response.getStatus()));
+				log.info("Processing Get complete: {}", request.getQueryString());
 			}
-		} catch (Exception e) {
-			//TODO We can't just eat these.
-			log.error("Error openging outputstream",e);
-			throw new RuntimeException(e);
-		} finally {
+		} else {
 			logService.logRequestComplete(logId, String.valueOf(response.getStatus()));
-			log.info("Processing Get complete: {}", request.getQueryString());
 		}
 	}
 

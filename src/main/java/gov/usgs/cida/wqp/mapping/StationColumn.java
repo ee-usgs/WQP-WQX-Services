@@ -1,14 +1,11 @@
-package gov.usgs.cida.wqp.webservice;
+package gov.usgs.cida.wqp.mapping;
 
-import gov.usgs.cida.wqp.mapping.BaseColumn;
-
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class StationColumnMapping extends BaseColumn {
+public class StationColumn extends BaseColumn {
 
 	// Station Keys
-	public static final String KEY_DATA_SOURCE       = "DATA_SOURCE";
 	public static final String KEY_STATION_NAME      = "STATION_NAME";
 	public static final String KEY_LATITUDE          = "LATITUDE";
 	public static final String KEY_LONGITUDE         = "LONGITUDE";
@@ -32,7 +29,7 @@ public class StationColumnMapping extends BaseColumn {
 	public static final Map<String, String> mappings;
 	
 	static {
-		mappings = new HashMap<String,String>();
+		mappings = new LinkedHashMap<String,String>();
 		mappings.put(KEY_ORGANIZATION_NAME,VALUE_ORGANIZATION_FORMAL_NAME);
 		mappings.put(KEY_ORGANIZATION,VALUE_ORGANIZATION_IDENTIFIER);
 		mappings.put(KEY_SITE_ID,VALUE_MONITORING_LOCATION_IDENTIFIER);
@@ -71,7 +68,7 @@ public class StationColumnMapping extends BaseColumn {
 		mappings.put("WELL_DEPTH_UNIT","WellDepthMeasure/MeasureUnitCode");
 		mappings.put("HOLE_DEPTH_VALUE","WellHoleDepthMeasure/MeasureValue");
 		mappings.put("HOLE_DEPTH_UNIT","WellHoleDepthMeasure/MeasureUnitCode");
-		mappings.put("DATA_SOURCE","DataSource");
+		mappings.put(KEY_DATA_SOURCE,VALUE_DATA_SOURCE);
 	}
 
 }
