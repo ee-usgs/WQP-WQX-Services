@@ -1,6 +1,7 @@
 package gov.usgs.cida.wqp.dao;
 
 import gov.usgs.cida.wqp.IntegrationTest;
+import gov.usgs.cida.wqp.dao.intfc.ICountDao;
 
 import org.junit.Test;
 import org.junit.experimental.categories.Category;

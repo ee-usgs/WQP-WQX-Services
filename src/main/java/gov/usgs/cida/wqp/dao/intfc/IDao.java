@@ -1,4 +1,4 @@
-package gov.usgs.cida.wqp.dao;
+package gov.usgs.cida.wqp.dao.intfc;
 
 public interface IDao {
 	static String STATION_NAMESPACE        = "station";

@@ -1,4 +1,4 @@
-package gov.usgs.cida.wqp.dao;
+package gov.usgs.cida.wqp.dao.intfc;
 
 import java.util.Map;
 

@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import gov.usgs.cida.wqp.IntegrationTest;
+import gov.usgs.cida.wqp.dao.intfc.IDao;
 import gov.usgs.cida.wqp.parameter.Parameters;
 import gov.usgs.cida.wqp.util.MybatisConstants;
 

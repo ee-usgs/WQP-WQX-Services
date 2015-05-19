@@ -6,11 +6,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public enum Parameters {
-	//activityId and pCode are NWIS only
 	//TODO - Activity is not currently supported
 	//ACTIVITY_ID("activityId"),
 	ANALYTICAL_METHOD("analyticalmethod"),
-	//AVOID is transformed in filter XXX to PROVIDERS 
 	AVOID("command.avoid"),
 	BBOX("bBox"),
 	CHARACTERISTIC_NAME("characteristicName"),
@@ -19,7 +17,6 @@ public enum Parameters {
 	COUNTY("countycode"),
 	HUC("huc"),
 	LATITUDE("lat"),
-//	LAYOUT("layout"), //TODO?????????????????????
 	LONGITUDE("long"),
 	MIMETYPE("mimeType"),
 	ORGANIZATION("organization"),
@@ -28,13 +25,11 @@ public enum Parameters {
 	PROVIDERS("providers"),
 	SAMPLE_MEDIA("sampleMedia"),
 	SAMPLE_TYPE("sampleType"),
-//	SCHEMA("schema"), //TODO?????????????????????
 	SITEID("siteid"),
 	SITE_TYPE("siteType"),
 	START_DATE_HI("startDateHi"),
 	START_DATE_LO("startDateLo"),
 	STATE("statecode"),
-//	TIMEZONE_TYPE("timezoneType"), //TODO?????????????????????
 	WITHIN("within"),
 	ZIP("zip");
 	

@@ -1,5 +1,8 @@
 package gov.usgs.cida.wqp.webservice;
 
+import gov.usgs.cida.wqp.util.HttpConstants;
+import gov.usgs.cida.wqp.validation.ValidationConstants;
+
 import java.io.IOException;
 import java.nio.file.AccessDeniedException;
 
@@ -15,7 +18,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
 
-public class BaseController {
+public class BaseController implements HttpConstants, ValidationConstants {
 
 	private final Logger LOG = LoggerFactory.getLogger(getClass());
 	

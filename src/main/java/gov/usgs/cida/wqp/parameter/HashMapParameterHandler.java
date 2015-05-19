@@ -37,10 +37,6 @@ public class HashMapParameterHandler implements IParameterHandler {
 		GROUP_LIST.add(WITHIN_GROUP);
 	}
 	
-	public static void setValidatorMap(final Map<Parameters, AbstractValidator<?>> inValidatoryMap) {
-		VALIDATOR_MAP = inValidatoryMap;
-	}
-	
 	public static AbstractValidator<?> getValidator(final Parameters inParameters) {
 		return VALIDATOR_MAP.get(inParameters);
 	}

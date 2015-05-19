@@ -1,6 +1,6 @@
 package gov.usgs.cida.wqp.service;
 
-import gov.usgs.cida.wqp.dao.ILogDao;
+import gov.usgs.cida.wqp.dao.intfc.ILogDao;
 import gov.usgs.cida.wqp.util.HttpConstants;
 
 import java.math.BigDecimal;

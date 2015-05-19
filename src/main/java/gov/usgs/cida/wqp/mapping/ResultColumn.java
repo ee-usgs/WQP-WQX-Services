@@ -195,6 +195,7 @@ public class ResultColumn extends BaseColumn {
 		mappings.put(KEY_DETECTION_LIMIT, VALUE_DETECTION_LIMIT);
 		mappings.put(KEY_DETECTION_LIMIT_UNIT, VALUE_DETECTION_LIMIT_UNIT);
 		mappings.put(KEY_ANALYSIS_PREP_DATE_TX, VALUE_ANALYSIS_PREP_DATE_TX);
+		mappings.put(KEY_DATA_SOURCE, VALUE_DATA_SOURCE);
 		
 	}
 	

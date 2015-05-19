@@ -4,8 +4,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import gov.cida.cdat.transform.IXmlMapping;
-
 public abstract class BaseWqx implements IXmlMapping {
 
 	public static final Map<String, String> HARD_BREAK = new LinkedHashMap<>();

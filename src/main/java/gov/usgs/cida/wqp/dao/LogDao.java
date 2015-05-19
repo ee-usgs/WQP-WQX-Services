@@ -1,5 +1,7 @@
 package gov.usgs.cida.wqp.dao;
 
+import gov.usgs.cida.wqp.dao.intfc.ILogDao;
+
 import java.math.BigDecimal;
 import java.util.Map;
 
@@ -18,8 +20,7 @@ public class LogDao extends BaseDao implements ILogDao {
 	@Override
 	public BigDecimal addLog(Map<String, Object> parameterMap) {
 		getSqlSession().selectOne(LOG_NAMESPACE + QUERY_INSERT_ID, parameterMap);
-		BigDecimal xxx = (BigDecimal) parameterMap.get(ID);
-		return xxx;
+		return (BigDecimal) parameterMap.get(ID);
 	}
 
 	@Override

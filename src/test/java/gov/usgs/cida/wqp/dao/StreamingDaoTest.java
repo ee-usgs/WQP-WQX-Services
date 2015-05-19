@@ -4,6 +4,8 @@ package gov.usgs.cida.wqp.dao;
 import static org.junit.Assert.fail;
 import gov.usgs.cida.wqp.BaseSpringTest;
 import gov.usgs.cida.wqp.IntegrationTest;
+import gov.usgs.cida.wqp.dao.intfc.IDao;
+import gov.usgs.cida.wqp.dao.intfc.IStreamingDao;
 import gov.usgs.cida.wqp.parameter.Parameters;
 
 import java.util.ArrayList;

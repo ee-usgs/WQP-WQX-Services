@@ -212,7 +212,7 @@ public class ResultControllerTest extends BaseSpringTest implements HttpConstant
         when(codesService.validate(any(Parameters.class), anyString())).thenReturn(true);
 
     	MvcResult rtn = mockMvc.perform(
-    		get("/Result/search?mimeType=xlsx" +
+    		get("/Result/search?mimeType=csv" +
     			"&analyticalmethod=https://www.nemi.gov/methods/method_summary/4665/;https://www.nemi.gov/methods/method_summary/8896/" + 
     			"bBox=-89;43;-88;44" +
     			"&characteristicName=Beryllium;Nitrate" +
@@ -235,9 +235,9 @@ public class ResultControllerTest extends BaseSpringTest implements HttpConstant
     			"&startDateLo=10-11-2012" +
     			"&within=1000"))
 			.andExpect(status().isOk())
-			.andExpect(content().contentType(MimeType.xlsx.getMimeType()))
+			.andExpect(content().contentType(MimeType.csv.getMimeType()))
 			.andExpect(content().encoding(DEFAULT_ENCODING))
-			.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=result.xlsx"))
+			.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=result.csv"))
             .andExpect(header().string(HttpConstants.HEADER_CORS_METHODS, HttpConstants.HEADER_CORS_METHODS_VALUE))
             .andExpect(header().string(HttpConstants.HEADER_CORS_MAX_AGE, HttpConstants.HEADER_CORS_MAX_AGE_VALUE))
 		    .andExpect(header().string(HttpConstants.HEADER_CORS_ALLOW_HEADERS, HttpConstants.HEADER_CORS_ALLOW_HEADERS_VALUE))
@@ -257,4 +257,53 @@ public class ResultControllerTest extends BaseSpringTest implements HttpConstant
 	
     }
 
+    @Test
+    public void getAsXmlHeadTest() throws Exception {
+    	MvcResult rtn = mockMvc.perform(head("/Result/search?mimeType=xml"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MimeType.xml.getMimeType()))
+            .andExpect(content().encoding(DEFAULT_ENCODING))
+            .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=result.xml"))
+            .andExpect(header().string(HttpConstants.HEADER_CORS_METHODS, HttpConstants.HEADER_CORS_METHODS_VALUE))
+            .andExpect(header().string(HttpConstants.HEADER_CORS_MAX_AGE, HttpConstants.HEADER_CORS_MAX_AGE_VALUE))
+		    .andExpect(header().string(HttpConstants.HEADER_CORS_ALLOW_HEADERS, HttpConstants.HEADER_CORS_ALLOW_HEADERS_VALUE))
+            .andExpect(header().string("Total-Site-Count", "6"))
+            .andExpect(header().string("NWIS-Site-Count", "2"))
+            .andExpect(header().string("STEWARDS-Site-Count", "2"))
+            .andExpect(header().string("STORET-Site-Count", "2"))
+			.andExpect(header().string("Total-Result-Count", "40"))
+			.andExpect(header().string("NWIS-Result-Count", "12"))
+			.andExpect(header().string("STEWARDS-Result-Count", "24"))
+			.andExpect(header().string("STORET-Result-Count", "4"))
+            .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
+            .andReturn();
+ 
+    	assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues("Access-Control-Expose-Headers"));
+    	assertEquals("", rtn.getResponse().getContentAsString());
+    }
+
+    @Test
+    public void getAsXmlGetTest() throws Exception {
+    	MvcResult rtn = mockMvc.perform(get("/Result/search?mimeType=xml"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MimeType.xml.getMimeType()))
+            .andExpect(content().encoding(DEFAULT_ENCODING))
+            .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=result.xml"))
+            .andExpect(header().string(HttpConstants.HEADER_CORS_METHODS, HttpConstants.HEADER_CORS_METHODS_VALUE))
+            .andExpect(header().string(HttpConstants.HEADER_CORS_MAX_AGE, HttpConstants.HEADER_CORS_MAX_AGE_VALUE))
+		    .andExpect(header().string(HttpConstants.HEADER_CORS_ALLOW_HEADERS, HttpConstants.HEADER_CORS_ALLOW_HEADERS_VALUE))
+            .andExpect(header().string("Total-Site-Count", "6"))
+            .andExpect(header().string("NWIS-Site-Count", "2"))
+            .andExpect(header().string("STEWARDS-Site-Count", "2"))
+            .andExpect(header().string("STORET-Site-Count", "2"))
+			.andExpect(header().string("Total-Result-Count", "40"))
+			.andExpect(header().string("NWIS-Result-Count", "12"))
+			.andExpect(header().string("STEWARDS-Result-Count", "24"))
+			.andExpect(header().string("STORET-Result-Count", "4"))
+            .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
+            .andReturn();
+
+        assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues("Access-Control-Expose-Headers"));
+        assertEquals(harmonizeXml(getCompareFile("pcResult.xml")), harmonizeXml(rtn.getResponse().getContentAsString()));
+    }
 }
