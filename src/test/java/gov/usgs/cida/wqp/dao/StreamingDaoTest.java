@@ -8,7 +8,6 @@ import gov.usgs.cida.wqp.dao.intfc.IDao;
 import gov.usgs.cida.wqp.dao.intfc.IStreamingDao;
 import gov.usgs.cida.wqp.parameter.Parameters;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,11 +32,11 @@ public class StreamingDaoTest extends BaseSpringTest {
 	IStreamingDao streamingDao;
 
 	private class TestResultHandler implements ResultHandler {
-		public ArrayList<Map<String, Object>> results = new ArrayList<Map<String, Object>>();
+		//TODO put the results somewhere to check them and allow them to be cleared between queries
+//		public ArrayList<Map<String, Object>> results = new ArrayList<Map<String, Object>>();
 		@Override
-		@SuppressWarnings("unchecked")
 		public void handleResult(ResultContext context) {
-			results.add((Map<String, Object>) context.getResultObject());
+//			results.add((Map<String, Object>) context.getResultObject());
 		}
 	}
 	
