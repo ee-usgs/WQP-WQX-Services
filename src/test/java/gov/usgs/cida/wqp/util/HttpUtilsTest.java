@@ -63,7 +63,7 @@ public class HttpUtilsTest implements HttpConstants, MybatisConstants {
 		Map<String, Object> count = new HashMap<String, Object>();
 		count.put(DATA_SOURCE,ds);
 		count.put(STATION_COUNT,en);
-		count.put(PC_RESULT_COUNT,en*3);
+		count.put(RESULT_COUNT,en*3);
 		list.add(count);
 	}
 	@Test
