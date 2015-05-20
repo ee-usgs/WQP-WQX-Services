@@ -50,7 +50,7 @@ public class HttpUtils implements HttpConstants {
 		for (Map<String, Object> count : counts) {
 			log.trace("result count : {}", count);
 			response.setHeader(determineHeaderName(count, HEADER_SITE_COUNT), determineHeaderValue(count, MybatisConstants.STATION_COUNT));
-			response.setHeader(determineHeaderName(count, HEADER_RESULT_COUNT), determineHeaderValue(count, MybatisConstants.PC_RESULT_COUNT));
+			response.setHeader(determineHeaderName(count, HEADER_RESULT_COUNT), determineHeaderValue(count, MybatisConstants.RESULT_COUNT));
 		}
 	}
 

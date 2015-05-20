@@ -266,26 +266,26 @@ public class CountDaoPcResultTest extends CountDaoTest {
 			if (null == counts.get(i).get(MybatisConstants.DATA_SOURCE)) {
 				assertEquals("total station count", expectedTotalStation, counts.get(i).get(MybatisConstants.STATION_COUNT).toString());
 				totalStation = true;
-				assertEquals("total pcResult count", expectedTotalResult, counts.get(i).get(MybatisConstants.PC_RESULT_COUNT).toString());
+				assertEquals("total pcResult count", expectedTotalResult, counts.get(i).get(MybatisConstants.RESULT_COUNT).toString());
 				totalResult = true;
 			} else {
 				switch (counts.get(i).get(MybatisConstants.DATA_SOURCE).toString()) {
 				case "NWIS":
 					assertEquals("NWIS station count", expectedNwisStation, counts.get(i).get(MybatisConstants.STATION_COUNT).toString());
 					nwisStation = true;
-					assertEquals("NWIS pcResult count", expectedNwisResult, counts.get(i).get(MybatisConstants.PC_RESULT_COUNT).toString());
+					assertEquals("NWIS pcResult count", expectedNwisResult, counts.get(i).get(MybatisConstants.RESULT_COUNT).toString());
 					nwisResult = true;
 					break;
 				case "STEWARDS":
 					assertEquals("STEWARDS station count", expectedStewardsStation, counts.get(i).get(MybatisConstants.STATION_COUNT).toString());
 					stewardsStation = true;
-					assertEquals("STEWARDS pcResult count", expectedStewardsResult, counts.get(i).get(MybatisConstants.PC_RESULT_COUNT).toString());
+					assertEquals("STEWARDS pcResult count", expectedStewardsResult, counts.get(i).get(MybatisConstants.RESULT_COUNT).toString());
 					stewardsResult = true;
 					break;
 				case "STORET":
 					assertEquals("STORET station count", expectedStoretStation, counts.get(i).get(MybatisConstants.STATION_COUNT).toString());
 					storetStation = true;
-					assertEquals("STORET pcResult count", expectedStoretResult, counts.get(i).get(MybatisConstants.PC_RESULT_COUNT).toString());
+					assertEquals("STORET pcResult count", expectedStoretResult, counts.get(i).get(MybatisConstants.RESULT_COUNT).toString());
 					storetResult = true;
 					break;
 				default:
