@@ -27,10 +27,12 @@ public abstract class CountDaoTest extends BaseSpringTest {
 
 		//Counts against station_sum
 
-//		parms.clear();
-//		parms.put(Parameters.BBOX.toString(), new String[]{"-89", "43", "-88", "44"});
-//		counts = countDao.getCounts(namespace, parms);
-//		assertResults(namespace, counts, "0", "0", "0", "0");
+		//this uses the goespatial index - it is not updated unless a commit is issued - we probably don't want to do that as
+		//it would require a manual delete of data and commit, so we are only checking syntax, not results...
+		parms.clear();
+		parms.put(Parameters.BBOX.toString(), new String[]{"-89", "43", "-88", "44"});
+		counts = countDao.getCounts(namespace, parms);
+//		assertResults(counts, 0, "0", "0", "0", "0");
 
 		parms.clear();
 		parms.put("commandavoid", new String[]{"STORET"});
@@ -92,12 +94,13 @@ public abstract class CountDaoTest extends BaseSpringTest {
 		counts = countDao.getCounts(namespace, parms);
 		assertResults(counts, 3, "3", "2", null, "1");
 
+		//it looks like this does not use the goespatial index.
 		parms.clear();
 		parms.put(Parameters.WITHIN.toString(), new String[]{"10"});
 		parms.put(Parameters.LATITUDE.toString(), new String[]{"43.3836014"});
 		parms.put(Parameters.LONGITUDE.toString(), new String[]{"-88.9773314"});
 		counts = countDao.getCounts(namespace, parms);
-		assertResults(counts, 2, "2", "2", null, null);
+		assertResults(counts, 3, "3", "2", null, "1");
 
 
 		//Counts against pc_result_ct_sum
@@ -158,11 +161,12 @@ public abstract class CountDaoTest extends BaseSpringTest {
 
 		//Counts against station_sum
 
-		//TODO Why doesn't bBox work in test?
-//		parms.clear();
-//		parms.put(Parameters.BBOX.toString(), new String[]{"-89", "43", "-88", "44"});
-//		counts = countDao.getCounts(namespace, parms);
-//		assertResults(namespace, counts, "0", "0", "0", "0");
+		//see BBOX comment above
+		parms.clear();
+		parms.put(Parameters.BBOX.toString(), new String[]{"-89", "43", "-88", "44"});
+		List<Map<String, Object>> counts = countDao.getCounts(namespace, parms);
+		parms.clear();
+//		assertResults(counts, 0, "0", "0", "0", "0");
 
 		parms.put(Parameters.COUNTRY.toString(), new String[]{"MX", "US"});
 		parms.put(Parameters.COUNTY.toString(), new String[]{"US:19:015", "US:30:003", "US:55:017", "US:55:021", "US:55:027"});
@@ -176,7 +180,7 @@ public abstract class CountDaoTest extends BaseSpringTest {
 		parms.put(Parameters.WITHIN.toString(), new String[]{"1000"});
 		parms.put(Parameters.LATITUDE.toString(), new String[]{"43.3836014"});
 		parms.put(Parameters.LONGITUDE.toString(), new String[]{"-88.9773314"});
-		List<Map<String, Object>> counts = countDao.getCounts(namespace, parms);
+		counts = countDao.getCounts(namespace, parms);
 		assertResults(counts, 4, "6", "2", "2", "2");
 
 		parms.put("commandavoid", new String[]{"NWIS", "STORET"});

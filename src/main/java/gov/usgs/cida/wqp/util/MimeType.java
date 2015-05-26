@@ -12,6 +12,8 @@ public enum MimeType implements HttpConstants {
 	tsv(MIME_TYPE_TSV),
 	xlsx(MIME_TYPE_XLSX),
 	xml(MIME_TYPE_XML),
+	kml(MIME_TYPE_KML),
+	kmz(MIME_TYPE_KMZ),
 	zip(MIME_TYPE_ZIP);
 
 	

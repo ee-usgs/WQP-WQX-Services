@@ -26,4 +26,14 @@ public class CountDaoStationTest extends CountDaoTest {
 		super.multipleParameterTests(ICountDao.STATION_NAMESPACE);
 	}
 
+	@Test
+	public void singleParameterKmlTests() {
+		super.singleParameterTests(ICountDao.STATION_KML_NAMESPACE);
+	}
+	
+	@Test
+	public void multipleParameterKmlTests() {
+		super.multipleParameterTests(ICountDao.STATION_KML_NAMESPACE);
+	}
+
 }

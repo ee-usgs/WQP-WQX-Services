@@ -144,4 +144,16 @@ public class MapToXmlTransformerTest {
 		}
 	}
 
+	@Test
+	public void getClosingNodeTextTest() {
+		assertEquals("", transformer.getClosingNodeText(null));
+		assertEquals("", transformer.getClosingNodeText(""));
+		assertEquals("", transformer.getClosingNodeText(" "));
+
+		assertEquals("</a>", transformer.getClosingNodeText("a"));
+		assertEquals("</a>", transformer.getClosingNodeText(" a "));
+		assertEquals("</a>", transformer.getClosingNodeText("a b"));
+		assertEquals("</a>", transformer.getClosingNodeText("a b c"));
+		assertEquals("</a>", transformer.getClosingNodeText(" a b c d "));
+	}
 }

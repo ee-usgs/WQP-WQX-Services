@@ -86,6 +86,8 @@ public class SpringConfig extends WebMvcConfigurerAdapter implements Environment
         	.mediaType(xml.getExtension(),  xml.mediaType)
         	.mediaType(json.getExtension(), json.mediaType)
         	.mediaType(xlsx.getExtension(), xlsx.mediaType)
+        	.mediaType(kml.getExtension(), kml.mediaType)
+        	.mediaType(kmz.getExtension(), kmz.mediaType)
         	.ignoreAcceptHeader(true);
     }
     

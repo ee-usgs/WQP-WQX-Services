@@ -24,6 +24,7 @@
 		<mapper resource="mybatis/logMapper.xml"/>
 		<mapper resource="mybatis/pcresult.xml"/>
 		<mapper resource="mybatis/station.xml"/>
+		<mapper resource="mybatis/stationKml.xml"/>
 		<mapper resource="mybatis/simpleStation.xml"/>
 	 </mappers>
 	

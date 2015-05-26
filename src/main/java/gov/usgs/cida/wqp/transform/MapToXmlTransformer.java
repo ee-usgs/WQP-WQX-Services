@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -102,7 +103,7 @@ public class MapToXmlTransformer extends Transformer {
 			lNode = node;
 		}
 		sb.append(val);
-		sb.append("</").append(nodes.pop()).append(">");
+		sb.append(getClosingNodeText(nodes.pop()));
 	}
 	
 	
@@ -115,7 +116,7 @@ public class MapToXmlTransformer extends Transformer {
     		if (targetNode.equalsIgnoreCase(node)) {
     			break;
     		} else {
-	    		sb.append("</").append(node).append(">");
+	    		sb.append(getClosingNodeText(node));
 	    		nodes.pop();
     		}
     	}
@@ -126,7 +127,7 @@ public class MapToXmlTransformer extends Transformer {
 	@Override
 	public void end() throws IOException {
     	while (!nodes.isEmpty()) {
-    		writeToStream("</" + nodes.element() + ">");
+    		writeToStream(getClosingNodeText(nodes.element()));
     		nodes.pop();
     	}
     	super.end();
@@ -137,4 +138,19 @@ public class MapToXmlTransformer extends Transformer {
 		return StringEscapeUtils.escapeXml10(value);
 	}
 	
+	protected String getClosingNodeText(String rawText) {
+		if (StringUtils.isBlank(rawText)) {
+			return "";
+		} else {
+			StringBuilder closingNode = new StringBuilder("</");
+			if (rawText.trim().contains(" ")) {
+				closingNode.append(rawText.trim().substring(0, rawText.trim().indexOf(" ")));
+			} else {
+				closingNode.append(rawText.trim());
+			}
+			closingNode.append(">");
+			return closingNode.toString();
+		}
+	}
+
 }
