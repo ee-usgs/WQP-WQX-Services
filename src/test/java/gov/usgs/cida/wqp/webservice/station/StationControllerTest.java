@@ -184,4 +184,40 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
         assertEquals(harmonizeXml(getCompareFile("station.xml")), harmonizeXml(rtn.getResponse().getContentAsString()));
     }
 
+    @Test
+    public void getAsKmlHeadTest() throws Exception {
+    	MvcResult rtn = mockMvc.perform(head("/Station/search?mimeType=kml"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MIME_TYPE_KML))
+            .andExpect(content().encoding(DEFAULT_ENCODING))
+            .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=station.kml"))
+            .andExpect(header().string("Total-Site-Count", "6"))
+            .andExpect(header().string("NWIS-Site-Count", "2"))
+            .andExpect(header().string("STEWARDS-Site-Count", "2"))
+            .andExpect(header().string("STORET-Site-Count", "2"))
+            .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
+            .andReturn();
+
+    	assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues("Access-Control-Expose-Headers"));
+    	assertEquals("", rtn.getResponse().getContentAsString());
+    }
+    
+    @Test
+    public void getAsKmlGetTest() throws Exception {
+    	MvcResult rtn = mockMvc.perform(get("/Station/search?mimeType=kml"))
+        	.andExpect(status().isOk())
+        	.andExpect(content().contentType(MIME_TYPE_KML))
+        	.andExpect(content().encoding(DEFAULT_ENCODING))
+        	.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=station.kml"))
+        	.andExpect(header().string("Total-Site-Count", "6"))
+        	.andExpect(header().string("NWIS-Site-Count", "2"))
+        	.andExpect(header().string("STEWARDS-Site-Count", "2"))
+        	.andExpect(header().string("STORET-Site-Count", "2"))
+            .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
+        	.andReturn();
+
+        assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues("Access-Control-Expose-Headers"));
+        assertEquals(harmonizeXml(getCompareFile("station.kml")), harmonizeXml(rtn.getResponse().getContentAsString()));
+    }
+
 }

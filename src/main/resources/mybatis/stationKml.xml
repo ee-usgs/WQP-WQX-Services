@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<mapper namespace="stationKml">
+
+    <select id="select" resultType="java.util.LinkedHashMap" fetchSize="1024">
+        select station_name,
+		       case data_source_id
+		         when 1 then 'ARSSite'
+		         when 2 then 'NWISSite'
+		         when 3 then 'STORETSite'
+		         else 'Unknown'
+		       end style_url,
+        	   organization_name,
+		       organization,
+        	   site_id,
+		       station_name station_name2,
+		       station_type_name,
+		       description_text,
+		       huc_8,
+		       contrib_drain_area_value,
+		       contrib_drain_area_unit,
+		       aqfr_type_name,
+		       aqfr_name,
+		       well_depth_value,
+		       well_depth_unit,
+		       to_char(s.geom.sdo_point.x, 'FM990.0000000') || ',' || to_char(s.geom.sdo_point.y, 'FM90.0000000') coordinates
+        <include refid="dynamicWhere.stationsBase"/>
+             order by station_id
+    </select>
+
+	<select id="count" resultType="java.util.LinkedHashMap">
+		select data_source, count(distinct s.site_id) station_count
+		<include refid="dynamicWhere.stationsCountBase"/>
+		group by rollup(data_source)
+	</select>
+
+</mapper>
