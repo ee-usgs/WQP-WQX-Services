@@ -29,20 +29,40 @@ public abstract class BaseWqx {
 	public static final String WQX_MONITORING_LOCATION_TYPE = "MonitoringLocationTypeName";
 	public static final String WQX_MONITORING_LOCATION_DESCRIPTION = "MonitoringLocationDescriptionText";
 	public static final String WQX_HUC_8 = "HUCEightDigitCode";
+	public static final String WQX_HUC_12 = "HUCTwelveDigitCode";
+	
+	public static final String WQX_CONTRIB_DRAIN_AREA = "ContributingDrainageAreaMeasure";
+	public static final String WQX_DRAIN_AREA = "DrainageAreaMeasure";
+	
 	public static final String WQX_RESOLVED_MONITORING_LOCATION = "ResolvedMonitoringLocationTypeName";
 	public static final String WQX_MONITORING_LOCATION_GEOSPATIAL = "MonitoringLocationGeospatial";
 	public static final String WQX_LATITUDE_MEASURE = "LatitudeMeasure";
 	public static final String WQX_LONGITUDE_MEASURE = "LongitudeMeasure";
 	public static final String WQX_SOURCE_MAP_SCALE = "SourceMapScaleNumeric";
+	
+	public static final String WQX_HORIZONTAL_ACCY = "HorizontalAccuracyMeasure";
+
 	public static final String WQX_HORIZONTAL_COLLECTION_METHOD = "HorizontalCollectionMethodName";
 	public static final String WQX_HORIZONTAL_DATUM = "HorizontalCoordinateReferenceSystemDatumName";
 	public static final String WQX_VERTICAL_MEASURE = "VerticalMeasure";
+
+	public static final String WQX_VERTICAL_ACCY = "VerticalAccuracyMeasure";
+
 	public static final String WQX_VERTICAL_COLLECTION_METHOD = "VerticalCollectionMethodName";
 	public static final String WQX_VERTICAL_DATUM = "VerticalCoordinateReferenceSystemDatumName";
 	public static final String WQX_COUNTRY_CODE = "CountryCode";
 	public static final String WQX_STATE_CODE = "StateCode";
 	public static final String WQX_COUNTY_CODE = "CountyCode";
+
+	public static final String WQX_NAT_AQFR_NAME = "AquiferName";
+	public static final String WQX_AQFR_NAME = "FormationTypeText";
+	public static final String WQX_AQFR_TYPE_NAME = "AquiferTypeName";
 	
+	public static final String WQX_WELL_INFO = "WellInformation";
+	public static final String WQX_CONSTRUCTION_DATE = "ConstructionDateText";
+	public static final String WQX_WELL_DEPTH = "WellDepthMeasure";
+	public static final String WQX_HOLE_DEPTH = "WellHoleDepthMeasure";
+
 	
 	public static final String WQX_ACTIVITY = "Activity";
 	

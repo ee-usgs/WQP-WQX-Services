@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WQX xmlns='http://qwwebservices.usgs.gov/schemas/WQX-Outbound/2_0/' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='http://qwwebservices.usgs.gov/schemas/WQX-Outbound/2_0/ http://qwwebservices.usgs.gov/schemas/WQX-Outbound/2_0/index.xsd'>
+	<Organization>
+		<OrganizationDescription>
+			<OrganizationIdentifier>USGS-WI</OrganizationIdentifier>
+			<OrganizationFormalName>USGS Wisconsin Water Science Center</OrganizationFormalName>
+		</OrganizationDescription>
+		<MonitoringLocation>
+			<MonitoringLocationIdentity>
+				<MonitoringLocationIdentifier>USGS-05425700</MonitoringLocationIdentifier>
+				<MonitoringLocationName>ROBBINS CREEK NEAR COLUMBUS, WI</MonitoringLocationName>
+				<MonitoringLocationTypeName>Stream</MonitoringLocationTypeName>
+				<HUCEightDigitCode>07090002</HUCEightDigitCode>
+				<DrainageAreaMeasure>
+					<MeasureValue>8.01</MeasureValue>
+					<MeasureUnitCode>sq mi</MeasureUnitCode>
+				</DrainageAreaMeasure>
+				<ContributingDrainageAreaMeasure>
+					<MeasureValue>166.05</MeasureValue>
+					<MeasureUnitCode>sq mi</MeasureUnitCode>
+				</ContributingDrainageAreaMeasure>
+			</MonitoringLocationIdentity>
+			<MonitoringLocationGeospatial>
+				<LatitudeMeasure>43.3466571</LatitudeMeasure>
+				<LongitudeMeasure>-89.0320546</LongitudeMeasure>
+				<HorizontalAccuracyMeasure>
+					<MeasureValue>1</MeasureValue>
+					<MeasureUnitCode>seconds</MeasureUnitCode>
+				</HorizontalAccuracyMeasure>
+				<HorizontalCollectionMethodName>Interpolated from map</HorizontalCollectionMethodName>
+				<HorizontalCoordinateReferenceSystemDatumName>NAD83</HorizontalCoordinateReferenceSystemDatumName>
+				<CountryCode>US</CountryCode>
+				<StateCode>55</StateCode>
+				<CountyCode>021</CountyCode>
+			</MonitoringLocationGeospatial>
+		</MonitoringLocation>
+		<MonitoringLocation>
+			<MonitoringLocationIdentity>
+				<MonitoringLocationIdentifier>USGS-431925089002701</MonitoringLocationIdentifier>
+				<MonitoringLocationName>DG-10/13E/19-0891</MonitoringLocationName>
+				<MonitoringLocationTypeName>Well</MonitoringLocationTypeName>
+				<HUCEightDigitCode>07090002</HUCEightDigitCode>
+			</MonitoringLocationIdentity>
+			<MonitoringLocationGeospatial>
+				<LatitudeMeasure>43.3236024</LatitudeMeasure>
+				<LongitudeMeasure>-89.0076094</LongitudeMeasure>
+				<SourceMapScaleNumeric>62500</SourceMapScaleNumeric>
+				<HorizontalAccuracyMeasure>
+					<MeasureValue>5</MeasureValue>
+					<MeasureUnitCode>seconds</MeasureUnitCode>
+				</HorizontalAccuracyMeasure>
+				<HorizontalCollectionMethodName>Interpolated from map</HorizontalCollectionMethodName>
+				<HorizontalCoordinateReferenceSystemDatumName>NAD83</HorizontalCoordinateReferenceSystemDatumName>
+				<VerticalMeasure>
+					<MeasureValue>824.00</MeasureValue>
+					<MeasureUnitCode>feet</MeasureUnitCode>
+				</VerticalMeasure>
+				<VerticalAccuracyMeasure>
+					<MeasureValue>10</MeasureValue>
+					<MeasureUnitCode>feet</MeasureUnitCode>
+				</VerticalAccuracyMeasure>
+				<VerticalCollectionMethodName>Interpolated from topographic map</VerticalCollectionMethodName>
+				<VerticalCoordinateReferenceSystemDatumName>NGVD29</VerticalCoordinateReferenceSystemDatumName>
+				<CountryCode>US</CountryCode>
+				<StateCode>55</StateCode>
+				<CountyCode>027</CountyCode>
+			</MonitoringLocationGeospatial>
+			<WellInformation>
+				<AquiferName>natural aquifer</AquiferName>
+				<FormationTypeText>aquifer</FormationTypeText>
+				<AquiferTypeName>underground reserve</AquiferTypeName>
+				<ConstructionDateText>10/10/10</ConstructionDateText>
+				<WellDepthMeasure>
+					<MeasureValue>120</MeasureValue>
+					<MeasureUnitCode>ft</MeasureUnitCode>
+				</WellDepthMeasure>
+				<WellHoleDepthMeasure>
+					<MeasureValue>30</MeasureValue>
+					<MeasureUnitCode>m</MeasureUnitCode>
+				</WellHoleDepthMeasure>
+			</WellInformation>
+		</MonitoringLocation>
+	</Organization>
+	<Organization>
+		<OrganizationDescription>
+			<OrganizationIdentifier>ARS</OrganizationIdentifier>
+			<OrganizationFormalName>USDA Agricultural Research Service</OrganizationFormalName>
+		</OrganizationDescription>
+		<MonitoringLocation>
+			<MonitoringLocationIdentity>
+				<MonitoringLocationIdentifier>ARS-IAWC-IAWC225</MonitoringLocationIdentifier>
+				<MonitoringLocationName>IAWC225</MonitoringLocationName>
+				<MonitoringLocationTypeName>Land Runoff</MonitoringLocationTypeName>
+				<MonitoringLocationDescriptionText>Located on Y Avenue, one mile upstream of WC220 outlet in the 220 basin of Walnut Creek watershed in Boone County, IA.  Weekly and flow weighted runoff water samples are collected at this station.  Water samples are tested for Acetochlor, Alachlor, Atrazine, Metolachlor, Simazine, nitrate, nitrite, and total phosphorus.</MonitoringLocationDescriptionText>
+				<HUCEightDigitCode>07080105</HUCEightDigitCode>
+			</MonitoringLocationIdentity>
+			<MonitoringLocationGeospatial>
+				<LatitudeMeasure>41.9607224179</LatitudeMeasure>
+				<LongitudeMeasure>-93.698220503</LongitudeMeasure>
+				<HorizontalCollectionMethodName>GPS Code (Pseudo Range) Differential</HorizontalCollectionMethodName>
+				<HorizontalCoordinateReferenceSystemDatumName>NAD83</HorizontalCoordinateReferenceSystemDatumName>
+				<CountryCode>US</CountryCode>
+				<StateCode>19</StateCode>
+				<CountyCode>015</CountyCode>
+			</MonitoringLocationGeospatial>
+		</MonitoringLocation>
+		<MonitoringLocation>
+			<MonitoringLocationIdentity>
+				<MonitoringLocationIdentifier>ARS-IAWC-IAWC410</MonitoringLocationIdentifier>
+				<MonitoringLocationName>IAWC410</MonitoringLocationName>
+				<MonitoringLocationTypeName>River/Stream</MonitoringLocationTypeName>
+				<MonitoringLocationDescriptionText>The Big Creek downstream surface water grab sample location where samples were taken at one-week intervals.  Water samples from this site are tested for Acetochlor, Alachlor, Atrazine, Metolachlor, Simazine, nitrate, nitrite, and total phosphorus.</MonitoringLocationDescriptionText>
+				<HUCEightDigitCode>07100004</HUCEightDigitCode>
+			</MonitoringLocationIdentity>
+			<MonitoringLocationGeospatial>
+				<LatitudeMeasure>41.9505493342</LatitudeMeasure>
+				<LongitudeMeasure>-93.759072857</LongitudeMeasure>
+				<HorizontalCollectionMethodName>GPS Code (Pseudo Range) Differential</HorizontalCollectionMethodName>
+				<HorizontalCoordinateReferenceSystemDatumName>NAD83</HorizontalCoordinateReferenceSystemDatumName>
+				<CountryCode>US</CountryCode>
+				<StateCode>19</StateCode>
+				<CountyCode>015</CountyCode>
+			</MonitoringLocationGeospatial>
+		</MonitoringLocation>
+	</Organization>
+	<Organization>
+		<OrganizationDescription>
+			<OrganizationIdentifier>11NPSWRD</OrganizationIdentifier>
+			<OrganizationFormalName>National Park Service Water Resources Division</OrganizationFormalName>
+		</OrganizationDescription>
+		<MonitoringLocation>
+			<MonitoringLocationIdentity>
+				<MonitoringLocationIdentifier>11NPSWRD-BICA_MFG_B</MonitoringLocationIdentifier>
+				<MonitoringLocationName>BIGHORN LAKE NEAR BLACK CANYON</MonitoringLocationName>
+				<MonitoringLocationTypeName>Reservoir</MonitoringLocationTypeName>
+				<MonitoringLocationDescriptionText>THE STATION IS LOCATED ON THE GRAPEVINE DOME MONTANA-BIG HORN CO. 7.5 MINUTE SERIES (TOPOGRAPHIC) QUADRANGLE.  THE SITE IS ON BIGHORN LAKE NEAR BLACK CANYON.  SAMPLES FOR THIS SITE WERE COLLECTED FROM 1970-1972 BY THE MONTANA FISH AND GAME DEPARTMENT.  SAMPLES WERE ANALYZED FOR DISSOLVED OXYGEN IN 1970 AND TEMPERATURE IN 1970-1972. THE RESULTS WERE OBTAINED FROM NATURAL RESOURCES AT BIGHORN CANYON NATIONAL RECREATION AREA.  FOR MORE INFORMATION CONTACT CHIEF OF RESOURCES AT BIGHORN CANYON NATIONAL RECREATION AREA; P.O. BOX 7458; FORT SMITH MONTANA 59035.  TEL (406) 666-2412.  DATA WERE PROCESSED AND UPLOADED TO STORET BY PAUL MCELVERY AT NPS-WRD; 1201 OAK RIDGE DRIVE SUITE 250; FORT COLLINS COLORADO 80525.  TEL (970) 225-3516.¶¶¶¶***     Legacy STORET Station Type: /RESERV/TYPA/AMBNT</MonitoringLocationDescriptionText>
+				<HUCEightDigitCode>10080010</HUCEightDigitCode>
+			</MonitoringLocationIdentity>
+			<MonitoringLocationGeospatial>
+				<LatitudeMeasure>45.2757222</LatitudeMeasure>
+				<LongitudeMeasure>-108.0181389</LongitudeMeasure>
+				<HorizontalCollectionMethodName>Unknown</HorizontalCollectionMethodName>
+				<HorizontalCoordinateReferenceSystemDatumName>NAD27</HorizontalCoordinateReferenceSystemDatumName>
+				<CountryCode>US</CountryCode>
+				<StateCode>30</StateCode>
+				<CountyCode>003</CountyCode>
+			</MonitoringLocationGeospatial>
+		</MonitoringLocation>
+	</Organization>
+	<Organization>
+		<OrganizationDescription>
+			<OrganizationIdentifier>WIDNR_WQX</OrganizationIdentifier>
+			<OrganizationFormalName>Wisconsin Department of Natural Resources</OrganizationFormalName>
+		</OrganizationDescription>
+		<MonitoringLocation>
+			<MonitoringLocationIdentity>
+				<MonitoringLocationIdentifier>WIDNR_WQX-10030952</MonitoringLocationIdentifier>
+				<MonitoringLocationName>Crawfish River -- Astico County Park Canoe Launch</MonitoringLocationName>
+				<MonitoringLocationTypeName>River/Stream</MonitoringLocationTypeName>
+				<HUCEightDigitCode>07090002</HUCEightDigitCode>
+			</MonitoringLocationIdentity>
+			<MonitoringLocationGeospatial>
+				<LatitudeMeasure>43.326298</LatitudeMeasure>
+				<LongitudeMeasure>-88.9557</LongitudeMeasure>
+				<SourceMapScaleNumeric>12000</SourceMapScaleNumeric>
+				<HorizontalCollectionMethodName>Interpolation-Photo</HorizontalCollectionMethodName>
+				<HorizontalCoordinateReferenceSystemDatumName>NAD83</HorizontalCoordinateReferenceSystemDatumName>
+				<CountryCode>US</CountryCode>
+				<StateCode>55</StateCode>
+				<CountyCode>027</CountyCode>
+			</MonitoringLocationGeospatial>
+		</MonitoringLocation>
+	</Organization>
+</WQX>
