@@ -4,13 +4,16 @@ import gov.usgs.cida.wqp.dao.StreamingResultHandler;
 import gov.usgs.cida.wqp.dao.intfc.ICountDao;
 import gov.usgs.cida.wqp.dao.intfc.IDao;
 import gov.usgs.cida.wqp.dao.intfc.IStreamingDao;
+import gov.usgs.cida.wqp.mapping.IXmlMapping;
 import gov.usgs.cida.wqp.mapping.StationColumn;
+import gov.usgs.cida.wqp.mapping.StationWqx;
 import gov.usgs.cida.wqp.parameter.IParameterHandler;
 import gov.usgs.cida.wqp.parameter.ParameterMap;
 import gov.usgs.cida.wqp.parameter.Parameters;
 import gov.usgs.cida.wqp.service.ILogService;
 import gov.usgs.cida.wqp.transform.MapToDelimitedTransformer;
 import gov.usgs.cida.wqp.transform.MapToXlsxTransformer;
+import gov.usgs.cida.wqp.transform.MapToXmlTransformer;
 import gov.usgs.cida.wqp.transform.Transformer;
 import gov.usgs.cida.wqp.util.HttpConstants;
 import gov.usgs.cida.wqp.util.HttpUtils;
@@ -37,7 +40,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 @RequestMapping(value=HttpConstants.STATION_SEARCH_ENPOINT,
-	produces={HttpConstants.MIME_TYPE_XLSX, HttpConstants.MIME_TYPE_CSV, HttpConstants.MIME_TYPE_TSV}) //, HttpConstants.MIME_TYPE_XML, HttpConstants.MIME_TYPE_JSON
+	produces={HttpConstants.MIME_TYPE_XLSX, HttpConstants.MIME_TYPE_CSV, HttpConstants.MIME_TYPE_TSV, HttpConstants.MIME_TYPE_XML}) //, HttpConstants.MIME_TYPE_JSON
 public class StationController extends BaseController {
 	private static final Logger log = LoggerFactory.getLogger(StationController.class);
 
@@ -143,10 +146,10 @@ public class StationController extends BaseController {
 					case xlsx:
 						transformer = new MapToXlsxTransformer(responseStream, StationColumn.mappings, logService, logId);
 						break;
-//					case xml:
-//						IXmlMapping mapping = new SimpleStationWqxOutbound();
-//						transformer = new MapToXmlTransformer(responseStream, mapping, logService, logId);
-//						break;
+					case xml:
+						IXmlMapping mapping = new StationWqx();
+						transformer = new MapToXmlTransformer(responseStream, mapping, logService, logId);
+						break;
 					case tsv:
 						transformer = new MapToDelimitedTransformer(responseStream, StationColumn.mappings, logService, logId, MapToDelimitedTransformer.TAB);
 						break;

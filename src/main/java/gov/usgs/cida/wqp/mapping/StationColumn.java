@@ -1,28 +1,85 @@
 package gov.usgs.cida.wqp.mapping;
 
+import static gov.usgs.cida.wqp.mapping.BaseWqx.*;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
-
 public class StationColumn extends BaseColumn {
 
-	// Station Keys
-	public static final String KEY_STATION_NAME      = "STATION_NAME";
-	public static final String KEY_LATITUDE          = "LATITUDE";
-	public static final String KEY_LONGITUDE         = "LONGITUDE";
-	
-	// Simple Station Keys
-	public static final String KEY_SITE_TYPE         = "SITE_TYPE";
-	
-	// Station Values
-	public static final String VALUE_LATITUDE_MEASURE   = "LatitudeMeasure";
-	public static final String VALUE_LONGITUDE_MEASURE  = "LongitudeMeasure";
-	public static final String VALUE_MONITORING_LOCATION_NAME = "MonitoringLocationName";
+	public static final String KEY_STATION_NAME = "STATION_NAME";
+	public static final String KEY_MONITORING_LOCATION_TYPE = "STATION_TYPE_NAME";
+	public static final String KEY_MONITORING_LOCATION_DESCRIPTION = "DESCRIPTION_TEXT";
+	public static final String KEY_HUC_8 = "HUC_8";
+	public static final String KEY_HUC_12 = "HUC_12";
+	public static final String KEY_CONTRIB_DRAIN_AREA_VALUE = "CONTRIB_DRAIN_AREA_VALUE";
+	public static final String KEY_CONTRIB_DRAIN_AREA_UNIT = "CONTRIB_DRAIN_AREA_UNIT";
+	public static final String KEY_DRAIN_AREA_VALUE = "DRAIN_AREA_VALUE";
+	public static final String KEY_DRAIN_AREA_UNIT = "DRAIN_AREA_UNIT";
+	public static final String KEY_LATITUDE  = "LATITUDE";
+	public static final String KEY_LONGITUDE = "LONGITUDE";
+	public static final String KEY_SITE_TYPE = "SITE_TYPE";
+	public static final String KEY_SOURCE_MAP_SCALE = "MAP_SCALE";
+	public static final String KEY_HORIZONTAL_ACCY_VALUE = "GEOPOSITION_ACCY_VALUE";
+	public static final String KEY_HORIZONTAL_ACCY_UNIT = "GEOPOSITION_ACCY_UNIT";
+	public static final String KEY_HORIZONTAL_COLLECTION_METHOD = "GEOPOSITIONING_METHOD";
+	public static final String KEY_HORIZONTAL_DATUM = "HDATUM_ID_CODE";
+	public static final String KEY_VERTICAL_MEASURE_VALUE = "ELEVATION_VALUE";
+	public static final String KEY_VERTICAL_MEASURE_UNIT = "ELEVATION_UNIT";
+	public static final String KEY_VERTICAL_ACCY_VALUE = "VERTICAL_ACCURACY_VALUE";
+	public static final String KEY_VERTICAL_ACCY_UNIT = "VERTICAL_ACCURACY_UNIT";
+	public static final String KEY_VERTICAL_COLLECTION_METHOD = "ELEVATION_METHOD";
+	public static final String KEY_VERTICAL_DATUM = "VDATUM_ID_CODE";
+	public static final String KEY_COUNTRY_CODE = "COUNTRY_CODE";
+	public static final String KEY_STATE_CODE = "STATE_FIPS_CODE";
+	public static final String KEY_COUNTY_CODE = "COUNTY_FIPS_CODE";
+	public static final String KEY_NAT_AQFR_NAME = "NAT_AQFR_NAME";
+	public static final String KEY_AQFR_NAME = "AQFR_NAME";
+	public static final String KEY_AQFR_TYPE_NAME = "AQFR_TYPE_NAME";
+	public static final String KEY_CONSTRUCTION_DATE = "CONSTRUCTION_DATE";
+	public static final String KEY_WELL_DEPTH_VALUE = "WELL_DEPTH_VALUE";
+	public static final String KEY_WELL_DEPTH_UNIT = "WELL_DEPTH_UNIT";
+	public static final String KEY_HOLE_DEPTH_VALUE = "HOLE_DEPTH_VALUE";
+	public static final String KEY_HOLE_DEPTH_UNIT = "HOLE_DEPTH_UNIT";
 
-	// Station WQX values
-	public static final String VALUE_MONITORING_LOCATION      = "MonitoringLocation";
-	public static final String VALUE_MONITORING_LOCATION_IDENTITY   = "MonitoringLocationIdentity";
-	public static final String VALUE_RESOLVED_MONITORING_LOCATION   = "ResolvedMonitoringLocationTypeName";
-	public static final String VALUE_MONITORING_LOCATION_GEOSPATIAL = "MonitoringLocationGeospatial";
+	
+	public static final String VALUE_MONITORING_LOCATION_NAME = WQX_MONITORING_LOCATION_NAME;
+	public static final String VALUE_MONITORING_LOCATION = WQX_MONITORING_LOCATION;
+	public static final String VALUE_MONITORING_LOCATION_IDENTITY = WQX_MONITORING_LOCATION_IDENTITY;
+	public static final String VALUE_RESOLVED_MONITORING_LOCATION = WQX_RESOLVED_MONITORING_LOCATION;
+	public static final String VALUE_MONITORING_LOCATION_GEOSPATIAL = WQX_MONITORING_LOCATION_GEOSPATIAL;
+	public static final String VALUE_MONITORING_LOCATION_TYPE = WQX_MONITORING_LOCATION_TYPE;
+	public static final String VALUE_MONITORING_LOCATION_DESCRIPTION = WQX_MONITORING_LOCATION_DESCRIPTION;
+	public static final String VALUE_HUC_8 = WQX_HUC_8;
+	public static final String VALUE_HUC_12 = WQX_HUC_12;
+	public static final String VALUE_CONTRIB_DRAIN_AREA_VALUE = WQX_CONTRIB_DRAIN_AREA + VAL_DEL + WQX_MEASURE_VALUE;
+	public static final String VALUE_CONTRIB_DRAIN_AREA_UNIT = WQX_CONTRIB_DRAIN_AREA + VAL_DEL + WQX_MEASURE_UNIT;
+	public static final String VALUE_DRAIN_AREA_VALUE = WQX_DRAIN_AREA + VAL_DEL + WQX_MEASURE_VALUE;
+	public static final String VALUE_DRAIN_AREA_UNIT = WQX_DRAIN_AREA + VAL_DEL + WQX_MEASURE_UNIT;
+	public static final String VALUE_LATITUDE_MEASURE = WQX_LATITUDE_MEASURE;
+	public static final String VALUE_LONGITUDE_MEASURE = WQX_LONGITUDE_MEASURE;
+	public static final String VALUE_SOURCE_MAP_SCALE = WQX_SOURCE_MAP_SCALE;
+	public static final String VALUE_HORIZONTAL_ACCY_VALUE = WQX_HORIZONTAL_ACCY + VAL_DEL + WQX_MEASURE_VALUE;
+	public static final String VALUE_HORIZONTAL_ACCY_UNIT = WQX_HORIZONTAL_ACCY + VAL_DEL + WQX_MEASURE_UNIT;
+	public static final String VALUE_HORIZONTAL_COLLECTION_METHOD = WQX_HORIZONTAL_COLLECTION_METHOD;
+	public static final String VALUE_HORIZONTAL_DATUM = WQX_HORIZONTAL_DATUM;
+	public static final String VALUE_VERTICAL_MEASURE_VALUE = WQX_VERTICAL_MEASURE + VAL_DEL + WQX_MEASURE_VALUE;
+	public static final String VALUE_VERTICAL_MEASURE_UNIT = WQX_VERTICAL_MEASURE + VAL_DEL + WQX_MEASURE_UNIT;
+	public static final String VALUE_VERTICAL_ACCY_VALUE = WQX_VERTICAL_ACCY + VAL_DEL + WQX_MEASURE_VALUE;
+	public static final String VALUE_VERTICAL_ACCY_UNIT = WQX_VERTICAL_ACCY + VAL_DEL + WQX_MEASURE_UNIT;
+	public static final String VALUE_VERTICAL_COLLECTION_METHOD = WQX_VERTICAL_COLLECTION_METHOD;
+	public static final String VALUE_VERTICAL_DATUM = WQX_VERTICAL_DATUM;
+	public static final String VALUE_COUNTRY_CODE = WQX_COUNTRY_CODE;
+	public static final String VALUE_STATE_CODE = WQX_STATE_CODE;
+	public static final String VALUE_COUNTY_CODE = WQX_COUNTY_CODE;
+	public static final String VALUE_NAT_AQFR_NAME = WQX_NAT_AQFR_NAME;
+	public static final String VALUE_AQFR_NAME = WQX_AQFR_NAME;
+	public static final String VALUE_AQFR_TYPE_NAME = WQX_AQFR_TYPE_NAME;
+	public static final String VALUE_CONSTRUCTION_DATE = WQX_CONSTRUCTION_DATE;
+	public static final String VALUE_WELL_DEPTH_VALUE = WQX_WELL_DEPTH + VAL_DEL + WQX_MEASURE_VALUE;
+	public static final String VALUE_WELL_DEPTH_UNIT = WQX_WELL_DEPTH + VAL_DEL + WQX_MEASURE_UNIT;
+	public static final String VALUE_HOLE_DEPTH_VALUE = WQX_HOLE_DEPTH + VAL_DEL + WQX_MEASURE_VALUE;
+	public static final String VALUE_HOLE_DEPTH_UNIT = WQX_HOLE_DEPTH + VAL_DEL + WQX_MEASURE_UNIT;
+
 	
 	
 	
@@ -30,45 +87,43 @@ public class StationColumn extends BaseColumn {
 	
 	static {
 		mappings = new LinkedHashMap<String,String>();
-		mappings.put(KEY_ORGANIZATION_NAME,VALUE_ORGANIZATION_FORMAL_NAME);
-		mappings.put(KEY_ORGANIZATION,VALUE_ORGANIZATION_IDENTIFIER);
-		mappings.put(KEY_SITE_ID,VALUE_MONITORING_LOCATION_IDENTIFIER);
-		mappings.put(KEY_STATION_NAME,VALUE_MONITORING_LOCATION_NAME);
-		mappings.put("STATION_TYPE_NAME","MonitoringLocationTypeName");
-		mappings.put("DESCRIPTION_TEXT","MonitoringLocationDescriptionText");
-		mappings.put("HUC_8", "HUCEightDigitCode");
-		mappings.put("HUC_12", "HUCTwelveDigitCode");
-		mappings.put("CONTRIB_DRAIN_AREA_VALUE","ContributingDrainageAreaMeasure/MeasureValue");
-		mappings.put("CONTRIB_DRAIN_AREA_UNIT","ContributingDrainageAreaMeasure/MeasureUnitCode");
-		mappings.put("DRAIN_AREA_VALUE","DrainageAreaMeasure/MeasureValue");
-		mappings.put("DRAIN_AREA_UNIT","DrainageAreaMeasure/MeasureUnitCode");
-		mappings.put(KEY_LATITUDE,VALUE_LATITUDE_MEASURE);
-		mappings.put(KEY_LONGITUDE,VALUE_LONGITUDE_MEASURE);
-		mappings.put("MAP_SCALE","SourceMapScaleNumeric");
-		mappings.put("GEOPOSITION_ACCY_VALUE","HorizontalAccuracyMeasure/MeasureValue");
-		mappings.put("GEOPOSITION_ACCY_UNIT","HorizontalAccuracyMeasure/MeasureUnitCode");
-		mappings.put("GEOPOSITIONING_METHOD","HorizontalCollectionMethodName");
-		mappings.put("HDATUM_ID_CODE","HorizontalCoordinateReferenceSystemDatumName");
-		mappings.put("ELEVATION_VALUE","VerticalMeasure/MeasureValue");
-		mappings.put("ELEVATION_UNIT","VerticalMeasure/MeasureUnitCode");
-		mappings.put("VERTICAL_ACCURACY_VALUE","VerticalAccuracyMeasure/MeasureValue");
-		mappings.put("VERTICAL_ACCURACY_UNIT","VerticalAccuracyMeasure/MeasureUnitCode");
-		mappings.put("ELEVATION_METHOD","VerticalCollectionMethodName");
-		mappings.put("VDATUM_ID_CODE","VerticalCoordinateReferenceSystemDatumName");
-		mappings.put("COUNTRY_CODE","CountryCode");
-		mappings.put("STATE_CODE","StateCode");
-		mappings.put("COUNTY_CODE","CountyCode");
-		mappings.put("STATE_FIPS_CODE","StateCode");
-		mappings.put("COUNTY_FIPS_CODE","CountyCode");
-		mappings.put("NAT_AQFR_NAME","AquiferName");
-		mappings.put("AQFR_NAME","FormationTypeText");
-		mappings.put("AQFR_TYPE_NAME","AquiferTypeName");
-		mappings.put("CONSTRUCTION_DATE","ConstructionDateText");
-		mappings.put("WELL_DEPTH_VALUE","WellDepthMeasure/MeasureValue");
-		mappings.put("WELL_DEPTH_UNIT","WellDepthMeasure/MeasureUnitCode");
-		mappings.put("HOLE_DEPTH_VALUE","WellHoleDepthMeasure/MeasureValue");
-		mappings.put("HOLE_DEPTH_UNIT","WellHoleDepthMeasure/MeasureUnitCode");
-		mappings.put(KEY_DATA_SOURCE,VALUE_DATA_SOURCE);
+		mappings.put(KEY_ORGANIZATION, VALUE_ORGANIZATION_IDENTIFIER);
+		mappings.put(KEY_ORGANIZATION_NAME, VALUE_ORGANIZATION_FORMAL_NAME);
+		mappings.put(KEY_SITE_ID, VALUE_MONITORING_LOCATION_IDENTIFIER);
+		mappings.put(KEY_STATION_NAME, VALUE_MONITORING_LOCATION_NAME);
+		mappings.put(KEY_MONITORING_LOCATION_TYPE, VALUE_MONITORING_LOCATION_TYPE);
+		mappings.put(KEY_MONITORING_LOCATION_DESCRIPTION, VALUE_MONITORING_LOCATION_DESCRIPTION);
+		mappings.put(KEY_HUC_8, VALUE_HUC_8);
+//		mappings.put(KEY_HUC_12, VALUE_HUC_12);
+		mappings.put(KEY_DRAIN_AREA_VALUE, VALUE_DRAIN_AREA_VALUE);
+		mappings.put(KEY_DRAIN_AREA_UNIT, VALUE_DRAIN_AREA_UNIT);
+		mappings.put(KEY_CONTRIB_DRAIN_AREA_VALUE, VALUE_CONTRIB_DRAIN_AREA_VALUE);
+		mappings.put(KEY_CONTRIB_DRAIN_AREA_UNIT, VALUE_CONTRIB_DRAIN_AREA_UNIT);
+		mappings.put(KEY_LATITUDE, VALUE_LATITUDE_MEASURE);
+		mappings.put(KEY_LONGITUDE, VALUE_LONGITUDE_MEASURE);
+		mappings.put(KEY_SOURCE_MAP_SCALE, VALUE_SOURCE_MAP_SCALE);
+		mappings.put(KEY_HORIZONTAL_ACCY_VALUE, VALUE_HORIZONTAL_ACCY_VALUE);
+		mappings.put(KEY_HORIZONTAL_ACCY_UNIT, VALUE_HORIZONTAL_ACCY_UNIT);
+		mappings.put(KEY_HORIZONTAL_COLLECTION_METHOD, VALUE_HORIZONTAL_COLLECTION_METHOD);
+		mappings.put(KEY_HORIZONTAL_DATUM, VALUE_HORIZONTAL_DATUM);
+		mappings.put(KEY_VERTICAL_MEASURE_VALUE, VALUE_VERTICAL_MEASURE_VALUE);
+		mappings.put(KEY_VERTICAL_MEASURE_UNIT, VALUE_VERTICAL_MEASURE_UNIT);
+		mappings.put(KEY_VERTICAL_ACCY_VALUE, VALUE_VERTICAL_ACCY_VALUE);
+		mappings.put(KEY_VERTICAL_ACCY_UNIT, VALUE_VERTICAL_ACCY_UNIT);
+		mappings.put(KEY_VERTICAL_COLLECTION_METHOD, VALUE_VERTICAL_COLLECTION_METHOD);
+		mappings.put(KEY_VERTICAL_DATUM, VALUE_VERTICAL_DATUM);
+		mappings.put(KEY_COUNTRY_CODE, VALUE_COUNTRY_CODE);
+		mappings.put(KEY_STATE_CODE, VALUE_STATE_CODE);
+		mappings.put(KEY_COUNTY_CODE, VALUE_COUNTY_CODE);
+		mappings.put(KEY_NAT_AQFR_NAME, VALUE_NAT_AQFR_NAME);
+		mappings.put(KEY_AQFR_NAME, VALUE_AQFR_NAME);
+		mappings.put(KEY_AQFR_TYPE_NAME, VALUE_AQFR_TYPE_NAME);
+		mappings.put(KEY_CONSTRUCTION_DATE, VALUE_CONSTRUCTION_DATE);
+		mappings.put(KEY_WELL_DEPTH_VALUE, VALUE_WELL_DEPTH_VALUE);
+		mappings.put(KEY_WELL_DEPTH_UNIT, VALUE_WELL_DEPTH_UNIT);
+		mappings.put(KEY_HOLE_DEPTH_VALUE, VALUE_HOLE_DEPTH_VALUE);
+		mappings.put(KEY_HOLE_DEPTH_UNIT, VALUE_HOLE_DEPTH_UNIT);
+		mappings.put(KEY_DATA_SOURCE, VALUE_DATA_SOURCE);
 	}
 
 }

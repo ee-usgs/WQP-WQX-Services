@@ -78,9 +78,7 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
         	.andReturn();
 
         assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues("Access-Control-Expose-Headers"));
-        //TODO - test is not resetting the need to translate headers - fist of this and TSV works, second doesn't
-        //TODO - might also be an issue in Tomcat???
-        //assertEquals(getCompareFile("station.csv"), rtn.getResponse().getContentAsString());
+        assertEquals(getCompareFile("station.csv"), rtn.getResponse().getContentAsString());
     }
 
     @Test
@@ -113,9 +111,7 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
         	.andReturn();
 
         assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues("Access-Control-Expose-Headers"));
-        //TODO - test is not resetting the need to translate headers - fist of this and TSV works, second doesn't
-        //TODO - might also be an issue in Tomcat???
-        //assertEquals(getCompareFile("station.tsv"), rtn.getResponse().getContentAsString());
+        assertEquals(getCompareFile("station.tsv"), rtn.getResponse().getContentAsString());
     }
 
     @Test
@@ -151,4 +147,41 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
     	//TODO an actual compare - perhaps using     https://github.com/tobyweston/simple-excel
 //    	assertEquals(getCompareFile("station.tsv"), rtn.getResponse().getContentAsString());
     }
+    
+    @Test
+    public void getAsXmlHeadTest() throws Exception {
+    	MvcResult rtn = mockMvc.perform(head("/Station/search?mimeType=xml"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MIME_TYPE_XML))
+            .andExpect(content().encoding(DEFAULT_ENCODING))
+            .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=station.xml"))
+            .andExpect(header().string("Total-Site-Count", "6"))
+            .andExpect(header().string("NWIS-Site-Count", "2"))
+            .andExpect(header().string("STEWARDS-Site-Count", "2"))
+            .andExpect(header().string("STORET-Site-Count", "2"))
+            .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
+            .andReturn();
+
+    	assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues("Access-Control-Expose-Headers"));
+    	assertEquals("", rtn.getResponse().getContentAsString());
+    }
+    
+    @Test
+    public void getAsXmlGetTest() throws Exception {
+    	MvcResult rtn = mockMvc.perform(get("/Station/search?mimeType=xml"))
+        	.andExpect(status().isOk())
+        	.andExpect(content().contentType(MIME_TYPE_XML))
+        	.andExpect(content().encoding(DEFAULT_ENCODING))
+        	.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=station.xml"))
+        	.andExpect(header().string("Total-Site-Count", "6"))
+        	.andExpect(header().string("NWIS-Site-Count", "2"))
+        	.andExpect(header().string("STEWARDS-Site-Count", "2"))
+        	.andExpect(header().string("STORET-Site-Count", "2"))
+            .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
+        	.andReturn();
+
+        assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues("Access-Control-Expose-Headers"));
+        assertEquals(harmonizeXml(getCompareFile("station.xml")), harmonizeXml(rtn.getResponse().getContentAsString()));
+    }
+
 }

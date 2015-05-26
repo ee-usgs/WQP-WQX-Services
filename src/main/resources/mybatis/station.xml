@@ -11,6 +11,7 @@
 			   station_type_name,
 			   description_text,
 			   huc_8,
+			   huc_12,
 			   drain_area_value,
 			   drain_area_unit,
 			   contrib_drain_area_value,
