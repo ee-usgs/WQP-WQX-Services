@@ -24,7 +24,7 @@ public class MapToKmlTransformerTest {
 	@Mock
     protected ILogService logService;
 	protected BigDecimal logId = new BigDecimal(1);
-	protected IXmlMapping fieldMapping = new StationKml();
+	protected IXmlMapping fieldMapping = new StationKml("abc");
 	protected MapToKmlTransformer transformer;
 	protected ByteArrayOutputStream baos;
 
@@ -44,7 +44,7 @@ public class MapToKmlTransformerTest {
 	public void writeHeaderTest() {
 		try {
 			transformer.writeHeader();
-			assertEquals(869, baos.size());
+			assertEquals(38 + fieldMapping.getHeader().length(), baos.size());
 			assertEquals("<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + fieldMapping.getHeader(),
 					new String(baos.toByteArray(), HttpConstants.DEFAULT_ENCODING));
 			assertTrue(transformer.nodes.contains(fieldMapping.getRoot()));

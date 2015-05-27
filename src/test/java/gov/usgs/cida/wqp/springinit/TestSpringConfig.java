@@ -36,7 +36,7 @@ public class TestSpringConfig extends SpringConfig {
 	@Bean
 	public SqlSessionFactoryBean sqlSessionFactory() {
 		SqlSessionFactoryBean mybatis = new SqlSessionFactoryBean();
-		Resource mybatisConfig = new ClassPathResource(WqpEnv.get(MYBATIS_CONF));
+		Resource mybatisConfig = new ClassPathResource(MYBATIS_CONF);
 		mybatis.setConfigLocation(mybatisConfig);
 		try {
 			mybatis.setDataSource(testDataSource());
