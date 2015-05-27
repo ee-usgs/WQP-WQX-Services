@@ -13,6 +13,8 @@ import java.util.Map;
 
 public class StationKml implements IXmlMapping {
 
+	protected final String kmlStyleUrl;
+	
 	public static final String KEY_STYLE_URL = "STYLE_URL";
 	public static final String KEY_COORDINATES = "COORDINATES";
 	public static final String KEY_STATION_NAME2 = KEY_STATION_NAME + "2";
@@ -187,18 +189,22 @@ public class StationKml implements IXmlMapping {
 						                             KEY_COORDINATES)));
 	}
 		
+	public StationKml(String kmlStyleUrl) {
+		this.kmlStyleUrl = kmlStyleUrl;
+	}
+	
 	public String getRoot() {
 		return ROOT_NODE;
 	}
 
 	public String getHeader() {
 		return "<kml><Document>" +
-			   "<StyleMap id='ARSSite'><Pair><key>normal</key><styleUrl>http://www.waterqualitydata.us/kml/wqp_styles.kml#normalARSSite</styleUrl></Pair>" +
-			   "<Pair><key>highlight</key><styleUrl>http://www.waterqualitydata.us/kml/wqp_styles.kml#highlightARSSite</styleUrl></Pair></StyleMap>" +
-			   "<StyleMap id='NWISSite'><Pair><key>normal</key><styleUrl>http://www.waterqualitydata.us/kml/wqp_styles.kml#normalNWISSite</styleUrl></Pair>" +
-			   "<Pair><key>highlight</key><styleUrl>http://www.waterqualitydata.us/kml/wqp_styles.kml#highlightNWISSite</styleUrl></Pair></StyleMap>" +
-			   "<StyleMap id='STORETSite'><Pair><key>normal</key><styleUrl>http://www.waterqualitydata.us/kml/wqp_styles.kml#normalSTORETSite</styleUrl></Pair>" +
-			   "<Pair><key>highlight</key><styleUrl>http://www.waterqualitydata.us/kml/wqp_styles.kml#highlightSTORETSite</styleUrl></Pair></StyleMap>";
+			   "<StyleMap id='ARSSite'><Pair><key>normal</key><styleUrl>" + kmlStyleUrl + "#normalARSSite</styleUrl></Pair>" +
+			   "<Pair><key>highlight</key><styleUrl>" + kmlStyleUrl + "#highlightARSSite</styleUrl></Pair></StyleMap>" +
+			   "<StyleMap id='NWISSite'><Pair><key>normal</key><styleUrl>" + kmlStyleUrl + "#normalNWISSite</styleUrl></Pair>" +
+			   "<Pair><key>highlight</key><styleUrl>" + kmlStyleUrl + "#highlightNWISSite</styleUrl></Pair></StyleMap>" +
+			   "<StyleMap id='STORETSite'><Pair><key>normal</key><styleUrl>" + kmlStyleUrl + "#normalSTORETSite</styleUrl></Pair>" +
+			   "<Pair><key>highlight</key><styleUrl>" + kmlStyleUrl + "#highlightSTORETSite</styleUrl></Pair></StyleMap>";
 	}
 
 	public String getEntryNodeName() {

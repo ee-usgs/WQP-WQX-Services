@@ -34,6 +34,7 @@ import org.apache.ibatis.session.ResultHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,16 +50,19 @@ public class StationController extends BaseController {
 	 * Beans		===========================================================
 	 * ========================================================================
 	 */
-	protected IStreamingDao streamingDao;
-	protected ICountDao countDao;
-	protected IParameterHandler parameterHandler;
-	protected ILogService logService;
+	protected final IStreamingDao streamingDao;
+	protected final ICountDao countDao;
+	protected final IParameterHandler parameterHandler;
+	protected final ILogService logService;
+	protected final String kmlStyleUrl;
 	protected ParameterMap pm;
 
 	
 	@Autowired
 	public StationController(IStreamingDao inStreamingDao, ICountDao inCountDao,
-			IParameterHandler inParameterHandler, ILogService inLogService) {
+			IParameterHandler inParameterHandler, ILogService inLogService,
+			@Qualifier("kmlStyleUrl")
+			String inKmlStyleUrl) {
 		
 		log.trace(getClass().getName());
 		
@@ -66,6 +70,7 @@ public class StationController extends BaseController {
 		parameterHandler = inParameterHandler;
 		countDao         = inCountDao;
 		logService       = inLogService;
+		kmlStyleUrl      = inKmlStyleUrl;
 	}
 
 	/* ========================================================================
@@ -152,7 +157,7 @@ public class StationController extends BaseController {
 						transformer = new MapToXmlTransformer(responseStream, new StationWqx(), logService, logId);
 						break;
 					case kml:
-						transformer = new MapToKmlTransformer(responseStream, new StationKml(), logService, logId);
+						transformer = new MapToKmlTransformer(responseStream, new StationKml(kmlStyleUrl), logService, logId);
 						namespace = IDao.STATION_KML_NAMESPACE;
 						break;
 					case tsv:
