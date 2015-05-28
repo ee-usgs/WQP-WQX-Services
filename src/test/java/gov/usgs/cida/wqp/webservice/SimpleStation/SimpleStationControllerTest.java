@@ -100,6 +100,46 @@ public class SimpleStationControllerTest extends BaseSpringTest implements HttpC
     }
 
     @Test
+    public void getAsJsonZipTest() throws Exception {
+    	MvcResult rtn = mockMvc.perform(head("/simplestation/search?mimeType=json&zip=yes"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MIME_TYPE_ZIP))
+            .andExpect(content().encoding(DEFAULT_ENCODING))
+            .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=simplestation.zip"))
+            .andExpect(header().string(HttpConstants.HEADER_CORS_METHODS, HttpConstants.HEADER_CORS_METHODS_VALUE))
+            .andExpect(header().string(HttpConstants.HEADER_CORS_MAX_AGE, HttpConstants.HEADER_CORS_MAX_AGE_VALUE))
+		    .andExpect(header().string(HttpConstants.HEADER_CORS_ALLOW_HEADERS, HttpConstants.HEADER_CORS_ALLOW_HEADERS_VALUE))
+            .andExpect(header().string("Total-Site-Count", "6"))
+            .andExpect(header().string("NWIS-Site-Count", "2"))
+            .andExpect(header().string("STEWARDS-Site-Count", "2"))
+            .andExpect(header().string("STORET-Site-Count", "2"))
+            .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
+            .andReturn();
+
+    	assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues("Access-Control-Expose-Headers"));
+    	assertEquals("", rtn.getResponse().getContentAsString());
+        
+        rtn = mockMvc.perform(get("/simplestation/search?mimeType=json&zip=yes"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MIME_TYPE_ZIP))
+            .andExpect(content().encoding(DEFAULT_ENCODING))
+            .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=simplestation.zip"))
+            .andExpect(header().string(HttpConstants.HEADER_CORS_METHODS, HttpConstants.HEADER_CORS_METHODS_VALUE))
+            .andExpect(header().string(HttpConstants.HEADER_CORS_MAX_AGE, HttpConstants.HEADER_CORS_MAX_AGE_VALUE))
+		    .andExpect(header().string(HttpConstants.HEADER_CORS_ALLOW_HEADERS, HttpConstants.HEADER_CORS_ALLOW_HEADERS_VALUE))
+            .andExpect(header().string("Total-Site-Count", "6"))
+            .andExpect(header().string("NWIS-Site-Count", "2"))
+            .andExpect(header().string("STEWARDS-Site-Count", "2"))
+            .andExpect(header().string("STORET-Site-Count", "2"))
+            .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
+            .andReturn();
+
+        assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues("Access-Control-Expose-Headers"));
+        assertThat(new JSONObject(extractZipContent(rtn.getResponse().getContentAsByteArray())),
+        		sameJSONObjectAs(new JSONObject(getCompareFile("simpleStation.json"))));
+    }
+
+    @Test
     public void getAsXmlTest_HEAD() throws Exception {
         MvcResult rtn = mockMvc.perform(head("/simplestation/search?mimeType=xml"))
             .andExpect(status().isOk())
@@ -139,6 +179,48 @@ public class SimpleStationControllerTest extends BaseSpringTest implements HttpC
 
         assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues("Access-Control-Expose-Headers"));
         assertEquals(harmonizeXml(getCompareFile("simpleStation.xml")), harmonizeXml(rtn.getResponse().getContentAsString()));
+    }
+
+    @Test
+    public void getAsXmlZipTest_HEAD() throws Exception {
+        MvcResult rtn = mockMvc.perform(head("/simplestation/search?mimeType=xml&zip=yes"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MIME_TYPE_ZIP))
+            .andExpect(content().encoding(DEFAULT_ENCODING))
+            .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=simplestation.zip"))
+            .andExpect(header().string(HttpConstants.HEADER_CORS_METHODS, HttpConstants.HEADER_CORS_METHODS_VALUE))
+            .andExpect(header().string(HttpConstants.HEADER_CORS_MAX_AGE, HttpConstants.HEADER_CORS_MAX_AGE_VALUE))
+		    .andExpect(header().string(HttpConstants.HEADER_CORS_ALLOW_HEADERS, HttpConstants.HEADER_CORS_ALLOW_HEADERS_VALUE))
+            .andExpect(header().string("Total-Site-Count", "6"))
+            .andExpect(header().string("NWIS-Site-Count", "2"))
+            .andExpect(header().string("STEWARDS-Site-Count", "2"))
+            .andExpect(header().string("STORET-Site-Count", "2"))
+            .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
+            .andReturn();
+
+    	assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues("Access-Control-Expose-Headers"));
+    	assertEquals("", rtn.getResponse().getContentAsString());
+    }
+    
+    @Test
+    public void getAsXmlZipTest_GET() throws Exception {
+    	MvcResult rtn = mockMvc.perform(get("/simplestation/search?mimeType=xml&zip=yes"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MIME_TYPE_ZIP))
+            .andExpect(content().encoding(DEFAULT_ENCODING))
+            .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=simplestation.zip"))
+            .andExpect(header().string(HttpConstants.HEADER_CORS_METHODS, HttpConstants.HEADER_CORS_METHODS_VALUE))
+            .andExpect(header().string(HttpConstants.HEADER_CORS_MAX_AGE, HttpConstants.HEADER_CORS_MAX_AGE_VALUE))
+		    .andExpect(header().string(HttpConstants.HEADER_CORS_ALLOW_HEADERS, HttpConstants.HEADER_CORS_ALLOW_HEADERS_VALUE))
+            .andExpect(header().string("Total-Site-Count", "6"))
+            .andExpect(header().string("NWIS-Site-Count", "2"))
+            .andExpect(header().string("STEWARDS-Site-Count", "2"))
+            .andExpect(header().string("STORET-Site-Count", "2"))
+            .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
+            .andReturn();
+
+        assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues("Access-Control-Expose-Headers"));
+        assertEquals(harmonizeXml(getCompareFile("simpleStation.xml")), harmonizeXml(extractZipContent(rtn.getResponse().getContentAsByteArray())));
     }
 
     @Test
@@ -186,4 +268,5 @@ public class SimpleStationControllerTest extends BaseSpringTest implements HttpC
 //        assertEquals(harmonizeXml(getCompareFile("simpleStation.xml")), harmonizeXml(rtn.getResponse().getContentAsString()));
 	
     }
+
 }

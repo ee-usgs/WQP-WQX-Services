@@ -15,7 +15,7 @@
     </category>
 
     <category name="gov.usgs">
-        <level value="info"/>
+        <level value="trace"/>
     </category>
     
     <category name="org.mybatis">
@@ -27,7 +27,7 @@
     </category>    
     
     <category name="org.dbunit">
-        <level value="debug"/> 
+        <level value="info"/> 
     </category>    
     
     <root>
