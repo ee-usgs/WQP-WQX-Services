@@ -119,7 +119,7 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
         	.andReturn();
 
         assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues("Access-Control-Expose-Headers"));
-        assertEquals(getCompareFile("station.csv"), extractZipContent(rtn.getResponse().getContentAsByteArray()));
+        assertEquals(getCompareFile("station.csv"), extractZipContent(rtn.getResponse().getContentAsByteArray(), "station.csv"));
     }
 
     @Test
@@ -185,7 +185,7 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
         	.andReturn();
 
         assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues("Access-Control-Expose-Headers"));
-        assertEquals(getCompareFile("station.tsv"), extractZipContent(rtn.getResponse().getContentAsByteArray()));
+        assertEquals(getCompareFile("station.tsv"), extractZipContent(rtn.getResponse().getContentAsByteArray(), "station.tsv"));
     }
 
     @Test
@@ -325,7 +325,7 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
         	.andReturn();
 
         assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues("Access-Control-Expose-Headers"));
-        assertEquals(harmonizeXml(getCompareFile("station.xml")), harmonizeXml(extractZipContent(rtn.getResponse().getContentAsByteArray())));
+        assertEquals(harmonizeXml(getCompareFile("station.xml")), harmonizeXml(extractZipContent(rtn.getResponse().getContentAsByteArray(), "station.xml")));
     }
 
     @Test
@@ -415,7 +415,7 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
         	.andReturn();
 
         assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues("Access-Control-Expose-Headers"));
-        assertEquals(harmonizeXml(getCompareFile("station.kml")), harmonizeXml(extractZipContent(rtn.getResponse().getContentAsByteArray())));
+        assertEquals(harmonizeXml(getCompareFile("station.kml")), harmonizeXml(extractZipContent(rtn.getResponse().getContentAsByteArray(), "station.kml")));
     }
 
     @Test
@@ -433,7 +433,7 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
         	.andReturn();
 
         assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues("Access-Control-Expose-Headers"));
-        assertEquals(harmonizeXml(getCompareFile("station.kml")), harmonizeXml(extractZipContent(rtn.getResponse().getContentAsByteArray())));
+        assertEquals(harmonizeXml(getCompareFile("station.kml")), harmonizeXml(extractZipContent(rtn.getResponse().getContentAsByteArray(), "station.kml")));
     }
 
     @Test

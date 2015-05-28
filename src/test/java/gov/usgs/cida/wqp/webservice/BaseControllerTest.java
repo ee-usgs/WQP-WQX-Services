@@ -201,6 +201,15 @@ public class BaseControllerTest {
 	}
 
 	@Test
+	public void getZipEntryNameTest() {
+		assertEquals("abc.csv", testController.getZipEntryName("abc", MimeType.csv));
+		assertEquals("abc.csv", testController.getZipEntryName("AbC", MimeType.csv));
+		assertEquals("abc.csv", testController.getZipEntryName("ABC", MimeType.csv));
+		assertEquals("abc.kml", testController.getZipEntryName("ABC", MimeType.kml));
+		assertEquals("abc.kml", testController.getZipEntryName("ABC", MimeType.kml));
+	}
+
+	@Test
 	public void getNamespaceTest() {
 		assertEquals("abc", testController.getNamespace("abc", MimeType.csv));
 		assertEquals(IDao.STATION_KML_NAMESPACE, testController.getNamespace("abc", MimeType.kmz));
@@ -409,7 +418,7 @@ public class BaseControllerTest {
 		ZipInputStream in = new ZipInputStream(new ByteArrayInputStream(response.getContentAsByteArray()));
 		try {
 			ZipEntry entry = in.getNextEntry();
-			assertTrue(entry.getName().contentEquals("endpoint.kmz"));
+			assertTrue(entry.getName().contentEquals("endpoint.kml"));
 		} catch (IOException e) {
 			fail("Should not get exception but did:" + e.getLocalizedMessage());
 		}

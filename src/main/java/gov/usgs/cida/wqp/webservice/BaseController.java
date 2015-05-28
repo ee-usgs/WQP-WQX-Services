@@ -217,7 +217,7 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 		try {
 			if (doHeader(request, response, logId, mybatisNamespace, endpoint)) {
 				String namespace = getNamespace(mybatisNamespace, mimeType);
-				OutputStream responseStream = getOutputStream(response, zipped, endpoint.toLowerCase()+"."+mimeType);
+				OutputStream responseStream = getOutputStream(response, zipped, getZipEntryName(endpoint, mimeType));
 				Transformer transformer = getTransformer(mimeType, responseStream, logId);
 					
 				ResultHandler handler = new StreamingResultHandler(transformer);
@@ -237,6 +237,14 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 			logService.logRequestComplete(logId, String.valueOf(response.getStatus()));
 		}
 		return "";
+	}
+	
+	protected String getZipEntryName(String endpoint, MimeType mimeType) {
+		if (MimeType.kml.equals(mimeType) || MimeType.kmz.equals(mimeType)) {
+			return endpoint.toLowerCase() + "." + MimeType.kml;
+		} else {
+			return endpoint.toLowerCase() + "." + mimeType;
+		}
 	}
 
 	protected String getNamespace(String mybatisNamespace, MimeType mimeType) {
