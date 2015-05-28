@@ -67,4 +67,8 @@ public class MapToDelimitedTransformer extends Transformer {
 		}
 	}
 
+	public String getDelimiter() {
+		return delimiter;
+	}
+
 }

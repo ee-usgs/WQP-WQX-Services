@@ -2,7 +2,6 @@ package gov.usgs.cida.wqp.service;
 
 import static gov.usgs.cida.wqp.exception.WqpExceptionId.METHOD_PARAM_EMPTY;
 import static gov.usgs.cida.wqp.exception.WqpExceptionId.METHOD_PARAM_NULL;
-import static gov.usgs.cida.wqp.exception.WqpExceptionId.UNDEFINED_WQP_CONFIG_PARAM;
 import static gov.usgs.cida.wqp.exception.WqpExceptionId.URL_PARSING_EXCEPTION;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
