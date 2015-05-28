@@ -153,7 +153,7 @@ public class ResultControllerTest extends BaseSpringTest implements HttpConstant
             .andReturn();
 
         assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues("Access-Control-Expose-Headers"));
-        assertEquals(getCompareFile("pcResult.csv"), extractZipContent(rtn.getResponse().getContentAsByteArray()));
+        assertEquals(getCompareFile("pcResult.csv"), extractZipContent(rtn.getResponse().getContentAsByteArray(), "result.csv"));
     }
 
 
@@ -254,7 +254,7 @@ public class ResultControllerTest extends BaseSpringTest implements HttpConstant
             .andReturn();
 
         assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues("Access-Control-Expose-Headers"));
-        assertEquals(getCompareFile("pcResult.tsv"), extractZipContent(rtn.getResponse().getContentAsByteArray()));
+        assertEquals(getCompareFile("pcResult.tsv"), extractZipContent(rtn.getResponse().getContentAsByteArray(), "result.tsv"));
     }
 
     
@@ -458,7 +458,7 @@ public class ResultControllerTest extends BaseSpringTest implements HttpConstant
             .andReturn();
 
         assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues("Access-Control-Expose-Headers"));
-        assertEquals(harmonizeXml(getCompareFile("pcResult.xml")), harmonizeXml(extractZipContent(rtn.getResponse().getContentAsByteArray())));
+        assertEquals(harmonizeXml(getCompareFile("pcResult.xml")), harmonizeXml(extractZipContent(rtn.getResponse().getContentAsByteArray(), "result.xml")));
     }
     
     @Test

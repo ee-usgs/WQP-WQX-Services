@@ -1,4 +1,6 @@
 package gov.usgs.cida.wqp;
+
+import static org.junit.Assert.assertEquals;
 import gov.usgs.cida.wqp.springinit.TestSpringConfig;
 
 import java.io.ByteArrayInputStream;
@@ -7,6 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 import org.junit.runner.RunWith;
@@ -45,9 +48,10 @@ public abstract class BaseSpringTest {
 		return new String(FileCopyUtils.copyToByteArray(new ClassPathResource("testResult/" + file).getInputStream()));
 	}
 
-	public String extractZipContent(byte[] content) throws IOException {
+	public String extractZipContent(byte[] content, String expectedEntryName) throws IOException {
 		ZipInputStream in = new ZipInputStream(new ByteArrayInputStream(content));
-		in.getNextEntry();
+		ZipEntry e = in.getNextEntry();
+		assertEquals(expectedEntryName, e.getName());
 		
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         int len;
