@@ -34,7 +34,7 @@ public abstract class Transformer extends OutputStream implements ITransformer {
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public void write(Object result) throws IOException {
+	public void write(Object result) {
 		if (null == result) {
 			return;
 		}
@@ -49,17 +49,21 @@ public abstract class Transformer extends OutputStream implements ITransformer {
 			}
 			writeData(resultMap);
 		}
-		target.flush();
+		try {
+			target.flush();
+		} catch (IOException e) {
+			throw new RuntimeException("Error flushing OutputStream", e);
+		}
 	}
 	
-	protected abstract void init() throws IOException;
+	protected abstract void init();
 	
-	protected abstract void writeHeader() throws IOException;
+	protected abstract void writeHeader();
 
-	protected abstract void writeData(Map<String, Object> resultMap) throws IOException;
+	protected abstract void writeData(Map<String, Object> resultMap);
 
 	@Override
-	public void write(int b) throws IOException {
+	public void write(int b) {
 		//Nothing to do here, but we need to override because we are extending OutpuStream.
 		throw new RuntimeException("Writing a single byte is not supported");
 	}
@@ -67,17 +71,24 @@ public abstract class Transformer extends OutputStream implements ITransformer {
 	/** 
 	 * Converts a string to a byte array and stream it.
 	 * @param in the string to be streamed.
-	 * @throws IOException when issues with the streaming.
 	 */
-	protected void writeToStream(final String in) throws IOException {
-		if (null != in) {
-			target.write(in.getBytes(HttpConstants.DEFAULT_ENCODING));
+	protected void writeToStream(final String in) {
+		try {
+			if (null != in) {
+				target.write(in.getBytes(HttpConstants.DEFAULT_ENCODING));
+			}
+		} catch (IOException e) {
+			throw new RuntimeException("Error writing to stream", e);
 		}
 	}
 
-	public void end() throws IOException {
-		target.flush();
-		this.close();
+	public void end() {
+		try {
+			target.flush();
+			this.close();
+		} catch (IOException e) {
+			throw new RuntimeException("Error ending transformation", e);
+		}
 	}
 
 }

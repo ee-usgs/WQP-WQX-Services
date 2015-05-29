@@ -11,14 +11,14 @@ import org.slf4j.LoggerFactory;
  * @author tkunicki
  */
 public class SplitAndRegexGroupTransformer implements ParameterTransformer<String[][]> {
-	private final Logger log = LoggerFactory.getLogger(getClass());
+	private static final Logger LOG = LoggerFactory.getLogger(SplitAndRegexGroupTransformer.class);
 	
 	private final Pattern regexPattern;
 	private final SplitTransformer splitter;
 	
 	public SplitAndRegexGroupTransformer(String delimiter, String regex) {
 		splitter = new SplitTransformer(delimiter);
-		log.trace(getClass().getName());
+		LOG.trace(getClass().getName());
 		regexPattern = Pattern.compile(regex);
 	}
 	

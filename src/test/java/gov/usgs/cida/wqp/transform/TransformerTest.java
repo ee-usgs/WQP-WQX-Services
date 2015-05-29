@@ -32,7 +32,7 @@ public class TransformerTest {
 	protected BigDecimal logId = new BigDecimal(1);
 
     @Before
-    public void initTest() throws Exception {
+    public void initTest() {
         MockitoAnnotations.initMocks(this);
     }
 
@@ -44,15 +44,15 @@ public class TransformerTest {
 			super(target, mapping, logService, logId);
 		}
 		@Override
-		protected void init() throws IOException {
+		protected void init() {
 			initCalled = initCalled + 1;
 		}
 		@Override
-		protected void writeHeader() throws IOException {
+		protected void writeHeader() {
 			writeHeaderCalled = writeHeaderCalled + 1;
 		}
 		@Override
-		protected void writeData(Map<String, Object> resultMap) throws IOException {
+		protected void writeData(Map<String, Object> resultMap) {
 			writeDataCalled = writeDataCalled + 1;
 		}
 		@Override

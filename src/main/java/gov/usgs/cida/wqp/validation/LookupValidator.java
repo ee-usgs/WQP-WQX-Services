@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
  * @author duselmann
  */
 public class LookupValidator extends AbstractValidator<String[]> {
-	private final Logger log = LoggerFactory.getLogger(getClass());
+	private static final Logger LOG = LoggerFactory.getLogger(LookupValidator.class);
 	
 	private CodesService codesService;
 	private Parameters parameter;
@@ -23,7 +23,7 @@ public class LookupValidator extends AbstractValidator<String[]> {
 		super(parameter, minOccurs, maxOccurs, delimiter);
 		this.parameter=parameter;
 		codesService = inCodesService;
-		log.trace(getClass().getName());
+		LOG.trace(getClass().getName());
 	}
 	
 	@Override

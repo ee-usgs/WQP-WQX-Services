@@ -11,6 +11,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
+
+@Component
 public class StationKml implements IXmlMapping {
 
 	protected final String kmlStyleUrl;
@@ -189,7 +194,8 @@ public class StationKml implements IXmlMapping {
 						                             KEY_COORDINATES)));
 	}
 		
-	public StationKml(String kmlStyleUrl) {
+	@Autowired
+	public StationKml(@Qualifier("kmlStyleUrl") String kmlStyleUrl) {
 		this.kmlStyleUrl = kmlStyleUrl;
 	}
 	

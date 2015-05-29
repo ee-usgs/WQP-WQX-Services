@@ -15,6 +15,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class SimpleStationWqxOutbound extends BaseWqx implements IXmlMapping {
 	
 	public static final String ROOT_NODE_OUTBOUND = "WQX-Outbound";

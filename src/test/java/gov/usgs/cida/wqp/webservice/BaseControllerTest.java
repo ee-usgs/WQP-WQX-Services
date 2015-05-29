@@ -25,20 +25,26 @@ import gov.usgs.cida.wqp.transform.MapToXmlTransformer;
 import gov.usgs.cida.wqp.transform.Transformer;
 import gov.usgs.cida.wqp.util.HttpConstants;
 import gov.usgs.cida.wqp.util.MimeType;
+import gov.usgs.cida.wqp.util.MybatisConstants;
 
+import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -73,8 +79,8 @@ public class BaseControllerTest {
 	@Test
 	public void processParametersTest_empty() {
 		MockHttpServletRequest request = new MockHttpServletRequest();
-		ParameterMap pm = testController.processParameters(request);
-		assertFalse(pm.isValid());
+		testController.processParameters(request);
+		assertFalse(testController.pm.isValid());
         verify(parameterHandler, never()).validateAndTransform(anyMap());
 	}
 	
@@ -86,9 +92,9 @@ public class BaseControllerTest {
 
         MockHttpServletRequest request = new MockHttpServletRequest();
 		request.setParameter("countrycode", "US");
-		ParameterMap pm = testController.processParameters(request);
-		assertEquals(p, pm);
-		assertFalse(pm.isValid());
+		testController.processParameters(request);
+		assertEquals(p, testController.pm);
+		assertFalse(testController.pm.isValid());
         verify(parameterHandler).validateAndTransform(anyMap());
 	}
 
@@ -99,9 +105,9 @@ public class BaseControllerTest {
 
         MockHttpServletRequest request = new MockHttpServletRequest();
 		request.setParameter("countrycode", "US");
-		ParameterMap pm = testController.processParameters(request);
-		assertEquals(p, pm);
-		assertTrue(pm.isValid());
+		testController.processParameters(request);
+		assertEquals(p, testController.pm);
+		assertTrue(testController.pm.isValid());
         verify(parameterHandler).validateAndTransform(anyMap());
 	}
 
@@ -123,8 +129,8 @@ public class BaseControllerTest {
 		HttpServletResponse response = new MockHttpServletResponse();
 		try {
 			OutputStream out = testController.getOutputStream(response, false, "abc");
-			assertTrue(out instanceof ServletOutputStream);
-		} catch (IOException e) {
+			assertTrue(out instanceof BufferedOutputStream);
+		} catch (RuntimeException e) {
 			fail("Should not get exception but did:" + e.getLocalizedMessage());
 		}
 
@@ -431,4 +437,112 @@ public class BaseControllerTest {
         verify(logService).logRequestComplete(any(BigDecimal.class), anyString());
 	}
 
+	@Test
+	public void test_warningHeader_defaultsCodeAndError() {
+		String expect = "299 WQP \"Unknown error\" date";
+		assertEquals(expect, testController.warningHeader(null, null, "date"));
+	}
+
+	@Test
+	public void test_warningHeader_codeAndErrorText() {
+		String expect = "505 WQP \"Param error\" date";
+		assertEquals(expect, testController.warningHeader(505, "Param error", "date"));
+	}
+
+	@Test
+	public void test_warningHeader() {
+		String expect = "505 WQP \"Param error\" " + new Date().toString();
+		assertEquals(expect, testController.warningHeader(505, "Param error", null));
+		System.out.println(expect);
+	}
+
+	@Test
+	public void test_writeWarningHeaders() throws UnsupportedEncodingException {
+		MockHttpServletResponse response = new MockHttpServletResponse();
+		HashMap<String, List<String>> map = new HashMap<String, List<String>>();
+		map.put("abc", Arrays.asList("warning1", "warning2"));
+		map.put("def", Arrays.asList("warning3", "warning4"));
+		testController.writeWarningHeaders(response, map);
+		assertTrue( response.containsHeader("Warning") );
+		assertEquals("", response.getContentAsString());
+		assertEquals( 4, response.getHeaderValues("Warning").size() );
+		String warning = response.getHeaderValues("Warning").toString();
+		assertTrue( warning.contains("299 WQP \"warning1\"") );
+		assertTrue( warning.contains("299 WQP \"warning2\"") );
+		assertTrue( warning.contains("299 WQP \"warning3\"") );
+		assertTrue( warning.contains("299 WQP \"warning4\"") );
+	}
+	
+	private void addEntryStation(String ds, Integer en, List<Map<String, Object>>  list) {
+		Map<String, Object> count = new HashMap<String, Object>();
+		count.put(MybatisConstants.DATA_SOURCE,ds);
+		count.put(MybatisConstants.STATION_COUNT,en);
+		list.add(count);
+	}
+
+	@Test
+	public void test_addSiteCountHeader_proper() {
+		MockHttpServletResponse response = new MockHttpServletResponse();
+		List<Map<String, Object>> counts = new ArrayList<Map<String, Object>>();
+		addEntryStation("NWIS", 7, counts);
+		addEntryStation("STEW", 5, counts);
+		addEntryStation(null, 12, counts);
+		testController.addSiteHeaders(response, counts);
+		assertEquals(3, response.getHeaderNames().size());
+		String nwis = "NWIS"+HttpConstants.HEADER_DELIMITER+HttpConstants.HEADER_SITE_COUNT;
+		assertTrue(response.containsHeader(nwis));
+		String stew = "STEW"+HttpConstants.HEADER_DELIMITER+HttpConstants.HEADER_SITE_COUNT;
+		assertTrue(response.containsHeader(stew));
+		assertTrue(response.containsHeader(HttpConstants.HEADER_TOTAL_SITE_COUNT));
+		assertEquals("7", response.getHeader(nwis));
+		assertEquals("5", response.getHeader(stew));
+		assertEquals("12", response.getHeader(HttpConstants.HEADER_TOTAL_SITE_COUNT));
+	}
+
+	@Test
+	public void test_addSiteCountHeader_noTotal() {
+		MockHttpServletResponse response = new MockHttpServletResponse();
+		List<Map<String, Object>> counts = new ArrayList<Map<String, Object>>();
+		addEntryStation("NWIS", 7, counts);
+		addEntryStation("STEW", 5, counts);
+		testController.addSiteHeaders(response, counts);
+		assertEquals(3, response.getHeaderNames().size());
+		String nwis = "NWIS"+HttpConstants.HEADER_DELIMITER+HttpConstants.HEADER_SITE_COUNT;
+		assertTrue(response.containsHeader(nwis));
+		String stew = "STEW"+HttpConstants.HEADER_DELIMITER+HttpConstants.HEADER_SITE_COUNT;
+		assertTrue(response.containsHeader(stew));
+		assertTrue(response.containsHeader(HttpConstants.HEADER_TOTAL_SITE_COUNT));
+		assertEquals("7", response.getHeader(nwis));
+		assertEquals("5", response.getHeader(stew));
+		assertEquals("0", response.getHeader(HttpConstants.HEADER_TOTAL_SITE_COUNT));
+	}
+
+	@Test
+	public void determineHeaderNameTest() {
+		Map<String, Object> count = new LinkedHashMap<>();
+		assertEquals("Total-", testController.determineHeaderName(null, null));
+		assertEquals("Total-", testController.determineHeaderName(count, null));
+		assertEquals("Total-abc", testController.determineHeaderName(null, "abc"));
+		count.put("abc", "123");
+		count.put("def", "456");
+		count.put(MybatisConstants.DATA_SOURCE, null);
+		assertEquals("Total-xyz", testController.determineHeaderName(count, "xyz"));
+		count.put(MybatisConstants.DATA_SOURCE, "dude");
+		assertEquals("dude-xyz", testController.determineHeaderName(count, "xyz"));
+	}
+
+	@Test
+	public void determineHeaderValueTest() {
+		Map<String, Object> count = new LinkedHashMap<>();
+		assertEquals("0", testController.determineHeaderValue(null, null));
+		assertEquals("0", testController.determineHeaderValue(count, null));
+		assertEquals("0", testController.determineHeaderValue(null, "abc"));
+		count.put("abc", "123");
+		count.put("def", "456");
+		count.put("ghi", null);
+		assertEquals("0", testController.determineHeaderValue(count, "xyz"));
+		assertEquals("123", testController.determineHeaderValue(count, "abc"));
+		assertEquals("456", testController.determineHeaderValue(count, "def"));
+		assertEquals("0", testController.determineHeaderValue(count, "ghi"));
+	}
 }

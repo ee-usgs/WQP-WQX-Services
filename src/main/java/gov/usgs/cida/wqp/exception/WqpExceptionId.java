@@ -4,13 +4,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class WqpExceptionId {
-	private final Logger log = LoggerFactory.getLogger(getClass());
+	private static final Logger LOG = LoggerFactory.getLogger(WqpExceptionId.class);
 	
 	private final Long exceptionId;
 	private String name;
 	
 	private WqpExceptionId( String name, int id ) {
-		log.trace(getClass().getName());
+		LOG.trace(getClass().getName());
 		this.name = name;
 		this.exceptionId = Long.valueOf(id);
 	}

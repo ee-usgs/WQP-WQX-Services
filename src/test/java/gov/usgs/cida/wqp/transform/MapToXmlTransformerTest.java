@@ -32,7 +32,7 @@ public class MapToXmlTransformerTest {
 	protected ByteArrayOutputStream baos;
 
     @Before
-    public void initTest() throws Exception {
+    public void initTest() {
         MockitoAnnotations.initMocks(this);
 		baos = new ByteArrayOutputStream();
         transformer = new MapToXmlTransformer(baos, fieldMapping, logService, logId);

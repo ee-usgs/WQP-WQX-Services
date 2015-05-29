@@ -29,7 +29,7 @@ public class MapToKmlTransformerTest {
 	protected ByteArrayOutputStream baos;
 
     @Before
-    public void initTest() throws Exception {
+    public void initTest() {
         MockitoAnnotations.initMocks(this);
 		baos = new ByteArrayOutputStream();
         transformer = new MapToKmlTransformer(baos, fieldMapping, logService, logId);

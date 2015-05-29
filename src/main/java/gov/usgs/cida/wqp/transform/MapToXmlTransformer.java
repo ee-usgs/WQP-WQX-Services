@@ -3,7 +3,6 @@ package gov.usgs.cida.wqp.transform;
 import gov.usgs.cida.wqp.mapping.IXmlMapping;
 import gov.usgs.cida.wqp.service.ILogService;
 
-import java.io.IOException;
 import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.util.Deque;
@@ -21,7 +20,7 @@ import org.slf4j.LoggerFactory;
 
 public class MapToXmlTransformer extends Transformer {
 
-	private final Logger log = LoggerFactory.getLogger(getClass());
+	private static final Logger LOG = LoggerFactory.getLogger(MapToXmlTransformer.class);
 	
     protected Deque<String> nodes = new LinkedList<>();
 
@@ -41,12 +40,12 @@ public class MapToXmlTransformer extends Transformer {
 	}
 	
 	@Override
-	protected void init() throws IOException {
+	protected void init() {
 		//Nothing to do here.
 	}
 
 	/** Output the file header. */
-	protected void writeHeader() throws IOException {
+	protected void writeHeader() {
 		writeToStream(header);
 		nodes.push(fieldMapping.getRoot());
 	}
@@ -54,7 +53,7 @@ public class MapToXmlTransformer extends Transformer {
 	/**
 	 * Extract the data and write to the stream.
 	 */
-	protected void writeData(Map<String, Object> resultMap) throws IOException {
+	protected void writeData(Map<String, Object> resultMap) {
 		//TODO write bytes as we get them, rather than a "record" at a time
 		StringBuilder sb = new StringBuilder();
 		
@@ -92,7 +91,7 @@ public class MapToXmlTransformer extends Transformer {
 		String lNode = fieldMapping.getEntryNodeName();
 		List<String> pos = fieldMapping.getStructure().get(key);
 		for (String node : pos) {
-			log.trace("node - positionNode:" + node + " lastNode:" + lNode);
+			LOG.trace("node - positionNode:" + node + " lastNode:" + lNode);
 			if ( ! nodes.contains(node) ) {
 				if ( ! lNode.equalsIgnoreCase(nodes.peek()) ) {
 					closeNodes(sb, lNode);
@@ -108,11 +107,11 @@ public class MapToXmlTransformer extends Transformer {
 	
 	
 	protected void closeNodes(StringBuilder sb, String targetNode) {
-		log.trace("closeNodes - targetNode: " + targetNode);
+		LOG.trace("closeNodes - targetNode: " + targetNode);
 		
     	while (!nodes.isEmpty() && !fieldMapping.getRoot().equalsIgnoreCase(nodes.peek())) {
     		String node = nodes.peek();
-    		log.trace("closeNodes - currentNode: " + node);
+    		LOG.trace("closeNodes - currentNode: " + node);
     		if (targetNode.equalsIgnoreCase(node)) {
     			break;
     		} else {
@@ -125,7 +124,7 @@ public class MapToXmlTransformer extends Transformer {
 
 	/** output the closing tag. */
 	@Override
-	public void end() throws IOException {
+	public void end() {
     	while (!nodes.isEmpty()) {
     		writeToStream(getClosingNodeText(nodes.element()));
     		nodes.pop();

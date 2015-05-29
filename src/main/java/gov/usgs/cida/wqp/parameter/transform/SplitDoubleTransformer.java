@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
  * @author tkunicki
  */
 public class SplitDoubleTransformer implements ParameterTransformer<double[]>, ValidationConstants {
-	private final Logger log = LoggerFactory.getLogger(getClass());
+	private static final Logger LOG = LoggerFactory.getLogger(SplitDoubleTransformer.class);
 	
 	private SplitTransformer splitter;
 	private ValidationResult<double[]> vr;
@@ -20,7 +20,7 @@ public class SplitDoubleTransformer implements ParameterTransformer<double[]>, V
 	}
 	
 	public SplitDoubleTransformer(String delimiter) {
-		log.trace(getClass().getName());
+		LOG.trace(getClass().getName());
 		if (null == delimiter || 0 == delimiter.length()) {
 			throw new IllegalArgumentException("A Delimiter must be provided.");
 		}

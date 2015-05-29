@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class VersionMvcService {
-	private final Logger log = LoggerFactory.getLogger(getClass());
+	private static final Logger LOG = LoggerFactory.getLogger(VersionMvcService.class);
 	
 	public VersionMvcService() {
-		log.trace(getClass().getName());
+		LOG.trace(getClass().getName());
 	}
 	
 	@RequestMapping(value="version", method=RequestMethod.GET)

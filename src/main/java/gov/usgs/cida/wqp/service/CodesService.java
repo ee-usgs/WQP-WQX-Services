@@ -1,5 +1,6 @@
 package gov.usgs.cida.wqp.service;
 
+import static gov.usgs.cida.wqp.exception.WqpExceptionId.METHOD_PARAM_BOUNDS;
 import static gov.usgs.cida.wqp.exception.WqpExceptionId.METHOD_PARAM_EMPTY;
 import static gov.usgs.cida.wqp.exception.WqpExceptionId.METHOD_PARAM_NULL;
 import static gov.usgs.cida.wqp.exception.WqpExceptionId.URL_PARSING_EXCEPTION;
@@ -8,7 +9,6 @@ import gov.usgs.cida.wqp.parameter.Parameters;
 import gov.usgs.cida.wqp.util.HttpConstants;
 import gov.usgs.cida.wqp.util.WqpEnvProperties;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
@@ -20,7 +20,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 
 public class CodesService implements WqpEnvProperties {
-	private final Logger log = LoggerFactory.getLogger(getClass());
+	private static final Logger LOG = LoggerFactory.getLogger(CodesService.class);
 	
 	private final String codesUrl;
 	private final String mimeType;
@@ -31,14 +31,15 @@ public class CodesService implements WqpEnvProperties {
 	}
 	
 	public boolean validate(Parameters codeType, String code) throws WqpException {
-		log.trace("validating {}={}",codeType, code);
+		LOG.trace("validating {}={}",codeType, code);
 		boolean response = false;
 		
 		try {
-			fetch(codeType, code);
+			URL url = makeCodesUrl(codeType, code);
+			url.getContent();
 			response = true;
-		} catch (FileNotFoundException e) {
-			//invalid parameter value
+//		} catch (FileNotFoundException e) {
+//			//invalid parameter value
 		} catch (IOException e) {
 			// TODO better error handling? might be some exceptions we want to bubble up to top?
 			e.printStackTrace();
@@ -53,13 +54,8 @@ public class CodesService implements WqpEnvProperties {
 		return response;
 	}
 
-	protected void fetch(Parameters codeType, String code) throws IOException, WqpException {
-		URL url = makeCodesUrl(codeType, code);
-		url.getContent();
-	}
-
 	protected URL makeCodesUrl(Parameters codeType, String code) throws WqpException {
-		log.trace("making codes url");
+		LOG.trace("making codes url");
 		
 		if (codeType == null) {
 			throw new WqpException(METHOD_PARAM_NULL, getClass(), "makeCodesUrl", "codeType");
@@ -67,18 +63,21 @@ public class CodesService implements WqpEnvProperties {
 		if (code == null) {
 			throw new WqpException(METHOD_PARAM_NULL, getClass(), "makeCodesUrl", "code");
 		}
-		if ( StringUtils.isEmpty(code) ) {
+		if (StringUtils.isEmpty(code)) {
 			throw new WqpException(METHOD_PARAM_EMPTY, getClass(), "makeCodesUrl", "code");
 		}
 		
 		URL url = null;
 		try {
-			String urlStr =  codesUrl +"/"+ codeType +"?value="+ URLEncoder.encode(code, HttpConstants.DEFAULT_ENCODING) + "&mimeType="+ mimeType;
-			log.trace("making codes url : {}", urlStr);
+			String urlStr = codesUrl +"/"+ codeType +"?value="+ URLEncoder.encode(code, HttpConstants.DEFAULT_ENCODING) + "&mimeType="+ mimeType;
+			LOG.trace("making codes url : {}", urlStr);
 			url = new URL(urlStr);
-		} catch (MalformedURLException | UnsupportedEncodingException e) {
+		} catch (MalformedURLException e ) {
 			throw new WqpException(URL_PARSING_EXCEPTION, getClass(), "makeCodesUrl",
 					"Invalid Code Lookup URL. Ensure that the wqpgateway.properties has a properly formated URL for " + CODES_URL);
+		} catch (UnsupportedEncodingException e) {
+			throw new WqpException(METHOD_PARAM_BOUNDS, getClass(), "makeCodesUrl",
+					"Unable to encode code value " + code);
 		}
 		return url;
 	}

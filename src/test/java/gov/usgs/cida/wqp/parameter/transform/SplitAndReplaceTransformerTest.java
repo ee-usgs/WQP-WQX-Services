@@ -10,7 +10,7 @@ public class SplitAndReplaceTransformerTest extends BaseSpringTest implements Va
 		String[] split = transformer.transform("a;b*;c");
 		assertEquals(3, split.length);
 		assertEquals("a", split[0]);
-		assertEquals("b%", split[1]);
+		assertEquals("b", split[1]);
 		assertEquals("c", split[2]);
 	}
 	@Test

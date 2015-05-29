@@ -7,7 +7,7 @@ import gov.usgs.cida.wqp.parameter.Parameters;
  * @author tkunicki
  */
 public class LatitudeValidator extends BoundedFloatingPointValidator {
-	private final Logger log = LoggerFactory.getLogger(getClass());
+	private static final Logger LOG = LoggerFactory.getLogger(LatitudeValidator.class);
 	
 	public LatitudeValidator(Parameters inParameter)  {
 		this(inParameter, MIN_LATITUDE, MAX_LATITUDE);
@@ -19,7 +19,7 @@ public class LatitudeValidator extends BoundedFloatingPointValidator {
 	
 	public LatitudeValidator(Parameters inParameter, int minOccurs, int maxOccurs, String delimiter, double inMinBound, double inMaxBound)  {
 		super(inParameter, minOccurs, maxOccurs, delimiter, inMinBound, inMaxBound);
-		log.trace(getClass().getName());
+		LOG.trace(getClass().getName());
 		if (maxBound < MIN_LATITUDE || maxBound > MAX_LATITUDE) {
 			throw new IllegalArgumentException(MAXBOUND_BETWEEN + MIN_LATITUDE + AND
 					+ MAX_LATITUDE + INCLUSIVE);

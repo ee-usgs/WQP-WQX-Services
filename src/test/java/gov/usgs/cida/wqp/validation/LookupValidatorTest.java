@@ -24,7 +24,7 @@ public class LookupValidatorTest extends BaseSpringTest implements ValidationCon
     protected CodesService codesService;
 
     @Before
-    public void initTest() throws Exception {
+    public void initTest() {
         MockitoAnnotations.initMocks(this);
     }
 

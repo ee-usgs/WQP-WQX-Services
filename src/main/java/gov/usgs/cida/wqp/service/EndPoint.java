@@ -1,10 +1,18 @@
 package gov.usgs.cida.wqp.service;
 
+import static gov.usgs.cida.wqp.util.HttpConstants.BIOLOGICAL_RESULT_ENPOINT;
+import static gov.usgs.cida.wqp.util.HttpConstants.ENDPOINT_BIOLOGICAL_RESULT;
+import static gov.usgs.cida.wqp.util.HttpConstants.ENDPOINT_RESULT;
+import static gov.usgs.cida.wqp.util.HttpConstants.ENDPOINT_SIMPLE_STATION;
+import static gov.usgs.cida.wqp.util.HttpConstants.ENDPOINT_STATION;
+import static gov.usgs.cida.wqp.util.HttpConstants.HEADER_RESULT;
+import static gov.usgs.cida.wqp.util.HttpConstants.HEADER_SITE;
+import static gov.usgs.cida.wqp.util.HttpConstants.RESULT_SEARCH_ENPOINT;
+import static gov.usgs.cida.wqp.util.HttpConstants.SIMPLE_STATION_ENDPOINT;
+import static gov.usgs.cida.wqp.util.HttpConstants.STATION_SEARCH_ENPOINT;
+
 import java.util.HashMap;
 import java.util.Map;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import static gov.usgs.cida.wqp.util.HttpConstants.*;
 
 public enum EndPoint {
 	RESULT  (ENDPOINT_RESULT, RESULT_SEARCH_ENPOINT, HEADER_RESULT),
@@ -20,13 +28,11 @@ public enum EndPoint {
 		}
 	}
 	
-	private final Logger log = LoggerFactory.getLogger(getClass());
 	public final String COUNT_HEADER_NAME;
 	public final String NAME;
 	public final String URI;
 	
 	private EndPoint (String endpointName, String endpointUri, String headerName) {
-		log.trace(getClass().getName());
 		NAME = endpointName;
 		URI  = endpointUri;
 		COUNT_HEADER_NAME = headerName;

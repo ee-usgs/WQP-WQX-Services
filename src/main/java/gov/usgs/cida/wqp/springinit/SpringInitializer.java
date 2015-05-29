@@ -18,20 +18,19 @@ import org.springframework.web.servlet.DispatcherServlet;
  * @author drsteini
  */
 public class SpringInitializer implements WebApplicationInitializer {
-	private final Logger log = LoggerFactory.getLogger(getClass());
+	private static final Logger LOG = LoggerFactory.getLogger(SpringInitializer.class);
 	
 	/**
 	 *  gets invoked automatically when application context loads
 	 */
 	public void onStartup(ServletContext servletContext) throws ServletException {		
-		log.error("Logging Enabled");
-		log.warn("Logging Enabled");
-		log.info("Logging Enabled");
-		log.debug("Logging Enabled");
-		log.trace("Logging Enabled");
+		LOG.error("Logging Enabled");
+		LOG.warn("Logging Enabled");
+		LOG.info("Logging Enabled");
+		LOG.debug("Logging Enabled");
+		LOG.trace("Logging Enabled");
 		AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();
 		ctx.register(SpringConfig.class);
-//		ctx.register(MyBatisConfig.class) // TODO it would be nice to have individual configurations
 
 		FilterRegistration corsFilter = servletContext.addFilter("corsFilter", CORSFilter.class);
 		corsFilter.addMappingForUrlPatterns(null, true, "/*");

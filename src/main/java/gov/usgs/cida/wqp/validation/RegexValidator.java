@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
  * @author duselman
  */
 public class RegexValidator<T> extends AbstractValidator<T> {
-	private final Logger log = LoggerFactory.getLogger(getClass());
+	private static final Logger LOG = LoggerFactory.getLogger(RegexValidator.class);
 	
 	public static final String ERROR_MESSAGE = "must match the format ";
 	private String regex;
@@ -20,7 +20,7 @@ public class RegexValidator<T> extends AbstractValidator<T> {
 	
 	public RegexValidator(Parameters inParameter, int minOccurs, int maxOccurs, String delimiter, String inRegex)  {
 		super(inParameter, minOccurs, maxOccurs, delimiter);
-		log.trace(getClass().getName());
+		LOG.trace(getClass().getName());
 		if (null == inRegex || 0 == inRegex.length()) {
 			throw new IllegalArgumentException("The REGEX must be provided.");
 		}

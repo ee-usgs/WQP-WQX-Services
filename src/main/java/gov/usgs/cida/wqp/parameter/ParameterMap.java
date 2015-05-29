@@ -11,14 +11,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class ParameterMap {
-	private final Logger log = LoggerFactory.getLogger(getClass());
+	private static final Logger LOG = LoggerFactory.getLogger(ParameterMap.class);
 	
 	private boolean valid = true;
 	private Map<String, List<String>> validationMessages = new HashMap<String, List<String>>();
 	private Map<String, Object> queryParameters = new HashMap<String, Object>();
 	
 	public ParameterMap() {
-		log.trace(getClass().getName());
+		LOG.trace(getClass().getName());
 	}
 	
 	public void merge(final String parameterName, final ValidationResult<?> validationResult) {

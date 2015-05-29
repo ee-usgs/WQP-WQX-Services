@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
  * @author tkunicki
  */
 public abstract class AbstractValidator<T> implements ValidationConstants {
-	private final Logger log = LoggerFactory.getLogger(getClass());
+	private static final Logger LOG = LoggerFactory.getLogger(AbstractValidator.class);
 	
 	public static final String BASE_ERROR_MESSAGE_FORMAT= "The value of %s=%s %s";
 	public static final String IS_NOT_BETWEEN = "is not between ";
@@ -35,7 +35,7 @@ public abstract class AbstractValidator<T> implements ValidationConstants {
 	
 	@SuppressWarnings("unchecked")
 	protected AbstractValidator(Parameters inParameter, int inMinOccurs, int inMaxOccurs, String inDelimiter) {
-		log.trace(getClass().getName());
+		LOG.trace(getClass().getName());
 		parameter = inParameter;
 		minOccurs = inMinOccurs;
 		maxOccurs = inMaxOccurs;

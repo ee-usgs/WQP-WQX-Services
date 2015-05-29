@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
  * @author tkunicki
  */
 public class DateFormatValidator extends AbstractValidator<String[]> {
-	private final Logger log = LoggerFactory.getLogger(getClass());
+	private static final Logger LOG = LoggerFactory.getLogger(DateFormatValidator.class);
 	
 	protected final String formatString;
 	protected static final String MUST_BE_VALID = "must be a valid date in the format ";
@@ -22,7 +22,7 @@ public class DateFormatValidator extends AbstractValidator<String[]> {
 	
 	public DateFormatValidator(Parameters inParameter, int minOccurs, int maxOccurs, String delimiter, String inFormatString)  {
 		super(inParameter, minOccurs, maxOccurs, delimiter);
-		log.trace(getClass().getName());
+		LOG.trace(getClass().getName());
 		if (null == inFormatString || 0 == inFormatString.length()) {
 			throw new IllegalArgumentException("The Format String must be provided.");
 		}

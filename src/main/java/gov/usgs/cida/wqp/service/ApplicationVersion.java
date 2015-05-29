@@ -7,12 +7,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.context.ServletContextAware;
 
 public final class ApplicationVersion implements ServletContextAware {
-	private final Logger log = LoggerFactory.getLogger(getClass());
+	private static final Logger LOG = LoggerFactory.getLogger(ApplicationVersion.class);
 	
 	private static ServletContext servletContext;
 	
 	public ApplicationVersion() {
-		log.trace(getClass().getName());
+		LOG.trace(getClass().getName());
 	}
 	
 	public static String getVersion() {
@@ -24,8 +24,7 @@ public final class ApplicationVersion implements ServletContextAware {
 			String projectVersion = (String) props.get("Project-Version");
 			currentVersion = projectVersion + (projectVersion.endsWith("-SNAPSHOT") ? "-" + (String) props.get("BuildTime") : "");
 		} catch (Exception e) {
-			Logger log = LoggerFactory.getLogger(ApplicationVersion.class);
-			log.warn("unable to get application version", e);
+			LOG.warn("unable to get application version", e);
 		}
 		return currentVersion;
 	}

@@ -202,7 +202,7 @@ public class ParameterValidationConfig implements ValidationConstants, WqpEnvPro
 	}
 
 	@Bean
-	public IParameterHandler hashMapParameterHandler() throws Exception {
+	public IParameterHandler hashMapParameterHandler() {
 		return new HashMapParameterHandler(validatorMap());
 	}
 	

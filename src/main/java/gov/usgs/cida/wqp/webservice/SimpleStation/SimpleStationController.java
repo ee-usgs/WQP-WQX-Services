@@ -4,12 +4,10 @@ import gov.usgs.cida.wqp.dao.intfc.ICountDao;
 import gov.usgs.cida.wqp.dao.intfc.IDao;
 import gov.usgs.cida.wqp.dao.intfc.IStreamingDao;
 import gov.usgs.cida.wqp.mapping.IXmlMapping;
-import gov.usgs.cida.wqp.mapping.SimpleStationWqxOutbound;
 import gov.usgs.cida.wqp.mapping.StationColumn;
 import gov.usgs.cida.wqp.parameter.IParameterHandler;
 import gov.usgs.cida.wqp.service.ILogService;
 import gov.usgs.cida.wqp.util.HttpConstants;
-import gov.usgs.cida.wqp.util.HttpUtils;
 import gov.usgs.cida.wqp.webservice.BaseController;
 
 import java.util.List;
@@ -21,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,14 +28,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping(value=HttpConstants.SIMPLE_STATION_ENDPOINT, produces={HttpConstants.MIME_TYPE_XML, HttpConstants.MIME_TYPE_JSON})
 public class SimpleStationController extends BaseController {
-	private final Logger log = LoggerFactory.getLogger(getClass());
+	private static final Logger LOG = LoggerFactory.getLogger(SimpleStationController.class);
 
+	protected final IXmlMapping xmlMapping;
+	
 	@Autowired
 	public SimpleStationController(IStreamingDao inStreamingDao, ICountDao inCountDao, 
-			IParameterHandler inParameterHandler, ILogService inLogService) {
+			IParameterHandler inParameterHandler, ILogService inLogService,
+			@Qualifier("simpleStationWqxOutbound")
+			IXmlMapping inXmlMapping) {
 		super(inStreamingDao, inCountDao, inParameterHandler, inLogService);
+		xmlMapping = inXmlMapping;
 		
-		log.trace(getClass().getName());
+		LOG.trace(getClass().getName());
 	}
 
 	/**
@@ -57,8 +61,7 @@ public class SimpleStationController extends BaseController {
 	}
 
 	protected void addCountHeaders(HttpServletResponse response, List<Map<String, Object>> counts) {
-		HttpUtils httpUtils = new HttpUtils();
-		httpUtils.addSiteHeaders(response, counts);
+		addSiteHeaders(response, counts);
 	}
 
 	@Override
@@ -68,13 +71,7 @@ public class SimpleStationController extends BaseController {
 
 	@Override
 	protected IXmlMapping getXmlMapping() {
-		return new SimpleStationWqxOutbound();
-	}
-
-	@Override
-	protected IXmlMapping getKmlMapping() {
-		// SimpleStation has no KML
-		return null;
+		return xmlMapping;
 	}
 
 }

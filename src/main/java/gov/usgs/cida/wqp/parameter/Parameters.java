@@ -2,8 +2,6 @@ package gov.usgs.cida.wqp.parameter;
 
 import java.util.HashMap;
 import java.util.Map;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public enum Parameters {
 	//TODO - Activity is not currently supported
@@ -33,13 +31,10 @@ public enum Parameters {
 	WITHIN("within"),
 	ZIP("zip");
 	
-	private final Logger log = LoggerFactory.getLogger(getClass());
-	
 	private final String parameterName;
 	private static Map<String, Parameters> validParameterNames;
 	
 	private Parameters(String value) {
-		log.trace(getClass().getName());
 		parameterName = value;
 		putParameterName(value, this);
 	}
