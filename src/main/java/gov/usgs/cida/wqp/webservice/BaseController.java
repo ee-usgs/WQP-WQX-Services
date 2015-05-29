@@ -16,14 +16,15 @@ import gov.usgs.cida.wqp.transform.MapToXlsxTransformer;
 import gov.usgs.cida.wqp.transform.MapToXmlTransformer;
 import gov.usgs.cida.wqp.transform.Transformer;
 import gov.usgs.cida.wqp.util.HttpConstants;
-import gov.usgs.cida.wqp.util.HttpUtils;
 import gov.usgs.cida.wqp.util.MimeType;
+import gov.usgs.cida.wqp.util.MybatisConstants;
 import gov.usgs.cida.wqp.validation.ValidationConstants;
 
+import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.math.BigDecimal;
-import java.nio.file.AccessDeniedException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,7 +47,7 @@ import org.springframework.web.context.request.WebRequest;
 
 public abstract class BaseController implements HttpConstants, ValidationConstants {
 
-	private final Logger log = LoggerFactory.getLogger(getClass());
+	private static final Logger LOG = LoggerFactory.getLogger(BaseController.class);
 	protected final IStreamingDao streamingDao;
 	protected final ICountDao countDao;
 	protected final IParameterHandler parameterHandler;
@@ -59,7 +60,7 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 	public BaseController(IStreamingDao inStreamingDao, ICountDao inCountDao,
 			IParameterHandler inParameterHandler, ILogService inLogService) {
 		
-		log.trace(getClass().getName());
+		LOG.trace(getClass().getName());
 		
 		streamingDao     = inStreamingDao;
 		parameterHandler = inParameterHandler;
@@ -68,11 +69,8 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 	}
 	
 	@ExceptionHandler(Exception.class)
-    public @ResponseBody String handleUncaughtException(Exception ex, WebRequest request, HttpServletResponse response) throws IOException {
-		if (ex instanceof AccessDeniedException) {
-            response.setStatus(HttpStatus.FORBIDDEN.value());
-            return "You are not authorized to perform this action.";
-        } else if (ex instanceof MissingServletRequestParameterException
+    public @ResponseBody String handleUncaughtException(Exception ex, WebRequest request, HttpServletResponse response) {
+		if (ex instanceof MissingServletRequestParameterException
         		|| ex instanceof HttpMediaTypeNotSupportedException) {
             response.setStatus(HttpStatus.BAD_REQUEST.value());
             return ex.getLocalizedMessage();
@@ -86,7 +84,7 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
             //Note: we are giving the user a generic message.  
             //Server logs can be used to troubleshoot problems.
             String msgText = "Something bad happened. Contact us with Reference Number: " + hashValue;
-            log.error(msgText, ex);
+            LOG.error(msgText, ex);
             return msgText;
         }
     }
@@ -99,13 +97,18 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 		}
 	}
 
-	protected OutputStream getOutputStream(HttpServletResponse response, boolean zipped, String fileName) throws IOException {
-		if (zipped) {
-			ZipOutputStream zipOut = new ZipOutputStream(response.getOutputStream());
-			zipOut.putNextEntry(new ZipEntry(fileName));
-			return (OutputStream) zipOut;
-		} else {
-			return response.getOutputStream();
+	protected OutputStream getOutputStream(HttpServletResponse response, boolean zipped, String fileName) {
+		try {
+			OutputStream buffered = new BufferedOutputStream(response.getOutputStream());
+			if (zipped) {
+				ZipOutputStream zipOut = new ZipOutputStream(buffered);
+				zipOut.putNextEntry(new ZipEntry(fileName));
+				return (OutputStream) zipOut;
+			} else {
+				return buffered;
+			}
+		} catch (IOException e) {
+			throw new RuntimeException("Error getting OutputStream", e);
 		}
 	}
 
@@ -117,9 +120,13 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 		}
 	}
 
-	protected void closeZip(OutputStream out) throws IOException {
-		((ZipOutputStream) out).closeEntry();
-		((ZipOutputStream) out).finish();
+	protected void closeZip(OutputStream out) {
+		try {
+			((ZipOutputStream) out).closeEntry();
+			((ZipOutputStream) out).finish();
+		} catch (IOException e) {
+			throw new RuntimeException("Error closing ZipOutputStream", e);
+		}
 	}
 
 	protected String getContentHeader(boolean zipped, MimeType mimeType) {
@@ -146,6 +153,7 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 				break;
 			default:
 				ret.append("zip");
+				break;
 			}
 		} else {
 			ret.append(mimeType);
@@ -154,25 +162,24 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 	}
 	
 	protected void doHeadRequest(HttpServletRequest request, HttpServletResponse response, String mybatisNamespace, String endpoint) {
-		log.info("Processing Head: {}", request.getQueryString());
+		LOG.info("Processing Head: {}", request.getQueryString());
 		BigDecimal logId = logService.logRequest(request, response);
 		
 		try {
 			doHeader(request, response, logId, mybatisNamespace, endpoint);
 		} finally {
 			logService.logRequestComplete(logId, String.valueOf(response.getStatus()));
-			log.info("Processing Head complete: {}", request.getQueryString());
+			LOG.info("Processing Head complete: {}", request.getQueryString());
 		}
 	}
 
 	protected boolean doHeader(HttpServletRequest request, HttpServletResponse response, BigDecimal logId,
 			String mybatisNamespace, String endpoint) {
 		response.setCharacterEncoding(DEFAULT_ENCODING);
-		pm = processParameters(request);
+		processParameters(request);
 		if ( ! pm.isValid() ) {
-			HttpUtils httpUtils = new HttpUtils();
-			httpUtils.writeWarningHeaders(response, pm.getValidationMessages());
-			log.info("Processing Head invalid params end:{}", request.getQueryString());
+			writeWarningHeaders(response, pm.getValidationMessages());
+			LOG.info("Processing Head invalid params end:{}", request.getQueryString());
 			return false;
 		}
 
@@ -192,26 +199,25 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 		return true;
 	}
 	
-	protected ParameterMap processParameters(HttpServletRequest request) {
-		ParameterMap pm = new ParameterMap();
+	protected void processParameters(HttpServletRequest request) {
+		pm = new ParameterMap();
 		if (request.getParameterMap().isEmpty()) {
-			log.debug("No parameters");
+			LOG.debug("No parameters");
 			pm.setValid(false);
 		} else {
-			log.trace("got parameters");
+			LOG.trace("got parameters");
 			Map<String, String[]> requestParams = new HashMap<String, String[]>(request.getParameterMap());
-			log.debug("requestParams: {}", requestParams);
+			LOG.debug("requestParams: {}", requestParams);
 			pm = parameterHandler.validateAndTransform(requestParams);
-			log.debug("pm: {}", pm);
-			log.debug("queryParms: {}", pm.getQueryParameters());
+			LOG.debug("pm: {}", pm);
+			LOG.debug("queryParms: {}", pm.getQueryParameters());
 		}
-		return pm;
 	}
 	
 	protected abstract void addCountHeaders(HttpServletResponse response, List<Map<String, Object>> counts);
 	
 	protected String doGetRequest(HttpServletRequest request, HttpServletResponse response, String mybatisNamespace, String endpoint) {
-		log.info("Processing Get: {}", request.getQueryString());
+		LOG.info("Processing Get: {}", request.getQueryString());
 		BigDecimal logId = logService.logRequest(request, response);
 	
 		try {
@@ -228,12 +234,15 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 				if (zipped) {
 					closeZip(responseStream);
 				}
+				
+				responseStream.flush();
+				
 			}		
 		} catch (Exception e) {
-			log.error("Error processing get " + e.getLocalizedMessage());
+			LOG.error("Error processing get " + e.getLocalizedMessage());
 			throw new RuntimeException(e);
 		} finally {
-			log.info("Processing Get complete: {}", request.getQueryString());
+			LOG.info("Processing Get complete: {}", request.getQueryString());
 			logService.logRequestComplete(logId, String.valueOf(response.getStatus()));
 		}
 		return "";
@@ -277,6 +286,7 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 		case csv:
 		default:
 			transformer = new MapToDelimitedTransformer(responseStream, getMapping(), logService, logId, MapToDelimitedTransformer.COMMA);
+			break;
 		}
 		return transformer;
 	}
@@ -285,6 +295,75 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 	
 	protected abstract IXmlMapping getXmlMapping();
 	
-	protected abstract IXmlMapping getKmlMapping();
+	protected IXmlMapping getKmlMapping() {
+		return null;
+	}
 	
+	public void writeWarningHeaders(HttpServletResponse response, Map<String, List<String>> validationMessages) {
+		response.setStatus(HttpStatus.BAD_REQUEST.value());
+		for (List<String> msgs : validationMessages.values()) {
+			for (String msg : msgs) {
+				response.addHeader(HEADER_WARNING, warningHeader(null, msg, null));
+			}
+		}
+	}
+
+	protected String warningHeader(Integer code, String text, String date) {
+		 if (null == code) {
+			 code = HEADER_WARNING_DEFAULT_CODE;
+		 }
+		 if (null == text || 0 == text.length()) {
+			 text = "Unknown error";
+		 }
+		 if (null == date || 0 == date.length()) {
+			 date = new Date().toString();
+		 }
+		//NOTE that the old swsf would add "detail" in [] ahead of the text. see TrafficController.toWarningHeaderMessage.
+		return code + " WQP " + '"' + text + '"' +" "+ date;
+	}
+
+	protected String determineHeaderName(Map<String, Object> count, String suffix) {
+		String mySuffix = suffix==null ?"" :suffix;
+		if (null == count) {
+			return HEADER_TOTAL + HEADER_DELIMITER + mySuffix;
+		} else {
+			Object provider = count.get(MybatisConstants.DATA_SOURCE);
+			
+			if (provider==null) {
+				provider = HEADER_TOTAL + HEADER_DELIMITER + mySuffix;
+			} else {
+				provider = provider + HEADER_DELIMITER + mySuffix;
+			}
+			LOG.trace("determine count header : {}", provider.toString());
+	
+			return provider.toString();
+		}
+	}
+	
+	protected String determineHeaderValue(Map<String, Object> count, String key) {
+		if (null == count || count.isEmpty() || null == key || !count.containsKey(key)) {
+			return "0";
+		} else {
+			Object results = count.get(key);
+			results = results==null ?"0" :results;
+			LOG.trace("determine count value : {}", results.toString());
+			return results.toString();
+		}
+	}
+	
+	public void addCountHeaders(HttpServletResponse response, List<Map<String, Object>> counts,
+			String totalHeader, String valueHeader, String valueField) {
+		LOG.trace("{} counts : {}", valueHeader, counts);
+		response.addHeader(totalHeader, "0");
+		
+		for (Map<String, Object> count : counts) {
+			LOG.trace("result count : {}", count);
+			response.setHeader(determineHeaderName(count, valueHeader), determineHeaderValue(count, valueField));
+		}
+	}
+
+	public void addSiteHeaders(HttpServletResponse response, List<Map<String, Object>> counts) {
+		addCountHeaders(response, counts, HEADER_TOTAL_SITE_COUNT, HEADER_SITE_COUNT, MybatisConstants.STATION_COUNT);
+	}
+
 }

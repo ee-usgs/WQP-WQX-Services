@@ -28,7 +28,7 @@ public class MapToDelimitedTransformerTest {
 	protected Map<String, String> mapping;
 
     @Before
-    public void initTest() throws Exception {
+    public void initTest() {
         MockitoAnnotations.initMocks(this);
 		baos = new ByteArrayOutputStream();
 		mapping = new HashMap<>();

@@ -8,7 +8,7 @@ import gov.usgs.cida.wqp.parameter.transform.SplitDoubleTransformer;
  * @author tkunicki
  */
 public class BoundedFloatingPointValidator extends AbstractValidator<double[]> {
-	private final Logger log = LoggerFactory.getLogger(getClass());
+	private static final Logger LOG = LoggerFactory.getLogger(BoundedFloatingPointValidator.class);
 	
 	protected final double minBound;
 	protected final double maxBound;
@@ -16,7 +16,7 @@ public class BoundedFloatingPointValidator extends AbstractValidator<double[]> {
 	
 	public BoundedFloatingPointValidator(Parameters inParameter)  {
 		super(inParameter);
-		log.trace(getClass().getName());
+		LOG.trace(getClass().getName());
 		minBound = -Double.MAX_VALUE;
 		maxBound = Double.MAX_VALUE;
 	}
@@ -27,7 +27,7 @@ public class BoundedFloatingPointValidator extends AbstractValidator<double[]> {
 	
 	public BoundedFloatingPointValidator(Parameters inParameter, int minOccurs, int maxOccurs, String delimiter, double inMinBound, double inMaxBound)  {
 		super(inParameter, minOccurs, maxOccurs, delimiter);
-		log.trace(getClass().getName());
+		LOG.trace(getClass().getName());
 		minBound = inMinBound;
 		maxBound = inMaxBound;
 		if (maxBound < minBound) {

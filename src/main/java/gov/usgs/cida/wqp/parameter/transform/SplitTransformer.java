@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
  * @author tkunicki
  */
 public class SplitTransformer implements ParameterTransformer<String[]>, ValidationConstants {
-	private final Logger log = LoggerFactory.getLogger(getClass());
+	private static final Logger LOG = LoggerFactory.getLogger(SplitTransformer.class);
 	
 	private final Pattern splitPattern;
 	private final String delimiter;
@@ -21,7 +21,7 @@ public class SplitTransformer implements ParameterTransformer<String[]>, Validat
 	}
 	
 	public SplitTransformer(String delimiter) {
-		log.trace(getClass().getName());
+		LOG.trace(getClass().getName());
 		this.delimiter = delimiter;
 		if (null == delimiter || 0 == delimiter.length()) {
 			throw new IllegalArgumentException("A Delimiter must be provided.");

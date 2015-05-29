@@ -9,24 +9,19 @@ import org.slf4j.LoggerFactory;
 
 public class StreamingResultHandler implements ResultHandler {
 
-	private final Logger log = LoggerFactory.getLogger(getClass());
+	private static final Logger LOG = LoggerFactory.getLogger(StreamingResultHandler.class);
 	private final ITransformer transformer;
 	
 	
 	public StreamingResultHandler(ITransformer transformer) {
-		log.trace("streaming handler constructed");
+		LOG.trace("streaming handler constructed");
 		this.transformer = transformer;
 	}
 
 	@Override
 	public void handleResult(ResultContext context) {
-		log.trace("streaming handle result : {}", (context==null ?"null" :"context"));
-		try {
-			Object object = context.getResultObject();
-			transformer.write(object);
-		} catch (Exception e) {
-			log.warn("Error MapResultHandler", e);
-			throw new RuntimeException("Error MapResultHandler", e);
-		}
+		LOG.trace("streaming handle result : {}", (context==null ?"null" :"context"));
+		Object object = context.getResultObject();
+		transformer.write(object);
 	}
 }

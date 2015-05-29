@@ -4,7 +4,6 @@ import static gov.usgs.cida.wqp.mapping.StationKml.KML_DOCUMENT;
 import gov.usgs.cida.wqp.mapping.IXmlMapping;
 import gov.usgs.cida.wqp.service.ILogService;
 
-import java.io.IOException;
 import java.io.OutputStream;
 import java.math.BigDecimal;
 
@@ -15,7 +14,7 @@ public class MapToKmlTransformer extends MapToXmlTransformer {
 	}
 
 	@Override
-	protected void writeHeader() throws IOException {
+	protected void writeHeader() {
 		writeToStream(header);
 		nodes.push(fieldMapping.getRoot());
 		nodes.push(KML_DOCUMENT);

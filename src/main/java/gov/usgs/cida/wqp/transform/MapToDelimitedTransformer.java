@@ -2,7 +2,6 @@ package gov.usgs.cida.wqp.transform;
 
 import gov.usgs.cida.wqp.service.ILogService;
 
-import java.io.IOException;
 import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.util.Map;
@@ -26,7 +25,7 @@ public class MapToDelimitedTransformer extends Transformer {
 		this.delimiter = delimiter;
 	}
 
-	protected void writeHeader() throws IOException {
+	protected void writeHeader() {
 		boolean firstPass = true;
 		for (Entry<?, ?> entry: mapping.entrySet()) {
 			String value = getMappedName(entry);
@@ -39,7 +38,7 @@ public class MapToDelimitedTransformer extends Transformer {
 		}
 	}
 	
-	protected void writeData(Map<String, Object> result) throws IOException {
+	protected void writeData(Map<String, Object> result) {
 		writeToStream(LF);
 		boolean firstPass = true;
 		for (String col: mapping.keySet()) {
@@ -55,7 +54,7 @@ public class MapToDelimitedTransformer extends Transformer {
 		}
 	}
 
-	protected void init() throws IOException {
+	protected void init() {
 		//Nothing to do here for the delimited formats. 
 	}
 

@@ -21,7 +21,7 @@ import org.slf4j.LoggerFactory;
  *
  */
 public class HashMapParameterHandler implements IParameterHandler {
-	private final Logger log = LoggerFactory.getLogger(getClass());
+	private static final Logger LOG = LoggerFactory.getLogger(HashMapParameterHandler.class);
 	
 	private static Map<Parameters, AbstractValidator<?>> VALIDATOR_MAP;
 	private static final Set<Parameters> WITHIN_GROUP;
@@ -42,7 +42,7 @@ public class HashMapParameterHandler implements IParameterHandler {
 	}
 	
 	public HashMapParameterHandler(Map<Parameters, AbstractValidator<?>> inValidatoryMap) {
-		log.trace(getClass().getName());
+		LOG.trace(getClass().getName());
 		VALIDATOR_MAP = inValidatoryMap;
 	}
 	

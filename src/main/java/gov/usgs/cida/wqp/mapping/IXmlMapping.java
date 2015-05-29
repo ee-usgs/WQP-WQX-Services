@@ -16,4 +16,5 @@ public interface IXmlMapping {
 	Map<String, List<String>> getGrouping();
 
 	String getEntryNodeName();
+
 }

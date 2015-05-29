@@ -16,8 +16,6 @@ import gov.usgs.cida.wqp.service.CodesService;
 import gov.usgs.cida.wqp.util.CORSFilter;
 import gov.usgs.cida.wqp.util.HttpConstants;
 
-import java.io.IOException;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -52,7 +50,7 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
     private MockMvc mockMvc;
     
     @Before
-    public void setup() throws IOException {
+    public void setup() {
         mockMvc = MockMvcBuilders.webAppContextSetup(wac).addFilters(filter).build();
     }
 

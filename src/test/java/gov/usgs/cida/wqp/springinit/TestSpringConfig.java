@@ -26,7 +26,7 @@ import com.github.springtestdbunit.bean.DatabaseDataSourceConnectionFactoryBean;
 @PropertySource(value = "classpath:wqpgateway.test.properties")
 public class TestSpringConfig extends SpringConfig {
 
-	private final Logger log = LoggerFactory.getLogger(getClass());
+	private static final Logger LOG = LoggerFactory.getLogger(TestSpringConfig.class);
 
 	@Override
 	public void setEnvironment(Environment env) {
@@ -41,7 +41,7 @@ public class TestSpringConfig extends SpringConfig {
 		try {
 			mybatis.setDataSource(testDataSource());
 		} catch (SQLException e) {
-			log.info("Issue creating testDataSource" + e.getLocalizedMessage());
+			LOG.info("Issue creating testDataSource" + e.getLocalizedMessage());
 			throw new RuntimeException(e);
 		}
 		return mybatis;

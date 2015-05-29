@@ -50,15 +50,15 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @Import(ParameterValidationConfig.class)
 public class SpringConfig extends WebMvcConfigurerAdapter implements EnvironmentAware,
 		HttpConstants, MybatisConstants, WqpEnvProperties  {
-	private final Logger log = LoggerFactory.getLogger(getClass());
+	private static final Logger LOG = LoggerFactory.getLogger(SpringConfig.class);
 	
 	public SpringConfig() {
-		log.trace(getClass().getName());
+		LOG.trace(getClass().getName());
 	}
 	
 	@Override
 	public void setEnvironment(Environment env) {
-		log.trace("setting evnironment");
+		LOG.trace("setting evnironment");
 		WqpEnv.setEnv(env);
 	}
 	

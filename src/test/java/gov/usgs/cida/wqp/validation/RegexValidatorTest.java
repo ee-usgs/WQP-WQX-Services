@@ -175,7 +175,7 @@ public class RegexValidatorTest extends BaseSpringTest implements ValidationCons
 		assertArrayEquals(new String[]{"abc", "abc", "abc", "abc"}, vr.getTransformedValue());
 	}
 	@Test
-	public void testCounty_defaults() throws Exception {
+	public void testCounty_defaults() {
 		AbstractValidator<?> validator = HashMapParameterHandler.getValidator(Parameters.COUNTY);
 		assertNotNull(validator);
 		assertEquals(DEFAULT_MIN_OCCURS, validator.getMinOccurs());
@@ -183,7 +183,7 @@ public class RegexValidatorTest extends BaseSpringTest implements ValidationCons
 		assertEquals(DEFAULT_DELIMITER, validator.getDelimiter());
 	}
 	@Test
-	public void testCounty_match() throws Exception {
+	public void testCounty_match() {
 		AbstractValidator<?> validator = HashMapParameterHandler.getValidator(Parameters.COUNTY);
 		ValidationResult<?> vr = validator.validate("US:55:027");
 		assertTrue(vr.isValid());
@@ -191,7 +191,7 @@ public class RegexValidatorTest extends BaseSpringTest implements ValidationCons
 		assertArrayEquals(new String[]{"US:55:027"}, (String[])vr.getTransformedValue());
 	}
 	@Test
-	public void testCounty_mismatch() throws Exception {
+	public void testCounty_mismatch() {
 		AbstractValidator<?> validator = HashMapParameterHandler.getValidator(Parameters.COUNTY);
 		ValidationResult<?> vr = validator.validate("US:55:027;CV");
 		assertFalse(vr.isValid());
@@ -221,7 +221,7 @@ public class RegexValidatorTest extends BaseSpringTest implements ValidationCons
 		ValidationResult<?> vr = validator.validate("07090002;CV");
 		assertFalse(vr.isValid());
 		assertEquals(1, vr.getValidationMessages().size());
-		assertEquals("The value of huc=07090002;CV must match the format (?:[0-9]{8})|(?:[0-9]{2,7}\\*)", vr.getValidationMessages().get(0));
+		assertEquals("The value of huc=07090002;CV must match the format " + REGEX_HUC, vr.getValidationMessages().get(0));
 		assertArrayEquals(new String[]{"07090002;CV"}, (String[])vr.getRawValue());
 	}
 	@Test

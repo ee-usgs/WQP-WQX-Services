@@ -19,7 +19,7 @@ public class CountDao extends BaseDao implements ICountDao {
 
 	@Override
 	public List<Map<String, Object>> getCounts(String nameSpace, Map<String, Object> parameterMap) {
-		log.trace("Getting counts for: {}", nameSpace);
+		LOG.trace("Getting counts for: {}", nameSpace);
 		return getSqlSession().selectList(nameSpace + QUERY_SELECT_ID, parameterMap);
 	}
 

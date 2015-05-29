@@ -38,7 +38,7 @@ public class MapToXlsxTransformerTest {
 	protected Map<String, String> mapping;
 
     @Before
-    public void initTest() throws Exception {
+    public void initTest() {
         MockitoAnnotations.initMocks(this);
 		baos = new ByteArrayOutputStream();
 		mapping = new LinkedHashMap<>();
@@ -57,7 +57,7 @@ public class MapToXlsxTransformerTest {
     }
 
 	@Test
-	public void writeTest() throws Exception {
+	public void writeTest() {
 		try {
 			transformer.write(getTestRow());
 			transformer.end();
@@ -114,7 +114,7 @@ public class MapToXlsxTransformerTest {
 	
 	
 	@Test
-	public void bunchOfRows() throws Exception {
+	public void bunchOfRows() {
 		try {
 			for (int i = 0; i < 1000; i++) {
 				transformer.write(getTestRow());

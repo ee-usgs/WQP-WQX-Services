@@ -3,7 +3,6 @@ package gov.usgs.cida.wqp.transform;
 import gov.usgs.cida.wqp.mapping.StationColumn;
 import gov.usgs.cida.wqp.service.ILogService;
 
-import java.io.IOException;
 import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.util.Map;
@@ -19,12 +18,12 @@ public class MapToJsonTransformer extends Transformer {
 	}
 
 	@Override
-	protected void writeHeader() throws IOException {
+	protected void writeHeader() {
 		writeToStream("{\"type\":\"FeatureCollection\",\"features\":[");
 	}
 
 	@Override
-	protected void writeData(Map<String, Object> resultMap) throws IOException {
+	protected void writeData(Map<String, Object> resultMap) {
 		if (endPrevious) {
 			writeToStream(",");
 		}
@@ -50,7 +49,7 @@ public class MapToJsonTransformer extends Transformer {
 	
 	/** output the closing tag. */
 	@Override
-	public void end() throws IOException {
+	public void end() {
    		writeToStream("]}");
    		super.end();
 	}
@@ -69,7 +68,7 @@ public class MapToJsonTransformer extends Transformer {
 	}
 
 	@Override
-	protected void init() throws IOException {
+	protected void init() {
 		//Nothing to do here
 	}
 

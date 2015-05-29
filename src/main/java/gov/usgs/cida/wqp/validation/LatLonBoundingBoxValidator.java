@@ -7,13 +7,13 @@ import gov.usgs.cida.wqp.parameter.Parameters;
  * @author tkunicki
  */
 public class LatLonBoundingBoxValidator extends AbstractValidator<String[]> {
-	private final Logger log = LoggerFactory.getLogger(getClass());
+	private static final Logger LOG = LoggerFactory.getLogger(LatLonBoundingBoxValidator.class);
 	
 	public static final String ERROR_MESSAGE = "is not a valid bounding box.";
 	
 	public LatLonBoundingBoxValidator(Parameters inParameter) {
 		super(inParameter, 0, 1, ",");
-		log.trace(getClass().getName());
+		LOG.trace(getClass().getName());
 	}
 	
 	@Override

@@ -17,7 +17,6 @@ import org.mockito.Mockito;
 public class JndiUtilsTest {
 	public static final String CTX_NAME = "java:/comp/env";
 	public static final String TEST_JNDI = "testExistingObject";
-//	public static final DataSource TEST_DS = new OracleDataSource();
 	public static final String TEST_JNDI_NOT_FOUND = "notFoundName";
 	
 	public static class TestInitialContextFactory implements InitialContextFactory {

@@ -1,6 +1,7 @@
 package gov.usgs.cida.wqp.transform;
 
 import gov.usgs.cida.wqp.service.ILogService;
+import gov.usgs.cida.wqp.util.HttpConstants;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -49,11 +50,9 @@ public class MapToXlsxTransformer extends Transformer {
 	/**
 	 * Initialize a workbook if needed, a sheet to work on and write the
 	 * template to the stream.
-	 * 
-	 * @throws IOException when issues with the streaming.
 	 */
 	@Override
-	protected void init() throws IOException {
+	protected void init() {
 		if (null == workbook) {
 			workbook = new XSSFWorkbook();
 		}
@@ -67,41 +66,61 @@ public class MapToXlsxTransformer extends Transformer {
 
 		// stream the template - don't include the empty sheet (sheetRef).
 		ByteArrayOutputStream os = new ByteArrayOutputStream();
-		workbook.write(os);
-		ZipInputStream strm = new ZipInputStream(new ByteArrayInputStream(os.toByteArray()));
-		ZipEntry ze;
-		while (null != (ze = strm.getNextEntry())) {
-			if (!ze.getName().equals(sheetRef)) {
-				zos.putNextEntry(new ZipEntry(ze.getName()));
-				copyStream(strm, zos);
+		try {
+			workbook.write(os);
+			ZipInputStream strm = new ZipInputStream(new ByteArrayInputStream(os.toByteArray()));
+			ZipEntry ze;
+			while (null != (ze = strm.getNextEntry())) {
+				if (!ze.getName().equals(sheetRef)) {
+					zos.putNextEntry(new ZipEntry(ze.getName()));
+					copyStream(strm);
+				}
 			}
+		} catch (IOException e) {
+			throw new RuntimeException("Error starting spreadsheet", e);
+		}
+	}
+	
+	/** 
+	 * Writes a byte array to the stream. 
+	 * @param in the byte array to stream.
+	 */
+	private void copyStream(final InputStream in) {
+		try {
+			byte[] chunk = new byte[DEFAULT_BUFFER_SIZE];
+			int count;
+			while ((count = in.read(chunk)) >= 0) {
+				zos.write(chunk, 0, count);
+			}
+		} catch (IOException e) {
+			throw new RuntimeException("Error copying stream", e);
 		}
 	}
 
 	/**
 	 * Write the header.
-	 * 
-	 * @throws IOException when issues with the streaming.
 	 */
-	protected void writeHeader() throws IOException {
-		zos.putNextEntry(new ZipEntry(sheetRef));
-		beginSheet();
-		insertRow();
-		int cellCount = 0;
-		for (Entry<?, ?> entry: mapping.entrySet()) {
-			createCell(cellCount, getMappedName(entry));
-			cellCount++;
+	protected void writeHeader() {
+		try {
+			zos.putNextEntry(new ZipEntry(sheetRef));
+			beginSheet();
+			insertRow();
+			int cellCount = 0;
+			for (Entry<?, ?> entry: mapping.entrySet()) {
+				createCell(cellCount, getMappedName(entry));
+				cellCount++;
+			}
+			endRow();
+		} catch (IOException e) {
+			throw new RuntimeException("Error writing header", e);
 		}
-		endRow();
 	}
 
 	
 	/**
 	 * Write the data.  Null cells are skipped to cut some of the bloat out of the file.
-	 * 
-	 * @throws IOException when issues with the streaming.
 	 */
-	protected void writeData(Map<String, Object> result) throws IOException {
+	protected void writeData(Map<String, Object> result) {
 		insertRow();
 		int cellCount = 0;
 		for (String column : mapping.keySet()) {
@@ -123,71 +142,60 @@ public class MapToXlsxTransformer extends Transformer {
 	 * Once we are done with the filter, the sheet needs it's ending tag.
 	 */
 	@Override
-	public void end() throws IOException {
-		endSheet();
-		zos.finish();
-		super.end();
+	public void end() {
+		try {
+			endSheet();
+			zos.finish();
+			super.end();
+		} catch (IOException e) {
+			throw new RuntimeException("Error ending spreadsheet", e);
+		}
 	}
 	
 	/** 
 	 * Converts a string to a byte array and stream it.
 	 * @param in the string to be streamed.
-	 * @param out the stream to write it to.
-	 * @throws IOException when issues with the streaming.
 	 */
-	private void copyString(final String in, final OutputStream out) throws IOException {
-		copyStream(new ByteArrayInputStream(in.getBytes()), out);
-	}
-
-	/** 
-	 * Writes a byte array to the stream. 
-	 * @param in the byte array to stream.
-	 * @param out the stream to write it to.
-	 * @throws IOException when issues with the streaming.
-	 */
-	private void copyStream(final InputStream in, final OutputStream out)
-			throws IOException {
-		byte[] chunk = new byte[DEFAULT_BUFFER_SIZE];
-		int count;
-		while ((count = in.read(chunk)) >= 0) {
-			out.write(chunk, 0, count);
+	@Override
+	protected void writeToStream(final String in){
+		try {
+			if (null != in) {
+				zos.write(in.getBytes(HttpConstants.DEFAULT_ENCODING));
+			}
+		} catch (IOException e) {
+			throw new RuntimeException("Error writing to stream", e);
 		}
 	}
 
 	/** 
 	 * Output the xml required at the beginning of a sheet.
-	 * @throws IOException  when issues with the streaming.
 	 */
-	public void beginSheet() throws IOException {
-		copyString("<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-			+ "<worksheet xmlns=\"http://schemas.openxmlformats.org/spreadsheetml/2006/main\">",
-				zos);
-		copyString("<sheetData>\n", zos);
+	public void beginSheet() {
+		writeToStream("<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+			+ "<worksheet xmlns=\"http://schemas.openxmlformats.org/spreadsheetml/2006/main\">");
+		writeToStream("<sheetData>\n");
 	}
 
 	/** 
 	 * Output the xml required at the end of sheet.
-	 * @throws IOException when issues with the streaming.
 	 */
-	public void endSheet() throws IOException {
-		copyString("</sheetData>", zos);
-		copyString("</worksheet>", zos);
+	public void endSheet() {
+		writeToStream("</sheetData>");
+		writeToStream("</worksheet>");
 	}
 
 	/**
 	 * Output the xml required at the beginning of a row. 
-	 * @throws IOException when issues with the streaming.
 	 */
-	public void insertRow() throws IOException {
-		copyString("<row r=\"" + (rowCount + 1) + "\">\n", zos);
+	public void insertRow() {
+		writeToStream("<row r=\"" + (rowCount + 1) + "\">\n");
 	}
 
 	/**
 	 * Output the xml required at the end of a row and increment the counter.
-	 * @throws IOException when issues with the streaming.
 	 */
-	public void endRow() throws IOException {
-		copyString("</row>\n", zos);
+	public void endRow() {
+		writeToStream("</row>\n");
 		rowCount++;
 	}
 
@@ -195,29 +203,24 @@ public class MapToXlsxTransformer extends Transformer {
 	 * Output the xml for a string cell at the given index in the current row. 
 	 * @param columnIndex - 0-based index of the cell within the current row.
 	 * @param value - the string value to populate the column with.  The method handles escaping necessary characters.
-	 * @throws IOException when issues with the streaming.
 	 */
-	public void createCell(final int columnIndex, final String value) throws IOException {
+	public void createCell(final int columnIndex, final String value) {
 		String ref = new CellReference(rowCount, columnIndex).formatAsString();
-		copyString("<c r=\"" + ref + "\" t=\"inlineStr\"", zos);
-		copyString(">", zos);
-		copyString("<is><t>" + encode(value)
-				+ "</t></is>", zos);
-		copyString("</c>", zos);
+		writeToStream("<c r=\"" + ref + "\" t=\"inlineStr\"" + ">");
+		writeToStream("<is><t>" + encode(value)	+ "</t></is>");
+		writeToStream("</c>");
 	}
 
 	/** 
 	 * Output the xml for a numeric cell at the given index in the current row. 
 	 * @param columnIndex - 0-based index of the cell within the current row.
 	 * @param value - the numeric value to populate the column with.
-	 * @throws IOException when issues with the streaming.
 	 */
-	public void createCell(final int columnIndex, final double value) throws IOException {
+	public void createCell(final int columnIndex, final double value) {
 		String ref = new CellReference(rowCount, columnIndex).formatAsString();
-		copyString("<c r=\"" + ref + "\" t=\"n\"", zos);
-		copyString(">", zos);
-		copyString("<v>" + value + "</v>", zos);
-		copyString("</c>", zos);
+		writeToStream("<c r=\"" + ref + "\" t=\"n\"" + ">");
+		writeToStream("<v>" + value + "</v>");
+		writeToStream("</c>");
 	}
 
 	@Override

@@ -5,12 +5,9 @@ import gov.usgs.cida.wqp.dao.intfc.IDao;
 import gov.usgs.cida.wqp.dao.intfc.IStreamingDao;
 import gov.usgs.cida.wqp.mapping.IXmlMapping;
 import gov.usgs.cida.wqp.mapping.StationColumn;
-import gov.usgs.cida.wqp.mapping.StationKml;
-import gov.usgs.cida.wqp.mapping.StationWqx;
 import gov.usgs.cida.wqp.parameter.IParameterHandler;
 import gov.usgs.cida.wqp.service.ILogService;
 import gov.usgs.cida.wqp.util.HttpConstants;
-import gov.usgs.cida.wqp.util.HttpUtils;
 import gov.usgs.cida.wqp.webservice.BaseController;
 
 import java.util.List;
@@ -36,16 +33,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 			  HttpConstants.MIME_TYPE_KMZ}) //, HttpConstants.MIME_TYPE_JSON
 public class StationController extends BaseController {
 
-	protected final String kmlStyleUrl;
-
+	protected final IXmlMapping xmlMapping;
+	protected final IXmlMapping kmlMapping;
+	
 	@Autowired
 	public StationController(IStreamingDao inStreamingDao, ICountDao inCountDao,
 			IParameterHandler inParameterHandler, ILogService inLogService,
-			@Qualifier("kmlStyleUrl")
-			String inKmlStyleUrl) {
+			@Qualifier("stationWqx")
+			IXmlMapping inXmlMapping,
+			@Qualifier("stationKml")
+			IXmlMapping inKmlMapping) {
 		super(inStreamingDao, inCountDao, inParameterHandler, inLogService);
-		
-		kmlStyleUrl = inKmlStyleUrl;
+		xmlMapping = inXmlMapping;
+		kmlMapping = inKmlMapping;
 	}
 
 	/**
@@ -67,8 +67,7 @@ public class StationController extends BaseController {
 	
 	@Override
 	protected void addCountHeaders(HttpServletResponse response, List<Map<String, Object>> counts) {
-		HttpUtils httpUtils = new HttpUtils();
-		httpUtils.addSiteHeaders(response, counts);
+		addSiteHeaders(response, counts);
 	}
 
 	@Override
@@ -78,12 +77,12 @@ public class StationController extends BaseController {
 
 	@Override
 	protected IXmlMapping getXmlMapping() {
-		return new StationWqx();
+		return xmlMapping;
 	}
 
 	@Override
 	protected IXmlMapping getKmlMapping() {
-		return new StationKml(kmlStyleUrl);
+		return kmlMapping;
 	}
 
 }

@@ -4,7 +4,7 @@ import org.slf4j.LoggerFactory;
 
 public class WqpException extends Exception {
 	
-	private final Logger log = LoggerFactory.getLogger(getClass());
+	private static final Logger LOG = LoggerFactory.getLogger(WqpException.class);
 	private static final long serialVersionUID = 126269528002852327L;
 	private final WqpExceptionId exceptionid;    // uniquely generated id for this exception
 	private final String classname;                     // the name of the class that threw the exception
@@ -22,7 +22,7 @@ public class WqpException extends Exception {
 	}
 	
 	public WqpException(final WqpExceptionId id, final String classname, final String method, final String message, final WqpException previous) {
-		log.trace(getClass().getName());
+		LOG.trace(getClass().getName());
 		this.exceptionid = id;
 		this.classname   = classname;
 		this.method      = method;

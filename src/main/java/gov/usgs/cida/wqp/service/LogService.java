@@ -17,14 +17,14 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class LogService implements ILogService, HttpConstants {
-	private final Logger log = LoggerFactory.getLogger(getClass());
+	private static final Logger LOG = LoggerFactory.getLogger(LogService.class);
 
 	private ILogDao logDao;
 	
 	@Autowired
 	public LogService(ILogDao inLogDao) {
 		logDao = inLogDao;
-		log.trace(getClass().getName());
+		LOG.trace(getClass().getName());
 	}
 	
 	@Override

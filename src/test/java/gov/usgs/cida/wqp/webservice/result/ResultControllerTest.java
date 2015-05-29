@@ -1,6 +1,7 @@
 package gov.usgs.cida.wqp.webservice.result;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.when;
@@ -9,6 +10,12 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import gov.usgs.cida.wqp.BaseSpringTest;
 import gov.usgs.cida.wqp.IntegrationTest;
 import gov.usgs.cida.wqp.parameter.Parameters;
@@ -16,13 +23,13 @@ import gov.usgs.cida.wqp.service.CodesService;
 import gov.usgs.cida.wqp.util.CORSFilter;
 import gov.usgs.cida.wqp.util.HttpConstants;
 import gov.usgs.cida.wqp.util.MimeType;
-
-import java.io.IOException;
+import gov.usgs.cida.wqp.util.MybatisConstants;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -52,7 +59,7 @@ public class ResultControllerTest extends BaseSpringTest implements HttpConstant
     private MockMvc mockMvc;
     
     @Before
-    public void setup() throws IOException {
+    public void setup() {
          mockMvc = MockMvcBuilders.webAppContextSetup(wac).addFilters(filter).build();
     }
 
@@ -510,5 +517,66 @@ public class ResultControllerTest extends BaseSpringTest implements HttpConstant
 //        assertEquals(harmonizeXml(getCompareFile("simpleStation.xml")), harmonizeXml(rtn.getResponse().getContentAsString()));
 	
     }
+
+	
+	private void addEntryStation(String ds, Integer en, List<Map<String, Object>>  list) {
+		Map<String, Object> count = new HashMap<String, Object>();
+		count.put(MybatisConstants.DATA_SOURCE,ds);
+		count.put(MybatisConstants.STATION_COUNT,en);
+		list.add(count);
+	}
+	
+	private void addEntryResult(String ds, Integer en, List<Map<String, Object>>  list) {
+		Map<String, Object> count = new HashMap<String, Object>();
+		count.put(MybatisConstants.DATA_SOURCE,ds);
+		count.put(MybatisConstants.STATION_COUNT,en);
+		count.put(MybatisConstants.RESULT_COUNT,en*3);
+		list.add(count);
+	}
+
+	@Test
+	public void test_addPcResultHeaders_proper() {
+		ResultController testController = new ResultController(null, null, null, null, null);
+		MockHttpServletResponse response = new MockHttpServletResponse();
+		List<Map<String, Object>> counts = new ArrayList<Map<String, Object>>();
+		addEntryStation("NWIS", 7, counts);
+		addEntryStation("STEW", 5, counts);
+		addEntryStation(null, 12, counts);
+		addEntryResult("NWIS", 7, counts);
+		addEntryResult("STEW", 5, counts);
+		addEntryResult("Stor", 5, counts);
+		addEntryResult(null, 12, counts);
+		testController.addCountHeaders(response, counts);
+		assertEquals(8, response.getHeaderNames().size());
+		String nwis = "NWIS"+HttpConstants.HEADER_DELIMITER+HttpConstants.HEADER_SITE_COUNT;
+		assertTrue(response.containsHeader(nwis));
+		String stew = "STEW"+HttpConstants.HEADER_DELIMITER+HttpConstants.HEADER_SITE_COUNT;
+		assertTrue(response.containsHeader(stew));
+		assertTrue(response.containsHeader(HttpConstants.HEADER_TOTAL_SITE_COUNT));
+		assertEquals("7", response.getHeader(nwis));
+		assertEquals("5", response.getHeader(stew));
+		assertEquals("12", response.getHeader(HttpConstants.HEADER_TOTAL_SITE_COUNT));
+	}
+
+	@Test
+	public void test_addPcResultHeaders_noTotal() {
+		ResultController testController = new ResultController(null, null, null, null, null);
+		MockHttpServletResponse response = new MockHttpServletResponse();
+		List<Map<String, Object>> counts = new ArrayList<Map<String, Object>>();
+		addEntryResult("NWIS", 7, counts);
+		addEntryResult("STEW", 5, counts);
+		addEntryStation("NWIS", 7, counts);
+		addEntryStation("STEW", 5, counts);
+		testController.addCountHeaders(response, counts);
+		assertEquals(6, response.getHeaderNames().size());
+		String nwis = "NWIS"+HttpConstants.HEADER_DELIMITER+HttpConstants.HEADER_SITE_COUNT;
+		assertTrue(response.containsHeader(nwis));
+		String stew = "STEW"+HttpConstants.HEADER_DELIMITER+HttpConstants.HEADER_SITE_COUNT;
+		assertTrue(response.containsHeader(stew));
+		assertTrue(response.containsHeader(HttpConstants.HEADER_TOTAL_SITE_COUNT));
+		assertEquals("7", response.getHeader(nwis));
+		assertEquals("5", response.getHeader(stew));
+		assertEquals("0", response.getHeader(HttpConstants.HEADER_TOTAL_SITE_COUNT));
+	}
 
 }

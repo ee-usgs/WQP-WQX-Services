@@ -8,14 +8,14 @@ import org.slf4j.LoggerFactory;
  * @author tkunicki
  */
 public class SplitAndReplaceTransformer extends SplitTransformer {
-	private final Logger log = LoggerFactory.getLogger(getClass());
+	private static final Logger LOG = LoggerFactory.getLogger(SplitAndReplaceTransformer.class);
 	
 	private final String regex;
 	private final String replace;
 	
 	public SplitAndReplaceTransformer(String delimiter, String regex, String replace) {
 		super(delimiter);
-		log.trace(getClass().getName());
+		LOG.trace(getClass().getName());
 		this.regex = regex;
 		this.replace = replace;
 	}
