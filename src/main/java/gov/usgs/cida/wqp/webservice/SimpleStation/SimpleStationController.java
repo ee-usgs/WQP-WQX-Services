@@ -23,7 +23,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping(value=HttpConstants.SIMPLE_STATION_ENDPOINT, produces={HttpConstants.MIME_TYPE_XML, HttpConstants.MIME_TYPE_JSON})
@@ -55,9 +54,8 @@ public class SimpleStationController extends BaseController {
 	 * SimpleStation GET request
 	 */
 	@RequestMapping(method=RequestMethod.GET)
-	@ResponseBody
-	public String simpleStationGetRequest(HttpServletRequest request, HttpServletResponse response) {
-		return doGetRequest(request, response, IDao.SIMPLE_STATION_NAMESPACE, ENDPOINT_SIMPLE_STATION);
+	public void simpleStationGetRequest(HttpServletRequest request, HttpServletResponse response) {
+		doGetRequest(request, response, IDao.SIMPLE_STATION_NAMESPACE, ENDPOINT_SIMPLE_STATION);
 	}
 
 	protected void addCountHeaders(HttpServletResponse response, List<Map<String, Object>> counts) {

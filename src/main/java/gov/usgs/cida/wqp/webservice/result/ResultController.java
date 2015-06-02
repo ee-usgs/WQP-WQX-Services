@@ -22,7 +22,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping(value=HttpConstants.RESULT_SEARCH_ENPOINT,
@@ -52,9 +51,8 @@ public class ResultController extends BaseController {
 	 * Result GET request
 	 */
 	@RequestMapping(method=RequestMethod.GET)
-	@ResponseBody
-	public String resultGetRequest(HttpServletRequest request, HttpServletResponse response) {
-		return doGetRequest(request, response, IDao.RESULT_NAMESPACE, ENDPOINT_RESULT);
+	public void resultGetRequest(HttpServletRequest request, HttpServletResponse response) {
+		doGetRequest(request, response, IDao.RESULT_NAMESPACE, ENDPOINT_RESULT);
 	}
 
 	protected void addCountHeaders(HttpServletResponse response, List<Map<String, Object>> counts) {
