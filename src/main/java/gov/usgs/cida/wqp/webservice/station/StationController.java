@@ -21,7 +21,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping(value=HttpConstants.STATION_SEARCH_ENPOINT,
@@ -60,9 +59,8 @@ public class StationController extends BaseController {
 	 * Station GET request
 	 */
 	@RequestMapping(method=RequestMethod.GET)
-	@ResponseBody
-	public String stationGetRequest(HttpServletRequest request, HttpServletResponse response) {
-		return doGetRequest(request, response, IDao.STATION_NAMESPACE, ENDPOINT_STATION);
+	public void stationGetRequest(HttpServletRequest request, HttpServletResponse response) {
+		doGetRequest(request, response, IDao.STATION_NAMESPACE, ENDPOINT_STATION);
 	}
 	
 	@Override

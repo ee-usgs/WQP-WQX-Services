@@ -42,7 +42,7 @@ public class LogService implements ILogService, HttpConstants {
 			String endpt = (null==endpoint) ?request.getRequestURI() :endpoint.NAME;
 			parameterMap.put(ILogDao.END_POINT, endpt);
 			
-			String queryString = request.getQueryString();
+			String queryString = (null==request.getQueryString() ? "No Query String Provided" : request.getQueryString());
 			parameterMap.put(ILogDao.QUERY_STRING, queryString);
 		}
 

@@ -38,12 +38,6 @@ import org.apache.ibatis.session.ResultHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.converter.HttpMessageNotReadableException;
-import org.springframework.web.HttpMediaTypeNotSupportedException;
-import org.springframework.web.bind.MissingServletRequestParameterException;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.context.request.WebRequest;
 
 public abstract class BaseController implements HttpConstants, ValidationConstants {
 
@@ -68,27 +62,6 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 		logService       = inLogService;
 	}
 	
-	@ExceptionHandler(Exception.class)
-    public @ResponseBody String handleUncaughtException(Exception ex, WebRequest request, HttpServletResponse response) {
-		if (ex instanceof MissingServletRequestParameterException
-        		|| ex instanceof HttpMediaTypeNotSupportedException) {
-            response.setStatus(HttpStatus.BAD_REQUEST.value());
-            return ex.getLocalizedMessage();
-        } else if (ex instanceof HttpMessageNotReadableException) {
-            response.setStatus(HttpStatus.BAD_REQUEST.value());
-            //This exception's message contains implementation details after the new line, so only take up to that.
-            return ex.getLocalizedMessage().substring(0, ex.getLocalizedMessage().indexOf("\n"));
-        } else {
-            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
-            int hashValue = response.hashCode();
-            //Note: we are giving the user a generic message.  
-            //Server logs can be used to troubleshoot problems.
-            String msgText = "Something bad happened. Contact us with Reference Number: " + hashValue;
-            LOG.error(msgText, ex);
-            return msgText;
-        }
-    }
-
 	protected boolean isZipped(String zipParm, String mimeType) {
 		if ("yes".equalsIgnoreCase(zipParm) || MimeType.kmz.toString().equalsIgnoreCase(mimeType)) {
 			return true;
@@ -216,14 +189,15 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 	
 	protected abstract void addCountHeaders(HttpServletResponse response, List<Map<String, Object>> counts);
 	
-	protected String doGetRequest(HttpServletRequest request, HttpServletResponse response, String mybatisNamespace, String endpoint) {
+	protected void doGetRequest(HttpServletRequest request, HttpServletResponse response, String mybatisNamespace, String endpoint) {
 		LOG.info("Processing Get: {}", request.getQueryString());
 		BigDecimal logId = logService.logRequest(request, response);
-	
+		OutputStream responseStream = null;
+		
 		try {
 			if (doHeader(request, response, logId, mybatisNamespace, endpoint)) {
 				String namespace = getNamespace(mybatisNamespace, mimeType);
-				OutputStream responseStream = getOutputStream(response, zipped, getZipEntryName(endpoint, mimeType));
+				responseStream = getOutputStream(response, zipped, getZipEntryName(endpoint, mimeType));
 				Transformer transformer = getTransformer(mimeType, responseStream, logId);
 					
 				ResultHandler handler = new StreamingResultHandler(transformer);
@@ -231,21 +205,41 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 		
 				transformer.end();
 					
-				if (zipped) {
-					closeZip(responseStream);
-				}
-				
-				responseStream.flush();
-				
 			}		
 		} catch (Exception e) {
-			LOG.error("Error processing get " + e.getLocalizedMessage());
-			throw new RuntimeException(e);
+			response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+			int hashValue = response.hashCode();
+			//Note: we are giving the user a generic message.  
+			//Server logs can be used to troubleshoot problems.
+			String msgText = "Something bad happened. Contact us with Reference Number: " + hashValue;
+			LOG.error(msgText, e);
+			response.addHeader(HEADER_FATAL_ERROR, msgText);
+			try {
+				responseStream.write(msgText.getBytes(DEFAULT_ENCODING));
+			} catch (IOException e2) {
+				//Just log, cause we obviously can't tell the client
+				LOG.error("Error telling client about exception", e2);
+			}
 		} finally {
+			if (null != responseStream) {
+				try {
+					if (zipped) {
+						closeZip(responseStream);
+					}
+				} catch (Exception e) {
+					//Just log, cause we obviously can't tell the client
+					LOG.error("Error closing zip", e);
+				}
+				try {
+					responseStream.flush();
+				} catch (IOException e) {
+					//Just log, cause we obviously can't tell the client
+					LOG.error("Error flushing response stream", e);
+				}
+			}
 			LOG.info("Processing Get complete: {}", request.getQueryString());
 			logService.logRequestComplete(logId, String.valueOf(response.getStatus()));
 		}
-		return "";
 	}
 	
 	protected String getZipEntryName(String endpoint, MimeType mimeType) {

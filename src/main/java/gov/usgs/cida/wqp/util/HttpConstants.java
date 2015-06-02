@@ -6,6 +6,7 @@ import org.springframework.http.MediaType;
 
 public interface HttpConstants extends XmlConstants {
 	String DEFAULT_ENCODING = "UTF-8";
+	String HEADER_FATAL_ERROR = "FATAL ERROR";
 	int    HEADER_WARNING_DEFAULT_CODE = 299;
 	String HEADER_WARNING = "Warning";
 	String HEADER_DELIMITER = "-";
@@ -51,11 +52,4 @@ public interface HttpConstants extends XmlConstants {
 	String MIME_TYPE_KML = "application/vnd.google-earth.kml+xml";
 	String MIME_TYPE_KMZ = "application/vnd.google-earth.kmz";
 	
-	
-//	String MEDIA_TYPE_XML     = "xml";
-//	String MEDIA_TYPE_ZIP     = "zip";
-//	String MEDIA_TYPE_CSV     = "csv";
-//	String MEDIA_TYPE_TSV     = "tsv";
-//	String MEDIA_TYPE_XLSX    = "xlsx";
-//	String MEDIA_TYPE_JSON    = "json";
 }
