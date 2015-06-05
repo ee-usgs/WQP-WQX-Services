@@ -21,7 +21,8 @@ public class StreamingResultHandler implements ResultHandler {
 	@Override
 	public void handleResult(ResultContext context) {
 		LOG.trace("streaming handle result : {}", (context==null ?"null" :"context"));
-		Object object = context.getResultObject();
-		transformer.write(object);
+		if (null != context) {
+			transformer.write(context.getResultObject());
+		}
 	}
 }

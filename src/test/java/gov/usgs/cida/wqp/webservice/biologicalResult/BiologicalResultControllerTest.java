@@ -1,4 +1,4 @@
-package gov.usgs.cida.wqp.webservice.result;
+package gov.usgs.cida.wqp.webservice.biologicalResult;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -10,12 +10,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import gov.usgs.cida.wqp.BaseSpringTest;
 import gov.usgs.cida.wqp.IntegrationTest;
 import gov.usgs.cida.wqp.parameter.Parameters;
@@ -24,6 +18,11 @@ import gov.usgs.cida.wqp.util.CORSFilter;
 import gov.usgs.cida.wqp.util.HttpConstants;
 import gov.usgs.cida.wqp.util.MimeType;
 import gov.usgs.cida.wqp.util.MybatisConstants;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -45,7 +44,7 @@ import com.github.springtestdbunit.annotation.DatabaseSetups;
 	@DatabaseSetup("classpath:/testData/clearAll.xml"),
 	@DatabaseSetup("classpath:/testData/result.xml")
 })
-public class ResultControllerTest extends BaseSpringTest implements HttpConstants {
+public class BiologicalResultControllerTest extends BaseSpringTest implements HttpConstants {
 
     @Autowired
     private WebApplicationContext wac;
@@ -65,11 +64,11 @@ public class ResultControllerTest extends BaseSpringTest implements HttpConstant
 
     @Test
     public void getAsCsvHeadTest() throws Exception {
-    	MvcResult rtn = mockMvc.perform(head("/Result/search?mimeType=csv"))
+    	MvcResult rtn = mockMvc.perform(head("/biologicalresult/search?mimeType=csv"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MimeType.csv.getMimeType()))
             .andExpect(content().encoding(DEFAULT_ENCODING))
-            .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=result.csv"))
+            .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=biologicalresult.csv"))
             .andExpect(header().string(HEADER_CORS_METHODS, HEADER_CORS_METHODS_VALUE))
             .andExpect(header().string(HEADER_CORS_MAX_AGE, HEADER_CORS_MAX_AGE_VALUE))
 		    .andExpect(header().string(HEADER_CORS_ALLOW_HEADERS, HEADER_CORS_ALLOW_HEADERS_VALUE))
@@ -90,11 +89,11 @@ public class ResultControllerTest extends BaseSpringTest implements HttpConstant
 
     @Test
     public void getAsCsvGetTest() throws Exception {
-    	MvcResult rtn = mockMvc.perform(get("/Result/search?mimeType=csv"))
+    	MvcResult rtn = mockMvc.perform(get("/biologicalresult/search?mimeType=csv"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MimeType.csv.getMimeType()))
             .andExpect(content().encoding(DEFAULT_ENCODING))
-            .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=result.csv"))
+            .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=biologicalresult.csv"))
             .andExpect(header().string(HEADER_CORS_METHODS, HEADER_CORS_METHODS_VALUE))
             .andExpect(header().string(HEADER_CORS_MAX_AGE, HEADER_CORS_MAX_AGE_VALUE))
 		    .andExpect(header().string(HEADER_CORS_ALLOW_HEADERS, HEADER_CORS_ALLOW_HEADERS_VALUE))
@@ -110,16 +109,16 @@ public class ResultControllerTest extends BaseSpringTest implements HttpConstant
             .andReturn();
 
         assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
-        assertEquals(getCompareFile("pcResult.csv"), rtn.getResponse().getContentAsString());
+        assertEquals(getCompareFile("bioResult.csv"), rtn.getResponse().getContentAsString());
     }
 
     @Test
     public void getAsCsvZipHeadTest() throws Exception {
-    	MvcResult rtn = mockMvc.perform(head("/Result/search?mimeType=csv&zip=yes"))
+    	MvcResult rtn = mockMvc.perform(head("/biologicalresult/search?mimeType=csv&zip=yes"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MIME_TYPE_ZIP))
             .andExpect(content().encoding(DEFAULT_ENCODING))
-            .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=result.zip"))
+            .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=biologicalresult.zip"))
             .andExpect(header().string(HEADER_CORS_METHODS, HEADER_CORS_METHODS_VALUE))
             .andExpect(header().string(HEADER_CORS_MAX_AGE, HEADER_CORS_MAX_AGE_VALUE))
 		    .andExpect(header().string(HEADER_CORS_ALLOW_HEADERS, HEADER_CORS_ALLOW_HEADERS_VALUE))
@@ -140,11 +139,11 @@ public class ResultControllerTest extends BaseSpringTest implements HttpConstant
 
     @Test
     public void getAsCsvZipGetTest() throws Exception {
-    	MvcResult rtn = mockMvc.perform(get("/Result/search?mimeType=csv&zip=yes"))
+    	MvcResult rtn = mockMvc.perform(get("/biologicalresult/search?mimeType=csv&zip=yes"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MIME_TYPE_ZIP))
             .andExpect(content().encoding(DEFAULT_ENCODING))
-            .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=result.zip"))
+            .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=biologicalresult.zip"))
             .andExpect(header().string(HEADER_CORS_METHODS, HEADER_CORS_METHODS_VALUE))
             .andExpect(header().string(HEADER_CORS_MAX_AGE, HEADER_CORS_MAX_AGE_VALUE))
 		    .andExpect(header().string(HEADER_CORS_ALLOW_HEADERS, HEADER_CORS_ALLOW_HEADERS_VALUE))
@@ -160,17 +159,17 @@ public class ResultControllerTest extends BaseSpringTest implements HttpConstant
             .andReturn();
 
         assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
-        assertEquals(getCompareFile("pcResult.csv"), extractZipContent(rtn.getResponse().getContentAsByteArray(), "result.csv"));
+        assertEquals(getCompareFile("bioResult.csv"), extractZipContent(rtn.getResponse().getContentAsByteArray(), "biologicalresult.csv"));
     }
 
 
     @Test
     public void getAsTsvHeadTest() throws Exception {
-    	MvcResult rtn = mockMvc.perform(head("/Result/search?mimeType=tsv"))
+    	MvcResult rtn = mockMvc.perform(head("/biologicalresult/search?mimeType=tsv"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MimeType.tsv.getMimeType()))
             .andExpect(content().encoding(DEFAULT_ENCODING))
-            .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=result.tsv"))
+            .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=biologicalresult.tsv"))
             .andExpect(header().string(HEADER_CORS_METHODS, HEADER_CORS_METHODS_VALUE))
             .andExpect(header().string(HEADER_CORS_MAX_AGE, HEADER_CORS_MAX_AGE_VALUE))
 		    .andExpect(header().string(HEADER_CORS_ALLOW_HEADERS, HEADER_CORS_ALLOW_HEADERS_VALUE))
@@ -191,11 +190,11 @@ public class ResultControllerTest extends BaseSpringTest implements HttpConstant
 
     @Test
     public void getAsTsvGetTest() throws Exception {
-    	MvcResult rtn = mockMvc.perform(get("/Result/search?mimeType=tsv"))
+    	MvcResult rtn = mockMvc.perform(get("/biologicalresult/search?mimeType=tsv"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MimeType.tsv.getMimeType()))
             .andExpect(content().encoding(DEFAULT_ENCODING))
-            .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=result.tsv"))
+            .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=biologicalresult.tsv"))
             .andExpect(header().string(HEADER_CORS_METHODS, HEADER_CORS_METHODS_VALUE))
             .andExpect(header().string(HEADER_CORS_MAX_AGE, HEADER_CORS_MAX_AGE_VALUE))
 		    .andExpect(header().string(HEADER_CORS_ALLOW_HEADERS, HEADER_CORS_ALLOW_HEADERS_VALUE))
@@ -211,16 +210,16 @@ public class ResultControllerTest extends BaseSpringTest implements HttpConstant
             .andReturn();
 
         assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
-        assertEquals(getCompareFile("pcResult.tsv"), rtn.getResponse().getContentAsString());
+        assertEquals(getCompareFile("bioResult.tsv"), rtn.getResponse().getContentAsString());
     }
 
     @Test
     public void getAsTsvZipHeadTest() throws Exception {
-    	MvcResult rtn = mockMvc.perform(head("/Result/search?mimeType=tsv&zip=yes"))
+    	MvcResult rtn = mockMvc.perform(head("/biologicalresult/search?mimeType=tsv&zip=yes"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MIME_TYPE_ZIP))
             .andExpect(content().encoding(DEFAULT_ENCODING))
-            .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=result.zip"))
+            .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=biologicalresult.zip"))
             .andExpect(header().string(HEADER_CORS_METHODS, HEADER_CORS_METHODS_VALUE))
             .andExpect(header().string(HEADER_CORS_MAX_AGE, HEADER_CORS_MAX_AGE_VALUE))
 		    .andExpect(header().string(HEADER_CORS_ALLOW_HEADERS, HEADER_CORS_ALLOW_HEADERS_VALUE))
@@ -241,11 +240,11 @@ public class ResultControllerTest extends BaseSpringTest implements HttpConstant
 
     @Test
     public void getAsTsvZipGetTest() throws Exception {
-    	MvcResult rtn = mockMvc.perform(get("/Result/search?mimeType=tsv&zip=yes"))
+    	MvcResult rtn = mockMvc.perform(get("/biologicalresult/search?mimeType=tsv&zip=yes"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MIME_TYPE_ZIP))
             .andExpect(content().encoding(DEFAULT_ENCODING))
-            .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=result.zip"))
+            .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=biologicalresult.zip"))
             .andExpect(header().string(HEADER_CORS_METHODS, HEADER_CORS_METHODS_VALUE))
             .andExpect(header().string(HEADER_CORS_MAX_AGE, HEADER_CORS_MAX_AGE_VALUE))
 		    .andExpect(header().string(HEADER_CORS_ALLOW_HEADERS, HEADER_CORS_ALLOW_HEADERS_VALUE))
@@ -261,17 +260,17 @@ public class ResultControllerTest extends BaseSpringTest implements HttpConstant
             .andReturn();
 
         assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
-        assertEquals(getCompareFile("pcResult.tsv"), extractZipContent(rtn.getResponse().getContentAsByteArray(), "result.tsv"));
+        assertEquals(getCompareFile("bioResult.tsv"), extractZipContent(rtn.getResponse().getContentAsByteArray(), "biologicalresult.tsv"));
     }
 
     
     @Test
     public void getAsXlsxHeadTest() throws Exception {
-    	MvcResult rtn = mockMvc.perform(head("/Result/search?mimeType=xlsx"))
+    	MvcResult rtn = mockMvc.perform(head("/biologicalresult/search?mimeType=xlsx"))
     		.andExpect(status().isOk())
     		.andExpect(content().contentType(MimeType.xlsx.getMimeType()))
     		.andExpect(content().encoding(DEFAULT_ENCODING))
-    		.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=result.xlsx"))
+    		.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=biologicalresult.xlsx"))
     		.andExpect(header().string(HEADER_CORS_METHODS, HEADER_CORS_METHODS_VALUE))
     		.andExpect(header().string(HEADER_CORS_MAX_AGE, HEADER_CORS_MAX_AGE_VALUE))
     		.andExpect(header().string(HEADER_CORS_ALLOW_HEADERS, HEADER_CORS_ALLOW_HEADERS_VALUE))
@@ -292,11 +291,11 @@ public class ResultControllerTest extends BaseSpringTest implements HttpConstant
   
     @Test
     public void getAsXlsxGetTest() throws Exception {
-    	MvcResult rtn = mockMvc.perform(get("/Result/search?mimeType=xlsx"))
+    	MvcResult rtn = mockMvc.perform(get("/biologicalresult/search?mimeType=xlsx"))
 			.andExpect(status().isOk())
 			.andExpect(content().contentType(MimeType.xlsx.getMimeType()))
 			.andExpect(content().encoding(DEFAULT_ENCODING))
-			.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=result.xlsx"))
+			.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=biologicalresult.xlsx"))
 			.andExpect(header().string(HEADER_CORS_METHODS, HEADER_CORS_METHODS_VALUE))
 			.andExpect(header().string(HEADER_CORS_MAX_AGE, HEADER_CORS_MAX_AGE_VALUE))
 			.andExpect(header().string(HEADER_CORS_ALLOW_HEADERS, HEADER_CORS_ALLOW_HEADERS_VALUE))
@@ -317,11 +316,11 @@ public class ResultControllerTest extends BaseSpringTest implements HttpConstant
 
     @Test
     public void getAsXlsxZipHeadTest() throws Exception {
-    	MvcResult rtn = mockMvc.perform(head("/Result/search?mimeType=xlsx&zip=yes"))
+    	MvcResult rtn = mockMvc.perform(head("/biologicalresult/search?mimeType=xlsx&zip=yes"))
     		.andExpect(status().isOk())
     		.andExpect(content().contentType(MIME_TYPE_ZIP))
     		.andExpect(content().encoding(DEFAULT_ENCODING))
-    		.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=result.zip"))
+    		.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=biologicalresult.zip"))
     		.andExpect(header().string(HEADER_CORS_METHODS, HEADER_CORS_METHODS_VALUE))
     		.andExpect(header().string(HEADER_CORS_MAX_AGE, HEADER_CORS_MAX_AGE_VALUE))
     		.andExpect(header().string(HEADER_CORS_ALLOW_HEADERS, HEADER_CORS_ALLOW_HEADERS_VALUE))
@@ -342,11 +341,11 @@ public class ResultControllerTest extends BaseSpringTest implements HttpConstant
   
     @Test
     public void getAsXlsxZipGetTest() throws Exception {
-    	MvcResult rtn = mockMvc.perform(get("/Result/search?mimeType=xlsx&zip=yes"))
+    	MvcResult rtn = mockMvc.perform(get("/biologicalresult/search?mimeType=xlsx&zip=yes"))
 			.andExpect(status().isOk())
 			.andExpect(content().contentType(MIME_TYPE_ZIP))
 			.andExpect(content().encoding(DEFAULT_ENCODING))
-			.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=result.zip"))
+			.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=biologicalresult.zip"))
 			.andExpect(header().string(HEADER_CORS_METHODS, HEADER_CORS_METHODS_VALUE))
 			.andExpect(header().string(HEADER_CORS_MAX_AGE, HEADER_CORS_MAX_AGE_VALUE))
 			.andExpect(header().string(HEADER_CORS_ALLOW_HEADERS, HEADER_CORS_ALLOW_HEADERS_VALUE))
@@ -367,13 +366,13 @@ public class ResultControllerTest extends BaseSpringTest implements HttpConstant
 
     
 
-    @Test
+//    @Test
     public void getAsXmlHeadTest() throws Exception {
-    	MvcResult rtn = mockMvc.perform(head("/Result/search?mimeType=xml"))
+    	MvcResult rtn = mockMvc.perform(head("/biologicalresult/search?mimeType=xml"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MimeType.xml.getMimeType()))
             .andExpect(content().encoding(DEFAULT_ENCODING))
-            .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=result.xml"))
+            .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=biologicalresult.xml"))
             .andExpect(header().string(HEADER_CORS_METHODS, HEADER_CORS_METHODS_VALUE))
             .andExpect(header().string(HEADER_CORS_MAX_AGE, HEADER_CORS_MAX_AGE_VALUE))
 		    .andExpect(header().string(HEADER_CORS_ALLOW_HEADERS, HEADER_CORS_ALLOW_HEADERS_VALUE))
@@ -392,13 +391,13 @@ public class ResultControllerTest extends BaseSpringTest implements HttpConstant
     	assertEquals("", rtn.getResponse().getContentAsString());
     }
 
-    @Test
+//    @Test
     public void getAsXmlGetTest() throws Exception {
-    	MvcResult rtn = mockMvc.perform(get("/Result/search?mimeType=xml"))
+    	MvcResult rtn = mockMvc.perform(get("/biologicalresult/search?mimeType=xml"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MimeType.xml.getMimeType()))
             .andExpect(content().encoding(DEFAULT_ENCODING))
-            .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=result.xml"))
+            .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=biologicalresult.xml"))
             .andExpect(header().string(HEADER_CORS_METHODS, HEADER_CORS_METHODS_VALUE))
             .andExpect(header().string(HEADER_CORS_MAX_AGE, HEADER_CORS_MAX_AGE_VALUE))
 		    .andExpect(header().string(HEADER_CORS_ALLOW_HEADERS, HEADER_CORS_ALLOW_HEADERS_VALUE))
@@ -414,17 +413,17 @@ public class ResultControllerTest extends BaseSpringTest implements HttpConstant
             .andReturn();
 
         assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
-        assertEquals(harmonizeXml(getCompareFile("pcResult.xml")), harmonizeXml(rtn.getResponse().getContentAsString()));
+        assertEquals(harmonizeXml(getCompareFile("bioResult.xml")), harmonizeXml(rtn.getResponse().getContentAsString()));
     }
     
 
-    @Test
+//    @Test
     public void getAsXmlZipHeadTest() throws Exception {
-    	MvcResult rtn = mockMvc.perform(head("/Result/search?mimeType=xml&zip=yes"))
+    	MvcResult rtn = mockMvc.perform(head("/biologicalresult/search?mimeType=xml&zip=yes"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MIME_TYPE_ZIP))
             .andExpect(content().encoding(DEFAULT_ENCODING))
-            .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=result.zip"))
+            .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=biologicalresult.zip"))
             .andExpect(header().string(HEADER_CORS_METHODS, HEADER_CORS_METHODS_VALUE))
             .andExpect(header().string(HEADER_CORS_MAX_AGE, HEADER_CORS_MAX_AGE_VALUE))
 		    .andExpect(header().string(HEADER_CORS_ALLOW_HEADERS, HEADER_CORS_ALLOW_HEADERS_VALUE))
@@ -443,13 +442,13 @@ public class ResultControllerTest extends BaseSpringTest implements HttpConstant
     	assertEquals("", rtn.getResponse().getContentAsString());
     }
 
-    @Test
+//    @Test
     public void getAsXmlZipGetTest() throws Exception {
-    	MvcResult rtn = mockMvc.perform(get("/Result/search?mimeType=xml&zip=yes"))
+    	MvcResult rtn = mockMvc.perform(get("/biologicalresult/search?mimeType=xml&zip=yes"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MIME_TYPE_ZIP))
             .andExpect(content().encoding(DEFAULT_ENCODING))
-            .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=result.zip"))
+            .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=biologicalresult.zip"))
             .andExpect(header().string(HEADER_CORS_METHODS, HEADER_CORS_METHODS_VALUE))
             .andExpect(header().string(HEADER_CORS_MAX_AGE, HEADER_CORS_MAX_AGE_VALUE))
 		    .andExpect(header().string(HEADER_CORS_ALLOW_HEADERS, HEADER_CORS_ALLOW_HEADERS_VALUE))
@@ -465,7 +464,7 @@ public class ResultControllerTest extends BaseSpringTest implements HttpConstant
             .andReturn();
 
         assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
-        assertEquals(harmonizeXml(getCompareFile("pcResult.xml")), harmonizeXml(extractZipContent(rtn.getResponse().getContentAsByteArray(), "result.xml")));
+        assertEquals(harmonizeXml(getCompareFile("bioResult.xml")), harmonizeXml(extractZipContent(rtn.getResponse().getContentAsByteArray(), "biologicalresult.xml")));
     }
     
     @Test
@@ -473,7 +472,7 @@ public class ResultControllerTest extends BaseSpringTest implements HttpConstant
         when(codesService.validate(any(Parameters.class), anyString())).thenReturn(true);
 
     	MvcResult rtn = mockMvc.perform(
-    		get("/Result/search?mimeType=csv" +
+    		get("/biologicalresult/search?mimeType=csv" +
     			"&analyticalmethod=https://www.nemi.gov/methods/method_summary/4665/;https://www.nemi.gov/methods/method_summary/8896/" + 
     			"bBox=-89;43;-88;44" +
     			"&characteristicName=Beryllium;Nitrate" +
@@ -498,7 +497,7 @@ public class ResultControllerTest extends BaseSpringTest implements HttpConstant
 			.andExpect(status().isOk())
 			.andExpect(content().contentType(MimeType.csv.getMimeType()))
 			.andExpect(content().encoding(DEFAULT_ENCODING))
-			.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=result.csv"))
+			.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=biologicalresult.csv"))
             .andExpect(header().string(HEADER_CORS_METHODS, HEADER_CORS_METHODS_VALUE))
             .andExpect(header().string(HEADER_CORS_MAX_AGE, HEADER_CORS_MAX_AGE_VALUE))
 		    .andExpect(header().string(HEADER_CORS_ALLOW_HEADERS, HEADER_CORS_ALLOW_HEADERS_VALUE))
@@ -536,7 +535,7 @@ public class ResultControllerTest extends BaseSpringTest implements HttpConstant
 
 	@Test
 	public void test_addPcResultHeaders_proper() {
-		ResultController testController = new ResultController(null, null, null, null, null);
+		BiologicalResultController testController = new BiologicalResultController(null, null, null, null, null);
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		List<Map<String, Object>> counts = new ArrayList<Map<String, Object>>();
 		addEntryStation("NWIS", 7, counts);
@@ -560,7 +559,7 @@ public class ResultControllerTest extends BaseSpringTest implements HttpConstant
 
 	@Test
 	public void test_addPcResultHeaders_noTotal() {
-		ResultController testController = new ResultController(null, null, null, null, null);
+		BiologicalResultController testController = new BiologicalResultController(null, null, null, null, null);
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		List<Map<String, Object>> counts = new ArrayList<Map<String, Object>>();
 		addEntryResult("NWIS", 7, counts);

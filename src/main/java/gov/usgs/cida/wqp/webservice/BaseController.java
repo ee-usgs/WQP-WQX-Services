@@ -214,11 +214,13 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 			String msgText = "Something bad happened. Contact us with Reference Number: " + hashValue;
 			LOG.error(msgText, e);
 			response.addHeader(HEADER_FATAL_ERROR, msgText);
-			try {
-				responseStream.write(msgText.getBytes(DEFAULT_ENCODING));
-			} catch (IOException e2) {
-				//Just log, cause we obviously can't tell the client
-				LOG.error("Error telling client about exception", e2);
+			if (null != responseStream) {
+				try {
+					responseStream.write(msgText.getBytes(DEFAULT_ENCODING));
+				} catch (IOException e2) {
+					//Just log, cause we obviously can't tell the client
+					LOG.error("Error telling client about exception", e2);
+				}
 			}
 		} finally {
 			if (null != responseStream) {

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
 
-<mapper namespace="pcresult">
+<mapper namespace="pcResult">
 
-    <select id="select" resultType="java.util.LinkedHashMap" fetchSize="1024">
+    <select id="select" resultType="java.util.LinkedHashMap" fetchSize="500">
         select data_source_id, data_source, station_id, site_id, to_char(event_date, 'yyyy-mm-dd') event_date, analytical_method, p_code, activity,
                               characteristic_name, characteristic_type, sample_media, organization, site_type, huc, governmental_unit_code,
                               organization_name, activity_type_code, activity_media_subdiv_name, activity_start_time,
@@ -17,9 +17,9 @@
                               temperature_basis_level, particle_size, precision, result_comment, result_depth_meas_value,
                               result_depth_meas_unit_code, result_depth_alt_ref_pt_txt, sample_tissue_taxonomic_name,
                               sample_tissue_anatomy_name, analytical_procedure_id, analytical_procedure_source, analytical_method_name,
-                              analytical_method_citation, lab_name, analysis_date_time, lab_remark, detection_limit, detection_limit_unit,
+                              analytical_method_citation, lab_name, analysis_start_date, lab_remark, detection_limit, detection_limit_unit,
                               detection_limit_desc, analysis_prep_date_tx
-		<include refid="dynamicWhere.pcResultsBase"/>
+		<include refid="dynamicWhere.resultsBase"/>
 			order by data_source,
 			         organization,
 			         site_id,
@@ -27,12 +27,16 @@
 			         activity
 	</select>
         
-	<select id="count" resultType="java.util.LinkedHashMap">
+    <sql id="resultCount">
 		select data_source,
 		       count(distinct s.site_id) station_count,
                sum(result_count) result_count
-		<include refid="dynamicWhere.pcResultsCountBase"/>
+		<include refid="dynamicWhere.resultsCountBase"/>
 		group by rollup(data_source)
+    </sql>
+	
+	<select id="count" resultType="java.util.LinkedHashMap">
+		<include refid="pcResult.resultCount"/>
 	</select>
 
 </mapper>

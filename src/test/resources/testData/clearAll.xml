@@ -2,8 +2,9 @@
 <dataset>
 	<station/>
 	<station_sum/>
-	<pc_result/>
-	<pc_result_sum/>
-	<pc_result_ct_sum/>
-	<pc_result_nr_sum/>
+	<result/>
+	<result_sum/>
+	<result_ct_sum/>
+	<result_nr_sum/>
+	<web_service_log/>
 </dataset>

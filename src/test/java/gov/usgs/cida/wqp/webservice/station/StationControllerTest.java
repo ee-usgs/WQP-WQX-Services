@@ -68,7 +68,7 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
             .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
 
-    	assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues("Access-Control-Expose-Headers"));
+    	assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
     	assertEquals("", rtn.getResponse().getContentAsString());
         
         rtn = mockMvc.perform(get("/Station/search?mimeType=csv"))
@@ -83,7 +83,7 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
             .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
         	.andReturn();
 
-        assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues("Access-Control-Expose-Headers"));
+        assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
         assertEquals(getCompareFile("station.csv"), rtn.getResponse().getContentAsString());
     }
 
@@ -101,7 +101,7 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
             .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
 
-    	assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues("Access-Control-Expose-Headers"));
+    	assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
     	assertEquals("", rtn.getResponse().getContentAsString());
         
         rtn = mockMvc.perform(get("/Station/search?mimeType=csv&zip=yes"))
@@ -116,7 +116,7 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
             .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
         	.andReturn();
 
-        assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues("Access-Control-Expose-Headers"));
+        assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
         assertEquals(getCompareFile("station.csv"), extractZipContent(rtn.getResponse().getContentAsByteArray(), "station.csv"));
     }
 
@@ -134,7 +134,7 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
             .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
 
-    	assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues("Access-Control-Expose-Headers"));
+    	assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
     	assertEquals("", rtn.getResponse().getContentAsString());
         
         rtn = mockMvc.perform(get("/Station/search?mimeType=tsv"))
@@ -149,7 +149,7 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
             .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
         	.andReturn();
 
-        assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues("Access-Control-Expose-Headers"));
+        assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
         assertEquals(getCompareFile("station.tsv"), rtn.getResponse().getContentAsString());
     }
 
@@ -167,7 +167,7 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
             .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
 
-    	assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues("Access-Control-Expose-Headers"));
+    	assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
     	assertEquals("", rtn.getResponse().getContentAsString());
         
         rtn = mockMvc.perform(get("/Station/search?mimeType=tsv&zip=yes"))
@@ -182,7 +182,7 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
             .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
         	.andReturn();
 
-        assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues("Access-Control-Expose-Headers"));
+        assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
         assertEquals(getCompareFile("station.tsv"), extractZipContent(rtn.getResponse().getContentAsByteArray(), "station.tsv"));
     }
 
@@ -200,7 +200,7 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
             .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
     		.andReturn();
 
-    	assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues("Access-Control-Expose-Headers"));
+    	assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
     	assertEquals("", rtn.getResponse().getContentAsString());
     	
     	rtn = mockMvc.perform(get("/Station/search?mimeType=xlsx"))
@@ -215,7 +215,7 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
             .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
     		.andReturn();
 
-    	assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues("Access-Control-Expose-Headers"));
+    	assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
     	//TODO an actual compare - perhaps using     https://github.com/tobyweston/simple-excel
 //    	assertEquals(getCompareFile("station.tsv"), rtn.getResponse().getContentAsString());
     }
@@ -234,7 +234,7 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
             .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
     		.andReturn();
 
-    	assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues("Access-Control-Expose-Headers"));
+    	assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
     	assertEquals("", rtn.getResponse().getContentAsString());
     	
     	rtn = mockMvc.perform(get("/Station/search?mimeType=xlsx&zip=yes"))
@@ -249,7 +249,7 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
             .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
     		.andReturn();
 
-    	assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues("Access-Control-Expose-Headers"));
+    	assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
     	//TODO an actual compare - perhaps using     https://github.com/tobyweston/simple-excel
 //    	assertEquals(getCompareFile("station.tsv"), rtn.getResponse().getContentAsString());
     }
@@ -268,7 +268,7 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
             .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
 
-    	assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues("Access-Control-Expose-Headers"));
+    	assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
     	assertEquals("", rtn.getResponse().getContentAsString());
     }
     
@@ -286,7 +286,7 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
             .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
 
-    	assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues("Access-Control-Expose-Headers"));
+    	assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
     	assertEquals("", rtn.getResponse().getContentAsString());
     }
 
@@ -304,7 +304,7 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
             .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
         	.andReturn();
 
-        assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues("Access-Control-Expose-Headers"));
+        assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
         assertEquals(harmonizeXml(getCompareFile("station.xml")), harmonizeXml(rtn.getResponse().getContentAsString()));
     }
 
@@ -322,7 +322,7 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
             .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
         	.andReturn();
 
-        assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues("Access-Control-Expose-Headers"));
+        assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
         assertEquals(harmonizeXml(getCompareFile("station.xml")), harmonizeXml(extractZipContent(rtn.getResponse().getContentAsByteArray(), "station.xml")));
     }
 
@@ -340,7 +340,7 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
             .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
 
-    	assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues("Access-Control-Expose-Headers"));
+    	assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
     	assertEquals("", rtn.getResponse().getContentAsString());
     }
     
@@ -358,7 +358,7 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
             .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
 
-    	assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues("Access-Control-Expose-Headers"));
+    	assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
     	assertEquals("", rtn.getResponse().getContentAsString());
     }
     
@@ -376,7 +376,7 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
             .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
 
-    	assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues("Access-Control-Expose-Headers"));
+    	assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
     	assertEquals("", rtn.getResponse().getContentAsString());
     }
     
@@ -394,7 +394,7 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
             .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
         	.andReturn();
 
-        assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues("Access-Control-Expose-Headers"));
+        assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
         assertEquals(harmonizeXml(getCompareFile("station.kml")), harmonizeXml(rtn.getResponse().getContentAsString()));
     }
 
@@ -412,7 +412,7 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
             .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
         	.andReturn();
 
-        assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues("Access-Control-Expose-Headers"));
+        assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
         assertEquals(harmonizeXml(getCompareFile("station.kml")), harmonizeXml(extractZipContent(rtn.getResponse().getContentAsByteArray(), "station.kml")));
     }
 
@@ -430,7 +430,7 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
             .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
         	.andReturn();
 
-        assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues("Access-Control-Expose-Headers"));
+        assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
         assertEquals(harmonizeXml(getCompareFile("station.kml")), harmonizeXml(extractZipContent(rtn.getResponse().getContentAsByteArray(), "station.kml")));
     }
 
@@ -465,9 +465,9 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
 			.andExpect(content().contentType(MediaType.APPLICATION_XML_VALUE))
 			.andExpect(content().encoding(DEFAULT_ENCODING))
 			.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=station.xml"))
-            .andExpect(header().string(HttpConstants.HEADER_CORS_METHODS, HttpConstants.HEADER_CORS_METHODS_VALUE))
-            .andExpect(header().string(HttpConstants.HEADER_CORS_MAX_AGE, HttpConstants.HEADER_CORS_MAX_AGE_VALUE))
-		    .andExpect(header().string(HttpConstants.HEADER_CORS_ALLOW_HEADERS, HttpConstants.HEADER_CORS_ALLOW_HEADERS_VALUE))
+            .andExpect(header().string(HEADER_CORS_METHODS, HEADER_CORS_METHODS_VALUE))
+            .andExpect(header().string(HEADER_CORS_MAX_AGE, HEADER_CORS_MAX_AGE_VALUE))
+		    .andExpect(header().string(HEADER_CORS_ALLOW_HEADERS, HEADER_CORS_ALLOW_HEADERS_VALUE))
 			.andExpect(header().string("Total-Site-Count", "0"))
 			.andExpect(header().string("NWIS-Site-Count", (String)null))
 			.andExpect(header().string("STEWARDS-Site-Count", (String)null))
@@ -475,7 +475,7 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
             .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
 			.andReturn();
 
-        assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues("Access-Control-Expose-Headers"));
+        assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
 //        assertEquals(harmonizeXml(getCompareFile("station.xml")), harmonizeXml(rtn.getResponse().getContentAsString()));
 	
     }

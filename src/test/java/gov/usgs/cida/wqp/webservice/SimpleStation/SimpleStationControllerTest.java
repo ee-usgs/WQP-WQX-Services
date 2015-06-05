@@ -16,7 +16,6 @@ import gov.usgs.cida.wqp.IntegrationTest;
 import gov.usgs.cida.wqp.parameter.Parameters;
 import gov.usgs.cida.wqp.service.CodesService;
 import gov.usgs.cida.wqp.util.CORSFilter;
-import gov.usgs.cida.wqp.util.HttpConstants;
 
 import org.json.JSONObject;
 import org.junit.Before;
@@ -39,7 +38,7 @@ import com.github.springtestdbunit.annotation.DatabaseSetups;
 	@DatabaseSetup("classpath:/testData/clearAll.xml"),
 	@DatabaseSetup("classpath:/testData/simpleStation.xml")
 })
-public class SimpleStationControllerTest extends BaseSpringTest implements HttpConstants {
+public class SimpleStationControllerTest extends BaseSpringTest {
 
     @Autowired
     private WebApplicationContext wac;
@@ -64,9 +63,9 @@ public class SimpleStationControllerTest extends BaseSpringTest implements HttpC
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(content().encoding(DEFAULT_ENCODING))
             .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=simplestation.json"))
-            .andExpect(header().string(HttpConstants.HEADER_CORS_METHODS, HttpConstants.HEADER_CORS_METHODS_VALUE))
-            .andExpect(header().string(HttpConstants.HEADER_CORS_MAX_AGE, HttpConstants.HEADER_CORS_MAX_AGE_VALUE))
-		    .andExpect(header().string(HttpConstants.HEADER_CORS_ALLOW_HEADERS, HttpConstants.HEADER_CORS_ALLOW_HEADERS_VALUE))
+            .andExpect(header().string(HEADER_CORS_METHODS, HEADER_CORS_METHODS_VALUE))
+            .andExpect(header().string(HEADER_CORS_MAX_AGE, HEADER_CORS_MAX_AGE_VALUE))
+		    .andExpect(header().string(HEADER_CORS_ALLOW_HEADERS, HEADER_CORS_ALLOW_HEADERS_VALUE))
             .andExpect(header().string("Total-Site-Count", "6"))
             .andExpect(header().string("NWIS-Site-Count", "2"))
             .andExpect(header().string("STEWARDS-Site-Count", "2"))
@@ -74,7 +73,7 @@ public class SimpleStationControllerTest extends BaseSpringTest implements HttpC
             .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
 
-    	assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues("Access-Control-Expose-Headers"));
+    	assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
     	assertEquals("", rtn.getResponse().getContentAsString());
         
         rtn = mockMvc.perform(get("/simplestation/search?mimeType=json"))
@@ -82,9 +81,9 @@ public class SimpleStationControllerTest extends BaseSpringTest implements HttpC
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(content().encoding(DEFAULT_ENCODING))
             .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=simplestation.json"))
-            .andExpect(header().string(HttpConstants.HEADER_CORS_METHODS, HttpConstants.HEADER_CORS_METHODS_VALUE))
-            .andExpect(header().string(HttpConstants.HEADER_CORS_MAX_AGE, HttpConstants.HEADER_CORS_MAX_AGE_VALUE))
-		    .andExpect(header().string(HttpConstants.HEADER_CORS_ALLOW_HEADERS, HttpConstants.HEADER_CORS_ALLOW_HEADERS_VALUE))
+            .andExpect(header().string(HEADER_CORS_METHODS, HEADER_CORS_METHODS_VALUE))
+            .andExpect(header().string(HEADER_CORS_MAX_AGE, HEADER_CORS_MAX_AGE_VALUE))
+		    .andExpect(header().string(HEADER_CORS_ALLOW_HEADERS, HEADER_CORS_ALLOW_HEADERS_VALUE))
             .andExpect(header().string("Total-Site-Count", "6"))
             .andExpect(header().string("NWIS-Site-Count", "2"))
             .andExpect(header().string("STEWARDS-Site-Count", "2"))
@@ -92,7 +91,7 @@ public class SimpleStationControllerTest extends BaseSpringTest implements HttpC
             .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
 
-        assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues("Access-Control-Expose-Headers"));
+        assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
         assertThat(new JSONObject(rtn.getResponse().getContentAsString()),
         		sameJSONObjectAs(new JSONObject(getCompareFile("simpleStation.json"))));
     }
@@ -104,9 +103,9 @@ public class SimpleStationControllerTest extends BaseSpringTest implements HttpC
             .andExpect(content().contentType(MIME_TYPE_ZIP))
             .andExpect(content().encoding(DEFAULT_ENCODING))
             .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=simplestation.zip"))
-            .andExpect(header().string(HttpConstants.HEADER_CORS_METHODS, HttpConstants.HEADER_CORS_METHODS_VALUE))
-            .andExpect(header().string(HttpConstants.HEADER_CORS_MAX_AGE, HttpConstants.HEADER_CORS_MAX_AGE_VALUE))
-		    .andExpect(header().string(HttpConstants.HEADER_CORS_ALLOW_HEADERS, HttpConstants.HEADER_CORS_ALLOW_HEADERS_VALUE))
+            .andExpect(header().string(HEADER_CORS_METHODS, HEADER_CORS_METHODS_VALUE))
+            .andExpect(header().string(HEADER_CORS_MAX_AGE, HEADER_CORS_MAX_AGE_VALUE))
+		    .andExpect(header().string(HEADER_CORS_ALLOW_HEADERS, HEADER_CORS_ALLOW_HEADERS_VALUE))
             .andExpect(header().string("Total-Site-Count", "6"))
             .andExpect(header().string("NWIS-Site-Count", "2"))
             .andExpect(header().string("STEWARDS-Site-Count", "2"))
@@ -114,7 +113,7 @@ public class SimpleStationControllerTest extends BaseSpringTest implements HttpC
             .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
 
-    	assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues("Access-Control-Expose-Headers"));
+    	assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
     	assertEquals("", rtn.getResponse().getContentAsString());
         
         rtn = mockMvc.perform(get("/simplestation/search?mimeType=json&zip=yes"))
@@ -122,9 +121,9 @@ public class SimpleStationControllerTest extends BaseSpringTest implements HttpC
             .andExpect(content().contentType(MIME_TYPE_ZIP))
             .andExpect(content().encoding(DEFAULT_ENCODING))
             .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=simplestation.zip"))
-            .andExpect(header().string(HttpConstants.HEADER_CORS_METHODS, HttpConstants.HEADER_CORS_METHODS_VALUE))
-            .andExpect(header().string(HttpConstants.HEADER_CORS_MAX_AGE, HttpConstants.HEADER_CORS_MAX_AGE_VALUE))
-		    .andExpect(header().string(HttpConstants.HEADER_CORS_ALLOW_HEADERS, HttpConstants.HEADER_CORS_ALLOW_HEADERS_VALUE))
+            .andExpect(header().string(HEADER_CORS_METHODS, HEADER_CORS_METHODS_VALUE))
+            .andExpect(header().string(HEADER_CORS_MAX_AGE, HEADER_CORS_MAX_AGE_VALUE))
+		    .andExpect(header().string(HEADER_CORS_ALLOW_HEADERS, HEADER_CORS_ALLOW_HEADERS_VALUE))
             .andExpect(header().string("Total-Site-Count", "6"))
             .andExpect(header().string("NWIS-Site-Count", "2"))
             .andExpect(header().string("STEWARDS-Site-Count", "2"))
@@ -132,7 +131,7 @@ public class SimpleStationControllerTest extends BaseSpringTest implements HttpC
             .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
 
-        assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues("Access-Control-Expose-Headers"));
+        assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
         assertThat(new JSONObject(extractZipContent(rtn.getResponse().getContentAsByteArray(), "simplestation.json")),
         		sameJSONObjectAs(new JSONObject(getCompareFile("simpleStation.json"))));
     }
@@ -144,9 +143,9 @@ public class SimpleStationControllerTest extends BaseSpringTest implements HttpC
             .andExpect(content().contentType(MediaType.APPLICATION_XML_VALUE))
             .andExpect(content().encoding(DEFAULT_ENCODING))
             .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=simplestation.xml"))
-            .andExpect(header().string(HttpConstants.HEADER_CORS_METHODS, HttpConstants.HEADER_CORS_METHODS_VALUE))
-            .andExpect(header().string(HttpConstants.HEADER_CORS_MAX_AGE, HttpConstants.HEADER_CORS_MAX_AGE_VALUE))
-		    .andExpect(header().string(HttpConstants.HEADER_CORS_ALLOW_HEADERS, HttpConstants.HEADER_CORS_ALLOW_HEADERS_VALUE))
+            .andExpect(header().string(HEADER_CORS_METHODS, HEADER_CORS_METHODS_VALUE))
+            .andExpect(header().string(HEADER_CORS_MAX_AGE, HEADER_CORS_MAX_AGE_VALUE))
+		    .andExpect(header().string(HEADER_CORS_ALLOW_HEADERS, HEADER_CORS_ALLOW_HEADERS_VALUE))
             .andExpect(header().string("Total-Site-Count", "6"))
             .andExpect(header().string("NWIS-Site-Count", "2"))
             .andExpect(header().string("STEWARDS-Site-Count", "2"))
@@ -154,7 +153,7 @@ public class SimpleStationControllerTest extends BaseSpringTest implements HttpC
             .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
 
-    	assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues("Access-Control-Expose-Headers"));
+    	assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
     	assertEquals("", rtn.getResponse().getContentAsString());
     }
     
@@ -165,9 +164,9 @@ public class SimpleStationControllerTest extends BaseSpringTest implements HttpC
             .andExpect(content().contentType(MediaType.APPLICATION_XML_VALUE))
             .andExpect(content().encoding(DEFAULT_ENCODING))
             .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=simplestation.xml"))
-            .andExpect(header().string(HttpConstants.HEADER_CORS_METHODS, HttpConstants.HEADER_CORS_METHODS_VALUE))
-            .andExpect(header().string(HttpConstants.HEADER_CORS_MAX_AGE, HttpConstants.HEADER_CORS_MAX_AGE_VALUE))
-		    .andExpect(header().string(HttpConstants.HEADER_CORS_ALLOW_HEADERS, HttpConstants.HEADER_CORS_ALLOW_HEADERS_VALUE))
+            .andExpect(header().string(HEADER_CORS_METHODS, HEADER_CORS_METHODS_VALUE))
+            .andExpect(header().string(HEADER_CORS_MAX_AGE, HEADER_CORS_MAX_AGE_VALUE))
+		    .andExpect(header().string(HEADER_CORS_ALLOW_HEADERS, HEADER_CORS_ALLOW_HEADERS_VALUE))
             .andExpect(header().string("Total-Site-Count", "6"))
             .andExpect(header().string("NWIS-Site-Count", "2"))
             .andExpect(header().string("STEWARDS-Site-Count", "2"))
@@ -175,7 +174,7 @@ public class SimpleStationControllerTest extends BaseSpringTest implements HttpC
             .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
 
-        assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues("Access-Control-Expose-Headers"));
+        assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
         assertEquals(harmonizeXml(getCompareFile("simpleStation.xml")), harmonizeXml(rtn.getResponse().getContentAsString()));
     }
 
@@ -186,9 +185,9 @@ public class SimpleStationControllerTest extends BaseSpringTest implements HttpC
             .andExpect(content().contentType(MIME_TYPE_ZIP))
             .andExpect(content().encoding(DEFAULT_ENCODING))
             .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=simplestation.zip"))
-            .andExpect(header().string(HttpConstants.HEADER_CORS_METHODS, HttpConstants.HEADER_CORS_METHODS_VALUE))
-            .andExpect(header().string(HttpConstants.HEADER_CORS_MAX_AGE, HttpConstants.HEADER_CORS_MAX_AGE_VALUE))
-		    .andExpect(header().string(HttpConstants.HEADER_CORS_ALLOW_HEADERS, HttpConstants.HEADER_CORS_ALLOW_HEADERS_VALUE))
+            .andExpect(header().string(HEADER_CORS_METHODS, HEADER_CORS_METHODS_VALUE))
+            .andExpect(header().string(HEADER_CORS_MAX_AGE, HEADER_CORS_MAX_AGE_VALUE))
+		    .andExpect(header().string(HEADER_CORS_ALLOW_HEADERS, HEADER_CORS_ALLOW_HEADERS_VALUE))
             .andExpect(header().string("Total-Site-Count", "6"))
             .andExpect(header().string("NWIS-Site-Count", "2"))
             .andExpect(header().string("STEWARDS-Site-Count", "2"))
@@ -196,7 +195,7 @@ public class SimpleStationControllerTest extends BaseSpringTest implements HttpC
             .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
 
-    	assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues("Access-Control-Expose-Headers"));
+    	assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
     	assertEquals("", rtn.getResponse().getContentAsString());
     }
     
@@ -207,9 +206,9 @@ public class SimpleStationControllerTest extends BaseSpringTest implements HttpC
             .andExpect(content().contentType(MIME_TYPE_ZIP))
             .andExpect(content().encoding(DEFAULT_ENCODING))
             .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=simplestation.zip"))
-            .andExpect(header().string(HttpConstants.HEADER_CORS_METHODS, HttpConstants.HEADER_CORS_METHODS_VALUE))
-            .andExpect(header().string(HttpConstants.HEADER_CORS_MAX_AGE, HttpConstants.HEADER_CORS_MAX_AGE_VALUE))
-		    .andExpect(header().string(HttpConstants.HEADER_CORS_ALLOW_HEADERS, HttpConstants.HEADER_CORS_ALLOW_HEADERS_VALUE))
+            .andExpect(header().string(HEADER_CORS_METHODS, HEADER_CORS_METHODS_VALUE))
+            .andExpect(header().string(HEADER_CORS_MAX_AGE, HEADER_CORS_MAX_AGE_VALUE))
+		    .andExpect(header().string(HEADER_CORS_ALLOW_HEADERS, HEADER_CORS_ALLOW_HEADERS_VALUE))
             .andExpect(header().string("Total-Site-Count", "6"))
             .andExpect(header().string("NWIS-Site-Count", "2"))
             .andExpect(header().string("STEWARDS-Site-Count", "2"))
@@ -217,7 +216,7 @@ public class SimpleStationControllerTest extends BaseSpringTest implements HttpC
             .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
 
-        assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues("Access-Control-Expose-Headers"));
+        assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
         assertEquals(harmonizeXml(getCompareFile("simpleStation.xml")), harmonizeXml(extractZipContent(rtn.getResponse().getContentAsByteArray(), "simplestation.xml")));
     }
 
@@ -252,9 +251,9 @@ public class SimpleStationControllerTest extends BaseSpringTest implements HttpC
 			.andExpect(content().contentType(MediaType.APPLICATION_XML_VALUE))
 			.andExpect(content().encoding(DEFAULT_ENCODING))
 			.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=simplestation.xml"))
-            .andExpect(header().string(HttpConstants.HEADER_CORS_METHODS, HttpConstants.HEADER_CORS_METHODS_VALUE))
-            .andExpect(header().string(HttpConstants.HEADER_CORS_MAX_AGE, HttpConstants.HEADER_CORS_MAX_AGE_VALUE))
-		    .andExpect(header().string(HttpConstants.HEADER_CORS_ALLOW_HEADERS, HttpConstants.HEADER_CORS_ALLOW_HEADERS_VALUE))
+            .andExpect(header().string(HEADER_CORS_METHODS, HEADER_CORS_METHODS_VALUE))
+            .andExpect(header().string(HEADER_CORS_MAX_AGE, HEADER_CORS_MAX_AGE_VALUE))
+		    .andExpect(header().string(HEADER_CORS_ALLOW_HEADERS, HEADER_CORS_ALLOW_HEADERS_VALUE))
 			.andExpect(header().string("Total-Site-Count", "0"))
 			.andExpect(header().string("NWIS-Site-Count", (String)null))
 			.andExpect(header().string("STEWARDS-Site-Count", (String)null))
@@ -262,7 +261,7 @@ public class SimpleStationControllerTest extends BaseSpringTest implements HttpC
             .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
 			.andReturn();
 
-        assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues("Access-Control-Expose-Headers"));
+        assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
 //        assertEquals(harmonizeXml(getCompareFile("simpleStation.xml")), harmonizeXml(rtn.getResponse().getContentAsString()));
 	
     }

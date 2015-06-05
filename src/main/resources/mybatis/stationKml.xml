@@ -3,7 +3,7 @@
 
 <mapper namespace="stationKml">
 
-    <select id="select" resultType="java.util.LinkedHashMap" fetchSize="1024">
+    <select id="select" resultType="java.util.LinkedHashMap" fetchSize="500">
         select station_name,
 		       case data_source_id
 		         when 1 then 'ARSSite'
@@ -30,9 +30,7 @@
     </select>
 
 	<select id="count" resultType="java.util.LinkedHashMap">
-		select data_source, count(distinct s.site_id) station_count
-		<include refid="dynamicWhere.stationsCountBase"/>
-		group by rollup(data_source)
+		<include refid="station.stationCount"/>
 	</select>
 
 </mapper>

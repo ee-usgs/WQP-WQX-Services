@@ -2,66 +2,66 @@ package gov.usgs.cida.wqp.mapping;
 
 import static gov.usgs.cida.wqp.mapping.BaseColumn.KEY_ORGANIZATION;
 import static gov.usgs.cida.wqp.mapping.BaseColumn.KEY_ORGANIZATION_NAME;
-import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_ACTIVITY;
-import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_ACTIVITY_COMMENT;
-import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_ACTIVITY_CONDUCTING_ORG;
-import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_ACTIVITY_DEPTH;
-import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_ACTIVITY_DEPTH_REF_POINT;
-import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_ACTIVITY_DEPTH_UNIT;
-import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_ACTIVITY_LOWER_DEPTH;
-import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_ACTIVITY_LOWER_DEPTH_UNIT;
-import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_ACTIVITY_MEDIA_SUBDIV_NAME;
-import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_ACTIVITY_START_TIME;
-import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_ACTIVITY_STOP_DATE;
-import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_ACTIVITY_STOP_TIME;
-import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_ACTIVITY_TYPE_CODE;
-import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_ACTIVITY_UPPER_DEPTH;
-import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_ACTIVITY_UPPER_DEPTH_UNIT;
-import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_ACT_START_TIME_ZONE;
-import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_ACT_STOP_TIME_ZONE;
-import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_ANALYSIS_DATE_TIME;
-import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_ANALYSIS_PREP_DATE_TX;
-import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_ANALYTICAL_METHOD_CITATION;
-import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_ANALYTICAL_METHOD_NAME;
-import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_ANALYTICAL_PROCEDURE_ID;
-import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_ANALYTICAL_PROCEDURE_SOURCE;
-import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_CHARACTERISTIC_NAME;
-import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_DETECTION_LIMIT;
-import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_DETECTION_LIMIT_DESC;
-import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_DETECTION_LIMIT_UNIT;
-import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_DURATION_BASIS;
-import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_EVENT_DATE;
-import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_HYDROLOGIC_CONDITION_NAME;
-import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_HYDROLOGIC_EVENT_NAME;
-import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_LAB_NAME;
-import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_LAB_REMARK;
-import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_PARTICLE_SIZE;
-import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_PRECISION;
-import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_PROJECT_ID;
-import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_P_CODE;
-import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_RESULT_COMMENT;
-import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_RESULT_DEPTH_ALT_REF_PT_TXT;
-import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_RESULT_DEPTH_MEAS_UNIT_CODE;
-import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_RESULT_DEPTH_MEAS_VALUE;
-import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_RESULT_DETECTION_CONDITION_TX;
-import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_RESULT_ID;
-import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_RESULT_MEASURE_VALUE;
-import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_RESULT_MEAS_QUAL_CODE;
-import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_RESULT_UNIT;
-import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_RESULT_VALUE_STATUS;
-import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_RESULT_VALUE_TYPE;
-import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_SAMPLE_AQFR_NAME;
-import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_SAMPLE_COLLECT_EQUIP_NAME;
-import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_SAMPLE_COLLECT_METHOD_CTX;
-import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_SAMPLE_COLLECT_METHOD_ID;
-import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_SAMPLE_COLLECT_METHOD_NAME;
-import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_SAMPLE_FRACTION_TYPE;
-import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_SAMPLE_MEDIA;
-import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_SAMPLE_TISSUE_ANATOMY_NAME;
-import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_SAMPLE_TISSUE_TAXONOMIC_NAME;
-import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_STATISTIC_TYPE;
-import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_TEMPERATURE_BASIS_LEVEL;
-import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_WEIGHT_BASIS_TYPE;
+import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_ACTIVITY;
+import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_ACTIVITY_COMMENT;
+import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_ACTIVITY_CONDUCTING_ORG;
+import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_ACTIVITY_DEPTH;
+import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_ACTIVITY_DEPTH_REF_POINT;
+import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_ACTIVITY_DEPTH_UNIT;
+import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_ACTIVITY_LOWER_DEPTH;
+import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_ACTIVITY_LOWER_DEPTH_UNIT;
+import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_ACTIVITY_MEDIA_SUBDIV_NAME;
+import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_ACTIVITY_START_TIME;
+import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_ACTIVITY_STOP_DATE;
+import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_ACTIVITY_STOP_TIME;
+import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_ACTIVITY_TYPE_CODE;
+import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_ACTIVITY_UPPER_DEPTH;
+import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_ACTIVITY_UPPER_DEPTH_UNIT;
+import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_ACT_START_TIME_ZONE;
+import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_ACT_STOP_TIME_ZONE;
+import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_ANALYSIS_START_DATE;
+import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_ANALYSIS_PREP_DATE_TX;
+import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_ANALYTICAL_METHOD_CITATION;
+import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_ANALYTICAL_METHOD_NAME;
+import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_ANALYTICAL_PROCEDURE_ID;
+import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_ANALYTICAL_PROCEDURE_SOURCE;
+import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_CHARACTERISTIC_NAME;
+import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_DETECTION_LIMIT;
+import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_DETECTION_LIMIT_DESC;
+import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_DETECTION_LIMIT_UNIT;
+import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_DURATION_BASIS;
+import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_EVENT_DATE;
+import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_HYDROLOGIC_CONDITION_NAME;
+import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_HYDROLOGIC_EVENT_NAME;
+import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_LAB_NAME;
+import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_LAB_REMARK;
+import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_PARTICLE_SIZE;
+import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_PRECISION;
+import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_PROJECT_ID;
+import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_P_CODE;
+import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_RESULT_COMMENT;
+import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_RESULT_DEPTH_ALT_REF_PT_TXT;
+import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_RESULT_DEPTH_MEAS_UNIT_CODE;
+import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_RESULT_DEPTH_MEAS_VALUE;
+import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_RESULT_DETECTION_CONDITION_TX;
+import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_RESULT_ID;
+import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_RESULT_MEASURE_VALUE;
+import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_RESULT_MEAS_QUAL_CODE;
+import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_RESULT_UNIT;
+import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_RESULT_VALUE_STATUS;
+import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_RESULT_VALUE_TYPE;
+import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_SAMPLE_AQFR_NAME;
+import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_SAMPLE_COLLECT_EQUIP_NAME;
+import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_SAMPLE_COLLECT_METHOD_CTX;
+import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_SAMPLE_COLLECT_METHOD_ID;
+import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_SAMPLE_COLLECT_METHOD_NAME;
+import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_SAMPLE_FRACTION_TYPE;
+import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_SAMPLE_MEDIA;
+import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_SAMPLE_TISSUE_ANATOMY_NAME;
+import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_SAMPLE_TISSUE_TAXONOMIC_NAME;
+import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_STATISTIC_TYPE;
+import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_TEMPERATURE_BASIS_LEVEL;
+import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_WEIGHT_BASIS_TYPE;
 
 import java.util.Arrays;
 import java.util.LinkedHashMap;
@@ -72,7 +72,7 @@ import java.util.Map;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ResultWqx extends BaseWqx implements IXmlMapping {
+public class PcResultWqx extends BaseWqx implements IXmlMapping {
 
 	public static final Map<String, String> HARD_BREAK = new LinkedHashMap<>();
 
@@ -416,7 +416,7 @@ public class ResultWqx extends BaseWqx implements IXmlMapping {
 						WQX_RESULT,
 						WQX_LAB_INFO,
 						WQX_LAB_NAME)));
-		COLUMN_POSITION.put(KEY_ANALYSIS_DATE_TIME,
+		COLUMN_POSITION.put(KEY_ANALYSIS_START_DATE,
 				new LinkedList<String>(Arrays.asList(
 						WQX_ACTIVITY,
 						WQX_RESULT,
@@ -522,7 +522,7 @@ public class ResultWqx extends BaseWqx implements IXmlMapping {
 						KEY_ANALYTICAL_METHOD_NAME,
 						KEY_ANALYTICAL_METHOD_CITATION,
 						KEY_LAB_NAME,
-						KEY_ANALYSIS_DATE_TIME,
+						KEY_ANALYSIS_START_DATE,
 						KEY_LAB_REMARK,
 						KEY_DETECTION_LIMIT_DESC,
 						KEY_DETECTION_LIMIT,

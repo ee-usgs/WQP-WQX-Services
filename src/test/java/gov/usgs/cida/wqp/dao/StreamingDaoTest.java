@@ -58,6 +58,12 @@ public class StreamingDaoTest extends BaseSpringTest {
 		multipleParameterTests(IDao.RESULT_NAMESPACE);
 	}
 	
+	@Test
+	public void bioResultTests() {
+		singleParameterTests(IDao.BIOLOGICAL_RESULT_NAMESPACE);
+		multipleParameterTests(IDao.BIOLOGICAL_RESULT_NAMESPACE);
+	}
+	
 	private void singleParameterTests(String nameSpace) {
 		//TODO - Real test data and verification. 
 		//TODO - These tests just validate that the queries have no syntax errors, not that they are logically correct.
@@ -73,7 +79,7 @@ public class StreamingDaoTest extends BaseSpringTest {
 		}
 
 		//MyBatis is happy with no parms or ResultHandler - it will read the entire database, load up the list,
-		// and not complain or expose it to you (unless you run out of memory.
+		// and not complain or expose it to you (unless you run out of memory).
 		streamingDao.stream(nameSpace, null, null);
 		streamingDao.stream(nameSpace, parms, null);
 		
