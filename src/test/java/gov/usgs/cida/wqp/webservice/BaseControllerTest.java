@@ -385,7 +385,8 @@ public class BaseControllerTest {
         	testController.doGetRequest(request, response, mybatisNamespace, endpoint);
         } catch (RuntimeException e) {
         	if (!"java.lang.RuntimeException: test".equalsIgnoreCase(e.getMessage())) {
-        		fail("not the exception we were expecting");
+        		e.printStackTrace();
+        		fail("not the exception we were expecting: " + e.getMessage());
         	}
         }
         

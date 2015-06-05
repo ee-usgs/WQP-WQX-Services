@@ -156,9 +156,9 @@
 			<if test="sampleMedia != null || characteristicName != null || characteristicType != null || startDateLo != null || startDateHi != null ||
                       activityId != null || analyticalmethod != null || pCode != null || project != null">
             	and exists (select null from
-                                   pc_result
-                             where s.site_id = pc_result.site_id and
-                                   s.data_source_id = pc_result.data_source_id
+                                   result
+                             where s.site_id = result.site_id and
+                                   s.data_source_id = result.data_source_id
                                    <include refid="dynamicWhere.baseWhereResultClauses" />
                            )
             </if>
@@ -178,7 +178,7 @@
         </if>
         <if test="startDateLo != NULL || startDateHi != NULL || activityId != null">
        		<if test="bBox == NULL &amp;&amp; within == NULL">
-				pc_result_sum s
+				result_sum s
 	            <where>
 					<include refid="dynamicWhere.baseWhereStationClauses" />
 					<include refid="dynamicWhere.baseWhereResultClauses" />
@@ -188,7 +188,7 @@
         <if test="sampleMedia != NULL || characteristicName != NULL || characteristicType != NULL || 
                   analyticalmethod != null || pCode != null || project != null">
         	<if test="startDateLo == NULL &amp;&amp; startDateHi == NULL &amp;&amp; within == NULL &amp;&amp; bBox == NULL">
-				pc_result_ct_sum s
+				result_ct_sum s
                	<where>
 					<include refid="dynamicWhere.baseWhereStationClauses" />
 					<include refid="dynamicWhere.baseWhereResultClauses" />
@@ -199,7 +199,7 @@
         	<if test="sampleMedia != NULL || characteristicName != NULL || characteristicType != NULL ||
                       startDateLo != NULL || startDateHi != NULL || activityId != null || 
                       analyticalmethod != null || pCode != null || project != null">
-				pc_result_nr_sum a,
+				result_nr_sum a,
                 (select /*+ index_combine(s) */ data_source_id, station_id, site_id
                    from station
 	            	<where>
@@ -249,20 +249,20 @@
         </if>
     </sql>
 
-    <sql id="pcResultsCountBase">
+    <sql id="resultsCountBase">
         <include refid="dynamicWhere.stationsCountBase"/>
     </sql>
 
-    <sql id="pcResultsBase">
-		from pc_result
+    <sql id="resultsBase">
+		from result
         <where>
             <include refid="dynamicWhere.baseWhereStationClauses" />
             <include refid="dynamicWhere.baseWhereResultClauses" />
             <if test="(bBox != null &amp;&amp; bBox.length == 4) || (within != null &amp;&amp; lat != null &amp;&amp; long != null)">
             	and exists (select null
             	              from station
-            	             where station.site_id = pc_result.site_id and
-                                   station.data_source_id = pc_result.data_source_id
+            	             where station.site_id = result.site_id and
+                                   station.data_source_id = result.data_source_id
                                    <include refid="dynamicWhere.baseWhereStationGeoClauses" />
                            )
             </if>
