@@ -18,6 +18,7 @@ import gov.usgs.cida.wqp.util.CORSFilter;
 import gov.usgs.cida.wqp.util.HttpConstants;
 import gov.usgs.cida.wqp.util.MimeType;
 import gov.usgs.cida.wqp.util.MybatisConstants;
+import gov.usgs.cida.wqp.validation.ValidationConstants;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,6 +47,9 @@ import com.github.springtestdbunit.annotation.DatabaseSetups;
 })
 public class BiologicalResultControllerTest extends BaseSpringTest implements HttpConstants {
 
+	protected String endpoint = "/" + HttpConstants.RESULT_SEARCH_ENPOINT + "?" 
+			+ Parameters.DATA_PROFILE + "=" + ValidationConstants.REGEX_DATA_PROFILE + "&mimeType=";
+	
     @Autowired
     private WebApplicationContext wac;
 
@@ -64,7 +68,7 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
 
     @Test
     public void getAsCsvHeadTest() throws Exception {
-    	MvcResult rtn = mockMvc.perform(head("/biologicalresult/search?mimeType=csv"))
+    	MvcResult rtn = mockMvc.perform(head(endpoint + "csv"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MimeType.csv.getMimeType()))
             .andExpect(content().encoding(DEFAULT_ENCODING))
@@ -89,7 +93,7 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
 
     @Test
     public void getAsCsvGetTest() throws Exception {
-    	MvcResult rtn = mockMvc.perform(get("/biologicalresult/search?mimeType=csv"))
+    	MvcResult rtn = mockMvc.perform(get(endpoint + "csv"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MimeType.csv.getMimeType()))
             .andExpect(content().encoding(DEFAULT_ENCODING))
@@ -114,7 +118,7 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
 
     @Test
     public void getAsCsvZipHeadTest() throws Exception {
-    	MvcResult rtn = mockMvc.perform(head("/biologicalresult/search?mimeType=csv&zip=yes"))
+    	MvcResult rtn = mockMvc.perform(head(endpoint + "csv&zip=yes"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MIME_TYPE_ZIP))
             .andExpect(content().encoding(DEFAULT_ENCODING))
@@ -139,7 +143,7 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
 
     @Test
     public void getAsCsvZipGetTest() throws Exception {
-    	MvcResult rtn = mockMvc.perform(get("/biologicalresult/search?mimeType=csv&zip=yes"))
+    	MvcResult rtn = mockMvc.perform(get(endpoint + "csv&zip=yes"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MIME_TYPE_ZIP))
             .andExpect(content().encoding(DEFAULT_ENCODING))
@@ -165,7 +169,7 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
 
     @Test
     public void getAsTsvHeadTest() throws Exception {
-    	MvcResult rtn = mockMvc.perform(head("/biologicalresult/search?mimeType=tsv"))
+    	MvcResult rtn = mockMvc.perform(head(endpoint + "tsv"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MimeType.tsv.getMimeType()))
             .andExpect(content().encoding(DEFAULT_ENCODING))
@@ -190,7 +194,7 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
 
     @Test
     public void getAsTsvGetTest() throws Exception {
-    	MvcResult rtn = mockMvc.perform(get("/biologicalresult/search?mimeType=tsv"))
+    	MvcResult rtn = mockMvc.perform(get(endpoint + "tsv"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MimeType.tsv.getMimeType()))
             .andExpect(content().encoding(DEFAULT_ENCODING))
@@ -215,7 +219,7 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
 
     @Test
     public void getAsTsvZipHeadTest() throws Exception {
-    	MvcResult rtn = mockMvc.perform(head("/biologicalresult/search?mimeType=tsv&zip=yes"))
+    	MvcResult rtn = mockMvc.perform(head(endpoint + "tsv&zip=yes"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MIME_TYPE_ZIP))
             .andExpect(content().encoding(DEFAULT_ENCODING))
@@ -240,7 +244,7 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
 
     @Test
     public void getAsTsvZipGetTest() throws Exception {
-    	MvcResult rtn = mockMvc.perform(get("/biologicalresult/search?mimeType=tsv&zip=yes"))
+    	MvcResult rtn = mockMvc.perform(get(endpoint + "tsv&zip=yes"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MIME_TYPE_ZIP))
             .andExpect(content().encoding(DEFAULT_ENCODING))
@@ -266,7 +270,7 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
     
     @Test
     public void getAsXlsxHeadTest() throws Exception {
-    	MvcResult rtn = mockMvc.perform(head("/biologicalresult/search?mimeType=xlsx"))
+    	MvcResult rtn = mockMvc.perform(head(endpoint + "xlsx"))
     		.andExpect(status().isOk())
     		.andExpect(content().contentType(MimeType.xlsx.getMimeType()))
     		.andExpect(content().encoding(DEFAULT_ENCODING))
@@ -291,7 +295,7 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
   
     @Test
     public void getAsXlsxGetTest() throws Exception {
-    	MvcResult rtn = mockMvc.perform(get("/biologicalresult/search?mimeType=xlsx"))
+    	MvcResult rtn = mockMvc.perform(get(endpoint + "xlsx"))
 			.andExpect(status().isOk())
 			.andExpect(content().contentType(MimeType.xlsx.getMimeType()))
 			.andExpect(content().encoding(DEFAULT_ENCODING))
@@ -316,7 +320,7 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
 
     @Test
     public void getAsXlsxZipHeadTest() throws Exception {
-    	MvcResult rtn = mockMvc.perform(head("/biologicalresult/search?mimeType=xlsx&zip=yes"))
+    	MvcResult rtn = mockMvc.perform(head(endpoint + "xlsx&zip=yes"))
     		.andExpect(status().isOk())
     		.andExpect(content().contentType(MIME_TYPE_ZIP))
     		.andExpect(content().encoding(DEFAULT_ENCODING))
@@ -341,7 +345,7 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
   
     @Test
     public void getAsXlsxZipGetTest() throws Exception {
-    	MvcResult rtn = mockMvc.perform(get("/biologicalresult/search?mimeType=xlsx&zip=yes"))
+    	MvcResult rtn = mockMvc.perform(get(endpoint + "xlsx&zip=yes"))
 			.andExpect(status().isOk())
 			.andExpect(content().contentType(MIME_TYPE_ZIP))
 			.andExpect(content().encoding(DEFAULT_ENCODING))
@@ -366,9 +370,9 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
 
     
 
-//    @Test
+    @Test
     public void getAsXmlHeadTest() throws Exception {
-    	MvcResult rtn = mockMvc.perform(head("/biologicalresult/search?mimeType=xml"))
+    	MvcResult rtn = mockMvc.perform(head(endpoint + "xml"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MimeType.xml.getMimeType()))
             .andExpect(content().encoding(DEFAULT_ENCODING))
@@ -391,9 +395,9 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
     	assertEquals("", rtn.getResponse().getContentAsString());
     }
 
-//    @Test
+    @Test
     public void getAsXmlGetTest() throws Exception {
-    	MvcResult rtn = mockMvc.perform(get("/biologicalresult/search?mimeType=xml"))
+    	MvcResult rtn = mockMvc.perform(get(endpoint + "xml"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MimeType.xml.getMimeType()))
             .andExpect(content().encoding(DEFAULT_ENCODING))
@@ -417,9 +421,9 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
     }
     
 
-//    @Test
+    @Test
     public void getAsXmlZipHeadTest() throws Exception {
-    	MvcResult rtn = mockMvc.perform(head("/biologicalresult/search?mimeType=xml&zip=yes"))
+    	MvcResult rtn = mockMvc.perform(head(endpoint + "xml&zip=yes"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MIME_TYPE_ZIP))
             .andExpect(content().encoding(DEFAULT_ENCODING))
@@ -442,9 +446,9 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
     	assertEquals("", rtn.getResponse().getContentAsString());
     }
 
-//    @Test
+    @Test
     public void getAsXmlZipGetTest() throws Exception {
-    	MvcResult rtn = mockMvc.perform(get("/biologicalresult/search?mimeType=xml&zip=yes"))
+    	MvcResult rtn = mockMvc.perform(get(endpoint + "xml&zip=yes"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MIME_TYPE_ZIP))
             .andExpect(content().encoding(DEFAULT_ENCODING))
@@ -472,7 +476,7 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
         when(codesService.validate(any(Parameters.class), anyString())).thenReturn(true);
 
     	MvcResult rtn = mockMvc.perform(
-    		get("/biologicalresult/search?mimeType=csv" +
+    		get(endpoint + "csv" +
     			"&analyticalmethod=https://www.nemi.gov/methods/method_summary/4665/;https://www.nemi.gov/methods/method_summary/8896/" + 
     			"bBox=-89;43;-88;44" +
     			"&characteristicName=Beryllium;Nitrate" +

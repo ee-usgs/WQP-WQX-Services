@@ -13,6 +13,7 @@ public enum Parameters {
 	CHARACTERISTIC_TYPE("characteristicType"),
 	COUNTRY("countrycode"),
 	COUNTY("countycode"),
+	DATA_PROFILE("dataProfile"),
 	HUC("huc"),
 	LATITUDE("lat"),
 	LONGITUDE("long"),

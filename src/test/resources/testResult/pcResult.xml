@@ -36,6 +36,7 @@
 				</ActivityBottomDepthHeightMeasure>
 				<ProjectIdentifier>baa</ProjectIdentifier>
 				<ActivityConductingOrganizationText>bba</ActivityConductingOrganizationText>
+				<MonitoringLocationIdentifier>USGS-05425700</MonitoringLocationIdentifier>
 				<ActivityCommentText>bca</ActivityCommentText>
 				<SampleAquifer>bda</SampleAquifer>
 				<HydrologicCondition>bea</HydrologicCondition>
@@ -141,6 +142,7 @@
 				</ActivityBottomDepthHeightMeasure>
 				<ProjectIdentifier>aba</ProjectIdentifier>
 				<ActivityConductingOrganizationText>abb</ActivityConductingOrganizationText>
+				<MonitoringLocationIdentifier>ARS-IAWC-IAWC225</MonitoringLocationIdentifier>
 				<ActivityCommentText>abc</ActivityCommentText>
 				<SampleAquifer>abd</SampleAquifer>
 				<HydrologicCondition>abe</HydrologicCondition>
@@ -246,6 +248,7 @@
 				</ActivityBottomDepthHeightMeasure>
 				<ProjectIdentifier>ba</ProjectIdentifier>
 				<ActivityConductingOrganizationText>bb</ActivityConductingOrganizationText>
+				<MonitoringLocationIdentifier>11NPSWRD-BICA_MFG_B</MonitoringLocationIdentifier>
 				<ActivityCommentText>bc</ActivityCommentText>
 				<SampleAquifer>bd</SampleAquifer>
 				<HydrologicCondition>be</HydrologicCondition>

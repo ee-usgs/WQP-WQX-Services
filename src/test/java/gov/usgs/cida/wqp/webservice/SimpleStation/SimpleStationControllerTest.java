@@ -16,6 +16,7 @@ import gov.usgs.cida.wqp.IntegrationTest;
 import gov.usgs.cida.wqp.parameter.Parameters;
 import gov.usgs.cida.wqp.service.CodesService;
 import gov.usgs.cida.wqp.util.CORSFilter;
+import gov.usgs.cida.wqp.util.HttpConstants;
 
 import org.json.JSONObject;
 import org.junit.Before;
@@ -40,6 +41,8 @@ import com.github.springtestdbunit.annotation.DatabaseSetups;
 })
 public class SimpleStationControllerTest extends BaseSpringTest {
 
+	protected String endpoint = "/" + HttpConstants.SIMPLE_STATION_ENDPOINT + "?mimeType=";
+	
     @Autowired
     private WebApplicationContext wac;
 
@@ -58,7 +61,7 @@ public class SimpleStationControllerTest extends BaseSpringTest {
 
     @Test
     public void getAsJsonTest() throws Exception {
-    	MvcResult rtn = mockMvc.perform(head("/simplestation/search?mimeType=json"))
+    	MvcResult rtn = mockMvc.perform(head(endpoint + "json"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(content().encoding(DEFAULT_ENCODING))
@@ -76,7 +79,7 @@ public class SimpleStationControllerTest extends BaseSpringTest {
     	assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
     	assertEquals("", rtn.getResponse().getContentAsString());
         
-        rtn = mockMvc.perform(get("/simplestation/search?mimeType=json"))
+        rtn = mockMvc.perform(get(endpoint + "json"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(content().encoding(DEFAULT_ENCODING))
@@ -98,7 +101,7 @@ public class SimpleStationControllerTest extends BaseSpringTest {
 
     @Test
     public void getAsJsonZipTest() throws Exception {
-    	MvcResult rtn = mockMvc.perform(head("/simplestation/search?mimeType=json&zip=yes"))
+    	MvcResult rtn = mockMvc.perform(head(endpoint + "json&zip=yes"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MIME_TYPE_ZIP))
             .andExpect(content().encoding(DEFAULT_ENCODING))
@@ -116,7 +119,7 @@ public class SimpleStationControllerTest extends BaseSpringTest {
     	assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
     	assertEquals("", rtn.getResponse().getContentAsString());
         
-        rtn = mockMvc.perform(get("/simplestation/search?mimeType=json&zip=yes"))
+        rtn = mockMvc.perform(get(endpoint + "json&zip=yes"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MIME_TYPE_ZIP))
             .andExpect(content().encoding(DEFAULT_ENCODING))
@@ -138,7 +141,7 @@ public class SimpleStationControllerTest extends BaseSpringTest {
 
     @Test
     public void getAsXmlTest_HEAD() throws Exception {
-        MvcResult rtn = mockMvc.perform(head("/simplestation/search?mimeType=xml"))
+        MvcResult rtn = mockMvc.perform(head(endpoint + "xml"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_XML_VALUE))
             .andExpect(content().encoding(DEFAULT_ENCODING))
@@ -159,7 +162,7 @@ public class SimpleStationControllerTest extends BaseSpringTest {
     
     @Test
     public void getAsXmlTest_GET() throws Exception {
-    	MvcResult rtn = mockMvc.perform(get("/simplestation/search?mimeType=xml"))
+    	MvcResult rtn = mockMvc.perform(get(endpoint + "xml"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_XML_VALUE))
             .andExpect(content().encoding(DEFAULT_ENCODING))
@@ -180,7 +183,7 @@ public class SimpleStationControllerTest extends BaseSpringTest {
 
     @Test
     public void getAsXmlZipTest_HEAD() throws Exception {
-        MvcResult rtn = mockMvc.perform(head("/simplestation/search?mimeType=xml&zip=yes"))
+        MvcResult rtn = mockMvc.perform(head(endpoint + "xml&zip=yes"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MIME_TYPE_ZIP))
             .andExpect(content().encoding(DEFAULT_ENCODING))
@@ -201,7 +204,7 @@ public class SimpleStationControllerTest extends BaseSpringTest {
     
     @Test
     public void getAsXmlZipTest_GET() throws Exception {
-    	MvcResult rtn = mockMvc.perform(get("/simplestation/search?mimeType=xml&zip=yes"))
+    	MvcResult rtn = mockMvc.perform(get(endpoint + "xml&zip=yes"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MIME_TYPE_ZIP))
             .andExpect(content().encoding(DEFAULT_ENCODING))
@@ -225,7 +228,7 @@ public class SimpleStationControllerTest extends BaseSpringTest {
         when(codesService.validate(any(Parameters.class), anyString())).thenReturn(true);
 
     	MvcResult rtn = mockMvc.perform(
-    		get("/simplestation/search?mimeType=xml" +
+    		get(endpoint + "xml" +
     			"&analyticalmethod=https://www.nemi.gov/methods/method_summary/4665/;https://www.nemi.gov/methods/method_summary/8896/" + 
     			"bBox=-89;43;-88;44" +
     			"&characteristicName=Beryllium;Nitrate" +
