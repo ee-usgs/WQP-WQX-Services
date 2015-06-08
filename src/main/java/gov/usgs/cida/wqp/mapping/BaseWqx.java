@@ -8,13 +8,16 @@ public abstract class BaseWqx {
 
 	public static final String WQX_MEASURE_VALUE = "MeasureValue";
 	public static final String WQX_MEASURE_UNIT = "MeasureUnitCode";
+	
 	public static final String WQX_TIME = "Time";
 	public static final String WQX_TIME_ZONE = "TimeZoneCode";
+	
 	public static final String WQX_METHOD_ID = "MethodIdentifier";
 	public static final String WQX_METHOD_CONTEXT = "MethodIdentifierContext";
 	public static final String WQX_METHOD_NAME = "MethodName";
-	public static final String WQX_METHOD_QUALIFIER_TYPE = "MethodQualifiertypeName";
+	public static final String WQX_METHOD_QUALIFIER_TYPE = "MethodQualifierTypeName";
 	public static final String WQX_METHOD_DESCRIPTION = "MethodDescriptionText";
+
 	public static final String WQX_RESOURCE_TITLE = "ResourceTitleName";
 	public static final String WQX_RESOURCE_CREATOR = "ResourceCreatorName";
 	public static final String WQX_RESOURCE_SUBJECT = "ResourceSubjectText";
@@ -190,7 +193,7 @@ public abstract class BaseWqx {
 	public static final String WQX_TROPHIC_LEVEL = "TrophicLevelName";
 	public static final String WQX_FUNCTIONAL_FEEDING_GROUP = "FunctionalFeedingGroupName";
 	public static final String WQX_TAXONIMC_DETAIL_CITATION = "TaxonomicDetailsCitation";
-	public static final String WQX_FREQUENCY_CLASS_INFO = "FrequenceyClassInformation";
+	public static final String WQX_FREQUENCY_CLASS_INFO = "FrequencyClassInformation";
 	public static final String WQX_FREQUENCY_CLASS_DESCRIPTOR = "FrequencyClassDescriptorCode";
 	public static final String WQX_FREQUENCE_CLASS_DESCRIPTOR_UNIT = "FrequencyClassDescriptorUnitCode";
 	public static final String WQX_LOWER_CLASS_BOUND = "LowerClassBoundValue";

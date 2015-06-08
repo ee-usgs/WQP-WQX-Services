@@ -74,6 +74,12 @@ public class ParameterValidationConfig implements ValidationConstants, WqpEnvPro
 	}
 	
 	@Bean
+	public RegexValidator<String[]> dataProfileValidator() {
+		// semicolon list of country:state:county code strings
+		return new RegexValidator<String[]>(Parameters.DATA_PROFILE, REGEX_DATA_PROFILE);
+	}
+	
+	@Bean
 	public AbstractValidator<String[]> hucValidator() {
 		// semicolon list of HUC codes
 		AbstractValidator<String[]> hucValidator = new RegexValidator<String[]>(Parameters.HUC, REGEX_HUC);
@@ -182,6 +188,7 @@ public class ParameterValidationConfig implements ValidationConstants, WqpEnvPro
 		validatorMap.put(Parameters.CHARACTERISTIC_TYPE, characteristicTypeValidator());
 		validatorMap.put(Parameters.COUNTRY, countryValidator());
 		validatorMap.put(Parameters.COUNTY, countyValidator());
+		validatorMap.put(Parameters.DATA_PROFILE, dataProfileValidator());
 		validatorMap.put(Parameters.HUC, hucValidator());
 		validatorMap.put(Parameters.LATITUDE, latitudeValidator());
 		validatorMap.put(Parameters.LONGITUDE, longitudeValidator());

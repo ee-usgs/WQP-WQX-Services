@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping(value=HttpConstants.BIOLOGICAL_RESULT_ENPOINT,
+@RequestMapping(value=HttpConstants.RESULT_SEARCH_ENPOINT, params="dataProfile=biological",
 	produces={HttpConstants.MIME_TYPE_TSV, HttpConstants.MIME_TYPE_CSV, HttpConstants.MIME_TYPE_XLSX, HttpConstants.MIME_TYPE_XML})
 public class BiologicalResultController extends BaseController {
 

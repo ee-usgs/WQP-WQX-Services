@@ -38,6 +38,8 @@ import com.github.springtestdbunit.annotation.DatabaseSetups;
 })
 public class StationControllerTest extends BaseSpringTest implements HttpConstants {
 
+	protected String endpoint = "/" + HttpConstants.STATION_SEARCH_ENPOINT + "?mimeType=";
+	
     @Autowired
     private WebApplicationContext wac;
 
@@ -56,7 +58,7 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
 
     @Test
     public void getAsCsvTest() throws Exception {
-    	MvcResult rtn = mockMvc.perform(head("/Station/search?mimeType=csv"))
+    	MvcResult rtn = mockMvc.perform(head(endpoint + "csv"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MIME_TYPE_CSV))
             .andExpect(content().encoding(DEFAULT_ENCODING))
@@ -71,7 +73,7 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
     	assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
     	assertEquals("", rtn.getResponse().getContentAsString());
         
-        rtn = mockMvc.perform(get("/Station/search?mimeType=csv"))
+        rtn = mockMvc.perform(get(endpoint + "csv"))
         	.andExpect(status().isOk())
         	.andExpect(content().contentType(MIME_TYPE_CSV))
         	.andExpect(content().encoding(DEFAULT_ENCODING))
@@ -89,7 +91,7 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
 
     @Test
     public void getAsCsvZipTest() throws Exception {
-    	MvcResult rtn = mockMvc.perform(head("/Station/search?mimeType=csv&zip=yes"))
+    	MvcResult rtn = mockMvc.perform(head(endpoint + "csv&zip=yes"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MIME_TYPE_ZIP))
             .andExpect(content().encoding(DEFAULT_ENCODING))
@@ -104,7 +106,7 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
     	assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
     	assertEquals("", rtn.getResponse().getContentAsString());
         
-        rtn = mockMvc.perform(get("/Station/search?mimeType=csv&zip=yes"))
+        rtn = mockMvc.perform(get(endpoint + "csv&zip=yes"))
         	.andExpect(status().isOk())
         	.andExpect(content().contentType(MIME_TYPE_ZIP))
         	.andExpect(content().encoding(DEFAULT_ENCODING))
@@ -122,7 +124,7 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
 
     @Test
     public void getAsTsvTest() throws Exception {
-        MvcResult rtn = mockMvc.perform(head("/Station/search?mimeType=tsv"))
+        MvcResult rtn = mockMvc.perform(head(endpoint + "tsv"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MIME_TYPE_TSV))
             .andExpect(content().encoding(DEFAULT_ENCODING))
@@ -137,7 +139,7 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
     	assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
     	assertEquals("", rtn.getResponse().getContentAsString());
         
-        rtn = mockMvc.perform(get("/Station/search?mimeType=tsv"))
+        rtn = mockMvc.perform(get(endpoint + "tsv"))
         	.andExpect(status().isOk())
         	.andExpect(content().contentType(MIME_TYPE_TSV))
         	.andExpect(content().encoding(DEFAULT_ENCODING))
@@ -155,7 +157,7 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
 
     @Test
     public void getAsTsvZipTest() throws Exception {
-        MvcResult rtn = mockMvc.perform(head("/Station/search?mimeType=tsv&zip=yes"))
+        MvcResult rtn = mockMvc.perform(head(endpoint + "tsv&zip=yes"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MIME_TYPE_ZIP))
             .andExpect(content().encoding(DEFAULT_ENCODING))
@@ -170,7 +172,7 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
     	assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
     	assertEquals("", rtn.getResponse().getContentAsString());
         
-        rtn = mockMvc.perform(get("/Station/search?mimeType=tsv&zip=yes"))
+        rtn = mockMvc.perform(get(endpoint + "tsv&zip=yes"))
         	.andExpect(status().isOk())
         	.andExpect(content().contentType(MIME_TYPE_ZIP))
         	.andExpect(content().encoding(DEFAULT_ENCODING))
@@ -188,7 +190,7 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
 
     @Test
     public void getAsXlsxTest() throws Exception {
-    	MvcResult rtn = mockMvc.perform(head("/Station/search?mimeType=xlsx"))
+    	MvcResult rtn = mockMvc.perform(head(endpoint + "xlsx"))
     		.andExpect(status().isOk())
     		.andExpect(content().contentType(MIME_TYPE_XLSX))
     		.andExpect(content().encoding(DEFAULT_ENCODING))
@@ -203,7 +205,7 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
     	assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
     	assertEquals("", rtn.getResponse().getContentAsString());
     	
-    	rtn = mockMvc.perform(get("/Station/search?mimeType=xlsx"))
+    	rtn = mockMvc.perform(get(endpoint + "xlsx"))
     		.andExpect(status().isOk())
     		.andExpect(content().contentType(MIME_TYPE_XLSX))
     		.andExpect(content().encoding(DEFAULT_ENCODING))
@@ -222,7 +224,7 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
     
     @Test
     public void getAsXlsxZipTest() throws Exception {
-    	MvcResult rtn = mockMvc.perform(head("/Station/search?mimeType=xlsx&zip=yes"))
+    	MvcResult rtn = mockMvc.perform(head(endpoint + "xlsx&zip=yes"))
     		.andExpect(status().isOk())
     		.andExpect(content().contentType(MIME_TYPE_ZIP))
     		.andExpect(content().encoding(DEFAULT_ENCODING))
@@ -237,7 +239,7 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
     	assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
     	assertEquals("", rtn.getResponse().getContentAsString());
     	
-    	rtn = mockMvc.perform(get("/Station/search?mimeType=xlsx&zip=yes"))
+    	rtn = mockMvc.perform(get(endpoint + "xlsx&zip=yes"))
     		.andExpect(status().isOk())
     		.andExpect(content().contentType(MIME_TYPE_ZIP))
     		.andExpect(content().encoding(DEFAULT_ENCODING))
@@ -256,7 +258,7 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
 
     @Test
     public void getAsXmlHeadTest() throws Exception {
-    	MvcResult rtn = mockMvc.perform(head("/Station/search?mimeType=xml"))
+    	MvcResult rtn = mockMvc.perform(head(endpoint + "xml"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MIME_TYPE_XML))
             .andExpect(content().encoding(DEFAULT_ENCODING))
@@ -274,7 +276,7 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
     
     @Test
     public void getAsXmlZipHeadTest() throws Exception {
-    	MvcResult rtn = mockMvc.perform(head("/Station/search?mimeType=xml&zip=yes"))
+    	MvcResult rtn = mockMvc.perform(head(endpoint + "xml&zip=yes"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MIME_TYPE_ZIP))
             .andExpect(content().encoding(DEFAULT_ENCODING))
@@ -292,7 +294,7 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
 
     @Test
     public void getAsXmlGetTest() throws Exception {
-    	MvcResult rtn = mockMvc.perform(get("/Station/search?mimeType=xml"))
+    	MvcResult rtn = mockMvc.perform(get(endpoint + "xml"))
         	.andExpect(status().isOk())
         	.andExpect(content().contentType(MIME_TYPE_XML))
         	.andExpect(content().encoding(DEFAULT_ENCODING))
@@ -310,7 +312,7 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
 
     @Test
     public void getAsXmlZipGetTest() throws Exception {
-    	MvcResult rtn = mockMvc.perform(get("/Station/search?mimeType=xml&zip=yes"))
+    	MvcResult rtn = mockMvc.perform(get(endpoint + "xml&zip=yes"))
         	.andExpect(status().isOk())
         	.andExpect(content().contentType(MIME_TYPE_ZIP))
         	.andExpect(content().encoding(DEFAULT_ENCODING))
@@ -328,7 +330,7 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
 
     @Test
     public void getAsKmlHeadTest() throws Exception {
-    	MvcResult rtn = mockMvc.perform(head("/Station/search?mimeType=kml"))
+    	MvcResult rtn = mockMvc.perform(head(endpoint + "kml"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MIME_TYPE_KML))
             .andExpect(content().encoding(DEFAULT_ENCODING))
@@ -346,7 +348,7 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
     
     @Test
     public void getAsKmlZipHeadTest() throws Exception {
-    	MvcResult rtn = mockMvc.perform(head("/Station/search?mimeType=kml&zip=yes"))
+    	MvcResult rtn = mockMvc.perform(head(endpoint + "kml&zip=yes"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MIME_TYPE_KMZ))
             .andExpect(content().encoding(DEFAULT_ENCODING))
@@ -364,7 +366,7 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
     
     @Test
     public void getAsKmzHeadTest() throws Exception {
-    	MvcResult rtn = mockMvc.perform(head("/Station/search?mimeType=kmz"))
+    	MvcResult rtn = mockMvc.perform(head(endpoint + "kmz"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MIME_TYPE_KMZ))
             .andExpect(content().encoding(DEFAULT_ENCODING))
@@ -382,7 +384,7 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
     
     @Test
     public void getAsKmlGetTest() throws Exception {
-    	MvcResult rtn = mockMvc.perform(get("/Station/search?mimeType=kml"))
+    	MvcResult rtn = mockMvc.perform(get(endpoint + "kml"))
         	.andExpect(status().isOk())
         	.andExpect(content().contentType(MIME_TYPE_KML))
         	.andExpect(content().encoding(DEFAULT_ENCODING))
@@ -400,7 +402,7 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
 
     @Test
     public void getAsKmlZipGetTest() throws Exception {
-    	MvcResult rtn = mockMvc.perform(get("/Station/search?mimeType=kml&zip=yes"))
+    	MvcResult rtn = mockMvc.perform(get(endpoint + "kml&zip=yes"))
         	.andExpect(status().isOk())
         	.andExpect(content().contentType(MIME_TYPE_KMZ))
         	.andExpect(content().encoding(DEFAULT_ENCODING))
@@ -418,7 +420,7 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
 
     @Test
     public void getAsKmzGetTest() throws Exception {
-    	MvcResult rtn = mockMvc.perform(get("/Station/search?mimeType=kmz"))
+    	MvcResult rtn = mockMvc.perform(get(endpoint + "kmz"))
         	.andExpect(status().isOk())
         	.andExpect(content().contentType(MIME_TYPE_KMZ))
         	.andExpect(content().encoding(DEFAULT_ENCODING))
@@ -439,7 +441,7 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
         when(codesService.validate(any(Parameters.class), anyString())).thenReturn(true);
 
     	MvcResult rtn = mockMvc.perform(
-    		get("/Station/search?mimeType=xml" +
+    		get(endpoint + "xml" +
     			"&analyticalmethod=https://www.nemi.gov/methods/method_summary/4665/;https://www.nemi.gov/methods/method_summary/8896/" + 
     			"bBox=-89;43;-88;44" +
     			"&characteristicName=Beryllium;Nitrate" +

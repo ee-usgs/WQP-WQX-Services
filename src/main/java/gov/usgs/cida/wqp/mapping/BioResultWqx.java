@@ -2,66 +2,7 @@ package gov.usgs.cida.wqp.mapping;
 
 import static gov.usgs.cida.wqp.mapping.BaseColumn.KEY_ORGANIZATION;
 import static gov.usgs.cida.wqp.mapping.BaseColumn.KEY_ORGANIZATION_NAME;
-import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_ACTIVITY;
-import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_ACTIVITY_COMMENT;
-import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_ACTIVITY_CONDUCTING_ORG;
-import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_ACTIVITY_DEPTH;
-import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_ACTIVITY_DEPTH_REF_POINT;
-import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_ACTIVITY_DEPTH_UNIT;
-import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_ACTIVITY_LOWER_DEPTH;
-import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_ACTIVITY_LOWER_DEPTH_UNIT;
-import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_ACTIVITY_MEDIA_SUBDIV_NAME;
-import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_ACTIVITY_START_TIME;
-import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_ACTIVITY_STOP_DATE;
-import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_ACTIVITY_STOP_TIME;
-import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_ACTIVITY_TYPE_CODE;
-import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_ACTIVITY_UPPER_DEPTH;
-import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_ACTIVITY_UPPER_DEPTH_UNIT;
-import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_ACT_START_TIME_ZONE;
-import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_ACT_STOP_TIME_ZONE;
-import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_ANALYSIS_PREP_DATE_TX;
-import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_ANALYSIS_START_DATE;
-import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_ANALYTICAL_METHOD_CITATION;
-import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_ANALYTICAL_METHOD_NAME;
-import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_ANALYTICAL_PROCEDURE_ID;
-import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_ANALYTICAL_PROCEDURE_SOURCE;
-import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_CHARACTERISTIC_NAME;
-import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_DETECTION_LIMIT;
-import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_DETECTION_LIMIT_DESC;
-import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_DETECTION_LIMIT_UNIT;
-import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_DURATION_BASIS;
-import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_EVENT_DATE;
-import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_HYDROLOGIC_CONDITION_NAME;
-import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_HYDROLOGIC_EVENT_NAME;
-import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_LAB_NAME;
-import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_LAB_REMARK;
-import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_PARTICLE_SIZE;
-import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_PRECISION;
-import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_PROJECT_ID;
-import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_P_CODE;
-import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_RESULT_COMMENT;
-import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_RESULT_DEPTH_ALT_REF_PT_TXT;
-import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_RESULT_DEPTH_MEAS_UNIT_CODE;
-import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_RESULT_DEPTH_MEAS_VALUE;
-import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_RESULT_DETECTION_CONDITION_TX;
-import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_RESULT_ID;
-import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_RESULT_MEASURE_VALUE;
-import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_RESULT_MEAS_QUAL_CODE;
-import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_RESULT_UNIT;
-import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_RESULT_VALUE_STATUS;
-import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_RESULT_VALUE_TYPE;
-import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_SAMPLE_AQFR_NAME;
-import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_SAMPLE_COLLECT_EQUIP_NAME;
-import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_SAMPLE_COLLECT_METHOD_CTX;
-import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_SAMPLE_COLLECT_METHOD_ID;
-import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_SAMPLE_COLLECT_METHOD_NAME;
-import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_SAMPLE_FRACTION_TYPE;
-import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_SAMPLE_MEDIA;
-import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_SAMPLE_TISSUE_ANATOMY_NAME;
-import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_SAMPLE_TISSUE_TAXONOMIC_NAME;
-import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_STATISTIC_TYPE;
-import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_TEMPERATURE_BASIS_LEVEL;
-import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_WEIGHT_BASIS_TYPE;
+import static gov.usgs.cida.wqp.mapping.ResultColumn.*;
 
 import java.util.Arrays;
 import java.util.LinkedHashMap;
@@ -154,10 +95,12 @@ public class BioResultWqx extends BaseWqx implements IXmlMapping {
 						WQX_ACT_DESCRIPTION,
 						WQX_ACT_END_TIME,
 						WQX_TIME_ZONE)));
-		
-		
-//		public static final String KEY_ACTIVITY_RELATIVE_DEPTH = "ACTIVITY_RELATIVE_DEPTH_NAME";
-		
+		COLUMN_POSITION.put(KEY_ACTIVITY_RELATIVE_DEPTH,//
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_ACT_DESCRIPTION,
+						WQX_ACT_RELATIVE_DEPTH)));
+
 		
 		COLUMN_POSITION.put(KEY_ACTIVITY_DEPTH,
 				new LinkedList<String>(Arrays.asList(
@@ -210,6 +153,11 @@ public class BioResultWqx extends BaseWqx implements IXmlMapping {
 						WQX_ACTIVITY,
 						WQX_ACT_DESCRIPTION,
 						WQX_ACT_CONDUCTION_ORG)));
+		COLUMN_POSITION.put(KEY_SITE_ID,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_ACT_DESCRIPTION,
+						WQX_MONITORING_LOCATION_IDENTIFIER)));
 		COLUMN_POSITION.put(KEY_ACTIVITY_COMMENT,
 				new LinkedList<String>(Arrays.asList(
 						WQX_ACTIVITY,
@@ -230,37 +178,187 @@ public class BioResultWqx extends BaseWqx implements IXmlMapping {
 						WQX_ACTIVITY,
 						WQX_ACT_DESCRIPTION,
 						WQX_HYDROLOGIC_EVENT)));
+		// \|/
+		COLUMN_POSITION.put(KEY_ACTIVITY_LATITUDE,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_ACT_LOCATION,
+						WQX_LATITUDE_MEASURE)));
+		COLUMN_POSITION.put(KEY_ACTIVITY_LONGITUDE,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_ACT_LOCATION,
+						WQX_LONGITUDE_MEASURE)));
+		COLUMN_POSITION.put(KEY_ACTIVITY_SOURCE_MAP_SCALE,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_ACT_LOCATION,
+						WQX_SOURCE_MAP_SCALE)));
+		COLUMN_POSITION.put(KEY_ACT_HORIZONTAL_ACCURACY,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_ACT_LOCATION,
+						WQX_HORIZONTAL_ACCY,
+						WQX_MEASURE_VALUE)));
+		COLUMN_POSITION.put(KEY_ACT_HORIZONTAL_ACCURACY_UNIT,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_ACT_LOCATION,
+						WQX_HORIZONTAL_ACCY,
+						WQX_MEASURE_UNIT)));
+		COLUMN_POSITION.put(KEY_ACT_HORIZONTAL_COLLECT_METHOD,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_ACT_LOCATION,
+						WQX_HORIZONTAL_COLLECTION_METHOD)));
+		COLUMN_POSITION.put(KEY_ACT_HORIZONTAL_DATUM_NAME,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_ACT_LOCATION,
+						WQX_HORIZONTAL_DATUM)));
 
-		
-		
-//		public static final String KEY_ACTIVITY_LATITUDE = "ACTIVITY_LATITUDE";
-//		public static final String KEY_ACTIVITY_LONGITUDE = "ACTIVITY_LONGITUDE";
-//		public static final String KEY_ACTIVITY_SOURCE_MAP_SCALE = "ACTIVITY_SOURCE_MAP_SCALE";
-//		public static final String KEY_ACT_HORIZONTAL_ACCURACY = "ACT_HORIZONTAL_ACCURACY";
-//		public static final String KEY_ACT_HORIZONTAL_ACCURACY_UNIT = "ACT_HORIZONTAL_ACCURACY_UNIT";
-//		public static final String KEY_ACT_HORIZONTAL_COLLECT_METHOD = "ACT_HORIZONTAL_COLLECT_METHOD";
-//		public static final String KEY_ACT_HORIZONTAL_DATUM_NAME = "ACT_HORIZONTAL_DATUM_NAME";
-//		public static final String KEY_ASSEMBLAGE_SAMPLED_NAME = "ASSEMBLAGE_SAMPLED_NAME";
-//		public static final String KEY_ACT_COLLECTION_DURATION = "ACT_COLLECTION_DURATION";
-//		public static final String KEY_ACT_COLLECTION_DURATION_UNIT = "ACT_COLLECTION_DURATION_UNIT";
-//		public static final String KEY_ACT_SAM_COMPNT_NAME = "ACT_SAM_COMPNT_NAME";
-//		public static final String KEY_ACT_SAM_COMPNT_PLACE_IN_SERIES = "ACT_SAM_COMPNT_PLACE_IN_SERIES";
-//		public static final String KEY_ACT_REACH_LENGTH = "ACT_REACH_LENGTH";
-//		public static final String KEY_ACT_REACH_LENGTH_UNIT = "ACT_REACH_LENGTH_UNIT";
-//		public static final String KEY_ACT_REACH_WIDTH = "ACT_REACH_WIDTH";
-//		public static final String KEY_ACT_REACH_WIDTH_UNIT = "ACT_REACH_WIDTH_UNIT";
-//		public static final String KEY_ACT_PASS_COUNT = "ACT_PASS_COUNT";
-//		public static final String KEY_NET_TYPE_NAME = "NET_TYPE_NAME";
-//		public static final String KEY_ACT_NET_SURFACE_AREA = "ACT_NET_SURFACE_AREA";
-//		public static final String KEY_ACT_NET_SURFACE_AREA_UNIT = "ACT_NET_SURFACE_AREA_UNIT";
-//		public static final String KEY_ACT_NET_MESH_SIZE = "ACT_NET_MESH_SIZE";
-//		public static final String KEY_ACT_NET_MESH_SIZE_UNIT = "ACT_NET_MESH_SIZE_UNIT";
-//		public static final String KEY_ACT_BOAT_SPEED = "ACT_BOAT_SPEED";
-//		public static final String KEY_ACT_BOAT_SPEED_UNIT = "ACT_BOAT_SPEED_UNIT";
-//		public static final String KEY_ACT_CURRENT_SPEED = "ACT_CURRENT_SPEED";
-//		public static final String KEY_ACT_CURRENT_SPEED_UNIT = "ACT_CURRENT_SPEED_UNIT";
-//		public static final String KEY_TOXICITY_TEST_TYPE_NAME = "TOXICITY_TEST_TYPE_NAME";
-		
+		COLUMN_POSITION.put(KEY_ASSEMBLAGE_SAMPLED_NAME,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_BIO_ACT_DESCRIPTION,
+						WQX_ASSEMBLAGE_SAMPLED)));
+		COLUMN_POSITION.put(KEY_ACT_COLLECTION_DURATION,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_BIO_ACT_DESCRIPTION,
+						WQX_BIO_HABITAT_COLLECTION_INFO,
+						WQX_COLLECTION_DURATION,
+						WQX_MEASURE_VALUE)));
+		COLUMN_POSITION.put(KEY_ACT_COLLECTION_DURATION_UNIT,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_BIO_ACT_DESCRIPTION,
+						WQX_BIO_HABITAT_COLLECTION_INFO,
+						WQX_COLLECTION_DURATION,
+						WQX_MEASURE_UNIT)));
+		COLUMN_POSITION.put(KEY_ACT_SAM_COMPNT_NAME,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_BIO_ACT_DESCRIPTION,
+						WQX_BIO_HABITAT_COLLECTION_INFO,
+						WQX_SAMPLING_COMPONENT)));
+		COLUMN_POSITION.put(KEY_ACT_SAM_COMPNT_PLACE_IN_SERIES,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_BIO_ACT_DESCRIPTION,
+						WQX_BIO_HABITAT_COLLECTION_INFO,
+						WQX_SAMPLING_COMPONENT_PLACE)));
+		COLUMN_POSITION.put(KEY_ACT_REACH_LENGTH,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_BIO_ACT_DESCRIPTION,
+						WQX_BIO_HABITAT_COLLECTION_INFO,
+						WQX_REACH_LENGTH,
+						WQX_MEASURE_VALUE)));
+		COLUMN_POSITION.put(KEY_ACT_REACH_LENGTH_UNIT,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_BIO_ACT_DESCRIPTION,
+						WQX_BIO_HABITAT_COLLECTION_INFO,
+						WQX_REACH_LENGTH,
+						WQX_MEASURE_UNIT)));
+		COLUMN_POSITION.put(KEY_ACT_REACH_WIDTH,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_BIO_ACT_DESCRIPTION,
+						WQX_BIO_HABITAT_COLLECTION_INFO,
+						WQX_REACH_WIDTH,
+						WQX_MEASURE_VALUE)));
+		COLUMN_POSITION.put(KEY_ACT_REACH_WIDTH_UNIT,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_BIO_ACT_DESCRIPTION,
+						WQX_BIO_HABITAT_COLLECTION_INFO,
+						WQX_REACH_WIDTH,
+						WQX_MEASURE_UNIT)));
+		COLUMN_POSITION.put(KEY_ACT_PASS_COUNT,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_BIO_ACT_DESCRIPTION,
+						WQX_BIO_HABITAT_COLLECTION_INFO,
+						WQX_PASS_COUNT)));
+		COLUMN_POSITION.put(KEY_NET_TYPE_NAME,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_BIO_ACT_DESCRIPTION,
+						WQX_BIO_HABITAT_COLLECTION_INFO,
+						WQX_NET_INFORMATION,
+						WQX_NET_TYPE)));
+		COLUMN_POSITION.put(KEY_ACT_NET_SURFACE_AREA,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_BIO_ACT_DESCRIPTION,
+						WQX_BIO_HABITAT_COLLECTION_INFO,
+						WQX_NET_INFORMATION,
+						WQX_NET_SURFACE_AREA,
+						WQX_MEASURE_VALUE)));
+		COLUMN_POSITION.put(KEY_ACT_NET_SURFACE_AREA_UNIT,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_BIO_ACT_DESCRIPTION,
+						WQX_BIO_HABITAT_COLLECTION_INFO,
+						WQX_NET_INFORMATION,
+						WQX_NET_SURFACE_AREA,
+						WQX_MEASURE_UNIT)));
+		COLUMN_POSITION.put(KEY_ACT_NET_MESH_SIZE,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_BIO_ACT_DESCRIPTION,
+						WQX_BIO_HABITAT_COLLECTION_INFO,
+						WQX_NET_INFORMATION,
+						WQX_NET_MESH_SIZE,
+						WQX_MEASURE_VALUE)));
+		COLUMN_POSITION.put(KEY_ACT_NET_MESH_SIZE_UNIT,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_BIO_ACT_DESCRIPTION,
+						WQX_BIO_HABITAT_COLLECTION_INFO,
+						WQX_NET_INFORMATION,
+						WQX_NET_MESH_SIZE,
+						WQX_MEASURE_UNIT)));
+		COLUMN_POSITION.put(KEY_ACT_BOAT_SPEED,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_BIO_ACT_DESCRIPTION,
+						WQX_BIO_HABITAT_COLLECTION_INFO,
+						WQX_NET_INFORMATION,
+						WQX_BOAT_SPEAD,
+						WQX_MEASURE_VALUE)));
+		COLUMN_POSITION.put(KEY_ACT_BOAT_SPEED_UNIT,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_BIO_ACT_DESCRIPTION,
+						WQX_BIO_HABITAT_COLLECTION_INFO,
+						WQX_NET_INFORMATION,
+						WQX_BOAT_SPEAD,
+						WQX_MEASURE_UNIT)));
+		COLUMN_POSITION.put(KEY_ACT_CURRENT_SPEED,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_BIO_ACT_DESCRIPTION,
+						WQX_BIO_HABITAT_COLLECTION_INFO,
+						WQX_NET_INFORMATION,
+						WQX_CURRENT_SPEAD,
+						WQX_MEASURE_VALUE)));
+		COLUMN_POSITION.put(KEY_ACT_CURRENT_SPEED_UNIT,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_BIO_ACT_DESCRIPTION,
+						WQX_BIO_HABITAT_COLLECTION_INFO,
+						WQX_NET_INFORMATION,
+						WQX_CURRENT_SPEAD,
+						WQX_MEASURE_UNIT)));
+		COLUMN_POSITION.put(KEY_TOXICITY_TEST_TYPE_NAME,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_BIO_ACT_DESCRIPTION,
+						WQX_TOXICITY_TEST_TYPE)));
+		// /|\
 		
 
 		COLUMN_POSITION.put(KEY_SAMPLE_COLLECT_METHOD_ID,
@@ -281,10 +379,20 @@ public class BioResultWqx extends BaseWqx implements IXmlMapping {
 						WQX_SAMPLE_DESCRIPTION,
 						WQX_COLLECTION_METHOD,
 						WQX_METHOD_NAME)));
-		
-		
-//		public static final String KEY_ACT_SAM_COLLECT_METH_QUAL_TYPE = "ACT_SAM_COLLECT_METH_QUAL_TYPE";
-//		public static final String KEY_ACT_SAM_COLLECT_METH_DESC = "ACT_SAM_COLLECT_METH_DESC";
+		// \|/
+		COLUMN_POSITION.put(KEY_ACT_SAM_COLLECT_METH_QUAL_TYPE,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_SAMPLE_DESCRIPTION,
+						WQX_COLLECTION_METHOD,
+						WQX_METHOD_QUALIFIER_TYPE)));
+		COLUMN_POSITION.put(KEY_ACT_SAM_COLLECT_METH_DESC,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_SAMPLE_DESCRIPTION,
+						WQX_COLLECTION_METHOD,
+						WQX_METHOD_DESCRIPTION)));
+		// /|\
 		
 		
 		COLUMN_POSITION.put(KEY_SAMPLE_COLLECT_EQUIP_NAME,
@@ -292,53 +400,200 @@ public class BioResultWqx extends BaseWqx implements IXmlMapping {
 						WQX_ACTIVITY,
 						WQX_SAMPLE_DESCRIPTION,
 						WQX_COLLECTION_EQUIPMENT)));
+		// \|/
+		COLUMN_POSITION.put(KEY_ACT_SAM_COLLECT_EQUIP_COMMENTS,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_SAMPLE_DESCRIPTION,
+						WQX_COLLECTION_EQUIPMENT_COMMENT)));
 		
+		COLUMN_POSITION.put(KEY_ACT_SAM_PREP_METH_ID,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_SAMPLE_DESCRIPTION,
+						WQX_SAMPLE_PREPARATION,
+						WQX_SAMPLE_PREPARATION_METHOD,
+						WQX_METHOD_ID)));
+		COLUMN_POSITION.put(KEY_ACT_SAM_PREP_METH_CONTEXT,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_SAMPLE_DESCRIPTION,
+						WQX_SAMPLE_PREPARATION,
+						WQX_SAMPLE_PREPARATION_METHOD,
+						WQX_METHOD_CONTEXT)));
+		COLUMN_POSITION.put(KEY_ACT_SAM_PREP_METH_NAME,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_SAMPLE_DESCRIPTION,
+						WQX_SAMPLE_PREPARATION,
+						WQX_SAMPLE_PREPARATION_METHOD,
+						WQX_METHOD_NAME)));
+		COLUMN_POSITION.put(KEY_ACT_SAM_PREP_METH_QUAL_TYPE,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_SAMPLE_DESCRIPTION,
+						WQX_SAMPLE_PREPARATION,
+						WQX_SAMPLE_PREPARATION_METHOD,
+						WQX_METHOD_QUALIFIER_TYPE)));
+		COLUMN_POSITION.put(KEY_ACT_SAM_PREP_METH_DESC,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_SAMPLE_DESCRIPTION,
+						WQX_SAMPLE_PREPARATION,
+						WQX_SAMPLE_PREPARATION_METHOD,
+						WQX_METHOD_DESCRIPTION)));
+		COLUMN_POSITION.put(KEY_SAMPLE_CONTAINER_TYPE,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_SAMPLE_DESCRIPTION,
+						WQX_SAMPLE_PREPARATION,
+						WQX_SAMPLE_CONTAINER_TYPE)));
+		COLUMN_POSITION.put(KEY_SAMPLE_CONTAINER_COLOR,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_SAMPLE_DESCRIPTION,
+						WQX_SAMPLE_PREPARATION,
+						WQX_SAMPLE_CONTAINER_COLOR)));
+		COLUMN_POSITION.put(KEY_ACT_SAM_CHEMICAL_PRESERVATIVE,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_SAMPLE_DESCRIPTION,
+						WQX_SAMPLE_PREPARATION,
+						WQX_CHEMICAL_PRESERVATIVE)));
+		COLUMN_POSITION.put(KEY_THERMAL_PRESERVATIVE_NAME,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_SAMPLE_DESCRIPTION,
+						WQX_SAMPLE_PREPARATION,
+						WQX_THERMAL_PRESERVATIVE)));
+		COLUMN_POSITION.put(KEY_ACT_SAM_TRANSPORT_STORAGE_DESC,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_SAMPLE_DESCRIPTION,
+						WQX_SAMPLE_PREPARATION,
+						WQX_TRANSPORT_STORAGE)));
 		
-//		public static final String KEY_ACT_SAM_COLLECT_EQUIP_COMMENTS = "ACT_SAM_COLLECT_EQUIP_COMMENTS";
-//		public static final String KEY_ACT_SAM_PREP_METH_ID = "ACT_SAM_PREP_METH_ID";
-//		public static final String KEY_ACT_SAM_PREP_METH_CONTEXT = "ACT_SAM_PREP_METH_CONTEXT";
-//		public static final String KEY_ACT_SAM_PREP_METH_NAME = "ACT_SAM_PREP_METH_NAME";
-//		public static final String KEY_ACT_SAM_PREP_METH_QUAL_TYPE = "ACT_SAM_PREP_METH_QUAL_TYPE";
-//		public static final String KEY_ACT_SAM_PREP_METH_DESC = "ACT_SAM_PREP_METH_DESC";
-//		public static final String KEY_SAMPLE_CONTAINER_TYPE = "SAMPLE_CONTAINER_TYPE";
-//		public static final String KEY_SAMPLE_CONTAINER_COLOR = "SAMPLE_CONTAINER_COLOR";
-//		public static final String KEY_ACT_SAM_CHEMICAL_PRESERVATIVE = "ACT_SAM_CHEMICAL_PRESERVATIVE";
-//		public static final String KEY_THERMAL_PRESERVATIVE_NAME = "THERMAL_PRESERVATIVE_NAME";
-//		public static final String KEY_ACT_SAM_TRANSPORT_STORAGE_DESC = "ACT_SAM_TRANSPORT_STORAGE_DESC";
-//		public static final String KEY_METRIC_TYPE_IDENTIFIER = "METRIC_TYPE_IDENTIFIER";
-//		public static final String KEY_METRIC_TYPE_CONTEXT = "METRIC_TYPE_CONTEXT";
-//		public static final String KEY_METRIC_TYPE_NAME = "METRIC_TYPE_NAME";
-//		public static final String KEY_METRIC_CITATION_TITLE = "METRIC_CITATION_TITLE";
-//		public static final String KEY_METRIC_CITATION_CREATOR = "METRIC_CITATION_CREATOR";
-//		public static final String KEY_METRIC_CITATION_SUBJECT = "METRIC_CITATION_SUBJECT";
-//		public static final String KEY_METRIC_CITATION_PUBLISHER = "METRIC_CITATION_PUBLISHER";
-//		public static final String KEY_METRIC_CITATION_DATE = "METRIC_CITATION_DATE";
-//		public static final String KEY_METRIC_CITATION_ID = "METRIC_CITATION_ID";
-//		public static final String KEY_METRIC_TYPE_SCALE = "METRIC_TYPE_SCALE";
-//		public static final String KEY_FORMULA_DESCRIPTION = "FORMULA_DESCRIPTION";
-//		public static final String KEY_ACTIVITY_METRIC_VALUE = "ACTIVITY_METRIC_VALUE";
-//		public static final String KEY_ACTIVITY_METRIC_UNIT = "ACTIVITY_METRIC_UNIT";
-//		public static final String KEY_ACTIVITY_METRIC_SCORE = "ACTIVITY_METRIC_SCORE";
-//		public static final String KEY_ACTIVITY_METRIC_COMMENT = "ACTIVITY_METRIC_COMMENT";
-//		public static final String KEY_INDEX_IDENTIFIER = "INDEX_IDENTIFIER";
-		
-		
+		COLUMN_POSITION.put(KEY_METRIC_TYPE_IDENTIFIER,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_ACTIVITY_METRIC,
+						WQX_ACTIVITY_METRIC_TYPE,
+						WQX_METRIC_TYPE_ID)));
+		COLUMN_POSITION.put(KEY_METRIC_TYPE_CONTEXT,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_ACTIVITY_METRIC,
+						WQX_ACTIVITY_METRIC_TYPE,
+						WQX_METRIC_TYPE_ID_CONTEXT)));
+		COLUMN_POSITION.put(KEY_METRIC_TYPE_NAME,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_ACTIVITY_METRIC,
+						WQX_ACTIVITY_METRIC_TYPE,
+						WQX_METRIC_TYPE)));
+		COLUMN_POSITION.put(KEY_METRIC_CITATION_TITLE,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_ACTIVITY_METRIC,
+						WQX_ACTIVITY_METRIC_TYPE,
+						WQX_METRIC_TYPE_CITATION,
+						WQX_RESOURCE_TITLE)));
+		COLUMN_POSITION.put(KEY_METRIC_CITATION_CREATOR,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_ACTIVITY_METRIC,
+						WQX_ACTIVITY_METRIC_TYPE,
+						WQX_METRIC_TYPE_CITATION,
+						WQX_RESOURCE_CREATOR)));
+		COLUMN_POSITION.put(KEY_METRIC_CITATION_SUBJECT,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_ACTIVITY_METRIC,
+						WQX_ACTIVITY_METRIC_TYPE,
+						WQX_METRIC_TYPE_CITATION,
+						WQX_RESOURCE_SUBJECT)));
+		COLUMN_POSITION.put(KEY_METRIC_CITATION_PUBLISHER,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_ACTIVITY_METRIC,
+						WQX_ACTIVITY_METRIC_TYPE,
+						WQX_METRIC_TYPE_CITATION,
+						WQX_RESOURCE_PUBLISHER)));
+		COLUMN_POSITION.put(KEY_METRIC_CITATION_DATE,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_ACTIVITY_METRIC,
+						WQX_ACTIVITY_METRIC_TYPE,
+						WQX_METRIC_TYPE_CITATION,
+						WQX_RESOURCE_DATE)));
+		COLUMN_POSITION.put(KEY_METRIC_CITATION_ID,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_ACTIVITY_METRIC,
+						WQX_ACTIVITY_METRIC_TYPE,
+						WQX_METRIC_TYPE_CITATION,
+						WQX_RESOURCE_ID)));
+		COLUMN_POSITION.put(KEY_METRIC_TYPE_SCALE,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_ACTIVITY_METRIC,
+						WQX_ACTIVITY_METRIC_TYPE,
+						WQX_METRIC_TYPE_SCALE)));
+		COLUMN_POSITION.put(KEY_FORMULA_DESCRIPTION,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_ACTIVITY_METRIC,
+						WQX_ACTIVITY_METRIC_TYPE,
+						WQX_FORMULA_DESCRIPTION)));
+		COLUMN_POSITION.put(KEY_ACTIVITY_METRIC_VALUE,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_ACTIVITY_METRIC,
+						WQX_METRIC_VALUE,
+						WQX_MEASURE_VALUE)));
+		COLUMN_POSITION.put(KEY_ACTIVITY_METRIC_UNIT,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_ACTIVITY_METRIC,
+						WQX_METRIC_VALUE,
+						WQX_MEASURE_UNIT)));
+		COLUMN_POSITION.put(KEY_ACTIVITY_METRIC_SCORE,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_ACTIVITY_METRIC,
+						WQX_METRIC_SCORE)));
+		COLUMN_POSITION.put(KEY_ACTIVITY_METRIC_COMMENT,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_ACTIVITY_METRIC,
+						WQX_METRIC_COMMENT)));
+		COLUMN_POSITION.put(KEY_INDEX_IDENTIFIER,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_ACTIVITY_METRIC,
+						WQX_INDEX_ID)));
+		// /|\
 
-		
-//		public static final String KEY_RES_DATA_LOGGER_LINE = "RES_DATA_LOGGER_LINE";
-
-		
 		COLUMN_POSITION.put(KEY_RESULT_DETECTION_CONDITION_TX,
 				new LinkedList<String>(Arrays.asList(
 						WQX_ACTIVITY,
 						WQX_RESULT,
 						WQX_RESULT_DESRIPTION,
 						WQX_DETECTION_CONDITION)));
-		
-		
-//		public static final String KEY_METHOD_SPECIFICATION_NAME = "METHOD_SPECIFICATION_NAME";
-		
-		
+		// \|/
+		COLUMN_POSITION.put(KEY_RES_DATA_LOGGER_LINE,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_RESULT_DESRIPTION,
+						WQX_DATA_LOGGER_LINE)));
+		COLUMN_POSITION.put(KEY_METHOD_SPECIFICATION_NAME,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_RESULT_DESRIPTION,
+						WQX_METHOD_SPECIFICATION)));
+		// /|\
 		COLUMN_POSITION.put(KEY_CHARACTERISTIC_NAME,
 				new LinkedList<String>(Arrays.asList(
 						WQX_ACTIVITY,
@@ -422,14 +677,36 @@ public class BioResultWqx extends BaseWqx implements IXmlMapping {
 						WQX_RESULT_DESRIPTION,
 						WQX_DATA_QUALITY,
 						WQX_PRECISION)));
-		
-		
-//		public static final String KEY_RES_MEASURE_BIAS = "RES_MEASURE_BIAS";
-//		public static final String KEY_RES_MEASURE_CONF_INTERVAL = "RES_MEASURE_CONF_INTERVAL";
-//		public static final String KEY_RES_MEASURE_UPPER_CONF_LIMIT = "RES_MEASURE_UPPER_CONF_LIMIT";
-//		public static final String KEY_RES_MEASURE_LOWER_CONF_LIMIT = "RES_MEASURE_LOWER_CONF_LIMIT";
-		
-		
+		// \|/
+		COLUMN_POSITION.put(KEY_RES_MEASURE_BIAS,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_RESULT_DESRIPTION,
+						WQX_DATA_QUALITY,
+						WQX_BIAS)));
+		COLUMN_POSITION.put(KEY_RES_MEASURE_CONF_INTERVAL,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_RESULT_DESRIPTION,
+						WQX_DATA_QUALITY,
+						WQX_CONFIDENCE_INTERVAL)));
+		COLUMN_POSITION.put(KEY_RES_MEASURE_UPPER_CONF_LIMIT,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_RESULT_DESRIPTION,
+						WQX_DATA_QUALITY,
+						WQX_UPPER_CONFIDENCE_LIMIT)));
+		COLUMN_POSITION.put(KEY_RES_MEASURE_LOWER_CONF_LIMIT,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_RESULT_DESRIPTION,
+						WQX_DATA_QUALITY,
+						WQX_LOWER_CONFIDENCE_LIMIT)));
+		// /|\
 		COLUMN_POSITION.put(KEY_RESULT_COMMENT,
 				new LinkedList<String>(Arrays.asList(
 						WQX_ACTIVITY,
@@ -462,55 +739,196 @@ public class BioResultWqx extends BaseWqx implements IXmlMapping {
 						WQX_RESULT,
 						WQX_RESULT_DESRIPTION,
 						WQX_RESULT_DETH_REFERENCE)));
-
+		// \|/
+		COLUMN_POSITION.put(KEY_RES_SAMPLING_POINT_NAME,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_RESULT_DESRIPTION,
+						WQX_RESULT_SAMPLING_POINT)));
 		
-		
-//		public static final String KEY_RES_SAMPLING_POINT_NAME = "RES_SAMPLING_POINT_NAME";
-//		public static final String KEY_BIOLOGICAL_INTENT = "BIOLOGICAL_INTENT";
-//		public static final String KEY_RES_BIO_INDIVIDUAL_ID = "RES_BIO_INDIVIDUAL_ID";
-		
-		
+		COLUMN_POSITION.put(KEY_BIOLOGICAL_INTENT,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_BIOLOGICAL_RESULT,
+						WQX_BIOLOGICAL_INTENT)));
+		COLUMN_POSITION.put(KEY_RES_BIO_INDIVIDUAL_ID,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_BIOLOGICAL_RESULT,
+						WQX_BIOLOGICAL_INDIVIDUAL_ID)));
+		// /|\
 		COLUMN_POSITION.put(KEY_SAMPLE_TISSUE_TAXONOMIC_NAME,
 				new LinkedList<String>(Arrays.asList(
 						WQX_ACTIVITY,
 						WQX_RESULT,
 						WQX_BIOLOGICAL_RESULT,
 						WQX_TAXON_NAME)));
-		
-		
-//		public static final String KEY_UNIDENTIFIEDSPECIESIDENTIFIER = "UNIDENTIFIEDSPECIESIDENTIFIER";
-		
-		
+		// \|/
+		COLUMN_POSITION.put(KEY_UNIDENTIFIEDSPECIESIDENTIFIER,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_BIOLOGICAL_RESULT,
+						WQX_UNIDENTIFIED_SPECIES_IDENTIFIER)));
+		// /|\
 		COLUMN_POSITION.put(KEY_SAMPLE_TISSUE_ANATOMY_NAME,
 				new LinkedList<String>(Arrays.asList(
 						WQX_ACTIVITY,
 						WQX_RESULT,
 						WQX_BIOLOGICAL_RESULT,
 						WQX_TISSUE_ANATOMY)));
-		
-		
-//		public static final String KEY_RES_GROUP_SUMMARY_CT_WT = "RES_GROUP_SUMMARY_CT_WT";
-//		public static final String KEY_RES_GROUP_SUMMARY_CT_WT_UNIT = "RES_GROUP_SUMMARY_CT_WT_UNIT";
-//		public static final String KEY_CELL_FORM_NAME = "CELL_FORM_NAME";
-//		public static final String KEY_CELL_SHAPE_NAME = "CELL_SHAPE_NAME";
-//		public static final String KEY_HABIT_NAME = "HABIT_NAME";
-//		public static final String KEY_VOLT_NAME = "VOLT_NAME";
-//		public static final String KEY_RTDET_POLLUTION_TOLERANCE = "RTDET_POLLUTION_TOLERANCE";
-//		public static final String KEY_RTDET_POLLUTION_TOLERNCE_SCALE = "RTDET_POLLUTION_TOLERNCE_SCALE";
-//		public static final String KEY_RTDET_TROPHIC_LEVEL = "RTDET_TROPHIC_LEVEL";
-//		public static final String KEY_RTFGRP_FUNCTIONAL_FEEDING_GRP = "RTFGRP_FUNCTIONAL_FEEDING_GRP";
-//		public static final String KEY_TAXON_CITATION_TITLE = "TAXON_CITATION_TITLE";
-//		public static final String KEY_TAXON_CITATION_CREATOR = "TAXON_CITATION_CREATOR";
-//		public static final String KEY_TAXON_CITATION_SUBJECT = "TAXON_CITATION_SUBJECT";
-//		public static final String KEY_TAXON_CITATION_PUBLISHER = "TAXON_CITATION_PUBLISHER";
-//		public static final String KEY_TAXON_CITATION_DATE = "TAXON_CITATION_DATE";
-//		public static final String KEY_TAXON_CITATION_ID = "TAXON_CITATION_ID";
-//		public static final String KEY_FCDSC_NAME = "FCDSC_NAME";
-//		public static final String KEY_FREQUENCY_CLASS_UNIT = "FREQUENCY_CLASS_UNIT";
-//		public static final String KEY_FCDSC_LOWER_BOUND = "FCDSC_LOWER_BOUND";
-//		public static final String KEY_FCDSC_UPPER_BOUND = "FCDSC_UPPER_BOUND";
-		
-		
+		// \|/
+		COLUMN_POSITION.put(KEY_RES_GROUP_SUMMARY_CT_WT,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_BIOLOGICAL_RESULT,
+						WQX_GROUP_SUMMARY_COUNT_WEIGHT,
+						WQX_MEASURE_VALUE)));
+		COLUMN_POSITION.put(KEY_RES_GROUP_SUMMARY_CT_WT_UNIT,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_BIOLOGICAL_RESULT,
+						WQX_GROUP_SUMMARY_COUNT_WEIGHT,
+						WQX_MEASURE_UNIT)));
+		COLUMN_POSITION.put(KEY_CELL_FORM_NAME,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_BIOLOGICAL_RESULT,
+						WQX_TAXONOMIC_DETAILS,
+						WQX_CELL_FORM)));
+		COLUMN_POSITION.put(KEY_CELL_SHAPE_NAME,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_BIOLOGICAL_RESULT,
+						WQX_TAXONOMIC_DETAILS,
+						WQX_CELL_SHAPE)));
+		COLUMN_POSITION.put(KEY_HABIT_NAME,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_BIOLOGICAL_RESULT,
+						WQX_TAXONOMIC_DETAILS,
+						WQX_HABIT)));
+		COLUMN_POSITION.put(KEY_VOLT_NAME,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_BIOLOGICAL_RESULT,
+						WQX_TAXONOMIC_DETAILS,
+						WQX_VOLTISM)));
+		COLUMN_POSITION.put(KEY_RTDET_POLLUTION_TOLERANCE,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_BIOLOGICAL_RESULT,
+						WQX_TAXONOMIC_DETAILS,
+						WQX_POLLUTION_TOLERANCE)));
+		COLUMN_POSITION.put(KEY_RTDET_POLLUTION_TOLERNCE_SCALE,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_BIOLOGICAL_RESULT,
+						WQX_TAXONOMIC_DETAILS,
+						WQX_TOLERANCE_SCALE)));
+		COLUMN_POSITION.put(KEY_RTDET_TROPHIC_LEVEL,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_BIOLOGICAL_RESULT,
+						WQX_TAXONOMIC_DETAILS,
+						WQX_TROPHIC_LEVEL)));
+		COLUMN_POSITION.put(KEY_RTFGRP_FUNCTIONAL_FEEDING_GRP,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_BIOLOGICAL_RESULT,
+						WQX_TAXONOMIC_DETAILS,
+						WQX_FUNCTIONAL_FEEDING_GROUP)));
+		COLUMN_POSITION.put(KEY_TAXON_CITATION_TITLE,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_BIOLOGICAL_RESULT,
+						WQX_TAXONOMIC_DETAILS,
+						WQX_TAXONIMC_DETAIL_CITATION,
+						WQX_RESOURCE_TITLE)));
+		COLUMN_POSITION.put(KEY_TAXON_CITATION_CREATOR,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_BIOLOGICAL_RESULT,
+						WQX_TAXONOMIC_DETAILS,
+						WQX_TAXONIMC_DETAIL_CITATION,
+						WQX_RESOURCE_CREATOR)));
+		COLUMN_POSITION.put(KEY_TAXON_CITATION_SUBJECT,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_BIOLOGICAL_RESULT,
+						WQX_TAXONOMIC_DETAILS,
+						WQX_TAXONIMC_DETAIL_CITATION,
+						WQX_RESOURCE_SUBJECT)));
+		COLUMN_POSITION.put(KEY_TAXON_CITATION_PUBLISHER,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_BIOLOGICAL_RESULT,
+						WQX_TAXONOMIC_DETAILS,
+						WQX_TAXONIMC_DETAIL_CITATION,
+						WQX_RESOURCE_PUBLISHER)));
+		COLUMN_POSITION.put(KEY_TAXON_CITATION_DATE,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_BIOLOGICAL_RESULT,
+						WQX_TAXONOMIC_DETAILS,
+						WQX_TAXONIMC_DETAIL_CITATION,
+						WQX_RESOURCE_DATE)));
+		COLUMN_POSITION.put(KEY_TAXON_CITATION_ID,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_BIOLOGICAL_RESULT,
+						WQX_TAXONOMIC_DETAILS,
+						WQX_TAXONIMC_DETAIL_CITATION,
+						WQX_RESOURCE_ID)));
+		COLUMN_POSITION.put(KEY_FCDSC_NAME,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_BIOLOGICAL_RESULT,
+						WQX_FREQUENCY_CLASS_INFO,
+						WQX_FREQUENCY_CLASS_DESCRIPTOR)));
+		COLUMN_POSITION.put(KEY_FREQUENCY_CLASS_UNIT,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_BIOLOGICAL_RESULT,
+						WQX_FREQUENCY_CLASS_INFO,
+						WQX_FREQUENCE_CLASS_DESCRIPTOR_UNIT)));
+		COLUMN_POSITION.put(KEY_FCDSC_LOWER_BOUND,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_BIOLOGICAL_RESULT,
+						WQX_FREQUENCY_CLASS_INFO,
+						WQX_LOWER_CLASS_BOUND)));
+		COLUMN_POSITION.put(KEY_FCDSC_UPPER_BOUND,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_BIOLOGICAL_RESULT,
+						WQX_FREQUENCY_CLASS_INFO,
+						WQX_UPPER_CLASS_BOUND)));
+		// /|\
+
 
 		COLUMN_POSITION.put(KEY_ANALYTICAL_PROCEDURE_ID,
 				new LinkedList<String>(Arrays.asList(
@@ -530,11 +948,14 @@ public class BioResultWqx extends BaseWqx implements IXmlMapping {
 						WQX_RESULT,
 						WQX_ANALYTICAL_METHOD,
 						WQX_METHOD_NAME)));
-		
-		
-//		public static final String KEY_ANLMTH_QUAL_TYPE = "ANLMTH_QUAL_TYPE";
-		
-		
+		// \|/
+		COLUMN_POSITION.put(KEY_ANLMTH_QUAL_TYPE,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_ANALYTICAL_METHOD,
+						WQX_METHOD_QUALIFIER_TYPE)));
+		// /|\
 		COLUMN_POSITION.put(KEY_ANALYTICAL_METHOD_CITATION,
 				new LinkedList<String>(Arrays.asList(
 						WQX_ACTIVITY,
@@ -554,16 +975,48 @@ public class BioResultWqx extends BaseWqx implements IXmlMapping {
 						WQX_RESULT,
 						WQX_LAB_INFO,
 						WQX_ANALYSIS_START_DATE)));
-		
-		
-//		public static final String KEY_ANALYSIS_START_TIME = "ANALYSIS_START_TIME";
-//		public static final String KEY_ANALYSIS_START_TIMEZONE = "ANALYSIS_START_TIMEZONE";
-//		public static final String KEY_ANALYSIS_END_DATE = "ANALYSIS_END_DATE";
-//		public static final String KEY_ANALYSIS_END_TIME = "ANALYSIS_END_TIME";
-//		public static final String KEY_ANALYSIS_END_TIMEZONE = "ANALYSIS_END_TIMEZONE";
-//		public static final String KEY_RLCOM_CD = "RLCOM_CD";
-		
-		
+		// \|/
+		COLUMN_POSITION.put(KEY_ANALYSIS_START_TIME,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_LAB_INFO,
+						WQX_ANALYSIS_START_TIME,
+						WQX_TIME)));
+		COLUMN_POSITION.put(KEY_ANALYSIS_START_TIMEZONE,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_LAB_INFO,
+						WQX_ANALYSIS_START_TIME,
+						WQX_TIME_ZONE)));
+		COLUMN_POSITION.put(KEY_ANALYSIS_END_DATE,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_LAB_INFO,
+						WQX_ANALYSIS_END_DATE)));
+		COLUMN_POSITION.put(KEY_ANALYSIS_END_TIME,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_LAB_INFO,
+						WQX_ANALYSIS_END_TIME,
+						WQX_TIME)));
+		COLUMN_POSITION.put(KEY_ANALYSIS_END_TIMEZONE,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_LAB_INFO,
+						WQX_ANALYSIS_END_TIME,
+						WQX_TIME_ZONE)));
+		COLUMN_POSITION.put(KEY_RLCOM_CD,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_LAB_INFO,
+						WQX_LAB_COMMENT_CODE)));
+		// /|\
 		COLUMN_POSITION.put(KEY_LAB_REMARK,
 				new LinkedList<String>(Arrays.asList(
 						WQX_ACTIVITY,
@@ -593,36 +1046,116 @@ public class BioResultWqx extends BaseWqx implements IXmlMapping {
 						WQX_LAB_INFO,
 						WQX_DETECTION_LIMIT,
 						WQX_DETECTION_LIMIT_TYPE)));
-		
-		
-//		public static final String KEY_RES_LAB_ACCRED_YN = "RES_LAB_ACCRED_YN";
-//		public static final String KEY_RES_LAB_ACCRED_AUTHORITY = "RES_LAB_ACCRED_AUTHORITY";
-//		public static final String KEY_RES_TAXONOMIST_ACCRED_YN = "RES_TAXONOMIST_ACCRED_YN";
-//		public static final String KEY_RES_TAXONOMIST_ACCRED_AUTHORTY = "RES_TAXONOMIST_ACCRED_AUTHORTY";
-//		public static final String KEY_PREP_METHOD_ID = "PREP_METHOD_ID";
-//		public static final String KEY_PREP_METHOD_CONTEXT = "PREP_METHOD_CONTEXT";
-//		public static final String KEY_PREP_METHOD_NAME = "PREP_METHOD_NAME";
-//		public static final String KEY_PREP_METHOD_QUAL_TYPE = "PREP_METHOD_QUAL_TYPE";
-//		public static final String KEY_PREP_METHOD_DESC = "PREP_METHOD_DESC";
-		
-		
+		// \|/
+		COLUMN_POSITION.put(KEY_RES_LAB_ACCRED_YN,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_LAB_INFO,
+						WQX_LAB_ACCREDITATION_INDICATOR)));
+		COLUMN_POSITION.put(KEY_RES_LAB_ACCRED_AUTHORITY,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_LAB_INFO,
+						WQX_LAB_ACCREDITATION_AUTHORITY)));
+		COLUMN_POSITION.put(KEY_RES_TAXONOMIST_ACCRED_YN,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_LAB_INFO,
+						WQX_TAXONOMIST_ACCREDITATION_INDICATOR)));
+		COLUMN_POSITION.put(KEY_RES_TAXONOMIST_ACCRED_AUTHORTY,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_LAB_INFO,
+						WQX_TAXONOMIST_ACCREDITATION_AUTHORTY)));
 
+		COLUMN_POSITION.put(KEY_PREP_METHOD_ID,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_LAB_SAMPLE_PREP,
+						WQX_LAB_SAMPLE_PREP_METHOD,
+						WQX_METHOD_ID)));
+		COLUMN_POSITION.put(KEY_PREP_METHOD_CONTEXT,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_LAB_SAMPLE_PREP,
+						WQX_LAB_SAMPLE_PREP_METHOD,
+						WQX_METHOD_CONTEXT)));
+		COLUMN_POSITION.put(KEY_PREP_METHOD_NAME,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_LAB_SAMPLE_PREP,
+						WQX_LAB_SAMPLE_PREP_METHOD,
+						WQX_METHOD_NAME)));
+		COLUMN_POSITION.put(KEY_PREP_METHOD_QUAL_TYPE,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_LAB_SAMPLE_PREP,
+						WQX_LAB_SAMPLE_PREP_METHOD,
+						WQX_METHOD_QUALIFIER_TYPE)));
+		COLUMN_POSITION.put(KEY_PREP_METHOD_DESC,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_LAB_SAMPLE_PREP,
+						WQX_LAB_SAMPLE_PREP_METHOD,
+						WQX_METHOD_DESCRIPTION)));
+		// /|\
 		COLUMN_POSITION.put(KEY_ANALYSIS_PREP_DATE_TX,
 				new LinkedList<String>(Arrays.asList(
 						WQX_ACTIVITY,
 						WQX_RESULT,
 						WQX_LAB_SAMPLE_PREP,
 						WQX_PREP_START_DATE)));
-
-		
-		
-//		public static final String KEY_PREP_START_TIME = "PREP_START_TIME";
-//		public static final String KEY_PREP_START_TIMEZONE = "PREP_START_TIMEZONE";
-//		public static final String KEY_PREP_END_DATE = "PREP_END_DATE";
-//		public static final String KEY_PREP_END_TIME = "PREP_END_TIME";
-//		public static final String KEY_PREP_END_TIMEZONE = "PREP_END_TIMEZONE";
-//		public static final String KEY_PREP_DILUTION_FACTOR = "PREP_DILUTION_FACTOR";
-
+		// \|/
+		COLUMN_POSITION.put(KEY_PREP_START_TIME,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_LAB_SAMPLE_PREP,
+						WQX_PREP_START_TIME,
+						WQX_TIME)));
+		COLUMN_POSITION.put(KEY_PREP_START_TIMEZONE,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_LAB_SAMPLE_PREP,
+						WQX_PREP_START_TIME,
+						WQX_TIME_ZONE)));
+		COLUMN_POSITION.put(KEY_PREP_END_DATE,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_LAB_SAMPLE_PREP,
+						WQX_PREP_END_DATE)));
+		COLUMN_POSITION.put(KEY_PREP_END_TIME,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_LAB_SAMPLE_PREP,
+						WQX_PREP_END_TIME,
+						WQX_TIME)));
+		COLUMN_POSITION.put(KEY_PREP_END_TIMEZONE,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_LAB_SAMPLE_PREP,
+						WQX_PREP_END_TIME,
+						WQX_TIME_ZONE)));
+		COLUMN_POSITION.put(KEY_PREP_DILUTION_FACTOR,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_LAB_SAMPLE_PREP,
+						WQX_SUBSTITUTION_DILUTION_FACTOR)));
+		// /|\
 		
 	}
 
@@ -641,7 +1174,7 @@ public class BioResultWqx extends BaseWqx implements IXmlMapping {
 						KEY_ACTIVITY_STOP_DATE,
 						KEY_ACTIVITY_STOP_TIME,
 						KEY_ACT_STOP_TIME_ZONE,
-						
+						KEY_ACTIVITY_RELATIVE_DEPTH,
 						KEY_ACTIVITY_DEPTH,
 						KEY_ACTIVITY_DEPTH_UNIT,
 						KEY_ACTIVITY_DEPTH_REF_POINT,
@@ -651,19 +1184,78 @@ public class BioResultWqx extends BaseWqx implements IXmlMapping {
 						KEY_ACTIVITY_LOWER_DEPTH_UNIT,
 						KEY_PROJECT_ID,
 						KEY_ACTIVITY_CONDUCTING_ORG,
+						KEY_SITE_ID,
 						KEY_ACTIVITY_COMMENT,
 						KEY_SAMPLE_AQFR_NAME,
 						KEY_HYDROLOGIC_CONDITION_NAME,
 						KEY_HYDROLOGIC_EVENT_NAME,
+						KEY_ACTIVITY_LATITUDE,
+						KEY_ACTIVITY_LONGITUDE,
+						KEY_ACTIVITY_SOURCE_MAP_SCALE,
+						KEY_ACT_HORIZONTAL_ACCURACY,
+						KEY_ACT_HORIZONTAL_ACCURACY_UNIT,
+						KEY_ACT_HORIZONTAL_COLLECT_METHOD,
+						KEY_ACT_HORIZONTAL_DATUM_NAME,
+						KEY_ASSEMBLAGE_SAMPLED_NAME,
+						KEY_ACT_COLLECTION_DURATION,
+						KEY_ACT_COLLECTION_DURATION_UNIT,
+						KEY_ACT_SAM_COMPNT_NAME,
+						KEY_ACT_SAM_COMPNT_PLACE_IN_SERIES,
+						KEY_ACT_REACH_LENGTH,
+						KEY_ACT_REACH_LENGTH_UNIT,
+						KEY_ACT_REACH_WIDTH,
+						KEY_ACT_REACH_WIDTH_UNIT,
+						KEY_ACT_PASS_COUNT,
+						KEY_NET_TYPE_NAME,
+						KEY_ACT_NET_SURFACE_AREA,
+						KEY_ACT_NET_SURFACE_AREA_UNIT,
+						KEY_ACT_NET_MESH_SIZE,
+						KEY_ACT_NET_MESH_SIZE_UNIT,
+						KEY_ACT_BOAT_SPEED,
+						KEY_ACT_BOAT_SPEED_UNIT,
+						KEY_ACT_CURRENT_SPEED,
+						KEY_ACT_CURRENT_SPEED_UNIT,
+						KEY_TOXICITY_TEST_TYPE_NAME,
 						KEY_SAMPLE_COLLECT_METHOD_ID,
 						KEY_SAMPLE_COLLECT_METHOD_CTX,
 						KEY_SAMPLE_COLLECT_METHOD_NAME,
-						KEY_SAMPLE_COLLECT_EQUIP_NAME
+						KEY_ACT_SAM_COLLECT_METH_QUAL_TYPE,
+						KEY_ACT_SAM_COLLECT_METH_DESC,
+						KEY_SAMPLE_COLLECT_EQUIP_NAME,
+						KEY_ACT_SAM_COLLECT_EQUIP_COMMENTS,
+						KEY_ACT_SAM_PREP_METH_ID,
+						KEY_ACT_SAM_PREP_METH_CONTEXT,
+						KEY_ACT_SAM_PREP_METH_NAME,
+						KEY_ACT_SAM_PREP_METH_QUAL_TYPE,
+						KEY_ACT_SAM_PREP_METH_DESC,
+						KEY_SAMPLE_CONTAINER_TYPE,
+						KEY_SAMPLE_CONTAINER_COLOR,
+						KEY_ACT_SAM_CHEMICAL_PRESERVATIVE,
+						KEY_THERMAL_PRESERVATIVE_NAME,
+						KEY_ACT_SAM_TRANSPORT_STORAGE_DESC,
+						KEY_METRIC_TYPE_IDENTIFIER,
+						KEY_METRIC_TYPE_CONTEXT,
+						KEY_METRIC_TYPE_NAME,
+						KEY_METRIC_CITATION_TITLE,
+						KEY_METRIC_CITATION_CREATOR,
+						KEY_METRIC_CITATION_SUBJECT,
+						KEY_METRIC_CITATION_PUBLISHER,
+						KEY_METRIC_CITATION_DATE,
+						KEY_METRIC_CITATION_ID,
+						KEY_METRIC_TYPE_SCALE,
+						KEY_FORMULA_DESCRIPTION,
+						KEY_ACTIVITY_METRIC_VALUE,
+						KEY_ACTIVITY_METRIC_UNIT,
+						KEY_ACTIVITY_METRIC_SCORE,
+						KEY_ACTIVITY_METRIC_COMMENT,
+						KEY_INDEX_IDENTIFIER
 						)));
 		GROUPING.put(KEY_RESULT_ID,
 				new LinkedList<String>(Arrays.asList(
-						KEY_RESULT_DETECTION_CONDITION_TX,
+						KEY_RES_DATA_LOGGER_LINE,
 						KEY_CHARACTERISTIC_NAME,
+						KEY_RESULT_DETECTION_CONDITION_TX,
+						KEY_METHOD_SPECIFICATION_NAME,
 						KEY_SAMPLE_FRACTION_TYPE,
 						KEY_RESULT_MEASURE_VALUE,
 						KEY_RESULT_UNIT,
@@ -676,24 +1268,74 @@ public class BioResultWqx extends BaseWqx implements IXmlMapping {
 						KEY_TEMPERATURE_BASIS_LEVEL,
 						KEY_PARTICLE_SIZE,
 						KEY_PRECISION,
+						KEY_RES_MEASURE_BIAS,
+						KEY_RES_MEASURE_CONF_INTERVAL,
+						KEY_RES_MEASURE_UPPER_CONF_LIMIT,
+						KEY_RES_MEASURE_LOWER_CONF_LIMIT,
 						KEY_RESULT_COMMENT,
 						KEY_P_CODE,
 						KEY_RESULT_DEPTH_MEAS_VALUE,
 						KEY_RESULT_DEPTH_MEAS_UNIT_CODE,
 						KEY_RESULT_DEPTH_ALT_REF_PT_TXT,
+						KEY_RES_SAMPLING_POINT_NAME,
+						KEY_BIOLOGICAL_INTENT,
+						KEY_RES_BIO_INDIVIDUAL_ID,
 						KEY_SAMPLE_TISSUE_TAXONOMIC_NAME,
+						KEY_UNIDENTIFIEDSPECIESIDENTIFIER,
 						KEY_SAMPLE_TISSUE_ANATOMY_NAME,
+						KEY_RES_GROUP_SUMMARY_CT_WT,
+						KEY_RES_GROUP_SUMMARY_CT_WT_UNIT,
+						KEY_CELL_FORM_NAME,
+						KEY_CELL_SHAPE_NAME,
+						KEY_HABIT_NAME,
+						KEY_VOLT_NAME,
+						KEY_RTDET_POLLUTION_TOLERANCE,
+						KEY_RTDET_POLLUTION_TOLERNCE_SCALE,
+						KEY_RTDET_TROPHIC_LEVEL,
+						KEY_RTFGRP_FUNCTIONAL_FEEDING_GRP,
+						KEY_TAXON_CITATION_TITLE,
+						KEY_TAXON_CITATION_CREATOR,
+						KEY_TAXON_CITATION_SUBJECT,
+						KEY_TAXON_CITATION_PUBLISHER,
+						KEY_TAXON_CITATION_DATE,
+						KEY_TAXON_CITATION_ID,
+						KEY_FCDSC_NAME,
+						KEY_FREQUENCY_CLASS_UNIT,
+						KEY_FCDSC_LOWER_BOUND,
+						KEY_FCDSC_UPPER_BOUND,
 						KEY_ANALYTICAL_PROCEDURE_ID,
 						KEY_ANALYTICAL_PROCEDURE_SOURCE,
 						KEY_ANALYTICAL_METHOD_NAME,
+						KEY_ANLMTH_QUAL_TYPE,
 						KEY_ANALYTICAL_METHOD_CITATION,
 						KEY_LAB_NAME,
 						KEY_ANALYSIS_START_DATE,
+						KEY_ANALYSIS_START_TIME,
+						KEY_ANALYSIS_START_TIMEZONE,
+						KEY_ANALYSIS_END_DATE,
+						KEY_ANALYSIS_END_TIME,
+						KEY_ANALYSIS_END_TIMEZONE,
+						KEY_RLCOM_CD,
 						KEY_LAB_REMARK,
-						KEY_DETECTION_LIMIT_DESC,
 						KEY_DETECTION_LIMIT,
 						KEY_DETECTION_LIMIT_UNIT,
-						KEY_ANALYSIS_PREP_DATE_TX
+						KEY_DETECTION_LIMIT_DESC,
+						KEY_RES_LAB_ACCRED_YN,
+						KEY_RES_LAB_ACCRED_AUTHORITY,
+						KEY_RES_TAXONOMIST_ACCRED_YN,
+						KEY_RES_TAXONOMIST_ACCRED_AUTHORTY,
+						KEY_PREP_METHOD_ID,
+						KEY_PREP_METHOD_CONTEXT,
+						KEY_PREP_METHOD_NAME,
+						KEY_PREP_METHOD_QUAL_TYPE,
+						KEY_PREP_METHOD_DESC,
+						KEY_ANALYSIS_PREP_DATE_TX,
+						KEY_PREP_START_TIME,
+						KEY_PREP_START_TIMEZONE,
+						KEY_PREP_END_DATE,
+						KEY_PREP_END_TIME,
+						KEY_PREP_END_TIMEZONE,
+						KEY_PREP_DILUTION_FACTOR
 						)));
 	}
 

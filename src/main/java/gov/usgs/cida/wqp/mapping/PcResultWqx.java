@@ -2,6 +2,7 @@ package gov.usgs.cida.wqp.mapping;
 
 import static gov.usgs.cida.wqp.mapping.BaseColumn.KEY_ORGANIZATION;
 import static gov.usgs.cida.wqp.mapping.BaseColumn.KEY_ORGANIZATION_NAME;
+import static gov.usgs.cida.wqp.mapping.BaseColumn.KEY_SITE_ID;
 import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_ACTIVITY;
 import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_ACTIVITY_COMMENT;
 import static gov.usgs.cida.wqp.mapping.PcResultColumn.KEY_ACTIVITY_CONDUCTING_ORG;
@@ -205,6 +206,11 @@ public class PcResultWqx extends BaseWqx implements IXmlMapping {
 						WQX_ACTIVITY,
 						WQX_ACT_DESCRIPTION,
 						WQX_ACT_CONDUCTION_ORG)));
+		COLUMN_POSITION.put(KEY_SITE_ID,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_ACT_DESCRIPTION,
+						WQX_MONITORING_LOCATION_IDENTIFIER)));
 		COLUMN_POSITION.put(KEY_ACTIVITY_COMMENT,
 				new LinkedList<String>(Arrays.asList(
 						WQX_ACTIVITY,
@@ -485,6 +491,7 @@ public class PcResultWqx extends BaseWqx implements IXmlMapping {
 						KEY_ACTIVITY_LOWER_DEPTH_UNIT,
 						KEY_PROJECT_ID,
 						KEY_ACTIVITY_CONDUCTING_ORG,
+						KEY_SITE_ID,
 						KEY_ACTIVITY_COMMENT,
 						KEY_SAMPLE_AQFR_NAME,
 						KEY_HYDROLOGIC_CONDITION_NAME,

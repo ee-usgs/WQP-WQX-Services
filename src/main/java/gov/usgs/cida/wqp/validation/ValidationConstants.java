@@ -26,4 +26,5 @@ public interface ValidationConstants { // TODO these should be defaults with Wqp
 	String REGEX_ANALYTICAL_METHOD	= ".+";
 	String REGEX_HUC_WILDCARD_IN	= "\\*";
 	String REGEX_HUC_WILDCARD_OUT	= "";
+	String REGEX_DATA_PROFILE = "biological";
 }
