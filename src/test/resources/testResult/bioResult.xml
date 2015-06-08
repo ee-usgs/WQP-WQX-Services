@@ -331,30 +331,6 @@
 					<SampleTransportStorageDescription>dz</SampleTransportStorageDescription>
 				</SamplePreparation>
 			</SampleDescription>
-			<ActivityMetric>
-				<ActivityMetricType>
-					<MetricTypeIdentifier>ea</MetricTypeIdentifier>
-					<MetricTypeIdentifierContext>eb</MetricTypeIdentifierContext>
-					<MetricTypeName>ec</MetricTypeName>
-					<MetricTypeCitation>
-						<ResourceTitleName>ed</ResourceTitleName>
-						<ResourceCreatorName>ee</ResourceCreatorName>
-						<ResourceSubjectText>ef</ResourceSubjectText>
-						<ResourcePublisherName>ej</ResourcePublisherName>
-						<ResourceDate>ek</ResourceDate>
-						<ResourceIdentifier>el</ResourceIdentifier>
-					</MetricTypeCitation>
-					<MetricTypeScaleText>em</MetricTypeScaleText>
-					<FormulaDescriptionText>en</FormulaDescriptionText>
-				</ActivityMetricType>
-				<MetricValueMeasure>
-					<MeasureValue>eo</MeasureValue>
-					<MeasureUnitCode>ep</MeasureUnitCode>
-				</MetricValueMeasure>
-				<MetricScoreNumeric>eq</MetricScoreNumeric>
-				<MetricCommentText>er</MetricCommentText>
-				<IndexIdentifier>es</IndexIdentifier>
-			</ActivityMetric>
 			<Result>
 				<ResultDescription>
 					<DataLoggerLine>et</DataLoggerLine>

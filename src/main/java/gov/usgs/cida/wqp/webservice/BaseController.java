@@ -238,6 +238,12 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 					//Just log, cause we obviously can't tell the client
 					LOG.error("Error flushing response stream", e);
 				}
+				try {
+					responseStream.close();
+				} catch (IOException e) {
+					//Just log, cause we obviously can't tell the client
+					LOG.error("Error closing response stream", e);
+				}
 			}
 			LOG.info("Processing Get complete: {}", request.getQueryString());
 			logService.logRequestComplete(logId, String.valueOf(response.getStatus()));
