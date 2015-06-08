@@ -160,6 +160,7 @@
 			 		</dependency>
 				</dependencies>
 				<configuration>
+					<argLine>-XX:PermSize=512m -XX:MaxPermSize=1024m</argLine>
 			 		<includes>
 			  			<include>**/*.class</include>
 			 		</includes>
