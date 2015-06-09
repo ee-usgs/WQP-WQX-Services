@@ -16,9 +16,6 @@ public class StreamingResultHandler implements ResultHandler {
 	public StreamingResultHandler(ITransformer transformer) {
 		LOG.trace("streaming handler constructed");
 		this.transformer = transformer;
-		if (null == transformer) {
-			throw new RuntimeException("A Transformer is required for the StreamingResultHandler");
-		}
 	}
 
 	@Override
