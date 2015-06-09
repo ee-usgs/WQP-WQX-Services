@@ -15,7 +15,6 @@ import org.apache.ibatis.session.ResultContext;
 import org.apache.ibatis.session.ResultHandler;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.mybatis.spring.MyBatisSystemException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.github.springtestdbunit.annotation.DatabaseSetup;
@@ -69,19 +68,31 @@ public class StreamingDaoTest extends BaseSpringTest {
 		//TODO - These tests just validate that the queries have no syntax errors, not that they are logically correct.
 		Map<String, Object> parms = new HashMap<>();
 		TestResultHandler handler = new TestResultHandler();
-		
-		try {
-			streamingDao.stream(null, null, null);
-		} catch (Exception e) {
-			if (!(e instanceof MyBatisSystemException)) {
-				fail("Expected a MyBatisSystemException, but got " + e.getLocalizedMessage());
-			}
-		}
 
 		//MyBatis is happy with no parms or ResultHandler - it will read the entire database, load up the list,
-		// and not complain or expose it to you (unless you run out of memory).
+		// and not complain or expose it to you (unless you run out of memory). We have a check to make sure the 
+		//resultHandler is not null. (The tests were failing on Jenkins with "java.lang.OutOfMemoryError: Java heap space")
+		try {
+			streamingDao.stream(null, null, null);
+		} catch (RuntimeException e) {
+			if (!"A ResultHandler is required for the StreamingDao.stream".equalsIgnoreCase(e.getMessage())) {
+				fail("Expected a RuntimeException, but got " + e.getLocalizedMessage());
+			}
+		}
+		try {
 		streamingDao.stream(nameSpace, null, null);
+		} catch (RuntimeException e) {
+			if (!"A ResultHandler is required for the StreamingDao.stream".equalsIgnoreCase(e.getMessage())) {
+				fail("Expected a RuntimeException, but got " + e.getLocalizedMessage());
+			}
+		}
+		try {
 		streamingDao.stream(nameSpace, parms, null);
+		} catch (RuntimeException e) {
+			if (!"A ResultHandler is required for the StreamingDao.stream".equalsIgnoreCase(e.getMessage())) {
+				fail("Expected a RuntimeException, but got " + e.getLocalizedMessage());
+			}
+		}
 		
 		streamingDao.stream(nameSpace, parms, handler);
 
