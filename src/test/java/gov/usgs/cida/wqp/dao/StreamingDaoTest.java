@@ -46,6 +46,12 @@ public class StreamingDaoTest extends BaseSpringTest {
 	}
 	
 	@Test
+	public void stationKmlTests() {
+		singleParameterTests(IDao.STATION_KML_NAMESPACE);
+		multipleParameterTests(IDao.STATION_KML_NAMESPACE);
+	}
+	
+	@Test
 	public void simpleStationTests() {
 		singleParameterTests(IDao.SIMPLE_STATION_NAMESPACE);
 		multipleParameterTests(IDao.SIMPLE_STATION_NAMESPACE);

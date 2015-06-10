@@ -4,18 +4,19 @@
 <mapper namespace="simpleStation">
 
     <select id="select" resultType="java.util.LinkedHashMap" fetchSize="500">
-        select data_source,
-        	   organization,
-        	   organization_name,
-		       site_id,
-		       station_name,
-		       site_type,
-		       to_char(s.geom.sdo_point.y, 'FM90.0000000') latitude,
-		       to_char(s.geom.sdo_point.x, 'FM990.0000000') longitude
+        select <include refid="dynamicWhere.stationResultHashHint"/>
+		       prime.data_source,
+        	   prime.organization,
+        	   prime.organization_name,
+		       prime.site_id,
+		       prime.station_name,
+		       prime.site_type,
+		       to_char(prime.geom.sdo_point.y, 'FM90.0000000') latitude,
+		       to_char(prime.geom.sdo_point.x, 'FM990.0000000') longitude
         <include refid="dynamicWhere.stationsBase"/>
-             order by data_source,
-                      organization,
-                      station_id
+             order by prime.data_source,
+                      prime.organization,
+                      prime.station_id
     </select>
 
 	<select id="count" resultType="java.util.LinkedHashMap">
