@@ -24,36 +24,36 @@
     </sql>
 
     <sql id="commandavoid">
-        data_source_id in (select data_source_id
-                             from data_source
-                            where data_source != 'STEWARDS'
-                                  <foreach item="i" collection="commandavoid">
-                                  and data_source != #{i}
-                                  </foreach>)
+        prime.data_source_id in (select data_source_id
+                                   from data_source
+                                  where text != 'STEWARDS'
+                                        <foreach item="i" collection="commandavoid">
+                                            and text != #{i}
+                                        </foreach>)
     </sql>
 
     <sql id="countrycode">
-        country_code in 
+        prime.country_code in 
         <foreach item="i" collection="countrycode" open="(" separator="," close=")">#{i}</foreach>
     </sql>
 
     <sql id="countycode">
-        county_code in <foreach item="i" collection="countycode" open="(" separator="," close=")">#{i}</foreach>
+        prime.county_code in <foreach item="i" collection="countycode" open="(" separator="," close=")">#{i}</foreach>
     </sql>
 
     <sql id="huc">
 		<foreach item="i" collection="huc" separator=" or ">
-			<if test="i.length() == 2">huc_2 = #{i}</if>
-			<if test="i.length() == 4">huc_4 = #{i}</if>
-			<if test="i.length() == 6">huc_6 = #{i}</if>
-			<if test="i.length() == 8">huc_8 = #{i}</if>
-			<if test="i.length() == 10">huc_10 = #{i}</if>
-			<if test="i.length() == 12">huc_12 = #{i}</if>
+			<if test="i.length() == 2">prime.huc_2 = #{i}</if>
+			<if test="i.length() == 4">prime.huc_4 = #{i}</if>
+			<if test="i.length() == 6">prime.huc_6 = #{i}</if>
+			<if test="i.length() == 8">prime.huc_8 = #{i}</if>
+			<if test="i.length() == 10">prime.huc_10 = #{i}</if>
+			<if test="i.length() == 12">prime.huc_12 = #{i}</if>
 		</foreach>
     </sql>
 
     <sql id="organization">
-        organization in <foreach item="i" collection="organization" open="(" separator="," close=")">#{i}</foreach>
+        prime.organization in <foreach item="i" collection="organization" open="(" separator="," close=")">#{i}</foreach>
     </sql>
 
     <sql id="pCode">
@@ -65,9 +65,9 @@
     </sql>
 
     <sql id="providers">
-        data_source_id in (select data_source_id
-                             from data_source
-                            where data_source in <foreach item="i" collection="providers" open="(" separator="," close=")">#{i}</foreach>)
+        prime.data_source_id in (select data_source_id
+                                   from data_source
+                                  where text in <foreach item="i" collection="providers" open="(" separator="," close=")">#{i}</foreach>)
     </sql>
 
     <sql id="sampleMedia">
@@ -75,11 +75,11 @@
     </sql>
 
 	<sql id="siteId">
-		site_id in <foreach item="i" collection="siteid" open="(" separator="," close=")">#{i}</foreach>
+		prime.site_id in <foreach item="i" collection="siteid" open="(" separator="," close=")">#{i}</foreach>
 	</sql>
 
     <sql id="siteType">
-        site_type in <foreach item="i" collection="siteType" open="(" separator="," close=")">#{i}</foreach>
+        prime.site_type in <foreach item="i" collection="siteType" open="(" separator="," close=")">#{i}</foreach>
     </sql>
 
     <sql id="startDateLoHi">
@@ -98,7 +98,7 @@
     </sql>
 
     <sql id="statecode">
-        state_code in <foreach item="i" collection="statecode" open="(" separator="," close=")">#{i}</foreach>
+        prime.state_code in <foreach item="i" collection="statecode" open="(" separator="," close=")">#{i}</foreach>
     </sql>
 
     <sql id="within">
@@ -148,20 +148,30 @@
         </if>
     </sql>
     
+    <sql id="stationResultHashHint">
+    	<if test="sampleMedia != null || characteristicName != null || characteristicType != null || startDateLo != null || startDateHi != null ||
+                  activityId != null || analyticalmethod != null || pCode != null || project != null">
+        	/*+ use_hash(prime) use_hash(secondary) */
+    	</if>
+    </sql>
+    
     <sql id="stationsBase">
-        from station s
+        from station prime
+		<if test="sampleMedia != null || characteristicName != null || characteristicType != null || startDateLo != null || startDateHi != null ||
+                  activityId != null || analyticalmethod != null || pCode != null || project != null">
+			 join (select data_source_id r_data_source_id, site_id r_site_id
+			         from result
+                    <where>
+						<include refid="dynamicWhere.baseWhereResultClauses" />
+                   	</where>
+                      group by data_source_id, site_id
+                  ) secondary
+               on prime.site_id = secondary.r_site_id and
+                  prime.data_source_id = secondary.r_data_source_id
+        </if>
 		<where>
 			<include refid="dynamicWhere.baseWhereStationGeoClauses" />
 			<include refid="dynamicWhere.baseWhereStationClauses" />
-			<if test="sampleMedia != null || characteristicName != null || characteristicType != null || startDateLo != null || startDateHi != null ||
-                      activityId != null || analyticalmethod != null || pCode != null || project != null">
-            	and exists (select null from
-                                   result
-                             where s.site_id = result.site_id and
-                                   s.data_source_id = result.data_source_id
-                                   <include refid="dynamicWhere.baseWhereResultClauses" />
-                           )
-            </if>
         </where>
     </sql>
 
@@ -170,7 +180,7 @@
 		<if test="sampleMedia == null &amp;&amp; characteristicName == null &amp;&amp; characteristicType == null &amp;&amp;
                   startDateLo == null &amp;&amp; startDateHi == null &amp;&amp; activityId == null &amp;&amp;
                   analyticalmethod == null &amp;&amp; pCode == null &amp;&amp; project == null">
-			station_sum s
+			station_sum prime
           	<where>
           		<include refid="dynamicWhere.baseWhereStationGeoClauses" />
             	<include refid="dynamicWhere.baseWhereStationClauses" />
@@ -178,7 +188,7 @@
         </if>
         <if test="startDateLo != NULL || startDateHi != NULL || activityId != null">
        		<if test="bBox == NULL &amp;&amp; within == NULL">
-				result_sum s
+				result_sum prime
 	            <where>
 					<include refid="dynamicWhere.baseWhereStationClauses" />
 					<include refid="dynamicWhere.baseWhereResultClauses" />
@@ -188,7 +198,7 @@
         <if test="sampleMedia != NULL || characteristicName != NULL || characteristicType != NULL || 
                   analyticalmethod != null || pCode != null || project != null">
         	<if test="startDateLo == NULL &amp;&amp; startDateHi == NULL &amp;&amp; within == NULL &amp;&amp; bBox == NULL">
-				result_ct_sum s
+				result_ct_sum prime
                	<where>
 					<include refid="dynamicWhere.baseWhereStationClauses" />
 					<include refid="dynamicWhere.baseWhereResultClauses" />
@@ -199,20 +209,20 @@
         	<if test="sampleMedia != NULL || characteristicName != NULL || characteristicType != NULL ||
                       startDateLo != NULL || startDateHi != NULL || activityId != null || 
                       analyticalmethod != null || pCode != null || project != null">
-				result_nr_sum a,
-                (select /*+ index_combine(s) */ data_source_id, station_id, site_id
-                   from station
-	            	<where>
-	            		<include refid="dynamicWhere.baseWhereStationGeoClauses" />
-	            		<include refid="dynamicWhere.baseWhereStationClauses" />
-               		</where>
-               	) s
+					 result_nr_sum secondary
+                join (select /*+ index_combine(prime) */ data_source_id, station_id, site_id
+                        from station prime
+ 	            	   	<where>
+	            			<include refid="dynamicWhere.baseWhereStationGeoClauses" />
+	            			<include refid="dynamicWhere.baseWhereStationClauses" />
+               			</where>
+               		 ) prime
+                  on prime.station_id = secondary.station_id and
+                	 prime.data_source_id = secondary.data_source_id
               	<where>
 		        	<trim prefix=" (" suffix=")" prefixOverrides="AND">
  						<include refid="dynamicWhere.baseWhereResultClauses" />
 					</trim>
-                	and s.station_id = a.station_id
-                	and s.data_source_id = a.data_source_id
                 </where>
           	</if>
 		</if>
@@ -222,6 +232,12 @@
          *** Result
          ********************************************************************************************************************** -->
 
+    <sql id="resultStationHashHint">
+		<if test="(bBox != null &amp;&amp; bBox.length == 4) || (within != null &amp;&amp; lat != null &amp;&amp; long != null)">
+        	/*+ use_hash(prime) use_hash(secondary) */
+    	</if>
+    </sql>
+    
     <sql id="baseWhereResultClauses">
         <if test="activityId != null">
             and (<include refid="dynamicWhere.activityId" />)
@@ -254,17 +270,17 @@
     </sql>
 
     <sql id="resultsBase">
-		from result
+		from result prime
+        <if test="(bBox != null &amp;&amp; bBox.length == 4) || (within != null &amp;&amp; lat != null &amp;&amp; long != null)">
+        	join station secondary
+        	  on prime.site_id = secondary.site_id and
+                 prime.data_source_id = secondary.data_source_id
+        </if>
         <where>
             <include refid="dynamicWhere.baseWhereStationClauses" />
             <include refid="dynamicWhere.baseWhereResultClauses" />
             <if test="(bBox != null &amp;&amp; bBox.length == 4) || (within != null &amp;&amp; lat != null &amp;&amp; long != null)">
-            	and exists (select null
-            	              from station
-            	             where station.site_id = result.site_id and
-                                   station.data_source_id = result.data_source_id
-                                   <include refid="dynamicWhere.baseWhereStationGeoClauses" />
-                           )
+	            <include refid="dynamicWhere.baseWhereStationGeoClauses" />
             </if>
         </where>
     </sql>

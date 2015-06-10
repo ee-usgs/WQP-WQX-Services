@@ -4,51 +4,52 @@
 <mapper namespace="station">
 
 	<select id="select" resultType="java.util.LinkedHashMap" resultOrdered="true" fetchSize="500" >
-		select organization,
-			   organization_name,
-			   site_id,
-			   station_name,
-			   station_type_name,
-			   description_text,
-			   huc_8,
-			   huc_12,
-			   drain_area_value,
-			   drain_area_unit,
-			   contrib_drain_area_value,
-			   contrib_drain_area_unit,
-			   latitude,
-			   longitude,
-			   map_scale,
-			   geoposition_accy_value,
-			   geoposition_accy_unit,
-			   geopositioning_method,
-			   hdatum_id_code,
-			   elevation_value,
-			   elevation_unit,
-			   vertical_accuracy_value,
-			   vertical_accuracy_unit,
-			   elevation_method,
-			   vdatum_id_code,
-			   country_code,
-			   state_fips_code,
-			   county_fips_code,
-			   nat_aqfr_name,
-			   aqfr_name,
-			   aqfr_type_name,
-			   construction_date,
-			   well_depth_value,
-			   well_depth_unit,
-			   hole_depth_value,
-			   hole_depth_unit,
-			   data_source
+		select <include refid="dynamicWhere.stationResultHashHint"/>
+		       prime.organization,
+			   prime.organization_name,
+			   prime.site_id,
+			   prime.station_name,
+			   prime.station_type_name,
+			   prime.description_text,
+			   prime.huc_8,
+			   prime.huc_12,
+			   prime.drain_area_value,
+			   prime.drain_area_unit,
+			   prime.contrib_drain_area_value,
+			   prime.contrib_drain_area_unit,
+			   prime.latitude,
+			   prime.longitude,
+			   prime.map_scale,
+			   prime.geoposition_accy_value,
+			   prime.geoposition_accy_unit,
+			   prime.geopositioning_method,
+			   prime.hdatum_id_code,
+			   prime.elevation_value,
+			   prime.elevation_unit,
+			   prime.vertical_accuracy_value,
+			   prime.vertical_accuracy_unit,
+			   prime.elevation_method,
+			   prime.vdatum_id_code,
+			   prime.country_code,
+			   prime.state_fips_code,
+			   prime.county_fips_code,
+			   prime.nat_aqfr_name,
+			   prime.aqfr_name,
+			   prime.aqfr_type_name,
+			   prime.construction_date,
+			   prime.well_depth_value,
+			   prime.well_depth_unit,
+			   prime.hole_depth_value,
+			   prime.hole_depth_unit,
+			   prime.data_source
 		<include refid="dynamicWhere.stationsBase"/>
-		   order by data_source,
-                    organization,
-					site_id
+		   order by prime.data_source,
+                    prime.organization,
+					prime.site_id
 	</select>
 
     <sql id="stationCount">
-		select data_source, count(distinct s.site_id) station_count
+		select data_source, count(distinct prime.site_id) station_count
 		<include refid="dynamicWhere.stationsCountBase"/>
 		group by rollup(data_source)
     </sql>
