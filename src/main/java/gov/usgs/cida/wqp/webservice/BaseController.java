@@ -177,21 +177,28 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 	}
 	
 	protected boolean checkMaxRows(HttpServletResponse response, String totalRows) {
-		if (Integer.valueOf(totalRows) < maxResultRows) {
-			pm.getQueryParameters().put("sorted", "yes");
-			return true;
-		} else {
-			switch (mimeType) {
-			case kml:
-			case kmz:
-			case xml:
+		switch (mimeType) {
+		case kml:
+		case kmz:
+		case xml:
+			if (Integer.valueOf(totalRows) <= maxResultRows) {
+				pm.getQueryParameters().put(Parameters.SORTED.toString(), "yes");
+				return true;
+			} else {
 				response.setStatus(HttpStatus.BAD_REQUEST.value());
 				response.addHeader(HEADER_WARNING, "This query will return in excess of " + maxResultRows + " results, please refine your query.");
 				return false;
-			default:
-				pm.getQueryParameters().put("sorted", "no");
-				return true;
 			}
+		default:
+			if (Integer.valueOf(totalRows) > maxResultRows) {
+				pm.getQueryParameters().put(Parameters.SORTED.toString(), "no");
+				response.addHeader(HEADER_WARNING, "This query will return in excess of " + maxResultRows + " results, the data will not be sorted.");
+			} else {
+				if (!pm.getQueryParameters().containsKey(Parameters.SORTED.toString())) {
+					pm.getQueryParameters().put(Parameters.SORTED.toString(), "yes");
+				}
+			}
+			return true;
 		}
 	}
 	

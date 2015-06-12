@@ -16,6 +16,7 @@ import gov.usgs.cida.wqp.dao.intfc.IDao;
 import gov.usgs.cida.wqp.dao.intfc.IStreamingDao;
 import gov.usgs.cida.wqp.parameter.IParameterHandler;
 import gov.usgs.cida.wqp.parameter.ParameterMap;
+import gov.usgs.cida.wqp.parameter.Parameters;
 import gov.usgs.cida.wqp.service.ILogService;
 import gov.usgs.cida.wqp.transform.MapToDelimitedTransformer;
 import gov.usgs.cida.wqp.transform.MapToJsonTransformer;
@@ -315,72 +316,170 @@ public class BaseControllerTest {
 
 	@Test
 	public void checkMaxRowsTest() {
-        HttpServletResponse response = new MockHttpServletResponse();
 		TestBaseController small = new TestBaseController(null, null, null, null, 10);
 		small.pm = new ParameterMap();
 
-		//less than max always ok & sorted
-        assertTrue(small.checkMaxRows(response, "5"));
-        assertEquals(0, response.getHeaderNames().size());
-        assertTrue(small.pm.getQueryParameters().containsKey("sorted"));
-        assertEquals("yes", small.pm.getQueryParameters().get("sorted"));
-        
-        //xml formats not ok when greater than max
-        response = new MockHttpServletResponse();
+		//xml formats ok when less than max & always sorted
         small.mimeType = MimeType.xml;
-        assertFalse(small.checkMaxRows(response, "15"));
-        assertTrue(response.getHeaderNames().contains(HttpConstants.HEADER_WARNING));
-        assertEquals("This query will return in excess of 10 results, please refine your query.", response.getHeader(HttpConstants.HEADER_WARNING));
-        response = new MockHttpServletResponse();
+		//No query parm
+		small.pm.getQueryParameters().clear();
+		doMaxRowTrueAsserts(small, "5", "yes", false);
+		//now for a yes
+		small.pm.getQueryParameters().put(Parameters.SORTED.toString(), "yes");
+		doMaxRowTrueAsserts(small, "5", "yes", false);
+		//now for a no
+		small.pm.getQueryParameters().put(Parameters.SORTED.toString(), "no");
+		doMaxRowTrueAsserts(small, "5", "yes", false);
+
         small.mimeType = MimeType.kml;
-        assertFalse(small.checkMaxRows(response, "15"));
-        assertTrue(response.getHeaderNames().contains(HttpConstants.HEADER_WARNING));
-        assertEquals("This query will return in excess of 10 results, please refine your query.", response.getHeader(HttpConstants.HEADER_WARNING));
-        response = new MockHttpServletResponse();
+		//No query parm
+		small.pm.getQueryParameters().clear();
+		doMaxRowTrueAsserts(small, "5", "yes", false);
+		//now for a yes
+		small.pm.getQueryParameters().put(Parameters.SORTED.toString(), "yes");
+		doMaxRowTrueAsserts(small, "5", "yes", false);
+		//now for a no
+		small.pm.getQueryParameters().put(Parameters.SORTED.toString(), "no");
+		doMaxRowTrueAsserts(small, "5", "yes", false);
+
         small.mimeType = MimeType.kmz;
-        assertFalse(small.checkMaxRows(response, "15"));
-        assertTrue(response.getHeaderNames().contains(HttpConstants.HEADER_WARNING));
-        assertEquals("This query will return in excess of 10 results, please refine your query.", response.getHeader(HttpConstants.HEADER_WARNING));
+		//No query parm
+		small.pm.getQueryParameters().clear();
+		doMaxRowTrueAsserts(small, "5", "yes", false);
+		//now for a yes
+		small.pm.getQueryParameters().put(Parameters.SORTED.toString(), "yes");
+		doMaxRowTrueAsserts(small, "5", "yes", false);
+		//now for a no
+		small.pm.getQueryParameters().put(Parameters.SORTED.toString(), "no");
+		doMaxRowTrueAsserts(small, "5", "yes", false);
 
-        //other formats are ok, but not sorted when greater than max
-        response = new MockHttpServletResponse();
+		//xml formats not ok when greater than max
+        small.mimeType = MimeType.xml;
+		//No query parm
+		small.pm.getQueryParameters().clear();
+		doMaxRowFalseAsserts(small, "15");
+		//now for a yes
+		small.pm.getQueryParameters().put(Parameters.SORTED.toString(), "yes");
+		doMaxRowFalseAsserts(small, "15");
+		//now for a no
+		small.pm.getQueryParameters().put(Parameters.SORTED.toString(), "no");
+		doMaxRowFalseAsserts(small, "15");
+
+        small.mimeType = MimeType.kml;
+		//No query parm
+		small.pm.getQueryParameters().clear();
+		doMaxRowFalseAsserts(small, "15");
+		//now for a yes
+		small.pm.getQueryParameters().put(Parameters.SORTED.toString(), "yes");
+		doMaxRowFalseAsserts(small, "15");
+		//now for a no
+		small.pm.getQueryParameters().put(Parameters.SORTED.toString(), "no");
+		doMaxRowFalseAsserts(small, "15");
+
+        small.mimeType = MimeType.kmz;
+		//No query parm
+		small.pm.getQueryParameters().clear();
+		doMaxRowFalseAsserts(small, "15");
+		//now for a yes
+		small.pm.getQueryParameters().put(Parameters.SORTED.toString(), "yes");
+		doMaxRowFalseAsserts(small, "15");
+		//now for a no
+		small.pm.getQueryParameters().put(Parameters.SORTED.toString(), "no");
+		doMaxRowFalseAsserts(small, "15");
+
+		//other formats less than max always ok & sorting based on given (or lack of) sorted query parameter
         small.mimeType = MimeType.csv;
-        assertTrue(small.checkMaxRows(response, "15"));
-        assertEquals(0, response.getHeaderNames().size());
-        assertTrue(small.pm.getQueryParameters().containsKey("sorted"));
-        assertEquals("no", small.pm.getQueryParameters().get("sorted"));
-        small.mimeType = MimeType.tsv;
-        assertTrue(small.checkMaxRows(response, "15"));
-        assertEquals(0, response.getHeaderNames().size());
-        assertTrue(small.pm.getQueryParameters().containsKey("sorted"));
-        assertEquals("no", small.pm.getQueryParameters().get("sorted"));
-        small.mimeType = MimeType.xlsx;
-        assertTrue(small.checkMaxRows(response, "15"));
-        assertEquals(0, response.getHeaderNames().size());
-        assertTrue(small.pm.getQueryParameters().containsKey("sorted"));
-        assertEquals("no", small.pm.getQueryParameters().get("sorted"));
+		//No query parm
+		small.pm.getQueryParameters().clear();
+		doMaxRowTrueAsserts(small, "5", "yes", false);
+		//now for a yes
+		small.pm.getQueryParameters().put(Parameters.SORTED.toString(), "yes");
+		doMaxRowTrueAsserts(small, "5", "yes", false);
+		//now for a no
+		small.pm.getQueryParameters().put(Parameters.SORTED.toString(), "no");
+		doMaxRowTrueAsserts(small, "5", "no", false);
 
+        small.mimeType = MimeType.tsv;
+		//No query parm
+		small.pm.getQueryParameters().clear();
+		doMaxRowTrueAsserts(small, "5", "yes", false);
+		//now for a yes
+		small.pm.getQueryParameters().put(Parameters.SORTED.toString(), "yes");
+		doMaxRowTrueAsserts(small, "5", "yes", false);
+		//now for a no
+		small.pm.getQueryParameters().put(Parameters.SORTED.toString(), "no");
+		doMaxRowTrueAsserts(small, "5", "no", false);
+
+		small.mimeType = MimeType.xlsx;
+		//No query parm
+		small.pm.getQueryParameters().clear();
+		doMaxRowTrueAsserts(small, "5", "yes", false);
+		//now for a yes
+		small.pm.getQueryParameters().put(Parameters.SORTED.toString(), "yes");
+		doMaxRowTrueAsserts(small, "5", "yes", false);
+		//now for a no
+		small.pm.getQueryParameters().put(Parameters.SORTED.toString(), "no");
+		doMaxRowTrueAsserts(small, "5", "no", false);
+        
+        //other formats are ok, but not sorted when greater than max - and warning header given
+        small.mimeType = MimeType.csv;
+		//No query parm
+		small.pm.getQueryParameters().clear();
+		doMaxRowTrueAsserts(small, "15", "no", true);
+		//now for a yes
+		small.pm.getQueryParameters().put(Parameters.SORTED.toString(), "yes");
+		doMaxRowTrueAsserts(small, "15", "no", true);
+		//now for a no
+		small.pm.getQueryParameters().put(Parameters.SORTED.toString(), "no");
+		doMaxRowTrueAsserts(small, "15", "no", true);
+
+        small.mimeType = MimeType.tsv;
+		//No query parm
+		small.pm.getQueryParameters().clear();
+		doMaxRowTrueAsserts(small, "15", "no", true);
+		//now for a yes
+		small.pm.getQueryParameters().put(Parameters.SORTED.toString(), "yes");
+		doMaxRowTrueAsserts(small, "15", "no", true);
+		//now for a no
+		small.pm.getQueryParameters().put(Parameters.SORTED.toString(), "no");
+		doMaxRowTrueAsserts(small, "15", "no", true);
+
+		small.mimeType = MimeType.xlsx;
+		//No query parm
+		small.pm.getQueryParameters().clear();
+		doMaxRowTrueAsserts(small, "15", "no", true);
+		//now for a yes
+		small.pm.getQueryParameters().put(Parameters.SORTED.toString(), "yes");
+		doMaxRowTrueAsserts(small, "15", "no", true);
+		//now for a no
+		small.pm.getQueryParameters().put(Parameters.SORTED.toString(), "no");
+		doMaxRowTrueAsserts(small, "15", "no", true);
 	}
 
-//	if (Integer.valueOf(totalRows) < maxResultRows) {
-//		pm.getQueryParameters().put("sorted", "yes");
-//		return true;
-//	} else {
-//		switch (mimeType) {
-//		case kml:
-//		case kmz:
-//		case xml:
-//			response.setStatus(HttpStatus.BAD_REQUEST.value());
-//			response.addHeader(HEADER_WARNING, "This query will return in excess of " + maxResultRows + " results, please refine your query.");
-//			return false;
-//		default:
-//			pm.getQueryParameters().put("sorted", "no");
-//			return true;
-//		}
-//	}
+	public void doMaxRowTrueAsserts(TestBaseController small, String rows, String expectedSort, boolean isHeaderexpected) {
+        HttpServletResponse response = new MockHttpServletResponse();
+        assertTrue(small.checkMaxRows(response, rows));
+        assertTrue(small.pm.getQueryParameters().containsKey(Parameters.SORTED.toString()));
+        assertEquals(expectedSort, small.pm.getQueryParameters().get(Parameters.SORTED.toString()));
+        if (isHeaderexpected) {
+            assertEquals(1, response.getHeaderNames().size());
+            assertTrue(response.getHeaderNames().contains(HttpConstants.HEADER_WARNING));
+            assertEquals("This query will return in excess of 10 results, the data will not be sorted.",
+            		response.getHeader(HttpConstants.HEADER_WARNING));
+        } else {
+            assertEquals(0, response.getHeaderNames().size());
+        }
+	}
 
-	
-	
+	public void doMaxRowFalseAsserts(TestBaseController small, String rows) {
+        HttpServletResponse response = new MockHttpServletResponse();
+        assertFalse(small.checkMaxRows(response, rows));
+        assertEquals(1, response.getHeaderNames().size());
+        assertTrue(response.getHeaderNames().contains(HttpConstants.HEADER_WARNING));
+        assertEquals("This query will return in excess of 10 results, please refine your query.",
+            		response.getHeader(HttpConstants.HEADER_WARNING));
+        assertEquals(400, response.getStatus());
+	}
 	
 	@Test
 	public void doHeadRequestTest() {

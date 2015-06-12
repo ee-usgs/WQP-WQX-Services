@@ -149,6 +149,12 @@ public class ParameterValidationConfig implements ValidationConstants, WqpEnvPro
 	}
 	
 	@Bean
+	public RegexValidator<String[]> sortedValidator() {
+		// a string
+		return new RegexValidator<String[]>(Parameters.SORTED, REGEX_YES_NO);
+	}
+	
+	@Bean
 	public DateFormatValidator startDateHiValidator() {
 		// one string date MM-DD-YYYY
 		return new DateFormatValidator(Parameters.START_DATE_HI, FORMAT_DATE);
@@ -175,7 +181,7 @@ public class ParameterValidationConfig implements ValidationConstants, WqpEnvPro
 	@Bean
 	public RegexValidator<String[]> zipValidator() {
 		// one string 'yes' or omitted
-		return new RegexValidator<String[]>(Parameters.ZIP, 0, 1, null, REGEX_ZIP);
+		return new RegexValidator<String[]>(Parameters.ZIP, 0, 1, null, REGEX_YES_NO);
 	}
 	
 	@Bean
@@ -200,6 +206,7 @@ public class ParameterValidationConfig implements ValidationConstants, WqpEnvPro
 		validatorMap.put(Parameters.SAMPLE_MEDIA, sampleMediaValidator());
 		validatorMap.put(Parameters.SITE_TYPE, siteTypeValidator());
 		validatorMap.put(Parameters.SITEID, siteIdValidator());
+		validatorMap.put(Parameters.SORTED, sortedValidator());
 		validatorMap.put(Parameters.START_DATE_HI, startDateHiValidator());
 		validatorMap.put(Parameters.START_DATE_LO, startDateLoValidator());
 		validatorMap.put(Parameters.STATE, stateValidator());

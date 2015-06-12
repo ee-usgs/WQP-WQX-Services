@@ -39,7 +39,7 @@ public abstract class BaseSpringTest implements HttpConstants {
 	public List<String> acceptHeaders = new ArrayList<>(
 			Arrays.asList("Total-Site-Count", "NWIS-Site-Count", "STEWARDS-Site-Count", "STORET-Site-Count",
 					"Total-Result-Count", "NWIS-Result-Count", "STEWARDS-Result-Count", "STORET-Result-Count",
-					"NWIS-Warning", "STEWARDS-Warning", "STORET-Warning", HEADER_FATAL_ERROR));
+					"Warning", HEADER_FATAL_ERROR));
 	
 	public String harmonizeXml(String xmlDoc) {
 		return xmlDoc.replace("\r", "").replace("\n", "").replace("\t", "").replaceAll("> *<", "><");

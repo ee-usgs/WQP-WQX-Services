@@ -27,9 +27,7 @@
 		       prime.well_depth_unit,
 		       to_char(prime.geom.sdo_point.x, 'FM990.0000000') || ',' || to_char(prime.geom.sdo_point.y, 'FM90.0000000') coordinates
         <include refid="dynamicWhere.stationsBase"/>
-		<if test="sorted == 'yes'">
             order by prime.station_id
-        </if>
     </select>
 
 	<select id="count" resultType="java.util.LinkedHashMap">

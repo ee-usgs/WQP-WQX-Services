@@ -1,7 +1,5 @@
 package gov.usgs.cida.wqp.service;
 
-import static gov.usgs.cida.wqp.util.HttpConstants.BIOLOGICAL_RESULT_ENPOINT;
-import static gov.usgs.cida.wqp.util.HttpConstants.ENDPOINT_BIOLOGICAL_RESULT;
 import static gov.usgs.cida.wqp.util.HttpConstants.ENDPOINT_RESULT;
 import static gov.usgs.cida.wqp.util.HttpConstants.ENDPOINT_SIMPLE_STATION;
 import static gov.usgs.cida.wqp.util.HttpConstants.ENDPOINT_STATION;
@@ -17,8 +15,7 @@ import java.util.Map;
 public enum EndPoint {
 	RESULT  (ENDPOINT_RESULT, RESULT_SEARCH_ENPOINT, HEADER_RESULT),
 	STATION (ENDPOINT_STATION, STATION_SEARCH_ENPOINT,  HEADER_SITE),
-	SIMPLESTATION    (ENDPOINT_SIMPLE_STATION, SIMPLE_STATION_ENDPOINT, HEADER_SITE),
-	BIOLOGICALRESULT (ENDPOINT_BIOLOGICAL_RESULT, BIOLOGICAL_RESULT_ENPOINT, HEADER_RESULT);
+	SIMPLESTATION    (ENDPOINT_SIMPLE_STATION, SIMPLE_STATION_ENDPOINT, HEADER_SITE);
 	
 	private static Map<String, EndPoint> codeMap = new HashMap<String, EndPoint>();
 	
