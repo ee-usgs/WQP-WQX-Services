@@ -1,37 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <WQX-Outbound>
 	<Provider>
-		<ProviderName>NWIS</ProviderName>
-		<Organization>
-			<OrganizationDescription>
-				<OrganizationIdentifier>USGS-WI</OrganizationIdentifier>
-				<OrganizationFormalName>USGS Wisconsin Water Science Center</OrganizationFormalName>
-			</OrganizationDescription>
-			<MonitoringLocation>
-				<MonitoringLocationIdentity>
-					<MonitoringLocationIdentifier>USGS-05425700</MonitoringLocationIdentifier>
-					<MonitoringLocationName>ROBBINS CREEK NEAR COLUMBUS, WI</MonitoringLocationName>
-					<ResolvedMonitoringLocationTypeName>Stream</ResolvedMonitoringLocationTypeName>
-				</MonitoringLocationIdentity>
-				<MonitoringLocationGeospatial>
-					<LatitudeMeasure>43.3466571</LatitudeMeasure>
-					<LongitudeMeasure>-89.0320546</LongitudeMeasure>
-				</MonitoringLocationGeospatial>
-			</MonitoringLocation>
-			<MonitoringLocation>
-				<MonitoringLocationIdentity>
-					<MonitoringLocationIdentifier>USGS-431925089002701</MonitoringLocationIdentifier>
-					<MonitoringLocationName>DG-10/13E/19-0891</MonitoringLocationName>
-					<ResolvedMonitoringLocationTypeName>Well</ResolvedMonitoringLocationTypeName>
-				</MonitoringLocationIdentity>
-				<MonitoringLocationGeospatial>
-					<LatitudeMeasure>43.3236024</LatitudeMeasure>
-					<LongitudeMeasure>-89.0076094</LongitudeMeasure>
-				</MonitoringLocationGeospatial>
-			</MonitoringLocation>
-		</Organization>
-	</Provider>
-	<Provider>
 		<ProviderName>STEWARDS</ProviderName>
 		<Organization>
 			<OrganizationDescription>
@@ -58,6 +27,37 @@
 				<MonitoringLocationGeospatial>
 					<LatitudeMeasure>41.9505493</LatitudeMeasure>
 					<LongitudeMeasure>-93.7590729</LongitudeMeasure>
+				</MonitoringLocationGeospatial>
+			</MonitoringLocation>
+		</Organization>
+	</Provider>
+	<Provider>
+		<ProviderName>NWIS</ProviderName>
+		<Organization>
+			<OrganizationDescription>
+				<OrganizationIdentifier>USGS-WI</OrganizationIdentifier>
+				<OrganizationFormalName>USGS Wisconsin Water Science Center</OrganizationFormalName>
+			</OrganizationDescription>
+			<MonitoringLocation>
+				<MonitoringLocationIdentity>
+					<MonitoringLocationIdentifier>USGS-05425700</MonitoringLocationIdentifier>
+					<MonitoringLocationName>ROBBINS CREEK NEAR COLUMBUS, WI</MonitoringLocationName>
+					<ResolvedMonitoringLocationTypeName>Stream</ResolvedMonitoringLocationTypeName>
+				</MonitoringLocationIdentity>
+				<MonitoringLocationGeospatial>
+					<LatitudeMeasure>43.3466571</LatitudeMeasure>
+					<LongitudeMeasure>-89.0320546</LongitudeMeasure>
+				</MonitoringLocationGeospatial>
+			</MonitoringLocation>
+			<MonitoringLocation>
+				<MonitoringLocationIdentity>
+					<MonitoringLocationIdentifier>USGS-431925089002701</MonitoringLocationIdentifier>
+					<MonitoringLocationName>DG-10/13E/19-0891</MonitoringLocationName>
+					<ResolvedMonitoringLocationTypeName>Well</ResolvedMonitoringLocationTypeName>
+				</MonitoringLocationIdentity>
+				<MonitoringLocationGeospatial>
+					<LatitudeMeasure>43.3236024</LatitudeMeasure>
+					<LongitudeMeasure>-89.0076094</LongitudeMeasure>
 				</MonitoringLocationGeospatial>
 			</MonitoringLocation>
 		</Organization>

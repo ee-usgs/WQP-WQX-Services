@@ -112,4 +112,9 @@ public class SpringConfig extends WebMvcConfigurerAdapter implements Environment
 		return WqpEnv.get(KML_STYLE_URL);
 	}
 
+	@Bean
+	public Integer maxResultRows() {
+		return Integer.valueOf(WqpEnv.get(MAX_RESULT_ROWS));
+	}
+	
 }

@@ -33,9 +33,9 @@ public class ResultController extends BaseController {
 	@Autowired
 	public ResultController(IStreamingDao inStreamingDao, ICountDao inCountDao, 
 			IParameterHandler inParameterHandler, ILogService inLogService,
-			@Qualifier("pcResultWqx")
-			IXmlMapping inXmlMapping) {
-		super(inStreamingDao, inCountDao, inParameterHandler, inLogService);
+			@Qualifier("maxResultRows") Integer inMaxResultRows,
+			@Qualifier("pcResultWqx") IXmlMapping inXmlMapping) {
+		super(inStreamingDao, inCountDao, inParameterHandler, inLogService, inMaxResultRows);
 		xmlMapping = inXmlMapping;
 	}
 	
@@ -55,9 +55,10 @@ public class ResultController extends BaseController {
 		doGetRequest(request, response, IDao.RESULT_NAMESPACE, ENDPOINT_RESULT);
 	}
 
-	protected void addCountHeaders(HttpServletResponse response, List<Map<String, Object>> counts) {
+	protected String addCountHeaders(HttpServletResponse response, List<Map<String, Object>> counts) {
 		addSiteHeaders(response, counts);
 		addCountHeaders(response, counts, HEADER_TOTAL_RESULT_COUNT, HEADER_RESULT_COUNT, MybatisConstants.RESULT_COUNT);
+		return HEADER_TOTAL_RESULT_COUNT;
 	}
 
 	@Override

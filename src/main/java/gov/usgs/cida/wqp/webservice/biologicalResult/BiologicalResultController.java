@@ -33,9 +33,9 @@ public class BiologicalResultController extends BaseController {
 	@Autowired
 	public BiologicalResultController(IStreamingDao inStreamingDao, ICountDao inCountDao, 
 			IParameterHandler inParameterHandler, ILogService inLogService,
-			@Qualifier("bioResultWqx")
-			IXmlMapping inXmlMapping) {
-		super(inStreamingDao, inCountDao, inParameterHandler, inLogService);
+			@Qualifier("maxResultRows") Integer inMaxResultRows,
+			@Qualifier("bioResultWqx") IXmlMapping inXmlMapping) {
+		super(inStreamingDao, inCountDao, inParameterHandler, inLogService, inMaxResultRows);
 		xmlMapping = inXmlMapping;
 	}
 	
@@ -55,9 +55,10 @@ public class BiologicalResultController extends BaseController {
 		doGetRequest(request, response, IDao.BIOLOGICAL_RESULT_NAMESPACE, ENDPOINT_BIOLOGICAL_RESULT);
 	}
 
-	protected void addCountHeaders(HttpServletResponse response, List<Map<String, Object>> counts) {
+	protected String addCountHeaders(HttpServletResponse response, List<Map<String, Object>> counts) {
 		addSiteHeaders(response, counts);
 		addCountHeaders(response, counts, HEADER_TOTAL_RESULT_COUNT, HEADER_RESULT_COUNT, MybatisConstants.RESULT_COUNT);
+		return HEADER_TOTAL_RESULT_COUNT;
 	}
 
 	@Override

@@ -46,13 +46,15 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 	protected final ICountDao countDao;
 	protected final IParameterHandler parameterHandler;
 	protected final ILogService logService;
+	protected final Integer maxResultRows;
 
 	protected ParameterMap pm;
 	protected MimeType mimeType;
 	protected boolean zipped = false;
 	
 	public BaseController(IStreamingDao inStreamingDao, ICountDao inCountDao,
-			IParameterHandler inParameterHandler, ILogService inLogService) {
+			IParameterHandler inParameterHandler, ILogService inLogService,
+			Integer inMaxResultRows) {
 		
 		LOG.trace(getClass().getName());
 		
@@ -60,6 +62,7 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 		parameterHandler = inParameterHandler;
 		countDao         = inCountDao;
 		logService       = inLogService;
+		maxResultRows = inMaxResultRows;
 	}
 	
 	protected boolean isZipped(String zipParm, String mimeType) {
@@ -165,11 +168,31 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 
 		response.setCharacterEncoding(DEFAULT_ENCODING);
 		response.addHeader(HEADER_CONTENT_TYPE, getContentHeader(zipped, mimeType));
-		addCountHeaders(response, counts);
 		response.setHeader(HEADER_CONTENT_DISPOSITION,"attachment; filename=" + getAttachementFileName(zipped, mimeType, endpoint));
+		String totalHeader = addCountHeaders(response, counts);
 		
 		logService.logHeadComplete(response, logId);
-		return true;
+		
+		return checkMaxRows(response, response.getHeader(totalHeader));
+	}
+	
+	protected boolean checkMaxRows(HttpServletResponse response, String totalRows) {
+		if (Integer.valueOf(totalRows) < maxResultRows) {
+			pm.getQueryParameters().put("sorted", "yes");
+			return true;
+		} else {
+			switch (mimeType) {
+			case kml:
+			case kmz:
+			case xml:
+				response.setStatus(HttpStatus.BAD_REQUEST.value());
+				response.addHeader(HEADER_WARNING, "This query will return in excess of " + maxResultRows + " results, please refine your query.");
+				return false;
+			default:
+				pm.getQueryParameters().put("sorted", "no");
+				return true;
+			}
+		}
 	}
 	
 	protected void processParameters(HttpServletRequest request) {
@@ -187,7 +210,7 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 		}
 	}
 	
-	protected abstract void addCountHeaders(HttpServletResponse response, List<Map<String, Object>> counts);
+	protected abstract String addCountHeaders(HttpServletResponse response, List<Map<String, Object>> counts);
 	
 	protected void doGetRequest(HttpServletRequest request, HttpServletResponse response, String mybatisNamespace, String endpoint) {
 		LOG.info("Processing Get: {}", request.getQueryString());

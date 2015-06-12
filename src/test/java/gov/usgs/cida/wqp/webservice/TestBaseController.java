@@ -16,16 +16,19 @@ import javax.servlet.http.HttpServletResponse;
 
 public class TestBaseController extends BaseController {
 
+	public static final String TEST_COUNT = "TEST-COUNT";
+	
 	public TestBaseController(IStreamingDao inStreamingDao,
 			ICountDao inCountDao, IParameterHandler inParameterHandler,
-			ILogService inLogService) {
-		super(inStreamingDao, inCountDao, inParameterHandler, inLogService);
+			ILogService inLogService, Integer inMaxRows) {
+		super(inStreamingDao, inCountDao, inParameterHandler, inLogService, inMaxRows);
 	}
 
 	@Override
-	protected void addCountHeaders(HttpServletResponse response,
+	protected String addCountHeaders(HttpServletResponse response,
 			List<Map<String, Object>> counts) {
-		response.setHeader("TEST-COUNT", "12");
+		response.setHeader(TEST_COUNT, "12");
+		return TEST_COUNT;
 	}
 
 	@Override

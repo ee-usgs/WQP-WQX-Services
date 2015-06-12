@@ -6,42 +6,6 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    -89.0320546,
-                    43.3466571
-                ]
-            },
-            "properties": {
-                "ProviderName": "NWIS",
-                "OrganizationIdentifier": "USGS-WI",
-                "OrganizationFormalName": "USGS Wisconsin Water Science Center",
-                "MonitoringLocationIdentifier": "USGS-05425700",
-                "MonitoringLocationName": "ROBBINS CREEK NEAR COLUMBUS, WI",
-                "ResolvedMonitoringLocationTypeName": "Stream"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    -89.0076094,
-                    43.3236024
-                ]
-            },
-            "properties": {
-                "ProviderName": "NWIS",
-                "OrganizationIdentifier": "USGS-WI",
-                "OrganizationFormalName": "USGS Wisconsin Water Science Center",
-                "MonitoringLocationIdentifier": "USGS-431925089002701",
-                "MonitoringLocationName": "DG-10/13E/19-0891",
-                "ResolvedMonitoringLocationTypeName": "Well"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
                     -93.6982205,
                     41.9607224
                 ]
@@ -71,6 +35,42 @@
                 "MonitoringLocationIdentifier": "ARS-IAWC-IAWC410",
                 "MonitoringLocationName": "IAWC410",
                 "ResolvedMonitoringLocationTypeName": "Stream"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -89.0320546,
+                    43.3466571
+                ]
+            },
+            "properties": {
+                "ProviderName": "NWIS",
+                "OrganizationIdentifier": "USGS-WI",
+                "OrganizationFormalName": "USGS Wisconsin Water Science Center",
+                "MonitoringLocationIdentifier": "USGS-05425700",
+                "MonitoringLocationName": "ROBBINS CREEK NEAR COLUMBUS, WI",
+                "ResolvedMonitoringLocationTypeName": "Stream"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -89.0076094,
+                    43.3236024
+                ]
+            },
+            "properties": {
+                "ProviderName": "NWIS",
+                "OrganizationIdentifier": "USGS-WI",
+                "OrganizationFormalName": "USGS Wisconsin Water Science Center",
+                "MonitoringLocationIdentifier": "USGS-431925089002701",
+                "MonitoringLocationName": "DG-10/13E/19-0891",
+                "ResolvedMonitoringLocationTypeName": "Well"
             }
         },
         {

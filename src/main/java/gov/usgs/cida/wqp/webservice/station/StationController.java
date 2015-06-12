@@ -38,11 +38,10 @@ public class StationController extends BaseController {
 	@Autowired
 	public StationController(IStreamingDao inStreamingDao, ICountDao inCountDao,
 			IParameterHandler inParameterHandler, ILogService inLogService,
-			@Qualifier("stationWqx")
-			IXmlMapping inXmlMapping,
-			@Qualifier("stationKml")
-			IXmlMapping inKmlMapping) {
-		super(inStreamingDao, inCountDao, inParameterHandler, inLogService);
+			@Qualifier("maxResultRows") Integer inMaxResultRows,
+			@Qualifier("stationWqx") IXmlMapping inXmlMapping,
+			@Qualifier("stationKml") IXmlMapping inKmlMapping) {
+		super(inStreamingDao, inCountDao, inParameterHandler, inLogService, inMaxResultRows);
 		xmlMapping = inXmlMapping;
 		kmlMapping = inKmlMapping;
 	}
@@ -64,8 +63,9 @@ public class StationController extends BaseController {
 	}
 	
 	@Override
-	protected void addCountHeaders(HttpServletResponse response, List<Map<String, Object>> counts) {
+	protected String addCountHeaders(HttpServletResponse response, List<Map<String, Object>> counts) {
 		addSiteHeaders(response, counts);
+		return HEADER_TOTAL_SITE_COUNT;
 	}
 
 	@Override
