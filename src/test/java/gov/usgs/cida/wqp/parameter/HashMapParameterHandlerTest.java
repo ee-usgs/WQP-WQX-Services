@@ -276,6 +276,17 @@ public class HashMapParameterHandlerTest extends BaseSpringTest {
 	}
 	
 	@Test
+	public void testPrune_multipleParameter() {
+		HashMap<String, String[]> parameters = new HashMap<String, String[]>();
+		parameters.put("countrycode", new String[]{"US", null, "MX", ""});
+		Map<String, String[]> pruned = handler.pruneParameters(parameters);
+		assertEquals(1, pruned.keySet().size());
+		assertNotNull(pruned.get("countrycode"));
+		assertEquals(1, ((String[]) pruned.get("countrycode")).length);
+		assertEquals("US;MX", ((String[]) pruned.get("countrycode"))[0]);
+	}
+	
+	@Test
 	public void testValidateAndTransformParameterValues() {
 		//TODO more of an entire process test
 		HashMap<String, String[]> parameters = new HashMap<String, String[]>();
