@@ -26,6 +26,7 @@ public enum Parameters {
 	SAMPLE_TYPE("sampleType"),
 	SITEID("siteid"),
 	SITE_TYPE("siteType"),
+	SORTED("sorted"),
 	START_DATE_HI("startDateHi"),
 	START_DATE_LO("startDateLo"),
 	STATE("statecode"),

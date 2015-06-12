@@ -32,13 +32,11 @@ public class CORSFilter implements Filter {
 		resp.addHeader(HttpConstants.HEADER_CORS_EXPOSE_HEADERS, "NWIS-Site-Count");
 		resp.addHeader(HttpConstants.HEADER_CORS_EXPOSE_HEADERS, "STEWARDS-Site-Count");
 		resp.addHeader(HttpConstants.HEADER_CORS_EXPOSE_HEADERS, "STORET-Site-Count");
-		resp.addHeader(HttpConstants.HEADER_CORS_EXPOSE_HEADERS, "Total-Result-Count");
+		resp.addHeader(HttpConstants.HEADER_CORS_EXPOSE_HEADERS, HttpConstants.HEADER_TOTAL_RESULT_COUNT);
 		resp.addHeader(HttpConstants.HEADER_CORS_EXPOSE_HEADERS, "NWIS-Result-Count");
 		resp.addHeader(HttpConstants.HEADER_CORS_EXPOSE_HEADERS, "STEWARDS-Result-Count");
 		resp.addHeader(HttpConstants.HEADER_CORS_EXPOSE_HEADERS, "STORET-Result-Count");
-		resp.addHeader(HttpConstants.HEADER_CORS_EXPOSE_HEADERS, "NWIS-Warning");
-		resp.addHeader(HttpConstants.HEADER_CORS_EXPOSE_HEADERS, "STEWARDS-Warning");
-		resp.addHeader(HttpConstants.HEADER_CORS_EXPOSE_HEADERS, "STORET-Warning");
+		resp.addHeader(HttpConstants.HEADER_CORS_EXPOSE_HEADERS, HttpConstants.HEADER_WARNING);
 		resp.addHeader(HttpConstants.HEADER_CORS_EXPOSE_HEADERS, HttpConstants.HEADER_FATAL_ERROR);
 		chain.doFilter(request, response);
 	}

@@ -43,11 +43,9 @@
 			   prime.hole_depth_unit,
 			   prime.data_source
 		<include refid="dynamicWhere.stationsBase"/>
-		<if test="sorted == 'yes'">
 			order by prime.data_source_id,
                      prime.organization,
                      prime.station_id
-		</if>
 	</select>
 
     <sql id="stationCount">
