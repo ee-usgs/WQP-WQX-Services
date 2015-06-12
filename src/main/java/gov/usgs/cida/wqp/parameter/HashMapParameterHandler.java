@@ -2,6 +2,7 @@ package gov.usgs.cida.wqp.parameter;
 
 import gov.usgs.cida.wqp.validation.AbstractValidator;
 import gov.usgs.cida.wqp.validation.ValidationResult;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -12,6 +13,8 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
+
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -78,7 +81,7 @@ public class HashMapParameterHandler implements IParameterHandler {
 						}
 					}
 					if (!nonTrivialValues.isEmpty()) {
-						rtn.put((String) key, nonTrivialValues.toArray(new String[0]));
+						rtn.put((String) key, new String[]{StringUtils.join(nonTrivialValues, ';')});
 					}
 				}
 			}
