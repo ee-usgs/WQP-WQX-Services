@@ -21,11 +21,13 @@
                               prime.analytical_method_citation, prime.lab_name, prime.analysis_start_date, prime.lab_remark, prime.detection_limit, prime.detection_limit_unit,
                               prime.detection_limit_desc, prime.analysis_prep_date_tx
 		<include refid="dynamicWhere.resultsBase"/>
-			order by prime.data_source,
+		<if test="sorted == 'yes'">
+			order by prime.data_source_id,
 			         prime.organization,
 			         prime.site_id,
 			         prime.event_date,
 			         prime.activity
+		</if>
 	</select>
         
     <sql id="resultCount">

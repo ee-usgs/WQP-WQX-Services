@@ -538,8 +538,8 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
 	}
 
 	@Test
-	public void test_addPcResultHeaders_proper() {
-		BiologicalResultController testController = new BiologicalResultController(null, null, null, null, null);
+	public void test_addResultHeaders_proper() {
+		BiologicalResultController testController = new BiologicalResultController(null, null, null, null, 12, null);
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		List<Map<String, Object>> counts = new ArrayList<Map<String, Object>>();
 		addEntryStation("NWIS", 7, counts);
@@ -549,7 +549,7 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
 		addEntryResult("STEW", 5, counts);
 		addEntryResult("Stor", 5, counts);
 		addEntryResult(null, 12, counts);
-		testController.addCountHeaders(response, counts);
+		assertEquals(HEADER_TOTAL_RESULT_COUNT, testController.addCountHeaders(response, counts));
 		assertEquals(8, response.getHeaderNames().size());
 		String nwis = "NWIS"+HEADER_DELIMITER+HEADER_SITE_COUNT;
 		assertTrue(response.containsHeader(nwis));
@@ -562,15 +562,15 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
 	}
 
 	@Test
-	public void test_addPcResultHeaders_noTotal() {
-		BiologicalResultController testController = new BiologicalResultController(null, null, null, null, null);
+	public void test_addResultHeaders_noTotal() {
+		BiologicalResultController testController = new BiologicalResultController(null, null, null, null, 12, null);
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		List<Map<String, Object>> counts = new ArrayList<Map<String, Object>>();
 		addEntryResult("NWIS", 7, counts);
 		addEntryResult("STEW", 5, counts);
 		addEntryStation("NWIS", 7, counts);
 		addEntryStation("STEW", 5, counts);
-		testController.addCountHeaders(response, counts);
+		assertEquals(HEADER_TOTAL_RESULT_COUNT, testController.addCountHeaders(response, counts));
 		assertEquals(6, response.getHeaderNames().size());
 		String nwis = "NWIS"+HEADER_DELIMITER+HEADER_SITE_COUNT;
 		assertTrue(response.containsHeader(nwis));

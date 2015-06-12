@@ -34,9 +34,9 @@ public class SimpleStationController extends BaseController {
 	@Autowired
 	public SimpleStationController(IStreamingDao inStreamingDao, ICountDao inCountDao, 
 			IParameterHandler inParameterHandler, ILogService inLogService,
-			@Qualifier("simpleStationWqxOutbound")
-			IXmlMapping inXmlMapping) {
-		super(inStreamingDao, inCountDao, inParameterHandler, inLogService);
+			@Qualifier("maxResultRows") Integer inMaxResultRows,
+			@Qualifier("simpleStationWqxOutbound") IXmlMapping inXmlMapping) {
+		super(inStreamingDao, inCountDao, inParameterHandler, inLogService, inMaxResultRows);
 		xmlMapping = inXmlMapping;
 		
 		LOG.trace(getClass().getName());
@@ -58,8 +58,9 @@ public class SimpleStationController extends BaseController {
 		doGetRequest(request, response, IDao.SIMPLE_STATION_NAMESPACE, ENDPOINT_SIMPLE_STATION);
 	}
 
-	protected void addCountHeaders(HttpServletResponse response, List<Map<String, Object>> counts) {
+	protected String addCountHeaders(HttpServletResponse response, List<Map<String, Object>> counts) {
 		addSiteHeaders(response, counts);
+		return HEADER_TOTAL_SITE_COUNT;
 	}
 
 	@Override

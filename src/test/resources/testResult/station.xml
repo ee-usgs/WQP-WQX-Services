@@ -2,6 +2,48 @@
 <WQX xmlns='http://qwwebservices.usgs.gov/schemas/WQX-Outbound/2_0/' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='http://qwwebservices.usgs.gov/schemas/WQX-Outbound/2_0/ http://qwwebservices.usgs.gov/schemas/WQX-Outbound/2_0/index.xsd'>
 	<Organization>
 		<OrganizationDescription>
+			<OrganizationIdentifier>ARS</OrganizationIdentifier>
+			<OrganizationFormalName>USDA Agricultural Research Service</OrganizationFormalName>
+		</OrganizationDescription>
+		<MonitoringLocation>
+			<MonitoringLocationIdentity>
+				<MonitoringLocationIdentifier>ARS-IAWC-IAWC225</MonitoringLocationIdentifier>
+				<MonitoringLocationName>IAWC225</MonitoringLocationName>
+				<MonitoringLocationTypeName>Land Runoff</MonitoringLocationTypeName>
+				<MonitoringLocationDescriptionText>Located on Y Avenue, one mile upstream of WC220 outlet in the 220 basin of Walnut Creek watershed in Boone County, IA.  Weekly and flow weighted runoff water samples are collected at this station.  Water samples are tested for Acetochlor, Alachlor, Atrazine, Metolachlor, Simazine, nitrate, nitrite, and total phosphorus.</MonitoringLocationDescriptionText>
+				<HUCEightDigitCode>07080105</HUCEightDigitCode>
+			</MonitoringLocationIdentity>
+			<MonitoringLocationGeospatial>
+				<LatitudeMeasure>41.9607224179</LatitudeMeasure>
+				<LongitudeMeasure>-93.698220503</LongitudeMeasure>
+				<HorizontalCollectionMethodName>GPS Code (Pseudo Range) Differential</HorizontalCollectionMethodName>
+				<HorizontalCoordinateReferenceSystemDatumName>NAD83</HorizontalCoordinateReferenceSystemDatumName>
+				<CountryCode>US</CountryCode>
+				<StateCode>19</StateCode>
+				<CountyCode>015</CountyCode>
+			</MonitoringLocationGeospatial>
+		</MonitoringLocation>
+		<MonitoringLocation>
+			<MonitoringLocationIdentity>
+				<MonitoringLocationIdentifier>ARS-IAWC-IAWC410</MonitoringLocationIdentifier>
+				<MonitoringLocationName>IAWC410</MonitoringLocationName>
+				<MonitoringLocationTypeName>River/Stream</MonitoringLocationTypeName>
+				<MonitoringLocationDescriptionText>The Big Creek downstream surface water grab sample location where samples were taken at one-week intervals.  Water samples from this site are tested for Acetochlor, Alachlor, Atrazine, Metolachlor, Simazine, nitrate, nitrite, and total phosphorus.</MonitoringLocationDescriptionText>
+				<HUCEightDigitCode>07100004</HUCEightDigitCode>
+			</MonitoringLocationIdentity>
+			<MonitoringLocationGeospatial>
+				<LatitudeMeasure>41.9505493342</LatitudeMeasure>
+				<LongitudeMeasure>-93.759072857</LongitudeMeasure>
+				<HorizontalCollectionMethodName>GPS Code (Pseudo Range) Differential</HorizontalCollectionMethodName>
+				<HorizontalCoordinateReferenceSystemDatumName>NAD83</HorizontalCoordinateReferenceSystemDatumName>
+				<CountryCode>US</CountryCode>
+				<StateCode>19</StateCode>
+				<CountyCode>015</CountyCode>
+			</MonitoringLocationGeospatial>
+		</MonitoringLocation>
+	</Organization>
+	<Organization>
+		<OrganizationDescription>
 			<OrganizationIdentifier>USGS-WI</OrganizationIdentifier>
 			<OrganizationFormalName>USGS Wisconsin Water Science Center</OrganizationFormalName>
 		</OrganizationDescription>
@@ -79,48 +121,6 @@
 					<MeasureUnitCode>m</MeasureUnitCode>
 				</WellHoleDepthMeasure>
 			</WellInformation>
-		</MonitoringLocation>
-	</Organization>
-	<Organization>
-		<OrganizationDescription>
-			<OrganizationIdentifier>ARS</OrganizationIdentifier>
-			<OrganizationFormalName>USDA Agricultural Research Service</OrganizationFormalName>
-		</OrganizationDescription>
-		<MonitoringLocation>
-			<MonitoringLocationIdentity>
-				<MonitoringLocationIdentifier>ARS-IAWC-IAWC225</MonitoringLocationIdentifier>
-				<MonitoringLocationName>IAWC225</MonitoringLocationName>
-				<MonitoringLocationTypeName>Land Runoff</MonitoringLocationTypeName>
-				<MonitoringLocationDescriptionText>Located on Y Avenue, one mile upstream of WC220 outlet in the 220 basin of Walnut Creek watershed in Boone County, IA.  Weekly and flow weighted runoff water samples are collected at this station.  Water samples are tested for Acetochlor, Alachlor, Atrazine, Metolachlor, Simazine, nitrate, nitrite, and total phosphorus.</MonitoringLocationDescriptionText>
-				<HUCEightDigitCode>07080105</HUCEightDigitCode>
-			</MonitoringLocationIdentity>
-			<MonitoringLocationGeospatial>
-				<LatitudeMeasure>41.9607224179</LatitudeMeasure>
-				<LongitudeMeasure>-93.698220503</LongitudeMeasure>
-				<HorizontalCollectionMethodName>GPS Code (Pseudo Range) Differential</HorizontalCollectionMethodName>
-				<HorizontalCoordinateReferenceSystemDatumName>NAD83</HorizontalCoordinateReferenceSystemDatumName>
-				<CountryCode>US</CountryCode>
-				<StateCode>19</StateCode>
-				<CountyCode>015</CountyCode>
-			</MonitoringLocationGeospatial>
-		</MonitoringLocation>
-		<MonitoringLocation>
-			<MonitoringLocationIdentity>
-				<MonitoringLocationIdentifier>ARS-IAWC-IAWC410</MonitoringLocationIdentifier>
-				<MonitoringLocationName>IAWC410</MonitoringLocationName>
-				<MonitoringLocationTypeName>River/Stream</MonitoringLocationTypeName>
-				<MonitoringLocationDescriptionText>The Big Creek downstream surface water grab sample location where samples were taken at one-week intervals.  Water samples from this site are tested for Acetochlor, Alachlor, Atrazine, Metolachlor, Simazine, nitrate, nitrite, and total phosphorus.</MonitoringLocationDescriptionText>
-				<HUCEightDigitCode>07100004</HUCEightDigitCode>
-			</MonitoringLocationIdentity>
-			<MonitoringLocationGeospatial>
-				<LatitudeMeasure>41.9505493342</LatitudeMeasure>
-				<LongitudeMeasure>-93.759072857</LongitudeMeasure>
-				<HorizontalCollectionMethodName>GPS Code (Pseudo Range) Differential</HorizontalCollectionMethodName>
-				<HorizontalCoordinateReferenceSystemDatumName>NAD83</HorizontalCoordinateReferenceSystemDatumName>
-				<CountryCode>US</CountryCode>
-				<StateCode>19</StateCode>
-				<CountyCode>015</CountyCode>
-			</MonitoringLocationGeospatial>
 		</MonitoringLocation>
 	</Organization>
 	<Organization>

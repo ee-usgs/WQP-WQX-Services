@@ -73,7 +73,7 @@ public class BaseControllerTest {
     @Before
     public void setup() {
     	MockitoAnnotations.initMocks(this);
-    	testController = new TestBaseController(streamingDao, countDao, parameterHandler, logService);
+    	testController = new TestBaseController(streamingDao, countDao, parameterHandler, logService, 100);
     }
 
 	@Test
@@ -307,12 +307,81 @@ public class BaseControllerTest {
         assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
         assertEquals("application/vnd.google-earth.kmz;charset=UTF-8", response.getHeader(HttpConstants.HEADER_CONTENT_TYPE));
         assertEquals("attachment; filename=endpoint.kmz", response.getHeader(HttpConstants.HEADER_CONTENT_DISPOSITION));
-        assertEquals("12", response.getHeader("TEST-COUNT"));
+        assertEquals("12", response.getHeader(TestBaseController.TEST_COUNT));
         verify(parameterHandler).validateAndTransform(anyMap());
         verify(logService).logHeadComplete(response, logId);
         verify(countDao).getCounts(anyString(), anyMap());
 	}
 
+	@Test
+	public void checkMaxRowsTest() {
+        HttpServletResponse response = new MockHttpServletResponse();
+		TestBaseController small = new TestBaseController(null, null, null, null, 10);
+		small.pm = new ParameterMap();
+
+		//less than max always ok & sorted
+        assertTrue(small.checkMaxRows(response, "5"));
+        assertEquals(0, response.getHeaderNames().size());
+        assertTrue(small.pm.getQueryParameters().containsKey("sorted"));
+        assertEquals("yes", small.pm.getQueryParameters().get("sorted"));
+        
+        //xml formats not ok when greater than max
+        response = new MockHttpServletResponse();
+        small.mimeType = MimeType.xml;
+        assertFalse(small.checkMaxRows(response, "15"));
+        assertTrue(response.getHeaderNames().contains(HttpConstants.HEADER_WARNING));
+        assertEquals("This query will return in excess of 10 results, please refine your query.", response.getHeader(HttpConstants.HEADER_WARNING));
+        response = new MockHttpServletResponse();
+        small.mimeType = MimeType.kml;
+        assertFalse(small.checkMaxRows(response, "15"));
+        assertTrue(response.getHeaderNames().contains(HttpConstants.HEADER_WARNING));
+        assertEquals("This query will return in excess of 10 results, please refine your query.", response.getHeader(HttpConstants.HEADER_WARNING));
+        response = new MockHttpServletResponse();
+        small.mimeType = MimeType.kmz;
+        assertFalse(small.checkMaxRows(response, "15"));
+        assertTrue(response.getHeaderNames().contains(HttpConstants.HEADER_WARNING));
+        assertEquals("This query will return in excess of 10 results, please refine your query.", response.getHeader(HttpConstants.HEADER_WARNING));
+
+        //other formats are ok, but not sorted when greater than max
+        response = new MockHttpServletResponse();
+        small.mimeType = MimeType.csv;
+        assertTrue(small.checkMaxRows(response, "15"));
+        assertEquals(0, response.getHeaderNames().size());
+        assertTrue(small.pm.getQueryParameters().containsKey("sorted"));
+        assertEquals("no", small.pm.getQueryParameters().get("sorted"));
+        small.mimeType = MimeType.tsv;
+        assertTrue(small.checkMaxRows(response, "15"));
+        assertEquals(0, response.getHeaderNames().size());
+        assertTrue(small.pm.getQueryParameters().containsKey("sorted"));
+        assertEquals("no", small.pm.getQueryParameters().get("sorted"));
+        small.mimeType = MimeType.xlsx;
+        assertTrue(small.checkMaxRows(response, "15"));
+        assertEquals(0, response.getHeaderNames().size());
+        assertTrue(small.pm.getQueryParameters().containsKey("sorted"));
+        assertEquals("no", small.pm.getQueryParameters().get("sorted"));
+
+	}
+
+//	if (Integer.valueOf(totalRows) < maxResultRows) {
+//		pm.getQueryParameters().put("sorted", "yes");
+//		return true;
+//	} else {
+//		switch (mimeType) {
+//		case kml:
+//		case kmz:
+//		case xml:
+//			response.setStatus(HttpStatus.BAD_REQUEST.value());
+//			response.addHeader(HEADER_WARNING, "This query will return in excess of " + maxResultRows + " results, please refine your query.");
+//			return false;
+//		default:
+//			pm.getQueryParameters().put("sorted", "no");
+//			return true;
+//		}
+//	}
+
+	
+	
+	
 	@Test
 	public void doHeadRequestTest() {
         MockHttpServletRequest request = new MockHttpServletRequest();
@@ -420,7 +489,7 @@ public class BaseControllerTest {
         assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
         assertEquals("application/vnd.google-earth.kmz;charset=UTF-8", response.getHeader(HttpConstants.HEADER_CONTENT_TYPE));
         assertEquals("attachment; filename=endpoint.kmz", response.getHeader(HttpConstants.HEADER_CONTENT_DISPOSITION));
-        assertEquals("12", response.getHeader("TEST-COUNT"));
+        assertEquals("12", response.getHeader(TestBaseController.TEST_COUNT));
 
 		ZipInputStream in = new ZipInputStream(new ByteArrayInputStream(response.getContentAsByteArray()));
 		try {

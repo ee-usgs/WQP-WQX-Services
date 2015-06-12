@@ -13,6 +13,8 @@ import java.util.Map;
 
 import org.apache.ibatis.session.ResultContext;
 import org.apache.ibatis.session.ResultHandler;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +31,7 @@ public class StreamingDaoTest extends BaseSpringTest {
 
 	@Autowired 
 	IStreamingDao streamingDao;
-
+	
 	private class TestResultHandler implements ResultHandler {
 		//TODO put the results somewhere to check them and allow them to be cleared between queries
 //		public ArrayList<Map<String, Object>> results = new ArrayList<Map<String, Object>>();
@@ -37,6 +39,18 @@ public class StreamingDaoTest extends BaseSpringTest {
 		public void handleResult(ResultContext context) {
 //			results.add((Map<String, Object>) context.getResultObject());
 		}
+	}
+
+	TestResultHandler handler;
+
+	@Before
+	public void init() {
+		handler = new TestResultHandler();
+	}
+
+	@After
+	public void cleanup() {
+		handler = null;
 	}
 	
 	@Test
@@ -73,7 +87,6 @@ public class StreamingDaoTest extends BaseSpringTest {
 		//TODO - Real test data and verification. 
 		//TODO - These tests just validate that the queries have no syntax errors, not that they are logically correct.
 		Map<String, Object> parms = new HashMap<>();
-		TestResultHandler handler = new TestResultHandler();
 
 		//MyBatis is happy with no parms or ResultHandler - it will read the entire database, load up the list,
 		// and not complain or expose it to you (unless you run out of memory). We have a check to make sure the 
@@ -202,7 +215,6 @@ public class StreamingDaoTest extends BaseSpringTest {
 		//TODO - Real test data and verification. 
 		//TODO - These tests just validate that the queries have no syntax errors, not that they are logically correct.
 		Map<String, Object> parms = new HashMap<>();
-		TestResultHandler handler = new TestResultHandler();
 
 		parms.put(Parameters.ANALYTICAL_METHOD.toString(), new String[]{"https://www.nemi.gov/methods/method_summary/4665/",
 			"https://www.nemi.gov/methods/method_summary/8896/"});

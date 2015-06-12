@@ -35,11 +35,13 @@
                prime.prep_method_id, prime.prep_method_context, prime.prep_method_name, prime.prep_method_qual_type, prime.prep_method_desc, prime.analysis_prep_date_tx, prime.prep_start_time,
                prime.prep_start_timezone, prime.prep_end_date, prime.prep_end_time, prime.prep_end_timezone, prime.prep_dilution_factor
 		<include refid="dynamicWhere.resultsBase"/>
-			order by prime.data_source,
+		<if test="sorted == 'yes'">
+			order by prime.data_source_id,
 			         prime.organization,
 			         prime.site_id,
 			         prime.event_date,
 			         prime.activity
+		</if>
 	</select>
         
 	<select id="count" resultType="java.util.LinkedHashMap">
