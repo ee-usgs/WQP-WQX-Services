@@ -16,7 +16,7 @@
         <include refid="dynamicWhere.stationsBase"/>
 			order by prime.data_source_id,
                      prime.organization,
-                     prime.station_id
+                     prime.site_id
     </select>
 
 	<select id="count" resultType="java.util.LinkedHashMap">

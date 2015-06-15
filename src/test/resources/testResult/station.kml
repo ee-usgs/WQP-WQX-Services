@@ -32,6 +32,36 @@
 			</Pair>
 		</StyleMap>
 		<Placemark>
+			<name>BIGHORN LAKE NEAR BLACK CANYON</name>
+			<StyleMap>STORETSite</StyleMap>
+			<ExtendedData>
+				<Data name="Organization Formal Name">
+					<value>National Park Service Water Resources Division</value>
+				</Data>
+				<Data name="Organization Identifier">
+					<value>11NPSWRD</value>
+				</Data>
+				<Data name="Monitoring Location Identifier">
+					<value>11NPSWRD-BICA_MFG_B</value>
+				</Data>
+				<Data name="Monitoring Location Name">
+					<value>BIGHORN LAKE NEAR BLACK CANYON</value>
+				</Data>
+				<Data name="Monitoring Location Type Name">
+					<value>Reservoir</value>
+				</Data>
+				<Data name="Monitoring Location Description Text">
+					<value>THE STATION IS LOCATED ON THE GRAPEVINE DOME MONTANA-BIG HORN CO. 7.5 MINUTE SERIES (TOPOGRAPHIC) QUADRANGLE.  THE SITE IS ON BIGHORN LAKE NEAR BLACK CANYON.  SAMPLES FOR THIS SITE WERE COLLECTED FROM 1970-1972 BY THE MONTANA FISH AND GAME DEPARTMENT.  SAMPLES WERE ANALYZED FOR DISSOLVED OXYGEN IN 1970 AND TEMPERATURE IN 1970-1972. THE RESULTS WERE OBTAINED FROM NATURAL RESOURCES AT BIGHORN CANYON NATIONAL RECREATION AREA.  FOR MORE INFORMATION CONTACT CHIEF OF RESOURCES AT BIGHORN CANYON NATIONAL RECREATION AREA; P.O. BOX 7458; FORT SMITH MONTANA 59035.  TEL (406) 666-2412.  DATA WERE PROCESSED AND UPLOADED TO STORET BY PAUL MCELVERY AT NPS-WRD; 1201 OAK RIDGE DRIVE SUITE 250; FORT COLLINS COLORADO 80525.  TEL (970) 225-3516.¶¶¶¶***     Legacy STORET Station Type: /RESERV/TYPA/AMBNT</value>
+				</Data>
+				<Data name="HUC Eight Digit Code">
+					<value>10080010</value>
+				</Data>
+			</ExtendedData>
+			<Point>
+				<coordinates>-108.0188666,45.2756528</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
 			<name>IAWC225</name>
 			<StyleMap>ARSSite</StyleMap>
 			<ExtendedData>
@@ -89,63 +119,6 @@
 			</ExtendedData>
 			<Point>
 				<coordinates>-93.7590729,41.9505493</coordinates>
-			</Point>
-		</Placemark>
-		<Placemark>
-			<name>Crawfish River -- Astico County Park Canoe Launch</name>
-			<StyleMap>STORETSite</StyleMap>
-			<ExtendedData>
-				<Data name="Organization Formal Name">
-					<value>Wisconsin Department of Natural Resources</value>
-				</Data>
-				<Data name="Organization Identifier">
-					<value>WIDNR_WQX</value>
-				</Data>
-				<Data name="Monitoring Location Identifier">
-					<value>WIDNR_WQX-10030952</value>
-				</Data>
-				<Data name="Monitoring Location Name">
-					<value>Crawfish River -- Astico County Park Canoe Launch</value>
-				</Data>
-				<Data name="Monitoring Location Type Name">
-					<value>River/Stream</value>
-				</Data>
-				<Data name="HUC Eight Digit Code">
-					<value>07090002</value>
-				</Data>
-			</ExtendedData>
-			<Point>
-				<coordinates>-88.9557000,43.3262980</coordinates>
-			</Point>
-		</Placemark>
-		<Placemark>
-			<name>BIGHORN LAKE NEAR BLACK CANYON</name>
-			<StyleMap>STORETSite</StyleMap>
-			<ExtendedData>
-				<Data name="Organization Formal Name">
-					<value>National Park Service Water Resources Division</value>
-				</Data>
-				<Data name="Organization Identifier">
-					<value>11NPSWRD</value>
-				</Data>
-				<Data name="Monitoring Location Identifier">
-					<value>11NPSWRD-BICA_MFG_B</value>
-				</Data>
-				<Data name="Monitoring Location Name">
-					<value>BIGHORN LAKE NEAR BLACK CANYON</value>
-				</Data>
-				<Data name="Monitoring Location Type Name">
-					<value>Reservoir</value>
-				</Data>
-				<Data name="Monitoring Location Description Text">
-					<value>THE STATION IS LOCATED ON THE GRAPEVINE DOME MONTANA-BIG HORN CO. 7.5 MINUTE SERIES (TOPOGRAPHIC) QUADRANGLE.  THE SITE IS ON BIGHORN LAKE NEAR BLACK CANYON.  SAMPLES FOR THIS SITE WERE COLLECTED FROM 1970-1972 BY THE MONTANA FISH AND GAME DEPARTMENT.  SAMPLES WERE ANALYZED FOR DISSOLVED OXYGEN IN 1970 AND TEMPERATURE IN 1970-1972. THE RESULTS WERE OBTAINED FROM NATURAL RESOURCES AT BIGHORN CANYON NATIONAL RECREATION AREA.  FOR MORE INFORMATION CONTACT CHIEF OF RESOURCES AT BIGHORN CANYON NATIONAL RECREATION AREA; P.O. BOX 7458; FORT SMITH MONTANA 59035.  TEL (406) 666-2412.  DATA WERE PROCESSED AND UPLOADED TO STORET BY PAUL MCELVERY AT NPS-WRD; 1201 OAK RIDGE DRIVE SUITE 250; FORT COLLINS COLORADO 80525.  TEL (970) 225-3516.¶¶¶¶***     Legacy STORET Station Type: /RESERV/TYPA/AMBNT</value>
-				</Data>
-				<Data name="HUC Eight Digit Code">
-					<value>10080010</value>
-				</Data>
-			</ExtendedData>
-			<Point>
-				<coordinates>-108.0188666,45.2756528</coordinates>
 			</Point>
 		</Placemark>
 		<Placemark>
@@ -218,6 +191,33 @@
 			</ExtendedData>
 			<Point>
 				<coordinates>-89.0076094,43.3236024</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>Crawfish River -- Astico County Park Canoe Launch</name>
+			<StyleMap>STORETSite</StyleMap>
+			<ExtendedData>
+				<Data name="Organization Formal Name">
+					<value>Wisconsin Department of Natural Resources</value>
+				</Data>
+				<Data name="Organization Identifier">
+					<value>WIDNR_WQX</value>
+				</Data>
+				<Data name="Monitoring Location Identifier">
+					<value>WIDNR_WQX-10030952</value>
+				</Data>
+				<Data name="Monitoring Location Name">
+					<value>Crawfish River -- Astico County Park Canoe Launch</value>
+				</Data>
+				<Data name="Monitoring Location Type Name">
+					<value>River/Stream</value>
+				</Data>
+				<Data name="HUC Eight Digit Code">
+					<value>07090002</value>
+				</Data>
+			</ExtendedData>
+			<Point>
+				<coordinates>-88.9557000,43.3262980</coordinates>
 			</Point>
 		</Placemark>
 	</Document>
