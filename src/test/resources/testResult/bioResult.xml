@@ -267,7 +267,7 @@
 				<HorizontalCoordinateReferenceSystemDatumName>ct</HorizontalCoordinateReferenceSystemDatumName>
 			</ActivityLocation>
 			<BiologicalActivityDescription>
-				<AssemblageSampledName>cu</AssemblageSampledName>
+				<AssemblageSampledName>Fish/Nekton</AssemblageSampledName>
 				<BiologicalHabitatCollectionInformation>
 					<CollectionDuration>
 						<MeasureValue>cv</MeasureValue>

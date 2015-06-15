@@ -7,6 +7,7 @@ public enum Parameters {
 	//TODO - Activity is not currently supported
 	//ACTIVITY_ID("activityId"),
 	ANALYTICAL_METHOD("analyticalmethod"),
+	ASSEMBLAGE("assemblage"),
 	AVOID("command.avoid"),
 	BBOX("bBox"),
 	CHARACTERISTIC_NAME("characteristicName"),

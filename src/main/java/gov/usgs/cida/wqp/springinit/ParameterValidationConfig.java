@@ -38,6 +38,12 @@ public class ParameterValidationConfig implements ValidationConstants, WqpEnvPro
 	}
 	
 	@Bean
+	public LookupValidator assemblageValidator() {
+		// semicolon list of string assemblage names
+		return new LookupValidator(codesService(), Parameters.ASSEMBLAGE);
+	}
+	
+	@Bean
 	public RegexValidator<String[]> avoidValidator(){
 		// semicolon list of databases to exclude as 'command.avoid'
 		return new RegexValidator<String[]>(Parameters.AVOID,REGEX_AVOID);
@@ -188,6 +194,7 @@ public class ParameterValidationConfig implements ValidationConstants, WqpEnvPro
 	public Map<Parameters, AbstractValidator<?>> validatorMap() {
 		Map<Parameters, AbstractValidator<?>> validatorMap = new HashMap<Parameters, AbstractValidator<?>>();
 		validatorMap.put(Parameters.ANALYTICAL_METHOD, analyticalMethodValidator());
+		validatorMap.put(Parameters.ASSEMBLAGE, assemblageValidator());
 		validatorMap.put(Parameters.AVOID, avoidValidator());
 		validatorMap.put(Parameters.BBOX, bboxValidator());
 		validatorMap.put(Parameters.CHARACTERISTIC_NAME, characteristicNameValidator());

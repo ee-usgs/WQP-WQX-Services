@@ -178,6 +178,10 @@ public class StreamingDaoTest extends BaseSpringTest {
 		streamingDao.stream(nameSpace, parms, handler);
 
 		parms.clear();
+		parms.put(Parameters.ASSEMBLAGE.toString(), new String[]{"Fish/Nekton"});
+		streamingDao.stream(nameSpace, parms, handler);
+
+		parms.clear();
 		parms.put(Parameters.CHARACTERISTIC_NAME.toString(), new String[]{"Nitrate"});
 		streamingDao.stream(nameSpace, parms, handler);
 
@@ -219,6 +223,7 @@ public class StreamingDaoTest extends BaseSpringTest {
 		parms.put(Parameters.ANALYTICAL_METHOD.toString(), new String[]{"https://www.nemi.gov/methods/method_summary/4665/",
 			"https://www.nemi.gov/methods/method_summary/8896/"});
 		parms.put(Parameters.BBOX.toString(), new String[]{"-89", "43", "-88", "44"});
+		parms.put(Parameters.ASSEMBLAGE.toString(), new String[]{"Fish/Nekton", "Benthic Macroinvertebrate"});
 		parms.put(Parameters.CHARACTERISTIC_NAME.toString(), new String[]{"Beryllium", "Nitrate"});
 		parms.put(Parameters.CHARACTERISTIC_TYPE.toString(), new String[]{"Inorganics, Minor, Metals", "Nutrient"});
 		parms.put(Parameters.COUNTRY.toString(), new String[]{"MX", "US"});

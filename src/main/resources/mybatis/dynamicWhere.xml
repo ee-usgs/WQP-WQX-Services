@@ -11,6 +11,10 @@
         analytical_method in <foreach item="i" collection="analyticalmethod" open="(" separator="," close=")">#{i}</foreach>
     </sql>
 
+    <sql id="assemblage">
+        assemblage_sampled_name in <foreach item="i" collection="assemblage" open="(" separator="," close=")">#{i}</foreach>
+    </sql>
+
     <sql id="bBox">
         sdo_inside(geom, sdo_geometry(2003, 4269, null, sdo_elem_info_array(1, 1003, 3), sdo_ordinate_array(#{bBox[0]}, #{bBox[1]}, #{bBox[2]}, #{bBox[3]}))) = 'TRUE'
     </sql>
@@ -149,16 +153,16 @@
     </sql>
     
     <sql id="stationResultHashHint">
-    	<if test="sampleMedia != null || characteristicName != null || characteristicType != null || startDateLo != null || startDateHi != null ||
-                  activityId != null || analyticalmethod != null || pCode != null || project != null">
+    	<if test="assemblage != null || sampleMedia != null || characteristicName != null || characteristicType != null || startDateLo != null ||
+    	          startDateHi != null || activityId != null || analyticalmethod != null || pCode != null || project != null">
         	/*+ use_hash(prime) use_hash(secondary) */
     	</if>
     </sql>
     
     <sql id="stationsBase">
         from station prime
-		<if test="sampleMedia != null || characteristicName != null || characteristicType != null || startDateLo != null || startDateHi != null ||
-                  activityId != null || analyticalmethod != null || pCode != null || project != null">
+		<if test="assemblage != null || sampleMedia != null || characteristicName != null || characteristicType != null || startDateLo != null ||
+		          startDateHi != null || activityId != null || analyticalmethod != null || pCode != null || project != null">
 			 join (select data_source_id r_data_source_id, site_id r_site_id
 			         from result
                     <where>
@@ -177,7 +181,7 @@
 
     <sql id="stationsCountBase">
 		from 
-		<if test="sampleMedia == null &amp;&amp; characteristicName == null &amp;&amp; characteristicType == null &amp;&amp;
+		<if test="assemblage == null &amp;&amp; sampleMedia == null &amp;&amp; characteristicName == null &amp;&amp; characteristicType == null &amp;&amp;
                   startDateLo == null &amp;&amp; startDateHi == null &amp;&amp; activityId == null &amp;&amp;
                   analyticalmethod == null &amp;&amp; pCode == null &amp;&amp; project == null">
 			station_sum prime
@@ -195,7 +199,7 @@
 				</where>
         	</if>
         </if>
-        <if test="sampleMedia != NULL || characteristicName != NULL || characteristicType != NULL || 
+        <if test="assemblage != null || sampleMedia != NULL || characteristicName != NULL || characteristicType != NULL || 
                   analyticalmethod != null || pCode != null || project != null">
         	<if test="startDateLo == NULL &amp;&amp; startDateHi == NULL &amp;&amp; within == NULL &amp;&amp; bBox == NULL">
 				result_ct_sum prime
@@ -206,7 +210,7 @@
              </if>
      	</if>
         <if test="within != NULL || bBox != NULL">
-        	<if test="sampleMedia != NULL || characteristicName != NULL || characteristicType != NULL ||
+        	<if test="assemblage != null || sampleMedia != NULL || characteristicName != NULL || characteristicType != NULL ||
                       startDateLo != NULL || startDateHi != NULL || activityId != null || 
                       analyticalmethod != null || pCode != null || project != null">
 					 result_nr_sum secondary
@@ -244,6 +248,9 @@
         </if>
         <if test="analyticalmethod != null">
             and (<include refid="dynamicWhere.analyticalmethod" />)
+        </if>
+        <if test="assemblage != null">
+            and (<include refid="dynamicWhere.assemblage" />)
         </if>
         <if test="characteristicName != null">
             and (<include refid="dynamicWhere.characteristicName" />)
