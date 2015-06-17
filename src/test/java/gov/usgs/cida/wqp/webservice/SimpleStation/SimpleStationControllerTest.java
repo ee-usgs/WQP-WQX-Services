@@ -76,7 +76,7 @@ public class SimpleStationControllerTest extends BaseSpringTest {
             .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
 
-    	assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
+    	assertEquals(CORSFilter.ACCESS_CONTROL_HEADERS,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
     	assertEquals("", rtn.getResponse().getContentAsString());
         
         rtn = mockMvc.perform(get(endpoint + "json"))
@@ -94,7 +94,7 @@ public class SimpleStationControllerTest extends BaseSpringTest {
             .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
 
-        assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
+        assertEquals(CORSFilter.ACCESS_CONTROL_HEADERS,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
         assertThat(new JSONObject(rtn.getResponse().getContentAsString()),
         		sameJSONObjectAs(new JSONObject(getCompareFile("simpleStation.json"))));
     }
@@ -116,7 +116,7 @@ public class SimpleStationControllerTest extends BaseSpringTest {
             .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
 
-    	assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
+    	assertEquals(CORSFilter.ACCESS_CONTROL_HEADERS,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
     	assertEquals("", rtn.getResponse().getContentAsString());
         
         rtn = mockMvc.perform(get(endpoint + "json&zip=yes"))
@@ -134,7 +134,7 @@ public class SimpleStationControllerTest extends BaseSpringTest {
             .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
 
-        assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
+        assertEquals(CORSFilter.ACCESS_CONTROL_HEADERS,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
         assertThat(new JSONObject(extractZipContent(rtn.getResponse().getContentAsByteArray(), "simplestation.json")),
         		sameJSONObjectAs(new JSONObject(getCompareFile("simpleStation.json"))));
     }
@@ -156,7 +156,7 @@ public class SimpleStationControllerTest extends BaseSpringTest {
             .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
 
-    	assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
+    	assertEquals(CORSFilter.ACCESS_CONTROL_HEADERS,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
     	assertEquals("", rtn.getResponse().getContentAsString());
     }
     
@@ -177,7 +177,7 @@ public class SimpleStationControllerTest extends BaseSpringTest {
             .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
 
-        assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
+        assertEquals(CORSFilter.ACCESS_CONTROL_HEADERS,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
         assertEquals(harmonizeXml(getCompareFile("simpleStation.xml")), harmonizeXml(rtn.getResponse().getContentAsString()));
     }
 
@@ -198,7 +198,7 @@ public class SimpleStationControllerTest extends BaseSpringTest {
             .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
 
-    	assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
+    	assertEquals(CORSFilter.ACCESS_CONTROL_HEADERS,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
     	assertEquals("", rtn.getResponse().getContentAsString());
     }
     
@@ -219,7 +219,7 @@ public class SimpleStationControllerTest extends BaseSpringTest {
             .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
 
-        assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
+        assertEquals(CORSFilter.ACCESS_CONTROL_HEADERS,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
         assertEquals(harmonizeXml(getCompareFile("simpleStation.xml")), harmonizeXml(extractZipContent(rtn.getResponse().getContentAsByteArray(), "simplestation.xml")));
     }
 
@@ -264,7 +264,7 @@ public class SimpleStationControllerTest extends BaseSpringTest {
             .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
 			.andReturn();
 
-        assertEquals(acceptHeaders,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
+        assertEquals(CORSFilter.ACCESS_CONTROL_HEADERS,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
 //        assertEquals(harmonizeXml(getCompareFile("simpleStation.xml")), harmonizeXml(rtn.getResponse().getContentAsString()));
 	
     }
