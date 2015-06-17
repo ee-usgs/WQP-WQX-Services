@@ -7,9 +7,6 @@ import gov.usgs.cida.wqp.util.HttpConstants;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -36,10 +33,6 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 	TransactionDbUnitTestExecutionListener.class })
 @DbUnitConfiguration(dataSetLoader = ColumnSensingFlatXMLDataSetLoader.class)
 public abstract class BaseSpringTest implements HttpConstants {
-	public List<String> acceptHeaders = new ArrayList<>(
-			Arrays.asList("Total-Site-Count", "BIODATA-Site-Count", "NWIS-Site-Count", "STEWARDS-Site-Count", "STORET-Site-Count",
-					"Total-Result-Count", "BIODATA-Result-Count", "NWIS-Result-Count", "STEWARDS-Result-Count", "STORET-Result-Count",
-					"Warning", HEADER_FATAL_ERROR));
 	
 	public String harmonizeXml(String xmlDoc) {
 		return xmlDoc.replace("\r", "").replace("\n", "").replace("\t", "").replaceAll("> *<", "><");
