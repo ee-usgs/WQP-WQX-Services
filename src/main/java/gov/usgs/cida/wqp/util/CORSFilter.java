@@ -24,15 +24,15 @@ public class CORSFilter implements Filter {
 	
 	public static final List<String> ACCESS_CONTROL_HEADERS = new ArrayList<>(
 			Arrays.asList(HttpConstants.HEADER_TOTAL_SITE_COUNT,
-					BIODATA + HttpConstants.HEADER_DELIMITER + HttpConstants.HEADER_COUNT,
-					NWIS + HttpConstants.HEADER_DELIMITER + HttpConstants.HEADER_COUNT,
-					STEWARDS + HttpConstants.HEADER_DELIMITER + HttpConstants.HEADER_COUNT,
-					STORET + HttpConstants.HEADER_DELIMITER + HttpConstants.HEADER_COUNT,
+					BIODATA + HttpConstants.HEADER_DELIMITER + HttpConstants.HEADER_SITE_COUNT,
+					NWIS + HttpConstants.HEADER_DELIMITER + HttpConstants.HEADER_SITE_COUNT,
+					STEWARDS + HttpConstants.HEADER_DELIMITER + HttpConstants.HEADER_SITE_COUNT,
+					STORET + HttpConstants.HEADER_DELIMITER + HttpConstants.HEADER_SITE_COUNT,
 					HttpConstants.HEADER_TOTAL_RESULT_COUNT,
-					BIODATA + HttpConstants.HEADER_DELIMITER + HttpConstants.HEADER_COUNT,
-					NWIS + HttpConstants.HEADER_DELIMITER + HttpConstants.HEADER_COUNT,
-					STEWARDS + HttpConstants.HEADER_DELIMITER + HttpConstants.HEADER_COUNT,
-					STORET + HttpConstants.HEADER_DELIMITER + HttpConstants.HEADER_COUNT,
+					BIODATA + HttpConstants.HEADER_DELIMITER + HttpConstants.HEADER_RESULT_COUNT,
+					NWIS + HttpConstants.HEADER_DELIMITER + HttpConstants.HEADER_RESULT_COUNT,
+					STEWARDS + HttpConstants.HEADER_DELIMITER + HttpConstants.HEADER_RESULT_COUNT,
+					STORET + HttpConstants.HEADER_DELIMITER + HttpConstants.HEADER_RESULT_COUNT,
 					HttpConstants.HEADER_WARNING,
 					HttpConstants.HEADER_FATAL_ERROR));
 
