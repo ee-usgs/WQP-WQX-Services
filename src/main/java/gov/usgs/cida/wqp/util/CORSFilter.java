@@ -29,10 +29,12 @@ public class CORSFilter implements Filter {
 		resp.setHeader(HttpConstants.HEADER_CORS_MAX_AGE, HttpConstants.HEADER_CORS_MAX_AGE_VALUE);
 		resp.setHeader(HttpConstants.HEADER_CORS_ALLOW_HEADERS, HttpConstants.HEADER_CORS_ALLOW_HEADERS_VALUE);
 		resp.addHeader(HttpConstants.HEADER_CORS_EXPOSE_HEADERS, HttpConstants.HEADER_TOTAL_SITE_COUNT);
+		resp.addHeader(HttpConstants.HEADER_CORS_EXPOSE_HEADERS, "BIODATA-Site-Count");
 		resp.addHeader(HttpConstants.HEADER_CORS_EXPOSE_HEADERS, "NWIS-Site-Count");
 		resp.addHeader(HttpConstants.HEADER_CORS_EXPOSE_HEADERS, "STEWARDS-Site-Count");
 		resp.addHeader(HttpConstants.HEADER_CORS_EXPOSE_HEADERS, "STORET-Site-Count");
 		resp.addHeader(HttpConstants.HEADER_CORS_EXPOSE_HEADERS, HttpConstants.HEADER_TOTAL_RESULT_COUNT);
+		resp.addHeader(HttpConstants.HEADER_CORS_EXPOSE_HEADERS, "BIODATA-Result-Count");
 		resp.addHeader(HttpConstants.HEADER_CORS_EXPOSE_HEADERS, "NWIS-Result-Count");
 		resp.addHeader(HttpConstants.HEADER_CORS_EXPOSE_HEADERS, "STEWARDS-Result-Count");
 		resp.addHeader(HttpConstants.HEADER_CORS_EXPOSE_HEADERS, "STORET-Result-Count");
