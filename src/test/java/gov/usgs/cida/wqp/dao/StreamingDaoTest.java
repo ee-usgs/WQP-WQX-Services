@@ -3,7 +3,7 @@ package gov.usgs.cida.wqp.dao;
 
 import static org.junit.Assert.fail;
 import gov.usgs.cida.wqp.BaseSpringTest;
-import gov.usgs.cida.wqp.IntegrationTest;
+import gov.usgs.cida.wqp.DBIntegrationTest;
 import gov.usgs.cida.wqp.dao.intfc.IDao;
 import gov.usgs.cida.wqp.dao.intfc.IStreamingDao;
 import gov.usgs.cida.wqp.parameter.Parameters;
@@ -22,7 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DatabaseSetups;
 
-@Category(IntegrationTest.class)
+@Category(DBIntegrationTest.class)
 @DatabaseSetups({
 	@DatabaseSetup("classpath:/testData/clearAll.xml"),
 	@DatabaseSetup("classpath:/testData/simpleStation.xml")

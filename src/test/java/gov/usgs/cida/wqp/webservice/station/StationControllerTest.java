@@ -10,7 +10,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import gov.usgs.cida.wqp.BaseSpringTest;
-import gov.usgs.cida.wqp.IntegrationTest;
+import gov.usgs.cida.wqp.FullIntegrationTest;
 import gov.usgs.cida.wqp.parameter.Parameters;
 import gov.usgs.cida.wqp.service.CodesService;
 import gov.usgs.cida.wqp.util.CORSFilter;
@@ -30,7 +30,7 @@ import org.springframework.web.context.WebApplicationContext;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DatabaseSetups;
 
-@Category(IntegrationTest.class)
+@Category(FullIntegrationTest.class)
 @WebAppConfiguration
 @DatabaseSetups({
 	@DatabaseSetup("classpath:/testData/clearAll.xml"),

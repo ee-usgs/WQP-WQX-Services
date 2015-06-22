@@ -48,7 +48,7 @@
 	</select>
 
     <sql id="stationCount">
-		select data_source, count(distinct prime.data_source||'-'||prime.station_id) station_count
+		select data_source, count(distinct data_source||'-'||prime.station_id) station_count
 		<include refid="dynamicWhere.stationsCountBase"/>
 		group by rollup(data_source)
     </sql>
