@@ -1,6 +1,6 @@
 package gov.usgs.cida.wqp.dao;
 
-import gov.usgs.cida.wqp.IntegrationTest;
+import gov.usgs.cida.wqp.DBIntegrationTest;
 import gov.usgs.cida.wqp.dao.intfc.ICountDao;
 
 import org.junit.Test;
@@ -9,7 +9,7 @@ import org.junit.experimental.categories.Category;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DatabaseSetups;
 
-@Category(IntegrationTest.class)
+@Category(DBIntegrationTest.class)
 @DatabaseSetups({
 	@DatabaseSetup("classpath:/testData/clearAll.xml"),
 	@DatabaseSetup("classpath:/testData/stationCount.xml")
