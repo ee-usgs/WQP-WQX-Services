@@ -4,8 +4,7 @@
 <mapper namespace="stationKml">
 
     <select id="select" resultType="java.util.LinkedHashMap" fetchSize="500">
-        select <include refid="dynamicWhere.stationResultHashHint"/>
-		       prime.station_name,
+        select prime.station_name,
 		       case prime.data_source_id
 		         when 1 then 'ARSSite'
 		         when 2 then 'NWISSite'

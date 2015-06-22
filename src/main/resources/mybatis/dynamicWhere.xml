@@ -148,30 +148,20 @@
         </if>
     </sql>
     
-    <sql id="stationResultHashHint">
-    	<if test="sampleMedia != null || characteristicName != null || characteristicType != null || startDateLo != null || startDateHi != null ||
-                  activityId != null || analyticalmethod != null || pCode != null || project != null">
-        	/*+ use_hash(prime) use_hash(secondary) */
-    	</if>
-    </sql>
-    
     <sql id="stationsBase">
         from station prime
-		<if test="sampleMedia != null || characteristicName != null || characteristicType != null || startDateLo != null || startDateHi != null ||
-                  activityId != null || analyticalmethod != null || pCode != null || project != null">
-			 join (select data_source_id r_data_source_id, site_id r_site_id
-			         from result
-                    <where>
-						<include refid="dynamicWhere.baseWhereResultClauses" />
-                   	</where>
-                      group by data_source_id, site_id
-                  ) secondary
-               on prime.site_id = secondary.r_site_id and
-                  prime.data_source_id = secondary.r_data_source_id
-        </if>
 		<where>
 			<include refid="dynamicWhere.baseWhereStationGeoClauses" />
 			<include refid="dynamicWhere.baseWhereStationClauses" />
+						<if test="sampleMedia != null || characteristicName != null || characteristicType != null || startDateLo != null || startDateHi != null ||
+                      activityId != null || analyticalmethod != null || pCode != null || project != null">
+            	and exists (select null from
+                                   result_sum
+                             where prime.site_id = result_sum.site_id and
+                                   prime.data_source_id = result_sum.data_source_id
+                                   <include refid="dynamicWhere.baseWhereResultClauses" />
+                           )
+            </if>
         </where>
     </sql>
 
