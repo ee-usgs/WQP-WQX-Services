@@ -157,7 +157,7 @@
                       activityId != null || analyticalmethod != null || pCode != null || project != null">
             	and exists (select null from
                                    result_sum
-                             where prime.site_id = result_sum.site_id and
+                             where prime.station_id = result_sum.station_id and
                                    prime.data_source_id = result_sum.data_source_id
                                    <include refid="dynamicWhere.baseWhereResultClauses" />
                            )
@@ -263,7 +263,7 @@
 		from result prime
         <if test="(bBox != null &amp;&amp; bBox.length == 4) || (within != null &amp;&amp; lat != null &amp;&amp; long != null)">
         	join station secondary
-        	  on prime.site_id = secondary.site_id and
+        	  on prime.station_id = secondary.station_id and
                  prime.data_source_id = secondary.data_source_id
         </if>
         <where>
