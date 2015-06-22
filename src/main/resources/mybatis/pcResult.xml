@@ -32,7 +32,7 @@
         
     <sql id="resultCount">
 		select data_source,
-		       count(distinct prime.station_id) station_count,
+		       count(distinct prime.data_source||'-'||prime.station_id) station_count,
                sum(result_count) result_count
 		<include refid="dynamicWhere.resultsCountBase"/>
 		group by rollup(data_source)
