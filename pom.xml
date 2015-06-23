@@ -255,7 +255,7 @@
 
 	<scm>
 		<connection>scm:git:https://github.com/USGS-CIDA/WQP-WQX-Services.git</connection>
-		<developerConnection>scm:git:ssh://git@github.com:USGS-CIDA/WQP-WQX-Services.git</developerConnection>
+		<developerConnection>scm:git:ssh://git@github.com/USGS-CIDA/WQP-WQX-Services.git</developerConnection>
 		<url>https://github.com/USGS-CIDA/WQP-WQX-Services</url>
   	</scm>
 
