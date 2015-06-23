@@ -4,8 +4,7 @@
 <mapper namespace="simpleStation">
 
     <select id="select" resultType="java.util.LinkedHashMap" fetchSize="500">
-        select <include refid="dynamicWhere.stationResultHashHint"/>
-		       prime.data_source,
+        select prime.data_source,
         	   prime.organization,
         	   prime.organization_name,
 		       prime.site_id,

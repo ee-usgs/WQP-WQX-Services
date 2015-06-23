@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import gov.usgs.cida.wqp.IntegrationTest;
+import gov.usgs.cida.wqp.DBIntegrationTest;
 import gov.usgs.cida.wqp.dao.intfc.IDao;
 import gov.usgs.cida.wqp.parameter.Parameters;
 import gov.usgs.cida.wqp.util.MybatisConstants;
@@ -19,7 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DatabaseSetups;
 
-@Category(IntegrationTest.class)
+@Category(DBIntegrationTest.class)
 @DatabaseSetups({
 	@DatabaseSetup("classpath:/testData/clearAll.xml"),
 	@DatabaseSetup("classpath:/testData/stationCount.xml")

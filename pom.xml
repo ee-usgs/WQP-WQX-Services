@@ -1,10 +1,9 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>gov.usgs.cida.wqp</groupId>
 	<artifactId>wqp</artifactId>
-	<version>0.1.0-SNAPSHOT</version>
+	<version>0.1.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
 	<name>wqpgateway</name>
@@ -163,43 +162,44 @@
 			 		<includes>
 			  			<include>**/*.class</include>
 			 		</includes>
-			 		<excludedGroups>gov.usgs.cida.wqp.IntegrationTest</excludedGroups>
+			 		<excludedGroups>gov.usgs.cida.wqp.DBIntegrationTest,gov.usgs.cida.wqp.FullIntegrationTest</excludedGroups>
 				</configuration>
 			</plugin>
-<!-- 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-			 	<artifactId>maven-failsafe-plugin</artifactId>
-			 	<version>2.18.1</version>
-			 	<dependencies>
-			  		<dependency>
-			   			<groupId>org.apache.maven.surefire</groupId>
-			   			<artifactId>surefire-junit47</artifactId>
-			   			<version>2.18.1</version>
-			  		</dependency>
-			 	</dependencies>
-			 	<configuration>
-			  		<groups>gov.usgs.cida.wqp.IntegrationTest</groups>
-			 	</configuration>
-				<executions>
-				  	<execution>
-					   	<goals>
-					    	<goal>integration-test</goal>
-					   	</goals>
-					   	<configuration>
-					    	<includes>
-					     		<include>**/*.class</include>
-					    	</includes>
-					   	</configuration>
-			  		</execution>
-			      	<execution>
-			        	<id>verify</id>
-			        	<phase>verify</phase>
-			        	<goals>
-			            	<goal>verify</goal>
-			        	</goals>
-			    	</execution>
-				</executions>
-			</plugin> -->
+<!--  			<plugin> -->
+<!-- 				<groupId>org.apache.maven.plugins</groupId> -->
+<!-- 			 	<artifactId>maven-failsafe-plugin</artifactId> -->
+<!-- 			 	<version>2.18.1</version> -->
+<!-- 			 	<dependencies> -->
+<!-- 			  		<dependency> -->
+<!-- 			   			<groupId>org.apache.maven.surefire</groupId> -->
+<!-- 			   			<artifactId>surefire-junit47</artifactId> -->
+<!-- 			   			<version>2.18.1</version> -->
+<!-- 			  		</dependency> -->
+<!-- 			 	</dependencies> -->
+<!-- 			 	<configuration> -->
+<!-- 			  		<groups>gov.usgs.cida.wqp.DBIntegrationTest</groups> -->
+<!-- 			  		<groups>gov.usgs.cida.wqp.FullIntegrationTest</groups> -->
+<!-- 			 	</configuration> -->
+<!-- 				<executions> -->
+<!-- 				  	<execution> -->
+<!-- 					   	<goals> -->
+<!-- 					    	<goal>integration-test</goal> -->
+<!-- 					   	</goals> -->
+<!-- 					   	<configuration> -->
+<!-- 					    	<includes> -->
+<!-- 					     		<include>**/*.class</include> -->
+<!-- 					    	</includes> -->
+<!-- 					   	</configuration> -->
+<!-- 			  		</execution> -->
+<!-- 			      	<execution> -->
+<!-- 			        	<id>verify</id> -->
+<!-- 			        	<phase>verify</phase> -->
+<!-- 			        	<goals> -->
+<!-- 			            	<goal>verify</goal> -->
+<!-- 			        	</goals> -->
+<!-- 			    	</execution> -->
+<!-- 				</executions> -->
+<!-- 			</plugin> -->
 		</plugins>
 	</build>
 
@@ -253,11 +253,11 @@
 	</distributionManagement>
 
 	<scm>
-		<connection>git:http://cida-eros-stash.er.usgs.gov:7999/wqp/wqpgateway.git</connection>
-        	<developerConnection>scm:git:ssh://git@cida-eros-stash.er.usgs.gov:7999/wqp/wqpgateway.git</developerConnection>
-        	<url>http://internal.cida.usgs.gov/stash/projects/WQP/repos/wqpgateway/browse</url>
-   		<tag>HEAD</tag>
-  	</scm>
+		<connection>scm:git:https://github.com/USGS-CIDA/WQP-WQX-Services.git</connection>
+		<developerConnection>scm:git:ssh://git@github.com/USGS-CIDA/WQP-WQX-Services.git</developerConnection>
+		<url>https://github.com/USGS-CIDA/WQP-WQX-Services</url>
+  	  <tag>HEAD</tag>
+  </scm>
 
 <!-- ==================================================================================================================== -->
 	<dependencyManagement>
