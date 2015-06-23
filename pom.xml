@@ -254,10 +254,9 @@
 	</distributionManagement>
 
 	<scm>
-		<connection>git:http://cida-eros-stash.er.usgs.gov:7999/wqp/wqpgateway.git</connection>
-        	<developerConnection>scm:git:ssh://git@cida-eros-stash.er.usgs.gov:7999/wqp/wqpgateway.git</developerConnection>
-        	<url>http://internal.cida.usgs.gov/stash/projects/WQP/repos/wqpgateway/browse</url>
-   		<tag>HEAD</tag>
+		<connection>scm:git:https://github.com/USGS-CIDA/WQP-WQX-Services.git</connection>
+		<developerConnection>scm:git:ssh://git@github.com:USGS-CIDA/WQP-WQX-Services.git</developerConnection>
+		<url>https://github.com/USGS-CIDA/WQP-WQX-Services</url>
   	</scm>
 
 <!-- ==================================================================================================================== -->
