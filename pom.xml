@@ -163,8 +163,7 @@
 			 		<includes>
 			  			<include>**/*.class</include>
 			 		</includes>
-			 		<excludedGroups>gov.usgs.cida.wqp.DBIntegrationTest</excludedGroups>
-			 		<excludedGroups>gov.usgs.cida.wqp.FullIntegrationTest</excludedGroups>
+			 		<excludedGroups>gov.usgs.cida.wqp.DBIntegrationTest,gov.usgs.cida.wqp.FullIntegrationTest</excludedGroups>
 				</configuration>
 			</plugin>
 <!--  			<plugin> -->
