@@ -138,17 +138,23 @@ public class MapToXlsxTransformerTest {
 		}
 	}
 	
-	public  Map<String, Object> getTestRow() {
-		   Map<String, Object> record = new LinkedHashMap<String, Object>();
-		   record.put("A", "data1");
-		   record.put("B", "data2");
-		   record.put("C", rowCount++);
-		   record.put("D", new Date(10000));
-		   record.put("E", null);
-		   record.put("F", new BigDecimal(29382.2398));
-		   record.put("G", "nocando");
-		   
-		   return record;
+	public Map<String, Object> getTestRow() {
+		Map<String, Object> record = new LinkedHashMap<String, Object>();
+		record.put("A", "data1");
+		record.put("B", "data2");
+		record.put("C", rowCount++);
+		record.put("D", new Date(10000));
+		record.put("E", null);
+		record.put("F", new BigDecimal(29382.2398));
+		record.put("G", "nocando");
+
+		return record;
+	}
+	
+	@Test
+	public void endNullPointerExceptionTest() {
+		//should not fail with NullPointerException without any data having been written
+		transformer.end();
 	}
 
 }

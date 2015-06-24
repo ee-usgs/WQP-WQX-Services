@@ -144,8 +144,11 @@ public class MapToXlsxTransformer extends Transformer {
 	@Override
 	public void end() {
 		try {
-			endSheet();
-			zos.finish();
+			//zos will be null if we did not process any data - in which case we do not need to close the sheet or zos.
+			if (null != zos) {
+				endSheet();
+				zos.finish();
+			}
 			super.end();
 		} catch (IOException e) {
 			throw new RuntimeException("Error ending spreadsheet", e);
