@@ -157,7 +157,7 @@
 		<where>
 			<include refid="dynamicWhere.baseWhereStationGeoClauses" />
 			<include refid="dynamicWhere.baseWhereStationClauses" />
-						<if test="sampleMedia != null || characteristicName != null || characteristicType != null || startDateLo != null || startDateHi != null ||
+						<if test="assemblage != null || sampleMedia != null || characteristicName != null || characteristicType != null || startDateLo != null || startDateHi != null ||
                       activityId != null || analyticalmethod != null || pCode != null || project != null">
             	and exists (select null from
                                    result_sum
