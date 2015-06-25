@@ -121,6 +121,11 @@ public class CountDaoBioResultTest extends CountDaoTest {
 		assertResults(counts, 2, "1", "1", null, null, "17", "17", null, null);
 
 		parms.clear();
+		parms.put(Parameters.ASSEMBLAGE.toString(), new String[]{"Fish/Nekton"});
+		counts = countDao.getCounts(namespace, parms);
+		assertResults(counts, 2, "1", null, null, "1", "19", null, null, "19");
+
+		parms.clear();
 		parms.put(Parameters.CHARACTERISTIC_NAME.toString(), new String[]{"Nitrate"});
 		counts = countDao.getCounts(namespace, parms);
 		assertResults(counts, 2, "1", null, null, "1", "19", null, null, "19");
@@ -205,6 +210,7 @@ public class CountDaoBioResultTest extends CountDaoTest {
 		parms.put("commandavoid", new String[]{"STORET"});
 		parms.put(Parameters.ANALYTICAL_METHOD.toString(), new String[]{"https://www.nemi.gov/methods/method_summary/4665/",
 			"https://www.nemi.gov/methods/method_summary/8896/"});
+		parms.put(Parameters.ASSEMBLAGE.toString(), new String[]{"Fish/Nekton", "Benthic Macroinvertebrate"});
 		parms.put(Parameters.CHARACTERISTIC_NAME.toString(), new String[]{"Beryllium", "Nitrate"});
 		parms.put(Parameters.CHARACTERISTIC_TYPE.toString(), new String[]{"Inorganics, Minor, Metals", "Nutrient"});
 		parms.put(Parameters.PCODE.toString(), new String[]{"00032", "00004"});

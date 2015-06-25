@@ -444,6 +444,7 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
     		get(endpoint + "xml" +
     			"&analyticalmethod=https://www.nemi.gov/methods/method_summary/4665/;https://www.nemi.gov/methods/method_summary/8896/" + 
     			"bBox=-89;43;-88;44" +
+    			"&assemblage=Fish/Nekton;Benthic Macroinvertebrates" +
     			"&characteristicName=Beryllium;Nitrate" +
     			"&characteristicType=Inorganics, Minor, Metals;Nutrient;Population/Community" + 
     			"&command.avoid=STORET;NWIS" + 
