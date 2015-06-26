@@ -81,7 +81,7 @@ public class BaseControllerTest {
 	public void processParametersTest_empty() {
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		testController.processParameters(request);
-		assertFalse(testController.pm.isValid());
+		assertFalse(TestBaseController.getPm().isValid());
         verify(parameterHandler, never()).validateAndTransform(anyMap());
 	}
 	
@@ -94,8 +94,8 @@ public class BaseControllerTest {
         MockHttpServletRequest request = new MockHttpServletRequest();
 		request.setParameter("countrycode", "US");
 		testController.processParameters(request);
-		assertEquals(p, testController.pm);
-		assertFalse(testController.pm.isValid());
+		assertEquals(p, TestBaseController.getPm());
+		assertFalse(TestBaseController.getPm().isValid());
         verify(parameterHandler).validateAndTransform(anyMap());
 	}
 
@@ -107,8 +107,8 @@ public class BaseControllerTest {
         MockHttpServletRequest request = new MockHttpServletRequest();
 		request.setParameter("countrycode", "US");
 		testController.processParameters(request);
-		assertEquals(p, testController.pm);
-		assertTrue(testController.pm.isValid());
+		assertEquals(p, TestBaseController.getPm());
+		assertTrue(TestBaseController.getPm().isValid());
         verify(parameterHandler).validateAndTransform(anyMap());
 	}
 
@@ -317,150 +317,150 @@ public class BaseControllerTest {
 	@Test
 	public void checkMaxRowsTest() {
 		TestBaseController small = new TestBaseController(null, null, null, null, 10);
-		small.pm = new ParameterMap();
+		TestBaseController.setPm(new ParameterMap());
 
 		//xml formats ok when less than max & always sorted
-        small.mimeType = MimeType.xml;
+		TestBaseController.setMimeType(MimeType.xml);
 		//No query parm
-		small.pm.getQueryParameters().clear();
+		TestBaseController.getPm().getQueryParameters().clear();
 		doMaxRowTrueAsserts(small, "5", "yes", false);
 		//now for a yes
-		small.pm.getQueryParameters().put(Parameters.SORTED.toString(), "yes");
+		TestBaseController.getPm().getQueryParameters().put(Parameters.SORTED.toString(), "yes");
 		doMaxRowTrueAsserts(small, "5", "yes", false);
 		//now for a no
-		small.pm.getQueryParameters().put(Parameters.SORTED.toString(), "no");
+		TestBaseController.getPm().getQueryParameters().put(Parameters.SORTED.toString(), "no");
 		doMaxRowTrueAsserts(small, "5", "yes", false);
 
-        small.mimeType = MimeType.kml;
+		TestBaseController.setMimeType(MimeType.kml);
 		//No query parm
-		small.pm.getQueryParameters().clear();
+		TestBaseController.getPm().getQueryParameters().clear();
 		doMaxRowTrueAsserts(small, "5", "yes", false);
 		//now for a yes
-		small.pm.getQueryParameters().put(Parameters.SORTED.toString(), "yes");
+		TestBaseController.getPm().getQueryParameters().put(Parameters.SORTED.toString(), "yes");
 		doMaxRowTrueAsserts(small, "5", "yes", false);
 		//now for a no
-		small.pm.getQueryParameters().put(Parameters.SORTED.toString(), "no");
+		TestBaseController.getPm().getQueryParameters().put(Parameters.SORTED.toString(), "no");
 		doMaxRowTrueAsserts(small, "5", "yes", false);
 
-        small.mimeType = MimeType.kmz;
+		TestBaseController.setMimeType(MimeType.kmz);
 		//No query parm
-		small.pm.getQueryParameters().clear();
+		TestBaseController.getPm().getQueryParameters().clear();
 		doMaxRowTrueAsserts(small, "5", "yes", false);
 		//now for a yes
-		small.pm.getQueryParameters().put(Parameters.SORTED.toString(), "yes");
+		TestBaseController.getPm().getQueryParameters().put(Parameters.SORTED.toString(), "yes");
 		doMaxRowTrueAsserts(small, "5", "yes", false);
 		//now for a no
-		small.pm.getQueryParameters().put(Parameters.SORTED.toString(), "no");
+		TestBaseController.getPm().getQueryParameters().put(Parameters.SORTED.toString(), "no");
 		doMaxRowTrueAsserts(small, "5", "yes", false);
 
 		//xml formats not ok when greater than max
-        small.mimeType = MimeType.xml;
+		TestBaseController.setMimeType(MimeType.xml);
 		//No query parm
-		small.pm.getQueryParameters().clear();
+		TestBaseController.getPm().getQueryParameters().clear();
 		doMaxRowFalseAsserts(small, "15");
 		//now for a yes
-		small.pm.getQueryParameters().put(Parameters.SORTED.toString(), "yes");
+		TestBaseController.getPm().getQueryParameters().put(Parameters.SORTED.toString(), "yes");
 		doMaxRowFalseAsserts(small, "15");
 		//now for a no
-		small.pm.getQueryParameters().put(Parameters.SORTED.toString(), "no");
+		TestBaseController.getPm().getQueryParameters().put(Parameters.SORTED.toString(), "no");
 		doMaxRowFalseAsserts(small, "15");
 
-        small.mimeType = MimeType.kml;
+		TestBaseController.setMimeType(MimeType.kml);
 		//No query parm
-		small.pm.getQueryParameters().clear();
+		TestBaseController.getPm().getQueryParameters().clear();
 		doMaxRowFalseAsserts(small, "15");
 		//now for a yes
-		small.pm.getQueryParameters().put(Parameters.SORTED.toString(), "yes");
+		TestBaseController.getPm().getQueryParameters().put(Parameters.SORTED.toString(), "yes");
 		doMaxRowFalseAsserts(small, "15");
 		//now for a no
-		small.pm.getQueryParameters().put(Parameters.SORTED.toString(), "no");
+		TestBaseController.getPm().getQueryParameters().put(Parameters.SORTED.toString(), "no");
 		doMaxRowFalseAsserts(small, "15");
 
-        small.mimeType = MimeType.kmz;
+		TestBaseController.setMimeType(MimeType.kmz);
 		//No query parm
-		small.pm.getQueryParameters().clear();
+		TestBaseController.getPm().getQueryParameters().clear();
 		doMaxRowFalseAsserts(small, "15");
 		//now for a yes
-		small.pm.getQueryParameters().put(Parameters.SORTED.toString(), "yes");
+		TestBaseController.getPm().getQueryParameters().put(Parameters.SORTED.toString(), "yes");
 		doMaxRowFalseAsserts(small, "15");
 		//now for a no
-		small.pm.getQueryParameters().put(Parameters.SORTED.toString(), "no");
+		TestBaseController.getPm().getQueryParameters().put(Parameters.SORTED.toString(), "no");
 		doMaxRowFalseAsserts(small, "15");
 
 		//other formats less than max always ok & sorting based on given (or lack of) sorted query parameter
-        small.mimeType = MimeType.csv;
+		TestBaseController.setMimeType(MimeType.csv);
 		//No query parm
-		small.pm.getQueryParameters().clear();
+		TestBaseController.getPm().getQueryParameters().clear();
 		doMaxRowTrueAsserts(small, "5", "yes", false);
 		//now for a yes
-		small.pm.getQueryParameters().put(Parameters.SORTED.toString(), "yes");
+		TestBaseController.getPm().getQueryParameters().put(Parameters.SORTED.toString(), "yes");
 		doMaxRowTrueAsserts(small, "5", "yes", false);
 		//now for a no
-		small.pm.getQueryParameters().put(Parameters.SORTED.toString(), "no");
+		TestBaseController.getPm().getQueryParameters().put(Parameters.SORTED.toString(), "no");
 		doMaxRowTrueAsserts(small, "5", "no", false);
 
-        small.mimeType = MimeType.tsv;
+		TestBaseController.setMimeType(MimeType.tsv);
 		//No query parm
-		small.pm.getQueryParameters().clear();
+		TestBaseController.getPm().getQueryParameters().clear();
 		doMaxRowTrueAsserts(small, "5", "yes", false);
 		//now for a yes
-		small.pm.getQueryParameters().put(Parameters.SORTED.toString(), "yes");
+		TestBaseController.getPm().getQueryParameters().put(Parameters.SORTED.toString(), "yes");
 		doMaxRowTrueAsserts(small, "5", "yes", false);
 		//now for a no
-		small.pm.getQueryParameters().put(Parameters.SORTED.toString(), "no");
+		TestBaseController.getPm().getQueryParameters().put(Parameters.SORTED.toString(), "no");
 		doMaxRowTrueAsserts(small, "5", "no", false);
 
-		small.mimeType = MimeType.xlsx;
+		TestBaseController.setMimeType(MimeType.xlsx);
 		//No query parm
-		small.pm.getQueryParameters().clear();
+		TestBaseController.getPm().getQueryParameters().clear();
 		doMaxRowTrueAsserts(small, "5", "yes", false);
 		//now for a yes
-		small.pm.getQueryParameters().put(Parameters.SORTED.toString(), "yes");
+		TestBaseController.getPm().getQueryParameters().put(Parameters.SORTED.toString(), "yes");
 		doMaxRowTrueAsserts(small, "5", "yes", false);
 		//now for a no
-		small.pm.getQueryParameters().put(Parameters.SORTED.toString(), "no");
+		TestBaseController.getPm().getQueryParameters().put(Parameters.SORTED.toString(), "no");
 		doMaxRowTrueAsserts(small, "5", "no", false);
         
         //other formats are ok, but not sorted when greater than max - and warning header given
-        small.mimeType = MimeType.csv;
+		TestBaseController.setMimeType(MimeType.csv);
 		//No query parm
-		small.pm.getQueryParameters().clear();
+		TestBaseController.getPm().getQueryParameters().clear();
 		doMaxRowTrueAsserts(small, "15", "no", true);
 		//now for a yes
-		small.pm.getQueryParameters().put(Parameters.SORTED.toString(), "yes");
+		TestBaseController.getPm().getQueryParameters().put(Parameters.SORTED.toString(), "yes");
 		doMaxRowTrueAsserts(small, "15", "no", true);
 		//now for a no
-		small.pm.getQueryParameters().put(Parameters.SORTED.toString(), "no");
+		TestBaseController.getPm().getQueryParameters().put(Parameters.SORTED.toString(), "no");
 		doMaxRowTrueAsserts(small, "15", "no", true);
 
-        small.mimeType = MimeType.tsv;
+		TestBaseController.setMimeType(MimeType.tsv);
 		//No query parm
-		small.pm.getQueryParameters().clear();
+		TestBaseController.getPm().getQueryParameters().clear();
 		doMaxRowTrueAsserts(small, "15", "no", true);
 		//now for a yes
-		small.pm.getQueryParameters().put(Parameters.SORTED.toString(), "yes");
+		TestBaseController.getPm().getQueryParameters().put(Parameters.SORTED.toString(), "yes");
 		doMaxRowTrueAsserts(small, "15", "no", true);
 		//now for a no
-		small.pm.getQueryParameters().put(Parameters.SORTED.toString(), "no");
+		TestBaseController.getPm().getQueryParameters().put(Parameters.SORTED.toString(), "no");
 		doMaxRowTrueAsserts(small, "15", "no", true);
 
-		small.mimeType = MimeType.xlsx;
+		TestBaseController.setMimeType(MimeType.xlsx);
 		//No query parm
-		small.pm.getQueryParameters().clear();
+		TestBaseController.getPm().getQueryParameters().clear();
 		doMaxRowTrueAsserts(small, "15", "no", true);
 		//now for a yes
-		small.pm.getQueryParameters().put(Parameters.SORTED.toString(), "yes");
+		TestBaseController.getPm().getQueryParameters().put(Parameters.SORTED.toString(), "yes");
 		doMaxRowTrueAsserts(small, "15", "no", true);
 		//now for a no
-		small.pm.getQueryParameters().put(Parameters.SORTED.toString(), "no");
+		TestBaseController.getPm().getQueryParameters().put(Parameters.SORTED.toString(), "no");
 		doMaxRowTrueAsserts(small, "15", "no", true);
 	}
 
 	public void doMaxRowTrueAsserts(TestBaseController small, String rows, String expectedSort, boolean isHeaderexpected) {
         HttpServletResponse response = new MockHttpServletResponse();
         assertTrue(small.checkMaxRows(response, rows));
-        assertTrue(small.pm.getQueryParameters().containsKey(Parameters.SORTED.toString()));
-        assertEquals(expectedSort, small.pm.getQueryParameters().get(Parameters.SORTED.toString()));
+        assertTrue(TestBaseController.getPm().getQueryParameters().containsKey(Parameters.SORTED.toString()));
+        assertEquals(expectedSort, TestBaseController.getPm().getQueryParameters().get(Parameters.SORTED.toString()));
         if (isHeaderexpected) {
             assertEquals(1, response.getHeaderNames().size());
             assertTrue(response.getHeaderNames().contains(HttpConstants.HEADER_WARNING));

@@ -48,9 +48,10 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 	protected final ILogService logService;
 	protected final Integer maxResultRows;
 
-	protected ParameterMap pm;
-	protected MimeType mimeType;
-	protected boolean zipped = false;
+	private static ThreadLocal<ParameterMap> pm = new ThreadLocal<ParameterMap>();
+	private static ThreadLocal<MimeType> mimeType = new ThreadLocal<MimeType>();
+	private static ThreadLocal<Boolean> zipped = new ThreadLocal<Boolean>();
+	private static ThreadLocal<BigDecimal> logId = new ThreadLocal<BigDecimal>();
 	
 	public BaseController(IStreamingDao inStreamingDao, ICountDao inCountDao,
 			IParameterHandler inParameterHandler, ILogService inLogService,
@@ -63,6 +64,45 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 		countDao         = inCountDao;
 		logService       = inLogService;
 		maxResultRows = inMaxResultRows;
+	}
+	
+	public static ParameterMap getPm() {
+		return pm.get();
+	}
+
+	public static void setPm(ParameterMap inPm) {
+		pm.set(inPm);
+	}
+
+	public static MimeType getMimeType() {
+		return mimeType.get();
+	}
+
+	public static void setMimeType(MimeType inMimeType) {
+		mimeType.set(inMimeType);
+	}
+
+	public static boolean getZipped() {
+		return zipped.get();
+	}
+
+	public static void setZipped(Boolean inZipped) {
+		zipped.set(inZipped);
+	}
+
+	public static BigDecimal getLogId() {
+		return logId.get();
+	}
+
+	public static void setLogId(BigDecimal inLogId) {
+		logId.set(inLogId);
+	}
+
+	public static void remove() {
+		pm.remove();
+		mimeType.remove();
+		zipped.remove();
+		logId.remove();
 	}
 	
 	protected boolean isZipped(String zipParm, String mimeType) {
@@ -139,13 +179,14 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 	
 	protected void doHeadRequest(HttpServletRequest request, HttpServletResponse response, String mybatisNamespace, String endpoint) {
 		LOG.info("Processing Head: {}", request.getQueryString());
-		BigDecimal logId = logService.logRequest(request, response);
+		logId.set(logService.logRequest(request, response));
 		
 		try {
-			doHeader(request, response, logId, mybatisNamespace, endpoint);
+			doHeader(request, response, getLogId(), mybatisNamespace, endpoint);
 		} finally {
-			logService.logRequestComplete(logId, String.valueOf(response.getStatus()));
+			logService.logRequestComplete(getLogId(), String.valueOf(response.getStatus()));
 			LOG.info("Processing Head complete: {}", request.getQueryString());
+			remove();
 		}
 	}
 
@@ -153,22 +194,22 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 			String mybatisNamespace, String endpoint) {
 		response.setCharacterEncoding(DEFAULT_ENCODING);
 		processParameters(request);
-		if ( ! pm.isValid() ) {
-			writeWarningHeaders(response, pm.getValidationMessages());
+		if ( ! getPm().isValid() ) {
+			writeWarningHeaders(response, getPm().getValidationMessages());
 			LOG.info("Processing Head invalid params end:{}", request.getQueryString());
 			return false;
 		}
 
-		String mimeTypeParam = (String) pm.getQueryParameters().get(Parameters.MIMETYPE.toString());
-		String zipParam = (String) pm.getQueryParameters().get(Parameters.ZIP.toString());
-		zipped = isZipped(zipParam, mimeTypeParam);
-		mimeType = adjustMimeType(MimeType.csv.fromString(mimeTypeParam), zipped);
+		String mimeTypeParam = (String) getPm().getQueryParameters().get(Parameters.MIMETYPE.toString());
+		String zipParam = (String) getPm().getQueryParameters().get(Parameters.ZIP.toString());
+		zipped.set(isZipped(zipParam, mimeTypeParam));
+		mimeType.set(adjustMimeType(MimeType.csv.fromString(mimeTypeParam), getZipped()));
 
-		List<Map<String, Object>> counts = countDao.getCounts(mybatisNamespace, pm.getQueryParameters());
+		List<Map<String, Object>> counts = countDao.getCounts(mybatisNamespace, getPm().getQueryParameters());
 
 		response.setCharacterEncoding(DEFAULT_ENCODING);
-		response.addHeader(HEADER_CONTENT_TYPE, getContentHeader(zipped, mimeType));
-		response.setHeader(HEADER_CONTENT_DISPOSITION,"attachment; filename=" + getAttachementFileName(zipped, mimeType, endpoint));
+		response.addHeader(HEADER_CONTENT_TYPE, getContentHeader(getZipped(), getMimeType()));
+		response.setHeader(HEADER_CONTENT_DISPOSITION,"attachment; filename=" + getAttachementFileName(getZipped(), getMimeType(), endpoint));
 		String totalHeader = addCountHeaders(response, counts);
 		
 		logService.logHeadComplete(response, logId);
@@ -177,12 +218,12 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 	}
 	
 	protected boolean checkMaxRows(HttpServletResponse response, String totalRows) {
-		switch (mimeType) {
+		switch (getMimeType()) {
 		case kml:
 		case kmz:
 		case xml:
 			if (Integer.valueOf(totalRows) <= maxResultRows) {
-				pm.getQueryParameters().put(Parameters.SORTED.toString(), "yes");
+				getPm().getQueryParameters().put(Parameters.SORTED.toString(), "yes");
 				return true;
 			} else {
 				response.setStatus(HttpStatus.BAD_REQUEST.value());
@@ -191,11 +232,11 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 			}
 		default:
 			if (Integer.valueOf(totalRows) > maxResultRows) {
-				pm.getQueryParameters().put(Parameters.SORTED.toString(), "no");
+				getPm().getQueryParameters().put(Parameters.SORTED.toString(), "no");
 				response.addHeader(HEADER_WARNING, "This query will return in excess of " + maxResultRows + " results, the data will not be sorted.");
 			} else {
-				if (!pm.getQueryParameters().containsKey(Parameters.SORTED.toString())) {
-					pm.getQueryParameters().put(Parameters.SORTED.toString(), "yes");
+				if (!getPm().getQueryParameters().containsKey(Parameters.SORTED.toString())) {
+					getPm().getQueryParameters().put(Parameters.SORTED.toString(), "yes");
 				}
 			}
 			return true;
@@ -203,17 +244,17 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 	}
 	
 	protected void processParameters(HttpServletRequest request) {
-		pm = new ParameterMap();
+		setPm(new ParameterMap());
 		if (request.getParameterMap().isEmpty()) {
 			LOG.debug("No parameters");
-			pm.setValid(false);
+			getPm().setValid(false);
 		} else {
 			LOG.trace("got parameters");
 			Map<String, String[]> requestParams = new HashMap<String, String[]>(request.getParameterMap());
 			LOG.debug("requestParams: {}", requestParams);
-			pm = parameterHandler.validateAndTransform(requestParams);
-			LOG.debug("pm: {}", pm);
-			LOG.debug("queryParms: {}", pm.getQueryParameters());
+			setPm(parameterHandler.validateAndTransform(requestParams));
+			LOG.debug("pm: {}", getPm());
+			LOG.debug("queryParms: {}", getPm().getQueryParameters());
 		}
 	}
 	
@@ -221,17 +262,18 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 	
 	protected void doGetRequest(HttpServletRequest request, HttpServletResponse response, String mybatisNamespace, String endpoint) {
 		LOG.info("Processing Get: {}", request.getQueryString());
-		BigDecimal logId = logService.logRequest(request, response);
+		logId.set(logService.logRequest(request, response));
 		OutputStream responseStream = null;
+		String realHttpStatus = String.valueOf(response.getStatus());
 		
 		try {
-			if (doHeader(request, response, logId, mybatisNamespace, endpoint)) {
-				String namespace = getNamespace(mybatisNamespace, mimeType);
-				responseStream = getOutputStream(response, zipped, getZipEntryName(endpoint, mimeType));
-				Transformer transformer = getTransformer(mimeType, responseStream, logId);
+			if (doHeader(request, response, getLogId(), mybatisNamespace, endpoint)) {
+				String namespace = getNamespace(mybatisNamespace, getMimeType());
+				responseStream = getOutputStream(response, getZipped(), getZipEntryName(endpoint, getMimeType()));
+				Transformer transformer = getTransformer(getMimeType(), responseStream, getLogId());
 					
 				ResultHandler handler = new StreamingResultHandler(transformer);
-				streamingDao.stream(namespace, pm.getQueryParameters(), handler);
+				streamingDao.stream(namespace, getPm().getQueryParameters(), handler);
 		
 				transformer.end();
 					
@@ -239,9 +281,12 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 		} catch (Exception e) {
 			response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
 			int hashValue = response.hashCode();
+			realHttpStatus = HttpStatus.INTERNAL_SERVER_ERROR.toString() + "-" + hashValue;
 			//Note: we are giving the user a generic message.  
 			//Server logs can be used to troubleshoot problems.
 			String msgText = "Something bad happened. Contact us with Reference Number: " + hashValue;
+			LOG.error("logId: {}", BaseController.getLogId());
+			LOG.error("status: {}", HttpStatus.INTERNAL_SERVER_ERROR.value());
 			LOG.error(msgText, e);
 			response.addHeader(HEADER_FATAL_ERROR, msgText);
 			if (null != responseStream) {
@@ -255,7 +300,7 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 		} finally {
 			if (null != responseStream) {
 				try {
-					if (zipped) {
+					if (getZipped()) {
 						closeZip(responseStream);
 					}
 				} catch (Exception e) {
@@ -270,7 +315,8 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 				}
 			}
 			LOG.info("Processing Get complete: {}", request.getQueryString());
-			logService.logRequestComplete(logId, String.valueOf(response.getStatus()));
+			logService.logRequestComplete(getLogId(), realHttpStatus);
+			remove();
 		}
 	}
 	

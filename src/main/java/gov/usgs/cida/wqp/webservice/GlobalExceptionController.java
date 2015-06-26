@@ -54,6 +54,8 @@ public class GlobalExceptionController {
 		//Note: we are giving the user a generic message.  
 		//Server logs can be used to troubleshoot problems.
 		String msgText = "Something bad happened. Contact us with Reference Number: " + hashValue;
+		LOG.error("logId: {}", BaseController.getLogId());
+		LOG.error("status: {}", HttpStatus.INTERNAL_SERVER_ERROR.value());
 		LOG.error(msgText, ex);
 		response.addHeader(HttpConstants.HEADER_FATAL_ERROR, msgText);
 		printException(response, msgText);
