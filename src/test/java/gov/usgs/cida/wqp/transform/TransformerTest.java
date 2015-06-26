@@ -3,6 +3,7 @@ package gov.usgs.cida.wqp.transform;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
@@ -77,7 +78,7 @@ public class TransformerTest {
 			verify(logService, never()).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class));
 			verify(logService, never()).logHeadComplete(any(HttpServletResponse.class), eq(logId));
 			verify(logService, never()).logFirstRowComplete(logId);
-			verify(logService, never()).logRequestComplete(eq(logId), any(String.class));
+			verify(logService, never()).logRequestComplete(eq(logId), anyString());
 			transformer.close();
 		} catch (IOException e) {
 			fail(e.getLocalizedMessage());
@@ -92,7 +93,7 @@ public class TransformerTest {
 			verify(logService, never()).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class));
 			verify(logService, never()).logHeadComplete(any(HttpServletResponse.class), eq(logId));
 			verify(logService, never()).logFirstRowComplete(logId);
-			verify(logService, never()).logRequestComplete(eq(logId), any(String.class));
+			verify(logService, never()).logRequestComplete(eq(logId), anyString());
 			transformer.close();
 		} catch (IOException e) {
 			fail(e.getLocalizedMessage());
@@ -111,7 +112,7 @@ public class TransformerTest {
 			verify(logService, never()).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class));
 			verify(logService, never()).logHeadComplete(any(HttpServletResponse.class), eq(logId));
 			verify(logService, times(1)).logFirstRowComplete(logId);
-			verify(logService, never()).logRequestComplete(eq(logId), any(String.class));
+			verify(logService, never()).logRequestComplete(eq(logId), anyString());
 			transformer.close();
 		} catch (IOException e) {
 			fail(e.getLocalizedMessage());
