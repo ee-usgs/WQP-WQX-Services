@@ -18,22 +18,22 @@ public class CountDaoStationTest extends CountDaoTest {
 
 	@Test
 	public void singleParameterTests() {
-		super.singleParameterTests(ICountDao.STATION_NAMESPACE);
+		super.singleParameterTests(ICountDao.STATION_NAMESPACE, false);
 	}
 	
 	@Test
 	public void multipleParameterTests() {
-		super.multipleParameterTests(ICountDao.STATION_NAMESPACE);
+		super.multipleParameterTests(ICountDao.STATION_NAMESPACE, false);
 	}
 
 	@Test
 	public void singleParameterKmlTests() {
-		super.singleParameterTests(ICountDao.STATION_KML_NAMESPACE);
+		super.singleParameterTests(ICountDao.STATION_KML_NAMESPACE, false);
 	}
 	
 	@Test
 	public void multipleParameterKmlTests() {
-		super.multipleParameterTests(ICountDao.STATION_KML_NAMESPACE);
+		super.multipleParameterTests(ICountDao.STATION_KML_NAMESPACE, false);
 	}
 
 }

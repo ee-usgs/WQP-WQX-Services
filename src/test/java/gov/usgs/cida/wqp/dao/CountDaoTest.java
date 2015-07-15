@@ -18,12 +18,12 @@ public abstract class CountDaoTest extends BaseSpringTest {
 	@Autowired 
 	CountDao countDao;
 
-	public void singleParameterTests(String namespace) {
+	public void singleParameterTests(String namespace, boolean includeResults) {
 		Map<String, Object> parms = new HashMap<>();
 		List<Map<String, Object>> counts = countDao.getCounts(namespace, null);
-		assertResults(counts, 4, "6", "2", "2", "2");
+		assertResults(includeResults, counts, 5, "7", "2", "2", "2", "1", "81", "12", "24", "4", "41");
 		counts = countDao.getCounts(namespace, parms);
-		assertResults(counts, 4, "6", "2", "2", "2");
+		assertResults(includeResults, counts, 5, "7", "2", "2", "2", "1", "81", "12", "24", "4", "41");
 
 		//Counts against station_sum
 
@@ -37,62 +37,62 @@ public abstract class CountDaoTest extends BaseSpringTest {
 		parms.clear();
 		parms.put("commandavoid", new String[]{"STORET"});
 		counts = countDao.getCounts(namespace, parms);
-		assertResults(counts, 2, "2", "2", null, null);
+		assertResults(includeResults, counts, 2, "2", "2", null, null, null, "12", "12", null, null, null);
 		
 		parms.clear();
 		parms.put(Parameters.COUNTRY.toString(), new String[]{"US"});
 		counts = countDao.getCounts(namespace, parms);
-		assertResults(counts, 4, "6", "2", "2", "2");
+		assertResults(includeResults, counts, 5, "7", "2", "2", "2", "1", "81", "12", "24", "4", "41");
 
 		parms.clear();
 		parms.put(Parameters.COUNTY.toString(), new String[]{"US:55:027"});
 		counts = countDao.getCounts(namespace, parms);
-		assertResults(counts, 2, "1", "1", null, null);
+		assertResults(includeResults, counts, 2, "1", "1", null, null, null, "7", "7", null, null, null);
 
 		parms.clear();
 		parms.put(Parameters.HUC.toString(), new String[]{"07"});
 		counts = countDao.getCounts(namespace, parms);
-		assertResults(counts, 4, "6", "2", "2", "2");
+		assertResults(includeResults, counts, 4, "6", "2", "2", "2", null, "40", "12", "24", "4", null);
 
 		parms.clear();
 		parms.put(Parameters.HUC.toString(), new String[]{"0708"});
 		counts = countDao.getCounts(namespace, parms);
-		assertResults(counts, 3, "2", null, "1", "1");
+		assertResults(includeResults, counts, 3, "2", null, "1", "1", null, "12", null, "11", "1", null);
 
 		parms.clear();
 		parms.put(Parameters.HUC.toString(), new String[]{"070801"});
 		counts = countDao.getCounts(namespace, parms);
-		assertResults(counts, 3, "2", null, "1", "1");
+		assertResults(includeResults, counts, 3, "2", null, "1", "1", null, "12", null, "11", "1", null);
 
 		parms.clear();
 		parms.put(Parameters.HUC.toString(), new String[]{"07090002"});
 		counts = countDao.getCounts(namespace, parms);
-		assertResults(counts, 2, "2", "2", null, null);
+		assertResults(includeResults, counts, 2, "2", "2", null, null, null, "12", "12", null, null, null);
 
 		parms.clear();
 		parms.put(Parameters.ORGANIZATION.toString(), new String[]{"USGS-WI"});
 		counts = countDao.getCounts(namespace, parms);
-		assertResults(counts, 2, "2", "2", null, null);
+		assertResults(includeResults, counts, 2, "2", "2", null, null, null, "12", "12", null, null, null);
 
 		parms.clear();
 		parms.put(Parameters.PROVIDERS.toString(), new String[]{"STEWARDS"});
 		counts = countDao.getCounts(namespace, parms);
-		assertResults(counts, 2, "2", null, "2", null);
+		assertResults(includeResults, counts, 2, "2", null, "2", null, null, "24", null, "24", null, null);
 
 		parms.clear();
 		parms.put(Parameters.SITEID.toString(), new String[]{"11NPSWRD-BICA_MFG_B"});
 		counts = countDao.getCounts(namespace, parms);
-		assertResults(counts, 2, "1", null, null, "1");
+		assertResults(includeResults, counts, 2, "1", null, null, "1", null, "1", null, null, "1", null);
 
 		parms.clear();
 		parms.put(Parameters.SITE_TYPE.toString(), new String[]{"Stream"});
 		counts = countDao.getCounts(namespace, parms);
-		assertResults(counts, 4, "3", "1", "1", "1");
+		assertResults(includeResults, counts, 5, "4", "1", "1", "1", "1", "62", "5", "13", "3", "41");
 
 		parms.clear();
 		parms.put(Parameters.STATE.toString(), new String[]{"US:55"});
 		counts = countDao.getCounts(namespace, parms);
-		assertResults(counts, 3, "3", "2", null, "1");
+		assertResults(includeResults, counts, 3, "3", "2", null, "1", null, "15", "12", null, "3", null);
 
 		//it looks like this does not use the goespatial index.
 		parms.clear();
@@ -100,7 +100,7 @@ public abstract class CountDaoTest extends BaseSpringTest {
 		parms.put(Parameters.LATITUDE.toString(), new String[]{"43.3836014"});
 		parms.put(Parameters.LONGITUDE.toString(), new String[]{"-88.9773314"});
 		counts = countDao.getCounts(namespace, parms);
-		assertResults(counts, 3, "3", "2", null, "1");
+		assertResults(includeResults, counts, 3, "3", "2", null, "1", null, "15", "12", null, "3", null);
 
 
 		//Counts against pc_result_ct_sum
@@ -108,37 +108,42 @@ public abstract class CountDaoTest extends BaseSpringTest {
 		parms.clear();
 		parms.put(Parameters.ANALYTICAL_METHOD.toString(), new String[]{"https://www.nemi.gov/methods/method_summary/8896/"});
 		counts = countDao.getCounts(namespace, parms);
-		assertResults(counts, 2, "1", "1", null, null);
+		assertResults(includeResults, counts, 2, "1", "1", null, null, null, "17", "17", null, null, null);
 
 		parms.clear();
 		parms.put(Parameters.ASSEMBLAGE.toString(), new String[]{"Fish/Nekton"});
 		counts = countDao.getCounts(namespace, parms);
-		assertResults(counts, 2, "1", null, null, "1");
+		assertResults(includeResults, counts, 3, "2", null, null, "1", "1", "62", null, null, "19", "43");
 
 		parms.clear();
 		parms.put(Parameters.CHARACTERISTIC_NAME.toString(), new String[]{"Nitrate"});
 		counts = countDao.getCounts(namespace, parms);
-		assertResults(counts, 2, "1", null, null, "1");
+		assertResults(includeResults, counts, 2, "1", null, null, "1", null, "19", null, null, "19", null);
 
 		parms.clear();
 		parms.put(Parameters.CHARACTERISTIC_TYPE.toString(), new String[]{"Nutrient"});
 		counts = countDao.getCounts(namespace, parms);
-		assertResults(counts, 2, "1", null, "1", null);
+		assertResults(includeResults, counts, 2, "1", null, "1", null, null, "23", null, "23", null, null);
 
 		parms.clear();
 		parms.put(Parameters.PCODE.toString(), new String[]{"00004"});
 		counts = countDao.getCounts(namespace, parms);
-		assertResults(counts, 2, "1", "1", null, null);
+		assertResults(includeResults, counts, 2, "1", "1", null, null, null, "29", "29", null, null, null);
 
 		parms.clear();
 		parms.put(Parameters.PROJECT.toString(), new String[]{"NAWQA"});
 		counts = countDao.getCounts(namespace, parms);
-		assertResults(counts, 2, "2", "2", null, null);
+		assertResults(includeResults, counts, 2, "2", "2", null, null, null, "46", "46", null, null, null);
 
 		parms.clear();
 		parms.put(Parameters.SAMPLE_MEDIA.toString(), new String[]{"Water"});
 		counts = countDao.getCounts(namespace, parms);
-		assertResults(counts, 2, "1", null, "1", null);
+		assertResults(includeResults, counts, 2, "1", null, "1", null, null, "31", null, "31", null, null);
+
+		parms.clear();
+		parms.put(Parameters.SUBJECT_TAXONOMIC_NAME.toString(), new String[]{"Acipenser"});
+		counts = countDao.getCounts(namespace, parms);
+		assertResults(includeResults, counts, 2, "1", null, null, null, "1", "43", null, null, null, "43");
 
 		
 		
@@ -152,16 +157,16 @@ public abstract class CountDaoTest extends BaseSpringTest {
 		parms.clear();
 		parms.put(Parameters.START_DATE_HI.toString(), new String[]{"10-11-2012"});
 		counts = countDao.getCounts(namespace, parms);
-		assertResults(counts, 2, "1", "1", null, null);
+		assertResults(includeResults, counts, 3, "2", "1", null, null, "1", "84", "37", null, null, "47");
 
 		parms.clear();
 		parms.put(Parameters.START_DATE_LO.toString(), new String[]{"10-11-2012"});
 		counts = countDao.getCounts(namespace, parms);
-		assertResults(counts, 2, "1", "1", null, null);
+		assertResults(includeResults, counts, 2, "1", "1", null, null, null, "37", "37", null, null, null);
 		
 	}
 	
-	public void multipleParameterTests(String namespace) {
+	public void multipleParameterTests(String namespace, boolean includeResults) {
 		Map<String, Object> parms = new HashMap<>();
 
 		//Counts against station_sum
@@ -174,19 +179,19 @@ public abstract class CountDaoTest extends BaseSpringTest {
 //		assertResults(counts, 0, "0", "0", "0", "0");
 
 		parms.put(Parameters.COUNTRY.toString(), new String[]{"MX", "US"});
-		parms.put(Parameters.COUNTY.toString(), new String[]{"US:19:015", "US:30:003", "US:55:017", "US:55:021", "US:55:027"});
-		parms.put(Parameters.HUC.toString(), new String[]{"07","0708","070801","07090002", "07080105"});
-		parms.put(Parameters.ORGANIZATION.toString(), new String[]{"ARS", "11NPSWRD", "USGS-WI", "WIDNR_WQX"});
-		parms.put(Parameters.PROVIDERS.toString(), new String[]{"NWIS", "STEWARDS", "STORET"});
+		parms.put(Parameters.COUNTY.toString(), new String[]{"US:19:015", "US:30:003", "US:55:017", "US:55:021", "US:55:027", "US:06:115"});
+		parms.put(Parameters.HUC.toString(), new String[]{"07","0708","070801","07090002", "07080105", "18020107"});
+		parms.put(Parameters.ORGANIZATION.toString(), new String[]{"ARS", "11NPSWRD", "USGS-WI", "WIDNR_WQX", "USGS"});
+		parms.put(Parameters.PROVIDERS.toString(), new String[]{"NWIS", "STEWARDS", "STORET", "BIODATA"});
 		parms.put(Parameters.SITEID.toString(), new String[]{"11NPSWRD-BICA_MFG_B", "WIDNR_WQX-10030952", "USGS-05425700",
-			"USGS-431925089002701", "ARS-IAWC-IAWC225", "ARS-IAWC-IAWC410"});
+			"USGS-431925089002701", "ARS-IAWC-IAWC225", "ARS-IAWC-IAWC410", "USGS-11421000"});
 		parms.put(Parameters.SITE_TYPE.toString(), new String[]{"Lake, Reservoir, Impoundment", "Land", "Stream", "Well"});
-		parms.put(Parameters.STATE.toString(), new String[]{"US:19", "US:30", "US:55"});
-		parms.put(Parameters.WITHIN.toString(), new String[]{"1000"});
+		parms.put(Parameters.STATE.toString(), new String[]{"US:19", "US:30", "US:55", "US:06"});
+		parms.put(Parameters.WITHIN.toString(), new String[]{"2000"});
 		parms.put(Parameters.LATITUDE.toString(), new String[]{"43.3836014"});
 		parms.put(Parameters.LONGITUDE.toString(), new String[]{"-88.9773314"});
 		counts = countDao.getCounts(namespace, parms);
-		assertResults(counts, 4, "6", "2", "2", "2");
+		assertResults(includeResults, counts, 5, "7", "2", "2", "2", "1", "81", "12", "24", "4", "41");
 
 		parms.put("commandavoid", new String[]{"NWIS", "STORET"});
 		counts = countDao.getCounts(namespace, parms);
@@ -199,21 +204,22 @@ public abstract class CountDaoTest extends BaseSpringTest {
 		parms.put("commandavoid", new String[]{"STORET"});
 		parms.put(Parameters.ANALYTICAL_METHOD.toString(), new String[]{"https://www.nemi.gov/methods/method_summary/4665/",
 			"https://www.nemi.gov/methods/method_summary/8896/"});
-		parms.put(Parameters.ASSEMBLAGE.toString(), new String[]{"Beryllium", "Nitrate"});
-		parms.put(Parameters.CHARACTERISTIC_NAME.toString(), new String[]{"Fish/Nekton", "Benthic Macroinvertebrate"});
-		parms.put(Parameters.CHARACTERISTIC_TYPE.toString(), new String[]{"Inorganics, Minor, Metals", "Nutrient"});
+		parms.put(Parameters.ASSEMBLAGE.toString(), new String[]{"Fish/Nekton", "Benthic Macroinvertebrate"});
+		parms.put(Parameters.CHARACTERISTIC_NAME.toString(), new String[]{"Beryllium", "Nitrate", "Count"});
+		parms.put(Parameters.CHARACTERISTIC_TYPE.toString(), new String[]{"Inorganics, Minor, Metals", "Nutrient", "Biological"});
 		parms.put(Parameters.PCODE.toString(), new String[]{"00032", "00004"});
-		parms.put(Parameters.PROJECT.toString(), new String[]{"NAWQA", "CEAP"});
+		parms.put(Parameters.PROJECT.toString(), new String[]{"NAWQA", "CEAP", "SACR BioTDB"});
 		parms.put(Parameters.SAMPLE_MEDIA.toString(), new String[]{"Other", "Sediment", "Water"});
 		parms.put(Parameters.COUNTRY.toString(), new String[]{"MX", "US"});
-		parms.put(Parameters.COUNTY.toString(), new String[]{"US:19:015", "US:30:003", "US:55:017", "US:55:021", "US:55:027"});
-		parms.put(Parameters.HUC.toString(), new String[]{"07","0708","070801","07090002", "07080105"});
-		parms.put(Parameters.ORGANIZATION.toString(), new String[]{"ARS", "11NPSWRD", "USGS-WI", "WIDNR_WQX"});
-		parms.put(Parameters.PROVIDERS.toString(), new String[]{"NWIS", "STEWARDS", "STORET"});
+		parms.put(Parameters.COUNTY.toString(), new String[]{"US:19:015", "US:30:003", "US:55:017", "US:55:021", "US:55:027", "US:06:115"});
+		parms.put(Parameters.HUC.toString(), new String[]{"07","0708","070801","07090002", "07080105", "18020107"});
+		parms.put(Parameters.ORGANIZATION.toString(), new String[]{"ARS", "11NPSWRD", "USGS-WI", "WIDNR_WQX", "USGS"});
+		parms.put(Parameters.PROVIDERS.toString(), new String[]{"NWIS", "STEWARDS", "STORET", "BIODATA"});
 		parms.put(Parameters.SITEID.toString(), new String[]{"11NPSWRD-BICA_MFG_B", "WIDNR_WQX-10030952", "USGS-05425700",
-			"USGS-431925089002701", "ARS-IAWC-IAWC225", "ARS-IAWC-IAWC410"});
+			"USGS-431925089002701", "ARS-IAWC-IAWC225", "ARS-IAWC-IAWC410", "USGS-11421000"});
 		parms.put(Parameters.SITE_TYPE.toString(), new String[]{"Lake, Reservoir, Impoundment", "Land", "Stream", "Well"});
 		parms.put(Parameters.STATE.toString(), new String[]{"US:19", "US:30", "US:55"});
+		parms.put(Parameters.SUBJECT_TAXONOMIC_NAME.toString(), new String[]{"Acipenser", "Lota lota"});
 		counts = countDao.getCounts(namespace, parms);
 		//TODO - test data
 		//assertResults(counts, 2, "1", null, "1", null);
@@ -245,40 +251,81 @@ public abstract class CountDaoTest extends BaseSpringTest {
 
 	}
 	
-	private void assertResults(List<Map<String, Object>> counts, int expectedSize, String expectedTotal, String expectedNwis, String expectedStewards, String expectedStoret) {
-		assertEquals("List size", expectedSize, counts.size());
-		boolean nwis = (null == expectedNwis);
-		boolean stewards = (null == expectedStewards);
-		boolean storet = (null == expectedStoret);
-		boolean total = false;
+	private void assertResults(boolean includeResults, List<Map<String, Object>> counts, int expectedSize,
+			String expectedTotalStation, String expectedNwisStation, String expectedStewardsStation, String expectedStoretStation,
+			String expectedBiodataStation,
+			String expectedTotalResult, String expectedNwisResult, String expectedStewardsResult,
+			String expectedStoretResult, String expectedBiodataResult) {
+		assertEquals(expectedSize, counts.size());
+		boolean nwisStation = (null == expectedNwisStation);
+		boolean stewardsStation = (null == expectedStewardsStation);
+		boolean storetStation = (null == expectedStoretStation);
+		boolean biodataStation = (null == expectedBiodataStation);
+		boolean totalStation = false;
+		boolean nwisResult = (null == expectedNwisResult);
+		boolean stewardsResult = (null == expectedStewardsResult);
+		boolean storetResult = (null == expectedStoretResult);
+		boolean biodataResult = (null == expectedBiodataResult);
+		boolean totalResult = false;
 		for (int i = 0 ; i < counts.size() ; i++) {
 			if (null == counts.get(i).get(MybatisConstants.DATA_SOURCE)) {
-				assertEquals("total station count", expectedTotal, counts.get(i).get(MybatisConstants.STATION_COUNT).toString());
-				total = true;
+				assertEquals("total station count", expectedTotalStation, counts.get(i).get(MybatisConstants.STATION_COUNT).toString());
+				totalStation = true;
+				if (includeResults) {
+					assertEquals("total pcResult count", expectedTotalResult, counts.get(i).get(MybatisConstants.RESULT_COUNT).toString());
+					totalResult = true;
+				}
 			} else {
 				switch (counts.get(i).get(MybatisConstants.DATA_SOURCE).toString()) {
 				case "NWIS":
-					assertEquals("NWIS station count", expectedNwis, counts.get(i).get(MybatisConstants.STATION_COUNT).toString());
-					nwis = true;
+					assertEquals("NWIS station count", expectedNwisStation, counts.get(i).get(MybatisConstants.STATION_COUNT).toString());
+					nwisStation = true;
+					if (includeResults) {
+						assertEquals("NWIS pcResult count", expectedNwisResult, counts.get(i).get(MybatisConstants.RESULT_COUNT).toString());
+						nwisResult = true;
+					}
 					break;
 				case "STEWARDS":
-					assertEquals("STEWARDS station count", expectedStewards, counts.get(i).get(MybatisConstants.STATION_COUNT).toString());
-					stewards = true;
+					assertEquals("STEWARDS station count", expectedStewardsStation, counts.get(i).get(MybatisConstants.STATION_COUNT).toString());
+					stewardsStation = true;
+					if (includeResults) {
+						assertEquals("STEWARDS pcResult count", expectedStewardsResult, counts.get(i).get(MybatisConstants.RESULT_COUNT).toString());
+						stewardsResult = true;
+					}
 					break;
 				case "STORET":
-					assertEquals("STORET station count", expectedStoret, counts.get(i).get(MybatisConstants.STATION_COUNT).toString());
-					storet = true;
+					assertEquals("STORET station count", expectedStoretStation, counts.get(i).get(MybatisConstants.STATION_COUNT).toString());
+					storetStation = true;
+					if (includeResults) {
+						assertEquals("STORET pcResult count", expectedStoretResult, counts.get(i).get(MybatisConstants.RESULT_COUNT).toString());
+						storetResult = true;
+					}
+					break;
+				case "BIODATA":
+					assertEquals("BIODATA station count", expectedBiodataStation, counts.get(i).get(MybatisConstants.STATION_COUNT).toString());
+					biodataStation = true;
+					if (includeResults) {
+						assertEquals("BIODATA pcResult count", expectedBiodataResult, counts.get(i).get(MybatisConstants.RESULT_COUNT).toString());
+						biodataResult = true;
+					}
 					break;
 				default:
 					break;
 				}
 			}
 		}
-		assertTrue("got station Total", total);
-		assertTrue("got station NWIS", nwis);
-		assertTrue("got station STEWARDS", stewards);
-		assertTrue("got station STORET", storet);
-
+		assertTrue("got station Total", totalStation);
+		assertTrue("got station NWIS", nwisStation);
+		assertTrue("got station STEWARDS", stewardsStation);
+		assertTrue("got station STORET", storetStation);
+		assertTrue("got station BIODATA", biodataStation);
+		if (includeResults) {
+			assertTrue("got result Total", totalResult);
+			assertTrue("got result NWIS", nwisResult);
+			assertTrue("got result STEWARDS", stewardsResult);
+			assertTrue("got station STORET", storetResult);
+			assertTrue("got station BIODATA", biodataResult);
+		}
 	}
 
 }

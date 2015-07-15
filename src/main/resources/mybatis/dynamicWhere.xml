@@ -30,7 +30,7 @@
     <sql id="commandavoid">
         prime.data_source_id in (select data_source_id
                                    from data_source
-                                  where text != 'STEWARDS'
+                                  where text in ('NWIS', 'STORET')
                                         <foreach item="i" collection="commandavoid">
                                             and text != #{i}
                                         </foreach>)
@@ -105,6 +105,10 @@
         prime.state_code in <foreach item="i" collection="statecode" open="(" separator="," close=")">#{i}</foreach>
     </sql>
 
+    <sql id="subjectTaxonomicName">
+        sample_tissue_taxonomic_name in <foreach item="i" collection="subjectTaxonomicName" open="(" separator="," close=")">#{i}</foreach>
+    </sql>
+
     <sql id="within">
         sdo_within_distance(geom, sdo_geometry(2001, 4269, sdo_point_type(#{long[0]}, #{lat[0]}, null), null, null), 'DISTANCE='||#{within[0]}||' UNIT=MILE') = 'TRUE'
     </sql>
@@ -158,7 +162,7 @@
 			<include refid="dynamicWhere.baseWhereStationGeoClauses" />
 			<include refid="dynamicWhere.baseWhereStationClauses" />
 						<if test="assemblage != null || sampleMedia != null || characteristicName != null || characteristicType != null || startDateLo != null || startDateHi != null ||
-                      activityId != null || analyticalmethod != null || pCode != null || project != null">
+                      activityId != null || analyticalmethod != null || pCode != null || project != null || subjectTaxonomicName != null">
             	and exists (select null from
                                    result_sum
                              where prime.station_id = result_sum.station_id and
@@ -173,7 +177,7 @@
 		from 
 		<if test="assemblage == null &amp;&amp; sampleMedia == null &amp;&amp; characteristicName == null &amp;&amp; characteristicType == null &amp;&amp;
                   startDateLo == null &amp;&amp; startDateHi == null &amp;&amp; activityId == null &amp;&amp;
-                  analyticalmethod == null &amp;&amp; pCode == null &amp;&amp; project == null">
+                  analyticalmethod == null &amp;&amp; pCode == null &amp;&amp; project == null &amp;&amp; subjectTaxonomicName == null">
 			station_sum prime
           	<where>
           		<include refid="dynamicWhere.baseWhereStationGeoClauses" />
@@ -190,7 +194,7 @@
         	</if>
         </if>
         <if test="assemblage != null || sampleMedia != NULL || characteristicName != NULL || characteristicType != NULL || 
-                  analyticalmethod != null || pCode != null || project != null">
+                  analyticalmethod != null || pCode != null || project != null || subjectTaxonomicName != null">
         	<if test="startDateLo == NULL &amp;&amp; startDateHi == NULL &amp;&amp; within == NULL &amp;&amp; bBox == NULL">
 				result_ct_sum prime
                	<where>
@@ -202,7 +206,7 @@
         <if test="within != NULL || bBox != NULL">
         	<if test="assemblage != null || sampleMedia != NULL || characteristicName != NULL || characteristicType != NULL ||
                       startDateLo != NULL || startDateHi != NULL || activityId != null || 
-                      analyticalmethod != null || pCode != null || project != null">
+                      analyticalmethod != null || pCode != null || project != null || subjectTaxonomicName != null">
 					 result_nr_sum secondary
                 join (select /*+ index_combine(prime) */ data_source_id, station_id, site_id
                         from station prime
@@ -259,6 +263,9 @@
         </if>
         <if test="startDateLo != null || startDateHi != null">
             and (<include refid="dynamicWhere.startDateLoHi" />)
+        </if>
+        <if test="subjectTaxonomicName != null">
+            and (<include refid="dynamicWhere.subjectTaxonomicName" />)
         </if>
     </sql>
 

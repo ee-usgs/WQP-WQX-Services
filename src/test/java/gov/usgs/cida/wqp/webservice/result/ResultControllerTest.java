@@ -496,6 +496,7 @@ public class ResultControllerTest extends BaseSpringTest implements HttpConstant
     			"&statecode=US:19;US:30;US:55" + 
     			"&startDateHi=10-11-2012" +
     			"&startDateLo=10-11-2012" +
+    			"&subjectTaxonomicName=Acipenser;Lota lota" +
     			"&within=1000"))
 			.andExpect(status().isOk())
 			.andExpect(content().contentType(MimeType.csv.getMimeType()))

@@ -179,6 +179,12 @@ public class ParameterValidationConfig implements ValidationConstants, WqpEnvPro
 	}
 	
 	@Bean
+	public LookupValidator subjectTaxonomicNameValidator() {
+		// semicolon list of string ubjectTaxonomicName names
+		return new LookupValidator(codesService(), Parameters.SUBJECT_TAXONOMIC_NAME);
+	}
+	
+	@Bean
 	public BoundedFloatingPointValidator withinValidator() {
 		// one float value
 		return new BoundedFloatingPointValidator(Parameters.WITHIN, 0, Double.MAX_VALUE);
@@ -217,6 +223,7 @@ public class ParameterValidationConfig implements ValidationConstants, WqpEnvPro
 		validatorMap.put(Parameters.START_DATE_HI, startDateHiValidator());
 		validatorMap.put(Parameters.START_DATE_LO, startDateLoValidator());
 		validatorMap.put(Parameters.STATE, stateValidator());
+		validatorMap.put(Parameters.SUBJECT_TAXONOMIC_NAME, subjectTaxonomicNameValidator());
 		validatorMap.put(Parameters.WITHIN, withinValidator());
 		validatorMap.put(Parameters.ZIP, zipValidator());
         return validatorMap;
