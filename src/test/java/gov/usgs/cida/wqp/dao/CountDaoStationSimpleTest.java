@@ -18,12 +18,12 @@ public class CountDaoStationSimpleTest extends CountDaoTest {
 
 	@Test
 	public void singleParameterTests() {
-		super.singleParameterTests(ICountDao.SIMPLE_STATION_NAMESPACE);
+		super.singleParameterTests(ICountDao.SIMPLE_STATION_NAMESPACE, false);
 	}
 	
 	@Test
 	public void multipleParameterTests() {
-		super.multipleParameterTests(ICountDao.SIMPLE_STATION_NAMESPACE);
+		super.multipleParameterTests(ICountDao.SIMPLE_STATION_NAMESPACE, false);
 	}
 
 }

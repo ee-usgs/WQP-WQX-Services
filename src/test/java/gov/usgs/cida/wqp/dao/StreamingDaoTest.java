@@ -213,6 +213,10 @@ public class StreamingDaoTest extends BaseSpringTest {
 		parms.put(Parameters.START_DATE_LO.toString(), new String[]{"10-11-2012"});
 		streamingDao.stream(nameSpace, parms, handler);
 		
+		parms.clear();
+		parms.put(Parameters.SUBJECT_TAXONOMIC_NAME.toString(), new String[]{"Acipenser"});
+		streamingDao.stream(nameSpace, parms, handler);
+		
 	}
 	
 	private void multipleParameterTests(String nameSpace) {
@@ -242,6 +246,7 @@ public class StreamingDaoTest extends BaseSpringTest {
 		parms.put(Parameters.SAMPLE_MEDIA.toString(), new String[]{"Other", "Sediment", "Water"});
 		parms.put(Parameters.START_DATE_HI.toString(), new String[]{"10-11-2012"});
 		parms.put(Parameters.START_DATE_LO.toString(), new String[]{"10-11-2012"});
+		parms.put(Parameters.SUBJECT_TAXONOMIC_NAME.toString(), new String[]{"Acipenser", "Lota lota"});
 		parms.put(Parameters.WITHIN.toString(), new String[]{"1000"});
 		streamingDao.stream(nameSpace, parms, handler);
 	}
