@@ -87,7 +87,7 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
             .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
  
-    	assertEquals(CORSFilter.ACCESS_CONTROL_HEADERS,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
+    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
     	assertEquals("", rtn.getResponse().getContentAsString());
     }
 
@@ -112,7 +112,7 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
             .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
 
-        assertEquals(CORSFilter.ACCESS_CONTROL_HEADERS,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
+    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
         assertEquals(getCompareFile("bioResult.csv"), rtn.getResponse().getContentAsString());
     }
 
@@ -137,7 +137,7 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
             .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
  
-    	assertEquals(CORSFilter.ACCESS_CONTROL_HEADERS,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
+    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
     	assertEquals("", rtn.getResponse().getContentAsString());
     }
 
@@ -162,7 +162,7 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
             .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
 
-        assertEquals(CORSFilter.ACCESS_CONTROL_HEADERS,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
+    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
         assertEquals(getCompareFile("bioResult.csv"), extractZipContent(rtn.getResponse().getContentAsByteArray(), "biologicalresult.csv"));
     }
 
@@ -188,7 +188,7 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
             .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
 
-    	assertEquals(CORSFilter.ACCESS_CONTROL_HEADERS,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
+    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
     	assertEquals("", rtn.getResponse().getContentAsString());
     }
 
@@ -213,7 +213,7 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
             .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
 
-        assertEquals(CORSFilter.ACCESS_CONTROL_HEADERS,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
+    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
         assertEquals(getCompareFile("bioResult.tsv"), rtn.getResponse().getContentAsString());
     }
 
@@ -238,7 +238,7 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
             .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
 
-    	assertEquals(CORSFilter.ACCESS_CONTROL_HEADERS,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
+    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
     	assertEquals("", rtn.getResponse().getContentAsString());
     }
 
@@ -263,7 +263,7 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
             .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
 
-        assertEquals(CORSFilter.ACCESS_CONTROL_HEADERS,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
+    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
         assertEquals(getCompareFile("bioResult.tsv"), extractZipContent(rtn.getResponse().getContentAsByteArray(), "biologicalresult.tsv"));
     }
 
@@ -289,7 +289,7 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
     		.andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
     		.andReturn();
 	
-    	assertEquals(CORSFilter.ACCESS_CONTROL_HEADERS,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
+    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
     	assertEquals("", rtn.getResponse().getContentAsString());
 	}
   
@@ -314,7 +314,7 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
 			.andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
 			.andReturn();
 
-    	assertEquals(CORSFilter.ACCESS_CONTROL_HEADERS,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
+    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
 //    	assertEquals(harmonizeXml(getCompareFile("simpleStation.xml")), harmonizeXml(rtn.getResponse().getContentAsString()));
     }
 
@@ -339,7 +339,7 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
     		.andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
     		.andReturn();
 	
-    	assertEquals(CORSFilter.ACCESS_CONTROL_HEADERS,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
+    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
     	assertEquals("", rtn.getResponse().getContentAsString());
 	}
   
@@ -364,7 +364,7 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
 			.andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
 			.andReturn();
 
-    	assertEquals(CORSFilter.ACCESS_CONTROL_HEADERS,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
+    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
 //    	assertEquals(harmonizeXml(getCompareFile("simpleStation.xml")), harmonizeXml(rtn.getResponse().getContentAsString()));
     }
 
@@ -391,7 +391,7 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
             .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
  
-    	assertEquals(CORSFilter.ACCESS_CONTROL_HEADERS,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
+    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
     	assertEquals("", rtn.getResponse().getContentAsString());
     }
 
@@ -416,7 +416,7 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
             .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
 
-        assertEquals(CORSFilter.ACCESS_CONTROL_HEADERS,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
+    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
         assertEquals(harmonizeXml(getCompareFile("bioResult.xml")), harmonizeXml(rtn.getResponse().getContentAsString()));
     }
     
@@ -442,7 +442,7 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
             .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
  
-    	assertEquals(CORSFilter.ACCESS_CONTROL_HEADERS,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
+    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
     	assertEquals("", rtn.getResponse().getContentAsString());
     }
 
@@ -467,7 +467,7 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
             .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
 
-        assertEquals(CORSFilter.ACCESS_CONTROL_HEADERS,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
+    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
         assertEquals(harmonizeXml(getCompareFile("bioResult.xml")), harmonizeXml(extractZipContent(rtn.getResponse().getContentAsByteArray(), "biologicalresult.xml")));
     }
     
@@ -518,7 +518,7 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
             .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
 			.andReturn();
 
-        assertEquals(CORSFilter.ACCESS_CONTROL_HEADERS,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
+    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
 //        assertEquals(harmonizeXml(getCompareFile("simpleStation.xml")), harmonizeXml(rtn.getResponse().getContentAsString()));
 	
     }
