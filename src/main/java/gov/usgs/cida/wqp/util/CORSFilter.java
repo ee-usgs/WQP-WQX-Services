@@ -53,7 +53,7 @@ public class CORSFilter implements Filter {
 //		for (String header : ACCESS_CONTROL_HEADERS) {
 //			resp.addHeader(HttpConstants.HEADER_CORS_EXPOSE_HEADERS, header);
 //		}
-		resp.addHeader(HttpConstants.HEADER_CORS_EXPOSE_HEADERS, StringUtils.join(ACCESS_CONTROL_HEADERS, ','));
+		resp.addHeader(HttpConstants.HEADER_CORS_EXPOSE_HEADERS, StringUtils.join(ACCESS_CONTROL_HEADERS, ", "));
 		chain.doFilter(request, response);
 	}
 
