@@ -62,7 +62,7 @@ public abstract class BaseSpringTest implements HttpConstants {
 	public void checkCorsExposeHeaders(List<Object> header) {
 //    	assertEquals(CORSFilter.ACCESS_CONTROL_HEADERS,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
 		assertEquals(1, header.size());
-    	assertEquals(StringUtils.join(CORSFilter.ACCESS_CONTROL_HEADERS, ','), header.get(0));
+    	assertEquals(StringUtils.join(CORSFilter.ACCESS_CONTROL_HEADERS, ", "), header.get(0));
 	}
 
 }
