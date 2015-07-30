@@ -13,6 +13,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -49,9 +50,10 @@ public class CORSFilter implements Filter {
 		resp.setHeader(HttpConstants.HEADER_CORS_METHODS, HttpConstants.HEADER_CORS_METHODS_VALUE);
 		resp.setHeader(HttpConstants.HEADER_CORS_MAX_AGE, HttpConstants.HEADER_CORS_MAX_AGE_VALUE);
 		resp.setHeader(HttpConstants.HEADER_CORS_ALLOW_HEADERS, HttpConstants.HEADER_CORS_ALLOW_HEADERS_VALUE);
-		for (String header : ACCESS_CONTROL_HEADERS) {
-			resp.addHeader(HttpConstants.HEADER_CORS_EXPOSE_HEADERS, header);
-		}
+//		for (String header : ACCESS_CONTROL_HEADERS) {
+//			resp.addHeader(HttpConstants.HEADER_CORS_EXPOSE_HEADERS, header);
+//		}
+		resp.addHeader(HttpConstants.HEADER_CORS_EXPOSE_HEADERS, StringUtils.join(ACCESS_CONTROL_HEADERS, ','));
 		chain.doFilter(request, response);
 	}
 

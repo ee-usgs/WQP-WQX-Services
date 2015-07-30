@@ -2,14 +2,17 @@ package gov.usgs.cida.wqp;
 
 import static org.junit.Assert.assertEquals;
 import gov.usgs.cida.wqp.springinit.TestSpringConfig;
+import gov.usgs.cida.wqp.util.CORSFilter;
 import gov.usgs.cida.wqp.util.HttpConstants;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.runner.RunWith;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.test.context.ContextConfiguration;
@@ -55,4 +58,11 @@ public abstract class BaseSpringTest implements HttpConstants {
         }
         return os.toString();
 	}
+	
+	public void checkCorsExposeHeaders(List<Object> header) {
+//    	assertEquals(CORSFilter.ACCESS_CONTROL_HEADERS,	rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
+		assertEquals(1, header.size());
+    	assertEquals(StringUtils.join(CORSFilter.ACCESS_CONTROL_HEADERS, ','), header.get(0));
+	}
+
 }
