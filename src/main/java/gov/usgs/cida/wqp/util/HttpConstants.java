@@ -6,7 +6,7 @@ import org.springframework.http.MediaType;
 
 public interface HttpConstants extends XmlConstants {
 	String DEFAULT_ENCODING = "UTF-8";
-	String HEADER_FATAL_ERROR = "FATAL ERROR";
+	String HEADER_FATAL_ERROR = "FATAL-ERROR";
 	int    HEADER_WARNING_DEFAULT_CODE = 299;
 	String HEADER_WARNING = "Warning";
 	String HEADER_DELIMITER = "-";
