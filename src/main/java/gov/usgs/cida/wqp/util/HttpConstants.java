@@ -50,5 +50,6 @@ public interface HttpConstants extends XmlConstants {
 	String MIME_TYPE_JSON = MediaType.APPLICATION_JSON_VALUE;
 	String MIME_TYPE_KML = "application/vnd.google-earth.kml+xml";
 	String MIME_TYPE_KMZ = "application/vnd.google-earth.kmz";
+	String MIME_TYPE_GEOJSON = "application/vnd.geo+json";
 	
 }

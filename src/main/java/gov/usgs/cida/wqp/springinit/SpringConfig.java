@@ -7,6 +7,7 @@ import static gov.usgs.cida.wqp.util.MimeType.kmz;
 import static gov.usgs.cida.wqp.util.MimeType.tsv;
 import static gov.usgs.cida.wqp.util.MimeType.xlsx;
 import static gov.usgs.cida.wqp.util.MimeType.xml;
+import static gov.usgs.cida.wqp.util.MimeType.geojson;
 import gov.usgs.cida.wqp.util.HttpConstants;
 import gov.usgs.cida.wqp.util.JndiUtils;
 import gov.usgs.cida.wqp.util.MybatisConstants;
@@ -68,13 +69,14 @@ public class SpringConfig extends WebMvcConfigurerAdapter implements Environment
         	.favorPathExtension(false)
         	.favorParameter(true)
         	.parameterName("mimeType")
-        	.mediaType(csv.getExtension(),  csv.mediaType)
-        	.mediaType(tsv.getExtension(),  tsv.mediaType)
-        	.mediaType(xml.getExtension(),  xml.mediaType)
+        	.mediaType(csv.getExtension(), csv.mediaType)
+        	.mediaType(tsv.getExtension(), tsv.mediaType)
+        	.mediaType(xml.getExtension(), xml.mediaType)
         	.mediaType(json.getExtension(), json.mediaType)
         	.mediaType(xlsx.getExtension(), xlsx.mediaType)
         	.mediaType(kml.getExtension(), kml.mediaType)
         	.mediaType(kmz.getExtension(), kmz.mediaType)
+        	.mediaType(geojson.getExtension(), geojson.mediaType)
         	.ignoreAcceptHeader(true);
     }
     

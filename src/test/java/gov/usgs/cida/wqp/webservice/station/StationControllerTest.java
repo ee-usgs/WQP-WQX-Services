@@ -1,5 +1,6 @@
 package gov.usgs.cida.wqp.webservice.station;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
@@ -9,6 +10,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static uk.co.datumedge.hamcrest.json.SameJSONAs.sameJSONObjectAs;
+
+import org.json.JSONObject;
+
 import gov.usgs.cida.wqp.BaseSpringTest;
 import gov.usgs.cida.wqp.FullIntegrationTest;
 import gov.usgs.cida.wqp.parameter.Parameters;
@@ -482,6 +487,86 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
     	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
 //        assertEquals(harmonizeXml(getCompareFile("station.xml")), harmonizeXml(rtn.getResponse().getContentAsString()));
 	
+    }
+
+    @Test
+    public void getAsGeojsonTest() throws Exception {
+    	MvcResult rtn = mockMvc.perform(head(endpoint + "geojson"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MIME_TYPE_GEOJSON))
+            .andExpect(content().encoding(DEFAULT_ENCODING))
+            .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=station.geojson"))
+            .andExpect(header().string(HEADER_CORS_METHODS, HEADER_CORS_METHODS_VALUE))
+            .andExpect(header().string(HEADER_CORS_MAX_AGE, HEADER_CORS_MAX_AGE_VALUE))
+		    .andExpect(header().string(HEADER_CORS_ALLOW_HEADERS, HEADER_CORS_ALLOW_HEADERS_VALUE))
+            .andExpect(header().string("Total-Site-Count", "6"))
+            .andExpect(header().string("NWIS-Site-Count", "2"))
+            .andExpect(header().string("STEWARDS-Site-Count", "2"))
+            .andExpect(header().string("STORET-Site-Count", "2"))
+            .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
+            .andReturn();
+
+    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
+    	assertEquals("", rtn.getResponse().getContentAsString());
+        
+        rtn = mockMvc.perform(get(endpoint + "geojson"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MIME_TYPE_GEOJSON))
+            .andExpect(content().encoding(DEFAULT_ENCODING))
+            .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=station.geojson"))
+            .andExpect(header().string(HEADER_CORS_METHODS, HEADER_CORS_METHODS_VALUE))
+            .andExpect(header().string(HEADER_CORS_MAX_AGE, HEADER_CORS_MAX_AGE_VALUE))
+		    .andExpect(header().string(HEADER_CORS_ALLOW_HEADERS, HEADER_CORS_ALLOW_HEADERS_VALUE))
+            .andExpect(header().string("Total-Site-Count", "6"))
+            .andExpect(header().string("NWIS-Site-Count", "2"))
+            .andExpect(header().string("STEWARDS-Site-Count", "2"))
+            .andExpect(header().string("STORET-Site-Count", "2"))
+            .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
+            .andReturn();
+
+    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
+        assertThat(new JSONObject(rtn.getResponse().getContentAsString()),
+        		sameJSONObjectAs(new JSONObject(getCompareFile("simpleStation.json"))));
+    }
+
+    @Test
+    public void getAsGeojsonZipTest() throws Exception {
+    	MvcResult rtn = mockMvc.perform(head(endpoint + "geojson&zip=yes"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MIME_TYPE_ZIP))
+            .andExpect(content().encoding(DEFAULT_ENCODING))
+            .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=station.zip"))
+            .andExpect(header().string(HEADER_CORS_METHODS, HEADER_CORS_METHODS_VALUE))
+            .andExpect(header().string(HEADER_CORS_MAX_AGE, HEADER_CORS_MAX_AGE_VALUE))
+		    .andExpect(header().string(HEADER_CORS_ALLOW_HEADERS, HEADER_CORS_ALLOW_HEADERS_VALUE))
+            .andExpect(header().string("Total-Site-Count", "6"))
+            .andExpect(header().string("NWIS-Site-Count", "2"))
+            .andExpect(header().string("STEWARDS-Site-Count", "2"))
+            .andExpect(header().string("STORET-Site-Count", "2"))
+            .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
+            .andReturn();
+
+    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
+    	assertEquals("", rtn.getResponse().getContentAsString());
+        
+        rtn = mockMvc.perform(get(endpoint + "geojson&zip=yes"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MIME_TYPE_ZIP))
+            .andExpect(content().encoding(DEFAULT_ENCODING))
+            .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=station.zip"))
+            .andExpect(header().string(HEADER_CORS_METHODS, HEADER_CORS_METHODS_VALUE))
+            .andExpect(header().string(HEADER_CORS_MAX_AGE, HEADER_CORS_MAX_AGE_VALUE))
+		    .andExpect(header().string(HEADER_CORS_ALLOW_HEADERS, HEADER_CORS_ALLOW_HEADERS_VALUE))
+            .andExpect(header().string("Total-Site-Count", "6"))
+            .andExpect(header().string("NWIS-Site-Count", "2"))
+            .andExpect(header().string("STEWARDS-Site-Count", "2"))
+            .andExpect(header().string("STORET-Site-Count", "2"))
+            .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
+            .andReturn();
+
+    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
+        assertThat(new JSONObject(extractZipContent(rtn.getResponse().getContentAsByteArray(), "station.geojson")),
+        		sameJSONObjectAs(new JSONObject(getCompareFile("simpleStation.json"))));
     }
 
 }

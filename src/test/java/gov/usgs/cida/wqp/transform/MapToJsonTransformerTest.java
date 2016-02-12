@@ -60,11 +60,13 @@ public class MapToJsonTransformerTest {
 		map.put(StationColumn.KEY_ORGANIZATION_NAME, "org/name");
 		map.put(StationColumn.KEY_SITE_ID, "site");
 		map.put(StationColumn.KEY_STATION_NAME, "station");
+		map.put(StationColumn.KEY_MONITORING_LOCATION_TYPE, "realType");
 		map.put(StationColumn.KEY_SITE_TYPE, "type");
+		map.put(StationColumn.KEY_HUC_8, "huceight");
 		try {
 			transformer.writeData(map);
-			assertEquals(291, baos.size());
-			assertEquals("{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[long,lat]},\"properties\":{\"ProviderName\":\"ds\",\"OrganizationIdentifier\":\"org\",\"OrganizationFormalName\":\"org\\/name\",\"MonitoringLocationIdentifier\":\"site\",\"MonitoringLocationName\":\"station\",\"ResolvedMonitoringLocationTypeName\":\"type\"}}",
+			assertEquals(362, baos.size());
+			assertEquals("{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[long,lat]},\"properties\":{\"ProviderName\":\"ds\",\"OrganizationIdentifier\":\"org\",\"OrganizationFormalName\":\"org\\/name\",\"MonitoringLocationIdentifier\":\"site\",\"MonitoringLocationName\":\"station\",\"MonitoringLocationTypeName\":\"realType\",\"ResolvedMonitoringLocationTypeName\":\"type\",\"HUCEightDigitCode\":\"huceight\"}}",
 					new String(baos.toByteArray(), HttpConstants.DEFAULT_ENCODING));
 		} catch (IOException e) {
 			fail(e.getLocalizedMessage());
@@ -77,13 +79,15 @@ public class MapToJsonTransformerTest {
 		map.put(StationColumn.KEY_ORGANIZATION_NAME, "org/name2");
 		map.put(StationColumn.KEY_SITE_ID, "site2");
 		map.put(StationColumn.KEY_STATION_NAME, "station2");
+		map.put(StationColumn.KEY_MONITORING_LOCATION_TYPE, "realType2");
 		map.put(StationColumn.KEY_SITE_TYPE, "type2");
+		map.put(StationColumn.KEY_HUC_8, "huceigh2");
 
 		try {
 			transformer.writeData(map);
-			assertEquals(591, baos.size());
-			assertEquals("{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[long,lat]},\"properties\":{\"ProviderName\":\"ds\",\"OrganizationIdentifier\":\"org\",\"OrganizationFormalName\":\"org\\/name\",\"MonitoringLocationIdentifier\":\"site\",\"MonitoringLocationName\":\"station\",\"ResolvedMonitoringLocationTypeName\":\"type\"}}"
-					+ ",{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[long2,lat2]},\"properties\":{\"ProviderName\":\"ds2\",\"OrganizationIdentifier\":\"org2\",\"OrganizationFormalName\":\"org\\/name2\",\"MonitoringLocationIdentifier\":\"site2\",\"MonitoringLocationName\":\"station2\",\"ResolvedMonitoringLocationTypeName\":\"type2\"}}",
+			assertEquals(734, baos.size());
+			assertEquals("{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[long,lat]},\"properties\":{\"ProviderName\":\"ds\",\"OrganizationIdentifier\":\"org\",\"OrganizationFormalName\":\"org\\/name\",\"MonitoringLocationIdentifier\":\"site\",\"MonitoringLocationName\":\"station\",\"MonitoringLocationTypeName\":\"realType\",\"ResolvedMonitoringLocationTypeName\":\"type\",\"HUCEightDigitCode\":\"huceight\"}}"
+					+ ",{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[long2,lat2]},\"properties\":{\"ProviderName\":\"ds2\",\"OrganizationIdentifier\":\"org2\",\"OrganizationFormalName\":\"org\\/name2\",\"MonitoringLocationIdentifier\":\"site2\",\"MonitoringLocationName\":\"station2\",\"MonitoringLocationTypeName\":\"realType2\",\"ResolvedMonitoringLocationTypeName\":\"type2\",\"HUCEightDigitCode\":\"huceigh2\"}}",
 					new String(baos.toByteArray(), HttpConstants.DEFAULT_ENCODING));
 		} catch (IOException e) {
 			fail(e.getLocalizedMessage());

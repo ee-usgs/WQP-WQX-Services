@@ -41,8 +41,12 @@ public class MapToJsonTransformer extends Transformer {
 		writeToStream(getValue(resultMap, StationColumn.KEY_SITE_ID));
 		writeToStream("\",\"MonitoringLocationName\":\"");
 		writeToStream(getValue(resultMap, StationColumn.KEY_STATION_NAME));
+		writeToStream("\",\"MonitoringLocationTypeName\":\"");
+		writeToStream(getValue(resultMap, StationColumn.KEY_MONITORING_LOCATION_TYPE));
 		writeToStream("\",\"ResolvedMonitoringLocationTypeName\":\"");
 		writeToStream(getValue(resultMap, StationColumn.KEY_SITE_TYPE));
+		writeToStream("\",\"HUCEightDigitCode\":\"");
+		writeToStream(getValue(resultMap, StationColumn.KEY_HUC_8));
 		writeToStream("\"}}");
 		endPrevious = true;
 	}

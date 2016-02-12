@@ -134,7 +134,7 @@
 				<MonitoringLocationName>BIGHORN LAKE NEAR BLACK CANYON</MonitoringLocationName>
 				<MonitoringLocationTypeName>Reservoir</MonitoringLocationTypeName>
 				<MonitoringLocationDescriptionText>THE STATION IS LOCATED ON THE GRAPEVINE DOME MONTANA-BIG HORN CO. 7.5 MINUTE SERIES (TOPOGRAPHIC) QUADRANGLE.  THE SITE IS ON BIGHORN LAKE NEAR BLACK CANYON.  SAMPLES FOR THIS SITE WERE COLLECTED FROM 1970-1972 BY THE MONTANA FISH AND GAME DEPARTMENT.  SAMPLES WERE ANALYZED FOR DISSOLVED OXYGEN IN 1970 AND TEMPERATURE IN 1970-1972. THE RESULTS WERE OBTAINED FROM NATURAL RESOURCES AT BIGHORN CANYON NATIONAL RECREATION AREA.  FOR MORE INFORMATION CONTACT CHIEF OF RESOURCES AT BIGHORN CANYON NATIONAL RECREATION AREA; P.O. BOX 7458; FORT SMITH MONTANA 59035.  TEL (406) 666-2412.  DATA WERE PROCESSED AND UPLOADED TO STORET BY PAUL MCELVERY AT NPS-WRD; 1201 OAK RIDGE DRIVE SUITE 250; FORT COLLINS COLORADO 80525.  TEL (970) 225-3516.¶¶¶¶***     Legacy STORET Station Type: /RESERV/TYPA/AMBNT</MonitoringLocationDescriptionText>
-				<HUCEightDigitCode>10080010</HUCEightDigitCode>
+				<HUCEightDigitCode>07080105</HUCEightDigitCode>
 			</MonitoringLocationIdentity>
 			<MonitoringLocationGeospatial>
 				<LatitudeMeasure>45.2757222</LatitudeMeasure>
@@ -157,7 +157,7 @@
 				<MonitoringLocationIdentifier>WIDNR_WQX-10030952</MonitoringLocationIdentifier>
 				<MonitoringLocationName>Crawfish River -- Astico County Park Canoe Launch</MonitoringLocationName>
 				<MonitoringLocationTypeName>River/Stream</MonitoringLocationTypeName>
-				<HUCEightDigitCode>07090002</HUCEightDigitCode>
+				<HUCEightDigitCode>07090001</HUCEightDigitCode>
 			</MonitoringLocationIdentity>
 			<MonitoringLocationGeospatial>
 				<LatitudeMeasure>43.326298</LatitudeMeasure>

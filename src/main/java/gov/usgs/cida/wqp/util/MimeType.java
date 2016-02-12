@@ -13,7 +13,8 @@ public enum MimeType implements HttpConstants {
 	xlsx(MIME_TYPE_XLSX),
 	xml(MIME_TYPE_XML),
 	kml(MIME_TYPE_KML),
-	kmz(MIME_TYPE_KMZ);
+	kmz(MIME_TYPE_KMZ),
+	geojson(MIME_TYPE_GEOJSON);
 
 	
 	public final String mimeType;
