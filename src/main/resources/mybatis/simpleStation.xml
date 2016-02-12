@@ -11,7 +11,9 @@
 		       prime.station_name,
 		       prime.site_type,
 		       to_char(prime.geom.sdo_point.y, 'FM90.0000000') latitude,
-		       to_char(prime.geom.sdo_point.x, 'FM990.0000000') longitude
+		       to_char(prime.geom.sdo_point.x, 'FM990.0000000') longitude,
+		       prime.station_type_name,
+		       prime.huc_8
         <include refid="dynamicWhere.stationsBase"/>
 			order by prime.data_source_id,
                      prime.organization,

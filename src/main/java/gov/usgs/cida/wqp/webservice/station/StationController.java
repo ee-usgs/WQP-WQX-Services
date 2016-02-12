@@ -29,7 +29,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 			  HttpConstants.MIME_TYPE_TSV,
 			  HttpConstants.MIME_TYPE_XML,
 			  HttpConstants.MIME_TYPE_KML,
-			  HttpConstants.MIME_TYPE_KMZ}) //, HttpConstants.MIME_TYPE_JSON
+			  HttpConstants.MIME_TYPE_KMZ,
+			  HttpConstants.MIME_TYPE_GEOJSON})
 public class StationController extends BaseController {
 
 	protected final IXmlMapping xmlMapping;

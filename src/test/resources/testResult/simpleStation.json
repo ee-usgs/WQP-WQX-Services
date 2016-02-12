@@ -16,7 +16,9 @@
                 "OrganizationFormalName": "USDA Agricultural Research Service",
                 "MonitoringLocationIdentifier": "ARS-IAWC-IAWC225",
                 "MonitoringLocationName": "IAWC225",
-                "ResolvedMonitoringLocationTypeName": "Land"
+                "MonitoringLocationTypeName": "Land Runoff",
+                "ResolvedMonitoringLocationTypeName": "Land",
+                "HUCEightDigitCode": "07080105"
             }
         },
         {
@@ -34,7 +36,9 @@
                 "OrganizationFormalName": "USDA Agricultural Research Service",
                 "MonitoringLocationIdentifier": "ARS-IAWC-IAWC410",
                 "MonitoringLocationName": "IAWC410",
-                "ResolvedMonitoringLocationTypeName": "Stream"
+                "MonitoringLocationTypeName": "River/Stream",
+                "ResolvedMonitoringLocationTypeName": "Stream",
+                "HUCEightDigitCode": "07100004"
             }
         },
         {
@@ -52,7 +56,9 @@
                 "OrganizationFormalName": "USGS Wisconsin Water Science Center",
                 "MonitoringLocationIdentifier": "USGS-05425700",
                 "MonitoringLocationName": "ROBBINS CREEK NEAR COLUMBUS, WI",
-                "ResolvedMonitoringLocationTypeName": "Stream"
+                "MonitoringLocationTypeName": "Stream",
+                "ResolvedMonitoringLocationTypeName": "Stream",
+                "HUCEightDigitCode": "07090002"
             }
         },
         {
@@ -70,7 +76,9 @@
                 "OrganizationFormalName": "USGS Wisconsin Water Science Center",
                 "MonitoringLocationIdentifier": "USGS-431925089002701",
                 "MonitoringLocationName": "DG-10/13E/19-0891",
-                "ResolvedMonitoringLocationTypeName": "Well"
+                "MonitoringLocationTypeName": "Well",
+                "ResolvedMonitoringLocationTypeName": "Well",
+                "HUCEightDigitCode": "07090002"
             }
         },
         {
@@ -88,7 +96,9 @@
                 "OrganizationFormalName": "National Park Service Water Resources Division",
                 "MonitoringLocationIdentifier": "11NPSWRD-BICA_MFG_B",
                 "MonitoringLocationName": "BIGHORN LAKE NEAR BLACK CANYON",
-                "ResolvedMonitoringLocationTypeName": "Lake, Reservoir, Impoundment"
+                "MonitoringLocationTypeName": "Reservoir",
+                "ResolvedMonitoringLocationTypeName": "Lake, Reservoir, Impoundment",
+                "HUCEightDigitCode": "07080105"
             }
         },
         {
@@ -106,7 +116,9 @@
                 "OrganizationFormalName": "Wisconsin Department of Natural Resources",
                 "MonitoringLocationIdentifier": "WIDNR_WQX-10030952",
                 "MonitoringLocationName": "Crawfish River -- Astico County Park Canoe Launch",
-                "ResolvedMonitoringLocationTypeName": "Stream"
+                "MonitoringLocationTypeName": "River/Stream",
+                "ResolvedMonitoringLocationTypeName": "Stream",
+                "HUCEightDigitCode": "07090001"
             }
         }
     ]

@@ -272,7 +272,7 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 				responseStream = getOutputStream(response, getZipped(), getZipEntryName(endpoint, getMimeType()));
 				Transformer transformer = getTransformer(getMimeType(), responseStream, getLogId());
 					
-				ResultHandler handler = new StreamingResultHandler(transformer);
+				ResultHandler<?> handler = new StreamingResultHandler(transformer);
 				streamingDao.stream(namespace, getPm().getQueryParameters(), handler);
 		
 				transformer.end();
@@ -329,9 +329,13 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 	}
 
 	protected String getNamespace(String mybatisNamespace, MimeType mimeType) {
-		if (MimeType.kml.equals(mimeType) || MimeType.kmz.equals(mimeType)) {
+		switch (mimeType) {
+		case kml:
+		case kmz:
 			return IDao.STATION_KML_NAMESPACE;
-		} else {
+		case geojson:
+			return IDao.SIMPLE_STATION_NAMESPACE;
+		default:
 			return mybatisNamespace;
 		}
 	}
@@ -340,6 +344,7 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 		Transformer transformer;
 		switch (mimeType) {
 		case json:
+		case geojson:
 			transformer = new MapToJsonTransformer(responseStream, null, logService, logId);
 			break;
 		case xlsx:
