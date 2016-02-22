@@ -95,7 +95,7 @@ public class BioResultWqx extends BaseWqx implements IXmlMapping {
 						WQX_ACT_DESCRIPTION,
 						WQX_ACT_END_TIME,
 						WQX_TIME_ZONE)));
-		COLUMN_POSITION.put(KEY_ACTIVITY_RELATIVE_DEPTH,//
+		COLUMN_POSITION.put(KEY_ACTIVITY_RELATIVE_DEPTH,
 				new LinkedList<String>(Arrays.asList(
 						WQX_ACTIVITY,
 						WQX_ACT_DESCRIPTION,
@@ -178,7 +178,7 @@ public class BioResultWqx extends BaseWqx implements IXmlMapping {
 						WQX_ACTIVITY,
 						WQX_ACT_DESCRIPTION,
 						WQX_HYDROLOGIC_EVENT)));
-		// \|/
+
 		COLUMN_POSITION.put(KEY_ACTIVITY_LATITUDE,
 				new LinkedList<String>(Arrays.asList(
 						WQX_ACTIVITY,
@@ -358,7 +358,6 @@ public class BioResultWqx extends BaseWqx implements IXmlMapping {
 						WQX_ACTIVITY,
 						WQX_BIO_ACT_DESCRIPTION,
 						WQX_TOXICITY_TEST_TYPE)));
-		// /|\
 		
 
 		COLUMN_POSITION.put(KEY_SAMPLE_COLLECT_METHOD_ID,
@@ -379,7 +378,6 @@ public class BioResultWqx extends BaseWqx implements IXmlMapping {
 						WQX_SAMPLE_DESCRIPTION,
 						WQX_COLLECTION_METHOD,
 						WQX_METHOD_NAME)));
-		// \|/
 		COLUMN_POSITION.put(KEY_ACT_SAM_COLLECT_METH_QUAL_TYPE,
 				new LinkedList<String>(Arrays.asList(
 						WQX_ACTIVITY,
@@ -392,7 +390,6 @@ public class BioResultWqx extends BaseWqx implements IXmlMapping {
 						WQX_SAMPLE_DESCRIPTION,
 						WQX_COLLECTION_METHOD,
 						WQX_METHOD_DESCRIPTION)));
-		// /|\
 		
 		
 		COLUMN_POSITION.put(KEY_SAMPLE_COLLECT_EQUIP_NAME,
@@ -400,7 +397,7 @@ public class BioResultWqx extends BaseWqx implements IXmlMapping {
 						WQX_ACTIVITY,
 						WQX_SAMPLE_DESCRIPTION,
 						WQX_COLLECTION_EQUIPMENT)));
-		// \|/
+
 		COLUMN_POSITION.put(KEY_ACT_SAM_COLLECT_EQUIP_COMMENTS,
 				new LinkedList<String>(Arrays.asList(
 						WQX_ACTIVITY,
@@ -572,7 +569,6 @@ public class BioResultWqx extends BaseWqx implements IXmlMapping {
 //						WQX_ACTIVITY,
 //						WQX_ACTIVITY_METRIC,
 //						WQX_INDEX_ID)));
-		// /|\
 
 		COLUMN_POSITION.put(KEY_RESULT_DETECTION_CONDITION_TX,
 				new LinkedList<String>(Arrays.asList(
@@ -580,7 +576,7 @@ public class BioResultWqx extends BaseWqx implements IXmlMapping {
 						WQX_RESULT,
 						WQX_RESULT_DESRIPTION,
 						WQX_DETECTION_CONDITION)));
-		// \|/
+
 		COLUMN_POSITION.put(KEY_RES_DATA_LOGGER_LINE,
 				new LinkedList<String>(Arrays.asList(
 						WQX_ACTIVITY,
@@ -593,7 +589,7 @@ public class BioResultWqx extends BaseWqx implements IXmlMapping {
 						WQX_RESULT,
 						WQX_RESULT_DESRIPTION,
 						WQX_METHOD_SPECIFICATION)));
-		// /|\
+
 		COLUMN_POSITION.put(KEY_CHARACTERISTIC_NAME,
 				new LinkedList<String>(Arrays.asList(
 						WQX_ACTIVITY,
@@ -677,7 +673,7 @@ public class BioResultWqx extends BaseWqx implements IXmlMapping {
 						WQX_RESULT_DESRIPTION,
 						WQX_DATA_QUALITY,
 						WQX_PRECISION)));
-		// \|/
+
 		COLUMN_POSITION.put(KEY_RES_MEASURE_BIAS,
 				new LinkedList<String>(Arrays.asList(
 						WQX_ACTIVITY,
@@ -706,7 +702,7 @@ public class BioResultWqx extends BaseWqx implements IXmlMapping {
 						WQX_RESULT_DESRIPTION,
 						WQX_DATA_QUALITY,
 						WQX_LOWER_CONFIDENCE_LIMIT)));
-		// /|\
+
 		COLUMN_POSITION.put(KEY_RESULT_COMMENT,
 				new LinkedList<String>(Arrays.asList(
 						WQX_ACTIVITY,
@@ -739,7 +735,7 @@ public class BioResultWqx extends BaseWqx implements IXmlMapping {
 						WQX_RESULT,
 						WQX_RESULT_DESRIPTION,
 						WQX_RESULT_DETH_REFERENCE)));
-		// \|/
+
 		COLUMN_POSITION.put(KEY_RES_SAMPLING_POINT_NAME,
 				new LinkedList<String>(Arrays.asList(
 						WQX_ACTIVITY,
@@ -759,28 +755,28 @@ public class BioResultWqx extends BaseWqx implements IXmlMapping {
 						WQX_RESULT,
 						WQX_BIOLOGICAL_RESULT,
 						WQX_BIOLOGICAL_INDIVIDUAL_ID)));
-		// /|\
+
 		COLUMN_POSITION.put(KEY_SAMPLE_TISSUE_TAXONOMIC_NAME,
 				new LinkedList<String>(Arrays.asList(
 						WQX_ACTIVITY,
 						WQX_RESULT,
 						WQX_BIOLOGICAL_RESULT,
 						WQX_TAXON_NAME)));
-		// \|/
+
 		COLUMN_POSITION.put(KEY_UNIDENTIFIEDSPECIESIDENTIFIER,
 				new LinkedList<String>(Arrays.asList(
 						WQX_ACTIVITY,
 						WQX_RESULT,
 						WQX_BIOLOGICAL_RESULT,
 						WQX_UNIDENTIFIED_SPECIES_IDENTIFIER)));
-		// /|\
+
 		COLUMN_POSITION.put(KEY_SAMPLE_TISSUE_ANATOMY_NAME,
 				new LinkedList<String>(Arrays.asList(
 						WQX_ACTIVITY,
 						WQX_RESULT,
 						WQX_BIOLOGICAL_RESULT,
 						WQX_TISSUE_ANATOMY)));
-		// \|/
+
 		COLUMN_POSITION.put(KEY_RES_GROUP_SUMMARY_CT_WT,
 				new LinkedList<String>(Arrays.asList(
 						WQX_ACTIVITY,
@@ -927,7 +923,7 @@ public class BioResultWqx extends BaseWqx implements IXmlMapping {
 						WQX_BIOLOGICAL_RESULT,
 						WQX_FREQUENCY_CLASS_INFO,
 						WQX_UPPER_CLASS_BOUND)));
-		// /|\
+
 
 
 		COLUMN_POSITION.put(KEY_ANALYTICAL_PROCEDURE_ID,
@@ -948,14 +944,14 @@ public class BioResultWqx extends BaseWqx implements IXmlMapping {
 						WQX_RESULT,
 						WQX_ANALYTICAL_METHOD,
 						WQX_METHOD_NAME)));
-		// \|/
+
 		COLUMN_POSITION.put(KEY_ANLMTH_QUAL_TYPE,
 				new LinkedList<String>(Arrays.asList(
 						WQX_ACTIVITY,
 						WQX_RESULT,
 						WQX_ANALYTICAL_METHOD,
 						WQX_METHOD_QUALIFIER_TYPE)));
-		// /|\
+
 		COLUMN_POSITION.put(KEY_ANALYTICAL_METHOD_CITATION,
 				new LinkedList<String>(Arrays.asList(
 						WQX_ACTIVITY,
@@ -975,7 +971,7 @@ public class BioResultWqx extends BaseWqx implements IXmlMapping {
 						WQX_RESULT,
 						WQX_LAB_INFO,
 						WQX_ANALYSIS_START_DATE)));
-		// \|/
+
 		COLUMN_POSITION.put(KEY_ANALYSIS_START_TIME,
 				new LinkedList<String>(Arrays.asList(
 						WQX_ACTIVITY,
@@ -1016,7 +1012,7 @@ public class BioResultWqx extends BaseWqx implements IXmlMapping {
 						WQX_RESULT,
 						WQX_LAB_INFO,
 						WQX_LAB_COMMENT_CODE)));
-		// /|\
+
 		COLUMN_POSITION.put(KEY_LAB_REMARK,
 				new LinkedList<String>(Arrays.asList(
 						WQX_ACTIVITY,
@@ -1046,7 +1042,7 @@ public class BioResultWqx extends BaseWqx implements IXmlMapping {
 						WQX_LAB_INFO,
 						WQX_DETECTION_LIMIT,
 						WQX_DETECTION_LIMIT_TYPE)));
-		// \|/
+
 		COLUMN_POSITION.put(KEY_RES_LAB_ACCRED_YN,
 				new LinkedList<String>(Arrays.asList(
 						WQX_ACTIVITY,
@@ -1107,14 +1103,14 @@ public class BioResultWqx extends BaseWqx implements IXmlMapping {
 						WQX_LAB_SAMPLE_PREP,
 						WQX_LAB_SAMPLE_PREP_METHOD,
 						WQX_METHOD_DESCRIPTION)));
-		// /|\
+
 		COLUMN_POSITION.put(KEY_ANALYSIS_PREP_DATE_TX,
 				new LinkedList<String>(Arrays.asList(
 						WQX_ACTIVITY,
 						WQX_RESULT,
 						WQX_LAB_SAMPLE_PREP,
 						WQX_PREP_START_DATE)));
-		// \|/
+
 		COLUMN_POSITION.put(KEY_PREP_START_TIME,
 				new LinkedList<String>(Arrays.asList(
 						WQX_ACTIVITY,
@@ -1155,7 +1151,6 @@ public class BioResultWqx extends BaseWqx implements IXmlMapping {
 						WQX_RESULT,
 						WQX_LAB_SAMPLE_PREP,
 						WQX_SUBSTITUTION_DILUTION_FACTOR)));
-		// /|\
 		
 	}
 

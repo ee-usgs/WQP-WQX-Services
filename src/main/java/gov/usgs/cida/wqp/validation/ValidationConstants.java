@@ -18,6 +18,7 @@ public interface ValidationConstants { // TODO these should be defaults with Wqp
 	String REGEX_FIPS_STATE		= "(?:([A-Z]{2}):)?([0-9]{1,2})";
 	String REGEX_FIPS_COUNTY	= "(?:([A-Z]{2}):)?([0-9]{1,2}):([0-9]{3}|N/A)";
 	String REGEX_SITEID			= "[\\w]+\\-.+\\S";
+	String REGEX_POSITIVE_INT   = "^\\d+$";
 	String REGEX_HUC			= "(?:[0-9]{8})|(?:(?:[0-9]{2}){1,3}\\*?)";
 	String REGEX_PCODE			= "[0-9]{5}";
 	String REGEX_MIMETYPES		= "csv|tsv|tab|xlsx|xml|kml|kmz|json|geojson"; // TODO refine

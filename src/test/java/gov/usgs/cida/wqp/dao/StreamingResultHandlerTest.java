@@ -18,7 +18,7 @@ public class StreamingResultHandlerTest {
 	@Mock
 	private ITransformer t;
 	@Mock
-	private ResultContext context;
+	private ResultContext<Object> context;
 	
     @Before
     public void setup() {

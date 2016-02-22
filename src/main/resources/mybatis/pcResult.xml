@@ -4,6 +4,9 @@
 <mapper namespace="pcResult">
 
     <select id="select" resultType="java.util.LinkedHashMap" fetchSize="500">
+		<if test="minresults != null">
+			select * from (
+		</if>
         select <include refid="dynamicWhere.resultStationHashHint"/>
                prime.data_source_id, prime.data_source, prime.station_id, prime.site_id, to_char(prime.event_date, 'yyyy-mm-dd') event_date, prime.analytical_method, prime.p_code, prime.activity,
                               prime.characteristic_name, prime.characteristic_type, prime.sample_media, prime.organization, prime.site_type, prime.huc, prime.governmental_unit_code,
@@ -20,7 +23,14 @@
                               prime.sample_tissue_anatomy_name, prime.analytical_procedure_id, prime.analytical_procedure_source, prime.analytical_method_name,
                               prime.analytical_method_citation, prime.lab_name, prime.analysis_start_date, prime.lab_remark, prime.detection_limit, prime.detection_limit_unit,
                               prime.detection_limit_desc, prime.analysis_prep_date_tx
+		<if test="minresults != null">
+			, count(*) over (partition by prime.data_source_id, prime.station_id) result_count_sum
+		</if>
 		<include refid="dynamicWhere.resultsBase"/>
+		<if test="minresults != null">
+	    	) prime
+	    	where result_count_sum >= #{minresults}
+	    </if>
 		<if test="sorted == 'yes'">
 			order by prime.data_source_id,
 			         prime.organization,
@@ -32,7 +42,7 @@
         
     <sql id="resultCount">
 		select data_source,
-		       count(distinct data_source||'-'||prime.station_id) station_count,
+		       count(distinct data_source||'-'||station_id) station_count,
                sum(result_count) result_count
 		<include refid="dynamicWhere.resultsCountBase"/>
 		group by rollup(data_source)

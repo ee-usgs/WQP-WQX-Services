@@ -70,6 +70,11 @@ public abstract class CountDaoTest extends BaseSpringTest {
 		assertResults(includeResults, counts, 2, "2", "2", null, null, null, "12", "12", null, null, null);
 
 		parms.clear();
+		parms.put(Parameters.MIN_RESULTS.toString(), "3");
+		counts = countDao.getCounts(namespace, parms);
+		assertResults(includeResults, counts, 5, "6", "2", "2", "1", "1", "80", "12", "24", "3", "41");
+
+		parms.clear();
 		parms.put(Parameters.ORGANIZATION.toString(), new String[]{"USGS-WI"});
 		counts = countDao.getCounts(namespace, parms);
 		assertResults(includeResults, counts, 2, "2", "2", null, null, null, "12", "12", null, null, null);
@@ -181,6 +186,7 @@ public abstract class CountDaoTest extends BaseSpringTest {
 		parms.put(Parameters.COUNTRY.toString(), new String[]{"MX", "US"});
 		parms.put(Parameters.COUNTY.toString(), new String[]{"US:19:015", "US:30:003", "US:55:017", "US:55:021", "US:55:027", "US:06:115"});
 		parms.put(Parameters.HUC.toString(), new String[]{"07","0708","070801","07090002", "07080105", "18020107"});
+		parms.put(Parameters.MIN_RESULTS.toString(), "3");
 		parms.put(Parameters.ORGANIZATION.toString(), new String[]{"ARS", "11NPSWRD", "USGS-WI", "WIDNR_WQX", "USGS"});
 		parms.put(Parameters.PROVIDERS.toString(), new String[]{"NWIS", "STEWARDS", "STORET", "BIODATA"});
 		parms.put(Parameters.SITEID.toString(), new String[]{"11NPSWRD-BICA_MFG_B", "WIDNR_WQX-10030952", "USGS-05425700",
@@ -191,14 +197,14 @@ public abstract class CountDaoTest extends BaseSpringTest {
 		parms.put(Parameters.LATITUDE.toString(), new String[]{"43.3836014"});
 		parms.put(Parameters.LONGITUDE.toString(), new String[]{"-88.9773314"});
 		counts = countDao.getCounts(namespace, parms);
-		assertResults(includeResults, counts, 5, "7", "2", "2", "2", "1", "81", "12", "24", "4", "41");
+		assertResults(includeResults, counts, 5, "6", "2", "2", "1", "1", "80", "12", "24", "3", "41");
 
 		parms.put("commandavoid", new String[]{"NWIS", "STORET"});
 		counts = countDao.getCounts(namespace, parms);
 		assertTrue(counts.isEmpty());
 		
 		
-		//Counts against pc_result_ct_sum
+		//Counts against result_ct_sum
 		
 		parms.clear();
 		parms.put("commandavoid", new String[]{"STORET"});
@@ -213,6 +219,7 @@ public abstract class CountDaoTest extends BaseSpringTest {
 		parms.put(Parameters.COUNTRY.toString(), new String[]{"MX", "US"});
 		parms.put(Parameters.COUNTY.toString(), new String[]{"US:19:015", "US:30:003", "US:55:017", "US:55:021", "US:55:027", "US:06:115"});
 		parms.put(Parameters.HUC.toString(), new String[]{"07","0708","070801","07090002", "07080105", "18020107"});
+		parms.put(Parameters.MIN_RESULTS.toString(), "3");
 		parms.put(Parameters.ORGANIZATION.toString(), new String[]{"ARS", "11NPSWRD", "USGS-WI", "WIDNR_WQX", "USGS"});
 		parms.put(Parameters.PROVIDERS.toString(), new String[]{"NWIS", "STEWARDS", "STORET", "BIODATA"});
 		parms.put(Parameters.SITEID.toString(), new String[]{"11NPSWRD-BICA_MFG_B", "WIDNR_WQX-10030952", "USGS-05425700",
@@ -226,7 +233,7 @@ public abstract class CountDaoTest extends BaseSpringTest {
 
 		
 		
-		//Counts against pc_result_sum
+		//Counts against result_sum
 		
 		//TODO - Activity is not currently supported
 		//parms.put(Parameters.ACTIVITY_ID.toString(), new String[]{"abc"});
@@ -239,12 +246,13 @@ public abstract class CountDaoTest extends BaseSpringTest {
 		//TODO - test data
 		//assertResults(counts, 2, "1", null, "1", null);
 
-		//Counts against pc_result_nr_sum
+		//Counts against result_nr_sum
 		
 		parms.put(Parameters.BBOX.toString(), new String[]{"-89", "43", "-88", "44"});
 		parms.put(Parameters.WITHIN.toString(), new String[]{"1000"});
 		parms.put(Parameters.LATITUDE.toString(), new String[]{"43.3836014"});
 		parms.put(Parameters.LONGITUDE.toString(), new String[]{"-88.9773314"});
+		parms.put(Parameters.MIN_RESULTS.toString(), "3");
 		counts = countDao.getCounts(namespace, parms);
 		//TODO - test data
 		//assertResults(counts, 2, "1", null, "1", null);

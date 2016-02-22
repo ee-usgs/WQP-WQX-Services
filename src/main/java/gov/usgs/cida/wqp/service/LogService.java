@@ -39,10 +39,10 @@ public class LogService implements ILogService, HttpConstants {
 			parameterMap.put(ILogDao.CALL_TYPE, callType);
 			
 			EndPoint endpoint = EndPoint.getEnumByCode(request.getRequestURI());
-			String endpt = (null==endpoint) ?request.getRequestURI() :endpoint.NAME;
+			String endpt = (null == endpoint) ? request.getRequestURI() : endpoint.getName();
 			parameterMap.put(ILogDao.END_POINT, endpt);
 			
-			String queryString = (null==request.getQueryString() ? "No Query String Provided" : request.getQueryString());
+			String queryString = null==request.getQueryString() ? "No Query String Provided" : request.getQueryString();
 			parameterMap.put(ILogDao.QUERY_STRING, queryString);
 		}
 
@@ -71,10 +71,9 @@ public class LogService implements ILogService, HttpConstants {
 				if ( HEADER_COUNT.contentEquals(parts[2]) ) {
 					// the total header count for the given endpoint
 					if ( HEADER_TOTAL.contentEquals(parts[0]) ) {
-//						if ( endpoint.COUNT_HEADER_NAME.contentEquals(parts[1]) ) {
-							totalRowsExpected = Integer.valueOf(response.getHeader(headerName));
-//						}
-					} else { // all endpoints counts here
+						totalRowsExpected = Integer.valueOf(response.getHeader(headerName));
+					} else {
+						// all endpoints counts here
 						endpointCounts
 							.append("<"+ parts[0].toLowerCase() +">")
 							.append("<"+ getNodeName(parts[1]) +">")

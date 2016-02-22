@@ -42,7 +42,7 @@ public class GlobalExceptionController {
 
 	@ExceptionHandler(HttpMessageNotReadableException.class)
 	//This exception's message contains implementation details after the new line, so only take up to that.
-    public void HttpMessageNotReadableException(Exception ex, WebRequest request, HttpServletResponse response) {
+    public void httpMessageNotReadableException(Exception ex, WebRequest request, HttpServletResponse response) {
 		response.setStatus(HttpStatus.BAD_REQUEST.value());
 		printException(response, ex.getLocalizedMessage().substring(0, ex.getLocalizedMessage().indexOf("\n")));
 	}

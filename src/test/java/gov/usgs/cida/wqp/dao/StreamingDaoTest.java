@@ -32,11 +32,11 @@ public class StreamingDaoTest extends BaseSpringTest {
 	@Autowired 
 	IStreamingDao streamingDao;
 	
-	private class TestResultHandler implements ResultHandler {
+	private class TestResultHandler implements ResultHandler<Object> {
 		//TODO put the results somewhere to check them and allow them to be cleared between queries
 //		public ArrayList<Map<String, Object>> results = new ArrayList<Map<String, Object>>();
 		@Override
-		public void handleResult(ResultContext context) {
+		public void handleResult(ResultContext<?> context) {
 //			results.add((Map<String, Object>) context.getResultObject());
 		}
 	}
@@ -148,6 +148,10 @@ public class StreamingDaoTest extends BaseSpringTest {
 		streamingDao.stream(nameSpace, parms, handler);
 
 		parms.clear();
+		parms.put(Parameters.MIN_RESULTS.toString(), "3");
+		streamingDao.stream(nameSpace, parms, handler);
+
+		parms.clear();
 		parms.put(Parameters.ORGANIZATION.toString(), new String[]{"USGS-WI"});
 		streamingDao.stream(nameSpace, parms, handler);
 
@@ -235,6 +239,7 @@ public class StreamingDaoTest extends BaseSpringTest {
 		parms.put(Parameters.HUC.toString(), new String[]{"07","0708","070801","07090002", "07080105"});
 		parms.put(Parameters.LATITUDE.toString(), new String[]{"43.3836014"});
 		parms.put(Parameters.LONGITUDE.toString(), new String[]{"-88.9773314"});
+		parms.put(Parameters.MIN_RESULTS.toString(), "3");
 		parms.put(Parameters.ORGANIZATION.toString(), new String[]{"ARS", "11NPSWRD", "USGS-WI", "WIDNR_WQX"});
 		parms.put(Parameters.PROJECT.toString(), new String[]{"NAWQA", "CEAP"});
 		parms.put(Parameters.PROVIDERS.toString(), new String[]{"NWIS", "STEWARDS", "STORET"});

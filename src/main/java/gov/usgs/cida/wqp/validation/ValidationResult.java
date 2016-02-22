@@ -1,8 +1,10 @@
 package gov.usgs.cida.wqp.validation;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 public class ValidationResult<T> {
 	private static final Logger LOG = LoggerFactory.getLogger(ValidationResult.class);
 	
@@ -38,25 +40,33 @@ public class ValidationResult<T> {
 	public boolean isValid() {
 		return valid;
 	}
+
 	public void setValid(final boolean inValid) {
 		valid = inValid;
 	}
+
 	public T getTransformedValue() {
 		return transformedValue;
 	}
+
 	public void setTransformedValue(final T transformedValue) {
 		this.transformedValue = transformedValue;
 	}
+
 	public void setRawValue(Object[] rawValue) {
-		this.rawValue = rawValue;
+		this.rawValue = rawValue.clone();
 	}
+
 	public Object[] getRawValue() {
-		return rawValue;
+		return rawValue.clone();
 	}
+
 	public List<String> getValidationMessages() {
 		return validationMessages;
 	}
+
 	public void setValidationMessages(final List<String> inValidationMessages) {
 		validationMessages = inValidationMessages;
 	}
+
 }

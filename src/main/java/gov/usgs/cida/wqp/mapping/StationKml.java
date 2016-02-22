@@ -35,7 +35,6 @@ public class StationKml implements IXmlMapping {
 	public static final String KML_NAME = "name";
 	public static final String KML_EXTENDED_DATA = "ExtendedData";
 	
-//	public static final String KML_DATA = "Data";
 	public static final String KML_DATA_ORGANIZATION_FORMAL_NAME = "Data name=\"Organization Formal Name\"";
 	public static final String KML_DATA_ORGANIZATION_IDENTIFIER = "Data name=\"Organization Identifier\"";
 	public static final String KML_DATA_MONITORING_LOCATION_IDENTIFIER = "Data name=\"Monitoring Location Identifier\"";

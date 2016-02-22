@@ -13,14 +13,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static uk.co.datumedge.hamcrest.json.SameJSONAs.sameJSONObjectAs;
 
 import org.json.JSONObject;
-
-import gov.usgs.cida.wqp.BaseSpringTest;
-import gov.usgs.cida.wqp.FullIntegrationTest;
-import gov.usgs.cida.wqp.parameter.Parameters;
-import gov.usgs.cida.wqp.service.CodesService;
-import gov.usgs.cida.wqp.util.CORSFilter;
-import gov.usgs.cida.wqp.util.HttpConstants;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -34,6 +26,12 @@ import org.springframework.web.context.WebApplicationContext;
 
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DatabaseSetups;
+
+import gov.usgs.cida.wqp.BaseSpringTest;
+import gov.usgs.cida.wqp.FullIntegrationTest;
+import gov.usgs.cida.wqp.parameter.Parameters;
+import gov.usgs.cida.wqp.service.CodesService;
+import gov.usgs.cida.wqp.util.HttpConstants;
 
 @Category(FullIntegrationTest.class)
 @WebAppConfiguration
@@ -51,14 +49,11 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
     @Autowired
     private CodesService codesService;
 
-    @Autowired
-	protected CORSFilter filter;
-
     private MockMvc mockMvc;
     
     @Before
     public void setup() {
-        mockMvc = MockMvcBuilders.webAppContextSetup(wac).addFilters(filter).build();
+        mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
     }
 
     @Test
@@ -72,10 +67,8 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
             .andExpect(header().string("NWIS-Site-Count", "2"))
             .andExpect(header().string("STEWARDS-Site-Count", "2"))
             .andExpect(header().string("STORET-Site-Count", "2"))
-            .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
 
-    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
     	assertEquals("", rtn.getResponse().getContentAsString());
         
         rtn = mockMvc.perform(get(endpoint + "csv"))
@@ -87,10 +80,8 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
         	.andExpect(header().string("NWIS-Site-Count", "2"))
         	.andExpect(header().string("STEWARDS-Site-Count", "2"))
         	.andExpect(header().string("STORET-Site-Count", "2"))
-            .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
         	.andReturn();
 
-    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
         assertEquals(getCompareFile("station.csv"), rtn.getResponse().getContentAsString());
     }
 
@@ -105,10 +96,8 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
             .andExpect(header().string("NWIS-Site-Count", "2"))
             .andExpect(header().string("STEWARDS-Site-Count", "2"))
             .andExpect(header().string("STORET-Site-Count", "2"))
-            .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
 
-    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
     	assertEquals("", rtn.getResponse().getContentAsString());
         
         rtn = mockMvc.perform(get(endpoint + "csv&zip=yes"))
@@ -120,10 +109,8 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
         	.andExpect(header().string("NWIS-Site-Count", "2"))
         	.andExpect(header().string("STEWARDS-Site-Count", "2"))
         	.andExpect(header().string("STORET-Site-Count", "2"))
-            .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
         	.andReturn();
 
-    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
         assertEquals(getCompareFile("station.csv"), extractZipContent(rtn.getResponse().getContentAsByteArray(), "station.csv"));
     }
 
@@ -138,10 +125,8 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
             .andExpect(header().string("NWIS-Site-Count", "2"))
             .andExpect(header().string("STEWARDS-Site-Count", "2"))
             .andExpect(header().string("STORET-Site-Count", "2"))
-            .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
 
-    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
     	assertEquals("", rtn.getResponse().getContentAsString());
         
         rtn = mockMvc.perform(get(endpoint + "tsv"))
@@ -153,10 +138,8 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
         	.andExpect(header().string("NWIS-Site-Count", "2"))
         	.andExpect(header().string("STEWARDS-Site-Count", "2"))
         	.andExpect(header().string("STORET-Site-Count", "2"))
-            .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
         	.andReturn();
 
-    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
         assertEquals(getCompareFile("station.tsv"), rtn.getResponse().getContentAsString());
     }
 
@@ -171,10 +154,8 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
             .andExpect(header().string("NWIS-Site-Count", "2"))
             .andExpect(header().string("STEWARDS-Site-Count", "2"))
             .andExpect(header().string("STORET-Site-Count", "2"))
-            .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
 
-    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
     	assertEquals("", rtn.getResponse().getContentAsString());
         
         rtn = mockMvc.perform(get(endpoint + "tsv&zip=yes"))
@@ -186,10 +167,8 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
         	.andExpect(header().string("NWIS-Site-Count", "2"))
         	.andExpect(header().string("STEWARDS-Site-Count", "2"))
         	.andExpect(header().string("STORET-Site-Count", "2"))
-            .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
         	.andReturn();
 
-    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
         assertEquals(getCompareFile("station.tsv"), extractZipContent(rtn.getResponse().getContentAsByteArray(), "station.tsv"));
     }
 
@@ -204,10 +183,8 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
     		.andExpect(header().string("NWIS-Site-Count", "2"))
     		.andExpect(header().string("STEWARDS-Site-Count", "2"))
     		.andExpect(header().string("STORET-Site-Count", "2"))
-            .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
     		.andReturn();
 
-    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
     	assertEquals("", rtn.getResponse().getContentAsString());
     	
     	rtn = mockMvc.perform(get(endpoint + "xlsx"))
@@ -219,10 +196,8 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
     		.andExpect(header().string("NWIS-Site-Count", "2"))
     		.andExpect(header().string("STEWARDS-Site-Count", "2"))
     		.andExpect(header().string("STORET-Site-Count", "2"))
-            .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
     		.andReturn();
 
-    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
     	//TODO an actual compare - perhaps using     https://github.com/tobyweston/simple-excel
 //    	assertEquals(getCompareFile("station.tsv"), rtn.getResponse().getContentAsString());
     }
@@ -238,10 +213,8 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
     		.andExpect(header().string("NWIS-Site-Count", "2"))
     		.andExpect(header().string("STEWARDS-Site-Count", "2"))
     		.andExpect(header().string("STORET-Site-Count", "2"))
-            .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
     		.andReturn();
 
-    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
     	assertEquals("", rtn.getResponse().getContentAsString());
     	
     	rtn = mockMvc.perform(get(endpoint + "xlsx&zip=yes"))
@@ -253,10 +226,8 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
     		.andExpect(header().string("NWIS-Site-Count", "2"))
     		.andExpect(header().string("STEWARDS-Site-Count", "2"))
     		.andExpect(header().string("STORET-Site-Count", "2"))
-            .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
     		.andReturn();
 
-    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
     	//TODO an actual compare - perhaps using     https://github.com/tobyweston/simple-excel
 //    	assertEquals(getCompareFile("station.tsv"), rtn.getResponse().getContentAsString());
     }
@@ -272,10 +243,8 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
             .andExpect(header().string("NWIS-Site-Count", "2"))
             .andExpect(header().string("STEWARDS-Site-Count", "2"))
             .andExpect(header().string("STORET-Site-Count", "2"))
-            .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
 
-    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
     	assertEquals("", rtn.getResponse().getContentAsString());
     }
     
@@ -290,10 +259,8 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
             .andExpect(header().string("NWIS-Site-Count", "2"))
             .andExpect(header().string("STEWARDS-Site-Count", "2"))
             .andExpect(header().string("STORET-Site-Count", "2"))
-            .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
 
-    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
     	assertEquals("", rtn.getResponse().getContentAsString());
     }
 
@@ -308,10 +275,8 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
         	.andExpect(header().string("NWIS-Site-Count", "2"))
         	.andExpect(header().string("STEWARDS-Site-Count", "2"))
         	.andExpect(header().string("STORET-Site-Count", "2"))
-            .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
         	.andReturn();
 
-    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
         assertEquals(harmonizeXml(getCompareFile("station.xml")), harmonizeXml(rtn.getResponse().getContentAsString()));
     }
 
@@ -326,10 +291,8 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
         	.andExpect(header().string("NWIS-Site-Count", "2"))
         	.andExpect(header().string("STEWARDS-Site-Count", "2"))
         	.andExpect(header().string("STORET-Site-Count", "2"))
-            .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
         	.andReturn();
 
-    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
         assertEquals(harmonizeXml(getCompareFile("station.xml")), harmonizeXml(extractZipContent(rtn.getResponse().getContentAsByteArray(), "station.xml")));
     }
 
@@ -344,10 +307,8 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
             .andExpect(header().string("NWIS-Site-Count", "2"))
             .andExpect(header().string("STEWARDS-Site-Count", "2"))
             .andExpect(header().string("STORET-Site-Count", "2"))
-            .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
 
-    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
     	assertEquals("", rtn.getResponse().getContentAsString());
     }
     
@@ -362,10 +323,8 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
             .andExpect(header().string("NWIS-Site-Count", "2"))
             .andExpect(header().string("STEWARDS-Site-Count", "2"))
             .andExpect(header().string("STORET-Site-Count", "2"))
-            .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
 
-    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
     	assertEquals("", rtn.getResponse().getContentAsString());
     }
     
@@ -380,10 +339,8 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
             .andExpect(header().string("NWIS-Site-Count", "2"))
             .andExpect(header().string("STEWARDS-Site-Count", "2"))
             .andExpect(header().string("STORET-Site-Count", "2"))
-            .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
 
-    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
     	assertEquals("", rtn.getResponse().getContentAsString());
     }
     
@@ -398,10 +355,8 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
         	.andExpect(header().string("NWIS-Site-Count", "2"))
         	.andExpect(header().string("STEWARDS-Site-Count", "2"))
         	.andExpect(header().string("STORET-Site-Count", "2"))
-            .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
         	.andReturn();
 
-    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
         assertEquals(harmonizeXml(getCompareFile("station.kml")), harmonizeXml(rtn.getResponse().getContentAsString()));
     }
 
@@ -416,10 +371,8 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
         	.andExpect(header().string("NWIS-Site-Count", "2"))
         	.andExpect(header().string("STEWARDS-Site-Count", "2"))
         	.andExpect(header().string("STORET-Site-Count", "2"))
-            .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
         	.andReturn();
 
-    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
         assertEquals(harmonizeXml(getCompareFile("station.kml")), harmonizeXml(extractZipContent(rtn.getResponse().getContentAsByteArray(), "station.kml")));
     }
 
@@ -434,10 +387,8 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
         	.andExpect(header().string("NWIS-Site-Count", "2"))
         	.andExpect(header().string("STEWARDS-Site-Count", "2"))
         	.andExpect(header().string("STORET-Site-Count", "2"))
-            .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
         	.andReturn();
 
-    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
         assertEquals(harmonizeXml(getCompareFile("station.kml")), harmonizeXml(extractZipContent(rtn.getResponse().getContentAsByteArray(), "station.kml")));
     }
 
@@ -474,17 +425,12 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
 			.andExpect(content().contentType(MediaType.APPLICATION_XML_VALUE))
 			.andExpect(content().encoding(DEFAULT_ENCODING))
 			.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=station.xml"))
-            .andExpect(header().string(HEADER_CORS_METHODS, HEADER_CORS_METHODS_VALUE))
-            .andExpect(header().string(HEADER_CORS_MAX_AGE, HEADER_CORS_MAX_AGE_VALUE))
-		    .andExpect(header().string(HEADER_CORS_ALLOW_HEADERS, HEADER_CORS_ALLOW_HEADERS_VALUE))
 			.andExpect(header().string("Total-Site-Count", "0"))
 			.andExpect(header().string("NWIS-Site-Count", (String)null))
 			.andExpect(header().string("STEWARDS-Site-Count", (String)null))
 			.andExpect(header().string("STORET-Site-Count", (String)null))
-            .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
 			.andReturn();
 
-    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
 //        assertEquals(harmonizeXml(getCompareFile("station.xml")), harmonizeXml(rtn.getResponse().getContentAsString()));
 	
     }
@@ -496,17 +442,12 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
             .andExpect(content().contentType(MIME_TYPE_GEOJSON))
             .andExpect(content().encoding(DEFAULT_ENCODING))
             .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=station.geojson"))
-            .andExpect(header().string(HEADER_CORS_METHODS, HEADER_CORS_METHODS_VALUE))
-            .andExpect(header().string(HEADER_CORS_MAX_AGE, HEADER_CORS_MAX_AGE_VALUE))
-		    .andExpect(header().string(HEADER_CORS_ALLOW_HEADERS, HEADER_CORS_ALLOW_HEADERS_VALUE))
             .andExpect(header().string("Total-Site-Count", "6"))
             .andExpect(header().string("NWIS-Site-Count", "2"))
             .andExpect(header().string("STEWARDS-Site-Count", "2"))
             .andExpect(header().string("STORET-Site-Count", "2"))
-            .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
 
-    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
     	assertEquals("", rtn.getResponse().getContentAsString());
         
         rtn = mockMvc.perform(get(endpoint + "geojson"))
@@ -514,17 +455,12 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
             .andExpect(content().contentType(MIME_TYPE_GEOJSON))
             .andExpect(content().encoding(DEFAULT_ENCODING))
             .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=station.geojson"))
-            .andExpect(header().string(HEADER_CORS_METHODS, HEADER_CORS_METHODS_VALUE))
-            .andExpect(header().string(HEADER_CORS_MAX_AGE, HEADER_CORS_MAX_AGE_VALUE))
-		    .andExpect(header().string(HEADER_CORS_ALLOW_HEADERS, HEADER_CORS_ALLOW_HEADERS_VALUE))
             .andExpect(header().string("Total-Site-Count", "6"))
             .andExpect(header().string("NWIS-Site-Count", "2"))
             .andExpect(header().string("STEWARDS-Site-Count", "2"))
             .andExpect(header().string("STORET-Site-Count", "2"))
-            .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
 
-    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
         assertThat(new JSONObject(rtn.getResponse().getContentAsString()),
         		sameJSONObjectAs(new JSONObject(getCompareFile("simpleStation.json"))));
     }
@@ -536,17 +472,12 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
             .andExpect(content().contentType(MIME_TYPE_ZIP))
             .andExpect(content().encoding(DEFAULT_ENCODING))
             .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=station.zip"))
-            .andExpect(header().string(HEADER_CORS_METHODS, HEADER_CORS_METHODS_VALUE))
-            .andExpect(header().string(HEADER_CORS_MAX_AGE, HEADER_CORS_MAX_AGE_VALUE))
-		    .andExpect(header().string(HEADER_CORS_ALLOW_HEADERS, HEADER_CORS_ALLOW_HEADERS_VALUE))
             .andExpect(header().string("Total-Site-Count", "6"))
             .andExpect(header().string("NWIS-Site-Count", "2"))
             .andExpect(header().string("STEWARDS-Site-Count", "2"))
             .andExpect(header().string("STORET-Site-Count", "2"))
-            .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
 
-    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
     	assertEquals("", rtn.getResponse().getContentAsString());
         
         rtn = mockMvc.perform(get(endpoint + "geojson&zip=yes"))
@@ -554,17 +485,12 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
             .andExpect(content().contentType(MIME_TYPE_ZIP))
             .andExpect(content().encoding(DEFAULT_ENCODING))
             .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=station.zip"))
-            .andExpect(header().string(HEADER_CORS_METHODS, HEADER_CORS_METHODS_VALUE))
-            .andExpect(header().string(HEADER_CORS_MAX_AGE, HEADER_CORS_MAX_AGE_VALUE))
-		    .andExpect(header().string(HEADER_CORS_ALLOW_HEADERS, HEADER_CORS_ALLOW_HEADERS_VALUE))
             .andExpect(header().string("Total-Site-Count", "6"))
             .andExpect(header().string("NWIS-Site-Count", "2"))
             .andExpect(header().string("STEWARDS-Site-Count", "2"))
             .andExpect(header().string("STORET-Site-Count", "2"))
-            .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
 
-    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
         assertThat(new JSONObject(extractZipContent(rtn.getResponse().getContentAsByteArray(), "station.geojson")),
         		sameJSONObjectAs(new JSONObject(getCompareFile("simpleStation.json"))));
     }

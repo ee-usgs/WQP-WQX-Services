@@ -14,6 +14,6 @@ public interface IStreamingDao extends IDao {
 	 * @param parameterMap - the map of query parameters from the http request
 	 * @param handler - the row handler to use for streaming data
 	 */
-	void stream(String nameSpace, Map<String, Object> parameterMap, ResultHandler handler);
+	void stream(String nameSpace, Map<String, Object> parameterMap, ResultHandler<?> handler);
 
 }

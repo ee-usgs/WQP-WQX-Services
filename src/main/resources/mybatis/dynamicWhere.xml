@@ -161,23 +161,51 @@
 		<where>
 			<include refid="dynamicWhere.baseWhereStationGeoClauses" />
 			<include refid="dynamicWhere.baseWhereStationClauses" />
-						<if test="assemblage != null || sampleMedia != null || characteristicName != null || characteristicType != null || startDateLo != null || startDateHi != null ||
-                      activityId != null || analyticalmethod != null || pCode != null || project != null || subjectTaxonomicName != null">
-            	and exists (select null from
-                                   result_sum
-                             where prime.station_id = result_sum.station_id and
-                                   prime.data_source_id = result_sum.data_source_id
-                                   <include refid="dynamicWhere.baseWhereResultClauses" />
-                           )
-            </if>
+			<choose>
+				<when test="assemblage != null || sampleMedia != null || characteristicName != null || characteristicType != null || startDateLo != null || startDateHi != null ||
+    	                    activityId != null || analyticalmethod != null || pCode != null || project != null || subjectTaxonomicName != null">
+        	    	and exists (select null
+            	                  from result_sum
+                	             where prime.station_id = result_sum.station_id and
+                    	               prime.data_source_id = result_sum.data_source_id
+                        	           <include refid="dynamicWhere.baseWhereResultClauses" />
+                            	<if test="minresults != null">
+                            		group by result_sum.data_source_id, result_sum.station_id
+                    	        	having sum(result_count) >= #{minresults}
+                        	    </if>
+                           	   )
+            	</when>
+            	<otherwise>
+					<if test="minresults != null">
+						and #{minresults} &lt;= (select result_count
+						                           from station_sum
+						                          where prime.data_source_id = station_sum.data_source_id and
+						                                prime.station_id = station_sum.station_id)
+					</if>
+            	</otherwise>
+            </choose>
         </where>
     </sql>
 
-    <sql id="stationsCountBase">
+	<sql id="primeResultSum">
+		     result_count,
+		     sum(result_count) over (partition by data_source_id, station_id) result_count_sum
 		from 
+	</sql>
+
+	<sql id="secondaryResultSum">
+		     secondary.result_count,
+		     sum(secondary.result_count) over (partition by secondary.data_source_id, secondary.station_id) result_count_sum
+		from 
+	</sql>
+
+    <sql id="stationsCountBase">
+		from (select data_source,
+		             prime.station_id,
 		<if test="assemblage == null &amp;&amp; sampleMedia == null &amp;&amp; characteristicName == null &amp;&amp; characteristicType == null &amp;&amp;
                   startDateLo == null &amp;&amp; startDateHi == null &amp;&amp; activityId == null &amp;&amp;
                   analyticalmethod == null &amp;&amp; pCode == null &amp;&amp; project == null &amp;&amp; subjectTaxonomicName == null">
+            <include refid="dynamicWhere.primeResultSum"/>
 			station_sum prime
           	<where>
           		<include refid="dynamicWhere.baseWhereStationGeoClauses" />
@@ -186,6 +214,7 @@
         </if>
         <if test="startDateLo != NULL || startDateHi != NULL || activityId != null">
        		<if test="bBox == NULL &amp;&amp; within == NULL">
+				<include refid="dynamicWhere.primeResultSum"/>
 				result_sum prime
 	            <where>
 					<include refid="dynamicWhere.baseWhereStationClauses" />
@@ -196,6 +225,7 @@
         <if test="assemblage != null || sampleMedia != NULL || characteristicName != NULL || characteristicType != NULL || 
                   analyticalmethod != null || pCode != null || project != null || subjectTaxonomicName != null">
         	<if test="startDateLo == NULL &amp;&amp; startDateHi == NULL &amp;&amp; within == NULL &amp;&amp; bBox == NULL">
+				<include refid="dynamicWhere.primeResultSum"/>
 				result_ct_sum prime
                	<where>
 					<include refid="dynamicWhere.baseWhereStationClauses" />
@@ -207,6 +237,7 @@
         	<if test="assemblage != null || sampleMedia != NULL || characteristicName != NULL || characteristicType != NULL ||
                       startDateLo != NULL || startDateHi != NULL || activityId != null || 
                       analyticalmethod != null || pCode != null || project != null || subjectTaxonomicName != null">
+				<include refid="dynamicWhere.secondaryResultSum"/>
 					 result_nr_sum secondary
                 join (select /*+ index_combine(prime) */ data_source_id, station_id, site_id
                         from station prime
@@ -224,6 +255,12 @@
                 </where>
           	</if>
 		</if>
+		)
+		<where>
+			<if test="minresults != null">
+		    	and (result_count_sum >= #{minresults})
+		    </if>
+		</where>
     </sql>
 
     <!-- **********************************************************************************************************************

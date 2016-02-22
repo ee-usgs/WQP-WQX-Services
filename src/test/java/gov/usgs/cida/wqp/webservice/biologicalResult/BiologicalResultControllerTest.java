@@ -10,15 +10,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import gov.usgs.cida.wqp.BaseSpringTest;
-import gov.usgs.cida.wqp.FullIntegrationTest;
-import gov.usgs.cida.wqp.parameter.Parameters;
-import gov.usgs.cida.wqp.service.CodesService;
-import gov.usgs.cida.wqp.util.CORSFilter;
-import gov.usgs.cida.wqp.util.HttpConstants;
-import gov.usgs.cida.wqp.util.MimeType;
-import gov.usgs.cida.wqp.util.MybatisConstants;
-import gov.usgs.cida.wqp.validation.ValidationConstants;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,6 +30,15 @@ import org.springframework.web.context.WebApplicationContext;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DatabaseSetups;
 
+import gov.usgs.cida.wqp.BaseSpringTest;
+import gov.usgs.cida.wqp.FullIntegrationTest;
+import gov.usgs.cida.wqp.parameter.Parameters;
+import gov.usgs.cida.wqp.service.CodesService;
+import gov.usgs.cida.wqp.util.HttpConstants;
+import gov.usgs.cida.wqp.util.MimeType;
+import gov.usgs.cida.wqp.util.MybatisConstants;
+import gov.usgs.cida.wqp.validation.ValidationConstants;
+
 @Category(FullIntegrationTest.class)
 @WebAppConfiguration
 @DatabaseSetups({
@@ -54,16 +54,13 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
     private WebApplicationContext wac;
 
     @Autowired
-	protected CORSFilter filter;
-    
-    @Autowired
     private CodesService codesService;
 
     private MockMvc mockMvc;
     
     @Before
     public void setup() {
-         mockMvc = MockMvcBuilders.webAppContextSetup(wac).addFilters(filter).build();
+         mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
     }
 
     @Test
@@ -73,9 +70,6 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
             .andExpect(content().contentType(MimeType.csv.getMimeType()))
             .andExpect(content().encoding(DEFAULT_ENCODING))
             .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=biologicalresult.csv"))
-            .andExpect(header().string(HEADER_CORS_METHODS, HEADER_CORS_METHODS_VALUE))
-            .andExpect(header().string(HEADER_CORS_MAX_AGE, HEADER_CORS_MAX_AGE_VALUE))
-		    .andExpect(header().string(HEADER_CORS_ALLOW_HEADERS, HEADER_CORS_ALLOW_HEADERS_VALUE))
             .andExpect(header().string("Total-Site-Count", "6"))
             .andExpect(header().string("NWIS-Site-Count", "2"))
             .andExpect(header().string("STEWARDS-Site-Count", "2"))
@@ -84,10 +78,8 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
 			.andExpect(header().string("NWIS-Result-Count", "12"))
 			.andExpect(header().string("STEWARDS-Result-Count", "24"))
 			.andExpect(header().string("STORET-Result-Count", "4"))
-            .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
  
-    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
     	assertEquals("", rtn.getResponse().getContentAsString());
     }
 
@@ -98,9 +90,6 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
             .andExpect(content().contentType(MimeType.csv.getMimeType()))
             .andExpect(content().encoding(DEFAULT_ENCODING))
             .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=biologicalresult.csv"))
-            .andExpect(header().string(HEADER_CORS_METHODS, HEADER_CORS_METHODS_VALUE))
-            .andExpect(header().string(HEADER_CORS_MAX_AGE, HEADER_CORS_MAX_AGE_VALUE))
-		    .andExpect(header().string(HEADER_CORS_ALLOW_HEADERS, HEADER_CORS_ALLOW_HEADERS_VALUE))
             .andExpect(header().string("Total-Site-Count", "6"))
             .andExpect(header().string("NWIS-Site-Count", "2"))
             .andExpect(header().string("STEWARDS-Site-Count", "2"))
@@ -109,10 +98,8 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
 			.andExpect(header().string("NWIS-Result-Count", "12"))
 			.andExpect(header().string("STEWARDS-Result-Count", "24"))
 			.andExpect(header().string("STORET-Result-Count", "4"))
-            .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
 
-    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
         assertEquals(getCompareFile("bioResult.csv"), rtn.getResponse().getContentAsString());
     }
 
@@ -123,9 +110,6 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
             .andExpect(content().contentType(MIME_TYPE_ZIP))
             .andExpect(content().encoding(DEFAULT_ENCODING))
             .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=biologicalresult.zip"))
-            .andExpect(header().string(HEADER_CORS_METHODS, HEADER_CORS_METHODS_VALUE))
-            .andExpect(header().string(HEADER_CORS_MAX_AGE, HEADER_CORS_MAX_AGE_VALUE))
-		    .andExpect(header().string(HEADER_CORS_ALLOW_HEADERS, HEADER_CORS_ALLOW_HEADERS_VALUE))
             .andExpect(header().string("Total-Site-Count", "6"))
             .andExpect(header().string("NWIS-Site-Count", "2"))
             .andExpect(header().string("STEWARDS-Site-Count", "2"))
@@ -134,10 +118,8 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
 			.andExpect(header().string("NWIS-Result-Count", "12"))
 			.andExpect(header().string("STEWARDS-Result-Count", "24"))
 			.andExpect(header().string("STORET-Result-Count", "4"))
-            .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
  
-    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
     	assertEquals("", rtn.getResponse().getContentAsString());
     }
 
@@ -148,9 +130,6 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
             .andExpect(content().contentType(MIME_TYPE_ZIP))
             .andExpect(content().encoding(DEFAULT_ENCODING))
             .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=biologicalresult.zip"))
-            .andExpect(header().string(HEADER_CORS_METHODS, HEADER_CORS_METHODS_VALUE))
-            .andExpect(header().string(HEADER_CORS_MAX_AGE, HEADER_CORS_MAX_AGE_VALUE))
-		    .andExpect(header().string(HEADER_CORS_ALLOW_HEADERS, HEADER_CORS_ALLOW_HEADERS_VALUE))
             .andExpect(header().string("Total-Site-Count", "6"))
             .andExpect(header().string("NWIS-Site-Count", "2"))
             .andExpect(header().string("STEWARDS-Site-Count", "2"))
@@ -159,10 +138,8 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
 			.andExpect(header().string("NWIS-Result-Count", "12"))
 			.andExpect(header().string("STEWARDS-Result-Count", "24"))
 			.andExpect(header().string("STORET-Result-Count", "4"))
-            .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
 
-    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
         assertEquals(getCompareFile("bioResult.csv"), extractZipContent(rtn.getResponse().getContentAsByteArray(), "biologicalresult.csv"));
     }
 
@@ -174,9 +151,6 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
             .andExpect(content().contentType(MimeType.tsv.getMimeType()))
             .andExpect(content().encoding(DEFAULT_ENCODING))
             .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=biologicalresult.tsv"))
-            .andExpect(header().string(HEADER_CORS_METHODS, HEADER_CORS_METHODS_VALUE))
-            .andExpect(header().string(HEADER_CORS_MAX_AGE, HEADER_CORS_MAX_AGE_VALUE))
-		    .andExpect(header().string(HEADER_CORS_ALLOW_HEADERS, HEADER_CORS_ALLOW_HEADERS_VALUE))
             .andExpect(header().string("Total-Site-Count", "6"))
             .andExpect(header().string("NWIS-Site-Count", "2"))
             .andExpect(header().string("STEWARDS-Site-Count", "2"))
@@ -185,10 +159,8 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
 			.andExpect(header().string("NWIS-Result-Count", "12"))
 			.andExpect(header().string("STEWARDS-Result-Count", "24"))
 			.andExpect(header().string("STORET-Result-Count", "4"))
-            .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
 
-    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
     	assertEquals("", rtn.getResponse().getContentAsString());
     }
 
@@ -199,9 +171,6 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
             .andExpect(content().contentType(MimeType.tsv.getMimeType()))
             .andExpect(content().encoding(DEFAULT_ENCODING))
             .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=biologicalresult.tsv"))
-            .andExpect(header().string(HEADER_CORS_METHODS, HEADER_CORS_METHODS_VALUE))
-            .andExpect(header().string(HEADER_CORS_MAX_AGE, HEADER_CORS_MAX_AGE_VALUE))
-		    .andExpect(header().string(HEADER_CORS_ALLOW_HEADERS, HEADER_CORS_ALLOW_HEADERS_VALUE))
             .andExpect(header().string("Total-Site-Count", "6"))
             .andExpect(header().string("NWIS-Site-Count", "2"))
             .andExpect(header().string("STEWARDS-Site-Count", "2"))
@@ -210,10 +179,8 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
 			.andExpect(header().string("NWIS-Result-Count", "12"))
 			.andExpect(header().string("STEWARDS-Result-Count", "24"))
 			.andExpect(header().string("STORET-Result-Count", "4"))
-            .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
 
-    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
         assertEquals(getCompareFile("bioResult.tsv"), rtn.getResponse().getContentAsString());
     }
 
@@ -224,9 +191,6 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
             .andExpect(content().contentType(MIME_TYPE_ZIP))
             .andExpect(content().encoding(DEFAULT_ENCODING))
             .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=biologicalresult.zip"))
-            .andExpect(header().string(HEADER_CORS_METHODS, HEADER_CORS_METHODS_VALUE))
-            .andExpect(header().string(HEADER_CORS_MAX_AGE, HEADER_CORS_MAX_AGE_VALUE))
-		    .andExpect(header().string(HEADER_CORS_ALLOW_HEADERS, HEADER_CORS_ALLOW_HEADERS_VALUE))
             .andExpect(header().string("Total-Site-Count", "6"))
             .andExpect(header().string("NWIS-Site-Count", "2"))
             .andExpect(header().string("STEWARDS-Site-Count", "2"))
@@ -235,10 +199,8 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
 			.andExpect(header().string("NWIS-Result-Count", "12"))
 			.andExpect(header().string("STEWARDS-Result-Count", "24"))
 			.andExpect(header().string("STORET-Result-Count", "4"))
-            .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
 
-    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
     	assertEquals("", rtn.getResponse().getContentAsString());
     }
 
@@ -249,9 +211,6 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
             .andExpect(content().contentType(MIME_TYPE_ZIP))
             .andExpect(content().encoding(DEFAULT_ENCODING))
             .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=biologicalresult.zip"))
-            .andExpect(header().string(HEADER_CORS_METHODS, HEADER_CORS_METHODS_VALUE))
-            .andExpect(header().string(HEADER_CORS_MAX_AGE, HEADER_CORS_MAX_AGE_VALUE))
-		    .andExpect(header().string(HEADER_CORS_ALLOW_HEADERS, HEADER_CORS_ALLOW_HEADERS_VALUE))
             .andExpect(header().string("Total-Site-Count", "6"))
             .andExpect(header().string("NWIS-Site-Count", "2"))
             .andExpect(header().string("STEWARDS-Site-Count", "2"))
@@ -260,10 +219,8 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
 			.andExpect(header().string("NWIS-Result-Count", "12"))
 			.andExpect(header().string("STEWARDS-Result-Count", "24"))
 			.andExpect(header().string("STORET-Result-Count", "4"))
-            .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
 
-    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
         assertEquals(getCompareFile("bioResult.tsv"), extractZipContent(rtn.getResponse().getContentAsByteArray(), "biologicalresult.tsv"));
     }
 
@@ -275,9 +232,6 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
     		.andExpect(content().contentType(MimeType.xlsx.getMimeType()))
     		.andExpect(content().encoding(DEFAULT_ENCODING))
     		.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=biologicalresult.xlsx"))
-    		.andExpect(header().string(HEADER_CORS_METHODS, HEADER_CORS_METHODS_VALUE))
-    		.andExpect(header().string(HEADER_CORS_MAX_AGE, HEADER_CORS_MAX_AGE_VALUE))
-    		.andExpect(header().string(HEADER_CORS_ALLOW_HEADERS, HEADER_CORS_ALLOW_HEADERS_VALUE))
     		.andExpect(header().string("Total-Site-Count", "6"))
     		.andExpect(header().string("NWIS-Site-Count", "2"))
     		.andExpect(header().string("STEWARDS-Site-Count", "2"))
@@ -286,10 +240,8 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
 			.andExpect(header().string("NWIS-Result-Count", "12"))
 			.andExpect(header().string("STEWARDS-Result-Count", "24"))
 			.andExpect(header().string("STORET-Result-Count", "4"))
-    		.andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
     		.andReturn();
 	
-    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
     	assertEquals("", rtn.getResponse().getContentAsString());
 	}
   
@@ -300,9 +252,6 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
 			.andExpect(content().contentType(MimeType.xlsx.getMimeType()))
 			.andExpect(content().encoding(DEFAULT_ENCODING))
 			.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=biologicalresult.xlsx"))
-			.andExpect(header().string(HEADER_CORS_METHODS, HEADER_CORS_METHODS_VALUE))
-			.andExpect(header().string(HEADER_CORS_MAX_AGE, HEADER_CORS_MAX_AGE_VALUE))
-			.andExpect(header().string(HEADER_CORS_ALLOW_HEADERS, HEADER_CORS_ALLOW_HEADERS_VALUE))
 			.andExpect(header().string("Total-Site-Count", "6"))
 			.andExpect(header().string("NWIS-Site-Count", "2"))
 			.andExpect(header().string("STEWARDS-Site-Count", "2"))
@@ -311,10 +260,8 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
 			.andExpect(header().string("NWIS-Result-Count", "12"))
 			.andExpect(header().string("STEWARDS-Result-Count", "24"))
 			.andExpect(header().string("STORET-Result-Count", "4"))
-			.andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
 			.andReturn();
 
-    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
 //    	assertEquals(harmonizeXml(getCompareFile("simpleStation.xml")), harmonizeXml(rtn.getResponse().getContentAsString()));
     }
 
@@ -325,9 +272,6 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
     		.andExpect(content().contentType(MIME_TYPE_ZIP))
     		.andExpect(content().encoding(DEFAULT_ENCODING))
     		.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=biologicalresult.zip"))
-    		.andExpect(header().string(HEADER_CORS_METHODS, HEADER_CORS_METHODS_VALUE))
-    		.andExpect(header().string(HEADER_CORS_MAX_AGE, HEADER_CORS_MAX_AGE_VALUE))
-    		.andExpect(header().string(HEADER_CORS_ALLOW_HEADERS, HEADER_CORS_ALLOW_HEADERS_VALUE))
     		.andExpect(header().string("Total-Site-Count", "6"))
     		.andExpect(header().string("NWIS-Site-Count", "2"))
     		.andExpect(header().string("STEWARDS-Site-Count", "2"))
@@ -336,10 +280,8 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
 			.andExpect(header().string("NWIS-Result-Count", "12"))
 			.andExpect(header().string("STEWARDS-Result-Count", "24"))
 			.andExpect(header().string("STORET-Result-Count", "4"))
-    		.andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
     		.andReturn();
 	
-    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
     	assertEquals("", rtn.getResponse().getContentAsString());
 	}
   
@@ -350,9 +292,6 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
 			.andExpect(content().contentType(MIME_TYPE_ZIP))
 			.andExpect(content().encoding(DEFAULT_ENCODING))
 			.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=biologicalresult.zip"))
-			.andExpect(header().string(HEADER_CORS_METHODS, HEADER_CORS_METHODS_VALUE))
-			.andExpect(header().string(HEADER_CORS_MAX_AGE, HEADER_CORS_MAX_AGE_VALUE))
-			.andExpect(header().string(HEADER_CORS_ALLOW_HEADERS, HEADER_CORS_ALLOW_HEADERS_VALUE))
 			.andExpect(header().string("Total-Site-Count", "6"))
 			.andExpect(header().string("NWIS-Site-Count", "2"))
 			.andExpect(header().string("STEWARDS-Site-Count", "2"))
@@ -361,10 +300,8 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
 			.andExpect(header().string("NWIS-Result-Count", "12"))
 			.andExpect(header().string("STEWARDS-Result-Count", "24"))
 			.andExpect(header().string("STORET-Result-Count", "4"))
-			.andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
 			.andReturn();
 
-    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
 //    	assertEquals(harmonizeXml(getCompareFile("simpleStation.xml")), harmonizeXml(rtn.getResponse().getContentAsString()));
     }
 
@@ -377,9 +314,6 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
             .andExpect(content().contentType(MimeType.xml.getMimeType()))
             .andExpect(content().encoding(DEFAULT_ENCODING))
             .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=biologicalresult.xml"))
-            .andExpect(header().string(HEADER_CORS_METHODS, HEADER_CORS_METHODS_VALUE))
-            .andExpect(header().string(HEADER_CORS_MAX_AGE, HEADER_CORS_MAX_AGE_VALUE))
-		    .andExpect(header().string(HEADER_CORS_ALLOW_HEADERS, HEADER_CORS_ALLOW_HEADERS_VALUE))
             .andExpect(header().string("Total-Site-Count", "6"))
             .andExpect(header().string("NWIS-Site-Count", "2"))
             .andExpect(header().string("STEWARDS-Site-Count", "2"))
@@ -388,10 +322,8 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
 			.andExpect(header().string("NWIS-Result-Count", "12"))
 			.andExpect(header().string("STEWARDS-Result-Count", "24"))
 			.andExpect(header().string("STORET-Result-Count", "4"))
-            .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
  
-    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
     	assertEquals("", rtn.getResponse().getContentAsString());
     }
 
@@ -402,9 +334,6 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
             .andExpect(content().contentType(MimeType.xml.getMimeType()))
             .andExpect(content().encoding(DEFAULT_ENCODING))
             .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=biologicalresult.xml"))
-            .andExpect(header().string(HEADER_CORS_METHODS, HEADER_CORS_METHODS_VALUE))
-            .andExpect(header().string(HEADER_CORS_MAX_AGE, HEADER_CORS_MAX_AGE_VALUE))
-		    .andExpect(header().string(HEADER_CORS_ALLOW_HEADERS, HEADER_CORS_ALLOW_HEADERS_VALUE))
             .andExpect(header().string("Total-Site-Count", "6"))
             .andExpect(header().string("NWIS-Site-Count", "2"))
             .andExpect(header().string("STEWARDS-Site-Count", "2"))
@@ -413,10 +342,8 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
 			.andExpect(header().string("NWIS-Result-Count", "12"))
 			.andExpect(header().string("STEWARDS-Result-Count", "24"))
 			.andExpect(header().string("STORET-Result-Count", "4"))
-            .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
 
-    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
         assertEquals(harmonizeXml(getCompareFile("bioResult.xml")), harmonizeXml(rtn.getResponse().getContentAsString()));
     }
     
@@ -428,9 +355,6 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
             .andExpect(content().contentType(MIME_TYPE_ZIP))
             .andExpect(content().encoding(DEFAULT_ENCODING))
             .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=biologicalresult.zip"))
-            .andExpect(header().string(HEADER_CORS_METHODS, HEADER_CORS_METHODS_VALUE))
-            .andExpect(header().string(HEADER_CORS_MAX_AGE, HEADER_CORS_MAX_AGE_VALUE))
-		    .andExpect(header().string(HEADER_CORS_ALLOW_HEADERS, HEADER_CORS_ALLOW_HEADERS_VALUE))
             .andExpect(header().string("Total-Site-Count", "6"))
             .andExpect(header().string("NWIS-Site-Count", "2"))
             .andExpect(header().string("STEWARDS-Site-Count", "2"))
@@ -439,11 +363,9 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
 			.andExpect(header().string("NWIS-Result-Count", "12"))
 			.andExpect(header().string("STEWARDS-Result-Count", "24"))
 			.andExpect(header().string("STORET-Result-Count", "4"))
-            .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
  
-    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
-    	assertEquals("", rtn.getResponse().getContentAsString());
+     	assertEquals("", rtn.getResponse().getContentAsString());
     }
 
     @Test
@@ -453,9 +375,6 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
             .andExpect(content().contentType(MIME_TYPE_ZIP))
             .andExpect(content().encoding(DEFAULT_ENCODING))
             .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=biologicalresult.zip"))
-            .andExpect(header().string(HEADER_CORS_METHODS, HEADER_CORS_METHODS_VALUE))
-            .andExpect(header().string(HEADER_CORS_MAX_AGE, HEADER_CORS_MAX_AGE_VALUE))
-		    .andExpect(header().string(HEADER_CORS_ALLOW_HEADERS, HEADER_CORS_ALLOW_HEADERS_VALUE))
             .andExpect(header().string("Total-Site-Count", "6"))
             .andExpect(header().string("NWIS-Site-Count", "2"))
             .andExpect(header().string("STEWARDS-Site-Count", "2"))
@@ -464,10 +383,8 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
 			.andExpect(header().string("NWIS-Result-Count", "12"))
 			.andExpect(header().string("STEWARDS-Result-Count", "24"))
 			.andExpect(header().string("STORET-Result-Count", "4"))
-            .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
 
-    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
         assertEquals(harmonizeXml(getCompareFile("bioResult.xml")), harmonizeXml(extractZipContent(rtn.getResponse().getContentAsByteArray(), "biologicalresult.xml")));
     }
     
@@ -504,9 +421,6 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
 			.andExpect(content().contentType(MimeType.csv.getMimeType()))
 			.andExpect(content().encoding(DEFAULT_ENCODING))
 			.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=biologicalresult.csv"))
-            .andExpect(header().string(HEADER_CORS_METHODS, HEADER_CORS_METHODS_VALUE))
-            .andExpect(header().string(HEADER_CORS_MAX_AGE, HEADER_CORS_MAX_AGE_VALUE))
-		    .andExpect(header().string(HEADER_CORS_ALLOW_HEADERS, HEADER_CORS_ALLOW_HEADERS_VALUE))
 			.andExpect(header().string("Total-Site-Count", "0"))
 			.andExpect(header().string("NWIS-Site-Count", (String)null))
 			.andExpect(header().string("STEWARDS-Site-Count", (String)null))
@@ -515,10 +429,8 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
 			.andExpect(header().string("NWIS-Result-Count", (String)null))
 			.andExpect(header().string("STEWARDS-Result-Count", (String)null))
 			.andExpect(header().string("STORET-Result-Count", (String)null))
-            .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
 			.andReturn();
 
-    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
 //        assertEquals(harmonizeXml(getCompareFile("simpleStation.xml")), harmonizeXml(rtn.getResponse().getContentAsString()));
 	
     }

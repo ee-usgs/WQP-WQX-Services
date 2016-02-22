@@ -6,12 +6,15 @@ import javax.sql.DataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class JndiUtils {
+public abstract class JndiUtils {
 	public static final String ENV_CTX = "java:/comp/env";
 	
 	private static final Logger LOG = LoggerFactory.getLogger(JndiUtils.class);
 	private static Context envContext;
 	
+	private JndiUtils() {
+	}
+
 	static {
 		try {
 			Context initContext = new InitialContext();
@@ -34,4 +37,5 @@ public class JndiUtils {
 		}
 		return ds;
 	}
+
 }

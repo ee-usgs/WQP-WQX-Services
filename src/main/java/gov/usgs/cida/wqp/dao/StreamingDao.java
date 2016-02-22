@@ -18,9 +18,9 @@ public class StreamingDao extends BaseDao implements IStreamingDao {
 	}
 	
 	@Override
-	public void stream(String nameSpace, Map<String, Object> parameterMap, ResultHandler handler) {
+	public void stream(String nameSpace, Map<String, Object> parameterMap, ResultHandler<?> handler) {
 		if (null == handler) {
-			throw new RuntimeException("A ResultHandler is required for the StreamingDao.stream");
+			throw new IllegalArgumentException("A ResultHandler is required for the StreamingDao.stream");
 		}
 		getSqlSession().select(nameSpace + QUERY_SELECT_ID, parameterMap, handler);
 	}

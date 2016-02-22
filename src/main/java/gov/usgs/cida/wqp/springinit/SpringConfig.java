@@ -1,18 +1,13 @@
 package gov.usgs.cida.wqp.springinit;
 
 import static gov.usgs.cida.wqp.util.MimeType.csv;
+import static gov.usgs.cida.wqp.util.MimeType.geojson;
 import static gov.usgs.cida.wqp.util.MimeType.json;
 import static gov.usgs.cida.wqp.util.MimeType.kml;
 import static gov.usgs.cida.wqp.util.MimeType.kmz;
 import static gov.usgs.cida.wqp.util.MimeType.tsv;
 import static gov.usgs.cida.wqp.util.MimeType.xlsx;
 import static gov.usgs.cida.wqp.util.MimeType.xml;
-import static gov.usgs.cida.wqp.util.MimeType.geojson;
-import gov.usgs.cida.wqp.util.HttpConstants;
-import gov.usgs.cida.wqp.util.JndiUtils;
-import gov.usgs.cida.wqp.util.MybatisConstants;
-import gov.usgs.cida.wqp.util.WqpEnv;
-import gov.usgs.cida.wqp.util.WqpEnvProperties;
 
 import javax.sql.DataSource;
 
@@ -32,8 +27,13 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+
+import gov.usgs.cida.wqp.util.HttpConstants;
+import gov.usgs.cida.wqp.util.JndiUtils;
+import gov.usgs.cida.wqp.util.MybatisConstants;
+import gov.usgs.cida.wqp.util.WqpEnv;
+import gov.usgs.cida.wqp.util.WqpEnvProperties;
 
 /**
  * This class takes the place of the old Spring servlet.xml configuration that
@@ -100,13 +100,6 @@ public class SpringConfig extends WebMvcConfigurerAdapter implements Environment
 	@Bean
 	public static PropertySourcesPlaceholderConfigurer propertyPlaceHolderConfigurer() {
 		return new PropertySourcesPlaceholderConfigurer();
-	}
-
-	/**
-	 * Our resources
-	 */
-	@Override
-	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 	}
 
 	@Bean
