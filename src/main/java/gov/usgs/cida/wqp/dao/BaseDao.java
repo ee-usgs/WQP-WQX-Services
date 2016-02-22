@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 
 public abstract class BaseDao extends SqlSessionDaoSupport {
 
-	protected static final Logger LOG = LoggerFactory.getLogger(BaseDao.class);
+	private static final Logger LOG = LoggerFactory.getLogger(BaseDao.class);
 	
 	public BaseDao(SqlSessionFactory sqlSessionFactory) {
 		LOG.trace(getClass().getName());

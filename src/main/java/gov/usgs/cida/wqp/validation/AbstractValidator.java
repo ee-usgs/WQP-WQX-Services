@@ -56,9 +56,11 @@ public abstract class AbstractValidator<T> implements ValidationConstants {
 			throw new IllegalArgumentException("delimiter must be defined if maxOccurs > minOccurs.");
 		}
 		if (delimiter == null || delimiter.length() == 0) {
-			setTransformer( (ParameterTransformer<T>) new NoopTransformer() ); // default noop transformer
+			 // default noop transformer
+			setTransformer( (ParameterTransformer<T>) new NoopTransformer() );
 		} else {
-			setTransformer( (ParameterTransformer<T>) new SplitTransformer(delimiter)); // default splitting transformer
+			 // default splitting transformer
+			setTransformer( (ParameterTransformer<T>) new SplitTransformer(delimiter));
 		}
 	}
 	

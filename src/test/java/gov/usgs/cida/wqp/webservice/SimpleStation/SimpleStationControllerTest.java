@@ -11,12 +11,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static uk.co.datumedge.hamcrest.json.SameJSONAs.sameJSONObjectAs;
-import gov.usgs.cida.wqp.BaseSpringTest;
-import gov.usgs.cida.wqp.FullIntegrationTest;
-import gov.usgs.cida.wqp.parameter.Parameters;
-import gov.usgs.cida.wqp.service.CodesService;
-import gov.usgs.cida.wqp.util.CORSFilter;
-import gov.usgs.cida.wqp.util.HttpConstants;
 
 import org.json.JSONObject;
 import org.junit.Before;
@@ -33,6 +27,12 @@ import org.springframework.web.context.WebApplicationContext;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DatabaseSetups;
 
+import gov.usgs.cida.wqp.BaseSpringTest;
+import gov.usgs.cida.wqp.FullIntegrationTest;
+import gov.usgs.cida.wqp.parameter.Parameters;
+import gov.usgs.cida.wqp.service.CodesService;
+import gov.usgs.cida.wqp.util.HttpConstants;
+
 @Category(FullIntegrationTest.class)
 @WebAppConfiguration
 @DatabaseSetups({
@@ -47,16 +47,13 @@ public class SimpleStationControllerTest extends BaseSpringTest {
     private WebApplicationContext wac;
 
     @Autowired
-	protected CORSFilter filter;
-    
-    @Autowired
     private CodesService codesService;
 
     private MockMvc mockMvc;
     
     @Before
     public void setup() {
-         mockMvc = MockMvcBuilders.webAppContextSetup(wac).addFilters(filter).build();
+         mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
     }
 
     @Test
@@ -66,17 +63,12 @@ public class SimpleStationControllerTest extends BaseSpringTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(content().encoding(DEFAULT_ENCODING))
             .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=simplestation.json"))
-            .andExpect(header().string(HEADER_CORS_METHODS, HEADER_CORS_METHODS_VALUE))
-            .andExpect(header().string(HEADER_CORS_MAX_AGE, HEADER_CORS_MAX_AGE_VALUE))
-		    .andExpect(header().string(HEADER_CORS_ALLOW_HEADERS, HEADER_CORS_ALLOW_HEADERS_VALUE))
             .andExpect(header().string("Total-Site-Count", "6"))
             .andExpect(header().string("NWIS-Site-Count", "2"))
             .andExpect(header().string("STEWARDS-Site-Count", "2"))
             .andExpect(header().string("STORET-Site-Count", "2"))
-            .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
 
-    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
     	assertEquals("", rtn.getResponse().getContentAsString());
         
         rtn = mockMvc.perform(get(endpoint + "json"))
@@ -84,17 +76,12 @@ public class SimpleStationControllerTest extends BaseSpringTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(content().encoding(DEFAULT_ENCODING))
             .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=simplestation.json"))
-            .andExpect(header().string(HEADER_CORS_METHODS, HEADER_CORS_METHODS_VALUE))
-            .andExpect(header().string(HEADER_CORS_MAX_AGE, HEADER_CORS_MAX_AGE_VALUE))
-		    .andExpect(header().string(HEADER_CORS_ALLOW_HEADERS, HEADER_CORS_ALLOW_HEADERS_VALUE))
             .andExpect(header().string("Total-Site-Count", "6"))
             .andExpect(header().string("NWIS-Site-Count", "2"))
             .andExpect(header().string("STEWARDS-Site-Count", "2"))
             .andExpect(header().string("STORET-Site-Count", "2"))
-            .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
 
-    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
         assertThat(new JSONObject(rtn.getResponse().getContentAsString()),
         		sameJSONObjectAs(new JSONObject(getCompareFile("simpleStation.json"))));
     }
@@ -106,17 +93,12 @@ public class SimpleStationControllerTest extends BaseSpringTest {
             .andExpect(content().contentType(MIME_TYPE_ZIP))
             .andExpect(content().encoding(DEFAULT_ENCODING))
             .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=simplestation.zip"))
-            .andExpect(header().string(HEADER_CORS_METHODS, HEADER_CORS_METHODS_VALUE))
-            .andExpect(header().string(HEADER_CORS_MAX_AGE, HEADER_CORS_MAX_AGE_VALUE))
-		    .andExpect(header().string(HEADER_CORS_ALLOW_HEADERS, HEADER_CORS_ALLOW_HEADERS_VALUE))
             .andExpect(header().string("Total-Site-Count", "6"))
             .andExpect(header().string("NWIS-Site-Count", "2"))
             .andExpect(header().string("STEWARDS-Site-Count", "2"))
             .andExpect(header().string("STORET-Site-Count", "2"))
-            .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
 
-    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
     	assertEquals("", rtn.getResponse().getContentAsString());
         
         rtn = mockMvc.perform(get(endpoint + "json&zip=yes"))
@@ -124,17 +106,12 @@ public class SimpleStationControllerTest extends BaseSpringTest {
             .andExpect(content().contentType(MIME_TYPE_ZIP))
             .andExpect(content().encoding(DEFAULT_ENCODING))
             .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=simplestation.zip"))
-            .andExpect(header().string(HEADER_CORS_METHODS, HEADER_CORS_METHODS_VALUE))
-            .andExpect(header().string(HEADER_CORS_MAX_AGE, HEADER_CORS_MAX_AGE_VALUE))
-		    .andExpect(header().string(HEADER_CORS_ALLOW_HEADERS, HEADER_CORS_ALLOW_HEADERS_VALUE))
             .andExpect(header().string("Total-Site-Count", "6"))
             .andExpect(header().string("NWIS-Site-Count", "2"))
             .andExpect(header().string("STEWARDS-Site-Count", "2"))
             .andExpect(header().string("STORET-Site-Count", "2"))
-            .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
 
-    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
         assertThat(new JSONObject(extractZipContent(rtn.getResponse().getContentAsByteArray(), "simplestation.json")),
         		sameJSONObjectAs(new JSONObject(getCompareFile("simpleStation.json"))));
     }
@@ -146,17 +123,12 @@ public class SimpleStationControllerTest extends BaseSpringTest {
             .andExpect(content().contentType(MediaType.APPLICATION_XML_VALUE))
             .andExpect(content().encoding(DEFAULT_ENCODING))
             .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=simplestation.xml"))
-            .andExpect(header().string(HEADER_CORS_METHODS, HEADER_CORS_METHODS_VALUE))
-            .andExpect(header().string(HEADER_CORS_MAX_AGE, HEADER_CORS_MAX_AGE_VALUE))
-		    .andExpect(header().string(HEADER_CORS_ALLOW_HEADERS, HEADER_CORS_ALLOW_HEADERS_VALUE))
             .andExpect(header().string("Total-Site-Count", "6"))
             .andExpect(header().string("NWIS-Site-Count", "2"))
             .andExpect(header().string("STEWARDS-Site-Count", "2"))
             .andExpect(header().string("STORET-Site-Count", "2"))
-            .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
 
-    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
     	assertEquals("", rtn.getResponse().getContentAsString());
     }
     
@@ -167,17 +139,12 @@ public class SimpleStationControllerTest extends BaseSpringTest {
             .andExpect(content().contentType(MediaType.APPLICATION_XML_VALUE))
             .andExpect(content().encoding(DEFAULT_ENCODING))
             .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=simplestation.xml"))
-            .andExpect(header().string(HEADER_CORS_METHODS, HEADER_CORS_METHODS_VALUE))
-            .andExpect(header().string(HEADER_CORS_MAX_AGE, HEADER_CORS_MAX_AGE_VALUE))
-		    .andExpect(header().string(HEADER_CORS_ALLOW_HEADERS, HEADER_CORS_ALLOW_HEADERS_VALUE))
             .andExpect(header().string("Total-Site-Count", "6"))
             .andExpect(header().string("NWIS-Site-Count", "2"))
             .andExpect(header().string("STEWARDS-Site-Count", "2"))
             .andExpect(header().string("STORET-Site-Count", "2"))
-            .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
 
-    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
         assertEquals(harmonizeXml(getCompareFile("simpleStation.xml")), harmonizeXml(rtn.getResponse().getContentAsString()));
     }
 
@@ -188,17 +155,12 @@ public class SimpleStationControllerTest extends BaseSpringTest {
             .andExpect(content().contentType(MIME_TYPE_ZIP))
             .andExpect(content().encoding(DEFAULT_ENCODING))
             .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=simplestation.zip"))
-            .andExpect(header().string(HEADER_CORS_METHODS, HEADER_CORS_METHODS_VALUE))
-            .andExpect(header().string(HEADER_CORS_MAX_AGE, HEADER_CORS_MAX_AGE_VALUE))
-		    .andExpect(header().string(HEADER_CORS_ALLOW_HEADERS, HEADER_CORS_ALLOW_HEADERS_VALUE))
             .andExpect(header().string("Total-Site-Count", "6"))
             .andExpect(header().string("NWIS-Site-Count", "2"))
             .andExpect(header().string("STEWARDS-Site-Count", "2"))
             .andExpect(header().string("STORET-Site-Count", "2"))
-            .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
 
-    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
     	assertEquals("", rtn.getResponse().getContentAsString());
     }
     
@@ -209,17 +171,12 @@ public class SimpleStationControllerTest extends BaseSpringTest {
             .andExpect(content().contentType(MIME_TYPE_ZIP))
             .andExpect(content().encoding(DEFAULT_ENCODING))
             .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=simplestation.zip"))
-            .andExpect(header().string(HEADER_CORS_METHODS, HEADER_CORS_METHODS_VALUE))
-            .andExpect(header().string(HEADER_CORS_MAX_AGE, HEADER_CORS_MAX_AGE_VALUE))
-		    .andExpect(header().string(HEADER_CORS_ALLOW_HEADERS, HEADER_CORS_ALLOW_HEADERS_VALUE))
             .andExpect(header().string("Total-Site-Count", "6"))
             .andExpect(header().string("NWIS-Site-Count", "2"))
             .andExpect(header().string("STEWARDS-Site-Count", "2"))
             .andExpect(header().string("STORET-Site-Count", "2"))
-            .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
             .andReturn();
 
-    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
         assertEquals(harmonizeXml(getCompareFile("simpleStation.xml")), harmonizeXml(extractZipContent(rtn.getResponse().getContentAsByteArray(), "simplestation.xml")));
     }
 
@@ -256,17 +213,12 @@ public class SimpleStationControllerTest extends BaseSpringTest {
 			.andExpect(content().contentType(MediaType.APPLICATION_XML_VALUE))
 			.andExpect(content().encoding(DEFAULT_ENCODING))
 			.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=simplestation.xml"))
-            .andExpect(header().string(HEADER_CORS_METHODS, HEADER_CORS_METHODS_VALUE))
-            .andExpect(header().string(HEADER_CORS_MAX_AGE, HEADER_CORS_MAX_AGE_VALUE))
-		    .andExpect(header().string(HEADER_CORS_ALLOW_HEADERS, HEADER_CORS_ALLOW_HEADERS_VALUE))
 			.andExpect(header().string("Total-Site-Count", "0"))
 			.andExpect(header().string("NWIS-Site-Count", (String)null))
 			.andExpect(header().string("STEWARDS-Site-Count", (String)null))
 			.andExpect(header().string("STORET-Site-Count", (String)null))
-            .andExpect(header().string(HEADER_CORS, HEADER_CORS_VALUE))
 			.andReturn();
 
-    	checkCorsExposeHeaders(rtn.getResponse().getHeaderValues(HEADER_CORS_EXPOSE_HEADERS));
 //        assertEquals(harmonizeXml(getCompareFile("simpleStation.xml")), harmonizeXml(rtn.getResponse().getContentAsString()));
 	
     }

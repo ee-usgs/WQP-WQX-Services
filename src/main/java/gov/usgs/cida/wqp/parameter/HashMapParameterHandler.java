@@ -71,7 +71,6 @@ public class HashMapParameterHandler implements IParameterHandler {
 			if (entry instanceof Map.Entry<?,?>) {
 				Object value = ((Map.Entry<?,?>)entry).getValue();
 				Object key = ((Map.Entry<?,?>)entry).getKey();
-//				if (value instanceof String[] && key instanceof String) { //TODO should the prune remove parameters we don't care about?
 				if (value instanceof String[] && key instanceof String && Parameters.isValid((String) key)) {
 				String[] strings = (String[]) value;
 					List<String> nonTrivialValues = new ArrayList<String>();

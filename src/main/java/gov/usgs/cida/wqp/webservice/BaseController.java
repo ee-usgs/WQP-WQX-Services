@@ -106,11 +106,7 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 	}
 	
 	protected boolean isZipped(String zipParm, String mimeType) {
-		if ("yes".equalsIgnoreCase(zipParm) || MimeType.kmz.toString().equalsIgnoreCase(mimeType)) {
-			return true;
-		} else {
-			return false;
-		}
+		return "yes".equalsIgnoreCase(zipParm) || MimeType.kmz.toString().equalsIgnoreCase(mimeType);
 	}
 
 	protected OutputStream getOutputStream(HttpServletResponse response, boolean zipped, String fileName) {
@@ -386,17 +382,13 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 	}
 
 	protected String warningHeader(Integer code, String text, String date) {
-		 if (null == code) {
-			 code = HEADER_WARNING_DEFAULT_CODE;
-		 }
-		 if (null == text || 0 == text.length()) {
-			 text = "Unknown error";
-		 }
-		 if (null == date || 0 == date.length()) {
-			 date = new Date().toString();
-		 }
-		//NOTE that the old swsf would add "detail" in [] ahead of the text. see TrafficController.toWarningHeaderMessage.
-		return code + " WQP " + '"' + text + '"' +" "+ date;
+		StringBuilder rtn = new StringBuilder();
+		rtn.append(null == code ? HEADER_WARNING_DEFAULT_CODE : code);
+		rtn.append(" WQP \"");
+		rtn.append(null == text || 0 == text.length() ? "Unknown error" : text);
+		rtn.append("\" ");
+		rtn.append(null == date || 0 == date.length() ? new Date().toString() : date);
+		return rtn.toString();
 	}
 
 	protected String determineHeaderName(Map<String, Object> count, String suffix) {

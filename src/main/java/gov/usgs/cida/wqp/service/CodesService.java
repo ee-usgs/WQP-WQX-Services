@@ -38,11 +38,9 @@ public class CodesService implements WqpEnvProperties {
 			URL url = makeCodesUrl(codeType, code);
 			url.getContent();
 			response = true;
-//		} catch (FileNotFoundException e) {
-//			//invalid parameter value
 		} catch (IOException e) {
 			// TODO better error handling? might be some exceptions we want to bubble up to top?
-			e.printStackTrace();
+			LOG.error("Issue validating code", e);
 		} catch (WqpException e) {
 			// the empty sting will be a considered false validation
 			if (e.getExceptionid() != METHOD_PARAM_EMPTY) {
@@ -81,4 +79,5 @@ public class CodesService implements WqpEnvProperties {
 		}
 		return url;
 	}
+
 }

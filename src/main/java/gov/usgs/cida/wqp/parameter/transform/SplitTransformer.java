@@ -35,14 +35,6 @@ public class SplitTransformer implements ParameterTransformer<String[]>, Validat
 		return split(value);
 	}
 	
-//	protected String[] split(String value) {
-//		if (null == value || 0 == value.length()) {
-//			return new String[0];
-//		} else {
-//			return splitPattern.split(value, -1);
-//		}
-//	}
-	
 	public String[] split(String value) {
 		String[] rtn = null;
 		if (value == null || 0 == value.length()) {

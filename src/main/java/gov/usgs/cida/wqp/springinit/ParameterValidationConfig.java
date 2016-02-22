@@ -30,7 +30,7 @@ public class ParameterValidationConfig implements ValidationConstants, WqpEnvPro
 	@Bean
 	public CodesService codesService() {
 		return new CodesService(WqpEnv.get(CODES_URL), WqpEnv.get(CODES_MIME_TYPE));
-	};
+	}
 
 	@Bean
 	public RegexValidator<String> analyticalMethodValidator() {
@@ -113,6 +113,12 @@ public class ParameterValidationConfig implements ValidationConstants, WqpEnvPro
 	}
 	
 	@Bean
+	public RegexValidator<String[]> minResultsValidator() {
+		// one int value 
+		return new RegexValidator<String[]>(Parameters.MIN_RESULTS, 1, 1, null, REGEX_POSITIVE_INT);
+	}
+	
+	@Bean
 	public LookupValidator organizationValidator() {
 		// semicolon list of string ORG names
 		return new LookupValidator(codesService(), Parameters.ORGANIZATION);
@@ -121,7 +127,7 @@ public class ParameterValidationConfig implements ValidationConstants, WqpEnvPro
 	@Bean
 	public RegexValidator<String[]> parameterCodeValidator() {
 		// semicolon list of 5digit pCodes
-		return new RegexValidator<String[]>(Parameters.PCODE,REGEX_PCODE);
+		return new RegexValidator<String[]>(Parameters.PCODE, REGEX_PCODE);
 	}
 	
 	@Bean
@@ -212,6 +218,7 @@ public class ParameterValidationConfig implements ValidationConstants, WqpEnvPro
 		validatorMap.put(Parameters.LATITUDE, latitudeValidator());
 		validatorMap.put(Parameters.LONGITUDE, longitudeValidator());
 		validatorMap.put(Parameters.MIMETYPE, mimeTypeValidator());
+		validatorMap.put(Parameters.MIN_RESULTS, minResultsValidator());
 		validatorMap.put(Parameters.ORGANIZATION, organizationValidator());
 		validatorMap.put(Parameters.PCODE, parameterCodeValidator());
 		validatorMap.put(Parameters.PROJECT, projectValidator());

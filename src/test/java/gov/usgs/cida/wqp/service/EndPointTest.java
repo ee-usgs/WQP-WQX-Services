@@ -1,8 +1,10 @@
 package gov.usgs.cida.wqp.service;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+
+import gov.usgs.cida.wqp.util.HttpConstants;
 
 public class EndPointTest {
 
@@ -14,7 +16,7 @@ public class EndPointTest {
 
 	@Test
 	public void testGetEnumByCode() {
-		assertEquals(EndPoint.STATION, EndPoint.getEnumByCode("wqp/"+EndPoint.STATION.URI));
+		assertEquals(EndPoint.STATION, EndPoint.getEnumByCode("wqp/" + HttpConstants.STATION_SEARCH_ENPOINT));
 	}
 
 	@Test

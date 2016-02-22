@@ -6,11 +6,15 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class CountDao extends BaseDao implements ICountDao {
+
+	private static final Logger LOG = LoggerFactory.getLogger(CountDao.class);
 
 	@Autowired
 	public CountDao(SqlSessionFactory sqlSessionFactory) {
