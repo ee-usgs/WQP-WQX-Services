@@ -10,7 +10,7 @@
 
 
 	<result_ct_sum DATA_SOURCE_ID="2" DATA_SOURCE="NWIS" STATION_ID="1353690" SITE_ID="USGS-05425700" ANALYTICAL_METHOD="https://www.nemi.gov/methods/method_summary/8896/" PROJECT_ID="NAWQA" RESULT_COUNT="17" />
-	<result_ct_sum DATA_SOURCE_ID="3" DATA_SOURCE="STORET" STATION_ID="1043441" SITE_ID="11NPSWRD-BICA_MFG_B" CHARACTERISTIC_NAME="Nitrate" assemblage_sampled_name="Fish/Nekton" RESULT_COUNT="19" />
+	<result_ct_sum DATA_SOURCE_ID="3" DATA_SOURCE="STORET" STATION_ID="1043441" SITE_ID="11NPSWRD-BICA_MFG_B" CHARACTERISTIC_NAME="Nitrate" assemblage_sampled_name="Fish/Nekton" PROJECT_ID="EPABEACH;SOMETHINGELSE" RESULT_COUNT="19" />
 	<result_ct_sum DATA_SOURCE_ID="1" DATA_SOURCE="STEWARDS" STATION_ID="36" SITE_ID="ARS-IAWC-IAWC225" CHARACTERISTIC_TYPE="Nutrient" PROJECT_ID="CEAP" RESULT_COUNT="23" />
 	<result_ct_sum DATA_SOURCE_ID="2" DATA_SOURCE="NWIS" STATION_ID="1360035" SITE_ID="USGS-431925089002701" P_CODE="00004" PROJECT_ID="NAWQA" RESULT_COUNT="29" />
 	<result_ct_sum DATA_SOURCE_ID="1" DATA_SOURCE="STEWARDS" STATION_ID="46" SITE_ID="ARS-IAWC-IAWC410" SAMPLE_MEDIA="Water" PROJECT_ID="CEAP" RESULT_COUNT="31" />
@@ -22,4 +22,12 @@
 	
 	<result_sum DATA_SOURCE_ID="2" DATA_SOURCE="NWIS" STATION_ID="1353690" SITE_ID="USGS-05425700" event_date="2012-10-11" RESULT_COUNT="37" />
 	<result_sum DATA_SOURCE_ID="4" DATA_SOURCE="BIODATA" STATION_ID="61233184" SITE_ID="USGS-11421000" event_date="1996-06-27" ANALYTICAL_METHOD="https://www.nemi.gov/methods/method_summary/12237/" CHARACTERISTIC_NAME="Count" CHARACTERISTIC_TYPE="Biological" SAMPLE_MEDIA="Biological" ORGANIZATION="USGS-CA" SITE_TYPE="Stream" HUC="18020107" GOVERNMENTAL_UNIT_CODE="US:06:115" PROJECT_ID="SACR BioTDB" assemblage_sampled_name="Fish/Nekton" RESULT_COUNT="47" sample_tissue_taxonomic_name="Acipenser" />
+
+
+	<project_dim data_source_id="1" code_value="CEAP" project_dim_value="CEAP" />
+	<project_dim data_source_id="2" code_value="NAWQA" project_dim_value="NAWQA" />
+	<project_dim data_source_id="3" code_value="EPABEACH" project_dim_value="EPABEACH;SOMETHINGELSE" />
+	<project_dim data_source_id="3" code_value="SOMETHINGELSE" project_dim_value="EPABEACH;SOMETHINGELSE" />
+	<project_dim data_source_id="4" code_value="SACR BioTDB" project_dim_value="SACR BioTDB" />
+
 </dataset>

@@ -46,7 +46,7 @@ ACTIVITY_UPPER_DEPTH="aw"
 ACTIVITY_UPPER_DEPTH_UNIT="ax"
 ACTIVITY_LOWER_DEPTH="ay"
 ACTIVITY_LOWER_DEPTH_UNIT="az"
-PROJECT_ID="ba"
+PROJECT_ID="ba;wow"
 ACTIVITY_CONDUCTING_ORG="bb"
 ACTIVITY_COMMENT="bc"
 SAMPLE_AQFR_NAME="bd"
@@ -198,5 +198,10 @@ prep_end_time="gp"
 prep_end_timezone="gq"
 prep_dilution_factor="gr"
 	/>
+	
+	<project_dim data_source_id="1" code_value="aba" project_dim_value="aba" />
+	<project_dim data_source_id="2" code_value="baa" project_dim_value="baa" />
+	<project_dim data_source_id="3" code_value="ba" project_dim_value="ba;wow" />
+	<project_dim data_source_id="3" code_value="wow" project_dim_value="ba;wow" />
 	
 </dataset>

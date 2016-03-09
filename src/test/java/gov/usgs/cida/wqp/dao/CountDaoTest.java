@@ -141,6 +141,11 @@ public abstract class CountDaoTest extends BaseSpringTest {
 		assertResults(includeResults, counts, 2, "2", "2", null, null, null, "46", "46", null, null, null);
 
 		parms.clear();
+		parms.put(Parameters.PROJECT.toString(), new String[]{"EPABEACH"});
+		counts = countDao.getCounts(namespace, parms);
+		assertResults(includeResults, counts, 2, "1", null, null, "1", null, "19", null, null, "19", null);
+
+		parms.clear();
 		parms.put(Parameters.SAMPLE_MEDIA.toString(), new String[]{"Water"});
 		counts = countDao.getCounts(namespace, parms);
 		assertResults(includeResults, counts, 2, "1", null, "1", null, null, "31", null, "31", null, null);
@@ -214,7 +219,7 @@ public abstract class CountDaoTest extends BaseSpringTest {
 		parms.put(Parameters.CHARACTERISTIC_NAME.toString(), new String[]{"Beryllium", "Nitrate", "Count"});
 		parms.put(Parameters.CHARACTERISTIC_TYPE.toString(), new String[]{"Inorganics, Minor, Metals", "Nutrient", "Biological"});
 		parms.put(Parameters.PCODE.toString(), new String[]{"00032", "00004"});
-		parms.put(Parameters.PROJECT.toString(), new String[]{"NAWQA", "CEAP", "SACR BioTDB"});
+		parms.put(Parameters.PROJECT.toString(), new String[]{"NAWQA", "CEAP", "SACR BioTDB", "EPABEACH"});
 		parms.put(Parameters.SAMPLE_MEDIA.toString(), new String[]{"Other", "Sediment", "Water"});
 		parms.put(Parameters.COUNTRY.toString(), new String[]{"MX", "US"});
 		parms.put(Parameters.COUNTY.toString(), new String[]{"US:19:015", "US:30:003", "US:55:017", "US:55:021", "US:55:027", "US:06:115"});

@@ -202,6 +202,10 @@ public class StreamingDaoTest extends BaseSpringTest {
 		streamingDao.stream(nameSpace, parms, handler);
 
 		parms.clear();
+		parms.put(Parameters.PROJECT.toString(), new String[]{"EPABEACH"});
+		streamingDao.stream(nameSpace, parms, handler);
+
+		parms.clear();
 		parms.put(Parameters.SAMPLE_MEDIA.toString(), new String[]{"Water"});
 		streamingDao.stream(nameSpace, parms, handler);
 
@@ -241,7 +245,7 @@ public class StreamingDaoTest extends BaseSpringTest {
 		parms.put(Parameters.LONGITUDE.toString(), new String[]{"-88.9773314"});
 		parms.put(Parameters.MIN_RESULTS.toString(), "3");
 		parms.put(Parameters.ORGANIZATION.toString(), new String[]{"ARS", "11NPSWRD", "USGS-WI", "WIDNR_WQX"});
-		parms.put(Parameters.PROJECT.toString(), new String[]{"NAWQA", "CEAP"});
+		parms.put(Parameters.PROJECT.toString(), new String[]{"NAWQA", "CEAP", "EPABEACH"});
 		parms.put(Parameters.PROVIDERS.toString(), new String[]{"NWIS", "STEWARDS", "STORET"});
 		parms.put(Parameters.SITEID.toString(), new String[]{"11NPSWRD-BICA_MFG_B", "WIDNR_WQX-10030952", "USGS-05425700",
 			"USGS-431925089002701", "ARS-IAWC-IAWC225", "ARS-IAWC-IAWC410"});
