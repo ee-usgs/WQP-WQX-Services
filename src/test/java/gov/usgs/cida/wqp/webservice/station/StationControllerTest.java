@@ -513,4 +513,22 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
 //        assertEquals(harmonizeXml(getCompareFile("station.xml")), harmonizeXml(rtn.getResponse().getContentAsString()));
     }
 
+    @Test
+    public void postHeadAsGeojsonTest() throws Exception {
+        when(codesService.validate(any(Parameters.class), anyString())).thenReturn(true);
+
+    	MvcResult rtn = mockMvc.perform(post("/" + HttpConstants.STATION_SEARCH_ENPOINT + "/count?mimeType=geojson").content(getSourceFile("postParameters.json")).contentType(MediaType.APPLICATION_JSON))
+			.andExpect(status().isOk())
+			.andExpect(content().contentType(MIME_TYPE_GEOJSON))
+			.andExpect(content().encoding(DEFAULT_ENCODING))
+			.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=station.geojson"))
+			.andExpect(header().string("Total-Site-Count", "0"))
+			.andExpect(header().string("NWIS-Site-Count", (String)null))
+			.andExpect(header().string("STEWARDS-Site-Count", (String)null))
+			.andExpect(header().string("STORET-Site-Count", (String)null))
+			.andReturn();
+
+    	assertEquals("", rtn.getResponse().getContentAsString());
+    }
+
 }

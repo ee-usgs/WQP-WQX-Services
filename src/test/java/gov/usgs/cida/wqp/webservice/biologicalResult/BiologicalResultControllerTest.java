@@ -433,7 +433,7 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
 			.andExpect(header().string("STORET-Result-Count", (String)null))
 			.andReturn();
 
-//        assertEquals(harmonizeXml(getCompareFile("simpleStation.xml")), harmonizeXml(rtn.getResponse().getContentAsString()));
+//        assertEquals(harmonizeXml(getCompareFile("biologicalresult.xml")), harmonizeXml(rtn.getResponse().getContentAsString()));
 	
     }
 
@@ -500,7 +500,7 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
 
 
     @Test
-    public void postGetAsGeojsonTest() throws Exception {
+    public void postGetAsCsvTest() throws Exception {
         when(codesService.validate(any(Parameters.class), anyString())).thenReturn(true);
 
     	MvcResult rtn = mockMvc.perform(post(endpoint + "csv").content(getSourceFile("postParameters.json")).contentType(MediaType.APPLICATION_JSON))
@@ -518,7 +518,30 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
     			.andExpect(header().string("STORET-Result-Count", (String)null))
     			.andReturn();
 
-//        assertEquals(harmonizeXml(getCompareFile("station.xml")), harmonizeXml(rtn.getResponse().getContentAsString()));
+//        assertEquals(harmonizeXml(getCompareFile("biologicalresult.csv")), harmonizeXml(rtn.getResponse().getContentAsString()));
+    }
+
+    @Test
+    public void postHeadAsAsCsvGetTest() throws Exception {
+        when(codesService.validate(any(Parameters.class), anyString())).thenReturn(true);
+
+        MvcResult rtn = mockMvc.perform(post("/" + HttpConstants.RESULT_SEARCH_ENPOINT + "/count?mimeType=csv&" 
+    			+ Parameters.DATA_PROFILE + "=" + ValidationConstants.REGEX_DATA_PROFILE).content(getSourceFile("postParameters.json")).contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MimeType.csv.getMimeType()))
+            .andExpect(content().encoding(DEFAULT_ENCODING))
+            .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=biologicalresult.csv"))
+    			.andExpect(header().string("Total-Site-Count", "0"))
+    			.andExpect(header().string("NWIS-Site-Count", (String)null))
+    			.andExpect(header().string("STEWARDS-Site-Count", (String)null))
+    			.andExpect(header().string("STORET-Site-Count", (String)null))
+    			.andExpect(header().string("Total-Result-Count", "0"))
+    			.andExpect(header().string("NWIS-Result-Count", (String)null))
+    			.andExpect(header().string("STEWARDS-Result-Count", (String)null))
+    			.andExpect(header().string("STORET-Result-Count", (String)null))
+            .andReturn();
+
+        assertEquals("", harmonizeXml(rtn.getResponse().getContentAsString()));
     }
 
 }

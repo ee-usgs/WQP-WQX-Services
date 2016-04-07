@@ -761,5 +761,31 @@ public class BaseControllerTest {
         verify(streamingDao).stream(anyString(), anyMap(), any(ResultHandler.class));
         verify(logService).logRequestComplete(any(BigDecimal.class), anyString());
 	}
+	
+	@Test
+	@SuppressWarnings("unchecked")
+	public void doPostCountRequestTest() {
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        MockHttpServletResponse response = new MockHttpServletResponse();
+        String mybatisNamespace = "namepspace"; 
+        String endpoint = "endpoint";
+
+        Map<String, Object> q = new HashMap<>();
+		q.put("mimeType", "kml");
+		q.put("zip", "yes");
+		Map<String, Object> json = new HashMap<>();
+		json.put("siteid", Arrays.asList("11NPSWRD-BICA_MFG_B","WIDNR_WQX-10030952"));
+		ParameterMap p = new ParameterMap();
+		p.setQueryParameters(q);
+        when(parameterHandler.validateAndTransform(anyMap(), anyMap())).thenReturn(p);
+		
+        testController.doPostCountRequest(request, response, mybatisNamespace, endpoint, json);
+        
+        assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
+        assertEquals(HttpStatus.OK.value(), response.getStatus());
+        assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
+        verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(Map.class));
+        verify(logService).logRequestComplete(any(BigDecimal.class), anyString());
+	}
 
 }

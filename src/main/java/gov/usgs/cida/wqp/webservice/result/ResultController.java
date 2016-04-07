@@ -64,6 +64,14 @@ public class ResultController extends BaseController {
 		doPostRequest(request, response, IDao.RESULT_NAMESPACE, ENDPOINT_RESULT, postParms);
 	}
 	
+	/**
+	 * Result POST count request
+	 */
+	@RequestMapping(value="count", method=RequestMethod.POST)
+	public void resultPostCountRequest(HttpServletRequest request, HttpServletResponse response, @RequestBody Map<String, Object> postParms) {
+		doPostCountRequest(request, response, IDao.RESULT_NAMESPACE, ENDPOINT_RESULT, postParms);
+	}
+	
 	protected String addCountHeaders(HttpServletResponse response, List<Map<String, Object>> counts) {
 		addSiteHeaders(response, counts);
 		addCountHeaders(response, counts, HEADER_TOTAL_RESULT_COUNT, HEADER_RESULT_COUNT, MybatisConstants.RESULT_COUNT);
