@@ -376,6 +376,19 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 		}
 	}
 
+	protected void doPostCountRequest(HttpServletRequest request, HttpServletResponse response, String mybatisNamespace, String endpoint, Map<String, Object> postParms) {
+		LOG.info("Processing Post Count: {}", request.getQueryString());
+		logId.set(logService.logRequest(request, response, postParms));
+		
+		try {
+			doHeader(request, response, getLogId(), mybatisNamespace, endpoint, postParms);
+		} finally {
+			logService.logRequestComplete(getLogId(), String.valueOf(response.getStatus()));
+			LOG.info("Processing Post Count complete: {}", request.getQueryString());
+			remove();
+		}
+	}
+
 	protected String getZipEntryName(String endpoint, MimeType mimeType) {
 		if (MimeType.kml.equals(mimeType) || MimeType.kmz.equals(mimeType)) {
 			return endpoint.toLowerCase() + "." + MimeType.kml;

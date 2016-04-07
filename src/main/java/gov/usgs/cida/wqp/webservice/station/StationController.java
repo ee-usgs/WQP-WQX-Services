@@ -72,6 +72,14 @@ public class StationController extends BaseController {
 		doPostRequest(request, response, IDao.STATION_NAMESPACE, ENDPOINT_STATION, postParms);
 	}
 	
+	/**
+	 * Station POST count request
+	 */
+	@RequestMapping(value="count", method=RequestMethod.POST)
+	public void stationPostCountRequest(HttpServletRequest request, HttpServletResponse response, @RequestBody Map<String, Object> postParms) {
+		doPostCountRequest(request, response, IDao.STATION_NAMESPACE, ENDPOINT_STATION, postParms);
+	}
+	
 	@Override
 	protected String addCountHeaders(HttpServletResponse response, List<Map<String, Object>> counts) {
 		addSiteHeaders(response, counts);
