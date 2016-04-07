@@ -7,10 +7,16 @@ import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.head;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static uk.co.datumedge.hamcrest.json.SameJSONAs.sameJSONObjectAs;
+import gov.usgs.cida.wqp.BaseSpringTest;
+import gov.usgs.cida.wqp.FullIntegrationTest;
+import gov.usgs.cida.wqp.parameter.Parameters;
+import gov.usgs.cida.wqp.service.CodesService;
+import gov.usgs.cida.wqp.util.HttpConstants;
 
 import org.json.JSONObject;
 import org.junit.Before;
@@ -26,12 +32,6 @@ import org.springframework.web.context.WebApplicationContext;
 
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DatabaseSetups;
-
-import gov.usgs.cida.wqp.BaseSpringTest;
-import gov.usgs.cida.wqp.FullIntegrationTest;
-import gov.usgs.cida.wqp.parameter.Parameters;
-import gov.usgs.cida.wqp.service.CodesService;
-import gov.usgs.cida.wqp.util.HttpConstants;
 
 @Category(FullIntegrationTest.class)
 @WebAppConfiguration
@@ -493,6 +493,24 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
 
         assertThat(new JSONObject(extractZipContent(rtn.getResponse().getContentAsByteArray(), "station.geojson")),
         		sameJSONObjectAs(new JSONObject(getCompareFile("simpleStation.json"))));
+    }
+
+    @Test
+    public void postGetAsGeojsonTest() throws Exception {
+        when(codesService.validate(any(Parameters.class), anyString())).thenReturn(true);
+
+    	MvcResult rtn = mockMvc.perform(post(endpoint + "geojson").content(getSourceFile("postParameters.json")).contentType(MediaType.APPLICATION_JSON))
+			.andExpect(status().isOk())
+			.andExpect(content().contentType(MIME_TYPE_GEOJSON))
+			.andExpect(content().encoding(DEFAULT_ENCODING))
+			.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=station.geojson"))
+			.andExpect(header().string("Total-Site-Count", "0"))
+			.andExpect(header().string("NWIS-Site-Count", (String)null))
+			.andExpect(header().string("STEWARDS-Site-Count", (String)null))
+			.andExpect(header().string("STORET-Site-Count", (String)null))
+			.andReturn();
+
+//        assertEquals(harmonizeXml(getCompareFile("station.xml")), harmonizeXml(rtn.getResponse().getContentAsString()));
     }
 
 }

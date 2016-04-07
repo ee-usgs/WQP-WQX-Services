@@ -28,7 +28,7 @@ public class LogService implements ILogService, HttpConstants {
 	}
 	
 	@Override
-	public BigDecimal logRequest(HttpServletRequest request, final HttpServletResponse response) {
+	public BigDecimal logRequest(HttpServletRequest request, final HttpServletResponse response, Map<String, Object> postParms) {
 		Map<String, Object> parameterMap = new HashMap<String, Object>();
 		parameterMap.put(ILogDao.ID, null);
 		if (null != request) {
@@ -44,6 +44,12 @@ public class LogService implements ILogService, HttpConstants {
 			
 			String queryString = null==request.getQueryString() ? "No Query String Provided" : request.getQueryString();
 			parameterMap.put(ILogDao.QUERY_STRING, queryString);
+
+			if (null == postParms || postParms.isEmpty()) {
+				parameterMap.put(ILogDao.POST_DATA, null);
+			} else {
+				parameterMap.put(ILogDao.POST_DATA, postParms.toString());
+			}
 		}
 
 		return logDao.addLog(parameterMap);

@@ -65,7 +65,8 @@ public class TransformerTest {
 		}
 	}
 	
-    @Test
+	@Test
+	@SuppressWarnings("unchecked")
 	public void writeTest() {
     	TTransformer transformer = new TTransformer(new ByteArrayOutputStream(), null, logService, logId);
 
@@ -75,7 +76,7 @@ public class TransformerTest {
 			assertEquals(0, transformer.initCalled);
 			assertEquals(0, transformer.writeHeaderCalled);
 			assertEquals(0, transformer.writeDataCalled);
-			verify(logService, never()).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class));
+			verify(logService, never()).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(Map.class));
 			verify(logService, never()).logHeadComplete(any(HttpServletResponse.class), eq(logId));
 			verify(logService, never()).logFirstRowComplete(logId);
 			verify(logService, never()).logRequestComplete(eq(logId), anyString());
@@ -90,7 +91,7 @@ public class TransformerTest {
 			assertEquals(0, transformer.initCalled);
 			assertEquals(0, transformer.writeHeaderCalled);
 			assertEquals(0, transformer.writeDataCalled);
-			verify(logService, never()).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class));
+			verify(logService, never()).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(Map.class));
 			verify(logService, never()).logHeadComplete(any(HttpServletResponse.class), eq(logId));
 			verify(logService, never()).logFirstRowComplete(logId);
 			verify(logService, never()).logRequestComplete(eq(logId), anyString());
@@ -109,7 +110,7 @@ public class TransformerTest {
 			assertEquals(1, transformer.initCalled);
 			assertEquals(1, transformer.writeHeaderCalled);
 			assertEquals(2, transformer.writeDataCalled);
-			verify(logService, never()).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class));
+			verify(logService, never()).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(Map.class));
 			verify(logService, never()).logHeadComplete(any(HttpServletResponse.class), eq(logId));
 			verify(logService, times(1)).logFirstRowComplete(logId);
 			verify(logService, never()).logRequestComplete(eq(logId), anyString());

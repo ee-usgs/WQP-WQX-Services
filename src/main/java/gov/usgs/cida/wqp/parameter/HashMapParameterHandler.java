@@ -4,6 +4,8 @@ import gov.usgs.cida.wqp.validation.AbstractValidator;
 import gov.usgs.cida.wqp.validation.ValidationResult;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -50,21 +52,48 @@ public class HashMapParameterHandler implements IParameterHandler {
 	}
 	
 	@Override
-	public ParameterMap validateAndTransform(final Object inObject) {
-		ParameterMap out = new ParameterMap();
-		if (inObject instanceof Map<?, ?>) {
-			Map<?, ?> inParameters = (Map<?, ?>) inObject;
-			Map<String, String[]> temp = pruneParameters(inParameters);
-			out = validateParameterNamesAndGroups(temp.keySet());
-			if (out.isValid()) {
-				out.merge(validateAndTransformParameterValues(temp));
-			}
+	public ParameterMap validateAndTransform(final Map<String, String[]> inRequestParameters, final Map<String, Object> postParms) {
+		Map<String, String[]> temp = pruneParameters(mergeParameters(inRequestParameters, postParms));
+		ParameterMap out = validateParameterNamesAndGroups(temp.keySet());
+		if (out.isValid()) {
+			out.merge(validateAndTransformParameterValues(temp));
 		}
 		return out;
 	}
 	
-	public Map<String, String[]> pruneParameters(final Map<?, ?> inParameters) {
-		Map<String, String[]> rtn = new HashMap<String, String[]>();
+	protected Map<String, String[]> mergeParameters(final Map<String, String[]> inRequestParameters, final Map<String, Object> postParms) {
+		Map<String, String[]> merged = new HashMap<>();
+		if (null != inRequestParameters) {
+			merged.putAll(inRequestParameters);
+		}
+		if (null != postParms) {
+			Iterator<Entry<String, Object>> i = postParms.entrySet().iterator();
+			while (i.hasNext()) {
+				Entry<String, Object> entry = i.next();
+				String key = entry.getKey();
+				List<String> mergedValues = convertPostValueToList(entry.getValue());
+				if (merged.containsKey(key)) {
+					mergedValues.addAll(Arrays.asList(merged.get(key)));
+				}
+				merged.put(key, mergedValues.toArray(new String[mergedValues.size()]));
+			}
+		}
+		return merged;
+	}
+	
+	@SuppressWarnings("unchecked")
+	protected List<String> convertPostValueToList(final Object entryValue) {
+		List<String> list = new ArrayList<>();
+		if (entryValue instanceof String) {
+			list.add((String) entryValue);
+		} else if (entryValue instanceof Collection<?>){
+			list.addAll((Collection<? extends String>) entryValue);
+		}
+		return list;
+	};
+	
+	public Map<String, String[]> pruneParameters(final Map<String, String[]> inParameters) {
+		Map<String, String[]> rtn = new HashMap<>();
 		Iterator<?> entryIterator = inParameters.entrySet().iterator();
 		while (entryIterator.hasNext()) {
 			Object entry = entryIterator.next();
@@ -72,7 +101,7 @@ public class HashMapParameterHandler implements IParameterHandler {
 				Object value = ((Map.Entry<?,?>)entry).getValue();
 				Object key = ((Map.Entry<?,?>)entry).getKey();
 				if (value instanceof String[] && key instanceof String && Parameters.isValid((String) key)) {
-				String[] strings = (String[]) value;
+					String[] strings = (String[]) value;
 					List<String> nonTrivialValues = new ArrayList<String>();
 					for(String string : strings) {
 						if (string != null && string.length() > 0) {

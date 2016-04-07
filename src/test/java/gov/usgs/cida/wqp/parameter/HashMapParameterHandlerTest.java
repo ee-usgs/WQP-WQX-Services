@@ -1,8 +1,11 @@
 package gov.usgs.cida.wqp.parameter;
 
+import static org.hamcrest.collection.IsArrayContainingInAnyOrder.arrayContainingInAnyOrder;
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import gov.usgs.cida.wqp.BaseSpringTest;
 
@@ -303,11 +306,61 @@ public class HashMapParameterHandlerTest extends BaseSpringTest {
 	@Test
 	public void testValidateAndTransform() {
 		//TODO more of an entire process test
-		HashMap<String, String[]> parameters = new HashMap<String, String[]>();
+		Map<String, String[]> parameters = new HashMap<>();
 		parameters.put("countrycode", new String[]{"", "US", null});
-		ParameterMap pm = handler.validateAndTransform(parameters);
+		Map<String, Object> postParameters = new HashMap<>();
+		postParameters.put("countrycode", Arrays.asList("MX"));
+		ParameterMap pm = handler.validateAndTransform(parameters, postParameters);
 		assertEquals(1, pm.getValidationMessages().size());
-		assertEquals(1, ((String[]) pm.getQueryParameters().get("countrycode")).length);
+		assertEquals(2, ((String[]) pm.getQueryParameters().get("countrycode")).length);
+	}
+	
+	@Test
+	public void mergeParametersTest() {
+		Map<String, String[]> requestParms = new HashMap<>();
+		Map<String, Object> postParms = new HashMap<>();
+
+		assertTrue(handler.mergeParameters(null, null).isEmpty());
+		assertTrue(handler.mergeParameters(requestParms, null).isEmpty());
+		assertTrue(handler.mergeParameters(null, postParms).isEmpty());
+		assertTrue(handler.mergeParameters(requestParms, postParms).isEmpty());
+
+		requestParms.put("noMatch", new String[]{"requestOnly", "ro"});
+		requestParms.put("string", new String[]{"rString1", "rString2"});
+		requestParms.put("bbox", new String[]{"1,2,3,4"});
+		
+		postParms.put("string", Arrays.asList("pString1", "pString2"));
+		postParms.put("bbox", "1,2,3,4");
+		postParms.put("list", Arrays.asList("item1", "item2"));
+
+		Map<String, String[]> result = handler.mergeParameters(requestParms, postParms);
+		assertEquals(4, result.size());
+		assertTrue(result.containsKey("noMatch"));
+		assertArrayEquals(new String[]{"requestOnly", "ro"}, result.get("noMatch"));
+		assertTrue(result.containsKey("string"));
+        assertThat(Arrays.copyOf(result.get("string"), result.get("string").length), arrayContainingInAnyOrder(new String[]{"rString1", "rString2", "pString1", "pString2"}));
+		assertTrue(result.containsKey("bbox"));
+		assertArrayEquals(new String[]{"1,2,3,4", "1,2,3,4"}, result.get("bbox"));
+		assertTrue(result.containsKey("list"));
+		assertArrayEquals(new String[]{"item1", "item2"}, result.get("list"));
+		
+	}
+
+	@Test
+	public void convertPostValueToListTest() {
+		assertTrue(handler.convertPostValueToList(null).isEmpty());
+		
+		List<String> result = handler.convertPostValueToList("string");
+		assertEquals(1, result.size());
+		assertEquals("string", result.get(0));
+		
+		result = handler.convertPostValueToList("1,2,3,4");
+		assertEquals(1, result.size());
+		assertEquals("1,2,3,4", result.get(0));
+
+		result = handler.convertPostValueToList(Arrays.asList("item1", "item2"));
+		assertEquals(2, result.size());
+		assertEquals(Arrays.asList("item1", "item2"), result);
 	}
 
 }

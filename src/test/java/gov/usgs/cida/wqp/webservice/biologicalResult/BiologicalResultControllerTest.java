@@ -7,6 +7,7 @@ import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.head;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -20,6 +21,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
@@ -495,5 +497,28 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
 		assertEquals("5", response.getHeader(stew));
 		assertEquals("0", response.getHeader(HEADER_TOTAL_SITE_COUNT));
 	}
+
+
+    @Test
+    public void postGetAsGeojsonTest() throws Exception {
+        when(codesService.validate(any(Parameters.class), anyString())).thenReturn(true);
+
+    	MvcResult rtn = mockMvc.perform(post(endpoint + "csv").content(getSourceFile("postParameters.json")).contentType(MediaType.APPLICATION_JSON))
+    			.andExpect(status().isOk())
+    			.andExpect(content().contentType(MimeType.csv.getMimeType()))
+    			.andExpect(content().encoding(DEFAULT_ENCODING))
+    			.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=biologicalresult.csv"))
+    			.andExpect(header().string("Total-Site-Count", "0"))
+    			.andExpect(header().string("NWIS-Site-Count", (String)null))
+    			.andExpect(header().string("STEWARDS-Site-Count", (String)null))
+    			.andExpect(header().string("STORET-Site-Count", (String)null))
+    			.andExpect(header().string("Total-Result-Count", "0"))
+    			.andExpect(header().string("NWIS-Result-Count", (String)null))
+    			.andExpect(header().string("STEWARDS-Result-Count", (String)null))
+    			.andExpect(header().string("STORET-Result-Count", (String)null))
+    			.andReturn();
+
+//        assertEquals(harmonizeXml(getCompareFile("station.xml")), harmonizeXml(rtn.getResponse().getContentAsString()));
+    }
 
 }

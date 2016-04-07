@@ -7,7 +7,11 @@
 	     what the outcome of the JAVA side is. -->
 	     
 	<select id="insert" parameterType="map" statementType="CALLABLE" resultType="int" >
-		{#{id,mode=OUT,jdbcType=NUMERIC} = call log_helper.add_log(#{origin,jdbcType=CHAR}, #{callType,jdbcType=CHAR}, #{endPoint,jdbcType=CHAR}, #{queryString,jdbcType=CHAR})}
+		{#{id,mode=OUT,jdbcType=NUMERIC} = call log_helper.add_log(#{origin,jdbcType=CHAR},
+		                                                           #{callType,jdbcType=CHAR},
+		                                                           #{endPoint,jdbcType=CHAR},
+		                                                           #{queryString,jdbcType=CHAR},
+		                                                           #{postData,jdbcType=CHAR})}
 	</select>
 	
 	<select id="head" parameterType="map" statementType="CALLABLE" >

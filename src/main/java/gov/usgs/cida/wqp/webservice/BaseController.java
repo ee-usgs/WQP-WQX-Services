@@ -175,10 +175,10 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 	
 	protected void doHeadRequest(HttpServletRequest request, HttpServletResponse response, String mybatisNamespace, String endpoint) {
 		LOG.info("Processing Head: {}", request.getQueryString());
-		logId.set(logService.logRequest(request, response));
+		logId.set(logService.logRequest(request, response, null));
 		
 		try {
-			doHeader(request, response, getLogId(), mybatisNamespace, endpoint);
+			doHeader(request, response, getLogId(), mybatisNamespace, endpoint, null);
 		} finally {
 			logService.logRequestComplete(getLogId(), String.valueOf(response.getStatus()));
 			LOG.info("Processing Head complete: {}", request.getQueryString());
@@ -187,9 +187,9 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 	}
 
 	protected boolean doHeader(HttpServletRequest request, HttpServletResponse response, BigDecimal logId,
-			String mybatisNamespace, String endpoint) {
+			String mybatisNamespace, String endpoint, Map<String, Object> postParms) {
 		response.setCharacterEncoding(DEFAULT_ENCODING);
-		processParameters(request);
+		processParameters(request, postParms);
 		if ( ! getPm().isValid() ) {
 			writeWarningHeaders(response, getPm().getValidationMessages());
 			LOG.info("Processing Head invalid params end:{}", request.getQueryString());
@@ -239,16 +239,16 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 		}
 	}
 	
-	protected void processParameters(HttpServletRequest request) {
+	protected void processParameters(HttpServletRequest request, Map<String, Object> postParms) {
 		setPm(new ParameterMap());
-		if (request.getParameterMap().isEmpty()) {
+		if (request.getParameterMap().isEmpty() && (null == postParms || postParms.isEmpty())) {
 			LOG.debug("No parameters");
 			getPm().setValid(false);
 		} else {
 			LOG.trace("got parameters");
-			Map<String, String[]> requestParams = new HashMap<String, String[]>(request.getParameterMap());
+			Map<String, String[]> requestParams = new HashMap<>(request.getParameterMap());
 			LOG.debug("requestParams: {}", requestParams);
-			setPm(parameterHandler.validateAndTransform(requestParams));
+			setPm(parameterHandler.validateAndTransform(requestParams, postParms));
 			LOG.debug("pm: {}", getPm());
 			LOG.debug("queryParms: {}", getPm().getQueryParameters());
 		}
@@ -258,12 +258,12 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 	
 	protected void doGetRequest(HttpServletRequest request, HttpServletResponse response, String mybatisNamespace, String endpoint) {
 		LOG.info("Processing Get: {}", request.getQueryString());
-		logId.set(logService.logRequest(request, response));
+		logId.set(logService.logRequest(request, response, null));
 		OutputStream responseStream = null;
 		String realHttpStatus = String.valueOf(response.getStatus());
 		
 		try {
-			if (doHeader(request, response, getLogId(), mybatisNamespace, endpoint)) {
+			if (doHeader(request, response, getLogId(), mybatisNamespace, endpoint, null)) {
 				String namespace = getNamespace(mybatisNamespace, getMimeType());
 				responseStream = getOutputStream(response, getZipped(), getZipEntryName(endpoint, getMimeType()));
 				Transformer transformer = getTransformer(getMimeType(), responseStream, getLogId());
@@ -315,7 +315,67 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 			remove();
 		}
 	}
-	
+
+	protected void doPostRequest(HttpServletRequest request, HttpServletResponse response, String mybatisNamespace, String endpoint, Map<String, Object> postParms) {
+		LOG.info("Processing Post: {}", postParms);
+		logId.set(logService.logRequest(request, response, postParms));
+		OutputStream responseStream = null;
+		String realHttpStatus = String.valueOf(response.getStatus());
+		
+		try {
+			if (doHeader(request, response, getLogId(), mybatisNamespace, endpoint, postParms)) {
+				String namespace = getNamespace(mybatisNamespace, getMimeType());
+				responseStream = getOutputStream(response, getZipped(), getZipEntryName(endpoint, getMimeType()));
+				Transformer transformer = getTransformer(getMimeType(), responseStream, getLogId());
+					
+				ResultHandler<?> handler = new StreamingResultHandler(transformer);
+				streamingDao.stream(namespace, getPm().getQueryParameters(), handler);
+		
+				transformer.end();
+					
+			}		
+		} catch (Exception e) {
+			response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+			int hashValue = response.hashCode();
+			realHttpStatus = HttpStatus.INTERNAL_SERVER_ERROR.toString() + "-" + hashValue;
+			//Note: we are giving the user a generic message.  
+			//Server logs can be used to troubleshoot problems.
+			String msgText = "Something bad happened. Contact us with Reference Number: " + hashValue;
+			LOG.error("logId: {}", BaseController.getLogId());
+			LOG.error("status: {}", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			LOG.error(msgText, e);
+			response.addHeader(HEADER_FATAL_ERROR, msgText);
+			if (null != responseStream) {
+				try {
+					responseStream.write(msgText.getBytes(DEFAULT_ENCODING));
+				} catch (IOException e2) {
+					//Just log, cause we obviously can't tell the client
+					LOG.error("Error telling client about exception", e2);
+				}
+			}
+		} finally {
+			if (null != responseStream) {
+				try {
+					if (getZipped()) {
+						closeZip(responseStream);
+					}
+				} catch (Exception e) {
+					//Just log, cause we obviously can't tell the client
+					LOG.error("Error closing zip", e);
+				}
+				try {
+					responseStream.flush();
+				} catch (IOException e) {
+					//Just log, cause we obviously can't tell the client
+					LOG.error("Error flushing response stream", e);
+				}
+			}
+			LOG.info("Processing Get complete: {}", request.getQueryString());
+			logService.logRequestComplete(getLogId(), realHttpStatus);
+			remove();
+		}
+	}
+
 	protected String getZipEntryName(String endpoint, MimeType mimeType) {
 		if (MimeType.kml.equals(mimeType) || MimeType.kmz.equals(mimeType)) {
 			return endpoint.toLowerCase() + "." + MimeType.kml;

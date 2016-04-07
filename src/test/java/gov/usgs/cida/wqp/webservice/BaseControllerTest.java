@@ -78,38 +78,41 @@ public class BaseControllerTest {
     }
 
 	@Test
+	@SuppressWarnings("unchecked")
 	public void processParametersTest_empty() {
 		MockHttpServletRequest request = new MockHttpServletRequest();
-		testController.processParameters(request);
+		testController.processParameters(request, null);
 		assertFalse(TestBaseController.getPm().isValid());
-        verify(parameterHandler, never()).validateAndTransform(anyMap());
+        verify(parameterHandler, never()).validateAndTransform(anyMap(), anyMap());
 	}
 	
 	@Test
+	@SuppressWarnings("unchecked")
 	public void processParametersTest_invalid() {
 		ParameterMap p = new ParameterMap();
 		p.setValid(false);
-        when(parameterHandler.validateAndTransform(anyMap())).thenReturn(p);
+        when(parameterHandler.validateAndTransform(anyMap(), anyMap())).thenReturn(p);
 
         MockHttpServletRequest request = new MockHttpServletRequest();
 		request.setParameter("countrycode", "US");
-		testController.processParameters(request);
+		testController.processParameters(request, null);
 		assertEquals(p, TestBaseController.getPm());
 		assertFalse(TestBaseController.getPm().isValid());
-        verify(parameterHandler).validateAndTransform(anyMap());
+        verify(parameterHandler).validateAndTransform(anyMap(), anyMap());
 	}
 
 	@Test
+	@SuppressWarnings("unchecked")
 	public void processParametersTest_valid() {
 		ParameterMap p = new ParameterMap();
-        when(parameterHandler.validateAndTransform(anyMap())).thenReturn(p);
+        when(parameterHandler.validateAndTransform(anyMap(), anyMap())).thenReturn(p);
 
         MockHttpServletRequest request = new MockHttpServletRequest();
 		request.setParameter("countrycode", "US");
-		testController.processParameters(request);
+		testController.processParameters(request, null);
 		assertEquals(p, TestBaseController.getPm());
 		assertTrue(TestBaseController.getPm().isValid());
-        verify(parameterHandler).validateAndTransform(anyMap());
+        verify(parameterHandler).validateAndTransform(anyMap(), anyMap());
 	}
 
 	@Test
@@ -242,8 +245,8 @@ public class BaseControllerTest {
 		assertEquals(MapToDelimitedTransformer.COMMA, ((MapToDelimitedTransformer) t).getDelimiter());
 	}
 
-	@SuppressWarnings("unchecked")
 	@Test
+	@SuppressWarnings("unchecked")
 	public void doHeaderTest_NoParms() {
         MockHttpServletRequest request = new MockHttpServletRequest();
         MockHttpServletResponse response = new MockHttpServletResponse();
@@ -251,22 +254,22 @@ public class BaseControllerTest {
         String mybatisNamespace = "namepspace"; 
         String endpoint = "endpoint";
 		
-        assertFalse(testController.doHeader(request, response, logId, mybatisNamespace, endpoint));
+        assertFalse(testController.doHeader(request, response, logId, mybatisNamespace, endpoint, null));
         assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
         assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
         assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
-        verify(parameterHandler, never()).validateAndTransform(anyMap());
+        verify(parameterHandler, never()).validateAndTransform(anyMap(), anyMap());
         verify(logService, never()).logHeadComplete(response, logId);
         verify(countDao, never()).getCounts(anyString(), anyMap());
 	}
 
-	@SuppressWarnings("unchecked")
 	@Test
+	@SuppressWarnings("unchecked")
 	public void doHeaderTest_InvalidParms() {
 		ParameterMap p = new ParameterMap();
 		p.merge("countrycode", Arrays.asList("not cool"));
 		p.setValid(false);
-        when(parameterHandler.validateAndTransform(anyMap())).thenReturn(p);
+        when(parameterHandler.validateAndTransform(anyMap(), anyMap())).thenReturn(p);
 
         MockHttpServletRequest request = new MockHttpServletRequest();
 		request.setParameter("countrycode", "US");
@@ -275,25 +278,25 @@ public class BaseControllerTest {
         String mybatisNamespace = "namepspace"; 
         String endpoint = "endpoint";
 		
-        assertFalse(testController.doHeader(request, response, logId, mybatisNamespace, endpoint));
+        assertFalse(testController.doHeader(request, response, logId, mybatisNamespace, endpoint, null));
         assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
         assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
         assertTrue(response.getHeader(HttpConstants.HEADER_WARNING).startsWith("299 WQP \"not cool\""));
-        verify(parameterHandler).validateAndTransform(anyMap());
+        verify(parameterHandler).validateAndTransform(anyMap(), anyMap());
         verify(logService, never()).logHeadComplete(response, logId);
         verify(countDao, never()).getCounts(anyString(), anyMap());
 	}
 
 
-	@SuppressWarnings("unchecked")
 	@Test
+	@SuppressWarnings("unchecked")
 	public void doHeaderTest() {
 		Map<String, Object> q = new HashMap<>();
 		q.put("mimeType", "kml");
 		q.put("zip", "yes");
 		ParameterMap p = new ParameterMap();
 		p.setQueryParameters(q);
-        when(parameterHandler.validateAndTransform(anyMap())).thenReturn(p);
+        when(parameterHandler.validateAndTransform(anyMap(), anyMap())).thenReturn(p);
 
         MockHttpServletRequest request = new MockHttpServletRequest();
 		request.setParameter("countrycode", "US");
@@ -302,14 +305,14 @@ public class BaseControllerTest {
         String mybatisNamespace = "namepspace"; 
         String endpoint = "endpoint";
 		
-        assertTrue(testController.doHeader(request, response, logId, mybatisNamespace, endpoint));
+        assertTrue(testController.doHeader(request, response, logId, mybatisNamespace, endpoint, null));
         assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
         assertEquals(HttpStatus.OK.value(), response.getStatus());
         assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
         assertEquals("application/vnd.google-earth.kmz;charset=UTF-8", response.getHeader(HttpConstants.HEADER_CONTENT_TYPE));
         assertEquals("attachment; filename=endpoint.kmz", response.getHeader(HttpConstants.HEADER_CONTENT_DISPOSITION));
         assertEquals("12", response.getHeader(TestBaseController.TEST_COUNT));
-        verify(parameterHandler).validateAndTransform(anyMap());
+        verify(parameterHandler).validateAndTransform(anyMap(), anyMap());
         verify(logService).logHeadComplete(response, logId);
         verify(countDao).getCounts(anyString(), anyMap());
 	}
@@ -482,6 +485,7 @@ public class BaseControllerTest {
 	}
 	
 	@Test
+	@SuppressWarnings("unchecked")
 	public void doHeadRequestTest() {
         MockHttpServletRequest request = new MockHttpServletRequest();
         MockHttpServletResponse response = new MockHttpServletResponse();
@@ -493,13 +497,14 @@ public class BaseControllerTest {
         assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
         assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
         assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
-        verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class));
+        verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(Map.class));
         verify(logService).logRequestComplete(any(BigDecimal.class), anyString());
 	}
 
 	@Test
+	@SuppressWarnings("unchecked")
 	public void doHeadRequestTest_error() {
-        when(parameterHandler.validateAndTransform(anyMap())).thenThrow(new RuntimeException("test"));
+        when(parameterHandler.validateAndTransform(anyMap(), anyMap())).thenThrow(new RuntimeException("test"));
         MockHttpServletRequest request = new MockHttpServletRequest();
 		request.setParameter("countrycode", "US");
         MockHttpServletResponse response = new MockHttpServletResponse();
@@ -517,13 +522,13 @@ public class BaseControllerTest {
         assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
 //        assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
         assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
-        verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class));
+        verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(Map.class));
         verify(logService).logRequestComplete(any(BigDecimal.class), anyString());
        
 	}
 
-	@SuppressWarnings("unchecked")
 	@Test
+	@SuppressWarnings("unchecked")
 	public void doGetRequestTest_NoParms() {
         MockHttpServletRequest request = new MockHttpServletRequest();
         MockHttpServletResponse response = new MockHttpServletResponse();
@@ -534,15 +539,15 @@ public class BaseControllerTest {
         assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
         assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
         assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
-        verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class));
+        verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(Map.class));
         verify(logService).logRequestComplete(any(BigDecimal.class), anyString());
         verify(streamingDao, never()).stream(anyString(), anyMap(), any(ResultHandler.class));
 	}
 
-	@SuppressWarnings("unchecked")
 	@Test
+	@SuppressWarnings("unchecked")
 	public void doGetRequestTest_error() {
-        when(parameterHandler.validateAndTransform(anyMap())).thenThrow(new RuntimeException("test"));
+        when(parameterHandler.validateAndTransform(anyMap(), anyMap())).thenThrow(new RuntimeException("test"));
         MockHttpServletRequest request = new MockHttpServletRequest();
 		request.setParameter("countrycode", "US");
         MockHttpServletResponse response = new MockHttpServletResponse();
@@ -561,20 +566,20 @@ public class BaseControllerTest {
         assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
 //        assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
         assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
-        verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class));
+        verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(Map.class));
         verify(logService).logRequestComplete(any(BigDecimal.class), anyString());
         verify(streamingDao, never()).stream(anyString(), anyMap(), any(ResultHandler.class));
 	}
 
-	@SuppressWarnings("unchecked")
 	@Test
+	@SuppressWarnings("unchecked")
 	public void doGetRequestTest() {
 		Map<String, Object> q = new HashMap<>();
 		q.put("mimeType", "kml");
 		q.put("zip", "yes");
 		ParameterMap p = new ParameterMap();
 		p.setQueryParameters(q);
-        when(parameterHandler.validateAndTransform(anyMap())).thenReturn(p);
+        when(parameterHandler.validateAndTransform(anyMap(), anyMap())).thenReturn(p);
 
         MockHttpServletRequest request = new MockHttpServletRequest();
 		request.setParameter("countrycode", "US");
@@ -598,8 +603,8 @@ public class BaseControllerTest {
 			fail("Should not get exception but did:" + e.getLocalizedMessage());
 		}
       
-        verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class));
-        verify(parameterHandler).validateAndTransform(anyMap());
+        verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(Map.class));
+        verify(parameterHandler).validateAndTransform(anyMap(), anyMap());
         verify(countDao).getCounts(anyString(), anyMap());
         verify(logService).logHeadComplete(any(HttpServletResponse.class), any(BigDecimal.class));
         verify(streamingDao).stream(anyString(), anyMap(), any(ResultHandler.class));
@@ -714,4 +719,47 @@ public class BaseControllerTest {
 		assertEquals("456", testController.determineHeaderValue(count, "def"));
 		assertEquals("0", testController.determineHeaderValue(count, "ghi"));
 	}
+	
+	@Test
+	@SuppressWarnings("unchecked")
+	public void doPostRequestTest() {
+		Map<String, Object> q = new HashMap<>();
+		q.put("mimeType", "kml");
+		q.put("zip", "yes");
+		Map<String, Object> json = new HashMap<>();
+		json.put("siteid", Arrays.asList("11NPSWRD-BICA_MFG_B","WIDNR_WQX-10030952"));
+		ParameterMap p = new ParameterMap();
+		p.setQueryParameters(q);
+        when(parameterHandler.validateAndTransform(anyMap(), anyMap())).thenReturn(p);
+
+        MockHttpServletRequest request = new MockHttpServletRequest();
+		request.setParameter("countrycode", "US");
+        MockHttpServletResponse response = new MockHttpServletResponse();
+        String mybatisNamespace = "namepspace"; 
+        String endpoint = "endpoint";
+		
+        testController.doPostRequest(request, response, mybatisNamespace, endpoint, json);
+        assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
+        assertEquals(HttpStatus.OK.value(), response.getStatus());
+        assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
+        assertEquals("application/vnd.google-earth.kmz;charset=UTF-8", response.getHeader(HttpConstants.HEADER_CONTENT_TYPE));
+        assertEquals("attachment; filename=endpoint.kmz", response.getHeader(HttpConstants.HEADER_CONTENT_DISPOSITION));
+        assertEquals("12", response.getHeader(TestBaseController.TEST_COUNT));
+
+		ZipInputStream in = new ZipInputStream(new ByteArrayInputStream(response.getContentAsByteArray()));
+		try {
+			ZipEntry entry = in.getNextEntry();
+			assertTrue(entry.getName().contentEquals("endpoint.kml"));
+		} catch (IOException e) {
+			fail("Should not get exception but did:" + e.getLocalizedMessage());
+		}
+      
+        verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(Map.class));
+        verify(parameterHandler).validateAndTransform(anyMap(), anyMap());
+        verify(countDao).getCounts(anyString(), anyMap());
+        verify(logService).logHeadComplete(any(HttpServletResponse.class), any(BigDecimal.class));
+        verify(streamingDao).stream(anyString(), anyMap(), any(ResultHandler.class));
+        verify(logService).logRequestComplete(any(BigDecimal.class), anyString());
+	}
+
 }
