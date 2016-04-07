@@ -39,6 +39,10 @@ public abstract class BaseSpringTest implements HttpConstants {
 		return xmlDoc.replace("\r", "").replace("\n", "").replace("\t", "").replaceAll("> *<", "><");
 	}
 	
+	public String getSourceFile(String file) throws IOException {
+		return new String(FileCopyUtils.copyToByteArray(new ClassPathResource("testData/" + file).getInputStream()));
+	}
+
 	public String getCompareFile(String file) throws IOException {
 		return new String(FileCopyUtils.copyToByteArray(new ClassPathResource("testResult/" + file).getInputStream()));
 	}

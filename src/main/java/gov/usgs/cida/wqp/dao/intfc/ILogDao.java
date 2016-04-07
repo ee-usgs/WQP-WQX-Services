@@ -18,6 +18,7 @@ public interface ILogDao extends IDao {
 	static String TOTAL_ROWS_EXPECTED = "totalRowsExpected";
 	static String DATA_STORE_COUNTS = "dataStoreCounts";
 	static String HTTP_STATUS_CODE = "httpStatusCode";
+	static String POST_DATA = "postData";
 	
 	BigDecimal addLog(Map<String, Object> parameterMap);
 

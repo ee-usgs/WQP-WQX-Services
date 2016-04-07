@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -55,6 +56,14 @@ public class ResultController extends BaseController {
 		doGetRequest(request, response, IDao.RESULT_NAMESPACE, ENDPOINT_RESULT);
 	}
 
+	/**
+	 * Result POST request
+	 */
+	@RequestMapping(method=RequestMethod.POST)
+	public void resultPostRequest(HttpServletRequest request, HttpServletResponse response, @RequestBody Map<String, Object> postParms) {
+		doPostRequest(request, response, IDao.RESULT_NAMESPACE, ENDPOINT_RESULT, postParms);
+	}
+	
 	protected String addCountHeaders(HttpServletResponse response, List<Map<String, Object>> counts) {
 		addSiteHeaders(response, counts);
 		addCountHeaders(response, counts, HEADER_TOTAL_RESULT_COUNT, HEADER_RESULT_COUNT, MybatisConstants.RESULT_COUNT);
