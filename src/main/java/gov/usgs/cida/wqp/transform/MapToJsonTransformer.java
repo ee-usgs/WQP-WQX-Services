@@ -1,17 +1,20 @@
 package gov.usgs.cida.wqp.transform;
 
-import gov.usgs.cida.wqp.mapping.StationColumn;
-import gov.usgs.cida.wqp.service.ILogService;
-
+import java.io.IOException;
 import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.util.Map;
 
-import org.apache.commons.lang3.StringEscapeUtils;
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonGenerator;
+
+import gov.usgs.cida.wqp.mapping.StationColumn;
+import gov.usgs.cida.wqp.service.ILogService;
 
 public class MapToJsonTransformer extends Transformer {
 
-	private boolean endPrevious = false;
+	protected JsonFactory f;
+	protected JsonGenerator g;
 
 	public MapToJsonTransformer(OutputStream target, Map<String, String> mapping, ILogService logService, BigDecimal logId) {
 		super(target, mapping, logService, logId);
@@ -19,43 +22,62 @@ public class MapToJsonTransformer extends Transformer {
 
 	@Override
 	protected void writeHeader() {
-		writeToStream("{\"type\":\"FeatureCollection\",\"features\":[");
+		try {
+			g.writeStartObject();
+			g.writeStringField("type", "FeatureCollection");
+			g.writeFieldName("features");
+			g.writeStartArray();
+		} catch (IOException e) {
+			throw new RuntimeException("Error starting json document", e);
+		}
 	}
 
 	@Override
 	protected void writeData(Map<String, Object> resultMap) {
-		if (endPrevious) {
-			writeToStream(",");
+		try {
+			g.writeStartObject();
+			
+			g.writeStringField("type", "Feature");
+			
+			g.writeObjectFieldStart("geometry");
+			g.writeStringField("type", "Point");
+			g.writeArrayFieldStart("coordinates");
+			g.writeNumber(getValue(resultMap, StationColumn.KEY_LONGITUDE));
+			g.writeNumber(getValue(resultMap, StationColumn.KEY_LATITUDE));
+			g.writeEndArray();
+			g.writeEndObject();
+			
+			g.writeObjectFieldStart("properties");
+			g.writeStringField("ProviderName", getValue(resultMap, StationColumn.KEY_DATA_SOURCE));
+			g.writeStringField("OrganizationIdentifier", getValue(resultMap, StationColumn.KEY_ORGANIZATION));
+			g.writeStringField("OrganizationFormalName", getValue(resultMap, StationColumn.KEY_ORGANIZATION_NAME));
+			g.writeStringField("MonitoringLocationIdentifier", getValue(resultMap, StationColumn.KEY_SITE_ID));
+			g.writeStringField("MonitoringLocationName", getValue(resultMap, StationColumn.KEY_STATION_NAME));
+			g.writeStringField("MonitoringLocationTypeName", getValue(resultMap, StationColumn.KEY_MONITORING_LOCATION_TYPE));
+			g.writeStringField("ResolvedMonitoringLocationTypeName", getValue(resultMap, StationColumn.KEY_SITE_TYPE));
+			g.writeStringField("HUCEightDigitCode", getValue(resultMap, StationColumn.KEY_HUC_8));
+			g.writeEndObject();
+			
+			g.writeEndObject();
+		} catch (IOException e) {
+			throw new RuntimeException("Error writing station json", e);
 		}
-		writeToStream("{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[");
-		writeToStream(getValue(resultMap, StationColumn.KEY_LONGITUDE));
-		writeToStream(",");
-		writeToStream(getValue(resultMap, StationColumn.KEY_LATITUDE));
-		writeToStream("]},\"properties\":{\"ProviderName\":\"");
-		writeToStream(getValue(resultMap, StationColumn.KEY_DATA_SOURCE));
-		writeToStream("\",\"OrganizationIdentifier\":\"");
-		writeToStream(getValue(resultMap, StationColumn.KEY_ORGANIZATION));
-		writeToStream("\",\"OrganizationFormalName\":\"");
-		writeToStream(getValue(resultMap, StationColumn.KEY_ORGANIZATION_NAME));
-		writeToStream("\",\"MonitoringLocationIdentifier\":\"");
-		writeToStream(getValue(resultMap, StationColumn.KEY_SITE_ID));
-		writeToStream("\",\"MonitoringLocationName\":\"");
-		writeToStream(getValue(resultMap, StationColumn.KEY_STATION_NAME));
-		writeToStream("\",\"MonitoringLocationTypeName\":\"");
-		writeToStream(getValue(resultMap, StationColumn.KEY_MONITORING_LOCATION_TYPE));
-		writeToStream("\",\"ResolvedMonitoringLocationTypeName\":\"");
-		writeToStream(getValue(resultMap, StationColumn.KEY_SITE_TYPE));
-		writeToStream("\",\"HUCEightDigitCode\":\"");
-		writeToStream(getValue(resultMap, StationColumn.KEY_HUC_8));
-		writeToStream("\"}}");
-		endPrevious = true;
 	}
 	
-	/** output the closing tag. */
+	/** output the closing tags and close stuff as appropriate. */
 	@Override
 	public void end() {
-   		writeToStream("]}");
-   		super.end();
+		try {
+			if (!first) {
+				g.writeEndArray();
+				g.writeEndObject();
+				g.close();
+			} else {
+				super.end();
+			}
+		} catch (IOException e) {
+			throw new RuntimeException("Error ending json document", e);
+		}
 	}
 
 	protected String getValue(Map<String, Object> resultMap, String key) {
@@ -68,12 +90,18 @@ public class MapToJsonTransformer extends Transformer {
 
 	@Override
 	public String encode(String value) {
-		return StringEscapeUtils.escapeJson(value);
+		//The jackson code takes care of encoding these values.
+		return value;
 	}
 
 	@Override
 	protected void init() {
-		//Nothing to do here
+		f = new JsonFactory();
+		try {
+			g = f.createGenerator(target);
+		} catch (IOException e) {
+			throw new RuntimeException("Error initializing json document", e);
+		}
 	}
 
 }

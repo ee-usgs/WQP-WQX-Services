@@ -19,7 +19,7 @@ public abstract class Transformer extends OutputStream implements ITransformer {
 	protected final BigDecimal logId;
 
 	/** Is this the first write to the stream. */
-	private boolean first = true;
+	protected boolean first = true;
 
 	public Transformer(OutputStream target, Map<String, String> mapping, ILogService logService, BigDecimal logId) {
 		this.target = target;

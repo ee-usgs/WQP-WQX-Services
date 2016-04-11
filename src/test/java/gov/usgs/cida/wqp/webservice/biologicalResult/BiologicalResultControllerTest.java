@@ -1,5 +1,6 @@
 package gov.usgs.cida.wqp.webservice.biologicalResult;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
@@ -11,12 +12,14 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static uk.co.datumedge.hamcrest.json.SameJSONAs.sameJSONObjectAs;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -249,7 +252,7 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
   
     @Test
     public void getAsXlsxGetTest() throws Exception {
-    	MvcResult rtn = mockMvc.perform(get(endpoint + "xlsx"))
+    	mockMvc.perform(get(endpoint + "xlsx"))
 			.andExpect(status().isOk())
 			.andExpect(content().contentType(MimeType.xlsx.getMimeType()))
 			.andExpect(content().encoding(DEFAULT_ENCODING))
@@ -261,10 +264,7 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
 			.andExpect(header().string("Total-Result-Count", "40"))
 			.andExpect(header().string("NWIS-Result-Count", "12"))
 			.andExpect(header().string("STEWARDS-Result-Count", "24"))
-			.andExpect(header().string("STORET-Result-Count", "4"))
-			.andReturn();
-
-//    	assertEquals(harmonizeXml(getCompareFile("simpleStation.xml")), harmonizeXml(rtn.getResponse().getContentAsString()));
+			.andExpect(header().string("STORET-Result-Count", "4"));
     }
 
     @Test
@@ -289,7 +289,7 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
   
     @Test
     public void getAsXlsxZipGetTest() throws Exception {
-    	MvcResult rtn = mockMvc.perform(get(endpoint + "xlsx&zip=yes"))
+    	mockMvc.perform(get(endpoint + "xlsx&zip=yes"))
 			.andExpect(status().isOk())
 			.andExpect(content().contentType(MIME_TYPE_ZIP))
 			.andExpect(content().encoding(DEFAULT_ENCODING))
@@ -301,10 +301,7 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
 			.andExpect(header().string("Total-Result-Count", "40"))
 			.andExpect(header().string("NWIS-Result-Count", "12"))
 			.andExpect(header().string("STEWARDS-Result-Count", "24"))
-			.andExpect(header().string("STORET-Result-Count", "4"))
-			.andReturn();
-
-//    	assertEquals(harmonizeXml(getCompareFile("simpleStation.xml")), harmonizeXml(rtn.getResponse().getContentAsString()));
+			.andExpect(header().string("STORET-Result-Count", "4"));
     }
 
     
@@ -394,7 +391,7 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
     public void kitchenSinkTest() throws Exception {
         when(codesService.validate(any(Parameters.class), anyString())).thenReturn(true);
 
-    	MvcResult rtn = mockMvc.perform(
+    	mockMvc.perform(
     		get(endpoint + "csv" +
     			"&analyticalmethod=https://www.nemi.gov/methods/method_summary/4665/;https://www.nemi.gov/methods/method_summary/8896/" + 
     			"bBox=-89;43;-88;44" +
@@ -430,10 +427,7 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
 			.andExpect(header().string("Total-Result-Count", "0"))
 			.andExpect(header().string("NWIS-Result-Count", (String)null))
 			.andExpect(header().string("STEWARDS-Result-Count", (String)null))
-			.andExpect(header().string("STORET-Result-Count", (String)null))
-			.andReturn();
-
-//        assertEquals(harmonizeXml(getCompareFile("biologicalresult.xml")), harmonizeXml(rtn.getResponse().getContentAsString()));
+			.andExpect(header().string("STORET-Result-Count", (String)null));
 	
     }
 
@@ -503,7 +497,7 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
     public void postGetAsCsvTest() throws Exception {
         when(codesService.validate(any(Parameters.class), anyString())).thenReturn(true);
 
-    	MvcResult rtn = mockMvc.perform(post(endpoint + "csv").content(getSourceFile("postParameters.json")).contentType(MediaType.APPLICATION_JSON))
+    	mockMvc.perform(post(endpoint + "csv").content(getSourceFile("postParameters.json")).contentType(MediaType.APPLICATION_JSON))
     			.andExpect(status().isOk())
     			.andExpect(content().contentType(MimeType.csv.getMimeType()))
     			.andExpect(content().encoding(DEFAULT_ENCODING))
@@ -515,33 +509,95 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
     			.andExpect(header().string("Total-Result-Count", "0"))
     			.andExpect(header().string("NWIS-Result-Count", (String)null))
     			.andExpect(header().string("STEWARDS-Result-Count", (String)null))
-    			.andExpect(header().string("STORET-Result-Count", (String)null))
-    			.andReturn();
-
-//        assertEquals(harmonizeXml(getCompareFile("biologicalresult.csv")), harmonizeXml(rtn.getResponse().getContentAsString()));
+    			.andExpect(header().string("STORET-Result-Count", (String)null));
     }
 
     @Test
-    public void postHeadAsAsCsvGetTest() throws Exception {
+    public void postGetCountTest() throws Exception {
         when(codesService.validate(any(Parameters.class), anyString())).thenReturn(true);
 
-        MvcResult rtn = mockMvc.perform(post("/" + HttpConstants.RESULT_SEARCH_ENPOINT + "/count?mimeType=csv&" 
-    			+ Parameters.DATA_PROFILE + "=" + ValidationConstants.REGEX_DATA_PROFILE).content(getSourceFile("postParameters.json")).contentType(MediaType.APPLICATION_JSON))
+    	MvcResult rtn = mockMvc.perform(post("/" + HttpConstants.RESULT_SEARCH_ENPOINT + "/count?mimeType=json&" 
+    			+ Parameters.DATA_PROFILE + "=" + ValidationConstants.REGEX_DATA_PROFILE)
+    			.content(getSourceFile("postParameters.json")).contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MimeType.csv.getMimeType()))
-            .andExpect(content().encoding(DEFAULT_ENCODING))
-            .andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=biologicalresult.csv"))
-    			.andExpect(header().string("Total-Site-Count", "0"))
-    			.andExpect(header().string("NWIS-Site-Count", (String)null))
-    			.andExpect(header().string("STEWARDS-Site-Count", (String)null))
-    			.andExpect(header().string("STORET-Site-Count", (String)null))
-    			.andExpect(header().string("Total-Result-Count", "0"))
-    			.andExpect(header().string("NWIS-Result-Count", (String)null))
-    			.andExpect(header().string("STEWARDS-Result-Count", (String)null))
-    			.andExpect(header().string("STORET-Result-Count", (String)null))
-            .andReturn();
+			.andExpect(content().contentType(MIME_TYPE_JSON))
+			.andExpect(content().encoding(DEFAULT_ENCODING))
+			.andExpect(header().string(HEADER_CONTENT_DISPOSITION, (String)null))
+			.andExpect(header().string("Total-Site-Count", "0"))
+			.andExpect(header().string("NWIS-Site-Count", (String)null))
+			.andExpect(header().string("STEWARDS-Site-Count", (String)null))
+			.andExpect(header().string("STORET-Site-Count", (String)null))
+			.andReturn();
 
-        assertEquals("", harmonizeXml(rtn.getResponse().getContentAsString()));
+        assertThat(new JSONObject(rtn.getResponse().getContentAsString()),
+        		sameJSONObjectAs(new JSONObject("{\"Total-Site-Count\":\"0\", \"Total-Result-Count\":\"0\"}")));
+        
+        
+    	mockMvc.perform(post("/" + HttpConstants.RESULT_SEARCH_ENPOINT + "/count?mimeType=csv&" 
+    			+ Parameters.DATA_PROFILE + "=" + ValidationConstants.REGEX_DATA_PROFILE)
+    			.content(getSourceFile("postParameters.json")).contentType(MediaType.APPLICATION_JSON))
+			.andExpect(status().isNotAcceptable());
+
+    	mockMvc.perform(post("/" + HttpConstants.RESULT_SEARCH_ENPOINT + "/count?mimeType=csv&zip=yes&" 
+    			+ Parameters.DATA_PROFILE + "=" + ValidationConstants.REGEX_DATA_PROFILE)
+    			.content(getSourceFile("postParameters.json")).contentType(MediaType.APPLICATION_JSON))
+			.andExpect(status().isNotAcceptable());
+
+    	mockMvc.perform(post("/" + HttpConstants.RESULT_SEARCH_ENPOINT + "/count?mimeType=tsv&" 
+    			+ Parameters.DATA_PROFILE + "=" + ValidationConstants.REGEX_DATA_PROFILE)
+    			.content(getSourceFile("postParameters.json")).contentType(MediaType.APPLICATION_JSON))
+			.andExpect(status().isNotAcceptable());
+
+    	mockMvc.perform(post("/" + HttpConstants.RESULT_SEARCH_ENPOINT + "/count?mimeType=tsv&zip=yes&" 
+    			+ Parameters.DATA_PROFILE + "=" + ValidationConstants.REGEX_DATA_PROFILE)
+    			.content(getSourceFile("postParameters.json")).contentType(MediaType.APPLICATION_JSON))
+			.andExpect(status().isNotAcceptable());
+
+    	mockMvc.perform(post("/" + HttpConstants.RESULT_SEARCH_ENPOINT + "/count?mimeType=xlsx&" 
+    			+ Parameters.DATA_PROFILE + "=" + ValidationConstants.REGEX_DATA_PROFILE)
+    			.content(getSourceFile("postParameters.json")).contentType(MediaType.APPLICATION_JSON))
+			.andExpect(status().isNotAcceptable());
+
+    	mockMvc.perform(post("/" + HttpConstants.RESULT_SEARCH_ENPOINT + "/count?mimeType=xlsx&zip=yes&" 
+    			+ Parameters.DATA_PROFILE + "=" + ValidationConstants.REGEX_DATA_PROFILE)
+    			.content(getSourceFile("postParameters.json")).contentType(MediaType.APPLICATION_JSON))
+			.andExpect(status().isNotAcceptable());
+
+    	mockMvc.perform(post("/" + HttpConstants.RESULT_SEARCH_ENPOINT + "/count?mimeType=xml&" 
+    			+ Parameters.DATA_PROFILE + "=" + ValidationConstants.REGEX_DATA_PROFILE)
+    			.content(getSourceFile("postParameters.json")).contentType(MediaType.APPLICATION_JSON))
+			.andExpect(status().isNotAcceptable());
+
+    	mockMvc.perform(post("/" + HttpConstants.RESULT_SEARCH_ENPOINT + "/count?mimeType=xml&zip=yes&" 
+    			+ Parameters.DATA_PROFILE + "=" + ValidationConstants.REGEX_DATA_PROFILE)
+    			.content(getSourceFile("postParameters.json")).contentType(MediaType.APPLICATION_JSON))
+			.andExpect(status().isNotAcceptable());
+
+    	mockMvc.perform(post("/" + HttpConstants.RESULT_SEARCH_ENPOINT + "/count?mimeType=kml&" 
+    			+ Parameters.DATA_PROFILE + "=" + ValidationConstants.REGEX_DATA_PROFILE)
+    			.content(getSourceFile("postParameters.json")).contentType(MediaType.APPLICATION_JSON))
+			.andExpect(status().isNotAcceptable());
+
+    	mockMvc.perform(post("/" + HttpConstants.RESULT_SEARCH_ENPOINT + "/count?mimeType=kml&zip=yes&" 
+    			+ Parameters.DATA_PROFILE + "=" + ValidationConstants.REGEX_DATA_PROFILE)
+    			.content(getSourceFile("postParameters.json")).contentType(MediaType.APPLICATION_JSON))
+			.andExpect(status().isNotAcceptable());
+
+    	mockMvc.perform(post("/" + HttpConstants.RESULT_SEARCH_ENPOINT + "/count?mimeType=kmz&" 
+    			+ Parameters.DATA_PROFILE + "=" + ValidationConstants.REGEX_DATA_PROFILE)
+    			.content(getSourceFile("postParameters.json")).contentType(MediaType.APPLICATION_JSON))
+			.andExpect(status().isNotAcceptable());
+
+    	mockMvc.perform(post("/" + HttpConstants.RESULT_SEARCH_ENPOINT + "/count?mimeType=geojson&" 
+    			+ Parameters.DATA_PROFILE + "=" + ValidationConstants.REGEX_DATA_PROFILE)
+    			.content(getSourceFile("postParameters.json")).contentType(MediaType.APPLICATION_JSON))
+			.andExpect(status().isNotAcceptable());
+
+    	mockMvc.perform(post("/" + HttpConstants.RESULT_SEARCH_ENPOINT + "/count?mimeType=geojson&zip=yes&" 
+    			+ Parameters.DATA_PROFILE + "=" + ValidationConstants.REGEX_DATA_PROFILE)
+    			.content(getSourceFile("postParameters.json")).contentType(MediaType.APPLICATION_JSON))
+			.andExpect(status().isNotAcceptable());
+
     }
 
 }

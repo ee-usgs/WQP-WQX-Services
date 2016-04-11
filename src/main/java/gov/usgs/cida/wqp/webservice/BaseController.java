@@ -1,5 +1,25 @@
 package gov.usgs.cida.wqp.webservice;
 
+import java.io.BufferedOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.math.BigDecimal;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.ibatis.session.ResultHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.RequestMethod;
+
 import gov.usgs.cida.wqp.dao.StreamingResultHandler;
 import gov.usgs.cida.wqp.dao.intfc.ICountDao;
 import gov.usgs.cida.wqp.dao.intfc.IDao;
@@ -20,25 +40,6 @@ import gov.usgs.cida.wqp.util.MimeType;
 import gov.usgs.cida.wqp.util.MybatisConstants;
 import gov.usgs.cida.wqp.validation.ValidationConstants;
 
-import java.io.BufferedOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.math.BigDecimal;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipOutputStream;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.ibatis.session.ResultHandler;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
-
 public abstract class BaseController implements HttpConstants, ValidationConstants {
 
 	private static final Logger LOG = LoggerFactory.getLogger(BaseController.class);
@@ -48,10 +49,11 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 	protected final ILogService logService;
 	protected final Integer maxResultRows;
 
-	private static ThreadLocal<ParameterMap> pm = new ThreadLocal<ParameterMap>();
-	private static ThreadLocal<MimeType> mimeType = new ThreadLocal<MimeType>();
-	private static ThreadLocal<Boolean> zipped = new ThreadLocal<Boolean>();
-	private static ThreadLocal<BigDecimal> logId = new ThreadLocal<BigDecimal>();
+	private static ThreadLocal<ParameterMap> pm = new ThreadLocal<>();
+	private static ThreadLocal<MimeType> mimeType = new ThreadLocal<>();
+	private static ThreadLocal<Boolean> zipped = new ThreadLocal<>();
+	private static ThreadLocal<BigDecimal> logId = new ThreadLocal<>();
+	private static ThreadLocal<Map<String, String>> counts = new ThreadLocal<>();
 	
 	public BaseController(IStreamingDao inStreamingDao, ICountDao inCountDao,
 			IParameterHandler inParameterHandler, ILogService inLogService,
@@ -98,11 +100,20 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 		logId.set(inLogId);
 	}
 
+	public static Map<String, String> getCounts() {
+		return counts.get();
+	}
+
+	public static void setCounts(Map<String, String> inCounts) {
+		counts.set(inCounts);
+	}
+
 	public static void remove() {
 		pm.remove();
 		mimeType.remove();
 		zipped.remove();
 		logId.remove();
+		counts.remove();
 	}
 	
 	protected boolean isZipped(String zipParm, String mimeType) {
@@ -205,7 +216,12 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 
 		response.setCharacterEncoding(DEFAULT_ENCODING);
 		response.addHeader(HEADER_CONTENT_TYPE, getContentHeader(getZipped(), getMimeType()));
-		response.setHeader(HEADER_CONTENT_DISPOSITION,"attachment; filename=" + getAttachementFileName(getZipped(), getMimeType(), endpoint));
+		if (RequestMethod.POST.toString().equalsIgnoreCase(request.getMethod())
+				&& request.getRequestURI().endsWith("count")) {
+			//skip the content disposition header on POST counts
+		} else {
+			response.setHeader(HEADER_CONTENT_DISPOSITION,"attachment; filename=" + getAttachementFileName(getZipped(), getMimeType(), endpoint));
+		}
 		String totalHeader = addCountHeaders(response, counts);
 		
 		logService.logHeadComplete(response, logId);
@@ -376,17 +392,21 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 		}
 	}
 
-	protected void doPostCountRequest(HttpServletRequest request, HttpServletResponse response, String mybatisNamespace, String endpoint, Map<String, Object> postParms) {
+	protected Map<String, String> doPostCountRequest(HttpServletRequest request, HttpServletResponse response, String mybatisNamespace, String endpoint, Map<String, Object> postParms) {
 		LOG.info("Processing Post Count: {}", request.getQueryString());
 		logId.set(logService.logRequest(request, response, postParms));
+		Map<String, String> counts = null;
 		
 		try {
 			doHeader(request, response, getLogId(), mybatisNamespace, endpoint, postParms);
+			counts = getCounts();
 		} finally {
 			logService.logRequestComplete(getLogId(), String.valueOf(response.getStatus()));
 			LOG.info("Processing Post Count complete: {}", request.getQueryString());
 			remove();
 		}
+		
+		return counts;
 	}
 
 	protected String getZipEntryName(String endpoint, MimeType mimeType) {
@@ -493,15 +513,23 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 		}
 	}
 	
-	public void addCountHeaders(HttpServletResponse response, List<Map<String, Object>> counts,
+	public void addCountHeaders(HttpServletResponse response, List<Map<String, Object>> rawCounts,
 			String totalHeader, String valueHeader, String valueField) {
-		LOG.trace("{} counts : {}", valueHeader, counts);
-		response.addHeader(totalHeader, "0");
+		LOG.trace("{} counts : {}", valueHeader, rawCounts);
+		Map<String, String> counts = null==getCounts() ? new HashMap<>() : getCounts();
 		
-		for (Map<String, Object> count : counts) {
+		response.addHeader(totalHeader, "0");
+		counts.put(totalHeader, "0");
+		
+		for (Map<String, Object> count : rawCounts) {
 			LOG.trace("result count : {}", count);
-			response.setHeader(determineHeaderName(count, valueHeader), determineHeaderValue(count, valueField));
+			String name = determineHeaderName(count, valueHeader);
+			String value = determineHeaderValue(count, valueField);
+			response.setHeader(name, value);
+			counts.put(name, value);
 		}
+		
+		setCounts(counts);
 	}
 
 	public void addSiteHeaders(HttpServletResponse response, List<Map<String, Object>> counts) {

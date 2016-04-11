@@ -31,6 +31,7 @@ public class MapToJsonTransformerTest {
         MockitoAnnotations.initMocks(this);
 		baos = new ByteArrayOutputStream();
         transformer = new MapToJsonTransformer(baos, StationColumn.mappings, logService, logId);
+        transformer.init();
     }
     
     @After
@@ -42,6 +43,8 @@ public class MapToJsonTransformerTest {
 	public void writeHeaderTest() {
 		try {
 			transformer.writeHeader();
+			//need to flush the JsonGenerator to get at output. 
+			transformer.g.flush();
 			assertEquals(40, baos.size());
 			assertEquals("{\"type\":\"FeatureCollection\",\"features\":[",
 					new String(baos.toByteArray(), HttpConstants.DEFAULT_ENCODING));
@@ -65,8 +68,10 @@ public class MapToJsonTransformerTest {
 		map.put(StationColumn.KEY_HUC_8, "huceight");
 		try {
 			transformer.writeData(map);
-			assertEquals(362, baos.size());
-			assertEquals("{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[long,lat]},\"properties\":{\"ProviderName\":\"ds\",\"OrganizationIdentifier\":\"org\",\"OrganizationFormalName\":\"org\\/name\",\"MonitoringLocationIdentifier\":\"site\",\"MonitoringLocationName\":\"station\",\"MonitoringLocationTypeName\":\"realType\",\"ResolvedMonitoringLocationTypeName\":\"type\",\"HUCEightDigitCode\":\"huceight\"}}",
+			//need to flush the JsonGenerator to get at output. 
+			transformer.g.flush();
+			assertEquals(361, baos.size());
+			assertEquals("{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[long,lat]},\"properties\":{\"ProviderName\":\"ds\",\"OrganizationIdentifier\":\"org\",\"OrganizationFormalName\":\"org/name\",\"MonitoringLocationIdentifier\":\"site\",\"MonitoringLocationName\":\"station\",\"MonitoringLocationTypeName\":\"realType\",\"ResolvedMonitoringLocationTypeName\":\"type\",\"HUCEightDigitCode\":\"huceight\"}}",
 					new String(baos.toByteArray(), HttpConstants.DEFAULT_ENCODING));
 		} catch (IOException e) {
 			fail(e.getLocalizedMessage());
@@ -85,9 +90,11 @@ public class MapToJsonTransformerTest {
 
 		try {
 			transformer.writeData(map);
-			assertEquals(734, baos.size());
-			assertEquals("{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[long,lat]},\"properties\":{\"ProviderName\":\"ds\",\"OrganizationIdentifier\":\"org\",\"OrganizationFormalName\":\"org\\/name\",\"MonitoringLocationIdentifier\":\"site\",\"MonitoringLocationName\":\"station\",\"MonitoringLocationTypeName\":\"realType\",\"ResolvedMonitoringLocationTypeName\":\"type\",\"HUCEightDigitCode\":\"huceight\"}}"
-					+ ",{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[long2,lat2]},\"properties\":{\"ProviderName\":\"ds2\",\"OrganizationIdentifier\":\"org2\",\"OrganizationFormalName\":\"org\\/name2\",\"MonitoringLocationIdentifier\":\"site2\",\"MonitoringLocationName\":\"station2\",\"MonitoringLocationTypeName\":\"realType2\",\"ResolvedMonitoringLocationTypeName\":\"type2\",\"HUCEightDigitCode\":\"huceigh2\"}}",
+			//need to flush the JsonGenerator to get at output. 
+			transformer.g.flush();
+			assertEquals(732, baos.size());
+			assertEquals("{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[long,lat]},\"properties\":{\"ProviderName\":\"ds\",\"OrganizationIdentifier\":\"org\",\"OrganizationFormalName\":\"org/name\",\"MonitoringLocationIdentifier\":\"site\",\"MonitoringLocationName\":\"station\",\"MonitoringLocationTypeName\":\"realType\",\"ResolvedMonitoringLocationTypeName\":\"type\",\"HUCEightDigitCode\":\"huceight\"}}"
+					+ " {\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[long2,lat2]},\"properties\":{\"ProviderName\":\"ds2\",\"OrganizationIdentifier\":\"org2\",\"OrganizationFormalName\":\"org/name2\",\"MonitoringLocationIdentifier\":\"site2\",\"MonitoringLocationName\":\"station2\",\"MonitoringLocationTypeName\":\"realType2\",\"ResolvedMonitoringLocationTypeName\":\"type2\",\"HUCEightDigitCode\":\"huceigh2\"}}",
 					new String(baos.toByteArray(), HttpConstants.DEFAULT_ENCODING));
 		} catch (IOException e) {
 			fail(e.getLocalizedMessage());
@@ -96,11 +103,16 @@ public class MapToJsonTransformerTest {
 	}
 	
 	@Test
-	public void endTest() {
+	public void endTestData() {
 		try {
+			transformer.first = false;
+			transformer.g.writeStartObject();
+			transformer.g.writeFieldName("abc");
+			transformer.g.writeStartArray();
+			
 			transformer.end();
-			assertEquals(2, baos.size());
-			assertEquals("]}",
+			assertEquals(10, baos.size());
+			assertEquals("{\"abc\":[]}",
 					new String(baos.toByteArray(), HttpConstants.DEFAULT_ENCODING));
 		} catch (IOException e) {
 			fail(e.getLocalizedMessage());
@@ -108,11 +120,17 @@ public class MapToJsonTransformerTest {
 	}
 
 	@Test
+	public void endTestNoData() {
+		transformer.end();
+		assertEquals(0, baos.size());
+	}
+
+	@Test
 	public void getValueTest() {
 		Map<String, Object> map = new HashMap<>();
 		map.put("NotNull", "abc/");
 		map.put("Null", null);
-		assertEquals("abc\\/", transformer.getValue(map, "NotNull"));
+		assertEquals("abc/", transformer.getValue(map, "NotNull"));
 		assertEquals("", transformer.getValue(map, "Null"));
 		assertEquals("", transformer.getValue(map, "NoWay"));
 	}
@@ -120,7 +138,7 @@ public class MapToJsonTransformerTest {
 	@Test
 	public void encodeTest() {
 		assertEquals("abc", transformer.encode("abc"));
-		assertEquals("<d\\/ae>", transformer.encode("<d/ae>"));
+		assertEquals("<d/ae>", transformer.encode("<d/ae>"));
 	}
 
 }

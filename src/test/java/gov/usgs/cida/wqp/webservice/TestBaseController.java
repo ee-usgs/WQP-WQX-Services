@@ -27,6 +27,7 @@ public class TestBaseController extends BaseController {
 	@Override
 	protected String addCountHeaders(HttpServletResponse response,
 			List<Map<String, Object>> counts) {
+		addSiteHeaders(response, counts);
 		response.setHeader(TEST_COUNT, "12");
 		return TEST_COUNT;
 	}
