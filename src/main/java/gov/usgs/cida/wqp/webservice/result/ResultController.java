@@ -19,10 +19,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping(value=HttpConstants.RESULT_SEARCH_ENPOINT, params="!dataProfile",
@@ -67,9 +69,10 @@ public class ResultController extends BaseController {
 	/**
 	 * Result POST count request
 	 */
-	@RequestMapping(value="count", method=RequestMethod.POST)
-	public void resultPostCountRequest(HttpServletRequest request, HttpServletResponse response, @RequestBody Map<String, Object> postParms) {
-		doPostCountRequest(request, response, IDao.RESULT_NAMESPACE, ENDPOINT_RESULT, postParms);
+	@RequestMapping(value="count", method=RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody Map<String, String> resultPostCountRequest(HttpServletRequest request, HttpServletResponse response,
+			@RequestBody Map<String, Object> postParms) {
+		return doPostCountRequest(request, response, IDao.RESULT_NAMESPACE, ENDPOINT_RESULT, postParms);
 	}
 	
 	protected String addCountHeaders(HttpServletResponse response, List<Map<String, Object>> counts) {

@@ -184,7 +184,7 @@ public class SimpleStationControllerTest extends BaseSpringTest {
     public void kitchenSinkTest() throws Exception {
         when(codesService.validate(any(Parameters.class), anyString())).thenReturn(true);
 
-    	MvcResult rtn = mockMvc.perform(
+    	mockMvc.perform(
     		get(endpoint + "xml" +
     			"&analyticalmethod=https://www.nemi.gov/methods/method_summary/4665/;https://www.nemi.gov/methods/method_summary/8896/" + 
     			"bBox=-89;43;-88;44" +
@@ -216,10 +216,7 @@ public class SimpleStationControllerTest extends BaseSpringTest {
 			.andExpect(header().string("Total-Site-Count", "0"))
 			.andExpect(header().string("NWIS-Site-Count", (String)null))
 			.andExpect(header().string("STEWARDS-Site-Count", (String)null))
-			.andExpect(header().string("STORET-Site-Count", (String)null))
-			.andReturn();
-
-//        assertEquals(harmonizeXml(getCompareFile("simpleStation.xml")), harmonizeXml(rtn.getResponse().getContentAsString()));
+			.andExpect(header().string("STORET-Site-Count", (String)null));
 	
     }
 

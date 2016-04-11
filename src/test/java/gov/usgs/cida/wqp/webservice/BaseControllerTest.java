@@ -2,6 +2,7 @@ package gov.usgs.cida.wqp.webservice;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -9,24 +10,9 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyMap;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import gov.usgs.cida.wqp.dao.intfc.ICountDao;
-import gov.usgs.cida.wqp.dao.intfc.IDao;
-import gov.usgs.cida.wqp.dao.intfc.IStreamingDao;
-import gov.usgs.cida.wqp.parameter.IParameterHandler;
-import gov.usgs.cida.wqp.parameter.ParameterMap;
-import gov.usgs.cida.wqp.parameter.Parameters;
-import gov.usgs.cida.wqp.service.ILogService;
-import gov.usgs.cida.wqp.transform.MapToDelimitedTransformer;
-import gov.usgs.cida.wqp.transform.MapToJsonTransformer;
-import gov.usgs.cida.wqp.transform.MapToKmlTransformer;
-import gov.usgs.cida.wqp.transform.MapToXlsxTransformer;
-import gov.usgs.cida.wqp.transform.MapToXmlTransformer;
-import gov.usgs.cida.wqp.transform.Transformer;
-import gov.usgs.cida.wqp.util.HttpConstants;
-import gov.usgs.cida.wqp.util.MimeType;
-import gov.usgs.cida.wqp.util.MybatisConstants;
 
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
@@ -57,6 +43,23 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
+
+import gov.usgs.cida.wqp.dao.intfc.ICountDao;
+import gov.usgs.cida.wqp.dao.intfc.IDao;
+import gov.usgs.cida.wqp.dao.intfc.IStreamingDao;
+import gov.usgs.cida.wqp.parameter.IParameterHandler;
+import gov.usgs.cida.wqp.parameter.ParameterMap;
+import gov.usgs.cida.wqp.parameter.Parameters;
+import gov.usgs.cida.wqp.service.ILogService;
+import gov.usgs.cida.wqp.transform.MapToDelimitedTransformer;
+import gov.usgs.cida.wqp.transform.MapToJsonTransformer;
+import gov.usgs.cida.wqp.transform.MapToKmlTransformer;
+import gov.usgs.cida.wqp.transform.MapToXlsxTransformer;
+import gov.usgs.cida.wqp.transform.MapToXmlTransformer;
+import gov.usgs.cida.wqp.transform.Transformer;
+import gov.usgs.cida.wqp.util.HttpConstants;
+import gov.usgs.cida.wqp.util.MimeType;
+import gov.usgs.cida.wqp.util.MybatisConstants;
 
 public class BaseControllerTest {
 
@@ -315,6 +318,62 @@ public class BaseControllerTest {
         verify(parameterHandler).validateAndTransform(anyMap(), anyMap());
         verify(logService).logHeadComplete(response, logId);
         verify(countDao).getCounts(anyString(), anyMap());
+	}
+
+	@Test
+	@SuppressWarnings("unchecked")
+	public void doHeaderPostCountTest() {
+		Map<String, Object> q = new HashMap<>();
+		q.put("mimeType", "json");
+		ParameterMap p = new ParameterMap();
+		p.setQueryParameters(q);
+        when(parameterHandler.validateAndTransform(anyMap(), anyMap())).thenReturn(p);
+        MockHttpServletRequest request = new MockHttpServletRequest();
+		request.setParameter("countrycode", "US");
+		request.setMethod("POST");
+        MockHttpServletResponse response = new MockHttpServletResponse();
+        BigDecimal logId = BigDecimal.ONE;
+        String mybatisNamespace = "namepspace"; 
+        String endpoint = "endpoint";
+        assertTrue(testController.doHeader(request, response, logId, mybatisNamespace, endpoint, null));
+        assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
+        assertEquals(HttpStatus.OK.value(), response.getStatus());
+        assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
+        assertEquals("application/json;charset=UTF-8", response.getHeader(HttpConstants.HEADER_CONTENT_TYPE));
+        assertEquals("attachment; filename=endpoint.json", response.getHeader(HttpConstants.HEADER_CONTENT_DISPOSITION));
+        assertEquals("12", response.getHeader(TestBaseController.TEST_COUNT));
+        verify(parameterHandler).validateAndTransform(anyMap(), anyMap());
+        verify(logService).logHeadComplete(response, logId);
+        verify(countDao).getCounts(anyString(), anyMap());
+       
+        request.setRequestURI("endpoint/count");
+        response = new MockHttpServletResponse();
+        assertTrue(testController.doHeader(request, response, logId, mybatisNamespace, endpoint, null));
+        assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
+        assertEquals(HttpStatus.OK.value(), response.getStatus());
+        assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
+        assertEquals("application/json;charset=UTF-8", response.getHeader(HttpConstants.HEADER_CONTENT_TYPE));
+        assertNull(response.getHeader(HttpConstants.HEADER_CONTENT_DISPOSITION));
+        assertEquals("12", response.getHeader(TestBaseController.TEST_COUNT));
+        verify(parameterHandler, times(2)).validateAndTransform(anyMap(), anyMap());
+        //logService is only one because we created a new response
+        verify(logService, times(1)).logHeadComplete(response, logId);
+        verify(countDao, times(2)).getCounts(anyString(), anyMap());
+		
+        
+		request.setMethod("GET");
+        response = new MockHttpServletResponse();
+        assertTrue(testController.doHeader(request, response, logId, mybatisNamespace, endpoint, null));
+        assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
+        assertEquals(HttpStatus.OK.value(), response.getStatus());
+        assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
+        assertEquals("application/json;charset=UTF-8", response.getHeader(HttpConstants.HEADER_CONTENT_TYPE));
+        assertEquals("attachment; filename=endpoint.json", response.getHeader(HttpConstants.HEADER_CONTENT_DISPOSITION));
+        assertEquals("12", response.getHeader(TestBaseController.TEST_COUNT));
+        verify(parameterHandler, times(3)).validateAndTransform(anyMap(), anyMap());
+        //logService is only one because we created a new response
+        verify(logService, times(1)).logHeadComplete(response, logId);
+        verify(countDao, times(3)).getCounts(anyString(), anyMap());	
 	}
 
 	@Test
@@ -778,14 +837,81 @@ public class BaseControllerTest {
 		ParameterMap p = new ParameterMap();
 		p.setQueryParameters(q);
         when(parameterHandler.validateAndTransform(anyMap(), anyMap())).thenReturn(p);
-		
-        testController.doPostCountRequest(request, response, mybatisNamespace, endpoint, json);
+        List<Map<String, Object>> rawCounts = new ArrayList<>();
+        Map<String, Object> countRow = new HashMap<>();
+        countRow.put("DATA_SOURCE", "NWIS");
+        countRow.put("STATION_COUNT", 12);
+        rawCounts.add(countRow);
+        when(countDao.getCounts(anyString(), anyMap())).thenReturn(rawCounts);
         
+        Map<String, String> result = testController.doPostCountRequest(request, response, mybatisNamespace, endpoint, json);
+        
+        assertNotNull(result);
+        assertEquals(2, result.size());
+        assertTrue(result.containsKey("NWIS-Site-Count"));
+        assertEquals("12", result.get("NWIS-Site-Count"));
+        assertTrue(result.containsKey("Total-Site-Count"));
+        assertEquals("0", result.get("Total-Site-Count"));
         assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
         assertEquals(HttpStatus.OK.value(), response.getStatus());
         assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
         verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(Map.class));
         verify(logService).logRequestComplete(any(BigDecimal.class), anyString());
+	}
+
+	@Test
+	public void addCountHeaders() {
+        MockHttpServletResponse response = new MockHttpServletResponse();
+        List<Map<String, Object>> rawCounts = new ArrayList<>();
+        Map<String, Object> countRow = new HashMap<>();
+        countRow.put("DATA_SOURCE", "NWIS");
+        countRow.put("STATION_COUNT", 12);
+        countRow.put("RESULT_COUNT", 359);
+        rawCounts.add(countRow);
+		
+        testController.addCountHeaders(response, rawCounts, HttpConstants.HEADER_TOTAL_SITE_COUNT, HttpConstants.HEADER_SITE_COUNT, MybatisConstants.STATION_COUNT);
+		
+        Object nwis = response.getHeaderValue("NWIS-Site-Count");
+        assertNotNull(nwis);
+        assertEquals("12", nwis);
+        Object total = response.getHeaderValue("Total-Site-Count");
+        assertNotNull(total);
+        assertEquals("0", total);
+
+        Map<String, String> counts = TestBaseController.getCounts();
+        assertNotNull(counts);
+        assertEquals(2, counts.size());
+        assertTrue(counts.containsKey("NWIS-Site-Count"));
+        assertEquals("12", counts.get("NWIS-Site-Count"));
+        assertTrue(counts.containsKey("Total-Site-Count"));
+        assertEquals("0", counts.get("Total-Site-Count"));
+
+        testController.addCountHeaders(response, rawCounts, HttpConstants.HEADER_TOTAL_RESULT_COUNT, HttpConstants.HEADER_RESULT_COUNT, MybatisConstants.RESULT_COUNT);
+		
+        Object nwisSite = response.getHeaderValue("NWIS-Site-Count");
+        assertNotNull(nwisSite);
+        assertEquals("12", nwisSite);
+        Object totalSite = response.getHeaderValue("Total-Site-Count");
+        assertNotNull(totalSite);
+        assertEquals("0", totalSite);
+        Object nwisResult = response.getHeaderValue("NWIS-Result-Count");
+        assertNotNull(nwisResult);
+        assertEquals("359", nwisResult);
+        Object totalResult = response.getHeaderValue("Total-Result-Count");
+        assertNotNull(totalResult);
+        assertEquals("0", totalResult);
+
+        counts = TestBaseController.getCounts();
+        assertNotNull(counts);
+        assertEquals(4, counts.size());
+        assertTrue(counts.containsKey("NWIS-Site-Count"));
+        assertEquals("12", counts.get("NWIS-Site-Count"));
+        assertTrue(counts.containsKey("Total-Site-Count"));
+        assertEquals("0", counts.get("Total-Site-Count"));
+        assertTrue(counts.containsKey("NWIS-Result-Count"));
+        assertEquals("359", counts.get("NWIS-Result-Count"));
+        assertTrue(counts.containsKey("Total-Result-Count"));
+        assertEquals("0", counts.get("Total-Result-Count"));
 	}
 
 }

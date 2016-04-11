@@ -198,8 +198,6 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
     		.andExpect(header().string("STORET-Site-Count", "2"))
     		.andReturn();
 
-    	//TODO an actual compare - perhaps using     https://github.com/tobyweston/simple-excel
-//    	assertEquals(getCompareFile("station.tsv"), rtn.getResponse().getContentAsString());
     }
     
     @Test
@@ -228,8 +226,6 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
     		.andExpect(header().string("STORET-Site-Count", "2"))
     		.andReturn();
 
-    	//TODO an actual compare - perhaps using     https://github.com/tobyweston/simple-excel
-//    	assertEquals(getCompareFile("station.tsv"), rtn.getResponse().getContentAsString());
     }
 
     @Test
@@ -396,7 +392,7 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
     public void kitchenSinkTest() throws Exception {
         when(codesService.validate(any(Parameters.class), anyString())).thenReturn(true);
 
-    	MvcResult rtn = mockMvc.perform(
+    	mockMvc.perform(
     		get(endpoint + "xml" +
     			"&analyticalmethod=https://www.nemi.gov/methods/method_summary/4665/;https://www.nemi.gov/methods/method_summary/8896/" + 
     			"bBox=-89;43;-88;44" +
@@ -428,10 +424,7 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
 			.andExpect(header().string("Total-Site-Count", "0"))
 			.andExpect(header().string("NWIS-Site-Count", (String)null))
 			.andExpect(header().string("STEWARDS-Site-Count", (String)null))
-			.andExpect(header().string("STORET-Site-Count", (String)null))
-			.andReturn();
-
-//        assertEquals(harmonizeXml(getCompareFile("station.xml")), harmonizeXml(rtn.getResponse().getContentAsString()));
+			.andExpect(header().string("STORET-Site-Count", (String)null));
 	
     }
 
@@ -499,7 +492,7 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
     public void postGetAsGeojsonTest() throws Exception {
         when(codesService.validate(any(Parameters.class), anyString())).thenReturn(true);
 
-    	MvcResult rtn = mockMvc.perform(post(endpoint + "geojson").content(getSourceFile("postParameters.json")).contentType(MediaType.APPLICATION_JSON))
+    	mockMvc.perform(post(endpoint + "geojson").content(getSourceFile("postParameters.json")).contentType(MediaType.APPLICATION_JSON))
 			.andExpect(status().isOk())
 			.andExpect(content().contentType(MIME_TYPE_GEOJSON))
 			.andExpect(content().encoding(DEFAULT_ENCODING))
@@ -507,28 +500,81 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
 			.andExpect(header().string("Total-Site-Count", "0"))
 			.andExpect(header().string("NWIS-Site-Count", (String)null))
 			.andExpect(header().string("STEWARDS-Site-Count", (String)null))
-			.andExpect(header().string("STORET-Site-Count", (String)null))
-			.andReturn();
+			.andExpect(header().string("STORET-Site-Count", (String)null));
 
-//        assertEquals(harmonizeXml(getCompareFile("station.xml")), harmonizeXml(rtn.getResponse().getContentAsString()));
     }
 
     @Test
-    public void postHeadAsGeojsonTest() throws Exception {
+    public void postGetCountTest() throws Exception {
         when(codesService.validate(any(Parameters.class), anyString())).thenReturn(true);
 
-    	MvcResult rtn = mockMvc.perform(post("/" + HttpConstants.STATION_SEARCH_ENPOINT + "/count?mimeType=geojson").content(getSourceFile("postParameters.json")).contentType(MediaType.APPLICATION_JSON))
+    	MvcResult rtn = mockMvc.perform(post("/" + HttpConstants.STATION_SEARCH_ENPOINT + "/count?mimeType=json").content(getSourceFile("postParameters.json")).contentType(MediaType.APPLICATION_JSON))
 			.andExpect(status().isOk())
-			.andExpect(content().contentType(MIME_TYPE_GEOJSON))
+			.andExpect(content().contentType(MIME_TYPE_JSON))
 			.andExpect(content().encoding(DEFAULT_ENCODING))
-			.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=station.geojson"))
+			.andExpect(header().string(HEADER_CONTENT_DISPOSITION, (String)null))
 			.andExpect(header().string("Total-Site-Count", "0"))
 			.andExpect(header().string("NWIS-Site-Count", (String)null))
 			.andExpect(header().string("STEWARDS-Site-Count", (String)null))
 			.andExpect(header().string("STORET-Site-Count", (String)null))
 			.andReturn();
 
-    	assertEquals("", rtn.getResponse().getContentAsString());
+        assertThat(new JSONObject(rtn.getResponse().getContentAsString()),
+        		sameJSONObjectAs(new JSONObject("{\"Total-Site-Count\":\"0\"}")));
+        
+        
+    	mockMvc.perform(post("/" + HttpConstants.STATION_SEARCH_ENPOINT + "/count?mimeType=csv")
+    			.content(getSourceFile("postParameters.json")).contentType(MediaType.APPLICATION_JSON))
+			.andExpect(status().isNotAcceptable());
+
+    	mockMvc.perform(post("/" + HttpConstants.STATION_SEARCH_ENPOINT + "/count?mimeType=csv&zip=yes")
+    			.content(getSourceFile("postParameters.json")).contentType(MediaType.APPLICATION_JSON))
+			.andExpect(status().isNotAcceptable());
+
+    	mockMvc.perform(post("/" + HttpConstants.STATION_SEARCH_ENPOINT + "/count?mimeType=tsv")
+    			.content(getSourceFile("postParameters.json")).contentType(MediaType.APPLICATION_JSON))
+			.andExpect(status().isNotAcceptable());
+
+    	mockMvc.perform(post("/" + HttpConstants.STATION_SEARCH_ENPOINT + "/count?mimeType=tsv&zip=yes")
+    			.content(getSourceFile("postParameters.json")).contentType(MediaType.APPLICATION_JSON))
+			.andExpect(status().isNotAcceptable());
+
+    	mockMvc.perform(post("/" + HttpConstants.STATION_SEARCH_ENPOINT + "/count?mimeType=xlsx")
+    			.content(getSourceFile("postParameters.json")).contentType(MediaType.APPLICATION_JSON))
+			.andExpect(status().isNotAcceptable());
+
+    	mockMvc.perform(post("/" + HttpConstants.STATION_SEARCH_ENPOINT + "/count?mimeType=xlsx&zip=yes")
+    			.content(getSourceFile("postParameters.json")).contentType(MediaType.APPLICATION_JSON))
+			.andExpect(status().isNotAcceptable());
+
+    	mockMvc.perform(post("/" + HttpConstants.STATION_SEARCH_ENPOINT + "/count?mimeType=xml")
+    			.content(getSourceFile("postParameters.json")).contentType(MediaType.APPLICATION_JSON))
+			.andExpect(status().isNotAcceptable());
+
+    	mockMvc.perform(post("/" + HttpConstants.STATION_SEARCH_ENPOINT + "/count?mimeType=xml&zip=yes")
+    			.content(getSourceFile("postParameters.json")).contentType(MediaType.APPLICATION_JSON))
+			.andExpect(status().isNotAcceptable());
+
+    	mockMvc.perform(post("/" + HttpConstants.STATION_SEARCH_ENPOINT + "/count?mimeType=kml")
+    			.content(getSourceFile("postParameters.json")).contentType(MediaType.APPLICATION_JSON))
+			.andExpect(status().isNotAcceptable());
+
+    	mockMvc.perform(post("/" + HttpConstants.STATION_SEARCH_ENPOINT + "/count?mimeType=kml&zip=yes")
+    			.content(getSourceFile("postParameters.json")).contentType(MediaType.APPLICATION_JSON))
+			.andExpect(status().isNotAcceptable());
+
+    	mockMvc.perform(post("/" + HttpConstants.STATION_SEARCH_ENPOINT + "/count?mimeType=kmz")
+    			.content(getSourceFile("postParameters.json")).contentType(MediaType.APPLICATION_JSON))
+			.andExpect(status().isNotAcceptable());
+
+    	mockMvc.perform(post("/" + HttpConstants.STATION_SEARCH_ENPOINT + "/count?mimeType=geojson")
+    			.content(getSourceFile("postParameters.json")).contentType(MediaType.APPLICATION_JSON))
+			.andExpect(status().isNotAcceptable());
+
+    	mockMvc.perform(post("/" + HttpConstants.STATION_SEARCH_ENPOINT + "/count?mimeType=geojson&zip=yes")
+    			.content(getSourceFile("postParameters.json")).contentType(MediaType.APPLICATION_JSON))
+			.andExpect(status().isNotAcceptable());
+
     }
 
 }

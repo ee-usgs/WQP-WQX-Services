@@ -1,5 +1,20 @@
 package gov.usgs.cida.wqp.webservice.station;
 
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import gov.usgs.cida.wqp.dao.intfc.ICountDao;
 import gov.usgs.cida.wqp.dao.intfc.IDao;
 import gov.usgs.cida.wqp.dao.intfc.IStreamingDao;
@@ -9,19 +24,6 @@ import gov.usgs.cida.wqp.parameter.IParameterHandler;
 import gov.usgs.cida.wqp.service.ILogService;
 import gov.usgs.cida.wqp.util.HttpConstants;
 import gov.usgs.cida.wqp.webservice.BaseController;
-
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 @RequestMapping(value=HttpConstants.STATION_SEARCH_ENPOINT,
@@ -75,9 +77,10 @@ public class StationController extends BaseController {
 	/**
 	 * Station POST count request
 	 */
-	@RequestMapping(value="count", method=RequestMethod.POST)
-	public void stationPostCountRequest(HttpServletRequest request, HttpServletResponse response, @RequestBody Map<String, Object> postParms) {
-		doPostCountRequest(request, response, IDao.STATION_NAMESPACE, ENDPOINT_STATION, postParms);
+	@RequestMapping(value="count", method=RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody Map<String, String> stationPostCountRequest(HttpServletRequest request, HttpServletResponse response,
+			@RequestBody Map<String, Object> postParms) {
+		return doPostCountRequest(request, response, IDao.STATION_NAMESPACE, ENDPOINT_STATION, postParms);
 	}
 	
 	@Override
