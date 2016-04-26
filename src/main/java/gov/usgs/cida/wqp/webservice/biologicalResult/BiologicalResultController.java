@@ -11,6 +11,7 @@ import gov.usgs.cida.wqp.util.HttpConstants;
 import gov.usgs.cida.wqp.util.MybatisConstants;
 import gov.usgs.cida.wqp.webservice.BaseController;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -59,13 +61,21 @@ public class BiologicalResultController extends BaseController {
 	}
 
 	/**
-	 * Result POST request
+	 * Result POST request with json
 	 */
-	@RequestMapping(method=RequestMethod.POST)
-	public void resultPostRequest(HttpServletRequest request, HttpServletResponse response, @RequestBody Map<String, Object> postParms) {
+	@RequestMapping(method=RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_VALUE)
+	public void resultJsonPostRequest(HttpServletRequest request, HttpServletResponse response, @RequestBody Map<String, Object> postParms) {
 		doPostRequest(request, response, IDao.BIOLOGICAL_RESULT_NAMESPACE, ENDPOINT_BIOLOGICAL_RESULT, postParms);
 	}
 	
+	/**
+	 * Result POST request with form urlencoded
+	 */
+	@RequestMapping(method=RequestMethod.POST, consumes=MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+	public void resultFormUrlencodedPostRequest(HttpServletRequest request, HttpServletResponse response, @ModelAttribute HashMap<String, Object> postParms) {
+		doPostRequest(request, response, IDao.BIOLOGICAL_RESULT_NAMESPACE, ENDPOINT_BIOLOGICAL_RESULT, postParms);
+	}
+
 	/**
 	 * Result POST count request
 	 */

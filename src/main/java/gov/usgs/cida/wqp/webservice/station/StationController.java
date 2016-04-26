@@ -1,5 +1,6 @@
 package gov.usgs.cida.wqp.webservice.station;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -67,15 +69,23 @@ public class StationController extends BaseController {
 	}
 	
 	/**
-	 * Station POST request
+	 * Station POST request with json
 	 */
-	@RequestMapping(method=RequestMethod.POST)
-	public void stationPostRequest(HttpServletRequest request, HttpServletResponse response, @RequestBody Map<String, Object> postParms) {
+	@RequestMapping(method=RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_VALUE)
+	public void stationJsonPostRequest(HttpServletRequest request, HttpServletResponse response, @RequestBody Map<String, Object> postParms) {
 		doPostRequest(request, response, IDao.STATION_NAMESPACE, ENDPOINT_STATION, postParms);
 	}
 	
 	/**
-	 * Station POST count request
+	 * Station POST request with form urlencoded
+	 */
+	@RequestMapping(method=RequestMethod.POST, consumes=MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+	public void stationFormUrlencodedPostRequest(HttpServletRequest request, HttpServletResponse response, @ModelAttribute HashMap<String, Object> postParms) {
+		doPostRequest(request, response, IDao.STATION_NAMESPACE, ENDPOINT_STATION, postParms);
+	}
+	
+	/**
+	 * Station POST count request 
 	 */
 	@RequestMapping(value="count", method=RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Map<String, String> stationPostCountRequest(HttpServletRequest request, HttpServletResponse response,

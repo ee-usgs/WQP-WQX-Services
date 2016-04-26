@@ -494,7 +494,7 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
 
 
     @Test
-    public void postGetAsCsvTest() throws Exception {
+    public void postJsonGetAsCsvTest() throws Exception {
         when(codesService.validate(any(Parameters.class), anyString())).thenReturn(true);
 
     	mockMvc.perform(post(endpoint + "csv").content(getSourceFile("postParameters.json")).contentType(MediaType.APPLICATION_JSON))
@@ -510,6 +510,31 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
     			.andExpect(header().string("NWIS-Result-Count", (String)null))
     			.andExpect(header().string("STEWARDS-Result-Count", (String)null))
     			.andExpect(header().string("STORET-Result-Count", (String)null));
+    }
+
+    @Test
+    public void postFormUrlencodedGetAsCsvTest() throws Exception {
+        when(codesService.validate(any(Parameters.class), anyString())).thenReturn(true);
+
+        //Note that in real life the values are urlencoded - This mock does not un-encode them, so we must use real values.
+    	mockMvc.perform(post(endpoint).contentType(MediaType.APPLICATION_FORM_URLENCODED)
+    			.param("mimeType", "csv")
+    			.param("countrycode", "US")
+    			.param("statecode", "US:05")
+    			.param("countycode", "US:05:007")
+    			.param("countycode", "US:05:008"))
+    		.andExpect(status().isOk())
+			.andExpect(content().contentType(MimeType.csv.getMimeType()))
+			.andExpect(content().encoding(DEFAULT_ENCODING))
+			.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=biologicalresult.csv"))
+			.andExpect(header().string("Total-Site-Count", "0"))
+			.andExpect(header().string("NWIS-Site-Count", (String)null))
+			.andExpect(header().string("STEWARDS-Site-Count", (String)null))
+			.andExpect(header().string("STORET-Site-Count", (String)null))
+			.andExpect(header().string("Total-Result-Count", "0"))
+			.andExpect(header().string("NWIS-Result-Count", (String)null))
+			.andExpect(header().string("STEWARDS-Result-Count", (String)null))
+			.andExpect(header().string("STORET-Result-Count", (String)null));
     }
 
     @Test
