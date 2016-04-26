@@ -203,7 +203,7 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 		processParameters(request, postParms);
 		if ( ! getPm().isValid() ) {
 			writeWarningHeaders(response, getPm().getValidationMessages());
-			LOG.info("Processing Head invalid params end:{}", request.getQueryString());
+			LOG.info("Processing Head invalid params end:{}", getPm().getValidationMessages());
 			return false;
 		}
 
@@ -393,7 +393,7 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 	}
 
 	protected Map<String, String> doPostCountRequest(HttpServletRequest request, HttpServletResponse response, String mybatisNamespace, String endpoint, Map<String, Object> postParms) {
-		LOG.info("Processing Post Count: {}", request.getQueryString());
+		LOG.info("Processing Post Count");
 		logId.set(logService.logRequest(request, response, postParms));
 		Map<String, String> counts = null;
 		
@@ -402,7 +402,7 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 			counts = getCounts();
 		} finally {
 			logService.logRequestComplete(getLogId(), String.valueOf(response.getStatus()));
-			LOG.info("Processing Post Count complete: {}", request.getQueryString());
+			LOG.info("Processing Post Count complete");
 			remove();
 		}
 		

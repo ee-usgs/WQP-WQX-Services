@@ -489,7 +489,7 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
     }
 
     @Test
-    public void postGetAsGeojsonTest() throws Exception {
+    public void postJsonGetAsGeojsonTest() throws Exception {
         when(codesService.validate(any(Parameters.class), anyString())).thenReturn(true);
 
     	mockMvc.perform(post(endpoint + "geojson").content(getSourceFile("postParameters.json")).contentType(MediaType.APPLICATION_JSON))
@@ -501,7 +501,27 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
 			.andExpect(header().string("NWIS-Site-Count", (String)null))
 			.andExpect(header().string("STEWARDS-Site-Count", (String)null))
 			.andExpect(header().string("STORET-Site-Count", (String)null));
+    }
 
+    @Test
+    public void postFormUrlencodedGetAsGeojsonTest() throws Exception {
+        when(codesService.validate(any(Parameters.class), anyString())).thenReturn(true);
+
+        //Note that in real life the values are urlencoded - This mock does not un-encode them, so we must use real values.
+    	mockMvc.perform(post(endpoint).contentType(MediaType.APPLICATION_FORM_URLENCODED)
+    			.param("mimeType", "geojson")
+    			.param("countrycode", "US")
+    			.param("statecode", "US:05")
+    			.param("countycode", "US:05:007")
+    			.param("countycode", "US:05:008"))
+    		.andExpect(status().isOk())
+			.andExpect(content().contentType(MIME_TYPE_GEOJSON))
+			.andExpect(content().encoding(DEFAULT_ENCODING))
+			.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=station.geojson"))
+			.andExpect(header().string("Total-Site-Count", "0"))
+			.andExpect(header().string("NWIS-Site-Count", (String)null))
+			.andExpect(header().string("STEWARDS-Site-Count", (String)null))
+			.andExpect(header().string("STORET-Site-Count", (String)null));
     }
 
     @Test
