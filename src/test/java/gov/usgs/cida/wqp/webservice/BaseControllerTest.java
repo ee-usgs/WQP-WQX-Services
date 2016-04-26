@@ -77,7 +77,7 @@ public class BaseControllerTest {
     @Before
     public void setup() {
     	MockitoAnnotations.initMocks(this);
-    	testController = new TestBaseController(streamingDao, countDao, parameterHandler, logService, 100);
+    	testController = new TestBaseController(streamingDao, countDao, parameterHandler, logService, 100, "http://test-url.usgs.gov");
     }
 
 	@Test
@@ -378,7 +378,7 @@ public class BaseControllerTest {
 
 	@Test
 	public void checkMaxRowsTest() {
-		TestBaseController small = new TestBaseController(null, null, null, null, 10);
+		TestBaseController small = new TestBaseController(null, null, null, null, 10, "http://test-url.usgs.gov");
 		TestBaseController.setPm(new ParameterMap());
 
 		//xml formats ok when less than max & always sorted

@@ -39,8 +39,9 @@ public class ResultController extends BaseController {
 	public ResultController(IStreamingDao inStreamingDao, ICountDao inCountDao, 
 			IParameterHandler inParameterHandler, ILogService inLogService,
 			@Qualifier("maxResultRows") Integer inMaxResultRows,
-			@Qualifier("pcResultWqx") IXmlMapping inXmlMapping) {
-		super(inStreamingDao, inCountDao, inParameterHandler, inLogService, inMaxResultRows);
+			@Qualifier("pcResultWqx") IXmlMapping inXmlMapping,
+			@Qualifier("siteUrlBase") String inSiteUrlBase) {
+		super(inStreamingDao, inCountDao, inParameterHandler, inLogService, inMaxResultRows, inSiteUrlBase);
 		xmlMapping = inXmlMapping;
 	}
 	

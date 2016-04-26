@@ -448,7 +448,7 @@ public class ResultControllerTest extends BaseSpringTest implements HttpConstant
 
 	@Test
 	public void test_addResultHeaders_proper() {
-		ResultController testController = new ResultController(null, null, null, null, 12, null);
+		ResultController testController = new ResultController(null, null, null, null, 12, null, null);
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		List<Map<String, Object>> counts = new ArrayList<Map<String, Object>>();
 		addEntryStation("NWIS", 7, counts);
@@ -472,7 +472,7 @@ public class ResultControllerTest extends BaseSpringTest implements HttpConstant
 
 	@Test
 	public void test_addResultHeaders_noTotal() {
-		ResultController testController = new ResultController(null, null, null, null, 12, null);
+		ResultController testController = new ResultController(null, null, null, null, 12, null, null);
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		List<Map<String, Object>> counts = new ArrayList<Map<String, Object>>();
 		addEntryResult("NWIS", 7, counts);
