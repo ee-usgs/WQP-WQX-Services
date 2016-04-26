@@ -36,8 +36,9 @@ public class SimpleStationController extends BaseController {
 	public SimpleStationController(IStreamingDao inStreamingDao, ICountDao inCountDao, 
 			IParameterHandler inParameterHandler, ILogService inLogService,
 			@Qualifier("maxResultRows") Integer inMaxResultRows,
-			@Qualifier("simpleStationWqxOutbound") IXmlMapping inXmlMapping) {
-		super(inStreamingDao, inCountDao, inParameterHandler, inLogService, inMaxResultRows);
+			@Qualifier("simpleStationWqxOutbound") IXmlMapping inXmlMapping,
+			@Qualifier("siteUrlBase") String inSiteUrlBase) {
+		super(inStreamingDao, inCountDao, inParameterHandler, inLogService, inMaxResultRows, inSiteUrlBase);
 		xmlMapping = inXmlMapping;
 		
 		LOG.trace(getClass().getName());

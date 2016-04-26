@@ -449,7 +449,7 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
 
 	@Test
 	public void test_addResultHeaders_proper() {
-		BiologicalResultController testController = new BiologicalResultController(null, null, null, null, 12, null);
+		BiologicalResultController testController = new BiologicalResultController(null, null, null, null, 12, null, null);
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		List<Map<String, Object>> counts = new ArrayList<Map<String, Object>>();
 		addEntryStation("NWIS", 7, counts);
@@ -473,7 +473,7 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
 
 	@Test
 	public void test_addResultHeaders_noTotal() {
-		BiologicalResultController testController = new BiologicalResultController(null, null, null, null, 12, null);
+		BiologicalResultController testController = new BiologicalResultController(null, null, null, null, 12, null, null);
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		List<Map<String, Object>> counts = new ArrayList<Map<String, Object>>();
 		addEntryResult("NWIS", 7, counts);

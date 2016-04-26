@@ -25,12 +25,13 @@ public class MapToJsonTransformerTest {
 	protected BigDecimal logId = new BigDecimal(1);
 	protected MapToJsonTransformer transformer;
 	protected ByteArrayOutputStream baos;
+	protected String siteUrlBase = "http://test-url.usgs.gov";
 
     @Before
     public void initTest() {
         MockitoAnnotations.initMocks(this);
 		baos = new ByteArrayOutputStream();
-        transformer = new MapToJsonTransformer(baos, StationColumn.mappings, logService, logId);
+        transformer = new MapToJsonTransformer(baos, StationColumn.mappings, logService, logId, siteUrlBase);
         transformer.init();
     }
     
@@ -70,8 +71,9 @@ public class MapToJsonTransformerTest {
 			transformer.writeData(map);
 			//need to flush the JsonGenerator to get at output. 
 			transformer.g.flush();
-			assertEquals(361, baos.size());
-			assertEquals("{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[long,lat]},\"properties\":{\"ProviderName\":\"ds\",\"OrganizationIdentifier\":\"org\",\"OrganizationFormalName\":\"org/name\",\"MonitoringLocationIdentifier\":\"site\",\"MonitoringLocationName\":\"station\",\"MonitoringLocationTypeName\":\"realType\",\"ResolvedMonitoringLocationTypeName\":\"type\",\"HUCEightDigitCode\":\"huceight\"}}",
+			assertEquals(419, baos.size());
+			assertEquals("{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[long,lat]},\"properties\":{\"ProviderName\":\"ds\",\"OrganizationIdentifier\":\"org\",\"OrganizationFormalName\":\"org/name\",\"MonitoringLocationIdentifier\":\"site\",\"MonitoringLocationName\":\"station\",\"MonitoringLocationTypeName\":\"realType\",\"ResolvedMonitoringLocationTypeName\":\"type\",\"HUCEightDigitCode\":\"huceight\""
+					+ ",\"siteUrl\":\"http://test-url.usgs.gov/provider/ds/org/site\"}}",
 					new String(baos.toByteArray(), HttpConstants.DEFAULT_ENCODING));
 		} catch (IOException e) {
 			fail(e.getLocalizedMessage());
@@ -92,9 +94,11 @@ public class MapToJsonTransformerTest {
 			transformer.writeData(map);
 			//need to flush the JsonGenerator to get at output. 
 			transformer.g.flush();
-			assertEquals(732, baos.size());
-			assertEquals("{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[long,lat]},\"properties\":{\"ProviderName\":\"ds\",\"OrganizationIdentifier\":\"org\",\"OrganizationFormalName\":\"org/name\",\"MonitoringLocationIdentifier\":\"site\",\"MonitoringLocationName\":\"station\",\"MonitoringLocationTypeName\":\"realType\",\"ResolvedMonitoringLocationTypeName\":\"type\",\"HUCEightDigitCode\":\"huceight\"}}"
-					+ " {\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[long2,lat2]},\"properties\":{\"ProviderName\":\"ds2\",\"OrganizationIdentifier\":\"org2\",\"OrganizationFormalName\":\"org/name2\",\"MonitoringLocationIdentifier\":\"site2\",\"MonitoringLocationName\":\"station2\",\"MonitoringLocationTypeName\":\"realType2\",\"ResolvedMonitoringLocationTypeName\":\"type2\",\"HUCEightDigitCode\":\"huceigh2\"}}",
+			assertEquals(851, baos.size());
+			assertEquals("{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[long,lat]},\"properties\":{\"ProviderName\":\"ds\",\"OrganizationIdentifier\":\"org\",\"OrganizationFormalName\":\"org/name\",\"MonitoringLocationIdentifier\":\"site\",\"MonitoringLocationName\":\"station\",\"MonitoringLocationTypeName\":\"realType\",\"ResolvedMonitoringLocationTypeName\":\"type\",\"HUCEightDigitCode\":\"huceight\""
+					+ ",\"siteUrl\":\"http://test-url.usgs.gov/provider/ds/org/site\"}}"
+					+ " {\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[long2,lat2]},\"properties\":{\"ProviderName\":\"ds2\",\"OrganizationIdentifier\":\"org2\",\"OrganizationFormalName\":\"org/name2\",\"MonitoringLocationIdentifier\":\"site2\",\"MonitoringLocationName\":\"station2\",\"MonitoringLocationTypeName\":\"realType2\",\"ResolvedMonitoringLocationTypeName\":\"type2\",\"HUCEightDigitCode\":\"huceigh2\""
+					+ ",\"siteUrl\":\"http://test-url.usgs.gov/provider/ds2/org2/site2\"}}",
 					new String(baos.toByteArray(), HttpConstants.DEFAULT_ENCODING));
 		} catch (IOException e) {
 			fail(e.getLocalizedMessage());

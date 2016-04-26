@@ -10,4 +10,6 @@ public interface WqpEnvProperties {
 	String KML_STYLE_URL = "kml.style.url";
 	
 	String MAX_RESULT_ROWS = "max.result.rows";
+	
+	String SITE_URL_BASE = "site.url.base";
 }

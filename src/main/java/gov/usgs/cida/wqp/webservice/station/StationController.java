@@ -46,8 +46,9 @@ public class StationController extends BaseController {
 			IParameterHandler inParameterHandler, ILogService inLogService,
 			@Qualifier("maxResultRows") Integer inMaxResultRows,
 			@Qualifier("stationWqx") IXmlMapping inXmlMapping,
-			@Qualifier("stationKml") IXmlMapping inKmlMapping) {
-		super(inStreamingDao, inCountDao, inParameterHandler, inLogService, inMaxResultRows);
+			@Qualifier("stationKml") IXmlMapping inKmlMapping,
+			@Qualifier("siteUrlBase") String inSiteUrlBase) {
+		super(inStreamingDao, inCountDao, inParameterHandler, inLogService, inMaxResultRows, inSiteUrlBase);
 		xmlMapping = inXmlMapping;
 		kmlMapping = inKmlMapping;
 	}

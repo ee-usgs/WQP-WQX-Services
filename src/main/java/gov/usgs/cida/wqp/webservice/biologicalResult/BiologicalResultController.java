@@ -39,8 +39,9 @@ public class BiologicalResultController extends BaseController {
 	public BiologicalResultController(IStreamingDao inStreamingDao, ICountDao inCountDao, 
 			IParameterHandler inParameterHandler, ILogService inLogService,
 			@Qualifier("maxResultRows") Integer inMaxResultRows,
-			@Qualifier("bioResultWqx") IXmlMapping inXmlMapping) {
-		super(inStreamingDao, inCountDao, inParameterHandler, inLogService, inMaxResultRows);
+			@Qualifier("bioResultWqx") IXmlMapping inXmlMapping,
+			@Qualifier("siteUrlBase") String inSiteUrlBase) {
+		super(inStreamingDao, inCountDao, inParameterHandler, inLogService, inMaxResultRows, inSiteUrlBase);
 		xmlMapping = inXmlMapping;
 	}
 	

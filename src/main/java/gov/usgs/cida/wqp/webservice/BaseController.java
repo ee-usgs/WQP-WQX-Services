@@ -48,6 +48,7 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 	protected final IParameterHandler parameterHandler;
 	protected final ILogService logService;
 	protected final Integer maxResultRows;
+	protected final String siteUrlBase;
 
 	private static ThreadLocal<ParameterMap> pm = new ThreadLocal<>();
 	private static ThreadLocal<MimeType> mimeType = new ThreadLocal<>();
@@ -57,7 +58,7 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 	
 	public BaseController(IStreamingDao inStreamingDao, ICountDao inCountDao,
 			IParameterHandler inParameterHandler, ILogService inLogService,
-			Integer inMaxResultRows) {
+			Integer inMaxResultRows, String inSiteUrlBase) {
 		
 		LOG.trace(getClass().getName());
 		
@@ -66,6 +67,7 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 		countDao         = inCountDao;
 		logService       = inLogService;
 		maxResultRows = inMaxResultRows;
+		siteUrlBase = inSiteUrlBase;
 	}
 	
 	public static ParameterMap getPm() {
@@ -434,7 +436,7 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 		switch (mimeType) {
 		case json:
 		case geojson:
-			transformer = new MapToJsonTransformer(responseStream, null, logService, logId);
+			transformer = new MapToJsonTransformer(responseStream, null, logService, logId, siteUrlBase);
 			break;
 		case xlsx:
 			transformer = new MapToXlsxTransformer(responseStream, getMapping(), logService, logId);

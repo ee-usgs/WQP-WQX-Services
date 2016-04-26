@@ -79,7 +79,7 @@ public class SpringConfig extends WebMvcConfigurerAdapter implements Environment
         	.mediaType(geojson.getExtension(), geojson.mediaType)
         	.ignoreAcceptHeader(true);
     }
-    
+
 	@Bean
 	public SqlSessionFactoryBean sqlSessionFactory() {
 		SqlSessionFactoryBean mybatis = new SqlSessionFactoryBean();
@@ -110,6 +110,11 @@ public class SpringConfig extends WebMvcConfigurerAdapter implements Environment
 	@Bean
 	public Integer maxResultRows() {
 		return Integer.valueOf(WqpEnv.get(MAX_RESULT_ROWS));
+	}
+	
+	@Bean
+	public String siteUrlBase() {
+		return WqpEnv.get(SITE_URL_BASE);
 	}
 	
 }

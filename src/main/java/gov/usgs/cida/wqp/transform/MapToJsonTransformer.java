@@ -15,9 +15,11 @@ public class MapToJsonTransformer extends Transformer {
 
 	protected JsonFactory f;
 	protected JsonGenerator g;
+	protected String siteUrlBase;
 
-	public MapToJsonTransformer(OutputStream target, Map<String, String> mapping, ILogService logService, BigDecimal logId) {
+	public MapToJsonTransformer(OutputStream target, Map<String, String> mapping, ILogService logService, BigDecimal logId, String siteUrlBase) {
 		super(target, mapping, logService, logId);
+		this.siteUrlBase = siteUrlBase;
 	}
 
 	@Override
@@ -56,6 +58,8 @@ public class MapToJsonTransformer extends Transformer {
 			g.writeStringField("MonitoringLocationTypeName", getValue(resultMap, StationColumn.KEY_MONITORING_LOCATION_TYPE));
 			g.writeStringField("ResolvedMonitoringLocationTypeName", getValue(resultMap, StationColumn.KEY_SITE_TYPE));
 			g.writeStringField("HUCEightDigitCode", getValue(resultMap, StationColumn.KEY_HUC_8));
+			g.writeStringField("siteUrl", siteUrlBase + "/provider/" + getValue(resultMap, StationColumn.KEY_DATA_SOURCE)
+					+ "/" + getValue(resultMap, StationColumn.KEY_ORGANIZATION) + "/" + getValue(resultMap, StationColumn.KEY_SITE_ID));
 			g.writeEndObject();
 			
 			g.writeEndObject();

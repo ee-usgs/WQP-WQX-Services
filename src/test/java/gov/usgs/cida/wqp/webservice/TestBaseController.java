@@ -20,8 +20,8 @@ public class TestBaseController extends BaseController {
 	
 	public TestBaseController(IStreamingDao inStreamingDao,
 			ICountDao inCountDao, IParameterHandler inParameterHandler,
-			ILogService inLogService, Integer inMaxRows) {
-		super(inStreamingDao, inCountDao, inParameterHandler, inLogService, inMaxRows);
+			ILogService inLogService, Integer inMaxRows, String inSiteUrlBase) {
+		super(inStreamingDao, inCountDao, inParameterHandler, inLogService, inMaxRows, inSiteUrlBase);
 	}
 
 	@Override
