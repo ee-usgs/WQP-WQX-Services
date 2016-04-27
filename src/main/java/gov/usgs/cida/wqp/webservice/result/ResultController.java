@@ -1,17 +1,5 @@
 package gov.usgs.cida.wqp.webservice.result;
 
-import gov.usgs.cida.wqp.dao.intfc.ICountDao;
-import gov.usgs.cida.wqp.dao.intfc.IDao;
-import gov.usgs.cida.wqp.dao.intfc.IStreamingDao;
-import gov.usgs.cida.wqp.mapping.IXmlMapping;
-import gov.usgs.cida.wqp.mapping.PcResultColumn;
-import gov.usgs.cida.wqp.parameter.IParameterHandler;
-import gov.usgs.cida.wqp.service.ILogService;
-import gov.usgs.cida.wqp.util.HttpConstants;
-import gov.usgs.cida.wqp.util.MybatisConstants;
-import gov.usgs.cida.wqp.webservice.BaseController;
-
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,11 +10,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import gov.usgs.cida.wqp.dao.intfc.ICountDao;
+import gov.usgs.cida.wqp.dao.intfc.IDao;
+import gov.usgs.cida.wqp.dao.intfc.IStreamingDao;
+import gov.usgs.cida.wqp.mapping.IXmlMapping;
+import gov.usgs.cida.wqp.mapping.PcResultColumn;
+import gov.usgs.cida.wqp.parameter.IParameterHandler;
+import gov.usgs.cida.wqp.service.ILogService;
+import gov.usgs.cida.wqp.util.HttpConstants;
+import gov.usgs.cida.wqp.util.MybatisConstants;
+import gov.usgs.cida.wqp.webservice.BaseController;
 
 @Controller
 @RequestMapping(value=HttpConstants.RESULT_SEARCH_ENPOINT, params="!dataProfile",
@@ -73,8 +71,8 @@ public class ResultController extends BaseController {
 	 * Result POST request with form urlencoded
 	 */
 	@RequestMapping(method=RequestMethod.POST, consumes=MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-	public void resultFormUrlencodedPostRequest(HttpServletRequest request, HttpServletResponse response, @ModelAttribute HashMap<String, Object> postParms) {
-		doPostRequest(request, response, IDao.RESULT_NAMESPACE, ENDPOINT_RESULT, postParms);
+	public void resultFormUrlencodedPostRequest(HttpServletRequest request, HttpServletResponse response) {
+		doPostRequest(request, response, IDao.RESULT_NAMESPACE, ENDPOINT_RESULT, null);
 	}
 
 	/**

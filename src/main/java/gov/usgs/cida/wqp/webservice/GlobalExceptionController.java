@@ -47,8 +47,8 @@ public class GlobalExceptionController {
 		printException(response, ex.getLocalizedMessage().substring(0, ex.getLocalizedMessage().indexOf("\n")));
 	}
 
-	@ExceptionHandler(Exception.class)
-	public void handleUncaughtException(Exception ex, WebRequest request, HttpServletResponse response) {
+	@ExceptionHandler(Throwable.class)
+	public void handleUncaughtException(Throwable e, WebRequest request, HttpServletResponse response) {
 		response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
 		int hashValue = response.hashCode();
 		//Note: we are giving the user a generic message.  
@@ -56,7 +56,7 @@ public class GlobalExceptionController {
 		String msgText = "Something bad happened. Contact us with Reference Number: " + hashValue;
 		LOG.error("logId: {}", BaseController.getLogId());
 		LOG.error("status: {}", HttpStatus.INTERNAL_SERVER_ERROR.value());
-		LOG.error(msgText, ex);
+		LOG.error(msgText, e);
 		response.addHeader(HttpConstants.HEADER_FATAL_ERROR, msgText);
 		printException(response, msgText);
     }

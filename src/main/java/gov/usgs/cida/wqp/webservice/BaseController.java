@@ -292,7 +292,7 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 				transformer.end();
 					
 			}		
-		} catch (Exception e) {
+		} catch (Throwable e) {
 			response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
 			int hashValue = response.hashCode();
 			realHttpStatus = HttpStatus.INTERNAL_SERVER_ERROR.toString() + "-" + hashValue;
@@ -317,7 +317,7 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 					if (getZipped()) {
 						closeZip(responseStream);
 					}
-				} catch (Exception e) {
+				} catch (Throwable e) {
 					//Just log, cause we obviously can't tell the client
 					LOG.error("Error closing zip", e);
 				}
@@ -352,7 +352,7 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 				transformer.end();
 					
 			}		
-		} catch (Exception e) {
+		} catch (Throwable e) {
 			response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
 			int hashValue = response.hashCode();
 			realHttpStatus = HttpStatus.INTERNAL_SERVER_ERROR.toString() + "-" + hashValue;
@@ -377,7 +377,7 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 					if (getZipped()) {
 						closeZip(responseStream);
 					}
-				} catch (Exception e) {
+				} catch (Throwable e) {
 					//Just log, cause we obviously can't tell the client
 					LOG.error("Error closing zip", e);
 				}
@@ -388,7 +388,7 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 					LOG.error("Error flushing response stream", e);
 				}
 			}
-			LOG.info("Processing Get complete: {}", request.getQueryString());
+			LOG.info("Processing POST complete: {}", request.getQueryString());
 			logService.logRequestComplete(getLogId(), realHttpStatus);
 			remove();
 		}
