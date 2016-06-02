@@ -163,6 +163,14 @@ public class StreamingDaoTest extends BaseSpringTest {
 		parms.put(Parameters.SITEID.toString(), new String[]{"11NPSWRD-BICA_MFG_B"});
 		streamingDao.stream(nameSpace, parms, handler);
 
+		try {
+			parms.clear();
+			parms.put(Parameters.SITEID.toString(), getSourceFile("manySites.txt").split(","));
+			streamingDao.stream(nameSpace, parms, handler);
+		} catch (Exception e) {
+			fail(e.getLocalizedMessage());
+		}
+
 		parms.clear();
 		parms.put(Parameters.SITE_TYPE.toString(), new String[]{"Stream"});
 		streamingDao.stream(nameSpace, parms, handler);

@@ -2,7 +2,7 @@ package gov.usgs.cida.wqp.validation;
 
 public interface ValidationConstants { // TODO these should be defaults with WqpConfig and wqpgateway.properties overrides
 	
-//	int UNBOUNDED          = Integer.MAX_VALUE;
+	int UNBOUNDED          = Integer.MAX_VALUE;
 	int IN_CLAUSE_LIMIT    = 1000;
 	int DEFAULT_MIN_OCCURS = 0;
 	int DEFAULT_MAX_OCCURS = 1;

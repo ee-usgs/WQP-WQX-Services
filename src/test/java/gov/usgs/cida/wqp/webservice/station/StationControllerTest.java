@@ -17,6 +17,8 @@ import gov.usgs.cida.wqp.FullIntegrationTest;
 import gov.usgs.cida.wqp.parameter.Parameters;
 import gov.usgs.cida.wqp.service.CodesService;
 import gov.usgs.cida.wqp.util.HttpConstants;
+import gov.usgs.cida.wqp.util.MimeType;
+import gov.usgs.cida.wqp.validation.ValidationConstants;
 
 import org.json.JSONObject;
 import org.junit.Before;
@@ -503,6 +505,21 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
 			.andExpect(header().string("STORET-Site-Count", (String)null));
     }
 
+	@Test
+	public void postTonOSitesTest() throws Exception {
+		when(codesService.validate(any(Parameters.class), anyString())).thenReturn(true);
+
+		mockMvc.perform(post(endpoint + "csv").content(getSourceFile("manySites.json")).contentType(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk())
+				.andExpect(content().contentType(MimeType.csv.getMimeType()))
+				.andExpect(content().encoding(DEFAULT_ENCODING))
+				.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=station.csv"))
+				.andExpect(header().string("Total-Site-Count", "0"))
+				.andExpect(header().string("NWIS-Site-Count", (String)null))
+				.andExpect(header().string("STEWARDS-Site-Count", (String)null))
+				.andExpect(header().string("STORET-Site-Count", (String)null));
+	}
+
     @Test
     public void postFormUrlencodedGetAsGeojsonTest() throws Exception {
         when(codesService.validate(any(Parameters.class), anyString())).thenReturn(true);
@@ -596,5 +613,27 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
 			.andExpect(status().isNotAcceptable());
 
     }
+
+	@Test
+	public void postGetCountTonOSitesTest() throws Exception {
+		when(codesService.validate(any(Parameters.class), anyString())).thenReturn(true);
+
+		MvcResult rtn = mockMvc.perform(post("/" + HttpConstants.RESULT_SEARCH_ENPOINT + "/count?mimeType=json&" 
+				+ Parameters.DATA_PROFILE + "=" + ValidationConstants.REGEX_DATA_PROFILE)
+				.content(getSourceFile("manySites.json")).contentType(MediaType.APPLICATION_JSON))
+			.andExpect(status().isOk())
+			.andExpect(content().contentType(MIME_TYPE_JSON))
+			.andExpect(content().encoding(DEFAULT_ENCODING))
+			.andExpect(header().string(HEADER_CONTENT_DISPOSITION, (String)null))
+			.andExpect(header().string("Total-Site-Count", "0"))
+			.andExpect(header().string("NWIS-Site-Count", (String)null))
+			.andExpect(header().string("STEWARDS-Site-Count", (String)null))
+			.andExpect(header().string("STORET-Site-Count", (String)null))
+			.andReturn();
+
+		assertThat(new JSONObject(rtn.getResponse().getContentAsString()),
+				sameJSONObjectAs(new JSONObject("{\"Total-Site-Count\":\"0\", \"Total-Result-Count\":\"0\"}")));
+		
+	}
 
 }

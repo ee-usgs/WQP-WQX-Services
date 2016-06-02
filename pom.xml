@@ -339,6 +339,12 @@
 		    <artifactId>jackson-dataformat-xml</artifactId>
 		    <version>${jackson-version}</version>
 		</dependency>		
+		<dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-dbcp</artifactId>
+            <version>8.0.23</version>
+            <scope>provided</scope>
+		</dependency>
 		<!-- ================================================================== -->
 		<!-- Spring 4 dependencies -->
 		<!-- http://docs.spring.io/spring/docs/current/spring-framework-reference/htmlsingle/#overview-core-container -->

@@ -2,7 +2,6 @@ package gov.usgs.cida.wqp.webservice.biologicalResult;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.when;
@@ -14,18 +13,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static uk.co.datumedge.hamcrest.json.SameJSONAs.sameJSONObjectAs;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -41,7 +34,6 @@ import gov.usgs.cida.wqp.parameter.Parameters;
 import gov.usgs.cida.wqp.service.CodesService;
 import gov.usgs.cida.wqp.util.HttpConstants;
 import gov.usgs.cida.wqp.util.MimeType;
-import gov.usgs.cida.wqp.util.MybatisConstants;
 import gov.usgs.cida.wqp.validation.ValidationConstants;
 
 @Category(FullIntegrationTest.class)
@@ -50,7 +42,7 @@ import gov.usgs.cida.wqp.validation.ValidationConstants;
 	@DatabaseSetup("classpath:/testData/clearAll.xml"),
 	@DatabaseSetup("classpath:/testData/result.xml")
 })
-public class BiologicalResultControllerTest extends BaseSpringTest implements HttpConstants {
+public class BiologicalResultControllerIntTest extends BaseSpringTest implements HttpConstants {
 
 	protected String endpoint = "/" + HttpConstants.RESULT_SEARCH_ENPOINT + "?" 
 			+ Parameters.DATA_PROFILE + "=" + ValidationConstants.REGEX_DATA_PROFILE + "&mimeType=";
@@ -431,68 +423,6 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
 	
     }
 
-	
-	private void addEntryStation(String ds, Integer en, List<Map<String, Object>>  list) {
-		Map<String, Object> count = new HashMap<String, Object>();
-		count.put(MybatisConstants.DATA_SOURCE,ds);
-		count.put(MybatisConstants.STATION_COUNT,en);
-		list.add(count);
-	}
-	
-	private void addEntryResult(String ds, Integer en, List<Map<String, Object>>  list) {
-		Map<String, Object> count = new HashMap<String, Object>();
-		count.put(MybatisConstants.DATA_SOURCE,ds);
-		count.put(MybatisConstants.STATION_COUNT,en);
-		count.put(MybatisConstants.RESULT_COUNT,en*3);
-		list.add(count);
-	}
-
-	@Test
-	public void test_addResultHeaders_proper() {
-		BiologicalResultController testController = new BiologicalResultController(null, null, null, null, 12, null, null);
-		MockHttpServletResponse response = new MockHttpServletResponse();
-		List<Map<String, Object>> counts = new ArrayList<Map<String, Object>>();
-		addEntryStation("NWIS", 7, counts);
-		addEntryStation("STEW", 5, counts);
-		addEntryStation(null, 12, counts);
-		addEntryResult("NWIS", 7, counts);
-		addEntryResult("STEW", 5, counts);
-		addEntryResult("Stor", 5, counts);
-		addEntryResult(null, 12, counts);
-		assertEquals(HEADER_TOTAL_RESULT_COUNT, testController.addCountHeaders(response, counts));
-		assertEquals(8, response.getHeaderNames().size());
-		String nwis = "NWIS"+HEADER_DELIMITER+HEADER_SITE_COUNT;
-		assertTrue(response.containsHeader(nwis));
-		String stew = "STEW"+HEADER_DELIMITER+HEADER_SITE_COUNT;
-		assertTrue(response.containsHeader(stew));
-		assertTrue(response.containsHeader(HEADER_TOTAL_SITE_COUNT));
-		assertEquals("7", response.getHeader(nwis));
-		assertEquals("5", response.getHeader(stew));
-		assertEquals("12", response.getHeader(HEADER_TOTAL_SITE_COUNT));
-	}
-
-	@Test
-	public void test_addResultHeaders_noTotal() {
-		BiologicalResultController testController = new BiologicalResultController(null, null, null, null, 12, null, null);
-		MockHttpServletResponse response = new MockHttpServletResponse();
-		List<Map<String, Object>> counts = new ArrayList<Map<String, Object>>();
-		addEntryResult("NWIS", 7, counts);
-		addEntryResult("STEW", 5, counts);
-		addEntryStation("NWIS", 7, counts);
-		addEntryStation("STEW", 5, counts);
-		assertEquals(HEADER_TOTAL_RESULT_COUNT, testController.addCountHeaders(response, counts));
-		assertEquals(6, response.getHeaderNames().size());
-		String nwis = "NWIS"+HEADER_DELIMITER+HEADER_SITE_COUNT;
-		assertTrue(response.containsHeader(nwis));
-		String stew = "STEW"+HEADER_DELIMITER+HEADER_SITE_COUNT;
-		assertTrue(response.containsHeader(stew));
-		assertTrue(response.containsHeader(HEADER_TOTAL_SITE_COUNT));
-		assertEquals("7", response.getHeader(nwis));
-		assertEquals("5", response.getHeader(stew));
-		assertEquals("0", response.getHeader(HEADER_TOTAL_SITE_COUNT));
-	}
-
-
     @Test
     public void postJsonGetAsCsvTest() throws Exception {
         when(codesService.validate(any(Parameters.class), anyString())).thenReturn(true);
@@ -511,6 +441,25 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
     			.andExpect(header().string("STEWARDS-Result-Count", (String)null))
     			.andExpect(header().string("STORET-Result-Count", (String)null));
     }
+
+	@Test
+	public void postTonOSitesTest() throws Exception {
+		when(codesService.validate(any(Parameters.class), anyString())).thenReturn(true);
+
+		mockMvc.perform(post(endpoint + "csv").content(getSourceFile("manySites.json")).contentType(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk())
+				.andExpect(content().contentType(MimeType.csv.getMimeType()))
+				.andExpect(content().encoding(DEFAULT_ENCODING))
+				.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=biologicalresult.csv"))
+				.andExpect(header().string("Total-Site-Count", "0"))
+				.andExpect(header().string("NWIS-Site-Count", (String)null))
+				.andExpect(header().string("STEWARDS-Site-Count", (String)null))
+				.andExpect(header().string("STORET-Site-Count", (String)null))
+				.andExpect(header().string("Total-Result-Count", "0"))
+				.andExpect(header().string("NWIS-Result-Count", (String)null))
+    			.andExpect(header().string("STEWARDS-Result-Count", (String)null))
+    			.andExpect(header().string("STORET-Result-Count", (String)null));
+	}
 
     @Test
     public void postFormUrlencodedGetAsCsvTest() throws Exception {
@@ -624,5 +573,27 @@ public class BiologicalResultControllerTest extends BaseSpringTest implements Ht
 			.andExpect(status().isNotAcceptable());
 
     }
+
+	@Test
+	public void postGetCountTonOSitesTest() throws Exception {
+		when(codesService.validate(any(Parameters.class), anyString())).thenReturn(true);
+
+		MvcResult rtn = mockMvc.perform(post("/" + HttpConstants.RESULT_SEARCH_ENPOINT + "/count?mimeType=json&" 
+				+ Parameters.DATA_PROFILE + "=" + ValidationConstants.REGEX_DATA_PROFILE)
+				.content(getSourceFile("manySites.json")).contentType(MediaType.APPLICATION_JSON))
+			.andExpect(status().isOk())
+			.andExpect(content().contentType(MIME_TYPE_JSON))
+			.andExpect(content().encoding(DEFAULT_ENCODING))
+			.andExpect(header().string(HEADER_CONTENT_DISPOSITION, (String)null))
+			.andExpect(header().string("Total-Site-Count", "0"))
+			.andExpect(header().string("NWIS-Site-Count", (String)null))
+			.andExpect(header().string("STEWARDS-Site-Count", (String)null))
+			.andExpect(header().string("STORET-Site-Count", (String)null))
+			.andReturn();
+
+		assertThat(new JSONObject(rtn.getResponse().getContentAsString()),
+				sameJSONObjectAs(new JSONObject("{\"Total-Site-Count\":\"0\", \"Total-Result-Count\":\"0\"}")));
+		
+	}
 
 }

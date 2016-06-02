@@ -157,7 +157,7 @@ public class ParameterValidationConfig implements ValidationConstants, WqpEnvPro
 	@Bean
 	public RegexValidator<String[]> siteIdValidator() {
 		// agency-site string
-		return new RegexValidator<String[]>(Parameters.SITEID, REGEX_SITEID);
+		return new RegexValidator<String[]>(Parameters.SITEID, DEFAULT_MIN_OCCURS, UNBOUNDED, DEFAULT_DELIMITER, REGEX_SITEID);
 	}
 	
 	@Bean
