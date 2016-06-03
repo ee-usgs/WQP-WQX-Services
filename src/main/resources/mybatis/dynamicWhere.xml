@@ -87,6 +87,12 @@
 		                 )
 	</sql>
 
+	<sql id="nldiSiteId">
+		prime.site_id in (select /*+ dynamic_sampling(DYN 10) */ distinct column_value
+		                    from table(wqp_core.pkg_dynamic_list.get_table(#{nldisiteid, typeHandler=WqpArrayTypeHandler}))
+		                 )
+	</sql>
+
     <sql id="siteType">
         prime.site_type in <foreach item="i" collection="siteType" open="(" separator="," close=")">#{i}</foreach>
     </sql>
@@ -143,6 +149,9 @@
         </if>
         <if test="siteid != null">
         	and (<include refid="dynamicWhere.siteId" />)
+        </if>
+        <if test="nldisiteid != null">
+        	and (<include refid="dynamicWhere.nldiSiteId" />)
         </if>
          <if test="siteType != null">
             and (<include refid="dynamicWhere.siteType" />)

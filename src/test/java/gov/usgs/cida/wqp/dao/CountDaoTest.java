@@ -76,6 +76,15 @@ public abstract class CountDaoTest extends BaseSpringTest {
 		counts = countDao.getCounts(namespace, parms);
 		assertResults(includeResults, counts, 5, "6", "2", "2", "1", "1", "80", "12", "24", "3", "41");
 
+		try {
+			parms.clear();
+			parms.put(Parameters.NLDI_SITEID, getSourceFile("manySites.txt").split(","));
+			counts = countDao.getCounts(namespace, parms);
+			assertTrue(counts.isEmpty());
+		} catch (Exception e) {
+			fail(e.getLocalizedMessage());
+		}
+
 		parms.clear();
 		parms.put(Parameters.ORGANIZATION.toString(), new String[]{"USGS-WI"});
 		counts = countDao.getCounts(namespace, parms);
@@ -94,7 +103,8 @@ public abstract class CountDaoTest extends BaseSpringTest {
 		try {
 			parms.clear();
 			parms.put(Parameters.SITEID.toString(), getSourceFile("manySites.txt").split(","));
-			countDao.getCounts(namespace, parms);
+			counts = countDao.getCounts(namespace, parms);
+			assertTrue(counts.isEmpty());
 		} catch (Exception e) {
 			fail(e.getLocalizedMessage());
 		}
@@ -206,6 +216,8 @@ public abstract class CountDaoTest extends BaseSpringTest {
 		parms.put(Parameters.PROVIDERS.toString(), new String[]{"NWIS", "STEWARDS", "STORET", "BIODATA"});
 		parms.put(Parameters.SITEID.toString(), new String[]{"11NPSWRD-BICA_MFG_B", "WIDNR_WQX-10030952", "USGS-05425700",
 			"USGS-431925089002701", "ARS-IAWC-IAWC225", "ARS-IAWC-IAWC410", "USGS-11421000"});
+		parms.put(Parameters.NLDI_SITEID, new String[]{"11NPSWRD-BICA_MFG_B", "WIDNR_WQX-10030952", "USGS-05425700",
+				"USGS-431925089002701", "ARS-IAWC-IAWC225", "ARS-IAWC-IAWC410", "USGS-11421000"});
 		parms.put(Parameters.SITE_TYPE.toString(), new String[]{"Lake, Reservoir, Impoundment", "Land", "Stream", "Well"});
 		parms.put(Parameters.STATE.toString(), new String[]{"US:19", "US:30", "US:55", "US:06"});
 		parms.put(Parameters.WITHIN.toString(), new String[]{"2000"});
@@ -214,13 +226,17 @@ public abstract class CountDaoTest extends BaseSpringTest {
 		counts = countDao.getCounts(namespace, parms);
 		assertResults(includeResults, counts, 5, "6", "2", "2", "1", "1", "80", "12", "24", "3", "41");
 
+		//show that the various siteid lists are AND'd together
+		parms.put(Parameters.NLDI_SITEID, new String[]{"USGS-00000000", "USGS-05425700"});
+		counts = countDao.getCounts(namespace, parms);
+		assertResults(includeResults, counts, 2, "1", "1", null, null, null, "5", "5", null, null, null);
+
 		parms.put("commandavoid", new String[]{"NWIS", "STORET"});
 		counts = countDao.getCounts(namespace, parms);
 		assertTrue(counts.isEmpty());
-		
-		
+
+
 		//Counts against result_ct_sum
-		
 		parms.clear();
 		parms.put("commandavoid", new String[]{"STORET"});
 		parms.put(Parameters.ANALYTICAL_METHOD.toString(), new String[]{"https://www.nemi.gov/methods/method_summary/4665/",
@@ -239,6 +255,8 @@ public abstract class CountDaoTest extends BaseSpringTest {
 		parms.put(Parameters.PROVIDERS.toString(), new String[]{"NWIS", "STEWARDS", "STORET", "BIODATA"});
 		parms.put(Parameters.SITEID.toString(), new String[]{"11NPSWRD-BICA_MFG_B", "WIDNR_WQX-10030952", "USGS-05425700",
 			"USGS-431925089002701", "ARS-IAWC-IAWC225", "ARS-IAWC-IAWC410", "USGS-11421000"});
+		parms.put(Parameters.NLDI_SITEID, new String[]{"11NPSWRD-BICA_MFG_B", "WIDNR_WQX-10030952", "USGS-05425700",
+				"USGS-431925089002701", "ARS-IAWC-IAWC225", "ARS-IAWC-IAWC410", "USGS-11421000"});
 		parms.put(Parameters.SITE_TYPE.toString(), new String[]{"Lake, Reservoir, Impoundment", "Land", "Stream", "Well"});
 		parms.put(Parameters.STATE.toString(), new String[]{"US:19", "US:30", "US:55"});
 		parms.put(Parameters.SUBJECT_TAXONOMIC_NAME.toString(), new String[]{"Acipenser", "Lota lota"});
@@ -246,10 +264,8 @@ public abstract class CountDaoTest extends BaseSpringTest {
 		//TODO - test data
 		//assertResults(counts, 2, "1", null, "1", null);
 
-		
-		
+
 		//Counts against result_sum
-		
 		//TODO - Activity is not currently supported
 		//parms.put(Parameters.ACTIVITY_ID.toString(), new String[]{"abc"});
 		//counts = countDao.getCounts(namespace, parms);
@@ -262,7 +278,6 @@ public abstract class CountDaoTest extends BaseSpringTest {
 		//assertResults(counts, 2, "1", null, "1", null);
 
 		//Counts against result_nr_sum
-		
 		parms.put(Parameters.BBOX.toString(), new String[]{"-89", "43", "-88", "44"});
 		parms.put(Parameters.WITHIN.toString(), new String[]{"1000"});
 		parms.put(Parameters.LATITUDE.toString(), new String[]{"43.3836014"});
@@ -273,7 +288,7 @@ public abstract class CountDaoTest extends BaseSpringTest {
 		//assertResults(counts, 2, "1", null, "1", null);
 
 	}
-	
+
 	private void assertResults(boolean includeResults, List<Map<String, Object>> counts, int expectedSize,
 			String expectedTotalStation, String expectedNwisStation, String expectedStewardsStation, String expectedStoretStation,
 			String expectedBiodataStation,
@@ -337,17 +352,17 @@ public abstract class CountDaoTest extends BaseSpringTest {
 				}
 			}
 		}
-		assertTrue("got station Total", totalStation);
-		assertTrue("got station NWIS", nwisStation);
-		assertTrue("got station STEWARDS", stewardsStation);
-		assertTrue("got station STORET", storetStation);
-		assertTrue("got station BIODATA", biodataStation);
+		assertTrue("Did not get station Total", totalStation);
+		assertTrue("Did not get station NWIS", nwisStation);
+		assertTrue("Did not get station STEWARDS", stewardsStation);
+		assertTrue("Did not get station STORET", storetStation);
+		assertTrue("Did not get station BIODATA", biodataStation);
 		if (includeResults) {
-			assertTrue("got result Total", totalResult);
-			assertTrue("got result NWIS", nwisResult);
-			assertTrue("got result STEWARDS", stewardsResult);
-			assertTrue("got station STORET", storetResult);
-			assertTrue("got station BIODATA", biodataResult);
+			assertTrue("Did not get result Total", totalResult);
+			assertTrue("Did not get result NWIS", nwisResult);
+			assertTrue("Did not get result STEWARDS", stewardsResult);
+			assertTrue("Did not get station STORET", storetResult);
+			assertTrue("Did not get station BIODATA", biodataResult);
 		}
 	}
 

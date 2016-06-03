@@ -23,8 +23,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -47,7 +45,6 @@ import gov.usgs.cida.wqp.util.MimeType;
 	@DatabaseSetup("classpath:/testData/clearAll.xml"),
 	@DatabaseSetup("classpath:/testData/result.xml")
 })
-@DirtiesContext(classMode=ClassMode.AFTER_EACH_TEST_METHOD)
 public class ResultControllerIntTest extends BaseSpringTest implements HttpConstants {
 
 	protected String endpoint = "/" + HttpConstants.RESULT_SEARCH_ENPOINT + "?mimeType=";

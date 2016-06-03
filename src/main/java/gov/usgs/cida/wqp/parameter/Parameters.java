@@ -35,7 +35,9 @@ public enum Parameters {
 	SUBJECT_TAXONOMIC_NAME("subjectTaxonomicName"),
 	WITHIN("within"),
 	ZIP("zip");
-	
+
+	public static final String NLDI_SITEID = "nldisiteid";
+
 	private final String parameterName;
 	private static Map<String, Parameters> validParameterNames;
 	

@@ -151,6 +151,14 @@ public class StreamingDaoTest extends BaseSpringTest {
 		parms.put(Parameters.MIN_RESULTS.toString(), "3");
 		streamingDao.stream(nameSpace, parms, handler);
 
+		try {
+			parms.clear();
+			parms.put(Parameters.NLDI_SITEID, getSourceFile("manySites.txt").split(","));
+			streamingDao.stream(nameSpace, parms, handler);
+		} catch (Exception e) {
+			fail(e.getLocalizedMessage());
+		}
+
 		parms.clear();
 		parms.put(Parameters.ORGANIZATION.toString(), new String[]{"USGS-WI"});
 		streamingDao.stream(nameSpace, parms, handler);
