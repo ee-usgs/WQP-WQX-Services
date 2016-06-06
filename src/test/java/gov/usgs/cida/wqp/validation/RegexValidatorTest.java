@@ -246,7 +246,7 @@ public class RegexValidatorTest extends BaseSpringTest implements ValidationCons
 		AbstractValidator<?> validator = HashMapParameterHandler.getValidator(Parameters.SITEID);
 		assertNotNull(validator);
 		assertEquals(DEFAULT_MIN_OCCURS, validator.getMinOccurs());
-		assertEquals(IN_CLAUSE_LIMIT, validator.getMaxOccurs());
+		assertEquals(UNBOUNDED, validator.getMaxOccurs());
 		assertEquals(DEFAULT_DELIMITER, validator.getDelimiter());
 	}
 	@Test

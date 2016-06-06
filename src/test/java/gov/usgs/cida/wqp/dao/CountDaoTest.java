@@ -3,6 +3,8 @@ package gov.usgs.cida.wqp.dao;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import gov.usgs.cida.wqp.BaseSpringTest;
 import gov.usgs.cida.wqp.parameter.Parameters;
 import gov.usgs.cida.wqp.util.MybatisConstants;
@@ -88,6 +90,14 @@ public abstract class CountDaoTest extends BaseSpringTest {
 		parms.put(Parameters.SITEID.toString(), new String[]{"11NPSWRD-BICA_MFG_B"});
 		counts = countDao.getCounts(namespace, parms);
 		assertResults(includeResults, counts, 2, "1", null, null, "1", null, "1", null, null, "1", null);
+
+		try {
+			parms.clear();
+			parms.put(Parameters.SITEID.toString(), getSourceFile("manySites.txt").split(","));
+			countDao.getCounts(namespace, parms);
+		} catch (Exception e) {
+			fail(e.getLocalizedMessage());
+		}
 
 		parms.clear();
 		parms.put(Parameters.SITE_TYPE.toString(), new String[]{"Stream"});

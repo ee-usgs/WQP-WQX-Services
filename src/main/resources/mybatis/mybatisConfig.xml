@@ -14,11 +14,9 @@
 	
 	<typeAliases>
 		<typeAlias alias="LinkedHashMap" type="java.util.LinkedHashMap"/>
+		<typeAlias alias="WqpArrayTypeHandler" type="gov.usgs.cida.wqp.dao.WqpArrayTypeHandler"/>
 	</typeAliases>
 	
-	<typeHandlers>
-	</typeHandlers>
-   
 	<mappers>
 		<mapper resource="mybatis/dynamicWhere.xml"/>
 		<mapper resource="mybatis/logMapper.xml"/>
@@ -27,6 +25,6 @@
 		<mapper resource="mybatis/station.xml"/>
 		<mapper resource="mybatis/stationKml.xml"/>
 		<mapper resource="mybatis/simpleStation.xml"/>
-	 </mappers>
+	</mappers>
 	
 </configuration>

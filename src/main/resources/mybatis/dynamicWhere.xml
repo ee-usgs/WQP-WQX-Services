@@ -82,7 +82,9 @@
     </sql>
 
 	<sql id="siteId">
-		prime.site_id in <foreach item="i" collection="siteid" open="(" separator="," close=")">#{i}</foreach>
+		prime.site_id in (select /*+ dynamic_sampling(DYN 10) */ distinct column_value
+		                    from table(wqp_core.pkg_dynamic_list.get_table(#{siteid, typeHandler=WqpArrayTypeHandler}))
+		                 )
 	</sql>
 
     <sql id="siteType">
