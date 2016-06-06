@@ -1,17 +1,17 @@
 package gov.usgs.cida.wqp.validation;
 
 public interface ValidationConstants { // TODO these should be defaults with WqpConfig and wqpgateway.properties overrides
-	
+
 	int UNBOUNDED          = Integer.MAX_VALUE;
 	int IN_CLAUSE_LIMIT    = 1000;
 	int DEFAULT_MIN_OCCURS = 0;
 	int DEFAULT_MAX_OCCURS = 1;
-	
+
 	double MAX_LATITUDE	=   90;
 	double MIN_LATITUDE	=  -90;
 	double MAX_LONGITUDE=  180;
 	double MIN_LONGITUDE= -180;
-	
+
 	String DEFAULT_DELIMITER    = ";"; // parameter delimiter
 	String FORMAT_DATE			= "MM-dd-yyyy";
 	String REGEX_FIPS_COUNTRY	= "[A-Z]{2}";
@@ -28,4 +28,6 @@ public interface ValidationConstants { // TODO these should be defaults with Wqp
 	String REGEX_HUC_WILDCARD_IN	= "\\*";
 	String REGEX_HUC_WILDCARD_OUT	= "";
 	String REGEX_DATA_PROFILE = "biological";
+
+	String NLDI_WQP_FEATURE_IDENTIFIER = "identifier";
 }

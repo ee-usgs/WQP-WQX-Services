@@ -89,7 +89,7 @@
 
 	<sql id="nldiSiteId">
 		prime.site_id in (select /*+ dynamic_sampling(DYN 10) */ distinct column_value
-		                    from table(wqp_core.pkg_dynamic_list.get_table(#{nldisiteid, typeHandler=WqpArrayTypeHandler}))
+		                    from table(wqp_core.pkg_dynamic_list.get_table(#{nldiurl, typeHandler=WqpArrayTypeHandler}))
 		                 )
 	</sql>
 
@@ -150,7 +150,7 @@
         <if test="siteid != null">
         	and (<include refid="dynamicWhere.siteId" />)
         </if>
-        <if test="nldisiteid != null">
+        <if test="nldiurl != null">
         	and (<include refid="dynamicWhere.nldiSiteId" />)
         </if>
          <if test="siteType != null">

@@ -12,7 +12,7 @@ public class WqpExceptionTest {
 				int div = 1/ 0;
 				if (div == 0) return;
 			} catch (Exception e) {
-				throw new WqpException(WqpExceptionId.INVALID_SERVER_RESPONSE_CODE, Klass.class, "doSomething", "div by zero");
+				throw new WqpException(WqpExceptionId.URL_PARSING_EXCEPTION, Klass.class, "doSomething", "div by zero");
 			}			
 		}
 	}

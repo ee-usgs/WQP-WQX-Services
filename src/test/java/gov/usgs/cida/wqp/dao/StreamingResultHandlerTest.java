@@ -19,12 +19,12 @@ public class StreamingResultHandlerTest {
 	private ITransformer t;
 	@Mock
 	private ResultContext<Object> context;
-	
-    @Before
-    public void setup() {
-    	MockitoAnnotations.initMocks(this);
-    	h = new StreamingResultHandler(t);
-    }
+
+	@Before
+	public void setup() {
+		MockitoAnnotations.initMocks(this);
+		h = new StreamingResultHandler(t);
+	}
 
 	@Test
 	public void testHandleResult() {
@@ -32,11 +32,11 @@ public class StreamingResultHandlerTest {
 		h.handleResult(context);
 		verify(t).write(anyObject());
 	}
+
 	@Test
 	public void testHandleNullResult() {
 		h.handleResult(null);
 		verify(t, never()).write(anyObject());
 	}
-	
-	
+
 }

@@ -4,6 +4,9 @@ public interface WqpEnvProperties {
 	
 	String CODES_URL = "codes.url";
 	String CODES_MIME_TYPE = "codes.mimeType";
+	String CODES_TIMEOUT_MILLI = "codes.timeout.milli";
+
+	String NLDI_TIMEOUT_MILLI = "nldi.timeout.milli";
 
 	String JNDI_DATASOURCE = "jndi.datasource";
 	

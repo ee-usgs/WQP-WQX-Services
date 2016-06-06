@@ -12,6 +12,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static uk.co.datumedge.hamcrest.json.SameJSONAs.sameJSONObjectAs;
 
+import java.io.IOException;
+import java.net.URL;
+
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,8 +32,11 @@ import com.github.springtestdbunit.annotation.DatabaseSetups;
 
 import gov.usgs.cida.wqp.BaseSpringTest;
 import gov.usgs.cida.wqp.FullIntegrationTest;
+import gov.usgs.cida.wqp.exception.WqpException;
 import gov.usgs.cida.wqp.parameter.Parameters;
 import gov.usgs.cida.wqp.service.CodesService;
+import gov.usgs.cida.wqp.service.FetchService;
+import gov.usgs.cida.wqp.service.FetchServiceTest;
 import gov.usgs.cida.wqp.util.HttpConstants;
 
 @Category(FullIntegrationTest.class)
@@ -43,18 +49,22 @@ public class SimpleStationControllerTest extends BaseSpringTest {
 
 	protected String endpoint = "/" + HttpConstants.SIMPLE_STATION_ENDPOINT + "?mimeType=";
 	
-    @Autowired
-    private WebApplicationContext wac;
+	@Autowired
+	private WebApplicationContext wac;
 
-    @Autowired
-    private CodesService codesService;
+	@Autowired
+	private CodesService codesService;
+	@Autowired
+	private FetchService fetchService;
 
-    private MockMvc mockMvc;
-    
-    @Before
-    public void setup() {
-         mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
-    }
+	private MockMvc mockMvc;
+
+	@Before
+	public void setup() throws WqpException, IOException {
+		mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
+		when(codesService.validate(any(Parameters.class), anyString())).thenReturn(true);
+		when(fetchService.fetch(anyString(), any(URL.class))).thenReturn(FetchServiceTest.NLDI_IDENTIFIERS);
+	}
 
     @Test
     public void getAsJsonTest() throws Exception {
@@ -180,10 +190,8 @@ public class SimpleStationControllerTest extends BaseSpringTest {
         assertEquals(harmonizeXml(getCompareFile("simpleStation.xml")), harmonizeXml(extractZipContent(rtn.getResponse().getContentAsByteArray(), "simplestation.xml")));
     }
 
-    @Test
-    public void kitchenSinkTest() throws Exception {
-        when(codesService.validate(any(Parameters.class), anyString())).thenReturn(true);
-
+	@Test
+	public void kitchenSinkTest() throws Exception {
     	mockMvc.perform(
     		get(endpoint + "xml" +
     			"&analyticalmethod=https://www.nemi.gov/methods/method_summary/4665/;https://www.nemi.gov/methods/method_summary/8896/" + 

@@ -153,7 +153,7 @@ public class StreamingDaoTest extends BaseSpringTest {
 
 		try {
 			parms.clear();
-			parms.put(Parameters.NLDI_SITEID, getSourceFile("manySites.txt").split(","));
+			parms.put(Parameters.NLDIURL.toString(), getSourceFile("manySites.txt").split(","));
 			streamingDao.stream(nameSpace, parms, handler);
 		} catch (Exception e) {
 			fail(e.getLocalizedMessage());

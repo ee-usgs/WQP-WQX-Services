@@ -78,7 +78,7 @@ public abstract class CountDaoTest extends BaseSpringTest {
 
 		try {
 			parms.clear();
-			parms.put(Parameters.NLDI_SITEID, getSourceFile("manySites.txt").split(","));
+			parms.put(Parameters.NLDIURL.toString(), getSourceFile("manySites.txt").split(","));
 			counts = countDao.getCounts(namespace, parms);
 			assertTrue(counts.isEmpty());
 		} catch (Exception e) {
@@ -216,7 +216,7 @@ public abstract class CountDaoTest extends BaseSpringTest {
 		parms.put(Parameters.PROVIDERS.toString(), new String[]{"NWIS", "STEWARDS", "STORET", "BIODATA"});
 		parms.put(Parameters.SITEID.toString(), new String[]{"11NPSWRD-BICA_MFG_B", "WIDNR_WQX-10030952", "USGS-05425700",
 			"USGS-431925089002701", "ARS-IAWC-IAWC225", "ARS-IAWC-IAWC410", "USGS-11421000"});
-		parms.put(Parameters.NLDI_SITEID, new String[]{"11NPSWRD-BICA_MFG_B", "WIDNR_WQX-10030952", "USGS-05425700",
+		parms.put(Parameters.NLDIURL.toString(), new String[]{"11NPSWRD-BICA_MFG_B", "WIDNR_WQX-10030952", "USGS-05425700",
 				"USGS-431925089002701", "ARS-IAWC-IAWC225", "ARS-IAWC-IAWC410", "USGS-11421000"});
 		parms.put(Parameters.SITE_TYPE.toString(), new String[]{"Lake, Reservoir, Impoundment", "Land", "Stream", "Well"});
 		parms.put(Parameters.STATE.toString(), new String[]{"US:19", "US:30", "US:55", "US:06"});
@@ -227,7 +227,7 @@ public abstract class CountDaoTest extends BaseSpringTest {
 		assertResults(includeResults, counts, 5, "6", "2", "2", "1", "1", "80", "12", "24", "3", "41");
 
 		//show that the various siteid lists are AND'd together
-		parms.put(Parameters.NLDI_SITEID, new String[]{"USGS-00000000", "USGS-05425700"});
+		parms.put(Parameters.NLDIURL.toString(), new String[]{"USGS-00000000", "USGS-05425700"});
 		counts = countDao.getCounts(namespace, parms);
 		assertResults(includeResults, counts, 2, "1", "1", null, null, null, "5", "5", null, null, null);
 
@@ -255,7 +255,7 @@ public abstract class CountDaoTest extends BaseSpringTest {
 		parms.put(Parameters.PROVIDERS.toString(), new String[]{"NWIS", "STEWARDS", "STORET", "BIODATA"});
 		parms.put(Parameters.SITEID.toString(), new String[]{"11NPSWRD-BICA_MFG_B", "WIDNR_WQX-10030952", "USGS-05425700",
 			"USGS-431925089002701", "ARS-IAWC-IAWC225", "ARS-IAWC-IAWC410", "USGS-11421000"});
-		parms.put(Parameters.NLDI_SITEID, new String[]{"11NPSWRD-BICA_MFG_B", "WIDNR_WQX-10030952", "USGS-05425700",
+		parms.put(Parameters.NLDIURL.toString(), new String[]{"11NPSWRD-BICA_MFG_B", "WIDNR_WQX-10030952", "USGS-05425700",
 				"USGS-431925089002701", "ARS-IAWC-IAWC225", "ARS-IAWC-IAWC410", "USGS-11421000"});
 		parms.put(Parameters.SITE_TYPE.toString(), new String[]{"Lake, Reservoir, Impoundment", "Land", "Stream", "Well"});
 		parms.put(Parameters.STATE.toString(), new String[]{"US:19", "US:30", "US:55"});

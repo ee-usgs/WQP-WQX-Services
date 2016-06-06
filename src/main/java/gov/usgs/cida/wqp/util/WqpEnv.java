@@ -23,8 +23,12 @@ public abstract class WqpEnv {
 		}
 		return value;
 	}
-	
-	public static void setEnv(Environment env) {
+
+	public static int getInt(String property) {
+		return Integer.valueOf(get(property));
+	}
+
+public static void setEnv(Environment env) {
 		WqpEnv.env = env;
 	}
 

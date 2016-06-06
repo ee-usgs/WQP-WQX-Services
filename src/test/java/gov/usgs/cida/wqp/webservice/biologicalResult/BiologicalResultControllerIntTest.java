@@ -13,11 +13,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static uk.co.datumedge.hamcrest.json.SameJSONAs.sameJSONObjectAs;
 
+import java.io.IOException;
+import java.net.URL;
+
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
@@ -30,8 +34,11 @@ import com.github.springtestdbunit.annotation.DatabaseSetups;
 
 import gov.usgs.cida.wqp.BaseSpringTest;
 import gov.usgs.cida.wqp.FullIntegrationTest;
+import gov.usgs.cida.wqp.exception.WqpException;
 import gov.usgs.cida.wqp.parameter.Parameters;
 import gov.usgs.cida.wqp.service.CodesService;
+import gov.usgs.cida.wqp.service.FetchService;
+import gov.usgs.cida.wqp.service.FetchServiceTest;
 import gov.usgs.cida.wqp.util.HttpConstants;
 import gov.usgs.cida.wqp.util.MimeType;
 import gov.usgs.cida.wqp.validation.ValidationConstants;
@@ -47,18 +54,26 @@ public class BiologicalResultControllerIntTest extends BaseSpringTest implements
 	protected String endpoint = "/" + HttpConstants.RESULT_SEARCH_ENPOINT + "?" 
 			+ Parameters.DATA_PROFILE + "=" + ValidationConstants.REGEX_DATA_PROFILE + "&mimeType=";
 	
-    @Autowired
-    private WebApplicationContext wac;
+	@Autowired
+	private WebApplicationContext wac;
 
-    @Autowired
-    private CodesService codesService;
+	@Autowired
+	private CodesService codesService;
+	@Autowired
+	private FetchService fetchService;
 
-    private MockMvc mockMvc;
-    
-    @Before
-    public void setup() {
-         mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
-    }
+	@Autowired
+	@Qualifier("TEST_NLDI_URL")
+	protected URL testNldiUrl;
+
+	private MockMvc mockMvc;
+	
+	@Before
+	public void setup() throws WqpException, IOException {
+		mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
+		when(codesService.validate(any(Parameters.class), anyString())).thenReturn(true);
+		when(fetchService.fetch(anyString(), any(URL.class))).thenReturn(FetchServiceTest.NLDI_IDENTIFIERS);
+	}
 
     @Test
     public void getAsCsvHeadTest() throws Exception {
@@ -381,8 +396,6 @@ public class BiologicalResultControllerIntTest extends BaseSpringTest implements
     
     @Test
     public void kitchenSinkTest() throws Exception {
-        when(codesService.validate(any(Parameters.class), anyString())).thenReturn(true);
-
     	mockMvc.perform(
     		get(endpoint + "csv" +
     			"&analyticalmethod=https://www.nemi.gov/methods/method_summary/4665/;https://www.nemi.gov/methods/method_summary/8896/" + 
@@ -396,6 +409,8 @@ public class BiologicalResultControllerIntTest extends BaseSpringTest implements
     			"&huc=07*;0708*;070801*;07090002;07080105" + 
     			"&lat=43.3836014" +
     			"&long=-88.9773314" + 
+    			"&minresults=10000" +
+    			"&nldiurl=" + testNldiUrl +
     			"&organization=ARS;11NPSWRD;USGS-WI;WIDNR_WQX" + 
     			"&pCode=00032;00004" +
     			"&project=CEAP;NAWQA" +
@@ -425,8 +440,6 @@ public class BiologicalResultControllerIntTest extends BaseSpringTest implements
 
     @Test
     public void postJsonGetAsCsvTest() throws Exception {
-        when(codesService.validate(any(Parameters.class), anyString())).thenReturn(true);
-
     	mockMvc.perform(post(endpoint + "csv").content(getSourceFile("postParameters.json")).contentType(MediaType.APPLICATION_JSON))
     			.andExpect(status().isOk())
     			.andExpect(content().contentType(MimeType.csv.getMimeType()))
@@ -444,8 +457,6 @@ public class BiologicalResultControllerIntTest extends BaseSpringTest implements
 
 	@Test
 	public void postTonOSitesTest() throws Exception {
-		when(codesService.validate(any(Parameters.class), anyString())).thenReturn(true);
-
 		mockMvc.perform(post(endpoint + "csv").content(getSourceFile("manySites.json")).contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
 				.andExpect(content().contentType(MimeType.csv.getMimeType()))
@@ -463,8 +474,6 @@ public class BiologicalResultControllerIntTest extends BaseSpringTest implements
 
     @Test
     public void postFormUrlencodedGetAsCsvTest() throws Exception {
-        when(codesService.validate(any(Parameters.class), anyString())).thenReturn(true);
-
         //Note that in real life the values are urlencoded - This mock does not un-encode them, so we must use real values.
     	mockMvc.perform(post(endpoint).contentType(MediaType.APPLICATION_FORM_URLENCODED)
     			.param("mimeType", "csv")
@@ -488,8 +497,6 @@ public class BiologicalResultControllerIntTest extends BaseSpringTest implements
 
     @Test
     public void postGetCountTest() throws Exception {
-        when(codesService.validate(any(Parameters.class), anyString())).thenReturn(true);
-
     	MvcResult rtn = mockMvc.perform(post("/" + HttpConstants.RESULT_SEARCH_ENPOINT + "/count?mimeType=json&" 
     			+ Parameters.DATA_PROFILE + "=" + ValidationConstants.REGEX_DATA_PROFILE)
     			.content(getSourceFile("postParameters.json")).contentType(MediaType.APPLICATION_JSON))
@@ -576,8 +583,6 @@ public class BiologicalResultControllerIntTest extends BaseSpringTest implements
 
 	@Test
 	public void postGetCountTonOSitesTest() throws Exception {
-		when(codesService.validate(any(Parameters.class), anyString())).thenReturn(true);
-
 		MvcResult rtn = mockMvc.perform(post("/" + HttpConstants.RESULT_SEARCH_ENPOINT + "/count?mimeType=json&" 
 				+ Parameters.DATA_PROFILE + "=" + ValidationConstants.REGEX_DATA_PROFILE)
 				.content(getSourceFile("manySites.json")).contentType(MediaType.APPLICATION_JSON))

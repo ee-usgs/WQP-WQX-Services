@@ -21,7 +21,7 @@ public class CodesServiceTest extends BaseSpringTest implements WqpEnvProperties
 	@Test
 	public void testMakeUrl_nullParam() throws Exception {
 		try {
-			new CodesService(null, null).makeCodesUrl(null, "provider");
+			new CodesService(null, null, 0).makeCodesUrl(null, "provider");
 			fail("should have thrown exception on null parameter");
 		} catch (WqpException e) {
 			assertEquals("Expect param exception", METHOD_PARAM_NULL, e.getExceptionid());
@@ -30,7 +30,7 @@ public class CodesServiceTest extends BaseSpringTest implements WqpEnvProperties
 	@Test
 	public void testMakeUrl_nullCode() throws Exception {
 		try {
-			new CodesService(null, null).makeCodesUrl(Parameters.PROVIDERS, null);
+			new CodesService(null, null, 0).makeCodesUrl(Parameters.PROVIDERS, null);
 			fail("should have thrown exception on null code");
 		} catch (WqpException e) {
 			assertEquals("Expect param exception", METHOD_PARAM_NULL, e.getExceptionid());
@@ -39,7 +39,7 @@ public class CodesServiceTest extends BaseSpringTest implements WqpEnvProperties
 	@Test
 	public void testMakeUrl_emptyCode() throws Exception {
 		try {
-			new CodesService(null, null).makeCodesUrl(Parameters.PROVIDERS, "");
+			new CodesService(null, null, 0).makeCodesUrl(Parameters.PROVIDERS, "");
 			fail("should have thrown exception on empty string");
 		} catch (WqpException e) {
 			assertEquals("Expect param exception", METHOD_PARAM_EMPTY, e.getExceptionid());
@@ -49,7 +49,7 @@ public class CodesServiceTest extends BaseSpringTest implements WqpEnvProperties
 	@Test
 	public void testMakeUrl_default() throws Exception {
 		String baseUrl = "https://wqp.codes.usgs.gov/codes/";
-		URL actualUrl = new CodesService(baseUrl, "json").makeCodesUrl(Parameters.PROVIDERS, "provider");
+		URL actualUrl = new CodesService(baseUrl, "json", 0).makeCodesUrl(Parameters.PROVIDERS, "provider");
 		
 		String expectedUrl = baseUrl +"/"+ Parameters.PROVIDERS +"?value=provider&mimeType=json";
 		
@@ -61,7 +61,7 @@ public class CodesServiceTest extends BaseSpringTest implements WqpEnvProperties
 	public void testMakeUrl_customMimeType() throws Exception {
 		String baseUrl = "https://wqp.codes.usgs.gov/codes/";
 		String mimeType = "xml";
-		URL actualUrl = new CodesService(baseUrl, mimeType).makeCodesUrl(Parameters.PROVIDERS, "provider");
+		URL actualUrl = new CodesService(baseUrl, mimeType, 0).makeCodesUrl(Parameters.PROVIDERS, "provider");
 			
 		String expectedUrl = baseUrl +"/"+ Parameters.PROVIDERS +"?value=provider&mimeType="+mimeType;
 			
@@ -76,7 +76,7 @@ public class CodesServiceTest extends BaseSpringTest implements WqpEnvProperties
 		String baseUrl = "ht//tps://wqp.codes.usgs.gov/bad/URL/";
 		
 		try {
-			URL actualUrl = new CodesService(baseUrl, null).makeCodesUrl(Parameters.PROVIDERS, "provider");
+			URL actualUrl = new CodesService(baseUrl, null, 0).makeCodesUrl(Parameters.PROVIDERS, "provider");
 			System.out.println(actualUrl.toString());
 			fail("should have thrown exception on bad URL");
 		} catch (WqpException e) {
@@ -88,7 +88,7 @@ public class CodesServiceTest extends BaseSpringTest implements WqpEnvProperties
 	@Test
 	public void testValidation_nullParam() throws Exception {
 		try {
-			new CodesService(null, null).validate(null, "provider");
+			new CodesService(null, null, 0).validate(null, "provider");
 			fail("should have thrown exception on null parameter");
 		} catch (WqpException e) {
 			assertTrue("Expect param exception", e.getExceptionid() == METHOD_PARAM_NULL);
@@ -97,7 +97,7 @@ public class CodesServiceTest extends BaseSpringTest implements WqpEnvProperties
 	@Test
 	public void testValidation_nullCode() throws Exception {
 		try {
-			new CodesService(null, null).validate(Parameters.PROVIDERS, null);
+			new CodesService(null, null, 0).validate(Parameters.PROVIDERS, null);
 			fail("should have thrown exception on null code");
 		} catch (WqpException e) {
 			assertEquals("Expect param exception", METHOD_PARAM_NULL, e.getExceptionid());
@@ -105,11 +105,18 @@ public class CodesServiceTest extends BaseSpringTest implements WqpEnvProperties
 	}
 	@Test
 	public void testValidation_emptyCode() throws Exception {
-		boolean actual = new CodesService(null, null).validate(Parameters.PROVIDERS, "");
+		boolean actual = new CodesService(null, null, 0).validate(Parameters.PROVIDERS, "");
 		assertFalse("Empty string code is always invalid", actual);
 	}
 	
-	
+
+	@Test
+	public void test() throws Exception {
+		CodesService service = new CodesService("http://cida-eros-wqpqa.er.usgs.gov:8080/qw_portal_services/codes", "json", 0);
+		boolean x = service.validate(Parameters.PROVIDERS, "STEWARDS");
+		assertTrue(x);
+	}
+
 //	@Test
 //	public void testValidation_validCode() throws Exception {
 //		// mock the fetcher

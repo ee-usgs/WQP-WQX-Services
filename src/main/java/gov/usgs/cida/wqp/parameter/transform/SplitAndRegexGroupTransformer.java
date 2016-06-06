@@ -10,6 +10,8 @@ import org.slf4j.LoggerFactory;
  *
  * @author tkunicki
  */
+//Only reference is in tests...
+@Deprecated
 public class SplitAndRegexGroupTransformer implements ParameterTransformer<String[][]> {
 	private static final Logger LOG = LoggerFactory.getLogger(SplitAndRegexGroupTransformer.class);
 	
