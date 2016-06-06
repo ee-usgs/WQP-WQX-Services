@@ -63,22 +63,22 @@ public class SpringConfig extends WebMvcConfigurerAdapter implements Environment
 		WqpEnv.setEnv(env);
 	}
 	
-    @Override
-    public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
-        configurer
-        	.favorPathExtension(false)
-        	.favorParameter(true)
-        	.parameterName("mimeType")
-        	.mediaType(csv.getExtension(), csv.mediaType)
-        	.mediaType(tsv.getExtension(), tsv.mediaType)
-        	.mediaType(xml.getExtension(), xml.mediaType)
-        	.mediaType(json.getExtension(), json.mediaType)
-        	.mediaType(xlsx.getExtension(), xlsx.mediaType)
-        	.mediaType(kml.getExtension(), kml.mediaType)
-        	.mediaType(kmz.getExtension(), kmz.mediaType)
-        	.mediaType(geojson.getExtension(), geojson.mediaType)
-        	.ignoreAcceptHeader(true);
-    }
+	@Override
+	public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
+		configurer
+			.favorPathExtension(false)
+			.favorParameter(true)
+			.parameterName("mimeType")
+			.mediaType(csv.getExtension(), csv.mediaType)
+			.mediaType(tsv.getExtension(), tsv.mediaType)
+			.mediaType(xml.getExtension(), xml.mediaType)
+			.mediaType(json.getExtension(), json.mediaType)
+			.mediaType(xlsx.getExtension(), xlsx.mediaType)
+			.mediaType(kml.getExtension(), kml.mediaType)
+			.mediaType(kmz.getExtension(), kmz.mediaType)
+			.mediaType(geojson.getExtension(), geojson.mediaType)
+			.ignoreAcceptHeader(true);
+	}
 
 	@Bean
 	public SqlSessionFactoryBean sqlSessionFactory() {
@@ -89,7 +89,7 @@ public class SpringConfig extends WebMvcConfigurerAdapter implements Environment
 		mybatis.setDataSource(ds);
 		return mybatis;
 	}
-	
+
 	/**
 	 * Expose the resources (properties defined above) as an Environment to all
 	 * classes.  Must declare a class variable with:
@@ -109,12 +109,32 @@ public class SpringConfig extends WebMvcConfigurerAdapter implements Environment
 
 	@Bean
 	public Integer maxResultRows() {
-		return Integer.valueOf(WqpEnv.get(MAX_RESULT_ROWS));
+		return WqpEnv.getInt(MAX_RESULT_ROWS);
 	}
-	
+
 	@Bean
 	public String siteUrlBase() {
 		return WqpEnv.get(SITE_URL_BASE);
 	}
-	
+
+	@Bean
+	public String codesUrl() {
+		return WqpEnv.get(CODES_URL);
+	}
+
+	@Bean
+	public String codesMimeType() {
+		return WqpEnv.get(CODES_MIME_TYPE);
+	}
+
+	@Bean
+	public Integer codesTimeoutMilli() {
+		return WqpEnv.getInt(CODES_TIMEOUT_MILLI);
+	}
+
+	@Bean
+	public Integer nldiTimeoutMilli() {
+		return WqpEnv.getInt(NLDI_TIMEOUT_MILLI);
+	}
+
 }

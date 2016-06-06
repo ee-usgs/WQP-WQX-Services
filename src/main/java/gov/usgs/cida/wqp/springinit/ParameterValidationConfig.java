@@ -1,16 +1,24 @@
 package gov.usgs.cida.wqp.springinit;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
 import gov.usgs.cida.wqp.parameter.HashMapParameterHandler;
 import gov.usgs.cida.wqp.parameter.IParameterHandler;
 import gov.usgs.cida.wqp.parameter.Parameters;
 import gov.usgs.cida.wqp.parameter.transform.ParameterTransformer;
 import gov.usgs.cida.wqp.parameter.transform.SplitAndReplaceTransformer;
 import gov.usgs.cida.wqp.service.CodesService;
-import gov.usgs.cida.wqp.util.WqpEnv;
+import gov.usgs.cida.wqp.service.FetchService;
 import gov.usgs.cida.wqp.util.WqpEnvProperties;
 import gov.usgs.cida.wqp.validation.AbstractValidator;
 import gov.usgs.cida.wqp.validation.BoundedFloatingPointValidator;
 import gov.usgs.cida.wqp.validation.DateFormatValidator;
+import gov.usgs.cida.wqp.validation.FetchValidator;
 import gov.usgs.cida.wqp.validation.LatLonBoundingBoxValidator;
 import gov.usgs.cida.wqp.validation.LatitudeValidator;
 import gov.usgs.cida.wqp.validation.LongitudeValidator;
@@ -18,19 +26,14 @@ import gov.usgs.cida.wqp.validation.LookupValidator;
 import gov.usgs.cida.wqp.validation.RegexValidator;
 import gov.usgs.cida.wqp.validation.ValidationConstants;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-
 @Configuration
 public class ParameterValidationConfig implements ValidationConstants, WqpEnvProperties {
 	
-	@Bean
-	public CodesService codesService() {
-		return new CodesService(WqpEnv.get(CODES_URL), WqpEnv.get(CODES_MIME_TYPE));
-	}
+	@Autowired
+	CodesService codesService;
+
+	@Autowired
+	FetchService fetchService;
 
 	@Bean
 	public RegexValidator<String> analyticalMethodValidator() {
@@ -40,7 +43,7 @@ public class ParameterValidationConfig implements ValidationConstants, WqpEnvPro
 	@Bean
 	public LookupValidator assemblageValidator() {
 		// semicolon list of string assemblage names
-		return new LookupValidator(codesService(), Parameters.ASSEMBLAGE);
+		return new LookupValidator(codesService, Parameters.ASSEMBLAGE);
 	}
 	
 	@Bean
@@ -58,13 +61,13 @@ public class ParameterValidationConfig implements ValidationConstants, WqpEnvPro
 	@Bean
 	public LookupValidator characteristicNameValidator() {
 		// semicolon list of string characteristic names
-		return new LookupValidator(codesService(), Parameters.CHARACTERISTIC_NAME);
+		return new LookupValidator(codesService, Parameters.CHARACTERISTIC_NAME);
 	}
 	
 	@Bean
 	public LookupValidator characteristicTypeValidator() {
 		// semicolon list of string characteristic types
-		return new LookupValidator(codesService(), Parameters.CHARACTERISTIC_TYPE);
+		return new LookupValidator(codesService, Parameters.CHARACTERISTIC_TYPE);
 	}
 	
 	@Bean
@@ -119,9 +122,15 @@ public class ParameterValidationConfig implements ValidationConstants, WqpEnvPro
 	}
 	
 	@Bean
+	public FetchValidator nldiurlValidator() {
+		// one NLDI navigation URL 
+		return new FetchValidator(NLDI_WQP_FEATURE_IDENTIFIER, fetchService, Parameters.NLDIURL);
+	}
+	
+	@Bean
 	public LookupValidator organizationValidator() {
 		// semicolon list of string ORG names
-		return new LookupValidator(codesService(), Parameters.ORGANIZATION);
+		return new LookupValidator(codesService, Parameters.ORGANIZATION);
 	}
 	
 	@Bean
@@ -133,25 +142,25 @@ public class ParameterValidationConfig implements ValidationConstants, WqpEnvPro
 	@Bean
 	public LookupValidator projectValidator() {
 		// semicolon list of string project ids
-		return new LookupValidator(codesService(), Parameters.PROJECT);
+		return new LookupValidator(codesService, Parameters.PROJECT);
 	}
 	
 	@Bean
 	public LookupValidator providerValidator() {
 		// semicolon list of databases to include
-		return new LookupValidator(codesService(), Parameters.PROVIDERS);
+		return new LookupValidator(codesService, Parameters.PROVIDERS);
 	}
 	
 	@Bean
 	public LookupValidator sampleMediaValidator() {
 		// semicolon list of string media type names
-		return new LookupValidator(codesService(), Parameters.SAMPLE_MEDIA);
+		return new LookupValidator(codesService, Parameters.SAMPLE_MEDIA);
 	}
 	
 	@Bean
 	public LookupValidator siteTypeValidator() {
 		// semicolon list of string site type names
-		return new LookupValidator(codesService(), Parameters.SITE_TYPE);
+		return new LookupValidator(codesService, Parameters.SITE_TYPE);
 	}
 	
 	@Bean
@@ -187,7 +196,7 @@ public class ParameterValidationConfig implements ValidationConstants, WqpEnvPro
 	@Bean
 	public LookupValidator subjectTaxonomicNameValidator() {
 		// semicolon list of string ubjectTaxonomicName names
-		return new LookupValidator(codesService(), Parameters.SUBJECT_TAXONOMIC_NAME);
+		return new LookupValidator(codesService, Parameters.SUBJECT_TAXONOMIC_NAME);
 	}
 	
 	@Bean
@@ -219,6 +228,7 @@ public class ParameterValidationConfig implements ValidationConstants, WqpEnvPro
 		validatorMap.put(Parameters.LONGITUDE, longitudeValidator());
 		validatorMap.put(Parameters.MIMETYPE, mimeTypeValidator());
 		validatorMap.put(Parameters.MIN_RESULTS, minResultsValidator());
+		validatorMap.put(Parameters.NLDIURL, nldiurlValidator());
 		validatorMap.put(Parameters.ORGANIZATION, organizationValidator());
 		validatorMap.put(Parameters.PCODE, parameterCodeValidator());
 		validatorMap.put(Parameters.PROJECT, projectValidator());

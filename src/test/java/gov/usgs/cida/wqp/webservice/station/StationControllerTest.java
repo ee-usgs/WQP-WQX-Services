@@ -12,6 +12,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static uk.co.datumedge.hamcrest.json.SameJSONAs.sameJSONObjectAs;
+
+import java.net.URL;
+
 import gov.usgs.cida.wqp.BaseSpringTest;
 import gov.usgs.cida.wqp.FullIntegrationTest;
 import gov.usgs.cida.wqp.parameter.Parameters;
@@ -25,6 +28,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
@@ -50,6 +54,10 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
 
     @Autowired
     private CodesService codesService;
+
+	@Autowired
+	@Qualifier("TEST_NLDI_URL")
+	protected URL testNldiUrl;
 
     private MockMvc mockMvc;
     
@@ -407,6 +415,8 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
     			"&huc=07*;0708*;070801*;07090002;07080105" + 
     			"&lat=43.3836014" +
     			"&long=-88.9773314" + 
+    			"&minresults=10000" +
+    			"&nldiurl=" + testNldiUrl +
     			"&organization=ARS;11NPSWRD;USGS-WI;WIDNR_WQX" + 
     			"&pCode=00032;00004" +
     			"&project=CEAP;NAWQA" +

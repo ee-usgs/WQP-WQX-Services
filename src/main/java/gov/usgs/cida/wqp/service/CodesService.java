@@ -4,39 +4,52 @@ import static gov.usgs.cida.wqp.exception.WqpExceptionId.METHOD_PARAM_BOUNDS;
 import static gov.usgs.cida.wqp.exception.WqpExceptionId.METHOD_PARAM_EMPTY;
 import static gov.usgs.cida.wqp.exception.WqpExceptionId.METHOD_PARAM_NULL;
 import static gov.usgs.cida.wqp.exception.WqpExceptionId.URL_PARSING_EXCEPTION;
-import gov.usgs.cida.wqp.exception.WqpException;
-import gov.usgs.cida.wqp.parameter.Parameters;
-import gov.usgs.cida.wqp.util.HttpConstants;
-import gov.usgs.cida.wqp.util.WqpEnvProperties;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.net.URLEncoder;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import gov.usgs.cida.wqp.exception.WqpException;
+import gov.usgs.cida.wqp.parameter.Parameters;
+import gov.usgs.cida.wqp.util.HttpConstants;
+import gov.usgs.cida.wqp.util.WqpEnvProperties;
+
+@Service
 public class CodesService implements WqpEnvProperties {
 	private static final Logger LOG = LoggerFactory.getLogger(CodesService.class);
-	
+
 	private final String codesUrl;
 	private final String mimeType;
+	private final int timeoutMilli;
 
-	public CodesService(String codesUrl, String mimeType) {
+	@Autowired
+	public CodesService(@Qualifier("codesUrl") String codesUrl, @Qualifier("codesMimeType") String mimeType,
+			@Qualifier("codesTimeoutMilli") int timeoutMilli) {
 		this.codesUrl = codesUrl;
 		this.mimeType = mimeType;
+		this.timeoutMilli = timeoutMilli;
 	}
-	
+
 	public boolean validate(Parameters codeType, String code) throws WqpException {
 		LOG.trace("validating {}={}",codeType, code);
 		boolean response = false;
-		
+
 		try {
 			URL url = makeCodesUrl(codeType, code);
-			url.getContent();
+			URLConnection conn = url.openConnection();
+			conn.setReadTimeout(timeoutMilli);
+			conn.setConnectTimeout(timeoutMilli);
+			conn.getContent();
 			response = true;
 		} catch (IOException e) {
 			// TODO better error handling? might be some exceptions we want to bubble up to top?
@@ -48,13 +61,13 @@ public class CodesService implements WqpEnvProperties {
 			}
 			
 		}
-		
+
 		return response;
 	}
 
 	protected URL makeCodesUrl(Parameters codeType, String code) throws WqpException {
 		LOG.trace("making codes url");
-		
+
 		if (codeType == null) {
 			throw new WqpException(METHOD_PARAM_NULL, getClass(), "makeCodesUrl", "codeType");
 		}
@@ -64,7 +77,7 @@ public class CodesService implements WqpEnvProperties {
 		if (StringUtils.isEmpty(code)) {
 			throw new WqpException(METHOD_PARAM_EMPTY, getClass(), "makeCodesUrl", "code");
 		}
-		
+
 		URL url = null;
 		try {
 			String urlStr = codesUrl +"/"+ codeType +"?value="+ URLEncoder.encode(code, HttpConstants.DEFAULT_ENCODING) + "&mimeType="+ mimeType;

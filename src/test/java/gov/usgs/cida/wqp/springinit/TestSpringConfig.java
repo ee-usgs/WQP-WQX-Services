@@ -1,12 +1,10 @@
 package gov.usgs.cida.wqp.springinit;
 
-import static org.mockito.Mockito.*;
-import gov.usgs.cida.wqp.service.CodesService;
-import gov.usgs.cida.wqp.util.WqpEnv;
+import static org.mockito.Mockito.mock;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.sql.SQLException;
-
-import oracle.jdbc.pool.OracleDataSource;
 
 import org.dbunit.ext.oracle.OracleDataTypeFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
@@ -21,6 +19,11 @@ import org.springframework.core.io.Resource;
 
 import com.github.springtestdbunit.bean.DatabaseConfigBean;
 import com.github.springtestdbunit.bean.DatabaseDataSourceConnectionFactoryBean;
+
+import gov.usgs.cida.wqp.service.CodesService;
+import gov.usgs.cida.wqp.service.FetchService;
+import gov.usgs.cida.wqp.util.WqpEnv;
+import oracle.jdbc.pool.OracleDataSource;
 
 @Configuration
 @PropertySource(value = "classpath:wqpgateway.test.properties")
@@ -75,10 +78,19 @@ public class TestSpringConfig extends SpringConfig {
 		return dbUnitDatabaseConnection;
 	}
 
+	@Bean
+	public URL TEST_NLDI_URL() throws MalformedURLException {
+		return new URL(WqpEnv.get("test.nldi.url"));
+	}
 
 	@Bean
 	public CodesService codesService() {
 		return mock(CodesService.class);
+	};
+
+	@Bean
+	public FetchService fetchService() {
+		return mock(FetchService.class);
 	};
 
 }

@@ -20,6 +20,7 @@ public enum Parameters {
 	LONGITUDE("long"),
 	MIMETYPE("mimeType"),
 	MIN_RESULTS("minresults"),
+	NLDIURL("nldiurl"),
 	ORGANIZATION("organization"),
 	PCODE("pCode"),
 	PROJECT("project"),
@@ -35,7 +36,7 @@ public enum Parameters {
 	SUBJECT_TAXONOMIC_NAME("subjectTaxonomicName"),
 	WITHIN("within"),
 	ZIP("zip");
-	
+
 	private final String parameterName;
 	private static Map<String, Parameters> validParameterNames;
 	

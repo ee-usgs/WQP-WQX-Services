@@ -11,21 +11,21 @@ import org.slf4j.LoggerFactory;
  */
 public class LookupValidator extends AbstractValidator<String[]> {
 	private static final Logger LOG = LoggerFactory.getLogger(LookupValidator.class);
-	
+
 	private CodesService codesService;
 	private Parameters parameter;
-	
+
 	public LookupValidator(CodesService inCodesService, Parameters inParameter)  {
 		this(inCodesService, inParameter, DEFAULT_MIN_OCCURS, IN_CLAUSE_LIMIT, DEFAULT_DELIMITER);
 	}
-	
-	public LookupValidator(CodesService inCodesService, Parameters parameter, int minOccurs, int maxOccurs, String delimiter)  {
+
+	public LookupValidator(CodesService inCodesService, Parameters parameter, int minOccurs, int maxOccurs, String delimiter) {
 		super(parameter, minOccurs, maxOccurs, delimiter);
 		this.parameter=parameter;
 		codesService = inCodesService;
 		LOG.trace(getClass().getName());
 	}
-	
+
 	@Override
 	public ValidationResult<String[]> validate(final String value) {
 		ValidationResult<String[]> vr = new ValidationResult<String[]>();
@@ -48,5 +48,5 @@ public class LookupValidator extends AbstractValidator<String[]> {
 		vr.setTransformedValue(strings);
 		return vr;
 	}
-	
+
 }
