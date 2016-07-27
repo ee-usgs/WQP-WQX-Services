@@ -256,6 +256,15 @@ public class RegexValidatorTest extends BaseSpringTest implements ValidationCons
 		assertTrue(vr.isValid());
 		assertEquals(0, vr.getValidationMessages().size());
 		assertArrayEquals(new String[]{"IASF-IATC201"}, (String[])vr.getTransformedValue());
+		validator = HashMapParameterHandler.getValidator(Parameters.SITEID);
+		vr = validator.validate("IASF-1");
+		assertTrue(vr.isValid());
+		assertEquals(0, vr.getValidationMessages().size());
+		assertArrayEquals(new String[]{"IASF-1"}, (String[])vr.getTransformedValue());
+		vr = validator.validate("IASF- 1");
+		assertTrue(vr.isValid());
+		assertEquals(0, vr.getValidationMessages().size());
+		assertArrayEquals(new String[]{"IASF- 1"}, (String[])vr.getTransformedValue());
 	}
 	@Test
 	public void testSiteId_mismatch() {
@@ -263,8 +272,13 @@ public class RegexValidatorTest extends BaseSpringTest implements ValidationCons
 		ValidationResult<?> vr = validator.validate("CV;IASF-IATC201");
 		assertFalse(vr.isValid());
 		assertEquals(1, vr.getValidationMessages().size());
-		assertEquals("The value of siteid=CV;IASF-IATC201 must match the format [\\w]+\\-.+\\S", vr.getValidationMessages().get(0));
+		assertEquals("The value of siteid=CV;IASF-IATC201 must match the format [\\w]+\\-.*\\S", vr.getValidationMessages().get(0));
 		assertArrayEquals(new String[]{"CV;IASF-IATC201"}, (String[])vr.getRawValue());
+		vr = validator.validate("IASF-1 ");
+		assertFalse(vr.isValid());
+		assertEquals(1, vr.getValidationMessages().size());
+		assertEquals("The value of siteid=IASF-1  must match the format [\\w]+\\-.*\\S", vr.getValidationMessages().get(0));
+		assertArrayEquals(new String[]{"IASF-1 "}, (String[])vr.getRawValue());
 	}
 	@Test
 	public void testState_defaults() {
