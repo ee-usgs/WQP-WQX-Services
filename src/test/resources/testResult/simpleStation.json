@@ -19,7 +19,8 @@
                 "MonitoringLocationTypeName": "Land Runoff",
                 "ResolvedMonitoringLocationTypeName": "Land",
                 "HUCEightDigitCode": "07080105",
-                "siteUrl": "http://www.waterqualitydata.us/provider/STEWARDS/ARS/ARS-IAWC-IAWC225/"
+                "siteUrl": "http://www.waterqualitydata.us/provider/STEWARDS/ARS/ARS-IAWC-IAWC225/",
+                "resultCount": "11"
             }
         },
         {
@@ -40,7 +41,8 @@
                 "MonitoringLocationTypeName": "River/Stream",
                 "ResolvedMonitoringLocationTypeName": "Stream",
                 "HUCEightDigitCode": "07100004",
-                "siteUrl": "http://www.waterqualitydata.us/provider/STEWARDS/ARS/ARS-IAWC-IAWC410/"
+                "siteUrl": "http://www.waterqualitydata.us/provider/STEWARDS/ARS/ARS-IAWC-IAWC410/",
+                "resultCount": "13"
             }
         },
         {
@@ -61,7 +63,8 @@
                 "MonitoringLocationTypeName": "Stream",
                 "ResolvedMonitoringLocationTypeName": "Stream",
                 "HUCEightDigitCode": "07090002",
-                "siteUrl": "http://www.waterqualitydata.us/provider/NWIS/USGS-WI/USGS-05425700/"
+                "siteUrl": "http://www.waterqualitydata.us/provider/NWIS/USGS-WI/USGS-05425700/",
+                "resultCount": "5"
             }
         },
         {
@@ -82,7 +85,8 @@
                 "MonitoringLocationTypeName": "Well",
                 "ResolvedMonitoringLocationTypeName": "Well",
                 "HUCEightDigitCode": "07090002",
-                "siteUrl": "http://www.waterqualitydata.us/provider/NWIS/USGS-WI/USGS-431925089002701/"
+                "siteUrl": "http://www.waterqualitydata.us/provider/NWIS/USGS-WI/USGS-431925089002701/",
+                "resultCount": "7"
             }
         },
         {
@@ -103,7 +107,8 @@
                 "MonitoringLocationTypeName": "Reservoir",
                 "ResolvedMonitoringLocationTypeName": "Lake, Reservoir, Impoundment",
                 "HUCEightDigitCode": "07080105",
-                "siteUrl": "http://www.waterqualitydata.us/provider/STORET/11NPSWRD/11NPSWRD-BICA_MFG_B/"
+                "siteUrl": "http://www.waterqualitydata.us/provider/STORET/11NPSWRD/11NPSWRD-BICA_MFG_B/",
+                "resultCount": "1"
             }
         },
         {
@@ -124,7 +129,8 @@
                 "MonitoringLocationTypeName": "River/Stream",
                 "ResolvedMonitoringLocationTypeName": "Stream",
                 "HUCEightDigitCode": "07090001",
-                "siteUrl": "http://www.waterqualitydata.us/provider/STORET/WIDNR_WQX/WIDNR_WQX-10030952/"
+                "siteUrl": "http://www.waterqualitydata.us/provider/STORET/WIDNR_WQX/WIDNR_WQX-10030952/",
+                "resultCount": "3"
             }
         }
     ]

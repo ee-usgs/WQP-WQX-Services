@@ -1,36 +1,35 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
-
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="stationKml">
 
     <select id="select" resultType="java.util.LinkedHashMap" fetchSize="500">
         select prime.station_name,
-		       case prime.data_source_id
-		         when 1 then 'ARSSite'
-		         when 2 then 'NWISSite'
-		         when 3 then 'STORETSite'
-		         else 'Unknown'
-		       end style_url,
-        	   prime.organization_name,
-		       prime.organization,
-        	   prime.site_id,
-		       prime.station_name station_name2,
-		       prime.station_type_name,
-		       prime.description_text,
-		       prime.huc_8,
-		       prime.contrib_drain_area_value,
-		       prime.contrib_drain_area_unit,
-		       prime.aqfr_type_name,
-		       prime.aqfr_name,
-		       prime.well_depth_value,
-		       prime.well_depth_unit,
-		       to_char(prime.geom.sdo_point.x, 'FM990.0000000') || ',' || to_char(prime.geom.sdo_point.y, 'FM90.0000000') coordinates
+               case prime.data_source_id
+                 when 1 then 'ARSSite'
+                 when 2 then 'NWISSite'
+                 when 3 then 'STORETSite'
+                 else 'Unknown'
+               end style_url,
+               prime.organization_name,
+               prime.organization,
+               prime.site_id,
+               prime.station_name station_name2,
+               prime.station_type_name,
+               prime.description_text,
+               prime.huc_8,
+               prime.contrib_drain_area_value,
+               prime.contrib_drain_area_unit,
+               prime.aqfr_type_name,
+               prime.aqfr_name,
+               prime.well_depth_value,
+               prime.well_depth_unit,
+               to_char(prime.geom.sdo_point.x, 'FM990.0000000') || ',' || to_char(prime.geom.sdo_point.y, 'FM90.0000000') coordinates
         <include refid="dynamicWhere.stationsBase"/>
             order by prime.site_id
     </select>
 
-	<select id="count" resultType="java.util.LinkedHashMap">
-		<include refid="station.stationCount"/>
-	</select>
+    <select id="count" resultType="java.util.LinkedHashMap">
+        <include refid="station.stationCount"/>
+    </select>
 
 </mapper>
