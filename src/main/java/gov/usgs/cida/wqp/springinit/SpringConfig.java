@@ -9,9 +9,6 @@ import static gov.usgs.cida.wqp.util.MimeType.tsv;
 import static gov.usgs.cida.wqp.util.MimeType.xlsx;
 import static gov.usgs.cida.wqp.util.MimeType.xml;
 
-import javax.sql.DataSource;
-
-import org.mybatis.spring.SqlSessionFactoryBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.EnvironmentAware;
@@ -23,14 +20,11 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.PropertySources;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.env.Environment;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
 import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import gov.usgs.cida.wqp.util.HttpConstants;
-import gov.usgs.cida.wqp.util.JndiUtils;
 import gov.usgs.cida.wqp.util.MybatisConstants;
 import gov.usgs.cida.wqp.util.WqpEnv;
 import gov.usgs.cida.wqp.util.WqpEnvProperties;
@@ -48,21 +42,21 @@ import gov.usgs.cida.wqp.util.WqpEnvProperties;
 	//This will override with values from the containers file if the file can be found
 	@PropertySource(value = WqpEnv.CONTAINER_PROPERTIES_FILE, ignoreResourceNotFound = true)
 })
-@Import(ParameterValidationConfig.class)
+@Import({ParameterValidationConfig.class, MybatisConfig.class})
 public class SpringConfig extends WebMvcConfigurerAdapter implements EnvironmentAware,
 		HttpConstants, MybatisConstants, WqpEnvProperties  {
 	private static final Logger LOG = LoggerFactory.getLogger(SpringConfig.class);
-	
+
 	public SpringConfig() {
 		LOG.trace(getClass().getName());
 	}
-	
+
 	@Override
 	public void setEnvironment(Environment env) {
 		LOG.trace("setting evnironment");
 		WqpEnv.setEnv(env);
 	}
-	
+
 	@Override
 	public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
 		configurer
@@ -78,16 +72,6 @@ public class SpringConfig extends WebMvcConfigurerAdapter implements Environment
 			.mediaType(kmz.getExtension(), kmz.mediaType)
 			.mediaType(geojson.getExtension(), geojson.mediaType)
 			.ignoreAcceptHeader(true);
-	}
-
-	@Bean
-	public SqlSessionFactoryBean sqlSessionFactory() {
-		SqlSessionFactoryBean mybatis = new SqlSessionFactoryBean();
-		Resource mybatisConfig = new ClassPathResource(MYBATIS_CONF);
-		mybatis.setConfigLocation(mybatisConfig);
-		DataSource ds = JndiUtils.jndiDataSource(WqpEnv.get(JNDI_DATASOURCE));
-		mybatis.setDataSource(ds);
-		return mybatis;
 	}
 
 	/**

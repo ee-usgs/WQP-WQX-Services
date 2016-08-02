@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
-
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="bioResult">
 
     <select id="select" resultType="java.util.LinkedHashMap" fetchSize="500">
-		<if test="minresults != null">
-			select * from (
-		</if>
+        <if test="minresults != null">
+            select * from (
+        </if>
         select prime.data_source_id, prime.data_source, prime.station_id, prime.site_id, to_char(prime.event_date, 'yyyy-mm-dd') event_date, prime.analytical_method, prime.p_code, prime.activity,
                prime.characteristic_name, prime.characteristic_type, prime.sample_media, prime.organization, prime.site_type, prime.huc, prime.governmental_unit_code, prime.organization_name,
                prime.activity_type_code, prime.activity_media_subdiv_name, prime.activity_start_time, prime.act_start_time_zone, prime.activity_stop_date, prime.activity_stop_time,
@@ -37,25 +36,25 @@
                prime.detection_limit_unit, prime.detection_limit_desc, prime.res_lab_accred_yn, prime.res_lab_accred_authority, prime.res_taxonomist_accred_yn, prime.res_taxonomist_accred_authorty,
                prime.prep_method_id, prime.prep_method_context, prime.prep_method_name, prime.prep_method_qual_type, prime.prep_method_desc, prime.analysis_prep_date_tx, prime.prep_start_time,
                prime.prep_start_timezone, prime.prep_end_date, prime.prep_end_time, prime.prep_end_timezone, prime.prep_dilution_factor
-		<if test="minresults != null">
-			, count(*) over (partition by prime.data_source_id, prime.station_id) result_count_sum
-		</if>
-		<include refid="dynamicWhere.resultsBase"/>
-		<if test="minresults != null">
-	    	) prime
-	    	where result_count_sum >= #{minresults}
-	    </if>
-		<if test="sorted == 'yes'">
-			order by prime.data_source_id,
-			         prime.organization,
-			         prime.site_id,
-			         prime.event_date,
-			         prime.activity
-		</if>
-	</select>
-        
-	<select id="count" resultType="java.util.LinkedHashMap">
-		<include refid="pcResult.resultCount"/>
-	</select>
+        <if test="minresults != null">
+            , count(*) over (partition by prime.data_source_id, prime.station_id) result_count_sum
+        </if>
+        <include refid="dynamicWhere.resultsBase"/>
+        <if test="minresults != null">
+            ) prime
+            where result_count_sum >= #{minresults}
+        </if>
+        <if test="sorted == 'yes'">
+            order by prime.data_source_id,
+                     prime.organization,
+                     prime.site_id,
+                     prime.event_date,
+                     prime.activity
+        </if>
+    </select>
+
+    <select id="count" resultType="java.util.LinkedHashMap">
+        <include refid="pcResult.resultCount"/>
+    </select>
 
 </mapper>

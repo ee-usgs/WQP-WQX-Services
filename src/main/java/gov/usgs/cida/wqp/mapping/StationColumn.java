@@ -40,8 +40,8 @@ public class StationColumn extends BaseColumn {
 	public static final String KEY_WELL_DEPTH_UNIT = "WELL_DEPTH_UNIT";
 	public static final String KEY_HOLE_DEPTH_VALUE = "HOLE_DEPTH_VALUE";
 	public static final String KEY_HOLE_DEPTH_UNIT = "HOLE_DEPTH_UNIT";
+	public static final String KEY_RESULT_COUNT = "RESULT_COUNT";
 
-	
 	public static final String VALUE_MONITORING_LOCATION_NAME = WQX_MONITORING_LOCATION_NAME;
 	public static final String VALUE_MONITORING_LOCATION = WQX_MONITORING_LOCATION;
 	public static final String VALUE_MONITORING_LOCATION_IDENTITY = WQX_MONITORING_LOCATION_IDENTITY;
@@ -80,11 +80,8 @@ public class StationColumn extends BaseColumn {
 	public static final String VALUE_HOLE_DEPTH_VALUE = WQX_HOLE_DEPTH + VAL_DEL + WQX_MEASURE_VALUE;
 	public static final String VALUE_HOLE_DEPTH_UNIT = WQX_HOLE_DEPTH + VAL_DEL + WQX_MEASURE_UNIT;
 
-	
-	
-	
 	public static final Map<String, String> mappings;
-	
+
 	static {
 		mappings = new LinkedHashMap<String,String>();
 		mappings.put(KEY_ORGANIZATION, VALUE_ORGANIZATION_IDENTIFIER);

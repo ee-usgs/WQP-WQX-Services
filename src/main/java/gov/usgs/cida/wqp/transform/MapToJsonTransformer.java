@@ -38,9 +38,9 @@ public class MapToJsonTransformer extends Transformer {
 	protected void writeData(Map<String, Object> resultMap) {
 		try {
 			g.writeStartObject();
-			
+
 			g.writeStringField("type", "Feature");
-			
+
 			g.writeObjectFieldStart("geometry");
 			g.writeStringField("type", "Point");
 			g.writeArrayFieldStart("coordinates");
@@ -48,7 +48,7 @@ public class MapToJsonTransformer extends Transformer {
 			g.writeNumber(getValue(resultMap, StationColumn.KEY_LATITUDE));
 			g.writeEndArray();
 			g.writeEndObject();
-			
+
 			g.writeObjectFieldStart("properties");
 			g.writeStringField("ProviderName", getValue(resultMap, StationColumn.KEY_DATA_SOURCE));
 			g.writeStringField("OrganizationIdentifier", getValue(resultMap, StationColumn.KEY_ORGANIZATION));
@@ -60,14 +60,15 @@ public class MapToJsonTransformer extends Transformer {
 			g.writeStringField("HUCEightDigitCode", getValue(resultMap, StationColumn.KEY_HUC_8));
 			g.writeStringField("siteUrl", siteUrlBase + "/provider/" + getValue(resultMap, StationColumn.KEY_DATA_SOURCE)
 					+ "/" + getValue(resultMap, StationColumn.KEY_ORGANIZATION) + "/" + getValue(resultMap, StationColumn.KEY_SITE_ID) + "/");
+			g.writeStringField("resultCount", getValue(resultMap, StationColumn.KEY_RESULT_COUNT));
 			g.writeEndObject();
-			
+
 			g.writeEndObject();
 		} catch (IOException e) {
 			throw new RuntimeException("Error writing station json", e);
 		}
 	}
-	
+
 	/** output the closing tags and close stuff as appropriate. */
 	@Override
 	public void end() {

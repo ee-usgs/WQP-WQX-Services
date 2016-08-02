@@ -1,7 +1,7 @@
 package gov.usgs.cida.wqp.util;
 
 public interface MybatisConstants {
-	String MYBATIS_CONF = "/mybatis/mybatisConfig.xml";
+	String MYBATIS_MAPPERS = "mybatis/*.xml";
 	String CODES_MAPPER_NAMESPACE = "dataMapper";
 	String STATIONS_MAPPER_NAMESPACE = "dataMapper";
 	String RESULTS_MAPPER_NAMESPACE = STATIONS_MAPPER_NAMESPACE;

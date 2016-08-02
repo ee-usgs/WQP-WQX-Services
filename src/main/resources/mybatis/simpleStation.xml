@@ -5,23 +5,24 @@
 
     <select id="select" resultType="java.util.LinkedHashMap" fetchSize="500">
         select prime.data_source,
-        	   prime.organization,
-        	   prime.organization_name,
-		       prime.site_id,
-		       prime.station_name,
-		       prime.site_type,
-		       to_char(prime.geom.sdo_point.y, 'FM90.0000000') latitude,
-		       to_char(prime.geom.sdo_point.x, 'FM990.0000000') longitude,
-		       prime.station_type_name,
-		       prime.huc_8
+               prime.organization,
+               prime.organization_name,
+               prime.site_id,
+               prime.station_name,
+               prime.site_type,
+               to_char(prime.geom.sdo_point.y, 'FM90.0000000') latitude,
+               to_char(prime.geom.sdo_point.x, 'FM990.0000000') longitude,
+               prime.station_type_name,
+               prime.huc_8,
+               nvl(filter.result_count, 0) result_count
         <include refid="dynamicWhere.stationsBase"/>
-			order by prime.data_source_id,
+            order by prime.data_source_id,
                      prime.organization,
                      prime.site_id
     </select>
 
-	<select id="count" resultType="java.util.LinkedHashMap">
-		<include refid="station.stationCount"/>
-	</select>
+    <select id="count" resultType="java.util.LinkedHashMap">
+        <include refid="station.stationCount"/>
+    </select>
 
 </mapper>
