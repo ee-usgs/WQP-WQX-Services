@@ -3,7 +3,7 @@
 
 	<groupId>gov.usgs.cida.wqp</groupId>
 	<artifactId>wqp</artifactId>
-	<version>0.2.0</version>
+	<version>0.3.0-SNAPSHOT</version>
 	<packaging>war</packaging>
 
 	<name>wqpgateway</name>
@@ -228,7 +228,7 @@
 		<connection>scm:git:https://github.com/USGS-CIDA/WQP-WQX-Services.git</connection>
 		<developerConnection>scm:git:ssh://git@github.com/USGS-CIDA/WQP-WQX-Services.git</developerConnection>
 		<url>https://github.com/USGS-CIDA/WQP-WQX-Services</url>
-		<tag>wqp-0.2.0</tag>
+		<tag>HEAD</tag>
 	</scm>
 
 <!-- ==================================================================================================================== -->
