@@ -47,6 +47,7 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import gov.usgs.cida.wqp.dao.intfc.ICountDao;
 import gov.usgs.cida.wqp.dao.intfc.IDao;
 import gov.usgs.cida.wqp.dao.intfc.IStreamingDao;
+import gov.usgs.cida.wqp.mapping.Profile;
 import gov.usgs.cida.wqp.parameter.IParameterHandler;
 import gov.usgs.cida.wqp.parameter.ParameterMap;
 import gov.usgs.cida.wqp.parameter.Parameters;
@@ -73,12 +74,12 @@ public class BaseControllerTest {
 	private ILogService logService;
 
 	private TestBaseController testController;
-	
-    @Before
-    public void setup() {
-    	MockitoAnnotations.initMocks(this);
-    	testController = new TestBaseController(streamingDao, countDao, parameterHandler, logService, 100, "http://test-url.usgs.gov");
-    }
+
+	@Before
+	public void setup() {
+		MockitoAnnotations.initMocks(this);
+		testController = new TestBaseController(streamingDao, countDao, parameterHandler, logService, 100, "http://test-url.usgs.gov");
+	}
 
 	@Test
 	@SuppressWarnings("unchecked")
@@ -86,49 +87,49 @@ public class BaseControllerTest {
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		testController.processParameters(request, null);
 		assertFalse(TestBaseController.getPm().isValid());
-        verify(parameterHandler, never()).validateAndTransform(anyMap(), anyMap());
+		verify(parameterHandler, never()).validateAndTransform(anyMap(), anyMap());
 	}
-	
+
 	@Test
 	@SuppressWarnings("unchecked")
 	public void processParametersTest_invalid() {
 		ParameterMap p = new ParameterMap();
 		p.setValid(false);
-        when(parameterHandler.validateAndTransform(anyMap(), anyMap())).thenReturn(p);
+		when(parameterHandler.validateAndTransform(anyMap(), anyMap())).thenReturn(p);
 
-        MockHttpServletRequest request = new MockHttpServletRequest();
+		MockHttpServletRequest request = new MockHttpServletRequest();
 		request.setParameter("countrycode", "US");
 		testController.processParameters(request, null);
 		assertEquals(p, TestBaseController.getPm());
 		assertFalse(TestBaseController.getPm().isValid());
-        verify(parameterHandler).validateAndTransform(anyMap(), anyMap());
+		verify(parameterHandler).validateAndTransform(anyMap(), anyMap());
 	}
 
 	@Test
 	@SuppressWarnings("unchecked")
 	public void processParametersTest_valid() {
 		ParameterMap p = new ParameterMap();
-        when(parameterHandler.validateAndTransform(anyMap(), anyMap())).thenReturn(p);
+		when(parameterHandler.validateAndTransform(anyMap(), anyMap())).thenReturn(p);
 
-        MockHttpServletRequest request = new MockHttpServletRequest();
+		MockHttpServletRequest request = new MockHttpServletRequest();
 		request.setParameter("countrycode", "US");
 		testController.processParameters(request, null);
 		assertEquals(p, TestBaseController.getPm());
 		assertTrue(TestBaseController.getPm().isValid());
-        verify(parameterHandler).validateAndTransform(anyMap(), anyMap());
+		verify(parameterHandler).validateAndTransform(anyMap(), anyMap());
 	}
 
 	@Test
-	public void getZippedTest() {
-		assertFalse(testController.isZipped(null, null));
-		assertFalse(testController.isZipped("xxx", null));
-		assertFalse(testController.isZipped("xxx", MimeType.csv.toString()));
-		assertFalse(testController.isZipped("no", null));
-		assertFalse(testController.isZipped("no", MimeType.kml.toString()));
-		assertTrue(testController.isZipped("no", MimeType.kmz.toString()));
-		assertTrue(testController.isZipped("yes", MimeType.kmz.toString()));
-		assertTrue(testController.isZipped("yes", MimeType.json.toString()));
-		assertTrue(testController.isZipped("yes", MimeType.csv.toString()));
+	public void determineZippedTest() {
+		assertFalse(testController.determineZipped(null, null));
+		assertFalse(testController.determineZipped("xxx", null));
+		assertFalse(testController.determineZipped("xxx", MimeType.csv.toString()));
+		assertFalse(testController.determineZipped("no", null));
+		assertFalse(testController.determineZipped("no", MimeType.kml.toString()));
+		assertTrue(testController.determineZipped("no", MimeType.kmz.toString()));
+		assertTrue(testController.determineZipped("yes", MimeType.kmz.toString()));
+		assertTrue(testController.determineZipped("yes", MimeType.json.toString()));
+		assertTrue(testController.determineZipped("yes", MimeType.csv.toString()));
 	}
 
 	@Test
@@ -149,22 +150,22 @@ public class BaseControllerTest {
 			((ZipOutputStream) out).finish();
 			out.close();
 			ZipInputStream in = new ZipInputStream(new ByteArrayInputStream(((MockHttpServletResponse)response).getContentAsByteArray()));
-	        ZipEntry entry = in.getNextEntry();
-	        assertTrue(entry.getName().contentEquals("abc"));
+			ZipEntry entry = in.getNextEntry();
+			assertTrue(entry.getName().contentEquals("abc"));
 		} catch (IOException e) {
 			fail("Should not get exception but did:" + e.getLocalizedMessage());
 		}
 	}
 
 	@Test
-	public void adjustMimeTypeTest() {
-		assertEquals(MimeType.csv, testController.adjustMimeType(MimeType.csv, false));
-		assertEquals(MimeType.csv, testController.adjustMimeType(MimeType.csv, true));
-		
-		assertEquals(MimeType.kml, testController.adjustMimeType(MimeType.kml, false));
-		assertEquals(MimeType.kmz, testController.adjustMimeType(MimeType.kml, true));
+	public void determineMimeTypeTest() {
+		assertEquals(MimeType.csv, testController.determineMimeType(MimeType.csv, false));
+		assertEquals(MimeType.csv, testController.determineMimeType(MimeType.csv, true));
+
+		assertEquals(MimeType.kml, testController.determineMimeType(MimeType.kml, false));
+		assertEquals(MimeType.kmz, testController.determineMimeType(MimeType.kml, true));
 	}
-	
+
 	@Test
 	public void closeZipTest() {
 		try {
@@ -174,19 +175,19 @@ public class BaseControllerTest {
 			zipOut.putNextEntry(new ZipEntry("abc"));
 			zipOut.write("xyz".getBytes());
 			testController.closeZip(zipOut);
-			
+
 			ZipInputStream in = new ZipInputStream(new ByteArrayInputStream(response.toByteArray()));
 			ZipEntry entry = in.getNextEntry();
 			assertTrue(entry.getName().contentEquals("abc"));
-			
-	        ByteArrayOutputStream os = new ByteArrayOutputStream();
-	        int len;
-	        byte[] buffer = new byte[1024];
-	        while ((len = in.read(buffer)) > 0) {
-	        	os.write(buffer, 0, len);
-	        }
-	        assertEquals("xyz", os.toString());
-	        
+
+			ByteArrayOutputStream os = new ByteArrayOutputStream();
+			int len;
+			byte[] buffer = new byte[1024];
+			while ((len = in.read(buffer)) > 0) {
+				os.write(buffer, 0, len);
+			}
+			assertEquals("xyz", os.toString());
+
 		} catch (IOException e) {
 			fail("Should not get exception but did:" + e.getLocalizedMessage());
 		}
@@ -194,186 +195,281 @@ public class BaseControllerTest {
 
 	@Test
 	public void getContentHeaderTest() {
-		assertEquals(HttpConstants.MIME_TYPE_CSV, testController.getContentHeader(false, MimeType.csv));
-		assertEquals(HttpConstants.MIME_TYPE_ZIP, testController.getContentHeader(true, MimeType.csv));
-		assertEquals(HttpConstants.MIME_TYPE_KML, testController.getContentHeader(false, MimeType.kml));
-		assertEquals(HttpConstants.MIME_TYPE_KMZ, testController.getContentHeader(true, MimeType.kml));
-		assertEquals(HttpConstants.MIME_TYPE_KMZ, testController.getContentHeader(false, MimeType.kmz));
-		assertEquals(HttpConstants.MIME_TYPE_KMZ, testController.getContentHeader(false, MimeType.kmz));
+		TestBaseController.setMimeType(MimeType.csv);
+		TestBaseController.setZipped(false);
+		assertEquals(HttpConstants.MIME_TYPE_CSV, testController.getContentHeader());
+
+		TestBaseController.setMimeType(MimeType.csv);
+		TestBaseController.setZipped(true);
+		assertEquals(HttpConstants.MIME_TYPE_ZIP, testController.getContentHeader());
+
+		TestBaseController.setMimeType(MimeType.kml);
+		TestBaseController.setZipped(false);
+		assertEquals(HttpConstants.MIME_TYPE_KML, testController.getContentHeader());
+
+		TestBaseController.setMimeType(MimeType.kml);
+		TestBaseController.setZipped(true);
+		assertEquals(HttpConstants.MIME_TYPE_KMZ, testController.getContentHeader());
+
+		TestBaseController.setMimeType(MimeType.kmz);
+		TestBaseController.setZipped(false);
+		assertEquals(HttpConstants.MIME_TYPE_KMZ, testController.getContentHeader());
+
+		TestBaseController.setMimeType(MimeType.kmz);
+		TestBaseController.setZipped(false);
+		assertEquals(HttpConstants.MIME_TYPE_KMZ, testController.getContentHeader());
+	}
+
+	@Test
+	public void determinBaseFileNameTest() {
+		TestBaseController.setProfile(Profile.STATION);
+		assertEquals("station", testController.determineBaseFileName());
+		
+		TestBaseController.setProfile(Profile.PC_RESULT);
+		assertEquals("result", testController.determineBaseFileName());
+
+		TestBaseController.setProfile(Profile.BIOLOGICAL);
+		assertEquals("biologicalresult", testController.determineBaseFileName());
 	}
 
 	@Test
 	public void getAttachementFileNameTest() {
-		assertEquals("abc.csv", testController.getAttachementFileName(false, MimeType.csv, "ABC"));
-		assertEquals("abc.csv", testController.getAttachementFileName(false, MimeType.csv, "AbC"));
-		assertEquals("abc.zip", testController.getAttachementFileName(true, MimeType.csv, "ABC"));
-		assertEquals("abc.kml", testController.getAttachementFileName(false, MimeType.kml, "ABC"));
-		assertEquals("abc.kmz", testController.getAttachementFileName(true, MimeType.kml, "ABC"));
-		assertEquals("abc.kmz", testController.getAttachementFileName(false, MimeType.kmz, "ABC"));
-		assertEquals("abc.kmz", testController.getAttachementFileName(false, MimeType.kmz, "ABC"));
+		TestBaseController.setMimeType(MimeType.csv);
+		TestBaseController.setZipped(false);
+		TestBaseController.setProfile(Profile.STATION);
+		assertEquals("station.csv", testController.getAttachementFileName());
+
+		TestBaseController.setZipped(true);
+		assertEquals("station.zip", testController.getAttachementFileName());
+
+		TestBaseController.setMimeType(MimeType.kml);
+		assertEquals("station.kmz", testController.getAttachementFileName());
+
+		TestBaseController.setMimeType(MimeType.kmz);
+		assertEquals("station.kmz", testController.getAttachementFileName());
+
+		TestBaseController.setMimeType(MimeType.tsv);
+		TestBaseController.setZipped(false);
+		TestBaseController.setProfile(Profile.PC_RESULT);
+		assertEquals("result.tsv", testController.getAttachementFileName());
+
+		TestBaseController.setMimeType(MimeType.xml);
+		TestBaseController.setProfile(Profile.BIOLOGICAL);
+		assertEquals("biologicalresult.xml", testController.getAttachementFileName());
 	}
 
 	@Test
-	public void getZipEntryNameTest() {
-		assertEquals("abc.csv", testController.getZipEntryName("abc", MimeType.csv));
-		assertEquals("abc.csv", testController.getZipEntryName("AbC", MimeType.csv));
-		assertEquals("abc.csv", testController.getZipEntryName("ABC", MimeType.csv));
-		assertEquals("abc.kml", testController.getZipEntryName("ABC", MimeType.kml));
-		assertEquals("abc.kml", testController.getZipEntryName("ABC", MimeType.kml));
+	public void determineZipEntryNameTest() {
+		TestBaseController.setProfile(Profile.STATION);
+		TestBaseController.setMimeType(MimeType.csv);
+		assertEquals("station.csv", testController.determineZipEntryName());
+		TestBaseController.setMimeType(MimeType.kml);
+		assertEquals("station.kml", testController.determineZipEntryName());
+		TestBaseController.setMimeType(MimeType.kmz);
+		assertEquals("station.kml", testController.determineZipEntryName());
+		TestBaseController.setProfile(Profile.PC_RESULT);
+		TestBaseController.setMimeType(MimeType.xml);
+		assertEquals("result.xml", testController.determineZipEntryName());
 	}
 
 	@Test
-	public void getNamespaceTest() {
-		assertEquals("abc", testController.getNamespace("abc", MimeType.csv));
-		assertEquals(IDao.STATION_KML_NAMESPACE, testController.getNamespace("abc", MimeType.kmz));
-		assertEquals("abc", testController.getNamespace("abc", MimeType.xml));
-		assertEquals(IDao.STATION_KML_NAMESPACE, testController.getNamespace("abc", MimeType.kml));
-		assertEquals("abc", testController.getNamespace("abc", MimeType.json));
+	public void determineNamespaceTest() {
+		TestBaseController.setMimeType(MimeType.kml);
+		assertEquals(IDao.STATION_KML_NAMESPACE, testController.determineNamespace());
+
+		TestBaseController.setMimeType(MimeType.kmz);
+		assertEquals(IDao.STATION_KML_NAMESPACE, testController.determineNamespace());
+
+		TestBaseController.setMimeType(MimeType.geojson);
+		assertEquals(IDao.SIMPLE_STATION_NAMESPACE, testController.determineNamespace());
+
+		TestBaseController.setMimeType(MimeType.csv);
+		TestBaseController.setProfile(Profile.BIOLOGICAL);
+		assertEquals(IDao.BIOLOGICAL_RESULT_NAMESPACE, testController.determineNamespace());
+
+		TestBaseController.setProfile(Profile.PC_RESULT);
+		assertEquals(IDao.RESULT_NAMESPACE, testController.determineNamespace());
+
+		TestBaseController.setProfile(Profile.SIMPLE_STATION);
+		assertEquals(IDao.SIMPLE_STATION_NAMESPACE, testController.determineNamespace());
+
+		TestBaseController.setProfile(Profile.STATION);
+		assertEquals(IDao.STATION_NAMESPACE, testController.determineNamespace());
+
+		TestBaseController.setProfile("");
+		assertEquals("", testController.determineNamespace());
 	}
 
 	@Test
-	public void getTransformer() {
-		assertTrue(testController.getTransformer(MimeType.json, null, null) instanceof MapToJsonTransformer);
-		assertTrue(testController.getTransformer(MimeType.xlsx, null, null) instanceof MapToXlsxTransformer);
-		assertTrue(testController.getTransformer(MimeType.xml, null, null) instanceof MapToXmlTransformer);
-		assertTrue(testController.getTransformer(MimeType.kml, null, null) instanceof MapToKmlTransformer);
-		assertTrue(testController.getTransformer(MimeType.kmz, null, null) instanceof MapToKmlTransformer);
+	public void getTransformerTest() {
+		TestBaseController.setMimeType(MimeType.json);
+		assertTrue(testController.getTransformer(null, null) instanceof MapToJsonTransformer);
+		TestBaseController.setMimeType(MimeType.geojson);
+		assertTrue(testController.getTransformer(null, null) instanceof MapToJsonTransformer);
+		TestBaseController.setMimeType(MimeType.xlsx);
+		assertTrue(testController.getTransformer(null, null) instanceof MapToXlsxTransformer);
+		TestBaseController.setMimeType(MimeType.xml);
+		assertTrue(testController.getTransformer(null, null) instanceof MapToXmlTransformer);
+		TestBaseController.setMimeType(MimeType.kml);
+		assertTrue(testController.getTransformer(null, null) instanceof MapToKmlTransformer);
+		TestBaseController.setMimeType(MimeType.kmz);
+		assertTrue(testController.getTransformer(null, null) instanceof MapToKmlTransformer);
 
-		Transformer t = testController.getTransformer(MimeType.tsv, null, null);
+		TestBaseController.setMimeType(MimeType.tsv);
+		Transformer t = testController.getTransformer(null, null);
 		assertTrue(t instanceof MapToDelimitedTransformer);
 		assertEquals(MapToDelimitedTransformer.TAB, ((MapToDelimitedTransformer) t).getDelimiter());
-		
-		t = testController.getTransformer(MimeType.csv, null, null);
+
+		TestBaseController.setMimeType(MimeType.csv);
+		t = testController.getTransformer(null, null);
 		assertTrue(t instanceof MapToDelimitedTransformer);
 		assertEquals(MapToDelimitedTransformer.COMMA, ((MapToDelimitedTransformer) t).getDelimiter());
 	}
 
 	@Test
-	@SuppressWarnings("unchecked")
-	public void doHeaderTest_NoParms() {
-        MockHttpServletRequest request = new MockHttpServletRequest();
-        MockHttpServletResponse response = new MockHttpServletResponse();
-        BigDecimal logId = BigDecimal.ONE;
-        String mybatisNamespace = "namepspace"; 
-        String endpoint = "endpoint";
-		
-        assertFalse(testController.doHeader(request, response, logId, mybatisNamespace, endpoint, null));
-        assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
-        assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
-        assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
-        verify(parameterHandler, never()).validateAndTransform(anyMap(), anyMap());
-        verify(logService, never()).logHeadComplete(response, logId);
-        verify(countDao, never()).getCounts(anyString(), anyMap());
+	public void determineProfileTest() {
+		assertEquals(Profile.STATION, testController.determineProfile(Profile.STATION, null));
+
+		Map<String, Object> pm = new HashMap<>();
+		pm.put(Parameters.DATA_PROFILE.toString(), null);
+		assertEquals(Profile.STATION, testController.determineProfile(Profile.STATION, pm));
+
+		pm.put(Parameters.DATA_PROFILE.toString(), null);
+		assertEquals(Profile.STATION, testController.determineProfile(Profile.STATION, pm));
+
+		pm.put(Parameters.DATA_PROFILE.toString(), "abc");
+		assertEquals(Profile.STATION, testController.determineProfile(Profile.STATION, pm));
+
+		pm.put(Parameters.DATA_PROFILE.toString(), new String[0]);
+		assertEquals(Profile.STATION, testController.determineProfile(Profile.STATION, pm));
+
+		pm.put(Parameters.DATA_PROFILE.toString(), new String[]{"biological"});
+		assertEquals(Profile.BIOLOGICAL, testController.determineProfile(Profile.STATION, pm));
 	}
 
 	@Test
 	@SuppressWarnings("unchecked")
-	public void doHeaderTest_InvalidParms() {
+	public void doCommonSetupTest_NoParms() {
+		MockHttpServletRequest request = new MockHttpServletRequest();
+		MockHttpServletResponse response = new MockHttpServletResponse();
+		BigDecimal logId = BigDecimal.ONE;
+		TestBaseController.setLogId(logId);
+
+		assertFalse(testController.doCommonSetup(request, response, null));
+		assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
+		assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
+		assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
+		verify(parameterHandler, never()).validateAndTransform(anyMap(), anyMap());
+		verify(logService, never()).logHeadComplete(response, logId);
+		verify(countDao, never()).getCounts(anyString(), anyMap());
+	}
+
+	@Test
+	@SuppressWarnings("unchecked")
+	public void doCommonSetupTest_InvalidParms() {
 		ParameterMap p = new ParameterMap();
 		p.merge("countrycode", Arrays.asList("not cool"));
 		p.setValid(false);
-        when(parameterHandler.validateAndTransform(anyMap(), anyMap())).thenReturn(p);
+		when(parameterHandler.validateAndTransform(anyMap(), anyMap())).thenReturn(p);
 
-        MockHttpServletRequest request = new MockHttpServletRequest();
+		MockHttpServletRequest request = new MockHttpServletRequest();
 		request.setParameter("countrycode", "US");
-        MockHttpServletResponse response = new MockHttpServletResponse();
-        BigDecimal logId = BigDecimal.ONE;
-        String mybatisNamespace = "namepspace"; 
-        String endpoint = "endpoint";
-		
-        assertFalse(testController.doHeader(request, response, logId, mybatisNamespace, endpoint, null));
-        assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
-        assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
-        assertTrue(response.getHeader(HttpConstants.HEADER_WARNING).startsWith("299 WQP \"not cool\""));
-        verify(parameterHandler).validateAndTransform(anyMap(), anyMap());
-        verify(logService, never()).logHeadComplete(response, logId);
-        verify(countDao, never()).getCounts(anyString(), anyMap());
-	}
+		MockHttpServletResponse response = new MockHttpServletResponse();
+		BigDecimal logId = BigDecimal.ONE;
+		TestBaseController.setLogId(logId);
 
+		assertFalse(testController.doCommonSetup(request, response, null));
+		assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
+		assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
+		assertTrue(response.getHeader(HttpConstants.HEADER_WARNING).startsWith("299 WQP \"not cool\""));
+		verify(parameterHandler).validateAndTransform(anyMap(), anyMap());
+		verify(logService, never()).logHeadComplete(response, logId);
+		verify(countDao, never()).getCounts(anyString(), anyMap());
+	}
 
 	@Test
 	@SuppressWarnings("unchecked")
-	public void doHeaderTest() {
+	public void doCommonSetupTest() {
 		Map<String, Object> q = new HashMap<>();
 		q.put("mimeType", "kml");
 		q.put("zip", "yes");
+		q.put(Parameters.DATA_PROFILE.toString(), Profile.STATION);
 		ParameterMap p = new ParameterMap();
 		p.setQueryParameters(q);
-        when(parameterHandler.validateAndTransform(anyMap(), anyMap())).thenReturn(p);
+		when(parameterHandler.validateAndTransform(anyMap(), anyMap())).thenReturn(p);
 
-        MockHttpServletRequest request = new MockHttpServletRequest();
+		MockHttpServletRequest request = new MockHttpServletRequest();
 		request.setParameter("countrycode", "US");
-        MockHttpServletResponse response = new MockHttpServletResponse();
-        BigDecimal logId = BigDecimal.ONE;
-        String mybatisNamespace = "namepspace"; 
-        String endpoint = "endpoint";
-		
-        assertTrue(testController.doHeader(request, response, logId, mybatisNamespace, endpoint, null));
-        assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
-        assertEquals(HttpStatus.OK.value(), response.getStatus());
-        assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
-        assertEquals("application/vnd.google-earth.kmz;charset=UTF-8", response.getHeader(HttpConstants.HEADER_CONTENT_TYPE));
-        assertEquals("attachment; filename=endpoint.kmz", response.getHeader(HttpConstants.HEADER_CONTENT_DISPOSITION));
-        assertEquals("12", response.getHeader(TestBaseController.TEST_COUNT));
-        verify(parameterHandler).validateAndTransform(anyMap(), anyMap());
-        verify(logService).logHeadComplete(response, logId);
-        verify(countDao).getCounts(anyString(), anyMap());
+		MockHttpServletResponse response = new MockHttpServletResponse();
+		BigDecimal logId = BigDecimal.ONE;
+		TestBaseController.setLogId(logId);
+
+		assertTrue(testController.doCommonSetup(request, response, null));
+		assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
+		assertEquals(HttpStatus.OK.value(), response.getStatus());
+		assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
+		assertEquals("application/vnd.google-earth.kmz;charset=UTF-8", response.getHeader(HttpConstants.HEADER_CONTENT_TYPE));
+		assertEquals("attachment; filename=station.kmz", response.getHeader(HttpConstants.HEADER_CONTENT_DISPOSITION));
+		assertEquals("12", response.getHeader(TestBaseController.TEST_COUNT));
+		verify(parameterHandler).validateAndTransform(anyMap(), anyMap());
+		verify(logService).logHeadComplete(response, logId);
+		verify(countDao).getCounts(anyString(), anyMap());
 	}
 
 	@Test
 	@SuppressWarnings("unchecked")
-	public void doHeaderPostCountTest() {
+	public void doCommonSetupPostCountTest() {
 		Map<String, Object> q = new HashMap<>();
-		q.put("mimeType", "json");
+		q.put(Parameters.MIMETYPE.toString(), "json");
+		q.put(Parameters.DATA_PROFILE.toString(), Profile.STATION);
 		ParameterMap p = new ParameterMap();
 		p.setQueryParameters(q);
-        when(parameterHandler.validateAndTransform(anyMap(), anyMap())).thenReturn(p);
-        MockHttpServletRequest request = new MockHttpServletRequest();
-		request.setParameter("countrycode", "US");
+		when(parameterHandler.validateAndTransform(anyMap(), anyMap())).thenReturn(p);
+		MockHttpServletRequest request = new MockHttpServletRequest();
+		request.setParameter(Parameters.COUNTRY.toString(), "US");
 		request.setMethod("POST");
-        MockHttpServletResponse response = new MockHttpServletResponse();
-        BigDecimal logId = BigDecimal.ONE;
-        String mybatisNamespace = "namepspace"; 
-        String endpoint = "endpoint";
-        assertTrue(testController.doHeader(request, response, logId, mybatisNamespace, endpoint, null));
-        assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
-        assertEquals(HttpStatus.OK.value(), response.getStatus());
-        assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
-        assertEquals("application/json;charset=UTF-8", response.getHeader(HttpConstants.HEADER_CONTENT_TYPE));
-        assertEquals("attachment; filename=endpoint.json", response.getHeader(HttpConstants.HEADER_CONTENT_DISPOSITION));
-        assertEquals("12", response.getHeader(TestBaseController.TEST_COUNT));
-        verify(parameterHandler).validateAndTransform(anyMap(), anyMap());
-        verify(logService).logHeadComplete(response, logId);
-        verify(countDao).getCounts(anyString(), anyMap());
-       
-        request.setRequestURI("endpoint/count");
-        response = new MockHttpServletResponse();
-        assertTrue(testController.doHeader(request, response, logId, mybatisNamespace, endpoint, null));
-        assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
-        assertEquals(HttpStatus.OK.value(), response.getStatus());
-        assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
-        assertEquals("application/json;charset=UTF-8", response.getHeader(HttpConstants.HEADER_CONTENT_TYPE));
-        assertNull(response.getHeader(HttpConstants.HEADER_CONTENT_DISPOSITION));
-        assertEquals("12", response.getHeader(TestBaseController.TEST_COUNT));
-        verify(parameterHandler, times(2)).validateAndTransform(anyMap(), anyMap());
-        //logService is only one because we created a new response
-        verify(logService, times(1)).logHeadComplete(response, logId);
-        verify(countDao, times(2)).getCounts(anyString(), anyMap());
-		
-        
+		MockHttpServletResponse response = new MockHttpServletResponse();
+		BigDecimal logId = BigDecimal.ONE;
+		TestBaseController.setLogId(logId);
+
+		assertTrue(testController.doCommonSetup(request, response, null));
+		assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
+		assertEquals(HttpStatus.OK.value(), response.getStatus());
+		assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
+		assertEquals("application/json;charset=UTF-8", response.getHeader(HttpConstants.HEADER_CONTENT_TYPE));
+		assertEquals("attachment; filename=station.json", response.getHeader(HttpConstants.HEADER_CONTENT_DISPOSITION));
+		assertEquals("12", response.getHeader(TestBaseController.TEST_COUNT));
+		verify(parameterHandler).validateAndTransform(anyMap(), anyMap());
+		verify(logService).logHeadComplete(response, logId);
+		verify(countDao).getCounts(anyString(), anyMap());
+
+		request.setRequestURI("endpoint/count");
+		response = new MockHttpServletResponse();
+		assertTrue(testController.doCommonSetup(request, response, null));
+		assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
+		assertEquals(HttpStatus.OK.value(), response.getStatus());
+		assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
+		assertEquals("application/json;charset=UTF-8", response.getHeader(HttpConstants.HEADER_CONTENT_TYPE));
+		assertNull(response.getHeader(HttpConstants.HEADER_CONTENT_DISPOSITION));
+		assertEquals("12", response.getHeader(TestBaseController.TEST_COUNT));
+		verify(parameterHandler, times(2)).validateAndTransform(anyMap(), anyMap());
+		//logService is only one because we created a new response
+		verify(logService, times(1)).logHeadComplete(response, logId);
+		verify(countDao, times(2)).getCounts(anyString(), anyMap());
+
 		request.setMethod("GET");
-        response = new MockHttpServletResponse();
-        assertTrue(testController.doHeader(request, response, logId, mybatisNamespace, endpoint, null));
-        assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
-        assertEquals(HttpStatus.OK.value(), response.getStatus());
-        assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
-        assertEquals("application/json;charset=UTF-8", response.getHeader(HttpConstants.HEADER_CONTENT_TYPE));
-        assertEquals("attachment; filename=endpoint.json", response.getHeader(HttpConstants.HEADER_CONTENT_DISPOSITION));
-        assertEquals("12", response.getHeader(TestBaseController.TEST_COUNT));
-        verify(parameterHandler, times(3)).validateAndTransform(anyMap(), anyMap());
-        //logService is only one because we created a new response
-        verify(logService, times(1)).logHeadComplete(response, logId);
-        verify(countDao, times(3)).getCounts(anyString(), anyMap());	
+		response = new MockHttpServletResponse();
+		assertTrue(testController.doCommonSetup(request, response, null));
+		assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
+		assertEquals(HttpStatus.OK.value(), response.getStatus());
+		assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
+		assertEquals("application/json;charset=UTF-8", response.getHeader(HttpConstants.HEADER_CONTENT_TYPE));
+		assertEquals("attachment; filename=station.json", response.getHeader(HttpConstants.HEADER_CONTENT_DISPOSITION));
+		assertEquals("12", response.getHeader(TestBaseController.TEST_COUNT));
+		verify(parameterHandler, times(3)).validateAndTransform(anyMap(), anyMap());
+		//logService is only one because we created a new response
+		verify(logService, times(1)).logHeadComplete(response, logId);
+		verify(countDao, times(3)).getCounts(anyString(), anyMap());	
 	}
 
 	@Test
@@ -482,8 +578,8 @@ public class BaseControllerTest {
 		//now for a no
 		TestBaseController.getPm().getQueryParameters().put(Parameters.SORTED.toString(), "no");
 		doMaxRowTrueAsserts(small, "5", "no", false);
-        
-        //other formats are ok, but not sorted when greater than max - and warning header given
+
+		//other formats are ok, but not sorted when greater than max - and warning header given
 		TestBaseController.setMimeType(MimeType.csv);
 		//No query parm
 		TestBaseController.getPm().getQueryParameters().clear();
@@ -519,115 +615,107 @@ public class BaseControllerTest {
 	}
 
 	public void doMaxRowTrueAsserts(TestBaseController small, String rows, String expectedSort, boolean isHeaderexpected) {
-        HttpServletResponse response = new MockHttpServletResponse();
-        assertTrue(small.checkMaxRows(response, rows));
-        assertTrue(TestBaseController.getPm().getQueryParameters().containsKey(Parameters.SORTED.toString()));
-        assertEquals(expectedSort, TestBaseController.getPm().getQueryParameters().get(Parameters.SORTED.toString()));
-        if (isHeaderexpected) {
-            assertEquals(1, response.getHeaderNames().size());
-            assertTrue(response.getHeaderNames().contains(HttpConstants.HEADER_WARNING));
-            assertEquals("This query will return in excess of 10 results, the data will not be sorted.",
-            		response.getHeader(HttpConstants.HEADER_WARNING));
-        } else {
-            assertEquals(0, response.getHeaderNames().size());
-        }
+		HttpServletResponse response = new MockHttpServletResponse();
+		assertTrue(small.checkMaxRows(response, rows));
+		assertTrue(TestBaseController.getPm().getQueryParameters().containsKey(Parameters.SORTED.toString()));
+		assertEquals(expectedSort, TestBaseController.getPm().getQueryParameters().get(Parameters.SORTED.toString()));
+		if (isHeaderexpected) {
+			assertEquals(1, response.getHeaderNames().size());
+			assertTrue(response.getHeaderNames().contains(HttpConstants.HEADER_WARNING));
+			assertEquals("This query will return in excess of 10 results, the data will not be sorted.",
+					response.getHeader(HttpConstants.HEADER_WARNING));
+		} else {
+			assertEquals(0, response.getHeaderNames().size());
+		}
 	}
 
 	public void doMaxRowFalseAsserts(TestBaseController small, String rows) {
-        HttpServletResponse response = new MockHttpServletResponse();
-        assertFalse(small.checkMaxRows(response, rows));
-        assertEquals(1, response.getHeaderNames().size());
-        assertTrue(response.getHeaderNames().contains(HttpConstants.HEADER_WARNING));
-        assertEquals("This query will return in excess of 10 results, please refine your query.",
-            		response.getHeader(HttpConstants.HEADER_WARNING));
-        assertEquals(400, response.getStatus());
+		HttpServletResponse response = new MockHttpServletResponse();
+		assertFalse(small.checkMaxRows(response, rows));
+		assertEquals(1, response.getHeaderNames().size());
+		assertTrue(response.getHeaderNames().contains(HttpConstants.HEADER_WARNING));
+		assertEquals("This query will return in excess of 10 results, please refine your query.",
+					response.getHeader(HttpConstants.HEADER_WARNING));
+		assertEquals(400, response.getStatus());
 	}
-	
+
 	@Test
 	@SuppressWarnings("unchecked")
 	public void doHeadRequestTest() {
-        MockHttpServletRequest request = new MockHttpServletRequest();
-        MockHttpServletResponse response = new MockHttpServletResponse();
-        String mybatisNamespace = "namepspace"; 
-        String endpoint = "endpoint";
-		
-        testController.doHeadRequest(request, response, mybatisNamespace, endpoint);
-        
-        assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
-        assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
-        assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
-        verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(Map.class));
-        verify(logService).logRequestComplete(any(BigDecimal.class), anyString());
+		MockHttpServletRequest request = new MockHttpServletRequest();
+		MockHttpServletResponse response = new MockHttpServletResponse();
+
+		testController.doHeadRequest(request, response);
+
+		assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
+		assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
+		assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
+		verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(Map.class));
+		verify(logService).logRequestComplete(any(BigDecimal.class), anyString());
 	}
 
 	@Test
 	@SuppressWarnings("unchecked")
 	public void doHeadRequestTest_error() {
-        when(parameterHandler.validateAndTransform(anyMap(), anyMap())).thenThrow(new RuntimeException("test"));
-        MockHttpServletRequest request = new MockHttpServletRequest();
+		when(parameterHandler.validateAndTransform(anyMap(), anyMap())).thenThrow(new RuntimeException("test"));
+		MockHttpServletRequest request = new MockHttpServletRequest();
 		request.setParameter("countrycode", "US");
-        MockHttpServletResponse response = new MockHttpServletResponse();
-        String mybatisNamespace = "namepspace"; 
-        String endpoint = "endpoint";
-		
-        try {
-        	testController.doHeadRequest(request, response, mybatisNamespace, endpoint);
-        } catch (RuntimeException e) {
-        	if (!"test".equalsIgnoreCase(e.getMessage())) {
-        		fail("not the exception we were expecting");
-        	}
-        }
-        
-        assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
-//        assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
-        assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
-        verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(Map.class));
-        verify(logService).logRequestComplete(any(BigDecimal.class), anyString());
-       
+		MockHttpServletResponse response = new MockHttpServletResponse();
+
+		try {
+			testController.doHeadRequest(request, response);
+		} catch (RuntimeException e) {
+			if (!"test".equalsIgnoreCase(e.getMessage())) {
+				fail("not the exception we were expecting");
+			}
+		}
+
+		assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
+//		assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
+		assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
+		verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(Map.class));
+		verify(logService).logRequestComplete(any(BigDecimal.class), anyString());
+
 	}
 
 	@Test
 	@SuppressWarnings("unchecked")
 	public void doGetRequestTest_NoParms() {
-        MockHttpServletRequest request = new MockHttpServletRequest();
-        MockHttpServletResponse response = new MockHttpServletResponse();
-        String mybatisNamespace = "namepspace"; 
-        String endpoint = "endpoint";
-		
-        testController.doGetRequest(request, response, mybatisNamespace, endpoint);
-        assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
-        assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
-        assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
-        verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(Map.class));
-        verify(logService).logRequestComplete(any(BigDecimal.class), anyString());
-        verify(streamingDao, never()).stream(anyString(), anyMap(), any(ResultHandler.class));
+		MockHttpServletRequest request = new MockHttpServletRequest();
+		MockHttpServletResponse response = new MockHttpServletResponse();
+
+		testController.doGetRequest(request, response);
+		assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
+		assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
+		assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
+		verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(Map.class));
+		verify(logService).logRequestComplete(any(BigDecimal.class), anyString());
+		verify(streamingDao, never()).stream(anyString(), anyMap(), any(ResultHandler.class));
 	}
 
 	@Test
 	@SuppressWarnings("unchecked")
 	public void doGetRequestTest_error() {
-        when(parameterHandler.validateAndTransform(anyMap(), anyMap())).thenThrow(new RuntimeException("test"));
-        MockHttpServletRequest request = new MockHttpServletRequest();
+		when(parameterHandler.validateAndTransform(anyMap(), anyMap())).thenThrow(new RuntimeException("test"));
+		MockHttpServletRequest request = new MockHttpServletRequest();
 		request.setParameter("countrycode", "US");
-        MockHttpServletResponse response = new MockHttpServletResponse();
-        String mybatisNamespace = "namepspace"; 
-        String endpoint = "endpoint";
-        
-        try {
-        	testController.doGetRequest(request, response, mybatisNamespace, endpoint);
-        } catch (RuntimeException e) {
-        	if (!"java.lang.RuntimeException: test".equalsIgnoreCase(e.getMessage())) {
-        		e.printStackTrace();
-        		fail("not the exception we were expecting: " + e.getMessage());
-        	}
-        }
-        
-        assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
-//        assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
-        assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
-        verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(Map.class));
-        verify(logService).logRequestComplete(any(BigDecimal.class), anyString());
-        verify(streamingDao, never()).stream(anyString(), anyMap(), any(ResultHandler.class));
+		MockHttpServletResponse response = new MockHttpServletResponse();
+
+		try {
+			testController.doGetRequest(request, response);
+		} catch (RuntimeException e) {
+			if (!"java.lang.RuntimeException: test".equalsIgnoreCase(e.getMessage())) {
+				e.printStackTrace();
+				fail("not the exception we were expecting: " + e.getMessage());
+			}
+		}
+
+		assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
+//		assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
+		assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
+		verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(Map.class));
+		verify(logService).logRequestComplete(any(BigDecimal.class), anyString());
+		verify(streamingDao, never()).stream(anyString(), anyMap(), any(ResultHandler.class));
 	}
 
 	@Test
@@ -636,38 +724,37 @@ public class BaseControllerTest {
 		Map<String, Object> q = new HashMap<>();
 		q.put("mimeType", "kml");
 		q.put("zip", "yes");
+		q.put(Parameters.DATA_PROFILE.toString(), Profile.STATION);
 		ParameterMap p = new ParameterMap();
 		p.setQueryParameters(q);
-        when(parameterHandler.validateAndTransform(anyMap(), anyMap())).thenReturn(p);
+		when(parameterHandler.validateAndTransform(anyMap(), anyMap())).thenReturn(p);
 
-        MockHttpServletRequest request = new MockHttpServletRequest();
+		MockHttpServletRequest request = new MockHttpServletRequest();
 		request.setParameter("countrycode", "US");
-        MockHttpServletResponse response = new MockHttpServletResponse();
-        String mybatisNamespace = "namepspace"; 
-        String endpoint = "endpoint";
-		
-        testController.doGetRequest(request, response, mybatisNamespace, endpoint);
-        assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
-        assertEquals(HttpStatus.OK.value(), response.getStatus());
-        assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
-        assertEquals("application/vnd.google-earth.kmz;charset=UTF-8", response.getHeader(HttpConstants.HEADER_CONTENT_TYPE));
-        assertEquals("attachment; filename=endpoint.kmz", response.getHeader(HttpConstants.HEADER_CONTENT_DISPOSITION));
-        assertEquals("12", response.getHeader(TestBaseController.TEST_COUNT));
+		MockHttpServletResponse response = new MockHttpServletResponse();
+
+		testController.doGetRequest(request, response);
+		assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
+		assertEquals(HttpStatus.OK.value(), response.getStatus());
+		assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
+		assertEquals("application/vnd.google-earth.kmz;charset=UTF-8", response.getHeader(HttpConstants.HEADER_CONTENT_TYPE));
+		assertEquals("attachment; filename=station.kmz", response.getHeader(HttpConstants.HEADER_CONTENT_DISPOSITION));
+		assertEquals("12", response.getHeader(TestBaseController.TEST_COUNT));
 
 		ZipInputStream in = new ZipInputStream(new ByteArrayInputStream(response.getContentAsByteArray()));
 		try {
 			ZipEntry entry = in.getNextEntry();
-			assertTrue(entry.getName().contentEquals("endpoint.kml"));
+			assertEquals("station.kml", entry.getName());
 		} catch (IOException e) {
 			fail("Should not get exception but did:" + e.getLocalizedMessage());
 		}
-      
-        verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(Map.class));
-        verify(parameterHandler).validateAndTransform(anyMap(), anyMap());
-        verify(countDao).getCounts(anyString(), anyMap());
-        verify(logService).logHeadComplete(any(HttpServletResponse.class), any(BigDecimal.class));
-        verify(streamingDao).stream(anyString(), anyMap(), any(ResultHandler.class));
-        verify(logService).logRequestComplete(any(BigDecimal.class), anyString());
+
+		verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(Map.class));
+		verify(parameterHandler).validateAndTransform(anyMap(), anyMap());
+		verify(countDao).getCounts(anyString(), anyMap());
+		verify(logService).logHeadComplete(any(HttpServletResponse.class), any(BigDecimal.class));
+		verify(streamingDao).stream(anyString(), anyMap(), any(ResultHandler.class));
+		verify(logService).logRequestComplete(any(BigDecimal.class), anyString());
 	}
 
 	@Test
@@ -705,7 +792,7 @@ public class BaseControllerTest {
 		assertTrue( warning.contains("299 WQP \"warning3\"") );
 		assertTrue( warning.contains("299 WQP \"warning4\"") );
 	}
-	
+
 	private void addEntryStation(String ds, Integer en, List<Map<String, Object>>  list) {
 		Map<String, Object> count = new HashMap<String, Object>();
 		count.put(MybatisConstants.DATA_SOURCE,ds);
@@ -778,7 +865,7 @@ public class BaseControllerTest {
 		assertEquals("456", testController.determineHeaderValue(count, "def"));
 		assertEquals("0", testController.determineHeaderValue(count, "ghi"));
 	}
-	
+
 	@Test
 	@SuppressWarnings("unchecked")
 	public void doPostRequestTest() {
@@ -789,129 +876,153 @@ public class BaseControllerTest {
 		json.put("siteid", Arrays.asList("11NPSWRD-BICA_MFG_B","WIDNR_WQX-10030952"));
 		ParameterMap p = new ParameterMap();
 		p.setQueryParameters(q);
-        when(parameterHandler.validateAndTransform(anyMap(), anyMap())).thenReturn(p);
+		when(parameterHandler.validateAndTransform(anyMap(), anyMap())).thenReturn(p);
 
-        MockHttpServletRequest request = new MockHttpServletRequest();
+		MockHttpServletRequest request = new MockHttpServletRequest();
 		request.setParameter("countrycode", "US");
-        MockHttpServletResponse response = new MockHttpServletResponse();
-        String mybatisNamespace = "namepspace"; 
-        String endpoint = "endpoint";
-		
-        testController.doPostRequest(request, response, mybatisNamespace, endpoint, json);
-        assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
-        assertEquals(HttpStatus.OK.value(), response.getStatus());
-        assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
-        assertEquals("application/vnd.google-earth.kmz;charset=UTF-8", response.getHeader(HttpConstants.HEADER_CONTENT_TYPE));
-        assertEquals("attachment; filename=endpoint.kmz", response.getHeader(HttpConstants.HEADER_CONTENT_DISPOSITION));
-        assertEquals("12", response.getHeader(TestBaseController.TEST_COUNT));
+		MockHttpServletResponse response = new MockHttpServletResponse();
+
+		testController.doPostRequest(request, response, json);
+		assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
+		assertEquals(HttpStatus.OK.value(), response.getStatus());
+		assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
+		assertEquals("application/vnd.google-earth.kmz;charset=UTF-8", response.getHeader(HttpConstants.HEADER_CONTENT_TYPE));
+		assertEquals("attachment; filename=station.kmz", response.getHeader(HttpConstants.HEADER_CONTENT_DISPOSITION));
+		assertEquals("12", response.getHeader(TestBaseController.TEST_COUNT));
 
 		ZipInputStream in = new ZipInputStream(new ByteArrayInputStream(response.getContentAsByteArray()));
 		try {
 			ZipEntry entry = in.getNextEntry();
-			assertTrue(entry.getName().contentEquals("endpoint.kml"));
+			assertTrue(entry.getName().contentEquals("station.kml"));
 		} catch (IOException e) {
 			fail("Should not get exception but did:" + e.getLocalizedMessage());
 		}
-      
-        verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(Map.class));
-        verify(parameterHandler).validateAndTransform(anyMap(), anyMap());
-        verify(countDao).getCounts(anyString(), anyMap());
-        verify(logService).logHeadComplete(any(HttpServletResponse.class), any(BigDecimal.class));
-        verify(streamingDao).stream(anyString(), anyMap(), any(ResultHandler.class));
-        verify(logService).logRequestComplete(any(BigDecimal.class), anyString());
+
+		verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(Map.class));
+		verify(parameterHandler).validateAndTransform(anyMap(), anyMap());
+		verify(countDao).getCounts(anyString(), anyMap());
+		verify(logService).logHeadComplete(any(HttpServletResponse.class), any(BigDecimal.class));
+		verify(streamingDao).stream(anyString(), anyMap(), any(ResultHandler.class));
+		verify(logService).logRequestComplete(any(BigDecimal.class), anyString());
 	}
-	
+
 	@Test
 	@SuppressWarnings("unchecked")
 	public void doPostCountRequestTest() {
-        MockHttpServletRequest request = new MockHttpServletRequest();
-        MockHttpServletResponse response = new MockHttpServletResponse();
-        String mybatisNamespace = "namepspace"; 
-        String endpoint = "endpoint";
+		MockHttpServletRequest request = new MockHttpServletRequest();
+		MockHttpServletResponse response = new MockHttpServletResponse();
 
-        Map<String, Object> q = new HashMap<>();
+		Map<String, Object> q = new HashMap<>();
 		q.put("mimeType", "kml");
 		q.put("zip", "yes");
 		Map<String, Object> json = new HashMap<>();
 		json.put("siteid", Arrays.asList("11NPSWRD-BICA_MFG_B","WIDNR_WQX-10030952"));
 		ParameterMap p = new ParameterMap();
 		p.setQueryParameters(q);
-        when(parameterHandler.validateAndTransform(anyMap(), anyMap())).thenReturn(p);
-        List<Map<String, Object>> rawCounts = new ArrayList<>();
-        Map<String, Object> countRow = new HashMap<>();
-        countRow.put("DATA_SOURCE", "NWIS");
-        countRow.put("STATION_COUNT", 12);
-        rawCounts.add(countRow);
-        when(countDao.getCounts(anyString(), anyMap())).thenReturn(rawCounts);
-        
-        Map<String, String> result = testController.doPostCountRequest(request, response, mybatisNamespace, endpoint, json);
-        
-        assertNotNull(result);
-        assertEquals(2, result.size());
-        assertTrue(result.containsKey("NWIS-Site-Count"));
-        assertEquals("12", result.get("NWIS-Site-Count"));
-        assertTrue(result.containsKey("Total-Site-Count"));
-        assertEquals("0", result.get("Total-Site-Count"));
-        assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
-        assertEquals(HttpStatus.OK.value(), response.getStatus());
-        assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
-        verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(Map.class));
-        verify(logService).logRequestComplete(any(BigDecimal.class), anyString());
+		when(parameterHandler.validateAndTransform(anyMap(), anyMap())).thenReturn(p);
+		List<Map<String, Object>> rawCounts = new ArrayList<>();
+		Map<String, Object> countRow = new HashMap<>();
+		countRow.put("DATA_SOURCE", "NWIS");
+		countRow.put("STATION_COUNT", 12);
+		rawCounts.add(countRow);
+		when(countDao.getCounts(anyString(), anyMap())).thenReturn(rawCounts);
+
+		Map<String, String> result = testController.doPostCountRequest(request, response, json);
+
+		assertNotNull(result);
+		assertEquals(2, result.size());
+		assertTrue(result.containsKey("NWIS-Site-Count"));
+		assertEquals("12", result.get("NWIS-Site-Count"));
+		assertTrue(result.containsKey("Total-Site-Count"));
+		assertEquals("0", result.get("Total-Site-Count"));
+		assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
+		assertEquals(HttpStatus.OK.value(), response.getStatus());
+		assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
+		verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(Map.class));
+		verify(logService).logRequestComplete(any(BigDecimal.class), anyString());
 	}
 
 	@Test
-	public void addCountHeaders() {
-        MockHttpServletResponse response = new MockHttpServletResponse();
-        List<Map<String, Object>> rawCounts = new ArrayList<>();
-        Map<String, Object> countRow = new HashMap<>();
-        countRow.put("DATA_SOURCE", "NWIS");
-        countRow.put("STATION_COUNT", 12);
-        countRow.put("RESULT_COUNT", 359);
-        rawCounts.add(countRow);
-		
-        testController.addCountHeaders(response, rawCounts, HttpConstants.HEADER_TOTAL_SITE_COUNT, HttpConstants.HEADER_SITE_COUNT, MybatisConstants.STATION_COUNT);
-		
-        Object nwis = response.getHeaderValue("NWIS-Site-Count");
-        assertNotNull(nwis);
-        assertEquals("12", nwis);
-        Object total = response.getHeaderValue("Total-Site-Count");
-        assertNotNull(total);
-        assertEquals("0", total);
+	public void addCountHeadersTest() {
+		MockHttpServletResponse response = new MockHttpServletResponse();
+		List<Map<String, Object>> rawCounts = new ArrayList<>();
+		Map<String, Object> countRow = new HashMap<>();
+		countRow.put("DATA_SOURCE", "NWIS");
+		countRow.put("STATION_COUNT", 12);
+		countRow.put("RESULT_COUNT", 359);
+		rawCounts.add(countRow);
 
-        Map<String, String> counts = TestBaseController.getCounts();
-        assertNotNull(counts);
-        assertEquals(2, counts.size());
-        assertTrue(counts.containsKey("NWIS-Site-Count"));
-        assertEquals("12", counts.get("NWIS-Site-Count"));
-        assertTrue(counts.containsKey("Total-Site-Count"));
-        assertEquals("0", counts.get("Total-Site-Count"));
+		testController.addCountHeaders(response, rawCounts, HttpConstants.HEADER_TOTAL_SITE_COUNT, HttpConstants.HEADER_SITE_COUNT, MybatisConstants.STATION_COUNT);
 
-        testController.addCountHeaders(response, rawCounts, HttpConstants.HEADER_TOTAL_RESULT_COUNT, HttpConstants.HEADER_RESULT_COUNT, MybatisConstants.RESULT_COUNT);
-		
-        Object nwisSite = response.getHeaderValue("NWIS-Site-Count");
-        assertNotNull(nwisSite);
-        assertEquals("12", nwisSite);
-        Object totalSite = response.getHeaderValue("Total-Site-Count");
-        assertNotNull(totalSite);
-        assertEquals("0", totalSite);
-        Object nwisResult = response.getHeaderValue("NWIS-Result-Count");
-        assertNotNull(nwisResult);
-        assertEquals("359", nwisResult);
-        Object totalResult = response.getHeaderValue("Total-Result-Count");
-        assertNotNull(totalResult);
-        assertEquals("0", totalResult);
+		Object nwis = response.getHeaderValue("NWIS-Site-Count");
+		assertNotNull(nwis);
+		assertEquals("12", nwis);
+		Object total = response.getHeaderValue("Total-Site-Count");
+		assertNotNull(total);
+		assertEquals("0", total);
 
-        counts = TestBaseController.getCounts();
-        assertNotNull(counts);
-        assertEquals(4, counts.size());
-        assertTrue(counts.containsKey("NWIS-Site-Count"));
-        assertEquals("12", counts.get("NWIS-Site-Count"));
-        assertTrue(counts.containsKey("Total-Site-Count"));
-        assertEquals("0", counts.get("Total-Site-Count"));
-        assertTrue(counts.containsKey("NWIS-Result-Count"));
-        assertEquals("359", counts.get("NWIS-Result-Count"));
-        assertTrue(counts.containsKey("Total-Result-Count"));
-        assertEquals("0", counts.get("Total-Result-Count"));
+		Map<String, String> counts = TestBaseController.getCounts();
+		assertNotNull(counts);
+		assertEquals(2, counts.size());
+		assertTrue(counts.containsKey("NWIS-Site-Count"));
+		assertEquals("12", counts.get("NWIS-Site-Count"));
+		assertTrue(counts.containsKey("Total-Site-Count"));
+		assertEquals("0", counts.get("Total-Site-Count"));
+
+		testController.addCountHeaders(response, rawCounts, HttpConstants.HEADER_TOTAL_RESULT_COUNT, HttpConstants.HEADER_RESULT_COUNT, MybatisConstants.RESULT_COUNT);
+
+		Object nwisSite = response.getHeaderValue("NWIS-Site-Count");
+		assertNotNull(nwisSite);
+		assertEquals("12", nwisSite);
+		Object totalSite = response.getHeaderValue("Total-Site-Count");
+		assertNotNull(totalSite);
+		assertEquals("0", totalSite);
+		Object nwisResult = response.getHeaderValue("NWIS-Result-Count");
+		assertNotNull(nwisResult);
+		assertEquals("359", nwisResult);
+		Object totalResult = response.getHeaderValue("Total-Result-Count");
+		assertNotNull(totalResult);
+		assertEquals("0", totalResult);
+
+		counts = TestBaseController.getCounts();
+		assertNotNull(counts);
+		assertEquals(4, counts.size());
+		assertTrue(counts.containsKey("NWIS-Site-Count"));
+		assertEquals("12", counts.get("NWIS-Site-Count"));
+		assertTrue(counts.containsKey("Total-Site-Count"));
+		assertEquals("0", counts.get("Total-Site-Count"));
+		assertTrue(counts.containsKey("NWIS-Result-Count"));
+		assertEquals("359", counts.get("NWIS-Result-Count"));
+		assertTrue(counts.containsKey("Total-Result-Count"));
+		assertEquals("0", counts.get("Total-Result-Count"));
+	}
+
+	@Test
+	public void addSiteHeadersTest() {
+		MockHttpServletResponse response = new MockHttpServletResponse();
+		List<Map<String, Object>> rawCounts = new ArrayList<>();
+		Map<String, Object> countRow = new HashMap<>();
+		countRow.put("DATA_SOURCE", "NWIS");
+		countRow.put("STATION_COUNT", 12);
+		countRow.put("RESULT_COUNT", 359);
+		rawCounts.add(countRow);
+
+		testController.addSiteHeaders(response, rawCounts);
+
+		Object nwis = response.getHeaderValue("NWIS-Site-Count");
+		assertNotNull(nwis);
+		assertEquals("12", nwis);
+		Object total = response.getHeaderValue("Total-Site-Count");
+		assertNotNull(total);
+		assertEquals("0", total);
+
+		Map<String, String> counts = TestBaseController.getCounts();
+		assertNotNull(counts);
+		assertEquals(2, counts.size());
+		assertTrue(counts.containsKey("NWIS-Site-Count"));
+		assertEquals("12", counts.get("NWIS-Site-Count"));
+		assertTrue(counts.containsKey("Total-Site-Count"));
+		assertEquals("0", counts.get("Total-Site-Count"));
 	}
 
 }

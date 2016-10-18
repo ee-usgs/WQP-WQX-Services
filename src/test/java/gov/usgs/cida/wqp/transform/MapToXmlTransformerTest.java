@@ -2,13 +2,6 @@ package gov.usgs.cida.wqp.transform;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
-import gov.usgs.cida.wqp.mapping.BaseColumn;
-import gov.usgs.cida.wqp.mapping.BaseWqx;
-import gov.usgs.cida.wqp.mapping.IXmlMapping;
-import gov.usgs.cida.wqp.mapping.SimpleStationWqxOutbound;
-import gov.usgs.cida.wqp.mapping.StationColumn;
-import gov.usgs.cida.wqp.service.ILogService;
-import gov.usgs.cida.wqp.util.HttpConstants;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -22,45 +15,56 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import gov.usgs.cida.wqp.mapping.BaseColumn;
+import gov.usgs.cida.wqp.mapping.Profile;
+import gov.usgs.cida.wqp.mapping.StationColumn;
+import gov.usgs.cida.wqp.mapping.xml.BaseWqx;
+import gov.usgs.cida.wqp.mapping.xml.IXmlMapping;
+import gov.usgs.cida.wqp.mapping.xml.StationWqx;
+import gov.usgs.cida.wqp.service.ILogService;
+import gov.usgs.cida.wqp.util.HttpConstants;
+
 public class MapToXmlTransformerTest {
 
 	@Mock
-    protected ILogService logService;
+	protected ILogService logService;
 	protected BigDecimal logId = new BigDecimal(1);
-	protected IXmlMapping fieldMapping = new SimpleStationWqxOutbound();
+	protected IXmlMapping fieldMapping = new StationWqx();
 	protected MapToXmlTransformer transformer;
 	protected ByteArrayOutputStream baos;
 
-    @Before
-    public void initTest() {
-        MockitoAnnotations.initMocks(this);
+	@Before
+	public void initTest() {
+		MockitoAnnotations.initMocks(this);
 		baos = new ByteArrayOutputStream();
-        transformer = new MapToXmlTransformer(baos, fieldMapping, logService, logId);
-    }
-    
-    @After
-    public void closeTest() throws IOException {
-    	transformer.close();
-    }
+		transformer = new MapToXmlTransformer(baos, fieldMapping, logService, logId, Profile.STATION);
+	}
+
+	@After
+	public void closeTest() throws IOException {
+		transformer.close();
+	}
 
 	@Test
 	public void writeHeaderTest() {
 		try {
 			transformer.writeHeader();
-			assertEquals(52, baos.size());
-			assertEquals("<?xml version=\"1.0\" encoding=\"UTF-8\"?><WQX-Outbound>",
+			assertEquals(303, baos.size());
+			assertEquals("<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+					+ "<WQX xmlns='http://qwwebservices.usgs.gov/schemas/WQX-Outbound/2_0/' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' "
+					+ "xsi:schemaLocation='http://qwwebservices.usgs.gov/schemas/WQX-Outbound/2_0/ http://qwwebservices.usgs.gov/schemas/WQX-Outbound/2_0/index.xsd'>",
 					new String(baos.toByteArray(), HttpConstants.DEFAULT_ENCODING));
 		} catch (IOException e) {
 			fail(e.getLocalizedMessage());
 		}
 	}
-	
+
 	@Test
 	public void encodeTest() {
 		assertEquals("abc", transformer.encode("abc"));
 		assertEquals("&lt;dae&gt;", transformer.encode("<dae>"));
 	}
-	
+
 	@Test
 	public void closeNodesTest() {
 		StringBuilder sb = new StringBuilder();
@@ -80,7 +84,7 @@ public class MapToXmlTransformerTest {
 		transformer.closeNodes(sb, "xyz");
 		assertEquals("</qed></abc>", sb.toString());
 	}
-	
+
 	@Test
 	public void doNodeTest() {
 		StringBuilder sb = new StringBuilder();
@@ -92,7 +96,7 @@ public class MapToXmlTransformerTest {
 		assertEquals("</MonitoringLocationIdentity><MonitoringLocationGeospatial><LongitudeMeasure>23jkh4kl213</LongitudeMeasure>",
 				sb.toString());
 	}
-	
+
 	@Test
 	public void doGroupingTest() {
 		StringBuilder sb = new StringBuilder();
@@ -100,10 +104,24 @@ public class MapToXmlTransformerTest {
 		map.put(StationColumn.KEY_LONGITUDE, "23jk<h4kl213");
 		map.put(StationColumn.KEY_STATION_NAME, "DG-10/13E/19-0891");
 		transformer.doGrouping(map, sb, StationColumn.KEY_SITE_ID);
-		assertEquals("<Provider><Organization><MonitoringLocation><MonitoringLocationIdentity><MonitoringLocationName>DG-10/13E/19-0891</MonitoringLocationName></MonitoringLocationIdentity><MonitoringLocationGeospatial><LongitudeMeasure>23jk&lt;h4kl213</LongitudeMeasure>",
+		assertEquals("<Organization><MonitoringLocation><MonitoringLocationIdentity><MonitoringLocationName>DG-10/13E/19-0891</MonitoringLocationName></MonitoringLocationIdentity><MonitoringLocationGeospatial><LongitudeMeasure>23jk&lt;h4kl213</LongitudeMeasure>",
 				sb.toString());
 	}
-	
+
+	@Test
+	public void doGroupingSimpleStationTest() throws IOException {
+		MapToXmlTransformer bt = new MapToXmlTransformer(baos, fieldMapping, logService, logId, Profile.SIMPLE_STATION);
+		StringBuilder sb = new StringBuilder();
+		Map<String, Object> map = new HashMap<>();
+		map.put(StationColumn.KEY_LONGITUDE, "23jk<h4kl213");
+		map.put(StationColumn.KEY_CONTRIB_DRAIN_AREA_UNIT, "ft/lbs");
+		map.put(StationColumn.KEY_STATION_NAME, "DG-10/13E/19-0891");
+		bt.doGrouping(map, sb, StationColumn.KEY_SITE_ID);
+		assertEquals("<Organization><MonitoringLocation><MonitoringLocationIdentity><MonitoringLocationName>DG-10/13E/19-0891</MonitoringLocationName></MonitoringLocationIdentity><MonitoringLocationGeospatial><LongitudeMeasure>23jk&lt;h4kl213</LongitudeMeasure>",
+				sb.toString());
+		bt.close();
+	}
+
 	@Test
 	public void writeDataTest() {
 		try {
@@ -119,14 +137,17 @@ public class MapToXmlTransformerTest {
 			map.put(StationColumn.KEY_LONGITUDE, "2");
 			map.put(StationColumn.KEY_STATION_NAME, "two");
 			transformer.writeData(map);
-			assertEquals(723, baos.size());
-			assertEquals("<Provider><Organization><OrganizationDescription><OrganizationIdentifier>d</OrganizationIdentifier></OrganizationDescription><MonitoringLocation><MonitoringLocationIdentity><MonitoringLocationIdentifier>1</MonitoringLocationIdentifier><MonitoringLocationName>DG-10/13E/19-0891</MonitoringLocationName></MonitoringLocationIdentity><MonitoringLocationGeospatial><LongitudeMeasure>23jk&lt;h4kl213</LongitudeMeasure></MonitoringLocationGeospatial></MonitoringLocation><MonitoringLocation><MonitoringLocationIdentity><MonitoringLocationIdentifier>2</MonitoringLocationIdentifier><MonitoringLocationName>two</MonitoringLocationName></MonitoringLocationIdentity><MonitoringLocationGeospatial><LongitudeMeasure>2</LongitudeMeasure>",
+			map = new HashMap<>();
+			map.put(BaseColumn.KEY_ORGANIZATION, null);
+			transformer.writeData(map);
+			assertEquals(713, baos.size());
+			assertEquals("<Organization><OrganizationDescription><OrganizationIdentifier>d</OrganizationIdentifier></OrganizationDescription><MonitoringLocation><MonitoringLocationIdentity><MonitoringLocationIdentifier>1</MonitoringLocationIdentifier><MonitoringLocationName>DG-10/13E/19-0891</MonitoringLocationName></MonitoringLocationIdentity><MonitoringLocationGeospatial><LongitudeMeasure>23jk&lt;h4kl213</LongitudeMeasure></MonitoringLocationGeospatial></MonitoringLocation><MonitoringLocation><MonitoringLocationIdentity><MonitoringLocationIdentifier>2</MonitoringLocationIdentifier><MonitoringLocationName>two</MonitoringLocationName></MonitoringLocationIdentity><MonitoringLocationGeospatial><LongitudeMeasure>2</LongitudeMeasure>",
 					new String(baos.toByteArray(), HttpConstants.DEFAULT_ENCODING));
 		} catch (IOException e) {
 			fail(e.getLocalizedMessage());
 		}
 	}
-	
+
 	@Test
 	public void endTest() {
 		try {

@@ -1,18 +1,19 @@
 package gov.usgs.cida.wqp.webservice;
 
-import gov.usgs.cida.wqp.dao.intfc.ICountDao;
-import gov.usgs.cida.wqp.dao.intfc.IStreamingDao;
-import gov.usgs.cida.wqp.mapping.IXmlMapping;
-import gov.usgs.cida.wqp.mapping.StationColumn;
-import gov.usgs.cida.wqp.mapping.StationKml;
-import gov.usgs.cida.wqp.mapping.StationWqx;
-import gov.usgs.cida.wqp.parameter.IParameterHandler;
-import gov.usgs.cida.wqp.service.ILogService;
-
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
+
+import gov.usgs.cida.wqp.dao.intfc.ICountDao;
+import gov.usgs.cida.wqp.dao.intfc.IStreamingDao;
+import gov.usgs.cida.wqp.mapping.Profile;
+import gov.usgs.cida.wqp.mapping.delimited.StationDelimited;
+import gov.usgs.cida.wqp.mapping.xml.IXmlMapping;
+import gov.usgs.cida.wqp.mapping.xml.StationKml;
+import gov.usgs.cida.wqp.mapping.xml.StationWqx;
+import gov.usgs.cida.wqp.parameter.IParameterHandler;
+import gov.usgs.cida.wqp.service.ILogService;
 
 public class TestBaseController extends BaseController {
 
@@ -33,8 +34,8 @@ public class TestBaseController extends BaseController {
 	}
 
 	@Override
-	protected Map<String, String> getMapping() {
-		return StationColumn.mappings;
+	protected Map<String, String> getMapping(String profile) {
+		return StationDelimited.getMapping(profile);
 	}
 
 	@Override
@@ -45,6 +46,11 @@ public class TestBaseController extends BaseController {
 	@Override
 	protected IXmlMapping getKmlMapping() {
 		return new StationKml("");
+	}
+
+	@Override
+	protected String determineProfile(Map<String, Object> pm) {
+		return Profile.STATION;
 	}
 
 }

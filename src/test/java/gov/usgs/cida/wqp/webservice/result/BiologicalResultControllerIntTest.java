@@ -16,14 +16,10 @@ import static uk.co.datumedge.hamcrest.json.SameJSONAs.sameJSONObjectAs;
 import java.io.IOException;
 import java.net.URL;
 
-import javax.servlet.http.HttpServletResponse;
-
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
@@ -39,6 +35,7 @@ import com.github.springtestdbunit.annotation.DatabaseSetups;
 import gov.usgs.cida.wqp.BaseSpringTest;
 import gov.usgs.cida.wqp.FullIntegrationTest;
 import gov.usgs.cida.wqp.exception.WqpException;
+import gov.usgs.cida.wqp.mapping.Profile;
 import gov.usgs.cida.wqp.parameter.Parameters;
 import gov.usgs.cida.wqp.service.CodesService;
 import gov.usgs.cida.wqp.service.FetchService;
@@ -52,9 +49,10 @@ import gov.usgs.cida.wqp.util.MimeType;
 	@DatabaseSetup("classpath:/testData/clearAll.xml"),
 	@DatabaseSetup("classpath:/testData/result.xml")
 })
-public class ResultControllerIntTest extends BaseSpringTest implements HttpConstants {
+public class BiologicalResultControllerIntTest extends BaseSpringTest implements HttpConstants {
 
-	protected String endpoint = "/" + HttpConstants.RESULT_SEARCH_ENPOINT + "?mimeType=";
+	protected String endpoint = "/" + HttpConstants.RESULT_SEARCH_ENPOINT + "?" 
+			+ Parameters.DATA_PROFILE + "=" + Profile.BIOLOGICAL + "&mimeType=";
 
 	@Autowired
 	private WebApplicationContext wac;
@@ -64,18 +62,14 @@ public class ResultControllerIntTest extends BaseSpringTest implements HttpConst
 	@Autowired
 	private FetchService fetchService;
 
-	@Mock
-	HttpServletResponse response;
-
 	@Autowired
 	@Qualifier("TEST_NLDI_URL")
 	protected URL testNldiUrl;
 
 	private MockMvc mockMvc;
-
+	
 	@Before
 	public void setup() throws WqpException, IOException {
-		MockitoAnnotations.initMocks(this);
 		mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
 		when(codesService.validate(any(Parameters.class), anyString())).thenReturn(true);
 		when(fetchService.fetch(anyString(), any(URL.class))).thenReturn(FetchServiceTest.NLDI_IDENTIFIERS);
@@ -87,7 +81,7 @@ public class ResultControllerIntTest extends BaseSpringTest implements HttpConst
 			.andExpect(status().isOk())
 			.andExpect(content().contentType(MimeType.csv.getMimeType()))
 			.andExpect(content().encoding(DEFAULT_ENCODING))
-			.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=result.csv"))
+			.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=biologicalresult.csv"))
 			.andExpect(header().string("Total-Site-Count", "6"))
 			.andExpect(header().string("NWIS-Site-Count", "2"))
 			.andExpect(header().string("STEWARDS-Site-Count", "2"))
@@ -107,7 +101,7 @@ public class ResultControllerIntTest extends BaseSpringTest implements HttpConst
 			.andExpect(status().isOk())
 			.andExpect(content().contentType(MimeType.csv.getMimeType()))
 			.andExpect(content().encoding(DEFAULT_ENCODING))
-			.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=result.csv"))
+			.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=biologicalresult.csv"))
 			.andExpect(header().string("Total-Site-Count", "6"))
 			.andExpect(header().string("NWIS-Site-Count", "2"))
 			.andExpect(header().string("STEWARDS-Site-Count", "2"))
@@ -118,7 +112,7 @@ public class ResultControllerIntTest extends BaseSpringTest implements HttpConst
 			.andExpect(header().string("STORET-Result-Count", "4"))
 			.andReturn();
 
-		assertEquals(getCompareFile("pcResult.csv"), rtn.getResponse().getContentAsString());
+		assertEquals(getCompareFile("bioResult.csv"), rtn.getResponse().getContentAsString());
 	}
 
 	@Test
@@ -127,7 +121,7 @@ public class ResultControllerIntTest extends BaseSpringTest implements HttpConst
 			.andExpect(status().isOk())
 			.andExpect(content().contentType(MIME_TYPE_ZIP))
 			.andExpect(content().encoding(DEFAULT_ENCODING))
-			.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=result.zip"))
+			.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=biologicalresult.zip"))
 			.andExpect(header().string("Total-Site-Count", "6"))
 			.andExpect(header().string("NWIS-Site-Count", "2"))
 			.andExpect(header().string("STEWARDS-Site-Count", "2"))
@@ -147,7 +141,7 @@ public class ResultControllerIntTest extends BaseSpringTest implements HttpConst
 			.andExpect(status().isOk())
 			.andExpect(content().contentType(MIME_TYPE_ZIP))
 			.andExpect(content().encoding(DEFAULT_ENCODING))
-			.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=result.zip"))
+			.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=biologicalresult.zip"))
 			.andExpect(header().string("Total-Site-Count", "6"))
 			.andExpect(header().string("NWIS-Site-Count", "2"))
 			.andExpect(header().string("STEWARDS-Site-Count", "2"))
@@ -158,7 +152,7 @@ public class ResultControllerIntTest extends BaseSpringTest implements HttpConst
 			.andExpect(header().string("STORET-Result-Count", "4"))
 			.andReturn();
 
-		assertEquals(getCompareFile("pcResult.csv"), extractZipContent(rtn.getResponse().getContentAsByteArray(), "result.csv"));
+		assertEquals(getCompareFile("bioResult.csv"), extractZipContent(rtn.getResponse().getContentAsByteArray(), "biologicalresult.csv"));
 	}
 
 	@Test
@@ -167,7 +161,7 @@ public class ResultControllerIntTest extends BaseSpringTest implements HttpConst
 			.andExpect(status().isOk())
 			.andExpect(content().contentType(MimeType.tsv.getMimeType()))
 			.andExpect(content().encoding(DEFAULT_ENCODING))
-			.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=result.tsv"))
+			.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=biologicalresult.tsv"))
 			.andExpect(header().string("Total-Site-Count", "6"))
 			.andExpect(header().string("NWIS-Site-Count", "2"))
 			.andExpect(header().string("STEWARDS-Site-Count", "2"))
@@ -187,7 +181,7 @@ public class ResultControllerIntTest extends BaseSpringTest implements HttpConst
 			.andExpect(status().isOk())
 			.andExpect(content().contentType(MimeType.tsv.getMimeType()))
 			.andExpect(content().encoding(DEFAULT_ENCODING))
-			.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=result.tsv"))
+			.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=biologicalresult.tsv"))
 			.andExpect(header().string("Total-Site-Count", "6"))
 			.andExpect(header().string("NWIS-Site-Count", "2"))
 			.andExpect(header().string("STEWARDS-Site-Count", "2"))
@@ -198,7 +192,7 @@ public class ResultControllerIntTest extends BaseSpringTest implements HttpConst
 			.andExpect(header().string("STORET-Result-Count", "4"))
 			.andReturn();
 
-		assertEquals(getCompareFile("pcResult.tsv"), rtn.getResponse().getContentAsString());
+		assertEquals(getCompareFile("bioResult.tsv"), rtn.getResponse().getContentAsString());
 	}
 
 	@Test
@@ -207,7 +201,7 @@ public class ResultControllerIntTest extends BaseSpringTest implements HttpConst
 			.andExpect(status().isOk())
 			.andExpect(content().contentType(MIME_TYPE_ZIP))
 			.andExpect(content().encoding(DEFAULT_ENCODING))
-			.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=result.zip"))
+			.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=biologicalresult.zip"))
 			.andExpect(header().string("Total-Site-Count", "6"))
 			.andExpect(header().string("NWIS-Site-Count", "2"))
 			.andExpect(header().string("STEWARDS-Site-Count", "2"))
@@ -227,7 +221,7 @@ public class ResultControllerIntTest extends BaseSpringTest implements HttpConst
 			.andExpect(status().isOk())
 			.andExpect(content().contentType(MIME_TYPE_ZIP))
 			.andExpect(content().encoding(DEFAULT_ENCODING))
-			.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=result.zip"))
+			.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=biologicalresult.zip"))
 			.andExpect(header().string("Total-Site-Count", "6"))
 			.andExpect(header().string("NWIS-Site-Count", "2"))
 			.andExpect(header().string("STEWARDS-Site-Count", "2"))
@@ -238,16 +232,17 @@ public class ResultControllerIntTest extends BaseSpringTest implements HttpConst
 			.andExpect(header().string("STORET-Result-Count", "4"))
 			.andReturn();
 
-		assertEquals(getCompareFile("pcResult.tsv"), extractZipContent(rtn.getResponse().getContentAsByteArray(), "result.tsv"));
+		assertEquals(getCompareFile("bioResult.tsv"), extractZipContent(rtn.getResponse().getContentAsByteArray(), "biologicalresult.tsv"));
 	}
 
+	
 	@Test
 	public void getAsXlsxHeadTest() throws Exception {
 		MvcResult rtn = mockMvc.perform(head(endpoint + "xlsx"))
 			.andExpect(status().isOk())
 			.andExpect(content().contentType(MimeType.xlsx.getMimeType()))
 			.andExpect(content().encoding(DEFAULT_ENCODING))
-			.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=result.xlsx"))
+			.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=biologicalresult.xlsx"))
 			.andExpect(header().string("Total-Site-Count", "6"))
 			.andExpect(header().string("NWIS-Site-Count", "2"))
 			.andExpect(header().string("STEWARDS-Site-Count", "2"))
@@ -267,7 +262,7 @@ public class ResultControllerIntTest extends BaseSpringTest implements HttpConst
 			.andExpect(status().isOk())
 			.andExpect(content().contentType(MimeType.xlsx.getMimeType()))
 			.andExpect(content().encoding(DEFAULT_ENCODING))
-			.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=result.xlsx"))
+			.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=biologicalresult.xlsx"))
 			.andExpect(header().string("Total-Site-Count", "6"))
 			.andExpect(header().string("NWIS-Site-Count", "2"))
 			.andExpect(header().string("STEWARDS-Site-Count", "2"))
@@ -284,7 +279,7 @@ public class ResultControllerIntTest extends BaseSpringTest implements HttpConst
 			.andExpect(status().isOk())
 			.andExpect(content().contentType(MIME_TYPE_ZIP))
 			.andExpect(content().encoding(DEFAULT_ENCODING))
-			.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=result.zip"))
+			.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=biologicalresult.zip"))
 			.andExpect(header().string("Total-Site-Count", "6"))
 			.andExpect(header().string("NWIS-Site-Count", "2"))
 			.andExpect(header().string("STEWARDS-Site-Count", "2"))
@@ -304,7 +299,7 @@ public class ResultControllerIntTest extends BaseSpringTest implements HttpConst
 			.andExpect(status().isOk())
 			.andExpect(content().contentType(MIME_TYPE_ZIP))
 			.andExpect(content().encoding(DEFAULT_ENCODING))
-			.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=result.zip"))
+			.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=biologicalresult.zip"))
 			.andExpect(header().string("Total-Site-Count", "6"))
 			.andExpect(header().string("NWIS-Site-Count", "2"))
 			.andExpect(header().string("STEWARDS-Site-Count", "2"))
@@ -321,7 +316,7 @@ public class ResultControllerIntTest extends BaseSpringTest implements HttpConst
 			.andExpect(status().isOk())
 			.andExpect(content().contentType(MimeType.xml.getMimeType()))
 			.andExpect(content().encoding(DEFAULT_ENCODING))
-			.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=result.xml"))
+			.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=biologicalresult.xml"))
 			.andExpect(header().string("Total-Site-Count", "6"))
 			.andExpect(header().string("NWIS-Site-Count", "2"))
 			.andExpect(header().string("STEWARDS-Site-Count", "2"))
@@ -341,7 +336,7 @@ public class ResultControllerIntTest extends BaseSpringTest implements HttpConst
 			.andExpect(status().isOk())
 			.andExpect(content().contentType(MimeType.xml.getMimeType()))
 			.andExpect(content().encoding(DEFAULT_ENCODING))
-			.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=result.xml"))
+			.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=biologicalresult.xml"))
 			.andExpect(header().string("Total-Site-Count", "6"))
 			.andExpect(header().string("NWIS-Site-Count", "2"))
 			.andExpect(header().string("STEWARDS-Site-Count", "2"))
@@ -352,7 +347,7 @@ public class ResultControllerIntTest extends BaseSpringTest implements HttpConst
 			.andExpect(header().string("STORET-Result-Count", "4"))
 			.andReturn();
 
-		assertEquals(harmonizeXml(getCompareFile("pcResult.xml")), harmonizeXml(rtn.getResponse().getContentAsString()));
+		assertEquals(harmonizeXml(getCompareFile("bioResult.xml")), harmonizeXml(rtn.getResponse().getContentAsString()));
 	}
 
 	@Test
@@ -361,7 +356,7 @@ public class ResultControllerIntTest extends BaseSpringTest implements HttpConst
 			.andExpect(status().isOk())
 			.andExpect(content().contentType(MIME_TYPE_ZIP))
 			.andExpect(content().encoding(DEFAULT_ENCODING))
-			.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=result.zip"))
+			.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=biologicalresult.zip"))
 			.andExpect(header().string("Total-Site-Count", "6"))
 			.andExpect(header().string("NWIS-Site-Count", "2"))
 			.andExpect(header().string("STEWARDS-Site-Count", "2"))
@@ -381,7 +376,7 @@ public class ResultControllerIntTest extends BaseSpringTest implements HttpConst
 			.andExpect(status().isOk())
 			.andExpect(content().contentType(MIME_TYPE_ZIP))
 			.andExpect(content().encoding(DEFAULT_ENCODING))
-			.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=result.zip"))
+			.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=biologicalresult.zip"))
 			.andExpect(header().string("Total-Site-Count", "6"))
 			.andExpect(header().string("NWIS-Site-Count", "2"))
 			.andExpect(header().string("STEWARDS-Site-Count", "2"))
@@ -392,7 +387,7 @@ public class ResultControllerIntTest extends BaseSpringTest implements HttpConst
 			.andExpect(header().string("STORET-Result-Count", "4"))
 			.andReturn();
 
-		assertEquals(harmonizeXml(getCompareFile("pcResult.xml")), harmonizeXml(extractZipContent(rtn.getResponse().getContentAsByteArray(), "result.xml")));
+		assertEquals(harmonizeXml(getCompareFile("bioResult.xml")), harmonizeXml(extractZipContent(rtn.getResponse().getContentAsByteArray(), "biologicalresult.xml")));
 	}
 
 	@Test
@@ -427,7 +422,7 @@ public class ResultControllerIntTest extends BaseSpringTest implements HttpConst
 			.andExpect(status().isOk())
 			.andExpect(content().contentType(MimeType.csv.getMimeType()))
 			.andExpect(content().encoding(DEFAULT_ENCODING))
-			.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=result.csv"))
+			.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=biologicalresult.csv"))
 			.andExpect(header().string("Total-Site-Count", "0"))
 			.andExpect(header().string("NWIS-Site-Count", (String)null))
 			.andExpect(header().string("STEWARDS-Site-Count", (String)null))
@@ -435,8 +430,7 @@ public class ResultControllerIntTest extends BaseSpringTest implements HttpConst
 			.andExpect(header().string("Total-Result-Count", "0"))
 			.andExpect(header().string("NWIS-Result-Count", (String)null))
 			.andExpect(header().string("STEWARDS-Result-Count", (String)null))
-			.andExpect(header().string("STORET-Result-Count", (String)null))
-			.andReturn();
+			.andExpect(header().string("STORET-Result-Count", (String)null));
 	}
 
 	@Test
@@ -445,7 +439,7 @@ public class ResultControllerIntTest extends BaseSpringTest implements HttpConst
 				.andExpect(status().isOk())
 				.andExpect(content().contentType(MimeType.csv.getMimeType()))
 				.andExpect(content().encoding(DEFAULT_ENCODING))
-				.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=result.csv"))
+				.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=biologicalresult.csv"))
 				.andExpect(header().string("Total-Site-Count", "0"))
 				.andExpect(header().string("NWIS-Site-Count", (String)null))
 				.andExpect(header().string("STEWARDS-Site-Count", (String)null))
@@ -453,8 +447,7 @@ public class ResultControllerIntTest extends BaseSpringTest implements HttpConst
 				.andExpect(header().string("Total-Result-Count", "0"))
 				.andExpect(header().string("NWIS-Result-Count", (String)null))
 				.andExpect(header().string("STEWARDS-Result-Count", (String)null))
-				.andExpect(header().string("STORET-Result-Count", (String)null))
-				.andReturn();
+				.andExpect(header().string("STORET-Result-Count", (String)null));
 	}
 
 	@Test
@@ -463,7 +456,7 @@ public class ResultControllerIntTest extends BaseSpringTest implements HttpConst
 				.andExpect(status().isOk())
 				.andExpect(content().contentType(MimeType.csv.getMimeType()))
 				.andExpect(content().encoding(DEFAULT_ENCODING))
-				.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=result.csv"))
+				.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=biologicalresult.csv"))
 				.andExpect(header().string("Total-Site-Count", "0"))
 				.andExpect(header().string("NWIS-Site-Count", (String)null))
 				.andExpect(header().string("STEWARDS-Site-Count", (String)null))
@@ -486,7 +479,7 @@ public class ResultControllerIntTest extends BaseSpringTest implements HttpConst
 			.andExpect(status().isOk())
 			.andExpect(content().contentType(MimeType.csv.getMimeType()))
 			.andExpect(content().encoding(DEFAULT_ENCODING))
-			.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=result.csv"))
+			.andExpect(header().string(HEADER_CONTENT_DISPOSITION, "attachment; filename=biologicalresult.csv"))
 			.andExpect(header().string("Total-Site-Count", "0"))
 			.andExpect(header().string("NWIS-Site-Count", (String)null))
 			.andExpect(header().string("STEWARDS-Site-Count", (String)null))
@@ -499,7 +492,9 @@ public class ResultControllerIntTest extends BaseSpringTest implements HttpConst
 
 	@Test
 	public void postGetCountTest() throws Exception {
-		MvcResult rtn = mockMvc.perform(post("/" + HttpConstants.RESULT_SEARCH_ENPOINT + "/count?mimeType=json").content(getSourceFile("postParameters.json")).contentType(MediaType.APPLICATION_JSON))
+		MvcResult rtn = mockMvc.perform(post("/" + HttpConstants.RESULT_SEARCH_ENPOINT + "/count?mimeType=json&" 
+				+ Parameters.DATA_PROFILE + "=" + Profile.BIOLOGICAL)
+				.content(getSourceFile("postParameters.json")).contentType(MediaType.APPLICATION_JSON))
 			.andExpect(status().isOk())
 			.andExpect(content().contentType(MIME_TYPE_JSON))
 			.andExpect(content().encoding(DEFAULT_ENCODING))
@@ -513,62 +508,76 @@ public class ResultControllerIntTest extends BaseSpringTest implements HttpConst
 		assertThat(new JSONObject(rtn.getResponse().getContentAsString()),
 				sameJSONObjectAs(new JSONObject("{\"Total-Site-Count\":\"0\", \"Total-Result-Count\":\"0\"}")));
 
-		mockMvc.perform(post("/" + HttpConstants.RESULT_SEARCH_ENPOINT + "/count?mimeType=csv")
+		mockMvc.perform(post("/" + HttpConstants.RESULT_SEARCH_ENPOINT + "/count?mimeType=csv&" 
+				+ Parameters.DATA_PROFILE + "=" + Profile.BIOLOGICAL)
 				.content(getSourceFile("postParameters.json")).contentType(MediaType.APPLICATION_JSON))
 			.andExpect(status().isNotAcceptable());
 
-		mockMvc.perform(post("/" + HttpConstants.RESULT_SEARCH_ENPOINT + "/count?mimeType=csv&zip=yes")
+		mockMvc.perform(post("/" + HttpConstants.RESULT_SEARCH_ENPOINT + "/count?mimeType=csv&zip=yes&" 
+				+ Parameters.DATA_PROFILE + "=" + Profile.BIOLOGICAL)
 				.content(getSourceFile("postParameters.json")).contentType(MediaType.APPLICATION_JSON))
 			.andExpect(status().isNotAcceptable());
 
-		mockMvc.perform(post("/" + HttpConstants.RESULT_SEARCH_ENPOINT + "/count?mimeType=tsv")
+		mockMvc.perform(post("/" + HttpConstants.RESULT_SEARCH_ENPOINT + "/count?mimeType=tsv&" 
+				+ Parameters.DATA_PROFILE + "=" + Profile.BIOLOGICAL)
 				.content(getSourceFile("postParameters.json")).contentType(MediaType.APPLICATION_JSON))
 			.andExpect(status().isNotAcceptable());
 
-		mockMvc.perform(post("/" + HttpConstants.RESULT_SEARCH_ENPOINT + "/count?mimeType=tsv&zip=yes")
+		mockMvc.perform(post("/" + HttpConstants.RESULT_SEARCH_ENPOINT + "/count?mimeType=tsv&zip=yes&" 
+				+ Parameters.DATA_PROFILE + "=" + Profile.BIOLOGICAL)
 				.content(getSourceFile("postParameters.json")).contentType(MediaType.APPLICATION_JSON))
 			.andExpect(status().isNotAcceptable());
 
-		mockMvc.perform(post("/" + HttpConstants.STATION_SEARCH_ENPOINT + "/count?mimeType=xlsx")
+		mockMvc.perform(post("/" + HttpConstants.RESULT_SEARCH_ENPOINT + "/count?mimeType=xlsx&" 
+				+ Parameters.DATA_PROFILE + "=" + Profile.BIOLOGICAL)
 				.content(getSourceFile("postParameters.json")).contentType(MediaType.APPLICATION_JSON))
 			.andExpect(status().isNotAcceptable());
 
-		mockMvc.perform(post("/" + HttpConstants.RESULT_SEARCH_ENPOINT + "/count?mimeType=xlsx&zip=yes")
+		mockMvc.perform(post("/" + HttpConstants.RESULT_SEARCH_ENPOINT + "/count?mimeType=xlsx&zip=yes&" 
+				+ Parameters.DATA_PROFILE + "=" + Profile.BIOLOGICAL)
 				.content(getSourceFile("postParameters.json")).contentType(MediaType.APPLICATION_JSON))
 			.andExpect(status().isNotAcceptable());
 
-		mockMvc.perform(post("/" + HttpConstants.RESULT_SEARCH_ENPOINT + "/count?mimeType=xml")
+		mockMvc.perform(post("/" + HttpConstants.RESULT_SEARCH_ENPOINT + "/count?mimeType=xml&" 
+				+ Parameters.DATA_PROFILE + "=" + Profile.BIOLOGICAL)
 				.content(getSourceFile("postParameters.json")).contentType(MediaType.APPLICATION_JSON))
 			.andExpect(status().isNotAcceptable());
 
-		mockMvc.perform(post("/" + HttpConstants.RESULT_SEARCH_ENPOINT + "/count?mimeType=xml&zip=yes")
+		mockMvc.perform(post("/" + HttpConstants.RESULT_SEARCH_ENPOINT + "/count?mimeType=xml&zip=yes&" 
+				+ Parameters.DATA_PROFILE + "=" + Profile.BIOLOGICAL)
 				.content(getSourceFile("postParameters.json")).contentType(MediaType.APPLICATION_JSON))
 			.andExpect(status().isNotAcceptable());
 
-		mockMvc.perform(post("/" + HttpConstants.RESULT_SEARCH_ENPOINT + "/count?mimeType=kml")
+		mockMvc.perform(post("/" + HttpConstants.RESULT_SEARCH_ENPOINT + "/count?mimeType=kml&" 
+				+ Parameters.DATA_PROFILE + "=" + Profile.BIOLOGICAL)
 				.content(getSourceFile("postParameters.json")).contentType(MediaType.APPLICATION_JSON))
 			.andExpect(status().isNotAcceptable());
 
-		mockMvc.perform(post("/" + HttpConstants.RESULT_SEARCH_ENPOINT + "/count?mimeType=kml&zip=yes")
+		mockMvc.perform(post("/" + HttpConstants.RESULT_SEARCH_ENPOINT + "/count?mimeType=kml&zip=yes&" 
+				+ Parameters.DATA_PROFILE + "=" + Profile.BIOLOGICAL)
 				.content(getSourceFile("postParameters.json")).contentType(MediaType.APPLICATION_JSON))
 			.andExpect(status().isNotAcceptable());
 
-		mockMvc.perform(post("/" + HttpConstants.RESULT_SEARCH_ENPOINT + "/count?mimeType=kmz")
+		mockMvc.perform(post("/" + HttpConstants.RESULT_SEARCH_ENPOINT + "/count?mimeType=kmz&" 
+				+ Parameters.DATA_PROFILE + "=" + Profile.BIOLOGICAL)
 				.content(getSourceFile("postParameters.json")).contentType(MediaType.APPLICATION_JSON))
 			.andExpect(status().isNotAcceptable());
 
-		mockMvc.perform(post("/" + HttpConstants.RESULT_SEARCH_ENPOINT + "/count?mimeType=geojson")
+		mockMvc.perform(post("/" + HttpConstants.RESULT_SEARCH_ENPOINT + "/count?mimeType=geojson&" 
+				+ Parameters.DATA_PROFILE + "=" + Profile.BIOLOGICAL)
 				.content(getSourceFile("postParameters.json")).contentType(MediaType.APPLICATION_JSON))
 			.andExpect(status().isNotAcceptable());
 
-		mockMvc.perform(post("/" + HttpConstants.RESULT_SEARCH_ENPOINT + "/count?mimeType=geojson&zip=yes")
+		mockMvc.perform(post("/" + HttpConstants.RESULT_SEARCH_ENPOINT + "/count?mimeType=geojson&zip=yes&" 
+				+ Parameters.DATA_PROFILE + "=" + Profile.BIOLOGICAL)
 				.content(getSourceFile("postParameters.json")).contentType(MediaType.APPLICATION_JSON))
 			.andExpect(status().isNotAcceptable());
 	}
 
 	@Test
 	public void postGetCountTonOSitesTest() throws Exception {
-		MvcResult rtn = mockMvc.perform(post("/" + HttpConstants.RESULT_SEARCH_ENPOINT + "/count?mimeType=json")
+		MvcResult rtn = mockMvc.perform(post("/" + HttpConstants.RESULT_SEARCH_ENPOINT + "/count?mimeType=json&" 
+				+ Parameters.DATA_PROFILE + "=" + Profile.BIOLOGICAL)
 				.content(getSourceFile("manySites.json")).contentType(MediaType.APPLICATION_JSON))
 			.andExpect(status().isOk())
 			.andExpect(content().contentType(MIME_TYPE_JSON))
@@ -582,7 +591,6 @@ public class ResultControllerIntTest extends BaseSpringTest implements HttpConst
 
 		assertThat(new JSONObject(rtn.getResponse().getContentAsString()),
 				sameJSONObjectAs(new JSONObject("{\"Total-Site-Count\":\"0\", \"Total-Result-Count\":\"0\"}")));
-		
 	}
 
 }

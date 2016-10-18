@@ -1,13 +1,7 @@
-package gov.usgs.cida.wqp.mapping;
+package gov.usgs.cida.wqp.mapping.xml;
 
-import static gov.usgs.cida.wqp.mapping.BaseColumn.KEY_ORGANIZATION;
-import static gov.usgs.cida.wqp.mapping.BaseColumn.KEY_ORGANIZATION_NAME;
-import static gov.usgs.cida.wqp.mapping.BaseColumn.KEY_SITE_ID;
-import static gov.usgs.cida.wqp.mapping.StationColumn.KEY_DATA_SOURCE;
-import static gov.usgs.cida.wqp.mapping.StationColumn.KEY_LATITUDE;
-import static gov.usgs.cida.wqp.mapping.StationColumn.KEY_LONGITUDE;
-import static gov.usgs.cida.wqp.mapping.StationColumn.KEY_SITE_TYPE;
-import static gov.usgs.cida.wqp.mapping.StationColumn.KEY_STATION_NAME;
+import static gov.usgs.cida.wqp.mapping.BaseColumn.*;
+import static gov.usgs.cida.wqp.mapping.StationColumn.*;
 
 import java.util.Arrays;
 import java.util.LinkedHashMap;
@@ -16,6 +10,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Component;
+
+import gov.usgs.cida.wqp.mapping.ColumnProfile;
 
 @Component
 public class SimpleStationWqxOutbound extends BaseWqx implements IXmlMapping {
@@ -26,7 +22,7 @@ public class SimpleStationWqxOutbound extends BaseWqx implements IXmlMapping {
 
 	public static final Map<String, List<String>> COLUMN_POSITION = new LinkedHashMap<>();
 	
-	public static final Map<String, List<String>> GROUPING = new LinkedHashMap<>();
+	public static final Map<String, List<ColumnProfile>> GROUPING = new LinkedHashMap<>();
 
 	static {
 		HARD_BREAK.put(KEY_DATA_SOURCE, ROOT_NODE_OUTBOUND);
@@ -83,15 +79,15 @@ public class SimpleStationWqxOutbound extends BaseWqx implements IXmlMapping {
 
 	static {
 		GROUPING.put(KEY_DATA_SOURCE,
-				new LinkedList<String>(Arrays.asList(KEY_DATA_SOURCE)));
+				new LinkedList<ColumnProfile>(Arrays.asList(DATA_SOURCE)));
 		GROUPING.put(KEY_ORGANIZATION,
-				new LinkedList<String>(Arrays.asList(KEY_ORGANIZATION, KEY_ORGANIZATION_NAME)));
+				new LinkedList<ColumnProfile>(Arrays.asList(ORGANIZATION, ORGANIZATION_NAME)));
 		GROUPING.put(KEY_SITE_ID,
-				new LinkedList<String>(Arrays.asList(KEY_SITE_ID,
-						KEY_STATION_NAME,
-						KEY_SITE_TYPE,
-						KEY_LATITUDE,
-						KEY_LONGITUDE)));
+				new LinkedList<ColumnProfile>(Arrays.asList(SITE_ID,
+						STATION_NAME,
+						SITE_TYPE,
+						LATITUDE,
+						LONGITUDE)));
 	}
 	
 	
@@ -117,7 +113,7 @@ public class SimpleStationWqxOutbound extends BaseWqx implements IXmlMapping {
 		return HARD_BREAK;
 	}
 
-	public Map<String, List<String>> getGrouping() {
+	public Map<String, List<ColumnProfile>> getGrouping() {
 		return GROUPING;
 	}
 

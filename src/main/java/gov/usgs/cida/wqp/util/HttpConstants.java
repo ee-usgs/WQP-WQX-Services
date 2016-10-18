@@ -7,7 +7,7 @@ import org.springframework.http.MediaType;
 public interface HttpConstants extends XmlConstants {
 	String DEFAULT_ENCODING = "UTF-8";
 	String HEADER_FATAL_ERROR = "FATAL-ERROR";
-	int    HEADER_WARNING_DEFAULT_CODE = 299;
+	int HEADER_WARNING_DEFAULT_CODE = 299;
 	String HEADER_WARNING = "Warning";
 	String HEADER_DELIMITER = "-";
 	String HEADER_COUNT = "Count";
@@ -15,13 +15,12 @@ public interface HttpConstants extends XmlConstants {
 	String HEADER_TOTAL = "Total";
 	String HEADER_SITE_COUNT = HEADER_SITE + HEADER_DELIMITER + HEADER_COUNT;
 	String HEADER_TOTAL_SITE_COUNT = HEADER_TOTAL + HEADER_DELIMITER + HEADER_SITE_COUNT;
-	
+
 	String HEADER_CONTENT_TYPE = "Content-Type";
 	String HEADER_CONTENT_DISPOSITION = "Content-disposition";
 	String ENDPOINT_RESULT = "Result";
 	String ENDPOINT_STATION = "Station";
 	String ENDPOINT_SIMPLE_STATION = "simplestation";
-	String ENDPOINT_BIOLOGICAL_RESULT = "biologicalresult";
 	String SEARCH_ENPOINT = "/search";
 	// must do it here rather than in the EndPoint constructor because annotations require compile time values
 	String RESULT_SEARCH_ENPOINT = ENDPOINT_RESULT + SEARCH_ENPOINT;
@@ -30,8 +29,7 @@ public interface HttpConstants extends XmlConstants {
 	String HEADER_RESULT = ENDPOINT_RESULT;
 	String HEADER_RESULT_COUNT = HEADER_RESULT + HEADER_DELIMITER + HEADER_COUNT;
 	String HEADER_TOTAL_RESULT_COUNT = HEADER_TOTAL + HEADER_DELIMITER + HEADER_RESULT_COUNT;
-	
-	
+
 	String MIME_TYPE_ZIP  = "application/zip";
 	String MIME_TYPE_CSV  = "text/csv";
 	String MIME_TYPE_TSV  = "text/tab-separated-values";
@@ -41,5 +39,5 @@ public interface HttpConstants extends XmlConstants {
 	String MIME_TYPE_KML = "application/vnd.google-earth.kml+xml";
 	String MIME_TYPE_KMZ = "application/vnd.google-earth.kmz";
 	String MIME_TYPE_GEOJSON = "application/vnd.geo+json";
-	
+
 }

@@ -31,7 +31,7 @@ public class MapToJsonTransformerTest {
 	public void initTest() {
 		MockitoAnnotations.initMocks(this);
 		baos = new ByteArrayOutputStream();
-		transformer = new MapToJsonTransformer(baos, StationColumn.mappings, logService, logId, siteUrlBase);
+		transformer = new MapToJsonTransformer(baos, null, logService, logId, siteUrlBase);
 		transformer.init();
 	}
 

@@ -1,7 +1,9 @@
-package gov.usgs.cida.wqp.mapping;
+package gov.usgs.cida.wqp.mapping.xml;
 
 import java.util.List;
 import java.util.Map;
+
+import gov.usgs.cida.wqp.mapping.ColumnProfile;
 
 public interface IXmlMapping {
 
@@ -13,7 +15,7 @@ public interface IXmlMapping {
 
 	Map<String, String> getHardBreak();
 	
-	Map<String, List<String>> getGrouping();
+	Map<String, List<ColumnProfile>> getGrouping();
 
 	String getEntryNodeName();
 

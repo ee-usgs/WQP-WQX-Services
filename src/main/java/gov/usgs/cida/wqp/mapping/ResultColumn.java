@@ -1,94 +1,8 @@
 package gov.usgs.cida.wqp.mapping;
 
-import static gov.usgs.cida.wqp.mapping.BaseWqx.*;
-
 public class ResultColumn extends BaseColumn {
 
-	// Result Keys
-	public static final String KEY_ACTIVITY = "ACTIVITY";
-	public static final String KEY_ACTIVITY_TYPE_CODE = "ACTIVITY_TYPE_CODE";
-	public static final String KEY_SAMPLE_MEDIA = "SAMPLE_MEDIA";
-	public static final String KEY_ACTIVITY_MEDIA_SUBDIV_NAME = "ACTIVITY_MEDIA_SUBDIV_NAME";
-	public static final String KEY_EVENT_DATE = "EVENT_DATE";
-	public static final String KEY_ACTIVITY_START_TIME = "ACTIVITY_START_TIME";
-	public static final String KEY_ACT_START_TIME_ZONE = "ACT_START_TIME_ZONE";
-	public static final String KEY_ACTIVITY_STOP_DATE = "ACTIVITY_STOP_DATE";
-	public static final String KEY_ACTIVITY_STOP_TIME = "ACTIVITY_STOP_TIME";
-	public static final String KEY_ACT_STOP_TIME_ZONE = "ACT_STOP_TIME_ZONE";
-	public static final String KEY_ACTIVITY_RELATIVE_DEPTH = "ACTIVITY_RELATIVE_DEPTH_NAME";
-	public static final String KEY_ACTIVITY_DEPTH = "ACTIVITY_DEPTH";
-	public static final String KEY_ACTIVITY_DEPTH_UNIT = "ACTIVITY_DEPTH_UNIT";
-	public static final String KEY_ACTIVITY_DEPTH_REF_POINT = "ACTIVITY_DEPTH_REF_POINT";
-	public static final String KEY_ACTIVITY_UPPER_DEPTH = "ACTIVITY_UPPER_DEPTH";
-	public static final String KEY_ACTIVITY_UPPER_DEPTH_UNIT = "ACTIVITY_UPPER_DEPTH_UNIT";
-	public static final String KEY_ACTIVITY_LOWER_DEPTH = "ACTIVITY_LOWER_DEPTH";
-	public static final String KEY_ACTIVITY_LOWER_DEPTH_UNIT = "ACTIVITY_LOWER_DEPTH_UNIT";
-	public static final String KEY_PROJECT_ID = "PROJECT_ID";
-	public static final String KEY_ACTIVITY_CONDUCTING_ORG = "ACTIVITY_CONDUCTING_ORG";
-	public static final String KEY_ACTIVITY_COMMENT = "ACTIVITY_COMMENT";
-	public static final String KEY_SAMPLE_AQFR_NAME = "SAMPLE_AQFR_NAME";
-	public static final String KEY_HYDROLOGIC_CONDITION_NAME = "HYDROLOGIC_CONDITION_NAME";
-	public static final String KEY_HYDROLOGIC_EVENT_NAME = "HYDROLOGIC_EVENT_NAME";
-	public static final String KEY_ACTIVITY_LATITUDE = "ACTIVITY_LATITUDE";
-	public static final String KEY_ACTIVITY_LONGITUDE = "ACTIVITY_LONGITUDE";
-	public static final String KEY_ACTIVITY_SOURCE_MAP_SCALE = "ACTIVITY_SOURCE_MAP_SCALE";
-	public static final String KEY_ACT_HORIZONTAL_ACCURACY = "ACT_HORIZONTAL_ACCURACY";
-	public static final String KEY_ACT_HORIZONTAL_ACCURACY_UNIT = "ACT_HORIZONTAL_ACCURACY_UNIT";
-	public static final String KEY_ACT_HORIZONTAL_COLLECT_METHOD = "ACT_HORIZONTAL_COLLECT_METHOD";
-	public static final String KEY_ACT_HORIZONTAL_DATUM_NAME = "ACT_HORIZONTAL_DATUM_NAME";
-	public static final String KEY_ASSEMBLAGE_SAMPLED_NAME = "ASSEMBLAGE_SAMPLED_NAME";
-	public static final String KEY_ACT_COLLECTION_DURATION = "ACT_COLLECTION_DURATION";
-	public static final String KEY_ACT_COLLECTION_DURATION_UNIT = "ACT_COLLECTION_DURATION_UNIT";
-	public static final String KEY_ACT_SAM_COMPNT_NAME = "ACT_SAM_COMPNT_NAME";
-	public static final String KEY_ACT_SAM_COMPNT_PLACE_IN_SERIES = "ACT_SAM_COMPNT_PLACE_IN_SERIES";
-	public static final String KEY_ACT_REACH_LENGTH = "ACT_REACH_LENGTH";
-	public static final String KEY_ACT_REACH_LENGTH_UNIT = "ACT_REACH_LENGTH_UNIT";
-	public static final String KEY_ACT_REACH_WIDTH = "ACT_REACH_WIDTH";
-	public static final String KEY_ACT_REACH_WIDTH_UNIT = "ACT_REACH_WIDTH_UNIT";
-	public static final String KEY_ACT_PASS_COUNT = "ACT_PASS_COUNT";
-	public static final String KEY_NET_TYPE_NAME = "NET_TYPE_NAME";
-	public static final String KEY_ACT_NET_SURFACE_AREA = "ACT_NET_SURFACE_AREA";
-	public static final String KEY_ACT_NET_SURFACE_AREA_UNIT = "ACT_NET_SURFACE_AREA_UNIT";
-	public static final String KEY_ACT_NET_MESH_SIZE = "ACT_NET_MESH_SIZE";
-	public static final String KEY_ACT_NET_MESH_SIZE_UNIT = "ACT_NET_MESH_SIZE_UNIT";
-	public static final String KEY_ACT_BOAT_SPEED = "ACT_BOAT_SPEED";
-	public static final String KEY_ACT_BOAT_SPEED_UNIT = "ACT_BOAT_SPEED_UNIT";
-	public static final String KEY_ACT_CURRENT_SPEED = "ACT_CURRENT_SPEED";
-	public static final String KEY_ACT_CURRENT_SPEED_UNIT = "ACT_CURRENT_SPEED_UNIT";
-	public static final String KEY_TOXICITY_TEST_TYPE_NAME = "TOXICITY_TEST_TYPE_NAME";
-	public static final String KEY_SAMPLE_COLLECT_METHOD_ID = "SAMPLE_COLLECT_METHOD_ID";
-	public static final String KEY_SAMPLE_COLLECT_METHOD_CTX = "SAMPLE_COLLECT_METHOD_CTX";
-	public static final String KEY_SAMPLE_COLLECT_METHOD_NAME = "SAMPLE_COLLECT_METHOD_NAME";
-	public static final String KEY_ACT_SAM_COLLECT_METH_QUAL_TYPE = "ACT_SAM_COLLECT_METH_QUAL_TYPE";
-	public static final String KEY_ACT_SAM_COLLECT_METH_DESC = "ACT_SAM_COLLECT_METH_DESC";
-	public static final String KEY_SAMPLE_COLLECT_EQUIP_NAME = "SAMPLE_COLLECT_EQUIP_NAME";
-	public static final String KEY_ACT_SAM_COLLECT_EQUIP_COMMENTS = "ACT_SAM_COLLECT_EQUIP_COMMENTS";
-	public static final String KEY_ACT_SAM_PREP_METH_ID = "ACT_SAM_PREP_METH_ID";
-	public static final String KEY_ACT_SAM_PREP_METH_CONTEXT = "ACT_SAM_PREP_METH_CONTEXT";
-	public static final String KEY_ACT_SAM_PREP_METH_NAME = "ACT_SAM_PREP_METH_NAME";
-	public static final String KEY_ACT_SAM_PREP_METH_QUAL_TYPE = "ACT_SAM_PREP_METH_QUAL_TYPE";
-	public static final String KEY_ACT_SAM_PREP_METH_DESC = "ACT_SAM_PREP_METH_DESC";
-	public static final String KEY_SAMPLE_CONTAINER_TYPE = "SAMPLE_CONTAINER_TYPE";
-	public static final String KEY_SAMPLE_CONTAINER_COLOR = "SAMPLE_CONTAINER_COLOR";
-	public static final String KEY_ACT_SAM_CHEMICAL_PRESERVATIVE = "ACT_SAM_CHEMICAL_PRESERVATIVE";
-	public static final String KEY_THERMAL_PRESERVATIVE_NAME = "THERMAL_PRESERVATIVE_NAME";
-	public static final String KEY_ACT_SAM_TRANSPORT_STORAGE_DESC = "ACT_SAM_TRANSPORT_STORAGE_DESC";
-	public static final String KEY_METRIC_TYPE_IDENTIFIER = "METRIC_TYPE_IDENTIFIER";
-	public static final String KEY_METRIC_TYPE_CONTEXT = "METRIC_TYPE_CONTEXT";
-	public static final String KEY_METRIC_TYPE_NAME = "METRIC_TYPE_NAME";
-	public static final String KEY_METRIC_CITATION_TITLE = "METRIC_CITATION_TITLE";
-	public static final String KEY_METRIC_CITATION_CREATOR = "METRIC_CITATION_CREATOR";
-	public static final String KEY_METRIC_CITATION_SUBJECT = "METRIC_CITATION_SUBJECT";
-	public static final String KEY_METRIC_CITATION_PUBLISHER = "METRIC_CITATION_PUBLISHER";
-	public static final String KEY_METRIC_CITATION_DATE = "METRIC_CITATION_DATE";
-	public static final String KEY_METRIC_CITATION_ID = "METRIC_CITATION_ID";
-	public static final String KEY_METRIC_TYPE_SCALE = "METRIC_TYPE_SCALE";
-	public static final String KEY_FORMULA_DESCRIPTION = "FORMULA_DESCRIPTION";
-	public static final String KEY_ACTIVITY_METRIC_VALUE = "ACTIVITY_METRIC_VALUE";
-	public static final String KEY_ACTIVITY_METRIC_UNIT = "ACTIVITY_METRIC_UNIT";
-	public static final String KEY_ACTIVITY_METRIC_SCORE = "ACTIVITY_METRIC_SCORE";
-	public static final String KEY_ACTIVITY_METRIC_COMMENT = "ACTIVITY_METRIC_COMMENT";
-	public static final String KEY_INDEX_IDENTIFIER = "INDEX_IDENTIFIER";
+	//ResultSet Keys
 	public static final String KEY_RESULT_ID = "RESULT_ID";
 	public static final String KEY_RES_DATA_LOGGER_LINE = "RES_DATA_LOGGER_LINE";
 	public static final String KEY_RESULT_DETECTION_CONDITION_TX = "RESULT_DETECTION_CONDITION_TX";
@@ -175,223 +89,96 @@ public class ResultColumn extends BaseColumn {
 	public static final String KEY_PREP_END_TIMEZONE = "PREP_END_TIMEZONE";
 	public static final String KEY_PREP_DILUTION_FACTOR = "PREP_DILUTION_FACTOR";
 
-	
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	
-	public static final String VALUE_ACTIVITY = WQX_ACT_ID;
-	public static final String VALUE_ACTIVITY_TYPE_CODE = WQX_ACT_TYPE;
-	public static final String VALUE_SAMPLE_MEDIA = WQX_ACT_MEDIA;
-	public static final String VALUE_ACTIVITY_MEDIA_SUBDIV_NAME = WQX_ACT_MEDIA_SUB;
-	public static final String VALUE_EVENT_DATE = WQX_ACT_START_DATE;
-	public static final String VALUE_ACTIVITY_START_TIME = WQX_ACT_START_TIME + VAL_DEL + WQX_TIME;
-	public static final String VALUE_ACT_START_TIME_ZONE = WQX_ACT_START_TIME + VAL_DEL + WQX_TIME_ZONE;
-	public static final String VALUE_ACTIVITY_STOP_DATE = WQX_ACT_END_DATE;
-	public static final String VALUE_ACTIVITY_STOP_TIME = WQX_ACT_END_TIME + VAL_DEL + WQX_TIME;
-	public static final String VALUE_ACT_STOP_TIME_ZONE = WQX_ACT_END_TIME + VAL_DEL + WQX_TIME_ZONE;
-	public static final String VALUE_ACTIVITY_RELATIVE_DEPTH = WQX_ACT_RELATIVE_DEPTH;//
-	public static final String VALUE_ACTIVITY_DEPTH = WQX_ACT_DEPTH + VAL_DEL + WQX_MEASURE_VALUE;
-	public static final String VALUE_ACTIVITY_DEPTH_UNIT = WQX_ACT_DEPTH + VAL_DEL + WQX_MEASURE_UNIT;
-	public static final String VALUE_ACTIVITY_DEPTH_REF_POINT = WQX_ACT_DEPTH_REFERENCE;
-	public static final String VALUE_ACTIVITY_UPPER_DEPTH = WQX_ACT_TOP_DEPTH + VAL_DEL + WQX_MEASURE_VALUE;
-	public static final String VALUE_ACTIVITY_UPPER_DEPTH_UNIT = WQX_ACT_TOP_DEPTH + VAL_DEL + WQX_MEASURE_UNIT;
-	public static final String VALUE_ACTIVITY_LOWER_DEPTH = WQX_ACT_BOTTOM_DEPTH + VAL_DEL + WQX_MEASURE_VALUE;
-	public static final String VALUE_ACTIVITY_LOWER_DEPTH_UNIT = WQX_ACT_BOTTOM_DEPTH + VAL_DEL + WQX_MEASURE_UNIT;
-	public static final String VALUE_PROJECT_ID = WQX_PROJECT;
-	public static final String VALUE_ACTIVITY_CONDUCTING_ORG = WQX_ACT_CONDUCTION_ORG;
-	public static final String VALUE_ACTIVITY_COMMENT = WQX_ACT_COMMENT;
-	public static final String VALUE_SAMPLE_AQFR_NAME = WQX_SAMPLE_AQUIFER;
-	public static final String VALUE_HYDROLOGIC_CONDITION_NAME = WQX_HYDROLOGIC_CONDITION;
-	public static final String VALUE_HYDROLOGIC_EVENT_NAME = WQX_HYDROLOGIC_EVENT;
-	public static final String VALUE_ACTIVITY_LATITUDE = WQX_ACT_LOCATION + VAL_DEL + WQX_LATITUDE_MEASURE;//
-	public static final String VALUE_ACTIVITY_LONGITUDE = WQX_ACT_LOCATION + VAL_DEL + WQX_LONGITUDE_MEASURE;//
-	public static final String VALUE_ACTIVITY_SOURCE_MAP_SCALE = WQX_ACT_LOCATION + VAL_DEL + WQX_SOURCE_MAP_SCALE;//
-	public static final String VALUE_ACT_HORIZONTAL_ACCURACY = WQX_ACT_LOCATION + VAL_DEL + WQX_HORIZONTAL_ACCY + VAL_DEL + WQX_MEASURE_VALUE;//
-	public static final String VALUE_ACT_HORIZONTAL_ACCURACY_UNIT = WQX_ACT_LOCATION + VAL_DEL + WQX_HORIZONTAL_ACCY + VAL_DEL + WQX_MEASURE_UNIT;//
-	public static final String VALUE_ACT_HORIZONTAL_COLLECT_METHOD = WQX_ACT_LOCATION + VAL_DEL + WQX_HORIZONTAL_COLLECTION_METHOD;//
-	public static final String VALUE_ACT_HORIZONTAL_DATUM_NAME = WQX_ACT_LOCATION + VAL_DEL + WQX_HORIZONTAL_DATUM;//
-	public static final String VALUE_ASSEMBLAGE_SAMPLED_NAME = WQX_ASSEMBLAGE_SAMPLED;//
-	public static final String VALUE_ACT_COLLECTION_DURATION = WQX_COLLECTION_DURATION + VAL_DEL + WQX_MEASURE_VALUE;//
-	public static final String VALUE_ACT_COLLECTION_DURATION_UNIT = WQX_COLLECTION_DURATION + VAL_DEL + WQX_MEASURE_UNIT;//
-	public static final String VALUE_ACT_SAM_COMPNT_NAME = WQX_SAMPLING_COMPONENT;//
-	public static final String VALUE_ACT_SAM_COMPNT_PLACE_IN_SERIES = WQX_SAMPLING_COMPONENT_PLACE;//
-	public static final String VALUE_ACT_REACH_LENGTH = WQX_REACH_LENGTH + VAL_DEL + WQX_MEASURE_VALUE;//
-	public static final String VALUE_ACT_REACH_LENGTH_UNIT = WQX_REACH_LENGTH + VAL_DEL + WQX_MEASURE_UNIT;//
-	public static final String VALUE_ACT_REACH_WIDTH = WQX_REACH_WIDTH + VAL_DEL + WQX_MEASURE_VALUE;//
-	public static final String VALUE_ACT_REACH_WIDTH_UNIT = WQX_REACH_WIDTH + VAL_DEL + WQX_MEASURE_UNIT;//
-	public static final String VALUE_ACT_PASS_COUNT = WQX_PASS_COUNT;//
-	public static final String VALUE_NET_TYPE_NAME = WQX_NET_TYPE;//
-	public static final String VALUE_ACT_NET_SURFACE_AREA = WQX_NET_SURFACE_AREA + VAL_DEL + WQX_MEASURE_VALUE;//
-	public static final String VALUE_ACT_NET_SURFACE_AREA_UNIT = WQX_NET_SURFACE_AREA + VAL_DEL + WQX_MEASURE_UNIT;//
-	public static final String VALUE_ACT_NET_MESH_SIZE = WQX_NET_MESH_SIZE + VAL_DEL + WQX_MEASURE_VALUE;//
-	public static final String VALUE_ACT_NET_MESH_SIZE_UNIT = WQX_NET_MESH_SIZE + VAL_DEL + WQX_MEASURE_UNIT;//
-	public static final String VALUE_ACT_BOAT_SPEED = WQX_BOAT_SPEAD + VAL_DEL + WQX_MEASURE_VALUE;//
-	public static final String VALUE_ACT_BOAT_SPEED_UNIT = WQX_BOAT_SPEAD + VAL_DEL + WQX_MEASURE_UNIT;//
-	public static final String VALUE_ACT_CURRENT_SPEED = WQX_CURRENT_SPEAD + VAL_DEL + WQX_MEASURE_VALUE;//
-	public static final String VALUE_ACT_CURRENT_SPEED_UNIT = WQX_CURRENT_SPEAD + VAL_DEL + WQX_MEASURE_UNIT;//
-	public static final String VALUE_TOXICITY_TEST_TYPE_NAME = WQX_TOXICITY_TEST_TYPE;//
 
-	
-	public static final String VALUE_SAMPLE_COLLECT_METHOD_ID = WQX_COLLECTION_METHOD + VAL_DEL + WQX_METHOD_ID;
-	public static final String VALUE_SAMPLE_COLLECT_METHOD_CTX = WQX_COLLECTION_METHOD + VAL_DEL + WQX_METHOD_CONTEXT;
-	public static final String VALUE_SAMPLE_COLLECT_METHOD_NAME = WQX_COLLECTION_METHOD + VAL_DEL + WQX_METHOD_NAME;
-	
-	
-	public static final String VALUE_ACT_SAM_COLLECT_METH_QUAL_TYPE = WQX_COLLECTION_METHOD + VAL_DEL + WQX_METHOD_QUALIFIER_TYPE;//
-	public static final String VALUE_ACT_SAM_COLLECT_METH_DESC = WQX_COLLECTION_METHOD + VAL_DEL + WQX_METHOD_DESCRIPTION;//
-	
-	
-	public static final String VALUE_SAMPLE_COLLECT_EQUIP_NAME = WQX_COLLECTION_EQUIPMENT;
-	
-	
-	public static final String VALUE_ACT_SAM_COLLECT_EQUIP_COMMENTS = WQX_COLLECTION_METHOD + VAL_DEL + WQX_COLLECTION_EQUIPMENT_COMMENT;//
-	public static final String VALUE_ACT_SAM_PREP_METH_ID = WQX_SAMPLE_PREPARATION_METHOD + VAL_DEL + WQX_METHOD_ID;//
-	public static final String VALUE_ACT_SAM_PREP_METH_CONTEXT = WQX_SAMPLE_PREPARATION_METHOD + VAL_DEL + WQX_METHOD_CONTEXT;//
-	public static final String VALUE_ACT_SAM_PREP_METH_NAME = WQX_SAMPLE_PREPARATION_METHOD + VAL_DEL + WQX_METHOD_NAME;//
-	public static final String VALUE_ACT_SAM_PREP_METH_QUAL_TYPE = WQX_SAMPLE_PREPARATION_METHOD + VAL_DEL + WQX_METHOD_QUALIFIER_TYPE;//
-	public static final String VALUE_ACT_SAM_PREP_METH_DESC = WQX_SAMPLE_PREPARATION_METHOD + VAL_DEL + WQX_METHOD_DESCRIPTION;//
-	public static final String VALUE_SAMPLE_CONTAINER_TYPE = WQX_SAMPLE_CONTAINER_TYPE;//
-	public static final String VALUE_SAMPLE_CONTAINER_COLOR = WQX_SAMPLE_CONTAINER_COLOR;//
-	public static final String VALUE_ACT_SAM_CHEMICAL_PRESERVATIVE = WQX_CHEMICAL_PRESERVATIVE;//
-	public static final String VALUE_THERMAL_PRESERVATIVE_NAME = WQX_THERMAL_PRESERVATIVE;//
-	public static final String VALUE_ACT_SAM_TRANSPORT_STORAGE_DESC = WQX_TRANSPORT_STORAGE;//
-	public static final String VALUE_METRIC_TYPE_IDENTIFIER = WQX_METRIC_TYPE_ID;//
-	public static final String VALUE_METRIC_TYPE_CONTEXT = WQX_METRIC_TYPE_ID_CONTEXT;//
-	public static final String VALUE_METRIC_TYPE_NAME = WQX_METRIC_TYPE;//
-	public static final String VALUE_METRIC_CITATION_TITLE = WQX_METRIC_TYPE_CITATION + VAL_DEL + WQX_RESOURCE_TITLE;//
-	public static final String VALUE_METRIC_CITATION_CREATOR = WQX_METRIC_TYPE_CITATION + VAL_DEL + WQX_RESOURCE_CREATOR;//
-	public static final String VALUE_METRIC_CITATION_SUBJECT = WQX_METRIC_TYPE_CITATION + VAL_DEL + WQX_RESOURCE_SUBJECT;//
-	public static final String VALUE_METRIC_CITATION_PUBLISHER = WQX_METRIC_TYPE_CITATION + VAL_DEL + WQX_RESOURCE_PUBLISHER;//
-	public static final String VALUE_METRIC_CITATION_DATE = WQX_METRIC_TYPE_CITATION + VAL_DEL + WQX_RESOURCE_DATE;//
-	public static final String VALUE_METRIC_CITATION_ID = WQX_METRIC_TYPE_CITATION + VAL_DEL + WQX_RESOURCE_ID;//
-	public static final String VALUE_METRIC_TYPE_SCALE = WQX_METRIC_TYPE_SCALE;//
-	public static final String VALUE_FORMULA_DESCRIPTION = WQX_FORMULA_DESCRIPTION;//
-	public static final String VALUE_ACTIVITY_METRIC_VALUE = WQX_METRIC_VALUE + VAL_DEL + WQX_MEASURE_VALUE;//
-	public static final String VALUE_ACTIVITY_METRIC_UNIT = WQX_METRIC_VALUE + VAL_DEL + WQX_MEASURE_UNIT;//
-	public static final String VALUE_ACTIVITY_METRIC_SCORE = WQX_METRIC_SCORE;//
-	public static final String VALUE_ACTIVITY_METRIC_COMMENT = WQX_METRIC_COMMENT;//
-	public static final String VALUE_INDEX_IDENTIFIER = WQX_INDEX_ID;//
-	public static final String VALUE_RES_DATA_LOGGER_LINE = WQX_DATA_LOGGER_LINE;//
+	//Profile Mapping of the Keys
+	public static final ColumnProfile RESULT_ID = new ColumnProfile(KEY_RESULT_ID);
+	public static final ColumnProfile RES_DATA_LOGGER_LINE = new ColumnProfile(KEY_RES_DATA_LOGGER_LINE, Profile.BIOLOGICAL);
+	public static final ColumnProfile RESULT_DETECTION_CONDITION_TX = new ColumnProfile(KEY_RESULT_DETECTION_CONDITION_TX, Profile.BIOLOGICAL, Profile.PC_RESULT);
+	public static final ColumnProfile METHOD_SPECIFICATION_NAME = new ColumnProfile(KEY_METHOD_SPECIFICATION_NAME, Profile.BIOLOGICAL);
+	public static final ColumnProfile CHARACTERISTIC_NAME = new ColumnProfile(KEY_CHARACTERISTIC_NAME, Profile.BIOLOGICAL, Profile.PC_RESULT);
+	public static final ColumnProfile SAMPLE_FRACTION_TYPE = new ColumnProfile(KEY_SAMPLE_FRACTION_TYPE, Profile.BIOLOGICAL, Profile.PC_RESULT);
+	public static final ColumnProfile RESULT_MEASURE_VALUE = new ColumnProfile(KEY_RESULT_MEASURE_VALUE, Profile.BIOLOGICAL, Profile.PC_RESULT);
+	public static final ColumnProfile RESULT_UNIT = new ColumnProfile(KEY_RESULT_UNIT, Profile.BIOLOGICAL, Profile.PC_RESULT);
+	public static final ColumnProfile RESULT_MEAS_QUAL_CODE = new ColumnProfile(KEY_RESULT_MEAS_QUAL_CODE, Profile.BIOLOGICAL, Profile.PC_RESULT);
+	public static final ColumnProfile RESULT_VALUE_STATUS = new ColumnProfile(KEY_RESULT_VALUE_STATUS, Profile.BIOLOGICAL, Profile.PC_RESULT);
+	public static final ColumnProfile STATISTIC_TYPE = new ColumnProfile(KEY_STATISTIC_TYPE, Profile.BIOLOGICAL, Profile.PC_RESULT);
+	public static final ColumnProfile RESULT_VALUE_TYPE = new ColumnProfile(KEY_RESULT_VALUE_TYPE, Profile.BIOLOGICAL, Profile.PC_RESULT);
+	public static final ColumnProfile WEIGHT_BASIS_TYPE = new ColumnProfile(KEY_WEIGHT_BASIS_TYPE, Profile.BIOLOGICAL, Profile.PC_RESULT);
+	public static final ColumnProfile DURATION_BASIS = new ColumnProfile(KEY_DURATION_BASIS, Profile.BIOLOGICAL, Profile.PC_RESULT);
+	public static final ColumnProfile TEMPERATURE_BASIS_LEVEL = new ColumnProfile(KEY_TEMPERATURE_BASIS_LEVEL, Profile.BIOLOGICAL, Profile.PC_RESULT);
+	public static final ColumnProfile PARTICLE_SIZE = new ColumnProfile(KEY_PARTICLE_SIZE, Profile.BIOLOGICAL, Profile.PC_RESULT);
+	public static final ColumnProfile PRECISION = new ColumnProfile(KEY_PRECISION, Profile.BIOLOGICAL, Profile.PC_RESULT);
+	public static final ColumnProfile RES_MEASURE_BIAS = new ColumnProfile(KEY_RES_MEASURE_BIAS, Profile.BIOLOGICAL);
+	public static final ColumnProfile RES_MEASURE_CONF_INTERVAL = new ColumnProfile(KEY_RES_MEASURE_CONF_INTERVAL, Profile.BIOLOGICAL);
+	public static final ColumnProfile RES_MEASURE_UPPER_CONF_LIMIT = new ColumnProfile(KEY_RES_MEASURE_UPPER_CONF_LIMIT, Profile.BIOLOGICAL);
+	public static final ColumnProfile RES_MEASURE_LOWER_CONF_LIMIT = new ColumnProfile(KEY_RES_MEASURE_LOWER_CONF_LIMIT, Profile.BIOLOGICAL);
+	public static final ColumnProfile RESULT_COMMENT = new ColumnProfile(KEY_RESULT_COMMENT, Profile.BIOLOGICAL, Profile.PC_RESULT);
+	public static final ColumnProfile P_CODE = new ColumnProfile(KEY_P_CODE, Profile.BIOLOGICAL, Profile.PC_RESULT);
+	public static final ColumnProfile RESULT_DEPTH_MEAS_VALUE = new ColumnProfile(KEY_RESULT_DEPTH_MEAS_VALUE, Profile.BIOLOGICAL, Profile.PC_RESULT);
+	public static final ColumnProfile RESULT_DEPTH_MEAS_UNIT_CODE = new ColumnProfile(KEY_RESULT_DEPTH_MEAS_UNIT_CODE, Profile.BIOLOGICAL, Profile.PC_RESULT);
+	public static final ColumnProfile RESULT_DEPTH_ALT_REF_PT_TXT = new ColumnProfile(KEY_RESULT_DEPTH_ALT_REF_PT_TXT, Profile.BIOLOGICAL, Profile.PC_RESULT);
+	public static final ColumnProfile RES_SAMPLING_POINT_NAME = new ColumnProfile(KEY_RES_SAMPLING_POINT_NAME, Profile.BIOLOGICAL);
+	public static final ColumnProfile BIOLOGICAL_INTENT = new ColumnProfile(KEY_BIOLOGICAL_INTENT, Profile.BIOLOGICAL);
+	public static final ColumnProfile RES_BIO_INDIVIDUAL_ID = new ColumnProfile(KEY_RES_BIO_INDIVIDUAL_ID, Profile.BIOLOGICAL);
+	public static final ColumnProfile SAMPLE_TISSUE_TAXONOMIC_NAME = new ColumnProfile(KEY_SAMPLE_TISSUE_TAXONOMIC_NAME, Profile.BIOLOGICAL, Profile.PC_RESULT);
+	public static final ColumnProfile UNIDENTIFIEDSPECIESIDENTIFIER = new ColumnProfile(KEY_UNIDENTIFIEDSPECIESIDENTIFIER, Profile.BIOLOGICAL);
+	public static final ColumnProfile SAMPLE_TISSUE_ANATOMY_NAME = new ColumnProfile(KEY_SAMPLE_TISSUE_ANATOMY_NAME, Profile.BIOLOGICAL, Profile.PC_RESULT);
+	public static final ColumnProfile RES_GROUP_SUMMARY_CT_WT = new ColumnProfile(KEY_RES_GROUP_SUMMARY_CT_WT, Profile.BIOLOGICAL);
+	public static final ColumnProfile RES_GROUP_SUMMARY_CT_WT_UNIT = new ColumnProfile(KEY_RES_GROUP_SUMMARY_CT_WT_UNIT, Profile.BIOLOGICAL);
+	public static final ColumnProfile CELL_FORM_NAME = new ColumnProfile(KEY_CELL_FORM_NAME, Profile.BIOLOGICAL);
+	public static final ColumnProfile CELL_SHAPE_NAME = new ColumnProfile(KEY_CELL_SHAPE_NAME, Profile.BIOLOGICAL);
+	public static final ColumnProfile HABIT_NAME = new ColumnProfile(KEY_HABIT_NAME, Profile.BIOLOGICAL);
+	public static final ColumnProfile VOLT_NAME = new ColumnProfile(KEY_VOLT_NAME, Profile.BIOLOGICAL);
+	public static final ColumnProfile RTDET_POLLUTION_TOLERANCE = new ColumnProfile(KEY_RTDET_POLLUTION_TOLERANCE, Profile.BIOLOGICAL);
+	public static final ColumnProfile RTDET_POLLUTION_TOLERNCE_SCALE = new ColumnProfile(KEY_RTDET_POLLUTION_TOLERNCE_SCALE, Profile.BIOLOGICAL);
+	public static final ColumnProfile RTDET_TROPHIC_LEVEL = new ColumnProfile(KEY_RTDET_TROPHIC_LEVEL, Profile.BIOLOGICAL);
+	public static final ColumnProfile RTFGRP_FUNCTIONAL_FEEDING_GRP = new ColumnProfile(KEY_RTFGRP_FUNCTIONAL_FEEDING_GRP, Profile.BIOLOGICAL);
+	public static final ColumnProfile TAXON_CITATION_TITLE = new ColumnProfile(KEY_TAXON_CITATION_TITLE, Profile.BIOLOGICAL);
+	public static final ColumnProfile TAXON_CITATION_CREATOR = new ColumnProfile(KEY_TAXON_CITATION_CREATOR, Profile.BIOLOGICAL);
+	public static final ColumnProfile TAXON_CITATION_SUBJECT = new ColumnProfile(KEY_TAXON_CITATION_SUBJECT, Profile.BIOLOGICAL);
+	public static final ColumnProfile TAXON_CITATION_PUBLISHER = new ColumnProfile(KEY_TAXON_CITATION_PUBLISHER, Profile.BIOLOGICAL);
+	public static final ColumnProfile TAXON_CITATION_DATE = new ColumnProfile(KEY_TAXON_CITATION_DATE, Profile.BIOLOGICAL);
+	public static final ColumnProfile TAXON_CITATION_ID = new ColumnProfile(KEY_TAXON_CITATION_ID, Profile.BIOLOGICAL);
+	public static final ColumnProfile FCDSC_NAME = new ColumnProfile(KEY_FCDSC_NAME, Profile.BIOLOGICAL);
+	public static final ColumnProfile FREQUENCY_CLASS_UNIT = new ColumnProfile(KEY_FREQUENCY_CLASS_UNIT, Profile.BIOLOGICAL);
+	public static final ColumnProfile FCDSC_LOWER_BOUND = new ColumnProfile(KEY_FCDSC_LOWER_BOUND, Profile.BIOLOGICAL);
+	public static final ColumnProfile FCDSC_UPPER_BOUND = new ColumnProfile(KEY_FCDSC_UPPER_BOUND, Profile.BIOLOGICAL);
+	public static final ColumnProfile ANALYTICAL_PROCEDURE_ID = new ColumnProfile(KEY_ANALYTICAL_PROCEDURE_ID, Profile.BIOLOGICAL, Profile.PC_RESULT);
+	public static final ColumnProfile ANALYTICAL_PROCEDURE_SOURCE = new ColumnProfile(KEY_ANALYTICAL_PROCEDURE_SOURCE, Profile.BIOLOGICAL, Profile.PC_RESULT);
+	public static final ColumnProfile ANALYTICAL_METHOD_NAME = new ColumnProfile(KEY_ANALYTICAL_METHOD_NAME, Profile.BIOLOGICAL, Profile.PC_RESULT);
+	public static final ColumnProfile ANLMTH_QUAL_TYPE = new ColumnProfile(KEY_ANLMTH_QUAL_TYPE, Profile.BIOLOGICAL);
+	public static final ColumnProfile ANALYTICAL_METHOD_CITATION = new ColumnProfile(KEY_ANALYTICAL_METHOD_CITATION, Profile.BIOLOGICAL, Profile.PC_RESULT);
+	public static final ColumnProfile LAB_NAME = new ColumnProfile(KEY_LAB_NAME, Profile.BIOLOGICAL, Profile.PC_RESULT);
+	public static final ColumnProfile ANALYSIS_START_DATE = new ColumnProfile(KEY_ANALYSIS_START_DATE, Profile.BIOLOGICAL, Profile.PC_RESULT);
+	public static final ColumnProfile ANALYSIS_START_TIME = new ColumnProfile(KEY_ANALYSIS_START_TIME, Profile.BIOLOGICAL);
+	public static final ColumnProfile ANALYSIS_START_TIMEZONE = new ColumnProfile(KEY_ANALYSIS_START_TIMEZONE, Profile.BIOLOGICAL);
+	public static final ColumnProfile ANALYSIS_END_DATE = new ColumnProfile(KEY_ANALYSIS_END_DATE, Profile.BIOLOGICAL);
+	public static final ColumnProfile ANALYSIS_END_TIME = new ColumnProfile(KEY_ANALYSIS_END_TIME, Profile.BIOLOGICAL);
+	public static final ColumnProfile ANALYSIS_END_TIMEZONE = new ColumnProfile(KEY_ANALYSIS_END_TIMEZONE, Profile.BIOLOGICAL);
+	public static final ColumnProfile RLCOM_CD = new ColumnProfile(KEY_RLCOM_CD, Profile.BIOLOGICAL);
+	public static final ColumnProfile LAB_REMARK = new ColumnProfile(KEY_LAB_REMARK, Profile.BIOLOGICAL, Profile.PC_RESULT);
+	public static final ColumnProfile DETECTION_LIMIT_DESC = new ColumnProfile(KEY_DETECTION_LIMIT_DESC, Profile.BIOLOGICAL, Profile.PC_RESULT);
+	public static final ColumnProfile DETECTION_LIMIT = new ColumnProfile(KEY_DETECTION_LIMIT, Profile.BIOLOGICAL, Profile.PC_RESULT);
+	public static final ColumnProfile DETECTION_LIMIT_UNIT = new ColumnProfile(KEY_DETECTION_LIMIT_UNIT, Profile.BIOLOGICAL, Profile.PC_RESULT);
+	public static final ColumnProfile RES_LAB_ACCRED_YN = new ColumnProfile(KEY_RES_LAB_ACCRED_YN, Profile.BIOLOGICAL);
+	public static final ColumnProfile RES_LAB_ACCRED_AUTHORITY = new ColumnProfile(KEY_RES_LAB_ACCRED_AUTHORITY, Profile.BIOLOGICAL);
+	public static final ColumnProfile RES_TAXONOMIST_ACCRED_YN = new ColumnProfile(KEY_RES_TAXONOMIST_ACCRED_YN, Profile.BIOLOGICAL);
+	public static final ColumnProfile RES_TAXONOMIST_ACCRED_AUTHORTY = new ColumnProfile(KEY_RES_TAXONOMIST_ACCRED_AUTHORTY, Profile.BIOLOGICAL);
+	public static final ColumnProfile PREP_METHOD_ID = new ColumnProfile(KEY_PREP_METHOD_ID, Profile.BIOLOGICAL);
+	public static final ColumnProfile PREP_METHOD_CONTEXT = new ColumnProfile(KEY_PREP_METHOD_CONTEXT, Profile.BIOLOGICAL);
+	public static final ColumnProfile PREP_METHOD_NAME = new ColumnProfile(KEY_PREP_METHOD_NAME, Profile.BIOLOGICAL);
+	public static final ColumnProfile PREP_METHOD_QUAL_TYPE = new ColumnProfile(KEY_PREP_METHOD_QUAL_TYPE, Profile.BIOLOGICAL);
+	public static final ColumnProfile PREP_METHOD_DESC = new ColumnProfile(KEY_PREP_METHOD_DESC, Profile.BIOLOGICAL);
+	public static final ColumnProfile ANALYSIS_PREP_DATE_TX = new ColumnProfile(KEY_ANALYSIS_PREP_DATE_TX, Profile.BIOLOGICAL, Profile.PC_RESULT);
+	public static final ColumnProfile PREP_START_TIME = new ColumnProfile(KEY_PREP_START_TIME, Profile.BIOLOGICAL);
+	public static final ColumnProfile PREP_START_TIMEZONE = new ColumnProfile(KEY_PREP_START_TIMEZONE, Profile.BIOLOGICAL);
+	public static final ColumnProfile PREP_END_DATE = new ColumnProfile(KEY_PREP_END_DATE, Profile.BIOLOGICAL);
+	public static final ColumnProfile PREP_END_TIME = new ColumnProfile(KEY_PREP_END_TIME, Profile.BIOLOGICAL);
+	public static final ColumnProfile PREP_END_TIMEZONE = new ColumnProfile(KEY_PREP_END_TIMEZONE, Profile.BIOLOGICAL);
+	public static final ColumnProfile PREP_DILUTION_FACTOR = new ColumnProfile(KEY_PREP_DILUTION_FACTOR, Profile.BIOLOGICAL);
 
-	
-	public static final String VALUE_RESULT_DETECTION_CONDITION_TX = WQX_DETECTION_CONDITION;
-	
-	
-	public static final String VALUE_METHOD_SPECIFICATION_NAME = WQX_METHOD_SPECIFICATION;//
-	
-	
-	public static final String VALUE_CHARACTERISTIC_NAME = WQX_CHAR_NAME;
-	public static final String VALUE_SAMPLE_FRACTION_TYPE = WQX_SAMPLE_FRACTION;
-	public static final String VALUE_RESULT_MEASURE_VALUE = WQX_RESULT_MEASURE_VALUE;
-	public static final String VALUE_RESULT_UNIT = WQX_RESULT_MEASURE + VAL_DEL + WQX_MEASURE_UNIT;
-	public static final String VALUE_RESULT_MEAS_QUAL_CODE = WQX_MEASURE_QUALIFIER;
-	public static final String VALUE_RESULT_VALUE_STATUS = WQX_STATUS_ID;
-	public static final String VALUE_STATISTIC_TYPE = WQX_STATISTICAL_BASE;
-	public static final String VALUE_RESULT_VALUE_TYPE = WQX_VALUE_TYPE;
-	public static final String VALUE_WEIGHT_BASIS_TYPE = WQX_WEIGHT_BASIS;
-	public static final String VALUE_DURATION_BASIS = WQX_TIME_BASIS;
-	public static final String VALUE_TEMPERATURE_BASIS_LEVEL = WQX_TEMP_BASIS;
-	public static final String VALUE_PARTICLE_SIZE = WQX_PARTICLE_SIZE;
-	public static final String VALUE_PRECISION = WQX_PRECISION;
-	
-	
-	public static final String VALUE_RES_MEASURE_BIAS = WQX_DATA_QUALITY + VAL_DEL + WQX_BIAS;//
-	public static final String VALUE_RES_MEASURE_CONF_INTERVAL = WQX_CONFIDENCE_INTERVAL;//
-	public static final String VALUE_RES_MEASURE_UPPER_CONF_LIMIT = WQX_UPPER_CONFIDENCE_LIMIT;//
-	public static final String VALUE_RES_MEASURE_LOWER_CONF_LIMIT = WQX_LOWER_CONFIDENCE_LIMIT;//
-	
-	
-	public static final String VALUE_RESULT_COMMENT = WQX_RESULT_COMMENT;
-	public static final String VALUE_P_CODE = WQX_P_CODE;
-	public static final String VALUE_RESULT_DEPTH_MEAS_VALUE = WQX_RESULT_DEPTH + VAL_DEL + WQX_MEASURE_VALUE;
-	public static final String VALUE_RESULT_DEPTH_MEAS_UNIT_CODE = WQX_RESULT_DEPTH + VAL_DEL + WQX_MEASURE_UNIT;
-	public static final String VALUE_RESULT_DEPTH_ALT_REF_PT_TXT = WQX_RESULT_DETH_REFERENCE;
-	
-	
-	public static final String VALUE_RES_SAMPLING_POINT_NAME = WQX_RESULT_SAMPLING_POINT;//
-	public static final String VALUE_BIOLOGICAL_INTENT = WQX_BIOLOGICAL_INTENT;//
-	public static final String VALUE_RES_BIO_INDIVIDUAL_ID = WQX_BIOLOGICAL_INDIVIDUAL_ID;//
-	
-	
-	public static final String VALUE_SAMPLE_TISSUE_TAXONOMIC_NAME = WQX_TAXON_NAME;
-	
-	
-	public static final String VALUE_UNIDENTIFIEDSPECIESIDENTIFIER = WQX_UNIDENTIFIED_SPECIES_IDENTIFIER;//
-	
-	
-	public static final String VALUE_SAMPLE_TISSUE_ANATOMY_NAME = WQX_TISSUE_ANATOMY;
-	
-	
-	public static final String VALUE_RES_GROUP_SUMMARY_CT_WT = WQX_GROUP_SUMMARY_COUNT_WEIGHT + VAL_DEL + WQX_MEASURE_VALUE;//
-	public static final String VALUE_RES_GROUP_SUMMARY_CT_WT_UNIT = WQX_GROUP_SUMMARY_COUNT_WEIGHT + VAL_DEL + WQX_MEASURE_UNIT;//
-	public static final String VALUE_CELL_FORM_NAME = WQX_CELL_FORM;//
-	public static final String VALUE_CELL_SHAPE_NAME = WQX_CELL_SHAPE;//
-	public static final String VALUE_HABIT_NAME = WQX_HABIT;//
-	public static final String VALUE_VOLT_NAME = WQX_VOLTISM;//
-	public static final String VALUE_RTDET_POLLUTION_TOLERANCE = WQX_POLLUTION_TOLERANCE;//
-	public static final String VALUE_RTDET_POLLUTION_TOLERNCE_SCALE = WQX_TOLERANCE_SCALE;//
-	public static final String VALUE_RTDET_TROPHIC_LEVEL = WQX_TROPHIC_LEVEL;//
-	public static final String VALUE_RTFGRP_FUNCTIONAL_FEEDING_GRP = WQX_FUNCTIONAL_FEEDING_GROUP;//
-	public static final String VALUE_TAXON_CITATION_TITLE = WQX_TAXONIMC_DETAIL_CITATION + VAL_DEL + WQX_RESOURCE_TITLE;//
-	public static final String VALUE_TAXON_CITATION_CREATOR = WQX_TAXONIMC_DETAIL_CITATION + VAL_DEL + WQX_RESOURCE_CREATOR;//
-	public static final String VALUE_TAXON_CITATION_SUBJECT = WQX_TAXONIMC_DETAIL_CITATION + VAL_DEL + WQX_RESOURCE_SUBJECT;//
-	public static final String VALUE_TAXON_CITATION_PUBLISHER = WQX_TAXONIMC_DETAIL_CITATION + VAL_DEL + WQX_RESOURCE_PUBLISHER;//
-	public static final String VALUE_TAXON_CITATION_DATE = WQX_TAXONIMC_DETAIL_CITATION + VAL_DEL + WQX_RESOURCE_DATE;//
-	public static final String VALUE_TAXON_CITATION_ID = WQX_TAXONIMC_DETAIL_CITATION + VAL_DEL + WQX_RESOURCE_ID;//
-	public static final String VALUE_FCDSC_NAME = WQX_FREQUENCY_CLASS_DESCRIPTOR;//
-	public static final String VALUE_FREQUENCY_CLASS_UNIT = WQX_FREQUENCE_CLASS_DESCRIPTOR_UNIT;//
-	public static final String VALUE_FCDSC_LOWER_BOUND = WQX_LOWER_CLASS_BOUND;//
-	public static final String VALUE_FCDSC_UPPER_BOUND = WQX_UPPER_CLASS_BOUND;//
-	
-	
-	public static final String VALUE_ANALYTICAL_PROCEDURE_ID = WQX_ANALYTICAL_METHOD + VAL_DEL + WQX_METHOD_ID;
-	public static final String VALUE_ANALYTICAL_PROCEDURE_SOURCE = WQX_ANALYTICAL_METHOD + VAL_DEL + WQX_METHOD_CONTEXT;
-	public static final String VALUE_ANALYTICAL_METHOD_NAME = WQX_ANALYTICAL_METHOD + VAL_DEL + WQX_METHOD_NAME;
-	
-	
-	public static final String VALUE_ANLMTH_QUAL_TYPE = WQX_ANALYTICAL_METHOD + VAL_DEL + WQX_METHOD_QUALIFIER_TYPE;//
-	
-	
-	public static final String VALUE_ANALYTICAL_METHOD_CITATION = WQX_METHOD_DESCRIPTION;
-	public static final String VALUE_LAB_NAME = WQX_LAB_NAME;
-	public static final String VALUE_ANALYSIS_START_DATE = WQX_ANALYSIS_START_DATE;
-	
-	
-	public static final String VALUE_ANALYSIS_START_TIME = WQX_ANALYSIS_START_TIME + VAL_DEL + WQX_TIME;//
-	public static final String VALUE_ANALYSIS_START_TIMEZONE = WQX_ANALYSIS_START_TIME + VAL_DEL + WQX_TIME_ZONE;//
-	public static final String VALUE_ANALYSIS_END_DATE = WQX_ANALYSIS_END_DATE;//
-	public static final String VALUE_ANALYSIS_END_TIME = WQX_ANALYSIS_END_TIME + VAL_DEL + WQX_TIME;//
-	public static final String VALUE_ANALYSIS_END_TIMEZONE = WQX_ANALYSIS_END_TIME + VAL_DEL + WQX_TIME_ZONE;//
-	public static final String VALUE_RLCOM_CD = WQX_LAB_COMMENT_CODE;//
-	
-	
-	public static final String VALUE_LAB_REMARK = WQX_LAB_COMMENT;
-	public static final String VALUE_DETECTION_LIMIT_DESC = WQX_DETECTION_LIMIT_TYPE;
-	public static final String VALUE_DETECTION_LIMIT = WQX_DETECTION_LIMIT_VALUE + VAL_DEL + WQX_MEASURE_VALUE;
-	public static final String VALUE_DETECTION_LIMIT_UNIT = WQX_DETECTION_LIMIT_VALUE + VAL_DEL + WQX_MEASURE_UNIT;
-	
-	
-	public static final String VALUE_RES_LAB_ACCRED_YN = WQX_LAB_ACCREDITATION_INDICATOR;//
-	public static final String VALUE_RES_LAB_ACCRED_AUTHORITY = WQX_LAB_ACCREDITATION_AUTHORITY;//
-	public static final String VALUE_RES_TAXONOMIST_ACCRED_YN = WQX_TAXONOMIST_ACCREDITATION_INDICATOR;//
-	public static final String VALUE_RES_TAXONOMIST_ACCRED_AUTHORTY = WQX_TAXONOMIST_ACCREDITATION_AUTHORTY;//
-	public static final String VALUE_PREP_METHOD_ID = WQX_LAB_SAMPLE_PREP_METHOD + VAL_DEL + WQX_METHOD_ID;//
-	public static final String VALUE_PREP_METHOD_CONTEXT = WQX_LAB_SAMPLE_PREP_METHOD + VAL_DEL + WQX_METHOD_CONTEXT;//
-	public static final String VALUE_PREP_METHOD_NAME = WQX_LAB_SAMPLE_PREP_METHOD + VAL_DEL + WQX_METHOD_NAME;//
-	public static final String VALUE_PREP_METHOD_QUAL_TYPE = WQX_LAB_SAMPLE_PREP_METHOD + VAL_DEL + WQX_METHOD_QUALIFIER_TYPE;//
-	public static final String VALUE_PREP_METHOD_DESC = WQX_LAB_SAMPLE_PREP_METHOD + VAL_DEL + WQX_METHOD_DESCRIPTION;//
-	
-	
-	public static final String VALUE_ANALYSIS_PREP_DATE_TX = WQX_PREP_START_DATE;
-	
-	
-	public static final String VALUE_PREP_START_TIME = WQX_PREP_START_TIME + VAL_DEL + WQX_TIME;//
-	public static final String VALUE_PREP_START_TIMEZONE = WQX_PREP_START_TIME + VAL_DEL + WQX_TIME_ZONE;//
-	public static final String VALUE_PREP_END_DATE = WQX_PREP_END_DATE;//
-	public static final String VALUE_PREP_END_TIME = WQX_PREP_END_TIME + VAL_DEL + WQX_TIME;//
-	public static final String VALUE_PREP_END_TIMEZONE = WQX_PREP_END_TIME + VAL_DEL + WQX_TIME_ZONE;//
-	public static final String VALUE_PREP_DILUTION_FACTOR = WQX_SUBSTITUTION_DILUTION_FACTOR;//
-
-	
-
+	private ResultColumn() {
+	}
 }
