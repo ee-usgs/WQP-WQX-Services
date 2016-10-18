@@ -1,11 +1,8 @@
 package gov.usgs.cida.wqp.mapping;
 
-import static gov.usgs.cida.wqp.mapping.BaseWqx.*;
-
-import java.util.LinkedHashMap;
-import java.util.Map;
 public class StationColumn extends BaseColumn {
 
+	//ResultSet Keys
 	public static final String KEY_STATION_NAME = "STATION_NAME";
 	public static final String KEY_MONITORING_LOCATION_TYPE = "STATION_TYPE_NAME";
 	public static final String KEY_MONITORING_LOCATION_DESCRIPTION = "DESCRIPTION_TEXT";
@@ -42,85 +39,42 @@ public class StationColumn extends BaseColumn {
 	public static final String KEY_HOLE_DEPTH_UNIT = "HOLE_DEPTH_UNIT";
 	public static final String KEY_RESULT_COUNT = "RESULT_COUNT";
 
-	public static final String VALUE_MONITORING_LOCATION_NAME = WQX_MONITORING_LOCATION_NAME;
-	public static final String VALUE_MONITORING_LOCATION = WQX_MONITORING_LOCATION;
-	public static final String VALUE_MONITORING_LOCATION_IDENTITY = WQX_MONITORING_LOCATION_IDENTITY;
-	public static final String VALUE_RESOLVED_MONITORING_LOCATION = WQX_RESOLVED_MONITORING_LOCATION;
-	public static final String VALUE_MONITORING_LOCATION_GEOSPATIAL = WQX_MONITORING_LOCATION_GEOSPATIAL;
-	public static final String VALUE_MONITORING_LOCATION_TYPE = WQX_MONITORING_LOCATION_TYPE;
-	public static final String VALUE_MONITORING_LOCATION_DESCRIPTION = WQX_MONITORING_LOCATION_DESCRIPTION;
-	public static final String VALUE_HUC_8 = WQX_HUC_8;
-	public static final String VALUE_HUC_12 = WQX_HUC_12;
-	public static final String VALUE_CONTRIB_DRAIN_AREA_VALUE = WQX_CONTRIB_DRAIN_AREA + VAL_DEL + WQX_MEASURE_VALUE;
-	public static final String VALUE_CONTRIB_DRAIN_AREA_UNIT = WQX_CONTRIB_DRAIN_AREA + VAL_DEL + WQX_MEASURE_UNIT;
-	public static final String VALUE_DRAIN_AREA_VALUE = WQX_DRAIN_AREA + VAL_DEL + WQX_MEASURE_VALUE;
-	public static final String VALUE_DRAIN_AREA_UNIT = WQX_DRAIN_AREA + VAL_DEL + WQX_MEASURE_UNIT;
-	public static final String VALUE_LATITUDE_MEASURE = WQX_LATITUDE_MEASURE;
-	public static final String VALUE_LONGITUDE_MEASURE = WQX_LONGITUDE_MEASURE;
-	public static final String VALUE_SOURCE_MAP_SCALE = WQX_SOURCE_MAP_SCALE;
-	public static final String VALUE_HORIZONTAL_ACCY_VALUE = WQX_HORIZONTAL_ACCY + VAL_DEL + WQX_MEASURE_VALUE;
-	public static final String VALUE_HORIZONTAL_ACCY_UNIT = WQX_HORIZONTAL_ACCY + VAL_DEL + WQX_MEASURE_UNIT;
-	public static final String VALUE_HORIZONTAL_COLLECTION_METHOD = WQX_HORIZONTAL_COLLECTION_METHOD;
-	public static final String VALUE_HORIZONTAL_DATUM = WQX_HORIZONTAL_DATUM;
-	public static final String VALUE_VERTICAL_MEASURE_VALUE = WQX_VERTICAL_MEASURE + VAL_DEL + WQX_MEASURE_VALUE;
-	public static final String VALUE_VERTICAL_MEASURE_UNIT = WQX_VERTICAL_MEASURE + VAL_DEL + WQX_MEASURE_UNIT;
-	public static final String VALUE_VERTICAL_ACCY_VALUE = WQX_VERTICAL_ACCY + VAL_DEL + WQX_MEASURE_VALUE;
-	public static final String VALUE_VERTICAL_ACCY_UNIT = WQX_VERTICAL_ACCY + VAL_DEL + WQX_MEASURE_UNIT;
-	public static final String VALUE_VERTICAL_COLLECTION_METHOD = WQX_VERTICAL_COLLECTION_METHOD;
-	public static final String VALUE_VERTICAL_DATUM = WQX_VERTICAL_DATUM;
-	public static final String VALUE_COUNTRY_CODE = WQX_COUNTRY_CODE;
-	public static final String VALUE_STATE_CODE = WQX_STATE_CODE;
-	public static final String VALUE_COUNTY_CODE = WQX_COUNTY_CODE;
-	public static final String VALUE_NAT_AQFR_NAME = WQX_NAT_AQFR_NAME;
-	public static final String VALUE_AQFR_NAME = WQX_AQFR_NAME;
-	public static final String VALUE_AQFR_TYPE_NAME = WQX_AQFR_TYPE_NAME;
-	public static final String VALUE_CONSTRUCTION_DATE = WQX_CONSTRUCTION_DATE;
-	public static final String VALUE_WELL_DEPTH_VALUE = WQX_WELL_DEPTH + VAL_DEL + WQX_MEASURE_VALUE;
-	public static final String VALUE_WELL_DEPTH_UNIT = WQX_WELL_DEPTH + VAL_DEL + WQX_MEASURE_UNIT;
-	public static final String VALUE_HOLE_DEPTH_VALUE = WQX_HOLE_DEPTH + VAL_DEL + WQX_MEASURE_VALUE;
-	public static final String VALUE_HOLE_DEPTH_UNIT = WQX_HOLE_DEPTH + VAL_DEL + WQX_MEASURE_UNIT;
+	//Profile Mapping of the Keys
+	public static final ColumnProfile STATION_NAME = new ColumnProfile(KEY_STATION_NAME, Profile.STATION, Profile.SIMPLE_STATION);
+	public static final ColumnProfile MONITORING_LOCATION_TYPE = new ColumnProfile(KEY_MONITORING_LOCATION_TYPE, Profile.STATION);
+	public static final ColumnProfile MONITORING_LOCATION_DESCRIPTION = new ColumnProfile(KEY_MONITORING_LOCATION_DESCRIPTION, Profile.STATION);
+	public static final ColumnProfile SITE_TYPE = new ColumnProfile(KEY_SITE_TYPE, Profile.SIMPLE_STATION);
+	public static final ColumnProfile HUC_8 = new ColumnProfile(KEY_HUC_8, Profile.STATION);
+	public static final ColumnProfile HUC_12 = new ColumnProfile(KEY_HUC_12);
+	public static final ColumnProfile DRAIN_AREA_VALUE = new ColumnProfile(KEY_DRAIN_AREA_VALUE, Profile.STATION);
+	public static final ColumnProfile DRAIN_AREA_UNIT = new ColumnProfile(KEY_DRAIN_AREA_UNIT, Profile.STATION);
+	public static final ColumnProfile CONTRIB_DRAIN_AREA_VALUE = new ColumnProfile(KEY_CONTRIB_DRAIN_AREA_VALUE, Profile.STATION);
+	public static final ColumnProfile CONTRIB_DRAIN_AREA_UNIT = new ColumnProfile(KEY_CONTRIB_DRAIN_AREA_UNIT, Profile.STATION);
+	public static final ColumnProfile LATITUDE = new ColumnProfile(KEY_LATITUDE, Profile.STATION, Profile.SIMPLE_STATION);
+	public static final ColumnProfile LONGITUDE = new ColumnProfile(KEY_LONGITUDE, Profile.STATION, Profile.SIMPLE_STATION);
+	public static final ColumnProfile SOURCE_MAP_SCALE = new ColumnProfile(KEY_SOURCE_MAP_SCALE, Profile.STATION);
+	public static final ColumnProfile HORIZONTAL_ACCY_VALUE = new ColumnProfile(KEY_HORIZONTAL_ACCY_VALUE, Profile.STATION);
+	public static final ColumnProfile HORIZONTAL_ACCY_UNIT = new ColumnProfile(KEY_HORIZONTAL_ACCY_UNIT, Profile.STATION);
+	public static final ColumnProfile HORIZONTAL_COLLECTION_METHOD = new ColumnProfile(KEY_HORIZONTAL_COLLECTION_METHOD, Profile.STATION);
+	public static final ColumnProfile HORIZONTAL_DATUM = new ColumnProfile(KEY_HORIZONTAL_DATUM, Profile.STATION);
+	public static final ColumnProfile VERTICAL_MEASURE_VALUE = new ColumnProfile(KEY_VERTICAL_MEASURE_VALUE, Profile.STATION);
+	public static final ColumnProfile VERTICAL_MEASURE_UNIT = new ColumnProfile(KEY_VERTICAL_MEASURE_UNIT, Profile.STATION);
+	public static final ColumnProfile VERTICAL_ACCY_VALUE = new ColumnProfile(KEY_VERTICAL_ACCY_VALUE, Profile.STATION);
+	public static final ColumnProfile VERTICAL_ACCY_UNIT = new ColumnProfile(KEY_VERTICAL_ACCY_UNIT, Profile.STATION);
+	public static final ColumnProfile VERTICAL_COLLECTION_METHOD = new ColumnProfile(KEY_VERTICAL_COLLECTION_METHOD, Profile.STATION);
+	public static final ColumnProfile VERTICAL_DATUM = new ColumnProfile(KEY_VERTICAL_DATUM, Profile.STATION);
+	public static final ColumnProfile COUNTRY_CODE = new ColumnProfile(KEY_COUNTRY_CODE, Profile.STATION);
+	public static final ColumnProfile STATE_CODE = new ColumnProfile(KEY_STATE_CODE, Profile.STATION);
+	public static final ColumnProfile COUNTY_CODE = new ColumnProfile(KEY_COUNTY_CODE, Profile.STATION);
+	public static final ColumnProfile NAT_AQFR_NAME = new ColumnProfile(KEY_NAT_AQFR_NAME, Profile.STATION);
+	public static final ColumnProfile AQFR_NAME = new ColumnProfile(KEY_AQFR_NAME, Profile.STATION);
+	public static final ColumnProfile AQFR_TYPE_NAME = new ColumnProfile(KEY_AQFR_TYPE_NAME, Profile.STATION);
+	public static final ColumnProfile CONSTRUCTION_DATE = new ColumnProfile(KEY_CONSTRUCTION_DATE, Profile.STATION);
+	public static final ColumnProfile WELL_DEPTH_VALUE = new ColumnProfile(KEY_WELL_DEPTH_VALUE, Profile.STATION);
+	public static final ColumnProfile WELL_DEPTH_UNIT = new ColumnProfile(KEY_WELL_DEPTH_UNIT, Profile.STATION);
+	public static final ColumnProfile HOLE_DEPTH_VALUE = new ColumnProfile(KEY_HOLE_DEPTH_VALUE, Profile.STATION);
+	public static final ColumnProfile HOLE_DEPTH_UNIT = new ColumnProfile(KEY_HOLE_DEPTH_UNIT, Profile.STATION);
 
-	public static final Map<String, String> mappings;
-
-	static {
-		mappings = new LinkedHashMap<String,String>();
-		mappings.put(KEY_ORGANIZATION, VALUE_ORGANIZATION_IDENTIFIER);
-		mappings.put(KEY_ORGANIZATION_NAME, VALUE_ORGANIZATION_FORMAL_NAME);
-		mappings.put(KEY_SITE_ID, VALUE_MONITORING_LOCATION_IDENTIFIER);
-		mappings.put(KEY_STATION_NAME, VALUE_MONITORING_LOCATION_NAME);
-		mappings.put(KEY_MONITORING_LOCATION_TYPE, VALUE_MONITORING_LOCATION_TYPE);
-		mappings.put(KEY_MONITORING_LOCATION_DESCRIPTION, VALUE_MONITORING_LOCATION_DESCRIPTION);
-		mappings.put(KEY_HUC_8, VALUE_HUC_8);
-//		mappings.put(KEY_HUC_12, VALUE_HUC_12);
-		mappings.put(KEY_DRAIN_AREA_VALUE, VALUE_DRAIN_AREA_VALUE);
-		mappings.put(KEY_DRAIN_AREA_UNIT, VALUE_DRAIN_AREA_UNIT);
-		mappings.put(KEY_CONTRIB_DRAIN_AREA_VALUE, VALUE_CONTRIB_DRAIN_AREA_VALUE);
-		mappings.put(KEY_CONTRIB_DRAIN_AREA_UNIT, VALUE_CONTRIB_DRAIN_AREA_UNIT);
-		mappings.put(KEY_LATITUDE, VALUE_LATITUDE_MEASURE);
-		mappings.put(KEY_LONGITUDE, VALUE_LONGITUDE_MEASURE);
-		mappings.put(KEY_SOURCE_MAP_SCALE, VALUE_SOURCE_MAP_SCALE);
-		mappings.put(KEY_HORIZONTAL_ACCY_VALUE, VALUE_HORIZONTAL_ACCY_VALUE);
-		mappings.put(KEY_HORIZONTAL_ACCY_UNIT, VALUE_HORIZONTAL_ACCY_UNIT);
-		mappings.put(KEY_HORIZONTAL_COLLECTION_METHOD, VALUE_HORIZONTAL_COLLECTION_METHOD);
-		mappings.put(KEY_HORIZONTAL_DATUM, VALUE_HORIZONTAL_DATUM);
-		mappings.put(KEY_VERTICAL_MEASURE_VALUE, VALUE_VERTICAL_MEASURE_VALUE);
-		mappings.put(KEY_VERTICAL_MEASURE_UNIT, VALUE_VERTICAL_MEASURE_UNIT);
-		mappings.put(KEY_VERTICAL_ACCY_VALUE, VALUE_VERTICAL_ACCY_VALUE);
-		mappings.put(KEY_VERTICAL_ACCY_UNIT, VALUE_VERTICAL_ACCY_UNIT);
-		mappings.put(KEY_VERTICAL_COLLECTION_METHOD, VALUE_VERTICAL_COLLECTION_METHOD);
-		mappings.put(KEY_VERTICAL_DATUM, VALUE_VERTICAL_DATUM);
-		mappings.put(KEY_COUNTRY_CODE, VALUE_COUNTRY_CODE);
-		mappings.put(KEY_STATE_CODE, VALUE_STATE_CODE);
-		mappings.put(KEY_COUNTY_CODE, VALUE_COUNTY_CODE);
-		mappings.put(KEY_NAT_AQFR_NAME, VALUE_NAT_AQFR_NAME);
-		mappings.put(KEY_AQFR_NAME, VALUE_AQFR_NAME);
-		mappings.put(KEY_AQFR_TYPE_NAME, VALUE_AQFR_TYPE_NAME);
-		mappings.put(KEY_CONSTRUCTION_DATE, VALUE_CONSTRUCTION_DATE);
-		mappings.put(KEY_WELL_DEPTH_VALUE, VALUE_WELL_DEPTH_VALUE);
-		mappings.put(KEY_WELL_DEPTH_UNIT, VALUE_WELL_DEPTH_UNIT);
-		mappings.put(KEY_HOLE_DEPTH_VALUE, VALUE_HOLE_DEPTH_VALUE);
-		mappings.put(KEY_HOLE_DEPTH_UNIT, VALUE_HOLE_DEPTH_UNIT);
-		mappings.put(KEY_DATA_SOURCE, VALUE_DATA_SOURCE);
+	private StationColumn() {
 	}
-
 }

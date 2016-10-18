@@ -1,4 +1,4 @@
-package gov.usgs.cida.wqp.mapping;
+package gov.usgs.cida.wqp.mapping.xml;
 
 
 public abstract class BaseWqx {
@@ -225,6 +225,9 @@ public abstract class BaseWqx {
 	public static final String WQX_PREP_END_DATE = "PreparationEndDate";
 	public static final String WQX_PREP_END_TIME = "PreparationEndTime";
 	public static final String WQX_SUBSTITUTION_DILUTION_FACTOR = "SubstitutionDilutionFactorNumeric";
+
+	protected BaseWqx() {
+	}
 
 	public String getRoot() {
 		return ROOT_NODE;

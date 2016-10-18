@@ -1,11 +1,13 @@
 package gov.usgs.cida.wqp.transform;
 
+import static gov.usgs.cida.wqp.mapping.xml.StationKml.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
-import static gov.usgs.cida.wqp.mapping.StationKml.*;
-import gov.usgs.cida.wqp.mapping.IXmlMapping;
-import gov.usgs.cida.wqp.mapping.StationKml;
+
+import gov.usgs.cida.wqp.mapping.Profile;
+import gov.usgs.cida.wqp.mapping.xml.IXmlMapping;
+import gov.usgs.cida.wqp.mapping.xml.StationKml;
 import gov.usgs.cida.wqp.service.ILogService;
 import gov.usgs.cida.wqp.util.HttpConstants;
 
@@ -22,23 +24,23 @@ import org.mockito.MockitoAnnotations;
 public class MapToKmlTransformerTest {
 
 	@Mock
-    protected ILogService logService;
+	protected ILogService logService;
 	protected BigDecimal logId = new BigDecimal(1);
 	protected IXmlMapping fieldMapping = new StationKml("abc");
 	protected MapToKmlTransformer transformer;
 	protected ByteArrayOutputStream baos;
 
-    @Before
-    public void initTest() {
-        MockitoAnnotations.initMocks(this);
+	@Before
+	public void initTest() {
+		MockitoAnnotations.initMocks(this);
 		baos = new ByteArrayOutputStream();
-        transformer = new MapToKmlTransformer(baos, fieldMapping, logService, logId);
-    }
-    
-    @After
-    public void closeTest() throws IOException {
-    	transformer.close();
-    }
+		transformer = new MapToKmlTransformer(baos, fieldMapping, logService, logId, Profile.STATION);
+	}
+
+	@After
+	public void closeTest() throws IOException {
+		transformer.close();
+	}
 
 	@Test
 	public void writeHeaderTest() {

@@ -24,7 +24,8 @@ import gov.usgs.cida.wqp.dao.StreamingResultHandler;
 import gov.usgs.cida.wqp.dao.intfc.ICountDao;
 import gov.usgs.cida.wqp.dao.intfc.IDao;
 import gov.usgs.cida.wqp.dao.intfc.IStreamingDao;
-import gov.usgs.cida.wqp.mapping.IXmlMapping;
+import gov.usgs.cida.wqp.mapping.Profile;
+import gov.usgs.cida.wqp.mapping.xml.IXmlMapping;
 import gov.usgs.cida.wqp.parameter.IParameterHandler;
 import gov.usgs.cida.wqp.parameter.ParameterMap;
 import gov.usgs.cida.wqp.parameter.Parameters;
@@ -41,8 +42,8 @@ import gov.usgs.cida.wqp.util.MybatisConstants;
 import gov.usgs.cida.wqp.validation.ValidationConstants;
 
 public abstract class BaseController implements HttpConstants, ValidationConstants {
-
 	private static final Logger LOG = LoggerFactory.getLogger(BaseController.class);
+
 	protected final IStreamingDao streamingDao;
 	protected final ICountDao countDao;
 	protected final IParameterHandler parameterHandler;
@@ -55,21 +56,22 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 	private static ThreadLocal<Boolean> zipped = new ThreadLocal<>();
 	private static ThreadLocal<BigDecimal> logId = new ThreadLocal<>();
 	private static ThreadLocal<Map<String, String>> counts = new ThreadLocal<>();
-	
+	private static ThreadLocal<String> mybatisNamespace = new ThreadLocal<>();
+	private static ThreadLocal<String> profile = new ThreadLocal<>();
+
 	public BaseController(IStreamingDao inStreamingDao, ICountDao inCountDao,
 			IParameterHandler inParameterHandler, ILogService inLogService,
 			Integer inMaxResultRows, String inSiteUrlBase) {
-		
 		LOG.trace(getClass().getName());
-		
-		streamingDao     = inStreamingDao;
+
+		streamingDao = inStreamingDao;
 		parameterHandler = inParameterHandler;
-		countDao         = inCountDao;
-		logService       = inLogService;
+		countDao = inCountDao;
+		logService = inLogService;
 		maxResultRows = inMaxResultRows;
 		siteUrlBase = inSiteUrlBase;
 	}
-	
+
 	public static ParameterMap getPm() {
 		return pm.get();
 	}
@@ -110,15 +112,33 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 		counts.set(inCounts);
 	}
 
+	public static String getMybatisNamespace() {
+		return mybatisNamespace.get();
+	}
+
+	public static void setMybatisNamespace(String inMybatisNamespace) {
+		mybatisNamespace.set(inMybatisNamespace);
+	}
+
+	public static String getProfile() {
+		return profile.get();
+	}
+
+	public static void setProfile(String inProfile) {
+		profile.set(inProfile);
+	}
+
 	public static void remove() {
 		pm.remove();
 		mimeType.remove();
 		zipped.remove();
 		logId.remove();
 		counts.remove();
+		mybatisNamespace.remove();
+		profile.remove();
 	}
-	
-	protected boolean isZipped(String zipParm, String mimeType) {
+
+	protected boolean determineZipped(String zipParm, String mimeType) {
 		return "yes".equalsIgnoreCase(zipParm) || MimeType.kmz.toString().equalsIgnoreCase(mimeType);
 	}
 
@@ -137,7 +157,7 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 		}
 	}
 
-	protected MimeType adjustMimeType(MimeType mimeType, boolean zipped) {
+	protected MimeType determineMimeType(MimeType mimeType, boolean zipped) {
 		if (zipped && MimeType.kml.equals(mimeType)) {
 			return MimeType.kmz;
 		} else {
@@ -154,9 +174,9 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 		}
 	}
 
-	protected String getContentHeader(boolean zipped, MimeType mimeType) {
-		if (zipped) {
-			switch (mimeType) {
+	protected String getContentHeader() {
+		if (getZipped()) {
+			switch (getMimeType()) {
 			case kml:
 			case kmz:
 				return MimeType.kmz.getMimeType();
@@ -164,14 +184,26 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 				return MIME_TYPE_ZIP;
 			}
 		} else {
-			return mimeType.getMimeType();
+			return getMimeType().getMimeType();
 		}
 	}
-	
-	protected String getAttachementFileName(boolean zipped, MimeType mimeType, String endpoint) {
-		StringBuilder ret = new StringBuilder(endpoint.toLowerCase()).append(".");
-		if (zipped) {
-			switch (mimeType) {
+
+	protected String determineBaseFileName() {
+		switch (getProfile()) {
+		case Profile.BIOLOGICAL:
+			return "biologicalresult";
+		case Profile.PC_RESULT:
+			return "result";
+		default:
+			return getProfile().toLowerCase();
+		}
+	}
+
+	protected String getAttachementFileName() {
+		StringBuilder ret = new StringBuilder(determineBaseFileName());
+		ret.append(".");
+		if (getZipped()) {
+			switch (getMimeType()) {
 			case kml:
 			case kmz:
 				ret.append(MimeType.kmz);
@@ -181,17 +213,17 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 				break;
 			}
 		} else {
-			ret.append(mimeType);
+			ret.append(getMimeType());
 		}
 		return ret.toString();
 	}
-	
-	protected void doHeadRequest(HttpServletRequest request, HttpServletResponse response, String mybatisNamespace, String endpoint) {
+
+	protected void doHeadRequest(HttpServletRequest request, HttpServletResponse response) {
 		LOG.info("Processing Head: {}", request.getQueryString());
 		logId.set(logService.logRequest(request, response, null));
-		
+
 		try {
-			doHeader(request, response, getLogId(), mybatisNamespace, endpoint, null);
+			doCommonSetup(request, response, null);
 		} finally {
 			logService.logRequestComplete(getLogId(), String.valueOf(response.getStatus()));
 			LOG.info("Processing Head complete: {}", request.getQueryString());
@@ -199,11 +231,11 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 		}
 	}
 
-	protected boolean doHeader(HttpServletRequest request, HttpServletResponse response, BigDecimal logId,
-			String mybatisNamespace, String endpoint, Map<String, Object> postParms) {
+	protected boolean doCommonSetup(HttpServletRequest request, HttpServletResponse response,
+			Map<String, Object> postParms) {
 		response.setCharacterEncoding(DEFAULT_ENCODING);
 		processParameters(request, postParms);
-		if ( ! getPm().isValid() ) {
+		if (!getPm().isValid() ) {
 			writeWarningHeaders(response, getPm().getValidationMessages());
 			LOG.info("Processing Head invalid params end:{}", getPm().getValidationMessages());
 			return false;
@@ -211,26 +243,28 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 
 		String mimeTypeParam = (String) getPm().getQueryParameters().get(Parameters.MIMETYPE.toString());
 		String zipParam = (String) getPm().getQueryParameters().get(Parameters.ZIP.toString());
-		zipped.set(isZipped(zipParam, mimeTypeParam));
-		mimeType.set(adjustMimeType(MimeType.csv.fromString(mimeTypeParam), getZipped()));
+		setZipped(determineZipped(zipParam, mimeTypeParam));
+		setMimeType(determineMimeType(MimeType.csv.fromString(mimeTypeParam), getZipped()));
+		setProfile(determineProfile(getPm().getQueryParameters()));
+		setMybatisNamespace(determineNamespace());
 
-		List<Map<String, Object>> counts = countDao.getCounts(mybatisNamespace, getPm().getQueryParameters());
+		List<Map<String, Object>> counts = countDao.getCounts(getMybatisNamespace(), getPm().getQueryParameters());
 
 		response.setCharacterEncoding(DEFAULT_ENCODING);
-		response.addHeader(HEADER_CONTENT_TYPE, getContentHeader(getZipped(), getMimeType()));
+		response.addHeader(HEADER_CONTENT_TYPE, getContentHeader());
 		if (RequestMethod.POST.toString().equalsIgnoreCase(request.getMethod())
 				&& request.getRequestURI().endsWith("count")) {
 			//skip the content disposition header on POST counts
 		} else {
-			response.setHeader(HEADER_CONTENT_DISPOSITION,"attachment; filename=" + getAttachementFileName(getZipped(), getMimeType(), endpoint));
+			response.setHeader(HEADER_CONTENT_DISPOSITION,"attachment; filename=" + getAttachementFileName());
 		}
 		String totalHeader = addCountHeaders(response, counts);
-		
-		logService.logHeadComplete(response, logId);
-		
+
+		logService.logHeadComplete(response, getLogId());
+
 		return checkMaxRows(response, response.getHeader(totalHeader));
 	}
-	
+
 	protected boolean checkMaxRows(HttpServletResponse response, String totalRows) {
 		switch (getMimeType()) {
 		case kml:
@@ -256,7 +290,7 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 			return true;
 		}
 	}
-	
+
 	protected void processParameters(HttpServletRequest request, Map<String, Object> postParms) {
 		setPm(new ParameterMap());
 		if (request.getParameterMap().isEmpty() && (null == postParms || postParms.isEmpty())) {
@@ -271,27 +305,26 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 			LOG.debug("queryParms: {}", getPm().getQueryParameters());
 		}
 	}
-	
+
 	protected abstract String addCountHeaders(HttpServletResponse response, List<Map<String, Object>> counts);
-	
-	protected void doGetRequest(HttpServletRequest request, HttpServletResponse response, String mybatisNamespace, String endpoint) {
+
+	protected void doGetRequest(HttpServletRequest request, HttpServletResponse response) {
 		LOG.info("Processing Get: {}", request.getQueryString());
 		logId.set(logService.logRequest(request, response, null));
 		OutputStream responseStream = null;
 		String realHttpStatus = String.valueOf(response.getStatus());
-		
+
 		try {
-			if (doHeader(request, response, getLogId(), mybatisNamespace, endpoint, null)) {
-				String namespace = getNamespace(mybatisNamespace, getMimeType());
-				responseStream = getOutputStream(response, getZipped(), getZipEntryName(endpoint, getMimeType()));
-				Transformer transformer = getTransformer(getMimeType(), responseStream, getLogId());
-					
+			if (doCommonSetup(request, response, null)) {
+				responseStream = getOutputStream(response, getZipped(), determineZipEntryName());
+				Transformer transformer = getTransformer(responseStream, getLogId());
+
 				ResultHandler<?> handler = new StreamingResultHandler(transformer);
-				streamingDao.stream(namespace, getPm().getQueryParameters(), handler);
-		
+				streamingDao.stream(getMybatisNamespace(), getPm().getQueryParameters(), handler);
+
 				transformer.end();
-					
-			}		
+
+			}
 		} catch (Throwable e) {
 			response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
 			int hashValue = response.hashCode();
@@ -334,24 +367,23 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 		}
 	}
 
-	protected void doPostRequest(HttpServletRequest request, HttpServletResponse response, String mybatisNamespace, String endpoint, Map<String, Object> postParms) {
+	protected void doPostRequest(HttpServletRequest request, HttpServletResponse response, Map<String, Object> postParms) {
 		LOG.info("Processing Post: {}", postParms);
 		logId.set(logService.logRequest(request, response, postParms));
 		OutputStream responseStream = null;
 		String realHttpStatus = String.valueOf(response.getStatus());
-		
+
 		try {
-			if (doHeader(request, response, getLogId(), mybatisNamespace, endpoint, postParms)) {
-				String namespace = getNamespace(mybatisNamespace, getMimeType());
-				responseStream = getOutputStream(response, getZipped(), getZipEntryName(endpoint, getMimeType()));
-				Transformer transformer = getTransformer(getMimeType(), responseStream, getLogId());
-					
+			if (doCommonSetup(request, response, postParms)) {
+				responseStream = getOutputStream(response, getZipped(), determineZipEntryName());
+				Transformer transformer = getTransformer(responseStream, getLogId());
+
 				ResultHandler<?> handler = new StreamingResultHandler(transformer);
-				streamingDao.stream(namespace, getPm().getQueryParameters(), handler);
-		
+				streamingDao.stream(getMybatisNamespace(), getPm().getQueryParameters(), handler);
+
 				transformer.end();
-					
-			}		
+
+			}
 		} catch (Throwable e) {
 			response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
 			int hashValue = response.hashCode();
@@ -394,79 +426,101 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 		}
 	}
 
-	protected Map<String, String> doPostCountRequest(HttpServletRequest request, HttpServletResponse response, String mybatisNamespace, String endpoint, Map<String, Object> postParms) {
+	protected Map<String, String> doPostCountRequest(HttpServletRequest request, HttpServletResponse response, Map<String, Object> postParms) {
 		LOG.info("Processing Post Count");
 		logId.set(logService.logRequest(request, response, postParms));
 		Map<String, String> counts = null;
-		
+
 		try {
-			doHeader(request, response, getLogId(), mybatisNamespace, endpoint, postParms);
+			doCommonSetup(request, response, postParms);
 			counts = getCounts();
 		} finally {
 			logService.logRequestComplete(getLogId(), String.valueOf(response.getStatus()));
 			LOG.info("Processing Post Count complete");
 			remove();
 		}
-		
+
 		return counts;
 	}
 
-	protected String getZipEntryName(String endpoint, MimeType mimeType) {
-		if (MimeType.kml.equals(mimeType) || MimeType.kmz.equals(mimeType)) {
-			return endpoint.toLowerCase() + "." + MimeType.kml;
+	protected String determineZipEntryName() {
+		if (MimeType.kml.equals(getMimeType()) || MimeType.kmz.equals(getMimeType())) {
+			return determineBaseFileName() + "." + MimeType.kml;
 		} else {
-			return endpoint.toLowerCase() + "." + mimeType;
+			return determineBaseFileName().toLowerCase() + "." + getMimeType();
 		}
 	}
 
-	protected String getNamespace(String mybatisNamespace, MimeType mimeType) {
-		switch (mimeType) {
+	protected String determineNamespace() {
+		switch (getMimeType()) {
 		case kml:
 		case kmz:
 			return IDao.STATION_KML_NAMESPACE;
 		case geojson:
 			return IDao.SIMPLE_STATION_NAMESPACE;
 		default:
-			return mybatisNamespace;
+			switch (getProfile()) {
+			case Profile.BIOLOGICAL:
+				return IDao.BIOLOGICAL_RESULT_NAMESPACE;
+			case Profile.PC_RESULT:
+				return IDao.RESULT_NAMESPACE;
+			case Profile.STATION:
+				return IDao.STATION_NAMESPACE;
+			case Profile.SIMPLE_STATION:
+				return IDao.SIMPLE_STATION_NAMESPACE;
+			default:
+				//Should never get here...
+				return "";
+			}
 		}
 	}
-	
-	protected Transformer getTransformer(MimeType mimeType, OutputStream responseStream, BigDecimal logId) {
+
+	protected Transformer getTransformer(OutputStream responseStream, BigDecimal logId) {
 		Transformer transformer;
-		switch (mimeType) {
+		switch (getMimeType()) {
 		case json:
 		case geojson:
 			transformer = new MapToJsonTransformer(responseStream, null, logService, logId, siteUrlBase);
 			break;
 		case xlsx:
-			transformer = new MapToXlsxTransformer(responseStream, getMapping(), logService, logId);
+			transformer = new MapToXlsxTransformer(responseStream, getMapping(getProfile()), logService, logId);
 			break;
 		case xml:
-			transformer = new MapToXmlTransformer(responseStream, getXmlMapping(), logService, logId);
+			transformer = new MapToXmlTransformer(responseStream, getXmlMapping(), logService, logId, getProfile());
 			break;
 		case kml:
 		case kmz:
-			transformer = new MapToKmlTransformer(responseStream, getKmlMapping(), logService, logId);
+			transformer = new MapToKmlTransformer(responseStream, getKmlMapping(), logService, logId, getProfile());
 			break;
 		case tsv:
-			transformer = new MapToDelimitedTransformer(responseStream, getMapping(), logService, logId, MapToDelimitedTransformer.TAB);
+			transformer = new MapToDelimitedTransformer(responseStream, getMapping(getProfile()), logService, logId, MapToDelimitedTransformer.TAB);
 			break;
 		case csv:
 		default:
-			transformer = new MapToDelimitedTransformer(responseStream, getMapping(), logService, logId, MapToDelimitedTransformer.COMMA);
+			transformer = new MapToDelimitedTransformer(responseStream, getMapping(getProfile()), logService, logId, MapToDelimitedTransformer.COMMA);
 			break;
 		}
 		return transformer;
 	}
 
-	protected abstract Map<String, String> getMapping();
-	
-	protected abstract IXmlMapping getXmlMapping();
-	
-	protected IXmlMapping getKmlMapping() {
-		return null;
+	protected abstract String determineProfile(Map<String, Object> pm);
+
+	protected String determineProfile(String defaultProfile, Map<String, Object> pm) {
+		String profile = defaultProfile;
+		if (null != pm && pm.containsKey(Parameters.DATA_PROFILE.toString())) {
+			Object dataProfile = pm.get(Parameters.DATA_PROFILE.toString());
+			if (dataProfile instanceof String[] && 0 < ((String[]) dataProfile).length)
+			profile = ((String[]) dataProfile)[0];
+		}
+		return profile;
 	}
-	
+
+	protected abstract Map<String, String> getMapping(String profile);
+
+	protected abstract IXmlMapping getXmlMapping();
+
+	protected abstract IXmlMapping getKmlMapping();
+
 	public void writeWarningHeaders(HttpServletResponse response, Map<String, List<String>> validationMessages) {
 		response.setStatus(HttpStatus.BAD_REQUEST.value());
 		for (List<String> msgs : validationMessages.values()) {
@@ -492,18 +546,18 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 			return HEADER_TOTAL + HEADER_DELIMITER + mySuffix;
 		} else {
 			Object provider = count.get(MybatisConstants.DATA_SOURCE);
-			
+
 			if (provider==null) {
 				provider = HEADER_TOTAL + HEADER_DELIMITER + mySuffix;
 			} else {
 				provider = provider + HEADER_DELIMITER + mySuffix;
 			}
 			LOG.trace("determine count header : {}", provider.toString());
-	
+
 			return provider.toString();
 		}
 	}
-	
+
 	protected String determineHeaderValue(Map<String, Object> count, String key) {
 		if (null == count || count.isEmpty() || null == key || !count.containsKey(key)) {
 			return "0";
@@ -514,15 +568,15 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 			return results.toString();
 		}
 	}
-	
+
 	public void addCountHeaders(HttpServletResponse response, List<Map<String, Object>> rawCounts,
 			String totalHeader, String valueHeader, String valueField) {
 		LOG.trace("{} counts : {}", valueHeader, rawCounts);
 		Map<String, String> counts = null==getCounts() ? new HashMap<>() : getCounts();
-		
+
 		response.addHeader(totalHeader, "0");
 		counts.put(totalHeader, "0");
-		
+
 		for (Map<String, Object> count : rawCounts) {
 			LOG.trace("result count : {}", count);
 			String name = determineHeaderName(count, valueHeader);
@@ -530,7 +584,7 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 			response.setHeader(name, value);
 			counts.put(name, value);
 		}
-		
+
 		setCounts(counts);
 	}
 

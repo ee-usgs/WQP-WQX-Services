@@ -1,4 +1,4 @@
-package gov.usgs.cida.wqp.mapping;
+package gov.usgs.cida.wqp.mapping.xml;
 
 import static gov.usgs.cida.wqp.mapping.StationColumn.*;
 
@@ -10,6 +10,8 @@ import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
+import gov.usgs.cida.wqp.mapping.ColumnProfile;
+
 @Component
 public class StationWqx extends BaseWqx implements IXmlMapping {
 	
@@ -17,7 +19,7 @@ public class StationWqx extends BaseWqx implements IXmlMapping {
 
 	public static final Map<String, List<String>> COLUMN_POSITION = new LinkedHashMap<>();
 	
-	public static final Map<String, List<String>> GROUPING = new LinkedHashMap<>();
+	public static final Map<String, List<ColumnProfile>> GROUPING = new LinkedHashMap<>();
 
 	static {
 		HARD_BREAK.put(KEY_ORGANIZATION, ROOT_NODE);
@@ -269,42 +271,42 @@ public class StationWqx extends BaseWqx implements IXmlMapping {
 
 	static {
 		GROUPING.put(KEY_ORGANIZATION,
-				new LinkedList<String>(Arrays.asList(KEY_ORGANIZATION, KEY_ORGANIZATION_NAME)));
+				new LinkedList<ColumnProfile>(Arrays.asList(ORGANIZATION, ORGANIZATION_NAME)));
 		GROUPING.put(KEY_SITE_ID,
-				new LinkedList<String>(Arrays.asList(KEY_SITE_ID,
-						KEY_STATION_NAME,
-						KEY_MONITORING_LOCATION_TYPE,
-						KEY_MONITORING_LOCATION_DESCRIPTION,
-						KEY_HUC_8,
-//						KEY_HUC_12,
-						KEY_DRAIN_AREA_VALUE,
-						KEY_DRAIN_AREA_UNIT,
-						KEY_CONTRIB_DRAIN_AREA_VALUE,
-						KEY_CONTRIB_DRAIN_AREA_UNIT,
-						KEY_LATITUDE,
-						KEY_LONGITUDE,
-						KEY_SOURCE_MAP_SCALE,
-						KEY_HORIZONTAL_ACCY_VALUE,
-						KEY_HORIZONTAL_ACCY_UNIT,
-						KEY_HORIZONTAL_COLLECTION_METHOD,
-						KEY_HORIZONTAL_DATUM,
-						KEY_VERTICAL_MEASURE_VALUE,
-						KEY_VERTICAL_MEASURE_UNIT,
-						KEY_VERTICAL_ACCY_VALUE,
-						KEY_VERTICAL_ACCY_UNIT,
-						KEY_VERTICAL_COLLECTION_METHOD,
-						KEY_VERTICAL_DATUM,
-						KEY_COUNTRY_CODE,
-						KEY_STATE_CODE,
-						KEY_COUNTY_CODE,
-						KEY_NAT_AQFR_NAME,
-						KEY_AQFR_NAME,
-						KEY_AQFR_TYPE_NAME,
-						KEY_CONSTRUCTION_DATE,
-						KEY_WELL_DEPTH_VALUE,
-						KEY_WELL_DEPTH_UNIT,
-						KEY_HOLE_DEPTH_VALUE,
-						KEY_HOLE_DEPTH_UNIT)));
+				new LinkedList<ColumnProfile>(Arrays.asList(SITE_ID,
+						STATION_NAME,
+						MONITORING_LOCATION_TYPE,
+						MONITORING_LOCATION_DESCRIPTION,
+						HUC_8,
+						HUC_12,
+						DRAIN_AREA_VALUE,
+						DRAIN_AREA_UNIT,
+						CONTRIB_DRAIN_AREA_VALUE,
+						CONTRIB_DRAIN_AREA_UNIT,
+						LATITUDE,
+						LONGITUDE,
+						SOURCE_MAP_SCALE,
+						HORIZONTAL_ACCY_VALUE,
+						HORIZONTAL_ACCY_UNIT,
+						HORIZONTAL_COLLECTION_METHOD,
+						HORIZONTAL_DATUM,
+						VERTICAL_MEASURE_VALUE,
+						VERTICAL_MEASURE_UNIT,
+						VERTICAL_ACCY_VALUE,
+						VERTICAL_ACCY_UNIT,
+						VERTICAL_COLLECTION_METHOD,
+						VERTICAL_DATUM,
+						COUNTRY_CODE,
+						STATE_CODE,
+						COUNTY_CODE,
+						NAT_AQFR_NAME,
+						AQFR_NAME,
+						AQFR_TYPE_NAME,
+						CONSTRUCTION_DATE,
+						WELL_DEPTH_VALUE,
+						WELL_DEPTH_UNIT,
+						HOLE_DEPTH_VALUE,
+						HOLE_DEPTH_UNIT)));
 	}
 	
 	public String getEntryNodeName() {
@@ -319,7 +321,8 @@ public class StationWqx extends BaseWqx implements IXmlMapping {
 		return HARD_BREAK;
 	}
 
-	public Map<String, List<String>> getGrouping() {
+	public Map<String, List<ColumnProfile>> getGrouping() {
 		return GROUPING;
 	}
+
 }

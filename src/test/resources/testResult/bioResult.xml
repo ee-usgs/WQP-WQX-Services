@@ -52,8 +52,8 @@
 			</SampleDescription>
 			<Result>
 				<ResultDescription>
-					<CharacteristicName>aae</CharacteristicName>
 					<ResultDetectionConditionText>abl</ResultDetectionConditionText>
+					<CharacteristicName>aae</CharacteristicName>
 					<ResultSampleFractionText>abm</ResultSampleFractionText>
 					<ResultMeasure>
 						<ResultMeasureValue>abn</ResultMeasureValue>
@@ -93,11 +93,11 @@
 					<AnalysisStartDate>acj</AnalysisStartDate>
 					<ResultLaboratoryCommentText>ack</ResultLaboratoryCommentText>
 					<ResultDetectionQuantitationLimit>
+						<DetectionQuantitationLimitTypeName>acn</DetectionQuantitationLimitTypeName>
 						<DetectionQuantitationLimitMeasure>
 							<MeasureValue>acl</MeasureValue>
 							<MeasureUnitCode>acm</MeasureUnitCode>
 						</DetectionQuantitationLimitMeasure>
-						<DetectionQuantitationLimitTypeName>acn</DetectionQuantitationLimitTypeName>
 					</ResultDetectionQuantitationLimit>
 				</ResultLabInformation>
 				<LabSamplePreparation>
@@ -158,8 +158,8 @@
 			</SampleDescription>
 			<Result>
 				<ResultDescription>
-					<CharacteristicName>aea</CharacteristicName>
 					<ResultDetectionConditionText>bla</ResultDetectionConditionText>
+					<CharacteristicName>aea</CharacteristicName>
 					<ResultSampleFractionText>bma</ResultSampleFractionText>
 					<ResultMeasure>
 						<ResultMeasureValue>bna</ResultMeasureValue>
@@ -199,11 +199,11 @@
 					<AnalysisStartDate>cja</AnalysisStartDate>
 					<ResultLaboratoryCommentText>cka</ResultLaboratoryCommentText>
 					<ResultDetectionQuantitationLimit>
+						<DetectionQuantitationLimitTypeName>cna</DetectionQuantitationLimitTypeName>
 						<DetectionQuantitationLimitMeasure>
 							<MeasureValue>cla</MeasureValue>
 							<MeasureUnitCode>cma</MeasureUnitCode>
 						</DetectionQuantitationLimitMeasure>
-						<DetectionQuantitationLimitTypeName>cna</DetectionQuantitationLimitTypeName>
 					</ResultDetectionQuantitationLimit>
 				</ResultLabInformation>
 				<LabSamplePreparation>
@@ -334,8 +334,8 @@
 			<Result>
 				<ResultDescription>
 					<DataLoggerLine>et</DataLoggerLine>
-					<CharacteristicName>ae</CharacteristicName>
 					<ResultDetectionConditionText>bl</ResultDetectionConditionText>
+					<CharacteristicName>ae</CharacteristicName>
 					<MethodSpecificationName>eu</MethodSpecificationName>
 					<ResultSampleFractionText>bm</ResultSampleFractionText>
 					<ResultMeasure>
@@ -423,11 +423,11 @@
 					<ResultLaboratoryCommentCode>gc</ResultLaboratoryCommentCode>
 					<ResultLaboratoryCommentText>ck</ResultLaboratoryCommentText>
 					<ResultDetectionQuantitationLimit>
+						<DetectionQuantitationLimitTypeName>cn</DetectionQuantitationLimitTypeName>
 						<DetectionQuantitationLimitMeasure>
 							<MeasureValue>cl</MeasureValue>
 							<MeasureUnitCode>cm</MeasureUnitCode>
 						</DetectionQuantitationLimitMeasure>
-						<DetectionQuantitationLimitTypeName>cn</DetectionQuantitationLimitTypeName>
 					</ResultDetectionQuantitationLimit>
 					<LaboratoryAccreditationIndicator>gd</LaboratoryAccreditationIndicator>
 					<LaboratoryAccreditationAuthorityName>ge</LaboratoryAccreditationAuthorityName>

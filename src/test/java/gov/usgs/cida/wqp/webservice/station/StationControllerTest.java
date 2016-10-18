@@ -35,12 +35,12 @@ import com.github.springtestdbunit.annotation.DatabaseSetups;
 
 import gov.usgs.cida.wqp.BaseSpringTest;
 import gov.usgs.cida.wqp.FullIntegrationTest;
+import gov.usgs.cida.wqp.mapping.Profile;
 import gov.usgs.cida.wqp.parameter.Parameters;
 import gov.usgs.cida.wqp.service.CodesService;
 import gov.usgs.cida.wqp.service.FetchService;
 import gov.usgs.cida.wqp.util.HttpConstants;
 import gov.usgs.cida.wqp.util.MimeType;
-import gov.usgs.cida.wqp.validation.ValidationConstants;
 
 @Category(FullIntegrationTest.class)
 @WebAppConfiguration
@@ -631,7 +631,7 @@ public class StationControllerTest extends BaseSpringTest implements HttpConstan
 		when(codesService.validate(any(Parameters.class), anyString())).thenReturn(true);
 
 		MvcResult rtn = mockMvc.perform(post("/" + HttpConstants.RESULT_SEARCH_ENPOINT + "/count?mimeType=json&" 
-				+ Parameters.DATA_PROFILE + "=" + ValidationConstants.REGEX_DATA_PROFILE)
+				+ Parameters.DATA_PROFILE + "=" + Profile.BIOLOGICAL)
 				.content(getSourceFile("manySites.json")).contentType(MediaType.APPLICATION_JSON))
 			.andExpect(status().isOk())
 			.andExpect(content().contentType(MIME_TYPE_JSON))

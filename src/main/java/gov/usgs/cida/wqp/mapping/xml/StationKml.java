@@ -1,8 +1,6 @@
-package gov.usgs.cida.wqp.mapping;
+package gov.usgs.cida.wqp.mapping.xml;
 
-import static gov.usgs.cida.wqp.mapping.BaseColumn.KEY_ORGANIZATION;
-import static gov.usgs.cida.wqp.mapping.BaseColumn.KEY_ORGANIZATION_NAME;
-import static gov.usgs.cida.wqp.mapping.BaseColumn.KEY_SITE_ID;
+import static gov.usgs.cida.wqp.mapping.BaseColumn.*;
 import static gov.usgs.cida.wqp.mapping.StationColumn.*;
 
 import java.util.Arrays;
@@ -15,14 +13,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+import gov.usgs.cida.wqp.mapping.ColumnProfile;
+import gov.usgs.cida.wqp.mapping.Profile;
+
 @Component
 public class StationKml implements IXmlMapping {
 
 	protected final String kmlStyleUrl;
-	
+
 	public static final String KEY_STYLE_URL = "STYLE_URL";
 	public static final String KEY_COORDINATES = "COORDINATES";
 	public static final String KEY_STATION_NAME2 = KEY_STATION_NAME + "2";
+
+	public static final ColumnProfile STYLE_URL = new ColumnProfile(KEY_STYLE_URL, Profile.STATION);
+	public static final ColumnProfile COORDINATES = new ColumnProfile(KEY_COORDINATES, Profile.STATION);
+	public static final ColumnProfile STATION_NAME2 = new ColumnProfile(KEY_STATION_NAME2, Profile.STATION);
 
 	public static final String ROOT_NODE = "kml";
 
@@ -34,7 +39,7 @@ public class StationKml implements IXmlMapping {
 	public static final String KML_PLACEMARK = "Placemark";
 	public static final String KML_NAME = "name";
 	public static final String KML_EXTENDED_DATA = "ExtendedData";
-	
+
 	public static final String KML_DATA_ORGANIZATION_FORMAL_NAME = "Data name=\"Organization Formal Name\"";
 	public static final String KML_DATA_ORGANIZATION_IDENTIFIER = "Data name=\"Organization Identifier\"";
 	public static final String KML_DATA_MONITORING_LOCATION_IDENTIFIER = "Data name=\"Monitoring Location Identifier\"";
@@ -48,7 +53,7 @@ public class StationKml implements IXmlMapping {
 	public static final String KML_DATA_AQFR_NAME = "Data name=\"AquiferName\"";
 	public static final String KML_DATA_WELL_DEPTH_VALUE = "Data name=\"Well Depth Measure/Measure Value\"";
 	public static final String KML_DATA_WELL_DEPTH_UNIT = "Data name=\"Well Depth Measure/Measure Unit Code\"";
-	
+
 	public static final String KML_VALUE = "value";
 	public static final String KML_POINT = "Point";
 	public static final String KML_COORDINATES = "coordinates";
@@ -56,13 +61,13 @@ public class StationKml implements IXmlMapping {
 	public static final Map<String, String> HARD_BREAK = new LinkedHashMap<>();
 
 	public static final Map<String, List<String>> COLUMN_POSITION = new LinkedHashMap<>();
-	
-	public static final Map<String, List<String>> GROUPING = new LinkedHashMap<>();
+
+	public static final Map<String, List<ColumnProfile>> GROUPING = new LinkedHashMap<>();
 
 	static {
 		HARD_BREAK.put(KEY_SITE_ID, KML_DOCUMENT);
 	}
-	
+
 	static {
 		COLUMN_POSITION.put(KEY_STATION_NAME,
 				new LinkedList<String>(Arrays.asList(
@@ -175,29 +180,29 @@ public class StationKml implements IXmlMapping {
 
 	static {
 		GROUPING.put(KEY_SITE_ID,
-				new LinkedList<String>(Arrays.asList(KEY_STATION_NAME,
-						                             KEY_STYLE_URL,
-						                             KEY_ORGANIZATION_NAME,
-						                             KEY_ORGANIZATION,
-						                             KEY_SITE_ID,
-						                             KEY_STATION_NAME2,
-						                             KEY_MONITORING_LOCATION_TYPE,
-						                             KEY_MONITORING_LOCATION_DESCRIPTION,
-						                             KEY_HUC_8,
-						                             KEY_CONTRIB_DRAIN_AREA_VALUE,
-						                             KEY_CONTRIB_DRAIN_AREA_UNIT,
-						                             KEY_AQFR_TYPE_NAME,
-						                             KEY_AQFR_NAME,
-						                             KEY_WELL_DEPTH_VALUE,
-						                             KEY_WELL_DEPTH_UNIT,
-						                             KEY_COORDINATES)));
+				new LinkedList<ColumnProfile>(Arrays.asList(STATION_NAME,
+						                             STYLE_URL,
+						                             ORGANIZATION_NAME,
+						                             ORGANIZATION,
+						                             SITE_ID,
+						                             STATION_NAME2,
+						                             MONITORING_LOCATION_TYPE,
+						                             MONITORING_LOCATION_DESCRIPTION,
+						                             HUC_8,
+						                             CONTRIB_DRAIN_AREA_VALUE,
+						                             CONTRIB_DRAIN_AREA_UNIT,
+						                             AQFR_TYPE_NAME,
+						                             AQFR_NAME,
+						                             WELL_DEPTH_VALUE,
+						                             WELL_DEPTH_UNIT,
+						                             COORDINATES)));
 	}
-		
+
 	@Autowired
 	public StationKml(@Qualifier("kmlStyleUrl") String kmlStyleUrl) {
 		this.kmlStyleUrl = kmlStyleUrl;
 	}
-	
+
 	public String getRoot() {
 		return ROOT_NODE;
 	}
@@ -224,7 +229,7 @@ public class StationKml implements IXmlMapping {
 		return HARD_BREAK;
 	}
 
-	public Map<String, List<String>> getGrouping() {
+	public Map<String, List<ColumnProfile>> getGrouping() {
 		return GROUPING;
 	}
 
