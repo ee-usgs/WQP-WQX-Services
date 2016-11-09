@@ -5,11 +5,14 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+
+import org.junit.Test;
+
 import gov.usgs.cida.wqp.BaseSpringTest;
 import gov.usgs.cida.wqp.parameter.HashMapParameterHandler;
 import gov.usgs.cida.wqp.parameter.Parameters;
-import org.junit.Test;
-public class DateFormatValidatorTest extends BaseSpringTest implements ValidationConstants {
+import gov.usgs.cida.wqp.springinit.ParameterValidationConfig;
+public class DateFormatValidatorTest extends BaseSpringTest {
 	@Test
 	public void testConstructors_nullParameter() {
 		try {
@@ -48,14 +51,14 @@ public class DateFormatValidatorTest extends BaseSpringTest implements Validatio
 	}
 	@Test
 	public void testConstructors_defaults() {
-		AbstractValidator<?> validator = new DateFormatValidator(Parameters.START_DATE_HI, FORMAT_DATE);
-		assertEquals(DEFAULT_MIN_OCCURS, validator.getMinOccurs());
-		assertEquals(DEFAULT_MAX_OCCURS, validator.getMaxOccurs());
-		assertEquals(DEFAULT_DELIMITER, validator.getDelimiter());
+		AbstractValidator<?> validator = new DateFormatValidator(Parameters.START_DATE_HI, ParameterValidationConfig.FORMAT_DATE);
+		assertEquals(AbstractValidator.DEFAULT_MIN_OCCURS, validator.getMinOccurs());
+		assertEquals(AbstractValidator.DEFAULT_MAX_OCCURS, validator.getMaxOccurs());
+		assertEquals(AbstractValidator.DEFAULT_DELIMITER, validator.getDelimiter());
 	}
 	@Test
 	public void testValidate_SimpleDateFormat_nullValue() {
-		AbstractValidator<String[]> validator = new DateFormatValidator(Parameters.START_DATE_HI, 1, 2, ";", FORMAT_DATE);
+		AbstractValidator<String[]> validator = new DateFormatValidator(Parameters.START_DATE_HI, 1, 2, ";", ParameterValidationConfig.FORMAT_DATE);
 		ValidationResult<String[]> vr = validator.validate(null);
 		assertFalse(vr.isValid());
 		assertEquals(1, vr.getValidationMessages().size());
@@ -64,7 +67,7 @@ public class DateFormatValidatorTest extends BaseSpringTest implements Validatio
 	}
 	@Test
 	public void testValidate_SimpleDateFormat_wrongOccurs() {
-		AbstractValidator<String[]> validator = new DateFormatValidator(Parameters.START_DATE_HI, 1, 2, ";", FORMAT_DATE);
+		AbstractValidator<String[]> validator = new DateFormatValidator(Parameters.START_DATE_HI, 1, 2, ";", ParameterValidationConfig.FORMAT_DATE);
 		ValidationResult<String[]> vr = validator.validate("12-31-2011;09-30-2011;01-31-2011");
 		assertFalse(vr.isValid());
 		assertEquals(1, vr.getValidationMessages().size());
@@ -74,7 +77,7 @@ public class DateFormatValidatorTest extends BaseSpringTest implements Validatio
 	}
 	@Test
 	public void testValidate_SimpleDateFormat_wrongDayOfMonth() {
-		AbstractValidator<String[]> validator = new DateFormatValidator(Parameters.START_DATE_HI, 1, 2, ";", FORMAT_DATE);
+		AbstractValidator<String[]> validator = new DateFormatValidator(Parameters.START_DATE_HI, 1, 2, ";", ParameterValidationConfig.FORMAT_DATE);
 		ValidationResult<String[]> vr = validator.validate("09-31-2011");
 		assertFalse(vr.isValid());
 		assertEquals(1, vr.getValidationMessages().size());
@@ -83,7 +86,7 @@ public class DateFormatValidatorTest extends BaseSpringTest implements Validatio
 	}
 	@Test
 	public void testValidate_SimpleDateFormat_wrongMonthOfYear() {
-		AbstractValidator<String[]> validator = new DateFormatValidator(Parameters.START_DATE_HI, 1, 2, ";", FORMAT_DATE);
+		AbstractValidator<String[]> validator = new DateFormatValidator(Parameters.START_DATE_HI, 1, 2, ";", ParameterValidationConfig.FORMAT_DATE);
 		ValidationResult<String[]> vr = validator.validate("13-31-2011");
 		assertFalse(vr.isValid());
 		assertEquals(1, vr.getValidationMessages().size());
@@ -92,19 +95,19 @@ public class DateFormatValidatorTest extends BaseSpringTest implements Validatio
 	}
 	@Test
 	public void testValidate_SimpleDateFormat_leapYear() {
-		AbstractValidator<String[]> validator = new DateFormatValidator(Parameters.START_DATE_HI, 1, 2, ";", FORMAT_DATE);
+		AbstractValidator<String[]> validator = new DateFormatValidator(Parameters.START_DATE_HI, 1, 2, ";", ParameterValidationConfig.FORMAT_DATE);
 		ValidationResult<String[]> vr = validator.validate("02-29-2004");
 		assertTrue(vr.isValid());
 	}
 	@Test
 	public void testValidate_SimpleDateFormat_nonLeapYear() {
-		AbstractValidator<String[]> validator = new DateFormatValidator(Parameters.START_DATE_HI, 1, 2, ";", FORMAT_DATE);
+		AbstractValidator<String[]> validator = new DateFormatValidator(Parameters.START_DATE_HI, 1, 2, ";", ParameterValidationConfig.FORMAT_DATE);
 		ValidationResult<String[]> vr = validator.validate("02-29-2001");
 		assertFalse(vr.isValid());
 	}
 	@Test
 	public void testValidate_SimpleDateFormat_manyErrors() {
-		AbstractValidator<String[]> validator = new DateFormatValidator(Parameters.START_DATE_HI, 1, 2, ";", FORMAT_DATE);
+		AbstractValidator<String[]> validator = new DateFormatValidator(Parameters.START_DATE_HI, 1, 2, ";", ParameterValidationConfig.FORMAT_DATE);
 		ValidationResult<String[]> vr = validator.validate("12-31-2011;abc;09-31-2011;13-31-2011;12-32-2011");
 		assertFalse(vr.isValid());
 		assertEquals(5, vr.getValidationMessages().size());
@@ -120,9 +123,9 @@ public class DateFormatValidatorTest extends BaseSpringTest implements Validatio
 	public void testStartDateHi_defaults() {
 		AbstractValidator<?> validator = HashMapParameterHandler.getValidator(Parameters.START_DATE_HI);
 		assertNotNull(validator);
-		assertEquals(DEFAULT_MIN_OCCURS, validator.getMinOccurs());
-		assertEquals(DEFAULT_MAX_OCCURS, validator.getMaxOccurs());
-		assertEquals(DEFAULT_DELIMITER, validator.getDelimiter());
+		assertEquals(AbstractValidator.DEFAULT_MIN_OCCURS, validator.getMinOccurs());
+		assertEquals(AbstractValidator.DEFAULT_MAX_OCCURS, validator.getMaxOccurs());
+		assertEquals(AbstractValidator.DEFAULT_DELIMITER, validator.getDelimiter());
 	}
 	@Test
 	public void testStartDateHi_valid() {
@@ -146,9 +149,9 @@ public class DateFormatValidatorTest extends BaseSpringTest implements Validatio
 	public void testStartDateLo_defaults() {
 		AbstractValidator<?> validator = HashMapParameterHandler.getValidator(Parameters.START_DATE_LO);
 		assertNotNull(validator);
-		assertEquals(DEFAULT_MIN_OCCURS, validator.getMinOccurs());
-		assertEquals(DEFAULT_MAX_OCCURS, validator.getMaxOccurs());
-		assertEquals(DEFAULT_DELIMITER, validator.getDelimiter());
+		assertEquals(AbstractValidator.DEFAULT_MIN_OCCURS, validator.getMinOccurs());
+		assertEquals(AbstractValidator.DEFAULT_MAX_OCCURS, validator.getMaxOccurs());
+		assertEquals(AbstractValidator.DEFAULT_DELIMITER, validator.getDelimiter());
 	}
 	@Test
 	public void testStartDateLo_valid() {

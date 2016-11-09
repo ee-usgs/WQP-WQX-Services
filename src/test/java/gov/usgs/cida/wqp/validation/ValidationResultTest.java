@@ -1,14 +1,19 @@
 package gov.usgs.cida.wqp.validation;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import gov.usgs.cida.wqp.BaseSpringTest;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
-public class ValidationResultTest extends BaseSpringTest implements ValidationConstants {
+
+import gov.usgs.cida.wqp.BaseSpringTest;
+
+public class ValidationResultTest extends BaseSpringTest {
 	List<String> msgs;
 	ValidationResult<String> vr;
 	@Before

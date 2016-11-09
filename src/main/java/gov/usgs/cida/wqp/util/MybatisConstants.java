@@ -1,17 +1,22 @@
 package gov.usgs.cida.wqp.util;
 
-public interface MybatisConstants {
-	String MYBATIS_MAPPERS = "mybatis/*.xml";
-	String CODES_MAPPER_NAMESPACE = "dataMapper";
-	String STATIONS_MAPPER_NAMESPACE = "dataMapper";
-	String RESULTS_MAPPER_NAMESPACE = STATIONS_MAPPER_NAMESPACE;
-	String STATIONS_KML_SELECTID = STATIONS_MAPPER_NAMESPACE + ".stationsKMLSelect";
-	String STATIONS_WQX_SELECTID = STATIONS_MAPPER_NAMESPACE + ".stationsWQXSelect";
-	String STATIONS_WQX_COUNTID = STATIONS_MAPPER_NAMESPACE + ".stationsWQXCount";
-	String SIMPLE_STATIONS_SELECTID = STATIONS_MAPPER_NAMESPACE + ".simpleStationsSelect";
-	String BIOLOGICAL_STATIONS_WQX_COUNTID = RESULTS_MAPPER_NAMESPACE + ".biologicalstationsWQXCount";
-	String BIOLOGICAL_RESULTS_WQX_COUNTID = RESULTS_MAPPER_NAMESPACE + ".biologicalResultsWQXCount";
-	String STATION_COUNT = "STATION_COUNT";
-	String RESULT_COUNT = "RESULT_COUNT";
-	String DATA_SOURCE = "DATA_SOURCE";
+public class MybatisConstants {
+	public static final String MYBATIS_MAPPERS = "mybatis/*.xml";
+	public static final String CODES_MAPPER_NAMESPACE = "dataMapper";
+	public static final String STATIONS_MAPPER_NAMESPACE = "dataMapper";
+	public static final String RESULTS_MAPPER_NAMESPACE = STATIONS_MAPPER_NAMESPACE;
+	public static final String STATIONS_KML_SELECTID = STATIONS_MAPPER_NAMESPACE + ".stationsKMLSelect";
+	public static final String STATIONS_WQX_SELECTID = STATIONS_MAPPER_NAMESPACE + ".stationsWQXSelect";
+	public static final String STATIONS_WQX_COUNTID = STATIONS_MAPPER_NAMESPACE + ".stationsWQXCount";
+	public static final String SIMPLE_STATIONS_SELECTID = STATIONS_MAPPER_NAMESPACE + ".simpleStationsSelect";
+	public static final String BIOLOGICAL_STATIONS_WQX_COUNTID = RESULTS_MAPPER_NAMESPACE + ".biologicalstationsWQXCount";
+	public static final String BIOLOGICAL_RESULTS_WQX_COUNTID = RESULTS_MAPPER_NAMESPACE + ".biologicalResultsWQXCount";
+	public static final String ACTIVITY_COUNT = "ACTIVITY_COUNT";
+	public static final String STATION_COUNT = "STATION_COUNT";
+	public static final String RESULT_COUNT = "RESULT_COUNT";
+	public static final String DATA_SOURCE = "DATA_SOURCE";
+
+	private MybatisConstants() {
+	}
+
 }

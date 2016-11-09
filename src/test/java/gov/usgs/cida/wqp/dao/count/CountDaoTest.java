@@ -1,4 +1,4 @@
-package gov.usgs.cida.wqp.dao;
+package gov.usgs.cida.wqp.dao.count;
 
 
 import static org.junit.Assert.assertEquals;
@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import gov.usgs.cida.wqp.BaseSpringTest;
+import gov.usgs.cida.wqp.dao.CountDao;
 import gov.usgs.cida.wqp.parameter.Parameters;
 import gov.usgs.cida.wqp.util.MybatisConstants;
 
@@ -310,7 +311,7 @@ public abstract class CountDaoTest extends BaseSpringTest {
 				assertEquals("total station count", expectedTotalStation, counts.get(i).get(MybatisConstants.STATION_COUNT).toString());
 				totalStation = true;
 				if (includeResults) {
-					assertEquals("total pcResult count", expectedTotalResult, counts.get(i).get(MybatisConstants.RESULT_COUNT).toString());
+					assertEquals("total result count", expectedTotalResult, counts.get(i).get(MybatisConstants.RESULT_COUNT).toString());
 					totalResult = true;
 				}
 			} else {
@@ -319,7 +320,7 @@ public abstract class CountDaoTest extends BaseSpringTest {
 					assertEquals("NWIS station count", expectedNwisStation, counts.get(i).get(MybatisConstants.STATION_COUNT).toString());
 					nwisStation = true;
 					if (includeResults) {
-						assertEquals("NWIS pcResult count", expectedNwisResult, counts.get(i).get(MybatisConstants.RESULT_COUNT).toString());
+						assertEquals("NWIS result count", expectedNwisResult, counts.get(i).get(MybatisConstants.RESULT_COUNT).toString());
 						nwisResult = true;
 					}
 					break;
@@ -327,7 +328,7 @@ public abstract class CountDaoTest extends BaseSpringTest {
 					assertEquals("STEWARDS station count", expectedStewardsStation, counts.get(i).get(MybatisConstants.STATION_COUNT).toString());
 					stewardsStation = true;
 					if (includeResults) {
-						assertEquals("STEWARDS pcResult count", expectedStewardsResult, counts.get(i).get(MybatisConstants.RESULT_COUNT).toString());
+						assertEquals("STEWARDS result count", expectedStewardsResult, counts.get(i).get(MybatisConstants.RESULT_COUNT).toString());
 						stewardsResult = true;
 					}
 					break;
@@ -335,7 +336,7 @@ public abstract class CountDaoTest extends BaseSpringTest {
 					assertEquals("STORET station count", expectedStoretStation, counts.get(i).get(MybatisConstants.STATION_COUNT).toString());
 					storetStation = true;
 					if (includeResults) {
-						assertEquals("STORET pcResult count", expectedStoretResult, counts.get(i).get(MybatisConstants.RESULT_COUNT).toString());
+						assertEquals("STORET result count", expectedStoretResult, counts.get(i).get(MybatisConstants.RESULT_COUNT).toString());
 						storetResult = true;
 					}
 					break;
@@ -343,7 +344,7 @@ public abstract class CountDaoTest extends BaseSpringTest {
 					assertEquals("BIODATA station count", expectedBiodataStation, counts.get(i).get(MybatisConstants.STATION_COUNT).toString());
 					biodataStation = true;
 					if (includeResults) {
-						assertEquals("BIODATA pcResult count", expectedBiodataResult, counts.get(i).get(MybatisConstants.RESULT_COUNT).toString());
+						assertEquals("BIODATA result count", expectedBiodataResult, counts.get(i).get(MybatisConstants.RESULT_COUNT).toString());
 						biodataResult = true;
 					}
 					break;

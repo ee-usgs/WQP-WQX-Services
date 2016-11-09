@@ -4,10 +4,8 @@ import java.util.Map;
 
 import org.apache.ibatis.session.ResultHandler;
 
-public interface IStreamingDao extends IDao {
-	
-	String QUERY_SELECT_ID = ".select";
-	
+public interface IStreamingDao {
+
 	/** 
 	 * This Dao will stream all of the data for the given type and parameters.
 	 * @param nameSpace - the type of data we are looking for.

@@ -4,11 +4,13 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+
+import org.junit.Test;
+
 import gov.usgs.cida.wqp.BaseSpringTest;
 import gov.usgs.cida.wqp.parameter.HashMapParameterHandler;
 import gov.usgs.cida.wqp.parameter.Parameters;
-import org.junit.Test;
-public class BoundedFloatingPointValidatorTest extends BaseSpringTest implements ValidationConstants {
+public class BoundedFloatingPointValidatorTest extends BaseSpringTest {
 	@Test
 	public void testConstructors_nullParameter() {
 		try {
@@ -30,18 +32,18 @@ public class BoundedFloatingPointValidatorTest extends BaseSpringTest implements
 	@Test
 	public void testConstructors_defaults() {
 		BoundedFloatingPointValidator validator = new BoundedFloatingPointValidator(Parameters.WITHIN);
-		assertEquals(DEFAULT_MIN_OCCURS, validator.getMinOccurs());
-		assertEquals(DEFAULT_MAX_OCCURS, validator.getMaxOccurs());
-		assertEquals(DEFAULT_DELIMITER, validator.getDelimiter());
+		assertEquals(AbstractValidator.DEFAULT_MIN_OCCURS, validator.getMinOccurs());
+		assertEquals(AbstractValidator.DEFAULT_MAX_OCCURS, validator.getMaxOccurs());
+		assertEquals(AbstractValidator.DEFAULT_DELIMITER, validator.getDelimiter());
 		assertEquals(-Double.MAX_VALUE, validator.minBound, .1);
 		assertEquals(Double.MAX_VALUE, validator.maxBound, .1);
 	}
 	@Test
 	public void testConstructors_customRange() {
 		BoundedFloatingPointValidator validator = new BoundedFloatingPointValidator(Parameters.WITHIN, 3, 12);
-		assertEquals(DEFAULT_MIN_OCCURS, validator.getMinOccurs());
-		assertEquals(DEFAULT_MAX_OCCURS, validator.getMaxOccurs());
-		assertEquals(DEFAULT_DELIMITER, validator.getDelimiter());
+		assertEquals(AbstractValidator.DEFAULT_MIN_OCCURS, validator.getMinOccurs());
+		assertEquals(AbstractValidator.DEFAULT_MAX_OCCURS, validator.getMaxOccurs());
+		assertEquals(AbstractValidator.DEFAULT_DELIMITER, validator.getDelimiter());
 		assertEquals(Double.valueOf("3"), validator.minBound, .1);
 		assertEquals(Double.valueOf("12"), validator.maxBound, .1);
 	}
@@ -110,9 +112,9 @@ public class BoundedFloatingPointValidatorTest extends BaseSpringTest implements
 	public void testWithinDefinition() {
 		AbstractValidator<?> validator = HashMapParameterHandler.getValidator(Parameters.WITHIN);
 		assertNotNull(validator);
-		assertEquals(DEFAULT_MIN_OCCURS, validator.getMinOccurs());
-		assertEquals(DEFAULT_MAX_OCCURS, validator.getMaxOccurs());
-		assertEquals(DEFAULT_DELIMITER, validator.getDelimiter());
+		assertEquals(AbstractValidator.DEFAULT_MIN_OCCURS, validator.getMinOccurs());
+		assertEquals(AbstractValidator.DEFAULT_MAX_OCCURS, validator.getMaxOccurs());
+		assertEquals(AbstractValidator.DEFAULT_DELIMITER, validator.getDelimiter());
 	}
 	@Test
 	public void testWithinPositiveValue() {

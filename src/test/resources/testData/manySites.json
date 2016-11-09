@@ -1,5 +1,6 @@
 {
-	"siteid": ["USGS-00000001",
+	"siteid": ["organization-siteId",
+		"USGS-00000001",
 		"USGS-00000002",
 		"USGS-00000003",
 		"USGS-00000004",

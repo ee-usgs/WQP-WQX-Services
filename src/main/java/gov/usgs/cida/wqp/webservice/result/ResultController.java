@@ -25,7 +25,6 @@ import gov.usgs.cida.wqp.mapping.xml.IXmlMapping;
 import gov.usgs.cida.wqp.parameter.IParameterHandler;
 import gov.usgs.cida.wqp.service.ILogService;
 import gov.usgs.cida.wqp.util.HttpConstants;
-import gov.usgs.cida.wqp.util.MybatisConstants;
 import gov.usgs.cida.wqp.webservice.BaseController;
 
 @Controller
@@ -76,8 +75,8 @@ public class ResultController extends BaseController {
 
 	protected String addCountHeaders(HttpServletResponse response, List<Map<String, Object>> counts) {
 		addSiteHeaders(response, counts);
-		addCountHeaders(response, counts, HEADER_TOTAL_RESULT_COUNT, HEADER_RESULT_COUNT, MybatisConstants.RESULT_COUNT);
-		return HEADER_TOTAL_RESULT_COUNT;
+		addResultHeaders(response, counts);
+		return HttpConstants.HEADER_TOTAL_RESULT_COUNT;
 	}
 
 	@Override

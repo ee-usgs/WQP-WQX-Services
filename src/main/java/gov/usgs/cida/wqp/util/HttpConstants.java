@@ -1,43 +1,51 @@
 package gov.usgs.cida.wqp.util;
 
-import gov.usgs.cida.wqp.transform.XmlConstants;
-
 import org.springframework.http.MediaType;
 
-public interface HttpConstants extends XmlConstants {
-	String DEFAULT_ENCODING = "UTF-8";
-	String HEADER_FATAL_ERROR = "FATAL-ERROR";
-	int HEADER_WARNING_DEFAULT_CODE = 299;
-	String HEADER_WARNING = "Warning";
-	String HEADER_DELIMITER = "-";
-	String HEADER_COUNT = "Count";
-	String HEADER_SITE = "Site";
-	String HEADER_TOTAL = "Total";
-	String HEADER_SITE_COUNT = HEADER_SITE + HEADER_DELIMITER + HEADER_COUNT;
-	String HEADER_TOTAL_SITE_COUNT = HEADER_TOTAL + HEADER_DELIMITER + HEADER_SITE_COUNT;
+public class HttpConstants {
+	public static final String DEFAULT_ENCODING = "UTF-8";
+	public static final String HEADER_FATAL_ERROR = "FATAL-ERROR";
+	public static final int HEADER_WARNING_DEFAULT_CODE = 299;
+	public static final String HEADER_WARNING = "Warning";
+	public static final String HEADER_DELIMITER = "-";
+	public static final String HEADER_COUNT = "Count";
+	public static final String HEADER_SITE = "Site";
+	public static final String HEADER_TOTAL = "Total";
+	public static final String HEADER_SITE_COUNT = HEADER_SITE + HEADER_DELIMITER + HEADER_COUNT;
+	public static final String HEADER_TOTAL_SITE_COUNT = HEADER_TOTAL + HEADER_DELIMITER + HEADER_SITE_COUNT;
 
-	String HEADER_CONTENT_TYPE = "Content-Type";
-	String HEADER_CONTENT_DISPOSITION = "Content-disposition";
-	String ENDPOINT_RESULT = "Result";
-	String ENDPOINT_STATION = "Station";
-	String ENDPOINT_SIMPLE_STATION = "simplestation";
-	String SEARCH_ENPOINT = "/search";
+	public static final String HEADER_CONTENT_TYPE = "Content-Type";
+	public static final String HEADER_CONTENT_DISPOSITION = "Content-disposition";
+	public static final String ENDPOINT_ACTIVITY = "Activity";
+	public static final String ENDPOINT_RESULT = "Result";
+	public static final String ENDPOINT_STATION = "Station";
+	public static final String ENDPOINT_SIMPLE_STATION = "simplestation";
+	public static final String SEARCH_ENPOINT = "/search";
 	// must do it here rather than in the EndPoint constructor because annotations require compile time values
-	String RESULT_SEARCH_ENPOINT = ENDPOINT_RESULT + SEARCH_ENPOINT;
-	String STATION_SEARCH_ENPOINT = ENDPOINT_STATION + SEARCH_ENPOINT;
-	String SIMPLE_STATION_ENDPOINT = ENDPOINT_SIMPLE_STATION + SEARCH_ENPOINT;
-	String HEADER_RESULT = ENDPOINT_RESULT;
-	String HEADER_RESULT_COUNT = HEADER_RESULT + HEADER_DELIMITER + HEADER_COUNT;
-	String HEADER_TOTAL_RESULT_COUNT = HEADER_TOTAL + HEADER_DELIMITER + HEADER_RESULT_COUNT;
+	public static final String ACTIVITY_SEARCH_ENPOINT = ENDPOINT_ACTIVITY + SEARCH_ENPOINT;
+	public static final String RESULT_SEARCH_ENPOINT = ENDPOINT_RESULT + SEARCH_ENPOINT;
+	public static final String STATION_SEARCH_ENPOINT = ENDPOINT_STATION + SEARCH_ENPOINT;
+	public static final String SIMPLE_STATION_ENDPOINT = ENDPOINT_SIMPLE_STATION + SEARCH_ENPOINT;
 
-	String MIME_TYPE_ZIP  = "application/zip";
-	String MIME_TYPE_CSV  = "text/csv";
-	String MIME_TYPE_TSV  = "text/tab-separated-values";
-	String MIME_TYPE_XLSX = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-	String MIME_TYPE_XML  = MediaType.APPLICATION_XML_VALUE;
-	String MIME_TYPE_JSON = MediaType.APPLICATION_JSON_VALUE;
-	String MIME_TYPE_KML = "application/vnd.google-earth.kml+xml";
-	String MIME_TYPE_KMZ = "application/vnd.google-earth.kmz";
-	String MIME_TYPE_GEOJSON = "application/vnd.geo+json";
+	public static final String HEADER_ACTIVITY = ENDPOINT_ACTIVITY;
+	public static final String HEADER_ACTIVITY_COUNT = HEADER_ACTIVITY + HEADER_DELIMITER + HEADER_COUNT;
+	public static final String HEADER_TOTAL_ACTIVITY_COUNT = HEADER_TOTAL + HEADER_DELIMITER + HEADER_ACTIVITY_COUNT;
+
+	public static final String HEADER_RESULT = ENDPOINT_RESULT;
+	public static final String HEADER_RESULT_COUNT = HEADER_RESULT + HEADER_DELIMITER + HEADER_COUNT;
+	public static final String HEADER_TOTAL_RESULT_COUNT = HEADER_TOTAL + HEADER_DELIMITER + HEADER_RESULT_COUNT;
+
+	public static final String MIME_TYPE_ZIP  = "application/zip";
+	public static final String MIME_TYPE_CSV  = "text/csv";
+	public static final String MIME_TYPE_TSV  = "text/tab-separated-values";
+	public static final String MIME_TYPE_XLSX = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+	public static final String MIME_TYPE_XML  = MediaType.APPLICATION_XML_VALUE;
+	public static final String MIME_TYPE_JSON = MediaType.APPLICATION_JSON_VALUE;
+	public static final String MIME_TYPE_KML = "application/vnd.google-earth.kml+xml";
+	public static final String MIME_TYPE_KMZ = "application/vnd.google-earth.kmz";
+	public static final String MIME_TYPE_GEOJSON = "application/vnd.geo+json";
+
+	private HttpConstants() {
+	}
 
 }

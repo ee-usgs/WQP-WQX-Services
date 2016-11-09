@@ -1,18 +1,11 @@
-package gov.usgs.cida.wqp.dao;
+package gov.usgs.cida.wqp.dao.streaming;
 
 
 import static org.junit.Assert.fail;
-import gov.usgs.cida.wqp.BaseSpringTest;
-import gov.usgs.cida.wqp.DBIntegrationTest;
-import gov.usgs.cida.wqp.dao.intfc.IDao;
-import gov.usgs.cida.wqp.dao.intfc.IStreamingDao;
-import gov.usgs.cida.wqp.parameter.Parameters;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.ibatis.session.ResultContext;
-import org.apache.ibatis.session.ResultHandler;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,6 +14,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DatabaseSetups;
+
+import gov.usgs.cida.wqp.BaseSpringTest;
+import gov.usgs.cida.wqp.DBIntegrationTest;
+import gov.usgs.cida.wqp.dao.BaseDao;
+import gov.usgs.cida.wqp.dao.intfc.IStreamingDao;
+import gov.usgs.cida.wqp.parameter.Parameters;
 
 @Category(DBIntegrationTest.class)
 @DatabaseSetups({
@@ -32,15 +31,6 @@ public class StreamingDaoTest extends BaseSpringTest {
 	@Autowired 
 	IStreamingDao streamingDao;
 	
-	private class TestResultHandler implements ResultHandler<Object> {
-		//TODO put the results somewhere to check them and allow them to be cleared between queries
-//		public ArrayList<Map<String, Object>> results = new ArrayList<Map<String, Object>>();
-		@Override
-		public void handleResult(ResultContext<?> context) {
-//			results.add((Map<String, Object>) context.getResultObject());
-		}
-	}
-
 	TestResultHandler handler;
 
 	@Before
@@ -52,37 +42,43 @@ public class StreamingDaoTest extends BaseSpringTest {
 	public void cleanup() {
 		handler = null;
 	}
-	
+
 	@Test
 	public void stationTests() {
-		singleParameterTests(IDao.STATION_NAMESPACE);
-		multipleParameterTests(IDao.STATION_NAMESPACE);
+		singleParameterTests(BaseDao.STATION_NAMESPACE);
+		multipleParameterTests(BaseDao.STATION_NAMESPACE);
 	}
-	
+
 	@Test
 	public void stationKmlTests() {
-		singleParameterTests(IDao.STATION_KML_NAMESPACE);
-		multipleParameterTests(IDao.STATION_KML_NAMESPACE);
+		singleParameterTests(BaseDao.STATION_KML_NAMESPACE);
+		multipleParameterTests(BaseDao.STATION_KML_NAMESPACE);
 	}
-	
+
 	@Test
 	public void simpleStationTests() {
-		singleParameterTests(IDao.SIMPLE_STATION_NAMESPACE);
-		multipleParameterTests(IDao.SIMPLE_STATION_NAMESPACE);
+		singleParameterTests(BaseDao.SIMPLE_STATION_NAMESPACE);
+		multipleParameterTests(BaseDao.SIMPLE_STATION_NAMESPACE);
 	}
-	
+
 	@Test
 	public void resultTests() {
-		singleParameterTests(IDao.RESULT_NAMESPACE);
-		multipleParameterTests(IDao.RESULT_NAMESPACE);
+		singleParameterTests(BaseDao.RESULT_NAMESPACE);
+		multipleParameterTests(BaseDao.RESULT_NAMESPACE);
 	}
-	
+
 	@Test
 	public void bioResultTests() {
-		singleParameterTests(IDao.BIOLOGICAL_RESULT_NAMESPACE);
-		multipleParameterTests(IDao.BIOLOGICAL_RESULT_NAMESPACE);
+		singleParameterTests(BaseDao.BIOLOGICAL_RESULT_NAMESPACE);
+		multipleParameterTests(BaseDao.BIOLOGICAL_RESULT_NAMESPACE);
 	}
-	
+
+	@Test
+	public void activityTests() {
+		singleParameterTests(BaseDao.ACTIVITY_NAMESPACE);
+		multipleParameterTests(BaseDao.ACTIVITY_NAMESPACE);
+	}
+
 	private void singleParameterTests(String nameSpace) {
 		//TODO - Real test data and verification. 
 		//TODO - These tests just validate that the queries have no syntax errors, not that they are logically correct.
@@ -112,7 +108,7 @@ public class StreamingDaoTest extends BaseSpringTest {
 				fail("Expected a RuntimeException, but got " + e.getLocalizedMessage());
 			}
 		}
-		
+
 		streamingDao.stream(nameSpace, parms, handler);
 
 		parms.put(Parameters.BBOX.toString(), new String[]{"-89", "43", "-88", "44"});
@@ -236,13 +232,13 @@ public class StreamingDaoTest extends BaseSpringTest {
 		parms.clear();
 		parms.put(Parameters.START_DATE_LO.toString(), new String[]{"10-11-2012"});
 		streamingDao.stream(nameSpace, parms, handler);
-		
+
 		parms.clear();
 		parms.put(Parameters.SUBJECT_TAXONOMIC_NAME.toString(), new String[]{"Acipenser"});
 		streamingDao.stream(nameSpace, parms, handler);
-		
+
 	}
-	
+
 	private void multipleParameterTests(String nameSpace) {
 		//TODO - Real test data and verification. 
 		//TODO - These tests just validate that the queries have no syntax errors, not that they are logically correct.
@@ -275,5 +271,5 @@ public class StreamingDaoTest extends BaseSpringTest {
 		parms.put(Parameters.WITHIN.toString(), new String[]{"1000"});
 		streamingDao.stream(nameSpace, parms, handler);
 	}
-	
+
 }

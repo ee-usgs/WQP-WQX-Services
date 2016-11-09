@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import gov.usgs.cida.wqp.mapping.Profile;
 import gov.usgs.cida.wqp.parameter.HashMapParameterHandler;
 import gov.usgs.cida.wqp.parameter.IParameterHandler;
 import gov.usgs.cida.wqp.parameter.Parameters;
@@ -14,7 +15,6 @@ import gov.usgs.cida.wqp.parameter.transform.ParameterTransformer;
 import gov.usgs.cida.wqp.parameter.transform.SplitAndReplaceTransformer;
 import gov.usgs.cida.wqp.service.CodesService;
 import gov.usgs.cida.wqp.service.FetchService;
-import gov.usgs.cida.wqp.util.WqpEnvProperties;
 import gov.usgs.cida.wqp.validation.AbstractValidator;
 import gov.usgs.cida.wqp.validation.BoundedFloatingPointValidator;
 import gov.usgs.cida.wqp.validation.DateFormatValidator;
@@ -24,10 +24,9 @@ import gov.usgs.cida.wqp.validation.LatitudeValidator;
 import gov.usgs.cida.wqp.validation.LongitudeValidator;
 import gov.usgs.cida.wqp.validation.LookupValidator;
 import gov.usgs.cida.wqp.validation.RegexValidator;
-import gov.usgs.cida.wqp.validation.ValidationConstants;
 
 @Configuration
-public class ParameterValidationConfig implements ValidationConstants, WqpEnvProperties {
+public class ParameterValidationConfig {
 	
 	@Autowired
 	CodesService codesService;
@@ -35,170 +34,188 @@ public class ParameterValidationConfig implements ValidationConstants, WqpEnvPro
 	@Autowired
 	FetchService fetchService;
 
+	public static final String NLDI_WQP_FEATURE_IDENTIFIER = "identifier";
+	public static final String FORMAT_DATE = "MM-dd-yyyy";
+
+	public static final String REGEX_FIPS_COUNTRY = "[A-Z]{2}";
+	public static final String REGEX_FIPS_STATE = "(?:([A-Z]{2}):)?([0-9]{1,2})";
+	public static final String REGEX_FIPS_COUNTY = "(?:([A-Z]{2}):)?([0-9]{1,2}):([0-9]{3}|N/A)";
+	public static final String REGEX_SITEID = "[\\w]+\\-.*\\S";
+	public static final String REGEX_POSITIVE_INT = "^\\d+$";
+	public static final String REGEX_HUC = "(?:[0-9]{8})|(?:(?:[0-9]{2}){1,3}\\*?)";
+	public static final String REGEX_PCODE = "[0-9]{5}";
+	public static final String REGEX_MIMETYPES = "csv|tsv|tab|xlsx|xml|kml|kmz|json|geojson"; // TODO refine
+	public static final String REGEX_AVOID = "NWIS|STORET";
+	public static final String REGEX_YES_NO = "yes|no";
+	public static final String REGEX_ANALYTICAL_METHOD = ".+";
+	public static final String REGEX_HUC_WILDCARD_IN = "\\*";
+	public static final String REGEX_HUC_WILDCARD_OUT = "";
+	public static final String REGEX_DATA_PROFILE = String.join("|", Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.SIMPLE_STATION, Profile.STATION);
+
 	@Bean
 	public RegexValidator<String> analyticalMethodValidator() {
 		return new RegexValidator<String>(Parameters.ANALYTICAL_METHOD, REGEX_ANALYTICAL_METHOD);
 	}
-	
+
 	@Bean
 	public LookupValidator assemblageValidator() {
 		// semicolon list of string assemblage names
 		return new LookupValidator(codesService, Parameters.ASSEMBLAGE);
 	}
-	
+
 	@Bean
 	public RegexValidator<String[]> avoidValidator(){
 		// semicolon list of databases to exclude as 'command.avoid'
-		return new RegexValidator<String[]>(Parameters.AVOID,REGEX_AVOID);
+		return new RegexValidator<String[]>(Parameters.AVOID, REGEX_AVOID);
 	}
-	
+
 	@Bean
 	public LatLonBoundingBoxValidator bboxValidator() {
 		// comma list of four float values
 		return new LatLonBoundingBoxValidator(Parameters.BBOX);
 	}
-	
+
 	@Bean
 	public LookupValidator characteristicNameValidator() {
 		// semicolon list of string characteristic names
 		return new LookupValidator(codesService, Parameters.CHARACTERISTIC_NAME);
 	}
-	
+
 	@Bean
 	public LookupValidator characteristicTypeValidator() {
 		// semicolon list of string characteristic types
 		return new LookupValidator(codesService, Parameters.CHARACTERISTIC_TYPE);
 	}
-	
+
 	@Bean
 	public RegexValidator<String[]> countryValidator() {
 		// semicolon list of string country codes
 		return new RegexValidator<String[]>(Parameters.COUNTRY, REGEX_FIPS_COUNTRY);
 	}
-	
+
 	@Bean
 	public RegexValidator<String[]> countyValidator() {
 		// semicolon list of country:state:county code strings
 		return new RegexValidator<String[]>(Parameters.COUNTY, REGEX_FIPS_COUNTY);
 	}
-	
+
 	@Bean
 	public RegexValidator<String[]> dataProfileValidator() {
 		// semicolon list of country:state:county code strings
 		return new RegexValidator<String[]>(Parameters.DATA_PROFILE, REGEX_DATA_PROFILE);
 	}
-	
+
 	@Bean
 	public AbstractValidator<String[]> hucValidator() {
 		// semicolon list of HUC codes
 		AbstractValidator<String[]> hucValidator = new RegexValidator<String[]>(Parameters.HUC, REGEX_HUC);
-		ParameterTransformer<String[]> hucTransformer = new SplitAndReplaceTransformer(DEFAULT_DELIMITER, REGEX_HUC_WILDCARD_IN, REGEX_HUC_WILDCARD_OUT);
+		ParameterTransformer<String[]> hucTransformer = new SplitAndReplaceTransformer(AbstractValidator.DEFAULT_DELIMITER, REGEX_HUC_WILDCARD_IN, REGEX_HUC_WILDCARD_OUT);
 		hucValidator.setTransformer(hucTransformer);
 		return hucValidator;
 	}
-	
+
 	@Bean
 	public LatitudeValidator latitudeValidator() {
 		// one float value
 		return new LatitudeValidator(Parameters.LATITUDE);
 	}
-	
+
 	@Bean
 	public LongitudeValidator longitudeValidator() {
 		// one float value
 		return new LongitudeValidator(Parameters.LONGITUDE);
 	}
-	
+
 	@Bean
 	public RegexValidator<String[]> mimeTypeValidator() {
 		// one string mimetype
 		return new RegexValidator<String[]>(Parameters.MIMETYPE, 1, 1, null, REGEX_MIMETYPES);
 	}
-	
+
 	@Bean
 	public RegexValidator<String[]> minResultsValidator() {
 		// one int value 
 		return new RegexValidator<String[]>(Parameters.MIN_RESULTS, 1, 1, null, REGEX_POSITIVE_INT);
 	}
-	
+
 	@Bean
 	public FetchValidator nldiurlValidator() {
 		// one NLDI navigation URL 
 		return new FetchValidator(NLDI_WQP_FEATURE_IDENTIFIER, fetchService, Parameters.NLDIURL);
 	}
-	
+
 	@Bean
 	public LookupValidator organizationValidator() {
 		// semicolon list of string ORG names
 		return new LookupValidator(codesService, Parameters.ORGANIZATION);
 	}
-	
+
 	@Bean
 	public RegexValidator<String[]> parameterCodeValidator() {
 		// semicolon list of 5digit pCodes
 		return new RegexValidator<String[]>(Parameters.PCODE, REGEX_PCODE);
 	}
-	
+
 	@Bean
 	public LookupValidator projectValidator() {
 		// semicolon list of string project ids
 		return new LookupValidator(codesService, Parameters.PROJECT);
 	}
-	
+
 	@Bean
 	public LookupValidator providerValidator() {
 		// semicolon list of databases to include
 		return new LookupValidator(codesService, Parameters.PROVIDERS);
 	}
-	
+
 	@Bean
 	public LookupValidator sampleMediaValidator() {
 		// semicolon list of string media type names
 		return new LookupValidator(codesService, Parameters.SAMPLE_MEDIA);
 	}
-	
+
 	@Bean
 	public LookupValidator siteTypeValidator() {
 		// semicolon list of string site type names
 		return new LookupValidator(codesService, Parameters.SITE_TYPE);
 	}
-	
+
 	@Bean
 	public RegexValidator<String[]> siteIdValidator() {
 		// agency-site string
-		return new RegexValidator<String[]>(Parameters.SITEID, DEFAULT_MIN_OCCURS, UNBOUNDED, DEFAULT_DELIMITER, REGEX_SITEID);
+		return new RegexValidator<String[]>(Parameters.SITEID, AbstractValidator.DEFAULT_MIN_OCCURS, AbstractValidator.UNBOUNDED, AbstractValidator.DEFAULT_DELIMITER, REGEX_SITEID);
 	}
-	
+
 	@Bean
 	public RegexValidator<String[]> sortedValidator() {
 		// a string
 		return new RegexValidator<String[]>(Parameters.SORTED, REGEX_YES_NO);
 	}
-	
+
 	@Bean
 	public DateFormatValidator startDateHiValidator() {
 		// one string date MM-DD-YYYY
 		return new DateFormatValidator(Parameters.START_DATE_HI, FORMAT_DATE);
 	}
-	
+
 	@Bean
 	public DateFormatValidator startDateLoValidator() {
 		// one string date MM-DD-YYYY
 		return new DateFormatValidator(Parameters.START_DATE_LO, FORMAT_DATE);
 	}
-	
+
 	@Bean
 	public RegexValidator<String[]> stateValidator() {
 		// country:state code string
 		return new RegexValidator<String[]>(Parameters.STATE, REGEX_FIPS_STATE);
 	}
-	
+
 	@Bean
 	public LookupValidator subjectTaxonomicNameValidator() {
 		// semicolon list of string ubjectTaxonomicName names
 		return new LookupValidator(codesService, Parameters.SUBJECT_TAXONOMIC_NAME);
 	}
-	
+
 	@Bean
 	public BoundedFloatingPointValidator withinValidator() {
 		// one float value
@@ -210,7 +227,7 @@ public class ParameterValidationConfig implements ValidationConstants, WqpEnvPro
 		// one string 'yes' or omitted
 		return new RegexValidator<String[]>(Parameters.ZIP, 0, 1, null, REGEX_YES_NO);
 	}
-	
+
 	@Bean
 	public Map<Parameters, AbstractValidator<?>> validatorMap() {
 		Map<Parameters, AbstractValidator<?>> validatorMap = new HashMap<Parameters, AbstractValidator<?>>();
@@ -243,12 +260,12 @@ public class ParameterValidationConfig implements ValidationConstants, WqpEnvPro
 		validatorMap.put(Parameters.SUBJECT_TAXONOMIC_NAME, subjectTaxonomicNameValidator());
 		validatorMap.put(Parameters.WITHIN, withinValidator());
 		validatorMap.put(Parameters.ZIP, zipValidator());
-        return validatorMap;
+	return validatorMap;
 	}
 
 	@Bean
 	public IParameterHandler hashMapParameterHandler() {
 		return new HashMapParameterHandler(validatorMap());
 	}
-	
+
 }

@@ -1,13 +1,13 @@
-package gov.usgs.cida.wqp.dao;
-
-import gov.usgs.cida.wqp.DBIntegrationTest;
-import gov.usgs.cida.wqp.dao.intfc.ICountDao;
+package gov.usgs.cida.wqp.dao.count;
 
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DatabaseSetups;
+
+import gov.usgs.cida.wqp.DBIntegrationTest;
+import gov.usgs.cida.wqp.dao.BaseDao;
 
 @Category(DBIntegrationTest.class)
 @DatabaseSetups({
@@ -18,22 +18,22 @@ public class CountDaoStationTest extends CountDaoTest {
 
 	@Test
 	public void singleParameterTests() {
-		super.singleParameterTests(ICountDao.STATION_NAMESPACE, false);
+		super.singleParameterTests(BaseDao.STATION_NAMESPACE, false);
 	}
 	
 	@Test
 	public void multipleParameterTests() {
-		super.multipleParameterTests(ICountDao.STATION_NAMESPACE, false);
+		super.multipleParameterTests(BaseDao.STATION_NAMESPACE, false);
 	}
 
 	@Test
 	public void singleParameterKmlTests() {
-		super.singleParameterTests(ICountDao.STATION_KML_NAMESPACE, false);
+		super.singleParameterTests(BaseDao.STATION_KML_NAMESPACE, false);
 	}
 	
 	@Test
 	public void multipleParameterKmlTests() {
-		super.multipleParameterTests(ICountDao.STATION_KML_NAMESPACE, false);
+		super.multipleParameterTests(BaseDao.STATION_KML_NAMESPACE, false);
 	}
 
 }

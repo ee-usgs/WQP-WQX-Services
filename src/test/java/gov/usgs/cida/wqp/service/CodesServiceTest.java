@@ -7,16 +7,16 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
-import gov.usgs.cida.wqp.BaseSpringTest;
-import gov.usgs.cida.wqp.exception.WqpException;
-import gov.usgs.cida.wqp.parameter.Parameters;
-import gov.usgs.cida.wqp.util.WqpEnvProperties;
 
 import java.net.URL;
 
 import org.junit.Test;
 
-public class CodesServiceTest extends BaseSpringTest implements WqpEnvProperties {
+import gov.usgs.cida.wqp.BaseSpringTest;
+import gov.usgs.cida.wqp.exception.WqpException;
+import gov.usgs.cida.wqp.parameter.Parameters;
+
+public class CodesServiceTest extends BaseSpringTest {
 
 	@Test
 	public void testMakeUrl_nullParam() throws Exception {

@@ -1,25 +1,23 @@
 package gov.usgs.cida.wqp.parameter.transform;
 
-import gov.usgs.cida.wqp.validation.ValidationConstants;
-import gov.usgs.cida.wqp.validation.ValidationResult;
 import java.util.regex.Pattern;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- *
- * @author tkunicki
- */
-public class SplitTransformer implements ParameterTransformer<String[]>, ValidationConstants {
+import gov.usgs.cida.wqp.validation.AbstractValidator;
+import gov.usgs.cida.wqp.validation.ValidationResult;
+
+public class SplitTransformer implements ParameterTransformer<String[]> {
 	private static final Logger LOG = LoggerFactory.getLogger(SplitTransformer.class);
-	
+
 	private final Pattern splitPattern;
 	private final String delimiter;
-	
+
 	public SplitTransformer() {
-		this(DEFAULT_DELIMITER);
+		this(AbstractValidator.DEFAULT_DELIMITER);
 	}
-	
+
 	public SplitTransformer(String delimiter) {
 		LOG.trace(getClass().getName());
 		this.delimiter = delimiter;
@@ -29,12 +27,12 @@ public class SplitTransformer implements ParameterTransformer<String[]>, Validat
 			splitPattern = Pattern.compile(delimiter);
 		}
 	}
-	
+
 	@Override
 	public String[] transform(String value) {
 		return split(value);
 	}
-	
+
 	public String[] split(String value) {
 		String[] rtn = null;
 		if (value == null || 0 == value.length()) {
@@ -46,7 +44,7 @@ public class SplitTransformer implements ParameterTransformer<String[]>, Validat
 		}
 		return rtn;
 	}
-	
+
 	/**
 	 * Removes consecutive occurrences of the delimiter as well as the leading and trailing delimiter,
 	 * if the parameter takes delimiters.
@@ -64,7 +62,7 @@ public class SplitTransformer implements ParameterTransformer<String[]>, Validat
 		}
 		return param;
 	}
-	
+
 	@Override
 	public ValidationResult<String[]> getValdiationResult() {
 		return new ValidationResult<String[]>();

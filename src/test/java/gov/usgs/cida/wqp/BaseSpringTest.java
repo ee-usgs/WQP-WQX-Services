@@ -23,22 +23,21 @@ import com.github.springtestdbunit.TransactionDbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 
 import gov.usgs.cida.wqp.springinit.TestSpringConfig;
-import gov.usgs.cida.wqp.util.HttpConstants;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestSpringConfig.class)
 @WebAppConfiguration
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
 	DirtiesContextTestExecutionListener.class,
-    TransactionalTestExecutionListener.class,
+	TransactionalTestExecutionListener.class,
 	TransactionDbUnitTestExecutionListener.class })
 @DbUnitConfiguration(dataSetLoader = ColumnSensingFlatXMLDataSetLoader.class)
-public abstract class BaseSpringTest implements HttpConstants {
+public abstract class BaseSpringTest {
 	
 	public String harmonizeXml(String xmlDoc) {
 		return xmlDoc.replace("\r", "").replace("\n", "").replace("\t", "").replaceAll("> *<", "><");
 	}
-	
+
 	public String getSourceFile(String file) throws IOException {
 		return new String(FileCopyUtils.copyToByteArray(new ClassPathResource("testData/" + file).getInputStream()));
 	}
@@ -51,14 +50,14 @@ public abstract class BaseSpringTest implements HttpConstants {
 		ZipInputStream in = new ZipInputStream(new ByteArrayInputStream(content));
 		ZipEntry e = in.getNextEntry();
 		assertEquals(expectedEntryName, e.getName());
-		
-        ByteArrayOutputStream os = new ByteArrayOutputStream();
-        int len;
-        byte[] buffer = new byte[1024];
-        while ((len = in.read(buffer)) > 0) {
-        	os.write(buffer, 0, len);
-        }
-        return os.toString();
+
+		ByteArrayOutputStream os = new ByteArrayOutputStream();
+		int len;
+		byte[] buffer = new byte[1024];
+		while ((len = in.read(buffer)) > 0) {
+			os.write(buffer, 0, len);
+		}
+		return os.toString();
 	}
-	
+
 }

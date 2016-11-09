@@ -14,7 +14,7 @@ public interface IXmlMapping {
 	Map<String, List<String>> getStructure();
 
 	Map<String, String> getHardBreak();
-	
+
 	Map<String, List<ColumnProfile>> getGrouping();
 
 	String getEntryNodeName();

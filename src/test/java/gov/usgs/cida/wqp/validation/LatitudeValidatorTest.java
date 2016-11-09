@@ -1,13 +1,17 @@
 package gov.usgs.cida.wqp.validation;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+
+import org.junit.Test;
+
 import gov.usgs.cida.wqp.BaseSpringTest;
 import gov.usgs.cida.wqp.parameter.HashMapParameterHandler;
 import gov.usgs.cida.wqp.parameter.Parameters;
-import org.junit.Test;
-public class LatitudeValidatorTest extends BaseSpringTest implements ValidationConstants {
+
+public class LatitudeValidatorTest extends BaseSpringTest {
 	@Test
 	public void testConstructor_minToLarge() {
 		try {
@@ -52,9 +56,9 @@ public class LatitudeValidatorTest extends BaseSpringTest implements ValidationC
 	public void testLat_defaults() {
 		AbstractValidator<?> validator = HashMapParameterHandler.getValidator(Parameters.LATITUDE);
 		assertNotNull(validator);
-		assertEquals(DEFAULT_MIN_OCCURS, validator.getMinOccurs());
-		assertEquals(DEFAULT_MAX_OCCURS, validator.getMaxOccurs());
-		assertEquals(DEFAULT_DELIMITER, validator.getDelimiter());
+		assertEquals(AbstractValidator.DEFAULT_MIN_OCCURS, validator.getMinOccurs());
+		assertEquals(AbstractValidator.DEFAULT_MAX_OCCURS, validator.getMaxOccurs());
+		assertEquals(AbstractValidator.DEFAULT_DELIMITER, validator.getDelimiter());
 	}
 	@Test
 	public void testLat_validPositiveValue() {

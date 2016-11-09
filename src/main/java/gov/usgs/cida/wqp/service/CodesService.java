@@ -25,7 +25,7 @@ import gov.usgs.cida.wqp.util.HttpConstants;
 import gov.usgs.cida.wqp.util.WqpEnvProperties;
 
 @Service
-public class CodesService implements WqpEnvProperties {
+public class CodesService {
 	private static final Logger LOG = LoggerFactory.getLogger(CodesService.class);
 
 	private final String codesUrl;
@@ -59,7 +59,7 @@ public class CodesService implements WqpEnvProperties {
 			if (e.getExceptionid() != METHOD_PARAM_EMPTY) {
 				throw e;
 			}
-			
+
 		}
 
 		return response;
@@ -85,7 +85,7 @@ public class CodesService implements WqpEnvProperties {
 			url = new URL(urlStr);
 		} catch (MalformedURLException e ) {
 			throw new WqpException(URL_PARSING_EXCEPTION, getClass(), "makeCodesUrl",
-					"Invalid Code Lookup URL. Ensure that the wqpgateway.properties has a properly formated URL for " + CODES_URL);
+					"Invalid Code Lookup URL. Ensure that the wqpgateway.properties has a properly formated URL for " + WqpEnvProperties.CODES_URL);
 		} catch (UnsupportedEncodingException e) {
 			throw new WqpException(METHOD_PARAM_BOUNDS, getClass(), "makeCodesUrl",
 					"Unable to encode code value " + code);
