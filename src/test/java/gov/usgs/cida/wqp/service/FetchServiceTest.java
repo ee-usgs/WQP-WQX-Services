@@ -19,11 +19,11 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import gov.usgs.cida.wqp.BaseSpringTest;
-import gov.usgs.cida.wqp.validation.ValidationConstants;
+import gov.usgs.cida.wqp.springinit.ParameterValidationConfig;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(FetchService.class)
-public class FetchServiceTest extends BaseSpringTest implements ValidationConstants {
+public class FetchServiceTest extends BaseSpringTest {
 
 	protected FetchService service;
 
@@ -48,7 +48,7 @@ public class FetchServiceTest extends BaseSpringTest implements ValidationConsta
 	public void parseTest() {
 		service = new FetchService(1);
 		try {
-			assertSites(service.parse(NLDI_WQP_FEATURE_IDENTIFIER, new ByteArrayInputStream(getSourceFile("navigation.geojson").getBytes())));
+			assertSites(service.parse(ParameterValidationConfig.NLDI_WQP_FEATURE_IDENTIFIER, new ByteArrayInputStream(getSourceFile("navigation.geojson").getBytes())));
 		} catch (IOException e) {
 			fail(e.getLocalizedMessage());
 		}
@@ -64,7 +64,7 @@ public class FetchServiceTest extends BaseSpringTest implements ValidationConsta
 		when(conn.getInputStream()).thenReturn(new ByteArrayInputStream(getSourceFile("navigation.geojson").getBytes()));
 		
 		try {
-			assertSites(service.fetch(NLDI_WQP_FEATURE_IDENTIFIER, url));
+			assertSites(service.fetch(ParameterValidationConfig.NLDI_WQP_FEATURE_IDENTIFIER, url));
 		} catch (IOException e) {
 			fail(e.getLocalizedMessage());
 		}

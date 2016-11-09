@@ -3,10 +3,8 @@ package gov.usgs.cida.wqp.dao.intfc;
 import java.util.List;
 import java.util.Map;
 
-public interface ICountDao extends IDao {
-	
-	static String QUERY_SELECT_ID = ".count";
-	
+public interface ICountDao {
+
 	/** 
 	 * This Dao will grab all of the record counts for the given type and parameters.
 	 * @param nameSpace - the type of counts we are looking for.
@@ -14,5 +12,5 @@ public interface ICountDao extends IDao {
 	 * @return - the list of counts.
 	 */
 	List<Map<String, Object>> getCounts(String nameSpace, Map<String, Object> parameterMap);
-	
+
 }

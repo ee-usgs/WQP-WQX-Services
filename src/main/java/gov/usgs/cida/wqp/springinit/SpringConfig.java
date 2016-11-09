@@ -24,8 +24,6 @@ import org.springframework.web.servlet.config.annotation.ContentNegotiationConfi
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-import gov.usgs.cida.wqp.util.HttpConstants;
-import gov.usgs.cida.wqp.util.MybatisConstants;
 import gov.usgs.cida.wqp.util.WqpEnv;
 import gov.usgs.cida.wqp.util.WqpEnvProperties;
 
@@ -43,8 +41,7 @@ import gov.usgs.cida.wqp.util.WqpEnvProperties;
 	@PropertySource(value = WqpEnv.CONTAINER_PROPERTIES_FILE, ignoreResourceNotFound = true)
 })
 @Import({ParameterValidationConfig.class, MybatisConfig.class})
-public class SpringConfig extends WebMvcConfigurerAdapter implements EnvironmentAware,
-		HttpConstants, MybatisConstants, WqpEnvProperties  {
+public class SpringConfig extends WebMvcConfigurerAdapter implements EnvironmentAware {
 	private static final Logger LOG = LoggerFactory.getLogger(SpringConfig.class);
 
 	public SpringConfig() {
@@ -88,37 +85,37 @@ public class SpringConfig extends WebMvcConfigurerAdapter implements Environment
 
 	@Bean
 	public String kmlStyleUrl() {
-		return WqpEnv.get(KML_STYLE_URL);
+		return WqpEnv.get(WqpEnvProperties.KML_STYLE_URL);
 	}
 
 	@Bean
 	public Integer maxResultRows() {
-		return WqpEnv.getInt(MAX_RESULT_ROWS);
+		return WqpEnv.getInt(WqpEnvProperties.MAX_RESULT_ROWS);
 	}
 
 	@Bean
 	public String siteUrlBase() {
-		return WqpEnv.get(SITE_URL_BASE);
+		return WqpEnv.get(WqpEnvProperties.SITE_URL_BASE);
 	}
 
 	@Bean
 	public String codesUrl() {
-		return WqpEnv.get(CODES_URL);
+		return WqpEnv.get(WqpEnvProperties.CODES_URL);
 	}
 
 	@Bean
 	public String codesMimeType() {
-		return WqpEnv.get(CODES_MIME_TYPE);
+		return WqpEnv.get(WqpEnvProperties.CODES_MIME_TYPE);
 	}
 
 	@Bean
 	public Integer codesTimeoutMilli() {
-		return WqpEnv.getInt(CODES_TIMEOUT_MILLI);
+		return WqpEnv.getInt(WqpEnvProperties.CODES_TIMEOUT_MILLI);
 	}
 
 	@Bean
 	public Integer nldiTimeoutMilli() {
-		return WqpEnv.getInt(NLDI_TIMEOUT_MILLI);
+		return WqpEnv.getInt(WqpEnvProperties.NLDI_TIMEOUT_MILLI);
 	}
 
 }

@@ -20,9 +20,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import gov.usgs.cida.wqp.dao.BaseDao;
 import gov.usgs.cida.wqp.dao.StreamingResultHandler;
 import gov.usgs.cida.wqp.dao.intfc.ICountDao;
-import gov.usgs.cida.wqp.dao.intfc.IDao;
 import gov.usgs.cida.wqp.dao.intfc.IStreamingDao;
 import gov.usgs.cida.wqp.mapping.Profile;
 import gov.usgs.cida.wqp.mapping.xml.IXmlMapping;
@@ -39,9 +39,8 @@ import gov.usgs.cida.wqp.transform.Transformer;
 import gov.usgs.cida.wqp.util.HttpConstants;
 import gov.usgs.cida.wqp.util.MimeType;
 import gov.usgs.cida.wqp.util.MybatisConstants;
-import gov.usgs.cida.wqp.validation.ValidationConstants;
 
-public abstract class BaseController implements HttpConstants, ValidationConstants {
+public abstract class BaseController {
 	private static final Logger LOG = LoggerFactory.getLogger(BaseController.class);
 
 	protected final IStreamingDao streamingDao;
@@ -181,7 +180,7 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 			case kmz:
 				return MimeType.kmz.getMimeType();
 			default:
-				return MIME_TYPE_ZIP;
+				return HttpConstants.MIME_TYPE_ZIP;
 			}
 		} else {
 			return getMimeType().getMimeType();
@@ -233,7 +232,7 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 
 	protected boolean doCommonSetup(HttpServletRequest request, HttpServletResponse response,
 			Map<String, Object> postParms) {
-		response.setCharacterEncoding(DEFAULT_ENCODING);
+		response.setCharacterEncoding(HttpConstants.DEFAULT_ENCODING);
 		processParameters(request, postParms);
 		if (!getPm().isValid() ) {
 			writeWarningHeaders(response, getPm().getValidationMessages());
@@ -250,13 +249,13 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 
 		List<Map<String, Object>> counts = countDao.getCounts(getMybatisNamespace(), getPm().getQueryParameters());
 
-		response.setCharacterEncoding(DEFAULT_ENCODING);
-		response.addHeader(HEADER_CONTENT_TYPE, getContentHeader());
+		response.setCharacterEncoding(HttpConstants.DEFAULT_ENCODING);
+		response.addHeader(HttpConstants.HEADER_CONTENT_TYPE, getContentHeader());
 		if (RequestMethod.POST.toString().equalsIgnoreCase(request.getMethod())
 				&& request.getRequestURI().endsWith("count")) {
 			//skip the content disposition header on POST counts
 		} else {
-			response.setHeader(HEADER_CONTENT_DISPOSITION,"attachment; filename=" + getAttachementFileName());
+			response.setHeader(HttpConstants.HEADER_CONTENT_DISPOSITION,"attachment; filename=" + getAttachementFileName());
 		}
 		String totalHeader = addCountHeaders(response, counts);
 
@@ -275,13 +274,13 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 				return true;
 			} else {
 				response.setStatus(HttpStatus.BAD_REQUEST.value());
-				response.addHeader(HEADER_WARNING, "This query will return in excess of " + maxResultRows + " results, please refine your query.");
+				response.addHeader(HttpConstants.HEADER_WARNING, "This query will return in excess of " + maxResultRows + " results, please refine your query.");
 				return false;
 			}
 		default:
 			if (Integer.valueOf(totalRows) > maxResultRows) {
 				getPm().getQueryParameters().put(Parameters.SORTED.toString(), "no");
-				response.addHeader(HEADER_WARNING, "This query will return in excess of " + maxResultRows + " results, the data will not be sorted.");
+				response.addHeader(HttpConstants.HEADER_WARNING, "This query will return in excess of " + maxResultRows + " results, the data will not be sorted.");
 			} else {
 				if (!getPm().getQueryParameters().containsKey(Parameters.SORTED.toString())) {
 					getPm().getQueryParameters().put(Parameters.SORTED.toString(), "yes");
@@ -335,10 +334,10 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 			LOG.error("logId: {}", BaseController.getLogId());
 			LOG.error("status: {}", HttpStatus.INTERNAL_SERVER_ERROR.value());
 			LOG.error(msgText, e);
-			response.addHeader(HEADER_FATAL_ERROR, msgText);
+			response.addHeader(HttpConstants.HEADER_FATAL_ERROR, msgText);
 			if (null != responseStream) {
 				try {
-					responseStream.write(msgText.getBytes(DEFAULT_ENCODING));
+					responseStream.write(msgText.getBytes(HttpConstants.DEFAULT_ENCODING));
 				} catch (IOException e2) {
 					//Just log, cause we obviously can't tell the client
 					LOG.error("Error telling client about exception", e2);
@@ -394,10 +393,10 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 			LOG.error("logId: {}", BaseController.getLogId());
 			LOG.error("status: {}", HttpStatus.INTERNAL_SERVER_ERROR.value());
 			LOG.error(msgText, e);
-			response.addHeader(HEADER_FATAL_ERROR, msgText);
+			response.addHeader(HttpConstants.HEADER_FATAL_ERROR, msgText);
 			if (null != responseStream) {
 				try {
-					responseStream.write(msgText.getBytes(DEFAULT_ENCODING));
+					responseStream.write(msgText.getBytes(HttpConstants.DEFAULT_ENCODING));
 				} catch (IOException e2) {
 					//Just log, cause we obviously can't tell the client
 					LOG.error("Error telling client about exception", e2);
@@ -455,19 +454,21 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 		switch (getMimeType()) {
 		case kml:
 		case kmz:
-			return IDao.STATION_KML_NAMESPACE;
+			return BaseDao.STATION_KML_NAMESPACE;
 		case geojson:
-			return IDao.SIMPLE_STATION_NAMESPACE;
+			return BaseDao.SIMPLE_STATION_NAMESPACE;
 		default:
 			switch (getProfile()) {
 			case Profile.BIOLOGICAL:
-				return IDao.BIOLOGICAL_RESULT_NAMESPACE;
+				return BaseDao.BIOLOGICAL_RESULT_NAMESPACE;
 			case Profile.PC_RESULT:
-				return IDao.RESULT_NAMESPACE;
+				return BaseDao.RESULT_NAMESPACE;
 			case Profile.STATION:
-				return IDao.STATION_NAMESPACE;
+				return BaseDao.STATION_NAMESPACE;
 			case Profile.SIMPLE_STATION:
-				return IDao.SIMPLE_STATION_NAMESPACE;
+				return BaseDao.SIMPLE_STATION_NAMESPACE;
+			case Profile.ACTIVITY:
+				return BaseDao.ACTIVITY_NAMESPACE;
 			default:
 				//Should never get here...
 				return "";
@@ -525,14 +526,14 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 		response.setStatus(HttpStatus.BAD_REQUEST.value());
 		for (List<String> msgs : validationMessages.values()) {
 			for (String msg : msgs) {
-				response.addHeader(HEADER_WARNING, warningHeader(null, msg, null));
+				response.addHeader(HttpConstants.HEADER_WARNING, warningHeader(null, msg, null));
 			}
 		}
 	}
 
 	protected String warningHeader(Integer code, String text, String date) {
 		StringBuilder rtn = new StringBuilder();
-		rtn.append(null == code ? HEADER_WARNING_DEFAULT_CODE : code);
+		rtn.append(null == code ? HttpConstants.HEADER_WARNING_DEFAULT_CODE : code);
 		rtn.append(" WQP \"");
 		rtn.append(null == text || 0 == text.length() ? "Unknown error" : text);
 		rtn.append("\" ");
@@ -541,16 +542,16 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 	}
 
 	protected String determineHeaderName(Map<String, Object> count, String suffix) {
-		String mySuffix = suffix==null ?"" :suffix;
+		String mySuffix = suffix==null ? "" : suffix;
 		if (null == count) {
-			return HEADER_TOTAL + HEADER_DELIMITER + mySuffix;
+			return HttpConstants.HEADER_TOTAL + HttpConstants.HEADER_DELIMITER + mySuffix;
 		} else {
 			Object provider = count.get(MybatisConstants.DATA_SOURCE);
 
 			if (provider==null) {
-				provider = HEADER_TOTAL + HEADER_DELIMITER + mySuffix;
+				provider = HttpConstants.HEADER_TOTAL + HttpConstants.HEADER_DELIMITER + mySuffix;
 			} else {
-				provider = provider + HEADER_DELIMITER + mySuffix;
+				provider = provider + HttpConstants.HEADER_DELIMITER + mySuffix;
 			}
 			LOG.trace("determine count header : {}", provider.toString());
 
@@ -589,7 +590,15 @@ public abstract class BaseController implements HttpConstants, ValidationConstan
 	}
 
 	public void addSiteHeaders(HttpServletResponse response, List<Map<String, Object>> counts) {
-		addCountHeaders(response, counts, HEADER_TOTAL_SITE_COUNT, HEADER_SITE_COUNT, MybatisConstants.STATION_COUNT);
+		addCountHeaders(response, counts, HttpConstants.HEADER_TOTAL_SITE_COUNT, HttpConstants.HEADER_SITE_COUNT, MybatisConstants.STATION_COUNT);
+	}
+
+	public void addActivityHeaders(HttpServletResponse response, List<Map<String, Object>> counts) {
+		addCountHeaders(response, counts, HttpConstants.HEADER_TOTAL_ACTIVITY_COUNT, HttpConstants.HEADER_ACTIVITY_COUNT, MybatisConstants.ACTIVITY_COUNT);
+	}
+
+	public void addResultHeaders(HttpServletResponse response, List<Map<String, Object>> counts) {
+		addCountHeaders(response, counts, HttpConstants.HEADER_TOTAL_RESULT_COUNT, HttpConstants.HEADER_RESULT_COUNT, MybatisConstants.RESULT_COUNT);
 	}
 
 }

@@ -22,8 +22,9 @@ import gov.usgs.cida.wqp.BaseSpringTest;
 import gov.usgs.cida.wqp.parameter.Parameters;
 import gov.usgs.cida.wqp.service.FetchService;
 import gov.usgs.cida.wqp.service.FetchServiceTest;
+import gov.usgs.cida.wqp.springinit.ParameterValidationConfig;
 
-public class FetchValidatorTest extends BaseSpringTest implements ValidationConstants {
+public class FetchValidatorTest extends BaseSpringTest {
 
 	protected FetchValidator validator;
 
@@ -33,7 +34,7 @@ public class FetchValidatorTest extends BaseSpringTest implements ValidationCons
 	@Before
 	public void setup() {
 		MockitoAnnotations.initMocks(this);
-		validator = new FetchValidator(NLDI_WQP_FEATURE_IDENTIFIER, service, Parameters.NLDIURL);
+		validator = new FetchValidator(ParameterValidationConfig.NLDI_WQP_FEATURE_IDENTIFIER, service, Parameters.NLDIURL);
 	}
 
 	@Test

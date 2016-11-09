@@ -1,20 +1,24 @@
 package gov.usgs.cida.wqp.validation;
+
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+
+import org.junit.Test;
+
 import gov.usgs.cida.wqp.BaseSpringTest;
 import gov.usgs.cida.wqp.parameter.HashMapParameterHandler;
 import gov.usgs.cida.wqp.parameter.Parameters;
-import org.junit.Test;
-public class LatLonBoundingBoxValidatorTest extends BaseSpringTest implements ValidationConstants {
+
+public class LatLonBoundingBoxValidatorTest extends BaseSpringTest {
 	@Test
 	public void testBbox_defaults() {
 		AbstractValidator<?> validator = HashMapParameterHandler.getValidator(Parameters.BBOX);
 		assertNotNull(validator);
-		assertEquals(DEFAULT_MIN_OCCURS, validator.getMinOccurs());
-		assertEquals(DEFAULT_MAX_OCCURS, validator.getMaxOccurs());
+		assertEquals(AbstractValidator.DEFAULT_MIN_OCCURS, validator.getMinOccurs());
+		assertEquals(AbstractValidator.DEFAULT_MAX_OCCURS, validator.getMaxOccurs());
 		assertEquals(",", validator.getDelimiter());
 	}
 	@Test

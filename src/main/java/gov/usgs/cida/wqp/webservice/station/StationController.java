@@ -82,7 +82,7 @@ public class StationController extends BaseController {
 	@Override
 	protected String addCountHeaders(HttpServletResponse response, List<Map<String, Object>> counts) {
 		addSiteHeaders(response, counts);
-		return HEADER_TOTAL_SITE_COUNT;
+		return HttpConstants.HEADER_TOTAL_SITE_COUNT;
 	}
 
 	@Override

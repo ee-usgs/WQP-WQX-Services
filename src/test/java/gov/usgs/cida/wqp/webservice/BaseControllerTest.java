@@ -36,6 +36,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.ibatis.session.ResultHandler;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -44,8 +45,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 
+import gov.usgs.cida.wqp.dao.BaseDao;
 import gov.usgs.cida.wqp.dao.intfc.ICountDao;
-import gov.usgs.cida.wqp.dao.intfc.IDao;
 import gov.usgs.cida.wqp.dao.intfc.IStreamingDao;
 import gov.usgs.cida.wqp.mapping.Profile;
 import gov.usgs.cida.wqp.parameter.IParameterHandler;
@@ -79,6 +80,12 @@ public class BaseControllerTest {
 	public void setup() {
 		MockitoAnnotations.initMocks(this);
 		testController = new TestBaseController(streamingDao, countDao, parameterHandler, logService, 100, "http://test-url.usgs.gov");
+	}
+
+	@After
+	public void teardown() {
+		//Need to manually clear out this thread local
+		TestBaseController.setCounts(null);
 	}
 
 	@Test
@@ -275,26 +282,29 @@ public class BaseControllerTest {
 	@Test
 	public void determineNamespaceTest() {
 		TestBaseController.setMimeType(MimeType.kml);
-		assertEquals(IDao.STATION_KML_NAMESPACE, testController.determineNamespace());
+		assertEquals(BaseDao.STATION_KML_NAMESPACE, testController.determineNamespace());
 
 		TestBaseController.setMimeType(MimeType.kmz);
-		assertEquals(IDao.STATION_KML_NAMESPACE, testController.determineNamespace());
+		assertEquals(BaseDao.STATION_KML_NAMESPACE, testController.determineNamespace());
 
 		TestBaseController.setMimeType(MimeType.geojson);
-		assertEquals(IDao.SIMPLE_STATION_NAMESPACE, testController.determineNamespace());
+		assertEquals(BaseDao.SIMPLE_STATION_NAMESPACE, testController.determineNamespace());
 
 		TestBaseController.setMimeType(MimeType.csv);
 		TestBaseController.setProfile(Profile.BIOLOGICAL);
-		assertEquals(IDao.BIOLOGICAL_RESULT_NAMESPACE, testController.determineNamespace());
+		assertEquals(BaseDao.BIOLOGICAL_RESULT_NAMESPACE, testController.determineNamespace());
 
 		TestBaseController.setProfile(Profile.PC_RESULT);
-		assertEquals(IDao.RESULT_NAMESPACE, testController.determineNamespace());
+		assertEquals(BaseDao.RESULT_NAMESPACE, testController.determineNamespace());
 
 		TestBaseController.setProfile(Profile.SIMPLE_STATION);
-		assertEquals(IDao.SIMPLE_STATION_NAMESPACE, testController.determineNamespace());
+		assertEquals(BaseDao.SIMPLE_STATION_NAMESPACE, testController.determineNamespace());
 
 		TestBaseController.setProfile(Profile.STATION);
-		assertEquals(IDao.STATION_NAMESPACE, testController.determineNamespace());
+		assertEquals(BaseDao.STATION_NAMESPACE, testController.determineNamespace());
+
+		TestBaseController.setProfile(Profile.ACTIVITY);
+		assertEquals(BaseDao.ACTIVITY_NAMESPACE, testController.determineNamespace());
 
 		TestBaseController.setProfile("");
 		assertEquals("", testController.determineNamespace());
@@ -758,26 +768,17 @@ public class BaseControllerTest {
 	}
 
 	@Test
-	public void test_warningHeader_defaultsCodeAndError() {
-		String expect = "299 WQP \"Unknown error\" date";
-		assertEquals(expect, testController.warningHeader(null, null, "date"));
-	}
+	public void warningHeaderTest() {
+		assertEquals("299 WQP \"Unknown error\" date", testController.warningHeader(null, null, "date"));
 
-	@Test
-	public void test_warningHeader_codeAndErrorText() {
-		String expect = "505 WQP \"Param error\" date";
-		assertEquals(expect, testController.warningHeader(505, "Param error", "date"));
-	}
+		assertEquals("505 WQP \"Param error\" date", testController.warningHeader(505, "Param error", "date"));
 
-	@Test
-	public void test_warningHeader() {
 		String expect = "505 WQP \"Param error\" " + new Date().toString();
 		assertEquals(expect, testController.warningHeader(505, "Param error", null));
-		System.out.println(expect);
 	}
 
 	@Test
-	public void test_writeWarningHeaders() throws UnsupportedEncodingException {
+	public void writeWarningHeadersTest() throws UnsupportedEncodingException {
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		HashMap<String, List<String>> map = new HashMap<String, List<String>>();
 		map.put("abc", Arrays.asList("warning1", "warning2"));
@@ -791,50 +792,6 @@ public class BaseControllerTest {
 		assertTrue( warning.contains("299 WQP \"warning2\"") );
 		assertTrue( warning.contains("299 WQP \"warning3\"") );
 		assertTrue( warning.contains("299 WQP \"warning4\"") );
-	}
-
-	private void addEntryStation(String ds, Integer en, List<Map<String, Object>>  list) {
-		Map<String, Object> count = new HashMap<String, Object>();
-		count.put(MybatisConstants.DATA_SOURCE,ds);
-		count.put(MybatisConstants.STATION_COUNT,en);
-		list.add(count);
-	}
-
-	@Test
-	public void test_addSiteCountHeader_proper() {
-		MockHttpServletResponse response = new MockHttpServletResponse();
-		List<Map<String, Object>> counts = new ArrayList<Map<String, Object>>();
-		addEntryStation("NWIS", 7, counts);
-		addEntryStation("STEW", 5, counts);
-		addEntryStation(null, 12, counts);
-		testController.addSiteHeaders(response, counts);
-		assertEquals(3, response.getHeaderNames().size());
-		String nwis = "NWIS"+HttpConstants.HEADER_DELIMITER+HttpConstants.HEADER_SITE_COUNT;
-		assertTrue(response.containsHeader(nwis));
-		String stew = "STEW"+HttpConstants.HEADER_DELIMITER+HttpConstants.HEADER_SITE_COUNT;
-		assertTrue(response.containsHeader(stew));
-		assertTrue(response.containsHeader(HttpConstants.HEADER_TOTAL_SITE_COUNT));
-		assertEquals("7", response.getHeader(nwis));
-		assertEquals("5", response.getHeader(stew));
-		assertEquals("12", response.getHeader(HttpConstants.HEADER_TOTAL_SITE_COUNT));
-	}
-
-	@Test
-	public void test_addSiteCountHeader_noTotal() {
-		MockHttpServletResponse response = new MockHttpServletResponse();
-		List<Map<String, Object>> counts = new ArrayList<Map<String, Object>>();
-		addEntryStation("NWIS", 7, counts);
-		addEntryStation("STEW", 5, counts);
-		testController.addSiteHeaders(response, counts);
-		assertEquals(3, response.getHeaderNames().size());
-		String nwis = "NWIS"+HttpConstants.HEADER_DELIMITER+HttpConstants.HEADER_SITE_COUNT;
-		assertTrue(response.containsHeader(nwis));
-		String stew = "STEW"+HttpConstants.HEADER_DELIMITER+HttpConstants.HEADER_SITE_COUNT;
-		assertTrue(response.containsHeader(stew));
-		assertTrue(response.containsHeader(HttpConstants.HEADER_TOTAL_SITE_COUNT));
-		assertEquals("7", response.getHeader(nwis));
-		assertEquals("5", response.getHeader(stew));
-		assertEquals("0", response.getHeader(HttpConstants.HEADER_TOTAL_SITE_COUNT));
 	}
 
 	@Test
@@ -920,12 +877,7 @@ public class BaseControllerTest {
 		ParameterMap p = new ParameterMap();
 		p.setQueryParameters(q);
 		when(parameterHandler.validateAndTransform(anyMap(), anyMap())).thenReturn(p);
-		List<Map<String, Object>> rawCounts = new ArrayList<>();
-		Map<String, Object> countRow = new HashMap<>();
-		countRow.put("DATA_SOURCE", "NWIS");
-		countRow.put("STATION_COUNT", 12);
-		rawCounts.add(countRow);
-		when(countDao.getCounts(anyString(), anyMap())).thenReturn(rawCounts);
+		when(countDao.getCounts(anyString(), anyMap())).thenReturn(getRawCounts());
 
 		Map<String, String> result = testController.doPostCountRequest(request, response, json);
 
@@ -934,7 +886,7 @@ public class BaseControllerTest {
 		assertTrue(result.containsKey("NWIS-Site-Count"));
 		assertEquals("12", result.get("NWIS-Site-Count"));
 		assertTrue(result.containsKey("Total-Site-Count"));
-		assertEquals("0", result.get("Total-Site-Count"));
+		assertEquals("121", result.get("Total-Site-Count"));
 		assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
 		assertEquals(HttpStatus.OK.value(), response.getStatus());
 		assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
@@ -945,84 +897,131 @@ public class BaseControllerTest {
 	@Test
 	public void addCountHeadersTest() {
 		MockHttpServletResponse response = new MockHttpServletResponse();
-		List<Map<String, Object>> rawCounts = new ArrayList<>();
-		Map<String, Object> countRow = new HashMap<>();
-		countRow.put("DATA_SOURCE", "NWIS");
-		countRow.put("STATION_COUNT", 12);
-		countRow.put("RESULT_COUNT", 359);
-		rawCounts.add(countRow);
 
-		testController.addCountHeaders(response, rawCounts, HttpConstants.HEADER_TOTAL_SITE_COUNT, HttpConstants.HEADER_SITE_COUNT, MybatisConstants.STATION_COUNT);
+		testController.addCountHeaders(response, new ArrayList<>(), "empty-total-header", "empty-header", "empty_count");
 
-		Object nwis = response.getHeaderValue("NWIS-Site-Count");
-		assertNotNull(nwis);
-		assertEquals("12", nwis);
-		Object total = response.getHeaderValue("Total-Site-Count");
-		assertNotNull(total);
-		assertEquals("0", total);
+		Object empty = response.getHeaderValue("empty-header");
+		assertNull(empty);
+		Object totalEmpty = response.getHeaderValue("empty-total-header");
+		assertNotNull(totalEmpty);
+		assertEquals("0", totalEmpty);
 
 		Map<String, String> counts = TestBaseController.getCounts();
 		assertNotNull(counts);
-		assertEquals(2, counts.size());
-		assertTrue(counts.containsKey("NWIS-Site-Count"));
-		assertEquals("12", counts.get("NWIS-Site-Count"));
-		assertTrue(counts.containsKey("Total-Site-Count"));
-		assertEquals("0", counts.get("Total-Site-Count"));
+		assertEquals(1, counts.size());
+		assertFalse(counts.containsKey("empty-header"));
+		assertTrue(counts.containsKey("empty-total-header"));
+		assertEquals("0", counts.get("empty-total-header"));
 
-		testController.addCountHeaders(response, rawCounts, HttpConstants.HEADER_TOTAL_RESULT_COUNT, HttpConstants.HEADER_RESULT_COUNT, MybatisConstants.RESULT_COUNT);
+		testController.addCountHeaders(response, getRawCounts(), HttpConstants.HEADER_TOTAL_SITE_COUNT, HttpConstants.HEADER_SITE_COUNT, MybatisConstants.STATION_COUNT);
 
+		empty = response.getHeaderValue("empty-header");
+		assertNull(empty);
+		totalEmpty = response.getHeaderValue("empty-total-header");
+		assertNotNull(totalEmpty);
+		assertEquals("0", totalEmpty);
 		Object nwisSite = response.getHeaderValue("NWIS-Site-Count");
 		assertNotNull(nwisSite);
 		assertEquals("12", nwisSite);
 		Object totalSite = response.getHeaderValue("Total-Site-Count");
 		assertNotNull(totalSite);
-		assertEquals("0", totalSite);
+		assertEquals("121", totalSite);
+
+		counts = TestBaseController.getCounts();
+		assertNotNull(counts);
+		assertEquals(3, counts.size());
+		assertFalse(counts.containsKey("empty-header"));
+		assertTrue(counts.containsKey("empty-total-header"));
+		assertEquals("0", counts.get("empty-total-header"));
+		assertTrue(counts.containsKey("NWIS-Site-Count"));
+		assertEquals("12", counts.get("NWIS-Site-Count"));
+		assertTrue(counts.containsKey("Total-Site-Count"));
+		assertEquals("121", counts.get("Total-Site-Count"));
+
+		testController.addCountHeaders(response, getRawCounts(), HttpConstants.HEADER_TOTAL_RESULT_COUNT, HttpConstants.HEADER_RESULT_COUNT, MybatisConstants.RESULT_COUNT);
+
+		nwisSite = response.getHeaderValue("NWIS-Site-Count");
+		assertNotNull(nwisSite);
+		assertEquals("12", nwisSite);
+		totalSite = response.getHeaderValue("Total-Site-Count");
+		assertNotNull(totalSite);
+		assertEquals("121", totalSite);
 		Object nwisResult = response.getHeaderValue("NWIS-Result-Count");
 		assertNotNull(nwisResult);
 		assertEquals("359", nwisResult);
 		Object totalResult = response.getHeaderValue("Total-Result-Count");
 		assertNotNull(totalResult);
-		assertEquals("0", totalResult);
+		assertEquals("3591", totalResult);
 
 		counts = TestBaseController.getCounts();
 		assertNotNull(counts);
-		assertEquals(4, counts.size());
+		assertEquals(5, counts.size());
+		assertFalse(counts.containsKey("empty-header"));
+		assertTrue(counts.containsKey("empty-total-header"));
+		assertEquals("0", counts.get("empty-total-header"));
 		assertTrue(counts.containsKey("NWIS-Site-Count"));
 		assertEquals("12", counts.get("NWIS-Site-Count"));
 		assertTrue(counts.containsKey("Total-Site-Count"));
-		assertEquals("0", counts.get("Total-Site-Count"));
+		assertEquals("121", counts.get("Total-Site-Count"));
 		assertTrue(counts.containsKey("NWIS-Result-Count"));
 		assertEquals("359", counts.get("NWIS-Result-Count"));
 		assertTrue(counts.containsKey("Total-Result-Count"));
-		assertEquals("0", counts.get("Total-Result-Count"));
+		assertEquals("3591", counts.get("Total-Result-Count"));
 	}
 
 	@Test
 	public void addSiteHeadersTest() {
 		MockHttpServletResponse response = new MockHttpServletResponse();
+		testController.addSiteHeaders(response, getRawCounts());
+		assertEquals("12", response.getHeaderValue("NWIS-Site-Count"));
+		assertEquals("121", response.getHeaderValue("Total-Site-Count"));
+		assertNull(response.getHeaderValue("NWIS-Activity-Count"));
+		assertNull(response.getHeaderValue("Total-Activity-Count"));
+		assertNull(response.getHeaderValue("NWIS-Result-Count"));
+		assertNull(response.getHeaderValue("Total-Result-Count"));
+	}
+
+	@Test
+	public void addActivityHeadersTest() {
+		MockHttpServletResponse response = new MockHttpServletResponse();
+		testController.addActivityHeaders(response, getRawCounts());
+		assertNull(response.getHeaderValue("NWIS-Site-Count"));
+		assertNull(response.getHeaderValue("Total-Site-Count"));
+		assertEquals("113", response.getHeaderValue("NWIS-Activity-Count"));
+		assertEquals("1131", response.getHeaderValue("Total-Activity-Count"));
+		assertNull(response.getHeaderValue("NWIS-Result-Count"));
+		assertNull(response.getHeaderValue("Total-Result-Count"));
+	}
+
+	@Test
+	public void addResultHeadersTest() {
+		MockHttpServletResponse response = new MockHttpServletResponse();
+		testController.addResultHeaders(response, getRawCounts());
+		assertNull(response.getHeaderValue("NWIS-Site-Count"));
+		assertNull(response.getHeaderValue("Total-Site-Count"));
+		assertNull(response.getHeaderValue("NWIS-Activity-Count"));
+		assertNull(response.getHeaderValue("Total-Activity-Count"));
+		assertEquals("359", response.getHeaderValue("NWIS-Result-Count"));
+		assertEquals("3591", response.getHeaderValue("Total-Result-Count"));
+	}
+
+	public static List<Map<String, Object>> getRawCounts() {
 		List<Map<String, Object>> rawCounts = new ArrayList<>();
-		Map<String, Object> countRow = new HashMap<>();
-		countRow.put("DATA_SOURCE", "NWIS");
-		countRow.put("STATION_COUNT", 12);
-		countRow.put("RESULT_COUNT", 359);
-		rawCounts.add(countRow);
+		Map<String, Object> nwisCountRow = new HashMap<>();
+		nwisCountRow.put("DATA_SOURCE", "NWIS");
+		nwisCountRow.put("STATION_COUNT", 12);
+		nwisCountRow.put("ACTIVITY_COUNT", 113);
+		nwisCountRow.put("RESULT_COUNT", 359);
+		rawCounts.add(nwisCountRow);
 
-		testController.addSiteHeaders(response, rawCounts);
+		Map<String, Object> totalCountRow = new HashMap<>();
+		totalCountRow.put("DATA_SOURCE", null);
+		totalCountRow.put("STATION_COUNT", 121);
+		totalCountRow.put("ACTIVITY_COUNT", 1131);
+		totalCountRow.put("RESULT_COUNT", 3591);
+		rawCounts.add(totalCountRow);
 
-		Object nwis = response.getHeaderValue("NWIS-Site-Count");
-		assertNotNull(nwis);
-		assertEquals("12", nwis);
-		Object total = response.getHeaderValue("Total-Site-Count");
-		assertNotNull(total);
-		assertEquals("0", total);
-
-		Map<String, String> counts = TestBaseController.getCounts();
-		assertNotNull(counts);
-		assertEquals(2, counts.size());
-		assertTrue(counts.containsKey("NWIS-Site-Count"));
-		assertEquals("12", counts.get("NWIS-Site-Count"));
-		assertTrue(counts.containsKey("Total-Site-Count"));
-		assertEquals("0", counts.get("Total-Site-Count"));
+		return rawCounts;
 	}
 
 }

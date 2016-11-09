@@ -1,4 +1,5 @@
 package gov.usgs.cida.wqp.validation;
+
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -6,12 +7,16 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+
+import org.junit.Test;
+
 import gov.usgs.cida.wqp.BaseSpringTest;
 import gov.usgs.cida.wqp.parameter.HashMapParameterHandler;
 import gov.usgs.cida.wqp.parameter.Parameters;
 import gov.usgs.cida.wqp.parameter.transform.SplitTransformer;
-import org.junit.Test;
-public class RegexValidatorTest extends BaseSpringTest implements ValidationConstants {
+import gov.usgs.cida.wqp.springinit.ParameterValidationConfig;
+
+public class RegexValidatorTest extends BaseSpringTest {
 	@Test
 	public void testConstructors_nullParameter() {
 		try {
@@ -33,9 +38,9 @@ public class RegexValidatorTest extends BaseSpringTest implements ValidationCons
 	@Test
 	public void testConstructors_defaults() {
 		RegexValidator<?> validator = new RegexValidator<Object>(Parameters.ANALYTICAL_METHOD, "abc");
-		assertEquals(DEFAULT_MIN_OCCURS, validator.getMinOccurs());
-		assertEquals(IN_CLAUSE_LIMIT, validator.getMaxOccurs());
-		assertEquals(DEFAULT_DELIMITER, validator.getDelimiter());
+		assertEquals(AbstractValidator.DEFAULT_MIN_OCCURS, validator.getMinOccurs());
+		assertEquals(AbstractValidator.IN_CLAUSE_LIMIT, validator.getMaxOccurs());
+		assertEquals(AbstractValidator.DEFAULT_DELIMITER, validator.getDelimiter());
 		assertEquals("(?:(?:^|(?<!^);)(?:abc)(?=(?<!;)$|;(?!$))){0,1000}", validator.getValidatePattern());
 	}
 	@Test
@@ -99,7 +104,7 @@ public class RegexValidatorTest extends BaseSpringTest implements ValidationCons
 	@Test
 	public void testValidate_SucceedsOnNull() {
 		AbstractValidator<String[]> validator = new RegexValidator<String[]>(Parameters.ANALYTICAL_METHOD, 0, 1, null, "[0-9]+|abc");
-		validator.setTransformer( new SplitTransformer(DEFAULT_DELIMITER));
+		validator.setTransformer( new SplitTransformer(AbstractValidator.DEFAULT_DELIMITER));
 		ValidationResult<String[]> vr = validator.validate(null);
 		assertTrue(vr.isValid());
 		assertEquals(0, vr.getValidationMessages().size());
@@ -107,7 +112,7 @@ public class RegexValidatorTest extends BaseSpringTest implements ValidationCons
 	}
 	@Test
 	public void testValidate_MinOccursOnce_emptyStringValue() {
-		AbstractValidator<String[]> validator = new RegexValidator<String[]>(Parameters.ANALYTICAL_METHOD, 1, DEFAULT_MAX_OCCURS, DEFAULT_DELIMITER, "[0-9]+|abc");
+		AbstractValidator<String[]> validator = new RegexValidator<String[]>(Parameters.ANALYTICAL_METHOD, 1, AbstractValidator.DEFAULT_MAX_OCCURS, AbstractValidator.DEFAULT_DELIMITER, "[0-9]+|abc");
 		ValidationResult<String[]> vr = validator.validate("");
 		assertFalse(vr.isValid());
 		assertEquals(1, vr.getValidationMessages().size());
@@ -116,7 +121,7 @@ public class RegexValidatorTest extends BaseSpringTest implements ValidationCons
 	}
 	@Test
 	public void testValidate_MinOccursOnce_matchingValue() {
-		AbstractValidator<String[]> validator = new RegexValidator<String[]>(Parameters.ANALYTICAL_METHOD, 1, DEFAULT_MAX_OCCURS, DEFAULT_DELIMITER, "[0-9]+|abc");
+		AbstractValidator<String[]> validator = new RegexValidator<String[]>(Parameters.ANALYTICAL_METHOD, 1, AbstractValidator.DEFAULT_MAX_OCCURS, AbstractValidator.DEFAULT_DELIMITER, "[0-9]+|abc");
 		ValidationResult<String[]> vr = validator.validate("abc");
 		assertTrue(vr.isValid());
 		assertEquals(0, vr.getValidationMessages().size());
@@ -124,17 +129,17 @@ public class RegexValidatorTest extends BaseSpringTest implements ValidationCons
 	}
 	@Test
 	public void testValidate_MinOccursOnce_mismatch() {
-		AbstractValidator<String[]> validator = new RegexValidator<String[]>(Parameters.ANALYTICAL_METHOD, 1, DEFAULT_MAX_OCCURS, DEFAULT_DELIMITER, "[0-9]+|abc");
+		AbstractValidator<String[]> validator = new RegexValidator<String[]>(Parameters.ANALYTICAL_METHOD, 1, AbstractValidator.DEFAULT_MAX_OCCURS, AbstractValidator.DEFAULT_DELIMITER, "[0-9]+|abc");
 		ValidationResult<String[]> vr = validator.validate("abcabc");
 		assertFalse(vr.isValid());
 		assertEquals(1, vr.getValidationMessages().size());
 		assertEquals("The value of analyticalmethod=abcabc must match the format [0-9]+|abc", vr.getValidationMessages().get(0));
 		assertArrayEquals(new String[]{"abcabc"}, vr.getRawValue());
 	}
-	String delim = DEFAULT_DELIMITER;
+	String delim = AbstractValidator.DEFAULT_DELIMITER;
 	@Test
 	public void testValidate_MaxOccursThrice() {
-		AbstractValidator<String[]> validator = new RegexValidator<String[]>(Parameters.ANALYTICAL_METHOD, DEFAULT_MIN_OCCURS, 3, DEFAULT_DELIMITER, "[0-9]+|abc");
+		AbstractValidator<String[]> validator = new RegexValidator<String[]>(Parameters.ANALYTICAL_METHOD, AbstractValidator.DEFAULT_MIN_OCCURS, 3, AbstractValidator.DEFAULT_DELIMITER, "[0-9]+|abc");
 		ValidationResult<String[]> vr = validator.validate("abc");
 		assertTrue(vr.isValid());
 		assertEquals(0, vr.getValidationMessages().size());
@@ -142,7 +147,7 @@ public class RegexValidatorTest extends BaseSpringTest implements ValidationCons
 	}
 	@Test
 	public void testValidate_MaxOccursThrice_2match() {
-		AbstractValidator<String[]> validator = new RegexValidator<String[]>(Parameters.ANALYTICAL_METHOD, DEFAULT_MIN_OCCURS, 3, DEFAULT_DELIMITER, "[0-9]+|abc");
+		AbstractValidator<String[]> validator = new RegexValidator<String[]>(Parameters.ANALYTICAL_METHOD, AbstractValidator.DEFAULT_MIN_OCCURS, 3, AbstractValidator.DEFAULT_DELIMITER, "[0-9]+|abc");
 		ValidationResult<String[]> vr = validator.validate("abc" + delim + "abc");
 		assertTrue(vr.isValid());
 		assertEquals(0, vr.getValidationMessages().size());
@@ -150,7 +155,7 @@ public class RegexValidatorTest extends BaseSpringTest implements ValidationCons
 	}
 	@Test
 	public void testValidate_MaxOccursThrice_3match() {
-		AbstractValidator<String[]> validator = new RegexValidator<String[]>(Parameters.ANALYTICAL_METHOD, DEFAULT_MIN_OCCURS, 3, DEFAULT_DELIMITER, "[0-9]+|abc");
+		AbstractValidator<String[]> validator = new RegexValidator<String[]>(Parameters.ANALYTICAL_METHOD, AbstractValidator.DEFAULT_MIN_OCCURS, 3, AbstractValidator.DEFAULT_DELIMITER, "[0-9]+|abc");
 		ValidationResult<String[]> vr = validator.validate("abc" + delim + "abc" + delim + "abc");
 		assertTrue(vr.isValid());
 		assertEquals(0, vr.getValidationMessages().size());
@@ -158,7 +163,7 @@ public class RegexValidatorTest extends BaseSpringTest implements ValidationCons
 	}
 	@Test
 	public void testValidate_MaxOccursThrice_tooMany() {
-		AbstractValidator<String[]> validator = new RegexValidator<String[]>(Parameters.ANALYTICAL_METHOD, DEFAULT_MIN_OCCURS, 3, DEFAULT_DELIMITER, "[0-9]+|abc");
+		AbstractValidator<String[]> validator = new RegexValidator<String[]>(Parameters.ANALYTICAL_METHOD, AbstractValidator.DEFAULT_MIN_OCCURS, 3, AbstractValidator.DEFAULT_DELIMITER, "[0-9]+|abc");
 		ValidationResult<String[]> vr = validator.validate("abc" + delim + "abc" + delim + "abc" + delim + "abc");
 		assertFalse(vr.isValid());
 		assertEquals(1, vr.getValidationMessages().size());
@@ -178,9 +183,9 @@ public class RegexValidatorTest extends BaseSpringTest implements ValidationCons
 	public void testCounty_defaults() {
 		AbstractValidator<?> validator = HashMapParameterHandler.getValidator(Parameters.COUNTY);
 		assertNotNull(validator);
-		assertEquals(DEFAULT_MIN_OCCURS, validator.getMinOccurs());
-		assertEquals(IN_CLAUSE_LIMIT, validator.getMaxOccurs());
-		assertEquals(DEFAULT_DELIMITER, validator.getDelimiter());
+		assertEquals(AbstractValidator.DEFAULT_MIN_OCCURS, validator.getMinOccurs());
+		assertEquals(AbstractValidator.IN_CLAUSE_LIMIT, validator.getMaxOccurs());
+		assertEquals(AbstractValidator.DEFAULT_DELIMITER, validator.getDelimiter());
 	}
 	@Test
 	public void testCounty_match() {
@@ -203,9 +208,9 @@ public class RegexValidatorTest extends BaseSpringTest implements ValidationCons
 	public void testHuc_defaults() {
 		AbstractValidator<?> validator = HashMapParameterHandler.getValidator(Parameters.HUC);
 		assertNotNull(validator);
-		assertEquals(DEFAULT_MIN_OCCURS, validator.getMinOccurs());
-		assertEquals(IN_CLAUSE_LIMIT, validator.getMaxOccurs());
-		assertEquals(DEFAULT_DELIMITER, validator.getDelimiter());
+		assertEquals(AbstractValidator.DEFAULT_MIN_OCCURS, validator.getMinOccurs());
+		assertEquals(AbstractValidator.IN_CLAUSE_LIMIT, validator.getMaxOccurs());
+		assertEquals(AbstractValidator.DEFAULT_DELIMITER, validator.getDelimiter());
 	}
 	@Test
 	public void testHuc_match() {
@@ -221,7 +226,7 @@ public class RegexValidatorTest extends BaseSpringTest implements ValidationCons
 		ValidationResult<?> vr = validator.validate("07090002;CV");
 		assertFalse(vr.isValid());
 		assertEquals(1, vr.getValidationMessages().size());
-		assertEquals("The value of huc=07090002;CV must match the format " + REGEX_HUC, vr.getValidationMessages().get(0));
+		assertEquals("The value of huc=07090002;CV must match the format " + ParameterValidationConfig.REGEX_HUC, vr.getValidationMessages().get(0));
 		assertArrayEquals(new String[]{"07090002;CV"}, (String[])vr.getRawValue());
 	}
 	@Test
@@ -238,16 +243,16 @@ public class RegexValidatorTest extends BaseSpringTest implements ValidationCons
 		ValidationResult<?> vr = validator.validate("100;CV");
 		assertFalse(vr.isValid());
 		assertEquals(1, vr.getValidationMessages().size());
-		assertEquals("The value of minresults=100;CV must match the format " + REGEX_POSITIVE_INT, vr.getValidationMessages().get(0));
+		assertEquals("The value of minresults=100;CV must match the format " + ParameterValidationConfig.REGEX_POSITIVE_INT, vr.getValidationMessages().get(0));
 		assertArrayEquals(new String[]{"100;CV"}, (String[]) vr.getRawValue());
 	}
 	@Test
 	public void testSiteId_defaults() {
 		AbstractValidator<?> validator = HashMapParameterHandler.getValidator(Parameters.SITEID);
 		assertNotNull(validator);
-		assertEquals(DEFAULT_MIN_OCCURS, validator.getMinOccurs());
-		assertEquals(UNBOUNDED, validator.getMaxOccurs());
-		assertEquals(DEFAULT_DELIMITER, validator.getDelimiter());
+		assertEquals(AbstractValidator.DEFAULT_MIN_OCCURS, validator.getMinOccurs());
+		assertEquals(AbstractValidator.UNBOUNDED, validator.getMaxOccurs());
+		assertEquals(AbstractValidator.DEFAULT_DELIMITER, validator.getDelimiter());
 	}
 	@Test
 	public void testSiteId_match() {
@@ -284,9 +289,9 @@ public class RegexValidatorTest extends BaseSpringTest implements ValidationCons
 	public void testState_defaults() {
 		AbstractValidator<?> validator = HashMapParameterHandler.getValidator(Parameters.STATE);
 		assertNotNull(validator);
-		assertEquals(DEFAULT_MIN_OCCURS, validator.getMinOccurs());
-		assertEquals(IN_CLAUSE_LIMIT, validator.getMaxOccurs());
-		assertEquals(DEFAULT_DELIMITER, validator.getDelimiter());
+		assertEquals(AbstractValidator.DEFAULT_MIN_OCCURS, validator.getMinOccurs());
+		assertEquals(AbstractValidator.IN_CLAUSE_LIMIT, validator.getMaxOccurs());
+		assertEquals(AbstractValidator.DEFAULT_DELIMITER, validator.getDelimiter());
 	}
 	@Test
 	public void testState_match() {
@@ -317,7 +322,7 @@ public class RegexValidatorTest extends BaseSpringTest implements ValidationCons
 		ValidationResult<?> vr = validator.validate("cvs"); // intentional typo
 		assertFalse(vr.isValid());
 		assertEquals(1, vr.getValidationMessages().size());
-		assertEquals("The value of mimeType=cvs must match the format " + REGEX_MIMETYPES, vr.getValidationMessages().get(0));
+		assertEquals("The value of mimeType=cvs must match the format " + ParameterValidationConfig.REGEX_MIMETYPES, vr.getValidationMessages().get(0));
 		assertArrayEquals(new String[]{"cvs"}, (String[])vr.getRawValue());
 	}
 }

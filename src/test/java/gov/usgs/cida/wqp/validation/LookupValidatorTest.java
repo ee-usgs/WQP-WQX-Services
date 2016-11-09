@@ -7,26 +7,27 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
-import gov.usgs.cida.wqp.BaseSpringTest;
-import gov.usgs.cida.wqp.exception.WqpException;
-import gov.usgs.cida.wqp.parameter.Parameters;
-import gov.usgs.cida.wqp.service.CodesService;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-public class LookupValidatorTest extends BaseSpringTest implements ValidationConstants {
+import gov.usgs.cida.wqp.BaseSpringTest;
+import gov.usgs.cida.wqp.exception.WqpException;
+import gov.usgs.cida.wqp.parameter.Parameters;
+import gov.usgs.cida.wqp.service.CodesService;
+
+public class LookupValidatorTest extends BaseSpringTest {
 	// Each individual end point should do it's own unit/integration test against the database.
 
 	@Mock
-    protected CodesService codesService;
+	protected CodesService codesService;
 
-    @Before
-    public void initTest() {
-        MockitoAnnotations.initMocks(this);
-    }
+	@Before
+	public void initTest() {
+		MockitoAnnotations.initMocks(this);
+	}
 
 	@Test
 	public void testConstructors_nullParameter() {
@@ -49,9 +50,9 @@ public class LookupValidatorTest extends BaseSpringTest implements ValidationCon
 	@Test
 	public void testConstructors_defaults() {
 		AbstractValidator<?> validator = new LookupValidator(codesService, Parameters.COUNTRY);
-		assertEquals(DEFAULT_MIN_OCCURS, validator.getMinOccurs());
-		assertEquals(IN_CLAUSE_LIMIT, validator.getMaxOccurs());
-		assertEquals(DEFAULT_DELIMITER, validator.getDelimiter());
+		assertEquals(AbstractValidator.DEFAULT_MIN_OCCURS, validator.getMinOccurs());
+		assertEquals(AbstractValidator.IN_CLAUSE_LIMIT, validator.getMaxOccurs());
+		assertEquals(AbstractValidator.DEFAULT_DELIMITER, validator.getDelimiter());
 	}
 	@Test
 	public void testNullValue() {

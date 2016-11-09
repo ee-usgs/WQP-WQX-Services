@@ -1,9 +1,14 @@
 package gov.usgs.cida.wqp.parameter.transform;
-import static org.junit.Assert.*;
-import gov.usgs.cida.wqp.BaseSpringTest;
-import gov.usgs.cida.wqp.validation.ValidationConstants;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import org.junit.Test;
-public class SplitTransformerTest extends BaseSpringTest implements ValidationConstants {
+
+import gov.usgs.cida.wqp.BaseSpringTest;
+import gov.usgs.cida.wqp.validation.AbstractValidator;
+public class SplitTransformerTest extends BaseSpringTest {
 	@Test
 	public void testNullsAndEmpties_null() {
 		try {
@@ -24,7 +29,7 @@ public class SplitTransformerTest extends BaseSpringTest implements ValidationCo
 	}
 	@Test
 	public void testSplit_multiValue() {
-		SplitTransformer transformer = new SplitTransformer(DEFAULT_DELIMITER);
+		SplitTransformer transformer = new SplitTransformer(AbstractValidator.DEFAULT_DELIMITER);
 		String[] split = transformer.transform("a;b;c");
 		assertEquals(3, split.length);
 		assertEquals("a", split[0]);
@@ -33,14 +38,14 @@ public class SplitTransformerTest extends BaseSpringTest implements ValidationCo
 	}
 	@Test
 	public void testSplit_null() {
-		SplitTransformer transformer = new SplitTransformer(DEFAULT_DELIMITER);
+		SplitTransformer transformer = new SplitTransformer(AbstractValidator.DEFAULT_DELIMITER);
 		String[] split = transformer.transform(null);
 		assertEquals(0, split.length);
 		assertArrayEquals("null value gives new String[0]", new String[0], transformer.transform(null));
 	}
 	@Test
 	public void testSplit_emptyString() {
-		SplitTransformer transformer = new SplitTransformer(DEFAULT_DELIMITER);
+		SplitTransformer transformer = new SplitTransformer(AbstractValidator.DEFAULT_DELIMITER);
 		String[] split = transformer.transform("");
 		assertEquals(0, split.length);
 	}

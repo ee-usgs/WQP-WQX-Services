@@ -37,7 +37,6 @@ public class StationColumn extends BaseColumn {
 	public static final String KEY_WELL_DEPTH_UNIT = "WELL_DEPTH_UNIT";
 	public static final String KEY_HOLE_DEPTH_VALUE = "HOLE_DEPTH_VALUE";
 	public static final String KEY_HOLE_DEPTH_UNIT = "HOLE_DEPTH_UNIT";
-	public static final String KEY_RESULT_COUNT = "RESULT_COUNT";
 
 	//Profile Mapping of the Keys
 	public static final ColumnProfile STATION_NAME = new ColumnProfile(KEY_STATION_NAME, Profile.STATION, Profile.SIMPLE_STATION);

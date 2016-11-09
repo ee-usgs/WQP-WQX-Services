@@ -15,7 +15,15 @@ public class ResultDelimitedTest {
 
 	@Test
 	public void pcResultProfileTest() {
-		Map<String, String> mapping = ResultDelimited.getMapping(Profile.PC_RESULT);
+		assertPcResultProfile(ResultDelimited.getMapping(Profile.PC_RESULT));
+	}
+
+	@Test
+	public void biologicalProfileTest() {
+		assertBiologicalProfile(ResultDelimited.getMapping(Profile.BIOLOGICAL));
+	}
+
+	public static void assertPcResultProfile(Map<String, String> mapping) {
 		assertEquals(63, mapping.size());
 		Object[] keys = mapping.keySet().toArray();
 		//kind of large, so just random checks...
@@ -35,9 +43,7 @@ public class ResultDelimitedTest {
 		assertEquals(ResultDelimited.VALUE_DATA_SOURCE, mapping.get(keys[62]));
 	}
 
-	@Test
-	public void biologicalProfileTest() {
-		Map<String, String> mapping = ResultDelimited.getMapping(Profile.BIOLOGICAL);
+	public static void assertBiologicalProfile(Map<String, String> mapping) {
 		assertEquals(156, mapping.size());
 		Object[] keys = mapping.keySet().toArray();
 		//kind of large, so just random checks...

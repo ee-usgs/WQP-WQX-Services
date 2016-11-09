@@ -350,4 +350,77 @@
         </where>
     </sql>
 
+    <!-- **********************************************************************************************************************
+         *** Activity
+         ********************************************************************************************************************** -->
+
+    <sql id="baseWhereActivityClauses">
+        <if test="project != null">
+            and (<include refid="dynamicWhere.project" />)
+        </if>
+        <if test="sampleMedia != null">
+            and (<include refid="dynamicWhere.sampleMedia" />)
+        </if>
+        <if test="startDateLo != null || startDateHi != null">
+            and (<include refid="dynamicWhere.startDateLoHi" />)
+        </if>
+    </sql>
+
+    <sql id="activityCountBase">
+        from (select prime.data_source,
+                     prime.station_id,
+                     prime.activity_id,
+                     1 result_count
+                  <include refid="dynamicWhere.activityBase"/>)
+    </sql>
+
+    <sql id="activityBase">
+        from activity prime
+        <if test="(bBox != null &amp;&amp; bBox.length == 4) || (within != null &amp;&amp; lat != null &amp;&amp; long != null)">
+            join station secondary
+              on prime.station_id = secondary.station_id and
+                 prime.data_source_id = secondary.data_source_id
+        </if>
+<!--
+        <choose>
+            <when test="assemblage != null || characteristicName != null || characteristicType != null ||
+                            analyticalmethod != null || pCode != null || subjectTaxonomicName != null">
+                left join (select data_source_id, activity, sum(result_count) over (partition by data_source_id, station_id) result_count
+                            <choose>
+                                <when test="startDateLo != null || startDateHi != null">
+                                     from result_sum prime
+                                </when>
+                                <otherwise>
+                                     from result_ct_sum prime
+                                </otherwise>
+                            </choose>
+                            <where>
+                                <include refid="dynamicWhere.baseWhereResultClauses" />
+                            </where>
+                               group by data_source_id, activity
+                ) filter
+            </when>
+            <otherwise>
+                left join (select data_source_id, activity_id, result_count
+                        from activity_sum
+                     ) filter
+            </otherwise>
+        </choose>
+                  on prime.activity_id = filter.activity_id and
+                     prime.data_source_id = filter.data_source_id
+-->
+        <where>
+            <include refid="dynamicWhere.baseWhereStationClauses" />
+            <include refid="dynamicWhere.baseWhereActivityClauses" />
+            <if test="(bBox != null &amp;&amp; bBox.length == 4) || (within != null &amp;&amp; lat != null &amp;&amp; long != null)">
+                <include refid="dynamicWhere.baseWhereStationGeoClauses" />
+            </if>
+<!--
+            <if test="minresults != null">
+                and #{minresults} &lt;= filter.result_count
+            </if>
+-->
+        </where>
+    </sql>
+
 </mapper>

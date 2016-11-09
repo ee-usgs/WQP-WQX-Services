@@ -1,24 +1,21 @@
 package gov.usgs.cida.wqp.parameter.transform;
 
-import gov.usgs.cida.wqp.validation.ValidationConstants;
-import gov.usgs.cida.wqp.validation.ValidationResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- *
- * @author tkunicki
- */
-public class SplitDoubleTransformer implements ParameterTransformer<double[]>, ValidationConstants {
+import gov.usgs.cida.wqp.validation.AbstractValidator;
+import gov.usgs.cida.wqp.validation.ValidationResult;
+
+public class SplitDoubleTransformer implements ParameterTransformer<double[]> {
 	private static final Logger LOG = LoggerFactory.getLogger(SplitDoubleTransformer.class);
-	
+
 	private SplitTransformer splitter;
 	private ValidationResult<double[]> vr;
-	
+
 	public SplitDoubleTransformer() {
-		this(DEFAULT_DELIMITER);
+		this(AbstractValidator.DEFAULT_DELIMITER);
 	}
-	
+
 	public SplitDoubleTransformer(String delimiter) {
 		LOG.trace(getClass().getName());
 		if (null == delimiter || 0 == delimiter.length()) {
@@ -26,12 +23,12 @@ public class SplitDoubleTransformer implements ParameterTransformer<double[]>, V
 		}
 		splitter = new SplitTransformer(delimiter);
 	}
-	
+
 	@Override
 	public double[] transform(String value) {
 		return stringAsDoubles(value);
 	}
-	
+
 	protected double[] stringAsDoubles(String value) {
 		String[] strings = splitter.transform(value);
 		if (strings == null) {
@@ -57,7 +54,7 @@ public class SplitDoubleTransformer implements ParameterTransformer<double[]>, V
 		}
 		return doubles;
 	}
-	
+
 	protected String getErrorMessage(String parameterValue, String msg) {
 		return String.format("The value of PARAM=%s %s", parameterValue, msg);
 	}

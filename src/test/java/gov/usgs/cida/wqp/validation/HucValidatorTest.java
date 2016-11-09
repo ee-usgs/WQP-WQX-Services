@@ -9,11 +9,8 @@ import javax.annotation.Resource;
 import org.junit.Test;
 
 import gov.usgs.cida.wqp.BaseSpringTest;
-import gov.usgs.cida.wqp.validation.AbstractValidator;
-import gov.usgs.cida.wqp.validation.ValidationConstants;
-import gov.usgs.cida.wqp.validation.ValidationResult;
 
-public class HucValidatorTest extends BaseSpringTest implements ValidationConstants {
+public class HucValidatorTest extends BaseSpringTest {
 
 	@Resource(name = "hucValidator")
 	AbstractValidator<String[]> validator;

@@ -13,8 +13,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class CountDao extends BaseDao implements ICountDao {
-
 	private static final Logger LOG = LoggerFactory.getLogger(CountDao.class);
+
+	public static final String QUERY_SELECT_ID = ".count";
 
 	@Autowired
 	public CountDao(SqlSessionFactory sqlSessionFactory) {

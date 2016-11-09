@@ -1,94 +1,102 @@
 {
-	"analyticalmethod": [
-							"https://www.nemi.gov/methods/method_summary/4665/",
-						  	"https://www.nemi.gov/methods/method_summary/8896/"
-						], 
-    "bBox": "-89,43,-88,44",
-	"assemblage": [
-					"Fish/Nekton",
-	                "Benthic Macroinvertebrates"
-	              ],
-	"characteristicName": [
-							"Beryllium",
-							"Nitrate"
-						  ],
-	"characteristicType": [
-							"Inorganics, Minor, Metals",
-							"Nutrient",
-							"Population/Community"
-						  ],
-	"command.avoid": [
-						"STORET",
-					   	"NWIS"
-					 ],
-	"countrycode": [
-					"MX",
-					"US"
-				   ], 
-	"countycode": [
-					"US:19:015",
-					"US:30:003",
-					"US:55:017",
-					"US:55:021",
-					"US:55:027"
-				  ],
-	"huc": [
-			"07*",
-			"0708*",
-			"070801*",
-			"07090002",
-			"07080105"
-		   ],
-	"lat": "43.3836014",
-	"long": "-88.9773314",
-	"organization": [
-						"ARS",
-						"11NPSWRD",
-						"USGS-WI",
-						"WIDNR_WQX"
-					],
-	"pCode": [
-				"00032",
-				"00004"
-			 ],
-	"project": [
-					"CEAP",
-					"NAWQA"
-			   ],
-	"sampleMedia": [
-						"Other",
-						"Sediment",
-						"Water"
-				   ],
-	"providers": [
-					"NWIS",
-					"STEWARDS",
-					"STORET"
-				 ],
-	"siteid": [
-				"11NPSWRD-BICA_MFG_B",
-				"WIDNR_WQX-10030952",
-				"USGS-05425700",
-				"USGS-431925089002701",
-				"ARS-IAWC-IAWC225",
-				"ARS-IAWC-IAWC410"
-			  ],
-	"siteType": [
-					"Lake, Reservoir, Impoundment",
-					"Land",
-					"Stream",
-					"Well"
-				],
-	"statecode": [
-					"US:19",
-					"US:30",
-					"US:55"
-				 ],
-	"startDateHi": "10-11-2012",
-	"startDateLo": "10-11-2012",
-	"subjectTaxonomicName": [
-								"Acipenser",
-								"Lota lota"
-							],
-	"within": "1000"
+    "analyticalmethod": [
+                            "https://www.nemi.gov/methods/method_summary/4665/",
+                            "https://www.nemi.gov/methods/method_summary/8896/"
+                        ], 
+    "bBox": "-90,43,-88,44",
+    "assemblage": [
+                    "Fish/Nekton",
+                    "Benthic Macroinvertebrates"
+                  ],
+    "characteristicName": [
+                            "Beryllium",
+                            "Nitrate"
+                          ],
+    "characteristicType": [
+                            "Inorganics, Minor, Metals",
+                            "Nutrient",
+                            "Population/Community"
+                          ],
+    "command.avoid": [
+                        "NWIS"
+                     ],
+    "countrycode": [
+                    "MX",
+                    "US",
+                    "XX"
+                   ], 
+    "countycode": [
+                    "US:19:015",
+                    "US:30:003",
+                    "US:55:017",
+                    "US:55:021",
+                    "US:55:027",
+                    "XX:44:555"
+                  ],
+    "huc": [
+            "07*",
+            "0708*",
+            "070801*",
+            "07090002",
+            "07080105",
+            "0000"
+           ],
+    "lat": "43.3836014",
+    "long": "-88.9773314",
+    "organization": [
+                        "ARS",
+                        "11NPSWRD",
+                        "USGS-WI",
+                        "WIDNR_WQX",
+                        "organization"
+                    ],
+    "pCode": [
+                "00032",
+                "00004"
+             ],
+    "project": [
+                    "projectId",
+                    "CEAP",
+                    "NAWQA"
+               ],
+    "sampleMedia": [
+                        "sampleMedia",
+                        "Other",
+                        "Sediment",
+                        "Water"
+                   ],
+    "providers": [
+                    "NWIS",
+                    "STEWARDS",
+                    "STORET"
+                 ],
+    "siteid": [
+                "organization-siteId",
+                "11NPSWRD-BICA_MFG_B",
+                "WIDNR_WQX-10030952",
+                "USGS-05425700",
+                "USGS-431925089002701",
+                "ARS-IAWC-IAWC225",
+                "ARS-IAWC-IAWC410"
+              ],
+    "siteType": [
+                    "siteType",
+                    "Lake, Reservoir, Impoundment",
+                    "Land",
+                    "Stream",
+                    "Well"
+                ],
+    "statecode": [
+                    "XX:44",
+                    "US:19",
+                    "US:30",
+                    "US:55"
+                 ],
+    "startDateHi": "10-11-2012",
+    "startDateLo": "10-11-1998",
+    "subjectTaxonomicName": [
+                                "Acipenser",
+                                "Lota lota"
+                            ],
+    "within": "1000"
 }
