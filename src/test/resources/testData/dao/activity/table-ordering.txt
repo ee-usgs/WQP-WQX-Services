@@ -1,3 +1,0 @@
-project_dim
-station
-activity

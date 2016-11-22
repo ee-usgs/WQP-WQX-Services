@@ -1,7 +1,6 @@
 package gov.usgs.cida.wqp.dao.streaming;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.math.BigDecimal;
@@ -13,6 +12,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.github.springtestdbunit.annotation.DatabaseSetup;
@@ -24,12 +25,14 @@ import gov.usgs.cida.wqp.DBIntegrationTest;
 import gov.usgs.cida.wqp.dao.BaseDao;
 import gov.usgs.cida.wqp.dao.intfc.IStreamingDao;
 import gov.usgs.cida.wqp.mapping.ActivityColumn;
+import gov.usgs.cida.wqp.mapping.BaseColumn;
 import gov.usgs.cida.wqp.parameter.Parameters;
 
 @Category(DBIntegrationTest.class)
-@DatabaseSetup("classpath:/testData/dao/activity/")
+@DatabaseSetup("classpath:/testData/dao/count/")
 @DbUnitConfiguration(dataSetLoader = CsvDataSetLoader.class)
 public class ActivityStreamingTest extends BaseSpringTest {
+	private static final Logger LOG = LoggerFactory.getLogger(ActivityStreamingTest.class);
 
 	@Autowired 
 	IStreamingDao streamingDao;
@@ -37,6 +40,26 @@ public class ActivityStreamingTest extends BaseSpringTest {
 	TestResultHandler handler;
 	Map<String, Object> parms;
 	String nameSpace = BaseDao.ACTIVITY_NAMESPACE;
+
+	public static final BigDecimal[] STEWARDS_1 = new BigDecimal[]{BigDecimal.ONE, BigDecimal.ONE};
+	public static final BigDecimal[] STEWARDS_2 = new BigDecimal[]{BigDecimal.ONE, BigDecimal.valueOf(2)};
+	public static final BigDecimal[] STEWARDS_3 = new BigDecimal[]{BigDecimal.ONE, BigDecimal.valueOf(3)};
+	public static final BigDecimal[] NWIS_1 = new BigDecimal[]{BigDecimal.valueOf(2), BigDecimal.ONE};
+	public static final BigDecimal[] NWIS_2 = new BigDecimal[]{BigDecimal.valueOf(2), BigDecimal.valueOf(2)};
+	public static final BigDecimal[] NWIS_3 = new BigDecimal[]{BigDecimal.valueOf(2), BigDecimal.valueOf(3)};
+	public static final BigDecimal[] STORET_1 = new BigDecimal[]{BigDecimal.valueOf(3), BigDecimal.ONE};
+	public static final BigDecimal[] STORET_2 = new BigDecimal[]{BigDecimal.valueOf(3), BigDecimal.valueOf(2)};
+	public static final BigDecimal[] STORET_3 = new BigDecimal[]{BigDecimal.valueOf(3), BigDecimal.valueOf(3)};
+	public static final BigDecimal[] STORET_4 = new BigDecimal[]{BigDecimal.valueOf(3), BigDecimal.valueOf(4)};
+	public static final BigDecimal[] STORET_5 = new BigDecimal[]{BigDecimal.valueOf(3), BigDecimal.valueOf(5)};
+	public static final BigDecimal[] STORET_6 = new BigDecimal[]{BigDecimal.valueOf(3), BigDecimal.valueOf(6)};
+	public static final BigDecimal[] STORET_7 = new BigDecimal[]{BigDecimal.valueOf(3), BigDecimal.valueOf(7)};
+	public static final BigDecimal[] STORET_8 = new BigDecimal[]{BigDecimal.valueOf(3), BigDecimal.valueOf(8)};
+	public static final BigDecimal[] STORET_9 = new BigDecimal[]{BigDecimal.valueOf(3), BigDecimal.valueOf(9)};
+	public static final BigDecimal[] STORET_10 = new BigDecimal[]{BigDecimal.valueOf(3), BigDecimal.TEN};
+	public static final BigDecimal[] BIODATA_1 = new BigDecimal[]{BigDecimal.valueOf(4), BigDecimal.ONE};
+
+	public static final int ACTIVITY_COLUMN_COUNT = 78;
 
 	@Before
 	public void init() {
@@ -50,52 +73,54 @@ public class ActivityStreamingTest extends BaseSpringTest {
 		parms = null;
 	}
 
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//Only need Activity (and possibly a lookup table)
+
 	@Test
-	public void allDataTest() {
+	public void allDataSortedTest() {
 		parms.put(Parameters.SORTED.toString(), "yes");
 		streamingDao.stream(nameSpace, parms, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(9, results.size());
-		assertActivityId7772(results.get(0));
-		assertActivityId7773(results.get(1));
-		assertActivityId31827020(results.get(2));
-		assertActivityId31835262(results.get(3));
-		assertActivityId31827018(results.get(4));
-		assertActivityId31827017(results.get(5));
-		assertActivityId199206(results.get(6));
-		assertActivityId13199(results.get(7));
-		assertActivityId777(results.get(8));
-	}
-
-	@Test
-	public void bboxTest() {
-		parms.put(Parameters.BBOX.toString(), new String[]{"-89", "43", "-89", "44"});
-		streamingDao.stream(nameSpace, parms, handler);
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(2, results.size());
-		assertContainsActivity(results, 13199, 199206);
+		//Validate the number AND order of results.
+		assertEquals(17, results.size());
+		assertStewards1(results.get(0));
+		assertStewards2(results.get(1));
+		assertStewards3(results.get(2));
+		assertNwis1(results.get(3));
+		assertNwis2(results.get(4));
+		assertNwis3(results.get(5));
+		assertStoret10(results.get(6));
+		assertStoret6(results.get(7));
+		assertStoret7(results.get(8));
+		assertStoret9(results.get(9));
+		assertStoret8(results.get(10));
+		assertStoret5(results.get(11));
+		assertStoret4(results.get(12));
+		assertStoret2(results.get(13));
+		assertStoret1(results.get(14));
+		assertStoret3(results.get(15));
+		assertBiodata1(results.get(16));
 	}
 
 	@Test
 	public void countryTest() {
-		parms.put(Parameters.COUNTRY.toString(), new String[]{"US"});
+		parms.put(Parameters.COUNTRY.toString(), getCountry());
 		streamingDao.stream(nameSpace, parms, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(4, results.size());
-		assertContainsActivity(results, 7772, 7773, 13199, 199206);
+		assertEquals(13, results.size());
+		assertContainsActivity(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_4, STORET_5, STORET_10, BIODATA_1);
 	}
 
 	@Test
 	public void countyTest() {
-		parms.put(Parameters.COUNTY.toString(), new String[]{"US:55:027"});
+		parms.put(Parameters.COUNTY.toString(), getCounty());
 		streamingDao.stream(nameSpace, parms, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(2, results.size());
-		assertContainsActivity(results, 13199, 199206);
+		assertEquals(12, results.size());
+		assertContainsActivity(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_4, STORET_5, STORET_10);
 	}
 
 	@Test
@@ -104,8 +129,8 @@ public class ActivityStreamingTest extends BaseSpringTest {
 		streamingDao.stream(nameSpace, parms, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(4, results.size());
-		assertContainsActivity(results, 7772, 7773, 13199, 199206);
+		assertEquals(9, results.size());
+		assertContainsActivity(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_4, STORET_5, STORET_10);
 	}
 
 	@Test
@@ -114,8 +139,8 @@ public class ActivityStreamingTest extends BaseSpringTest {
 		streamingDao.stream(nameSpace, parms, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(3, results.size());
-		assertContainsActivity(results, 7773, 13199, 199206);
+		assertEquals(5, results.size());
+		assertContainsActivity(results, NWIS_1, NWIS_2, NWIS_3, STORET_4, STORET_5);
 	}
 
 	@Test
@@ -124,8 +149,8 @@ public class ActivityStreamingTest extends BaseSpringTest {
 		streamingDao.stream(nameSpace, parms, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(3, results.size());
-		assertContainsActivity(results, 7773, 13199, 199206);
+		assertEquals(4, results.size());
+		assertContainsActivity(results, NWIS_1, NWIS_2, STORET_4, STORET_5);
 	}
 
 	@Test
@@ -135,17 +160,7 @@ public class ActivityStreamingTest extends BaseSpringTest {
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(2, results.size());
-		assertContainsActivity(results, 13199, 199206);
-	}
-
-	//TODO	@Test
-	public void minResultsTest() {
-		parms.put(Parameters.MIN_RESULTS.toString(), "230");
-		streamingDao.stream(nameSpace, parms, handler);
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(2, results.size());
-		assertContainsActivity(results, 31827020, 31835262);
+		assertContainsActivity(results, STORET_4, STORET_5);
 	}
 
 	@Test
@@ -158,45 +173,78 @@ public class ActivityStreamingTest extends BaseSpringTest {
 		}
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(2, results.size());
-		assertContainsActivity(results, 13199, 199206);
+		assertEquals(4, results.size());
+		assertContainsActivity(results, STORET_1, STORET_2, STORET_4, STORET_5);
 	}
 
 	@Test
 	public void organizationTest() {
-		parms.put(Parameters.ORGANIZATION.toString(), new String[]{"WIDNR_WQX"});
+		parms.put(Parameters.ORGANIZATION.toString(), getOrganization());
 		streamingDao.stream(nameSpace, parms, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(2, results.size());
-		assertContainsActivity(results, 13199, 199206);
+		assertEquals(12, results.size());
+		assertContainsActivity(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_4, STORET_5, STORET_10);
+	}
+
+	@Test
+	public void projectTest() {
+		parms.put(Parameters.PROJECT.toString(), getProject());
+		streamingDao.stream(nameSpace, parms, handler);
+
+		LinkedList<Map<String, Object>> results = handler.getResults();
+		assertEquals(3, results.size());
+		assertContainsActivity(results, STORET_1, STORET_2, STORET_3);
 	}
 
 	@Test
 	public void providersTest() {
-		parms.put(Parameters.PROVIDERS.toString(), new String[]{"STEWARDS"});
+		parms.put(Parameters.PROVIDERS.toString(), getProviders());
 		streamingDao.stream(nameSpace, parms, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(1, results.size());
-		assertContainsActivity(results, 7772);
+		assertEquals(16, results.size());
+		assertContainsActivity(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_4, STORET_5, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10);
+	}
 
-		parms.put(Parameters.PROVIDERS.toString(), new String[]{"STORET"});
+	@Test
+	public void sampleMediaTest() {
+		parms.put(Parameters.SAMPLE_MEDIA.toString(), getSampleMedia());
 		streamingDao.stream(nameSpace, parms, handler);
 
-		results = handler.getResults();
-		assertEquals(8, results.size());
-		assertContainsActivity(results, 777, 7772, 13199, 199206, 31827020, 31835262, 31827017, 31827018);
+		LinkedList<Map<String, Object>> results = handler.getResults();
+		assertEquals(15, results.size());
+		assertContainsActivity(results, STEWARDS_1, STEWARDS_3, NWIS_1, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_4, STORET_5, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, BIODATA_1);
+	}
+
+	@Test
+	public void startDateHiTest() {
+		parms.put(Parameters.START_DATE_HI.toString(), getStartDateHi());
+		streamingDao.stream(nameSpace, parms, handler);
+
+		LinkedList<Map<String, Object>> results = handler.getResults();
+		assertEquals(15, results.size());
+		assertContainsActivity(results, STEWARDS_1, STEWARDS_3, NWIS_1, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_4, STORET_5, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, BIODATA_1);
+	}
+
+	@Test
+	public void startDateLoTest() {
+		parms.put(Parameters.START_DATE_LO.toString(), getStartDateLo());
+		streamingDao.stream(nameSpace, parms, handler);
+
+		LinkedList<Map<String, Object>> results = handler.getResults();
+		assertEquals(11, results.size());
+		assertContainsActivity(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_10, BIODATA_1);
 	}
 
 	@Test
 	public void siteIdTest() {
-		parms.put(Parameters.SITEID.toString(), new String[]{"WIDNR_WQX-113086"});
+		parms.put(Parameters.SITEID.toString(), getSiteid());
 		streamingDao.stream(nameSpace, parms, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(2, results.size());
-		assertContainsActivity(results, 13199, 199206);
+		assertEquals(10, results.size());
+		assertContainsActivity(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_10);
 	}
 
 	@Test
@@ -209,244 +257,298 @@ public class ActivityStreamingTest extends BaseSpringTest {
 		}
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(2, results.size());
-		assertContainsActivity(results, 13199, 199206);
+		assertEquals(4, results.size());
+		assertContainsActivity(results, STORET_1, STORET_2, STORET_4, STORET_5);
 	}
 
 	@Test
 	public void siteTypeTest() {
-		parms.put(Parameters.SITE_TYPE.toString(), new String[]{"Stream"});
+		parms.put(Parameters.SITE_TYPE.toString(), getSiteType());
 		streamingDao.stream(nameSpace, parms, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(3, results.size());
-		assertContainsActivity(results, 7773, 13199, 199206);
+		assertEquals(16, results.size());
+		assertContainsActivity(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, STORET_1, STORET_2, STORET_3, STORET_4, STORET_5, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, BIODATA_1);
 	}
 
 	@Test
 	public void stateTest() {
-		parms.put(Parameters.STATE.toString(), new String[]{"US:55"});
+		parms.put(Parameters.STATE.toString(), getState());
 		streamingDao.stream(nameSpace, parms, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(3, results.size());
-		assertContainsActivity(results, 7773, 13199, 199206);
+		assertEquals(12, results.size());
+		assertContainsActivity(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_4, STORET_5, STORET_10);
+	}
+
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//Activity + station
+
+	@Test
+	public void bboxTest() {
+		parms.put(Parameters.BBOX.toString(), getBBox());
+		streamingDao.stream(nameSpace, parms, handler);
+
+		LinkedList<Map<String, Object>> results = handler.getResults();
+		assertEquals(12, results.size());
+		assertContainsActivity(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_4, STORET_5, STORET_10);
 	}
 
 	@Test
 	public void withinTest() {
-		parms.put(Parameters.WITHIN.toString(), new String[]{"10"});
-		parms.put(Parameters.LATITUDE.toString(), new String[]{"43.3836014"});
-		parms.put(Parameters.LONGITUDE.toString(), new String[]{"-88.9773314"});
+		parms.put(Parameters.WITHIN.toString(), getWithin());
+		parms.put(Parameters.LATITUDE.toString(), getLatitude());
+		parms.put(Parameters.LONGITUDE.toString(), getLongitude());
 		streamingDao.stream(nameSpace, parms, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(3, results.size());
-		assertContainsActivity(results, 7773, 13199, 199206);
+		assertEquals(15, results.size());
+		assertContainsActivity(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_4, STORET_5, STORET_6, STORET_7, STORET_8, STORET_9);
 	}
 
-	//TODO	@Test
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//Activity + result(?)
+
+	//@Test
 	public void analyticalMethodTest() {
-		parms.put(Parameters.ANALYTICAL_METHOD.toString(), new String[]{"https://www.nemi.gov/methods/method_summary/8896/"});
+		parms.put(Parameters.ANALYTICAL_METHOD.toString(), getAnalyticalMethod());
 		streamingDao.stream(nameSpace, parms, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(2, results.size());
-		assertContainsActivity(results, 13199, 199206);
+		assertEquals(17, results.size());
+		assertContainsActivity(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_4, STORET_5, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, BIODATA_1);
 	}
 
-	//TODO	@Test
+	//@Test
 	public void assemblageTest() {
-		parms.put(Parameters.ASSEMBLAGE.toString(), new String[]{"Fish/Nekton"});
+		parms.put(Parameters.ASSEMBLAGE.toString(), getAssemblage());
 		streamingDao.stream(nameSpace, parms, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(2, results.size());
-		assertContainsActivity(results, 13199, 199206);
+		assertEquals(17, results.size());
+		assertContainsActivity(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_4, STORET_5, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, BIODATA_1);
 	}
 
-	//TODO	@Test
+	//@Test
 	public void characteristicNameTest() {
-		parms.put(Parameters.CHARACTERISTIC_NAME.toString(), new String[]{"Nitrate"});
+		parms.put(Parameters.CHARACTERISTIC_NAME.toString(), getCharacteristicName());
 		streamingDao.stream(nameSpace, parms, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(2, results.size());
-		assertContainsActivity(results, 13199, 199206);
+		assertEquals(17, results.size());
+		assertContainsActivity(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_4, STORET_5, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, BIODATA_1);
 	}
 
-	//TODO	@Test
+	//@Test
 	public void characteristicTypeTest() {
-		parms.put(Parameters.CHARACTERISTIC_TYPE.toString(), new String[]{"Nutrient"});
+		parms.put(Parameters.CHARACTERISTIC_TYPE.toString(), getCharacteristicType());
 		streamingDao.stream(nameSpace, parms, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(1, results.size());
-		assertContainsActivity(results, 13199, 199206);
+		assertEquals(17, results.size());
+		assertContainsActivity(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_4, STORET_5, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, BIODATA_1);
 	}
 
-	//TODO	@Test
+	//@Test
+	public void minResultsTest() {
+		parms.put(Parameters.MIN_RESULTS.toString(), getMinResults());
+		streamingDao.stream(nameSpace, parms, handler);
+
+		LinkedList<Map<String, Object>> results = handler.getResults();
+		assertEquals(17, results.size());
+		assertContainsActivity(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_4, STORET_5, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, BIODATA_1);
+	}
+
+	//@Test
 	public void pcodeTest() {
-		parms.put(Parameters.PCODE.toString(), new String[]{"00004"});
+		parms.put(Parameters.PCODE.toString(), getPcode());
 		streamingDao.stream(nameSpace, parms, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(2, results.size());
-		assertContainsActivity(results, 13199, 199206);
+		assertEquals(17, results.size());
+		assertContainsActivity(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_4, STORET_5, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, BIODATA_1);
 	}
 
-	@Test
-	public void projectTest() {
-		parms.put(Parameters.PROJECT.toString(), new String[]{"Lake-BaselineMonitoringDNR"});
-		streamingDao.stream(nameSpace, parms, handler);
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(1, results.size());
-		assertContainsActivity(results, 199206);
-	}
-
-	@Test
-	public void sampleMediaTest() {
-		parms.put(Parameters.SAMPLE_MEDIA.toString(), new String[]{"Water"});
-		streamingDao.stream(nameSpace, parms, handler);
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(2, results.size());
-		assertContainsActivity(results, 13199, 199206);
-	}
-
-	@Test
-	public void startDateHiTest() {
-		parms.put(Parameters.START_DATE_HI.toString(), new String[]{"09-09-1995"});
-		streamingDao.stream(nameSpace, parms, handler);
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(2, results.size());
-		assertContainsActivity(results, 13199, 199206);
-	}
-
-	@Test
-	public void startDateLoTest() {
-		parms.put(Parameters.START_DATE_LO.toString(), new String[]{"10-10-1994"});
-		streamingDao.stream(nameSpace, parms, handler);
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(7, results.size());
-		assertContainsActivity(results, 777, 7772, 7773, 31827020, 31835262, 31827017, 31827018);
-	}
-
-	//TODO	@Test
+	//@Test
 	public void subjectTaxonomicNameTest() {
-		parms.put(Parameters.SUBJECT_TAXONOMIC_NAME.toString(), new String[]{"Acipenser"});
+		parms.put(Parameters.SUBJECT_TAXONOMIC_NAME.toString(), getSubjectTaxonomicName());
 		streamingDao.stream(nameSpace, parms, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(2, results.size());
-		assertContainsActivity(results, 13199, 199206);
+		assertEquals(17, results.size());
+		assertContainsActivity(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_4, STORET_5, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, BIODATA_1);
 	}
 
 	@Test
 	public void multipleParameterTests() {
-		//TODO		parms.put(Parameters.ANALYTICAL_METHOD.toString(), new String[]{"https://www.nemi.gov/methods/method_summary/4665/",
-		//TODO		"https://www.nemi.gov/methods/method_summary/8896/"});
-		parms.put(Parameters.BBOX.toString(), new String[]{"-90", "43", "-88", "44"});
-		//TODO		parms.put(Parameters.ASSEMBLAGE.toString(), new String[]{"Fish/Nekton", "Benthic Macroinvertebrate"});
-		//TODO		parms.put(Parameters.CHARACTERISTIC_NAME.toString(), new String[]{"Beryllium", "Nitrate"});
-		//TODO		parms.put(Parameters.CHARACTERISTIC_TYPE.toString(), new String[]{"Inorganics, Minor, Metals", "Nutrient"});
-		parms.put(Parameters.COUNTRY.toString(), new String[]{"MX", "US", "XX"});
-		parms.put(Parameters.COUNTY.toString(), new String[]{"XX:44:555", "US:30:003", "US:55:017", "US:55:021", "US:55:027"});
-		parms.put(Parameters.HUC.toString(), new String[]{"0000", "07","0708","070801","07090002", "07080105"});
-		parms.put(Parameters.LATITUDE.toString(), new String[]{"43.3836014"});
-		parms.put(Parameters.LONGITUDE.toString(), new String[]{"-88.9773314"});
-		//TODO		parms.put(Parameters.MIN_RESULTS.toString(), "3");
-		parms.put(Parameters.ORGANIZATION.toString(), new String[]{"organization", "ARS", "11NPSWRD", "USGS-WI", "WIDNR_WQX"});
-		parms.put(Parameters.PROJECT.toString(), new String[]{"projectId", "NAWQA", "CEAP", "EPABEACH"});
-		parms.put(Parameters.PROVIDERS.toString(), new String[]{"NWIS", "STEWARDS", "STORET"});
-		parms.put(Parameters.SITEID.toString(), new String[]{"organization-siteId", "11NPSWRD-BICA_MFG_B", "WIDNR_WQX-10030952", "USGS-05425700",
-			"USGS-431925089002701", "ARS-IAWC-IAWC225", "ARS-IAWC-IAWC410"});
-		parms.put(Parameters.SITE_TYPE.toString(), new String[]{"siteType", "Lake, Reservoir, Impoundment", "Land", "Stream", "Well"});
-		parms.put(Parameters.STATE.toString(), new String[]{"XX:44", "US:19", "US:30", "US:55"});
-		//TODO		parms.put(Parameters.PCODE.toString(), new String[]{"00032", "00004"});
-		parms.put(Parameters.SAMPLE_MEDIA.toString(), new String[]{"sampleMedia", "Other", "Sediment", "Water"});
-		parms.put(Parameters.START_DATE_HI.toString(), new String[]{"10-11-2012"});
-		parms.put(Parameters.START_DATE_LO.toString(), new String[]{"10-11-1998"});
-		//TODO		parms.put(Parameters.SUBJECT_TAXONOMIC_NAME.toString(), new String[]{"Acipenser", "Lota lota"});
-		parms.put(Parameters.WITHIN.toString(), new String[]{"1000"});
+		parms.put(Parameters.ANALYTICAL_METHOD.toString(), getAnalyticalMethod());
+		parms.put(Parameters.BBOX.toString(), getBBox());
+		parms.put(Parameters.ASSEMBLAGE.toString(), getAssemblage());
+		parms.put(Parameters.CHARACTERISTIC_NAME.toString(), getCharacteristicName());
+		parms.put(Parameters.CHARACTERISTIC_TYPE.toString(), getCharacteristicType());
+		parms.put(Parameters.COUNTRY.toString(), getCountry());
+		parms.put(Parameters.COUNTY.toString(), getCounty());
+		parms.put(Parameters.HUC.toString(), getHuc());
+		parms.put(Parameters.LATITUDE.toString(), getLatitude());
+		parms.put(Parameters.LONGITUDE.toString(), getLongitude());
+		parms.put(Parameters.MIN_RESULTS.toString(), getMinResults());
+		parms.put(Parameters.ORGANIZATION.toString(), getOrganization());
+		parms.put(Parameters.PROJECT.toString(), getProject());
+		parms.put(Parameters.PROVIDERS.toString(), getProviders());
+		parms.put(Parameters.SITEID.toString(), getSiteid());
+		parms.put(Parameters.SITE_TYPE.toString(), getSiteType());
+		parms.put(Parameters.STATE.toString(), getState());
+		parms.put(Parameters.PCODE.toString(), getPcode());
+		parms.put(Parameters.SAMPLE_MEDIA.toString(), getSampleMedia());
+		parms.put(Parameters.START_DATE_HI.toString(), getStartDateHi());
+		parms.put(Parameters.START_DATE_LO.toString(), getStartDateLo());
+		parms.put(Parameters.SUBJECT_TAXONOMIC_NAME.toString(), getSubjectTaxonomicName());
+		parms.put(Parameters.WITHIN.toString(), getWithin());
 		streamingDao.stream(nameSpace, parms, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(1, results.size());
-		assertContainsActivity(results, 777);
+		assertEquals(3, results.size());
+		assertContainsActivity(results, STORET_1, STORET_2, STORET_3);
 	}
 
-	public static void assertActivityId13199(Map<String, Object> row) {
-		assertEquals(78, row.keySet().size());
-		assertTrue(row.containsKey(ActivityColumn.KEY_ACTIVITY));
-		assertEquals("WIDNR_WQX-7788480", row.get(ActivityColumn.KEY_ACTIVITY));
-	}
-
-	public static void assertActivityId199206(Map<String, Object> row) {
-		assertEquals(78, row.keySet().size());
-		assertTrue(row.containsKey(ActivityColumn.KEY_ACTIVITY));
-		assertEquals("WIDNR_WQX-7788475", row.get(ActivityColumn.KEY_ACTIVITY));
-	}
-
-	public static void assertActivityId31827020(Map<String, Object> row) {
-		assertEquals(78, row.keySet().size());
-		assertTrue(row.containsKey(ActivityColumn.KEY_ACTIVITY));
-		assertEquals("21NYDECA_WQX-020002", row.get(ActivityColumn.KEY_ACTIVITY));
-	}
-
-	public static void assertActivityId31835262(Map<String, Object> row) {
-		assertEquals(78, row.keySet().size());
-		assertTrue(row.containsKey(ActivityColumn.KEY_ACTIVITY));
-		assertEquals("21NYDECA_WQX-020206", row.get(ActivityColumn.KEY_ACTIVITY));
-	}
-
-	public static void assertActivityId31827017(Map<String, Object> row) {
-		assertEquals(78, row.keySet().size());
-		assertTrue(row.containsKey(ActivityColumn.KEY_ACTIVITY));
-		assertEquals("21NYDECA_WQX-0210EN", row.get(ActivityColumn.KEY_ACTIVITY));
-	}
-
-	public static void assertActivityId31827018(Map<String, Object> row) {
-		assertEquals(78, row.keySet().size());
-		assertTrue(row.containsKey(ActivityColumn.KEY_ACTIVITY));
-		assertEquals("21NYDECA_WQX-020610", row.get(ActivityColumn.KEY_ACTIVITY));
-	}
-
-	public static void assertActivityId777(Map<String, Object> row) {
-		assertEquals(78, row.keySet().size());
-		for (String i : TestActivityMap.ACTIVITY.keySet()) {
-			assertEquals(TestActivityMap.ACTIVITY.get(i), row.get(i));
-		}
-	}
-
-	public static void assertActivityId7772(Map<String, Object> row) {
-		assertEquals(78, row.keySet().size());
-		assertTrue(row.containsKey(ActivityColumn.KEY_ACTIVITY));
+	public static void assertStewards1(Map<String, Object> row) {
+		assertEquals(ACTIVITY_COLUMN_COUNT, row.keySet().size());
+		assertEquals("STEWARDS", row.get(BaseColumn.KEY_DATA_SOURCE));
+		assertEquals(BigDecimal.ONE, row.get(ActivityColumn.KEY_ACTIVITY_ID));
 		assertEquals("activityStewards", row.get(ActivityColumn.KEY_ACTIVITY));
 	}
 
-	public static void assertActivityId7773(Map<String, Object> row) {
-		assertEquals(78, row.keySet().size());
-		assertTrue(row.containsKey(ActivityColumn.KEY_ACTIVITY));
+	public static void assertStewards2(Map<String, Object> row) {
+		assertEquals(ACTIVITY_COLUMN_COUNT, row.keySet().size());
+		assertEquals("STEWARDS", row.get(BaseColumn.KEY_DATA_SOURCE));
+		assertEquals(BigDecimal.valueOf(2), row.get(ActivityColumn.KEY_ACTIVITY_ID));
+		assertEquals("activityStewards", row.get(ActivityColumn.KEY_ACTIVITY));
+	}
+
+	public static void assertStewards3(Map<String, Object> row) {
+		assertEquals(ACTIVITY_COLUMN_COUNT, row.keySet().size());
+		assertEquals("STEWARDS", row.get(BaseColumn.KEY_DATA_SOURCE));
+		assertEquals(BigDecimal.valueOf(3), row.get(ActivityColumn.KEY_ACTIVITY_ID));
+		assertEquals("activityStewards", row.get(ActivityColumn.KEY_ACTIVITY));
+	}
+
+	public static void assertNwis1(Map<String, Object> row) {
+		assertEquals(ACTIVITY_COLUMN_COUNT, row.keySet().size());
+		assertEquals("NWIS", row.get(BaseColumn.KEY_DATA_SOURCE));
+		assertEquals(BigDecimal.ONE, row.get(ActivityColumn.KEY_ACTIVITY_ID));
 		assertEquals("activityNwis", row.get(ActivityColumn.KEY_ACTIVITY));
 	}
 
-	public void assertContainsActivity(LinkedList<Map<String, Object>> results, Integer...  activityIds) {
-		for (Integer i : activityIds) {
+	public static void assertNwis2(Map<String, Object> row) {
+		assertEquals(ACTIVITY_COLUMN_COUNT, row.keySet().size());
+		assertEquals("NWIS", row.get(BaseColumn.KEY_DATA_SOURCE));
+		assertEquals(BigDecimal.valueOf(2), row.get(ActivityColumn.KEY_ACTIVITY_ID));
+		assertEquals("activityNwis", row.get(ActivityColumn.KEY_ACTIVITY));
+	}
+
+	public static void assertNwis3(Map<String, Object> row) {
+		assertEquals(ACTIVITY_COLUMN_COUNT, row.keySet().size());
+		assertEquals("NWIS", row.get(BaseColumn.KEY_DATA_SOURCE));
+		assertEquals(BigDecimal.valueOf(3), row.get(ActivityColumn.KEY_ACTIVITY_ID));
+		assertEquals("activityNwis", row.get(ActivityColumn.KEY_ACTIVITY));
+	}
+
+	public static void assertStoret1(Map<String, Object> row) {
+		assertEquals(ACTIVITY_COLUMN_COUNT, row.keySet().size());
+		assertEquals("STORET", row.get(BaseColumn.KEY_DATA_SOURCE));
+		assertEquals(BigDecimal.ONE, row.get(ActivityColumn.KEY_ACTIVITY_ID));
+		assertEquals("activity", row.get(ActivityColumn.KEY_ACTIVITY));
+	}
+
+	public static void assertStoret2(Map<String, Object> row) {
+		assertEquals(ACTIVITY_COLUMN_COUNT, row.keySet().size());
+		for (String i : TestActivityMap.ACTIVITY.keySet()) {
+			assertEquals(i, TestActivityMap.ACTIVITY.get(i), row.get(i));
+		}
+	}
+
+	public static void assertStoret3(Map<String, Object> row) {
+		assertEquals(ACTIVITY_COLUMN_COUNT, row.keySet().size());
+		assertEquals("STORET", row.get(BaseColumn.KEY_DATA_SOURCE));
+		assertEquals(BigDecimal.valueOf(3), row.get(ActivityColumn.KEY_ACTIVITY_ID));
+		assertEquals("activity", row.get(ActivityColumn.KEY_ACTIVITY));
+	}
+
+	public static void assertStoret4(Map<String, Object> row) {
+		assertEquals(ACTIVITY_COLUMN_COUNT, row.keySet().size());
+		assertEquals("STORET", row.get(BaseColumn.KEY_DATA_SOURCE));
+		assertEquals(BigDecimal.valueOf(4), row.get(ActivityColumn.KEY_ACTIVITY_ID));
+		assertEquals("WIDNR_WQX-7788480", row.get(ActivityColumn.KEY_ACTIVITY));
+	}
+
+	public static void assertStoret5(Map<String, Object> row) {
+		assertEquals(ACTIVITY_COLUMN_COUNT, row.keySet().size());
+		assertEquals("STORET", row.get(BaseColumn.KEY_DATA_SOURCE));
+		assertEquals(BigDecimal.valueOf(5), row.get(ActivityColumn.KEY_ACTIVITY_ID));
+		assertEquals("WIDNR_WQX-7788475", row.get(ActivityColumn.KEY_ACTIVITY));
+	}
+
+	public static void assertStoret6(Map<String, Object> row) {
+		assertEquals(ACTIVITY_COLUMN_COUNT, row.keySet().size());
+		assertEquals("STORET", row.get(BaseColumn.KEY_DATA_SOURCE));
+		assertEquals(BigDecimal.valueOf(6), row.get(ActivityColumn.KEY_ACTIVITY_ID));
+		assertEquals("21NYDECA_WQX-020002", row.get(ActivityColumn.KEY_ACTIVITY));
+	}
+
+	public static void assertStoret7(Map<String, Object> row) {
+		assertEquals(ACTIVITY_COLUMN_COUNT, row.keySet().size());
+		assertEquals("STORET", row.get(BaseColumn.KEY_DATA_SOURCE));
+		assertEquals(BigDecimal.valueOf(7), row.get(ActivityColumn.KEY_ACTIVITY_ID));
+		assertEquals("21NYDECA_WQX-020206", row.get(ActivityColumn.KEY_ACTIVITY));
+	}
+
+	public static void assertStoret8(Map<String, Object> row) {
+		assertEquals(ACTIVITY_COLUMN_COUNT, row.keySet().size());
+		assertEquals("STORET", row.get(BaseColumn.KEY_DATA_SOURCE));
+		assertEquals(BigDecimal.valueOf(8), row.get(ActivityColumn.KEY_ACTIVITY_ID));
+		assertEquals("21NYDECA_WQX-0210EN", row.get(ActivityColumn.KEY_ACTIVITY));
+	}
+
+	public static void assertStoret9(Map<String, Object> row) {
+		assertEquals(ACTIVITY_COLUMN_COUNT, row.keySet().size());
+		assertEquals("STORET", row.get(BaseColumn.KEY_DATA_SOURCE));
+		assertEquals(BigDecimal.valueOf(9), row.get(ActivityColumn.KEY_ACTIVITY_ID));
+		assertEquals("21NYDECA_WQX-020610", row.get(ActivityColumn.KEY_ACTIVITY));
+	}
+
+	public static void assertStoret10(Map<String, Object> row) {
+		assertEquals(ACTIVITY_COLUMN_COUNT, row.keySet().size());
+		assertEquals("STORET", row.get(BaseColumn.KEY_DATA_SOURCE));
+		assertEquals(BigDecimal.TEN, row.get(ActivityColumn.KEY_ACTIVITY_ID));
+		assertEquals("activityStoret", row.get(ActivityColumn.KEY_ACTIVITY));
+	}
+
+	public static void assertBiodata1(Map<String, Object> row) {
+		assertEquals(ACTIVITY_COLUMN_COUNT, row.keySet().size());
+		assertEquals("BIODATA", row.get(BaseColumn.KEY_DATA_SOURCE));
+		assertEquals(BigDecimal.ONE, row.get(ActivityColumn.KEY_ACTIVITY_ID));
+		assertEquals("activityBiodata", row.get(ActivityColumn.KEY_ACTIVITY));
+	}
+
+	public void assertContainsActivity(LinkedList<Map<String, Object>> results, BigDecimal[]...  activityIds) {
+		for (Map<String, Object> result : results) {
+			LOG.error(ActivityColumn.KEY_DATA_SOURCE_ID + ":" + result.get(ActivityColumn.KEY_DATA_SOURCE_ID) + "/" + ActivityColumn.KEY_ACTIVITY_ID + ":" +  result.get(ActivityColumn.KEY_ACTIVITY_ID));
+		}
+
+		for (BigDecimal[] i : activityIds) {
 			boolean isFound = false;
 			for (Map<String, Object> result : results) {
-				if (i.compareTo(((BigDecimal) result.get(ActivityColumn.KEY_ACTIVITY_ID)).intValue()) == 0) {
+				if (i[0].compareTo(((BigDecimal) result.get(ActivityColumn.KEY_DATA_SOURCE_ID))) == 0
+						&& i[1].compareTo(((BigDecimal) result.get(ActivityColumn.KEY_ACTIVITY_ID))) == 0) {
 					isFound = true;
 					break;
 				}
 			}
 			if (!isFound) {
-				fail(ActivityColumn.KEY_ACTIVITY_ID + " " + i + " was not in the result set.");
+				fail(ActivityColumn.KEY_DATA_SOURCE_ID + ":" + i[0] + "/" + ActivityColumn.KEY_ACTIVITY_ID + ":" + i[1] + " was not in the result set.");
 			}
 		}
+		assertEquals("Double check expected size", results.size(), activityIds.length);
 	}
 
 }

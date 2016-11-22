@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum Parameters {
-	//TODO - Activity is not currently supported
-	//ACTIVITY_ID("activityId"),
 	ANALYTICAL_METHOD("analyticalmethod"),
 	ASSEMBLAGE("assemblage"),
 	AVOID("command.avoid"),
@@ -26,7 +24,6 @@ public enum Parameters {
 	PROJECT("project"),
 	PROVIDERS("providers"),
 	SAMPLE_MEDIA("sampleMedia"),
-	SAMPLE_TYPE("sampleType"),
 	SITEID("siteid"),
 	SITE_TYPE("siteType"),
 	SORTED("sorted"),
@@ -39,12 +36,12 @@ public enum Parameters {
 
 	private final String parameterName;
 	private static Map<String, Parameters> validParameterNames;
-	
+
 	private Parameters(String value) {
 		parameterName = value;
 		putParameterName(value, this);
 	}
-	
+
 	private static void putParameterName(String value, Parameters param) {
 		if (value == null || getValidParameterNames().containsKey(value)) {
 			//This is a configuration error and can only happen if you duplicate values above...not unit testable
@@ -53,14 +50,14 @@ public enum Parameters {
 			getValidParameterNames().put(value, param);
 		}
 	}
-	
+
 	private static Map<String, Parameters> getValidParameterNames() {
 		if (validParameterNames == null) {
 			validParameterNames = new HashMap<String, Parameters>();
 		}
 		return validParameterNames;
 	}
-	
+
 	@Override
 	public String toString() {
 		return parameterName;

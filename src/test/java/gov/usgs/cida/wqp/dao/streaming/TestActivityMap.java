@@ -23,7 +23,7 @@ public class TestActivityMap {
 		ACTIVITY.put(KEY_HUC, "0000");
 		ACTIVITY.put(KEY_GOVERNMENTAL_UNIT_CODE, "XX:44:555");
 		ACTIVITY.put(KEY_ORGANIZATION_NAME, "organizationName");
-		ACTIVITY.put(KEY_ACTIVITY_ID, BigDecimal.valueOf(777));
+		ACTIVITY.put(KEY_ACTIVITY_ID, BigDecimal.valueOf(2));
 		ACTIVITY.put(KEY_ACTIVITY_TYPE_CODE, "activityTypeCode");
 		ACTIVITY.put(KEY_ACTIVITY_MEDIA_SUBDIV_NAME, "activityMediaSubdivName");
 		ACTIVITY.put(KEY_ACTIVITY_START_TIME, "activityStartTime");

@@ -1,21 +1,25 @@
 {
     "analyticalmethod": [
                             "https://www.nemi.gov/methods/method_summary/4665/",
-                            "https://www.nemi.gov/methods/method_summary/8896/"
+                            "https://www.nemi.gov/methods/method_summary/8896/",
+                            "analyticalMethod"
                         ], 
-    "bBox": "-90,43,-88,44",
+    "bBox": "-111,39,-77,47",
     "assemblage": [
                     "Fish/Nekton",
-                    "Benthic Macroinvertebrates"
+                    "Benthic Macroinvertebrates",
+                    "assemblageSampledName"
                   ],
     "characteristicName": [
                             "Beryllium",
-                            "Nitrate"
+                            "Nitrate",
+                            "characteristicName"
                           ],
     "characteristicType": [
                             "Inorganics, Minor, Metals",
                             "Nutrient",
-                            "Population/Community"
+                            "Population/Community",
+                            "characteristicType"
                           ],
     "command.avoid": [
                         "NWIS"
@@ -43,6 +47,7 @@
            ],
     "lat": "43.3836014",
     "long": "-88.9773314",
+    "minresults": "3",
     "organization": [
                         "ARS",
                         "11NPSWRD",
@@ -52,7 +57,8 @@
                     ],
     "pCode": [
                 "00032",
-                "00004"
+                "00004",
+                "99999"
              ],
     "project": [
                     "projectId",
@@ -72,6 +78,8 @@
                  ],
     "siteid": [
                 "organization-siteId",
+                "organization-siteId2",
+                "organization-siteId3",
                 "11NPSWRD-BICA_MFG_B",
                 "WIDNR_WQX-10030952",
                 "USGS-05425700",
@@ -93,10 +101,12 @@
                     "US:55"
                  ],
     "startDateHi": "10-11-2012",
-    "startDateLo": "10-11-1998",
+    "startDateLo": "10-11-1995",
     "subjectTaxonomicName": [
                                 "Acipenser",
-                                "Lota lota"
+                                "Lota lota",
+                                "sampleTissueTaxonomicName"
                             ],
-    "within": "1000"
+    "nldiurl": "http://cida-test.er.usgs.gov/nldi/wqp/USGS-05427880/navigate/UM/wqp",
+    "within": "650"
 }

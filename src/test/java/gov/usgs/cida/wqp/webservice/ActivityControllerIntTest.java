@@ -16,7 +16,7 @@ import gov.usgs.cida.wqp.util.HttpConstants;
 
 @Category(DBIntegrationTest.class)
 @WebAppConfiguration
-@DatabaseSetup("classpath:/testData/dao/activity/")
+@DatabaseSetup("classpath:/testData/dao/count/")
 @DbUnitConfiguration(dataSetLoader = CsvDataSetLoader.class)
 public class ActivityControllerIntTest extends BaseControllerIntegrationTest {
 
@@ -76,10 +76,17 @@ public class ActivityControllerIntTest extends BaseControllerIntegrationTest {
 
 	public ResultActions unFilteredHeaderCheck(ResultActions resultActions) throws Exception {
 		return resultActions
-				.andExpect(header().string("Total-Site-Count", "5"))
-				.andExpect(header().string("NWIS-Site-Count", "1"))
-				.andExpect(header().string("STEWARDS-Site-Count", "1"))
-				.andExpect(header().string("STORET-Site-Count", "3"));
+				.andExpect(header().string("Total-Site-Count", "12"))
+				.andExpect(header().string("NWIS-Site-Count", "2"))
+				.andExpect(header().string("STEWARDS-Site-Count", "2"))
+				.andExpect(header().string("STORET-Site-Count", "7"))
+				.andExpect(header().string("BIODATA-Site-Count", "1"))
+
+				.andExpect(header().string("Total-Activity-Count", "301"))
+				.andExpect(header().string("NWIS-Activity-Count", "48"))
+				.andExpect(header().string("STEWARDS-Activity-Count", "40"))
+				.andExpect(header().string("STORET-Activity-Count", "178"))
+				.andExpect(header().string("BIODATA-Activity-Count", "35"));
 	}
 
 	public ResultActions filteredHeaderCheck(ResultActions resultActions) throws Exception {

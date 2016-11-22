@@ -111,20 +111,19 @@ public class StreamingDaoTest extends BaseSpringTest {
 
 		streamingDao.stream(nameSpace, parms, handler);
 
-		parms.put(Parameters.BBOX.toString(), new String[]{"-89", "43", "-88", "44"});
-		streamingDao.stream(nameSpace, parms, handler);
-
-		//"command.avoid"
-//		parms.clear();
-//		parms.put(Parameters.AVOID.toString(), new String[]{"STORET"});
-//		streamingDao.stream(nameSpace, parms, handler);
-		
-		parms.clear();
-		parms.put(Parameters.COUNTRY.toString(), new String[]{"US"});
+		parms.put(Parameters.BBOX.toString(), getBBox());
 		streamingDao.stream(nameSpace, parms, handler);
 
 		parms.clear();
-		parms.put(Parameters.COUNTY.toString(), new String[]{"US:55:027"});
+		parms.put(Parameters.AVOID.toString().replace(".", ""), getAvoid());
+		streamingDao.stream(nameSpace, parms, handler);
+
+		parms.clear();
+		parms.put(Parameters.COUNTRY.toString(), getCountry());
+		streamingDao.stream(nameSpace, parms, handler);
+
+		parms.clear();
+		parms.put(Parameters.COUNTY.toString(), getCounty());
 		streamingDao.stream(nameSpace, parms, handler);
 
 		parms.clear();
@@ -144,7 +143,7 @@ public class StreamingDaoTest extends BaseSpringTest {
 		streamingDao.stream(nameSpace, parms, handler);
 
 		parms.clear();
-		parms.put(Parameters.MIN_RESULTS.toString(), "3");
+		parms.put(Parameters.MIN_RESULTS.toString(), getMinResults());
 		streamingDao.stream(nameSpace, parms, handler);
 
 		try {
@@ -156,15 +155,15 @@ public class StreamingDaoTest extends BaseSpringTest {
 		}
 
 		parms.clear();
-		parms.put(Parameters.ORGANIZATION.toString(), new String[]{"USGS-WI"});
+		parms.put(Parameters.ORGANIZATION.toString(), getOrganization());
 		streamingDao.stream(nameSpace, parms, handler);
 
 		parms.clear();
-		parms.put(Parameters.PROVIDERS.toString(), new String[]{"STEWARDS"});
+		parms.put(Parameters.PROVIDERS.toString(), getProviders());
 		streamingDao.stream(nameSpace, parms, handler);
 
 		parms.clear();
-		parms.put(Parameters.SITEID.toString(), new String[]{"11NPSWRD-BICA_MFG_B"});
+		parms.put(Parameters.SITEID.toString(), getSiteid());
 		streamingDao.stream(nameSpace, parms, handler);
 
 		try {
@@ -176,49 +175,45 @@ public class StreamingDaoTest extends BaseSpringTest {
 		}
 
 		parms.clear();
-		parms.put(Parameters.SITE_TYPE.toString(), new String[]{"Stream"});
+		parms.put(Parameters.SITE_TYPE.toString(), getSiteType());
 		streamingDao.stream(nameSpace, parms, handler);
 
 		parms.clear();
-		parms.put(Parameters.STATE.toString(), new String[]{"US:55"});
+		parms.put(Parameters.STATE.toString(), getState());
 		streamingDao.stream(nameSpace, parms, handler);
 
 		parms.clear();
-		parms.put(Parameters.WITHIN.toString(), new String[]{"10"});
-		parms.put(Parameters.LATITUDE.toString(), new String[]{"43.3836014"});
-		parms.put(Parameters.LONGITUDE.toString(), new String[]{"-88.9773314"});
+		parms.put(Parameters.WITHIN.toString(), getWithin());
+		parms.put(Parameters.LATITUDE.toString(), getLatitude());
+		parms.put(Parameters.LONGITUDE.toString(), getLongitude());
 		streamingDao.stream(nameSpace, parms, handler);
 
 		parms.clear();
-		parms.put(Parameters.ANALYTICAL_METHOD.toString(), new String[]{"https://www.nemi.gov/methods/method_summary/8896/"});
+		parms.put(Parameters.ANALYTICAL_METHOD.toString(), getAnalyticalMethod());
 		streamingDao.stream(nameSpace, parms, handler);
 
 		parms.clear();
-		parms.put(Parameters.ASSEMBLAGE.toString(), new String[]{"Fish/Nekton"});
+		parms.put(Parameters.ASSEMBLAGE.toString(), getAssemblage());
 		streamingDao.stream(nameSpace, parms, handler);
 
 		parms.clear();
-		parms.put(Parameters.CHARACTERISTIC_NAME.toString(), new String[]{"Nitrate"});
+		parms.put(Parameters.CHARACTERISTIC_NAME.toString(), getCharacteristicName());
 		streamingDao.stream(nameSpace, parms, handler);
 
 		parms.clear();
-		parms.put(Parameters.CHARACTERISTIC_TYPE.toString(), new String[]{"Nutrient"});
+		parms.put(Parameters.CHARACTERISTIC_TYPE.toString(), getCharacteristicType());
 		streamingDao.stream(nameSpace, parms, handler);
 
 		parms.clear();
-		parms.put(Parameters.PCODE.toString(), new String[]{"00004"});
+		parms.put(Parameters.PCODE.toString(), getPcode());
 		streamingDao.stream(nameSpace, parms, handler);
 
 		parms.clear();
-		parms.put(Parameters.PROJECT.toString(), new String[]{"NAWQA"});
+		parms.put(Parameters.PROJECT.toString(), getProject());
 		streamingDao.stream(nameSpace, parms, handler);
 
 		parms.clear();
-		parms.put(Parameters.PROJECT.toString(), new String[]{"EPABEACH"});
-		streamingDao.stream(nameSpace, parms, handler);
-
-		parms.clear();
-		parms.put(Parameters.SAMPLE_MEDIA.toString(), new String[]{"Water"});
+		parms.put(Parameters.SAMPLE_MEDIA.toString(), getSampleMedia());
 		streamingDao.stream(nameSpace, parms, handler);
 
 		//TODO - Activity is not currently supported
@@ -226,15 +221,15 @@ public class StreamingDaoTest extends BaseSpringTest {
 		//streamingDao.stream(nameSpace, parms, handler);
 
 		parms.clear();
-		parms.put(Parameters.START_DATE_HI.toString(), new String[]{"10-11-2012"});
+		parms.put(Parameters.START_DATE_HI.toString(), getStartDateHi());
 		streamingDao.stream(nameSpace, parms, handler);
 
 		parms.clear();
-		parms.put(Parameters.START_DATE_LO.toString(), new String[]{"10-11-2012"});
+		parms.put(Parameters.START_DATE_LO.toString(), getStartDateLo());
 		streamingDao.stream(nameSpace, parms, handler);
 
 		parms.clear();
-		parms.put(Parameters.SUBJECT_TAXONOMIC_NAME.toString(), new String[]{"Acipenser"});
+		parms.put(Parameters.SUBJECT_TAXONOMIC_NAME.toString(), getSubjectTaxonomicName());
 		streamingDao.stream(nameSpace, parms, handler);
 
 	}
@@ -244,31 +239,29 @@ public class StreamingDaoTest extends BaseSpringTest {
 		//TODO - These tests just validate that the queries have no syntax errors, not that they are logically correct.
 		Map<String, Object> parms = new HashMap<>();
 
-		parms.put(Parameters.ANALYTICAL_METHOD.toString(), new String[]{"https://www.nemi.gov/methods/method_summary/4665/",
-			"https://www.nemi.gov/methods/method_summary/8896/"});
-		parms.put(Parameters.BBOX.toString(), new String[]{"-89", "43", "-88", "44"});
-		parms.put(Parameters.ASSEMBLAGE.toString(), new String[]{"Fish/Nekton", "Benthic Macroinvertebrate"});
-		parms.put(Parameters.CHARACTERISTIC_NAME.toString(), new String[]{"Beryllium", "Nitrate"});
-		parms.put(Parameters.CHARACTERISTIC_TYPE.toString(), new String[]{"Inorganics, Minor, Metals", "Nutrient"});
-		parms.put(Parameters.COUNTRY.toString(), new String[]{"MX", "US"});
-		parms.put(Parameters.COUNTY.toString(), new String[]{"US:19:015", "US:30:003", "US:55:017", "US:55:021", "US:55:027"});
-		parms.put(Parameters.HUC.toString(), new String[]{"07","0708","070801","07090002", "07080105"});
-		parms.put(Parameters.LATITUDE.toString(), new String[]{"43.3836014"});
-		parms.put(Parameters.LONGITUDE.toString(), new String[]{"-88.9773314"});
-		parms.put(Parameters.MIN_RESULTS.toString(), "3");
-		parms.put(Parameters.ORGANIZATION.toString(), new String[]{"ARS", "11NPSWRD", "USGS-WI", "WIDNR_WQX"});
-		parms.put(Parameters.PROJECT.toString(), new String[]{"NAWQA", "CEAP", "EPABEACH"});
-		parms.put(Parameters.PROVIDERS.toString(), new String[]{"NWIS", "STEWARDS", "STORET"});
-		parms.put(Parameters.SITEID.toString(), new String[]{"11NPSWRD-BICA_MFG_B", "WIDNR_WQX-10030952", "USGS-05425700",
-			"USGS-431925089002701", "ARS-IAWC-IAWC225", "ARS-IAWC-IAWC410"});
-		parms.put(Parameters.SITE_TYPE.toString(), new String[]{"Lake, Reservoir, Impoundment", "Land", "Stream", "Well"});
-		parms.put(Parameters.STATE.toString(), new String[]{"US:19", "US:30", "US:55"});
-		parms.put(Parameters.PCODE.toString(), new String[]{"00032", "00004"});
-		parms.put(Parameters.SAMPLE_MEDIA.toString(), new String[]{"Other", "Sediment", "Water"});
-		parms.put(Parameters.START_DATE_HI.toString(), new String[]{"10-11-2012"});
-		parms.put(Parameters.START_DATE_LO.toString(), new String[]{"10-11-2012"});
-		parms.put(Parameters.SUBJECT_TAXONOMIC_NAME.toString(), new String[]{"Acipenser", "Lota lota"});
-		parms.put(Parameters.WITHIN.toString(), new String[]{"1000"});
+		parms.put(Parameters.ANALYTICAL_METHOD.toString(), getAnalyticalMethod());
+		parms.put(Parameters.BBOX.toString(), getBBox());
+		parms.put(Parameters.ASSEMBLAGE.toString(), getAssemblage());
+		parms.put(Parameters.CHARACTERISTIC_NAME.toString(), getCharacteristicName());
+		parms.put(Parameters.CHARACTERISTIC_TYPE.toString(), getCharacteristicType());
+		parms.put(Parameters.COUNTRY.toString(), getCountry());
+		parms.put(Parameters.COUNTY.toString(), getCounty());
+		parms.put(Parameters.HUC.toString(), getHuc());
+		parms.put(Parameters.LATITUDE.toString(), getLatitude());
+		parms.put(Parameters.LONGITUDE.toString(), getLongitude());
+		parms.put(Parameters.MIN_RESULTS.toString(), getMinResults());
+		parms.put(Parameters.ORGANIZATION.toString(), getOrganization());
+		parms.put(Parameters.PROJECT.toString(), getProject());
+		parms.put(Parameters.PROVIDERS.toString(), getProviders());
+		parms.put(Parameters.SITEID.toString(), getSiteid());
+		parms.put(Parameters.SITE_TYPE.toString(), getSiteType());
+		parms.put(Parameters.STATE.toString(), getState());
+		parms.put(Parameters.PCODE.toString(), getPcode());
+		parms.put(Parameters.SAMPLE_MEDIA.toString(), getSampleMedia());
+		parms.put(Parameters.START_DATE_HI.toString(), getStartDateHi());
+		parms.put(Parameters.START_DATE_LO.toString(), getStartDateLo());
+		parms.put(Parameters.SUBJECT_TAXONOMIC_NAME.toString(), getSubjectTaxonomicName());
+		parms.put(Parameters.WITHIN.toString(), getWithin());
 		streamingDao.stream(nameSpace, parms, handler);
 	}
 

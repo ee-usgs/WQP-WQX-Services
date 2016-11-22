@@ -23,12 +23,12 @@
                               prime.analytical_method_citation, prime.lab_name, prime.analysis_start_date, prime.lab_remark, prime.detection_limit, prime.detection_limit_unit,
                               prime.detection_limit_desc, prime.analysis_prep_date_tx
         <if test="minresults != null">
-            , count(*) over (partition by prime.data_source_id, prime.station_id) result_count_sum
+            , count(*) over (partition by prime.data_source_id, prime.station_id) site_result_count
         </if>
         <include refid="dynamicWhere.resultsBase"/>
         <if test="minresults != null">
             ) prime
-            where result_count_sum >= #{minresults}
+            where site_result_count >= #{minresults[0]}
         </if>
         <if test="sorted == 'yes'">
             order by prime.data_source_id,
@@ -40,11 +40,8 @@
     </select>
 
     <sql id="resultCount">
-        select data_source,
-               count(distinct data_source||'-'||station_id) station_count,
-               sum(result_count) result_count
-        <include refid="dynamicWhere.resultsCountBase"/>
-        group by rollup(data_source)
+        select data_source, station_count, result_count
+          from (<include refid="dynamicWhere.countBase"/>)
     </sql>
 
     <select id="count" resultType="java.util.LinkedHashMap">
