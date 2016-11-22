@@ -5,7 +5,7 @@
 			<pattern>%d{ISO8601} %p %t %c{40}.%M - %m%n</pattern>
 		</encoder>
 	</appender>
-	<root level="DEBUG">
+	<root level="ERROR">
 		<appender-ref ref="stdout" />
 	</root>
 
@@ -13,6 +13,6 @@
 	<logger name="org.dbunit" level="ERROR" />
 	<logger name="com.github" level="ERROR" />
 	<logger name="org.springframework" level="ERROR" />
-	<logger name="org.mybatis" level="DEBUG" />
-	<logger name="java.sql" level="DEBUG" />
+	<logger name="org.mybatis" level="ERROR" />
+	<logger name="java.sql" level="ERROR" />
 </configuration>
