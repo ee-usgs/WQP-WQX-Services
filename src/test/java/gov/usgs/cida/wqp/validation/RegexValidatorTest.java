@@ -235,7 +235,7 @@ public class RegexValidatorTest extends BaseSpringTest {
 		ValidationResult<?> vr = validator.validate("100");
 		assertTrue(vr.isValid());
 		assertEquals(0, vr.getValidationMessages().size());
-		assertEquals("100", vr.getTransformedValue());
+		assertArrayEquals(new String[]{"100"}, (String[])vr.getTransformedValue());
 	}
 	@Test
 	public void testMinResults_mismatch() {

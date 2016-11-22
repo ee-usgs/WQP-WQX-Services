@@ -28,12 +28,8 @@
     </select>
 
     <select id="count" resultType="java.util.LinkedHashMap">
-        select data_source,
-               count(distinct data_source||'-'||station_id) station_count,
-               count(distinct data_source||'-'||activity_id) activity_count,
-               sum(result_count) result_count
-        <include refid="dynamicWhere.activityCountBase"/>
-        group by rollup(data_source)
+        select data_source, station_count, activity_count, result_count
+          from (<include refid="dynamicWhere.countBase"/>)
     </select>
 
 </mapper>

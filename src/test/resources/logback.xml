@@ -10,6 +10,8 @@
 	</root>
 
 	<logger name="gov.usgs" level="ERROR" />
+	<logger name="org.dbunit" level="ERROR" />
+	<logger name="com.github" level="ERROR" />
 	<logger name="org.springframework" level="ERROR" />
 	<logger name="org.mybatis" level="ERROR" />
 	<logger name="java.sql" level="ERROR" />

@@ -135,7 +135,7 @@ public class ParameterValidationConfig {
 	@Bean
 	public RegexValidator<String[]> minResultsValidator() {
 		// one int value 
-		return new RegexValidator<String[]>(Parameters.MIN_RESULTS, 1, 1, null, REGEX_POSITIVE_INT);
+		return new RegexValidator<String[]>(Parameters.MIN_RESULTS, REGEX_POSITIVE_INT);
 	}
 
 	@Bean
