@@ -75,6 +75,7 @@ public class ResultController extends BaseController {
 
 	protected String addCountHeaders(HttpServletResponse response, List<Map<String, Object>> counts) {
 		addSiteHeaders(response, counts);
+		addActivityHeaders(response, counts);
 		addResultHeaders(response, counts);
 		return HttpConstants.HEADER_TOTAL_RESULT_COUNT;
 	}

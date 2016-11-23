@@ -644,7 +644,7 @@ public class StationControllerTest extends BaseSpringTest {
 			.andReturn();
 
 		assertThat(new JSONObject(rtn.getResponse().getContentAsString()),
-				sameJSONObjectAs(new JSONObject("{\"Total-Site-Count\":\"0\", \"Total-Result-Count\":\"0\"}")));
+				sameJSONObjectAs(new JSONObject("{\"Total-Site-Count\":\"0\",\"Total-Activity-Count\":\"0\",\"Total-Result-Count\":\"0\"}")));
 	}
 
 }

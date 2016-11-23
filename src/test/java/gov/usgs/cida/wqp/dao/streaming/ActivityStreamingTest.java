@@ -193,8 +193,8 @@ public class ActivityStreamingTest extends BaseSpringTest {
 		streamingDao.stream(nameSpace, parms, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(3, results.size());
-		assertContainsActivity(results, STORET_1, STORET_2, STORET_3);
+		assertEquals(7, results.size());
+		assertContainsActivity(results, STEWARDS_1, STEWARDS_3, NWIS_1, NWIS_3, STORET_1, STORET_2, BIODATA_1);
 	}
 
 	@Test
@@ -213,8 +213,8 @@ public class ActivityStreamingTest extends BaseSpringTest {
 		streamingDao.stream(nameSpace, parms, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(15, results.size());
-		assertContainsActivity(results, STEWARDS_1, STEWARDS_3, NWIS_1, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_4, STORET_5, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, BIODATA_1);
+		assertEquals(14, results.size());
+		assertContainsActivity(results, STEWARDS_1, STEWARDS_3, NWIS_1, NWIS_3, STORET_1, STORET_2, STORET_4, STORET_5, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, BIODATA_1);
 	}
 
 	@Test
@@ -223,8 +223,8 @@ public class ActivityStreamingTest extends BaseSpringTest {
 		streamingDao.stream(nameSpace, parms, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(15, results.size());
-		assertContainsActivity(results, STEWARDS_1, STEWARDS_3, NWIS_1, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_4, STORET_5, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, BIODATA_1);
+		assertEquals(14, results.size());
+		assertContainsActivity(results, STEWARDS_1, STEWARDS_3, NWIS_1, NWIS_3, STORET_1, STORET_2, STORET_4, STORET_5, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, BIODATA_1);
 	}
 
 	@Test
@@ -233,8 +233,8 @@ public class ActivityStreamingTest extends BaseSpringTest {
 		streamingDao.stream(nameSpace, parms, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(11, results.size());
-		assertContainsActivity(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_10, BIODATA_1);
+		assertEquals(10, results.size());
+		assertContainsActivity(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_1, STORET_2, STORET_10, BIODATA_1);
 	}
 
 	@Test
@@ -407,8 +407,8 @@ public class ActivityStreamingTest extends BaseSpringTest {
 		streamingDao.stream(nameSpace, parms, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(3, results.size());
-		assertContainsActivity(results, STORET_1, STORET_2, STORET_3);
+		assertEquals(1, results.size());
+		assertContainsActivity(results, STORET_1);
 	}
 
 	public static void assertStewards1(Map<String, Object> row) {
@@ -532,7 +532,7 @@ public class ActivityStreamingTest extends BaseSpringTest {
 
 	public void assertContainsActivity(LinkedList<Map<String, Object>> results, BigDecimal[]...  activityIds) {
 		for (Map<String, Object> result : results) {
-			LOG.error(ActivityColumn.KEY_DATA_SOURCE_ID + ":" + result.get(ActivityColumn.KEY_DATA_SOURCE_ID) + "/" + ActivityColumn.KEY_ACTIVITY_ID + ":" +  result.get(ActivityColumn.KEY_ACTIVITY_ID));
+			LOG.debug(ActivityColumn.KEY_DATA_SOURCE_ID + ":" + result.get(ActivityColumn.KEY_DATA_SOURCE_ID) + "/" + ActivityColumn.KEY_ACTIVITY_ID + ":" +  result.get(ActivityColumn.KEY_ACTIVITY_ID));
 		}
 
 		for (BigDecimal[] i : activityIds) {

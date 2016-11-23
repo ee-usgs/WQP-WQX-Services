@@ -317,6 +317,7 @@ public abstract class CountDaoTest extends BaseSpringTest {
 		//Counts against activity_sum
 
 		parms.clear();
+//TODO		parms.put(Parameters.AVOID.toString().replace(".", ""), getAvoid());
 		parms.put(Parameters.MIN_RESULTS.toString(), getMinResults());
 		parms.put(Parameters.PROJECT.toString(), getProject());
 		parms.put(Parameters.SAMPLE_MEDIA.toString(), getSampleMedia());
@@ -354,16 +355,16 @@ public abstract class CountDaoTest extends BaseSpringTest {
 		parms.put(Parameters.ASSEMBLAGE.toString(), getAssemblage());
 		parms.put(Parameters.CHARACTERISTIC_NAME.toString(), getCharacteristicName());
 		parms.put(Parameters.CHARACTERISTIC_TYPE.toString(), getCharacteristicType());
-		parms.put(Parameters.PROJECT.toString(), getProject());
-		parms.put(Parameters.SAMPLE_MEDIA.toString(), getSampleMedia());
 		parms.put(Parameters.COUNTRY.toString(), getCountry());
 		parms.put(Parameters.COUNTY.toString(), getCounty());
 		parms.put(Parameters.HUC.toString(), getHuc());
 		parms.put(Parameters.MIN_RESULTS.toString(), getMinResults());
-		parms.put(Parameters.ORGANIZATION.toString(), getOrganization());
-		parms.put(Parameters.PROVIDERS.toString(), getProviders());
-		parms.put(Parameters.SITEID.toString(), getSiteid());
 		parms.put(Parameters.NLDIURL.toString(), getNldiSites());
+		parms.put(Parameters.ORGANIZATION.toString(), getOrganization());
+		parms.put(Parameters.PROJECT.toString(), getProject());
+		parms.put(Parameters.PROVIDERS.toString(), getProviders());
+		parms.put(Parameters.SAMPLE_MEDIA.toString(), getSampleMedia());
+		parms.put(Parameters.SITEID.toString(), getSiteid());
 		parms.put(Parameters.SITE_TYPE.toString(), getSiteType());
 		parms.put(Parameters.STATE.toString(), getState());
 		parms.put(Parameters.SUBJECT_TAXONOMIC_NAME.toString(), getSubjectTaxonomicName());

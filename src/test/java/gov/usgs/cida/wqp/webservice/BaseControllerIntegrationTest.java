@@ -148,17 +148,17 @@ public abstract class BaseControllerIntegrationTest extends BaseSpringTest {
 
 	protected void getAllParametersTest(String url, String mimeType, String contentDisposition, String compareFile) throws Exception {
 		when(codesService.validate(any(Parameters.class), anyString())).thenReturn(true);
-		when(fetchService.fetch(any(String.class), any(URL.class))).thenReturn(Stream.of("a", "b", "organization-siteId").collect(Collectors.toSet()));
+		when(fetchService.fetch(any(String.class), any(URL.class))).thenReturn(Stream.of("a", "b", "organization-siteId2").collect(Collectors.toSet()));
 
-//		assertEquals("", filteredHeaderCheck(callMockHead(url + getUrlParameters(), mimeType, contentDisposition)).andReturn().getResponse().getContentAsString());
-//
-//		MvcResult rtn = filteredHeaderCheck(callMockGet(url + getUrlParameters(), mimeType, contentDisposition)).andReturn();
-//		assertEquals(getCompareFile(compareFile), rtn.getResponse().getContentAsString());
-//
-//		rtn = filteredHeaderCheck(callMockPostJson(url, getSourceFile("postParameters.json"), mimeType, contentDisposition)).andReturn();
-//		assertEquals(getCompareFile(compareFile), rtn.getResponse().getContentAsString());
+		assertEquals("", filteredHeaderCheck(callMockHead(url + getUrlParameters(), mimeType, contentDisposition)).andReturn().getResponse().getContentAsString());
 
-		MvcResult rtn = filteredHeaderCheck(callMockPostFormFiltered(url, mimeType, contentDisposition)).andReturn();
+		MvcResult rtn = filteredHeaderCheck(callMockGet(url + getUrlParameters(), mimeType, contentDisposition)).andReturn();
+		assertEquals(getCompareFile(compareFile), rtn.getResponse().getContentAsString());
+
+		rtn = filteredHeaderCheck(callMockPostJson(url, getSourceFile("postParameters.json"), mimeType, contentDisposition)).andReturn();
+		assertEquals(getCompareFile(compareFile), rtn.getResponse().getContentAsString());
+
+		rtn = filteredHeaderCheck(callMockPostFormFiltered(url, mimeType, contentDisposition)).andReturn();
 		assertEquals(getCompareFile(compareFile), rtn.getResponse().getContentAsString());
 	}
 
@@ -235,31 +235,31 @@ public abstract class BaseControllerIntegrationTest extends BaseSpringTest {
 
 	public MockHttpServletRequestBuilder addFilters(MockHttpServletRequestBuilder requestBase) {
 		return requestBase
-//				.param("analyticalmethod", getAnalyticalmethod())
+				.param(Parameters.ANALYTICAL_METHOD.toString(), String.join(";", getAnalyticalMethod()))
 				.param(Parameters.BBOX.toString(), String.join(",", getBBox()))
-//				.param("assemblage", String.join(",", getAssemblage()))
-//				.param("characteristicName", String.join(",", getCharacteristicName()))
-//				.param("characteristicType", String.join(",", getCharacteristicType()))
-//				.param("command.avoid", String.join(",", getAvoid()))
-//				.param("countrycode", String.join(",", getCountry()))
-//				.param("countycode", String.join(",;", getCounty()))
-//				.param("huc", String.join(",", getHuc()))
-				.param(Parameters.LATITUDE.toString(), String.join(",", getLatitude()))
-				.param(Parameters.LONGITUDE.toString(), String.join(",", getLongitude()))
-				.param(Parameters.MIN_RESULTS.toString(), String.join(",", getMinResults()))
-				.param(Parameters.NLDIURL.toString(), String.join(",", getNldiurl()))
-//				.param("organization", String.join(",", getOrganization()))
-//				.param("pCode", String.join(",", getPcode()))
-//				.param("project", String.join(",", getProject()))
-//				.param("sampleMedia", String.join(",", getSampleMedia()))
-//				.param("providers", String.join(",", getProviders()))
-//				.param("siteid", String.join(",", getSiteid()))
-//				.param("siteType", String.join(",", getSiteType()))
-//				.param("statecode", String.join(",", getStartDateHi()))
-//				.param("startDateHi", String.join(",", getStartDateHi()))
-//				.param("startDateLo", String.join(",", getStartDateLo()))
-//				.param("subjectTaxonomicName", String.join(",", getSubjectTaxonomicName()))
-				.param(Parameters.WITHIN.toString(), String.join(",", getWithin()))
+				.param(Parameters.ASSEMBLAGE.toString(), String.join(";", getAssemblage()))
+				.param(Parameters.CHARACTERISTIC_NAME.toString(), String.join(";", getCharacteristicName()))
+				.param(Parameters.CHARACTERISTIC_TYPE.toString(), String.join(";", getCharacteristicType()))
+				.param(Parameters.AVOID.toString(), String.join(";", getAvoid()))
+				.param(Parameters.COUNTRY.toString(), String.join(";", getCountry()))
+				.param(Parameters.COUNTY.toString(), String.join(";", getCounty()))
+				.param(Parameters.HUC.toString(), String.join(";", getHuc()))
+				.param(Parameters.LATITUDE.toString(), String.join(";", getLatitude()))
+				.param(Parameters.LONGITUDE.toString(), String.join(";", getLongitude()))
+				.param(Parameters.MIN_RESULTS.toString(), String.join(";", getMinResults()))
+				.param(Parameters.NLDIURL.toString(), String.join(";", getNldiurl()))
+				.param(Parameters.ORGANIZATION.toString(), String.join(";", getOrganization()))
+				.param(Parameters.PCODE.toString(), String.join(";", getPcode()))
+				.param(Parameters.PROJECT.toString(), String.join(";", getProject()))
+				.param(Parameters.SAMPLE_MEDIA.toString(), String.join(";", getSampleMedia()))
+				.param(Parameters.PROVIDERS.toString(), String.join(";", getProviders()))
+				.param(Parameters.SITEID.toString(), String.join(";", getSiteid()))
+				.param(Parameters.SITE_TYPE.toString(), String.join(";", getSiteType()))
+				.param(Parameters.STATE.toString(), String.join(";", getState()))
+				.param(Parameters.START_DATE_HI.toString(), String.join(";", getStartDateHi()))
+				.param(Parameters.START_DATE_LO.toString(), String.join(";", getStartDateLo()))
+				.param(Parameters.SUBJECT_TAXONOMIC_NAME.toString(), String.join(";", getSubjectTaxonomicName()))
+				.param(Parameters.WITHIN.toString(), String.join(";", getWithin()))
 				;
 	}
 
