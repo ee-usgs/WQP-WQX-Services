@@ -45,6 +45,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 
+import gov.usgs.cida.wqp.BaseSpringTest;
 import gov.usgs.cida.wqp.dao.BaseDao;
 import gov.usgs.cida.wqp.dao.intfc.ICountDao;
 import gov.usgs.cida.wqp.dao.intfc.IStreamingDao;
@@ -1008,7 +1009,7 @@ public class BaseControllerTest {
 	public static List<Map<String, Object>> getRawCounts() {
 		List<Map<String, Object>> rawCounts = new ArrayList<>();
 		Map<String, Object> nwisCountRow = new HashMap<>();
-		nwisCountRow.put("DATA_SOURCE", "NWIS");
+		nwisCountRow.put("DATA_SOURCE", BaseSpringTest.NWIS);
 		nwisCountRow.put("STATION_COUNT", 12);
 		nwisCountRow.put("ACTIVITY_COUNT", 113);
 		nwisCountRow.put("RESULT_COUNT", 359);

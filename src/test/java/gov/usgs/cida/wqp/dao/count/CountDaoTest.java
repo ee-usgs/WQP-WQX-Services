@@ -100,7 +100,7 @@ public abstract class CountDaoTest extends BaseSpringTest {
 		counts = countDao.getCounts(namespace, parms);
 		assertResults(includeResults, counts, 2, "1", "1", null, null, null, "5", "5", null, null, null);
 		if (includeActivity) {
-			assertActivityResults(counts, 2, "48", "48", null, null, null);
+			assertActivityResults(counts, 2, "23", "23", null, null, null);
 		}
 
 		parms.clear();
@@ -221,14 +221,14 @@ public abstract class CountDaoTest extends BaseSpringTest {
 		}
 
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		//Single Parameter Counts against result_ct_sum
+		//Single Parameter Counts against result_sum
 
 		parms.clear();
 		parms.put(Parameters.ANALYTICAL_METHOD.toString(), getAnalyticalMethod());
 		counts = countDao.getCounts(namespace, parms);
 		assertResults(includeResults, counts, 3, "4", "1", null, "3", null, "199", "101", null, "98", null);
 		if (includeActivity) {
-			assertActivityResults(counts, 3, "0", "0", null, "0", null);
+			assertActivityResults(counts, 3, "5", "2", null, "3", null);
 		}
 
 		parms.clear();
@@ -236,7 +236,7 @@ public abstract class CountDaoTest extends BaseSpringTest {
 		counts = countDao.getCounts(namespace, parms);
 		assertResults(includeResults, counts, 3, "5", null, null, "4", "1", "312", null, null, "201", "111");
 		if (includeActivity) {
-			assertActivityResults(counts, 3, "0", "0", null, "0", null);
+			assertActivityResults(counts, 3, "5", null, null, "4", "1");
 		}
 
 		parms.clear();
@@ -244,7 +244,7 @@ public abstract class CountDaoTest extends BaseSpringTest {
 		counts = countDao.getCounts(namespace, parms);
 		assertResults(includeResults, counts, 2, "4", null, null, "4", null, "201", null, null, "201", null);
 		if (includeActivity) {
-			assertActivityResults(counts, 2, "0", "0", null, "0", null);
+			assertActivityResults(counts, 2, "4", null, null, "4", null);
 		}
 
 		parms.clear();
@@ -252,7 +252,7 @@ public abstract class CountDaoTest extends BaseSpringTest {
 		counts = countDao.getCounts(namespace, parms);
 		assertResults(includeResults, counts, 3, "4", null, "1", "3", null, "203", null, "105", "98", null);
 		if (includeActivity) {
-			assertActivityResults(counts, 3, "0", "0", null, "0", null);
+			assertActivityResults(counts, 3, "5", null, "2", "3", null);
 		}
 
 		parms.clear();
@@ -260,7 +260,7 @@ public abstract class CountDaoTest extends BaseSpringTest {
 		counts = countDao.getCounts(namespace, parms);
 		assertResults(includeResults, counts, 3, "3", "1", null, "2", null, "155", "107", null, "48", null);
 		if (includeActivity) {
-			assertActivityResults(counts, 3, "0", "0", null, "0", null);
+			assertActivityResults(counts, 3, "3", "1", null, "2", null);
 		}
 
 		parms.clear();
@@ -268,7 +268,7 @@ public abstract class CountDaoTest extends BaseSpringTest {
 		counts = countDao.getCounts(namespace, parms);
 		assertResults(includeResults, counts, 3, "4", null, null, "3", "1", "209", null, null, "98", "111");
 		if (includeActivity) {
-			assertActivityResults(counts, 3, "0", "0", null, "0", null);
+			assertActivityResults(counts, 3, "4", null, null, "3", "1");
 		}
 	}
 
@@ -317,7 +317,6 @@ public abstract class CountDaoTest extends BaseSpringTest {
 		//Counts against activity_sum
 
 		parms.clear();
-//TODO		parms.put(Parameters.AVOID.toString().replace(".", ""), getAvoid());
 		parms.put(Parameters.MIN_RESULTS.toString(), getMinResults());
 		parms.put(Parameters.PROJECT.toString(), getProject());
 		parms.put(Parameters.SAMPLE_MEDIA.toString(), getSampleMedia());
@@ -326,7 +325,7 @@ public abstract class CountDaoTest extends BaseSpringTest {
 		counts = countDao.getCounts(namespace, parms);
 		assertResults(includeResults, counts, 5, "7", "2", "2", "2", "1", "469", "130", "118", "140", "81");
 		if (includeActivity) {
-			assertActivityResults(counts, 5, "0", "0", null, "0", null);
+			assertActivityResults(counts, 5, "7", "2", "2", "2", "1");
 		}
 
 		parms.put(Parameters.WITHIN.toString(), getWithin());
@@ -335,75 +334,57 @@ public abstract class CountDaoTest extends BaseSpringTest {
 		counts = countDao.getCounts(namespace, parms);
 		assertResults(includeResults, counts, 4, "6", "2", "2", "2", null, "388", "130", "118", "140", null);
 		if (includeActivity) {
-			assertActivityResults(counts, 4, "0", "0", null, "0", null);
+			assertActivityResults(counts, 4, "6", "2", "2", "2", null);
 		}
 
 		parms.put(Parameters.BBOX.toString(), getBBox());
 		counts = countDao.getCounts(namespace, parms);
 		assertResults(includeResults, counts, 4, "5", "2", "2", "1", null, "316", "130", "118", "68", null);
 		if (includeActivity) {
-			assertActivityResults(counts, 4, "0", "0", null, "0", null);
+			assertActivityResults(counts, 4, "5", "2", "2", "1", null);
 		}
 
+		parms.put(Parameters.AVOID.toString().replace(".", ""), getAvoid());
+		counts = countDao.getCounts(namespace, parms);
+		assertResults(includeResults, counts, 2, "1", null, null, "1", null, "68", null, null, "68", null);
+		if (includeActivity) {
+			assertActivityResults(counts, 2, "1", null, null, "1", null);
+		}
 
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		//Counts against result_ct_sum
+		//Counts against result_sum
 
 		parms.clear();
 		parms.put(Parameters.AVOID.toString().replace(".", ""), getAvoid());
 		parms.put(Parameters.ANALYTICAL_METHOD.toString(), getAnalyticalMethod());
 		parms.put(Parameters.ASSEMBLAGE.toString(), getAssemblage());
+		parms.put(Parameters.BBOX.toString(), getBBox());
 		parms.put(Parameters.CHARACTERISTIC_NAME.toString(), getCharacteristicName());
 		parms.put(Parameters.CHARACTERISTIC_TYPE.toString(), getCharacteristicType());
 		parms.put(Parameters.COUNTRY.toString(), getCountry());
 		parms.put(Parameters.COUNTY.toString(), getCounty());
 		parms.put(Parameters.HUC.toString(), getHuc());
+		parms.put(Parameters.LATITUDE.toString(), getLatitude());
+		parms.put(Parameters.LONGITUDE.toString(), getLongitude());
 		parms.put(Parameters.MIN_RESULTS.toString(), getMinResults());
 		parms.put(Parameters.NLDIURL.toString(), getNldiSites());
 		parms.put(Parameters.ORGANIZATION.toString(), getOrganization());
+		parms.put(Parameters.PCODE.toString(), getPcode());
 		parms.put(Parameters.PROJECT.toString(), getProject());
 		parms.put(Parameters.PROVIDERS.toString(), getProviders());
 		parms.put(Parameters.SAMPLE_MEDIA.toString(), getSampleMedia());
 		parms.put(Parameters.SITEID.toString(), getSiteid());
 		parms.put(Parameters.SITE_TYPE.toString(), getSiteType());
 		parms.put(Parameters.STATE.toString(), getState());
+		parms.put(Parameters.START_DATE_HI.toString(), getStartDateHi());
+		parms.put(Parameters.START_DATE_LO.toString(), getStartDateLo());
 		parms.put(Parameters.SUBJECT_TAXONOMIC_NAME.toString(), getSubjectTaxonomicName());
+		parms.put(Parameters.WITHIN.toString(), getWithin());
 		counts = countDao.getCounts(namespace, parms);
-		assertResults(includeResults, counts, 2, "2", null, null, "2", null, "98", null, null, "98", null);
-		if (includeActivity) {
-			assertActivityResults(counts, 2, "0", "0", null, "0", null);
-		}
-
-		parms.put(Parameters.PCODE.toString(), getPcode());
 		counts = countDao.getCounts(namespace, parms);
 		assertResults(includeResults, counts, 2, "1", null, null, "1", null, "48", null, null, "48", null);
 		if (includeActivity) {
-			assertActivityResults(counts, 2, "0", "0", null, "0", null);
-		}
-
-		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		//Counts against result_sum
-
-		parms.put(Parameters.START_DATE_HI.toString(), getStartDateHi());
-		parms.put(Parameters.START_DATE_LO.toString(), getStartDateLo());
-		counts = countDao.getCounts(namespace, parms);
-		assertResults(includeResults, counts, 2, "2", null, null, "2", null, "158", null, null, "158", null);
-		if (includeActivity) {
-			assertActivityResults(counts, 2, "0", "0", null, "0", null);
-		}
-
-		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		//Counts against result_nr_sum
-
-		parms.put(Parameters.BBOX.toString(), getBBox());
-		parms.put(Parameters.WITHIN.toString(), getWithin());
-		parms.put(Parameters.LATITUDE.toString(), getLatitude());
-		parms.put(Parameters.LONGITUDE.toString(), getLongitude());
-		parms.put(Parameters.MIN_RESULTS.toString(), getMinResults());
-		counts = countDao.getCounts(namespace, parms);
-		assertResults(includeResults, counts, 2, "1", null, null, "1", null, "78", null, null, "78", null);
-		if (includeActivity) {
-			assertActivityResults(counts, 2, "0", "0", null, "0", null);
+			assertActivityResults(counts, 2, "1", null, null, "1", null);
 		}
 
 	}
@@ -444,19 +425,19 @@ public abstract class CountDaoTest extends BaseSpringTest {
 				total = true;
 			} else {
 				switch (counts.get(i).get(MybatisConstants.DATA_SOURCE).toString()) {
-				case "NWIS":
+				case NWIS:
 					assertEquals("NWIS " + countType + " count", expectedNwis, counts.get(i).get(countType).toString());
 					nwis = true;
 					break;
-				case "STEWARDS":
+				case STEWARDS:
 					assertEquals("STEWARDS " + countType + " count", expectedStewards, counts.get(i).get(countType).toString());
 					stewards = true;
 					break;
-				case "STORET":
+				case STORET:
 					assertEquals("STORET " + countType + " count", expectedStoret, counts.get(i).get(countType).toString());
 					storet = true;
 					break;
-				case "BIODATA":
+				case BIODATA:
 					assertEquals("BIODATA " + countType + " count", expectedBiodata, counts.get(i).get(countType).toString());
 					biodata = true;
 					break;

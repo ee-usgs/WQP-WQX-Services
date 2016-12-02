@@ -47,57 +47,51 @@
 
     <sql id="stationsBase">
          from station prime
-              left join (
 
         <choose>
             <when test="analyticalmethod == null and assemblage == null and characteristicName == null and
                         characteristicType == null and pCode == null and project == null and sampleMedia == null and
                         startDateHi == null and startDateLo == null and subjectTaxonomicName == null">
+                join (
                 select data_source_id, station_id, result_count
                   from station_sum
+                        ) filter
+                  on prime.station_id = filter.station_id and
+                     prime.data_source_id = filter.data_source_id
             </when>
 
             <when test="analyticalmethod == null and assemblage == null and characteristicName == null and
                         characteristicType == null and pCode == null and subjectTaxonomicName == null">
+                join (
                 select data_source_id, station_id, sum(result_count) result_count
                   from activity_sum prime
                 <where>
                     <include refid="dynamicWhere.baseWhereActivityClauses" />
                 </where>
                 group by data_source_id, station_id
+                        ) filter
+                  on prime.station_id = filter.station_id and
+                     prime.data_source_id = filter.data_source_id
             </when>
 
-            <when test="startDateLo != null or startDateHi != null">
+            <otherwise>
+                join (
                 select data_source_id, station_id, sum(result_count) result_count
                   from result_sum prime
                 <where>
                     <include refid="dynamicWhere.baseWhereResultClauses" />
                 </where>
                 group by data_source_id, station_id
-            </when>
-
-            <otherwise>
-                select data_source_id, station_id, sum(result_count) result_count
-                  from result_ct_sum prime
-                <where>
-                    <include refid="dynamicWhere.baseWhereResultClauses" />
-                </where>
-                group by data_source_id, station_id
-            </otherwise>
-        </choose>
-
                         ) filter
                   on prime.station_id = filter.station_id and
                      prime.data_source_id = filter.data_source_id
+            </otherwise>
+
+        </choose>
 
         <where>
             <include refid="dynamicWhere.baseWhereStationGeoClauses" />
             <include refid="dynamicWhere.baseWhereStationClauses" />
-            <if test="analyticalmethod != null or assemblage != null or characteristicName != null or
-                      characteristicType != null or pCode != null or project != null or sampleMedia != null or
-                      startDateHi != null or startDateLo != null or subjectTaxonomicName != null">
-                and filter.result_count is not null
-            </if>
             <if test="minresults != null">
                 and (filter.result_count >= #{minresults[0]})
             </if>

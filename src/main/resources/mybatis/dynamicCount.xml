@@ -66,6 +66,32 @@
                     group by rollup(data_source)
             </when>
 
+            <otherwise>
+                select data_source,
+                       count(distinct data_source||'-'||station_id) station_count,
+                       count(distinct data_source||'-'||station_id||'-'||activity_id) activity_count,
+                       sum(result_count) result_count
+                  from (select prime.data_source,
+                               prime.station_id,
+                               prime.activity_id,
+                               prime.result_count,
+                               sum(prime.result_count) over (partition by prime.data_source_id, prime.station_id) site_result_count
+                          from result_sum prime
+                <if test="within != null or bBox != null">
+                    <include refid="dynamicWhere.geoJoin"/>
+                </if>
+                <where>
+                    <include refid="dynamicWhere.baseWhereStationClauses" />
+                    <include refid="dynamicWhere.baseWhereResultClauses" />
+                </where>
+                       )
+                <if test="minresults != null">
+                    where site_result_count >= #{minresults[0]}
+                </if>
+                    group by rollup(data_source)
+            </otherwise>
+
+<!--
             <when test="(startDateLo != null or startDateHi != null) and (bBox == null and within == null)">
                 select data_source,
                        count(distinct data_source||'-'||station_id) station_count,
@@ -122,7 +148,7 @@
                                sum(secondary.result_count) over (partition by secondary.data_source_id, secondary.station_id) site_result_count
                           from result_nr_sum secondary
                                join (select /*+ index_combine(prime) */ data_source, data_source_id, station_id, site_id
-                                       from station prime
+                                       from station_sum prime
                 <where>
                     <include refid="dynamicWhere.baseWhereStationGeoClauses" />
                     <include refid="dynamicWhere.baseWhereStationClauses" />
@@ -141,7 +167,7 @@
                 </if>
                     group by rollup(data_source)
             </otherwise>
-
+-->
         </choose>
     </sql>
 

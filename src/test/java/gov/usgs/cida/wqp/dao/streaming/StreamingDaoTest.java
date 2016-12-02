@@ -73,12 +73,6 @@ public class StreamingDaoTest extends BaseSpringTest {
 		multipleParameterTests(BaseDao.BIOLOGICAL_RESULT_NAMESPACE);
 	}
 
-	@Test
-	public void activityTests() {
-		singleParameterTests(BaseDao.ACTIVITY_NAMESPACE);
-		multipleParameterTests(BaseDao.ACTIVITY_NAMESPACE);
-	}
-
 	private void singleParameterTests(String nameSpace) {
 		//TODO - Real test data and verification. 
 		//TODO - These tests just validate that the queries have no syntax errors, not that they are logically correct.
@@ -215,10 +209,6 @@ public class StreamingDaoTest extends BaseSpringTest {
 		parms.clear();
 		parms.put(Parameters.SAMPLE_MEDIA.toString(), getSampleMedia());
 		streamingDao.stream(nameSpace, parms, handler);
-
-		//TODO - Activity is not currently supported
-		//parms.put(Parameters.ACTIVITY_ID.toString(), new String[]{"abc"});
-		//streamingDao.stream(nameSpace, parms, handler);
 
 		parms.clear();
 		parms.put(Parameters.START_DATE_HI.toString(), getStartDateHi());

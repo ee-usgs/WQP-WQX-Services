@@ -6,6 +6,4 @@ act_metric
 activity_sum
 result
 result_sum
-result_ct_sum
-result_nr_sum
 web_service_log

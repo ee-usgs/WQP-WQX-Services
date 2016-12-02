@@ -17,56 +17,69 @@
 
     <sql id="activityBase">
         from activity prime
-              left join (
 
         <choose>
             <when test="analyticalmethod == null and assemblage == null and characteristicName == null and
-                        characteristicType == null and pCode == null and subjectTaxonomicName == null">
-                select data_source_id, station_id, activity_id, result_count
-                  from activity_sum prime
+                        characteristicType == null and pCode == null and subjectTaxonomicName == null and
+                        minresults == null">
+                <if test="bBox != null or within != null">
+                    join station_sum secondary
+                      on prime.station_id = secondary.station_id and
+                         prime.data_source_id = secondary.data_source_id
+                </if>
                 <where>
+                    <include refid="dynamicWhere.baseWhereStationGeoClauses" />
+                    <include refid="dynamicWhere.baseWhereStationClauses" />
                     <include refid="dynamicWhere.baseWhereActivityClauses" />
                 </where>
             </when>
 
-            <when test="startDateLo != null or startDateHi != null">
-                select data_source_id, station_id, activity_id, sum(result_count) result_count
-                  from result_sum prime
+            <when test="analyticalmethod == null and assemblage == null and characteristicName == null and
+                        characteristicType == null and pCode == null and subjectTaxonomicName == null and
+                        minresults != null">
+                join (
+                select prime.data_source_id, prime.station_id, prime.activity_id, prime.result_count
+                  from activity_sum prime
+                <if test="bBox != null or within != null">
+                    join station_sum secondary
+                      on prime.station_id = secondary.station_id and
+                         prime.data_source_id = secondary.data_source_id
+                </if>
                 <where>
-                    <include refid="dynamicWhere.baseWhereResultClauses" />
+                    <include refid="dynamicWhere.baseWhereStationGeoClauses" />
+                    <include refid="dynamicWhere.baseWhereStationClauses" />
+                    <include refid="dynamicWhere.baseWhereActivityClauses" />
                 </where>
-                group by data_source_id, station_id, activity_id
-            </when>
-
-            <otherwise>
-                select data_source_id, station_id, activity_id, sum(result_count) result_count
-                  from result_ct_sum prime
-                <where>
-                    <include refid="dynamicWhere.baseWhereResultClauses" />
-                </where>
-                group by data_source_id, station_id, activity_id
-            </otherwise>
-        </choose>
-
                         ) filter
                   on prime.data_source_id = filter.data_source_id and
                      prime.station_id = filter.station_id and
                      prime.activity_id = filter.activity_id
+            </when>
 
-        <if test="bBox != null or within != null">
-            join station_sum secondary
-              on prime.station_id = secondary.station_id and
-                 prime.data_source_id = secondary.data_source_id
-        </if>
+            <otherwise>
+                join (
+                select prime.data_source_id, prime.station_id, prime.activity_id, sum(prime.result_count) result_count
+                  from result_sum prime
+                <if test="bBox != null or within != null">
+                    join station_sum secondary
+                      on prime.station_id = secondary.station_id and
+                         prime.data_source_id = secondary.data_source_id
+                </if>
+                <where>
+                    <include refid="dynamicWhere.baseWhereStationGeoClauses" />
+                    <include refid="dynamicWhere.baseWhereStationClauses" />
+                    <include refid="dynamicWhere.baseWhereResultClauses" />
+                </where>
+                group by prime.data_source_id, prime.station_id, prime.activity_id
+                        ) filter
+                  on prime.data_source_id = filter.data_source_id and
+                     prime.station_id = filter.station_id and
+                     prime.activity_id = filter.activity_id
+            </otherwise>
+
+        </choose>
 
         <where>
-            <include refid="dynamicWhere.baseWhereStationGeoClauses" />
-            <include refid="dynamicWhere.baseWhereStationClauses" />
-            <if test="analyticalmethod != null or assemblage != null or characteristicName != null or
-                      characteristicType != null or pCode != null or project != null or sampleMedia != null or
-                      startDateHi != null or startDateLo != null or subjectTaxonomicName != null">
-                and filter.result_count is not null
-            </if>
             <if test="minresults != null">
                 and (filter.result_count >= #{minresults[0]})
             </if>

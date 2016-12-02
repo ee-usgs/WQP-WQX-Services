@@ -16,7 +16,7 @@ import gov.usgs.cida.wqp.util.HttpConstants;
 
 @Category(DBIntegrationTest.class)
 @WebAppConfiguration
-@DatabaseSetup("classpath:/testData/dao/count/")
+@DatabaseSetup("classpath:/testData/csv/")
 @DbUnitConfiguration(dataSetLoader = CsvDataSetLoader.class)
 public class ActivityControllerIntTest extends BaseControllerIntegrationTest {
 

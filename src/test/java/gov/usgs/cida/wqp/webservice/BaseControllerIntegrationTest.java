@@ -55,21 +55,21 @@ public abstract class BaseControllerIntegrationTest extends BaseSpringTest {
 
 	public String getUrlParameters() {
 		return
-			//TODO				"&" + Parameters.ANALYTICAL_METHOD.toString() + "=" + String.join(";", getAnalyticalmethod()) +
+			"&" + Parameters.ANALYTICAL_METHOD.toString() + "=" + String.join(";", getAnalyticalMethod()) +
 			"&" + Parameters.AVOID.toString() + "=" + String.join(";", getAvoid()) + 
 			"&" + Parameters.BBOX.toString() + "=" + String.join(",", getBBox()) +
-			//TODO				"&" + Parameters.ASSEMBLAGE.toString() + "=" + String.join(";", getAssemblage()
-			//TODO				"&" + Parameters.CHARACTERISTIC_NAME.toString() + "=" + String.join(";", getCharacteristicName()) +
-			//TODO				"&" + Parameters.CHARACTERISTIC_TYPE.toString() + "=" + String.join(";", getCharacteristicType()) +
+			"&" + Parameters.ASSEMBLAGE.toString() + "=" + String.join(";", getAssemblage()) +
+			"&" + Parameters.CHARACTERISTIC_NAME.toString() + "=" + String.join(";", getCharacteristicName()) +
+			"&" + Parameters.CHARACTERISTIC_TYPE.toString() + "=" + String.join(";", getCharacteristicType()) +
 			"&" + Parameters.COUNTRY.toString() + "=" + String.join(";", getCountry()) +
 			"&" + Parameters.COUNTY.toString() + "=" + String.join(";", getCounty()) +
 			"&" + Parameters.HUC.toString() + "=" + String.join(";", getHuc()) +
 			"&" + Parameters.LATITUDE.toString() + "=" + String.join(";", getLatitude()) +
 			"&" + Parameters.LONGITUDE.toString() + "=" + String.join(";", getLongitude()) +
-			//TODO				"&" + Parameters.MIN_RESULTS.toString() + "=" + String.join(";", getMinResults()) +
+			"&" + Parameters.MIN_RESULTS.toString() + "=" + String.join(";", getMinResults()) +
 			"&" + Parameters.NLDIURL.toString() + "=" + String.join(";", getNldiurl()) +
 			"&" + Parameters.ORGANIZATION.toString() + "=" + String.join(";", getOrganization()) +
-			//TODO				"&" + Parameters.PCODE.toString() + "=" + String.join(";", getPcode()) +
+			"&" + Parameters.PCODE.toString() + "=" + String.join(";", getPcode()) +
 			"&" + Parameters.PROJECT.toString() + "=" + String.join(";", getProject()) +
 			"&" + Parameters.PROVIDERS.toString() + "=" + String.join(";", getProviders()) +
 			"&" + Parameters.SAMPLE_MEDIA.toString() + "=" + String.join(";", getSampleMedia()) +
@@ -78,7 +78,7 @@ public abstract class BaseControllerIntegrationTest extends BaseSpringTest {
 			"&" + Parameters.START_DATE_HI.toString() + "=" + String.join(";", getStartDateHi()) +
 			"&" + Parameters.START_DATE_LO.toString() + "=" + String.join(";", getStartDateLo()) +
 			"&" + Parameters.STATE.toString() + "=" + String.join(";", getState()) +
-			//TODO				"&" + Parameters.SUBJECT_TAXONOMIC_NAME.toString() + "=" + String.join(";", getSubjectTaxonomicName()) +
+			"&" + Parameters.SUBJECT_TAXONOMIC_NAME.toString() + "=" + String.join(";", getSubjectTaxonomicName()) +
 			"&" + Parameters.WITHIN.toString() + "=" + String.join(";", getWithin())
 			;
 	}
