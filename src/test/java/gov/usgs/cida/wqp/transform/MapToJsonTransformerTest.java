@@ -67,14 +67,15 @@ public class MapToJsonTransformerTest {
 		map.put(StationColumn.KEY_MONITORING_LOCATION_TYPE, "realType");
 		map.put(StationColumn.KEY_SITE_TYPE, "type");
 		map.put(StationColumn.KEY_HUC_8, "huceight");
+		map.put(StationColumn.KEY_ACTIVITY_COUNT, 57);
 		map.put(StationColumn.KEY_RESULT_COUNT, 857);
 		try {
 			transformer.writeData(map);
 			//need to flush the JsonGenerator to get at output. 
 			transformer.g.flush();
-			assertEquals(440, baos.size());
+			assertEquals(461, baos.size());
 			assertEquals("{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[long,lat]},\"properties\":{\"ProviderName\":\"ds\",\"OrganizationIdentifier\":\"org\",\"OrganizationFormalName\":\"org/name\",\"MonitoringLocationIdentifier\":\"site\",\"MonitoringLocationName\":\"station\",\"MonitoringLocationTypeName\":\"realType\",\"ResolvedMonitoringLocationTypeName\":\"type\",\"HUCEightDigitCode\":\"huceight\""
-					+ ",\"siteUrl\":\"http://test-url.usgs.gov/provider/ds/org/site/\",\"resultCount\":\"857\"}}",
+					+ ",\"siteUrl\":\"http://test-url.usgs.gov/provider/ds/org/site/\",\"activityCount\":\"57\",\"resultCount\":\"857\"}}",
 					new String(baos.toByteArray(), HttpConstants.DEFAULT_ENCODING));
 		} catch (IOException e) {
 			fail(e.getLocalizedMessage());
@@ -90,17 +91,18 @@ public class MapToJsonTransformerTest {
 		map.put(StationColumn.KEY_MONITORING_LOCATION_TYPE, "realType2");
 		map.put(StationColumn.KEY_SITE_TYPE, "type2");
 		map.put(StationColumn.KEY_HUC_8, "huceigh2");
+		map.put(StationColumn.KEY_ACTIVITY_COUNT, 67);
 		map.put(StationColumn.KEY_RESULT_COUNT, 667);
 
 		try {
 			transformer.writeData(map);
 			//need to flush the JsonGenerator to get at output. 
 			transformer.g.flush();
-			assertEquals(893, baos.size());
+			assertEquals(935, baos.size());
 			assertEquals("{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[long,lat]},\"properties\":{\"ProviderName\":\"ds\",\"OrganizationIdentifier\":\"org\",\"OrganizationFormalName\":\"org/name\",\"MonitoringLocationIdentifier\":\"site\",\"MonitoringLocationName\":\"station\",\"MonitoringLocationTypeName\":\"realType\",\"ResolvedMonitoringLocationTypeName\":\"type\",\"HUCEightDigitCode\":\"huceight\""
-					+ ",\"siteUrl\":\"http://test-url.usgs.gov/provider/ds/org/site/\",\"resultCount\":\"857\"}}"
+					+ ",\"siteUrl\":\"http://test-url.usgs.gov/provider/ds/org/site/\",\"activityCount\":\"57\",\"resultCount\":\"857\"}}"
 					+ " {\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[long2,lat2]},\"properties\":{\"ProviderName\":\"ds2\",\"OrganizationIdentifier\":\"org2\",\"OrganizationFormalName\":\"org/name2\",\"MonitoringLocationIdentifier\":\"site2\",\"MonitoringLocationName\":\"station2\",\"MonitoringLocationTypeName\":\"realType2\",\"ResolvedMonitoringLocationTypeName\":\"type2\",\"HUCEightDigitCode\":\"huceigh2\""
-					+ ",\"siteUrl\":\"http://test-url.usgs.gov/provider/ds2/org2/site2/\",\"resultCount\":\"667\"}}",
+					+ ",\"siteUrl\":\"http://test-url.usgs.gov/provider/ds2/org2/site2/\",\"activityCount\":\"67\",\"resultCount\":\"667\"}}",
 					new String(baos.toByteArray(), HttpConstants.DEFAULT_ENCODING));
 		} catch (IOException e) {
 			fail(e.getLocalizedMessage());

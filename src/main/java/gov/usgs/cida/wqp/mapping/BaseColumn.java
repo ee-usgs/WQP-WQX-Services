@@ -11,6 +11,7 @@ public abstract class BaseColumn {
 	public static final String KEY_SITE_ID = "SITE_ID";
 	public static final String KEY_HUC = "HUC";
 	public static final String KEY_GOVERNMENTAL_UNIT_CODE = "GOVERNMENTAL_UNIT_CODE";
+	public static final String KEY_ACTIVITY_COUNT = "ACTIVITY_COUNT";
 	public static final String KEY_RESULT_COUNT = "RESULT_COUNT";
 
 	//Profile Mapping of the Keys

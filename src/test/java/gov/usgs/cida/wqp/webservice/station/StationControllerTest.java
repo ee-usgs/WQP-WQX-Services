@@ -68,8 +68,10 @@ public class StationControllerTest extends BaseSpringTest {
 	private MockMvc mockMvc;
 
 	@Before
-	public void setup() {
+	public void setup() throws Exception {
 		mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
+		when(codesService.validate(any(Parameters.class), anyString())).thenReturn(true);
+		when(fetchService.fetch(any(String.class), any(URL.class))).thenReturn(Stream.of("a", "b").collect(Collectors.toSet()));
 	}
 
 	@Test
@@ -404,8 +406,6 @@ public class StationControllerTest extends BaseSpringTest {
 
 	@Test
 	public void kitchenSinkTest() throws Exception {
-		when(codesService.validate(any(Parameters.class), anyString())).thenReturn(true);
-		when(fetchService.fetch(any(String.class), any(URL.class))).thenReturn(Stream.of("a", "b").collect(Collectors.toSet()));
 
 		mockMvc.perform(
 			get(endpoint + "xml" +
@@ -506,8 +506,6 @@ public class StationControllerTest extends BaseSpringTest {
 
 	@Test
 	public void postJsonGetAsGeojsonTest() throws Exception {
-		when(codesService.validate(any(Parameters.class), anyString())).thenReturn(true);
-
 		mockMvc.perform(post(endpoint + "geojson").content(getSourceFile("postParameters.json")).contentType(MediaType.APPLICATION_JSON))
 			.andExpect(status().isOk())
 			.andExpect(content().contentType(HttpConstants.MIME_TYPE_GEOJSON))
@@ -521,8 +519,6 @@ public class StationControllerTest extends BaseSpringTest {
 
 	@Test
 	public void postTonOSitesTest() throws Exception {
-		when(codesService.validate(any(Parameters.class), anyString())).thenReturn(true);
-
 		mockMvc.perform(post(endpoint + "csv").content(getSourceFile("manySites.json")).contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
 				.andExpect(content().contentType(MimeType.csv.getMimeType()))
@@ -536,8 +532,6 @@ public class StationControllerTest extends BaseSpringTest {
 
 	@Test
 	public void postFormUrlencodedGetAsGeojsonTest() throws Exception {
-		when(codesService.validate(any(Parameters.class), anyString())).thenReturn(true);
-
 		//Note that in real life the values are urlencoded - This mock does not un-encode them, so we must use real values.
 		mockMvc.perform(post(endpoint).contentType(MediaType.APPLICATION_FORM_URLENCODED)
 				.param("mimeType", "geojson")
@@ -557,8 +551,6 @@ public class StationControllerTest extends BaseSpringTest {
 
 	@Test
 	public void postGetCountTest() throws Exception {
-		when(codesService.validate(any(Parameters.class), anyString())).thenReturn(true);
-
 		MvcResult rtn = mockMvc.perform(post("/" + HttpConstants.STATION_SEARCH_ENPOINT + "/count?mimeType=json").content(getSourceFile("postParameters.json")).contentType(MediaType.APPLICATION_JSON))
 			.andExpect(status().isOk())
 			.andExpect(content().contentType(HttpConstants.MIME_TYPE_JSON))
@@ -628,8 +620,6 @@ public class StationControllerTest extends BaseSpringTest {
 
 	@Test
 	public void postGetCountTonOSitesTest() throws Exception {
-		when(codesService.validate(any(Parameters.class), anyString())).thenReturn(true);
-
 		MvcResult rtn = mockMvc.perform(post("/" + HttpConstants.RESULT_SEARCH_ENPOINT + "/count?mimeType=json&" 
 				+ Parameters.DATA_PROFILE + "=" + Profile.BIOLOGICAL)
 				.content(getSourceFile("manySites.json")).contentType(MediaType.APPLICATION_JSON))
