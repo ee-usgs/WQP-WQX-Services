@@ -53,7 +53,7 @@
                         characteristicType == null and pCode == null and project == null and sampleMedia == null and
                         startDateHi == null and startDateLo == null and subjectTaxonomicName == null">
                 join (
-                select data_source_id, station_id, result_count
+                select data_source_id, station_id, activity_count, result_count
                   from station_sum
                         ) filter
                   on prime.station_id = filter.station_id and
@@ -63,7 +63,7 @@
             <when test="analyticalmethod == null and assemblage == null and characteristicName == null and
                         characteristicType == null and pCode == null and subjectTaxonomicName == null">
                 join (
-                select data_source_id, station_id, sum(result_count) result_count
+                select data_source_id, station_id, count(*) activity_count, sum(result_count) result_count
                   from activity_sum prime
                 <where>
                     <include refid="dynamicWhere.baseWhereActivityClauses" />
@@ -76,7 +76,7 @@
 
             <otherwise>
                 join (
-                select data_source_id, station_id, sum(result_count) result_count
+                select data_source_id, station_id, count(distinct activity_id) activity_count, sum(result_count) result_count
                   from result_sum prime
                 <where>
                     <include refid="dynamicWhere.baseWhereResultClauses" />

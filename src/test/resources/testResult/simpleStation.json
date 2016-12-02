@@ -20,6 +20,7 @@
                 "ResolvedMonitoringLocationTypeName": "Land",
                 "HUCEightDigitCode": "07080105",
                 "siteUrl": "http://www.waterqualitydata.us/provider/STEWARDS/ARS/ARS-IAWC-IAWC225/",
+                "activityCount": "23",
                 "resultCount": "11"
             }
         },
@@ -42,6 +43,7 @@
                 "ResolvedMonitoringLocationTypeName": "Stream",
                 "HUCEightDigitCode": "07100004",
                 "siteUrl": "http://www.waterqualitydata.us/provider/STEWARDS/ARS/ARS-IAWC-IAWC410/",
+                "activityCount": "25",
                 "resultCount": "13"
             }
         },
@@ -64,6 +66,7 @@
                 "ResolvedMonitoringLocationTypeName": "Stream",
                 "HUCEightDigitCode": "07090002",
                 "siteUrl": "http://www.waterqualitydata.us/provider/NWIS/USGS-WI/USGS-05425700/",
+                "activityCount": "19",
                 "resultCount": "5"
             }
         },
@@ -86,6 +89,7 @@
                 "ResolvedMonitoringLocationTypeName": "Well",
                 "HUCEightDigitCode": "07090002",
                 "siteUrl": "http://www.waterqualitydata.us/provider/NWIS/USGS-WI/USGS-431925089002701/",
+                "activityCount": "21",
                 "resultCount": "7"
             }
         },
@@ -108,6 +112,7 @@
                 "ResolvedMonitoringLocationTypeName": "Lake, Reservoir, Impoundment",
                 "HUCEightDigitCode": "07080105",
                 "siteUrl": "http://www.waterqualitydata.us/provider/STORET/11NPSWRD/11NPSWRD-BICA_MFG_B/",
+                "activityCount": "15",
                 "resultCount": "1"
             }
         },
@@ -130,6 +135,7 @@
                 "ResolvedMonitoringLocationTypeName": "Stream",
                 "HUCEightDigitCode": "07090001",
                 "siteUrl": "http://www.waterqualitydata.us/provider/STORET/WIDNR_WQX/WIDNR_WQX-10030952/",
+                "activityCount": "17",
                 "resultCount": "3"
             }
         }

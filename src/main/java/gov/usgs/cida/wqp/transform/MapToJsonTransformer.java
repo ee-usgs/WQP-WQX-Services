@@ -60,6 +60,7 @@ public class MapToJsonTransformer extends Transformer {
 			g.writeStringField("HUCEightDigitCode", getValue(resultMap, StationColumn.KEY_HUC_8));
 			g.writeStringField("siteUrl", siteUrlBase + "/provider/" + getValue(resultMap, StationColumn.KEY_DATA_SOURCE)
 					+ "/" + getValue(resultMap, StationColumn.KEY_ORGANIZATION) + "/" + getValue(resultMap, StationColumn.KEY_SITE_ID) + "/");
+			g.writeStringField("activityCount", getValue(resultMap, StationColumn.KEY_ACTIVITY_COUNT));
 			g.writeStringField("resultCount", getValue(resultMap, StationColumn.KEY_RESULT_COUNT));
 			g.writeEndObject();
 
