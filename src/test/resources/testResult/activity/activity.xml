@@ -35,7 +35,7 @@
 					<MeasureValue>activityLowerDepthStewards</MeasureValue>
 					<MeasureUnitCode>activityLowerDepthUnitStewards</MeasureUnitCode>
 				</ActivityBottomDepthHeightMeasure>
-				<ProjectIdentifier>projectIdStewards</ProjectIdentifier>
+				<ProjectIdentifier>CEAP</ProjectIdentifier>
 				<ActivityConductingOrganizationText>activityConductingOrgStewards</ActivityConductingOrganizationText>
 				<MonitoringLocationIdentifier>ARS-IAWC-IAWC225</MonitoringLocationIdentifier>
 				<ActivityCommentText>activityCommentStewards</ActivityCommentText>
@@ -156,7 +156,7 @@
 					<MeasureValue>activityLowerDepthNwis</MeasureValue>
 					<MeasureUnitCode>activityLowerDepthUnitNwis</MeasureUnitCode>
 				</ActivityBottomDepthHeightMeasure>
-				<ProjectIdentifier>projectIdNwis</ProjectIdentifier>
+				<ProjectIdentifier>NAWQA</ProjectIdentifier>
 				<ActivityConductingOrganizationText>activityConductingOrgNwis</ActivityConductingOrganizationText>
 				<MonitoringLocationIdentifier>USGS-05425700</MonitoringLocationIdentifier>
 				<ActivityCommentText>activityCommentNwis</ActivityCommentText>
@@ -261,7 +261,7 @@
 					<MeasureValue>1</MeasureValue>
 					<MeasureUnitCode>ft</MeasureUnitCode>
 				</ActivityDepthHeightMeasure>
-				<ProjectIdentifier>Lake-BaselineMonitoringDNR</ProjectIdentifier>
+				<ProjectIdentifier>EPABEACH;SOMETHINGELSE</ProjectIdentifier>
 				<ActivityConductingOrganizationText>WIDNR_WQX</ActivityConductingOrganizationText>
 				<MonitoringLocationIdentifier>11NPSWRD-BICA_MFG_B</MonitoringLocationIdentifier>
 			</ActivityDescription>
@@ -625,7 +625,7 @@
 					<MeasureValue>1</MeasureValue>
 					<MeasureUnitCode>ft</MeasureUnitCode>
 				</ActivityDepthHeightMeasure>
-				<ProjectIdentifier>Lake-BaselineMonitoringDNR</ProjectIdentifier>
+				<ProjectIdentifier>SACR BioTDB</ProjectIdentifier>
 				<ActivityConductingOrganizationText>WIDNR_WQX</ActivityConductingOrganizationText>
 				<MonitoringLocationIdentifier>USGS-11421000</MonitoringLocationIdentifier>
 			</ActivityDescription>

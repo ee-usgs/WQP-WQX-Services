@@ -40,7 +40,7 @@
     </select>
 
     <sql id="resultCount">
-        select data_source, station_count, result_count
+        select data_source, station_count, activity_count, result_count
           from (<include refid="dynamicWhere.countBase"/>)
     </sql>
 

@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dynamicWhere">
+
+
+    <sql id="geoJoin">
+            join (select /*+ index_combine(prime) */ data_source_id, station_id
+                    from station_sum prime
+                        <where>
+                            <include refid="dynamicWhere.baseWhereStationGeoClauses" />
+                        </where>
+                 ) station_sum
+              on prime.station_id = station_sum.station_id and
+                 prime.data_source_id = station_sum.data_source_id
+    </sql>
+
+    <sql id="countBase">
+        <choose>
+            <when test="analyticalmethod == null and assemblage == null and characteristicName == null and
+                        characteristicType == null and pCode == null and project == null and sampleMedia == null and
+                        startDateHi == null and startDateLo == null and subjectTaxonomicName == null">
+                select data_source,
+                       count(distinct data_source||'-'||station_id) station_count,
+                       sum(activity_count) activity_count,
+                       sum(result_count) result_count
+                  from (select prime.data_source,
+                               prime.station_id,
+                               prime.activity_count,
+                               prime.result_count
+                          from station_sum prime
+                <where>
+                    <include refid="dynamicWhere.baseWhereStationGeoClauses" />
+                    <include refid="dynamicWhere.baseWhereStationClauses" />
+                    <if test="minresults != null">
+                        and (prime.result_count >= #{minresults[0]})
+                    </if>
+                </where>
+                       )
+                    group by rollup(data_source)
+            </when>
+
+            <when test="analyticalmethod == null and assemblage == null and characteristicName == null and
+                        characteristicType == null and pCode == null and subjectTaxonomicName == null">
+                select data_source,
+                       count(distinct data_source||'-'||station_id) station_count,
+                       count(distinct data_source||'-'||station_id||'-'||activity_id) activity_count,
+                       sum(result_count) result_count
+                  from (select prime.data_source,
+                               prime.station_id,
+                               prime.activity_id,
+                               prime.result_count,
+                               sum(prime.result_count) over (partition by prime.data_source_id, prime.station_id) site_result_count
+                          from activity_sum prime
+                <if test="within != null or bBox != null">
+                    <include refid="dynamicWhere.geoJoin"/>
+                </if>
+                <where>
+                    <include refid="dynamicWhere.baseWhereStationClauses" />
+                    <include refid="dynamicWhere.baseWhereActivityClauses" />
+                </where>
+                       )
+                <if test="minresults != null">
+                    where site_result_count >= #{minresults[0]}
+                </if>
+                    group by rollup(data_source)
+            </when>
+
+            <otherwise>
+                select data_source,
+                       count(distinct data_source||'-'||station_id) station_count,
+                       count(distinct data_source||'-'||station_id||'-'||activity_id) activity_count,
+                       sum(result_count) result_count
+                  from (select prime.data_source,
+                               prime.station_id,
+                               prime.activity_id,
+                               prime.result_count,
+                               sum(prime.result_count) over (partition by prime.data_source_id, prime.station_id) site_result_count
+                          from result_sum prime
+                <if test="within != null or bBox != null">
+                    <include refid="dynamicWhere.geoJoin"/>
+                </if>
+                <where>
+                    <include refid="dynamicWhere.baseWhereStationClauses" />
+                    <include refid="dynamicWhere.baseWhereResultClauses" />
+                </where>
+                       )
+                <if test="minresults != null">
+                    where site_result_count >= #{minresults[0]}
+                </if>
+                    group by rollup(data_source)
+            </otherwise>
+
+<!--
+            <when test="(startDateLo != null or startDateHi != null) and (bBox == null and within == null)">
+                select data_source,
+                       count(distinct data_source||'-'||station_id) station_count,
+                       count(distinct data_source||'-'||station_id||'-'||activity_id) activity_count,
+                       sum(result_count) result_count
+                  from (select prime.data_source,
+                               prime.station_id,
+                               prime.activity_id,
+                               prime.result_count,
+                               sum(prime.result_count) over (partition by prime.data_source_id, prime.station_id) site_result_count
+                          from result_sum prime
+                <where>
+                    <include refid="dynamicWhere.baseWhereStationClauses" />
+                    <include refid="dynamicWhere.baseWhereResultClauses" />
+                </where>
+                       )
+                <if test="minresults != null">
+                    where site_result_count >= #{minresults[0]}
+                </if>
+                    group by rollup(data_source)
+            </when>
+
+            <when test="bBox == null and within == null and startDateLo == null and startDateHi == null">
+                select data_source,
+                       count(distinct data_source||'-'||station_id) station_count,
+                       count(distinct data_source||'-'||station_id||'-'||activity_id) activity_count,
+                       sum(result_count) result_count
+                  from (select prime.data_source,
+                               prime.station_id,
+                               prime.activity_id,
+                               prime.result_count,
+                               sum(prime.result_count) over (partition by prime.data_source_id, prime.station_id) site_result_count
+                          from result_ct_sum prime
+                        <where>
+                            <include refid="dynamicWhere.baseWhereStationClauses" />
+                            <include refid="dynamicWhere.baseWhereResultClauses" />
+                        </where>
+                       )
+                <if test="minresults != null">
+                    where site_result_count >= #{minresults[0]}
+                </if>
+                    group by rollup(data_source)
+            </when>
+
+            <otherwise>
+                select data_source,
+                       count(distinct data_source||'-'||station_id) station_count,
+                       count(distinct data_source||'-'||station_id||'-'||activity_id) activity_count,
+                       sum(result_count) result_count
+                  from (select prime.data_source,
+                               prime.station_id,
+                               secondary.activity_id,
+                               secondary.result_count,
+                               sum(secondary.result_count) over (partition by secondary.data_source_id, secondary.station_id) site_result_count
+                          from result_nr_sum secondary
+                               join (select /*+ index_combine(prime) */ data_source, data_source_id, station_id, site_id
+                                       from station_sum prime
+                <where>
+                    <include refid="dynamicWhere.baseWhereStationGeoClauses" />
+                    <include refid="dynamicWhere.baseWhereStationClauses" />
+                </where>
+                                    ) prime
+                                 on prime.station_id = secondary.station_id and
+                                    prime.data_source_id = secondary.data_source_id
+                <where>
+                    <trim prefix=" (" suffix=")" prefixOverrides="AND">
+                        <include refid="dynamicWhere.baseWhereResultClauses" />
+                    </trim>
+                </where>
+                       )
+                <if test="minresults != null">
+                    where site_result_count >= #{minresults[0]}
+                </if>
+                    group by rollup(data_source)
+            </otherwise>
+-->
+        </choose>
+    </sql>
+
+</mapper>

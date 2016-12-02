@@ -47,7 +47,6 @@ public class ActivityControllerTest extends BaseSpringTest {
 
 	@Test
 	public void getMappingTest() {
-		//TODO - this test passed when the ActivityController was incorrectly coded with ResultDelimited...
 		ActivityDelimitedTest.assertActivityProfile(controller.getMapping(Profile.ACTIVITY));
 	}
 

@@ -77,7 +77,7 @@ public class BiologicalResultControllerIntTest extends BaseControllerIntegration
 	public void postGetCountTest() throws Exception {
 		//TODO A test case that has results
 		String urlPrefix = "/" + HttpConstants.RESULT_SEARCH_ENPOINT + "/count?mimeType=";
-		String compareObject = "{\"Total-Site-Count\":\"0\",\"Total-Result-Count\":\"0\"}";
+		String compareObject = "{\"Total-Site-Count\":\"0\",\"Total-Activity-Count\":\"0\",\"Total-Result-Count\":\"0\"}";
 		postGetCountTest(urlPrefix, compareObject);
 	}
 

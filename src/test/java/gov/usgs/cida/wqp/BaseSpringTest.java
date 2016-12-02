@@ -67,12 +67,17 @@ public abstract class BaseSpringTest {
 		return os.toString();
 	}
 
+	public static final String NWIS = "NWIS";
+	public static final String STORET = "STORET";
+	public static final String STEWARDS = "STEWARDS";
+	public static final String BIODATA = "BIODATA";
+
 	public String[] getAnalyticalMethod() {
 		return new String[]{"https://www.nemi.gov/methods/method_summary/4665/", "https://www.nemi.gov/methods/method_summary/8896/", "analyticalMethod"};
 	}
 
 	public String[] getAvoid() {
-		return new String[]{"NWIS"};
+		return new String[]{NWIS};
 	}
 
 	public String[] getBBox() {
@@ -137,7 +142,7 @@ public abstract class BaseSpringTest {
 	}
 
 	public String[] getProviders() {
-		return new String[]{"NWIS", "STEWARDS", "STORET"};
+		return new String[]{NWIS, STEWARDS, STORET};
 	}
 
 	public String[] getSampleMedia() {

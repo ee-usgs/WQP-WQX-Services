@@ -113,7 +113,7 @@ public class CodesServiceTest extends BaseSpringTest {
 	@Test
 	public void test() throws Exception {
 		CodesService service = new CodesService("http://cida-eros-wqpqa.er.usgs.gov:8080/qw_portal_services/codes", "json", 0);
-		boolean x = service.validate(Parameters.PROVIDERS, "STEWARDS");
+		boolean x = service.validate(Parameters.PROVIDERS, STEWARDS);
 		assertTrue(x);
 	}
 
@@ -254,10 +254,10 @@ public class CodesServiceTest extends BaseSpringTest {
 //	public static void main(String[] args) throws Exception {
 //		WqpEnv.set(CODES_URL, "http://cida-eros-wqpdev.er.usgs.gov:8082/qw_portal_services/codes/");
 //		
-//		String value = new CodesService().fetch(Parameters.PROVIDERS, "NWIS");
+//		String value = new CodesService().fetch(Parameters.PROVIDERS, NWIS);
 //		System.out.println(value);
 //		
-//		boolean valid = new CodesService().validate(Parameters.PROVIDERS, "NWIS");
+//		boolean valid = new CodesService().validate(Parameters.PROVIDERS, NWIS);
 //		System.out.println(valid);
 //
 //		boolean invalid = new CodesService().validate(Parameters.PROVIDERS, "SWIN");

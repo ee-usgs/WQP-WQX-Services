@@ -11,18 +11,18 @@ import gov.usgs.cida.wqp.DBIntegrationTest;
 import gov.usgs.cida.wqp.dao.BaseDao;
 
 @Category(DBIntegrationTest.class)
-@DatabaseSetup("classpath:/testData/dao/count/")
+@DatabaseSetup("classpath:/testData/csv/")
 @DbUnitConfiguration(dataSetLoader = CsvDataSetLoader.class)
 public class CountDaoActivityTest extends CountDaoTest {
 
 	@Test
 	public void singleParameterTests() {
-		singleParameterTests(BaseDao.ACTIVITY_NAMESPACE, false, true);
+		singleParameterTests(BaseDao.ACTIVITY_NAMESPACE, true, false);
 	}
 
 	@Test
 	public void multipleParameterTests() {
-		multipleParameterTests(BaseDao.ACTIVITY_NAMESPACE, false, true);
+		multipleParameterTests(BaseDao.ACTIVITY_NAMESPACE, true, false);
 	}
 
 }

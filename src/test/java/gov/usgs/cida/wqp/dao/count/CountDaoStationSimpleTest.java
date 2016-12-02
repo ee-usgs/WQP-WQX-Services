@@ -11,7 +11,7 @@ import gov.usgs.cida.wqp.DBIntegrationTest;
 import gov.usgs.cida.wqp.dao.BaseDao;
 
 @Category(DBIntegrationTest.class)
-@DatabaseSetup("classpath:/testData/dao/count/")
+@DatabaseSetup("classpath:/testData/csv/")
 @DbUnitConfiguration(dataSetLoader = CsvDataSetLoader.class)
 public class CountDaoStationSimpleTest extends CountDaoTest {
 

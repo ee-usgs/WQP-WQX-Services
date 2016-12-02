@@ -3,6 +3,9 @@ package gov.usgs.cida.wqp.dao.streaming;
 import java.math.BigDecimal;
 import java.util.LinkedHashMap;
 import java.util.Map;
+
+import gov.usgs.cida.wqp.BaseSpringTest;
+
 import static gov.usgs.cida.wqp.mapping.ActivityColumn.*;
 import static gov.usgs.cida.wqp.mapping.StationColumn.*;
 
@@ -12,7 +15,7 @@ public class TestActivityMap {
 	static {
 		ACTIVITY = new LinkedHashMap<String, Object>();
 		ACTIVITY.put(KEY_DATA_SOURCE_ID, BigDecimal.valueOf(3));
-		ACTIVITY.put(KEY_DATA_SOURCE, "STORET");
+		ACTIVITY.put(KEY_DATA_SOURCE, BaseSpringTest.STORET);
 		ACTIVITY.put(KEY_STATION_ID, BigDecimal.valueOf(888));
 		ACTIVITY.put(KEY_SITE_ID, "organization-siteId");
 		ACTIVITY.put(KEY_EVENT_DATE, "1999-12-31");
