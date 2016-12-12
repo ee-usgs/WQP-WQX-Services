@@ -23,7 +23,8 @@
                      prime.organization,
                      prime.site_id,
                      prime.event_date,
-                     prime.activity
+                     prime.activity,
+                     prime.activity_id
         </if>
     </select>
 

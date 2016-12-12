@@ -4,12 +4,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.ResultActions;
 
 import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.github.springtestdbunit.annotation.DatabaseSetups;
+import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 
+import gov.usgs.cida.wqp.CsvDataSetLoader;
 import gov.usgs.cida.wqp.DBIntegrationTest;
 import gov.usgs.cida.wqp.mapping.Profile;
 import gov.usgs.cida.wqp.parameter.Parameters;
@@ -18,10 +21,9 @@ import gov.usgs.cida.wqp.webservice.BaseControllerIntegrationTest;
 
 @Category(DBIntegrationTest.class)
 @WebAppConfiguration
-@DatabaseSetups({
-	@DatabaseSetup("classpath:/testData/clearAll.xml"),
-	@DatabaseSetup("classpath:/testData/result.xml")
-})
+@DatabaseSetup("classpath:/testData/csv/")
+@DbUnitConfiguration(dataSetLoader = CsvDataSetLoader.class)
+@DirtiesContext(classMode=ClassMode.AFTER_CLASS)
 public class BiologicalResultControllerIntTest extends BaseControllerIntegrationTest {
 
 	protected String endpoint = "/" + HttpConstants.RESULT_SEARCH_ENPOINT + "?" 
@@ -69,34 +71,53 @@ public class BiologicalResultControllerIntTest extends BaseControllerIntegration
 
 	@Test
 	public void getAllParametersTest() throws Exception {
-		//TODO A test case that has results
 		getAllParametersTest(endpoint + "csv", HttpConstants.MIME_TYPE_CSV, "attachment; filename=biologicalresult.csv", "result/filteredBioResult.csv");
 	}
 
 	@Test
 	public void postGetCountTest() throws Exception {
-		//TODO A test case that has results
 		String urlPrefix = "/" + HttpConstants.RESULT_SEARCH_ENPOINT + "/count?mimeType=";
-		String compareObject = "{\"Total-Site-Count\":\"0\",\"Total-Activity-Count\":\"0\",\"Total-Result-Count\":\"0\"}";
+		String compareObject = "{\"" + HttpConstants.HEADER_TOTAL_SITE_COUNT + "\":\"" + FILTERED_TOTAL_SITE_COUNT
+				+ "\",\"" + HttpConstants.HEADER_TOTAL_ACTIVITY_COUNT + "\":\"" + FILTERED_TOTAL_ACTIVITY_COUNT
+				+ "\",\"" + HttpConstants.HEADER_TOTAL_RESULT_COUNT + "\":\"" + FILTERED_TOTAL_RESULT_COUNT
+				+ "\",\"" + HEADER_STORET_SITE_COUNT + "\":\"" + FILTERED_STORET_SITE_COUNT
+				+ "\",\"" + HEADER_STORET_ACTIVITY_COUNT + "\":\"" + FILTERED_STORET_ACTIVITY_COUNT
+				+ "\",\"" + HEADER_STORET_RESULT_COUNT + "\":\"" + FILTERED_STORET_RESULT_COUNT
+				+ "\"}";
 		postGetCountTest(urlPrefix, compareObject);
 	}
 
 	public ResultActions unFilteredHeaderCheck(ResultActions resultActions) throws Exception {
 		return resultActions
-				.andExpect(header().string("Total-Site-Count", "6"))
-				.andExpect(header().string("NWIS-Site-Count", "2"))
-				.andExpect(header().string("STEWARDS-Site-Count", "2"))
-				.andExpect(header().string("STORET-Site-Count", "2"))
-				.andExpect(header().string("Total-Result-Count", "40"))
-				.andExpect(header().string("NWIS-Result-Count", "12"))
-				.andExpect(header().string("STEWARDS-Result-Count", "24"))
-				.andExpect(header().string("STORET-Result-Count", "4"));
+				.andExpect(header().string(HttpConstants.HEADER_TOTAL_SITE_COUNT, TOTAL_SITE_COUNT))
+				.andExpect(header().string(HEADER_NWIS_SITE_COUNT, NWIS_SITE_COUNT))
+				.andExpect(header().string(HEADER_STEWARDS_SITE_COUNT, STEWARDS_SITE_COUNT))
+				.andExpect(header().string(HEADER_STORET_SITE_COUNT, STORET_SITE_COUNT))
+				.andExpect(header().string(HEADER_BIODATA_SITE_COUNT, BIODATA_SITE_COUNT))
+
+				.andExpect(header().string(HttpConstants.HEADER_TOTAL_ACTIVITY_COUNT, TOTAL_ACTIVITY_COUNT))
+				.andExpect(header().string(HEADER_NWIS_ACTIVITY_COUNT, NWIS_ACTIVITY_COUNT))
+				.andExpect(header().string(HEADER_STEWARDS_ACTIVITY_COUNT, STEWARDS_ACTIVITY_COUNT))
+				.andExpect(header().string(HEADER_STORET_ACTIVITY_COUNT, STORET_ACTIVITY_COUNT))
+				.andExpect(header().string(HEADER_BIODATA_ACTIVITY_COUNT, BIODATA_ACTIVITY_COUNT))
+
+				.andExpect(header().string(HttpConstants.HEADER_TOTAL_RESULT_COUNT, TOTAL_RESULT_COUNT))
+				.andExpect(header().string(HEADER_NWIS_RESULT_COUNT, NWIS_RESULT_COUNT))
+				.andExpect(header().string(HEADER_STEWARDS_RESULT_COUNT, STEWARDS_RESULT_COUNT))
+				.andExpect(header().string(HEADER_STORET_RESULT_COUNT, STORET_RESULT_COUNT))
+				.andExpect(header().string(HEADER_BIODATA_RESULT_COUNT, BIODATA_RESULT_COUNT));
 	}
 
 	public ResultActions filteredHeaderCheck(ResultActions resultActions) throws Exception {
 		return resultActions
-				.andExpect(header().string("Total-Site-Count", "0"))
-				.andExpect(header().string("Total-Result-Count", "0"));
+				.andExpect(header().string(HttpConstants.HEADER_TOTAL_SITE_COUNT, FILTERED_TOTAL_SITE_COUNT))
+				.andExpect(header().string(HEADER_STORET_SITE_COUNT, FILTERED_STORET_SITE_COUNT))
+
+				.andExpect(header().string(HttpConstants.HEADER_TOTAL_ACTIVITY_COUNT, FILTERED_TOTAL_ACTIVITY_COUNT))
+				.andExpect(header().string(HEADER_STORET_ACTIVITY_COUNT, FILTERED_STORET_ACTIVITY_COUNT))
+
+				.andExpect(header().string(HttpConstants.HEADER_TOTAL_RESULT_COUNT, FILTERED_TOTAL_RESULT_COUNT))
+				.andExpect(header().string(HEADER_STORET_RESULT_COUNT, FILTERED_STORET_RESULT_COUNT));
 	}
 
 }

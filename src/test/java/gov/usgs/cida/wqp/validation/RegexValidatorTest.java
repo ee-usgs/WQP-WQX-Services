@@ -230,6 +230,23 @@ public class RegexValidatorTest extends BaseSpringTest {
 		assertArrayEquals(new String[]{"07090002;CV"}, (String[])vr.getRawValue());
 	}
 	@Test
+	public void testMinActivities_match() {
+		AbstractValidator<?> validator = HashMapParameterHandler.getValidator(Parameters.MIN_ACTIVITIES);
+		ValidationResult<?> vr = validator.validate("100");
+		assertTrue(vr.isValid());
+		assertEquals(0, vr.getValidationMessages().size());
+		assertArrayEquals(new String[]{"100"}, (String[])vr.getTransformedValue());
+	}
+	@Test
+	public void testMinActivities_mismatch() {
+		AbstractValidator<?> validator = HashMapParameterHandler.getValidator(Parameters.MIN_ACTIVITIES);
+		ValidationResult<?> vr = validator.validate("100;CV");
+		assertFalse(vr.isValid());
+		assertEquals(1, vr.getValidationMessages().size());
+		assertEquals("The value of minactivities=100;CV must match the format " + ParameterValidationConfig.REGEX_POSITIVE_INT, vr.getValidationMessages().get(0));
+		assertArrayEquals(new String[]{"100;CV"}, (String[]) vr.getRawValue());
+	}
+	@Test
 	public void testMinResults_match() {
 		AbstractValidator<?> validator = HashMapParameterHandler.getValidator(Parameters.MIN_RESULTS);
 		ValidationResult<?> vr = validator.validate("100");

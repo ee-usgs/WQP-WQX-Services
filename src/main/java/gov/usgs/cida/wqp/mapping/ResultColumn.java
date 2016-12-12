@@ -4,10 +4,12 @@ public class ResultColumn extends BaseColumn {
 
 	//ResultSet Keys
 	public static final String KEY_RESULT_ID = "RESULT_ID";
+	public static final String KEY_ANALYTICAL_METHOD = "ANALYTICAL_METHOD";
 	public static final String KEY_RES_DATA_LOGGER_LINE = "RES_DATA_LOGGER_LINE";
 	public static final String KEY_RESULT_DETECTION_CONDITION_TX = "RESULT_DETECTION_CONDITION_TX";
 	public static final String KEY_METHOD_SPECIFICATION_NAME = "METHOD_SPECIFICATION_NAME";
 	public static final String KEY_CHARACTERISTIC_NAME = "CHARACTERISTIC_NAME";
+	public static final String KEY_CHARACTERISTIC_TYPE = "CHARACTERISTIC_TYPE";
 	public static final String KEY_SAMPLE_FRACTION_TYPE = "SAMPLE_FRACTION_TYPE";
 	public static final String KEY_RESULT_MEASURE_VALUE = "RESULT_MEASURE_VALUE";
 	public static final String KEY_RESULT_UNIT = "RESULT_UNIT";

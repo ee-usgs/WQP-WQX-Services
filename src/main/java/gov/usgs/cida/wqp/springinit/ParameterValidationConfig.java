@@ -139,6 +139,12 @@ public class ParameterValidationConfig {
 	}
 
 	@Bean
+	public RegexValidator<String[]> minActivitiesValidator() {
+		// one int value 
+		return new RegexValidator<String[]>(Parameters.MIN_ACTIVITIES, REGEX_POSITIVE_INT);
+	}
+
+	@Bean
 	public FetchValidator nldiurlValidator() {
 		// one NLDI navigation URL 
 		return new FetchValidator(NLDI_WQP_FEATURE_IDENTIFIER, fetchService, Parameters.NLDIURL);
@@ -244,6 +250,7 @@ public class ParameterValidationConfig {
 		validatorMap.put(Parameters.LATITUDE, latitudeValidator());
 		validatorMap.put(Parameters.LONGITUDE, longitudeValidator());
 		validatorMap.put(Parameters.MIMETYPE, mimeTypeValidator());
+		validatorMap.put(Parameters.MIN_ACTIVITIES, minActivitiesValidator());
 		validatorMap.put(Parameters.MIN_RESULTS, minResultsValidator());
 		validatorMap.put(Parameters.NLDIURL, nldiurlValidator());
 		validatorMap.put(Parameters.ORGANIZATION, organizationValidator());

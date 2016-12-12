@@ -3,7 +3,7 @@
 <mapper namespace="bioResult">
 
     <select id="select" resultType="java.util.LinkedHashMap" fetchSize="500">
-        <if test="minresults != null">
+        <if test="minactivities != null or minresults != null">
             select * from (
         </if>
         select prime.data_source_id, prime.data_source, prime.station_id, prime.site_id, to_char(prime.event_date, 'yyyy-mm-dd') event_date, prime.analytical_method, prime.p_code, prime.activity,
@@ -36,20 +36,31 @@
                prime.detection_limit_unit, prime.detection_limit_desc, prime.res_lab_accred_yn, prime.res_lab_accred_authority, prime.res_taxonomist_accred_yn, prime.res_taxonomist_accred_authorty,
                prime.prep_method_id, prime.prep_method_context, prime.prep_method_name, prime.prep_method_qual_type, prime.prep_method_desc, prime.analysis_prep_date_tx, prime.prep_start_time,
                prime.prep_start_timezone, prime.prep_end_date, prime.prep_end_time, prime.prep_end_timezone, prime.prep_dilution_factor
+        <if test="minactivities != null">
+            , count(distinct prime.activity_id) over (partition by prime.data_source_id, prime.station_id) site_activity_count
+        </if>
         <if test="minresults != null">
             , count(*) over (partition by prime.data_source_id, prime.station_id) site_result_count
         </if>
         <include refid="dynamicWhere.resultsBase"/>
-        <if test="minresults != null">
+        <if test="minactivities != null or minresults != null">
             ) prime
-            where site_result_count >= #{minresults[0]}
+            <where>
+                <if test="minactivities != null">
+                    and site_activity_count >= #{minactivities[0]}
+                </if>
+                <if test="minresults != null">
+                    and site_result_count >= #{minresults[0]}
+                </if>
+            </where>
         </if>
         <if test="sorted == 'yes'">
             order by prime.data_source_id,
                      prime.organization,
                      prime.site_id,
                      prime.event_date,
-                     prime.activity
+                     prime.activity,
+                     prime.result_id
         </if>
     </select>
 

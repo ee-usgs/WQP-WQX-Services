@@ -3,7 +3,7 @@
 <mapper namespace="pcResult">
 
     <select id="select" resultType="java.util.LinkedHashMap" fetchSize="500">
-        <if test="minresults != null">
+        <if test="minactivities != null or minresults != null">
             select * from (
         </if>
         select <include refid="dynamicWhere.resultStationHashHint"/>
@@ -22,20 +22,31 @@
                               prime.sample_tissue_anatomy_name, prime.analytical_procedure_id, prime.analytical_procedure_source, prime.analytical_method_name,
                               prime.analytical_method_citation, prime.lab_name, prime.analysis_start_date, prime.lab_remark, prime.detection_limit, prime.detection_limit_unit,
                               prime.detection_limit_desc, prime.analysis_prep_date_tx
+        <if test="minactivities != null">
+            , count(distinct prime.activity_id) over (partition by prime.data_source_id, prime.station_id) site_activity_count
+        </if>
         <if test="minresults != null">
             , count(*) over (partition by prime.data_source_id, prime.station_id) site_result_count
         </if>
         <include refid="dynamicWhere.resultsBase"/>
-        <if test="minresults != null">
+        <if test="minactivities != null or minresults != null">
             ) prime
-            where site_result_count >= #{minresults[0]}
+            <where>
+                <if test="minactivities != null">
+                    and site_activity_count >= #{minactivities[0]}
+                </if>
+                <if test="minresults != null">
+                    and site_result_count >= #{minresults[0]}
+                </if>
+            </where>
         </if>
         <if test="sorted == 'yes'">
             order by prime.data_source_id,
                      prime.organization,
                      prime.site_id,
                      prime.event_date,
-                     prime.activity
+                     prime.activity,
+                     prime.result_id
         </if>
     </select>
 

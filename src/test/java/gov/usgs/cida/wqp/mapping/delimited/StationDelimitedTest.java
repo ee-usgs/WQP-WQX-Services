@@ -13,7 +13,15 @@ public class StationDelimitedTest {
 
 	@Test
 	public void stationProfileTest() {
-		Map<String, String> mapping = StationDelimited.getMapping(Profile.STATION);
+		assertStationProfile(StationDelimited.getMapping(Profile.STATION));
+	}
+
+		@Test
+	public void simpleStationProfileTest() {
+		assertSimpleStationProfile(StationDelimited.getMapping(Profile.SIMPLE_STATION));
+	}
+
+	public static void assertStationProfile(Map<String, String> mapping) {
 		assertEquals(36, mapping.size());
 		Object[] keys = mapping.keySet().toArray();
 		//kind of large, so just random checks...
@@ -27,9 +35,7 @@ public class StationDelimitedTest {
 		assertEquals(StationDelimited.VALUE_DATA_SOURCE, mapping.get(keys[35]));
 	}
 
-	@Test
-	public void simpleStationProfileTest() {
-		Map<String, String> mapping = StationDelimited.getMapping(Profile.SIMPLE_STATION);
+	public static void assertSimpleStationProfile(Map<String, String> mapping) {
 		assertEquals(8, mapping.size());
 		Object[] keys = mapping.keySet().toArray();
 		assertEquals(StationColumn.KEY_ORGANIZATION, keys[0]);

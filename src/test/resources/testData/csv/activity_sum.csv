@@ -1,18 +1,24 @@
 "DATA_SOURCE_ID","DATA_SOURCE","STATION_ID","SITE_ID","EVENT_DATE","SAMPLE_MEDIA","ORGANIZATION","SITE_TYPE","HUC","GOVERNMENTAL_UNIT_CODE","ACTIVITY_ID","PROJECT_ID","ACT_METRIC_COUNT","RESULT_COUNT"
-1,"STEWARDS",36,"ARS-IAWC-IAWC225","1996-06-27","Water","ARS","Land","07080105","US:19:015",1,"CEAP",1,57
-1,"STEWARDS",36,"ARS-IAWC-IAWC225","2015-05-17","sampleMediaStewards","ARS","Land","07080105","US:19:015",2,"projectIdStewards",3,59
-1,"STEWARDS",46,"ARS-IAWC-IAWC410","1996-06-27","Water","ARS","Stream","07100004","US:19:015",3,"CEAP",5,61
-2,"NWIS",1353690,"USGS-05425700","1996-06-27","Water","USGS-WI","Stream","07090002","US:55:021",1,"NAWQA",7,63
-2,"NWIS",1353690,"USGS-05425700","2015-05-15","sampleMediaNwis","USGS-WI","Stream","07090002","US:55:021",2,"projectIdNwis",9,65
-2,"NWIS",1360035,"USGS-431925089002701","1996-06-27","Water","USGS-WI","Well","07090102","US:55:027",3,"NAWQA",11,67
-3,"STORET",777,"organization-siteId2","1999-12-31","sampleMedia","organization","siteType","0000","XX:44:555",1,"projectId",6,68
-3,"STORET",888,"organization-siteId","1999-12-31","sampleMedia","organization","siteType","0000","XX:44:555",2,"projectId",0,0
-3,"STORET",999,"organization-siteId3","1999-12-31","sampleMedia","organization","siteType","0000","XX:44:555",3,"projectId",16,72
-3,"STORET",1383,"WIDNR_WQX-113086",1992-07-28,"Water","WIDNR_WQX","Stream","07090001","US:55:027",4,"WR047",13,69
-3,"STORET",1383,"WIDNR_WQX-113086",1992-07-28,"Water","WIDNR_WQX","Stream","07090001","US:55:027",5,"Lake-BaselineMonitoringDNR",13,69
-3,"STORET",504707,"21NYDECA_WQX-ONTARIO-02",1995-09-26,"Sediment","21NYDECA_WQX","Lake, Reservoir, Impoundment","04150200","CN:08:",6,"SAM",15,71
-3,"STORET",504707,"21NYDECA_WQX-ONTARIO-02",1995-09-26,"Sediment","21NYDECA_WQX","Lake, Reservoir, Impoundment","04150200","CN:08:",7,"SAM",17,73
-3,"STORET",504707,"21NYDECA_WQX-ONTARIO-02",1995-09-26,"Sediment","21NYDECA_WQX","Lake, Reservoir, Impoundment","04150200","CN:08:",8,"SAM",18,75
-3,"STORET",504707,"21NYDECA_WQX-ONTARIO-02",1995-09-26,"Sediment","21NYDECA_WQX","Lake, Reservoir, Impoundment","04150200","CN:08:",9,"SAM",19,76
-3,"STORET",1043441,"11NPSWRD-BICA_MFG_B","1996-06-27","Water","11NPSWRD","Lake, Reservoir, Impoundment","07080105","US:30:003",10,"EPABEACH;SOMETHINGELSE",21,79
-4,"BIODATA",61233184,"USGS-11421000","1996-06-27","Water","USGS","Stream","18020107","US:06:115",1,"SACR BioTDB",23,81
+1,"STEWARDS",36,"ARS-IAWC-IAWC225","1996-06-27","Water","ARS","Land","07080105","US:19:015",1,"CEAP",0,1
+1,"STEWARDS",36,"ARS-IAWC-IAWC225","2015-05-17","sampleMediaStewards","ARS","Land","07080105","US:19:015",2,"projectIdStewards",0,1
+1,"STEWARDS",46,"ARS-IAWC-IAWC410","1996-06-27","Water","ARS","Stream","07100004","US:19:015",3,"CEAP",0,1
+2,"NWIS",1353690,"USGS-05425700","1996-06-27","Water","USGS-WI","Stream","07090002","US:55:021",1,"NAWQA",0,3
+2,"NWIS",1353690,"USGS-05425700","2015-05-15","sampleMediaNwis","USGS-WI","Stream","07090002","US:55:021",2,"projectIdNwis",0,1
+2,"NWIS",1360035,"USGS-431925089002701","1996-06-27","Water","USGS-WI","Well","07090102","US:55:027",3,"NAWQA",0,1
+3,"STORET",777,"organization-siteId2","1999-12-30","sampleMedia","organization","siteType","0000","XX:44:555",16,"projectId",0,3
+3,"STORET",777,"organization-siteId2","1999-12-31","sampleMedia","organization","siteType","0000","XX:44:555",1,"projectId",0,1
+3,"STORET",888,"organization-siteId","1999-12-28","sampleMedia","organization","siteType","0000","XX:44:555",11,"projectId",0,1
+3,"STORET",888,"organization-siteId","1999-12-29","sampleMedia","organization","siteType","0000","XX:44:555",12,"projectId",0,1
+3,"STORET",888,"organization-siteId","1999-12-30","sampleMedia","organization","siteType","0000","XX:44:555",13,"projectId",0,1
+3,"STORET",888,"organization-siteId","1999-12-31","sampleMedia","organization","siteType","0000","XX:44:555",2,"projectId",0,1
+3,"STORET",999,"organization-siteId3","1999-12-31","sampleMedia","organization","siteType","0000","XX:44:555",3,"projectId",0,1
+3,"STORET",1383,"WIDNR_WQX-113086",1992-07-28,"Water","WIDNR_WQX","Stream","07090001","US:55:027",4,"WR047",0,5
+3,"STORET",1383,"WIDNR_WQX-113086",1992-07-28,"Water","WIDNR_WQX","Stream","07090001","US:55:027",5,"Lake-BaselineMonitoringDNR",0,6
+3,"STORET",504707,"21NYDECA_WQX-ONTARIO-02",1995-09-26,"Sediment","21NYDECA_WQX","Lake, Reservoir, Impoundment","04150200","CN:08:",6,"SAM",0,1
+3,"STORET",504707,"21NYDECA_WQX-ONTARIO-02",1995-09-26,"Sediment","21NYDECA_WQX","Lake, Reservoir, Impoundment","04150200","CN:08:",7,"SAM",0,23
+3,"STORET",504707,"21NYDECA_WQX-ONTARIO-02",1995-09-26,"Sediment","21NYDECA_WQX","Lake, Reservoir, Impoundment","04150200","CN:08:",8,"SAM",0,1
+3,"STORET",504707,"21NYDECA_WQX-ONTARIO-02",1995-09-26,"Sediment","21NYDECA_WQX","Lake, Reservoir, Impoundment","04150200","CN:08:",9,"SAM",0,1
+3,"STORET",1043441,"11NPSWRD-BICA_MFG_B","1996-06-25","Water","11NPSWRD","Lake, Reservoir, Impoundment","07080105","US:30:003",14,"projectId",0,1
+3,"STORET",1043441,"11NPSWRD-BICA_MFG_B","1996-06-26","Water","11NPSWRD","Lake, Reservoir, Impoundment","07080105","US:30:003",15,"projectId",0,2
+3,"STORET",1043441,"11NPSWRD-BICA_MFG_B","1996-06-27","Water","11NPSWRD","Lake, Reservoir, Impoundment","07080105","US:30:003",10,"EPABEACH;SOMETHINGELSE",0,1
+4,"BIODATA",61233184,"USGS-11421000","1996-06-27","Water","USGS","Stream","18020107","US:06:115",1,"SACR BioTDB",0,1

@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml>
+	<Document>
+		<StyleMap id='ARSSite'>
+			<Pair>
+				<key>normal</key>
+				<styleUrl>http://www.waterqualitydata.us/kml/wqp_styles.kml#normalARSSite</styleUrl>
+			</Pair>
+			<Pair>
+				<key>highlight</key>
+				<styleUrl>http://www.waterqualitydata.us/kml/wqp_styles.kml#highlightARSSite</styleUrl>
+			</Pair>
+		</StyleMap>
+		<StyleMap id='NWISSite'>
+			<Pair>
+				<key>normal</key>
+				<styleUrl>http://www.waterqualitydata.us/kml/wqp_styles.kml#normalNWISSite</styleUrl>
+			</Pair>
+			<Pair>
+				<key>highlight</key>
+				<styleUrl>http://www.waterqualitydata.us/kml/wqp_styles.kml#highlightNWISSite</styleUrl>
+			</Pair>
+		</StyleMap>
+		<StyleMap id='STORETSite'>
+			<Pair>
+				<key>normal</key>
+				<styleUrl>http://www.waterqualitydata.us/kml/wqp_styles.kml#normalSTORETSite</styleUrl>
+			</Pair>
+			<Pair>
+				<key>highlight</key>
+				<styleUrl>http://www.waterqualitydata.us/kml/wqp_styles.kml#highlightSTORETSite</styleUrl>
+			</Pair>
+		</StyleMap>
+		<Placemark>
+			<name>BIGHORN LAKE NEAR BLACK CANYON</name>
+			<StyleMap>STORETSite</StyleMap>
+			<ExtendedData>
+				<Data name="Organization Formal Name">
+					<value>National Park Service Water Resources Division</value>
+				</Data>
+				<Data name="Organization Identifier">
+					<value>11NPSWRD</value>
+				</Data>
+				<Data name="Monitoring Location Identifier">
+					<value>11NPSWRD-BICA_MFG_B</value>
+				</Data>
+				<Data name="Monitoring Location Name">
+					<value>BIGHORN LAKE NEAR BLACK CANYON</value>
+				</Data>
+				<Data name="HUC Eight Digit Code">
+					<value>07080105</value>
+				</Data>
+			</ExtendedData>
+			<Point>
+				<coordinates>-108.0188666,45.2756528</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>Lake Ontario</name>
+			<StyleMap>STORETSite</StyleMap>
+			<ExtendedData>
+				<Data name="Organization Formal Name">
+					<value>New York State DEC Division of Water</value>
+				</Data>
+				<Data name="Organization Identifier">
+					<value>21NYDECA_WQX</value>
+				</Data>
+				<Data name="Monitoring Location Identifier">
+					<value>21NYDECA_WQX-ONTARIO-02</value>
+				</Data>
+				<Data name="Monitoring Location Name">
+					<value>Lake Ontario</value>
+				</Data>
+				<Data name="Monitoring Location Type Name">
+					<value>Great Lake</value>
+				</Data>
+				<Data name="Monitoring Location Description Text">
+					<value>Near Kingston Bay (Canada)</value>
+				</Data>
+				<Data name="HUC Eight Digit Code">
+					<value>04150200</value>
+				</Data>
+			</ExtendedData>
+			<Point>
+				<coordinates>-76.6700000,44.0167000</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>IAWC225</name>
+			<StyleMap>ARSSite</StyleMap>
+			<ExtendedData>
+				<Data name="Organization Formal Name">
+					<value>USDA Agricultural Research Service</value>
+				</Data>
+				<Data name="Organization Identifier">
+					<value>ARS</value>
+				</Data>
+				<Data name="Monitoring Location Identifier">
+					<value>ARS-IAWC-IAWC225</value>
+				</Data>
+				<Data name="Monitoring Location Name">
+					<value>IAWC225</value>
+				</Data>
+				<Data name="HUC Eight Digit Code">
+					<value>07080105</value>
+				</Data>
+			</ExtendedData>
+			<Point>
+				<coordinates>-93.6982205,41.9607224</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>IAWC410</name>
+			<StyleMap>ARSSite</StyleMap>
+			<ExtendedData>
+				<Data name="Organization Formal Name">
+					<value>USDA Agricultural Research Service</value>
+				</Data>
+				<Data name="Organization Identifier">
+					<value>ARS</value>
+				</Data>
+				<Data name="Monitoring Location Identifier">
+					<value>ARS-IAWC-IAWC410</value>
+				</Data>
+				<Data name="Monitoring Location Name">
+					<value>IAWC410</value>
+				</Data>
+				<Data name="HUC Eight Digit Code">
+					<value>07100004</value>
+				</Data>
+			</ExtendedData>
+			<Point>
+				<coordinates>-93.7590729,41.9505493</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>ROBBINS CREEK NEAR COLUMBUS, WI</name>
+			<StyleMap>NWISSite</StyleMap>
+			<ExtendedData>
+				<Data name="Organization Formal Name">
+					<value>USGS Wisconsin Water Science Center</value>
+				</Data>
+				<Data name="Organization Identifier">
+					<value>USGS-WI</value>
+				</Data>
+				<Data name="Monitoring Location Identifier">
+					<value>USGS-05425700</value>
+				</Data>
+				<Data name="Monitoring Location Name">
+					<value>ROBBINS CREEK NEAR COLUMBUS, WI</value>
+				</Data>
+				<Data name="HUC Eight Digit Code">
+					<value>07090002</value>
+				</Data>
+			</ExtendedData>
+			<Point>
+				<coordinates>-89.0320546,43.3466571</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<StyleMap>Unknown</StyleMap>
+			<ExtendedData>
+				<Data name="Organization Identifier">
+					<value>USGS</value>
+				</Data>
+				<Data name="Monitoring Location Identifier">
+					<value>USGS-11421000</value>
+				</Data>
+				<Data name="HUC Eight Digit Code">
+					<value>18020107</value>
+				</Data>
+			</ExtendedData>
+			<Point>
+				<coordinates>-121.5249647,39.1757251</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>DG-10/13E/19-0891</name>
+			<StyleMap>NWISSite</StyleMap>
+			<ExtendedData>
+				<Data name="Organization Formal Name">
+					<value>USGS Wisconsin Water Science Center</value>
+				</Data>
+				<Data name="Organization Identifier">
+					<value>USGS-WI</value>
+				</Data>
+				<Data name="Monitoring Location Identifier">
+					<value>USGS-431925089002701</value>
+				</Data>
+				<Data name="Monitoring Location Name">
+					<value>DG-10/13E/19-0891</value>
+				</Data>
+				<Data name="HUC Eight Digit Code">
+					<value>07090102</value>
+				</Data>
+			</ExtendedData>
+			<Point>
+				<coordinates>-89.0076094,43.3236024</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>Crawfish River -- Astico County Park Canoe Launch</name>
+			<StyleMap>STORETSite</StyleMap>
+			<ExtendedData>
+				<Data name="Organization Formal Name">
+					<value>Wisconsin Department of Natural Resources</value>
+				</Data>
+				<Data name="Organization Identifier">
+					<value>WIDNR_WQX</value>
+				</Data>
+				<Data name="Monitoring Location Identifier">
+					<value>WIDNR_WQX-10030952</value>
+				</Data>
+				<Data name="Monitoring Location Name">
+					<value>Crawfish River -- Astico County Park Canoe Launch</value>
+				</Data>
+				<Data name="HUC Eight Digit Code">
+					<value>07090001</value>
+				</Data>
+			</ExtendedData>
+			<Point>
+				<coordinates>-88.9557000,43.3262980</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>Crawfish River at Old Hwy 73 Bridge</name>
+			<StyleMap>STORETSite</StyleMap>
+			<ExtendedData>
+				<Data name="Organization Formal Name">
+					<value>Wisconsin Department of Natural Resources</value>
+				</Data>
+				<Data name="Organization Identifier">
+					<value>WIDNR_WQX</value>
+				</Data>
+				<Data name="Monitoring Location Identifier">
+					<value>WIDNR_WQX-113086</value>
+				</Data>
+				<Data name="Monitoring Location Name">
+					<value>Crawfish River at Old Hwy 73 Bridge</value>
+				</Data>
+				<Data name="Monitoring Location Type Name">
+					<value>River/Stream</value>
+				</Data>
+				<Data name="Monitoring Location Description Text">
+					<value>STATION FOR STEVEN FIX OF SOUTHERN DISTRICT  (608)275-3280 THIS IS A FIXED AMBIENT MONITORING STATION IN THE UPPER RIVER BASIN. IT IS PAIRED WITH AN EXISTING STORET AND USGS STATION AT MILFORD. IT IS LOCATED BELOW THE CONFLUENCE OF THE NORTH BR</value>
+				</Data>
+				<Data name="HUC Eight Digit Code">
+					<value>07090001</value>
+				</Data>
+			</ExtendedData>
+			<Point>
+				<coordinates>-89.0092550,43.3485620</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>stationName</name>
+			<StyleMap>STORETSite</StyleMap>
+			<ExtendedData>
+				<Data name="Organization Formal Name">
+					<value>organizationName</value>
+				</Data>
+				<Data name="Organization Identifier">
+					<value>organization</value>
+				</Data>
+				<Data name="Monitoring Location Identifier">
+					<value>organization-siteId</value>
+				</Data>
+				<Data name="Monitoring Location Name">
+					<value>stationName</value>
+				</Data>
+				<Data name="Monitoring Location Type Name">
+					<value>stationTypeName</value>
+				</Data>
+				<Data name="Monitoring Location Description Text">
+					<value>descriptionText</value>
+				</Data>
+				<Data name="HUC Eight Digit Code">
+					<value>00000000</value>
+				</Data>
+				<Data name="Drainage Area Measure/Measure Value">
+					<value>567893</value>
+				</Data>
+				<Data name="Drainage Area Measure/Measure Unit Code">
+					<value>contribDrainAreaUnit</value>
+				</Data>
+				<Data name="AquiferTypeName">
+					<value>aqfrTypeName</value>
+				</Data>
+				<Data name="AquiferName">
+					<value>aqfrName</value>
+				</Data>
+				<Data name="Well Depth Measure/Measure Value">
+					<value>2333</value>
+				</Data>
+				<Data name="Well Depth Measure/Measure Unit Code">
+					<value>wellDepthUnit</value>
+				</Data>
+			</ExtendedData>
+			<Point>
+				<coordinates>-89.8989000,43.3330000</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>stationName</name>
+			<StyleMap>STORETSite</StyleMap>
+			<ExtendedData>
+				<Data name="Organization Formal Name">
+					<value>organizationName</value>
+				</Data>
+				<Data name="Organization Identifier">
+					<value>organization</value>
+				</Data>
+				<Data name="Monitoring Location Identifier">
+					<value>organization-siteId2</value>
+				</Data>
+				<Data name="Monitoring Location Name">
+					<value>stationName</value>
+				</Data>
+				<Data name="Monitoring Location Type Name">
+					<value>stationTypeName</value>
+				</Data>
+				<Data name="Monitoring Location Description Text">
+					<value>descriptionText</value>
+				</Data>
+				<Data name="HUC Eight Digit Code">
+					<value>00000000</value>
+				</Data>
+				<Data name="Drainage Area Measure/Measure Value">
+					<value>567893</value>
+				</Data>
+				<Data name="Drainage Area Measure/Measure Unit Code">
+					<value>contribDrainAreaUnit</value>
+				</Data>
+				<Data name="AquiferTypeName">
+					<value>aqfrTypeName</value>
+				</Data>
+				<Data name="AquiferName">
+					<value>aqfrName</value>
+				</Data>
+				<Data name="Well Depth Measure/Measure Value">
+					<value>2333</value>
+				</Data>
+				<Data name="Well Depth Measure/Measure Unit Code">
+					<value>wellDepthUnit</value>
+				</Data>
+			</ExtendedData>
+			<Point>
+				<coordinates>-90.8989000,43.3330000</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>stationName</name>
+			<StyleMap>STORETSite</StyleMap>
+			<ExtendedData>
+				<Data name="Organization Formal Name">
+					<value>organizationName</value>
+				</Data>
+				<Data name="Organization Identifier">
+					<value>organization</value>
+				</Data>
+				<Data name="Monitoring Location Identifier">
+					<value>organization-siteId3</value>
+				</Data>
+				<Data name="Monitoring Location Name">
+					<value>stationName</value>
+				</Data>
+				<Data name="Monitoring Location Type Name">
+					<value>stationTypeName</value>
+				</Data>
+				<Data name="Monitoring Location Description Text">
+					<value>descriptionText</value>
+				</Data>
+				<Data name="HUC Eight Digit Code">
+					<value>00000000</value>
+				</Data>
+				<Data name="Drainage Area Measure/Measure Value">
+					<value>567893</value>
+				</Data>
+				<Data name="Drainage Area Measure/Measure Unit Code">
+					<value>contribDrainAreaUnit</value>
+				</Data>
+				<Data name="AquiferTypeName">
+					<value>aqfrTypeName</value>
+				</Data>
+				<Data name="AquiferName">
+					<value>aqfrName</value>
+				</Data>
+				<Data name="Well Depth Measure/Measure Value">
+					<value>2333</value>
+				</Data>
+				<Data name="Well Depth Measure/Measure Unit Code">
+					<value>wellDepthUnit</value>
+				</Data>
+			</ExtendedData>
+			<Point>
+				<coordinates>-76.8989000,43.3330000</coordinates>
+			</Point>
+		</Placemark>
+	</Document>
+</kml>

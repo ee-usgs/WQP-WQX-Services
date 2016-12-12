@@ -66,6 +66,13 @@ import gov.usgs.cida.wqp.util.MybatisConstants;
 
 public class BaseControllerTest {
 
+	public static final String TEST_NWIS_STATION_COUNT = "12";
+	public static final String TEST_NWIS_ACTIVITY_COUNT = "113";
+	public static final String TEST_NWIS_RESULT_COUNT = "359";
+	public static final String TEST_TOTAL_STATION_COUNT = "121";
+	public static final String TEST_TOTAL_ACTIVITY_COUNT = "1131";
+	public static final String TEST_TOTAL_RESULT_COUNT = "3591";
+
 	@Mock
 	private IStreamingDao streamingDao;
 	@Mock
@@ -884,10 +891,10 @@ public class BaseControllerTest {
 
 		assertNotNull(result);
 		assertEquals(2, result.size());
-		assertTrue(result.containsKey("NWIS-Site-Count"));
-		assertEquals("12", result.get("NWIS-Site-Count"));
-		assertTrue(result.containsKey("Total-Site-Count"));
-		assertEquals("121", result.get("Total-Site-Count"));
+		assertTrue(result.containsKey(BaseSpringTest.HEADER_NWIS_SITE_COUNT));
+		assertEquals(TEST_NWIS_STATION_COUNT, result.get(BaseSpringTest.HEADER_NWIS_SITE_COUNT));
+		assertTrue(result.containsKey(HttpConstants.HEADER_TOTAL_SITE_COUNT));
+		assertEquals(TEST_TOTAL_STATION_COUNT, result.get(HttpConstants.HEADER_TOTAL_SITE_COUNT));
 		assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
 		assertEquals(HttpStatus.OK.value(), response.getStatus());
 		assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
@@ -921,12 +928,12 @@ public class BaseControllerTest {
 		totalEmpty = response.getHeaderValue("empty-total-header");
 		assertNotNull(totalEmpty);
 		assertEquals("0", totalEmpty);
-		Object nwisSite = response.getHeaderValue("NWIS-Site-Count");
+		Object nwisSite = response.getHeaderValue(BaseSpringTest.HEADER_NWIS_SITE_COUNT);
 		assertNotNull(nwisSite);
-		assertEquals("12", nwisSite);
-		Object totalSite = response.getHeaderValue("Total-Site-Count");
+		assertEquals(TEST_NWIS_STATION_COUNT, nwisSite);
+		Object totalSite = response.getHeaderValue(HttpConstants.HEADER_TOTAL_SITE_COUNT);
 		assertNotNull(totalSite);
-		assertEquals("121", totalSite);
+		assertEquals(TEST_TOTAL_STATION_COUNT, totalSite);
 
 		counts = TestBaseController.getCounts();
 		assertNotNull(counts);
@@ -934,25 +941,25 @@ public class BaseControllerTest {
 		assertFalse(counts.containsKey("empty-header"));
 		assertTrue(counts.containsKey("empty-total-header"));
 		assertEquals("0", counts.get("empty-total-header"));
-		assertTrue(counts.containsKey("NWIS-Site-Count"));
-		assertEquals("12", counts.get("NWIS-Site-Count"));
-		assertTrue(counts.containsKey("Total-Site-Count"));
-		assertEquals("121", counts.get("Total-Site-Count"));
+		assertTrue(counts.containsKey(BaseSpringTest.HEADER_NWIS_SITE_COUNT));
+		assertEquals(TEST_NWIS_STATION_COUNT, counts.get(BaseSpringTest.HEADER_NWIS_SITE_COUNT));
+		assertTrue(counts.containsKey(HttpConstants.HEADER_TOTAL_SITE_COUNT));
+		assertEquals(TEST_TOTAL_STATION_COUNT, counts.get(HttpConstants.HEADER_TOTAL_SITE_COUNT));
 
 		testController.addCountHeaders(response, getRawCounts(), HttpConstants.HEADER_TOTAL_RESULT_COUNT, HttpConstants.HEADER_RESULT_COUNT, MybatisConstants.RESULT_COUNT);
 
-		nwisSite = response.getHeaderValue("NWIS-Site-Count");
+		nwisSite = response.getHeaderValue(BaseSpringTest.HEADER_NWIS_SITE_COUNT);
 		assertNotNull(nwisSite);
-		assertEquals("12", nwisSite);
-		totalSite = response.getHeaderValue("Total-Site-Count");
+		assertEquals(TEST_NWIS_STATION_COUNT, nwisSite);
+		totalSite = response.getHeaderValue(HttpConstants.HEADER_TOTAL_SITE_COUNT);
 		assertNotNull(totalSite);
-		assertEquals("121", totalSite);
-		Object nwisResult = response.getHeaderValue("NWIS-Result-Count");
+		assertEquals(TEST_TOTAL_STATION_COUNT, totalSite);
+		Object nwisResult = response.getHeaderValue(BaseSpringTest.HEADER_NWIS_RESULT_COUNT);
 		assertNotNull(nwisResult);
-		assertEquals("359", nwisResult);
-		Object totalResult = response.getHeaderValue("Total-Result-Count");
+		assertEquals(TEST_NWIS_RESULT_COUNT, nwisResult);
+		Object totalResult = response.getHeaderValue(HttpConstants.HEADER_TOTAL_RESULT_COUNT);
 		assertNotNull(totalResult);
-		assertEquals("3591", totalResult);
+		assertEquals(TEST_TOTAL_RESULT_COUNT, totalResult);
 
 		counts = TestBaseController.getCounts();
 		assertNotNull(counts);
@@ -960,69 +967,68 @@ public class BaseControllerTest {
 		assertFalse(counts.containsKey("empty-header"));
 		assertTrue(counts.containsKey("empty-total-header"));
 		assertEquals("0", counts.get("empty-total-header"));
-		assertTrue(counts.containsKey("NWIS-Site-Count"));
-		assertEquals("12", counts.get("NWIS-Site-Count"));
-		assertTrue(counts.containsKey("Total-Site-Count"));
-		assertEquals("121", counts.get("Total-Site-Count"));
-		assertTrue(counts.containsKey("NWIS-Result-Count"));
-		assertEquals("359", counts.get("NWIS-Result-Count"));
-		assertTrue(counts.containsKey("Total-Result-Count"));
-		assertEquals("3591", counts.get("Total-Result-Count"));
+		assertTrue(counts.containsKey(BaseSpringTest.HEADER_NWIS_SITE_COUNT));
+		assertEquals(TEST_NWIS_STATION_COUNT, counts.get(BaseSpringTest.HEADER_NWIS_SITE_COUNT));
+		assertTrue(counts.containsKey(HttpConstants.HEADER_TOTAL_SITE_COUNT));
+		assertEquals(TEST_TOTAL_STATION_COUNT, counts.get(HttpConstants.HEADER_TOTAL_SITE_COUNT));
+		assertTrue(counts.containsKey(BaseSpringTest.HEADER_NWIS_RESULT_COUNT));
+		assertEquals(TEST_NWIS_RESULT_COUNT, counts.get(BaseSpringTest.HEADER_NWIS_RESULT_COUNT));
+		assertTrue(counts.containsKey(HttpConstants.HEADER_TOTAL_RESULT_COUNT));
+		assertEquals(TEST_TOTAL_RESULT_COUNT, counts.get(HttpConstants.HEADER_TOTAL_RESULT_COUNT));
 	}
 
 	@Test
 	public void addSiteHeadersTest() {
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		testController.addSiteHeaders(response, getRawCounts());
-		assertEquals("12", response.getHeaderValue("NWIS-Site-Count"));
-		assertEquals("121", response.getHeaderValue("Total-Site-Count"));
-		assertNull(response.getHeaderValue("NWIS-Activity-Count"));
-		assertNull(response.getHeaderValue("Total-Activity-Count"));
-		assertNull(response.getHeaderValue("NWIS-Result-Count"));
-		assertNull(response.getHeaderValue("Total-Result-Count"));
+		assertEquals(TEST_NWIS_STATION_COUNT, response.getHeaderValue(BaseSpringTest.HEADER_NWIS_SITE_COUNT));
+		assertEquals(TEST_TOTAL_STATION_COUNT, response.getHeaderValue(HttpConstants.HEADER_TOTAL_SITE_COUNT));
+		assertNull(response.getHeaderValue(BaseSpringTest.HEADER_NWIS_ACTIVITY_COUNT));
+		assertNull(response.getHeaderValue(HttpConstants.HEADER_TOTAL_ACTIVITY_COUNT));
+		assertNull(response.getHeaderValue(BaseSpringTest.HEADER_NWIS_RESULT_COUNT));
+		assertNull(response.getHeaderValue(HttpConstants.HEADER_TOTAL_RESULT_COUNT));
 	}
 
 	@Test
 	public void addActivityHeadersTest() {
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		testController.addActivityHeaders(response, getRawCounts());
-		assertNull(response.getHeaderValue("NWIS-Site-Count"));
-		assertNull(response.getHeaderValue("Total-Site-Count"));
-		assertEquals("113", response.getHeaderValue("NWIS-Activity-Count"));
-		assertEquals("1131", response.getHeaderValue("Total-Activity-Count"));
-		assertNull(response.getHeaderValue("NWIS-Result-Count"));
-		assertNull(response.getHeaderValue("Total-Result-Count"));
+		assertNull(response.getHeaderValue(BaseSpringTest.HEADER_NWIS_SITE_COUNT));
+		assertNull(response.getHeaderValue(HttpConstants.HEADER_TOTAL_SITE_COUNT));
+		assertEquals(TEST_NWIS_ACTIVITY_COUNT, response.getHeaderValue(BaseSpringTest.HEADER_NWIS_ACTIVITY_COUNT));
+		assertEquals(TEST_TOTAL_ACTIVITY_COUNT, response.getHeaderValue(HttpConstants.HEADER_TOTAL_ACTIVITY_COUNT));
+		assertNull(response.getHeaderValue(BaseSpringTest.HEADER_NWIS_RESULT_COUNT));
+		assertNull(response.getHeaderValue(HttpConstants.HEADER_TOTAL_RESULT_COUNT));
 	}
 
 	@Test
 	public void addResultHeadersTest() {
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		testController.addResultHeaders(response, getRawCounts());
-		assertNull(response.getHeaderValue("NWIS-Site-Count"));
-		assertNull(response.getHeaderValue("Total-Site-Count"));
-		assertNull(response.getHeaderValue("NWIS-Activity-Count"));
-		assertNull(response.getHeaderValue("Total-Activity-Count"));
-		assertEquals("359", response.getHeaderValue("NWIS-Result-Count"));
-		assertEquals("3591", response.getHeaderValue("Total-Result-Count"));
+		assertNull(response.getHeaderValue(BaseSpringTest.HEADER_NWIS_SITE_COUNT));
+		assertNull(response.getHeaderValue(HttpConstants.HEADER_TOTAL_SITE_COUNT));
+		assertNull(response.getHeaderValue(BaseSpringTest.HEADER_NWIS_ACTIVITY_COUNT));
+		assertNull(response.getHeaderValue(HttpConstants.HEADER_TOTAL_ACTIVITY_COUNT));
+		assertEquals(TEST_NWIS_RESULT_COUNT, response.getHeaderValue(BaseSpringTest.HEADER_NWIS_RESULT_COUNT));
+		assertEquals(TEST_TOTAL_RESULT_COUNT, response.getHeaderValue(HttpConstants.HEADER_TOTAL_RESULT_COUNT));
 	}
 
 	public static List<Map<String, Object>> getRawCounts() {
 		List<Map<String, Object>> rawCounts = new ArrayList<>();
 		Map<String, Object> nwisCountRow = new HashMap<>();
-		nwisCountRow.put("DATA_SOURCE", BaseSpringTest.NWIS);
-		nwisCountRow.put("STATION_COUNT", 12);
-		nwisCountRow.put("ACTIVITY_COUNT", 113);
-		nwisCountRow.put("RESULT_COUNT", 359);
+		nwisCountRow.put(MybatisConstants.DATA_SOURCE, BaseSpringTest.NWIS);
+		nwisCountRow.put(MybatisConstants.STATION_COUNT, TEST_NWIS_STATION_COUNT);
+		nwisCountRow.put(MybatisConstants.ACTIVITY_COUNT, TEST_NWIS_ACTIVITY_COUNT);
+		nwisCountRow.put(MybatisConstants.RESULT_COUNT, TEST_NWIS_RESULT_COUNT);
 		rawCounts.add(nwisCountRow);
 
 		Map<String, Object> totalCountRow = new HashMap<>();
-		totalCountRow.put("DATA_SOURCE", null);
-		totalCountRow.put("STATION_COUNT", 121);
-		totalCountRow.put("ACTIVITY_COUNT", 1131);
-		totalCountRow.put("RESULT_COUNT", 3591);
+		totalCountRow.put(MybatisConstants.DATA_SOURCE, null);
+		totalCountRow.put(MybatisConstants.STATION_COUNT, TEST_TOTAL_STATION_COUNT);
+		totalCountRow.put(MybatisConstants.ACTIVITY_COUNT, TEST_TOTAL_ACTIVITY_COUNT);
+		totalCountRow.put(MybatisConstants.RESULT_COUNT, TEST_TOTAL_RESULT_COUNT);
 		rawCounts.add(totalCountRow);
 
 		return rawCounts;
 	}
-
 }

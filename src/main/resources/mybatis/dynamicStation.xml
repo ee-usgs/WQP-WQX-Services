@@ -92,6 +92,9 @@
         <where>
             <include refid="dynamicWhere.baseWhereStationGeoClauses" />
             <include refid="dynamicWhere.baseWhereStationClauses" />
+            <if test="minactivities != null">
+                and (filter.activity_count >= #{minactivities[0]})
+            </if>
             <if test="minresults != null">
                 and (filter.result_count >= #{minresults[0]})
             </if>

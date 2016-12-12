@@ -47,6 +47,7 @@
            ],
     "lat": "43.3836014",
     "long": "-88.9773314",
+    "minactivities": "1",
     "minresults": "3",
     "organization": [
                         "ARS",
