@@ -2,458 +2,589 @@
 <WQX xmlns='http://qwwebservices.usgs.gov/schemas/WQX-Outbound/2_0/' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='http://qwwebservices.usgs.gov/schemas/WQX-Outbound/2_0/ http://qwwebservices.usgs.gov/schemas/WQX-Outbound/2_0/index.xsd'>
 	<Organization>
 		<OrganizationDescription>
-			<OrganizationIdentifier>aah</OrganizationIdentifier>
-			<OrganizationFormalName>aal</OrganizationFormalName>
+			<OrganizationIdentifier>ARS</OrganizationIdentifier>
+		</OrganizationDescription>
+	</Organization>
+	<Organization>
+		<OrganizationDescription>
+			<OrganizationIdentifier>USGS-WI</OrganizationIdentifier>
 		</OrganizationDescription>
 		<Activity>
-			<ActivityDescription>
-				<ActivityIdentifier>aad</ActivityIdentifier>
-				<ActivityTypeCode>aam</ActivityTypeCode>
-				<ActivityMediaName>aag</ActivityMediaName>
-				<ActivityMediaSubdivisionName>aan</ActivityMediaSubdivisionName>
-				<ActivityStartDate>2015-05-17</ActivityStartDate>
-				<ActivityStartTime>
-					<Time>aao</Time>
-					<TimeZoneCode>aap</TimeZoneCode>
-				</ActivityStartTime>
-				<ActivityEndDate>aaq</ActivityEndDate>
-				<ActivityEndTime>
-					<Time>aar</Time>
-					<TimeZoneCode>aas</TimeZoneCode>
-				</ActivityEndTime>
-				<ActivityDepthHeightMeasure>
-					<MeasureValue>aat</MeasureValue>
-					<MeasureUnitCode>aau</MeasureUnitCode>
-				</ActivityDepthHeightMeasure>
-				<ActivityDepthAltitudeReferencePointText>aav</ActivityDepthAltitudeReferencePointText>
-				<ActivityTopDepthHeightMeasure>
-					<MeasureValue>aaw</MeasureValue>
-					<MeasureUnitCode>aax</MeasureUnitCode>
-				</ActivityTopDepthHeightMeasure>
-				<ActivityBottomDepthHeightMeasure>
-					<MeasureValue>aay</MeasureValue>
-					<MeasureUnitCode>aaz</MeasureUnitCode>
-				</ActivityBottomDepthHeightMeasure>
-				<ProjectIdentifier>aba</ProjectIdentifier>
-				<ActivityConductingOrganizationText>abb</ActivityConductingOrganizationText>
-				<MonitoringLocationIdentifier>ARS-IAWC-IAWC225</MonitoringLocationIdentifier>
-				<ActivityCommentText>abc</ActivityCommentText>
-				<SampleAquifer>abd</SampleAquifer>
-				<HydrologicCondition>abe</HydrologicCondition>
-				<HydrologicEvent>abf</HydrologicEvent>
-			</ActivityDescription>
-			<SampleDescription>
-				<SampleCollectionMethod>
-					<MethodIdentifier>abg</MethodIdentifier>
-					<MethodIdentifierContext>abh</MethodIdentifierContext>
-					<MethodName>abi</MethodName>
-				</SampleCollectionMethod>
-				<SampleCollectionEquipmentName>abj</SampleCollectionEquipmentName>
-			</SampleDescription>
 			<Result>
 				<ResultDescription>
-					<ResultDetectionConditionText>abl</ResultDetectionConditionText>
-					<CharacteristicName>aae</CharacteristicName>
-					<ResultSampleFractionText>abm</ResultSampleFractionText>
-					<ResultMeasure>
-						<ResultMeasureValue>abn</ResultMeasureValue>
-						<MeasureUnitCode>abo</MeasureUnitCode>
-						<MeasureQualifierCode>abp</MeasureQualifierCode>
-					</ResultMeasure>
-					<ResultStatusIdentifier>abq</ResultStatusIdentifier>
-					<StatisticalBaseCode>abr</StatisticalBaseCode>
-					<ResultValueTypeName>abs</ResultValueTypeName>
-					<ResultWeightBasisText>abt</ResultWeightBasisText>
-					<ResultTimeBasisText>abu</ResultTimeBasisText>
-					<ResultTemperatureBasisText>abv</ResultTemperatureBasisText>
-					<ResultParticleSizeBasisText>abw</ResultParticleSizeBasisText>
-					<DataQuality>
-						<PrecisionValue>abx</PrecisionValue>
-					</DataQuality>
-					<ResultCommentText>aby</ResultCommentText>
-					<USGSPCode>aac</USGSPCode>
-					<ResultDepthHeightMeasure>
-						<MeasureValue>abz</MeasureValue>
-						<MeasureUnitCode>aca</MeasureUnitCode>
-					</ResultDepthHeightMeasure>
-					<ResultDepthAltitudeReferencePointText>acb</ResultDepthAltitudeReferencePointText>
+					<USGSPCode>00004</USGSPCode>
 				</ResultDescription>
-				<BiologicalResultDescription>
-					<SubjectTaxonomicName>acc</SubjectTaxonomicName>
-					<SampleTissueAnatomyName>acd</SampleTissueAnatomyName>
-				</BiologicalResultDescription>
-				<ResultAnalyticalMethod>
-					<MethodIdentifier>ace</MethodIdentifier>
-					<MethodIdentifierContext>acf</MethodIdentifierContext>
-					<MethodName>acg</MethodName>
-					<MethodDescriptionText>ach</MethodDescriptionText>
-				</ResultAnalyticalMethod>
-				<ResultLabInformation>
-					<LaboratoryName>aci</LaboratoryName>
-					<AnalysisStartDate>acj</AnalysisStartDate>
-					<ResultLaboratoryCommentText>ack</ResultLaboratoryCommentText>
-					<ResultDetectionQuantitationLimit>
-						<DetectionQuantitationLimitTypeName>acn</DetectionQuantitationLimitTypeName>
-						<DetectionQuantitationLimitMeasure>
-							<MeasureValue>acl</MeasureValue>
-							<MeasureUnitCode>acm</MeasureUnitCode>
-						</DetectionQuantitationLimitMeasure>
-					</ResultDetectionQuantitationLimit>
-				</ResultLabInformation>
-				<LabSamplePreparation>
-					<PreparationStartDate>aco</PreparationStartDate>
-				</LabSamplePreparation>
 			</Result>
 		</Activity>
 	</Organization>
 	<Organization>
 		<OrganizationDescription>
-			<OrganizationIdentifier>aha</OrganizationIdentifier>
-			<OrganizationFormalName>ala</OrganizationFormalName>
+			<OrganizationIdentifier>11NPSWRD</OrganizationIdentifier>
 		</OrganizationDescription>
 		<Activity>
-			<ActivityDescription>
-				<ActivityIdentifier>ada</ActivityIdentifier>
-				<ActivityTypeCode>ama</ActivityTypeCode>
-				<ActivityMediaName>aga</ActivityMediaName>
-				<ActivityMediaSubdivisionName>ana</ActivityMediaSubdivisionName>
-				<ActivityStartDate>2015-05-15</ActivityStartDate>
-				<ActivityStartTime>
-					<Time>aoa</Time>
-					<TimeZoneCode>apa</TimeZoneCode>
-				</ActivityStartTime>
-				<ActivityEndDate>aqa</ActivityEndDate>
-				<ActivityEndTime>
-					<Time>ara</Time>
-					<TimeZoneCode>asa</TimeZoneCode>
-				</ActivityEndTime>
-				<ActivityDepthHeightMeasure>
-					<MeasureValue>ata</MeasureValue>
-					<MeasureUnitCode>aua</MeasureUnitCode>
-				</ActivityDepthHeightMeasure>
-				<ActivityDepthAltitudeReferencePointText>ava</ActivityDepthAltitudeReferencePointText>
-				<ActivityTopDepthHeightMeasure>
-					<MeasureValue>awa</MeasureValue>
-					<MeasureUnitCode>axa</MeasureUnitCode>
-				</ActivityTopDepthHeightMeasure>
-				<ActivityBottomDepthHeightMeasure>
-					<MeasureValue>aya</MeasureValue>
-					<MeasureUnitCode>aza</MeasureUnitCode>
-				</ActivityBottomDepthHeightMeasure>
-				<ProjectIdentifier>baa</ProjectIdentifier>
-				<ActivityConductingOrganizationText>bba</ActivityConductingOrganizationText>
-				<MonitoringLocationIdentifier>USGS-05425700</MonitoringLocationIdentifier>
-				<ActivityCommentText>bca</ActivityCommentText>
-				<SampleAquifer>bda</SampleAquifer>
-				<HydrologicCondition>bea</HydrologicCondition>
-				<HydrologicEvent>bfa</HydrologicEvent>
-			</ActivityDescription>
-			<SampleDescription>
-				<SampleCollectionMethod>
-					<MethodIdentifier>bga</MethodIdentifier>
-					<MethodIdentifierContext>bha</MethodIdentifierContext>
-					<MethodName>bia</MethodName>
-				</SampleCollectionMethod>
-				<SampleCollectionEquipmentName>bja</SampleCollectionEquipmentName>
-			</SampleDescription>
 			<Result>
 				<ResultDescription>
-					<ResultDetectionConditionText>bla</ResultDetectionConditionText>
-					<CharacteristicName>aea</CharacteristicName>
-					<ResultSampleFractionText>bma</ResultSampleFractionText>
-					<ResultMeasure>
-						<ResultMeasureValue>bna</ResultMeasureValue>
-						<MeasureUnitCode>boa</MeasureUnitCode>
-						<MeasureQualifierCode>bpa</MeasureQualifierCode>
-					</ResultMeasure>
-					<ResultStatusIdentifier>bqa</ResultStatusIdentifier>
-					<StatisticalBaseCode>bra</StatisticalBaseCode>
-					<ResultValueTypeName>bsa</ResultValueTypeName>
-					<ResultWeightBasisText>bta</ResultWeightBasisText>
-					<ResultTimeBasisText>bua</ResultTimeBasisText>
-					<ResultTemperatureBasisText>bva</ResultTemperatureBasisText>
-					<ResultParticleSizeBasisText>bwa</ResultParticleSizeBasisText>
-					<DataQuality>
-						<PrecisionValue>bxa</PrecisionValue>
-					</DataQuality>
-					<ResultCommentText>bya</ResultCommentText>
-					<USGSPCode>aca</USGSPCode>
-					<ResultDepthHeightMeasure>
-						<MeasureValue>bza</MeasureValue>
-						<MeasureUnitCode>caa</MeasureUnitCode>
-					</ResultDepthHeightMeasure>
-					<ResultDepthAltitudeReferencePointText>cba</ResultDepthAltitudeReferencePointText>
+					<CharacteristicName>Nitrate</CharacteristicName>
 				</ResultDescription>
-				<BiologicalResultDescription>
-					<SubjectTaxonomicName>cca</SubjectTaxonomicName>
-					<SampleTissueAnatomyName>cda</SampleTissueAnatomyName>
-				</BiologicalResultDescription>
-				<ResultAnalyticalMethod>
-					<MethodIdentifier>cea</MethodIdentifier>
-					<MethodIdentifierContext>cfa</MethodIdentifierContext>
-					<MethodName>cga</MethodName>
-					<MethodDescriptionText>cha</MethodDescriptionText>
-				</ResultAnalyticalMethod>
-				<ResultLabInformation>
-					<LaboratoryName>cia</LaboratoryName>
-					<AnalysisStartDate>cja</AnalysisStartDate>
-					<ResultLaboratoryCommentText>cka</ResultLaboratoryCommentText>
-					<ResultDetectionQuantitationLimit>
-						<DetectionQuantitationLimitTypeName>cna</DetectionQuantitationLimitTypeName>
-						<DetectionQuantitationLimitMeasure>
-							<MeasureValue>cla</MeasureValue>
-							<MeasureUnitCode>cma</MeasureUnitCode>
-						</DetectionQuantitationLimitMeasure>
-					</ResultDetectionQuantitationLimit>
-				</ResultLabInformation>
-				<LabSamplePreparation>
-					<PreparationStartDate>coa</PreparationStartDate>
-				</LabSamplePreparation>
 			</Result>
 		</Activity>
 	</Organization>
 	<Organization>
 		<OrganizationDescription>
-			<OrganizationIdentifier>ah</OrganizationIdentifier>
-			<OrganizationFormalName>al</OrganizationFormalName>
+			<OrganizationIdentifier>21NYDECA_WQX</OrganizationIdentifier>
 		</OrganizationDescription>
 		<Activity>
+			<Result>
+				<ResultDescription>
+					<CharacteristicName>1,2,3,4,7,8-Hexachlorodibenzofuran</CharacteristicName>
+				</ResultDescription>
+			</Result>
+			<Result>
+				<ResultDescription>
+					<CharacteristicName>1,2,3,6,7,8-Hexachlorodibenzo-p-dioxin</CharacteristicName>
+				</ResultDescription>
+			</Result>
+			<Result>
+				<ResultDescription>
+					<CharacteristicName>1,2,3,6,7,8-Hexachlorodibenzofuran</CharacteristicName>
+				</ResultDescription>
+			</Result>
+			<Result>
+				<ResultDescription>
+					<CharacteristicName>1,2,3,7,8,9-Hexachlorodibenzo-p-dioxin</CharacteristicName>
+				</ResultDescription>
+			</Result>
+			<Result>
+				<ResultDescription>
+					<CharacteristicName>1,2,3,7,8,9-Hexachlorodibenzofuran</CharacteristicName>
+				</ResultDescription>
+			</Result>
+			<Result>
+				<ResultDescription>
+					<CharacteristicName>1,2,3,7,8-Pentachlorodibenzo-p-dioxin</CharacteristicName>
+				</ResultDescription>
+			</Result>
+			<Result>
+				<ResultDescription>
+					<CharacteristicName>1,2,3,7,8-Pentachlorodibenzofuran</CharacteristicName>
+				</ResultDescription>
+			</Result>
+			<Result>
+				<ResultDescription>
+					<CharacteristicName>Pentachlorodibenzo-p-dioxin</CharacteristicName>
+				</ResultDescription>
+			</Result>
+			<Result>
+				<ResultDescription>
+					<CharacteristicName>Pentachlorodibenzofuran</CharacteristicName>
+				</ResultDescription>
+			</Result>
+			<Result>
+				<ResultDescription>
+					<CharacteristicName>Tetrachlorodibenzo-p-dioxin</CharacteristicName>
+				</ResultDescription>
+			</Result>
+			<Result>
+				<ResultDescription>
+					<CharacteristicName>Heptachlorodibenzofuran</CharacteristicName>
+				</ResultDescription>
+			</Result>
+			<Result>
+				<ResultDescription>
+					<CharacteristicName>Hexachlorodibenzofuran</CharacteristicName>
+				</ResultDescription>
+			</Result>
+			<Result>
+				<ResultDescription>
+					<CharacteristicName>Total volatile solids</CharacteristicName>
+				</ResultDescription>
+			</Result>
+			<Result>
+				<ResultDescription>
+					<CharacteristicName>1,2,3,4,7,8-Hexachlorodibenzo-p-dioxin</CharacteristicName>
+				</ResultDescription>
+			</Result>
+			<Result>
+				<ResultDescription>
+					<CharacteristicName>1,2,3,4,7,8,9-Heptachlorodibenzofuran</CharacteristicName>
+				</ResultDescription>
+			</Result>
+			<Result>
+				<ResultDescription>
+					<CharacteristicName>1,2,3,4,6,7,8-Heptachlorodibenzofuran</CharacteristicName>
+				</ResultDescription>
+			</Result>
+			<Result>
+				<ResultDescription>
+					<CharacteristicName>1,2,3,4,6,7,8-Heptachlorodibenzo-p-dioxin</CharacteristicName>
+				</ResultDescription>
+			</Result>
+			<Result>
+				<ResultDescription>
+					<CharacteristicName>Hexachlorodibenzo-p-dioxin</CharacteristicName>
+				</ResultDescription>
+			</Result>
+			<Result>
+				<ResultDescription>
+					<CharacteristicName>1,2,3,4,6,7,8,9-Octachlorodibenzo-p-dioxin</CharacteristicName>
+				</ResultDescription>
+			</Result>
+			<Result>
+				<ResultDescription>
+					<CharacteristicName>2,3,7,8-Tetrachlorodibenzofuran</CharacteristicName>
+				</ResultDescription>
+			</Result>
+			<Result>
+				<ResultDescription>
+					<CharacteristicName>2,3,7,8-Tetrachlorodibenzo-p-dioxin</CharacteristicName>
+				</ResultDescription>
+			</Result>
+			<Result>
+				<ResultDescription>
+					<CharacteristicName>2,3,4,7,8-Pentachlorodibenzofuran</CharacteristicName>
+				</ResultDescription>
+			</Result>
+			<Result>
+				<ResultDescription>
+					<CharacteristicName>2,3,4,6,7,8-Hexachlorodibenzofuran</CharacteristicName>
+				</ResultDescription>
+			</Result>
+			<Result>
+				<ResultDescription>
+					<CharacteristicName>Pentachlorobenzene</CharacteristicName>
+				</ResultDescription>
+			</Result>
+			<Result>
+				<ResultDescription>
+					<CharacteristicName>1,2,3,4,6,7,8,9-Octachlorodibenzofuran</CharacteristicName>
+				</ResultDescription>
+			</Result>
+			<Result>
+				<ResultDescription>
+					<CharacteristicName>Heptachlorodibenzo-p-dioxin</CharacteristicName>
+				</ResultDescription>
+			</Result>
+		</Activity>
+	</Organization>
+	<Organization>
+		<OrganizationDescription>
+			<OrganizationIdentifier>WIDNR_WQX</OrganizationIdentifier>
+		</OrganizationDescription>
+		<Activity>
+			<Result>
+				<ResultDescription>
+					<CharacteristicName>Cloud cover</CharacteristicName>
+				</ResultDescription>
+			</Result>
+			<Result>
+				<ResultDescription>
+					<CharacteristicName>Fecal Streptococcus Group Bacteria</CharacteristicName>
+				</ResultDescription>
+			</Result>
+			<Result>
+				<ResultDescription>
+					<CharacteristicName>Fecal Coliform</CharacteristicName>
+				</ResultDescription>
+			</Result>
+			<Result>
+				<ResultDescription>
+					<CharacteristicName>Fecal Coliform</CharacteristicName>
+				</ResultDescription>
+			</Result>
+			<Result>
+				<ResultDescription>
+					<CharacteristicName>Fecal Coliform</CharacteristicName>
+				</ResultDescription>
+			</Result>
+			<Result>
+				<ResultDescription>
+					<CharacteristicName>Cloud cover</CharacteristicName>
+				</ResultDescription>
+			</Result>
+			<Result>
+				<ResultDescription>
+					<CharacteristicName>Fecal Streptococcus Group Bacteria</CharacteristicName>
+				</ResultDescription>
+			</Result>
+			<Result>
+				<ResultDescription>
+					<CharacteristicName>Dissolved oxygen (DO)</CharacteristicName>
+				</ResultDescription>
+			</Result>
+			<Result>
+				<ResultDescription>
+					<CharacteristicName>Dissolved oxygen (DO)</CharacteristicName>
+				</ResultDescription>
+			</Result>
+			<Result>
+				<ResultDescription>
+					<CharacteristicName>Dissolved oxygen (DO)</CharacteristicName>
+				</ResultDescription>
+			</Result>
+			<Result>
+				<ResultDescription>
+					<CharacteristicName>Fecal Streptococcus Group Bacteria</CharacteristicName>
+				</ResultDescription>
+			</Result>
+		</Activity>
+	</Organization>
+	<Organization>
+		<OrganizationDescription>
+			<OrganizationIdentifier>organization</OrganizationIdentifier>
+		</OrganizationDescription>
+		<Activity>
+			<Result>
+				<ResultDescription>
+					<CharacteristicName>characteristicName</CharacteristicName>
+					<USGSPCode>99999</USGSPCode>
+				</ResultDescription>
+				<BiologicalResultDescription>
+					<SubjectTaxonomicName>sampleTissueTaxonomicName</SubjectTaxonomicName>
+				</BiologicalResultDescription>
+			</Result>
+			<Result>
+				<ResultDescription>
+					<CharacteristicName>characteristicName</CharacteristicName>
+					<USGSPCode>99999</USGSPCode>
+				</ResultDescription>
+				<BiologicalResultDescription>
+					<SubjectTaxonomicName>sampleTissueTaxonomicName</SubjectTaxonomicName>
+				</BiologicalResultDescription>
+			</Result>
+			<Result>
+				<ResultDescription>
+					<CharacteristicName>characteristicName</CharacteristicName>
+					<USGSPCode>99999</USGSPCode>
+				</ResultDescription>
+				<BiologicalResultDescription>
+					<SubjectTaxonomicName>sampleTissueTaxonomicName</SubjectTaxonomicName>
+				</BiologicalResultDescription>
+			</Result>
+		</Activity>
+		<Activity>
 			<ActivityDescription>
-				<ActivityIdentifier>ad</ActivityIdentifier>
-				<ActivityTypeCode>am</ActivityTypeCode>
-				<ActivityMediaName>ag</ActivityMediaName>
-				<ActivityMediaSubdivisionName>an</ActivityMediaSubdivisionName>
-				<ActivityStartDate>2015-05-13</ActivityStartDate>
+				<ActivityIdentifier>activity</ActivityIdentifier>
+				<ActivityTypeCode>activityTypeCode</ActivityTypeCode>
+				<ActivityMediaName>sampleMedia</ActivityMediaName>
+				<ActivityMediaSubdivisionName>activityMediaSubdivName</ActivityMediaSubdivisionName>
+				<ActivityStartDate>1999-12-28</ActivityStartDate>
 				<ActivityStartTime>
-					<Time>ao</Time>
-					<TimeZoneCode>ap</TimeZoneCode>
+					<Time>activityStartTime</Time>
+					<TimeZoneCode>actStartTimeZone</TimeZoneCode>
 				</ActivityStartTime>
-				<ActivityEndDate>aq</ActivityEndDate>
+				<ActivityEndDate>activityStopDate</ActivityEndDate>
 				<ActivityEndTime>
-					<Time>ar</Time>
-					<TimeZoneCode>as</TimeZoneCode>
+					<Time>activityStopTime</Time>
+					<TimeZoneCode>actStopTimeZone</TimeZoneCode>
 				</ActivityEndTime>
-				<ActivityRelativeDepthName>cp</ActivityRelativeDepthName>
+				<ActivityRelativeDepthName>activityRelativeDepthName</ActivityRelativeDepthName>
 				<ActivityDepthHeightMeasure>
-					<MeasureValue>at</MeasureValue>
-					<MeasureUnitCode>au</MeasureUnitCode>
+					<MeasureValue>activityDepth</MeasureValue>
+					<MeasureUnitCode>activityDepthUnit</MeasureUnitCode>
 				</ActivityDepthHeightMeasure>
-				<ActivityDepthAltitudeReferencePointText>av</ActivityDepthAltitudeReferencePointText>
+				<ActivityDepthAltitudeReferencePointText>activityDepthRefPoint</ActivityDepthAltitudeReferencePointText>
 				<ActivityTopDepthHeightMeasure>
-					<MeasureValue>aw</MeasureValue>
-					<MeasureUnitCode>ax</MeasureUnitCode>
+					<MeasureValue>activityUpperDepth</MeasureValue>
+					<MeasureUnitCode>activityUpperDepthUnit</MeasureUnitCode>
 				</ActivityTopDepthHeightMeasure>
 				<ActivityBottomDepthHeightMeasure>
-					<MeasureValue>ay</MeasureValue>
-					<MeasureUnitCode>az</MeasureUnitCode>
+					<MeasureValue>activityLowerDepth</MeasureValue>
+					<MeasureUnitCode>activityLowerDepthUnit</MeasureUnitCode>
 				</ActivityBottomDepthHeightMeasure>
-				<ProjectIdentifier>ba;wow</ProjectIdentifier>
-				<ActivityConductingOrganizationText>bb</ActivityConductingOrganizationText>
-				<MonitoringLocationIdentifier>11NPSWRD-BICA_MFG_B</MonitoringLocationIdentifier>
-				<ActivityCommentText>bc</ActivityCommentText>
-				<SampleAquifer>bd</SampleAquifer>
-				<HydrologicCondition>be</HydrologicCondition>
-				<HydrologicEvent>bf</HydrologicEvent>
+				<ProjectIdentifier>projectId</ProjectIdentifier>
+				<ActivityConductingOrganizationText>activityConductingOrg</ActivityConductingOrganizationText>
+				<MonitoringLocationIdentifier>organization-siteId</MonitoringLocationIdentifier>
+				<ActivityCommentText>activityComment</ActivityCommentText>
+				<SampleAquifer>sampleAqfrName</SampleAquifer>
+				<HydrologicCondition>hydrologicConditionName</HydrologicCondition>
+				<HydrologicEvent>hydrologicEventName</HydrologicEvent>
 			</ActivityDescription>
 			<ActivityLocation>
-				<LatitudeMeasure>5</LatitudeMeasure>
-				<LongitudeMeasure>6</LongitudeMeasure>
-				<SourceMapScaleNumeric>7</SourceMapScaleNumeric>
+				<LatitudeMeasure>43.333</LatitudeMeasure>
+				<LongitudeMeasure>-89.8989</LongitudeMeasure>
+				<SourceMapScaleNumeric>24000</SourceMapScaleNumeric>
 				<HorizontalAccuracyMeasure>
-					<MeasureValue>cq</MeasureValue>
-					<MeasureUnitCode>cr</MeasureUnitCode>
+					<MeasureValue>actHorizontalAccuracy</MeasureValue>
+					<MeasureUnitCode>actHorizontalAccuracyUnit</MeasureUnitCode>
 				</HorizontalAccuracyMeasure>
-				<HorizontalCollectionMethodName>cs</HorizontalCollectionMethodName>
-				<HorizontalCoordinateReferenceSystemDatumName>ct</HorizontalCoordinateReferenceSystemDatumName>
+				<HorizontalCollectionMethodName>actHorizontalCollectMethod</HorizontalCollectionMethodName>
+				<HorizontalCoordinateReferenceSystemDatumName>actHorizontalDatumName</HorizontalCoordinateReferenceSystemDatumName>
 			</ActivityLocation>
 			<BiologicalActivityDescription>
-				<AssemblageSampledName>Fish/Nekton</AssemblageSampledName>
+				<AssemblageSampledName>assemblageSampledName</AssemblageSampledName>
 				<BiologicalHabitatCollectionInformation>
 					<CollectionDuration>
-						<MeasureValue>cv</MeasureValue>
-						<MeasureUnitCode>cw</MeasureUnitCode>
+						<MeasureValue>actCollectionDuration</MeasureValue>
+						<MeasureUnitCode>actCollectionDurationUnit</MeasureUnitCode>
 					</CollectionDuration>
-					<SamplingComponentName>cx</SamplingComponentName>
-					<SamplingComponentPlaceInSeriesNumeric>8</SamplingComponentPlaceInSeriesNumeric>
+					<SamplingComponentName>actSamCompntName</SamplingComponentName>
+					<SamplingComponentPlaceInSeriesNumeric>44</SamplingComponentPlaceInSeriesNumeric>
 					<ReachLengthMeasure>
-						<MeasureValue>cy</MeasureValue>
-						<MeasureUnitCode>cz</MeasureUnitCode>
+						<MeasureValue>actReachLength</MeasureValue>
+						<MeasureUnitCode>actReachLengthUnit</MeasureUnitCode>
 					</ReachLengthMeasure>
 					<ReachWidthMeasure>
-						<MeasureValue>da</MeasureValue>
-						<MeasureUnitCode>db</MeasureUnitCode>
+						<MeasureValue>actReachWidth</MeasureValue>
+						<MeasureUnitCode>actReachWidthUnit</MeasureUnitCode>
 					</ReachWidthMeasure>
-					<PassCount>9</PassCount>
+					<PassCount>11</PassCount>
 					<NetInformation>
-						<NetTypeName>dc</NetTypeName>
+						<NetTypeName>netTypeName</NetTypeName>
 						<NetSurfaceAreaMeasure>
-							<MeasureValue>de</MeasureValue>
-							<MeasureUnitCode>df</MeasureUnitCode>
+							<MeasureValue>actNetSurfaceArea</MeasureValue>
+							<MeasureUnitCode>actNetSurfaceAreaUnit</MeasureUnitCode>
 						</NetSurfaceAreaMeasure>
 						<NetMeshSizeMeasure>
-							<MeasureValue>dg</MeasureValue>
-							<MeasureUnitCode>dh</MeasureUnitCode>
+							<MeasureValue>actNetMeshSize</MeasureValue>
+							<MeasureUnitCode>actNetMeshSizeUnit</MeasureUnitCode>
 						</NetMeshSizeMeasure>
 						<BoatSpeedMeasure>
-							<MeasureValue>di</MeasureValue>
-							<MeasureUnitCode>dj</MeasureUnitCode>
+							<MeasureValue>actBoatSpeed</MeasureValue>
+							<MeasureUnitCode>actBoatSpeedUnit</MeasureUnitCode>
 						</BoatSpeedMeasure>
 						<CurrentSpeedMeasure>
-							<MeasureValue>dk</MeasureValue>
-							<MeasureUnitCode>dl</MeasureUnitCode>
+							<MeasureValue>actCurrentSpeed</MeasureValue>
+							<MeasureUnitCode>actCurrentSpeedUnit</MeasureUnitCode>
 						</CurrentSpeedMeasure>
 					</NetInformation>
 				</BiologicalHabitatCollectionInformation>
-				<ToxicityTestType>dm</ToxicityTestType>
+				<ToxicityTestType>toxicityTestTypeName</ToxicityTestType>
 			</BiologicalActivityDescription>
 			<SampleDescription>
 				<SampleCollectionMethod>
-					<MethodIdentifier>bg</MethodIdentifier>
-					<MethodIdentifierContext>bh</MethodIdentifierContext>
-					<MethodName>bi</MethodName>
-					<MethodQualifierTypeName>dn</MethodQualifierTypeName>
-					<MethodDescriptionText>do</MethodDescriptionText>
+					<MethodIdentifier>sampleCollectMethodId</MethodIdentifier>
+					<MethodIdentifierContext>sampleCollectMethodCtx</MethodIdentifierContext>
+					<MethodName>sampleCollectMethodName</MethodName>
+					<MethodQualifierTypeName>actSamCollectMethQualType</MethodQualifierTypeName>
+					<MethodDescriptionText>actSamCollectMethDesc</MethodDescriptionText>
 				</SampleCollectionMethod>
-				<SampleCollectionEquipmentName>bj</SampleCollectionEquipmentName>
-				<SampleCollectionEquipmentCommentText>dp</SampleCollectionEquipmentCommentText>
+				<SampleCollectionEquipmentName>sampleCollectEquipName</SampleCollectionEquipmentName>
+				<SampleCollectionEquipmentCommentText>actSamCollectEquipComments</SampleCollectionEquipmentCommentText>
 				<SamplePreparation>
 					<SamplePreparationMethod>
-						<MethodIdentifier>dq</MethodIdentifier>
-						<MethodIdentifierContext>dr</MethodIdentifierContext>
-						<MethodName>ds</MethodName>
-						<MethodQualifierTypeName>dt</MethodQualifierTypeName>
-						<MethodDescriptionText>du</MethodDescriptionText>
+						<MethodIdentifier>actSamPrepMethId</MethodIdentifier>
+						<MethodIdentifierContext>actSamPrepMethContext</MethodIdentifierContext>
+						<MethodName>actSamPrepMethName</MethodName>
+						<MethodQualifierTypeName>actSamPrepMethQualType</MethodQualifierTypeName>
+						<MethodDescriptionText>actSamPrepMethDesc</MethodDescriptionText>
 					</SamplePreparationMethod>
-					<SampleContainerTypeName>dv</SampleContainerTypeName>
-					<SampleContainerColorName>dw</SampleContainerColorName>
-					<ChemicalPreservativeUsedName>dx</ChemicalPreservativeUsedName>
-					<ThermalPreservativeUsedName>dy</ThermalPreservativeUsedName>
-					<SampleTransportStorageDescription>dz</SampleTransportStorageDescription>
+					<SampleContainerTypeName>sampleContainerType</SampleContainerTypeName>
+					<SampleContainerColorName>sampleContainerColor</SampleContainerColorName>
+					<ChemicalPreservativeUsedName>actSamChemicalPreservative</ChemicalPreservativeUsedName>
+					<ThermalPreservativeUsedName>thermalPreservativeName</ThermalPreservativeUsedName>
+					<SampleTransportStorageDescription>actSamTransportStorageDesc</SampleTransportStorageDescription>
 				</SamplePreparation>
 			</SampleDescription>
 			<Result>
 				<ResultDescription>
-					<DataLoggerLine>et</DataLoggerLine>
-					<ResultDetectionConditionText>bl</ResultDetectionConditionText>
-					<CharacteristicName>ae</CharacteristicName>
-					<MethodSpecificationName>eu</MethodSpecificationName>
-					<ResultSampleFractionText>bm</ResultSampleFractionText>
+					<DataLoggerLine>resDataLoggerLine</DataLoggerLine>
+					<ResultDetectionConditionText>resultDetectionConditionTx</ResultDetectionConditionText>
+					<CharacteristicName>characteristicName</CharacteristicName>
+					<MethodSpecificationName>methodSpecificationName</MethodSpecificationName>
+					<ResultSampleFractionText>sampleFractionType</ResultSampleFractionText>
 					<ResultMeasure>
-						<ResultMeasureValue>bn</ResultMeasureValue>
-						<MeasureUnitCode>bo</MeasureUnitCode>
-						<MeasureQualifierCode>bp</MeasureQualifierCode>
+						<ResultMeasureValue>resultMeasureValue</ResultMeasureValue>
+						<MeasureUnitCode>resultUnit</MeasureUnitCode>
+						<MeasureQualifierCode>resultMeasQualCode</MeasureQualifierCode>
 					</ResultMeasure>
-					<ResultStatusIdentifier>bq</ResultStatusIdentifier>
-					<StatisticalBaseCode>br</StatisticalBaseCode>
-					<ResultValueTypeName>bs</ResultValueTypeName>
-					<ResultWeightBasisText>bt</ResultWeightBasisText>
-					<ResultTimeBasisText>bu</ResultTimeBasisText>
-					<ResultTemperatureBasisText>bv</ResultTemperatureBasisText>
-					<ResultParticleSizeBasisText>bw</ResultParticleSizeBasisText>
+					<ResultStatusIdentifier>resultValueStatus</ResultStatusIdentifier>
+					<StatisticalBaseCode>statisticType</StatisticalBaseCode>
+					<ResultValueTypeName>resultValueType</ResultValueTypeName>
+					<ResultWeightBasisText>weightBasisType</ResultWeightBasisText>
+					<ResultTimeBasisText>durationBasis</ResultTimeBasisText>
+					<ResultTemperatureBasisText>temperatureBasisLevel</ResultTemperatureBasisText>
+					<ResultParticleSizeBasisText>particleSize</ResultParticleSizeBasisText>
 					<DataQuality>
-						<PrecisionValue>bx</PrecisionValue>
-						<BiasValue>ev</BiasValue>
-						<ConfidenceIntervalValue>ew</ConfidenceIntervalValue>
-						<UpperConfidenceLimitValue>ex</UpperConfidenceLimitValue>
-						<LowerConfidenceLimitValue>ey</LowerConfidenceLimitValue>
+						<PrecisionValue>precision</PrecisionValue>
+						<BiasValue>resMeasureBias</BiasValue>
+						<ConfidenceIntervalValue>resMeasureConfInterval</ConfidenceIntervalValue>
+						<UpperConfidenceLimitValue>resMeasureUpperConfLimit</UpperConfidenceLimitValue>
+						<LowerConfidenceLimitValue>resMeasureLowerConfLimit</LowerConfidenceLimitValue>
 					</DataQuality>
-					<ResultCommentText>by</ResultCommentText>
-					<USGSPCode>ac</USGSPCode>
+					<ResultCommentText>resultComment</ResultCommentText>
+					<USGSPCode>99999</USGSPCode>
 					<ResultDepthHeightMeasure>
-						<MeasureValue>bz</MeasureValue>
-						<MeasureUnitCode>ca</MeasureUnitCode>
+						<MeasureValue>resultDepthMeasValue</MeasureValue>
+						<MeasureUnitCode>resultDepthMeasUnitCode</MeasureUnitCode>
 					</ResultDepthHeightMeasure>
-					<ResultDepthAltitudeReferencePointText>cb</ResultDepthAltitudeReferencePointText>
-					<ResultSamplingPointName>ez</ResultSamplingPointName>
+					<ResultDepthAltitudeReferencePointText>resultDepthAltRefPtTxt</ResultDepthAltitudeReferencePointText>
+					<ResultSamplingPointName>resSamplingPointName</ResultSamplingPointName>
 				</ResultDescription>
 				<BiologicalResultDescription>
-					<BiologicalIntentName>fa</BiologicalIntentName>
-					<BiologicalIndividualIdentifier>fb</BiologicalIndividualIdentifier>
-					<SubjectTaxonomicName>cc</SubjectTaxonomicName>
-					<UnidentifiedSpeciesIdentifier>fc</UnidentifiedSpeciesIdentifier>
-					<SampleTissueAnatomyName>cd</SampleTissueAnatomyName>
+					<BiologicalIntentName>biologicalIntent</BiologicalIntentName>
+					<BiologicalIndividualIdentifier>resBioIndividualId</BiologicalIndividualIdentifier>
+					<SubjectTaxonomicName>sampleTissueTaxonomicName</SubjectTaxonomicName>
+					<UnidentifiedSpeciesIdentifier>unidentifiedSpeciesIdentifier</UnidentifiedSpeciesIdentifier>
+					<SampleTissueAnatomyName>sampleTissueAnatomyName</SampleTissueAnatomyName>
 					<GroupSummaryCountWeight>
-						<MeasureValue>fd</MeasureValue>
-						<MeasureUnitCode>fe</MeasureUnitCode>
+						<MeasureValue>resGroupSummaryCtWt</MeasureValue>
+						<MeasureUnitCode>resGroupSummaryCtWtUnit</MeasureUnitCode>
 					</GroupSummaryCountWeight>
 					<TaxonomicDetails>
-						<CellFormName>ff</CellFormName>
-						<CellShapeName>fg</CellShapeName>
-						<HabitName>fh</HabitName>
-						<VoltismName>fi</VoltismName>
-						<TaxonomicPollutionTolerance>fj</TaxonomicPollutionTolerance>
-						<TaxonomicPollutionToleranceScaleText>fk</TaxonomicPollutionToleranceScaleText>
-						<TrophicLevelName>fl</TrophicLevelName>
-						<FunctionalFeedingGroupName>fm</FunctionalFeedingGroupName>
+						<CellFormName>cellFormName</CellFormName>
+						<CellShapeName>cellShapeName</CellShapeName>
+						<HabitName>habitName</HabitName>
+						<VoltismName>voltName</VoltismName>
+						<TaxonomicPollutionTolerance>rtdetPollutionTolerance</TaxonomicPollutionTolerance>
+						<TaxonomicPollutionToleranceScaleText>rtdetPollutionTolernceScale</TaxonomicPollutionToleranceScaleText>
+						<TrophicLevelName>rtdetTrophicLevel</TrophicLevelName>
+						<FunctionalFeedingGroupName>rtfgrpFunctionalFeedingGrp</FunctionalFeedingGroupName>
 						<TaxonomicDetailsCitation>
-							<ResourceTitleName>fn</ResourceTitleName>
-							<ResourceCreatorName>fo</ResourceCreatorName>
-							<ResourceSubjectText>fp</ResourceSubjectText>
-							<ResourcePublisherName>fq</ResourcePublisherName>
-							<ResourceDate>fr</ResourceDate>
-							<ResourceIdentifier>fs</ResourceIdentifier>
+							<ResourceTitleName>taxonCitationTitle</ResourceTitleName>
+							<ResourceCreatorName>taxonCitationCreator</ResourceCreatorName>
+							<ResourceSubjectText>taxonCitationSubject</ResourceSubjectText>
+							<ResourcePublisherName>taxonCitationPublisher</ResourcePublisherName>
+							<ResourceDate>taxonCitationDate</ResourceDate>
+							<ResourceIdentifier>taxonCitationId</ResourceIdentifier>
 						</TaxonomicDetailsCitation>
 					</TaxonomicDetails>
 					<FrequencyClassInformation>
-						<FrequencyClassDescriptorCode>ft</FrequencyClassDescriptorCode>
-						<FrequencyClassDescriptorUnitCode>fu</FrequencyClassDescriptorUnitCode>
-						<LowerClassBoundValue>10</LowerClassBoundValue>
-						<UpperClassBoundValue>11</UpperClassBoundValue>
+						<FrequencyClassDescriptorCode>fcdscName</FrequencyClassDescriptorCode>
+						<FrequencyClassDescriptorUnitCode>frequencyClassUnit</FrequencyClassDescriptorUnitCode>
+						<LowerClassBoundValue>88</LowerClassBoundValue>
+						<UpperClassBoundValue>99</UpperClassBoundValue>
 					</FrequencyClassInformation>
 				</BiologicalResultDescription>
 				<ResultAnalyticalMethod>
-					<MethodIdentifier>ce</MethodIdentifier>
-					<MethodIdentifierContext>cf</MethodIdentifierContext>
-					<MethodName>cg</MethodName>
-					<MethodQualifierTypeName>fv</MethodQualifierTypeName>
-					<MethodDescriptionText>ch</MethodDescriptionText>
+					<MethodIdentifier>analyticalProcedureId</MethodIdentifier>
+					<MethodIdentifierContext>analyticalProcedureSource</MethodIdentifierContext>
+					<MethodName>analyticalMethodName</MethodName>
+					<MethodQualifierTypeName>anlmthQualType</MethodQualifierTypeName>
+					<MethodDescriptionText>analyticalMethodCitation</MethodDescriptionText>
 				</ResultAnalyticalMethod>
 				<ResultLabInformation>
-					<LaboratoryName>ci</LaboratoryName>
-					<AnalysisStartDate>cj</AnalysisStartDate>
+					<LaboratoryName>labName</LaboratoryName>
+					<AnalysisStartDate>analysisStartDate</AnalysisStartDate>
 					<AnalysisStartTime>
-						<Time>fx</Time>
-						<TimeZoneCode>fy</TimeZoneCode>
+						<Time>analysisStartTime</Time>
+						<TimeZoneCode>analysisStartTimezone</TimeZoneCode>
 					</AnalysisStartTime>
-					<AnalysisEndDate>fz</AnalysisEndDate>
+					<AnalysisEndDate>analysisEndDate</AnalysisEndDate>
 					<AnalysisEndTime>
-						<Time>ga</Time>
-						<TimeZoneCode>gb</TimeZoneCode>
+						<Time>analysisEndTime</Time>
+						<TimeZoneCode>analysisEndTimezone</TimeZoneCode>
 					</AnalysisEndTime>
-					<ResultLaboratoryCommentCode>gc</ResultLaboratoryCommentCode>
-					<ResultLaboratoryCommentText>ck</ResultLaboratoryCommentText>
+					<ResultLaboratoryCommentCode>rlcomCd</ResultLaboratoryCommentCode>
+					<ResultLaboratoryCommentText>labRemark</ResultLaboratoryCommentText>
 					<ResultDetectionQuantitationLimit>
-						<DetectionQuantitationLimitTypeName>cn</DetectionQuantitationLimitTypeName>
+						<DetectionQuantitationLimitTypeName>detectionLimitDesc</DetectionQuantitationLimitTypeName>
 						<DetectionQuantitationLimitMeasure>
-							<MeasureValue>cl</MeasureValue>
-							<MeasureUnitCode>cm</MeasureUnitCode>
+							<MeasureValue>detectionLimit</MeasureValue>
+							<MeasureUnitCode>detectionLimitUnit</MeasureUnitCode>
 						</DetectionQuantitationLimitMeasure>
 					</ResultDetectionQuantitationLimit>
-					<LaboratoryAccreditationIndicator>gd</LaboratoryAccreditationIndicator>
-					<LaboratoryAccreditationAuthorityName>ge</LaboratoryAccreditationAuthorityName>
-					<TaxonomistAccreditationIndicator>gf</TaxonomistAccreditationIndicator>
-					<TaxonomistAccreditationAuthorityName>gg</TaxonomistAccreditationAuthorityName>
+					<LaboratoryAccreditationIndicator>resLabAccredYN</LaboratoryAccreditationIndicator>
+					<LaboratoryAccreditationAuthorityName>resLabAccredAuthority</LaboratoryAccreditationAuthorityName>
+					<TaxonomistAccreditationIndicator>resTaxonomistAccredYN</TaxonomistAccreditationIndicator>
+					<TaxonomistAccreditationAuthorityName>resTaxonomistAccredAuthorty</TaxonomistAccreditationAuthorityName>
 				</ResultLabInformation>
 				<LabSamplePreparation>
 					<LabSamplePreparationMethod>
-						<MethodIdentifier>gh</MethodIdentifier>
-						<MethodIdentifierContext>gi</MethodIdentifierContext>
-						<MethodName>gj</MethodName>
-						<MethodQualifierTypeName>gk</MethodQualifierTypeName>
-						<MethodDescriptionText>gl</MethodDescriptionText>
+						<MethodIdentifier>prepMethodId</MethodIdentifier>
+						<MethodIdentifierContext>prepMethodContext</MethodIdentifierContext>
+						<MethodName>prepMethodName</MethodName>
+						<MethodQualifierTypeName>prepMethodQualType</MethodQualifierTypeName>
+						<MethodDescriptionText>prepMethodDesc</MethodDescriptionText>
 					</LabSamplePreparationMethod>
-					<PreparationStartDate>co</PreparationStartDate>
+					<PreparationStartDate>analysisPrepDateTx</PreparationStartDate>
 					<PreparationStartTime>
-						<Time>gm</Time>
-						<TimeZoneCode>gn</TimeZoneCode>
+						<Time>prepStartTime</Time>
+						<TimeZoneCode>prepStartTimezone</TimeZoneCode>
 					</PreparationStartTime>
-					<PreparationEndDate>go</PreparationEndDate>
+					<PreparationEndDate>prepEndDate</PreparationEndDate>
 					<PreparationEndTime>
-						<Time>gp</Time>
-						<TimeZoneCode>gq</TimeZoneCode>
+						<Time>prepEndTime</Time>
+						<TimeZoneCode>prepEndTimezone</TimeZoneCode>
 					</PreparationEndTime>
-					<SubstitutionDilutionFactorNumeric>gr</SubstitutionDilutionFactorNumeric>
+					<SubstitutionDilutionFactorNumeric>prepDilutionFactor</SubstitutionDilutionFactorNumeric>
 				</LabSamplePreparation>
+			</Result>
+			<Result>
+				<ResultDescription>
+					<CharacteristicName>characteristicName</CharacteristicName>
+					<USGSPCode>99999</USGSPCode>
+				</ResultDescription>
+				<BiologicalResultDescription>
+					<SubjectTaxonomicName>sampleTissueTaxonomicName</SubjectTaxonomicName>
+				</BiologicalResultDescription>
+			</Result>
+			<Result>
+				<ResultDescription>
+					<CharacteristicName>characteristicName</CharacteristicName>
+					<USGSPCode>99999</USGSPCode>
+				</ResultDescription>
+				<BiologicalResultDescription>
+					<SubjectTaxonomicName>sampleTissueTaxonomicName</SubjectTaxonomicName>
+				</BiologicalResultDescription>
+			</Result>
+			<Result>
+				<ResultDescription>
+					<CharacteristicName>characteristicName</CharacteristicName>
+					<USGSPCode>99999</USGSPCode>
+				</ResultDescription>
+				<BiologicalResultDescription>
+					<SubjectTaxonomicName>sampleTissueTaxonomicName</SubjectTaxonomicName>
+				</BiologicalResultDescription>
+			</Result>
+			<Result>
+				<ResultDescription>
+					<CharacteristicName>characteristicName</CharacteristicName>
+					<USGSPCode>99999</USGSPCode>
+				</ResultDescription>
+				<BiologicalResultDescription>
+					<SubjectTaxonomicName>sampleTissueTaxonomicName</SubjectTaxonomicName>
+				</BiologicalResultDescription>
+			</Result>
+			<Result>
+				<ResultDescription>
+					<CharacteristicName>characteristicName</CharacteristicName>
+					<USGSPCode>99999</USGSPCode>
+				</ResultDescription>
+				<BiologicalResultDescription>
+					<SubjectTaxonomicName>sampleTissueTaxonomicName</SubjectTaxonomicName>
+				</BiologicalResultDescription>
+			</Result>
+			<Result>
+				<ResultDescription>
+					<CharacteristicName>characteristicName</CharacteristicName>
+					<USGSPCode>99999</USGSPCode>
+				</ResultDescription>
+				<BiologicalResultDescription>
+					<SubjectTaxonomicName>sampleTissueTaxonomicName</SubjectTaxonomicName>
+				</BiologicalResultDescription>
+			</Result>
+			<Result>
+				<ResultDescription>
+					<CharacteristicName>characteristicName</CharacteristicName>
+					<USGSPCode>99999</USGSPCode>
+				</ResultDescription>
+				<BiologicalResultDescription>
+					<SubjectTaxonomicName>sampleTissueTaxonomicName</SubjectTaxonomicName>
+				</BiologicalResultDescription>
+			</Result>
+			<Result>
+				<ResultDescription>
+					<CharacteristicName>characteristicName</CharacteristicName>
+					<USGSPCode>99992</USGSPCode>
+				</ResultDescription>
+				<BiologicalResultDescription>
+					<SubjectTaxonomicName>sampleTissueTaxonomicName</SubjectTaxonomicName>
+				</BiologicalResultDescription>
+			</Result>
+		</Activity>
+	</Organization>
+	<Organization>
+		<OrganizationDescription>
+			<OrganizationIdentifier>USGS</OrganizationIdentifier>
+		</OrganizationDescription>
+		<Activity>
+			<Result>
+				<ResultDescription>
+					<CharacteristicName>Count</CharacteristicName>
+				</ResultDescription>
+				<BiologicalResultDescription>
+					<SubjectTaxonomicName>Acipenser</SubjectTaxonomicName>
+				</BiologicalResultDescription>
 			</Result>
 		</Activity>
 	</Organization>

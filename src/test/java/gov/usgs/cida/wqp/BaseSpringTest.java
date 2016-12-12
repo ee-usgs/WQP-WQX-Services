@@ -5,7 +5,11 @@ import static org.junit.Assert.assertEquals;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.net.URL;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -67,10 +71,56 @@ public abstract class BaseSpringTest {
 		return os.toString();
 	}
 
+	public static String TOTAL_SITE_COUNT = "12";
+	public static String NWIS_SITE_COUNT = "2";
+	public static String STEWARDS_SITE_COUNT = "2";
+	public static String STORET_SITE_COUNT = "7";
+	public static String BIODATA_SITE_COUNT = "1";
+
+	public static String TOTAL_ACTIVITY_COUNT = "23";
+	public static String NWIS_ACTIVITY_COUNT = "3";
+	public static String STEWARDS_ACTIVITY_COUNT = "3";
+	public static String STORET_ACTIVITY_COUNT = "16";
+	public static String BIODATA_ACTIVITY_COUNT = "1";
+;
+	public static String TOTAL_RESULT_COUNT = "59";
+	public static String NWIS_RESULT_COUNT = "5";
+	public static String STEWARDS_RESULT_COUNT = "3";
+	public static String STORET_RESULT_COUNT = "50";
+	public static String BIODATA_RESULT_COUNT = "1";
+
+	public static final String FILTERED_STORET_SITE_COUNT = "1";
+	public static final String FILTERED_TOTAL_SITE_COUNT = "1";
+	public static final String FILTERED_STORET_ACTIVITY_COUNT = "2";
+	public static final String FILTERED_TOTAL_ACTIVITY_COUNT = "2";
+	public static final String FILTERED_STORET_RESULT_COUNT = "4";
+	public static final String FILTERED_TOTAL_RESULT_COUNT = "4";
+
 	public static final String NWIS = "NWIS";
 	public static final String STORET = "STORET";
 	public static final String STEWARDS = "STEWARDS";
 	public static final String BIODATA = "BIODATA";
+
+	public static final BigDecimal STEWARDS_ID = BigDecimal.ONE;
+	public static final BigDecimal NWIS_ID = BigDecimal.valueOf(2);
+	public static final BigDecimal STORET_ID = BigDecimal.valueOf(3);
+	public static final BigDecimal BIODATA_ID = BigDecimal.valueOf(4);
+
+	public static final String HEADER_NWIS_SITE_COUNT = "NWIS-Site-Count";
+	public static final String HEADER_NWIS_ACTIVITY_COUNT = "NWIS-Activity-Count";
+	public static final String HEADER_NWIS_RESULT_COUNT = "NWIS-Result-Count";
+
+	public static final String HEADER_STEWARDS_SITE_COUNT = "STEWARDS-Site-Count";
+	public static final String HEADER_STEWARDS_ACTIVITY_COUNT = "STEWARDS-Activity-Count";
+	public static final String HEADER_STEWARDS_RESULT_COUNT = "STEWARDS-Result-Count";
+
+	public static final String HEADER_STORET_SITE_COUNT = "STORET-Site-Count";
+	public static final String HEADER_STORET_ACTIVITY_COUNT = "STORET-Activity-Count";
+	public static final String HEADER_STORET_RESULT_COUNT = "STORET-Result-Count";
+
+	public static final String HEADER_BIODATA_SITE_COUNT = "BIODATA-Site-Count";
+	public static final String HEADER_BIODATA_ACTIVITY_COUNT = "BIODATA-Activity-Count";
+	public static final String HEADER_BIODATA_RESULT_COUNT = "BIODATA-Result-Count";
 
 	public String[] getAnalyticalMethod() {
 		return new String[]{"https://www.nemi.gov/methods/method_summary/4665/", "https://www.nemi.gov/methods/method_summary/8896/", "analyticalMethod"};
@@ -108,12 +158,32 @@ public abstract class BaseSpringTest {
 		return new String[]{"07*", "0708*", "070801*", "07090002", "07080105", "0000"};
 	}
 
+	public String[] getHuc2() {
+		return new String[]{"07"};
+	}
+
+	public String[] getHuc4() {
+		return new String[]{"0709"};
+	}
+
+	public String[] getHuc6() {
+		return new String[]{"070900"};
+	}
+
+	public String[] getHuc8() {
+		return new String[]{"07090001"};
+	}
+
 	public String[] getLatitude() {
 		return new String[]{"43.3836014"};
 	}
 
 	public String[] getLongitude() {
 		return new String[]{"-88.9773314"};
+	}
+
+	public String[] getMinActivities() {
+		return new String[]{"2"};
 	}
 
 	public String[] getMinResults() {
@@ -123,6 +193,10 @@ public abstract class BaseSpringTest {
 	public String[] getNldiSites() {
 		return new String[]{"11NPSWRD-BICA_MFG_B", "WIDNR_WQX-10030952", "USGS-05425700",
 				"USGS-431925089002701", "ARS-IAWC-IAWC225", "ARS-IAWC-IAWC410", "USGS-11421000", "organization-siteId2", "organization-siteId3"};
+	}
+
+	public Set<String> getNldiSitesAsSet() {
+		return new HashSet<String> (Arrays.asList(getNldiSites()));
 	}
 
 	public String[] getNldiurl() {
@@ -151,6 +225,10 @@ public abstract class BaseSpringTest {
 
 	public String[] getSiteid() {
 		return new String[]{"organization-siteId", "organization-siteId2", "organization-siteId3", "11NPSWRD-BICA_MFG_B", "WIDNR_WQX-10030952", "USGS-05425700", "USGS-431925089002701", "ARS-IAWC-IAWC225", "ARS-IAWC-IAWC410"};
+	}
+
+	public String[] getManySiteId() throws IOException {
+		return getSourceFile("manySites.txt").split(",");
 	}
 
 	public String[] getSiteType() {

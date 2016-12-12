@@ -70,29 +70,36 @@ public class ActivityControllerIntTest extends BaseControllerIntegrationTest {
 	@Test
 	public void postGetCountTest() throws Exception {
 		String urlPrefix = "/" + HttpConstants.ACTIVITY_SEARCH_ENPOINT + "/count?mimeType=";
-		String compareObject = "{\"STORET-Site-Count\":\"1\",\"Total-Site-Count\":\"1\",\"STORET-Activity-Count\":\"1\",\"Total-Activity-Count\":\"1\"}";
+		String compareObject = "{\"" + HttpConstants.HEADER_TOTAL_SITE_COUNT + "\":\"" + FILTERED_TOTAL_SITE_COUNT
+				+ "\",\"" + HttpConstants.HEADER_TOTAL_ACTIVITY_COUNT + "\":\"" + FILTERED_TOTAL_ACTIVITY_COUNT
+				+ "\",\"" + HEADER_STORET_SITE_COUNT + "\":\"" + FILTERED_STORET_SITE_COUNT
+				+ "\",\"" + HEADER_STORET_ACTIVITY_COUNT + "\":\"" + FILTERED_STORET_ACTIVITY_COUNT
+				+ "\"}";
 		postGetCountTest(urlPrefix, compareObject);
 	}
 
 	public ResultActions unFilteredHeaderCheck(ResultActions resultActions) throws Exception {
 		return resultActions
-				.andExpect(header().string("Total-Site-Count", "12"))
-				.andExpect(header().string("NWIS-Site-Count", "2"))
-				.andExpect(header().string("STEWARDS-Site-Count", "2"))
-				.andExpect(header().string("STORET-Site-Count", "7"))
-				.andExpect(header().string("BIODATA-Site-Count", "1"))
+				.andExpect(header().string(HttpConstants.HEADER_TOTAL_SITE_COUNT, TOTAL_SITE_COUNT))
+				.andExpect(header().string(HEADER_NWIS_SITE_COUNT, NWIS_SITE_COUNT))
+				.andExpect(header().string(HEADER_STEWARDS_SITE_COUNT, STEWARDS_SITE_COUNT))
+				.andExpect(header().string(HEADER_STORET_SITE_COUNT, STORET_SITE_COUNT))
+				.andExpect(header().string(HEADER_BIODATA_SITE_COUNT, BIODATA_SITE_COUNT))
 
-				.andExpect(header().string("Total-Activity-Count", "301"))
-				.andExpect(header().string("NWIS-Activity-Count", "48"))
-				.andExpect(header().string("STEWARDS-Activity-Count", "40"))
-				.andExpect(header().string("STORET-Activity-Count", "178"))
-				.andExpect(header().string("BIODATA-Activity-Count", "35"));
+				.andExpect(header().string(HttpConstants.HEADER_TOTAL_ACTIVITY_COUNT, TOTAL_ACTIVITY_COUNT))
+				.andExpect(header().string(HEADER_NWIS_ACTIVITY_COUNT, NWIS_ACTIVITY_COUNT))
+				.andExpect(header().string(HEADER_STEWARDS_ACTIVITY_COUNT, STEWARDS_ACTIVITY_COUNT))
+				.andExpect(header().string(HEADER_STORET_ACTIVITY_COUNT, STORET_ACTIVITY_COUNT))
+				.andExpect(header().string(HEADER_BIODATA_ACTIVITY_COUNT, BIODATA_ACTIVITY_COUNT));
 	}
 
 	public ResultActions filteredHeaderCheck(ResultActions resultActions) throws Exception {
 		return resultActions
-				.andExpect(header().string("Total-Site-Count", "1"))
-				.andExpect(header().string("STORET-Site-Count", "1"));
+				.andExpect(header().string(HttpConstants.HEADER_TOTAL_SITE_COUNT, FILTERED_TOTAL_SITE_COUNT))
+				.andExpect(header().string(HEADER_STORET_SITE_COUNT, FILTERED_STORET_SITE_COUNT))
+
+				.andExpect(header().string(HttpConstants.HEADER_TOTAL_ACTIVITY_COUNT, FILTERED_TOTAL_ACTIVITY_COUNT))
+				.andExpect(header().string(HEADER_STORET_ACTIVITY_COUNT, FILTERED_STORET_ACTIVITY_COUNT));
 	}
 
 }

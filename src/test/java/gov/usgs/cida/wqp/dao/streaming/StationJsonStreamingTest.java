@@ -15,11 +15,11 @@ import gov.usgs.cida.wqp.dao.BaseDao;
 @Category(DBIntegrationTest.class)
 @DatabaseSetup("classpath:/testData/csv/")
 @DbUnitConfiguration(dataSetLoader = CsvDataSetLoader.class)
-public class StationStreamingTest extends BaseStationStreamingTest {
+public class StationJsonStreamingTest extends BaseStationStreamingTest {
 
-	protected String nameSpace = BaseDao.STATION_NAMESPACE;
-	protected Integer expectedColumnCount = TestStationMap.STATION_COLUMN_COUNT;
-	protected Map<String, Object> expectedMap = TestStationMap.STATION;
+	protected String nameSpace = BaseDao.SIMPLE_STATION_NAMESPACE;
+	protected Integer expectedColumnCount = TestStationMap.STATION_JSON_COLUMN_COUNT;
+	protected Map<String, Object> expectedMap = TestStationMap.STATION_JSON;
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//Station + Station_Sum 

@@ -83,6 +83,23 @@
 		</Organization>
 		<Organization>
 			<OrganizationDescription>
+				<OrganizationIdentifier>21NYDECA_WQX</OrganizationIdentifier>
+				<OrganizationFormalName>New York State DEC Division of Water</OrganizationFormalName>
+			</OrganizationDescription>
+			<MonitoringLocation>
+				<MonitoringLocationIdentity>
+					<MonitoringLocationIdentifier>21NYDECA_WQX-ONTARIO-02</MonitoringLocationIdentifier>
+					<MonitoringLocationName>Lake Ontario</MonitoringLocationName>
+					<ResolvedMonitoringLocationTypeName>Lake, Reservoir, Impoundment</ResolvedMonitoringLocationTypeName>
+				</MonitoringLocationIdentity>
+				<MonitoringLocationGeospatial>
+					<LatitudeMeasure>44.0167000</LatitudeMeasure>
+					<LongitudeMeasure>-76.6700000</LongitudeMeasure>
+				</MonitoringLocationGeospatial>
+			</MonitoringLocation>
+		</Organization>
+		<Organization>
+			<OrganizationDescription>
 				<OrganizationIdentifier>WIDNR_WQX</OrganizationIdentifier>
 				<OrganizationFormalName>Wisconsin Department of Natural Resources</OrganizationFormalName>
 			</OrganizationDescription>
@@ -95,6 +112,74 @@
 				<MonitoringLocationGeospatial>
 					<LatitudeMeasure>43.3262980</LatitudeMeasure>
 					<LongitudeMeasure>-88.9557000</LongitudeMeasure>
+				</MonitoringLocationGeospatial>
+			</MonitoringLocation>
+			<MonitoringLocation>
+				<MonitoringLocationIdentity>
+					<MonitoringLocationIdentifier>WIDNR_WQX-113086</MonitoringLocationIdentifier>
+					<MonitoringLocationName>Crawfish River at Old Hwy 73 Bridge</MonitoringLocationName>
+					<ResolvedMonitoringLocationTypeName>Stream</ResolvedMonitoringLocationTypeName>
+				</MonitoringLocationIdentity>
+				<MonitoringLocationGeospatial>
+					<LatitudeMeasure>43.3485620</LatitudeMeasure>
+					<LongitudeMeasure>-89.0092550</LongitudeMeasure>
+				</MonitoringLocationGeospatial>
+			</MonitoringLocation>
+		</Organization>
+		<Organization>
+			<OrganizationDescription>
+				<OrganizationIdentifier>organization</OrganizationIdentifier>
+				<OrganizationFormalName>organizationName</OrganizationFormalName>
+			</OrganizationDescription>
+			<MonitoringLocation>
+				<MonitoringLocationIdentity>
+					<MonitoringLocationIdentifier>organization-siteId</MonitoringLocationIdentifier>
+					<MonitoringLocationName>stationName</MonitoringLocationName>
+					<ResolvedMonitoringLocationTypeName>siteType</ResolvedMonitoringLocationTypeName>
+				</MonitoringLocationIdentity>
+				<MonitoringLocationGeospatial>
+					<LatitudeMeasure>43.3330000</LatitudeMeasure>
+					<LongitudeMeasure>-89.8989000</LongitudeMeasure>
+				</MonitoringLocationGeospatial>
+			</MonitoringLocation>
+			<MonitoringLocation>
+				<MonitoringLocationIdentity>
+					<MonitoringLocationIdentifier>organization-siteId2</MonitoringLocationIdentifier>
+					<MonitoringLocationName>stationName</MonitoringLocationName>
+					<ResolvedMonitoringLocationTypeName>siteType</ResolvedMonitoringLocationTypeName>
+				</MonitoringLocationIdentity>
+				<MonitoringLocationGeospatial>
+					<LatitudeMeasure>43.3330000</LatitudeMeasure>
+					<LongitudeMeasure>-90.8989000</LongitudeMeasure>
+				</MonitoringLocationGeospatial>
+			</MonitoringLocation>
+			<MonitoringLocation>
+				<MonitoringLocationIdentity>
+					<MonitoringLocationIdentifier>organization-siteId3</MonitoringLocationIdentifier>
+					<MonitoringLocationName>stationName</MonitoringLocationName>
+					<ResolvedMonitoringLocationTypeName>siteType</ResolvedMonitoringLocationTypeName>
+				</MonitoringLocationIdentity>
+				<MonitoringLocationGeospatial>
+					<LatitudeMeasure>43.3330000</LatitudeMeasure>
+					<LongitudeMeasure>-76.8989000</LongitudeMeasure>
+				</MonitoringLocationGeospatial>
+			</MonitoringLocation>
+		</Organization>
+	</Provider>
+	<Provider>
+		<ProviderName>BIODATA</ProviderName>
+		<Organization>
+			<OrganizationDescription>
+				<OrganizationIdentifier>USGS</OrganizationIdentifier>
+			</OrganizationDescription>
+			<MonitoringLocation>
+				<MonitoringLocationIdentity>
+					<MonitoringLocationIdentifier>USGS-11421000</MonitoringLocationIdentifier>
+					<ResolvedMonitoringLocationTypeName>Stream</ResolvedMonitoringLocationTypeName>
+				</MonitoringLocationIdentity>
+				<MonitoringLocationGeospatial>
+					<LatitudeMeasure>39.1757251</LatitudeMeasure>
+					<LongitudeMeasure>-121.5249647</LongitudeMeasure>
 				</MonitoringLocationGeospatial>
 			</MonitoringLocation>
 		</Organization>

@@ -1,5 +1,8 @@
 package gov.usgs.cida.wqp.dao.streaming;
 
+import static org.junit.Assert.assertEquals;
+
+import java.util.LinkedList;
 import java.util.Map;
 
 import org.junit.Test;
@@ -11,15 +14,16 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 import gov.usgs.cida.wqp.CsvDataSetLoader;
 import gov.usgs.cida.wqp.DBIntegrationTest;
 import gov.usgs.cida.wqp.dao.BaseDao;
+import gov.usgs.cida.wqp.parameter.Parameters;
 
 @Category(DBIntegrationTest.class)
 @DatabaseSetup("classpath:/testData/csv/")
 @DbUnitConfiguration(dataSetLoader = CsvDataSetLoader.class)
-public class StationStreamingTest extends BaseStationStreamingTest {
+public class StationKmlStreamingTest extends BaseStationStreamingTest {
 
-	protected String nameSpace = BaseDao.STATION_NAMESPACE;
-	protected Integer expectedColumnCount = TestStationMap.STATION_COLUMN_COUNT;
-	protected Map<String, Object> expectedMap = TestStationMap.STATION;
+	protected String nameSpace = BaseDao.STATION_KML_NAMESPACE;
+	protected Integer expectedColumnCount = TestStationMap.STATION_KML_COLUMN_COUNT;
+	protected Map<String, Object> expectedMap = TestStationMap.STATION_KML;
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//Station + Station_Sum 
@@ -36,7 +40,25 @@ public class StationStreamingTest extends BaseStationStreamingTest {
 
 	@Test
 	public void allDataSortedTest() {
-		allDataSortedTest(nameSpace, expectedColumnCount, expectedMap);
+		//KML is sorted different than the rest.
+		parms.put(Parameters.SORTED.toString(), "yes");
+		streamingDao.stream(nameSpace, parms, handler);
+
+		LinkedList<Map<String, Object>> results = handler.getResults();
+		//Validate the number AND order of results.
+		assertEquals(TOTAL_SITE_COUNT, String.valueOf(results.size()));
+		assertRow(results.get(0), STORET_1043441, expectedColumnCount);
+		assertRow(results.get(1), STORET_504707, expectedColumnCount);
+		assertRow(results.get(2), STEWARDS_36, expectedColumnCount);
+		assertRow(results.get(3), STEWARDS_46, expectedColumnCount);
+		assertRow(results.get(4), NWIS_1353690, expectedColumnCount);
+		assertRow(results.get(5), BIODATA_61233184, expectedColumnCount);
+		assertRow(results.get(6), NWIS_1360035, expectedColumnCount);
+		assertRow(results.get(7), STORET_436723, expectedColumnCount);
+		assertRow(results.get(8), STORET_1383, expectedColumnCount);
+		assertStoret888(results.get(9), expectedColumnCount, expectedMap);
+		assertRow(results.get(10), STORET_777, expectedColumnCount);
+		assertRow(results.get(11), STORET_999, expectedColumnCount);
 	}
 
 	@Test

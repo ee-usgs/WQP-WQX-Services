@@ -21,7 +21,7 @@
         <choose>
             <when test="analyticalmethod == null and assemblage == null and characteristicName == null and
                         characteristicType == null and pCode == null and subjectTaxonomicName == null and
-                        minresults == null">
+                        minactivities == null and minresults == null">
                 <if test="bBox != null or within != null">
                     join station_sum secondary
                       on prime.station_id = secondary.station_id and
@@ -36,9 +36,9 @@
 
             <when test="analyticalmethod == null and assemblage == null and characteristicName == null and
                         characteristicType == null and pCode == null and subjectTaxonomicName == null and
-                        minresults != null">
+                        (minactivities != null or minresults != null)">
                 join (
-                select prime.data_source_id, prime.station_id, prime.activity_id, prime.result_count
+                select prime.data_source_id, prime.station_id, prime.activity_id, count(*) over (partition by prime.data_source_id, prime.station_id) activity_count, prime.result_count
                   from activity_sum prime
                 <if test="bBox != null or within != null">
                     join station_sum secondary
@@ -58,7 +58,7 @@
 
             <otherwise>
                 join (
-                select prime.data_source_id, prime.station_id, prime.activity_id, sum(prime.result_count) result_count
+                select prime.data_source_id, prime.station_id, prime.activity_id, count(distinct prime.activity_id) over (partition by prime.data_source_id, prime.station_id) activity_count, sum(prime.result_count) result_count
                   from result_sum prime
                 <if test="bBox != null or within != null">
                     join station_sum secondary
@@ -80,6 +80,9 @@
         </choose>
 
         <where>
+            <if test="minactivities != null">
+                and (filter.activity_count >= #{minactivities[0]})
+            </if>
             <if test="minresults != null">
                 and (filter.result_count >= #{minresults[0]})
             </if>

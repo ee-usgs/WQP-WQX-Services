@@ -1,7 +1,7 @@
 package gov.usgs.cida.wqp.webservice;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertFalse;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,12 +37,12 @@ public class ActivityControllerTest extends BaseSpringTest {
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		String countHeader = controller.addCountHeaders(response, BaseControllerTest.getRawCounts());
 		assertEquals(HttpConstants.HEADER_TOTAL_ACTIVITY_COUNT, countHeader);
-		assertEquals("12", response.getHeaderValue("NWIS-Site-Count"));
-		assertEquals("121", response.getHeaderValue("Total-Site-Count"));
-		assertEquals("113", response.getHeaderValue("NWIS-Activity-Count"));
-		assertEquals("1131", response.getHeaderValue("Total-Activity-Count"));
-		assertNull(response.getHeaderValue("NWIS-Result-Count"));
-		assertNull(response.getHeaderValue("Total-Result-Count"));
+		assertEquals(BaseControllerTest.TEST_NWIS_STATION_COUNT, response.getHeaderValue(HEADER_NWIS_SITE_COUNT));
+		assertEquals(BaseControllerTest.TEST_TOTAL_STATION_COUNT, response.getHeaderValue(HttpConstants.HEADER_TOTAL_SITE_COUNT));
+		assertEquals(BaseControllerTest.TEST_NWIS_ACTIVITY_COUNT, response.getHeaderValue(HEADER_NWIS_ACTIVITY_COUNT));
+		assertEquals(BaseControllerTest.TEST_TOTAL_ACTIVITY_COUNT, response.getHeaderValue(HttpConstants.HEADER_TOTAL_ACTIVITY_COUNT));
+		assertFalse(response.containsHeader(HEADER_NWIS_RESULT_COUNT));
+		assertFalse(response.containsHeader(HttpConstants.HEADER_TOTAL_RESULT_COUNT));
 	}
 
 	@Test

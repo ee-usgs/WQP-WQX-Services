@@ -13,11 +13,11 @@ import gov.usgs.cida.wqp.dao.BaseDao;
 @Category(DBIntegrationTest.class)
 @DatabaseSetup("classpath:/testData/csv/")
 @DbUnitConfiguration(dataSetLoader = CsvDataSetLoader.class)
-public class CountDaoBioResultTest extends CountDaoTest {
+public class CountDaoStationKmlTest extends CountDaoTest {
 
-	protected String nameSpace = BaseDao.BIOLOGICAL_RESULT_NAMESPACE;
-	protected boolean includeActivity = true;
-	protected boolean includeResults = true;
+	protected String nameSpace = BaseDao.STATION_KML_NAMESPACE;
+	protected boolean includeActivity = false;
+	protected boolean includeResults = false;
 
 	@Test
 	public void nullParameterTest() {
@@ -192,4 +192,6 @@ public class CountDaoBioResultTest extends CountDaoTest {
 	@Test
 	public void multipleParameterResultSumStationSumTests() {
 		multipleParameterResultSumStationSumTests(nameSpace, includeActivity, includeResults);
-	}}
+	}
+
+}

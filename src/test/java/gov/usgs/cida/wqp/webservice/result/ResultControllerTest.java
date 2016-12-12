@@ -37,10 +37,12 @@ public class ResultControllerTest extends BaseSpringTest {
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		String countHeader = controller.addCountHeaders(response, BaseControllerTest.getRawCounts());
 		assertEquals(HttpConstants.HEADER_TOTAL_RESULT_COUNT, countHeader);
-		assertEquals("12", response.getHeaderValue("NWIS-Site-Count"));
-		assertEquals("121", response.getHeaderValue("Total-Site-Count"));
-		assertEquals("359", response.getHeaderValue("NWIS-Result-Count"));
-		assertEquals("3591", response.getHeaderValue("Total-Result-Count"));
+		assertEquals(BaseControllerTest.TEST_NWIS_STATION_COUNT, response.getHeaderValue(HEADER_NWIS_SITE_COUNT));
+		assertEquals(BaseControllerTest.TEST_TOTAL_STATION_COUNT, response.getHeaderValue(HttpConstants.HEADER_TOTAL_SITE_COUNT));
+		assertEquals(BaseControllerTest.TEST_NWIS_ACTIVITY_COUNT, response.getHeaderValue(HEADER_NWIS_ACTIVITY_COUNT));
+		assertEquals(BaseControllerTest.TEST_TOTAL_ACTIVITY_COUNT, response.getHeaderValue(HttpConstants.HEADER_TOTAL_ACTIVITY_COUNT));
+		assertEquals(BaseControllerTest.TEST_NWIS_RESULT_COUNT, response.getHeaderValue(HEADER_NWIS_RESULT_COUNT));
+		assertEquals(BaseControllerTest.TEST_TOTAL_RESULT_COUNT, response.getHeaderValue(HttpConstants.HEADER_TOTAL_RESULT_COUNT));
 	}
 
 	@Test

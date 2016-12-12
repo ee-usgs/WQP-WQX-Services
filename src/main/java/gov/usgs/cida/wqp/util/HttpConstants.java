@@ -4,35 +4,36 @@ import org.springframework.http.MediaType;
 
 public class HttpConstants {
 	public static final String DEFAULT_ENCODING = "UTF-8";
-	public static final String HEADER_FATAL_ERROR = "FATAL-ERROR";
+
+	public static final String ENDPOINT_ACTIVITY = "Activity";
+	public static final String ENDPOINT_RESULT = "Result";
+	public static final String ENDPOINT_STATION = "Station";
+	public static final String ENDPOINT_SIMPLE_STATION = "simplestation";
+	public static final String ENPOINT_SEARCH = "/search";
+
+	public static final String ACTIVITY_SEARCH_ENPOINT = ENDPOINT_ACTIVITY + ENPOINT_SEARCH;
+	public static final String RESULT_SEARCH_ENPOINT = ENDPOINT_RESULT + ENPOINT_SEARCH;
+	public static final String STATION_SEARCH_ENPOINT = ENDPOINT_STATION + ENPOINT_SEARCH;
+	public static final String SIMPLE_STATION_ENDPOINT = ENDPOINT_SIMPLE_STATION + ENPOINT_SEARCH;
+
 	public static final int HEADER_WARNING_DEFAULT_CODE = 299;
+	public static final String HEADER_FATAL_ERROR = "FATAL-ERROR";
+	public static final String HEADER_CONTENT_TYPE = "Content-Type";
+	public static final String HEADER_CONTENT_DISPOSITION = "Content-disposition";
+
 	public static final String HEADER_WARNING = "Warning";
 	public static final String HEADER_DELIMITER = "-";
 	public static final String HEADER_COUNT = "Count";
 	public static final String HEADER_SITE = "Site";
 	public static final String HEADER_TOTAL = "Total";
+
 	public static final String HEADER_SITE_COUNT = HEADER_SITE + HEADER_DELIMITER + HEADER_COUNT;
 	public static final String HEADER_TOTAL_SITE_COUNT = HEADER_TOTAL + HEADER_DELIMITER + HEADER_SITE_COUNT;
 
-	public static final String HEADER_CONTENT_TYPE = "Content-Type";
-	public static final String HEADER_CONTENT_DISPOSITION = "Content-disposition";
-	public static final String ENDPOINT_ACTIVITY = "Activity";
-	public static final String ENDPOINT_RESULT = "Result";
-	public static final String ENDPOINT_STATION = "Station";
-	public static final String ENDPOINT_SIMPLE_STATION = "simplestation";
-	public static final String SEARCH_ENPOINT = "/search";
-	// must do it here rather than in the EndPoint constructor because annotations require compile time values
-	public static final String ACTIVITY_SEARCH_ENPOINT = ENDPOINT_ACTIVITY + SEARCH_ENPOINT;
-	public static final String RESULT_SEARCH_ENPOINT = ENDPOINT_RESULT + SEARCH_ENPOINT;
-	public static final String STATION_SEARCH_ENPOINT = ENDPOINT_STATION + SEARCH_ENPOINT;
-	public static final String SIMPLE_STATION_ENDPOINT = ENDPOINT_SIMPLE_STATION + SEARCH_ENPOINT;
-
-	public static final String HEADER_ACTIVITY = ENDPOINT_ACTIVITY;
-	public static final String HEADER_ACTIVITY_COUNT = HEADER_ACTIVITY + HEADER_DELIMITER + HEADER_COUNT;
+	public static final String HEADER_ACTIVITY_COUNT = ENDPOINT_ACTIVITY + HEADER_DELIMITER + HEADER_COUNT;
 	public static final String HEADER_TOTAL_ACTIVITY_COUNT = HEADER_TOTAL + HEADER_DELIMITER + HEADER_ACTIVITY_COUNT;
 
-	public static final String HEADER_RESULT = ENDPOINT_RESULT;
-	public static final String HEADER_RESULT_COUNT = HEADER_RESULT + HEADER_DELIMITER + HEADER_COUNT;
+	public static final String HEADER_RESULT_COUNT = ENDPOINT_RESULT + HEADER_DELIMITER + HEADER_COUNT;
 	public static final String HEADER_TOTAL_RESULT_COUNT = HEADER_TOTAL + HEADER_DELIMITER + HEADER_RESULT_COUNT;
 
 	public static final String MIME_TYPE_ZIP  = "application/zip";

@@ -1,0 +1,232 @@
+{
+	"type": "FeatureCollection",
+	"features": [{
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [-93.6982205, 41.9607224]
+		},
+		"properties": {
+			"ProviderName": "STEWARDS",
+			"OrganizationIdentifier": "ARS",
+			"OrganizationFormalName": "USDA Agricultural Research Service",
+			"MonitoringLocationIdentifier": "ARS-IAWC-IAWC225",
+			"MonitoringLocationName": "IAWC225",
+			"MonitoringLocationTypeName": "",
+			"ResolvedMonitoringLocationTypeName": "Land",
+			"HUCEightDigitCode": "07080105",
+			"siteUrl": "http://www.waterqualitydata.us/provider/STEWARDS/ARS/ARS-IAWC-IAWC225/",
+			"activityCount": "2",
+			"resultCount": "2"
+		}
+	}, {
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [-93.7590729, 41.9505493]
+		},
+		"properties": {
+			"ProviderName": "STEWARDS",
+			"OrganizationIdentifier": "ARS",
+			"OrganizationFormalName": "USDA Agricultural Research Service",
+			"MonitoringLocationIdentifier": "ARS-IAWC-IAWC410",
+			"MonitoringLocationName": "IAWC410",
+			"MonitoringLocationTypeName": "",
+			"ResolvedMonitoringLocationTypeName": "Stream",
+			"HUCEightDigitCode": "07100004",
+			"siteUrl": "http://www.waterqualitydata.us/provider/STEWARDS/ARS/ARS-IAWC-IAWC410/",
+			"activityCount": "1",
+			"resultCount": "1"
+		}
+	}, {
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [-89.0320546, 43.3466571]
+		},
+		"properties": {
+			"ProviderName": "NWIS",
+			"OrganizationIdentifier": "USGS-WI",
+			"OrganizationFormalName": "USGS Wisconsin Water Science Center",
+			"MonitoringLocationIdentifier": "USGS-05425700",
+			"MonitoringLocationName": "ROBBINS CREEK NEAR COLUMBUS, WI",
+			"MonitoringLocationTypeName": "",
+			"ResolvedMonitoringLocationTypeName": "Stream",
+			"HUCEightDigitCode": "07090002",
+			"siteUrl": "http://www.waterqualitydata.us/provider/NWIS/USGS-WI/USGS-05425700/",
+			"activityCount": "2",
+			"resultCount": "4"
+		}
+	}, {
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [-89.0076094, 43.3236024]
+		},
+		"properties": {
+			"ProviderName": "NWIS",
+			"OrganizationIdentifier": "USGS-WI",
+			"OrganizationFormalName": "USGS Wisconsin Water Science Center",
+			"MonitoringLocationIdentifier": "USGS-431925089002701",
+			"MonitoringLocationName": "DG-10/13E/19-0891",
+			"MonitoringLocationTypeName": "",
+			"ResolvedMonitoringLocationTypeName": "Well",
+			"HUCEightDigitCode": "07090102",
+			"siteUrl": "http://www.waterqualitydata.us/provider/NWIS/USGS-WI/USGS-431925089002701/",
+			"activityCount": "1",
+			"resultCount": "1"
+		}
+	}, {
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [-108.0188666, 45.2756528]
+		},
+		"properties": {
+			"ProviderName": "STORET",
+			"OrganizationIdentifier": "11NPSWRD",
+			"OrganizationFormalName": "National Park Service Water Resources Division",
+			"MonitoringLocationIdentifier": "11NPSWRD-BICA_MFG_B",
+			"MonitoringLocationName": "BIGHORN LAKE NEAR BLACK CANYON",
+			"MonitoringLocationTypeName": "",
+			"ResolvedMonitoringLocationTypeName": "Lake, Reservoir, Impoundment",
+			"HUCEightDigitCode": "07080105",
+			"siteUrl": "http://www.waterqualitydata.us/provider/STORET/11NPSWRD/11NPSWRD-BICA_MFG_B/",
+			"activityCount": "3",
+			"resultCount": "4"
+		}
+	}, {
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [-76.6700000, 44.0167000]
+		},
+		"properties": {
+			"ProviderName": "STORET",
+			"OrganizationIdentifier": "21NYDECA_WQX",
+			"OrganizationFormalName": "New York State DEC Division of Water",
+			"MonitoringLocationIdentifier": "21NYDECA_WQX-ONTARIO-02",
+			"MonitoringLocationName": "Lake Ontario",
+			"MonitoringLocationTypeName": "Great Lake",
+			"ResolvedMonitoringLocationTypeName": "Lake, Reservoir, Impoundment",
+			"HUCEightDigitCode": "04150200",
+			"siteUrl": "http://www.waterqualitydata.us/provider/STORET/21NYDECA_WQX/21NYDECA_WQX-ONTARIO-02/",
+			"activityCount": "4",
+			"resultCount": "26"
+		}
+	}, {
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [-88.9557000, 43.3262980]
+		},
+		"properties": {
+			"ProviderName": "STORET",
+			"OrganizationIdentifier": "WIDNR_WQX",
+			"OrganizationFormalName": "Wisconsin Department of Natural Resources",
+			"MonitoringLocationIdentifier": "WIDNR_WQX-10030952",
+			"MonitoringLocationName": "Crawfish River -- Astico County Park Canoe Launch",
+			"MonitoringLocationTypeName": "",
+			"ResolvedMonitoringLocationTypeName": "Stream",
+			"HUCEightDigitCode": "07090001",
+			"siteUrl": "http://www.waterqualitydata.us/provider/STORET/WIDNR_WQX/WIDNR_WQX-10030952/",
+			"activityCount": "0",
+			"resultCount": "0"
+		}
+	}, {
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [-89.0092550, 43.3485620]
+		},
+		"properties": {
+			"ProviderName": "STORET",
+			"OrganizationIdentifier": "WIDNR_WQX",
+			"OrganizationFormalName": "Wisconsin Department of Natural Resources",
+			"MonitoringLocationIdentifier": "WIDNR_WQX-113086",
+			"MonitoringLocationName": "Crawfish River at Old Hwy 73 Bridge",
+			"MonitoringLocationTypeName": "River/Stream",
+			"ResolvedMonitoringLocationTypeName": "Stream",
+			"HUCEightDigitCode": "07090001",
+			"siteUrl": "http://www.waterqualitydata.us/provider/STORET/WIDNR_WQX/WIDNR_WQX-113086/",
+			"activityCount": "2",
+			"resultCount": "11"
+		}
+	}, {
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [-89.8989000, 43.3330000]
+		},
+		"properties": {
+			"ProviderName": "STORET",
+			"OrganizationIdentifier": "organization",
+			"OrganizationFormalName": "organizationName",
+			"MonitoringLocationIdentifier": "organization-siteId",
+			"MonitoringLocationName": "stationName",
+			"MonitoringLocationTypeName": "stationTypeName",
+			"ResolvedMonitoringLocationTypeName": "siteType",
+			"HUCEightDigitCode": "00000000",
+			"siteUrl": "http://www.waterqualitydata.us/provider/STORET/organization/organization-siteId/",
+			"activityCount": "5",
+			"resultCount": "4"
+		}
+	}, {
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [-90.8989000, 43.3330000]
+		},
+		"properties": {
+			"ProviderName": "STORET",
+			"OrganizationIdentifier": "organization",
+			"OrganizationFormalName": "organizationName",
+			"MonitoringLocationIdentifier": "organization-siteId2",
+			"MonitoringLocationName": "stationName",
+			"MonitoringLocationTypeName": "stationTypeName",
+			"ResolvedMonitoringLocationTypeName": "siteType",
+			"HUCEightDigitCode": "00000000",
+			"siteUrl": "http://www.waterqualitydata.us/provider/STORET/organization/organization-siteId2/",
+			"activityCount": "2",
+			"resultCount": "4"
+		}
+	}, {
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [-76.8989000, 43.3330000]
+		},
+		"properties": {
+			"ProviderName": "STORET",
+			"OrganizationIdentifier": "organization",
+			"OrganizationFormalName": "organizationName",
+			"MonitoringLocationIdentifier": "organization-siteId3",
+			"MonitoringLocationName": "stationName",
+			"MonitoringLocationTypeName": "stationTypeName",
+			"ResolvedMonitoringLocationTypeName": "siteType",
+			"HUCEightDigitCode": "00000000",
+			"siteUrl": "http://www.waterqualitydata.us/provider/STORET/organization/organization-siteId3/",
+			"activityCount": "0",
+			"resultCount": "1"
+		}
+	}, {
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [-121.5249647, 39.1757251]
+		},
+		"properties": {
+			"ProviderName": "BIODATA",
+			"OrganizationIdentifier": "USGS",
+			"OrganizationFormalName": "",
+			"MonitoringLocationIdentifier": "USGS-11421000",
+			"MonitoringLocationName": "",
+			"MonitoringLocationTypeName": "",
+			"ResolvedMonitoringLocationTypeName": "Stream",
+			"HUCEightDigitCode": "18020107",
+			"siteUrl": "http://www.waterqualitydata.us/provider/BIODATA/USGS/USGS-11421000/",
+			"activityCount": "1",
+			"resultCount": "1"
+		}
+	}]
+}

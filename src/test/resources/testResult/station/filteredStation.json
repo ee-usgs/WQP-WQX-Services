@@ -1,0 +1,23 @@
+{
+	"type": "FeatureCollection",
+	"features": [{
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [-90.8989000, 43.3330000]
+		},
+		"properties": {
+			"ProviderName": "STORET",
+			"OrganizationIdentifier": "organization",
+			"OrganizationFormalName": "organizationName",
+			"MonitoringLocationIdentifier": "organization-siteId2",
+			"MonitoringLocationName": "stationName",
+			"MonitoringLocationTypeName": "stationTypeName",
+			"ResolvedMonitoringLocationTypeName": "siteType",
+			"HUCEightDigitCode": "00000000",
+			"siteUrl": "http://www.waterqualitydata.us/provider/STORET/organization/organization-siteId2/",
+			"activityCount": "2",
+			"resultCount": "4"
+		}
+	}]
+}

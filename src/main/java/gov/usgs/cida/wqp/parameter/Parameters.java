@@ -17,6 +17,7 @@ public enum Parameters {
 	LATITUDE("lat"),
 	LONGITUDE("long"),
 	MIMETYPE("mimeType"),
+	MIN_ACTIVITIES("minactivities"),
 	MIN_RESULTS("minresults"),
 	NLDIURL("nldiurl"),
 	ORGANIZATION("organization"),
