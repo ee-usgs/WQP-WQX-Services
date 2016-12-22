@@ -320,26 +320,27 @@ public class BaseControllerTest {
 
 	@Test
 	public void getTransformerTest() {
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		TestBaseController.setMimeType(MimeType.json);
-		assertTrue(testController.getTransformer(null, null) instanceof MapToJsonTransformer);
+		assertTrue(testController.getTransformer(baos, null) instanceof MapToJsonTransformer);
 		TestBaseController.setMimeType(MimeType.geojson);
-		assertTrue(testController.getTransformer(null, null) instanceof MapToJsonTransformer);
+		assertTrue(testController.getTransformer(baos, null) instanceof MapToJsonTransformer);
 		TestBaseController.setMimeType(MimeType.xlsx);
-		assertTrue(testController.getTransformer(null, null) instanceof MapToXlsxTransformer);
+		assertTrue(testController.getTransformer(baos, null) instanceof MapToXlsxTransformer);
 		TestBaseController.setMimeType(MimeType.xml);
-		assertTrue(testController.getTransformer(null, null) instanceof MapToXmlTransformer);
+		assertTrue(testController.getTransformer(baos, null) instanceof MapToXmlTransformer);
 		TestBaseController.setMimeType(MimeType.kml);
-		assertTrue(testController.getTransformer(null, null) instanceof MapToKmlTransformer);
+		assertTrue(testController.getTransformer(baos, null) instanceof MapToKmlTransformer);
 		TestBaseController.setMimeType(MimeType.kmz);
-		assertTrue(testController.getTransformer(null, null) instanceof MapToKmlTransformer);
+		assertTrue(testController.getTransformer(baos, null) instanceof MapToKmlTransformer);
 
 		TestBaseController.setMimeType(MimeType.tsv);
-		Transformer t = testController.getTransformer(null, null);
+		Transformer t = testController.getTransformer(baos, null);
 		assertTrue(t instanceof MapToDelimitedTransformer);
 		assertEquals(MapToDelimitedTransformer.TAB, ((MapToDelimitedTransformer) t).getDelimiter());
 
 		TestBaseController.setMimeType(MimeType.csv);
-		t = testController.getTransformer(null, null);
+		t = testController.getTransformer(baos, null);
 		assertTrue(t instanceof MapToDelimitedTransformer);
 		assertEquals(MapToDelimitedTransformer.COMMA, ((MapToDelimitedTransformer) t).getDelimiter());
 	}

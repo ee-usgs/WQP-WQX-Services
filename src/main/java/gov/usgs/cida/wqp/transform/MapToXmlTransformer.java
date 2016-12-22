@@ -39,11 +39,12 @@ public class MapToXmlTransformer extends Transformer {
 			hardBreaks.put(key, null);
 		}
 		this.profile = profile;
+		init();
 	}
 
 	@Override
 	protected void init() {
-		//Nothing to do here.
+		writeHeader();
 	}
 
 	/** Output the file header. */

@@ -29,6 +29,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import gov.usgs.cida.wqp.BaseSpringTest;
+import gov.usgs.cida.wqp.exception.WqpException;
 import gov.usgs.cida.wqp.parameter.Parameters;
 import gov.usgs.cida.wqp.service.CodesService;
 import gov.usgs.cida.wqp.service.FetchService;
@@ -49,6 +50,12 @@ public abstract class BaseControllerIntegrationTest extends BaseSpringTest {
 	@Before
 	public void setup() {
 		mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
+		try {
+			when(codesService.validate(any(Parameters.class), anyString())).thenReturn(true);
+		} catch (WqpException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public String getUrlParameters() {
@@ -82,20 +89,27 @@ public abstract class BaseControllerIntegrationTest extends BaseSpringTest {
 			;
 	}
 
-	protected void getAsDelimitedTest(String url, String mimeType, String contentDisposition, String compareFile) throws Exception {
-		assertEquals("", unFilteredHeaderCheck(callMockHead(url, mimeType, contentDisposition)).andReturn().getResponse().getContentAsString());
-
-		MvcResult rtn = unFilteredHeaderCheck(callMockGet(url, mimeType, contentDisposition)).andReturn();
-		assertEquals(getCompareFile(compareFile), rtn.getResponse().getContentAsString());
-
-		rtn = unFilteredHeaderCheck(callMockPostJson(url, "{}", mimeType, contentDisposition)).andReturn();
-		assertEquals(getCompareFile(compareFile), rtn.getResponse().getContentAsString());
-
-		rtn = unFilteredHeaderCheck(callMockPostForm(url, mimeType, contentDisposition)).andReturn();
-		assertEquals(getCompareFile(compareFile), rtn.getResponse().getContentAsString());
+	public String getNoResultParameters() {
+		return "&" + Parameters.COUNTRY.toString() + "=DS";
 	}
 
-	protected void getAsDelimitedZipTest(String url, String mimeType, String contentDisposition, String compareFile, String zipEntry) throws Exception {
+	protected void getAsDelimitedTest(String url, String mimeType, String contentDisposition, String compareFile, String noResultFile) throws Exception {
+		assertEquals("", unFilteredHeaderCheck(callMockHead(url, mimeType, contentDisposition)).andReturn().getResponse().getContentAsString());
+
+		MvcResult rtn = unFilteredHeaderCheck(callMockGet(url, mimeType, contentDisposition)).andReturn();
+		assertEquals(getCompareFile(compareFile), rtn.getResponse().getContentAsString());
+
+		rtn = unFilteredHeaderCheck(callMockPostJson(url, "{}", mimeType, contentDisposition)).andReturn();
+		assertEquals(getCompareFile(compareFile), rtn.getResponse().getContentAsString());
+
+		rtn = unFilteredHeaderCheck(callMockPostForm(url, mimeType, contentDisposition)).andReturn();
+		assertEquals(getCompareFile(compareFile), rtn.getResponse().getContentAsString());
+
+		rtn = noResultHeaderCheck(callMockGet(url + getNoResultParameters(), mimeType, contentDisposition)).andReturn();
+		assertEquals(getCompareFile(noResultFile), rtn.getResponse().getContentAsString());
+	}
+
+	protected void getAsDelimitedZipTest(String url, String mimeType, String contentDisposition, String compareFile, String zipEntry, String noResultFile) throws Exception {
 		assertEquals("", unFilteredHeaderCheck(callMockHead(url, mimeType, contentDisposition)).andReturn().getResponse().getContentAsString());
 
 		MvcResult rtn = unFilteredHeaderCheck(callMockGet(url, mimeType, contentDisposition)).andReturn();
@@ -106,6 +120,9 @@ public abstract class BaseControllerIntegrationTest extends BaseSpringTest {
 
 		rtn = unFilteredHeaderCheck(callMockPostForm(url, mimeType, contentDisposition)).andReturn();
 		assertEquals(getCompareFile(compareFile), extractZipContent(rtn.getResponse().getContentAsByteArray(), zipEntry));
+
+		rtn = noResultHeaderCheck(callMockGet(url + getNoResultParameters(), mimeType, contentDisposition)).andReturn();
+		assertEquals(getCompareFile(noResultFile), extractZipContent(rtn.getResponse().getContentAsByteArray(), zipEntry));
 	}
 
 	protected void getAsXlsxTest(String url, String mimeType, String contentDisposition) throws Exception {
@@ -119,7 +136,7 @@ public abstract class BaseControllerIntegrationTest extends BaseSpringTest {
 		unFilteredHeaderCheck(callMockPostForm(url, mimeType, contentDisposition));
 	}
 
-	protected void getAsXmlTest(String url, String mimeType, String contentDisposition, String compareFile) throws Exception {
+	protected void getAsXmlTest(String url, String mimeType, String contentDisposition, String compareFile, String noResultFile) throws Exception {
 		assertEquals("", unFilteredHeaderCheck(callMockHead(url, mimeType, contentDisposition)).andReturn().getResponse().getContentAsString());
 
 		MvcResult rtn = unFilteredHeaderCheck(callMockGet(url, mimeType, contentDisposition)).andReturn();
@@ -130,9 +147,12 @@ public abstract class BaseControllerIntegrationTest extends BaseSpringTest {
 
 		rtn = unFilteredHeaderCheck(callMockPostForm(url, mimeType, contentDisposition)).andReturn();
 		assertEquals(harmonizeXml(getCompareFile(compareFile)), harmonizeXml(rtn.getResponse().getContentAsString()));
+
+		rtn = noResultHeaderCheck(callMockGet(url + getNoResultParameters(), mimeType, contentDisposition)).andReturn();
+		assertEquals(harmonizeXml(getCompareFile(noResultFile)), harmonizeXml(rtn.getResponse().getContentAsString()));
 	}
 
-	protected void getAsXmlZipTest(String url, String mimeType, String contentDisposition, String compareFile, String zipEntry) throws Exception {
+	protected void getAsXmlZipTest(String url, String mimeType, String contentDisposition, String compareFile, String zipEntry, String noResultFile) throws Exception {
 		assertEquals("", unFilteredHeaderCheck(callMockHead(url, mimeType, contentDisposition)).andReturn().getResponse().getContentAsString());
 
 		MvcResult rtn = unFilteredHeaderCheck(callMockGet(url, mimeType, contentDisposition)).andReturn();
@@ -143,9 +163,12 @@ public abstract class BaseControllerIntegrationTest extends BaseSpringTest {
 
 		rtn = unFilteredHeaderCheck(callMockPostForm(url, mimeType, contentDisposition)).andReturn();
 		assertEquals(harmonizeXml(getCompareFile(compareFile)), harmonizeXml(extractZipContent(rtn.getResponse().getContentAsByteArray(), zipEntry)));
+
+		rtn = noResultHeaderCheck(callMockGet(url + getNoResultParameters(), mimeType, contentDisposition)).andReturn();
+		assertEquals(harmonizeXml(getCompareFile(noResultFile)), harmonizeXml(extractZipContent(rtn.getResponse().getContentAsByteArray(), zipEntry)));
 	}
 
-	protected void getAsJsonTest(String url, String mimeType, String contentDisposition, String compareFile) throws Exception {
+	protected void getAsJsonTest(String url, String mimeType, String contentDisposition, String compareFile, String noResultFile) throws Exception {
 		assertEquals("", unFilteredHeaderCheck(callMockHead(url, mimeType, contentDisposition)).andReturn().getResponse().getContentAsString());
 
 		MvcResult rtn = unFilteredHeaderCheck(callMockGet(url, mimeType, contentDisposition)).andReturn();
@@ -156,9 +179,12 @@ public abstract class BaseControllerIntegrationTest extends BaseSpringTest {
 
 		rtn = unFilteredHeaderCheck(callMockPostForm(url, mimeType, contentDisposition)).andReturn();
 		assertThat(new JSONObject(getCompareFile(compareFile)), sameJSONObjectAs(new JSONObject(rtn.getResponse().getContentAsString())));
+
+		rtn = noResultHeaderCheck(callMockGet(url + getNoResultParameters(), mimeType, contentDisposition)).andReturn();
+		assertThat(new JSONObject(getCompareFile(noResultFile)), sameJSONObjectAs(new JSONObject(rtn.getResponse().getContentAsString())));
 	}
 
-	protected void getAsJsonZipTest(String url, String mimeType, String contentDisposition, String compareFile, String zipEntry) throws Exception {
+	protected void getAsJsonZipTest(String url, String mimeType, String contentDisposition, String compareFile, String zipEntry, String noResultFile) throws Exception {
 		assertEquals("", unFilteredHeaderCheck(callMockHead(url, mimeType, contentDisposition)).andReturn().getResponse().getContentAsString());
 
 		MvcResult rtn = unFilteredHeaderCheck(callMockGet(url, mimeType, contentDisposition)).andReturn();
@@ -169,10 +195,12 @@ public abstract class BaseControllerIntegrationTest extends BaseSpringTest {
 
 		rtn = unFilteredHeaderCheck(callMockPostForm(url, mimeType, contentDisposition)).andReturn();
 		assertThat(new JSONObject(getCompareFile(compareFile)), sameJSONObjectAs(new JSONObject(extractZipContent(rtn.getResponse().getContentAsByteArray(), zipEntry))));
+
+		rtn = noResultHeaderCheck(callMockGet(url + getNoResultParameters(), mimeType, contentDisposition)).andReturn();
+		assertThat(new JSONObject(getCompareFile(noResultFile)), sameJSONObjectAs(new JSONObject(extractZipContent(rtn.getResponse().getContentAsByteArray(), zipEntry))));
 	}
 
 	protected void getAllParametersTest(String url, String mimeType, String contentDisposition, String compareFile) throws Exception {
-		when(codesService.validate(any(Parameters.class), anyString())).thenReturn(true);
 		when(fetchService.fetch(any(String.class), any(URL.class))).thenReturn(getNldiSitesAsSet());
 
 		assertEquals("", filteredHeaderCheck(callMockHead(url + getUrlParameters(), mimeType, contentDisposition)).andReturn().getResponse().getContentAsString());
@@ -188,7 +216,6 @@ public abstract class BaseControllerIntegrationTest extends BaseSpringTest {
 	}
 
 	public void postGetCountTest(String urlPrefix, String compareObject) throws Exception {
-		when(codesService.validate(any(Parameters.class), anyString())).thenReturn(true);
 		when(fetchService.fetch(any(String.class), any(URL.class))).thenReturn(new HashSet<String>(Arrays.asList(getNldiSites())));
 
 		MvcResult rtn = filteredHeaderCheck(callMockPostJson(urlPrefix + "json", getSourceFile("postParameters.json"), HttpConstants.MIME_TYPE_JSON, null))
@@ -292,4 +319,6 @@ public abstract class BaseControllerIntegrationTest extends BaseSpringTest {
 	public abstract ResultActions unFilteredHeaderCheck(ResultActions resultActions) throws Exception;
 
 	public abstract ResultActions filteredHeaderCheck(ResultActions resultActions) throws Exception;
+
+	public abstract ResultActions noResultHeaderCheck(ResultActions resultActions) throws Exception;
 }

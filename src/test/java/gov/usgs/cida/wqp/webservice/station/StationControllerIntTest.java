@@ -28,22 +28,22 @@ public class StationControllerIntTest extends BaseControllerIntegrationTest {
 
 	@Test
 	public void getAsCsvTest() throws Exception {
-		getAsDelimitedTest(endpoint + "csv", HttpConstants.MIME_TYPE_CSV, "attachment; filename=station.csv", "station/station.csv");
+		getAsDelimitedTest(endpoint + "csv", HttpConstants.MIME_TYPE_CSV, "attachment; filename=station.csv", "station/station.csv", "station/noResultStation.csv");
 	}
 
 	@Test
 	public void getAsCsvZipTest() throws Exception {
-		getAsDelimitedZipTest(endpoint + "csv&zip=yes", HttpConstants.MIME_TYPE_ZIP, "attachment; filename=station.zip", "station/station.csv", "station.csv");
+		getAsDelimitedZipTest(endpoint + "csv&zip=yes", HttpConstants.MIME_TYPE_ZIP, "attachment; filename=station.zip", "station/station.csv", "station.csv", "station/noResultStation.csv");
 	}
 
 	@Test
 	public void getAsTsvTest() throws Exception {
-		getAsDelimitedTest(endpoint + "tsv", HttpConstants.MIME_TYPE_TSV, "attachment; filename=station.tsv", "station/station.tsv");
+		getAsDelimitedTest(endpoint + "tsv", HttpConstants.MIME_TYPE_TSV, "attachment; filename=station.tsv", "station/station.tsv", "station/noResultStation.tsv");
 	}
 
 	@Test
 	public void getAsTsvZipTest() throws Exception {
-		getAsDelimitedZipTest(endpoint + "tsv&zip=yes", HttpConstants.MIME_TYPE_ZIP, "attachment; filename=station.zip", "station/station.tsv", "station.tsv");
+		getAsDelimitedZipTest(endpoint + "tsv&zip=yes", HttpConstants.MIME_TYPE_ZIP, "attachment; filename=station.zip", "station/station.tsv", "station.tsv", "station/noResultStation.tsv");
 	}
 
 	@Test
@@ -58,37 +58,37 @@ public class StationControllerIntTest extends BaseControllerIntegrationTest {
 
 	@Test
 	public void getAsXmlTest() throws Exception {
-		getAsXmlTest(endpoint + "xml", HttpConstants.MIME_TYPE_XML, "attachment; filename=station.xml", "station/station.xml");
+		getAsXmlTest(endpoint + "xml", HttpConstants.MIME_TYPE_XML, "attachment; filename=station.xml", "station/station.xml", "station/noResultStation.xml");
 	}
 
 	@Test
 	public void getAsXmlZipTest() throws Exception {
-		getAsXmlZipTest(endpoint + "xml&zip=yes", HttpConstants.MIME_TYPE_ZIP, "attachment; filename=station.zip", "station/station.xml", "station.xml");
+		getAsXmlZipTest(endpoint + "xml&zip=yes", HttpConstants.MIME_TYPE_ZIP, "attachment; filename=station.zip", "station/station.xml", "station.xml", "station/noResultStation.xml");
 	}
 
 	@Test
 	public void getAsKmlTest() throws Exception {
-		getAsXmlTest(endpoint + "kml", HttpConstants.MIME_TYPE_KML, "attachment; filename=station.kml", "station/station.kml");
+		getAsXmlTest(endpoint + "kml", HttpConstants.MIME_TYPE_KML, "attachment; filename=station.kml", "station/station.kml", "station/noResultStation.kml");
 	}
 
 	@Test
 	public void getAsKmlZipTest() throws Exception {
-		getAsXmlZipTest(endpoint + "kml&zip=yes", HttpConstants.MIME_TYPE_KMZ, "attachment; filename=station.kmz", "station/station.kml", "station.kml");
+		getAsXmlZipTest(endpoint + "kml&zip=yes", HttpConstants.MIME_TYPE_KMZ, "attachment; filename=station.kmz", "station/station.kml", "station.kml", "station/noResultStation.kml");
 	}
 
 	@Test
 	public void getAsKmzTest() throws Exception {
-		getAsXmlZipTest(endpoint + "kmz", HttpConstants.MIME_TYPE_KMZ, "attachment; filename=station.kmz", "station/station.kml", "station.kml");
+		getAsXmlZipTest(endpoint + "kmz", HttpConstants.MIME_TYPE_KMZ, "attachment; filename=station.kmz", "station/station.kml", "station.kml", "station/noResultStation.kml");
 	}
 
 	@Test
 	public void getAsGeoJsonTest() throws Exception {
-		getAsJsonTest(endpoint + "geojson", HttpConstants.MIME_TYPE_GEOJSON, "attachment; filename=station.geojson", "station/station.json");
+		getAsJsonTest(endpoint + "geojson", HttpConstants.MIME_TYPE_GEOJSON, "attachment; filename=station.geojson", "station/station.json", "station/noResultStation.json");
 	}
 
 	@Test
 	public void getAsGeoJsonZipTest() throws Exception {
-		getAsJsonZipTest(endpoint + "geojson&zip=yes", HttpConstants.MIME_TYPE_ZIP, "attachment; filename=station.zip", "station/station.json", "station.geojson");
+		getAsJsonZipTest(endpoint + "geojson&zip=yes", HttpConstants.MIME_TYPE_ZIP, "attachment; filename=station.zip", "station/station.json", "station.geojson", "station/noResultStation.json");
 	}
 
 	@Test
@@ -118,6 +118,11 @@ public class StationControllerIntTest extends BaseControllerIntegrationTest {
 		return resultActions
 				.andExpect(header().string(HttpConstants.HEADER_TOTAL_SITE_COUNT, FILTERED_TOTAL_SITE_COUNT))
 				.andExpect(header().string(HEADER_STORET_SITE_COUNT, FILTERED_STORET_SITE_COUNT));
+	}
+
+	public ResultActions noResultHeaderCheck(ResultActions resultActions) throws Exception {
+		return resultActions
+				.andExpect(header().string(HttpConstants.HEADER_TOTAL_SITE_COUNT, "0"));
 	}
 
 }

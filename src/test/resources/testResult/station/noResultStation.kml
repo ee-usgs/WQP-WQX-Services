@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml>
+	<Document>
+		<StyleMap id='ARSSite'>
+			<Pair>
+				<key>normal</key>
+				<styleUrl>http://www.waterqualitydata.us/kml/wqp_styles.kml#normalARSSite</styleUrl>
+			</Pair>
+			<Pair>
+				<key>highlight</key>
+				<styleUrl>http://www.waterqualitydata.us/kml/wqp_styles.kml#highlightARSSite</styleUrl>
+			</Pair>
+		</StyleMap>
+		<StyleMap id='NWISSite'>
+			<Pair>
+				<key>normal</key>
+				<styleUrl>http://www.waterqualitydata.us/kml/wqp_styles.kml#normalNWISSite</styleUrl>
+			</Pair>
+			<Pair>
+				<key>highlight</key>
+				<styleUrl>http://www.waterqualitydata.us/kml/wqp_styles.kml#highlightNWISSite</styleUrl>
+			</Pair>
+		</StyleMap>
+		<StyleMap id='STORETSite'>
+			<Pair>
+				<key>normal</key>
+				<styleUrl>http://www.waterqualitydata.us/kml/wqp_styles.kml#normalSTORETSite</styleUrl>
+			</Pair>
+			<Pair>
+				<key>highlight</key>
+				<styleUrl>http://www.waterqualitydata.us/kml/wqp_styles.kml#highlightSTORETSite</styleUrl>
+			</Pair>
+		</StyleMap>
+	</Document>
+</kml>

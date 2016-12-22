@@ -24,22 +24,22 @@ public class ActivityControllerIntTest extends BaseControllerIntegrationTest {
 
 	@Test
 	public void getAsCsvTest() throws Exception {
-		getAsDelimitedTest(endpoint + "csv", HttpConstants.MIME_TYPE_CSV, "attachment; filename=activity.csv", "activity/activity.csv");
+		getAsDelimitedTest(endpoint + "csv", HttpConstants.MIME_TYPE_CSV, "attachment; filename=activity.csv", "activity/activity.csv", "activity/noResultActivity.csv");
 	}
 
 	@Test
 	public void getAsCsvZipTest() throws Exception {
-		getAsDelimitedZipTest(endpoint + "csv&zip=yes", HttpConstants.MIME_TYPE_ZIP, "attachment; filename=activity.zip", "activity/activity.csv", "activity.csv");
+		getAsDelimitedZipTest(endpoint + "csv&zip=yes", HttpConstants.MIME_TYPE_ZIP, "attachment; filename=activity.zip", "activity/activity.csv", "activity.csv", "activity/noResultActivity.csv");
 	}
 
 	@Test
 	public void getAsTsvTest() throws Exception {
-		getAsDelimitedTest(endpoint + "tsv", HttpConstants.MIME_TYPE_TSV, "attachment; filename=activity.tsv", "activity/activity.tsv");
+		getAsDelimitedTest(endpoint + "tsv", HttpConstants.MIME_TYPE_TSV, "attachment; filename=activity.tsv", "activity/activity.tsv", "activity/noResultActivity.tsv");
 	}
 
 	@Test
 	public void getAsTsvZipTest() throws Exception {
-		getAsDelimitedZipTest(endpoint + "tsv&zip=yes", HttpConstants.MIME_TYPE_ZIP, "attachment; filename=activity.zip", "activity/activity.tsv", "activity.tsv");
+		getAsDelimitedZipTest(endpoint + "tsv&zip=yes", HttpConstants.MIME_TYPE_ZIP, "attachment; filename=activity.zip", "activity/activity.tsv", "activity.tsv", "activity/noResultActivity.tsv");
 	}
 
 	@Test
@@ -54,12 +54,12 @@ public class ActivityControllerIntTest extends BaseControllerIntegrationTest {
 
 	@Test
 	public void getAsXmlTest() throws Exception {
-		getAsXmlTest(endpoint + "xml", HttpConstants.MIME_TYPE_XML, "attachment; filename=activity.xml", "activity/activity.xml");
+		getAsXmlTest(endpoint + "xml", HttpConstants.MIME_TYPE_XML, "attachment; filename=activity.xml", "activity/activity.xml", "activity/noResultActivity.xml");
 	}
 
 	@Test
 	public void getAsXmlZipGetTest() throws Exception {
-		getAsXmlZipTest(endpoint + "xml&zip=yes", HttpConstants.MIME_TYPE_ZIP, "attachment; filename=activity.zip", "activity/activity.xml", "activity.xml");
+		getAsXmlZipTest(endpoint + "xml&zip=yes", HttpConstants.MIME_TYPE_ZIP, "attachment; filename=activity.zip", "activity/activity.xml", "activity.xml", "activity/noResultActivity.xml");
 	}
 
 	@Test
@@ -100,6 +100,13 @@ public class ActivityControllerIntTest extends BaseControllerIntegrationTest {
 
 				.andExpect(header().string(HttpConstants.HEADER_TOTAL_ACTIVITY_COUNT, FILTERED_TOTAL_ACTIVITY_COUNT))
 				.andExpect(header().string(HEADER_STORET_ACTIVITY_COUNT, FILTERED_STORET_ACTIVITY_COUNT));
+	}
+
+	public ResultActions noResultHeaderCheck(ResultActions resultActions) throws Exception {
+		return resultActions
+				.andExpect(header().string(HttpConstants.HEADER_TOTAL_SITE_COUNT, "0"))
+
+				.andExpect(header().string(HttpConstants.HEADER_TOTAL_ACTIVITY_COUNT, "0"));
 	}
 
 }

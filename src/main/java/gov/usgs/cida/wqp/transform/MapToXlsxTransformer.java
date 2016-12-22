@@ -45,8 +45,9 @@ public class MapToXlsxTransformer extends Transformer {
 
 	public MapToXlsxTransformer(OutputStream target, Map<String, String> mapping, ILogService logService, BigDecimal logId) {
 		super(target, mapping, logService, logId);
+		init();
 	}
-	
+
 	/**
 	 * Initialize a workbook if needed, a sheet to work on and write the
 	 * template to the stream.
@@ -79,8 +80,9 @@ public class MapToXlsxTransformer extends Transformer {
 		} catch (IOException e) {
 			throw new RuntimeException("Error starting spreadsheet", e);
 		}
+		writeHeader();
 	}
-	
+
 	/** 
 	 * Writes a byte array to the stream. 
 	 * @param in the byte array to stream.
@@ -116,7 +118,6 @@ public class MapToXlsxTransformer extends Transformer {
 		}
 	}
 
-	
 	/**
 	 * Write the data.  Null cells are skipped to cut some of the bloat out of the file.
 	 */
@@ -154,7 +155,7 @@ public class MapToXlsxTransformer extends Transformer {
 			throw new RuntimeException("Error ending spreadsheet", e);
 		}
 	}
-	
+
 	/** 
 	 * Converts a string to a byte array and stream it.
 	 * @param in the string to be streamed.
