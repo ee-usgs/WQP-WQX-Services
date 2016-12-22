@@ -22,29 +22,30 @@ public abstract class Transformer extends OutputStream implements ITransformer {
 	protected boolean first = true;
 
 	public Transformer(OutputStream target, Map<String, String> mapping, ILogService logService, BigDecimal logId) {
+		if (null == target) {
+			throw new RuntimeException("The OutputStream must be provided.");
+		}
 		this.target = target;
 		this.mapping = mapping;
 		this.logService = logService;
 		this.logId = logId;
 	}
-	
+
 	protected String getMappedName(Entry<?, ?> entry) {
 		return mapping.get(entry.getKey());
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public void write(Object result) {
 		if (null == result) {
 			return;
 		}
-		
+
 		if (result instanceof Map) {
 			Map<String, Object> resultMap = (Map<String, Object>) result;
 			if (first) {
 				logService.logFirstRowComplete(logId);
-				init();
-				writeHeader();
 				first = false;
 			}
 			writeData(resultMap);
@@ -55,9 +56,9 @@ public abstract class Transformer extends OutputStream implements ITransformer {
 			throw new RuntimeException("Error flushing OutputStream", e);
 		}
 	}
-	
+
 	protected abstract void init();
-	
+
 	protected abstract void writeHeader();
 
 	protected abstract void writeData(Map<String, Object> resultMap);

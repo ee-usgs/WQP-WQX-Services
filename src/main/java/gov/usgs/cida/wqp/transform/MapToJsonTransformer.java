@@ -20,6 +20,18 @@ public class MapToJsonTransformer extends Transformer {
 	public MapToJsonTransformer(OutputStream target, Map<String, String> mapping, ILogService logService, BigDecimal logId, String siteUrlBase) {
 		super(target, mapping, logService, logId);
 		this.siteUrlBase = siteUrlBase;
+		init();
+	}
+
+	@Override
+	protected void init() {
+		f = new JsonFactory();
+		try {
+			g = f.createGenerator(target);
+		} catch (IOException e) {
+			throw new RuntimeException("Error initializing json document", e);
+		}
+		writeHeader();
 	}
 
 	@Override
@@ -74,13 +86,9 @@ public class MapToJsonTransformer extends Transformer {
 	@Override
 	public void end() {
 		try {
-			if (!first) {
-				g.writeEndArray();
-				g.writeEndObject();
-				g.close();
-			} else {
-				super.end();
-			}
+			g.writeEndArray();
+			g.writeEndObject();
+			g.close();
 		} catch (IOException e) {
 			throw new RuntimeException("Error ending json document", e);
 		}
@@ -98,16 +106,6 @@ public class MapToJsonTransformer extends Transformer {
 	public String encode(String value) {
 		//The jackson code takes care of encoding these values.
 		return value;
-	}
-
-	@Override
-	protected void init() {
-		f = new JsonFactory();
-		try {
-			g = f.createGenerator(target);
-		} catch (IOException e) {
-			throw new RuntimeException("Error initializing json document", e);
-		}
 	}
 
 }

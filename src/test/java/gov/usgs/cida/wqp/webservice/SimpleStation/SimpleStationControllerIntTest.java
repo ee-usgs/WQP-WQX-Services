@@ -48,6 +48,9 @@ public class SimpleStationControllerIntTest extends BaseControllerIntegrationTes
 
 		MvcResult rtn = unFilteredHeaderCheck(callMockGet(url, mimeType, contentDisposition)).andReturn();
 		assertEquals(harmonizeXml(getCompareFile(compareFile)), harmonizeXml(rtn.getResponse().getContentAsString()));
+
+		rtn = noResultHeaderCheck(callMockGet(url + getNoResultParameters(), mimeType, contentDisposition)).andReturn();
+		assertEquals(harmonizeXml(getCompareFile("station/noResultSimplestation.xml")), harmonizeXml(rtn.getResponse().getContentAsString()));
 	}
 
 	@Test
@@ -62,6 +65,9 @@ public class SimpleStationControllerIntTest extends BaseControllerIntegrationTes
 
 		MvcResult rtn = unFilteredHeaderCheck(callMockGet(url, mimeType, contentDisposition)).andReturn();
 		assertEquals(harmonizeXml(getCompareFile(compareFile)), harmonizeXml(extractZipContent(rtn.getResponse().getContentAsByteArray(), zipEntry)));
+
+		rtn = noResultHeaderCheck(callMockGet(url + getNoResultParameters(), mimeType, contentDisposition)).andReturn();
+		assertEquals(harmonizeXml(getCompareFile("station/noResultSimplestation.xml")), harmonizeXml(extractZipContent(rtn.getResponse().getContentAsByteArray(), zipEntry)));
 	}
 
 	@Test
@@ -76,6 +82,8 @@ public class SimpleStationControllerIntTest extends BaseControllerIntegrationTes
 		MvcResult rtn = unFilteredHeaderCheck(callMockGet(url, mimeType, contentDisposition)).andReturn();
 		assertThat(new JSONObject(getCompareFile(compareFile)), sameJSONObjectAs(new JSONObject(rtn.getResponse().getContentAsString())));
 
+		rtn = noResultHeaderCheck(callMockGet(url + getNoResultParameters(), mimeType, contentDisposition)).andReturn();
+		assertThat(new JSONObject(getCompareFile("station/noResultStation.json")), sameJSONObjectAs(new JSONObject(rtn.getResponse().getContentAsString())));
 	}
 
 	@Test
@@ -90,6 +98,9 @@ public class SimpleStationControllerIntTest extends BaseControllerIntegrationTes
 
 		MvcResult rtn = unFilteredHeaderCheck(callMockGet(url, mimeType, contentDisposition)).andReturn();
 		assertThat(new JSONObject(getCompareFile(compareFile)), sameJSONObjectAs(new JSONObject(extractZipContent(rtn.getResponse().getContentAsByteArray(), zipEntry))));
+
+		rtn = noResultHeaderCheck(callMockGet(url + getNoResultParameters(), mimeType, contentDisposition)).andReturn();
+		assertThat(new JSONObject(getCompareFile("station/noResultStation.json")), sameJSONObjectAs(new JSONObject(extractZipContent(rtn.getResponse().getContentAsByteArray(), zipEntry))));
 	}
 
 	@Test
@@ -103,6 +114,9 @@ public class SimpleStationControllerIntTest extends BaseControllerIntegrationTes
 
 		MvcResult rtn = unFilteredHeaderCheck(callMockGet(url, mimeType, contentDisposition)).andReturn();
 		assertThat(new JSONObject(getCompareFile(compareFile)), sameJSONObjectAs(new JSONObject(rtn.getResponse().getContentAsString())));
+
+		rtn = noResultHeaderCheck(callMockGet(url + getNoResultParameters(), mimeType, contentDisposition)).andReturn();
+		assertThat(new JSONObject(getCompareFile("station/noResultStation.json")), sameJSONObjectAs(new JSONObject(rtn.getResponse().getContentAsString())));
 	}
 
 	@Test
@@ -117,6 +131,9 @@ public class SimpleStationControllerIntTest extends BaseControllerIntegrationTes
 
 		MvcResult rtn = unFilteredHeaderCheck(callMockGet(url, mimeType, contentDisposition)).andReturn();
 		assertThat(new JSONObject(getCompareFile(compareFile)), sameJSONObjectAs(new JSONObject(extractZipContent(rtn.getResponse().getContentAsByteArray(), zipEntry))));
+
+		rtn = noResultHeaderCheck(callMockGet(url + getNoResultParameters(), mimeType, contentDisposition)).andReturn();
+		assertThat(new JSONObject(getCompareFile("station/noResultStation.json")), sameJSONObjectAs(new JSONObject(extractZipContent(rtn.getResponse().getContentAsByteArray(), zipEntry))));
 	}
 
 	@Test
@@ -148,6 +165,11 @@ public class SimpleStationControllerIntTest extends BaseControllerIntegrationTes
 		return resultActions
 				.andExpect(header().string(HttpConstants.HEADER_TOTAL_SITE_COUNT, FILTERED_TOTAL_SITE_COUNT))
 				.andExpect(header().string(HEADER_STORET_SITE_COUNT, FILTERED_STORET_SITE_COUNT));
+	}
+
+	public ResultActions noResultHeaderCheck(ResultActions resultActions) throws Exception {
+		return resultActions
+				.andExpect(header().string(HttpConstants.HEADER_TOTAL_SITE_COUNT, "0"));
 	}
 
 }

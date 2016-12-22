@@ -45,7 +45,6 @@ public class MapToKmlTransformerTest {
 	@Test
 	public void writeHeaderTest() {
 		try {
-			transformer.writeHeader();
 			assertEquals(38 + fieldMapping.getHeader().length(), baos.size());
 			assertEquals("<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + fieldMapping.getHeader(),
 					new String(baos.toByteArray(), HttpConstants.DEFAULT_ENCODING));

@@ -29,13 +29,13 @@ import org.mockito.MockitoAnnotations;
 public class TransformerTest {
 
 	@Mock
-    protected ILogService logService;
+	protected ILogService logService;
 	protected BigDecimal logId = new BigDecimal(1);
 
-    @Before
-    public void initTest() {
-        MockitoAnnotations.initMocks(this);
-    }
+	@Before
+	public void initTest() {
+		MockitoAnnotations.initMocks(this);
+	}
 
 	private class TTransformer extends Transformer {
 		public int initCalled = 0;
@@ -64,13 +64,13 @@ public class TransformerTest {
 		public void end() {
 		}
 	}
-	
+
 	@Test
 	@SuppressWarnings("unchecked")
 	public void writeTest() {
-    	TTransformer transformer = new TTransformer(new ByteArrayOutputStream(), null, logService, logId);
+		TTransformer transformer = new TTransformer(new ByteArrayOutputStream(), null, logService, logId);
 
-    	//Don't process null results
+		//Don't process null results
 		try {
 			transformer.write((Object) null);
 			assertEquals(0, transformer.initCalled);
@@ -85,7 +85,7 @@ public class TransformerTest {
 			fail(e.getLocalizedMessage());
 		}
 
-    	//Don't process results that aren't a map
+		//Don't process results that aren't a map
 		try {
 			transformer.write((Object) "ABCDEFG");
 			assertEquals(0, transformer.initCalled);
@@ -99,16 +99,16 @@ public class TransformerTest {
 		} catch (IOException e) {
 			fail(e.getLocalizedMessage());
 		}
-    	
-    	Map<String, Object> result = new HashMap<>();
-    	result.put("A", "1");
-    	result.put("B", "2");
-    	
+
+		Map<String, Object> result = new HashMap<>();
+		result.put("A", "1");
+		result.put("B", "2");
+
 		try {
 			transformer.write((Object) result);
 			transformer.write((Object) result);
-			assertEquals(1, transformer.initCalled);
-			assertEquals(1, transformer.writeHeaderCalled);
+			assertEquals(0, transformer.initCalled);
+			assertEquals(0, transformer.writeHeaderCalled);
 			assertEquals(2, transformer.writeDataCalled);
 			verify(logService, never()).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(Map.class));
 			verify(logService, never()).logHeadComplete(any(HttpServletResponse.class), eq(logId));
@@ -119,7 +119,7 @@ public class TransformerTest {
 			fail(e.getLocalizedMessage());
 		}
 	}
-    
+
 	@Test
 	public void copyStringTest() {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();

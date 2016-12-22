@@ -20,6 +20,8 @@ import org.mockito.MockitoAnnotations;
 
 public class MapToJsonTransformerTest {
 
+	public static final String JSON_HEADER = "{\"type\":\"FeatureCollection\",\"features\":[";
+
 	@Mock
 	protected ILogService logService;
 	protected BigDecimal logId = new BigDecimal(1);
@@ -32,7 +34,6 @@ public class MapToJsonTransformerTest {
 		MockitoAnnotations.initMocks(this);
 		baos = new ByteArrayOutputStream();
 		transformer = new MapToJsonTransformer(baos, null, logService, logId, siteUrlBase);
-		transformer.init();
 	}
 
 	@After
@@ -43,12 +44,10 @@ public class MapToJsonTransformerTest {
 	@Test
 	public void writeHeaderTest() {
 		try {
-			transformer.writeHeader();
 			//need to flush the JsonGenerator to get at output. 
 			transformer.g.flush();
-			assertEquals(40, baos.size());
-			assertEquals("{\"type\":\"FeatureCollection\",\"features\":[",
-					new String(baos.toByteArray(), HttpConstants.DEFAULT_ENCODING));
+			assertEquals(JSON_HEADER.length(), baos.size());
+			assertEquals(JSON_HEADER, new String(baos.toByteArray(), HttpConstants.DEFAULT_ENCODING));
 		} catch (IOException e) {
 			fail(e.getLocalizedMessage());
 		}
@@ -73,8 +72,8 @@ public class MapToJsonTransformerTest {
 			transformer.writeData(map);
 			//need to flush the JsonGenerator to get at output. 
 			transformer.g.flush();
-			assertEquals(461, baos.size());
-			assertEquals("{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[long,lat]},\"properties\":{\"ProviderName\":\"ds\",\"OrganizationIdentifier\":\"org\",\"OrganizationFormalName\":\"org/name\",\"MonitoringLocationIdentifier\":\"site\",\"MonitoringLocationName\":\"station\",\"MonitoringLocationTypeName\":\"realType\",\"ResolvedMonitoringLocationTypeName\":\"type\",\"HUCEightDigitCode\":\"huceight\""
+			assertEquals(JSON_HEADER.length() + 461, baos.size());
+			assertEquals(JSON_HEADER + "{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[long,lat]},\"properties\":{\"ProviderName\":\"ds\",\"OrganizationIdentifier\":\"org\",\"OrganizationFormalName\":\"org/name\",\"MonitoringLocationIdentifier\":\"site\",\"MonitoringLocationName\":\"station\",\"MonitoringLocationTypeName\":\"realType\",\"ResolvedMonitoringLocationTypeName\":\"type\",\"HUCEightDigitCode\":\"huceight\""
 					+ ",\"siteUrl\":\"http://test-url.usgs.gov/provider/ds/org/site/\",\"activityCount\":\"57\",\"resultCount\":\"857\"}}",
 					new String(baos.toByteArray(), HttpConstants.DEFAULT_ENCODING));
 		} catch (IOException e) {
@@ -98,10 +97,10 @@ public class MapToJsonTransformerTest {
 			transformer.writeData(map);
 			//need to flush the JsonGenerator to get at output. 
 			transformer.g.flush();
-			assertEquals(935, baos.size());
-			assertEquals("{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[long,lat]},\"properties\":{\"ProviderName\":\"ds\",\"OrganizationIdentifier\":\"org\",\"OrganizationFormalName\":\"org/name\",\"MonitoringLocationIdentifier\":\"site\",\"MonitoringLocationName\":\"station\",\"MonitoringLocationTypeName\":\"realType\",\"ResolvedMonitoringLocationTypeName\":\"type\",\"HUCEightDigitCode\":\"huceight\""
+			assertEquals(JSON_HEADER.length() + 935, baos.size());
+			assertEquals(JSON_HEADER + "{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[long,lat]},\"properties\":{\"ProviderName\":\"ds\",\"OrganizationIdentifier\":\"org\",\"OrganizationFormalName\":\"org/name\",\"MonitoringLocationIdentifier\":\"site\",\"MonitoringLocationName\":\"station\",\"MonitoringLocationTypeName\":\"realType\",\"ResolvedMonitoringLocationTypeName\":\"type\",\"HUCEightDigitCode\":\"huceight\""
 					+ ",\"siteUrl\":\"http://test-url.usgs.gov/provider/ds/org/site/\",\"activityCount\":\"57\",\"resultCount\":\"857\"}}"
-					+ " {\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[long2,lat2]},\"properties\":{\"ProviderName\":\"ds2\",\"OrganizationIdentifier\":\"org2\",\"OrganizationFormalName\":\"org/name2\",\"MonitoringLocationIdentifier\":\"site2\",\"MonitoringLocationName\":\"station2\",\"MonitoringLocationTypeName\":\"realType2\",\"ResolvedMonitoringLocationTypeName\":\"type2\",\"HUCEightDigitCode\":\"huceigh2\""
+					+ ",{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[long2,lat2]},\"properties\":{\"ProviderName\":\"ds2\",\"OrganizationIdentifier\":\"org2\",\"OrganizationFormalName\":\"org/name2\",\"MonitoringLocationIdentifier\":\"site2\",\"MonitoringLocationName\":\"station2\",\"MonitoringLocationTypeName\":\"realType2\",\"ResolvedMonitoringLocationTypeName\":\"type2\",\"HUCEightDigitCode\":\"huceigh2\""
 					+ ",\"siteUrl\":\"http://test-url.usgs.gov/provider/ds2/org2/site2/\",\"activityCount\":\"67\",\"resultCount\":\"667\"}}",
 					new String(baos.toByteArray(), HttpConstants.DEFAULT_ENCODING));
 		} catch (IOException e) {
@@ -118,8 +117,8 @@ public class MapToJsonTransformerTest {
 			transformer.g.writeStartArray();
 
 			transformer.end();
-			assertEquals(10, baos.size());
-			assertEquals("{\"abc\":[]}",
+			assertEquals(JSON_HEADER.length() + 12, baos.size());
+			assertEquals(JSON_HEADER + "{\"abc\":[]}]}",
 					new String(baos.toByteArray(), HttpConstants.DEFAULT_ENCODING));
 		} catch (IOException e) {
 			fail(e.getLocalizedMessage());
@@ -128,8 +127,14 @@ public class MapToJsonTransformerTest {
 
 	@Test
 	public void endTestNoData() {
-		transformer.end();
-		assertEquals(0, baos.size());
+		try {
+			transformer.end();
+			assertEquals(JSON_HEADER.length() + 2, baos.size());
+			assertEquals(JSON_HEADER + "]}",
+					new String(baos.toByteArray(), HttpConstants.DEFAULT_ENCODING));
+		} catch (IOException e) {
+			fail(e.getLocalizedMessage());
+		}
 	}
 
 	@Test

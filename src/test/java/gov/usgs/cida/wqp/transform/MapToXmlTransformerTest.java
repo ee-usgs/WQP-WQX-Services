@@ -48,11 +48,8 @@ public class MapToXmlTransformerTest {
 	@Test
 	public void writeHeaderTest() {
 		try {
-			transformer.writeHeader();
-			assertEquals(303, baos.size());
-			assertEquals("<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-					+ "<WQX xmlns='http://qwwebservices.usgs.gov/schemas/WQX-Outbound/2_0/' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' "
-					+ "xsi:schemaLocation='http://qwwebservices.usgs.gov/schemas/WQX-Outbound/2_0/ http://qwwebservices.usgs.gov/schemas/WQX-Outbound/2_0/index.xsd'>",
+			assertEquals(transformer.header.length(), baos.size());
+			assertEquals(transformer.header,
 					new String(baos.toByteArray(), HttpConstants.DEFAULT_ENCODING));
 		} catch (IOException e) {
 			fail(e.getLocalizedMessage());
@@ -140,8 +137,9 @@ public class MapToXmlTransformerTest {
 			map = new HashMap<>();
 			map.put(BaseColumn.KEY_ORGANIZATION, null);
 			transformer.writeData(map);
-			assertEquals(713, baos.size());
-			assertEquals("<Organization><OrganizationDescription><OrganizationIdentifier>d</OrganizationIdentifier></OrganizationDescription><MonitoringLocation><MonitoringLocationIdentity><MonitoringLocationIdentifier>1</MonitoringLocationIdentifier><MonitoringLocationName>DG-10/13E/19-0891</MonitoringLocationName></MonitoringLocationIdentity><MonitoringLocationGeospatial><LongitudeMeasure>23jk&lt;h4kl213</LongitudeMeasure></MonitoringLocationGeospatial></MonitoringLocation><MonitoringLocation><MonitoringLocationIdentity><MonitoringLocationIdentifier>2</MonitoringLocationIdentifier><MonitoringLocationName>two</MonitoringLocationName></MonitoringLocationIdentity><MonitoringLocationGeospatial><LongitudeMeasure>2</LongitudeMeasure>",
+			assertEquals(transformer.header.length() + 713, baos.size());
+			assertEquals(transformer.header
+					+ "<Organization><OrganizationDescription><OrganizationIdentifier>d</OrganizationIdentifier></OrganizationDescription><MonitoringLocation><MonitoringLocationIdentity><MonitoringLocationIdentifier>1</MonitoringLocationIdentifier><MonitoringLocationName>DG-10/13E/19-0891</MonitoringLocationName></MonitoringLocationIdentity><MonitoringLocationGeospatial><LongitudeMeasure>23jk&lt;h4kl213</LongitudeMeasure></MonitoringLocationGeospatial></MonitoringLocation><MonitoringLocation><MonitoringLocationIdentity><MonitoringLocationIdentifier>2</MonitoringLocationIdentifier><MonitoringLocationName>two</MonitoringLocationName></MonitoringLocationIdentity><MonitoringLocationGeospatial><LongitudeMeasure>2</LongitudeMeasure>",
 					new String(baos.toByteArray(), HttpConstants.DEFAULT_ENCODING));
 		} catch (IOException e) {
 			fail(e.getLocalizedMessage());
@@ -151,14 +149,11 @@ public class MapToXmlTransformerTest {
 	@Test
 	public void endTest() {
 		try {
-			transformer.end();
-			assertEquals(0, baos.size());
-
 			transformer.nodes.push(BaseWqx.WQX_PROVIDER);
 			transformer.nodes.push(BaseWqx.WQX_ORGANIZATION);
 			transformer.end();
-			assertEquals(26, baos.size());
-			assertEquals("</Organization></Provider>",
+			assertEquals(transformer.header.length() + 32, baos.size());
+			assertEquals(transformer.header + "</Organization></Provider></WQX>",
 					new String(baos.toByteArray(), HttpConstants.DEFAULT_ENCODING));
 		} catch (IOException e) {
 			fail(e.getLocalizedMessage());

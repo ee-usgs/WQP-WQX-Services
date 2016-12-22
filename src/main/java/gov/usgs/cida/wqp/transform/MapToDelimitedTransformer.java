@@ -19,10 +19,15 @@ public class MapToDelimitedTransformer extends Transformer {
 	protected static final String SPACE = " ";
 
 	protected final String delimiter;
-	
+
 	public MapToDelimitedTransformer(OutputStream target, Map<String, String> mapping, ILogService logService, BigDecimal logId, String delimiter) {
 		super(target, mapping, logService, logId);
 		this.delimiter = delimiter;
+		init();
+	}
+
+	protected void init() {
+		writeHeader();
 	}
 
 	protected void writeHeader() {
@@ -37,7 +42,7 @@ public class MapToDelimitedTransformer extends Transformer {
 			writeToStream(encode(value));
 		}
 	}
-	
+
 	protected void writeData(Map<String, Object> result) {
 		writeToStream(LF);
 		boolean firstPass = true;
@@ -52,10 +57,6 @@ public class MapToDelimitedTransformer extends Transformer {
 				writeToStream(encode(value.toString()));
 			}
 		}
-	}
-
-	protected void init() {
-		//Nothing to do here for the delimited formats. 
 	}
 
 	public String encode(String value) {

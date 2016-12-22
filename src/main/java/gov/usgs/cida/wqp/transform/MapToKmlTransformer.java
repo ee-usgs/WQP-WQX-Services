@@ -20,5 +20,5 @@ public class MapToKmlTransformer extends MapToXmlTransformer {
 		nodes.push(fieldMapping.getRoot());
 		nodes.push(KML_DOCUMENT);
 	}
-	
+
 }
