@@ -6,12 +6,14 @@ public class HttpConstants {
 	public static final String DEFAULT_ENCODING = "UTF-8";
 
 	public static final String ENDPOINT_ACTIVITY = "Activity";
+	public static final String ENDPOINT_ACTIVITY_METRIC = "ActivityMetric";
 	public static final String ENDPOINT_RESULT = "Result";
 	public static final String ENDPOINT_STATION = "Station";
 	public static final String ENDPOINT_SIMPLE_STATION = "simplestation";
 	public static final String ENPOINT_SEARCH = "/search";
 
 	public static final String ACTIVITY_SEARCH_ENPOINT = ENDPOINT_ACTIVITY + ENPOINT_SEARCH;
+	public static final String ACTIVITY_METRIC_SEARCH_ENPOINT = ENDPOINT_ACTIVITY_METRIC + ENPOINT_SEARCH;
 	public static final String RESULT_SEARCH_ENPOINT = ENDPOINT_RESULT + ENPOINT_SEARCH;
 	public static final String STATION_SEARCH_ENPOINT = ENDPOINT_STATION + ENPOINT_SEARCH;
 	public static final String SIMPLE_STATION_ENDPOINT = ENDPOINT_SIMPLE_STATION + ENPOINT_SEARCH;
@@ -32,6 +34,9 @@ public class HttpConstants {
 
 	public static final String HEADER_ACTIVITY_COUNT = ENDPOINT_ACTIVITY + HEADER_DELIMITER + HEADER_COUNT;
 	public static final String HEADER_TOTAL_ACTIVITY_COUNT = HEADER_TOTAL + HEADER_DELIMITER + HEADER_ACTIVITY_COUNT;
+
+	public static final String HEADER_ACTIVITY_METRIC_COUNT = ENDPOINT_ACTIVITY_METRIC + HEADER_DELIMITER + HEADER_COUNT;
+	public static final String HEADER_TOTAL_ACTIVITY_METRIC_COUNT = HEADER_TOTAL + HEADER_DELIMITER + HEADER_ACTIVITY_METRIC_COUNT;
 
 	public static final String HEADER_RESULT_COUNT = ENDPOINT_RESULT + HEADER_DELIMITER + HEADER_COUNT;
 	public static final String HEADER_TOTAL_RESULT_COUNT = HEADER_TOTAL + HEADER_DELIMITER + HEADER_RESULT_COUNT;
