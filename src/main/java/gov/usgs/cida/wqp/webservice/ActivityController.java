@@ -40,7 +40,7 @@ public class ActivityController extends BaseController {
 	public ActivityController(IStreamingDao inStreamingDao, ICountDao inCountDao, 
 			IParameterHandler inParameterHandler, ILogService inLogService,
 			@Qualifier("maxResultRows") Integer inMaxResultRows,
-			@Qualifier("resultWqx") IXmlMapping inXmlMapping,
+			@Qualifier("activityWqx") IXmlMapping inXmlMapping,
 			@Qualifier("siteUrlBase") String inSiteUrlBase) {
 		super(inStreamingDao, inCountDao, inParameterHandler, inLogService, inMaxResultRows, inSiteUrlBase);
 		xmlMapping = inXmlMapping;

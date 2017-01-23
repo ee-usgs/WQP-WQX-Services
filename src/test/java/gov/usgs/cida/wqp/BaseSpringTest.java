@@ -77,12 +77,22 @@ public abstract class BaseSpringTest {
 	public static String STORET_SITE_COUNT = "7";
 	public static String BIODATA_SITE_COUNT = "1";
 
+	//The test data has a case where a storet site has no activity/result data associated with it. Thus it should not show up in any queries/counts below the station level.
+	public static String TOTAL_SITE_COUNT_MINUS_1 = "11";
+	public static String STORET_SITE_COUNT_MINUS_1 = "6";
+
 	public static String TOTAL_ACTIVITY_COUNT = "23";
 	public static String NWIS_ACTIVITY_COUNT = "3";
 	public static String STEWARDS_ACTIVITY_COUNT = "3";
 	public static String STORET_ACTIVITY_COUNT = "16";
 	public static String BIODATA_ACTIVITY_COUNT = "1";
-;
+
+	public static String TOTAL_ACTIVITY_METRIC_COUNT = "28";
+	public static String NWIS_ACTIVITY_METRIC_COUNT = "3";
+	public static String STEWARDS_ACTIVITY_METRIC_COUNT = "3";
+	public static String STORET_ACTIVITY_METRIC_COUNT = "21";
+	public static String BIODATA_ACTIVITY_METRIC_COUNT = "1";
+
 	public static String TOTAL_RESULT_COUNT = "59";
 	public static String NWIS_RESULT_COUNT = "5";
 	public static String STEWARDS_RESULT_COUNT = "3";
@@ -93,6 +103,8 @@ public abstract class BaseSpringTest {
 	public static final String FILTERED_TOTAL_SITE_COUNT = "1";
 	public static final String FILTERED_STORET_ACTIVITY_COUNT = "2";
 	public static final String FILTERED_TOTAL_ACTIVITY_COUNT = "2";
+	public static final String FILTERED_STORET_ACTIVITY_METRIC_COUNT = "2";
+	public static final String FILTERED_TOTAL_ACTIVITY_METRIC_COUNT = "2";
 	public static final String FILTERED_STORET_RESULT_COUNT = "4";
 	public static final String FILTERED_TOTAL_RESULT_COUNT = "4";
 
@@ -108,18 +120,22 @@ public abstract class BaseSpringTest {
 
 	public static final String HEADER_NWIS_SITE_COUNT = "NWIS-Site-Count";
 	public static final String HEADER_NWIS_ACTIVITY_COUNT = "NWIS-Activity-Count";
+	public static final String HEADER_NWIS_ACTIVITY_METRIC_COUNT = "NWIS-ActivityMetric-Count";
 	public static final String HEADER_NWIS_RESULT_COUNT = "NWIS-Result-Count";
 
 	public static final String HEADER_STEWARDS_SITE_COUNT = "STEWARDS-Site-Count";
 	public static final String HEADER_STEWARDS_ACTIVITY_COUNT = "STEWARDS-Activity-Count";
+	public static final String HEADER_STEWARDS_ACTIVITY_METRIC_COUNT = "STEWARDS-ActivityMetric-Count";
 	public static final String HEADER_STEWARDS_RESULT_COUNT = "STEWARDS-Result-Count";
 
 	public static final String HEADER_STORET_SITE_COUNT = "STORET-Site-Count";
 	public static final String HEADER_STORET_ACTIVITY_COUNT = "STORET-Activity-Count";
+	public static final String HEADER_STORET_ACTIVITY_METRIC_COUNT = "STORET-ActivityMetric-Count";
 	public static final String HEADER_STORET_RESULT_COUNT = "STORET-Result-Count";
 
 	public static final String HEADER_BIODATA_SITE_COUNT = "BIODATA-Site-Count";
 	public static final String HEADER_BIODATA_ACTIVITY_COUNT = "BIODATA-Activity-Count";
+	public static final String HEADER_BIODATA_ACTIVITY_METRIC_COUNT = "BIODATA-ActivityMetric-Count";
 	public static final String HEADER_BIODATA_RESULT_COUNT = "BIODATA-Result-Count";
 
 	public String[] getAnalyticalMethod() {

@@ -78,7 +78,7 @@ public class ActivityColumn extends BaseColumn {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	//Profile Mapping of the Keys
-	public static final ColumnProfile ACTIVITY = new ColumnProfile(KEY_ACTIVITY, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY);
+	public static final ColumnProfile ACTIVITY = new ColumnProfile(KEY_ACTIVITY, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY, Profile.ACTIVITY_METRIC);
 	public static final ColumnProfile ACTIVITY_TYPE_CODE = new ColumnProfile(KEY_ACTIVITY_TYPE_CODE, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY);
 	public static final ColumnProfile SAMPLE_MEDIA = new ColumnProfile(KEY_SAMPLE_MEDIA, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY);
 	public static final ColumnProfile ACTIVITY_MEDIA_SUBDIV_NAME = new ColumnProfile(KEY_ACTIVITY_MEDIA_SUBDIV_NAME, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY);

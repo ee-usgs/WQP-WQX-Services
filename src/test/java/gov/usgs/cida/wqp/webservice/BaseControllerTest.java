@@ -68,9 +68,11 @@ public class BaseControllerTest {
 
 	public static final String TEST_NWIS_STATION_COUNT = "12";
 	public static final String TEST_NWIS_ACTIVITY_COUNT = "113";
+	public static final String TEST_NWIS_ACTIVITY_METRIC_COUNT = "32";
 	public static final String TEST_NWIS_RESULT_COUNT = "359";
 	public static final String TEST_TOTAL_STATION_COUNT = "121";
 	public static final String TEST_TOTAL_ACTIVITY_COUNT = "1131";
+	public static final String TEST_TOTAL_ACTIVITY_METRIC_COUNT = "321";
 	public static final String TEST_TOTAL_RESULT_COUNT = "3591";
 
 	@Mock
@@ -1020,6 +1022,7 @@ public class BaseControllerTest {
 		nwisCountRow.put(MybatisConstants.DATA_SOURCE, BaseSpringTest.NWIS);
 		nwisCountRow.put(MybatisConstants.STATION_COUNT, TEST_NWIS_STATION_COUNT);
 		nwisCountRow.put(MybatisConstants.ACTIVITY_COUNT, TEST_NWIS_ACTIVITY_COUNT);
+		nwisCountRow.put(MybatisConstants.ACTIVITY_METRIC_COUNT, TEST_NWIS_ACTIVITY_METRIC_COUNT);
 		nwisCountRow.put(MybatisConstants.RESULT_COUNT, TEST_NWIS_RESULT_COUNT);
 		rawCounts.add(nwisCountRow);
 
@@ -1027,6 +1030,7 @@ public class BaseControllerTest {
 		totalCountRow.put(MybatisConstants.DATA_SOURCE, null);
 		totalCountRow.put(MybatisConstants.STATION_COUNT, TEST_TOTAL_STATION_COUNT);
 		totalCountRow.put(MybatisConstants.ACTIVITY_COUNT, TEST_TOTAL_ACTIVITY_COUNT);
+		totalCountRow.put(MybatisConstants.ACTIVITY_METRIC_COUNT, TEST_TOTAL_ACTIVITY_METRIC_COUNT);
 		totalCountRow.put(MybatisConstants.RESULT_COUNT, TEST_TOTAL_RESULT_COUNT);
 		rawCounts.add(totalCountRow);
 

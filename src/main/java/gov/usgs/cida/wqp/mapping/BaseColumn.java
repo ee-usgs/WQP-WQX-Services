@@ -15,9 +15,9 @@ public abstract class BaseColumn {
 	public static final String KEY_RESULT_COUNT = "RESULT_COUNT";
 
 	//Profile Mapping of the Keys
-	public static final ColumnProfile DATA_SOURCE = new ColumnProfile(KEY_DATA_SOURCE, Profile.STATION, Profile.PC_RESULT, Profile.BIOLOGICAL, Profile.SIMPLE_STATION, Profile.ACTIVITY);
-	public static final ColumnProfile ORGANIZATION = new ColumnProfile(KEY_ORGANIZATION, Profile.STATION, Profile.PC_RESULT, Profile.BIOLOGICAL, Profile.SIMPLE_STATION, Profile.ACTIVITY);
-	public static final ColumnProfile ORGANIZATION_NAME = new ColumnProfile(KEY_ORGANIZATION_NAME, Profile.STATION, Profile.PC_RESULT, Profile.BIOLOGICAL, Profile.SIMPLE_STATION, Profile.ACTIVITY);
-	public static final ColumnProfile SITE_ID = new ColumnProfile(KEY_SITE_ID, Profile.STATION, Profile.PC_RESULT, Profile.BIOLOGICAL, Profile.SIMPLE_STATION, Profile.ACTIVITY);
+	public static final ColumnProfile DATA_SOURCE = new ColumnProfile(KEY_DATA_SOURCE, Profile.STATION, Profile.PC_RESULT, Profile.BIOLOGICAL, Profile.SIMPLE_STATION, Profile.ACTIVITY, Profile.ACTIVITY_METRIC);
+	public static final ColumnProfile ORGANIZATION = new ColumnProfile(KEY_ORGANIZATION, Profile.STATION, Profile.PC_RESULT, Profile.BIOLOGICAL, Profile.SIMPLE_STATION, Profile.ACTIVITY, Profile.ACTIVITY_METRIC);
+	public static final ColumnProfile ORGANIZATION_NAME = new ColumnProfile(KEY_ORGANIZATION_NAME, Profile.STATION, Profile.PC_RESULT, Profile.BIOLOGICAL, Profile.SIMPLE_STATION, Profile.ACTIVITY, Profile.ACTIVITY_METRIC);
+	public static final ColumnProfile SITE_ID = new ColumnProfile(KEY_SITE_ID, Profile.STATION, Profile.PC_RESULT, Profile.BIOLOGICAL, Profile.SIMPLE_STATION, Profile.ACTIVITY, Profile.ACTIVITY_METRIC);
 
 }

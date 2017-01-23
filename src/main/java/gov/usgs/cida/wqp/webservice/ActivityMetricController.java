@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import gov.usgs.cida.wqp.dao.intfc.ICountDao;
 import gov.usgs.cida.wqp.dao.intfc.IStreamingDao;
 import gov.usgs.cida.wqp.mapping.Profile;
-import gov.usgs.cida.wqp.mapping.delimited.ActivityDelimited;
+import gov.usgs.cida.wqp.mapping.delimited.ActivityMetricDelimited;
 import gov.usgs.cida.wqp.mapping.xml.IXmlMapping;
 import gov.usgs.cida.wqp.parameter.IParameterHandler;
 import gov.usgs.cida.wqp.service.ILogService;
@@ -40,7 +40,7 @@ public class ActivityMetricController extends BaseController {
 	public ActivityMetricController(IStreamingDao inStreamingDao, ICountDao inCountDao, 
 			IParameterHandler inParameterHandler, ILogService inLogService,
 			@Qualifier("maxResultRows") Integer inMaxResultRows,
-			@Qualifier("resultWqx") IXmlMapping inXmlMapping,
+			@Qualifier("activityMetricWqx") IXmlMapping inXmlMapping,
 			@Qualifier("siteUrlBase") String inSiteUrlBase) {
 		super(inStreamingDao, inCountDao, inParameterHandler, inLogService, inMaxResultRows, inSiteUrlBase);
 		xmlMapping = inXmlMapping;
@@ -74,13 +74,14 @@ public class ActivityMetricController extends BaseController {
 
 	protected String addCountHeaders(HttpServletResponse response, List<Map<String, Object>> counts) {
 		addSiteHeaders(response, counts);
+		addActivityHeaders(response, counts);
 		addActivityMetricHeaders(response, counts);
 		return HttpConstants.HEADER_TOTAL_ACTIVITY_METRIC_COUNT;
 	}
 
 	@Override
 	protected Map<String, String> getMapping(String profile) {
-		return ActivityDelimited.getMapping(profile);
+		return ActivityMetricDelimited.getMapping(profile);
 	}
 
 	@Override
