@@ -38,6 +38,15 @@ public class TestSpringConfig extends SpringConfig {
 		return ds;
 	}
 
+	@Bean
+	public OracleDataSource dbUnitDataSource() throws SQLException {
+		OracleDataSource ds = new OracleDataSource();
+		ds.setURL(WqpEnv.get("test.datasource.url"));
+		ds.setUser(WqpEnv.get("test.dbunit.username"));
+		ds.setPassword(WqpEnv.get("test.dbunit.password"));
+		return ds;
+	}
+
 	//Beans to support DBunit for unit testing with Oracle.
 	@Bean
 	public DatabaseConfigBean dbUnitDatabaseConfig() {
@@ -52,7 +61,7 @@ public class TestSpringConfig extends SpringConfig {
 	public DatabaseDataSourceConnectionFactoryBean dbUnitDatabaseConnection() throws SQLException {
 		DatabaseDataSourceConnectionFactoryBean dbUnitDatabaseConnection = new DatabaseDataSourceConnectionFactoryBean();
 		dbUnitDatabaseConnection.setDatabaseConfig(dbUnitDatabaseConfig());
-		dbUnitDatabaseConnection.setDataSource(dataSource());
+		dbUnitDatabaseConnection.setDataSource(dbUnitDataSource());
 		dbUnitDatabaseConnection.setSchema("WQP_CORE");
 		return dbUnitDatabaseConnection;
 	}

@@ -74,7 +74,7 @@ public class TestStationMap {
 		STATION_JSON.put(KEY_LONGITUDE, "-89.8989000");
 		STATION_JSON.put(KEY_MONITORING_LOCATION_TYPE, "stationTypeName");
 		STATION_JSON.put(KEY_HUC_8, "00000000");
-		STATION_JSON.put(KEY_ACTIVITY_COUNT, BigDecimal.valueOf(5));
+		STATION_JSON.put(KEY_ACTIVITY_COUNT, BigDecimal.valueOf(4));
 		STATION_JSON.put(KEY_RESULT_COUNT, BigDecimal.valueOf(4));
 	}
 

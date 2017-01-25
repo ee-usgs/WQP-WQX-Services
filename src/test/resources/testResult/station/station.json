@@ -168,7 +168,7 @@
 			"ResolvedMonitoringLocationTypeName": "siteType",
 			"HUCEightDigitCode": "00000000",
 			"siteUrl": "http://www.waterqualitydata.us/provider/STORET/organization/organization-siteId/",
-			"activityCount": "5",
+			"activityCount": "4",
 			"resultCount": "4"
 		}
 	}, {
@@ -206,7 +206,7 @@
 			"ResolvedMonitoringLocationTypeName": "siteType",
 			"HUCEightDigitCode": "00000000",
 			"siteUrl": "http://www.waterqualitydata.us/provider/STORET/organization/organization-siteId3/",
-			"activityCount": "0",
+			"activityCount": "1",
 			"resultCount": "1"
 		}
 	}, {

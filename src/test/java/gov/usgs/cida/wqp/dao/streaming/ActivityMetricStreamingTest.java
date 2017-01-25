@@ -3,7 +3,6 @@ package gov.usgs.cida.wqp.dao.streaming;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -24,48 +23,53 @@ import gov.usgs.cida.wqp.CsvDataSetLoader;
 import gov.usgs.cida.wqp.DBIntegrationTest;
 import gov.usgs.cida.wqp.dao.BaseDao;
 import gov.usgs.cida.wqp.dao.intfc.IStreamingDao;
-import gov.usgs.cida.wqp.mapping.ActivityColumn;
+import gov.usgs.cida.wqp.mapping.ActivityMetricColumn;
 import gov.usgs.cida.wqp.mapping.BaseColumn;
 import gov.usgs.cida.wqp.parameter.Parameters;
 
 @Category(DBIntegrationTest.class)
 @DatabaseSetup("classpath:/testData/csv/")
 @DbUnitConfiguration(dataSetLoader = CsvDataSetLoader.class)
-public class ActivityStreamingTest extends BaseSpringTest {
-	private static final Logger LOG = LoggerFactory.getLogger(ActivityStreamingTest.class);
+public class ActivityMetricStreamingTest extends BaseSpringTest {
+	private static final Logger LOG = LoggerFactory.getLogger(ActivityMetricStreamingTest.class);
 
 	@Autowired 
 	IStreamingDao streamingDao;
 
 	TestResultHandler handler;
 	Map<String, Object> parms;
-	String nameSpace = BaseDao.ACTIVITY_NAMESPACE;
+	String nameSpace = BaseDao.ACTIVITY_METRIC_NAMESPACE;
 
-	public static final BigDecimal[] STEWARDS_1 = new BigDecimal[]{BigDecimal.ONE, BigDecimal.ONE};
-	public static final BigDecimal[] STEWARDS_2 = new BigDecimal[]{BigDecimal.ONE, BigDecimal.valueOf(2)};
-	public static final BigDecimal[] STEWARDS_3 = new BigDecimal[]{BigDecimal.ONE, BigDecimal.valueOf(3)};
-	public static final BigDecimal[] NWIS_1 = new BigDecimal[]{BigDecimal.valueOf(2), BigDecimal.ONE};
-	public static final BigDecimal[] NWIS_2 = new BigDecimal[]{BigDecimal.valueOf(2), BigDecimal.valueOf(2)};
-	public static final BigDecimal[] NWIS_3 = new BigDecimal[]{BigDecimal.valueOf(2), BigDecimal.valueOf(3)};
-	public static final BigDecimal[] STORET_1 = new BigDecimal[]{BigDecimal.valueOf(3), BigDecimal.ONE};
-	public static final BigDecimal[] STORET_2 = new BigDecimal[]{BigDecimal.valueOf(3), BigDecimal.valueOf(2)};
-	public static final BigDecimal[] STORET_3 = new BigDecimal[]{BigDecimal.valueOf(3), BigDecimal.valueOf(3)};
-	public static final BigDecimal[] STORET_4 = new BigDecimal[]{BigDecimal.valueOf(3), BigDecimal.valueOf(4)};
-	public static final BigDecimal[] STORET_5 = new BigDecimal[]{BigDecimal.valueOf(3), BigDecimal.valueOf(5)};
-	public static final BigDecimal[] STORET_6 = new BigDecimal[]{BigDecimal.valueOf(3), BigDecimal.valueOf(6)};
-	public static final BigDecimal[] STORET_7 = new BigDecimal[]{BigDecimal.valueOf(3), BigDecimal.valueOf(7)};
-	public static final BigDecimal[] STORET_8 = new BigDecimal[]{BigDecimal.valueOf(3), BigDecimal.valueOf(8)};
-	public static final BigDecimal[] STORET_9 = new BigDecimal[]{BigDecimal.valueOf(3), BigDecimal.valueOf(9)};
-	public static final BigDecimal[] STORET_10 = new BigDecimal[]{BigDecimal.valueOf(3), BigDecimal.TEN};
-	public static final BigDecimal[] STORET_11 = new BigDecimal[]{BigDecimal.valueOf(3), BigDecimal.valueOf(11)};
-	public static final BigDecimal[] STORET_12 = new BigDecimal[]{BigDecimal.valueOf(3), BigDecimal.valueOf(12)};
-	public static final BigDecimal[] STORET_13 = new BigDecimal[]{BigDecimal.valueOf(3), BigDecimal.valueOf(13)};
-	public static final BigDecimal[] STORET_14 = new BigDecimal[]{BigDecimal.valueOf(3), BigDecimal.valueOf(14)};
-	public static final BigDecimal[] STORET_15 = new BigDecimal[]{BigDecimal.valueOf(3), BigDecimal.valueOf(15)};
-	public static final BigDecimal[] STORET_16 = new BigDecimal[]{BigDecimal.valueOf(3), BigDecimal.valueOf(16)};
-	public static final BigDecimal[] BIODATA_1 = new BigDecimal[]{BigDecimal.valueOf(4), BigDecimal.ONE};
+	public static final String[] STEWARDS_1 = new String[]{STEWARDS, "1_1_type_identifier"};
+	public static final String[] STEWARDS_2 = new String[]{STEWARDS, "1_2_type_identifier"};
+	public static final String[] STEWARDS_3 = new String[]{STEWARDS, "1_3_type_identifier"};
+	public static final String[] NWIS_1 = new String[]{NWIS, "2_1_type_identifier"};
+	public static final String[] NWIS_2 = new String[]{NWIS, "2_2_type_identifier"};
+	public static final String[] NWIS_3 = new String[]{NWIS, "2_3_type_identifier"};
+	public static final String[] STORET_1 = new String[]{STORET, "3_1_type_identifier"};
+	public static final String[] STORET_2 = new String[]{STORET, "3_2_type_identifier"};
+	public static final String[] STORET_3 = new String[]{STORET, "3_3_type_identifier"};
+	public static final String[] STORET_4 = new String[]{STORET, "GENERA RICHNESS"};
+	public static final String[] STORET_5A = new String[]{STORET, "% EPT Individuals"};
+	public static final String[] STORET_5B = new String[]{STORET, "% EPT Taxa"};
+	public static final String[] STORET_5C = new String[]{STORET, "CHI %"};
+	public static final String[] STORET_5D = new String[]{STORET, "GATHERER %"};
+	public static final String[] STORET_5E = new String[]{STORET, "MPTV"};
+	public static final String[] STORET_5F = new String[]{STORET, "SHREDDER %"};
+	public static final String[] STORET_6 = new String[]{STORET, "3_6_type_identifier"};
+	public static final String[] STORET_7 = new String[]{STORET, "3_7_type_identifier"};
+	public static final String[] STORET_8 = new String[]{STORET, "3_8_type_identifier"};
+	public static final String[] STORET_9 = new String[]{STORET, "3_9_type_identifier"};
+	public static final String[] STORET_10 = new String[]{STORET, "3_10_type_identifier"};
+	public static final String[] STORET_11 = new String[]{STORET, "3_11_type_identifier"};
+	public static final String[] STORET_12 = new String[]{STORET, "3_12_type_identifier"};
+	public static final String[] STORET_13 = new String[]{STORET, "3_13_type_identifier"};
+	public static final String[] STORET_14 = new String[]{STORET, "3_14_type_identifier"};
+	public static final String[] STORET_15 = new String[]{STORET, "3_15_type_identifier"};
+	public static final String[] STORET_16 = new String[]{STORET, "3_16_type_identifier"};
+	public static final String[] BIODATA_1 = new String[]{BIODATA, "4_1_type_identifier"};
 
-	public static final int ACTIVITY_COLUMN_COUNT = 78;
+	public static final int ACTIVITY_METRIC_COLUMN_COUNT = 21;
 
 	@Before
 	public void init() {
@@ -85,13 +89,13 @@ public class ActivityStreamingTest extends BaseSpringTest {
 	@Test
 	public void nullParameterTest() {
 		streamingDao.stream(nameSpace, null, handler);
-		assertEquals(TOTAL_ACTIVITY_COUNT, String.valueOf(handler.getResults().size()));
+		assertEquals(TOTAL_ACTIVITY_METRIC_COUNT, String.valueOf(handler.getResults().size()));
 	}
 
 	@Test
 	public void emptyParameterTest() {
 		streamingDao.stream(nameSpace, parms, handler);
-		assertEquals(TOTAL_ACTIVITY_COUNT, String.valueOf(handler.getResults().size()));
+		assertEquals(TOTAL_ACTIVITY_METRIC_COUNT, String.valueOf(handler.getResults().size()));
 	}
 
 	@Test
@@ -101,7 +105,7 @@ public class ActivityStreamingTest extends BaseSpringTest {
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		//Validate the number AND order of results.
-		assertEquals(TOTAL_ACTIVITY_COUNT, String.valueOf(results.size()));
+		assertEquals(TOTAL_ACTIVITY_METRIC_COUNT, String.valueOf(results.size()));
 		assertStewards1(results.get(0));
 		assertStewards2(results.get(1));
 		assertStewards3(results.get(2));
@@ -115,16 +119,21 @@ public class ActivityStreamingTest extends BaseSpringTest {
 		assertStoret7(results.get(10));
 		assertStoret9(results.get(11));
 		assertStoret8(results.get(12));
-		assertStoret5(results.get(13));
-		assertStoret4(results.get(14));
-		assertStoret11(results.get(15));
-		assertStoret12(results.get(16));
-		assertStoret13(results.get(17));
-		assertStoret2(results.get(18));
-		assertStoret16(results.get(19));
-		assertStoret1(results.get(20));
-		assertStoret3(results.get(21));
-		assertBiodata1(results.get(22));
+		assertStoret5A(results.get(13));
+		assertStoret5B(results.get(14));
+		assertStoret5C(results.get(15));
+		assertStoret5D(results.get(16));
+		assertStoret5E(results.get(17));
+		assertStoret5F(results.get(18));
+		assertStoret4(results.get(19));
+		assertStoret11(results.get(20));
+		assertStoret12(results.get(21));
+		assertStoret13(results.get(22));
+		assertStoret2(results.get(23));
+		assertStoret16(results.get(24));
+		assertStoret1(results.get(25));
+		assertStoret3(results.get(26));
+		assertBiodata1(results.get(27));
 	}
 
 	@Test
@@ -133,9 +142,10 @@ public class ActivityStreamingTest extends BaseSpringTest {
 		streamingDao.stream(nameSpace, parms, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(16, results.size());
-		assertContainsActivity(results, STORET_1, STORET_2, STORET_3, STORET_4, STORET_5, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10,
-				STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_16);
+		assertEquals(21, results.size());
+		assertContainsActivityMetric(results, STORET_1, STORET_2, STORET_3, STORET_4, STORET_5A, STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F,
+				STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14, STORET_15,
+				STORET_16);
 	}
 
 	@Test
@@ -144,9 +154,10 @@ public class ActivityStreamingTest extends BaseSpringTest {
 		streamingDao.stream(nameSpace, parms, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(19, results.size());
-		assertContainsActivity(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_4,
-				STORET_5, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_16, BIODATA_1);
+		assertEquals(24, results.size());
+		assertContainsActivityMetric(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_4,
+				STORET_5A, STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F, STORET_10, STORET_11, STORET_12, STORET_13,
+				STORET_14, STORET_15, STORET_16, BIODATA_1);
 	}
 
 	@Test
@@ -155,9 +166,10 @@ public class ActivityStreamingTest extends BaseSpringTest {
 		streamingDao.stream(nameSpace, parms, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(18, results.size());
-		assertContainsActivity(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_4,
-				STORET_5, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_16);
+		assertEquals(23, results.size());
+		assertContainsActivityMetric(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_4,
+				STORET_5A, STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F, STORET_10, STORET_11, STORET_12, STORET_13,
+				STORET_14, STORET_15, STORET_16);
 	}
 
 	@Test
@@ -166,9 +178,9 @@ public class ActivityStreamingTest extends BaseSpringTest {
 		streamingDao.stream(nameSpace, parms, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(11, results.size());
-		assertContainsActivity(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_4, STORET_5, STORET_10, STORET_14,
-				STORET_15);
+		assertEquals(16, results.size());
+		assertContainsActivityMetric(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_4, STORET_5A, STORET_5B, STORET_5C,
+				STORET_5D, STORET_5E, STORET_5F, STORET_10, STORET_14, STORET_15);
 	}
 
 	@Test
@@ -177,8 +189,8 @@ public class ActivityStreamingTest extends BaseSpringTest {
 		streamingDao.stream(nameSpace, parms, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(5, results.size());
-		assertContainsActivity(results, NWIS_1, NWIS_2, NWIS_3, STORET_4, STORET_5);
+		assertEquals(10, results.size());
+		assertContainsActivityMetric(results, NWIS_1, NWIS_2, NWIS_3, STORET_4, STORET_5A, STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F);
 	}
 
 	@Test
@@ -187,8 +199,8 @@ public class ActivityStreamingTest extends BaseSpringTest {
 		streamingDao.stream(nameSpace, parms, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(4, results.size());
-		assertContainsActivity(results, NWIS_1, NWIS_2, STORET_4, STORET_5);
+		assertEquals(9, results.size());
+		assertContainsActivityMetric(results, NWIS_1, NWIS_2, STORET_4, STORET_5A, STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F);
 	}
 
 	@Test
@@ -197,8 +209,8 @@ public class ActivityStreamingTest extends BaseSpringTest {
 		streamingDao.stream(nameSpace, parms, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(2, results.size());
-		assertContainsActivity(results, STORET_4, STORET_5);
+		assertEquals(7, results.size());
+		assertContainsActivityMetric(results, STORET_4, STORET_5A, STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F);
 	}
 
 	@Test
@@ -211,8 +223,9 @@ public class ActivityStreamingTest extends BaseSpringTest {
 		}
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(8, results.size());
-		assertContainsActivity(results, STORET_1, STORET_2, STORET_4, STORET_5, STORET_11, STORET_12, STORET_13, STORET_16);
+		assertEquals(13, results.size());
+		assertContainsActivityMetric(results, STORET_1, STORET_2, STORET_4, STORET_5A, STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F, STORET_11,
+				STORET_12, STORET_13, STORET_16);
 	}
 
 	@Test
@@ -221,9 +234,10 @@ public class ActivityStreamingTest extends BaseSpringTest {
 		streamingDao.stream(nameSpace, parms, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(18, results.size());
-		assertContainsActivity(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_4,
-				STORET_5, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_16);
+		assertEquals(23, results.size());
+		assertContainsActivityMetric(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_4,
+				STORET_5A, STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F, STORET_10, STORET_11, STORET_12, STORET_13,
+				STORET_14, STORET_15, STORET_16);
 	}
 
 	@Test
@@ -233,7 +247,7 @@ public class ActivityStreamingTest extends BaseSpringTest {
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(14, results.size());
-		assertContainsActivity(results, STEWARDS_1, STEWARDS_3, NWIS_1, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_11, STORET_12, STORET_13,
+		assertContainsActivityMetric(results, STEWARDS_1,  STEWARDS_3, NWIS_1, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_11, STORET_12, STORET_13,
 				STORET_14, STORET_15, STORET_16, BIODATA_1);
 	}
 
@@ -243,10 +257,10 @@ public class ActivityStreamingTest extends BaseSpringTest {
 		streamingDao.stream(nameSpace, parms, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(22, results.size());
-		assertContainsActivity(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_4,
-				STORET_5, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14,
-				STORET_15, STORET_16);
+		assertEquals(27, results.size());
+		assertContainsActivityMetric(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_4,
+				STORET_5A, STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F, STORET_6, STORET_7, STORET_8, STORET_9,
+				STORET_10, STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_16);
 	}
 
 	@Test
@@ -255,10 +269,10 @@ public class ActivityStreamingTest extends BaseSpringTest {
 		streamingDao.stream(nameSpace, parms, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(21, results.size());
-		assertContainsActivity(results, STEWARDS_1, STEWARDS_3, NWIS_1, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_4, STORET_5, STORET_6,
-				STORET_7, STORET_8, STORET_9, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_16,
-				BIODATA_1);
+		assertEquals(26, results.size());
+		assertContainsActivityMetric(results, STEWARDS_1, STEWARDS_3, NWIS_1, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_4, STORET_5A, STORET_5B,
+				STORET_5C, STORET_5D, STORET_5E, STORET_5F, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, STORET_11,
+				STORET_12, STORET_13, STORET_14, STORET_15, STORET_16, BIODATA_1);
 	}
 
 	@Test
@@ -267,10 +281,10 @@ public class ActivityStreamingTest extends BaseSpringTest {
 		streamingDao.stream(nameSpace, parms, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(21, results.size());
-		assertContainsActivity(results, STEWARDS_1, STEWARDS_3, NWIS_1, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_4, STORET_5, STORET_6,
-				STORET_7, STORET_8, STORET_9, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_16,
-				BIODATA_1);
+		assertEquals(26, results.size());
+		assertContainsActivityMetric(results, STEWARDS_1, STEWARDS_3, NWIS_1, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_4, STORET_5A, STORET_5B,
+				STORET_5C, STORET_5D, STORET_5E, STORET_5F, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, STORET_11,
+				STORET_12, STORET_13, STORET_14, STORET_15, STORET_16, BIODATA_1);
 	}
 
 	@Test
@@ -280,7 +294,7 @@ public class ActivityStreamingTest extends BaseSpringTest {
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(17, results.size());
-		assertContainsActivity(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_10,
+		assertContainsActivityMetric(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_10,
 				STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_1, BIODATA_1);
 	}
 
@@ -291,7 +305,7 @@ public class ActivityStreamingTest extends BaseSpringTest {
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(16, results.size());
-		assertContainsActivity(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_10,
+		assertContainsActivityMetric(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_10,
 				STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_16);
 	}
 
@@ -305,8 +319,9 @@ public class ActivityStreamingTest extends BaseSpringTest {
 		}
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(8, results.size());
-		assertContainsActivity(results, STORET_1, STORET_2, STORET_4, STORET_5, STORET_11, STORET_12, STORET_13, STORET_16);
+		assertEquals(13, results.size());
+		assertContainsActivityMetric(results, STORET_1, STORET_2, STORET_4, STORET_5A, STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F, STORET_11,
+				STORET_12, STORET_13, STORET_16);
 	}
 
 	@Test
@@ -315,10 +330,10 @@ public class ActivityStreamingTest extends BaseSpringTest {
 		streamingDao.stream(nameSpace, parms, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(22, results.size());
-		assertContainsActivity(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, STORET_1, STORET_2, STORET_3, STORET_4, STORET_5,
-				STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14, STORET_15,
-				STORET_1, BIODATA_1);
+		assertEquals(27, results.size());
+		assertContainsActivityMetric(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, STORET_1, STORET_2, STORET_3, STORET_4, STORET_5A,
+				STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10,
+				STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_1, BIODATA_1);
 	}
 
 	@Test
@@ -327,9 +342,10 @@ public class ActivityStreamingTest extends BaseSpringTest {
 		streamingDao.stream(nameSpace, parms, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(18, results.size());
-		assertContainsActivity(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_4,
-				STORET_5, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_1);
+		assertEquals(23, results.size());
+		assertContainsActivityMetric(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_4,
+				STORET_5A, STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F, STORET_10, STORET_11, STORET_12, STORET_13,
+				STORET_14, STORET_15, STORET_1);
 	}
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -341,9 +357,10 @@ public class ActivityStreamingTest extends BaseSpringTest {
 		streamingDao.stream(nameSpace, parms, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(19, results.size());
-		assertContainsActivity(results, STEWARDS_1, STEWARDS_2, NWIS_1, NWIS_2, STORET_1, STORET_2, STORET_4, STORET_5, STORET_6, STORET_7,
-				STORET_8, STORET_9, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_16);
+		assertEquals(24, results.size());
+		assertContainsActivityMetric(results, STEWARDS_1, STEWARDS_2, NWIS_1, NWIS_2, STORET_1, STORET_2, STORET_4, STORET_5A, STORET_5B, STORET_5C,
+				STORET_5D, STORET_5E, STORET_5F, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, STORET_11, STORET_12,
+				STORET_13, STORET_14, STORET_15, STORET_16);
 	}
 
 	@Test
@@ -352,9 +369,10 @@ public class ActivityStreamingTest extends BaseSpringTest {
 		streamingDao.stream(nameSpace, parms, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(17, results.size());
-		assertContainsActivity(results, NWIS_1, NWIS_2, STORET_1, STORET_2, STORET_4, STORET_5, STORET_6, STORET_7, STORET_8, STORET_9,
-				STORET_10, STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_16);
+		assertEquals(22, results.size());
+		assertContainsActivityMetric(results, NWIS_1, NWIS_2, STORET_1, STORET_2, STORET_4, STORET_5A, STORET_5B, STORET_5C, STORET_5D, STORET_5E,
+				STORET_5F, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14,
+				STORET_15, STORET_16);
 	}
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -366,9 +384,10 @@ public class ActivityStreamingTest extends BaseSpringTest {
 		streamingDao.stream(nameSpace, parms, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(17, results.size());
-		assertContainsActivity(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_1, STORET_2, STORET_4, STORET_5,
-				STORET_10, STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_16);
+		assertEquals(22, results.size());
+		assertContainsActivityMetric(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_1, STORET_2, STORET_4, STORET_5A,
+				STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14,
+				STORET_15, STORET_16);
 	}
 
 	@Test
@@ -379,9 +398,10 @@ public class ActivityStreamingTest extends BaseSpringTest {
 		streamingDao.stream(nameSpace, parms, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(19, results.size());
-		assertContainsActivity(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_4,
-				STORET_5, STORET_6, STORET_7, STORET_8, STORET_9, STORET_11, STORET_12, STORET_13, STORET_16);
+		assertEquals(24, results.size());
+		assertContainsActivityMetric(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_4,
+				STORET_5A, STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F, STORET_6, STORET_7, STORET_8, STORET_9,
+				STORET_11, STORET_12, STORET_13, STORET_16);
 	}
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -394,7 +414,7 @@ public class ActivityStreamingTest extends BaseSpringTest {
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(12, results.size());
-		assertContainsActivity(results, NWIS_1, NWIS_2, STORET_1, STORET_2, STORET_3, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14,
+		assertContainsActivityMetric(results, NWIS_1, NWIS_2, STORET_1, STORET_2, STORET_3, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14,
 				STORET_15, STORET_16);
 	}
 
@@ -405,7 +425,7 @@ public class ActivityStreamingTest extends BaseSpringTest {
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(11, results.size());
-		assertContainsActivity(results, STORET_1, STORET_2, STORET_3, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_16, BIODATA_1);
+		assertContainsActivityMetric(results, STORET_1, STORET_2, STORET_3, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_16, BIODATA_1);
 	}
 
 	@Test
@@ -415,7 +435,7 @@ public class ActivityStreamingTest extends BaseSpringTest {
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(10, results.size());
-		assertContainsActivity(results, STORET_1, STORET_2, STORET_3, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_16);
+		assertContainsActivityMetric(results, STORET_1, STORET_2, STORET_3, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_16);
 	}
 
 	@Test
@@ -425,7 +445,7 @@ public class ActivityStreamingTest extends BaseSpringTest {
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(12, results.size());
-		assertContainsActivity(results, STEWARDS_1, STEWARDS_2, STORET_1, STORET_2, STORET_3, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14,
+		assertContainsActivityMetric(results, STEWARDS_1, STEWARDS_2, STORET_1, STORET_2, STORET_3, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14,
 				STORET_15, STORET_16);
 	}
 
@@ -436,7 +456,7 @@ public class ActivityStreamingTest extends BaseSpringTest {
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(10, results.size());
-		assertContainsActivity(results, NWIS_3, STORET_1, STORET_2, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_16);
+		assertContainsActivityMetric(results, NWIS_3, STORET_1, STORET_2, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_16);
 	}
 
 	@Test
@@ -446,7 +466,7 @@ public class ActivityStreamingTest extends BaseSpringTest {
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(10, results.size());
-		assertContainsActivity(results, STORET_1, STORET_2, STORET_3, STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_16, BIODATA_1);
+		assertContainsActivityMetric(results, STORET_1, STORET_2, STORET_3, STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_16, BIODATA_1);
 	}
 
 	@Test
@@ -467,7 +487,8 @@ public class ActivityStreamingTest extends BaseSpringTest {
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(11, results.size());
-		assertContainsActivity(results, STEWARDS_1, NWIS_1, STORET_1, STORET_2, STORET_3, STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_16);
+		assertContainsActivityMetric(results, STEWARDS_1, NWIS_1, STORET_1, STORET_2, STORET_3, STORET_11, STORET_12, STORET_13, STORET_14, STORET_15,
+				STORET_16);
 	}
 
 	@Test
@@ -492,7 +513,7 @@ public class ActivityStreamingTest extends BaseSpringTest {
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(8, results.size());
-		assertContainsActivity(results, STEWARDS_1, NWIS_1, STORET_1, STORET_2, STORET_11, STORET_12, STORET_13, STORET_16);
+		assertContainsActivityMetric(results, STEWARDS_1, NWIS_1, STORET_1, STORET_2, STORET_11, STORET_12, STORET_13, STORET_16);
 	}
 
 	@Test
@@ -515,7 +536,7 @@ public class ActivityStreamingTest extends BaseSpringTest {
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(8, results.size());
-		assertContainsActivity(results, STORET_1, STORET_2, STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_16);
+		assertContainsActivityMetric(results, STORET_1, STORET_2, STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_16);
 	}
 
 	@Test
@@ -541,7 +562,7 @@ public class ActivityStreamingTest extends BaseSpringTest {
 		streamingDao.stream(nameSpace, parms, handler);
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(6, results.size());
-		assertContainsActivity(results, STORET_1, STORET_2, STORET_11, STORET_12, STORET_13, STORET_16);
+		assertContainsActivityMetric(results, STORET_1, STORET_2, STORET_11, STORET_12, STORET_13, STORET_16);
 	}
 
 	@Test
@@ -572,7 +593,7 @@ public class ActivityStreamingTest extends BaseSpringTest {
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(4, results.size());
-		assertContainsActivity(results, STORET_1, STORET_14, STORET_15, STORET_16);
+		assertContainsActivityMetric(results, STORET_1, STORET_14, STORET_15, STORET_16);
 	}
 
 	@Test
@@ -606,189 +627,199 @@ public class ActivityStreamingTest extends BaseSpringTest {
 		streamingDao.stream(nameSpace, parms, handler);
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(2, results.size());
-		assertContainsActivity(results, STORET_1, STORET_16);
+		assertContainsActivityMetric(results, STORET_1, STORET_16);
 	}
 
 	public static void assertStewards1(Map<String, Object> row) {
-		assertEquals(ACTIVITY_COLUMN_COUNT, row.keySet().size());
+		assertEquals(ACTIVITY_METRIC_COLUMN_COUNT, row.keySet().size());
 		assertEquals(STEWARDS, row.get(BaseColumn.KEY_DATA_SOURCE));
-		assertEquals(BigDecimal.ONE, row.get(ActivityColumn.KEY_ACTIVITY_ID));
-		assertEquals("activityStewards", row.get(ActivityColumn.KEY_ACTIVITY));
+		assertEquals(STEWARDS_1[1], row.get(ActivityMetricColumn.KEY_METRIC_TYPE_IDENTIFIER));
 	}
 
 	public static void assertStewards2(Map<String, Object> row) {
-		assertEquals(ACTIVITY_COLUMN_COUNT, row.keySet().size());
+		assertEquals(ACTIVITY_METRIC_COLUMN_COUNT, row.keySet().size());
 		assertEquals(STEWARDS, row.get(BaseColumn.KEY_DATA_SOURCE));
-		assertEquals(BigDecimal.valueOf(2), row.get(ActivityColumn.KEY_ACTIVITY_ID));
-		assertEquals("activityStewards", row.get(ActivityColumn.KEY_ACTIVITY));
+		assertEquals(STEWARDS_2[1], row.get(ActivityMetricColumn.KEY_METRIC_TYPE_IDENTIFIER));
 	}
 
 	public static void assertStewards3(Map<String, Object> row) {
-		assertEquals(ACTIVITY_COLUMN_COUNT, row.keySet().size());
+		assertEquals(ACTIVITY_METRIC_COLUMN_COUNT, row.keySet().size());
 		assertEquals(STEWARDS, row.get(BaseColumn.KEY_DATA_SOURCE));
-		assertEquals(BigDecimal.valueOf(3), row.get(ActivityColumn.KEY_ACTIVITY_ID));
-		assertEquals("activityStewards", row.get(ActivityColumn.KEY_ACTIVITY));
+		assertEquals(STEWARDS_3[1], row.get(ActivityMetricColumn.KEY_METRIC_TYPE_IDENTIFIER));
 	}
 
 	public static void assertNwis1(Map<String, Object> row) {
-		assertEquals(ACTIVITY_COLUMN_COUNT, row.keySet().size());
+		assertEquals(ACTIVITY_METRIC_COLUMN_COUNT, row.keySet().size());
 		assertEquals(NWIS, row.get(BaseColumn.KEY_DATA_SOURCE));
-		assertEquals(BigDecimal.ONE, row.get(ActivityColumn.KEY_ACTIVITY_ID));
-		assertEquals("activityNwis", row.get(ActivityColumn.KEY_ACTIVITY));
+		assertEquals(NWIS_1[1], row.get(ActivityMetricColumn.KEY_METRIC_TYPE_IDENTIFIER));
 	}
 
 	public static void assertNwis2(Map<String, Object> row) {
-		assertEquals(ACTIVITY_COLUMN_COUNT, row.keySet().size());
+		assertEquals(ACTIVITY_METRIC_COLUMN_COUNT, row.keySet().size());
 		assertEquals(NWIS, row.get(BaseColumn.KEY_DATA_SOURCE));
-		assertEquals(BigDecimal.valueOf(2), row.get(ActivityColumn.KEY_ACTIVITY_ID));
-		assertEquals("activityNwis", row.get(ActivityColumn.KEY_ACTIVITY));
+		assertEquals(NWIS_2[1], row.get(ActivityMetricColumn.KEY_METRIC_TYPE_IDENTIFIER));
 	}
 
 	public static void assertNwis3(Map<String, Object> row) {
-		assertEquals(ACTIVITY_COLUMN_COUNT, row.keySet().size());
+		assertEquals(ACTIVITY_METRIC_COLUMN_COUNT, row.keySet().size());
 		assertEquals(NWIS, row.get(BaseColumn.KEY_DATA_SOURCE));
-		assertEquals(BigDecimal.valueOf(3), row.get(ActivityColumn.KEY_ACTIVITY_ID));
-		assertEquals("activityNwis", row.get(ActivityColumn.KEY_ACTIVITY));
+		assertEquals(NWIS_3[1], row.get(ActivityMetricColumn.KEY_METRIC_TYPE_IDENTIFIER));
 	}
 
 	public static void assertStoret1(Map<String, Object> row) {
-		assertEquals(ACTIVITY_COLUMN_COUNT, row.keySet().size());
+		assertEquals(ACTIVITY_METRIC_COLUMN_COUNT, row.keySet().size());
 		assertEquals(STORET, row.get(BaseColumn.KEY_DATA_SOURCE));
-		assertEquals(BigDecimal.ONE, row.get(ActivityColumn.KEY_ACTIVITY_ID));
-		assertEquals("activity", row.get(ActivityColumn.KEY_ACTIVITY));
+		assertEquals(STORET_1[1], row.get(ActivityMetricColumn.KEY_METRIC_TYPE_IDENTIFIER));
 	}
 
 	public static void assertStoret2(Map<String, Object> row) {
-		assertEquals(ACTIVITY_COLUMN_COUNT, row.keySet().size());
-		for (String i : TestActivityMap.ACTIVITY.keySet()) {
-			assertEquals(i, TestActivityMap.ACTIVITY.get(i), row.get(i));
+		assertEquals(ACTIVITY_METRIC_COLUMN_COUNT, row.keySet().size());
+		for (String i : TestActivityMetricMap.ACTIVITY_METRIC.keySet()) {
+			assertEquals(i, TestActivityMetricMap.ACTIVITY_METRIC.get(i), row.get(i));
 		}
 	}
 
 	public static void assertStoret3(Map<String, Object> row) {
-		assertEquals(ACTIVITY_COLUMN_COUNT, row.keySet().size());
+		assertEquals(ACTIVITY_METRIC_COLUMN_COUNT, row.keySet().size());
 		assertEquals(STORET, row.get(BaseColumn.KEY_DATA_SOURCE));
-		assertEquals(BigDecimal.valueOf(3), row.get(ActivityColumn.KEY_ACTIVITY_ID));
-		assertEquals("activity", row.get(ActivityColumn.KEY_ACTIVITY));
+		assertEquals(STORET_3[1], row.get(ActivityMetricColumn.KEY_METRIC_TYPE_IDENTIFIER));
 	}
 
 	public static void assertStoret4(Map<String, Object> row) {
-		assertEquals(ACTIVITY_COLUMN_COUNT, row.keySet().size());
+		assertEquals(ACTIVITY_METRIC_COLUMN_COUNT, row.keySet().size());
 		assertEquals(STORET, row.get(BaseColumn.KEY_DATA_SOURCE));
-		assertEquals(BigDecimal.valueOf(4), row.get(ActivityColumn.KEY_ACTIVITY_ID));
-		assertEquals("WIDNR_WQX-7788480", row.get(ActivityColumn.KEY_ACTIVITY));
+		assertEquals(STORET_4[1], row.get(ActivityMetricColumn.KEY_METRIC_TYPE_IDENTIFIER));
 	}
 
-	public static void assertStoret5(Map<String, Object> row) {
-		assertEquals(ACTIVITY_COLUMN_COUNT, row.keySet().size());
+	public static void assertStoret5A(Map<String, Object> row) {
+		assertEquals(ACTIVITY_METRIC_COLUMN_COUNT, row.keySet().size());
 		assertEquals(STORET, row.get(BaseColumn.KEY_DATA_SOURCE));
-		assertEquals(BigDecimal.valueOf(5), row.get(ActivityColumn.KEY_ACTIVITY_ID));
-		assertEquals("WIDNR_WQX-7788475", row.get(ActivityColumn.KEY_ACTIVITY));
+		assertEquals(STORET_5A[1], row.get(ActivityMetricColumn.KEY_METRIC_TYPE_IDENTIFIER));
+	}
+
+	public static void assertStoret5B(Map<String, Object> row) {
+		assertEquals(ACTIVITY_METRIC_COLUMN_COUNT, row.keySet().size());
+		assertEquals(STORET, row.get(BaseColumn.KEY_DATA_SOURCE));
+		assertEquals(STORET_5B[1], row.get(ActivityMetricColumn.KEY_METRIC_TYPE_IDENTIFIER));
+	}
+
+	public static void assertStoret5C(Map<String, Object> row) {
+		assertEquals(ACTIVITY_METRIC_COLUMN_COUNT, row.keySet().size());
+		assertEquals(STORET, row.get(BaseColumn.KEY_DATA_SOURCE));
+		assertEquals(STORET_5C[1], row.get(ActivityMetricColumn.KEY_METRIC_TYPE_IDENTIFIER));
+	}
+
+	public static void assertStoret5D(Map<String, Object> row) {
+		assertEquals(ACTIVITY_METRIC_COLUMN_COUNT, row.keySet().size());
+		assertEquals(STORET, row.get(BaseColumn.KEY_DATA_SOURCE));
+		assertEquals(STORET_5D[1], row.get(ActivityMetricColumn.KEY_METRIC_TYPE_IDENTIFIER));
+	}
+
+	public static void assertStoret5E(Map<String, Object> row) {
+		assertEquals(ACTIVITY_METRIC_COLUMN_COUNT, row.keySet().size());
+		assertEquals(STORET, row.get(BaseColumn.KEY_DATA_SOURCE));
+		assertEquals(STORET_5E[1], row.get(ActivityMetricColumn.KEY_METRIC_TYPE_IDENTIFIER));
+	}
+
+	public static void assertStoret5F(Map<String, Object> row) {
+		assertEquals(ACTIVITY_METRIC_COLUMN_COUNT, row.keySet().size());
+		assertEquals(STORET, row.get(BaseColumn.KEY_DATA_SOURCE));
+		assertEquals(STORET_5F[1], row.get(ActivityMetricColumn.KEY_METRIC_TYPE_IDENTIFIER));
 	}
 
 	public static void assertStoret6(Map<String, Object> row) {
-		assertEquals(ACTIVITY_COLUMN_COUNT, row.keySet().size());
+		assertEquals(ACTIVITY_METRIC_COLUMN_COUNT, row.keySet().size());
 		assertEquals(STORET, row.get(BaseColumn.KEY_DATA_SOURCE));
-		assertEquals(BigDecimal.valueOf(6), row.get(ActivityColumn.KEY_ACTIVITY_ID));
-		assertEquals("21NYDECA_WQX-020002", row.get(ActivityColumn.KEY_ACTIVITY));
+		assertEquals(STORET_6[1], row.get(ActivityMetricColumn.KEY_METRIC_TYPE_IDENTIFIER));
 	}
 
 	public static void assertStoret7(Map<String, Object> row) {
-		assertEquals(ACTIVITY_COLUMN_COUNT, row.keySet().size());
+		assertEquals(ACTIVITY_METRIC_COLUMN_COUNT, row.keySet().size());
 		assertEquals(STORET, row.get(BaseColumn.KEY_DATA_SOURCE));
-		assertEquals(BigDecimal.valueOf(7), row.get(ActivityColumn.KEY_ACTIVITY_ID));
-		assertEquals("21NYDECA_WQX-020206", row.get(ActivityColumn.KEY_ACTIVITY));
+		assertEquals(STORET_7[1], row.get(ActivityMetricColumn.KEY_METRIC_TYPE_IDENTIFIER));
 	}
 
 	public static void assertStoret8(Map<String, Object> row) {
-		assertEquals(ACTIVITY_COLUMN_COUNT, row.keySet().size());
+		assertEquals(ACTIVITY_METRIC_COLUMN_COUNT, row.keySet().size());
 		assertEquals(STORET, row.get(BaseColumn.KEY_DATA_SOURCE));
-		assertEquals(BigDecimal.valueOf(8), row.get(ActivityColumn.KEY_ACTIVITY_ID));
-		assertEquals("21NYDECA_WQX-0210EN", row.get(ActivityColumn.KEY_ACTIVITY));
+		assertEquals(STORET_8[1], row.get(ActivityMetricColumn.KEY_METRIC_TYPE_IDENTIFIER));
 	}
 
 	public static void assertStoret9(Map<String, Object> row) {
-		assertEquals(ACTIVITY_COLUMN_COUNT, row.keySet().size());
+		assertEquals(ACTIVITY_METRIC_COLUMN_COUNT, row.keySet().size());
 		assertEquals(STORET, row.get(BaseColumn.KEY_DATA_SOURCE));
-		assertEquals(BigDecimal.valueOf(9), row.get(ActivityColumn.KEY_ACTIVITY_ID));
-		assertEquals("21NYDECA_WQX-020610", row.get(ActivityColumn.KEY_ACTIVITY));
+		assertEquals(STORET_9[1], row.get(ActivityMetricColumn.KEY_METRIC_TYPE_IDENTIFIER));
 	}
 
 	public static void assertStoret10(Map<String, Object> row) {
-		assertEquals(ACTIVITY_COLUMN_COUNT, row.keySet().size());
+		assertEquals(ACTIVITY_METRIC_COLUMN_COUNT, row.keySet().size());
 		assertEquals(STORET, row.get(BaseColumn.KEY_DATA_SOURCE));
-		assertEquals(BigDecimal.TEN, row.get(ActivityColumn.KEY_ACTIVITY_ID));
-		assertEquals("activityStoret", row.get(ActivityColumn.KEY_ACTIVITY));
+		assertEquals(STORET_10[1], row.get(ActivityMetricColumn.KEY_METRIC_TYPE_IDENTIFIER));
 	}
 
 	public static void assertStoret11(Map<String, Object> row) {
-		assertEquals(ACTIVITY_COLUMN_COUNT, row.keySet().size());
+		assertEquals(ACTIVITY_METRIC_COLUMN_COUNT, row.keySet().size());
 		assertEquals(STORET, row.get(BaseColumn.KEY_DATA_SOURCE));
-		assertEquals(BigDecimal.valueOf(11), row.get(ActivityColumn.KEY_ACTIVITY_ID));
-		assertEquals("activity", row.get(ActivityColumn.KEY_ACTIVITY));
+		assertEquals(STORET_11[1], row.get(ActivityMetricColumn.KEY_METRIC_TYPE_IDENTIFIER));
 	}
 
 	public static void assertStoret12(Map<String, Object> row) {
-		assertEquals(ACTIVITY_COLUMN_COUNT, row.keySet().size());
+		assertEquals(ACTIVITY_METRIC_COLUMN_COUNT, row.keySet().size());
 		assertEquals(STORET, row.get(BaseColumn.KEY_DATA_SOURCE));
-		assertEquals(BigDecimal.valueOf(12), row.get(ActivityColumn.KEY_ACTIVITY_ID));
-		assertEquals("activity", row.get(ActivityColumn.KEY_ACTIVITY));
+		assertEquals(STORET_12[1], row.get(ActivityMetricColumn.KEY_METRIC_TYPE_IDENTIFIER));
 	}
 
 	public static void assertStoret13(Map<String, Object> row) {
-		assertEquals(ACTIVITY_COLUMN_COUNT, row.keySet().size());
+		assertEquals(ACTIVITY_METRIC_COLUMN_COUNT, row.keySet().size());
 		assertEquals(STORET, row.get(BaseColumn.KEY_DATA_SOURCE));
-		assertEquals(BigDecimal.valueOf(13), row.get(ActivityColumn.KEY_ACTIVITY_ID));
-		assertEquals("activity", row.get(ActivityColumn.KEY_ACTIVITY));
+		assertEquals(STORET_13[1], row.get(ActivityMetricColumn.KEY_METRIC_TYPE_IDENTIFIER));
 	}
 
 	public static void assertStoret14(Map<String, Object> row) {
-		assertEquals(ACTIVITY_COLUMN_COUNT, row.keySet().size());
+		assertEquals(ACTIVITY_METRIC_COLUMN_COUNT, row.keySet().size());
 		assertEquals(STORET, row.get(BaseColumn.KEY_DATA_SOURCE));
-		assertEquals(BigDecimal.valueOf(14), row.get(ActivityColumn.KEY_ACTIVITY_ID));
-		assertEquals("activityStoret", row.get(ActivityColumn.KEY_ACTIVITY));
+		assertEquals(STORET_14[1], row.get(ActivityMetricColumn.KEY_METRIC_TYPE_IDENTIFIER));
 	}
 
 	public static void assertStoret15(Map<String, Object> row) {
-		assertEquals(ACTIVITY_COLUMN_COUNT, row.keySet().size());
+		assertEquals(ACTIVITY_METRIC_COLUMN_COUNT, row.keySet().size());
 		assertEquals(STORET, row.get(BaseColumn.KEY_DATA_SOURCE));
-		assertEquals(BigDecimal.valueOf(15), row.get(ActivityColumn.KEY_ACTIVITY_ID));
-		assertEquals("activityStoret", row.get(ActivityColumn.KEY_ACTIVITY));
+		assertEquals(STORET_15[1], row.get(ActivityMetricColumn.KEY_METRIC_TYPE_IDENTIFIER));
 	}
 
 	public static void assertStoret16(Map<String, Object> row) {
-		assertEquals(ACTIVITY_COLUMN_COUNT, row.keySet().size());
+		assertEquals(ACTIVITY_METRIC_COLUMN_COUNT, row.keySet().size());
 		assertEquals(STORET, row.get(BaseColumn.KEY_DATA_SOURCE));
-		assertEquals(BigDecimal.valueOf(16), row.get(ActivityColumn.KEY_ACTIVITY_ID));
-		assertEquals("activity", row.get(ActivityColumn.KEY_ACTIVITY));
+		assertEquals(STORET_16[1], row.get(ActivityMetricColumn.KEY_METRIC_TYPE_IDENTIFIER));
 	}
 
 	public static void assertBiodata1(Map<String, Object> row) {
-		assertEquals(ACTIVITY_COLUMN_COUNT, row.keySet().size());
+		assertEquals(ACTIVITY_METRIC_COLUMN_COUNT, row.keySet().size());
 		assertEquals(BIODATA, row.get(BaseColumn.KEY_DATA_SOURCE));
-		assertEquals(BigDecimal.ONE, row.get(ActivityColumn.KEY_ACTIVITY_ID));
-		assertEquals("activityBiodata", row.get(ActivityColumn.KEY_ACTIVITY));
+		assertEquals(BIODATA_1[1], row.get(ActivityMetricColumn.KEY_METRIC_TYPE_IDENTIFIER));
 	}
 
-	public void assertContainsActivity(LinkedList<Map<String, Object>> results, BigDecimal[]...  activityIds) {
+	public void assertContainsActivityMetric(LinkedList<Map<String, Object>> results, String[]...  activityMetrics) {
 		for (Map<String, Object> result : results) {
-			LOG.debug(ActivityColumn.KEY_DATA_SOURCE_ID + ":" + result.get(ActivityColumn.KEY_DATA_SOURCE_ID) + "/" + ActivityColumn.KEY_ACTIVITY_ID + ":" +  result.get(ActivityColumn.KEY_ACTIVITY_ID));
+			LOG.debug(BaseColumn.KEY_DATA_SOURCE + ":" + result.get(BaseColumn.KEY_DATA_SOURCE) + "/" 
+						+ ActivityMetricColumn.KEY_METRIC_TYPE_IDENTIFIER + ":" +  result.get(ActivityMetricColumn.KEY_METRIC_TYPE_IDENTIFIER));
 		}
 
-		for (BigDecimal[] i : activityIds) {
+		for (String[] i : activityMetrics) {
 			boolean isFound = false;
 			for (Map<String, Object> result : results) {
-				if (i[0].compareTo(((BigDecimal) result.get(ActivityColumn.KEY_DATA_SOURCE_ID))) == 0
-						&& i[1].compareTo(((BigDecimal) result.get(ActivityColumn.KEY_ACTIVITY_ID))) == 0) {
+				if (result.containsKey(BaseColumn.KEY_DATA_SOURCE)
+						&& i[0].equalsIgnoreCase(((String) result.get(BaseColumn.KEY_DATA_SOURCE)))
+						&& i[1].equalsIgnoreCase(result.get(ActivityMetricColumn.KEY_METRIC_TYPE_IDENTIFIER).toString())) {
 					isFound = true;
 					break;
 				}
 			}
 			if (!isFound) {
-				fail(ActivityColumn.KEY_DATA_SOURCE_ID + ":" + i[0] + "/" + ActivityColumn.KEY_ACTIVITY_ID + ":" + i[1] + " was not in the result set.");
+				fail(BaseColumn.KEY_DATA_SOURCE + ":" + i[0] + "/" + ActivityMetricColumn.KEY_METRIC_TYPE_IDENTIFIER + ":" + i[1] + " was not in the result set.");
 			}
 		}
-		assertEquals("Double check expected size", results.size(), activityIds.length);
+		assertEquals("Double check expected size", results.size(), activityMetrics.length);
 	}
 
 }

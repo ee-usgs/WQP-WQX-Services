@@ -18,16 +18,15 @@ public class ResultWqx extends BaseWqx implements IXmlMapping {
 	public static final Map<String, String> HARD_BREAK = new LinkedHashMap<>();
 
 	public static final Map<String, List<String>> COLUMN_POSITION = new LinkedHashMap<>();
-	
+
 	public static final Map<String, List<ColumnProfile>> GROUPING = new LinkedHashMap<>();
 
-	
 	static {
 		HARD_BREAK.putAll(ActivityWqx.HARD_BREAK);
 		HARD_BREAK.put(KEY_RESULT_ID, WQX_ACTIVITY);
 	}
-	
-	
+
+
 	static {
 		COLUMN_POSITION.putAll(ActivityWqx.COLUMN_POSITION);
 

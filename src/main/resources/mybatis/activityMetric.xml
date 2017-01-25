@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="activityMetric">
+
+    <select id="select" resultType="java.util.LinkedHashMap" fetchSize="500">
+        select prime.data_source,
+               prime.site_id,
+               prime.activity,
+               prime.organization,
+               prime.organization_name,
+               prime.type_identifier,
+               prime.identifier_context,
+               prime.type_name,
+               prime.resource_title,
+               prime.resource_creator,
+               prime.resource_subject,
+               prime.resource_publisher,
+               prime.resource_date,
+               prime.resource_identifier,
+               prime.type_scale,
+               prime.formula_description,
+               prime.measure_value,
+               prime.unit_code,
+               prime.score,
+               prime.comment_text,
+               prime.index_identifier
+        <include refid="dynamicWhere.activityMetricBase"/>
+        <if test="sorted == 'yes'">
+            order by prime.data_source_id,
+                     prime.organization,
+                     prime.site_id,
+                     prime.event_date,
+                     prime.activity,
+                     prime.activity_id,
+                     prime.type_identifier
+        </if>
+    </select>
+
+    <select id="count" resultType="java.util.LinkedHashMap">
+        select data_source, count(distinct data_source || station_id) station_count, count(distinct data_source || activity_id) activity_count, count(*) activity_metric_count
+          from (select prime.data_source,
+                       prime.station_id,
+                       prime.activity_id
+                  <include refid="dynamicWhere.activityMetricBase"/>)
+             group by rollup(data_source)
+    </select>
+
+</mapper>

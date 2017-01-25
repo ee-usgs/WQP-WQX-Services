@@ -469,6 +469,8 @@ public abstract class BaseController {
 				return BaseDao.SIMPLE_STATION_NAMESPACE;
 			case Profile.ACTIVITY:
 				return BaseDao.ACTIVITY_NAMESPACE;
+			case Profile.ACTIVITY_METRIC:
+				return BaseDao.ACTIVITY_METRIC_NAMESPACE;
 			default:
 				//Should never get here...
 				return "";
@@ -595,6 +597,10 @@ public abstract class BaseController {
 
 	public void addActivityHeaders(HttpServletResponse response, List<Map<String, Object>> counts) {
 		addCountHeaders(response, counts, HttpConstants.HEADER_TOTAL_ACTIVITY_COUNT, HttpConstants.HEADER_ACTIVITY_COUNT, MybatisConstants.ACTIVITY_COUNT);
+	}
+
+	public void addActivityMetricHeaders(HttpServletResponse response, List<Map<String, Object>> counts) {
+		addCountHeaders(response, counts, HttpConstants.HEADER_TOTAL_ACTIVITY_METRIC_COUNT, HttpConstants.HEADER_ACTIVITY_METRIC_COUNT, MybatisConstants.ACTIVITY_METRIC_COUNT);
 	}
 
 	public void addResultHeaders(HttpServletResponse response, List<Map<String, Object>> counts) {

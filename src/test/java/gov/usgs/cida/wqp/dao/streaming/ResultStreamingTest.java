@@ -335,10 +335,9 @@ public abstract class ResultStreamingTest extends BaseSpringTest {
 		streamingDao.stream(nameSpace, parms, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(21, results.size());
-		assertContainsResult(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, NWIS_4, NWIS_5, STORET_1, STORET_2,
-				STORET_3, STORET_42, STORET_43, STORET_44, STORET_45, STORET_46, STORET_47, STORET_48, STORET_49, STORET_50,
-				BIODATA_42);
+		assertEquals(19, results.size());
+		assertContainsResult(results, STEWARDS_1, STEWARDS_3, NWIS_1, NWIS_3, NWIS_4, NWIS_5, STORET_1, STORET_2, STORET_3, STORET_42,
+				STORET_43, STORET_44, STORET_45, STORET_46, STORET_47, STORET_48, STORET_49, STORET_50, BIODATA_42);
 	}
 
 	public void providersTest(String nameSpace) {
@@ -360,12 +359,13 @@ public abstract class ResultStreamingTest extends BaseSpringTest {
 		streamingDao.stream(nameSpace, parms, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(50, results.size());
-		assertContainsResult(results, STEWARDS_3, STORET_1, STORET_2, STORET_3, STORET_4, STORET_5, STORET_6, STORET_7, STORET_8, STORET_9,
-				STORET_10, STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_16, STORET_17, STORET_18, STORET_19,
-				STORET_20, STORET_21, STORET_22, STORET_23, STORET_24, STORET_25, STORET_26, STORET_27, STORET_28, STORET_29,
-				STORET_30, STORET_31, STORET_32, STORET_33, STORET_34, STORET_35, STORET_36, STORET_37, STORET_38, STORET_39,
-				STORET_40, STORET_42, STORET_43, STORET_44, STORET_45, STORET_46, STORET_47, STORET_48, STORET_49, STORET_50);
+		assertEquals(55, results.size());
+		assertContainsResult(results, STEWARDS_1, STEWARDS_3, NWIS_1, NWIS_3, NWIS_4, NWIS_5, STORET_1, STORET_2, STORET_3, STORET_4,
+				STORET_5, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14,
+				STORET_15, STORET_16, STORET_17, STORET_18, STORET_19, STORET_20, STORET_21, STORET_22, STORET_23, STORET_24,
+				STORET_25, STORET_26, STORET_27, STORET_28, STORET_29, STORET_30, STORET_31, STORET_32, STORET_33, STORET_34,
+				STORET_35, STORET_36, STORET_37, STORET_38, STORET_39, STORET_40, STORET_42, STORET_43, STORET_44, STORET_45,
+				STORET_46, STORET_47, STORET_48, STORET_49, STORET_50);
 	}
 
 	public void startDateHiTest(String nameSpace) {
