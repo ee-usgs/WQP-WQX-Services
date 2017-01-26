@@ -142,6 +142,10 @@ public abstract class BaseSpringTest {
 		return new String[]{"https://www.nemi.gov/methods/method_summary/4665/", "https://www.nemi.gov/methods/method_summary/8896/", "analyticalMethod"};
 	}
 
+	public String[] getActivity() {
+		return new String[]{"WIDNR_WQX-7788475"};
+	}
+
 	public String[] getAvoid() {
 		return new String[]{NWIS};
 	}

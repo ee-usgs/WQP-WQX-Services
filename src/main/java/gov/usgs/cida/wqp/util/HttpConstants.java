@@ -12,11 +12,13 @@ public class HttpConstants {
 	public static final String ENDPOINT_SIMPLE_STATION = "simplestation";
 	public static final String ENPOINT_SEARCH = "/search";
 
-	public static final String ACTIVITY_SEARCH_ENPOINT = ENDPOINT_ACTIVITY + ENPOINT_SEARCH;
-	public static final String ACTIVITY_METRIC_SEARCH_ENPOINT = ENDPOINT_ACTIVITY_METRIC + ENPOINT_SEARCH;
-	public static final String RESULT_SEARCH_ENPOINT = ENDPOINT_RESULT + ENPOINT_SEARCH;
-	public static final String STATION_SEARCH_ENPOINT = ENDPOINT_STATION + ENPOINT_SEARCH;
-	public static final String SIMPLE_STATION_ENDPOINT = ENDPOINT_SIMPLE_STATION + ENPOINT_SEARCH;
+	public static final String ACTIVITY_SEARCH_ENPOINT = "/" + ENDPOINT_ACTIVITY + ENPOINT_SEARCH;
+	public static final String ACTIVITY_METRIC_SEARCH_ENPOINT = "/" + ENDPOINT_ACTIVITY_METRIC + ENPOINT_SEARCH;
+	public static final String RESULT_SEARCH_ENPOINT = "/" + ENDPOINT_RESULT + ENPOINT_SEARCH;
+	public static final String STATION_SEARCH_ENPOINT = "/" + ENDPOINT_STATION + ENPOINT_SEARCH;
+	public static final String SIMPLE_STATION_ENDPOINT = "/" + ENDPOINT_SIMPLE_STATION + ENPOINT_SEARCH;
+
+	public static final String ACTIVITY_METRIC_REST_ENPOINT = "/activities/{activity}/activitymetrics";
 
 	public static final int HEADER_WARNING_DEFAULT_CODE = 299;
 	public static final String HEADER_FATAL_ERROR = "FATAL-ERROR";

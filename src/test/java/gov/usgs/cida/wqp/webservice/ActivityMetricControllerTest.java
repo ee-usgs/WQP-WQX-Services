@@ -20,10 +20,12 @@ import gov.usgs.cida.wqp.util.HttpConstants;
 public class ActivityMetricControllerTest extends BaseSpringTest {
 
 	protected ActivityMetricController controller;
+	protected RestfullController restController;
 
 	@Before
 	public void setup() {
 		controller = new ActivityMetricController(null, null, null, null, null, null, null);
+		restController = new RestfullController(null, null, null, null, null, null, null);
 	}
 
 	@After
@@ -48,8 +50,24 @@ public class ActivityMetricControllerTest extends BaseSpringTest {
 	}
 
 	@Test
+	public void addCountHeadersRestTest() {
+		MockHttpServletResponse response = new MockHttpServletResponse();
+		String countHeader = restController.addCountHeaders(response, BaseControllerTest.getRawCounts());
+		assertEquals(HttpConstants.HEADER_TOTAL_ACTIVITY_METRIC_COUNT, countHeader);
+		assertEquals(BaseControllerTest.TEST_NWIS_STATION_COUNT, response.getHeaderValue(HEADER_NWIS_SITE_COUNT));
+		assertEquals(BaseControllerTest.TEST_TOTAL_STATION_COUNT, response.getHeaderValue(HttpConstants.HEADER_TOTAL_SITE_COUNT));
+		assertEquals(BaseControllerTest.TEST_NWIS_ACTIVITY_COUNT, response.getHeaderValue(HEADER_NWIS_ACTIVITY_COUNT));
+		assertEquals(BaseControllerTest.TEST_TOTAL_ACTIVITY_COUNT, response.getHeaderValue(HttpConstants.HEADER_TOTAL_ACTIVITY_COUNT));
+		assertEquals(BaseControllerTest.TEST_NWIS_ACTIVITY_METRIC_COUNT, response.getHeaderValue(HEADER_NWIS_ACTIVITY_METRIC_COUNT));
+		assertEquals(BaseControllerTest.TEST_TOTAL_ACTIVITY_METRIC_COUNT, response.getHeaderValue(HttpConstants.HEADER_TOTAL_ACTIVITY_METRIC_COUNT));
+		assertFalse(response.containsHeader(HEADER_NWIS_RESULT_COUNT));
+		assertFalse(response.containsHeader(HttpConstants.HEADER_TOTAL_RESULT_COUNT));
+	}
+
+	@Test
 	public void getMappingTest() {
 		ActivityMetricDelimitedTest.assertActivityMetricProfile(controller.getMapping(Profile.ACTIVITY_METRIC));
+		ActivityMetricDelimitedTest.assertActivityMetricProfile(restController.getMapping(Profile.ACTIVITY_METRIC));
 	}
 
 	@Test
@@ -61,4 +79,13 @@ public class ActivityMetricControllerTest extends BaseSpringTest {
 		assertEquals(Profile.BIOLOGICAL, controller.determineProfile(pm));
 	}
 
+
+	@Test
+	public void determineProfileRestTest() {
+		assertEquals(Profile.ACTIVITY_METRIC, restController.determineProfile(null));
+
+		Map<String, Object> pm = new HashMap<>();
+		pm.put(Parameters.DATA_PROFILE.toString(), new String[]{"biological"});
+		assertEquals(Profile.BIOLOGICAL, restController.determineProfile(pm));
+	}
 }

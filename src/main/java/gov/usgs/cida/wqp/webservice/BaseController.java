@@ -219,7 +219,7 @@ public abstract class BaseController {
 
 	protected void doHeadRequest(HttpServletRequest request, HttpServletResponse response) {
 		LOG.info("Processing Head: {}", request.getQueryString());
-		logId.set(logService.logRequest(request, response, null));
+		setLogId(logService.logRequest(request, response, null));
 
 		try {
 			doCommonSetup(request, response, null);
@@ -292,24 +292,35 @@ public abstract class BaseController {
 
 	protected void processParameters(HttpServletRequest request, Map<String, Object> postParms) {
 		setPm(new ParameterMap());
-		if (request.getParameterMap().isEmpty() && (null == postParms || postParms.isEmpty())) {
-			LOG.debug("No parameters");
-			getPm().setValid(false);
-		} else {
+		Object pathVariables = request.getAttribute("org.springframework.web.servlet.View.pathVariables");
+		if (isValidRequest(request, postParms, pathVariables)) {
 			LOG.trace("got parameters");
 			Map<String, String[]> requestParams = new HashMap<>(request.getParameterMap());
 			LOG.debug("requestParams: {}", requestParams);
-			setPm(parameterHandler.validateAndTransform(requestParams, postParms));
+			setPm(parameterHandler.validateAndTransform(requestParams, postParms, pathVariables));
 			LOG.debug("pm: {}", getPm());
 			LOG.debug("queryParms: {}", getPm().getQueryParameters());
+		} else {
+			LOG.debug("No parameters");
+			getPm().setValid(false);
 		}
+	}
+
+	protected boolean isValidRequest(HttpServletRequest request, Map<String, Object> postParms, Object pathVariables) {
+		if (null != request && null != request.getParameterMap() && !request.getParameterMap().isEmpty()) {
+			return true;
+		}
+		if (null != postParms && !postParms.isEmpty()) {
+			return true;
+		}
+		return null != pathVariables;
 	}
 
 	protected abstract String addCountHeaders(HttpServletResponse response, List<Map<String, Object>> counts);
 
 	protected void doGetRequest(HttpServletRequest request, HttpServletResponse response) {
 		LOG.info("Processing Get: {}", request.getQueryString());
-		logId.set(logService.logRequest(request, response, null));
+		setLogId(logService.logRequest(request, response, null));
 		OutputStream responseStream = null;
 		String realHttpStatus = String.valueOf(response.getStatus());
 
@@ -368,7 +379,7 @@ public abstract class BaseController {
 
 	protected void doPostRequest(HttpServletRequest request, HttpServletResponse response, Map<String, Object> postParms) {
 		LOG.info("Processing Post: {}", postParms);
-		logId.set(logService.logRequest(request, response, postParms));
+		setLogId(logService.logRequest(request, response, postParms));
 		OutputStream responseStream = null;
 		String realHttpStatus = String.valueOf(response.getStatus());
 
@@ -427,7 +438,7 @@ public abstract class BaseController {
 
 	protected Map<String, String> doPostCountRequest(HttpServletRequest request, HttpServletResponse response, Map<String, Object> postParms) {
 		LOG.info("Processing Post Count");
-		logId.set(logService.logRequest(request, response, postParms));
+		setLogId(logService.logRequest(request, response, postParms));
 		Map<String, String> counts = null;
 
 		try {

@@ -13,6 +13,9 @@
         <if test="startDateLo != null or startDateHi != null">
             and (<include refid="dynamicWhere.startDateLoHi" />)
         </if>
+        <if test="activity != null">
+            and (<include refid="dynamicWhere.activity"/>)
+        </if>
     </sql>
     
     <sql id="activityLimitWhere">

@@ -47,14 +47,19 @@ public class ParameterValidationConfig {
 	public static final String REGEX_MIMETYPES = "csv|tsv|tab|xlsx|xml|kml|kmz|json|geojson"; // TODO refine
 	public static final String REGEX_AVOID = "NWIS|STORET";
 	public static final String REGEX_YES_NO = "yes|no";
-	public static final String REGEX_ANALYTICAL_METHOD = ".+";
+	public static final String REGEX_ACEPT_ANYTHING = ".+";
 	public static final String REGEX_HUC_WILDCARD_IN = "\\*";
 	public static final String REGEX_HUC_WILDCARD_OUT = "";
 	public static final String REGEX_DATA_PROFILE = String.join("|", Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.SIMPLE_STATION, Profile.STATION);
 
 	@Bean
+	public RegexValidator<String> activityMethodValidator() {
+		return new RegexValidator<String>(Parameters.ACTIVITY, AbstractValidator.DEFAULT_MIN_OCCURS, 1, AbstractValidator.DEFAULT_DELIMITER, REGEX_ACEPT_ANYTHING);
+	}
+
+	@Bean
 	public RegexValidator<String> analyticalMethodValidator() {
-		return new RegexValidator<String>(Parameters.ANALYTICAL_METHOD, REGEX_ANALYTICAL_METHOD);
+		return new RegexValidator<String>(Parameters.ANALYTICAL_METHOD, REGEX_ACEPT_ANYTHING);
 	}
 
 	@Bean
@@ -237,6 +242,7 @@ public class ParameterValidationConfig {
 	@Bean
 	public Map<Parameters, AbstractValidator<?>> validatorMap() {
 		Map<Parameters, AbstractValidator<?>> validatorMap = new HashMap<Parameters, AbstractValidator<?>>();
+		validatorMap.put(Parameters.ACTIVITY, activityMethodValidator());
 		validatorMap.put(Parameters.ANALYTICAL_METHOD, analyticalMethodValidator());
 		validatorMap.put(Parameters.ASSEMBLAGE, assemblageValidator());
 		validatorMap.put(Parameters.AVOID, avoidValidator());

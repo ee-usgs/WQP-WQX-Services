@@ -35,14 +35,16 @@ public class LogService implements ILogService {
 		if (null != request) {
 			String origin = (null==request.getHeader("referer")) ?"Direct Call" :"WQP Site";
 			parameterMap.put(LogDao.ORIGIN, origin);
-			
+
 			String callType = request.getMethod();
 			parameterMap.put(LogDao.CALL_TYPE, callType);
-			
+
 			EndPoint endpoint = EndPoint.getEnumByCode(request.getRequestURI());
 			String endpt = (null == endpoint) ? request.getRequestURI() : endpoint.getName();
 			parameterMap.put(LogDao.END_POINT, endpt);
-			
+
+			//TODO - Posts with MediaType.APPLICATION_FORM_URLENCODED_VALUE have the parameters in the 
+			// request.getParameterMap() - but values are in a String[], so can't just toString() the map...
 			String queryString = null==request.getQueryString() ? "No Query String Provided" : request.getQueryString();
 			parameterMap.put(LogDao.QUERY_STRING, queryString);
 

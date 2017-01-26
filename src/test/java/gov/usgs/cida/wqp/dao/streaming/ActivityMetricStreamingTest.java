@@ -137,6 +137,16 @@ public class ActivityMetricStreamingTest extends BaseSpringTest {
 	}
 
 	@Test
+	public void activityTest() {
+		parms.put(Parameters.ACTIVITY.toString(), getActivity());
+		streamingDao.stream(nameSpace, parms, handler);
+
+		LinkedList<Map<String, Object>> results = handler.getResults();
+		assertEquals(6, results.size());
+		assertContainsActivityMetric(results, STORET_5A, STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F);
+	}
+
+	@Test
 	public void avoidTest() {
 		parms.put(Parameters.AVOID.toString().replace(".", ""), getAvoid());
 		streamingDao.stream(nameSpace, parms, handler);

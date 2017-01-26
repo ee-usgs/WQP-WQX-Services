@@ -20,7 +20,7 @@ import gov.usgs.cida.wqp.util.HttpConstants;
 @DbUnitConfiguration(dataSetLoader = CsvDataSetLoader.class)
 public class ActivityMetricControllerIntTest extends BaseControllerIntegrationTest {
 
-	protected String endpoint = "/" + HttpConstants.ACTIVITY_METRIC_SEARCH_ENPOINT + "?mimeType=";
+	protected String endpoint = HttpConstants.ACTIVITY_METRIC_SEARCH_ENPOINT + "?mimeType=";
 
 	@Test
 	public void getAsCsvTest() throws Exception {
@@ -69,7 +69,7 @@ public class ActivityMetricControllerIntTest extends BaseControllerIntegrationTe
 
 	@Test
 	public void postGetCountTest() throws Exception {
-		String urlPrefix = "/" + HttpConstants.ACTIVITY_METRIC_SEARCH_ENPOINT + "/count?mimeType=";
+		String urlPrefix = HttpConstants.ACTIVITY_METRIC_SEARCH_ENPOINT + "/count?mimeType=";
 		String compareObject = "{\"" + HttpConstants.HEADER_TOTAL_SITE_COUNT + "\":\"" + FILTERED_TOTAL_SITE_COUNT
 				+ "\",\"" + HttpConstants.HEADER_TOTAL_ACTIVITY_COUNT + "\":\"" + FILTERED_TOTAL_ACTIVITY_COUNT
 				+ "\",\"" + HttpConstants.HEADER_TOTAL_ACTIVITY_METRIC_COUNT + "\":\"" + FILTERED_TOTAL_ACTIVITY_METRIC_COUNT
