@@ -39,6 +39,18 @@ public abstract class BaseCountDaoTest extends BaseSpringTest {
 		parms = null;
 	}
 
+	public void activityTest(String namespace, boolean includeActivity, boolean includeActivityMetric, boolean includeResults) {
+		parms.put(Parameters.ACTIVITY.toString(), getActivity());
+		counts = countDao.getCounts(namespace, parms);
+		assertStationResults(counts, 2, "1", null, null, "1", null);
+		if (includeActivity) {
+			assertActivityResults(counts, 2, "1", null, null, "1", null);
+		}
+		if (includeActivityMetric) {
+			assertActivityMetricResults(counts, 2, "6", null, null, "6", null);
+		}
+	}
+
 	public void nullParameterTest(String namespace, boolean includeActivity, boolean includeActivityMetric, boolean includeResults) {
 		counts = countDao.getCounts(namespace, null);
 		if (includeActivity || includeActivityMetric || includeResults) {

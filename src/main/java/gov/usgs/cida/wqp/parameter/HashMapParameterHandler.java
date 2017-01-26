@@ -20,17 +20,12 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * Was QWMapParameterValidator
- * @author drsteini
- *
- */
 public class HashMapParameterHandler implements IParameterHandler {
 	private static final Logger LOG = LoggerFactory.getLogger(HashMapParameterHandler.class);
-	
+
 	private static Map<Parameters, AbstractValidator<?>> VALIDATOR_MAP;
 	private static final Set<Parameters> WITHIN_GROUP;
-	
+
 	static final List<Set<Parameters>> GROUP_LIST;
 	static {
 		WITHIN_GROUP = new HashSet<Parameters>();
@@ -41,46 +36,47 @@ public class HashMapParameterHandler implements IParameterHandler {
 		GROUP_LIST = new ArrayList<Set<Parameters>>();
 		GROUP_LIST.add(WITHIN_GROUP);
 	}
-	
+
 	public static AbstractValidator<?> getValidator(final Parameters inParameters) {
 		return VALIDATOR_MAP.get(inParameters);
 	}
-	
+
 	public HashMapParameterHandler(Map<Parameters, AbstractValidator<?>> inValidatoryMap) {
 		LOG.trace(getClass().getName());
 		VALIDATOR_MAP = inValidatoryMap;
 	}
-	
+
 	@Override
-	public ParameterMap validateAndTransform(final Map<String, String[]> inRequestParameters, final Map<String, Object> postParms) {
-		Map<String, String[]> temp = pruneParameters(mergeParameters(inRequestParameters, postParms));
-		ParameterMap out = validateParameterNamesAndGroups(temp.keySet());
+	public ParameterMap validateAndTransform(final Map<String, String[]> inRequestParameters, final Map<String, Object> postParms, final Object pathVariables) {
+		Map<String, String[]> merged = mergeParameters(mergeParameters(inRequestParameters, postParms), pathVariables);
+		Map<String, String[]> pruned = pruneParameters(merged);
+		ParameterMap out = validateParameterNamesAndGroups(pruned.keySet());
 		if (out.isValid()) {
-			out.merge(validateAndTransformParameterValues(temp));
+			out.merge(validateAndTransformParameterValues(pruned));
 		}
 		return out;
 	}
-	
-	protected Map<String, String[]> mergeParameters(final Map<String, String[]> inRequestParameters, final Map<String, Object> postParms) {
+
+	protected Map<String, String[]> mergeParameters(final Map<String, String[]> original, Object additions) {
 		Map<String, String[]> merged = new HashMap<>();
-		if (null != inRequestParameters) {
-			merged.putAll(inRequestParameters);
+		if (null != original) {
+			merged.putAll(original);
 		}
-		if (null != postParms) {
-			Iterator<Entry<String, Object>> i = postParms.entrySet().iterator();
+		if (null != additions && additions instanceof Map) {
+			Iterator<?> i = ((Map<?,?>) additions).entrySet().iterator();
 			while (i.hasNext()) {
-				Entry<String, Object> entry = i.next();
-				String key = entry.getKey();
+				Entry<?,?> entry = (Entry<?, ?>) i.next();
+				Object key = ((Entry<?,?>) entry).getKey();
 				List<String> mergedValues = convertPostValueToList(entry.getValue());
 				if (merged.containsKey(key)) {
 					mergedValues.addAll(Arrays.asList(merged.get(key)));
 				}
-				merged.put(key, mergedValues.toArray(new String[mergedValues.size()]));
+				merged.put((String) key, mergedValues.toArray(new String[mergedValues.size()]));
 			}
 		}
 		return merged;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	protected List<String> convertPostValueToList(final Object entryValue) {
 		List<String> list = new ArrayList<>();
@@ -91,7 +87,7 @@ public class HashMapParameterHandler implements IParameterHandler {
 		}
 		return list;
 	};
-	
+
 	public Map<String, String[]> pruneParameters(final Map<String, String[]> inParameters) {
 		Map<String, String[]> rtn = new HashMap<>();
 		Iterator<?> entryIterator = inParameters.entrySet().iterator();
@@ -116,7 +112,7 @@ public class HashMapParameterHandler implements IParameterHandler {
 		}
 		return rtn;
 	}
-	
+
 	@Override
 	public ParameterMap validateParameterNamesAndGroups(Set<String> inParameterNames) {
 		ParameterMap rtn = new ParameterMap();
@@ -146,7 +142,7 @@ public class HashMapParameterHandler implements IParameterHandler {
 		}
 		return rtn;
 	}
-	
+
 	public ParameterMap validateAndTransformParameterValues(Map<String, String[]> inMap) {
 		ParameterMap rtnMap = new ParameterMap();
 		for (Entry<String, String[]> entry : inMap.entrySet()) {
@@ -165,7 +161,7 @@ public class HashMapParameterHandler implements IParameterHandler {
 		}
 		return rtnMap;
 	}
-	
+
 	public ParameterMap validateParameterGroups(Set<Parameters> userParameterSet) {
 		ParameterMap rtn = new ParameterMap();
 		if (null != userParameterSet) {
@@ -191,7 +187,7 @@ public class HashMapParameterHandler implements IParameterHandler {
 		}
 		return rtn;
 	}
-	
+
 	private String formatGroupSet(SortedSet<String> containsSet) {
 		StringBuilder builder = new StringBuilder();
 		Iterator<String> iterator = containsSet.iterator();

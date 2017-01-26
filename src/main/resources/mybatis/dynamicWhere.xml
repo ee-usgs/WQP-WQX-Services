@@ -3,6 +3,10 @@
 
 <mapper namespace="dynamicWhere">
 
+    <sql id="activity">
+        prime.activity = #{activity[0]}
+    </sql>
+
     <sql id="analyticalmethod">
         analytical_method in <foreach item="i" collection="analyticalmethod" open="(" separator="," close=")">#{i}</foreach>
     </sql>

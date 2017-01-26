@@ -8,6 +8,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyMap;
+import static org.mockito.Matchers.anyObject;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
@@ -85,11 +86,13 @@ public class BaseControllerTest {
 	private ILogService logService;
 
 	private TestBaseController testController;
+	private MockHttpServletRequest request;
 
 	@Before
 	public void setup() {
 		MockitoAnnotations.initMocks(this);
 		testController = new TestBaseController(streamingDao, countDao, parameterHandler, logService, 100, "http://test-url.usgs.gov");
+		request = new MockHttpServletRequest();
 	}
 
 	@After
@@ -99,12 +102,39 @@ public class BaseControllerTest {
 	}
 
 	@Test
+	public void isValidRequestTest() {
+		assertFalse(testController.isValidRequest(null, null, null));
+		assertFalse(testController.isValidRequest(request, null, null));
+		assertFalse(testController.isValidRequest(null, new HashMap<String, Object>(), null));
+		assertFalse(testController.isValidRequest(request, new HashMap<String, Object>(), null));
+
+		Map<String, Object> map = new HashMap<>();
+		map.put("v", "V");
+		assertTrue(testController.isValidRequest(null, map, null));
+		assertTrue(testController.isValidRequest(null, map, "x"));
+		assertTrue(testController.isValidRequest(request, map, "x"));
+		assertTrue(testController.isValidRequest(request, map, null));
+
+		assertTrue(testController.isValidRequest(null, null, "x"));
+		assertTrue(testController.isValidRequest(null, new HashMap<String, Object>(), "x"));
+		assertTrue(testController.isValidRequest(request, new HashMap<String, Object>(), "x"));
+		assertTrue(testController.isValidRequest(request, null, "x"));
+
+		request.addParameter("t", "t");
+		assertTrue(testController.isValidRequest(request, null, null));
+		assertTrue(testController.isValidRequest(request, new HashMap<String, Object>(), null));
+		assertTrue(testController.isValidRequest(request, new HashMap<String, Object>(), "x"));
+		assertTrue(testController.isValidRequest(request, null, "x"));
+
+		assertTrue(testController.isValidRequest(request, map, "x"));
+	}
+
+	@Test
 	@SuppressWarnings("unchecked")
 	public void processParametersTest_empty() {
-		MockHttpServletRequest request = new MockHttpServletRequest();
 		testController.processParameters(request, null);
 		assertFalse(TestBaseController.getPm().isValid());
-		verify(parameterHandler, never()).validateAndTransform(anyMap(), anyMap());
+		verify(parameterHandler, never()).validateAndTransform(anyMap(), anyMap(), anyObject());
 	}
 
 	@Test
@@ -112,28 +142,26 @@ public class BaseControllerTest {
 	public void processParametersTest_invalid() {
 		ParameterMap p = new ParameterMap();
 		p.setValid(false);
-		when(parameterHandler.validateAndTransform(anyMap(), anyMap())).thenReturn(p);
+		when(parameterHandler.validateAndTransform(anyMap(), anyMap(), anyObject())).thenReturn(p);
 
-		MockHttpServletRequest request = new MockHttpServletRequest();
 		request.setParameter("countrycode", "US");
 		testController.processParameters(request, null);
 		assertEquals(p, TestBaseController.getPm());
 		assertFalse(TestBaseController.getPm().isValid());
-		verify(parameterHandler).validateAndTransform(anyMap(), anyMap());
+		verify(parameterHandler).validateAndTransform(anyMap(), anyMap(), anyObject());
 	}
 
 	@Test
 	@SuppressWarnings("unchecked")
 	public void processParametersTest_valid() {
 		ParameterMap p = new ParameterMap();
-		when(parameterHandler.validateAndTransform(anyMap(), anyMap())).thenReturn(p);
+		when(parameterHandler.validateAndTransform(anyMap(), anyMap(), anyObject())).thenReturn(p);
 
-		MockHttpServletRequest request = new MockHttpServletRequest();
 		request.setParameter("countrycode", "US");
 		testController.processParameters(request, null);
 		assertEquals(p, TestBaseController.getPm());
 		assertTrue(TestBaseController.getPm().isValid());
-		verify(parameterHandler).validateAndTransform(anyMap(), anyMap());
+		verify(parameterHandler).validateAndTransform(anyMap(), anyMap(), anyObject());
 	}
 
 	@Test
@@ -371,7 +399,6 @@ public class BaseControllerTest {
 	@Test
 	@SuppressWarnings("unchecked")
 	public void doCommonSetupTest_NoParms() {
-		MockHttpServletRequest request = new MockHttpServletRequest();
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		BigDecimal logId = BigDecimal.ONE;
 		TestBaseController.setLogId(logId);
@@ -380,7 +407,7 @@ public class BaseControllerTest {
 		assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
 		assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
 		assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
-		verify(parameterHandler, never()).validateAndTransform(anyMap(), anyMap());
+		verify(parameterHandler, never()).validateAndTransform(anyMap(), anyMap(), anyObject());
 		verify(logService, never()).logHeadComplete(response, logId);
 		verify(countDao, never()).getCounts(anyString(), anyMap());
 	}
@@ -391,9 +418,8 @@ public class BaseControllerTest {
 		ParameterMap p = new ParameterMap();
 		p.merge("countrycode", Arrays.asList("not cool"));
 		p.setValid(false);
-		when(parameterHandler.validateAndTransform(anyMap(), anyMap())).thenReturn(p);
+		when(parameterHandler.validateAndTransform(anyMap(), anyMap(), anyObject())).thenReturn(p);
 
-		MockHttpServletRequest request = new MockHttpServletRequest();
 		request.setParameter("countrycode", "US");
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		BigDecimal logId = BigDecimal.ONE;
@@ -403,7 +429,7 @@ public class BaseControllerTest {
 		assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
 		assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
 		assertTrue(response.getHeader(HttpConstants.HEADER_WARNING).startsWith("299 WQP \"not cool\""));
-		verify(parameterHandler).validateAndTransform(anyMap(), anyMap());
+		verify(parameterHandler).validateAndTransform(anyMap(), anyMap(), anyObject());
 		verify(logService, never()).logHeadComplete(response, logId);
 		verify(countDao, never()).getCounts(anyString(), anyMap());
 	}
@@ -417,9 +443,8 @@ public class BaseControllerTest {
 		q.put(Parameters.DATA_PROFILE.toString(), Profile.STATION);
 		ParameterMap p = new ParameterMap();
 		p.setQueryParameters(q);
-		when(parameterHandler.validateAndTransform(anyMap(), anyMap())).thenReturn(p);
+		when(parameterHandler.validateAndTransform(anyMap(), anyMap(), anyObject())).thenReturn(p);
 
-		MockHttpServletRequest request = new MockHttpServletRequest();
 		request.setParameter("countrycode", "US");
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		BigDecimal logId = BigDecimal.ONE;
@@ -432,7 +457,7 @@ public class BaseControllerTest {
 		assertEquals("application/vnd.google-earth.kmz;charset=UTF-8", response.getHeader(HttpConstants.HEADER_CONTENT_TYPE));
 		assertEquals("attachment; filename=station.kmz", response.getHeader(HttpConstants.HEADER_CONTENT_DISPOSITION));
 		assertEquals("12", response.getHeader(TestBaseController.TEST_COUNT));
-		verify(parameterHandler).validateAndTransform(anyMap(), anyMap());
+		verify(parameterHandler).validateAndTransform(anyMap(), anyMap(), anyObject());
 		verify(logService).logHeadComplete(response, logId);
 		verify(countDao).getCounts(anyString(), anyMap());
 	}
@@ -445,8 +470,7 @@ public class BaseControllerTest {
 		q.put(Parameters.DATA_PROFILE.toString(), Profile.STATION);
 		ParameterMap p = new ParameterMap();
 		p.setQueryParameters(q);
-		when(parameterHandler.validateAndTransform(anyMap(), anyMap())).thenReturn(p);
-		MockHttpServletRequest request = new MockHttpServletRequest();
+		when(parameterHandler.validateAndTransform(anyMap(), anyMap(), anyObject())).thenReturn(p);
 		request.setParameter(Parameters.COUNTRY.toString(), "US");
 		request.setMethod("POST");
 		MockHttpServletResponse response = new MockHttpServletResponse();
@@ -460,7 +484,7 @@ public class BaseControllerTest {
 		assertEquals("application/json;charset=UTF-8", response.getHeader(HttpConstants.HEADER_CONTENT_TYPE));
 		assertEquals("attachment; filename=station.json", response.getHeader(HttpConstants.HEADER_CONTENT_DISPOSITION));
 		assertEquals("12", response.getHeader(TestBaseController.TEST_COUNT));
-		verify(parameterHandler).validateAndTransform(anyMap(), anyMap());
+		verify(parameterHandler).validateAndTransform(anyMap(), anyMap(), anyObject());
 		verify(logService).logHeadComplete(response, logId);
 		verify(countDao).getCounts(anyString(), anyMap());
 
@@ -473,7 +497,7 @@ public class BaseControllerTest {
 		assertEquals("application/json;charset=UTF-8", response.getHeader(HttpConstants.HEADER_CONTENT_TYPE));
 		assertNull(response.getHeader(HttpConstants.HEADER_CONTENT_DISPOSITION));
 		assertEquals("12", response.getHeader(TestBaseController.TEST_COUNT));
-		verify(parameterHandler, times(2)).validateAndTransform(anyMap(), anyMap());
+		verify(parameterHandler, times(2)).validateAndTransform(anyMap(), anyMap(), anyObject());
 		//logService is only one because we created a new response
 		verify(logService, times(1)).logHeadComplete(response, logId);
 		verify(countDao, times(2)).getCounts(anyString(), anyMap());
@@ -487,7 +511,7 @@ public class BaseControllerTest {
 		assertEquals("application/json;charset=UTF-8", response.getHeader(HttpConstants.HEADER_CONTENT_TYPE));
 		assertEquals("attachment; filename=station.json", response.getHeader(HttpConstants.HEADER_CONTENT_DISPOSITION));
 		assertEquals("12", response.getHeader(TestBaseController.TEST_COUNT));
-		verify(parameterHandler, times(3)).validateAndTransform(anyMap(), anyMap());
+		verify(parameterHandler, times(3)).validateAndTransform(anyMap(), anyMap(), anyObject());
 		//logService is only one because we created a new response
 		verify(logService, times(1)).logHeadComplete(response, logId);
 		verify(countDao, times(3)).getCounts(anyString(), anyMap());	
@@ -663,7 +687,6 @@ public class BaseControllerTest {
 	@Test
 	@SuppressWarnings("unchecked")
 	public void doHeadRequestTest() {
-		MockHttpServletRequest request = new MockHttpServletRequest();
 		MockHttpServletResponse response = new MockHttpServletResponse();
 
 		testController.doHeadRequest(request, response);
@@ -678,8 +701,7 @@ public class BaseControllerTest {
 	@Test
 	@SuppressWarnings("unchecked")
 	public void doHeadRequestTest_error() {
-		when(parameterHandler.validateAndTransform(anyMap(), anyMap())).thenThrow(new RuntimeException("test"));
-		MockHttpServletRequest request = new MockHttpServletRequest();
+		when(parameterHandler.validateAndTransform(anyMap(), anyMap(), anyObject())).thenThrow(new RuntimeException("test"));
 		request.setParameter("countrycode", "US");
 		MockHttpServletResponse response = new MockHttpServletResponse();
 
@@ -702,7 +724,6 @@ public class BaseControllerTest {
 	@Test
 	@SuppressWarnings("unchecked")
 	public void doGetRequestTest_NoParms() {
-		MockHttpServletRequest request = new MockHttpServletRequest();
 		MockHttpServletResponse response = new MockHttpServletResponse();
 
 		testController.doGetRequest(request, response);
@@ -717,8 +738,7 @@ public class BaseControllerTest {
 	@Test
 	@SuppressWarnings("unchecked")
 	public void doGetRequestTest_error() {
-		when(parameterHandler.validateAndTransform(anyMap(), anyMap())).thenThrow(new RuntimeException("test"));
-		MockHttpServletRequest request = new MockHttpServletRequest();
+		when(parameterHandler.validateAndTransform(anyMap(), anyMap(), anyObject())).thenThrow(new RuntimeException("test"));
 		request.setParameter("countrycode", "US");
 		MockHttpServletResponse response = new MockHttpServletResponse();
 
@@ -748,9 +768,8 @@ public class BaseControllerTest {
 		q.put(Parameters.DATA_PROFILE.toString(), Profile.STATION);
 		ParameterMap p = new ParameterMap();
 		p.setQueryParameters(q);
-		when(parameterHandler.validateAndTransform(anyMap(), anyMap())).thenReturn(p);
+		when(parameterHandler.validateAndTransform(anyMap(), anyMap(), anyObject())).thenReturn(p);
 
-		MockHttpServletRequest request = new MockHttpServletRequest();
 		request.setParameter("countrycode", "US");
 		MockHttpServletResponse response = new MockHttpServletResponse();
 
@@ -771,7 +790,7 @@ public class BaseControllerTest {
 		}
 
 		verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(Map.class));
-		verify(parameterHandler).validateAndTransform(anyMap(), anyMap());
+		verify(parameterHandler).validateAndTransform(anyMap(), anyMap(), anyObject());
 		verify(countDao).getCounts(anyString(), anyMap());
 		verify(logService).logHeadComplete(any(HttpServletResponse.class), any(BigDecimal.class));
 		verify(streamingDao).stream(anyString(), anyMap(), any(ResultHandler.class));
@@ -844,9 +863,8 @@ public class BaseControllerTest {
 		json.put("siteid", Arrays.asList("11NPSWRD-BICA_MFG_B","WIDNR_WQX-10030952"));
 		ParameterMap p = new ParameterMap();
 		p.setQueryParameters(q);
-		when(parameterHandler.validateAndTransform(anyMap(), anyMap())).thenReturn(p);
+		when(parameterHandler.validateAndTransform(anyMap(), anyMap(), anyObject())).thenReturn(p);
 
-		MockHttpServletRequest request = new MockHttpServletRequest();
 		request.setParameter("countrycode", "US");
 		MockHttpServletResponse response = new MockHttpServletResponse();
 
@@ -867,7 +885,7 @@ public class BaseControllerTest {
 		}
 
 		verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(Map.class));
-		verify(parameterHandler).validateAndTransform(anyMap(), anyMap());
+		verify(parameterHandler).validateAndTransform(anyMap(), anyMap(), anyObject());
 		verify(countDao).getCounts(anyString(), anyMap());
 		verify(logService).logHeadComplete(any(HttpServletResponse.class), any(BigDecimal.class));
 		verify(streamingDao).stream(anyString(), anyMap(), any(ResultHandler.class));
@@ -877,7 +895,6 @@ public class BaseControllerTest {
 	@Test
 	@SuppressWarnings("unchecked")
 	public void doPostCountRequestTest() {
-		MockHttpServletRequest request = new MockHttpServletRequest();
 		MockHttpServletResponse response = new MockHttpServletResponse();
 
 		Map<String, Object> q = new HashMap<>();
@@ -887,7 +904,7 @@ public class BaseControllerTest {
 		json.put("siteid", Arrays.asList("11NPSWRD-BICA_MFG_B","WIDNR_WQX-10030952"));
 		ParameterMap p = new ParameterMap();
 		p.setQueryParameters(q);
-		when(parameterHandler.validateAndTransform(anyMap(), anyMap())).thenReturn(p);
+		when(parameterHandler.validateAndTransform(anyMap(), anyMap(), anyObject())).thenReturn(p);
 		when(countDao.getCounts(anyString(), anyMap())).thenReturn(getRawCounts());
 
 		Map<String, String> result = testController.doPostCountRequest(request, response, json);

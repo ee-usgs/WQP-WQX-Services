@@ -24,7 +24,7 @@ import gov.usgs.cida.wqp.webservice.BaseControllerIntegrationTest;
 @DirtiesContext(classMode=ClassMode.AFTER_CLASS)
 public class StationControllerIntTest extends BaseControllerIntegrationTest {
 
-	protected String endpoint = "/" + HttpConstants.STATION_SEARCH_ENPOINT + "?mimeType=";
+	protected String endpoint = HttpConstants.STATION_SEARCH_ENPOINT + "?mimeType=";
 
 	@Test
 	public void getAsCsvTest() throws Exception {
@@ -98,7 +98,7 @@ public class StationControllerIntTest extends BaseControllerIntegrationTest {
 
 	@Test
 	public void postGetCountTest() throws Exception {
-		String urlPrefix = "/" + HttpConstants.STATION_SEARCH_ENPOINT + "/count?mimeType=";
+		String urlPrefix = HttpConstants.STATION_SEARCH_ENPOINT + "/count?mimeType=";
 		String compareObject = "{\"" + HttpConstants.HEADER_TOTAL_SITE_COUNT + "\":\"" + FILTERED_TOTAL_SITE_COUNT
 				+ "\",\"" + HEADER_STORET_SITE_COUNT + "\":\"" + FILTERED_STORET_SITE_COUNT
 				+ "\"}";

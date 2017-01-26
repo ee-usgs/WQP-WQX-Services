@@ -35,7 +35,7 @@ import gov.usgs.cida.wqp.webservice.BaseControllerIntegrationTest;
 @DirtiesContext(classMode=ClassMode.AFTER_CLASS)
 public class SimpleStationControllerIntTest extends BaseControllerIntegrationTest {
 
-	protected String endpoint = "/" + HttpConstants.SIMPLE_STATION_ENDPOINT + "?mimeType=";
+	protected String endpoint = HttpConstants.SIMPLE_STATION_ENDPOINT + "?mimeType=";
 
 	@Test
 	public void getAsXmlTest() throws Exception {

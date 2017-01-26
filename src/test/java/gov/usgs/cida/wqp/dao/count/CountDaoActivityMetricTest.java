@@ -31,6 +31,11 @@ public class CountDaoActivityMetricTest extends BaseCountDaoTest {
 	}
 
 	@Test
+	public void activityTest() {
+		activityTest(nameSpace, includeActivity, includeActivityMetric, includeResults);
+	}
+
+	@Test
 	public void analyticalMethodTest() {
 		analyticalMethodTest(nameSpace, includeActivity, includeActivityMetric, includeResults);
 	}

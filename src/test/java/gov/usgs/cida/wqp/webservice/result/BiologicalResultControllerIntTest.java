@@ -26,7 +26,7 @@ import gov.usgs.cida.wqp.webservice.BaseControllerIntegrationTest;
 @DirtiesContext(classMode=ClassMode.AFTER_CLASS)
 public class BiologicalResultControllerIntTest extends BaseControllerIntegrationTest {
 
-	protected String endpoint = "/" + HttpConstants.RESULT_SEARCH_ENPOINT + "?" 
+	protected String endpoint = HttpConstants.RESULT_SEARCH_ENPOINT + "?" 
 			+ Parameters.DATA_PROFILE + "=" + Profile.BIOLOGICAL + "&mimeType=";
 
 	@Test
@@ -76,7 +76,7 @@ public class BiologicalResultControllerIntTest extends BaseControllerIntegration
 
 	@Test
 	public void postGetCountTest() throws Exception {
-		String urlPrefix = "/" + HttpConstants.RESULT_SEARCH_ENPOINT + "/count?mimeType=";
+		String urlPrefix = HttpConstants.RESULT_SEARCH_ENPOINT + "/count?mimeType=";
 		String compareObject = "{\"" + HttpConstants.HEADER_TOTAL_SITE_COUNT + "\":\"" + FILTERED_TOTAL_SITE_COUNT
 				+ "\",\"" + HttpConstants.HEADER_TOTAL_ACTIVITY_COUNT + "\":\"" + FILTERED_TOTAL_ACTIVITY_COUNT
 				+ "\",\"" + HttpConstants.HEADER_TOTAL_RESULT_COUNT + "\":\"" + FILTERED_TOTAL_RESULT_COUNT

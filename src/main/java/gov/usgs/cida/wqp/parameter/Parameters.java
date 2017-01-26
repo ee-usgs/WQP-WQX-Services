@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum Parameters {
+	ACTIVITY("activity"),
 	ANALYTICAL_METHOD("analyticalmethod"),
 	ASSEMBLAGE("assemblage"),
 	AVOID("command.avoid"),
