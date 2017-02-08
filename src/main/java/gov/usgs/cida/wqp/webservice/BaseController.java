@@ -497,7 +497,7 @@ public abstract class BaseController {
 			transformer = new MapToJsonTransformer(responseStream, null, logService, logId, siteUrlBase);
 			break;
 		case xlsx:
-			transformer = new MapToXlsxTransformer(responseStream, getMapping(getProfile()), logService, logId);
+			transformer = new MapToXlsxTransformer(responseStream, getMapping(getProfile()), logService, logId, siteUrlBase);
 			break;
 		case xml:
 			transformer = new MapToXmlTransformer(responseStream, getXmlMapping(), logService, logId, getProfile());
