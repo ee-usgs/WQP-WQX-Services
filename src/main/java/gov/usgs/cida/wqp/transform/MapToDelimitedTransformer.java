@@ -47,7 +47,6 @@ public class MapToDelimitedTransformer extends Transformer {
 		}
 	}
 
-	@SuppressWarnings("static-access")
 	protected void writeData(Map<String, Object> result) {
 		writeToStream(LF);
 		boolean firstPass = true;
@@ -59,8 +58,9 @@ public class MapToDelimitedTransformer extends Transformer {
 			}
 			Object value = result.get(col);
 			if (null != value) {
-				if (col.equals(ActivityColumn.ACTIVITY_ID)) {
-					value = siteUrlBase.join("/", HttpConstants.ACTIVITY_METRIC_REST_ENPOINT.replace("{activity}", value.toString()));
+				if (col.equals(ActivityColumn.KEY_ACTIVITY_ID)) {
+					value = siteUrlBase + HttpConstants.ACTIVITY_METRIC_REST_ENPOINT.replace("{activity}", value.toString());
+					System.out.println(value.toString());
 				}
 				writeToStream(encode(value.toString()));
 			}
@@ -78,5 +78,4 @@ public class MapToDelimitedTransformer extends Transformer {
 	public String getDelimiter() {
 		return delimiter;
 	}
-
 }
