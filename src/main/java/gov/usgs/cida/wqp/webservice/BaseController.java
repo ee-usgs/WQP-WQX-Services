@@ -500,7 +500,7 @@ public abstract class BaseController {
 			transformer = new MapToXlsxTransformer(responseStream, getMapping(getProfile()), logService, logId, siteUrlBase);
 			break;
 		case xml:
-			transformer = new MapToXmlTransformer(responseStream, getXmlMapping(), logService, logId, getProfile());
+			transformer = new MapToXmlTransformer(responseStream, getXmlMapping(), logService, logId, getProfile(), siteUrlBase);
 			break;
 		case kml:
 		case kmz:
