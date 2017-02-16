@@ -98,4 +98,10 @@ public class ActivityController extends BaseController {
 		return null;
 	}
 
+	@Override
+	protected Map<String, String[]> addCustomRequestParams(Map<String, String[]> requestParams) {
+		requestParams.put("siteUrlBase", new String[] {siteUrlBase});
+		return requestParams;
+	}
+
 }

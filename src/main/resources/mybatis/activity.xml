@@ -17,7 +17,7 @@
                prime.act_sam_collect_meth_desc, prime.sample_collect_equip_name, prime.act_sam_collect_equip_comments, prime.act_sam_prep_meth_id, prime.act_sam_prep_meth_context,
                prime.act_sam_prep_meth_name, prime.act_sam_prep_meth_qual_type, prime.act_sam_prep_meth_desc, prime.sample_container_type, prime.sample_container_color,
                prime.act_sam_chemical_preservative, prime.thermal_preservative_name, prime.act_sam_transport_storage_desc,
-               #{siteUrlBase,jdbcType=VARCHAR} || '/activities/' || prime.activity_id || '/activitymetrics' ActivityMetricURL
+               #{siteUrlBase,jdbcType=VARCHAR} || '/activities/' || prime.activity_id || '/activitymetrics' ACTIVITY_METRIC_URL
         <include refid="dynamicWhere.activityBase"/>
         <if test="sorted == 'yes'">
             order by prime.data_source_id,

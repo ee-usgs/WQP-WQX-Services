@@ -105,4 +105,9 @@ public class StationController extends BaseController {
 		return determineProfile(Profile.STATION, pm);
 	}
 
+	@Override
+	protected Map<String, String[]> addCustomRequestParams(Map<String, String[]> requestParams) {
+		return requestParams;
+	}
+
 }

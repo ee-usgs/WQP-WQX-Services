@@ -85,4 +85,9 @@ public class RestfullController extends BaseController {
 		return null;
 	}
 
+	@Override
+	protected Map<String, String[]> addCustomRequestParams(Map<String, String[]> requestParams) {
+		return requestParams;
+	}
+
 }

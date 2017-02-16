@@ -53,4 +53,9 @@ public class TestBaseController extends BaseController {
 		return Profile.STATION;
 	}
 
+	@Override
+	protected Map<String, String[]> addCustomRequestParams(Map<String, String[]> requestParams) {
+		return requestParams;
+	}
+
 }

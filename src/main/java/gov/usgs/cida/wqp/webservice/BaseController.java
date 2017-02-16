@@ -295,7 +295,7 @@ public abstract class BaseController {
 		Object pathVariables = request.getAttribute("org.springframework.web.servlet.View.pathVariables");
 		if (isValidRequest(request, postParms, pathVariables)) {
 			LOG.trace("got parameters");
-			Map<String, String[]> requestParams = new HashMap<>(request.getParameterMap());
+			Map<String, String[]> requestParams = addCustomRequestParams(new HashMap<>(request.getParameterMap()));
 			LOG.debug("requestParams: {}", requestParams);
 			setPm(parameterHandler.validateAndTransform(requestParams, postParms, pathVariables));
 			LOG.debug("pm: {}", getPm());
@@ -317,6 +317,7 @@ public abstract class BaseController {
 	}
 
 	protected abstract String addCountHeaders(HttpServletResponse response, List<Map<String, Object>> counts);
+	protected abstract Map<String, String[]> addCustomRequestParams(Map<String, String[]> requestParams);
 
 	protected void doGetRequest(HttpServletRequest request, HttpServletResponse response) {
 		LOG.info("Processing Get: {}", request.getQueryString());
