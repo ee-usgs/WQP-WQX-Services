@@ -23,6 +23,7 @@ import gov.usgs.cida.wqp.mapping.Profile;
 import gov.usgs.cida.wqp.mapping.delimited.ActivityDelimited;
 import gov.usgs.cida.wqp.mapping.xml.IXmlMapping;
 import gov.usgs.cida.wqp.parameter.IParameterHandler;
+import gov.usgs.cida.wqp.parameter.ParameterMap;
 import gov.usgs.cida.wqp.service.ILogService;
 import gov.usgs.cida.wqp.util.HttpConstants;
 
@@ -99,9 +100,8 @@ public class ActivityController extends BaseController {
 	}
 
 	@Override
-	protected Map<String, String[]> addCustomRequestParams(Map<String, String[]> requestParams) {
-		requestParams.put("siteUrlBase", new String[] {siteUrlBase});
-		return requestParams;
+	protected void addCustomRequestParams(ParameterMap parameterMap) {
+		parameterMap.getQueryParameters().put("siteUrlBase", siteUrlBase);
 	}
 
 }
