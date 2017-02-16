@@ -48,8 +48,7 @@ public class MapToXlsxTransformerTest {
 		mapping.put("D", "colD");
 		mapping.put("E", "colE");
 		mapping.put("F", "colF");
-		mapping.put("ACTIVITY_ID", "ActMetURL");
-		transformer = new MapToXlsxTransformer(baos, mapping, logService, logId, "ROOTURL");
+		transformer = new MapToXlsxTransformer(baos, mapping, logService, logId);
 	}
 
 	@After
@@ -87,8 +86,6 @@ public class MapToXlsxTransformerTest {
 					break;
 				case "colF":
 					break;
-				case "ActMetURL":
-					break;
 				default:
 					fail(c.getStringCellValue() + " is not valid");
 				}
@@ -102,7 +99,7 @@ public class MapToXlsxTransformerTest {
 				y.next();
 				i++;
 			}
-			assertEquals(7, i);
+			assertEquals(6, i);
 			assertEquals("data1", row1.getCell(0).getStringCellValue());
 			assertEquals("data2", row1.getCell(1).getStringCellValue());
 			assertEquals("1", row1.getCell(2).getStringCellValue());
@@ -110,7 +107,6 @@ public class MapToXlsxTransformerTest {
 			assertEquals("Wed Dec 31 18:00:10 CST 1969", row1.getCell(3).getStringCellValue());
 			assertNull(row1.getCell(4));
 			assertEquals(29382.2398, row1.getCell(5).getNumericCellValue(), 0);
-			assertEquals("Was expecting something more from you.", "ROOTURL/activities/1234/activitymetrics", row1.getCell(6).getStringCellValue());
 		} catch (IOException e) {
 			fail(e.getLocalizedMessage());
 		}

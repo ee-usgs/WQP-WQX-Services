@@ -497,21 +497,21 @@ public abstract class BaseController {
 			transformer = new MapToJsonTransformer(responseStream, null, logService, logId, siteUrlBase);
 			break;
 		case xlsx:
-			transformer = new MapToXlsxTransformer(responseStream, getMapping(getProfile()), logService, logId, siteUrlBase);
+			transformer = new MapToXlsxTransformer(responseStream, getMapping(getProfile()), logService, logId);
 			break;
 		case xml:
-			transformer = new MapToXmlTransformer(responseStream, getXmlMapping(), logService, logId, getProfile(), siteUrlBase);
+			transformer = new MapToXmlTransformer(responseStream, getXmlMapping(), logService, logId, getProfile());
 			break;
 		case kml:
 		case kmz:
 			transformer = new MapToKmlTransformer(responseStream, getKmlMapping(), logService, logId, getProfile());
 			break;
 		case tsv:
-			transformer = new MapToDelimitedTransformer(responseStream, getMapping(getProfile()), logService, logId, MapToDelimitedTransformer.TAB, siteUrlBase);
+			transformer = new MapToDelimitedTransformer(responseStream, getMapping(getProfile()), logService, logId, MapToDelimitedTransformer.TAB);
 			break;
 		case csv:
 		default:
-			transformer = new MapToDelimitedTransformer(responseStream, getMapping(getProfile()), logService, logId, MapToDelimitedTransformer.COMMA, siteUrlBase);
+			transformer = new MapToDelimitedTransformer(responseStream, getMapping(getProfile()), logService, logId, MapToDelimitedTransformer.COMMA);
 			break;
 		}
 		return transformer;

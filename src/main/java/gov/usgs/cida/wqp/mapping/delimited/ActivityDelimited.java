@@ -88,7 +88,7 @@ public class ActivityDelimited extends BaseDelimited {
 	public static final String VALUE_ACT_SAM_CHEMICAL_PRESERVATIVE = WQX_CHEMICAL_PRESERVATIVE;
 	public static final String VALUE_THERMAL_PRESERVATIVE_NAME = WQX_THERMAL_PRESERVATIVE;
 	public static final String VALUE_ACT_SAM_TRANSPORT_STORAGE_DESC = WQX_TRANSPORT_STORAGE;
-	public static final String VALUE_ACT_METRIC_URL = "ActivityMetricURL";
+	public static final String VALUE_ACTIVITY_METRIC_URL = WQX_ACTIVITY_METRIC_URL;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -181,7 +181,7 @@ public class ActivityDelimited extends BaseDelimited {
 
 		MAPPINGS.put(DATA_SOURCE, VALUE_DATA_SOURCE);
 		
-		MAPPINGS.put(ACTIVITY_ID, VALUE_ACT_METRIC_URL);
+		MAPPINGS.put(ACTIVITY_METRIC_URL, VALUE_ACTIVITY_METRIC_URL);
 	}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

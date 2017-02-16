@@ -8,9 +8,7 @@ import java.util.Map.Entry;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
 
-import gov.usgs.cida.wqp.mapping.ActivityColumn;
 import gov.usgs.cida.wqp.service.ILogService;
-import gov.usgs.cida.wqp.util.HttpConstants;
 
 public class MapToDelimitedTransformer extends Transformer {
 
@@ -21,12 +19,10 @@ public class MapToDelimitedTransformer extends Transformer {
 	protected static final String SPACE = " ";
 
 	protected final String delimiter;
-	private final String siteUrlBase;
 
-	public MapToDelimitedTransformer(OutputStream target, Map<String, String> mapping, ILogService logService, BigDecimal logId, String delimiter, String siteUrlBase) {
+	public MapToDelimitedTransformer(OutputStream target, Map<String, String> mapping, ILogService logService, BigDecimal logId, String delimiter) {
 		super(target, mapping, logService, logId);
 		this.delimiter = delimiter;
-		this.siteUrlBase = siteUrlBase;
 		init();
 	}
 
@@ -58,10 +54,6 @@ public class MapToDelimitedTransformer extends Transformer {
 			}
 			Object value = result.get(col);
 			if (null != value) {
-				if (col.equals(ActivityColumn.KEY_ACTIVITY_ID)) {
-					value = siteUrlBase + HttpConstants.ACTIVITY_METRIC_REST_ENPOINT.replace("{activity}", value.toString());
-					System.out.println(value.toString());
-				}
 				writeToStream(encode(value.toString()));
 			}
 		}
