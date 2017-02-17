@@ -65,7 +65,7 @@ public class ActivityStreamingTest extends BaseSpringTest {
 	public static final BigDecimal[] STORET_16 = new BigDecimal[]{BigDecimal.valueOf(3), BigDecimal.valueOf(16)};
 	public static final BigDecimal[] BIODATA_1 = new BigDecimal[]{BigDecimal.valueOf(4), BigDecimal.ONE};
 
-	public static final int ACTIVITY_COLUMN_COUNT = 78;
+	public static final int ACTIVITY_COLUMN_COUNT = 79;
 
 	@Before
 	public void init() {
