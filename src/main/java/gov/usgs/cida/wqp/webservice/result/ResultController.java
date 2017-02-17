@@ -99,5 +99,4 @@ public class ResultController extends BaseController {
 	protected IXmlMapping getKmlMapping() {
 		return null;
 	}
-
 }

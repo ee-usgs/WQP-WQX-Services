@@ -104,5 +104,4 @@ public class StationController extends BaseController {
 	protected String determineProfile(Map<String, Object> pm) {
 		return determineProfile(Profile.STATION, pm);
 	}
-
 }

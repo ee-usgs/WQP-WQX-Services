@@ -30,16 +30,16 @@ import org.mockito.MockitoAnnotations;
 public class MapToXlsxTransformerTest {
 
 	@Mock
-    protected ILogService logService;
+	protected ILogService logService;
 	protected BigDecimal logId = new BigDecimal(1);
 	private int rowCount = 1;
 	protected MapToXlsxTransformer transformer;
 	protected ByteArrayOutputStream baos;
 	protected Map<String, String> mapping;
 
-    @Before
-    public void initTest() {
-        MockitoAnnotations.initMocks(this);
+	@Before
+	public void initTest() {
+		MockitoAnnotations.initMocks(this);
 		baos = new ByteArrayOutputStream();
 		mapping = new LinkedHashMap<>();
 		mapping.put("A", "colA");
@@ -48,13 +48,13 @@ public class MapToXlsxTransformerTest {
 		mapping.put("D", "colD");
 		mapping.put("E", "colE");
 		mapping.put("F", "colF");
-        transformer = new MapToXlsxTransformer(baos, mapping, logService, logId);
-    }
+		transformer = new MapToXlsxTransformer(baos, mapping, logService, logId);
+	}
 
-    @After
-    public void closeTest() throws IOException {
-    	transformer.close();
-    }
+	@After
+	public void closeTest() throws IOException {
+		transformer.close();
+	}
 
 	@Test
 	public void writeTest() {
@@ -112,7 +112,6 @@ public class MapToXlsxTransformerTest {
 		}
 	}
 	
-	
 	@Test
 	public void bunchOfRows() {
 		try {
@@ -147,6 +146,7 @@ public class MapToXlsxTransformerTest {
 		record.put("E", null);
 		record.put("F", new BigDecimal(29382.2398));
 		record.put("G", "nocando");
+		record.put("ACTIVITY_ID", 1234);
 
 		return record;
 	}
@@ -156,5 +156,4 @@ public class MapToXlsxTransformerTest {
 		//should not fail with NullPointerException without any data having been written
 		transformer.end();
 	}
-
 }

@@ -97,7 +97,7 @@ public abstract class BaseWqx {
 	public static final String WQX_SAMPLE_AQUIFER = "SampleAquifer";
 	public static final String WQX_HYDROLOGIC_CONDITION = "HydrologicCondition";
 	public static final String WQX_HYDROLOGIC_EVENT = "HydrologicEvent";
-
+	
 	public static final String WQX_ACT_LOCATION = "ActivityLocation";
 	
 	public static final String WQX_BIO_ACT_DESCRIPTION = "BiologicalActivityDescription";
@@ -131,6 +131,7 @@ public abstract class BaseWqx {
 	
 	public static final String WQX_ACTIVITY_METRIC = "ActivityMetric";
 	public static final String WQX_ACTIVITY_METRIC_TYPE = "ActivityMetricType";
+	public static final String WQX_ACTIVITY_METRIC_URL = "ActivityMetricURL";
 	public static final String WQX_METRIC_TYPE_ID = "MetricTypeIdentifier";
 	public static final String WQX_METRIC_TYPE_ID_CONTEXT = "MetricTypeIdentifierContext";
 	public static final String WQX_METRIC_TYPE = "MetricTypeName";

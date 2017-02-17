@@ -52,5 +52,4 @@ public class TestBaseController extends BaseController {
 	protected String determineProfile(Map<String, Object> pm) {
 		return Profile.STATION;
 	}
-
 }

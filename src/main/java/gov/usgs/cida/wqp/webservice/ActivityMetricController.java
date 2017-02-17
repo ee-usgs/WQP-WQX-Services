@@ -98,5 +98,4 @@ public class ActivityMetricController extends BaseController {
 	protected IXmlMapping getKmlMapping() {
 		return null;
 	}
-
 }

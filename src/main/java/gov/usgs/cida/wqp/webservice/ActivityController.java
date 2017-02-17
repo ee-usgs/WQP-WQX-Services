@@ -98,4 +98,9 @@ public class ActivityController extends BaseController {
 		return null;
 	}
 
+	@Override
+	protected void addCustomRequestParams() {
+		getPm().getQueryParameters().put("siteUrlBase", siteUrlBase);
+	}
+
 }

@@ -47,7 +47,7 @@ public enum Parameters {
 	private static void putParameterName(String value, Parameters param) {
 		if (value == null || getValidParameterNames().containsKey(value)) {
 			//This is a configuration error and can only happen if you duplicate values above...not unit testable
-			throw new IllegalStateException("overloaded parameter value: " +  value +", please verify the enum definition for Parameters");
+			throw new IllegalStateException("overloaded parameter value: " + value + ", please verify the enum definition for Parameters");
 		} else {
 			getValidParameterNames().put(value, param);
 		}

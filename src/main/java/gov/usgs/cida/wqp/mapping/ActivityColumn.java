@@ -72,6 +72,7 @@ public class ActivityColumn extends BaseColumn {
 	public static final String KEY_ACT_SAM_CHEMICAL_PRESERVATIVE = "ACT_SAM_CHEMICAL_PRESERVATIVE";
 	public static final String KEY_THERMAL_PRESERVATIVE_NAME = "THERMAL_PRESERVATIVE_NAME";
 	public static final String KEY_ACT_SAM_TRANSPORT_STORAGE_DESC = "ACT_SAM_TRANSPORT_STORAGE_DESC";
+	public static final String KEY_ACTIVITY_METRIC_URL = "ACTIVITY_METRIC_URL";
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -146,6 +147,7 @@ public class ActivityColumn extends BaseColumn {
 	public static final ColumnProfile ACT_SAM_CHEMICAL_PRESERVATIVE = new ColumnProfile(KEY_ACT_SAM_CHEMICAL_PRESERVATIVE, Profile.BIOLOGICAL, Profile.ACTIVITY);
 	public static final ColumnProfile THERMAL_PRESERVATIVE_NAME = new ColumnProfile(KEY_THERMAL_PRESERVATIVE_NAME, Profile.BIOLOGICAL, Profile.ACTIVITY);
 	public static final ColumnProfile ACT_SAM_TRANSPORT_STORAGE_DESC = new ColumnProfile(KEY_ACT_SAM_TRANSPORT_STORAGE_DESC, Profile.BIOLOGICAL, Profile.ACTIVITY);
+	public static final ColumnProfile ACTIVITY_METRIC_URL = new ColumnProfile(KEY_ACTIVITY_METRIC_URL, Profile.ACTIVITY);
 
 	private ActivityColumn() {
 	}

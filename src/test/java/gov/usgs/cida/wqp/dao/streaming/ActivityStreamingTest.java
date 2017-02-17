@@ -93,6 +93,17 @@ public class ActivityStreamingTest extends BaseSpringTest {
 		streamingDao.stream(nameSpace, parms, handler);
 		assertEquals(TOTAL_ACTIVITY_COUNT, String.valueOf(handler.getResults().size()));
 	}
+	
+	@Test
+	public void testActivityMetricURL() {
+		parms.put("siteUrlBase", "http://siteUrlBase");
+		parms.put(Parameters.PROVIDERS.toString(), new String[] {"BIODATA"});
+		streamingDao.stream(nameSpace, parms, handler);
+		LinkedList<Map<String, Object>> results = handler.getResults();
+		assertEquals("Size should be 1", 1, results.size());
+		Map<String, Object> row = results.get(0);
+		assertEquals("I dunno why it doesn't work", "http://siteUrlBase/activities/1/activitymetrics", row.get(ActivityColumn.KEY_ACTIVITY_METRIC_URL));
+	}
 
 	@Test
 	public void allDataSortedTest() {

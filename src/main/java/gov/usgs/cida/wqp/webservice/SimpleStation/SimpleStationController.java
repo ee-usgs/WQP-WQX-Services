@@ -81,5 +81,4 @@ public class SimpleStationController extends BaseController {
 	protected IXmlMapping getKmlMapping() {
 		return null;
 	}
-
 }

@@ -246,6 +246,8 @@ public abstract class BaseController {
 		setMimeType(determineMimeType(MimeType.csv.fromString(mimeTypeParam), getZipped()));
 		setProfile(determineProfile(getPm().getQueryParameters()));
 		setMybatisNamespace(determineNamespace());
+		
+		addCustomRequestParams();
 
 		List<Map<String, Object>> counts = countDao.getCounts(getMybatisNamespace(), getPm().getQueryParameters());
 
@@ -317,6 +319,10 @@ public abstract class BaseController {
 	}
 
 	protected abstract String addCountHeaders(HttpServletResponse response, List<Map<String, Object>> counts);
+
+	protected void addCustomRequestParams() {
+		//default is to add nothing
+	};
 
 	protected void doGetRequest(HttpServletRequest request, HttpServletResponse response) {
 		LOG.info("Processing Get: {}", request.getQueryString());

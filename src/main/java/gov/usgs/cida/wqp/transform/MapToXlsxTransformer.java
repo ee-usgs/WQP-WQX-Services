@@ -1,8 +1,5 @@
 package gov.usgs.cida.wqp.transform;
 
-import gov.usgs.cida.wqp.service.ILogService;
-import gov.usgs.cida.wqp.util.HttpConstants;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -19,6 +16,9 @@ import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.poi.ss.util.CellReference;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import gov.usgs.cida.wqp.service.ILogService;
+import gov.usgs.cida.wqp.util.HttpConstants;
 
 public class MapToXlsxTransformer extends Transformer {
 

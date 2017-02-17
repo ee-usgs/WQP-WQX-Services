@@ -84,5 +84,4 @@ public class RestfullController extends BaseController {
 	protected IXmlMapping getKmlMapping() {
 		return null;
 	}
-
 }
