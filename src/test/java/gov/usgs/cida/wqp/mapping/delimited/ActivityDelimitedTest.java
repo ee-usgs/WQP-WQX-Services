@@ -18,7 +18,7 @@ public class ActivityDelimitedTest {
 	}
 
 	public static void assertActivityProfile(Map<String, String> mapping) {
-		assertEquals(72, mapping.size());
+		assertEquals(73, mapping.size());
 		Object[] keys = mapping.keySet().toArray();
 		//kind of large, so just random checks...
 		assertEquals(StationColumn.KEY_ORGANIZATION, keys[0]);
