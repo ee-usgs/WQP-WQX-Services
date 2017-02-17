@@ -13,7 +13,6 @@ import gov.usgs.cida.wqp.mapping.xml.IXmlMapping;
 import gov.usgs.cida.wqp.mapping.xml.StationKml;
 import gov.usgs.cida.wqp.mapping.xml.StationWqx;
 import gov.usgs.cida.wqp.parameter.IParameterHandler;
-import gov.usgs.cida.wqp.parameter.ParameterMap;
 import gov.usgs.cida.wqp.service.ILogService;
 
 public class TestBaseController extends BaseController {
@@ -53,9 +52,4 @@ public class TestBaseController extends BaseController {
 	protected String determineProfile(Map<String, Object> pm) {
 		return Profile.STATION;
 	}
-
-	@Override
-	protected void addCustomRequestParams(ParameterMap parameterMap) {
-	}
-
 }
