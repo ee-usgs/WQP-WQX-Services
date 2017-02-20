@@ -37,8 +37,8 @@ public class ActivityDelimitedTest {
 		assertEquals(ActivityDelimited.VALUE_TOXICITY_TEST_TYPE_NAME, mapping.get(keys[53]));
 		assertEquals(ActivityColumn.KEY_SAMPLE_CONTAINER_TYPE, keys[66]);
 		assertEquals(ActivityDelimited.VALUE_SAMPLE_CONTAINER_TYPE, mapping.get(keys[66]));
-		assertEquals(ActivityColumn.KEY_DATA_SOURCE, keys[71]);
-		assertEquals(ActivityDelimited.VALUE_DATA_SOURCE, mapping.get(keys[71]));
+		assertEquals(ActivityColumn.KEY_DATA_SOURCE, keys[72]);
+		assertEquals(ActivityDelimited.VALUE_DATA_SOURCE, mapping.get(keys[72]));
 	}
 
 }
