@@ -455,7 +455,7 @@ public class ActivityWqx extends BaseWqx implements IXmlMapping {
 						WQX_SAMPLE_DESCRIPTION,
 						WQX_SAMPLE_PREPARATION,
 						WQX_TRANSPORT_STORAGE)));
-		COLUMN_POSITION.put(KEY_ACTIVITY_ID,
+		COLUMN_POSITION.put(KEY_ACTIVITY_METRIC_URL,
 				new LinkedList<String>(Arrays.asList(
 						WQX_ACTIVITY,
 						WQX_ACTIVITY_METRIC_URL)));

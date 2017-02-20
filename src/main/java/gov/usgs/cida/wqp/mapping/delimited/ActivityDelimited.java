@@ -179,9 +179,8 @@ public class ActivityDelimited extends BaseDelimited {
 		MAPPINGS.put(THERMAL_PRESERVATIVE_NAME, VALUE_THERMAL_PRESERVATIVE_NAME);
 		MAPPINGS.put(ACT_SAM_TRANSPORT_STORAGE_DESC, VALUE_ACT_SAM_TRANSPORT_STORAGE_DESC);
 
-		MAPPINGS.put(DATA_SOURCE, VALUE_DATA_SOURCE);
-		
 		MAPPINGS.put(ACTIVITY_METRIC_URL, VALUE_ACTIVITY_METRIC_URL);
+		MAPPINGS.put(DATA_SOURCE, VALUE_DATA_SOURCE);
 	}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

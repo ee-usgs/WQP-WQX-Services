@@ -119,6 +119,7 @@
           <SampleTransportStorageDescription>actSamTransportStorageDescStewards</SampleTransportStorageDescription>
         </SamplePreparation>
       </SampleDescription>
+      <ActivityMetricURL>http://www.waterqualitydata.us/activities/1/activitymetrics</ActivityMetricURL>
     </Activity>
   </Organization>
   <Organization>
@@ -240,6 +241,7 @@
           <SampleTransportStorageDescription>actSamTransportStorageDesc</SampleTransportStorageDescription>
         </SamplePreparation>
       </SampleDescription>
+      <ActivityMetricURL>http://www.waterqualitydata.us/activities/1/activitymetrics</ActivityMetricURL>
     </Activity>
   </Organization>
   <Organization>
@@ -280,6 +282,7 @@
         </SampleCollectionMethod>
         <SampleCollectionEquipmentName>Bucket</SampleCollectionEquipmentName>
       </SampleDescription>
+      <ActivityMetricURL>http://www.waterqualitydata.us/activities/14/activitymetrics</ActivityMetricURL>
     </Activity>
   </Organization>
   <Organization>
@@ -317,6 +320,7 @@
         </SampleCollectionMethod>
         <SampleCollectionEquipmentName>Box Corer</SampleCollectionEquipmentName>
       </SampleDescription>
+      <ActivityMetricURL>http://www.waterqualitydata.us/activities/6/activitymetrics</ActivityMetricURL>
     </Activity>
     <Activity>
       <ActivityDescription>
@@ -348,6 +352,7 @@
         </SampleCollectionMethod>
         <SampleCollectionEquipmentName>Box Corer</SampleCollectionEquipmentName>
       </SampleDescription>
+      <ActivityMetricURL>http://www.waterqualitydata.us/activities/7/activitymetrics</ActivityMetricURL>
     </Activity>
     <Activity>
       <ActivityDescription>
@@ -379,6 +384,7 @@
         </SampleCollectionMethod>
         <SampleCollectionEquipmentName>Box Corer</SampleCollectionEquipmentName>
       </SampleDescription>
+      <ActivityMetricURL>http://www.waterqualitydata.us/activities/9/activitymetrics</ActivityMetricURL>
     </Activity>
     <Activity>
       <ActivityDescription>
@@ -410,6 +416,7 @@
         </SampleCollectionMethod>
         <SampleCollectionEquipmentName>Box Corer</SampleCollectionEquipmentName>
       </SampleDescription>
+      <ActivityMetricURL>http://www.waterqualitydata.us/activities/8/activitymetrics</ActivityMetricURL>
     </Activity>
   </Organization>
   <Organization>
@@ -450,6 +457,7 @@
         </SampleCollectionMethod>
         <SampleCollectionEquipmentName>Bucket</SampleCollectionEquipmentName>
       </SampleDescription>
+      <ActivityMetricURL>http://www.waterqualitydata.us/activities/5/activitymetrics</ActivityMetricURL>
     </Activity>
     <Activity>
       <ActivityDescription>
@@ -483,6 +491,7 @@
         </SampleCollectionMethod>
         <SampleCollectionEquipmentName>Unknown</SampleCollectionEquipmentName>
       </SampleDescription>
+      <ActivityMetricURL>http://www.waterqualitydata.us/activities/4/activitymetrics</ActivityMetricURL>
     </Activity>
   </Organization>
   <Organization>
@@ -604,6 +613,7 @@
           <SampleTransportStorageDescription>actSamTransportStorageDesc</SampleTransportStorageDescription>
         </SamplePreparation>
       </SampleDescription>
+      <ActivityMetricURL>http://www.waterqualitydata.us/activities/11/activitymetrics</ActivityMetricURL>
     </Activity>
   </Organization>
   <Organization>
@@ -644,6 +654,7 @@
         </SampleCollectionMethod>
         <SampleCollectionEquipmentName>Bucket</SampleCollectionEquipmentName>
       </SampleDescription>
+      <ActivityMetricURL>http://www.waterqualitydata.us/activities/1/activitymetrics</ActivityMetricURL>
     </Activity>
   </Organization>
 </WQX>
