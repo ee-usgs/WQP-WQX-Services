@@ -35,6 +35,8 @@ import gov.usgs.cida.wqp.webservice.BaseControllerIntegrationTest;
 @DirtiesContext(classMode=ClassMode.AFTER_CLASS)
 public class SimpleStationControllerIntTest extends BaseControllerIntegrationTest {
 
+	private static final String STATION_SIMPLE_STATION_XML = "station/simpleStation.xml";
+	private static final String STATION_NO_RESULT_SIMPLE_STATION_XML = "station/noResultSimpleStation.xml";
 	protected String endpoint = HttpConstants.SIMPLE_STATION_ENDPOINT + "?mimeType=";
 
 	@Test
@@ -42,7 +44,7 @@ public class SimpleStationControllerIntTest extends BaseControllerIntegrationTes
 		String url = endpoint + "xml";
 		String mimeType =  HttpConstants.MIME_TYPE_XML;
 		String contentDisposition = "attachment; filename=simplestation.xml";
-		String compareFile = "station/simplestation.xml";
+		String compareFile = STATION_SIMPLE_STATION_XML;
 
 		assertEquals("", unFilteredHeaderCheck(callMockHead(url, mimeType, contentDisposition)).andReturn().getResponse().getContentAsString());
 
@@ -50,7 +52,7 @@ public class SimpleStationControllerIntTest extends BaseControllerIntegrationTes
 		assertEquals(harmonizeXml(getCompareFile(compareFile)), harmonizeXml(rtn.getResponse().getContentAsString()));
 
 		rtn = noResultHeaderCheck(callMockGet(url + getNoResultParameters(), mimeType, contentDisposition)).andReturn();
-		assertEquals(harmonizeXml(getCompareFile("station/noResultSimplestation.xml")), harmonizeXml(rtn.getResponse().getContentAsString()));
+		assertEquals(harmonizeXml(getCompareFile(STATION_NO_RESULT_SIMPLE_STATION_XML)), harmonizeXml(rtn.getResponse().getContentAsString()));
 	}
 
 	@Test
@@ -58,7 +60,7 @@ public class SimpleStationControllerIntTest extends BaseControllerIntegrationTes
 		String url = endpoint + "xml&zip=yes";
 		String mimeType =  HttpConstants.MIME_TYPE_ZIP;
 		String contentDisposition = "attachment; filename=simplestation.zip";
-		String compareFile = "station/simplestation.xml";
+		String compareFile = STATION_SIMPLE_STATION_XML;
 		String zipEntry = "simplestation.xml";
 
 		assertEquals("", unFilteredHeaderCheck(callMockHead(url, mimeType, contentDisposition)).andReturn().getResponse().getContentAsString());
@@ -67,7 +69,7 @@ public class SimpleStationControllerIntTest extends BaseControllerIntegrationTes
 		assertEquals(harmonizeXml(getCompareFile(compareFile)), harmonizeXml(extractZipContent(rtn.getResponse().getContentAsByteArray(), zipEntry)));
 
 		rtn = noResultHeaderCheck(callMockGet(url + getNoResultParameters(), mimeType, contentDisposition)).andReturn();
-		assertEquals(harmonizeXml(getCompareFile("station/noResultSimplestation.xml")), harmonizeXml(extractZipContent(rtn.getResponse().getContentAsByteArray(), zipEntry)));
+		assertEquals(harmonizeXml(getCompareFile(STATION_NO_RESULT_SIMPLE_STATION_XML)), harmonizeXml(extractZipContent(rtn.getResponse().getContentAsByteArray(), zipEntry)));
 	}
 
 	@Test
