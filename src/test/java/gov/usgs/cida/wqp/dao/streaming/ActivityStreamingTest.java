@@ -102,7 +102,7 @@ public class ActivityStreamingTest extends BaseSpringTest {
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals("Size should be 1", 1, results.size());
 		Map<String, Object> row = results.get(0);
-		assertEquals("I dunno why it doesn't work", "http://siteUrlBase/activities/1/activitymetrics", row.get(ActivityColumn.KEY_ACTIVITY_METRIC_URL));
+		assertEquals("ActivityMetricURL incorrect", "http://siteUrlBase/activities/activityBiodata/activitymetrics", row.get(ActivityColumn.KEY_ACTIVITY_METRIC_URL));
 	}
 
 	@Test
