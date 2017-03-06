@@ -11,7 +11,7 @@
 			"sourceName": "Water Quality Portal",
 			"identifier": "USGS-05427880",
 			"name": "SIXMILE CREEK AT STATE HIGHWAY 19 NEAR WAUNAKEE,WI",
-			"uri": "http://www.waterqualitydata.us/provider/BIODATA/USGS-WI/USGS-05427880/",
+			"uri": "https://www.waterqualitydata.us/provider/BIODATA/USGS-WI/USGS-05427880/",
 			"comid": "13294132",
 			"navigation": "http://owi-test.usgs.gov:8080/test-url/wqp/USGS-05427880/navigate"
 		}
@@ -26,7 +26,7 @@
 			"sourceName": "Water Quality Portal",
 			"identifier": "USGS-05427880",
 			"name": "SIXMILE CREEK AT STATE HIGHWAY 19 NEAR WAUNAKEE,WI",
-			"uri": "http://www.waterqualitydata.us/provider/NWIS/USGS-WI/USGS-05427880/",
+			"uri": "https://www.waterqualitydata.us/provider/NWIS/USGS-WI/USGS-05427880/",
 			"comid": "13294132",
 			"navigation": "http://owi-test.usgs.gov:8080/test-url/wqp/USGS-05427880/navigate"
 		}
@@ -41,7 +41,7 @@
 			"sourceName": "Water Quality Portal",
 			"identifier": "WIDNR_WQX-10001222",
 			"name": "BRANDENBURG LAKE - BRANDENBURG LAKE",
-			"uri": "http://www.waterqualitydata.us/provider/STORET/WIDNR_WQX/WIDNR_WQX-10001222/",
+			"uri": "https://www.waterqualitydata.us/provider/STORET/WIDNR_WQX/WIDNR_WQX-10001222/",
 			"comid": "13293490",
 			"navigation": "http://owi-test.usgs.gov:8080/test-url/wqp/WIDNR_WQX-10001222/navigate"
 		}
@@ -56,7 +56,7 @@
 			"sourceName": "Water Quality Portal",
 			"identifier": "WIDNR_WQX-134002",
 			"name": "Brandenburg Lake - Brandenburg Lake",
-			"uri": "http://www.waterqualitydata.us/provider/STORET/WIDNR_WQX/WIDNR_WQX-134002/",
+			"uri": "https://www.waterqualitydata.us/provider/STORET/WIDNR_WQX/WIDNR_WQX-134002/",
 			"comid": "13293490",
 			"navigation": "http://owi-test.usgs.gov:8080/test-url/wqp/WIDNR_WQX-134002/navigate"
 		}
@@ -71,7 +71,7 @@
 			"sourceName": "Water Quality Portal",
 			"identifier": "WIDNR_WQX-10016974",
 			"name": "SIXMILE CREEK - 10 M UPSTREAM OF KINGSLEY RD CROS-SING",
-			"uri": "http://www.waterqualitydata.us/provider/STORET/WIDNR_WQX/WIDNR_WQX-10016974/",
+			"uri": "https://www.waterqualitydata.us/provider/STORET/WIDNR_WQX/WIDNR_WQX-10016974/",
 			"comid": "13294132",
 			"navigation": "http://owi-test.usgs.gov:8080/test-url/wqp/WIDNR_WQX-10016974/navigate"
 		}
@@ -86,7 +86,7 @@
 			"sourceName": "Water Quality Portal",
 			"identifier": "WIDNR_WQX-10001221",
 			"name": "BARBIAN POND - BARBIAN POND",
-			"uri": "http://www.waterqualitydata.us/provider/STORET/WIDNR_WQX/WIDNR_WQX-10001221/",
+			"uri": "https://www.waterqualitydata.us/provider/STORET/WIDNR_WQX/WIDNR_WQX-10001221/",
 			"comid": "13294132",
 			"navigation": "http://owi-test.usgs.gov:8080/test-url/wqp/WIDNR_WQX-10001221/navigate"
 		}
@@ -101,7 +101,7 @@
 			"sourceName": "Water Quality Portal",
 			"identifier": "WIDNR_WQX-10001223",
 			"name": "DIEDRICH POND - DIEDRICH POND",
-			"uri": "http://www.waterqualitydata.us/provider/STORET/WIDNR_WQX/WIDNR_WQX-10001223/",
+			"uri": "https://www.waterqualitydata.us/provider/STORET/WIDNR_WQX/WIDNR_WQX-10001223/",
 			"comid": "13293464",
 			"navigation": "http://owi-test.usgs.gov:8080/test-url/wqp/WIDNR_WQX-10001223/navigate"
 		}
@@ -116,7 +116,7 @@
 			"sourceName": "Water Quality Portal",
 			"identifier": "WIDNR_WQX-10001227",
 			"name": "LOUIS BUECHNER POND - LOUIS BUECHNER POND",
-			"uri": "http://www.waterqualitydata.us/provider/STORET/WIDNR_WQX/WIDNR_WQX-10001227/",
+			"uri": "https://www.waterqualitydata.us/provider/STORET/WIDNR_WQX/WIDNR_WQX-10001227/",
 			"comid": "13293490",
 			"navigation": "http://owi-test.usgs.gov:8080/test-url/wqp/WIDNR_WQX-10001227/navigate"
 		}
@@ -131,7 +131,7 @@
 			"sourceName": "Water Quality Portal",
 			"identifier": "WIDNR_WQX-10017024",
 			"name": "Sixmile Creek - Woodland Rd Station #2",
-			"uri": "http://www.waterqualitydata.us/provider/STORET/WIDNR_WQX/WIDNR_WQX-10017024/",
+			"uri": "https://www.waterqualitydata.us/provider/STORET/WIDNR_WQX/WIDNR_WQX-10017024/",
 			"comid": "13294132",
 			"navigation": "http://owi-test.usgs.gov:8080/test-url/wqp/WIDNR_WQX-10017024/navigate"
 		}
@@ -146,7 +146,7 @@
 			"sourceName": "Water Quality Portal",
 			"identifier": "USGS-431212089314801",
 			"name": "DANE CO MRBI WATERWAY 2 NR SPRINGFIELD CORNERS, WI",
-			"uri": "http://www.waterqualitydata.us/provider/NWIS/USGS-WI/USGS-431212089314801/",
+			"uri": "https://www.waterqualitydata.us/provider/NWIS/USGS-WI/USGS-431212089314801/",
 			"comid": "13293462",
 			"navigation": "http://owi-test.usgs.gov:8080/test-url/wqp/USGS-431212089314801/navigate"
 		}
@@ -161,7 +161,7 @@
 			"sourceName": "Water Quality Portal",
 			"identifier": "USGS-431208089314901",
 			"name": "DANE CO. MRBI TILE NO. 1 NR SPRINGFIELD CORNERS,WI",
-			"uri": "http://www.waterqualitydata.us/provider/NWIS/USGS-WI/USGS-431208089314901/",
+			"uri": "https://www.waterqualitydata.us/provider/NWIS/USGS-WI/USGS-431208089314901/",
 			"comid": "13293462",
 			"navigation": "http://owi-test.usgs.gov:8080/test-url/wqp/USGS-431208089314901/navigate"
 		}
@@ -176,7 +176,7 @@
 			"sourceName": "Water Quality Portal",
 			"identifier": "WIDNR_WQX-10043697",
 			"name": "Sixmile Creek at STH 19 (WEST) crossing",
-			"uri": "http://www.waterqualitydata.us/provider/STORET/WIDNR_WQX/WIDNR_WQX-10043697/",
+			"uri": "https://www.waterqualitydata.us/provider/STORET/WIDNR_WQX/WIDNR_WQX-10043697/",
 			"comid": "13294132",
 			"navigation": "http://owi-test.usgs.gov:8080/test-url/wqp/WIDNR_WQX-10043697/navigate"
 		}
@@ -191,7 +191,7 @@
 			"sourceName": "Water Quality Portal",
 			"identifier": "USGS-431212089314802",
 			"name": "DANE CO MRBI WATERWAY 2-QW-SPRINGFIELD CORNERS, WI",
-			"uri": "http://www.waterqualitydata.us/provider/NWIS/USGS-WI/USGS-431212089314802/",
+			"uri": "https://www.waterqualitydata.us/provider/NWIS/USGS-WI/USGS-431212089314802/",
 			"comid": "13293462",
 			"navigation": "http://owi-test.usgs.gov:8080/test-url/wqp/USGS-431212089314802/navigate"
 		}

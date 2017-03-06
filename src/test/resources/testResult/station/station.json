@@ -15,7 +15,7 @@
 			"MonitoringLocationTypeName": "",
 			"ResolvedMonitoringLocationTypeName": "Land",
 			"HUCEightDigitCode": "07080105",
-			"siteUrl": "http://www.waterqualitydata.us/provider/STEWARDS/ARS/ARS-IAWC-IAWC225/",
+			"siteUrl": "https://www.waterqualitydata.us/provider/STEWARDS/ARS/ARS-IAWC-IAWC225/",
 			"activityCount": "2",
 			"resultCount": "2"
 		}
@@ -34,7 +34,7 @@
 			"MonitoringLocationTypeName": "",
 			"ResolvedMonitoringLocationTypeName": "Stream",
 			"HUCEightDigitCode": "07100004",
-			"siteUrl": "http://www.waterqualitydata.us/provider/STEWARDS/ARS/ARS-IAWC-IAWC410/",
+			"siteUrl": "https://www.waterqualitydata.us/provider/STEWARDS/ARS/ARS-IAWC-IAWC410/",
 			"activityCount": "1",
 			"resultCount": "1"
 		}
@@ -53,7 +53,7 @@
 			"MonitoringLocationTypeName": "",
 			"ResolvedMonitoringLocationTypeName": "Stream",
 			"HUCEightDigitCode": "07090002",
-			"siteUrl": "http://www.waterqualitydata.us/provider/NWIS/USGS-WI/USGS-05425700/",
+			"siteUrl": "https://www.waterqualitydata.us/provider/NWIS/USGS-WI/USGS-05425700/",
 			"activityCount": "2",
 			"resultCount": "4"
 		}
@@ -72,7 +72,7 @@
 			"MonitoringLocationTypeName": "",
 			"ResolvedMonitoringLocationTypeName": "Well",
 			"HUCEightDigitCode": "07090102",
-			"siteUrl": "http://www.waterqualitydata.us/provider/NWIS/USGS-WI/USGS-431925089002701/",
+			"siteUrl": "https://www.waterqualitydata.us/provider/NWIS/USGS-WI/USGS-431925089002701/",
 			"activityCount": "1",
 			"resultCount": "1"
 		}
@@ -91,7 +91,7 @@
 			"MonitoringLocationTypeName": "",
 			"ResolvedMonitoringLocationTypeName": "Lake, Reservoir, Impoundment",
 			"HUCEightDigitCode": "07080105",
-			"siteUrl": "http://www.waterqualitydata.us/provider/STORET/11NPSWRD/11NPSWRD-BICA_MFG_B/",
+			"siteUrl": "https://www.waterqualitydata.us/provider/STORET/11NPSWRD/11NPSWRD-BICA_MFG_B/",
 			"activityCount": "3",
 			"resultCount": "4"
 		}
@@ -110,7 +110,7 @@
 			"MonitoringLocationTypeName": "Great Lake",
 			"ResolvedMonitoringLocationTypeName": "Lake, Reservoir, Impoundment",
 			"HUCEightDigitCode": "04150200",
-			"siteUrl": "http://www.waterqualitydata.us/provider/STORET/21NYDECA_WQX/21NYDECA_WQX-ONTARIO-02/",
+			"siteUrl": "https://www.waterqualitydata.us/provider/STORET/21NYDECA_WQX/21NYDECA_WQX-ONTARIO-02/",
 			"activityCount": "4",
 			"resultCount": "26"
 		}
@@ -129,7 +129,7 @@
 			"MonitoringLocationTypeName": "",
 			"ResolvedMonitoringLocationTypeName": "Stream",
 			"HUCEightDigitCode": "07090001",
-			"siteUrl": "http://www.waterqualitydata.us/provider/STORET/WIDNR_WQX/WIDNR_WQX-10030952/",
+			"siteUrl": "https://www.waterqualitydata.us/provider/STORET/WIDNR_WQX/WIDNR_WQX-10030952/",
 			"activityCount": "0",
 			"resultCount": "0"
 		}
@@ -148,7 +148,7 @@
 			"MonitoringLocationTypeName": "River/Stream",
 			"ResolvedMonitoringLocationTypeName": "Stream",
 			"HUCEightDigitCode": "07090001",
-			"siteUrl": "http://www.waterqualitydata.us/provider/STORET/WIDNR_WQX/WIDNR_WQX-113086/",
+			"siteUrl": "https://www.waterqualitydata.us/provider/STORET/WIDNR_WQX/WIDNR_WQX-113086/",
 			"activityCount": "2",
 			"resultCount": "11"
 		}
@@ -167,7 +167,7 @@
 			"MonitoringLocationTypeName": "stationTypeName",
 			"ResolvedMonitoringLocationTypeName": "siteType",
 			"HUCEightDigitCode": "00000000",
-			"siteUrl": "http://www.waterqualitydata.us/provider/STORET/organization/organization-siteId/",
+			"siteUrl": "https://www.waterqualitydata.us/provider/STORET/organization/organization-siteId/",
 			"activityCount": "4",
 			"resultCount": "4"
 		}
@@ -186,7 +186,7 @@
 			"MonitoringLocationTypeName": "stationTypeName",
 			"ResolvedMonitoringLocationTypeName": "siteType",
 			"HUCEightDigitCode": "00000000",
-			"siteUrl": "http://www.waterqualitydata.us/provider/STORET/organization/organization-siteId2/",
+			"siteUrl": "https://www.waterqualitydata.us/provider/STORET/organization/organization-siteId2/",
 			"activityCount": "2",
 			"resultCount": "4"
 		}
@@ -205,7 +205,7 @@
 			"MonitoringLocationTypeName": "stationTypeName",
 			"ResolvedMonitoringLocationTypeName": "siteType",
 			"HUCEightDigitCode": "00000000",
-			"siteUrl": "http://www.waterqualitydata.us/provider/STORET/organization/organization-siteId3/",
+			"siteUrl": "https://www.waterqualitydata.us/provider/STORET/organization/organization-siteId3/",
 			"activityCount": "1",
 			"resultCount": "1"
 		}
@@ -224,7 +224,7 @@
 			"MonitoringLocationTypeName": "",
 			"ResolvedMonitoringLocationTypeName": "Stream",
 			"HUCEightDigitCode": "18020107",
-			"siteUrl": "http://www.waterqualitydata.us/provider/BIODATA/USGS/USGS-11421000/",
+			"siteUrl": "https://www.waterqualitydata.us/provider/BIODATA/USGS/USGS-11421000/",
 			"activityCount": "1",
 			"resultCount": "1"
 		}
