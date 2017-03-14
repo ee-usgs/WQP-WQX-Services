@@ -99,6 +99,12 @@ public abstract class BaseSpringTest {
 	public static String STORET_RESULT_COUNT = "50";
 	public static String BIODATA_RESULT_COUNT = "1";
 
+	public static String TOTAL_RES_DETECT_QNT_LMT_COUNT = "74";
+	public static String NWIS_RES_DETECT_QNT_LMT_COUNT = "7";
+	public static String STEWARDS_RES_DETECT_QNT_LMT_COUNT = "9";
+	public static String STORET_RES_DETECT_QNT_LMT_COUNT = "57";
+	public static String BIODATA_RES_DETECT_QNT_LMT_COUNT = "1";
+
 	public static final String FILTERED_STORET_SITE_COUNT = "1";
 	public static final String FILTERED_TOTAL_SITE_COUNT = "1";
 	public static final String FILTERED_STORET_ACTIVITY_COUNT = "2";
@@ -237,6 +243,10 @@ public abstract class BaseSpringTest {
 
 	public String[] getProviders() {
 		return new String[]{NWIS, STEWARDS, STORET};
+	}
+
+	public String getResult() {
+		return "18";
 	}
 
 	public String[] getSampleMedia() {

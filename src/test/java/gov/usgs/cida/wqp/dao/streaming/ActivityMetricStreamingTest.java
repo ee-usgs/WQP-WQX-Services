@@ -69,7 +69,7 @@ public class ActivityMetricStreamingTest extends BaseSpringTest {
 	public static final String[] STORET_16 = new String[]{STORET, "3_16_type_identifier"};
 	public static final String[] BIODATA_1 = new String[]{BIODATA, "4_1_type_identifier"};
 
-	public static final int ACTIVITY_METRIC_COLUMN_COUNT = 21;
+	public static final int ACTIVITY_METRIC_COLUMN_COUNT = TestActivityMetricMap.ACTIVITY_METRIC.keySet().size();
 
 	@Before
 	public void init() {
@@ -152,7 +152,7 @@ public class ActivityMetricStreamingTest extends BaseSpringTest {
 		streamingDao.stream(nameSpace, parms, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(21, results.size());
+		assertEquals(STORET_ACTIVITY_METRIC_COUNT, String.valueOf(results.size()));
 		assertContainsActivityMetric(results, STORET_1, STORET_2, STORET_3, STORET_4, STORET_5A, STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F,
 				STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14, STORET_15,
 				STORET_16);

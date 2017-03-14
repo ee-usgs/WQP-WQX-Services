@@ -759,7 +759,7 @@ public abstract class BaseCountDaoTest extends BaseSpringTest {
 		assertResults(counts, MybatisConstants.ACTIVITY_METRIC_COUNT, size, total, nwis, stewards, storet, biodata);
 	}
 
-	private void assertResults(List<Map<String, Object>> counts, String countType, int expectedSize,
+	protected void assertResults(List<Map<String, Object>> counts, String countType, int expectedSize,
 			String expectedTotal, String expectedNwis, String expectedStewards, String expectedStoret,
 			String expectedBiodata) {
 		assertEquals("Number of counts", expectedSize, counts.size());

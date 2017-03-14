@@ -25,6 +25,7 @@ public enum Parameters {
 	PCODE("pCode"),
 	PROJECT("project"),
 	PROVIDERS("providers"),
+	RESULT("result"),
 	SAMPLE_MEDIA("sampleMedia"),
 	SITEID("siteid"),
 	SITE_TYPE("siteType"),

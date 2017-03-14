@@ -65,7 +65,7 @@ public class ActivityStreamingTest extends BaseSpringTest {
 	public static final BigDecimal[] STORET_16 = new BigDecimal[]{BigDecimal.valueOf(3), BigDecimal.valueOf(16)};
 	public static final BigDecimal[] BIODATA_1 = new BigDecimal[]{BigDecimal.valueOf(4), BigDecimal.ONE};
 
-	public static final int ACTIVITY_COLUMN_COUNT = 79;
+	public static final int ACTIVITY_COLUMN_COUNT = TestActivityMap.ACTIVITY.keySet().size();
 
 	@Before
 	public void init() {
@@ -144,7 +144,7 @@ public class ActivityStreamingTest extends BaseSpringTest {
 		streamingDao.stream(nameSpace, parms, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(16, results.size());
+		assertEquals(STORET_ACTIVITY_COUNT, String.valueOf(results.size()));
 		assertContainsActivity(results, STORET_1, STORET_2, STORET_3, STORET_4, STORET_5, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10,
 				STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_16);
 	}

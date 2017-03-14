@@ -98,7 +98,7 @@ public abstract class BaseStationStreamingTest extends BaseSpringTest {
 		streamingDao.stream(nameSpace, parms, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(7, results.size());
+		assertEquals(STORET_SITE_COUNT, String.valueOf(results.size()));
 		assertContainsStation(results, STORET_777, STORET_888, STORET_999, STORET_1383, STORET_436723, STORET_504707, STORET_1043441);
 	}
 

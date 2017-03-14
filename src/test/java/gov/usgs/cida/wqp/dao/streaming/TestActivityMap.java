@@ -92,6 +92,7 @@ public class TestActivityMap {
 		ACTIVITY.put(KEY_ACT_SAM_CHEMICAL_PRESERVATIVE, "actSamChemicalPreservative");
 		ACTIVITY.put(KEY_THERMAL_PRESERVATIVE_NAME, "thermalPreservativeName");
 		ACTIVITY.put(KEY_ACT_SAM_TRANSPORT_STORAGE_DESC, "actSamTransportStorageDesc");
+		ACTIVITY.put(KEY_ACTIVITY_METRIC_URL, "/activities/activity/activitymetrics");
 	}
 
 	private TestActivityMap() {
