@@ -30,7 +30,7 @@ import gov.usgs.cida.wqp.parameter.Parameters;
 @Category(DBIntegrationTest.class)
 @DatabaseSetup("classpath:/testData/csv/")
 @DbUnitConfiguration(dataSetLoader = CsvDataSetLoader.class)
-public class ResDetectQntLmtStreamingTest  extends BaseSpringTest {
+public class ResDetectQntLmtStreamingTest extends BaseSpringTest {
 	private static final Logger LOG = LoggerFactory.getLogger(ActivityMetricStreamingTest.class);
 
 	@Autowired 
@@ -168,51 +168,51 @@ public class ResDetectQntLmtStreamingTest  extends BaseSpringTest {
 		assertNwis("14", results.get(13));
 		assertNwis("15", results.get(14));
 		assertNwis("16", results.get(15));
-		assertStoret("71", results.get(16));
-		assertStoret("56", results.get(17));
-		assertStoret("40", results.get(18));
-		assertStoret("41", results.get(19));
-		assertStoret("42", results.get(20));
-		assertStoret("47", results.get(21));
-		assertStoret("46", results.get(22));
-		assertStoret("43", results.get(23));
-		assertStoret("44", results.get(24));
-		assertStoret("45", results.get(25));
-		assertStoret("48", results.get(26));
-		assertStoret("49", results.get(27));
-		assertStoret("50", results.get(28));
-		assertStoret("51", results.get(29));
-		assertStoret("52", results.get(30));
-		assertStoret("53", results.get(31));
-		assertStoret("54", results.get(32));
-		assertStoret("55", results.get(33));
-		assertStoret("57", results.get(34));
-		assertStoret("58", results.get(35));
-		assertStoret("59", results.get(36));
-		assertStoret("60", results.get(37));
-		assertStoret("62", results.get(38));
-		assertStoret("63", results.get(39));
-		assertStoret("67", results.get(40));
-		assertStoret("68", results.get(41));
-		assertStoret("64", results.get(42));
-		assertStoret("66", results.get(43));
+		assertStoret("56", results.get(16));
+		assertStoret("40", results.get(17));
+		assertStoret("41", results.get(18));
+		assertStoret("42", results.get(19));
+		assertStoret("47", results.get(20));
+		assertStoret("46", results.get(21));
+		assertStoret("43", results.get(22));
+		assertStoret("44", results.get(23));
+		assertStoret("45", results.get(24));
+		assertStoret("48", results.get(25));
+		assertStoret("49", results.get(26));
+		assertStoret("50", results.get(27));
+		assertStoret("51", results.get(28));
+		assertStoret("52", results.get(29));
+		assertStoret("53", results.get(30));
+		assertStoret("54", results.get(31));
+		assertStoret("55", results.get(32));
+		assertStoret("57", results.get(33));
+		assertStoret("58", results.get(34));
+		assertStoret("59", results.get(35));
+		assertStoret("60", results.get(36));
+		assertStoret("62", results.get(37));
+		assertStoret("63", results.get(38));
+		assertStoret("67", results.get(39));
+		assertStoret("68", results.get(40));
+		assertStoret("64", results.get(41));
+		assertStoret("66", results.get(42));
+		assertStoret("69", results.get(43));
 		assertStoret("61", results.get(44));
 		assertStoret("65", results.get(45));
-		assertStoret("69", results.get(46));
-		assertStoret39(results.get(47));
-		assertStoret("29", results.get(48));
-		assertStoret("30", results.get(49));
-		assertStoret("31", results.get(50));
-		assertStoret("38", results.get(51));
-		assertStoret("32", results.get(52));
-		assertStoret("33", results.get(53));
-		assertStoret("34", results.get(54));
-		assertStoret("35", results.get(55));
-		assertStoret("36", results.get(56));
-		assertStoret("37", results.get(57));
-		assertStoret("72", results.get(58));
-		assertStoret("73", results.get(59));
-		assertStoret("70", results.get(60));
+		assertStoret39(results.get(46));
+		assertStoret("29", results.get(47));
+		assertStoret("30", results.get(48));
+		assertStoret("31", results.get(49));
+		assertStoret("38", results.get(50));
+		assertStoret("32", results.get(51));
+		assertStoret("33", results.get(52));
+		assertStoret("34", results.get(53));
+		assertStoret("35", results.get(54));
+		assertStoret("36", results.get(55));
+		assertStoret("37", results.get(56));
+		assertStoret("72", results.get(57));
+		assertStoret("73", results.get(58));
+		assertStoret("70", results.get(59));
+		assertStoret("71", results.get(60));
 		assertStoret("24", results.get(61));
 		assertStoret("25", results.get(62));
 		assertStoret("26", results.get(63));
@@ -234,11 +234,11 @@ public class ResDetectQntLmtStreamingTest  extends BaseSpringTest {
 		streamingDao.stream(nameSpace, parms, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(21, results.size());
+		assertEquals(22, results.size());
 		assertContainsResDetectQntLmt(results,
 				NWIS_10, NWIS_11, NWIS_12, NWIS_13, NWIS_14, NWIS_15, STORET_17, STORET_18, STORET_19, STORET_20,
-				STORET_21, STORET_22, STORET_23, STORET_24, STORET_25, STORET_26, STORET_27, STORET_28, STORET_70, STORET_72,
-				STORET_73);
+				STORET_21, STORET_22, STORET_23, STORET_24, STORET_25, STORET_26, STORET_27, STORET_28, STORET_70, STORET_71, 
+				STORET_72, STORET_73);
 	}
 
 	@Test
@@ -302,10 +302,11 @@ public class ResDetectQntLmtStreamingTest  extends BaseSpringTest {
 		streamingDao.stream(nameSpace, parms, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(20, results.size());
+		assertEquals(21, results.size());
 		assertContainsResDetectQntLmt(results,
 				STEWARDS_1, STEWARDS_2, STEWARDS_3, STEWARDS_4, STEWARDS_5, STORET_17, STORET_18, STORET_19, STORET_20, STORET_21,
-				STORET_22, STORET_23, STORET_24, STORET_25, STORET_26, STORET_27, STORET_28, STORET_70, STORET_72, STORET_73);
+				STORET_22, STORET_23, STORET_24, STORET_25, STORET_26, STORET_27, STORET_28, STORET_70, STORET_71, STORET_72,
+				STORET_73);
 	}
 
 	@Test
@@ -477,10 +478,10 @@ public class ResDetectQntLmtStreamingTest  extends BaseSpringTest {
 		streamingDao.stream(nameSpace, parms, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(15, results.size());
+		assertEquals(16, results.size());
 		assertContainsResDetectQntLmt(results,
 				NWIS_16, STORET_17, STORET_18, STORET_19, STORET_20, STORET_21, STORET_22, STORET_23, STORET_24, STORET_25,
-				STORET_26, STORET_27, STORET_70, STORET_72, STORET_73);
+				STORET_26, STORET_27, STORET_70, STORET_71, STORET_72, STORET_73);
 	}
 
 	@Test
@@ -531,7 +532,7 @@ public class ResDetectQntLmtStreamingTest  extends BaseSpringTest {
 		streamingDao.stream(nameSpace, parms, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(68, results.size());
+		assertEquals(70, results.size());
 		assertContainsResDetectQntLmt(results,
 				STEWARDS_1, STEWARDS_2, STEWARDS_6, STEWARDS_7, STEWARDS_8, STEWARDS_9, NWIS_10, NWIS_11, NWIS_12, NWIS_13,
 				NWIS_14, NWIS_16, STORET_17, STORET_18, STORET_19, STORET_20, STORET_21, STORET_22, STORET_23, STORET_24,
@@ -539,7 +540,7 @@ public class ResDetectQntLmtStreamingTest  extends BaseSpringTest {
 				STORET_35, STORET_36, STORET_37, STORET_38, STORET_39, STORET_40, STORET_41, STORET_42, STORET_43, STORET_44,
 				STORET_45, STORET_46, STORET_47, STORET_48, STORET_49, STORET_50, STORET_51, STORET_52, STORET_53, STORET_54,
 				STORET_55, STORET_56, STORET_57, STORET_58, STORET_59, STORET_60, STORET_61, STORET_62, STORET_63, STORET_64,
-				STORET_65, STORET_66, STORET_67, STORET_68, STORET_69, STORET_70, STORET_72, STORET_73);
+				STORET_65, STORET_66, STORET_67, STORET_68, STORET_69, STORET_70, STORET_71, STORET_72, STORET_73, BIODATA_74);
 	}
 
 	@Test
@@ -581,7 +582,7 @@ public class ResDetectQntLmtStreamingTest  extends BaseSpringTest {
 		streamingDao.stream(nameSpace, parms, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(69, results.size());
+		assertEquals(70, results.size());
 		assertContainsResDetectQntLmt(results,
 				STEWARDS_1, STEWARDS_2, STEWARDS_6, STEWARDS_7, STEWARDS_8, STEWARDS_9, NWIS_10, NWIS_11, NWIS_12, NWIS_13,
 				NWIS_14, NWIS_16, STORET_17, STORET_18, STORET_19, STORET_20, STORET_21, STORET_22, STORET_23, STORET_24,
@@ -589,7 +590,7 @@ public class ResDetectQntLmtStreamingTest  extends BaseSpringTest {
 				STORET_35, STORET_36, STORET_37, STORET_38, STORET_39, STORET_40, STORET_41, STORET_42, STORET_43, STORET_44,
 				STORET_45, STORET_46, STORET_47, STORET_48, STORET_49, STORET_50, STORET_51, STORET_52, STORET_53, STORET_54,
 				STORET_55, STORET_56, STORET_57, STORET_58, STORET_59, STORET_60, STORET_61, STORET_62, STORET_63, STORET_64,
-				STORET_65, STORET_66, STORET_67, STORET_68, STORET_70, STORET_71, STORET_72, STORET_73, BIODATA_74);
+				STORET_65, STORET_66, STORET_67, STORET_68, STORET_69, STORET_70, STORET_71, STORET_72, STORET_73, BIODATA_74);
 	}
 
 	@Test
