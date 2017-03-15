@@ -71,6 +71,7 @@ public class ResultColumn extends BaseColumn {
 	public static final String KEY_ANALYSIS_END_TIMEZONE = "ANALYSIS_END_TIMEZONE";
 	public static final String KEY_RLCOM_CD = "RLCOM_CD";
 	public static final String KEY_LAB_REMARK = "LAB_REMARK";
+	public static final String KEY_DETECTION_LIMIT_ID = "DETECTION_LIMIT_ID";
 	public static final String KEY_DETECTION_LIMIT_DESC = "DETECTION_LIMIT_DESC";
 	public static final String KEY_DETECTION_LIMIT = "DETECTION_LIMIT";
 	public static final String KEY_DETECTION_LIMIT_UNIT = "DETECTION_LIMIT_UNIT";

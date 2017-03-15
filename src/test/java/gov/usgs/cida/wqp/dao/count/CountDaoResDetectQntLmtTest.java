@@ -246,7 +246,7 @@ public class CountDaoResDetectQntLmtTest extends BaseCountDaoTest {
 
 	private void assertResDetectQntLmtResults(List<Map<String, Object>> counts, int size,
 			String total, String nwis, String stewards, String storet, String biodata) {
-		assertResults(counts, MybatisConstants.RES_DETECT_QNT_LMT, size, total, nwis, stewards, storet, biodata);
+		assertResults(counts, MybatisConstants.RES_DETECT_QNT_LMT_COUNT, size, total, nwis, stewards, storet, biodata);
 	}
 
 }

@@ -4,10 +4,18 @@
 
     <select id="select" resultType="java.util.LinkedHashMap" fetchSize="500">
         select 
-               prime.data_source_id, prime.data_source, prime.site_id, prime.activity,
-               prime.characteristic_name, prime.organization_name,
-               prime.data_source || '-' ||prime.result_id result_id, prime.detection_limit,
-               prime.detection_limit_unit, prime.detection_limit_desc
+               prime.data_source_id,
+               prime.data_source,
+               prime.site_id,
+               prime.activity,
+               prime.characteristic_name,
+               prime.organization_name,
+               prime.organization,
+               prime.data_source || '-' ||prime.result_id result_id, 
+               prime.detection_limit_id,
+               prime.detection_limit,
+               prime.detection_limit_unit,
+               prime.detection_limit_desc
         <include refid="resDetectQntLmtBase"/>
         <if test="sorted == 'yes'">
             order by prime.data_source_id,

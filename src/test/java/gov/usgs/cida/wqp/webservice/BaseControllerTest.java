@@ -71,10 +71,12 @@ public class BaseControllerTest {
 	public static final String TEST_NWIS_ACTIVITY_COUNT = "113";
 	public static final String TEST_NWIS_ACTIVITY_METRIC_COUNT = "32";
 	public static final String TEST_NWIS_RESULT_COUNT = "359";
+	public static final String TEST_NWIS_RES_DETECT_QNT_LMT_COUNT = "432";
 	public static final String TEST_TOTAL_STATION_COUNT = "121";
 	public static final String TEST_TOTAL_ACTIVITY_COUNT = "1131";
 	public static final String TEST_TOTAL_ACTIVITY_METRIC_COUNT = "321";
 	public static final String TEST_TOTAL_RESULT_COUNT = "3591";
+	public static final String TEST_TOTAL_RES_DETECT_QNT_LMT_COUNT = "4321";
 
 	@Mock
 	private IStreamingDao streamingDao;
@@ -343,6 +345,12 @@ public class BaseControllerTest {
 
 		TestBaseController.setProfile(Profile.ACTIVITY);
 		assertEquals(BaseDao.ACTIVITY_NAMESPACE, testController.determineNamespace());
+
+		TestBaseController.setProfile(Profile.ACTIVITY_METRIC);
+		assertEquals(BaseDao.ACTIVITY_METRIC_NAMESPACE, testController.determineNamespace());
+
+		TestBaseController.setProfile(Profile.RES_DETECT_QNT_LMT);
+		assertEquals(BaseDao.RES_DETECT_QNT_LMT_NAMESPACE, testController.determineNamespace());
 
 		TestBaseController.setProfile("");
 		assertEquals("", testController.determineNamespace());
@@ -1033,6 +1041,20 @@ public class BaseControllerTest {
 		assertEquals(TEST_TOTAL_RESULT_COUNT, response.getHeaderValue(HttpConstants.HEADER_TOTAL_RESULT_COUNT));
 	}
 
+	@Test
+	public void addResDetectQntLmtHeadersTest() {
+		MockHttpServletResponse response = new MockHttpServletResponse();
+		testController.addResDetectQntLmtHeaders(response, getRawCounts());
+		assertNull(response.getHeaderValue(BaseSpringTest.HEADER_NWIS_SITE_COUNT));
+		assertNull(response.getHeaderValue(HttpConstants.HEADER_TOTAL_SITE_COUNT));
+		assertNull(response.getHeaderValue(BaseSpringTest.HEADER_NWIS_ACTIVITY_COUNT));
+		assertNull(response.getHeaderValue(HttpConstants.HEADER_TOTAL_ACTIVITY_COUNT));
+		assertNull(response.getHeaderValue(BaseSpringTest.HEADER_NWIS_RESULT_COUNT));
+		assertNull(response.getHeaderValue(HttpConstants.HEADER_TOTAL_RESULT_COUNT));
+		assertEquals(TEST_NWIS_RES_DETECT_QNT_LMT_COUNT, response.getHeaderValue(BaseSpringTest.HEADER_NWIS_RES_DETECT_QNT_LMT_COUNT));
+		assertEquals(TEST_TOTAL_RES_DETECT_QNT_LMT_COUNT, response.getHeaderValue(HttpConstants.HEADER_TOTAL_RES_DETECT_QNT_LMT_COUNT));
+	}
+
 	public static List<Map<String, Object>> getRawCounts() {
 		List<Map<String, Object>> rawCounts = new ArrayList<>();
 		Map<String, Object> nwisCountRow = new HashMap<>();
@@ -1041,6 +1063,7 @@ public class BaseControllerTest {
 		nwisCountRow.put(MybatisConstants.ACTIVITY_COUNT, TEST_NWIS_ACTIVITY_COUNT);
 		nwisCountRow.put(MybatisConstants.ACTIVITY_METRIC_COUNT, TEST_NWIS_ACTIVITY_METRIC_COUNT);
 		nwisCountRow.put(MybatisConstants.RESULT_COUNT, TEST_NWIS_RESULT_COUNT);
+		nwisCountRow.put(MybatisConstants.RES_DETECT_QNT_LMT_COUNT, TEST_NWIS_RES_DETECT_QNT_LMT_COUNT);
 		rawCounts.add(nwisCountRow);
 
 		Map<String, Object> totalCountRow = new HashMap<>();
@@ -1049,6 +1072,7 @@ public class BaseControllerTest {
 		totalCountRow.put(MybatisConstants.ACTIVITY_COUNT, TEST_TOTAL_ACTIVITY_COUNT);
 		totalCountRow.put(MybatisConstants.ACTIVITY_METRIC_COUNT, TEST_TOTAL_ACTIVITY_METRIC_COUNT);
 		totalCountRow.put(MybatisConstants.RESULT_COUNT, TEST_TOTAL_RESULT_COUNT);
+		totalCountRow.put(MybatisConstants.RES_DETECT_QNT_LMT_COUNT, TEST_TOTAL_RES_DETECT_QNT_LMT_COUNT);
 		rawCounts.add(totalCountRow);
 
 		return rawCounts;

@@ -1,0 +1,8 @@
+OrganizationIdentifier,OrganizationFormalName,ActivityIdentifier,MonitoringLocationIdentifier,CharacteristicName,ResultIdentifier,DetectionQuantitationLimitTypeName,DetectionQuantitationLimitMeasure/MeasureValue,DetectionQuantitationLimitMeasure/MeasureUnitCode,ProviderName
+organization,organizationName,activity,organization-siteId2,characteristicName,STORET-48,Specified in workplan,17,cfu/100ml,STORET
+organization,organizationName,activity,organization-siteId2,characteristicName,STORET-49,Taxanomic Loss Threshold,18,#/100ml,STORET
+organization,organizationName,activity,organization-siteId2,characteristicName,STORET-50,Measurement Uncertainty,19,cfu/100ml,STORET
+organization,organizationName,activity,organization-siteId2,characteristicName,STORET-1,Field Holding Time Limit,23,cfu/100ml,STORET
+organization,organizationName,activity,organization-siteId2,characteristicName,STORET-1,Laboratory Holding Time Limit,22,#/100ml,STORET
+organization,organizationName,activity,organization-siteId2,characteristicName,STORET-1,Statistical Uncertainty,20,#/100ml,STORET
+organization,organizationName,activity,organization-siteId2,characteristicName,STORET-1,Systematic Uncertainty,21,cfu/100ml,STORET

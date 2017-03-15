@@ -44,6 +44,8 @@ public class StationControllerTest extends BaseSpringTest {
 		assertFalse(response.containsHeader(HttpConstants.HEADER_TOTAL_ACTIVITY_COUNT));
 		assertFalse(response.containsHeader(HEADER_NWIS_RESULT_COUNT));
 		assertFalse(response.containsHeader(HttpConstants.HEADER_TOTAL_RESULT_COUNT));
+		assertFalse(response.containsHeader(HEADER_NWIS_RES_DETECT_QNT_LMT_COUNT));
+		assertFalse(response.containsHeader(HttpConstants.HEADER_TOTAL_RES_DETECT_QNT_LMT_COUNT));
 	}
 
 	@Test

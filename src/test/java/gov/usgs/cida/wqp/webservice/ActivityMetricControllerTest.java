@@ -38,21 +38,17 @@ public class ActivityMetricControllerTest extends BaseSpringTest {
 	public void addCountHeadersTest() {
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		String countHeader = controller.addCountHeaders(response, BaseControllerTest.getRawCounts());
-		assertEquals(HttpConstants.HEADER_TOTAL_ACTIVITY_METRIC_COUNT, countHeader);
-		assertEquals(BaseControllerTest.TEST_NWIS_STATION_COUNT, response.getHeaderValue(HEADER_NWIS_SITE_COUNT));
-		assertEquals(BaseControllerTest.TEST_TOTAL_STATION_COUNT, response.getHeaderValue(HttpConstants.HEADER_TOTAL_SITE_COUNT));
-		assertEquals(BaseControllerTest.TEST_NWIS_ACTIVITY_COUNT, response.getHeaderValue(HEADER_NWIS_ACTIVITY_COUNT));
-		assertEquals(BaseControllerTest.TEST_TOTAL_ACTIVITY_COUNT, response.getHeaderValue(HttpConstants.HEADER_TOTAL_ACTIVITY_COUNT));
-		assertEquals(BaseControllerTest.TEST_NWIS_ACTIVITY_METRIC_COUNT, response.getHeaderValue(HEADER_NWIS_ACTIVITY_METRIC_COUNT));
-		assertEquals(BaseControllerTest.TEST_TOTAL_ACTIVITY_METRIC_COUNT, response.getHeaderValue(HttpConstants.HEADER_TOTAL_ACTIVITY_METRIC_COUNT));
-		assertFalse(response.containsHeader(HEADER_NWIS_RESULT_COUNT));
-		assertFalse(response.containsHeader(HttpConstants.HEADER_TOTAL_RESULT_COUNT));
+		checkCountheaders(countHeader, response);
 	}
 
 	@Test
 	public void addCountHeadersRestTest() {
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		String countHeader = restController.addCountHeaders(response, BaseControllerTest.getRawCounts());
+		checkCountheaders(countHeader, response);
+	}
+
+	private void checkCountheaders(String countHeader, MockHttpServletResponse response) {
 		assertEquals(HttpConstants.HEADER_TOTAL_ACTIVITY_METRIC_COUNT, countHeader);
 		assertEquals(BaseControllerTest.TEST_NWIS_STATION_COUNT, response.getHeaderValue(HEADER_NWIS_SITE_COUNT));
 		assertEquals(BaseControllerTest.TEST_TOTAL_STATION_COUNT, response.getHeaderValue(HttpConstants.HEADER_TOTAL_SITE_COUNT));
@@ -62,6 +58,8 @@ public class ActivityMetricControllerTest extends BaseSpringTest {
 		assertEquals(BaseControllerTest.TEST_TOTAL_ACTIVITY_METRIC_COUNT, response.getHeaderValue(HttpConstants.HEADER_TOTAL_ACTIVITY_METRIC_COUNT));
 		assertFalse(response.containsHeader(HEADER_NWIS_RESULT_COUNT));
 		assertFalse(response.containsHeader(HttpConstants.HEADER_TOTAL_RESULT_COUNT));
+		assertFalse(response.containsHeader(HEADER_NWIS_RES_DETECT_QNT_LMT_COUNT));
+		assertFalse(response.containsHeader(HttpConstants.HEADER_TOTAL_RES_DETECT_QNT_LMT_COUNT));
 	}
 
 	@Test
