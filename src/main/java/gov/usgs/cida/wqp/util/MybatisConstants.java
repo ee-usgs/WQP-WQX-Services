@@ -15,6 +15,7 @@ public class MybatisConstants {
 	public static final String ACTIVITY_METRIC_COUNT = "ACTIVITY_METRIC_COUNT";
 	public static final String STATION_COUNT = "STATION_COUNT";
 	public static final String RESULT_COUNT = "RESULT_COUNT";
+	public static final String RES_DETECT_QNT_LMT_COUNT = "RES_DETECT_QNT_LMT_COUNT";
 	public static final String DATA_SOURCE = "DATA_SOURCE";
 
 	private MybatisConstants() {

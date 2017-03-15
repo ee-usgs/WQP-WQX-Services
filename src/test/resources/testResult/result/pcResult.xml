@@ -19,18 +19,6 @@
 	</Organization>
 	<Organization>
 		<OrganizationDescription>
-			<OrganizationIdentifier>11NPSWRD</OrganizationIdentifier>
-		</OrganizationDescription>
-		<Activity>
-			<Result>
-				<ResultDescription>
-					<CharacteristicName>Nitrate</CharacteristicName>
-				</ResultDescription>
-			</Result>
-		</Activity>
-	</Organization>
-	<Organization>
-		<OrganizationDescription>
 			<OrganizationIdentifier>21NYDECA_WQX</OrganizationIdentifier>
 		</OrganizationDescription>
 		<Activity>
@@ -259,6 +247,12 @@
 				<BiologicalResultDescription>
 					<SubjectTaxonomicName>sampleTissueTaxonomicName</SubjectTaxonomicName>
 				</BiologicalResultDescription>
+			</Result>
+			<Result>
+				<ResultDescription>
+					<CharacteristicName>characteristicName</CharacteristicName>
+					<USGSPCode>99999</USGSPCode>
+				</ResultDescription>
 			</Result>
 		</Activity>
 		<Activity>

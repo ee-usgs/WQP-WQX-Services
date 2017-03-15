@@ -488,6 +488,8 @@ public abstract class BaseController {
 				return BaseDao.ACTIVITY_NAMESPACE;
 			case Profile.ACTIVITY_METRIC:
 				return BaseDao.ACTIVITY_METRIC_NAMESPACE;
+			case Profile.RES_DETECT_QNT_LMT:
+				return BaseDao.RES_DETECT_QNT_LMT_NAMESPACE;
 			default:
 				//Should never get here...
 				return "";
@@ -622,6 +624,10 @@ public abstract class BaseController {
 
 	public void addResultHeaders(HttpServletResponse response, List<Map<String, Object>> counts) {
 		addCountHeaders(response, counts, HttpConstants.HEADER_TOTAL_RESULT_COUNT, HttpConstants.HEADER_RESULT_COUNT, MybatisConstants.RESULT_COUNT);
+	}
+
+	public void addResDetectQntLmtHeaders(HttpServletResponse response, List<Map<String, Object>> counts) {
+		addCountHeaders(response, counts, HttpConstants.HEADER_TOTAL_RES_DETECT_QNT_LMT_COUNT, HttpConstants.HEADER_RES_DETECT_QNT_LMT_COUNT, MybatisConstants.RES_DETECT_QNT_LMT_COUNT);
 	}
 
 }

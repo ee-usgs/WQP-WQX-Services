@@ -71,6 +71,7 @@ public class ResultColumn extends BaseColumn {
 	public static final String KEY_ANALYSIS_END_TIMEZONE = "ANALYSIS_END_TIMEZONE";
 	public static final String KEY_RLCOM_CD = "RLCOM_CD";
 	public static final String KEY_LAB_REMARK = "LAB_REMARK";
+	public static final String KEY_DETECTION_LIMIT_ID = "DETECTION_LIMIT_ID";
 	public static final String KEY_DETECTION_LIMIT_DESC = "DETECTION_LIMIT_DESC";
 	public static final String KEY_DETECTION_LIMIT = "DETECTION_LIMIT";
 	public static final String KEY_DETECTION_LIMIT_UNIT = "DETECTION_LIMIT_UNIT";
@@ -95,11 +96,11 @@ public class ResultColumn extends BaseColumn {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	//Profile Mapping of the Keys
-	public static final ColumnProfile RESULT_ID = new ColumnProfile(KEY_RESULT_ID);
+	public static final ColumnProfile RESULT_ID = new ColumnProfile(KEY_RESULT_ID, Profile.RES_DETECT_QNT_LMT);
 	public static final ColumnProfile RES_DATA_LOGGER_LINE = new ColumnProfile(KEY_RES_DATA_LOGGER_LINE, Profile.BIOLOGICAL);
 	public static final ColumnProfile RESULT_DETECTION_CONDITION_TX = new ColumnProfile(KEY_RESULT_DETECTION_CONDITION_TX, Profile.BIOLOGICAL, Profile.PC_RESULT);
 	public static final ColumnProfile METHOD_SPECIFICATION_NAME = new ColumnProfile(KEY_METHOD_SPECIFICATION_NAME, Profile.BIOLOGICAL);
-	public static final ColumnProfile CHARACTERISTIC_NAME = new ColumnProfile(KEY_CHARACTERISTIC_NAME, Profile.BIOLOGICAL, Profile.PC_RESULT);
+	public static final ColumnProfile CHARACTERISTIC_NAME = new ColumnProfile(KEY_CHARACTERISTIC_NAME, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.RES_DETECT_QNT_LMT);
 	public static final ColumnProfile SAMPLE_FRACTION_TYPE = new ColumnProfile(KEY_SAMPLE_FRACTION_TYPE, Profile.BIOLOGICAL, Profile.PC_RESULT);
 	public static final ColumnProfile RESULT_MEASURE_VALUE = new ColumnProfile(KEY_RESULT_MEASURE_VALUE, Profile.BIOLOGICAL, Profile.PC_RESULT);
 	public static final ColumnProfile RESULT_UNIT = new ColumnProfile(KEY_RESULT_UNIT, Profile.BIOLOGICAL, Profile.PC_RESULT);
@@ -161,9 +162,9 @@ public class ResultColumn extends BaseColumn {
 	public static final ColumnProfile ANALYSIS_END_TIMEZONE = new ColumnProfile(KEY_ANALYSIS_END_TIMEZONE, Profile.BIOLOGICAL);
 	public static final ColumnProfile RLCOM_CD = new ColumnProfile(KEY_RLCOM_CD, Profile.BIOLOGICAL);
 	public static final ColumnProfile LAB_REMARK = new ColumnProfile(KEY_LAB_REMARK, Profile.BIOLOGICAL, Profile.PC_RESULT);
-	public static final ColumnProfile DETECTION_LIMIT_DESC = new ColumnProfile(KEY_DETECTION_LIMIT_DESC, Profile.BIOLOGICAL, Profile.PC_RESULT);
-	public static final ColumnProfile DETECTION_LIMIT = new ColumnProfile(KEY_DETECTION_LIMIT, Profile.BIOLOGICAL, Profile.PC_RESULT);
-	public static final ColumnProfile DETECTION_LIMIT_UNIT = new ColumnProfile(KEY_DETECTION_LIMIT_UNIT, Profile.BIOLOGICAL, Profile.PC_RESULT);
+	public static final ColumnProfile DETECTION_LIMIT_DESC = new ColumnProfile(KEY_DETECTION_LIMIT_DESC, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.RES_DETECT_QNT_LMT);
+	public static final ColumnProfile DETECTION_LIMIT = new ColumnProfile(KEY_DETECTION_LIMIT, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.RES_DETECT_QNT_LMT);
+	public static final ColumnProfile DETECTION_LIMIT_UNIT = new ColumnProfile(KEY_DETECTION_LIMIT_UNIT, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.RES_DETECT_QNT_LMT);
 	public static final ColumnProfile RES_LAB_ACCRED_YN = new ColumnProfile(KEY_RES_LAB_ACCRED_YN, Profile.BIOLOGICAL);
 	public static final ColumnProfile RES_LAB_ACCRED_AUTHORITY = new ColumnProfile(KEY_RES_LAB_ACCRED_AUTHORITY, Profile.BIOLOGICAL);
 	public static final ColumnProfile RES_TAXONOMIST_ACCRED_YN = new ColumnProfile(KEY_RES_TAXONOMIST_ACCRED_YN, Profile.BIOLOGICAL);

@@ -7,7 +7,6 @@ USGS-WI				Water		1996-06-27													NAWQA		USGS-05425700																			
 USGS-WI				Water		1996-06-27													NAWQA		USGS-05425700																																									NWIS
 USGS-WI				sampleMediaNwis		2015-05-15													projectIdNwis		USGS-05425700																																									NWIS
 USGS-WI				Water		1996-06-27													NAWQA		USGS-431925089002701																								00004																	NWIS
-11NPSWRD						1996-06-27													EPABEACH;SOMETHINGELSE		11NPSWRD-BICA_MFG_B										Nitrate																															STORET
 21NYDECA_WQX				Sediment		1995-09-26													SAM		21NYDECA_WQX-ONTARIO-02										1,2,3,4,7,8-Hexachlorodibenzofuran																															STORET
 21NYDECA_WQX				Sediment		1995-09-26													SAM		21NYDECA_WQX-ONTARIO-02										1,2,3,6,7,8-Hexachlorodibenzo-p-dioxin																															STORET
 21NYDECA_WQX				Sediment		1995-09-26													SAM		21NYDECA_WQX-ONTARIO-02										1,2,3,6,7,8-Hexachlorodibenzofuran																															STORET
@@ -33,7 +32,7 @@ USGS-WI				Water		1996-06-27													NAWQA		USGS-431925089002701												
 21NYDECA_WQX				Sediment		1995-09-26													SAM		21NYDECA_WQX-ONTARIO-02										2,3,4,6,7,8-Hexachlorodibenzofuran																															STORET
 21NYDECA_WQX				Sediment		1995-09-26													SAM		21NYDECA_WQX-ONTARIO-02										Pentachlorobenzene																															STORET
 21NYDECA_WQX				Sediment		1995-09-26													SAM		21NYDECA_WQX-ONTARIO-02										1,2,3,4,6,7,8,9-Octachlorodibenzofuran																															STORET
-21NYDECA_WQX				Sediment															SAM		21NYDECA_WQX-ONTARIO-02										Heptachlorodibenzo-p-dioxin																															STORET
+21NYDECA_WQX				Sediment		1995-09-26													SAM		21NYDECA_WQX-ONTARIO-02										Heptachlorodibenzo-p-dioxin																															STORET
 WIDNR_WQX				Water		1992-07-28													WR046		WIDNR_WQX-113086										Cloud cover																															STORET
 WIDNR_WQX				Water		1992-07-28													WR047		WIDNR_WQX-113086										Fecal Streptococcus Group Bacteria																															STORET
 WIDNR_WQX				Water		1992-07-28													Lake-BaselineMonitoringDNR		WIDNR_WQX-113086										Fecal Coliform																															STORET
@@ -48,6 +47,7 @@ WIDNR_WQX				Water		1992-07-28													Lake-BaselineMonitoringDNR		WIDNR_WQX
 organization				sampleMedia		1996-06-24													projectId		11NPSWRD-BICA_MFG_B										characteristicName														99999				sampleTissueTaxonomicName													STORET
 organization				sampleMedia		1996-06-25													projectId		11NPSWRD-BICA_MFG_B										characteristicName														99999				sampleTissueTaxonomicName													STORET
 organization				sampleMedia		1996-06-26													projectId		11NPSWRD-BICA_MFG_B										characteristicName														99999				sampleTissueTaxonomicName													STORET
+organization				sampleMedia		1996-06-27													EPABEACH;SOMETHINGELSE		11NPSWRD-BICA_MFG_B										characteristicName														99999																	STORET
 organization	organizationName	activity	activityTypeCode	sampleMedia	activityMediaSubdivName	1999-12-28	activityStartTime	actStartTimeZone	activityStopDate	activityStopTime	actStopTimeZone	activityDepth	activityDepthUnit	activityDepthRefPoint	activityUpperDepth	activityUpperDepthUnit	activityLowerDepth	activityLowerDepthUnit	projectId	activityConductingOrg	organization-siteId	activityComment	sampleAqfrName	hydrologicConditionName	hydrologicEventName	sampleCollectMethodId	sampleCollectMethodCtx	sampleCollectMethodName	sampleCollectEquipName	resultDetectionConditionTx	characteristicName	sampleFractionType	resultMeasureValue	resultUnit	resultMeasQualCode	resultValueStatus	statisticType	resultValueType	weightBasisType	durationBasis	temperatureBasisLevel	particleSize	precision	resultComment	99999	resultDepthMeasValue	resultDepthMeasUnitCode	resultDepthAltRefPtTxt	sampleTissueTaxonomicName	sampleTissueAnatomyName	analyticalProcedureId	analyticalProcedureSource	analyticalMethodName	analyticalMethodCitation	labName	analysisStartDate	labRemark	detectionLimitDesc	detectionLimit	detectionLimitUnit	analysisPrepDateTx	STORET
 organization				sampleMedia		1999-12-29													projectId		organization-siteId										characteristicName														99999				sampleTissueTaxonomicName													STORET
 organization				sampleMedia		1999-12-30													projectId		organization-siteId										characteristicName														99999				sampleTissueTaxonomicName													STORET
@@ -57,4 +57,4 @@ organization				sampleMedia		1999-12-30													projectId		organization-site
 organization				sampleMedia		1999-12-30													projectId		organization-siteId2										characteristicName														99999				sampleTissueTaxonomicName													STORET
 organization				sampleMedia		1999-12-31													projectId		organization-siteId2										characteristicName														99999				sampleTissueTaxonomicName													STORET
 organization				sampleMedia		1999-12-31													projectId		organization-siteId3										characteristicName														99992				sampleTissueTaxonomicName													STORET
-USGS						1996-06-27													SACR BioTDB		USGS-11421000										Count																		Acipenser													BIODATA
+USGS				Water		1996-06-27													SACR BioTDB		USGS-11421000										Count																		Acipenser													BIODATA

@@ -6,7 +6,8 @@
         <if test="minactivities != null or minresults != null">
             select * from (
         </if>
-        select prime.data_source_id, prime.data_source, prime.station_id, prime.site_id, to_char(prime.event_date, 'yyyy-mm-dd') event_date, prime.analytical_method, prime.p_code, prime.activity,
+        select <include refid="dynamicWhere.resultStationHashHint"/>
+               prime.data_source_id, prime.data_source, prime.station_id, prime.site_id, to_char(prime.event_date, 'yyyy-mm-dd') event_date, prime.analytical_method, prime.p_code, prime.activity,
                prime.characteristic_name, prime.characteristic_type, prime.sample_media, prime.organization, prime.site_type, prime.huc, prime.governmental_unit_code, prime.organization_name,
                prime.activity_type_code, prime.activity_media_subdiv_name, prime.activity_start_time, prime.act_start_time_zone, prime.activity_stop_date, prime.activity_stop_time,
                prime.act_stop_time_zone, prime.activity_relative_depth_name, prime.activity_depth, prime.activity_depth_unit, prime.activity_depth_ref_point, prime.activity_upper_depth,

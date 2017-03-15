@@ -151,6 +151,7 @@ public abstract class BaseWqx {
 	public static final String WQX_RESULT_DESRIPTION = "ResultDescription";
 	public static final String WQX_DATA_LOGGER_LINE = "DataLoggerLine";
 	public static final String WQX_CHAR_NAME = "CharacteristicName";
+	public static final String WQX_RESULT_IDENTIFIER = "ResultIdentifier";
 	public static final String WQX_DETECTION_CONDITION = "ResultDetectionConditionText";
 	public static final String WQX_METHOD_SPECIFICATION = "MethodSpecificationName";
 	public static final String WQX_SAMPLE_FRACTION = "ResultSampleFractionText";

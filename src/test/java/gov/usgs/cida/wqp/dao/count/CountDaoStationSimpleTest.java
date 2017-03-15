@@ -17,181 +17,180 @@ public class CountDaoStationSimpleTest extends BaseCountDaoTest {
 
 	protected String nameSpace = BaseDao.SIMPLE_STATION_NAMESPACE;
 	protected boolean includeActivity = false;
-	protected boolean includeActivityMetric = false;
 	protected boolean includeResults = false;
 
 	@Test
 	public void nullParameterTest() {
-		nullParameterTest(nameSpace, includeActivity, includeActivityMetric, includeResults);
+		nullParameterTest(nameSpace, includeActivity, includeResults);
 	}
 
 	@Test
 	public void emptyParameterTest() {
-		emptyParameterTest(nameSpace, includeActivity, includeActivityMetric, includeResults);
+		emptyParameterTest(nameSpace, includeActivity, includeResults);
 	}
 
 	@Test
 	public void analyticalMethodTest() {
-		analyticalMethodTest(nameSpace, includeActivity, includeActivityMetric, includeResults);
+		analyticalMethodTest(nameSpace, includeActivity, includeResults);
 	}
 
 	@Test
 	public void assemblageTest() {
-		assemblageTest(nameSpace, includeActivity, includeActivityMetric, includeResults);
+		assemblageTest(nameSpace, includeActivity, includeResults);
 	}
 
 	@Test
 	public void avoidTest() {
-		avoidTest(nameSpace, includeActivity, includeActivityMetric, includeResults);
+		avoidTest(nameSpace, includeActivity, includeResults);
 	}
 
 	@Test
 	public void bboxTest() {
-		bboxTest(nameSpace, includeActivity, includeActivityMetric, includeResults);
+		bboxTest(nameSpace, includeActivity, includeResults);
 	}
 
 	@Test
 	public void characteristicNameTest() {
-		characteristicNameTest(nameSpace, includeActivity, includeActivityMetric, includeResults);
+		characteristicNameTest(nameSpace, includeActivity, includeResults);
 	}
 
 	@Test
 	public void characteristicTypeTest() {
-		characteristicTypeTest(nameSpace, includeActivity, includeActivityMetric, includeResults);
+		characteristicTypeTest(nameSpace, includeActivity, includeResults);
 	}
 
 	@Test
 	public void countryTest() {
-		countryTest(nameSpace, includeActivity, includeActivityMetric, includeResults);
+		countryTest(nameSpace, includeActivity, includeResults);
 	}
 
 	@Test
 	public void countyTest() {
-		countyTest(nameSpace, includeActivity, includeActivityMetric, includeResults);
+		countyTest(nameSpace, includeActivity, includeResults);
 	}
 
 	@Test
 	public void huc2Test() {
-		huc2Test(nameSpace, includeActivity, includeActivityMetric, includeResults);
+		huc2Test(nameSpace, includeActivity, includeResults);
 	}
 
 	@Test
 	public void huc4Test() {
-		huc4Test(nameSpace, includeActivity, includeActivityMetric, includeResults);
+		huc4Test(nameSpace, includeActivity, includeResults);
 	}
 
 	@Test
 	public void huc6Test() {
-		huc6Test(nameSpace, includeActivity, includeActivityMetric, includeResults);
+		huc6Test(nameSpace, includeActivity, includeResults);
 	}
 
 	@Test
 	public void huc8Test() {
-		huc8Test(nameSpace, includeActivity, includeActivityMetric, includeResults);
+		huc8Test(nameSpace, includeActivity, includeResults);
 	}
 
 	@Test
 	public void minActivitiesTest() {
-		minActivitiesTest(nameSpace, includeActivity, includeActivityMetric, includeResults);
+		minActivitiesTest(nameSpace, includeActivity, includeResults);
 	}
 
 	@Test
 	public void minResultsTest() {
-		minResultsTest(nameSpace, includeActivity, includeActivityMetric, includeResults);
+		minResultsTest(nameSpace, includeActivity, includeResults);
 	}
 
 	@Test
 	public void nldiUrlTest() {
-		nldiUrlTest(nameSpace, includeActivity, includeActivityMetric, includeResults);
+		nldiUrlTest(nameSpace, includeActivity, includeResults);
 	}
 
 	@Test
 	public void organizationTest() {
-		organizationTest(nameSpace, includeActivity, includeActivityMetric, includeResults);
+		organizationTest(nameSpace, includeActivity, includeResults);
 	}
 
 	@Test
 	public void pcodeTest() {
-		pcodeTest(nameSpace, includeActivity, includeActivityMetric, includeResults);
+		pcodeTest(nameSpace, includeActivity, includeResults);
 	}
 
 	@Test
 	public void projectTest() {
-		projectTest(nameSpace, includeActivity, includeActivityMetric, includeResults);
+		projectTest(nameSpace, includeActivity, includeResults);
 	}
 
 	@Test
 	public void providersTest() {
-		providersTest(nameSpace, includeActivity, includeActivityMetric, includeResults);
+		providersTest(nameSpace, includeActivity, includeResults);
 	}
 
 	@Test
 	public void sampleMediaTest() {
-		sampleMediaTest(nameSpace, includeActivity, includeActivityMetric, includeResults);
+		sampleMediaTest(nameSpace, includeActivity, includeResults);
 	}
 
 	@Test
 	public void siteIdTest() {
-		siteIdTest(nameSpace, includeActivity, includeActivityMetric, includeResults);
+		siteIdTest(nameSpace, includeActivity, includeResults);
 	}
 
 	@Test
 	public void manySitesTest() {
-		manySitesTest(nameSpace, includeActivity, includeActivityMetric, includeResults);
+		manySitesTest(nameSpace, includeActivity, includeResults);
 	}
 
 	@Test
 	public void siteTypeTest() {
-		siteTypeTest(nameSpace, includeActivity, includeActivityMetric, includeResults);
+		siteTypeTest(nameSpace, includeActivity, includeResults);
 	}
 
 	@Test
 	public void startDateHiTest() {
-		startDateHiTest(nameSpace, includeActivity, includeActivityMetric, includeResults);
+		startDateHiTest(nameSpace, includeActivity, includeResults);
 	}
 
 	@Test
 	public void startDateLoTest() {
-		startDateLoTest(nameSpace, includeActivity, includeActivityMetric, includeResults);
+		startDateLoTest(nameSpace, includeActivity, includeResults);
 	}
 
 	@Test
 	public void stateTest() {
-		stateTest(nameSpace, includeActivity, includeActivityMetric, includeResults);
+		stateTest(nameSpace, includeActivity, includeResults);
 	}
 
 	@Test
 	public void subjectTaxonomicNameTest() {
-		subjectTaxonomicNameTest(nameSpace, includeActivity, includeActivityMetric, includeResults);
+		subjectTaxonomicNameTest(nameSpace, includeActivity, includeResults);
 	}
 
 	@Test
 	public void withinTest() {
-		withinTest(nameSpace, includeActivity, includeActivityMetric, includeResults);
+		withinTest(nameSpace, includeActivity, includeResults);
 	}
 
 	@Test
 	public void multipleParameterStationSumTest() {
-		multipleParameterStationSumTest(nameSpace, includeActivity, includeActivityMetric, includeResults);
+		multipleParameterStationSumTest(nameSpace, includeActivity, includeResults);
 	}
 
 	@Test
 	public void multipleParameterActivitySumTest() {
-		multipleParameterActivitySumTest(nameSpace, includeActivity, includeActivityMetric, includeResults);
+		multipleParameterActivitySumTest(nameSpace, includeActivity, includeResults);
 	}
 
 	@Test
 	public void multipleParameterActivitySumStationSumTest() {
-		multipleParameterActivitySumStationSumTest(nameSpace, includeActivity, includeActivityMetric, includeResults);
+		multipleParameterActivitySumStationSumTest(nameSpace, includeActivity, includeResults);
 	}
 
 	@Test
 	public void multipleParameterResultSumTest() {
-		multipleParameterResultSumTest(nameSpace, includeActivity, includeActivityMetric, includeResults);
+		multipleParameterResultSumTest(nameSpace, includeActivity, includeResults);
 	}
 
 	@Test
 	public void multipleParameterResultSumStationSumTests() {
-		multipleParameterResultSumStationSumTests(nameSpace, includeActivity, includeActivityMetric, includeResults);
+		multipleParameterResultSumStationSumTests(nameSpace, includeActivity, includeResults);
 	}
 }

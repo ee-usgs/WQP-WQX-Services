@@ -133,47 +133,47 @@ public abstract class ResultStreamingTest extends BaseSpringTest {
 		assertRow(results.get(5), NWIS_5, expectedColumnCount);
 		assertRow(results.get(6), NWIS_2, expectedColumnCount);
 		assertRow(results.get(7), NWIS_3, expectedColumnCount);
-		assertRow(results.get(8), STORET_41, expectedColumnCount);
-		assertRow(results.get(9), STORET_15, expectedColumnCount);
-		assertRow(results.get(10), STORET_16, expectedColumnCount);
-		assertRow(results.get(11), STORET_17, expectedColumnCount);
-		assertRow(results.get(12), STORET_18, expectedColumnCount);
-		assertRow(results.get(13), STORET_19, expectedColumnCount);
-		assertRow(results.get(14), STORET_20, expectedColumnCount);
-		assertRow(results.get(15), STORET_21, expectedColumnCount);
-		assertRow(results.get(16), STORET_22, expectedColumnCount);
-		assertRow(results.get(17), STORET_23, expectedColumnCount);
-		assertRow(results.get(18), STORET_24, expectedColumnCount);
-		assertRow(results.get(19), STORET_25, expectedColumnCount);
-		assertRow(results.get(20), STORET_26, expectedColumnCount);
-		assertRow(results.get(21), STORET_27, expectedColumnCount);
-		assertRow(results.get(22), STORET_28, expectedColumnCount);
-		assertRow(results.get(23), STORET_29, expectedColumnCount);
-		assertRow(results.get(24), STORET_30, expectedColumnCount);
-		assertRow(results.get(25), STORET_31, expectedColumnCount);
-		assertRow(results.get(26), STORET_32, expectedColumnCount);
-		assertRow(results.get(27), STORET_33, expectedColumnCount);
-		assertRow(results.get(28), STORET_34, expectedColumnCount);
-		assertRow(results.get(29), STORET_35, expectedColumnCount);
-		assertRow(results.get(30), STORET_36, expectedColumnCount);
-		assertRow(results.get(31), STORET_37, expectedColumnCount);
-		assertRow(results.get(32), STORET_38, expectedColumnCount);
-		assertRow(results.get(33), STORET_39, expectedColumnCount);
-		assertRow(results.get(34), STORET_40, expectedColumnCount);
-		assertRow(results.get(35), STORET_4, expectedColumnCount);
-		assertRow(results.get(36), STORET_5, expectedColumnCount);
-		assertRow(results.get(37), STORET_6, expectedColumnCount);
-		assertRow(results.get(38), STORET_7, expectedColumnCount);
-		assertRow(results.get(39), STORET_8, expectedColumnCount);
-		assertRow(results.get(40), STORET_9, expectedColumnCount);
-		assertRow(results.get(41), STORET_10, expectedColumnCount);
-		assertRow(results.get(42), STORET_11, expectedColumnCount);
-		assertRow(results.get(43), STORET_12, expectedColumnCount);
-		assertRow(results.get(44), STORET_13, expectedColumnCount);
-		assertRow(results.get(45), STORET_14, expectedColumnCount);
-		assertRow(results.get(46), STORET_45, expectedColumnCount);
-		assertRow(results.get(47), STORET_46, expectedColumnCount);
-		assertRow(results.get(48), STORET_47, expectedColumnCount);
+		assertRow(results.get(8), STORET_15, expectedColumnCount);
+		assertRow(results.get(9), STORET_16, expectedColumnCount);
+		assertRow(results.get(10), STORET_17, expectedColumnCount);
+		assertRow(results.get(11), STORET_18, expectedColumnCount);
+		assertRow(results.get(12), STORET_19, expectedColumnCount);
+		assertRow(results.get(13), STORET_20, expectedColumnCount);
+		assertRow(results.get(14), STORET_21, expectedColumnCount);
+		assertRow(results.get(15), STORET_22, expectedColumnCount);
+		assertRow(results.get(16), STORET_23, expectedColumnCount);
+		assertRow(results.get(17), STORET_24, expectedColumnCount);
+		assertRow(results.get(18), STORET_25, expectedColumnCount);
+		assertRow(results.get(19), STORET_26, expectedColumnCount);
+		assertRow(results.get(20), STORET_27, expectedColumnCount);
+		assertRow(results.get(21), STORET_28, expectedColumnCount);
+		assertRow(results.get(22), STORET_29, expectedColumnCount);
+		assertRow(results.get(23), STORET_30, expectedColumnCount);
+		assertRow(results.get(24), STORET_31, expectedColumnCount);
+		assertRow(results.get(25), STORET_32, expectedColumnCount);
+		assertRow(results.get(26), STORET_33, expectedColumnCount);
+		assertRow(results.get(27), STORET_34, expectedColumnCount);
+		assertRow(results.get(28), STORET_35, expectedColumnCount);
+		assertRow(results.get(29), STORET_36, expectedColumnCount);
+		assertRow(results.get(30), STORET_37, expectedColumnCount);
+		assertRow(results.get(31), STORET_38, expectedColumnCount);
+		assertRow(results.get(32), STORET_39, expectedColumnCount);
+		assertRow(results.get(33), STORET_40, expectedColumnCount);
+		assertRow(results.get(34), STORET_4, expectedColumnCount);
+		assertRow(results.get(35), STORET_5, expectedColumnCount);
+		assertRow(results.get(36), STORET_6, expectedColumnCount);
+		assertRow(results.get(37), STORET_7, expectedColumnCount);
+		assertRow(results.get(38), STORET_8, expectedColumnCount);
+		assertRow(results.get(39), STORET_9, expectedColumnCount);
+		assertRow(results.get(40), STORET_10, expectedColumnCount);
+		assertRow(results.get(41), STORET_11, expectedColumnCount);
+		assertRow(results.get(42), STORET_12, expectedColumnCount);
+		assertRow(results.get(43), STORET_13, expectedColumnCount);
+		assertRow(results.get(44), STORET_14, expectedColumnCount);
+		assertRow(results.get(45), STORET_45, expectedColumnCount);
+		assertRow(results.get(46), STORET_46, expectedColumnCount);
+		assertRow(results.get(47), STORET_47, expectedColumnCount);
+		assertRow(results.get(48), STORET_41, expectedColumnCount);
 		assertStoret42(expectedMap, results.get(49), expectedColumnCount);
 		assertRow(results.get(50), STORET_43, expectedColumnCount);
 		assertRow(results.get(51), STORET_44, expectedColumnCount);
@@ -191,9 +191,9 @@ public abstract class ResultStreamingTest extends BaseSpringTest {
 		streamingDao.stream(nameSpace, parms, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(16, results.size());
-		assertContainsResult(results, NWIS_1, NWIS_2, NWIS_4, NWIS_5, STORET_1, STORET_2, STORET_3, STORET_42, STORET_43, STORET_44,
-				STORET_45, STORET_46, STORET_47, STORET_48, STORET_49, STORET_50);
+		assertEquals(17, results.size());
+		assertContainsResult(results, NWIS_1, NWIS_2, NWIS_4, NWIS_5, STORET_1, STORET_2, STORET_3, STORET_41, STORET_42, STORET_43,
+				STORET_44, STORET_45, STORET_46, STORET_47, STORET_48, STORET_49, STORET_50);
 	}
 
 	public void assemblageTest(String nameSpace) {
@@ -211,7 +211,7 @@ public abstract class ResultStreamingTest extends BaseSpringTest {
 		streamingDao.stream(nameSpace, parms, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(50, results.size());
+		assertEquals(STORET_RESULT_COUNT, String.valueOf(results.size()));
 		assertContainsResult(results, STORET_1, STORET_2, STORET_3, STORET_4, STORET_5, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10,
 				STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_16, STORET_17, STORET_18, STORET_19, STORET_20,
 				STORET_21, STORET_22, STORET_23, STORET_24, STORET_25, STORET_26, STORET_27, STORET_28, STORET_29, STORET_30,
@@ -234,9 +234,9 @@ public abstract class ResultStreamingTest extends BaseSpringTest {
 		streamingDao.stream(nameSpace, parms, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(14, results.size());
-		assertContainsResult(results, STEWARDS_1, STEWARDS_2, STORET_1, STORET_2, STORET_3, STORET_42, STORET_43, STORET_44, STORET_45, STORET_46,
-				STORET_47, STORET_48, STORET_49, STORET_50);
+		assertEquals(15, results.size());
+		assertContainsResult(results, STEWARDS_1, STEWARDS_2, STORET_1, STORET_2, STORET_3, STORET_41, STORET_42, STORET_43, STORET_44, STORET_45,
+				STORET_46, STORET_47, STORET_48, STORET_49, STORET_50);
 	}
 
 	public void countryTest(String nameSpace) {
@@ -359,13 +359,13 @@ public abstract class ResultStreamingTest extends BaseSpringTest {
 		streamingDao.stream(nameSpace, parms, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(55, results.size());
+		assertEquals(57, results.size());
 		assertContainsResult(results, STEWARDS_1, STEWARDS_3, NWIS_1, NWIS_3, NWIS_4, NWIS_5, STORET_1, STORET_2, STORET_3, STORET_4,
 				STORET_5, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14,
 				STORET_15, STORET_16, STORET_17, STORET_18, STORET_19, STORET_20, STORET_21, STORET_22, STORET_23, STORET_24,
 				STORET_25, STORET_26, STORET_27, STORET_28, STORET_29, STORET_30, STORET_31, STORET_32, STORET_33, STORET_34,
-				STORET_35, STORET_36, STORET_37, STORET_38, STORET_39, STORET_40, STORET_42, STORET_43, STORET_44, STORET_45,
-				STORET_46, STORET_47, STORET_48, STORET_49, STORET_50);
+				STORET_35, STORET_36, STORET_37, STORET_38, STORET_39, STORET_40, STORET_41, STORET_42, STORET_43, STORET_44,
+				STORET_45, STORET_46, STORET_47, STORET_48, STORET_49, STORET_50, BIODATA_42);
 	}
 
 	public void startDateHiTest(String nameSpace) {
@@ -373,13 +373,13 @@ public abstract class ResultStreamingTest extends BaseSpringTest {
 		streamingDao.stream(nameSpace, parms, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(56, results.size());
+		assertEquals(57, results.size());
 		assertContainsResult(results, STEWARDS_1, STEWARDS_3, NWIS_1, NWIS_3, NWIS_4, NWIS_5, STORET_1, STORET_2, STORET_3, STORET_4,
 				STORET_5, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14,
 				STORET_15, STORET_16, STORET_17, STORET_18, STORET_19, STORET_20, STORET_21, STORET_22, STORET_23, STORET_24,
 				STORET_25, STORET_26, STORET_27, STORET_28, STORET_29, STORET_30, STORET_31, STORET_32, STORET_33, STORET_34,
-				STORET_35, STORET_36, STORET_37, STORET_38, STORET_39, STORET_41, STORET_42, STORET_43, STORET_44, STORET_45,
-				STORET_46, STORET_47, STORET_48, STORET_49, STORET_50, BIODATA_42);
+				STORET_35, STORET_36, STORET_37, STORET_38, STORET_39, STORET_40, STORET_41, STORET_42, STORET_43, STORET_44,
+				STORET_45, STORET_46, STORET_47, STORET_48, STORET_49, STORET_50, BIODATA_42);
 	}
 
 	public void startDateLoTest(String nameSpace) {
@@ -451,9 +451,9 @@ public abstract class ResultStreamingTest extends BaseSpringTest {
 		streamingDao.stream(nameSpace, parms, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(12, results.size());
-		assertContainsResult(results, NWIS_3, STORET_1, STORET_2, STORET_42, STORET_43, STORET_44, STORET_45, STORET_46, STORET_47, STORET_48,
-				STORET_49, STORET_50);
+		assertEquals(13, results.size());
+		assertContainsResult(results, NWIS_3, STORET_1, STORET_2, STORET_41, STORET_42, STORET_43, STORET_44, STORET_45, STORET_46, STORET_47,
+				STORET_48, STORET_49, STORET_50);
 	}
 
 	public void siteTypeTest(String nameSpace) {
