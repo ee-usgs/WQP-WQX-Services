@@ -24,76 +24,78 @@ import gov.usgs.cida.wqp.webservice.BaseControllerIntegrationTest;
 @DirtiesContext(classMode=ClassMode.AFTER_CLASS)
 public class StationControllerIntTest extends BaseControllerIntegrationTest {
 
+	public static final String NAME = "station";
+	protected static final boolean POSTABLE = true;
 	protected String endpoint = HttpConstants.STATION_SEARCH_ENPOINT + "?mimeType=";
 
 	@Test
 	public void getAsCsvTest() throws Exception {
-		getAsDelimitedTest(endpoint + "csv", HttpConstants.MIME_TYPE_CSV, "attachment; filename=station.csv", "station/station.csv", "station/noResultStation.csv");
+		getAsDelimitedTest(endpoint + CSV, HttpConstants.MIME_TYPE_CSV, CSV, NAME, POSTABLE);
 	}
 
 	@Test
 	public void getAsCsvZipTest() throws Exception {
-		getAsDelimitedZipTest(endpoint + "csv&zip=yes", HttpConstants.MIME_TYPE_ZIP, "attachment; filename=station.zip", "station/station.csv", "station.csv", "station/noResultStation.csv");
+		getAsDelimitedZipTest(endpoint + CSV_AND_ZIP, HttpConstants.MIME_TYPE_ZIP, CSV, NAME, POSTABLE);
 	}
 
 	@Test
 	public void getAsTsvTest() throws Exception {
-		getAsDelimitedTest(endpoint + "tsv", HttpConstants.MIME_TYPE_TSV, "attachment; filename=station.tsv", "station/station.tsv", "station/noResultStation.tsv");
+		getAsDelimitedTest(endpoint + TSV, HttpConstants.MIME_TYPE_TSV, TSV, NAME, POSTABLE);
 	}
 
 	@Test
 	public void getAsTsvZipTest() throws Exception {
-		getAsDelimitedZipTest(endpoint + "tsv&zip=yes", HttpConstants.MIME_TYPE_ZIP, "attachment; filename=station.zip", "station/station.tsv", "station.tsv", "station/noResultStation.tsv");
+		getAsDelimitedZipTest(endpoint + TSV_AND_ZIP, HttpConstants.MIME_TYPE_ZIP, TSV, NAME, POSTABLE);
 	}
 
 	@Test
 	public void getAsXlsxTest() throws Exception {
-		getAsXlsxTest(endpoint + "xlsx", HttpConstants.MIME_TYPE_XLSX, "attachment; filename=station.xlsx");
+		getAsXlsxTest(endpoint + XLSX, HttpConstants.MIME_TYPE_XLSX, XLSX, NAME, POSTABLE);
 	}
 
 	@Test
 	public void getAsXlsxZipTest() throws Exception {
-		getAsXlsxTest(endpoint + "xlsx&zip=yes", HttpConstants.MIME_TYPE_ZIP, "attachment; filename=station.zip");
+		getAsXlsxZipTest(endpoint + XLSX_AND_ZIP, HttpConstants.MIME_TYPE_ZIP, XLSX, NAME, POSTABLE);
 	}
 
 	@Test
 	public void getAsXmlTest() throws Exception {
-		getAsXmlTest(endpoint + "xml", HttpConstants.MIME_TYPE_XML, "attachment; filename=station.xml", "station/station.xml", "station/noResultStation.xml");
+		getAsXmlTest(endpoint + XML, HttpConstants.MIME_TYPE_XML, XML, NAME, POSTABLE);
 	}
 
 	@Test
 	public void getAsXmlZipTest() throws Exception {
-		getAsXmlZipTest(endpoint + "xml&zip=yes", HttpConstants.MIME_TYPE_ZIP, "attachment; filename=station.zip", "station/station.xml", "station.xml", "station/noResultStation.xml");
+		getAsXmlZipTest(endpoint + XML_AND_ZIP, HttpConstants.MIME_TYPE_ZIP, XML, NAME, POSTABLE);
 	}
 
 	@Test
 	public void getAsKmlTest() throws Exception {
-		getAsXmlTest(endpoint + "kml", HttpConstants.MIME_TYPE_KML, "attachment; filename=station.kml", "station/station.kml", "station/noResultStation.kml");
+		getAsXmlTest(endpoint + KML, HttpConstants.MIME_TYPE_KML, KML, NAME, POSTABLE);
 	}
 
 	@Test
 	public void getAsKmlZipTest() throws Exception {
-		getAsXmlZipTest(endpoint + "kml&zip=yes", HttpConstants.MIME_TYPE_KMZ, "attachment; filename=station.kmz", "station/station.kml", "station.kml", "station/noResultStation.kml");
+		getAsKmzTest(endpoint + KML_AND_ZIP, HttpConstants.MIME_TYPE_KMZ, KMZ, NAME, POSTABLE);
 	}
 
 	@Test
 	public void getAsKmzTest() throws Exception {
-		getAsXmlZipTest(endpoint + "kmz", HttpConstants.MIME_TYPE_KMZ, "attachment; filename=station.kmz", "station/station.kml", "station.kml", "station/noResultStation.kml");
+		getAsKmzTest(endpoint + KMZ, HttpConstants.MIME_TYPE_KMZ, KMZ, NAME, POSTABLE);
 	}
 
 	@Test
 	public void getAsGeoJsonTest() throws Exception {
-		getAsJsonTest(endpoint + "geojson", HttpConstants.MIME_TYPE_GEOJSON, "attachment; filename=station.geojson", "station/station.json", "station/noResultStation.json");
+		getAsJsonTest(endpoint + GEOJSON, HttpConstants.MIME_TYPE_GEOJSON, GEOJSON, NAME, POSTABLE);
 	}
 
 	@Test
 	public void getAsGeoJsonZipTest() throws Exception {
-		getAsJsonZipTest(endpoint + "geojson&zip=yes", HttpConstants.MIME_TYPE_ZIP, "attachment; filename=station.zip", "station/station.json", "station.geojson", "station/noResultStation.json");
+		getAsJsonZipTest(endpoint + GEOJSON_AND_ZIP, HttpConstants.MIME_TYPE_ZIP, GEOJSON, NAME, POSTABLE);
 	}
 
 	@Test
 	public void getAllParametersTest() throws Exception {
-		getAllParametersTest(endpoint + "csv", HttpConstants.MIME_TYPE_CSV, "attachment; filename=station.csv", "station/filteredStation.csv");
+		getAllParametersTest(endpoint + CSV, HttpConstants.MIME_TYPE_CSV, CSV, NAME, POSTABLE);
 	}
 
 	@Test

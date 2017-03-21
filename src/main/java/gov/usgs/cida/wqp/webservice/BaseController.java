@@ -246,7 +246,7 @@ public abstract class BaseController {
 		setMimeType(determineMimeType(MimeType.csv.fromString(mimeTypeParam), getZipped()));
 		setProfile(determineProfile(getPm().getQueryParameters()));
 		setMybatisNamespace(determineNamespace());
-		
+
 		addCustomRequestParams();
 
 		List<Map<String, Object>> counts = countDao.getCounts(getMybatisNamespace(), getPm().getQueryParameters());

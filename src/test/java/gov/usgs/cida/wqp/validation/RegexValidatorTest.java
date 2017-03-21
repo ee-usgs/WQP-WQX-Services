@@ -330,7 +330,7 @@ public class RegexValidatorTest extends BaseSpringTest {
 	@Test
 	public void testMimeType() {
 		AbstractValidator<?> validator = HashMapParameterHandler.getValidator(Parameters.MIMETYPE);
-		ValidationResult<?> vr = validator.validate("csv");
+		ValidationResult<?> vr = validator.validate(CSV);
 		assertTrue(vr.isValid());
 	}
 	@Test

@@ -53,7 +53,7 @@ public class ParameterValidationConfig {
 	public static final String REGEX_DATA_PROFILE = String.join("|", Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.SIMPLE_STATION, Profile.STATION);
 
 	@Bean
-	public RegexValidator<String> activityMethodValidator() {
+	public RegexValidator<String> activityValidator() {
 		return new RegexValidator<String>(Parameters.ACTIVITY, AbstractValidator.DEFAULT_MIN_OCCURS, 1, AbstractValidator.DEFAULT_DELIMITER, REGEX_ACEPT_ANYTHING);
 	}
 
@@ -180,6 +180,11 @@ public class ParameterValidationConfig {
 	}
 
 	@Bean
+	public RegexValidator<String> resultValidator() {
+		return new RegexValidator<String>(Parameters.RESULT, AbstractValidator.DEFAULT_MIN_OCCURS, 1, "-", REGEX_ACEPT_ANYTHING);
+	}
+
+	@Bean
 	public LookupValidator sampleMediaValidator() {
 		// semicolon list of string media type names
 		return new LookupValidator(codesService, Parameters.SAMPLE_MEDIA);
@@ -242,7 +247,7 @@ public class ParameterValidationConfig {
 	@Bean
 	public Map<Parameters, AbstractValidator<?>> validatorMap() {
 		Map<Parameters, AbstractValidator<?>> validatorMap = new HashMap<Parameters, AbstractValidator<?>>();
-		validatorMap.put(Parameters.ACTIVITY, activityMethodValidator());
+		validatorMap.put(Parameters.ACTIVITY, activityValidator());
 		validatorMap.put(Parameters.ANALYTICAL_METHOD, analyticalMethodValidator());
 		validatorMap.put(Parameters.ASSEMBLAGE, assemblageValidator());
 		validatorMap.put(Parameters.AVOID, avoidValidator());
@@ -263,6 +268,7 @@ public class ParameterValidationConfig {
 		validatorMap.put(Parameters.PCODE, parameterCodeValidator());
 		validatorMap.put(Parameters.PROJECT, projectValidator());
 		validatorMap.put(Parameters.PROVIDERS, providerValidator());
+		validatorMap.put(Parameters.RESULT, resultValidator());
 		validatorMap.put(Parameters.SAMPLE_MEDIA, sampleMediaValidator());
 		validatorMap.put(Parameters.SITE_TYPE, siteTypeValidator());
 		validatorMap.put(Parameters.SITEID, siteIdValidator());

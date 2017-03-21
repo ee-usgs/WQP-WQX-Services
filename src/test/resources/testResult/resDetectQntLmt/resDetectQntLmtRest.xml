@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WQX xmlns='http://qwwebservices.usgs.gov/schemas/WQX-Outbound/2_0/' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='http://qwwebservices.usgs.gov/schemas/WQX-Outbound/2_0/ http://qwwebservices.usgs.gov/schemas/WQX-Outbound/2_0/index.xsd'>
+	<Organization>
+		<OrganizationDescription>
+			<OrganizationIdentifier>WIDNR_WQX</OrganizationIdentifier>
+			<OrganizationFormalName>Wisconsin Department of Natural Resources</OrganizationFormalName>
+		</OrganizationDescription>
+		<Activity>
+			<ActivityDescription>
+				<ActivityIdentifier>WIDNR_WQX-7788475</ActivityIdentifier>
+				<MonitoringLocationIdentifier>WIDNR_WQX-113086</MonitoringLocationIdentifier>
+			</ActivityDescription>
+			<Result>
+				<ResultDescription>
+					<CharacteristicName>Fecal Streptococcus Group Bacteria</CharacteristicName>
+					<ResultIdentifier>STORET-5</ResultIdentifier>
+				</ResultDescription>
+				<ResultLabInformation>
+					<ResultDetectionQuantitationLimit>
+						<DetectionQuantitationLimitTypeName>Reporting limit</DetectionQuantitationLimitTypeName>
+						<DetectionQuantitationLimitMeasure>
+							<MeasureValue>39</MeasureValue>
+							<MeasureUnitCode>cfu/100ml</MeasureUnitCode>
+						</DetectionQuantitationLimitMeasure>
+					</ResultDetectionQuantitationLimit>
+				</ResultLabInformation>
+			</Result>
+		</Activity>
+	</Organization>
+</WQX>

@@ -20,12 +20,10 @@ import gov.usgs.cida.wqp.util.HttpConstants;
 public class ActivityMetricControllerTest extends BaseSpringTest {
 
 	protected ActivityMetricController controller;
-	protected RestfullController restController;
 
 	@Before
 	public void setup() {
 		controller = new ActivityMetricController(null, null, null, null, null, null, null);
-		restController = new RestfullController(null, null, null, null, null, null, null);
 	}
 
 	@After
@@ -44,7 +42,7 @@ public class ActivityMetricControllerTest extends BaseSpringTest {
 	@Test
 	public void addCountHeadersRestTest() {
 		MockHttpServletResponse response = new MockHttpServletResponse();
-		String countHeader = restController.addCountHeaders(response, BaseControllerTest.getRawCounts());
+		String countHeader = controller.addCountHeaders(response, BaseControllerTest.getRawCounts());
 		checkCountheaders(countHeader, response);
 	}
 
@@ -65,7 +63,6 @@ public class ActivityMetricControllerTest extends BaseSpringTest {
 	@Test
 	public void getMappingTest() {
 		ActivityMetricDelimitedTest.assertActivityMetricProfile(controller.getMapping(Profile.ACTIVITY_METRIC));
-		ActivityMetricDelimitedTest.assertActivityMetricProfile(restController.getMapping(Profile.ACTIVITY_METRIC));
 	}
 
 	@Test
@@ -77,13 +74,4 @@ public class ActivityMetricControllerTest extends BaseSpringTest {
 		assertEquals(Profile.BIOLOGICAL, controller.determineProfile(pm));
 	}
 
-
-	@Test
-	public void determineProfileRestTest() {
-		assertEquals(Profile.ACTIVITY_METRIC, restController.determineProfile(null));
-
-		Map<String, Object> pm = new HashMap<>();
-		pm.put(Parameters.DATA_PROFILE.toString(), new String[]{"biological"});
-		assertEquals(Profile.BIOLOGICAL, restController.determineProfile(pm));
-	}
 }

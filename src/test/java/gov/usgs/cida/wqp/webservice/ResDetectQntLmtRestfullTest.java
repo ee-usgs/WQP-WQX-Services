@@ -18,11 +18,11 @@ import gov.usgs.cida.wqp.util.HttpConstants;
 @WebAppConfiguration
 @DatabaseSetup("classpath:/testData/csv/")
 @DbUnitConfiguration(dataSetLoader = CsvDataSetLoader.class)
-public class ActivityControllerIntTest extends BaseControllerIntegrationTest {
+public class ResDetectQntLmtRestfullTest  extends BaseControllerIntegrationTest {
 
-	public static String NAME = "activity";
-	protected static final boolean POSTABLE = true;
-	protected String endpoint = HttpConstants.ACTIVITY_SEARCH_ENPOINT + "?mimeType=";
+	public static String NAME = ResDetectQntLmtControllerIntTest.NAME;
+	protected static final boolean POSTABLE = false;
+	protected String endpoint = HttpConstants.RES_DETECT_QNT_LMT_REST_ENPOINT.replace("{activity}", getActivity()[0]).replace("{result}", getResult()[0]) + "?mimeType=";
 
 	@Test
 	public void getAsCsvTest() throws Exception {
@@ -64,51 +64,37 @@ public class ActivityControllerIntTest extends BaseControllerIntegrationTest {
 		getAsXmlZipTest(endpoint + XML_AND_ZIP, HttpConstants.MIME_TYPE_ZIP, XML, NAME, POSTABLE);
 	}
 
-	@Test
-	public void getAllParametersTest() throws Exception {
-		getAllParametersTest(endpoint + CSV, HttpConstants.MIME_TYPE_CSV, CSV, NAME, POSTABLE);
-	}
-
-	@Test
-	public void postGetCountTest() throws Exception {
-		String urlPrefix = HttpConstants.ACTIVITY_SEARCH_ENPOINT + "/count?mimeType=";
-		String compareObject = "{\"" + HttpConstants.HEADER_TOTAL_SITE_COUNT + "\":\"" + FILTERED_TOTAL_SITE_COUNT
-				+ "\",\"" + HttpConstants.HEADER_TOTAL_ACTIVITY_COUNT + "\":\"" + FILTERED_TOTAL_ACTIVITY_COUNT
-				+ "\",\"" + HEADER_STORET_SITE_COUNT + "\":\"" + FILTERED_STORET_SITE_COUNT
-				+ "\",\"" + HEADER_STORET_ACTIVITY_COUNT + "\":\"" + FILTERED_STORET_ACTIVITY_COUNT
-				+ "\"}";
-		postGetCountTest(urlPrefix, compareObject);
-	}
-
+	@Override
 	public ResultActions unFilteredHeaderCheck(ResultActions resultActions) throws Exception {
 		return resultActions
-				.andExpect(header().string(HttpConstants.HEADER_TOTAL_SITE_COUNT, TOTAL_SITE_COUNT_MINUS_1))
-				.andExpect(header().string(HEADER_NWIS_SITE_COUNT, NWIS_SITE_COUNT))
-				.andExpect(header().string(HEADER_STEWARDS_SITE_COUNT, STEWARDS_SITE_COUNT))
-				.andExpect(header().string(HEADER_STORET_SITE_COUNT, STORET_SITE_COUNT_MINUS_1))
-				.andExpect(header().string(HEADER_BIODATA_SITE_COUNT, BIODATA_SITE_COUNT))
+				.andExpect(header().string(HttpConstants.HEADER_TOTAL_SITE_COUNT, "1"))
+				.andExpect(header().string(HEADER_STORET_SITE_COUNT, "1"))
 
-				.andExpect(header().string(HttpConstants.HEADER_TOTAL_ACTIVITY_COUNT, TOTAL_ACTIVITY_COUNT))
-				.andExpect(header().string(HEADER_NWIS_ACTIVITY_COUNT, NWIS_ACTIVITY_COUNT))
-				.andExpect(header().string(HEADER_STEWARDS_ACTIVITY_COUNT, STEWARDS_ACTIVITY_COUNT))
-				.andExpect(header().string(HEADER_STORET_ACTIVITY_COUNT, STORET_ACTIVITY_COUNT))
-				.andExpect(header().string(HEADER_BIODATA_ACTIVITY_COUNT, BIODATA_ACTIVITY_COUNT));
+				.andExpect(header().string(HttpConstants.HEADER_TOTAL_ACTIVITY_COUNT, "1"))
+				.andExpect(header().string(HEADER_STORET_ACTIVITY_COUNT, "1"))
+
+				.andExpect(header().string(HttpConstants.HEADER_TOTAL_RESULT_COUNT, "1"))
+				.andExpect(header().string(HEADER_STORET_RESULT_COUNT, "1"))
+
+				.andExpect(header().string(HttpConstants.HEADER_TOTAL_RES_DETECT_QNT_LMT_COUNT, "1"))
+				.andExpect(header().string(HEADER_STORET_RES_DETECT_QNT_LMT_COUNT, "1"));
 	}
 
+	@Override
 	public ResultActions filteredHeaderCheck(ResultActions resultActions) throws Exception {
-		return resultActions
-				.andExpect(header().string(HttpConstants.HEADER_TOTAL_SITE_COUNT, FILTERED_TOTAL_SITE_COUNT))
-				.andExpect(header().string(HEADER_STORET_SITE_COUNT, FILTERED_STORET_SITE_COUNT))
-
-				.andExpect(header().string(HttpConstants.HEADER_TOTAL_ACTIVITY_COUNT, FILTERED_TOTAL_ACTIVITY_COUNT))
-				.andExpect(header().string(HEADER_STORET_ACTIVITY_COUNT, FILTERED_STORET_ACTIVITY_COUNT));
+		return null;
 	}
 
+	@Override
 	public ResultActions noResultHeaderCheck(ResultActions resultActions) throws Exception {
 		return resultActions
 				.andExpect(header().string(HttpConstants.HEADER_TOTAL_SITE_COUNT, "0"))
 
-				.andExpect(header().string(HttpConstants.HEADER_TOTAL_ACTIVITY_COUNT, "0"));
+				.andExpect(header().string(HttpConstants.HEADER_TOTAL_ACTIVITY_COUNT, "0"))
+
+				.andExpect(header().string(HttpConstants.HEADER_TOTAL_RESULT_COUNT, "0"))
+
+				.andExpect(header().string(HttpConstants.HEADER_TOTAL_RES_DETECT_QNT_LMT_COUNT, "0"));
 	}
 
 }

@@ -158,12 +158,12 @@ public class CountDaoResDetectQntLmtTest extends BaseCountDaoTest {
 
 	@Test
 	public void resultTest() {
-		parms.put(Parameters.RESULT.toString(), getResult());
+		parms.put(Parameters.RESULT.toString(), getResult()[0].split("-"));
 		List<Map<String, Object>> counts = countDao.getCounts(nameSpace, parms);
 		assertStationResults(counts, 2, "1", null, null, "1", null);
 		assertActivityResults(counts, 2, "1", null, null, "1", null);
 		assertResultResults(counts, 2, "1", null, null, "1", null);
-		assertResDetectQntLmtResults(counts, 2, "5", null, null, "5", null);
+		assertResDetectQntLmtResults(counts, 2, "1", null, null, "1", null);
 	}
 
 	@Test
