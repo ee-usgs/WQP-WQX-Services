@@ -57,6 +57,11 @@ public abstract class BaseSpringTest {
 		return new String(FileCopyUtils.copyToByteArray(new ClassPathResource("testResult/" + file).getInputStream()));
 	}
 
+	public String getCompareFile(String name, String fileType, String suffix) throws IOException {
+		String fileName = "testResult/" + name + "/" + name + (null == suffix ? "" : suffix) + "." + fileType;
+		return new String(FileCopyUtils.copyToByteArray(new ClassPathResource(fileName).getInputStream()));
+	}
+
 	public String extractZipContent(byte[] content, String expectedEntryName) throws IOException {
 		ZipInputStream in = new ZipInputStream(new ByteArrayInputStream(content));
 		ZipEntry e = in.getNextEntry();
@@ -149,6 +154,25 @@ public abstract class BaseSpringTest {
 	public static final String HEADER_BIODATA_ACTIVITY_METRIC_COUNT = "BIODATA-ActivityMetric-Count";
 	public static final String HEADER_BIODATA_RESULT_COUNT = "BIODATA-Result-Count";
 	public static final String HEADER_BIODATA_RES_DETECT_QNT_LMT_COUNT = "BIODATA-ResultDetectionQuantitationLimit-Count";
+
+	public static final String AND_ZIP = "&zip=yes";
+	public static final String CSV = "csv";
+	public static final String CSV_AND_ZIP = CSV + AND_ZIP;
+	public static final String TSV = "tsv";
+	public static final String TSV_AND_ZIP = TSV + AND_ZIP;
+	public static final String XLSX = "xlsx";
+	public static final String XLSX_AND_ZIP = XLSX + AND_ZIP;
+	public static final String XML = "xml";
+	public static final String XML_AND_ZIP = XML + AND_ZIP;
+	public static final String KML = "kml";
+	public static final String KML_AND_ZIP = KML + AND_ZIP;
+	public static final String KMZ = "kmz";
+	public static final String KMZ_AND_ZIP = KMZ + AND_ZIP;
+	public static final String GEOJSON = "geojson";
+	public static final String GEOJSON_AND_ZIP = GEOJSON + AND_ZIP;
+	public static final String JSON = "json";
+	public static final String JSON_AND_ZIP = JSON + AND_ZIP;
+
 
 	public String[] getAnalyticalMethod() {
 		return new String[]{"https://www.nemi.gov/methods/method_summary/4665/", "https://www.nemi.gov/methods/method_summary/8896/", "analyticalMethod"};
@@ -251,8 +275,8 @@ public abstract class BaseSpringTest {
 		return new String[]{NWIS, STEWARDS, STORET};
 	}
 
-	public String getResult() {
-		return "18";
+	public String[] getResult() {
+		return new String[]{"STORET-5"};
 	}
 
 	public String[] getSampleMedia() {
@@ -290,5 +314,4 @@ public abstract class BaseSpringTest {
 	public String[] getWithin() {
 		return new String[]{"650"};
 	}
-
 }

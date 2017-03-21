@@ -1,0 +1,2 @@
+OrganizationIdentifier,OrganizationFormalName,ActivityIdentifier,MonitoringLocationIdentifier,CharacteristicName,ResultIdentifier,DetectionQuantitationLimitTypeName,DetectionQuantitationLimitMeasure/MeasureValue,DetectionQuantitationLimitMeasure/MeasureUnitCode,ProviderName
+WIDNR_WQX,Wisconsin Department of Natural Resources,WIDNR_WQX-7788475,WIDNR_WQX-113086,Fecal Streptococcus Group Bacteria,STORET-5,Reporting limit,39,cfu/100ml,STORET

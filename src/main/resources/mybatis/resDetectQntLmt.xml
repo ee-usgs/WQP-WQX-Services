@@ -45,7 +45,7 @@
     <sql id="resDetectQntLmtBase">
         <choose>
             <when test="minactivities != null or minresults != null">
-                from res_detect_qnt_lmt prime
+                from r_detect_qnt_lmt prime
                      join (select prime.data_source_id,
                                   prime.station_id,
                                   count(distinct prime.activity_id) site_activity_count,
@@ -70,7 +70,8 @@
                 <where>
                     <include refid="dynamicWhere.baseWhereResultClauses" />
                     <if test="result != null">
-                        and result_id = #{result}
+                        and data_source = #{result[0]}
+                        and result_id = #{result[1]}
                     </if>
                     <if test="minactivities != null">
                         and site_activity_count >= #{minactivities[0]}
@@ -82,7 +83,7 @@
             </when>
 
             <otherwise>
-                from res_detect_qnt_lmt prime
+                from r_detect_qnt_lmt prime
                 <if test="bBox != null or within != null">
                     join station_sum secondary
                       on prime.station_id = secondary.station_id and
@@ -95,7 +96,8 @@
                         <include refid="dynamicWhere.baseWhereStationGeoClauses" />
                     </if>
                     <if test="result != null">
-                        and result_id = #{result}
+                        and data_source = #{result[0]}
+                        and result_id = #{result[1]}
                     </if>
                 </where>
             </otherwise>

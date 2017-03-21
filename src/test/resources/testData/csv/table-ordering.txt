@@ -6,5 +6,5 @@ act_metric
 activity_sum
 result
 result_sum
-res_detect_qnt_lmt
+r_detect_qnt_lmt
 web_service_log

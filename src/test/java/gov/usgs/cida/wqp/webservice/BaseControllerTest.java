@@ -446,7 +446,7 @@ public class BaseControllerTest {
 	@SuppressWarnings("unchecked")
 	public void doCommonSetupTest() {
 		Map<String, Object> q = new HashMap<>();
-		q.put("mimeType", "kml");
+		q.put("mimeType", BaseSpringTest.KML);
 		q.put("zip", "yes");
 		q.put(Parameters.DATA_PROFILE.toString(), Profile.STATION);
 		ParameterMap p = new ParameterMap();
@@ -474,7 +474,7 @@ public class BaseControllerTest {
 	@SuppressWarnings("unchecked")
 	public void doCommonSetupPostCountTest() {
 		Map<String, Object> q = new HashMap<>();
-		q.put(Parameters.MIMETYPE.toString(), "json");
+		q.put(Parameters.MIMETYPE.toString(), BaseSpringTest.JSON);
 		q.put(Parameters.DATA_PROFILE.toString(), Profile.STATION);
 		ParameterMap p = new ParameterMap();
 		p.setQueryParameters(q);
@@ -771,7 +771,7 @@ public class BaseControllerTest {
 	@SuppressWarnings("unchecked")
 	public void doGetRequestTest() {
 		Map<String, Object> q = new HashMap<>();
-		q.put("mimeType", "kml");
+		q.put("mimeType", BaseSpringTest.KML);
 		q.put("zip", "yes");
 		q.put(Parameters.DATA_PROFILE.toString(), Profile.STATION);
 		ParameterMap p = new ParameterMap();
@@ -865,7 +865,7 @@ public class BaseControllerTest {
 	@SuppressWarnings("unchecked")
 	public void doPostRequestTest() {
 		Map<String, Object> q = new HashMap<>();
-		q.put("mimeType", "kml");
+		q.put("mimeType", BaseSpringTest.KML);
 		q.put("zip", "yes");
 		Map<String, Object> json = new HashMap<>();
 		json.put("siteid", Arrays.asList("11NPSWRD-BICA_MFG_B","WIDNR_WQX-10030952"));
@@ -906,7 +906,7 @@ public class BaseControllerTest {
 		MockHttpServletResponse response = new MockHttpServletResponse();
 
 		Map<String, Object> q = new HashMap<>();
-		q.put("mimeType", "kml");
+		q.put("mimeType", BaseSpringTest.KML);
 		q.put("zip", "yes");
 		Map<String, Object> json = new HashMap<>();
 		json.put("siteid", Arrays.asList("11NPSWRD-BICA_MFG_B","WIDNR_WQX-10030952"));

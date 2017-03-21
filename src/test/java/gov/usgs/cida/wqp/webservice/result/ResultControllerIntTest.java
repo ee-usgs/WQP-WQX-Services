@@ -25,50 +25,51 @@ import gov.usgs.cida.wqp.webservice.BaseControllerIntegrationTest;
 public class ResultControllerIntTest extends BaseControllerIntegrationTest {
 
 	protected String endpoint = HttpConstants.RESULT_SEARCH_ENPOINT + "?mimeType=";
+	public static String NAME = "result";
 
 	@Test
 	public void getAsCsvTest() throws Exception {
-		getAsDelimitedTest(endpoint + "csv", HttpConstants.MIME_TYPE_CSV, "attachment; filename=result.csv", "result/pcResult.csv", "result/noResultPcResult.csv");
+		getAsDelimitedTest(endpoint + CSV, HttpConstants.MIME_TYPE_CSV, CSV, NAME, true);
 	}
 
 	@Test
 	public void getAsCsvZipTest() throws Exception {
-		getAsDelimitedZipTest(endpoint + "csv&zip=yes", HttpConstants.MIME_TYPE_ZIP, "attachment; filename=result.zip", "result/pcResult.csv", "result.csv", "result/noResultPcResult.csv");
+		getAsDelimitedZipTest(endpoint + CSV_AND_ZIP, HttpConstants.MIME_TYPE_ZIP, CSV, NAME, true);
 	}
 
 	@Test
 	public void getAsTsvTest() throws Exception {
-		getAsDelimitedTest(endpoint + "tsv", HttpConstants.MIME_TYPE_TSV, "attachment; filename=result.tsv", "result/pcResult.tsv", "result/noResultPcResult.tsv");
+		getAsDelimitedTest(endpoint + TSV, HttpConstants.MIME_TYPE_TSV, TSV, NAME, true);
 	}
 
 	@Test
 	public void getAsTsvZipTest() throws Exception {
-		getAsDelimitedZipTest(endpoint + "tsv&zip=yes", HttpConstants.MIME_TYPE_ZIP, "attachment; filename=result.zip", "result/pcResult.tsv", "result.tsv", "result/noResultPcResult.tsv");
+		getAsDelimitedZipTest(endpoint + TSV_AND_ZIP, HttpConstants.MIME_TYPE_ZIP, TSV, NAME, true);
 	}
 
 	@Test
 	public void getAsXlsxTest() throws Exception {
-		getAsXlsxTest(endpoint + "xlsx", HttpConstants.MIME_TYPE_XLSX, "attachment; filename=result.xlsx");
+		getAsXlsxTest(endpoint + XLSX, HttpConstants.MIME_TYPE_XLSX, XLSX, NAME, true);
 	}
 
 	@Test
 	public void getAsXlsxZipTest() throws Exception {
-		getAsXlsxTest(endpoint + "xlsx&zip=yes", HttpConstants.MIME_TYPE_ZIP, "attachment; filename=result.zip");
+		getAsXlsxZipTest(endpoint + XLSX_AND_ZIP, HttpConstants.MIME_TYPE_ZIP, XLSX, NAME, true);
 	}
 
 	@Test
 	public void getAsXmlTest() throws Exception {
-		getAsXmlTest(endpoint + "xml", HttpConstants.MIME_TYPE_XML, "attachment; filename=result.xml", "result/pcResult.xml", "result/noResult.xml");
+		getAsXmlTest(endpoint + XML, HttpConstants.MIME_TYPE_XML, XML, NAME, true);
 	}
 
 	@Test
 	public void getAsXmlZipGetTest() throws Exception {
-		getAsXmlZipTest(endpoint + "xml&zip=yes", HttpConstants.MIME_TYPE_ZIP, "attachment; filename=result.zip", "result/pcResult.xml", "result.xml", "result/noResult.xml");
+		getAsXmlZipTest(endpoint + XML_AND_ZIP, HttpConstants.MIME_TYPE_ZIP, XML, NAME, true);
 	}
 
 	@Test
 	public void getAllParametersTest() throws Exception {
-		getAllParametersTest(endpoint + "csv", HttpConstants.MIME_TYPE_CSV, "attachment; filename=result.csv", "result/filterdPcResult.csv");
+		getAllParametersTest(endpoint + CSV, HttpConstants.MIME_TYPE_CSV, CSV, NAME, true);
 	}
 
 	@Test

@@ -26,52 +26,54 @@ import gov.usgs.cida.wqp.webservice.BaseControllerIntegrationTest;
 @DirtiesContext(classMode=ClassMode.AFTER_CLASS)
 public class BiologicalResultControllerIntTest extends BaseControllerIntegrationTest {
 
+	public static String NAME = "biologicalResult";
+	protected static final boolean POSTABLE = true;
 	protected String endpoint = HttpConstants.RESULT_SEARCH_ENPOINT + "?" 
 			+ Parameters.DATA_PROFILE + "=" + Profile.BIOLOGICAL + "&mimeType=";
 
 	@Test
 	public void getAsCsvTest() throws Exception {
-		getAsDelimitedTest(endpoint + "csv", HttpConstants.MIME_TYPE_CSV, "attachment; filename=biologicalresult.csv", "result/bioResult.csv", "result/noResultBioResult.csv");
+		getAsDelimitedTest(endpoint + CSV, HttpConstants.MIME_TYPE_CSV, CSV, NAME, POSTABLE);
 	}
 
 	@Test
 	public void getAsCsvZipTest() throws Exception {
-		getAsDelimitedZipTest(endpoint + "csv&zip=yes", HttpConstants.MIME_TYPE_ZIP, "attachment; filename=biologicalresult.zip", "result/bioResult.csv", "biologicalresult.csv", "result/noResultBioResult.csv");
+		getAsDelimitedZipTest(endpoint + CSV_AND_ZIP, HttpConstants.MIME_TYPE_ZIP, CSV, NAME, POSTABLE);
 	}
 
 	@Test
 	public void getAsTsvTest() throws Exception {
-		getAsDelimitedTest(endpoint + "tsv", HttpConstants.MIME_TYPE_TSV, "attachment; filename=biologicalresult.tsv", "result/bioResult.tsv", "result/noResultBioResult.tsv");
+		getAsDelimitedTest(endpoint + TSV, HttpConstants.MIME_TYPE_TSV, TSV, NAME, POSTABLE);
 	}
 
 	@Test
 	public void getAsTsvZipTest() throws Exception {
-		getAsDelimitedZipTest(endpoint + "tsv&zip=yes", HttpConstants.MIME_TYPE_ZIP, "attachment; filename=biologicalresult.zip", "result/bioResult.tsv", "biologicalresult.tsv", "result/noResultBioResult.tsv");
+		getAsDelimitedZipTest(endpoint + TSV_AND_ZIP, HttpConstants.MIME_TYPE_ZIP, TSV, NAME, POSTABLE);
 	}
 
 	@Test
 	public void getAsXlsxTest() throws Exception {
-		getAsXlsxTest(endpoint + "xlsx", HttpConstants.MIME_TYPE_XLSX, "attachment; filename=biologicalresult.xlsx");
+		getAsXlsxTest(endpoint + XLSX, HttpConstants.MIME_TYPE_XLSX, XLSX, NAME, POSTABLE);
 	}
 
 	@Test
 	public void getAsXlsxZipTest() throws Exception {
-		getAsXlsxTest(endpoint + "xlsx&zip=yes", HttpConstants.MIME_TYPE_ZIP, "attachment; filename=biologicalresult.zip");
+		getAsXlsxZipTest(endpoint + XLSX_AND_ZIP, HttpConstants.MIME_TYPE_ZIP, XLSX, NAME, POSTABLE);
 	}
 
 	@Test
 	public void getAsXmlTest() throws Exception {
-		getAsXmlTest(endpoint + "xml", HttpConstants.MIME_TYPE_XML, "attachment; filename=biologicalresult.xml", "result/bioResult.xml", "result/noResult.xml");
+		getAsXmlTest(endpoint + XML, HttpConstants.MIME_TYPE_XML, XML, NAME, POSTABLE);
 	}
 
 	@Test
 	public void getAsXmlZipGetTest() throws Exception {
-		getAsXmlZipTest(endpoint + "xml&zip=yes", HttpConstants.MIME_TYPE_ZIP, "attachment; filename=biologicalresult.zip", "result/bioResult.xml", "biologicalresult.xml", "result/noResult.xml");
+		getAsXmlZipTest(endpoint + XML_AND_ZIP, HttpConstants.MIME_TYPE_ZIP, XML, NAME, POSTABLE);
 	}
 
 	@Test
 	public void getAllParametersTest() throws Exception {
-		getAllParametersTest(endpoint + "csv", HttpConstants.MIME_TYPE_CSV, "attachment; filename=biologicalresult.csv", "result/filteredBioResult.csv");
+		getAllParametersTest(endpoint + CSV, HttpConstants.MIME_TYPE_CSV, CSV, NAME, POSTABLE);
 	}
 
 	@Test

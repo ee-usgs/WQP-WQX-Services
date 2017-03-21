@@ -517,13 +517,13 @@ public class ResDetectQntLmtStreamingTest extends BaseSpringTest {
 
 	@Test
 	public void resultTest() {
-		parms.put(Parameters.RESULT.toString(), getResult());
+		parms.put(Parameters.RESULT.toString(), getResult()[0].split("-"));
 		streamingDao.stream(nameSpace, parms, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(5, results.size());
+		assertEquals(1, results.size());
 		assertContainsResDetectQntLmt(results,
-				STORET_43, STORET_44, STORET_45, STORET_46, STORET_47);
+				STORET_39);
 	}
 
 	@Test

@@ -35,123 +35,92 @@ import gov.usgs.cida.wqp.webservice.BaseControllerIntegrationTest;
 @DirtiesContext(classMode=ClassMode.AFTER_CLASS)
 public class SimpleStationControllerIntTest extends BaseControllerIntegrationTest {
 
-	private static final String STATION_SIMPLE_STATION_XML = "station/simpleStation.xml";
-	private static final String STATION_NO_RESULT_SIMPLE_STATION_XML = "station/noResultSimpleStation.xml";
+	public static final String NAME = "simpleStation";
 	protected String endpoint = HttpConstants.SIMPLE_STATION_ENDPOINT + "?mimeType=";
 
 	@Test
 	public void getAsXmlTest() throws Exception {
-		String url = endpoint + "xml";
-		String mimeType =  HttpConstants.MIME_TYPE_XML;
-		String contentDisposition = "attachment; filename=simplestation.xml";
-		String compareFile = STATION_SIMPLE_STATION_XML;
+		String url = endpoint + XML;
+		String mimeType = HttpConstants.MIME_TYPE_XML;
+		String fileType = XML;
 
-		assertEquals("", unFilteredHeaderCheck(callMockHead(url, mimeType, contentDisposition)).andReturn().getResponse().getContentAsString());
+		assertEquals("", unFilteredHeaderCheck(callMockHead(url, mimeType, getContentDisposition(NAME, fileType))).andReturn().getResponse().getContentAsString());
 
-		MvcResult rtn = unFilteredHeaderCheck(callMockGet(url, mimeType, contentDisposition)).andReturn();
-		assertEquals(harmonizeXml(getCompareFile(compareFile)), harmonizeXml(rtn.getResponse().getContentAsString()));
+		MvcResult rtn = unFilteredHeaderCheck(callMockGet(url, mimeType, getContentDisposition(NAME, fileType))).andReturn();
+		assertEquals(harmonizeXml(getCompareFile(NAME, fileType, null)), harmonizeXml(rtn.getResponse().getContentAsString()));
 
-		rtn = noResultHeaderCheck(callMockGet(url + getNoResultParameters(), mimeType, contentDisposition)).andReturn();
-		assertEquals(harmonizeXml(getCompareFile(STATION_NO_RESULT_SIMPLE_STATION_XML)), harmonizeXml(rtn.getResponse().getContentAsString()));
+		rtn = noResultHeaderCheck(callMockGet(url + getNoResultParameters(), mimeType, getContentDisposition(NAME, fileType))).andReturn();
+		assertEquals(harmonizeXml(getCompareFile(NAME, fileType, "NoResult")), harmonizeXml(rtn.getResponse().getContentAsString()));
 	}
 
 	@Test
 	public void getAsXmlZipTest() throws Exception {
-		String url = endpoint + "xml&zip=yes";
-		String mimeType =  HttpConstants.MIME_TYPE_ZIP;
-		String contentDisposition = "attachment; filename=simplestation.zip";
-		String compareFile = STATION_SIMPLE_STATION_XML;
-		String zipEntry = "simplestation.xml";
+		String url = endpoint + XML_AND_ZIP;
+		String mimeType = HttpConstants.MIME_TYPE_ZIP;
+		String fileType = XML;
 
-		assertEquals("", unFilteredHeaderCheck(callMockHead(url, mimeType, contentDisposition)).andReturn().getResponse().getContentAsString());
+		assertEquals("", unFilteredHeaderCheck(callMockHead(url, mimeType, getContentDisposition(NAME, "zip"))).andReturn().getResponse().getContentAsString());
 
-		MvcResult rtn = unFilteredHeaderCheck(callMockGet(url, mimeType, contentDisposition)).andReturn();
-		assertEquals(harmonizeXml(getCompareFile(compareFile)), harmonizeXml(extractZipContent(rtn.getResponse().getContentAsByteArray(), zipEntry)));
+		MvcResult rtn = unFilteredHeaderCheck(callMockGet(url, mimeType, getContentDisposition(NAME, "zip"))).andReturn();
+		assertEquals(harmonizeXml(getCompareFile(NAME, fileType, null)), harmonizeXml(extractZipContent(rtn.getResponse().getContentAsByteArray(), getFileName(NAME, fileType))));
 
-		rtn = noResultHeaderCheck(callMockGet(url + getNoResultParameters(), mimeType, contentDisposition)).andReturn();
-		assertEquals(harmonizeXml(getCompareFile(STATION_NO_RESULT_SIMPLE_STATION_XML)), harmonizeXml(extractZipContent(rtn.getResponse().getContentAsByteArray(), zipEntry)));
+		rtn = noResultHeaderCheck(callMockGet(url + getNoResultParameters(), mimeType, getContentDisposition(NAME, "zip"))).andReturn();
+		assertEquals(harmonizeXml(getCompareFile(NAME, fileType, "NoResult")), harmonizeXml(extractZipContent(rtn.getResponse().getContentAsByteArray(), getFileName(NAME, fileType))));
 	}
 
 	@Test
 	public void getAsGeoJsonTest() throws Exception {
-		String url = endpoint + "geojson";
-		String mimeType =  HttpConstants.MIME_TYPE_GEOJSON;
-		String contentDisposition = "attachment; filename=simplestation.geojson";
-		String compareFile = "station/station.json";
-
-		assertEquals("", unFilteredHeaderCheck(callMockHead(url, mimeType, contentDisposition)).andReturn().getResponse().getContentAsString());
-
-		MvcResult rtn = unFilteredHeaderCheck(callMockGet(url, mimeType, contentDisposition)).andReturn();
-		assertThat(new JSONObject(getCompareFile(compareFile)), sameJSONObjectAs(new JSONObject(rtn.getResponse().getContentAsString())));
-
-		rtn = noResultHeaderCheck(callMockGet(url + getNoResultParameters(), mimeType, contentDisposition)).andReturn();
-		assertThat(new JSONObject(getCompareFile("station/noResultStation.json")), sameJSONObjectAs(new JSONObject(rtn.getResponse().getContentAsString())));
+		getAsJsonTest(endpoint + GEOJSON, HttpConstants.MIME_TYPE_GEOJSON, GEOJSON, NAME);
 	}
 
 	@Test
 	public void getAsGeoJsonZipTest() throws Exception {
-		String url = endpoint + "geojson&zip=yes";
-		String mimeType =  HttpConstants.MIME_TYPE_ZIP;
-		String contentDisposition = "attachment; filename=simplestation.zip";
-		String compareFile = "station/station.json";
-		String zipEntry = "simplestation.geojson";
-
-		assertEquals("", unFilteredHeaderCheck(callMockHead(url, mimeType, contentDisposition)).andReturn().getResponse().getContentAsString());
-
-		MvcResult rtn = unFilteredHeaderCheck(callMockGet(url, mimeType, contentDisposition)).andReturn();
-		assertThat(new JSONObject(getCompareFile(compareFile)), sameJSONObjectAs(new JSONObject(extractZipContent(rtn.getResponse().getContentAsByteArray(), zipEntry))));
-
-		rtn = noResultHeaderCheck(callMockGet(url + getNoResultParameters(), mimeType, contentDisposition)).andReturn();
-		assertThat(new JSONObject(getCompareFile("station/noResultStation.json")), sameJSONObjectAs(new JSONObject(extractZipContent(rtn.getResponse().getContentAsByteArray(), zipEntry))));
+		getAsJsonZipTest(endpoint + GEOJSON_AND_ZIP, HttpConstants.MIME_TYPE_ZIP, GEOJSON, NAME);
 	}
 
 	@Test
 	public void getAsJsonTest() throws Exception {
-		String url = endpoint + "json";
-		String mimeType =  HttpConstants.MIME_TYPE_JSON;
-		String contentDisposition = "attachment; filename=simplestation.json";
-		String compareFile = "station/station.json";
-
-		assertEquals("", unFilteredHeaderCheck(callMockHead(url, mimeType, contentDisposition)).andReturn().getResponse().getContentAsString());
-
-		MvcResult rtn = unFilteredHeaderCheck(callMockGet(url, mimeType, contentDisposition)).andReturn();
-		assertThat(new JSONObject(getCompareFile(compareFile)), sameJSONObjectAs(new JSONObject(rtn.getResponse().getContentAsString())));
-
-		rtn = noResultHeaderCheck(callMockGet(url + getNoResultParameters(), mimeType, contentDisposition)).andReturn();
-		assertThat(new JSONObject(getCompareFile("station/noResultStation.json")), sameJSONObjectAs(new JSONObject(rtn.getResponse().getContentAsString())));
+		getAsJsonTest(endpoint + JSON, HttpConstants.MIME_TYPE_JSON, JSON, NAME);
 	}
 
 	@Test
 	public void getAsJsonZipTest() throws Exception {
-		String url = endpoint + "json&zip=yes";
-		String mimeType =  HttpConstants.MIME_TYPE_ZIP;
-		String contentDisposition = "attachment; filename=simplestation.zip";
-		String compareFile = "station/station.json";
-		String zipEntry = "simplestation.json";
-
-		assertEquals("", unFilteredHeaderCheck(callMockHead(url, mimeType, contentDisposition)).andReturn().getResponse().getContentAsString());
-
-		MvcResult rtn = unFilteredHeaderCheck(callMockGet(url, mimeType, contentDisposition)).andReturn();
-		assertThat(new JSONObject(getCompareFile(compareFile)), sameJSONObjectAs(new JSONObject(extractZipContent(rtn.getResponse().getContentAsByteArray(), zipEntry))));
-
-		rtn = noResultHeaderCheck(callMockGet(url + getNoResultParameters(), mimeType, contentDisposition)).andReturn();
-		assertThat(new JSONObject(getCompareFile("station/noResultStation.json")), sameJSONObjectAs(new JSONObject(extractZipContent(rtn.getResponse().getContentAsByteArray(), zipEntry))));
+		getAsJsonZipTest(endpoint + JSON_AND_ZIP, HttpConstants.MIME_TYPE_ZIP, JSON, NAME);
 	}
 
 	@Test
 	public void getAllParametersTest() throws Exception {
-		String url = endpoint + "json";
-		String mimeType =  HttpConstants.MIME_TYPE_JSON;
-		String contentDisposition = "attachment; filename=simplestation.json";
-		String compareFile = "station/filteredStation.json";
+		String url = endpoint + JSON;
+		String mimeType = HttpConstants.MIME_TYPE_JSON;
+		String fileType = JSON;
 
 		when(codesService.validate(any(Parameters.class), anyString())).thenReturn(true);
 		when(fetchService.fetch(any(String.class), any(URL.class))).thenReturn(getNldiSitesAsSet());
 
-		assertEquals("", filteredHeaderCheck(callMockHead(url + getUrlParameters(), mimeType, contentDisposition)).andReturn().getResponse().getContentAsString());
+		assertEquals("", filteredHeaderCheck(callMockHead(url + getUrlParameters(), mimeType, getContentDisposition(NAME, fileType))).andReturn().getResponse().getContentAsString());
 
-		MvcResult rtn = filteredHeaderCheck(callMockGet(url + getUrlParameters(), mimeType, contentDisposition)).andReturn();
-		assertThat(new JSONObject(getCompareFile(compareFile)), sameJSONObjectAs(new JSONObject(rtn.getResponse().getContentAsString())));
+		MvcResult rtn = filteredHeaderCheck(callMockGet(url + getUrlParameters(), mimeType, getContentDisposition(NAME, fileType))).andReturn();
+		assertThat(new JSONObject(getCompareFile(NAME, fileType, "Filtered")), sameJSONObjectAs(new JSONObject(rtn.getResponse().getContentAsString())));
+	}
+
+	protected void getAsJsonTest(String url, String mimeType, String fileType, String name) throws Exception {
+		assertEquals("", unFilteredHeaderCheck(callMockHead(url, mimeType, getContentDisposition(name, fileType))).andReturn().getResponse().getContentAsString());
+
+		MvcResult rtn = unFilteredHeaderCheck(callMockGet(url, mimeType, getContentDisposition(name, fileType))).andReturn();
+		assertThat(new JSONObject(getCompareFile(name, fileType, null)), sameJSONObjectAs(new JSONObject(rtn.getResponse().getContentAsString())));
+
+		rtn = noResultHeaderCheck(callMockGet(url + getNoResultParameters(), mimeType, getContentDisposition(name, fileType))).andReturn();
+		assertThat(new JSONObject(getCompareFile(name, fileType, "NoResult")), sameJSONObjectAs(new JSONObject(rtn.getResponse().getContentAsString())));
+	}
+
+	protected void getAsJsonZipTest(String url, String mimeType, String fileType, String name) throws Exception {
+		assertEquals("", unFilteredHeaderCheck(callMockHead(url, mimeType, getContentDisposition(name, "zip"))).andReturn().getResponse().getContentAsString());
+
+		MvcResult rtn = unFilteredHeaderCheck(callMockGet(url, mimeType, getContentDisposition(name, "zip"))).andReturn();
+		assertThat(new JSONObject(getCompareFile(name, fileType, null)), sameJSONObjectAs(new JSONObject(extractZipContent(rtn.getResponse().getContentAsByteArray(), getFileName(name, fileType)))));
+
+		rtn = noResultHeaderCheck(callMockGet(url + getNoResultParameters(), mimeType, getContentDisposition(name, "zip"))).andReturn();
+		assertThat(new JSONObject(getCompareFile(name, fileType, "NoResult")), sameJSONObjectAs(new JSONObject(extractZipContent(rtn.getResponse().getContentAsByteArray(), getFileName(name, fileType)))));
 	}
 
 	public ResultActions unFilteredHeaderCheck(ResultActions resultActions) throws Exception {

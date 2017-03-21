@@ -20,7 +20,9 @@ public class HttpConstants {
 	public static final String SIMPLE_STATION_ENDPOINT = "/" + ENDPOINT_SIMPLE_STATION + ENPOINT_SEARCH;
 	public static final String RES_DETECT_QNT_LMT_SEARCH_ENPOINT = "/" + ENDPOINT_RES_DETECT_QNT_LMT + ENPOINT_SEARCH;
 
-	public static final String ACTIVITY_METRIC_REST_ENPOINT = "/activities/{activity}/activitymetrics";
+	public static final String ACTIVITY_REST_ENDPOINT = "/activities/{activity}";
+	public static final String ACTIVITY_METRIC_REST_ENPOINT = ACTIVITY_REST_ENDPOINT + "/activitymetrics";
+	public static final String RES_DETECT_QNT_LMT_REST_ENPOINT = ACTIVITY_REST_ENDPOINT + "/results/{result}/resdetectqntlmts";
 
 	public static final int HEADER_WARNING_DEFAULT_CODE = 299;
 	public static final String HEADER_FATAL_ERROR = "FATAL-ERROR";
