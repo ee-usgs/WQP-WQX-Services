@@ -1,11 +1,15 @@
 package gov.usgs.cida.wqp.mapping.delimited;
 
-import static gov.usgs.cida.wqp.mapping.xml.BaseWqx.*;
+import static gov.usgs.cida.wqp.mapping.xml.BaseWqx.WQX_MONITORING_LOCATION_IDENTIFIER;
+import static gov.usgs.cida.wqp.mapping.xml.BaseWqx.WQX_ORGANIZATION_FORMAL_NAME;
+import static gov.usgs.cida.wqp.mapping.xml.BaseWqx.WQX_ORGANIZATION_IDENTIFIER;
+import static gov.usgs.cida.wqp.mapping.xml.BaseWqx.WQX_PROVIDER_NAME;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 import gov.usgs.cida.wqp.mapping.ColumnProfile;
+import gov.usgs.cida.wqp.mapping.Profile;
 
 public abstract class BaseDelimited {
 
@@ -20,7 +24,7 @@ public abstract class BaseDelimited {
 	protected BaseDelimited() {
 	}
 
-	public static Map<String, String> getMapping(Map<ColumnProfile, String> mappings, String profile) {
+	public static Map<String, String> getMapping(Map<ColumnProfile, String> mappings, Profile profile) {
 		Map<String, String> profileMapping = new LinkedHashMap<>();
 		for (ColumnProfile p : mappings.keySet()) {
 			if (p.getProfiles().contains(profile)) {

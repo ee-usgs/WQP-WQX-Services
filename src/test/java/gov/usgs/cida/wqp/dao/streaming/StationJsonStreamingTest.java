@@ -18,7 +18,6 @@ import gov.usgs.cida.wqp.dao.BaseDao;
 public class StationJsonStreamingTest extends BaseStationStreamingTest {
 
 	protected String nameSpace = BaseDao.SIMPLE_STATION_NAMESPACE;
-	protected Integer expectedColumnCount = TestStationMap.STATION_JSON_COLUMN_COUNT;
 	protected Map<String, Object> expectedMap = TestStationMap.STATION_JSON;
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -36,7 +35,7 @@ public class StationJsonStreamingTest extends BaseStationStreamingTest {
 
 	@Test
 	public void allDataSortedTest() {
-		allDataSortedTest(nameSpace, expectedColumnCount, expectedMap);
+		allDataSortedTest(nameSpace, expectedMap);
 	}
 
 	@Test

@@ -296,7 +296,7 @@
 			<ActivityLocation>
 				<LatitudeMeasure>43.333</LatitudeMeasure>
 				<LongitudeMeasure>-89.8989</LongitudeMeasure>
-				<SourceMapScaleNumeric>24000</SourceMapScaleNumeric>
+				<SourceMapScaleNumeric>2222222</SourceMapScaleNumeric>
 				<HorizontalAccuracyMeasure>
 					<MeasureValue>actHorizontalAccuracy</MeasureValue>
 					<MeasureUnitCode>actHorizontalAccuracyUnit</MeasureUnitCode>
@@ -312,7 +312,7 @@
 						<MeasureUnitCode>actCollectionDurationUnit</MeasureUnitCode>
 					</CollectionDuration>
 					<SamplingComponentName>actSamCompntName</SamplingComponentName>
-					<SamplingComponentPlaceInSeriesNumeric>44</SamplingComponentPlaceInSeriesNumeric>
+					<SamplingComponentPlaceInSeriesNumeric>12321</SamplingComponentPlaceInSeriesNumeric>
 					<ReachLengthMeasure>
 						<MeasureValue>actReachLength</MeasureValue>
 						<MeasureUnitCode>actReachLengthUnit</MeasureUnitCode>
@@ -321,7 +321,7 @@
 						<MeasureValue>actReachWidth</MeasureValue>
 						<MeasureUnitCode>actReachWidthUnit</MeasureUnitCode>
 					</ReachWidthMeasure>
-					<PassCount>11</PassCount>
+					<PassCount>4</PassCount>
 					<NetInformation>
 						<NetTypeName>netTypeName</NetTypeName>
 						<NetSurfaceAreaMeasure>

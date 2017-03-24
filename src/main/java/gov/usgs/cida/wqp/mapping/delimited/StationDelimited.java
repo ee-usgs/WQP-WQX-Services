@@ -8,6 +8,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import gov.usgs.cida.wqp.mapping.ColumnProfile;
+import gov.usgs.cida.wqp.mapping.Profile;
 
 public class StationDelimited extends BaseDelimited {
 
@@ -97,7 +98,7 @@ public class StationDelimited extends BaseDelimited {
 	private StationDelimited() {
 	}
 
-	public static Map<String, String> getMapping(String profile) {
+	public static Map<String, String> getMapping(Profile profile) {
 		return getMapping(MAPPINGS, profile);
 	}
 

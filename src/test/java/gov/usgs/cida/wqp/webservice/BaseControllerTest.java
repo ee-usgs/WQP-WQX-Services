@@ -352,8 +352,27 @@ public class BaseControllerTest {
 		TestBaseController.setProfile(Profile.RES_DETECT_QNT_LMT);
 		assertEquals(BaseDao.RES_DETECT_QNT_LMT_NAMESPACE, testController.determineNamespace());
 
-		TestBaseController.setProfile("");
+		TestBaseController.setProfile(null);
 		assertEquals("", testController.determineNamespace());
+	}
+
+	@Test
+	public void determineNamespaceFromProfileTest() {
+		assertEquals(BaseDao.BIOLOGICAL_RESULT_NAMESPACE, testController.determineNamespaceFromProfile(Profile.BIOLOGICAL));
+
+		assertEquals(BaseDao.RESULT_NAMESPACE, testController.determineNamespaceFromProfile(Profile.PC_RESULT));
+
+		assertEquals(BaseDao.SIMPLE_STATION_NAMESPACE, testController.determineNamespaceFromProfile(Profile.SIMPLE_STATION));
+
+		assertEquals(BaseDao.STATION_NAMESPACE, testController.determineNamespaceFromProfile(Profile.STATION));
+
+		assertEquals(BaseDao.ACTIVITY_NAMESPACE, testController.determineNamespaceFromProfile(Profile.ACTIVITY));
+
+		assertEquals(BaseDao.ACTIVITY_METRIC_NAMESPACE, testController.determineNamespaceFromProfile(Profile.ACTIVITY_METRIC));
+
+		assertEquals(BaseDao.RES_DETECT_QNT_LMT_NAMESPACE, testController.determineNamespaceFromProfile(Profile.RES_DETECT_QNT_LMT));
+
+		assertEquals("", testController.determineNamespaceFromProfile(null));
 	}
 
 	@Test

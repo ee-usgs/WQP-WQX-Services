@@ -56,7 +56,7 @@ public abstract class BaseController {
 	private static ThreadLocal<BigDecimal> logId = new ThreadLocal<>();
 	private static ThreadLocal<Map<String, String>> counts = new ThreadLocal<>();
 	private static ThreadLocal<String> mybatisNamespace = new ThreadLocal<>();
-	private static ThreadLocal<String> profile = new ThreadLocal<>();
+	private static ThreadLocal<Profile> profile = new ThreadLocal<>();
 
 	public BaseController(IStreamingDao inStreamingDao, ICountDao inCountDao,
 			IParameterHandler inParameterHandler, ILogService inLogService,
@@ -119,11 +119,11 @@ public abstract class BaseController {
 		mybatisNamespace.set(inMybatisNamespace);
 	}
 
-	public static String getProfile() {
+	public static Profile getProfile() {
 		return profile.get();
 	}
 
-	public static void setProfile(String inProfile) {
+	public static void setProfile(Profile inProfile) {
 		profile.set(inProfile);
 	}
 
@@ -189,12 +189,12 @@ public abstract class BaseController {
 
 	protected String determineBaseFileName() {
 		switch (getProfile()) {
-		case Profile.BIOLOGICAL:
+		case BIOLOGICAL:
 			return "biologicalresult";
-		case Profile.PC_RESULT:
+		case PC_RESULT:
 			return "result";
 		default:
-			return getProfile().toLowerCase();
+			return getProfile().toString().toLowerCase();
 		}
 	}
 
@@ -475,24 +475,33 @@ public abstract class BaseController {
 		case geojson:
 			return BaseDao.SIMPLE_STATION_NAMESPACE;
 		default:
-			switch (getProfile()) {
-			case Profile.BIOLOGICAL:
-				return BaseDao.BIOLOGICAL_RESULT_NAMESPACE;
-			case Profile.PC_RESULT:
-				return BaseDao.RESULT_NAMESPACE;
-			case Profile.STATION:
-				return BaseDao.STATION_NAMESPACE;
-			case Profile.SIMPLE_STATION:
-				return BaseDao.SIMPLE_STATION_NAMESPACE;
-			case Profile.ACTIVITY:
-				return BaseDao.ACTIVITY_NAMESPACE;
-			case Profile.ACTIVITY_METRIC:
-				return BaseDao.ACTIVITY_METRIC_NAMESPACE;
-			case Profile.RES_DETECT_QNT_LMT:
-				return BaseDao.RES_DETECT_QNT_LMT_NAMESPACE;
-			default:
-				//Should never get here...
-				return "";
+			return determineNamespaceFromProfile(getProfile());
+		}
+	}
+
+	protected String determineNamespaceFromProfile(Profile profile) {
+		if (null == profile) {
+			return "";
+		} else {
+			switch (profile) {
+				case NARROW:
+				case BIOLOGICAL:
+					return BaseDao.BIOLOGICAL_RESULT_NAMESPACE;
+				case PC_RESULT:
+					return BaseDao.RESULT_NAMESPACE;
+				case STATION:
+					return BaseDao.STATION_NAMESPACE;
+				case SIMPLE_STATION:
+					return BaseDao.SIMPLE_STATION_NAMESPACE;
+				case ACTIVITY:
+					return BaseDao.ACTIVITY_NAMESPACE;
+				case ACTIVITY_METRIC:
+					return BaseDao.ACTIVITY_METRIC_NAMESPACE;
+				case RES_DETECT_QNT_LMT:
+					return BaseDao.RES_DETECT_QNT_LMT_NAMESPACE;
+				default:
+					//Should never get here...
+					return "";
 			}
 		}
 	}
@@ -525,19 +534,20 @@ public abstract class BaseController {
 		return transformer;
 	}
 
-	protected abstract String determineProfile(Map<String, Object> pm);
+	protected abstract Profile determineProfile(Map<String, Object> pm);
 
-	protected String determineProfile(String defaultProfile, Map<String, Object> pm) {
-		String profile = defaultProfile;
+	protected Profile determineProfile(Profile defaultProfile, Map<String, Object> pm) {
+		Profile profile = defaultProfile;
 		if (null != pm && pm.containsKey(Parameters.DATA_PROFILE.toString())) {
 			Object dataProfile = pm.get(Parameters.DATA_PROFILE.toString());
-			if (dataProfile instanceof String[] && 0 < ((String[]) dataProfile).length)
-			profile = ((String[]) dataProfile)[0];
+			if (dataProfile instanceof String[] && 0 < ((String[]) dataProfile).length) {
+				profile = Profile.fromString(((String[]) dataProfile)[0]);
+			}
 		}
-		return profile;
+		return profile == null ? defaultProfile : profile;
 	}
 
-	protected abstract Map<String, String> getMapping(String profile);
+	protected abstract Map<String, String> getMapping(Profile profile);
 
 	protected abstract IXmlMapping getXmlMapping();
 

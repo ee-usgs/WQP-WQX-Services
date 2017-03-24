@@ -18,7 +18,6 @@ import gov.usgs.cida.wqp.dao.BaseDao;
 public class PCResultStreamingTest extends ResultStreamingTest {
 
 	protected String nameSpace = BaseDao.RESULT_NAMESPACE;
-	protected Integer expectedColumnCount = TestPcResultMap.PC_RESULT_COLUMN_COUNT;
 	protected Map<String, Object> expectedMap = TestPcResultMap.PC_RESULT;
 
 	@Test
@@ -33,7 +32,7 @@ public class PCResultStreamingTest extends ResultStreamingTest {
 
 	@Test
 	public void allDataSortedTest() {
-		allDataSortedTest(nameSpace, expectedColumnCount, expectedMap);
+		allDataSortedTest(nameSpace, expectedMap);
 	}
 
 	@Test

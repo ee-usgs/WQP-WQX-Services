@@ -44,13 +44,13 @@ public class ParameterValidationConfig {
 	public static final String REGEX_POSITIVE_INT = "^\\d+$";
 	public static final String REGEX_HUC = "(?:[0-9]{8})|(?:(?:[0-9]{2}){1,3}\\*?)";
 	public static final String REGEX_PCODE = "[0-9]{5}";
-	public static final String REGEX_MIMETYPES = "csv|tsv|tab|xlsx|xml|kml|kmz|json|geojson"; // TODO refine
+	public static final String REGEX_MIMETYPES = "csv|tsv|tab|xlsx|xml|kml|kmz|json|geojson";
 	public static final String REGEX_AVOID = "NWIS|STORET";
 	public static final String REGEX_YES_NO = "yes|no";
 	public static final String REGEX_ACEPT_ANYTHING = ".+";
 	public static final String REGEX_HUC_WILDCARD_IN = "\\*";
 	public static final String REGEX_HUC_WILDCARD_OUT = "";
-	public static final String REGEX_DATA_PROFILE = String.join("|", Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.SIMPLE_STATION, Profile.STATION);
+	public static final String REGEX_DATA_PROFILE = String.join("|", Profile.getValues());
 
 	@Bean
 	public RegexValidator<String> activityValidator() {

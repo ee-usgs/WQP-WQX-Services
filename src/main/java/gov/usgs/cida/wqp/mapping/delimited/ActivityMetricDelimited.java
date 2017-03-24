@@ -1,16 +1,15 @@
 package gov.usgs.cida.wqp.mapping.delimited;
 
-import static gov.usgs.cida.wqp.mapping.ActivityColumn.ACTIVITY;
-import static gov.usgs.cida.wqp.mapping.delimited.ActivityDelimited.*;
+import static gov.usgs.cida.wqp.mapping.ActivityColumn.*;
 import static gov.usgs.cida.wqp.mapping.ActivityMetricColumn.*;
-import static gov.usgs.cida.wqp.mapping.BaseColumn.DATA_SOURCE;
-import static gov.usgs.cida.wqp.mapping.BaseColumn.ORGANIZATION_NAME;
+import static gov.usgs.cida.wqp.mapping.delimited.ActivityDelimited.*;
 import static gov.usgs.cida.wqp.mapping.xml.BaseWqx.*;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 import gov.usgs.cida.wqp.mapping.ColumnProfile;
+import gov.usgs.cida.wqp.mapping.Profile;
 
 public class ActivityMetricDelimited extends BaseDelimited {
 
@@ -64,7 +63,7 @@ public class ActivityMetricDelimited extends BaseDelimited {
 	private ActivityMetricDelimited() {
 	}
 
-	public static Map<String, String> getMapping(String profile) {
+	public static Map<String, String> getMapping(Profile profile) {
 		return getMapping(MAPPINGS, profile);
 	}
 

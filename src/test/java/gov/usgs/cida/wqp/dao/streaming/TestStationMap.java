@@ -12,10 +12,6 @@ import static gov.usgs.cida.wqp.mapping.xml.StationKml.*;
 
 public class TestStationMap {
 
-	public static final int STATION_COLUMN_COUNT = 38;
-	public static final int STATION_JSON_COLUMN_COUNT = 12;
-	public static final int STATION_KML_COLUMN_COUNT = 16;
-
 	public static final Map<String, Object> STATION;
 	static {
 		STATION = new LinkedHashMap<String, Object>();

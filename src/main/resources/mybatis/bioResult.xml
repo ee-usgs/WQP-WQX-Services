@@ -7,36 +7,12 @@
             select * from (
         </if>
         select <include refid="dynamicWhere.resultStationHashHint"/>
-               prime.data_source_id, prime.data_source, prime.station_id, prime.site_id, to_char(prime.event_date, 'yyyy-mm-dd') event_date, prime.analytical_method, prime.p_code, prime.activity,
-               prime.characteristic_name, prime.characteristic_type, prime.sample_media, prime.organization, prime.site_type, prime.huc, prime.governmental_unit_code, prime.organization_name,
-               prime.activity_type_code, prime.activity_media_subdiv_name, prime.activity_start_time, prime.act_start_time_zone, prime.activity_stop_date, prime.activity_stop_time,
-               prime.act_stop_time_zone, prime.activity_relative_depth_name, prime.activity_depth, prime.activity_depth_unit, prime.activity_depth_ref_point, prime.activity_upper_depth,
-               prime.activity_upper_depth_unit, prime.activity_lower_depth, prime.activity_lower_depth_unit, prime.project_id, prime.activity_conducting_org, prime.activity_comment,
-               prime.sample_aqfr_name, prime.hydrologic_condition_name, prime.hydrologic_event_name, prime.activity_latitude, prime.activity_longitude, prime.activity_source_map_scale,
-               prime.act_horizontal_accuracy, prime.act_horizontal_accuracy_unit, prime.act_horizontal_collect_method, prime.act_horizontal_datum_name, prime.assemblage_sampled_name,
-               prime.act_collection_duration, prime.act_collection_duration_unit, prime.act_sam_compnt_name, prime.act_sam_compnt_place_in_series, prime.act_reach_length,
-               prime.act_reach_length_unit, prime.act_reach_width, prime.act_reach_width_unit, prime.act_pass_count, prime.net_type_name, prime.act_net_surface_area, prime.act_net_surface_area_unit,
-               prime.act_net_mesh_size, prime.act_net_mesh_size_unit, prime.act_boat_speed, prime.act_boat_speed_unit, prime.act_current_speed, prime.act_current_speed_unit,
-               prime.toxicity_test_type_name, prime.sample_collect_method_id, prime.sample_collect_method_ctx, prime.sample_collect_method_name, prime.act_sam_collect_meth_qual_type,
-               prime.act_sam_collect_meth_desc, prime.sample_collect_equip_name, prime.act_sam_collect_equip_comments, prime.act_sam_prep_meth_id, prime.act_sam_prep_meth_context,
-               prime.act_sam_prep_meth_name, prime.act_sam_prep_meth_qual_type, prime.act_sam_prep_meth_desc, prime.sample_container_type, prime.sample_container_color,
-               prime.act_sam_chemical_preservative, prime.thermal_preservative_name, prime.act_sam_transport_storage_desc, <!-- prime.metric_type_identifier, prime.metric_type_context,
-               prime.metric_type_name, prime.metric_citation_title, prime.metric_citation_creator, prime.metric_citation_subject, prime.metric_citation_publisher, prime.metric_citation_date,
-               prime.metric_citation_id, prime.metric_type_scale, prime.formula_description, prime.activity_metric_value, prime.activity_metric_unit, prime.activity_metric_score,
-               prime.activity_metric_comment, prime.index_identifier,--> prime.result_id, prime.res_data_logger_line, prime.result_detection_condition_tx, prime.method_specification_name,
-               prime.sample_fraction_type, prime.result_measure_value, prime.result_unit, prime.result_meas_qual_code, prime.result_value_status, prime.statistic_type, prime.result_value_type,
-               prime.weight_basis_type, prime.duration_basis, prime.temperature_basis_level, prime.particle_size, prime.precision, prime.res_measure_bias, prime.res_measure_conf_interval,
-               prime.res_measure_upper_conf_limit, prime.res_measure_lower_conf_limit, prime.result_comment, prime.result_depth_meas_value, prime.result_depth_meas_unit_code,
-               prime.result_depth_alt_ref_pt_txt, prime.res_sampling_point_name, prime.biological_intent, prime.res_bio_individual_id, prime.sample_tissue_taxonomic_name,
-               prime.unidentifiedspeciesidentifier, prime.sample_tissue_anatomy_name, prime.res_group_summary_ct_wt, prime.res_group_summary_ct_wt_unit, prime.cell_form_name,
-               prime.cell_shape_name, prime.habit_name, prime.volt_name, prime.rtdet_pollution_tolerance, prime.rtdet_pollution_tolernce_scale, prime.rtdet_trophic_level,
-               prime.rtfgrp_functional_feeding_grp, prime.taxon_citation_title, prime.taxon_citation_creator, prime.taxon_citation_subject, prime.taxon_citation_publisher,
-               prime.taxon_citation_date, prime.taxon_citation_id, prime.fcdsc_name, prime.frequency_class_unit, prime.fcdsc_lower_bound, prime.fcdsc_upper_bound, prime.analytical_procedure_id,
-               prime.analytical_procedure_source, prime.analytical_method_name, prime.anlmth_qual_type, prime.analytical_method_citation, prime.lab_name, prime.analysis_start_date,
-               prime.analysis_start_time, prime.analysis_start_timezone, prime.analysis_end_date, prime.analysis_end_time, prime.analysis_end_timezone, prime.rlcom_cd, prime.lab_remark, prime.detection_limit,
-               prime.detection_limit_unit, prime.detection_limit_desc, prime.res_lab_accred_yn, prime.res_lab_accred_authority, prime.res_taxonomist_accred_yn, prime.res_taxonomist_accred_authorty,
-               prime.prep_method_id, prime.prep_method_context, prime.prep_method_name, prime.prep_method_qual_type, prime.prep_method_desc, prime.analysis_prep_date_tx, prime.prep_start_time,
-               prime.prep_start_timezone, prime.prep_end_date, prime.prep_end_time, prime.prep_end_timezone, prime.prep_dilution_factor
+               <include refid="base.baseColumns"/>,
+               <include refid="activity.baseColumns"/>,
+               <include refid="narrowResult.baseColumns"/>,
+               <include refid="resFreqClass.baseColumns"/>,
+               <include refid="resDetectQntLmt.baseColumns"/>,
+               <include refid="labSamplePrep.baseColumns"/>
         <if test="minactivities != null">
             , count(distinct prime.activity_id) over (partition by prime.data_source_id, prime.station_id) site_activity_count
         </if>

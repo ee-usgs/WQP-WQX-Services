@@ -196,6 +196,7 @@ public abstract class BaseWqx {
 	public static final String WQX_FUNCTIONAL_FEEDING_GROUP = "FunctionalFeedingGroupName";
 	public static final String WQX_TAXONIMC_DETAIL_CITATION = "TaxonomicDetailsCitation";
 	public static final String WQX_FREQUENCY_CLASS_INFO = "FrequencyClassInformation";
+	public static final String WQX_FREQUENCY_CLASS_INFO_URL = "FrequencyClassInformationUrl";
 	public static final String WQX_FREQUENCY_CLASS_DESCRIPTOR = "FrequencyClassDescriptorCode";
 	public static final String WQX_FREQUENCE_CLASS_DESCRIPTOR_UNIT = "FrequencyClassDescriptorUnitCode";
 	public static final String WQX_LOWER_CLASS_BOUND = "LowerClassBoundValue";
@@ -213,6 +214,7 @@ public abstract class BaseWqx {
 	public static final String WQX_LAB_COMMENT_CODE = "ResultLaboratoryCommentCode";
 	public static final String WQX_LAB_COMMENT = "ResultLaboratoryCommentText";
 	public static final String WQX_DETECTION_LIMIT = "ResultDetectionQuantitationLimit";
+	public static final String WQX_DETECTION_LIMIT_URL = "ResultDetectionQuantitationLimitUrl";
 	public static final String WQX_DETECTION_LIMIT_VALUE = "DetectionQuantitationLimitMeasure";
 	public static final String WQX_DETECTION_LIMIT_TYPE = "DetectionQuantitationLimitTypeName";
 	public static final String WQX_LAB_ACCREDITATION_INDICATOR = "LaboratoryAccreditationIndicator";
@@ -221,6 +223,7 @@ public abstract class BaseWqx {
 	public static final String WQX_TAXONOMIST_ACCREDITATION_AUTHORTY = "TaxonomistAccreditationAuthorityName";
 	
 	public static final String WQX_LAB_SAMPLE_PREP = "LabSamplePreparation";
+	public static final String WQX_LAB_SAMPLE_PREP_URL = "LabSamplePreparationUrl";
 	public static final String WQX_LAB_SAMPLE_PREP_METHOD = "LabSamplePreparationMethod";
 	public static final String WQX_PREP_START_DATE = "PreparationStartDate";
 	public static final String WQX_PREP_START_TIME = "PreparationStartTime";

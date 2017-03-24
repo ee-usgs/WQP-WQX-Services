@@ -72,7 +72,8 @@ public abstract class BaseStationStreamingTest extends BaseSpringTest {
 		assertEquals(TOTAL_SITE_COUNT, String.valueOf(handler.getResults().size()));
 	}
 
-	public void allDataSortedTest(String nameSpace, Integer expectedColumnCount, Map<String, Object> expectedMap) {
+	public void allDataSortedTest(String nameSpace, Map<String, Object> expectedMap) {
+		Integer expectedColumnCount = expectedMap.keySet().size();
 		parms.put(Parameters.SORTED.toString(), "yes");
 		streamingDao.stream(nameSpace, parms, handler);
 
@@ -87,7 +88,7 @@ public abstract class BaseStationStreamingTest extends BaseSpringTest {
 		assertRow(results.get(5), STORET_504707, expectedColumnCount);
 		assertRow(results.get(6), STORET_436723, expectedColumnCount);
 		assertRow(results.get(7), STORET_1383, expectedColumnCount);
-		assertStoret888(results.get(8), expectedColumnCount, expectedMap);
+		assertStoret888(expectedMap, results.get(8));
 		assertRow(results.get(9), STORET_777, expectedColumnCount);
 		assertRow(results.get(10), STORET_999, expectedColumnCount);
 		assertRow(results.get(11), BIODATA_61233184, expectedColumnCount);
@@ -462,11 +463,8 @@ public abstract class BaseStationStreamingTest extends BaseSpringTest {
 		}
 	}
 
-	public static void assertStoret888(Map<String, Object> row, int expectedColumnCount, Map<String, Object> expectedMap) {
-		assertEquals(expectedColumnCount, row.keySet().size());
-		for (String i : expectedMap.keySet()) {
-			assertEquals(i, expectedMap.get(i), row.get(i));
-		}
+	public void assertStoret888(Map<String, Object> expectedRow, Map<String, Object> actualRow) {
+		assertMapIsAsExpected(expectedRow, actualRow);
 	}
 
 	public void assertContainsStation(LinkedList<Map<String, Object>> results, String[]...  stations) {

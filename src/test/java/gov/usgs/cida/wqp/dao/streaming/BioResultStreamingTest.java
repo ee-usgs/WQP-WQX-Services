@@ -18,7 +18,6 @@ import gov.usgs.cida.wqp.dao.BaseDao;
 public class BioResultStreamingTest extends ResultStreamingTest {
 
 	protected String nameSpace = BaseDao.BIOLOGICAL_RESULT_NAMESPACE;
-	protected Integer expectedColumnCount = TestBioResultMap.BIO_RESULT_COLUMN_COUNT;
 	protected Map<String, Object> expectedMap = TestBioResultMap.BIO_RESULT;
 
 	@Test
@@ -33,7 +32,7 @@ public class BioResultStreamingTest extends ResultStreamingTest {
 
 	@Test
 	public void allDataSortedTest() {
-		allDataSortedTest(nameSpace, expectedColumnCount, expectedMap);
+		allDataSortedTest(nameSpace, expectedMap);
 	}
 
 	@Test

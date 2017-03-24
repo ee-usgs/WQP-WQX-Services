@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
@@ -314,4 +315,15 @@ public abstract class BaseSpringTest {
 	public String[] getWithin() {
 		return new String[]{"650"};
 	}
+
+	public void assertMapIsAsExpected(Map<String, Object> expectedRow, Map<String, Object> actualRow) {
+		//Doing both left to right and right to left to catch missing/extra on either side.
+		for (String i : expectedRow.keySet()) {
+			assertEquals(i, expectedRow.get(i), actualRow.get(i));
+		}
+		for (String i : actualRow.keySet()) {
+			assertEquals(i, actualRow.get(i), expectedRow.get(i));
+		}
+	}
+
 }

@@ -682,11 +682,8 @@ public class ActivityMetricStreamingTest extends BaseSpringTest {
 		assertEquals(STORET_1[1], row.get(ActivityMetricColumn.KEY_METRIC_TYPE_IDENTIFIER));
 	}
 
-	public static void assertStoret2(Map<String, Object> row) {
-		assertEquals(ACTIVITY_METRIC_COLUMN_COUNT, row.keySet().size());
-		for (String i : TestActivityMetricMap.ACTIVITY_METRIC.keySet()) {
-			assertEquals(i, TestActivityMetricMap.ACTIVITY_METRIC.get(i), row.get(i));
-		}
+	public void assertStoret2(Map<String, Object> row) {
+		assertMapIsAsExpected(TestActivityMetricMap.ACTIVITY_METRIC, row);
 	}
 
 	public static void assertStoret3(Map<String, Object> row) {

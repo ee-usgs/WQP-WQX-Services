@@ -744,11 +744,8 @@ public class ResDetectQntLmtStreamingTest extends BaseSpringTest {
 		assertEquals(detectionLimit, row.get(ResultColumn.KEY_DETECTION_LIMIT));
 	}
 
-	public static void assertStoret39(Map<String, Object> row) {
-		assertEquals(RES_DETECT_QNT_LMT_COLUMN_COUNT, row.keySet().size());
-		for (String i : TestResDetectQntLmtMap.RES_DETECT_QNT_LMT.keySet()) {
-			assertEquals(i, TestResDetectQntLmtMap.RES_DETECT_QNT_LMT.get(i), row.get(i));
-		}
+	public void assertStoret39(Map<String, Object> row) {
+		assertMapIsAsExpected(TestResDetectQntLmtMap.RES_DETECT_QNT_LMT, row);
 	}
 
 	public void assertContainsResDetectQntLmt(LinkedList<Map<String, Object>> results, String[]...  resDetectQntLmt) {

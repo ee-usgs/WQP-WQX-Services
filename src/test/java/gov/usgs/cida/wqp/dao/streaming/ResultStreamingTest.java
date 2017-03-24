@@ -118,11 +118,14 @@ public abstract class ResultStreamingTest extends BaseSpringTest {
 		assertEquals(TOTAL_RESULT_COUNT, String.valueOf(handler.getResults().size()));
 	}
 
-	public void allDataSortedTest(String nameSpace, Integer expectedColumnCount, Map<String, Object> expectedMap) {
+	public void allDataSortedTest(String nameSpace, Map<String, Object> expectedMap) {
+		Integer expectedColumnCount = expectedMap.keySet().size();
 		parms.put(Parameters.SORTED.toString(), "yes");
 		streamingDao.stream(nameSpace, parms, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
+		assertStoret42(expectedMap, results.get(49));
+
 		//Validate the number AND order of results.
 		assertEquals(TOTAL_RESULT_COUNT, String.valueOf(results.size()));
 		assertRow(results.get(0), STEWARDS_1, expectedColumnCount);
@@ -174,7 +177,6 @@ public abstract class ResultStreamingTest extends BaseSpringTest {
 		assertRow(results.get(46), STORET_46, expectedColumnCount);
 		assertRow(results.get(47), STORET_47, expectedColumnCount);
 		assertRow(results.get(48), STORET_41, expectedColumnCount);
-		assertStoret42(expectedMap, results.get(49), expectedColumnCount);
 		assertRow(results.get(50), STORET_43, expectedColumnCount);
 		assertRow(results.get(51), STORET_44, expectedColumnCount);
 		assertRow(results.get(52), STORET_2, expectedColumnCount);
@@ -593,12 +595,8 @@ public abstract class ResultStreamingTest extends BaseSpringTest {
 		assertEquals(result[1], row.get(ResultColumn.KEY_RESULT_ID));
 	}
 
-	public static void assertStoret42(Map<String, Object> compareRow, Map<String, Object> resultRow, int expectedColumnCount) {
-		assertEquals("Expected column count", expectedColumnCount, resultRow.keySet().size());
-		assertEquals("Map size comparison", compareRow.keySet().size(), resultRow.keySet().size());
-		for (String i : compareRow.keySet()) {
-			assertEquals(i, compareRow.get(i), resultRow.get(i));
-		}
+	public void assertStoret42(Map<String, Object> compareRow, Map<String, Object> resultRow) {
+		assertMapIsAsExpected(compareRow, resultRow);
 	}
 
 	public void assertContainsResult(LinkedList<Map<String, Object>> results, BigDecimal[]...  resultIds) {

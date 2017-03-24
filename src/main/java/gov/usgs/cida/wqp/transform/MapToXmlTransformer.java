@@ -15,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import gov.usgs.cida.wqp.mapping.ColumnProfile;
+import gov.usgs.cida.wqp.mapping.Profile;
 import gov.usgs.cida.wqp.mapping.xml.IXmlMapping;
 import gov.usgs.cida.wqp.service.ILogService;
 
@@ -28,9 +29,9 @@ public class MapToXmlTransformer extends Transformer {
 	protected Map<String, String> hardBreaks;
 
 	protected final String header;
-	protected final String profile;
+	protected final Profile profile;
 
-	public MapToXmlTransformer(OutputStream target, IXmlMapping mapping, ILogService logService, BigDecimal logId, String profile) {
+	public MapToXmlTransformer(OutputStream target, IXmlMapping mapping, ILogService logService, BigDecimal logId, Profile profile) {
 		super(target, null, logService, logId);
 		fieldMapping = mapping;
 		this.header = XmlConstants.XML_HEADER + fieldMapping.getHeader();

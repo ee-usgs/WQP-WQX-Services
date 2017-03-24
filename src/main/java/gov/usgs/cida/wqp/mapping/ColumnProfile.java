@@ -8,9 +8,9 @@ public class ColumnProfile {
 
 	private final String key;
 
-	private final Set<String> profiles;
+	private final Set<Profile> profiles;
 
-	public ColumnProfile(String key, String... profiles) {
+	public ColumnProfile(String key, Profile... profiles) {
 		this.key = key;
 		this.profiles = new HashSet<>(Arrays.asList(profiles));
 	}
@@ -19,7 +19,7 @@ public class ColumnProfile {
 		return key;
 	}
 
-	public Set<String> getProfiles() {
+	public Set<Profile> getProfiles() {
 		return profiles;
 	}
 

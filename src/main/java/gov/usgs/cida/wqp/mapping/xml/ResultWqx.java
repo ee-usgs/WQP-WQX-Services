@@ -354,6 +354,13 @@ public class ResultWqx extends BaseWqx implements IXmlMapping {
 						WQX_TAXONOMIC_DETAILS,
 						WQX_TAXONIMC_DETAIL_CITATION,
 						WQX_RESOURCE_ID)));
+		COLUMN_POSITION.put(KEY_FCDSC_URL,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_BIOLOGICAL_RESULT,
+						WQX_FREQUENCY_CLASS_INFO,
+						WQX_FREQUENCY_CLASS_INFO_URL)));
 		COLUMN_POSITION.put(KEY_FCDSC_NAME,
 				new LinkedList<String>(Arrays.asList(
 						WQX_ACTIVITY,
@@ -478,6 +485,13 @@ public class ResultWqx extends BaseWqx implements IXmlMapping {
 						WQX_RESULT,
 						WQX_LAB_INFO,
 						WQX_LAB_COMMENT)));
+		COLUMN_POSITION.put(KEY_RES_DETECT_QNT_LMT_URL,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_LAB_INFO,
+						WQX_DETECTION_LIMIT,
+						WQX_DETECTION_LIMIT_URL)));
 		COLUMN_POSITION.put(KEY_DETECTION_LIMIT,
 				new LinkedList<String>(Arrays.asList(
 						WQX_ACTIVITY,
@@ -527,6 +541,12 @@ public class ResultWqx extends BaseWqx implements IXmlMapping {
 						WQX_LAB_INFO,
 						WQX_TAXONOMIST_ACCREDITATION_AUTHORTY)));
 
+		COLUMN_POSITION.put(KEY_PREP_METHOD_URL,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_LAB_SAMPLE_PREP,
+						WQX_LAB_SAMPLE_PREP_URL)));
 		COLUMN_POSITION.put(KEY_PREP_METHOD_ID,
 				new LinkedList<String>(Arrays.asList(
 						WQX_ACTIVITY,
