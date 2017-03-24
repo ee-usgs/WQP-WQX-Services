@@ -1,4 +1,4 @@
-package gov.usgs.cida.wqp.dao.streaming;
+package gov.usgs.cida.wqp.mapping;
 
 import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_ANALYSIS_END_DATE;
 import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_ANALYSIS_END_TIME;

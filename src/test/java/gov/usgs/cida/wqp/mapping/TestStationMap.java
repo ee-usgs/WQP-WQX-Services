@@ -1,4 +1,4 @@
-package gov.usgs.cida.wqp.dao.streaming;
+package gov.usgs.cida.wqp.mapping;
 
 import java.math.BigDecimal;
 import java.util.LinkedHashMap;

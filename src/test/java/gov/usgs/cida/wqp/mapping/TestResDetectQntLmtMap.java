@@ -1,4 +1,4 @@
-package gov.usgs.cida.wqp.dao.streaming;
+package gov.usgs.cida.wqp.mapping;
 
 import static gov.usgs.cida.wqp.mapping.ActivityColumn.KEY_ACTIVITY;
 import static gov.usgs.cida.wqp.mapping.BaseColumn.KEY_DATA_SOURCE;

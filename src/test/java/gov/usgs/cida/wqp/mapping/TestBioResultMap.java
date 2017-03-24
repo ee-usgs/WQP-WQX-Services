@@ -1,4 +1,4 @@
-package gov.usgs.cida.wqp.dao.streaming;
+package gov.usgs.cida.wqp.mapping;
 
 import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_ANALYSIS_PREP_DATE_TX;
 import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_DETECTION_LIMIT;
