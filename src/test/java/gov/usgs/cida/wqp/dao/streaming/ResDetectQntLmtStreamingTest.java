@@ -21,7 +21,7 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 import gov.usgs.cida.wqp.BaseSpringTest;
 import gov.usgs.cida.wqp.CsvDataSetLoader;
 import gov.usgs.cida.wqp.DBIntegrationTest;
-import gov.usgs.cida.wqp.dao.BaseDao;
+import gov.usgs.cida.wqp.dao.NameSpace;
 import gov.usgs.cida.wqp.dao.intfc.IStreamingDao;
 import gov.usgs.cida.wqp.mapping.BaseColumn;
 import gov.usgs.cida.wqp.mapping.ResultColumn;
@@ -40,7 +40,7 @@ public class ResDetectQntLmtStreamingTest extends BaseSpringTest {
 
 	TestResultHandler handler;
 	Map<String, Object> parms;
-	String nameSpace = BaseDao.RES_DETECT_QNT_LMT_NAMESPACE;
+	NameSpace nameSpace = NameSpace.RES_DETECT_QNT_LMT;
 
 	public static final String[] STEWARDS_1 = new String[]{STEWARDS, "1"};
 	public static final String[] STEWARDS_2 = new String[]{STEWARDS, "2"};

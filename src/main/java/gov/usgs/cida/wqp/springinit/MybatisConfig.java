@@ -12,12 +12,12 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 import gov.usgs.cida.wqp.dao.WqpArrayTypeHandler;
-import gov.usgs.cida.wqp.util.MybatisConstants;
 
 public class MybatisConfig {
 
 	@Autowired
 	DataSource dataSource;
+	public static final String MYBATIS_MAPPERS = "mybatis/*.xml";
 
 	@Bean
 	public org.apache.ibatis.session.Configuration mybatisConfig() {
@@ -38,7 +38,7 @@ public class MybatisConfig {
 		SqlSessionFactoryBean sqlSessionFactory = new SqlSessionFactoryBean();
 		sqlSessionFactory.setConfiguration(mybatisConfig());
 		sqlSessionFactory.setDataSource(dataSource);
-		Resource[] mappers = new PathMatchingResourcePatternResolver().getResources(MybatisConstants.MYBATIS_MAPPERS);
+		Resource[] mappers = new PathMatchingResourcePatternResolver().getResources(MybatisConfig.MYBATIS_MAPPERS);
 		sqlSessionFactory.setMapperLocations(mappers);
 		return sqlSessionFactory;
 	}

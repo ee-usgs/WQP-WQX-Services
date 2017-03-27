@@ -11,6 +11,7 @@ import gov.usgs.cida.wqp.mapping.BaseColumn;
 import gov.usgs.cida.wqp.mapping.Profile;
 import gov.usgs.cida.wqp.mapping.ResultColumn;
 import gov.usgs.cida.wqp.mapping.StationColumn;
+import gov.usgs.cida.wqp.mapping.TestBaseDelimited;
 
 public class BaseDelimitedTest {
 

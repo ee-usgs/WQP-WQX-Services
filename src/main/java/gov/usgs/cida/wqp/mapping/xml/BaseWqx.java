@@ -8,10 +8,10 @@ public abstract class BaseWqx {
 
 	public static final String WQX_MEASURE_VALUE = "MeasureValue";
 	public static final String WQX_MEASURE_UNIT = "MeasureUnitCode";
-	
+
 	public static final String WQX_TIME = "Time";
 	public static final String WQX_TIME_ZONE = "TimeZoneCode";
-	
+
 	public static final String WQX_METHOD_ID = "MethodIdentifier";
 	public static final String WQX_METHOD_CONTEXT = "MethodIdentifierContext";
 	public static final String WQX_METHOD_NAME = "MethodName";
@@ -41,16 +41,16 @@ public abstract class BaseWqx {
 	public static final String WQX_MONITORING_LOCATION_DESCRIPTION = "MonitoringLocationDescriptionText";
 	public static final String WQX_HUC_8 = "HUCEightDigitCode";
 	public static final String WQX_HUC_12 = "HUCTwelveDigitCode";
-	
+
 	public static final String WQX_CONTRIB_DRAIN_AREA = "ContributingDrainageAreaMeasure";
 	public static final String WQX_DRAIN_AREA = "DrainageAreaMeasure";
-	
+
 	public static final String WQX_RESOLVED_MONITORING_LOCATION = "ResolvedMonitoringLocationTypeName";
 	public static final String WQX_MONITORING_LOCATION_GEOSPATIAL = "MonitoringLocationGeospatial";
 	public static final String WQX_LATITUDE_MEASURE = "LatitudeMeasure";
 	public static final String WQX_LONGITUDE_MEASURE = "LongitudeMeasure";
 	public static final String WQX_SOURCE_MAP_SCALE = "SourceMapScaleNumeric";
-	
+
 	public static final String WQX_HORIZONTAL_ACCY = "HorizontalAccuracyMeasure";
 
 	public static final String WQX_HORIZONTAL_COLLECTION_METHOD = "HorizontalCollectionMethodName";
@@ -68,15 +68,15 @@ public abstract class BaseWqx {
 	public static final String WQX_NAT_AQFR_NAME = "AquiferName";
 	public static final String WQX_AQFR_NAME = "FormationTypeText";
 	public static final String WQX_AQFR_TYPE_NAME = "AquiferTypeName";
-	
+
 	public static final String WQX_WELL_INFO = "WellInformation";
 	public static final String WQX_CONSTRUCTION_DATE = "ConstructionDateText";
 	public static final String WQX_WELL_DEPTH = "WellDepthMeasure";
 	public static final String WQX_HOLE_DEPTH = "WellHoleDepthMeasure";
 
-	
+
 	public static final String WQX_ACTIVITY = "Activity";
-	
+
 	public static final String WQX_ACT_DESCRIPTION = "ActivityDescription";
 	public static final String WQX_ACT_ID = "ActivityIdentifier";
 	public static final String WQX_ACT_TYPE = "ActivityTypeCode";
@@ -97,9 +97,9 @@ public abstract class BaseWqx {
 	public static final String WQX_SAMPLE_AQUIFER = "SampleAquifer";
 	public static final String WQX_HYDROLOGIC_CONDITION = "HydrologicCondition";
 	public static final String WQX_HYDROLOGIC_EVENT = "HydrologicEvent";
-	
+
 	public static final String WQX_ACT_LOCATION = "ActivityLocation";
-	
+
 	public static final String WQX_BIO_ACT_DESCRIPTION = "BiologicalActivityDescription";
 	public static final String WQX_ASSEMBLAGE_SAMPLED = "AssemblageSampledName";
 	public static final String WQX_BIO_HABITAT_COLLECTION_INFO = "BiologicalHabitatCollectionInformation";
@@ -128,7 +128,7 @@ public abstract class BaseWqx {
 	public static final String WQX_CHEMICAL_PRESERVATIVE = "ChemicalPreservativeUsedName";
 	public static final String WQX_THERMAL_PRESERVATIVE = "ThermalPreservativeUsedName";
 	public static final String WQX_TRANSPORT_STORAGE = "SampleTransportStorageDescription";
-	
+
 	public static final String WQX_ACTIVITY_METRIC = "ActivityMetric";
 	public static final String WQX_ACTIVITY_METRIC_TYPE = "ActivityMetricType";
 	public static final String WQX_ACTIVITY_METRIC_URL = "ActivityMetricURL";
@@ -176,7 +176,7 @@ public abstract class BaseWqx {
 	public static final String WQX_RESULT_DEPTH = "ResultDepthHeightMeasure";
 	public static final String WQX_RESULT_DETH_REFERENCE = "ResultDepthAltitudeReferencePointText";
 	public static final String WQX_RESULT_SAMPLING_POINT = "ResultSamplingPointName";
-	
+
 	public static final String WQX_BIOLOGICAL_RESULT = "BiologicalResultDescription";
 	public static final String WQX_BIOLOGICAL_INTENT = "BiologicalIntentName";
 	public static final String WQX_BIOLOGICAL_INDIVIDUAL_ID = "BiologicalIndividualIdentifier";
@@ -202,7 +202,7 @@ public abstract class BaseWqx {
 	public static final String WQX_LOWER_CLASS_BOUND = "LowerClassBoundValue";
 	public static final String WQX_UPPER_CLASS_BOUND = "UpperClassBoundValue";
 	public static final String WQX_ATTACHED_BINARY_OBJECT = "AttachedBinaryObject";
-	
+	public static final String WQX_METHOD_URL = "MethodUrl";
 	public static final String WQX_ANALYTICAL_METHOD = "ResultAnalyticalMethod";
 
 	public static final String WQX_LAB_INFO = "ResultLabInformation";
@@ -221,7 +221,7 @@ public abstract class BaseWqx {
 	public static final String WQX_LAB_ACCREDITATION_AUTHORITY = "LaboratoryAccreditationAuthorityName";
 	public static final String WQX_TAXONOMIST_ACCREDITATION_INDICATOR = "TaxonomistAccreditationIndicator";
 	public static final String WQX_TAXONOMIST_ACCREDITATION_AUTHORTY = "TaxonomistAccreditationAuthorityName";
-	
+
 	public static final String WQX_LAB_SAMPLE_PREP = "LabSamplePreparation";
 	public static final String WQX_LAB_SAMPLE_PREP_URL = "LabSamplePreparationUrl";
 	public static final String WQX_LAB_SAMPLE_PREP_METHOD = "LabSamplePreparationMethod";

@@ -17,6 +17,7 @@ public abstract class BaseDao extends SqlSessionDaoSupport {
 	public static final String ACTIVITY_NAMESPACE = "activity";
 	public static final String ACTIVITY_METRIC_NAMESPACE = "activityMetric";
 	public static final String RES_DETECT_QNT_LMT_NAMESPACE = "resDetectQntLmt";
+	public static final String NARROW_RESULT_NAMESPACE = "narrowResult";
 
 	public BaseDao(SqlSessionFactory sqlSessionFactory) {
 		LOG.trace(getClass().getName());

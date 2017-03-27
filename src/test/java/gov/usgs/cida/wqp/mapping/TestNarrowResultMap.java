@@ -157,7 +157,7 @@ public class TestNarrowResultMap {
 		NARROW.putAll(BASE_NARROW);
 		NARROW.put(KEY_ANALYTICAL_METHOD, "analyticalMethod");
 		NARROW.put(KEY_FCDSC_URL, null);
-		NARROW.put(KEY_RES_DETECT_QNT_LMT_URL, "/activities/activity/results/42/resdetectqntlmts");
+		NARROW.put(KEY_RES_DETECT_QNT_LMT_URL, "/activities/activity/results/STORET-42/resdetectqntlmts");
 		NARROW.put(KEY_PREP_METHOD_URL, null);
 	}
 	private TestNarrowResultMap() {

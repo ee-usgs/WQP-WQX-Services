@@ -20,10 +20,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import gov.usgs.cida.wqp.dao.BaseDao;
+import gov.usgs.cida.wqp.dao.NameSpace;
 import gov.usgs.cida.wqp.dao.StreamingResultHandler;
 import gov.usgs.cida.wqp.dao.intfc.ICountDao;
 import gov.usgs.cida.wqp.dao.intfc.IStreamingDao;
+import gov.usgs.cida.wqp.mapping.BaseColumn;
+import gov.usgs.cida.wqp.mapping.CountColumn;
 import gov.usgs.cida.wqp.mapping.Profile;
 import gov.usgs.cida.wqp.mapping.xml.IXmlMapping;
 import gov.usgs.cida.wqp.parameter.IParameterHandler;
@@ -38,7 +40,6 @@ import gov.usgs.cida.wqp.transform.MapToXmlTransformer;
 import gov.usgs.cida.wqp.transform.Transformer;
 import gov.usgs.cida.wqp.util.HttpConstants;
 import gov.usgs.cida.wqp.util.MimeType;
-import gov.usgs.cida.wqp.util.MybatisConstants;
 
 public abstract class BaseController {
 	private static final Logger LOG = LoggerFactory.getLogger(BaseController.class);
@@ -55,7 +56,7 @@ public abstract class BaseController {
 	private static ThreadLocal<Boolean> zipped = new ThreadLocal<>();
 	private static ThreadLocal<BigDecimal> logId = new ThreadLocal<>();
 	private static ThreadLocal<Map<String, String>> counts = new ThreadLocal<>();
-	private static ThreadLocal<String> mybatisNamespace = new ThreadLocal<>();
+	private static ThreadLocal<NameSpace> mybatisNamespace = new ThreadLocal<>();
 	private static ThreadLocal<Profile> profile = new ThreadLocal<>();
 
 	public BaseController(IStreamingDao inStreamingDao, ICountDao inCountDao,
@@ -111,11 +112,11 @@ public abstract class BaseController {
 		counts.set(inCounts);
 	}
 
-	public static String getMybatisNamespace() {
+	public static NameSpace getMybatisNamespace() {
 		return mybatisNamespace.get();
 	}
 
-	public static void setMybatisNamespace(String inMybatisNamespace) {
+	public static void setMybatisNamespace(NameSpace inMybatisNamespace) {
 		mybatisNamespace.set(inMybatisNamespace);
 	}
 
@@ -187,19 +188,8 @@ public abstract class BaseController {
 		}
 	}
 
-	protected String determineBaseFileName() {
-		switch (getProfile()) {
-		case BIOLOGICAL:
-			return "biologicalresult";
-		case PC_RESULT:
-			return "result";
-		default:
-			return getProfile().toString().toLowerCase();
-		}
-	}
-
 	protected String getAttachementFileName() {
-		StringBuilder ret = new StringBuilder(determineBaseFileName());
+		StringBuilder ret = new StringBuilder(getProfile().getBaseFileName());
 		ret.append(".");
 		if (getZipped()) {
 			switch (getMimeType()) {
@@ -461,47 +451,48 @@ public abstract class BaseController {
 
 	protected String determineZipEntryName() {
 		if (MimeType.kml.equals(getMimeType()) || MimeType.kmz.equals(getMimeType())) {
-			return determineBaseFileName() + "." + MimeType.kml;
+			return getProfile().getBaseFileName() + "." + MimeType.kml;
 		} else {
-			return determineBaseFileName().toLowerCase() + "." + getMimeType();
+			return getProfile().getBaseFileName() + "." + getMimeType();
 		}
 	}
 
-	protected String determineNamespace() {
+	protected NameSpace determineNamespace() {
 		switch (getMimeType()) {
 		case kml:
 		case kmz:
-			return BaseDao.STATION_KML_NAMESPACE;
+			return NameSpace.STATION_KML;
 		case geojson:
-			return BaseDao.SIMPLE_STATION_NAMESPACE;
+			return NameSpace.SIMPLE_STATION;
 		default:
 			return determineNamespaceFromProfile(getProfile());
 		}
 	}
 
-	protected String determineNamespaceFromProfile(Profile profile) {
+	protected NameSpace determineNamespaceFromProfile(Profile profile) {
 		if (null == profile) {
-			return "";
+			return null;
 		} else {
 			switch (profile) {
-				case NARROW:
 				case BIOLOGICAL:
-					return BaseDao.BIOLOGICAL_RESULT_NAMESPACE;
+					return NameSpace.BIOLOGICAL_RESULT;
 				case PC_RESULT:
-					return BaseDao.RESULT_NAMESPACE;
+					return NameSpace.RESULT;
+				case NARROW_RESULT:
+					return NameSpace.NARROW_RESULT;
 				case STATION:
-					return BaseDao.STATION_NAMESPACE;
+					return NameSpace.STATION;
 				case SIMPLE_STATION:
-					return BaseDao.SIMPLE_STATION_NAMESPACE;
+					return NameSpace.SIMPLE_STATION;
 				case ACTIVITY:
-					return BaseDao.ACTIVITY_NAMESPACE;
+					return NameSpace.ACTIVITY;
 				case ACTIVITY_METRIC:
-					return BaseDao.ACTIVITY_METRIC_NAMESPACE;
+					return NameSpace.ACTIVITY_METRIC;
 				case RES_DETECT_QNT_LMT:
-					return BaseDao.RES_DETECT_QNT_LMT_NAMESPACE;
+					return NameSpace.RES_DETECT_QNT_LMT;
 				default:
 					//Should never get here...
-					return "";
+					return null;
 			}
 		}
 	}
@@ -577,7 +568,7 @@ public abstract class BaseController {
 		if (null == count) {
 			return HttpConstants.HEADER_TOTAL + HttpConstants.HEADER_DELIMITER + mySuffix;
 		} else {
-			Object provider = count.get(MybatisConstants.DATA_SOURCE);
+			Object provider = count.get(BaseColumn.KEY_DATA_SOURCE);
 
 			if (provider==null) {
 				provider = HttpConstants.HEADER_TOTAL + HttpConstants.HEADER_DELIMITER + mySuffix;
@@ -621,23 +612,23 @@ public abstract class BaseController {
 	}
 
 	public void addSiteHeaders(HttpServletResponse response, List<Map<String, Object>> counts) {
-		addCountHeaders(response, counts, HttpConstants.HEADER_TOTAL_SITE_COUNT, HttpConstants.HEADER_SITE_COUNT, MybatisConstants.STATION_COUNT);
+		addCountHeaders(response, counts, HttpConstants.HEADER_TOTAL_SITE_COUNT, HttpConstants.HEADER_SITE_COUNT, CountColumn.KEY_STATION_COUNT);
 	}
 
 	public void addActivityHeaders(HttpServletResponse response, List<Map<String, Object>> counts) {
-		addCountHeaders(response, counts, HttpConstants.HEADER_TOTAL_ACTIVITY_COUNT, HttpConstants.HEADER_ACTIVITY_COUNT, MybatisConstants.ACTIVITY_COUNT);
+		addCountHeaders(response, counts, HttpConstants.HEADER_TOTAL_ACTIVITY_COUNT, HttpConstants.HEADER_ACTIVITY_COUNT, CountColumn.KEY_ACTIVITY_COUNT);
 	}
 
 	public void addActivityMetricHeaders(HttpServletResponse response, List<Map<String, Object>> counts) {
-		addCountHeaders(response, counts, HttpConstants.HEADER_TOTAL_ACTIVITY_METRIC_COUNT, HttpConstants.HEADER_ACTIVITY_METRIC_COUNT, MybatisConstants.ACTIVITY_METRIC_COUNT);
+		addCountHeaders(response, counts, HttpConstants.HEADER_TOTAL_ACTIVITY_METRIC_COUNT, HttpConstants.HEADER_ACTIVITY_METRIC_COUNT, CountColumn.KEY_ACTIVITY_METRIC_COUNT);
 	}
 
 	public void addResultHeaders(HttpServletResponse response, List<Map<String, Object>> counts) {
-		addCountHeaders(response, counts, HttpConstants.HEADER_TOTAL_RESULT_COUNT, HttpConstants.HEADER_RESULT_COUNT, MybatisConstants.RESULT_COUNT);
+		addCountHeaders(response, counts, HttpConstants.HEADER_TOTAL_RESULT_COUNT, HttpConstants.HEADER_RESULT_COUNT, CountColumn.KEY_RESULT_COUNT);
 	}
 
 	public void addResDetectQntLmtHeaders(HttpServletResponse response, List<Map<String, Object>> counts) {
-		addCountHeaders(response, counts, HttpConstants.HEADER_TOTAL_RES_DETECT_QNT_LMT_COUNT, HttpConstants.HEADER_RES_DETECT_QNT_LMT_COUNT, MybatisConstants.RES_DETECT_QNT_LMT_COUNT);
+		addCountHeaders(response, counts, HttpConstants.HEADER_TOTAL_RES_DETECT_QNT_LMT_COUNT, HttpConstants.HEADER_RES_DETECT_QNT_LMT_COUNT, CountColumn.KEY_RES_DETECT_QNT_LMT_COUNT);
 	}
 
 }

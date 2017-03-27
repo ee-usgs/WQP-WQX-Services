@@ -11,16 +11,16 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 
 import gov.usgs.cida.wqp.CsvDataSetLoader;
 import gov.usgs.cida.wqp.DBIntegrationTest;
-import gov.usgs.cida.wqp.dao.BaseDao;
+import gov.usgs.cida.wqp.dao.NameSpace;
+import gov.usgs.cida.wqp.mapping.CountColumn;
 import gov.usgs.cida.wqp.parameter.Parameters;
-import gov.usgs.cida.wqp.util.MybatisConstants;
 
 @Category(DBIntegrationTest.class)
 @DatabaseSetup("classpath:/testData/csv/")
 @DbUnitConfiguration(dataSetLoader = CsvDataSetLoader.class)
 public class CountDaoResDetectQntLmtTest extends BaseCountDaoTest {
 
-	protected String nameSpace = BaseDao.RES_DETECT_QNT_LMT_NAMESPACE;
+	protected NameSpace nameSpace = NameSpace.RES_DETECT_QNT_LMT;
 	protected boolean includeActivity = true;
 	protected boolean includeResults = true;
 
@@ -246,7 +246,7 @@ public class CountDaoResDetectQntLmtTest extends BaseCountDaoTest {
 
 	private void assertResDetectQntLmtResults(List<Map<String, Object>> counts, int size,
 			String total, String nwis, String stewards, String storet, String biodata) {
-		assertResults(counts, MybatisConstants.RES_DETECT_QNT_LMT_COUNT, size, total, nwis, stewards, storet, biodata);
+		assertResults(counts, CountColumn.KEY_RES_DETECT_QNT_LMT_COUNT, size, total, nwis, stewards, storet, biodata);
 	}
 
 }

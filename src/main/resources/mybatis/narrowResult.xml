@@ -28,7 +28,11 @@
                <include refid="narrowResult.baseColumns"/>,
                prime.analytical_method,
                null fcdsc_url,
-               null res_detect_qnt_lmt_url,
+               case when detection_limit is not null or detection_limit_unit is not null or detection_limit_desc is not null
+                 then #{siteUrlBase,jdbcType=VARCHAR} || '/activities/' || wqp_core.pkg_dynamic_list.url_escape(prime.activity, 'true') ||
+                      '/results/' || wqp_core.pkg_dynamic_list.url_escape(prime.data_source || '-' || prime.result_id, 'true') || '/resdetectqntlmts'
+                 else null
+               end res_detect_qnt_lmt_url,
                null prep_method_url
         <if test="minactivities != null">
             , count(distinct prime.activity_id) over (partition by prime.data_source_id, prime.station_id) site_activity_count

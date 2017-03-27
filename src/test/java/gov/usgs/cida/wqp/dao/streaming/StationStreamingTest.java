@@ -10,7 +10,7 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 
 import gov.usgs.cida.wqp.CsvDataSetLoader;
 import gov.usgs.cida.wqp.DBIntegrationTest;
-import gov.usgs.cida.wqp.dao.BaseDao;
+import gov.usgs.cida.wqp.dao.NameSpace;
 import gov.usgs.cida.wqp.mapping.TestStationMap;
 
 @Category(DBIntegrationTest.class)
@@ -18,7 +18,7 @@ import gov.usgs.cida.wqp.mapping.TestStationMap;
 @DbUnitConfiguration(dataSetLoader = CsvDataSetLoader.class)
 public class StationStreamingTest extends BaseStationStreamingTest {
 
-	protected String nameSpace = BaseDao.STATION_NAMESPACE;
+	protected NameSpace nameSpace = NameSpace.STATION;
 	protected Map<String, Object> expectedMap = TestStationMap.STATION;
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

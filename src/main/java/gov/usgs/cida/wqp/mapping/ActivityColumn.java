@@ -79,13 +79,13 @@ public class ActivityColumn extends BaseColumn {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	//Profile Mapping of the Keys
-	public static final ColumnProfile ACTIVITY = new ColumnProfile(KEY_ACTIVITY, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY, Profile.ACTIVITY_METRIC, Profile.RES_DETECT_QNT_LMT, Profile.NARROW);
+	public static final ColumnProfile ACTIVITY = new ColumnProfile(KEY_ACTIVITY, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY, Profile.ACTIVITY_METRIC, Profile.RES_DETECT_QNT_LMT, Profile.NARROW_RESULT);
 	public static final ColumnProfile ACTIVITY_TYPE_CODE = new ColumnProfile(KEY_ACTIVITY_TYPE_CODE, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY);
 	public static final ColumnProfile SAMPLE_MEDIA = new ColumnProfile(KEY_SAMPLE_MEDIA, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY);
 	public static final ColumnProfile ACTIVITY_MEDIA_SUBDIV_NAME = new ColumnProfile(KEY_ACTIVITY_MEDIA_SUBDIV_NAME, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY);
-	public static final ColumnProfile EVENT_DATE = new ColumnProfile(KEY_EVENT_DATE, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY, Profile.NARROW);
-	public static final ColumnProfile ACTIVITY_START_TIME = new ColumnProfile(KEY_ACTIVITY_START_TIME, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY, Profile.NARROW);
-	public static final ColumnProfile ACT_START_TIME_ZONE = new ColumnProfile(KEY_ACT_START_TIME_ZONE, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY, Profile.NARROW);
+	public static final ColumnProfile EVENT_DATE = new ColumnProfile(KEY_EVENT_DATE, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY, Profile.NARROW_RESULT);
+	public static final ColumnProfile ACTIVITY_START_TIME = new ColumnProfile(KEY_ACTIVITY_START_TIME, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY, Profile.NARROW_RESULT);
+	public static final ColumnProfile ACT_START_TIME_ZONE = new ColumnProfile(KEY_ACT_START_TIME_ZONE, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY, Profile.NARROW_RESULT);
 	public static final ColumnProfile ACTIVITY_STOP_DATE = new ColumnProfile(KEY_ACTIVITY_STOP_DATE, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY);
 	public static final ColumnProfile ACTIVITY_STOP_TIME = new ColumnProfile(KEY_ACTIVITY_STOP_TIME, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY);
 	public static final ColumnProfile ACT_STOP_TIME_ZONE = new ColumnProfile(KEY_ACT_STOP_TIME_ZONE, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY);
@@ -106,10 +106,10 @@ public class ActivityColumn extends BaseColumn {
 	public static final ColumnProfile ACTIVITY_LATITUDE = new ColumnProfile(KEY_ACTIVITY_LATITUDE, Profile.BIOLOGICAL, Profile.ACTIVITY);
 	public static final ColumnProfile ACTIVITY_LONGITUDE = new ColumnProfile(KEY_ACTIVITY_LONGITUDE, Profile.BIOLOGICAL, Profile.ACTIVITY);
 	public static final ColumnProfile ACTIVITY_SOURCE_MAP_SCALE = new ColumnProfile(KEY_ACTIVITY_SOURCE_MAP_SCALE, Profile.BIOLOGICAL, Profile.ACTIVITY);
-	public static final ColumnProfile ACT_HORIZONTAL_ACCURACY = new ColumnProfile(KEY_ACT_HORIZONTAL_ACCURACY, Profile.BIOLOGICAL, Profile.ACTIVITY, Profile.NARROW);
-	public static final ColumnProfile ACT_HORIZONTAL_ACCURACY_UNIT = new ColumnProfile(KEY_ACT_HORIZONTAL_ACCURACY_UNIT, Profile.BIOLOGICAL, Profile.ACTIVITY, Profile.NARROW);
-	public static final ColumnProfile ACT_HORIZONTAL_COLLECT_METHOD = new ColumnProfile(KEY_ACT_HORIZONTAL_COLLECT_METHOD, Profile.BIOLOGICAL, Profile.ACTIVITY, Profile.NARROW);
-	public static final ColumnProfile ACT_HORIZONTAL_DATUM_NAME = new ColumnProfile(KEY_ACT_HORIZONTAL_DATUM_NAME, Profile.BIOLOGICAL, Profile.ACTIVITY, Profile.NARROW);
+	public static final ColumnProfile ACT_HORIZONTAL_ACCURACY = new ColumnProfile(KEY_ACT_HORIZONTAL_ACCURACY, Profile.BIOLOGICAL, Profile.ACTIVITY);
+	public static final ColumnProfile ACT_HORIZONTAL_ACCURACY_UNIT = new ColumnProfile(KEY_ACT_HORIZONTAL_ACCURACY_UNIT, Profile.BIOLOGICAL, Profile.ACTIVITY);
+	public static final ColumnProfile ACT_HORIZONTAL_COLLECT_METHOD = new ColumnProfile(KEY_ACT_HORIZONTAL_COLLECT_METHOD, Profile.BIOLOGICAL, Profile.ACTIVITY);
+	public static final ColumnProfile ACT_HORIZONTAL_DATUM_NAME = new ColumnProfile(KEY_ACT_HORIZONTAL_DATUM_NAME, Profile.BIOLOGICAL, Profile.ACTIVITY);
 	public static final ColumnProfile ASSEMBLAGE_SAMPLED_NAME = new ColumnProfile(KEY_ASSEMBLAGE_SAMPLED_NAME, Profile.BIOLOGICAL, Profile.ACTIVITY);
 	public static final ColumnProfile ACT_COLLECTION_DURATION = new ColumnProfile(KEY_ACT_COLLECTION_DURATION, Profile.BIOLOGICAL, Profile.ACTIVITY);
 	public static final ColumnProfile ACT_COLLECTION_DURATION_UNIT = new ColumnProfile(KEY_ACT_COLLECTION_DURATION_UNIT, Profile.BIOLOGICAL, Profile.ACTIVITY);

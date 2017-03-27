@@ -14,6 +14,7 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 
 import gov.usgs.cida.wqp.CsvDataSetLoader;
 import gov.usgs.cida.wqp.DBIntegrationTest;
+import gov.usgs.cida.wqp.mapping.Profile;
 import gov.usgs.cida.wqp.util.HttpConstants;
 import gov.usgs.cida.wqp.webservice.BaseControllerIntegrationTest;
 
@@ -24,52 +25,53 @@ import gov.usgs.cida.wqp.webservice.BaseControllerIntegrationTest;
 @DirtiesContext(classMode=ClassMode.AFTER_CLASS)
 public class ResultControllerIntTest extends BaseControllerIntegrationTest {
 
-	protected String endpoint = HttpConstants.RESULT_SEARCH_ENPOINT + "?mimeType=";
-	public static String NAME = "result";
+	protected static final Profile PROFILE = Profile.PC_RESULT;
+	protected static final boolean POSTABLE = true;
+	protected static final String ENDPOINT = HttpConstants.RESULT_SEARCH_ENPOINT + "?mimeType=";
 
 	@Test
 	public void getAsCsvTest() throws Exception {
-		getAsDelimitedTest(endpoint + CSV, HttpConstants.MIME_TYPE_CSV, CSV, NAME, true);
+		getAsDelimitedTest(ENDPOINT + CSV, HttpConstants.MIME_TYPE_CSV, CSV, PROFILE, POSTABLE);
 	}
 
 	@Test
 	public void getAsCsvZipTest() throws Exception {
-		getAsDelimitedZipTest(endpoint + CSV_AND_ZIP, HttpConstants.MIME_TYPE_ZIP, CSV, NAME, true);
+		getAsDelimitedZipTest(ENDPOINT + CSV_AND_ZIP, HttpConstants.MIME_TYPE_ZIP, CSV, PROFILE, POSTABLE);
 	}
 
 	@Test
 	public void getAsTsvTest() throws Exception {
-		getAsDelimitedTest(endpoint + TSV, HttpConstants.MIME_TYPE_TSV, TSV, NAME, true);
+		getAsDelimitedTest(ENDPOINT + TSV, HttpConstants.MIME_TYPE_TSV, TSV, PROFILE, POSTABLE);
 	}
 
 	@Test
 	public void getAsTsvZipTest() throws Exception {
-		getAsDelimitedZipTest(endpoint + TSV_AND_ZIP, HttpConstants.MIME_TYPE_ZIP, TSV, NAME, true);
+		getAsDelimitedZipTest(ENDPOINT + TSV_AND_ZIP, HttpConstants.MIME_TYPE_ZIP, TSV, PROFILE, POSTABLE);
 	}
 
 	@Test
 	public void getAsXlsxTest() throws Exception {
-		getAsXlsxTest(endpoint + XLSX, HttpConstants.MIME_TYPE_XLSX, XLSX, NAME, true);
+		getAsXlsxTest(ENDPOINT + XLSX, HttpConstants.MIME_TYPE_XLSX, XLSX, PROFILE, POSTABLE);
 	}
 
 	@Test
 	public void getAsXlsxZipTest() throws Exception {
-		getAsXlsxZipTest(endpoint + XLSX_AND_ZIP, HttpConstants.MIME_TYPE_ZIP, XLSX, NAME, true);
+		getAsXlsxZipTest(ENDPOINT + XLSX_AND_ZIP, HttpConstants.MIME_TYPE_ZIP, XLSX, PROFILE, POSTABLE);
 	}
 
 	@Test
 	public void getAsXmlTest() throws Exception {
-		getAsXmlTest(endpoint + XML, HttpConstants.MIME_TYPE_XML, XML, NAME, true);
+		getAsXmlTest(ENDPOINT + XML, HttpConstants.MIME_TYPE_XML, XML, PROFILE, POSTABLE);
 	}
 
 	@Test
 	public void getAsXmlZipGetTest() throws Exception {
-		getAsXmlZipTest(endpoint + XML_AND_ZIP, HttpConstants.MIME_TYPE_ZIP, XML, NAME, true);
+		getAsXmlZipTest(ENDPOINT + XML_AND_ZIP, HttpConstants.MIME_TYPE_ZIP, XML, PROFILE, POSTABLE);
 	}
 
 	@Test
 	public void getAllParametersTest() throws Exception {
-		getAllParametersTest(endpoint + CSV, HttpConstants.MIME_TYPE_CSV, CSV, NAME, true);
+		getAllParametersTest(ENDPOINT + CSV, HttpConstants.MIME_TYPE_CSV, CSV, PROFILE, POSTABLE);
 	}
 
 	@Test

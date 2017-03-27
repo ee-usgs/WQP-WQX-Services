@@ -1,4 +1,4 @@
-package gov.usgs.cida.wqp.mapping.delimited;
+package gov.usgs.cida.wqp.mapping;
 
 import static gov.usgs.cida.wqp.mapping.ActivityColumn.ACTIVITY;
 import static gov.usgs.cida.wqp.mapping.ActivityColumn.ACTIVITY_LATITUDE;
@@ -19,6 +19,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import gov.usgs.cida.wqp.mapping.ColumnProfile;
+import gov.usgs.cida.wqp.mapping.delimited.BaseDelimited;
 
 public class TestBaseDelimited extends BaseDelimited {
 	public static final Map<ColumnProfile, String> MAPPINGS;

@@ -11,16 +11,16 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 
 import gov.usgs.cida.wqp.CsvDataSetLoader;
 import gov.usgs.cida.wqp.DBIntegrationTest;
-import gov.usgs.cida.wqp.dao.BaseDao;
+import gov.usgs.cida.wqp.dao.NameSpace;
+import gov.usgs.cida.wqp.mapping.CountColumn;
 import gov.usgs.cida.wqp.parameter.Parameters;
-import gov.usgs.cida.wqp.util.MybatisConstants;
 
 @Category(DBIntegrationTest.class)
 @DatabaseSetup("classpath:/testData/csv/")
 @DbUnitConfiguration(dataSetLoader = CsvDataSetLoader.class)
 public class CountDaoActivityMetricTest extends BaseCountDaoTest {
 
-	protected String nameSpace = BaseDao.ACTIVITY_METRIC_NAMESPACE;
+	protected NameSpace nameSpace = NameSpace.ACTIVITY_METRIC;
 	protected boolean includeActivity = true;
 	protected boolean includeResults = false;
 
@@ -245,7 +245,7 @@ public class CountDaoActivityMetricTest extends BaseCountDaoTest {
 
 	private void assertActivityMetricResults(List<Map<String, Object>> counts, int size,
 			String total, String nwis, String stewards, String storet, String biodata) {
-		assertResults(counts, MybatisConstants.ACTIVITY_METRIC_COUNT, size, total, nwis, stewards, storet, biodata);
+		assertResults(counts, CountColumn.KEY_ACTIVITY_METRIC_COUNT, size, total, nwis, stewards, storet, biodata);
 	}
 
 }

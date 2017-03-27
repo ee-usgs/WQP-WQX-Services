@@ -11,15 +11,15 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 import gov.usgs.cida.wqp.CsvDataSetLoader;
 import gov.usgs.cida.wqp.DBIntegrationTest;
 import gov.usgs.cida.wqp.dao.NameSpace;
-import gov.usgs.cida.wqp.mapping.TestBioResultMap;
+import gov.usgs.cida.wqp.mapping.TestNarrowResultMap;
 
 @Category(DBIntegrationTest.class)
 @DatabaseSetup("classpath:/testData/csv/")
 @DbUnitConfiguration(dataSetLoader = CsvDataSetLoader.class)
-public class BioResultStreamingTest extends ResultStreamingTest {
+public class NarrowResultStreamingTest extends ResultStreamingTest {
 
-	protected NameSpace nameSpace = NameSpace.BIOLOGICAL_RESULT;
-	protected Map<String, Object> expectedMap = TestBioResultMap.BIO_RESULT;
+	protected NameSpace nameSpace = NameSpace.NARROW_RESULT;
+	protected Map<String, Object> expectedMap = TestNarrowResultMap.NARROW;
 
 	@Test
 	public void nullParameterTest() {

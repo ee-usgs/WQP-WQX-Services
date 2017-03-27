@@ -35,14 +35,14 @@ public class CountDaoTest extends BaseSpringTest {
 	@Test
 	public void adjustMinCountNoChangeTest() {
 		//Nothing changed with Station Namespace
-		Map<String, Object> resultMap = countDao.adjustMinCount(BaseDao.STATION_NAMESPACE, parameterMap);
+		Map<String, Object> resultMap = countDao.adjustMinCount(NameSpace.STATION, parameterMap);
 		assertEquals(1, resultMap.size());
 		assertEquals(parameterMap, resultMap);
 
 		//Don't change existing minimum count values
 		parameterMap.put(Parameters.MIN_ACTIVITIES.toString(), five);
 		parameterMap.put(Parameters.MIN_RESULTS.toString(), twelve);
-		resultMap = countDao.adjustMinCount(BaseDao.ACTIVITY_NAMESPACE, parameterMap);
+		resultMap = countDao.adjustMinCount(NameSpace.ACTIVITY, parameterMap);
 		assertEquals(3, resultMap.size());
 		assertTrue(resultMap.containsKey("test"));
 		assertEquals("test", resultMap.get("test"));
@@ -55,7 +55,7 @@ public class CountDaoTest extends BaseSpringTest {
 	@Test
 	public void adjustMinCountActivityTest() {
 		//Add the minimum activity count
-		Map<String, Object> resultMap = countDao.adjustMinCount(BaseDao.ACTIVITY_NAMESPACE, parameterMap);
+		Map<String, Object> resultMap = countDao.adjustMinCount(NameSpace.ACTIVITY, parameterMap);
 		assertEquals(2, resultMap.size());
 		assertTrue(resultMap.containsKey("test"));
 		assertEquals("test", resultMap.get("test"));
@@ -65,7 +65,7 @@ public class CountDaoTest extends BaseSpringTest {
 		//Don't change existing minimum count values
 		parameterMap.put(Parameters.MIN_ACTIVITIES.toString(), five);
 		parameterMap.put(Parameters.MIN_RESULTS.toString(), twelve);
-		resultMap = countDao.adjustMinCount(BaseDao.ACTIVITY_NAMESPACE, parameterMap);
+		resultMap = countDao.adjustMinCount(NameSpace.ACTIVITY, parameterMap);
 		assertEquals(3, resultMap.size());
 		assertTrue(resultMap.containsKey("test"));
 		assertEquals("test", resultMap.get("test"));
@@ -78,7 +78,7 @@ public class CountDaoTest extends BaseSpringTest {
 	@Test
 	public void adjustMinCountBiologicalTest() {
 		//Add the minimum result count - Biological
-		Map<String, Object> resultMap = countDao.adjustMinCount(BaseDao.BIOLOGICAL_RESULT_NAMESPACE, parameterMap);
+		Map<String, Object> resultMap = countDao.adjustMinCount(NameSpace.BIOLOGICAL_RESULT, parameterMap);
 		assertEquals(2, resultMap.size());
 		assertTrue(resultMap.containsKey("test"));
 		assertEquals("test", resultMap.get("test"));
@@ -88,7 +88,7 @@ public class CountDaoTest extends BaseSpringTest {
 		//Don't change existing minimum count values
 		parameterMap.put(Parameters.MIN_ACTIVITIES.toString(), five);
 		parameterMap.put(Parameters.MIN_RESULTS.toString(), twelve);
-		resultMap = countDao.adjustMinCount(BaseDao.ACTIVITY_NAMESPACE, parameterMap);
+		resultMap = countDao.adjustMinCount(NameSpace.ACTIVITY, parameterMap);
 		assertEquals(3, resultMap.size());
 		assertTrue(resultMap.containsKey("test"));
 		assertEquals("test", resultMap.get("test"));
@@ -101,7 +101,7 @@ public class CountDaoTest extends BaseSpringTest {
 	@Test
 	public void adjustMinCountPCTest() {
 		//Add the minimum result count - Result
-		Map<String, Object> resultMap = countDao.adjustMinCount(BaseDao.RESULT_NAMESPACE, parameterMap);
+		Map<String, Object> resultMap = countDao.adjustMinCount(NameSpace.RESULT, parameterMap);
 		assertEquals(2, resultMap.size());
 		assertTrue(resultMap.containsKey("test"));
 		assertEquals("test", resultMap.get("test"));
@@ -111,7 +111,7 @@ public class CountDaoTest extends BaseSpringTest {
 		//Don't change existing minimum count values
 		parameterMap.put(Parameters.MIN_ACTIVITIES.toString(), five);
 		parameterMap.put(Parameters.MIN_RESULTS.toString(), twelve);
-		resultMap = countDao.adjustMinCount(BaseDao.ACTIVITY_NAMESPACE, parameterMap);
+		resultMap = countDao.adjustMinCount(NameSpace.ACTIVITY, parameterMap);
 		assertEquals(3, resultMap.size());
 		assertTrue(resultMap.containsKey("test"));
 		assertEquals("test", resultMap.get("test"));

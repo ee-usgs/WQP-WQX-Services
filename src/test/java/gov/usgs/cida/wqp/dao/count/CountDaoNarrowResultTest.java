@@ -13,9 +13,9 @@ import gov.usgs.cida.wqp.dao.NameSpace;
 @Category(DBIntegrationTest.class)
 @DatabaseSetup("classpath:/testData/csv/")
 @DbUnitConfiguration(dataSetLoader = CsvDataSetLoader.class)
-public class CountDaoPcResultTest extends BaseCountDaoTest {
+public class CountDaoNarrowResultTest extends BaseCountDaoTest {
 
-	protected NameSpace nameSpace = NameSpace.RESULT;
+	protected NameSpace nameSpace = NameSpace.NARROW_RESULT;
 	protected boolean includeActivity = true;
 	protected boolean includeResults = true;
 

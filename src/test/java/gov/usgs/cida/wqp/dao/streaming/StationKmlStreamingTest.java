@@ -13,7 +13,7 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 
 import gov.usgs.cida.wqp.CsvDataSetLoader;
 import gov.usgs.cida.wqp.DBIntegrationTest;
-import gov.usgs.cida.wqp.dao.BaseDao;
+import gov.usgs.cida.wqp.dao.NameSpace;
 import gov.usgs.cida.wqp.mapping.TestStationMap;
 import gov.usgs.cida.wqp.parameter.Parameters;
 
@@ -22,7 +22,7 @@ import gov.usgs.cida.wqp.parameter.Parameters;
 @DbUnitConfiguration(dataSetLoader = CsvDataSetLoader.class)
 public class StationKmlStreamingTest extends BaseStationStreamingTest {
 
-	protected String nameSpace = BaseDao.STATION_KML_NAMESPACE;
+	protected NameSpace nameSpace = NameSpace.STATION_KML;
 	protected Integer expectedColumnCount = TestStationMap.STATION_KML.keySet().size();
 	protected Map<String, Object> expectedMap = TestStationMap.STATION_KML;
 

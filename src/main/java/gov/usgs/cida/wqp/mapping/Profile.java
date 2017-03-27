@@ -6,16 +6,17 @@ import java.util.Set;
 
 public enum Profile {
 
-	STATION ("station"),
-	SIMPLE_STATION ("simplestation"),
-	BIOLOGICAL ("biological"),
-	PC_RESULT ("pcresult"),
-	ACTIVITY ("activity"),
-	ACTIVITY_METRIC ("activityMetric"),
-	RES_DETECT_QNT_LMT ("resDetectQntLmt"),
-	NARROW ("narrow");
+	STATION ("station", "station"),
+	SIMPLE_STATION ("simplestation", "simplestation"),
+	BIOLOGICAL ("biological", "biologicalresult"),
+	PC_RESULT ("pcresult", "result"),
+	ACTIVITY ("activity", "activity"),
+	ACTIVITY_METRIC ("activityMetric", "activitymetric"),
+	RES_DETECT_QNT_LMT ("resDetectQntLmt", "resdetectqntlmt"),
+	NARROW_RESULT ("narrowResult", "narrowresult");
 
 	private final String name;
+	private final String baseFileName;
 	private static Map<String, Profile> profileMap = new HashMap<>();
 	
 	static {
@@ -24,13 +25,18 @@ public enum Profile {
 		}
 	}
 
-	private Profile(String value) {
-		name = value;
+	private Profile(String name, String baseFileName) {
+		this.name = name;
+		this.baseFileName = baseFileName;
 	}
 
 	@Override
 	public String toString() {
 		return name;
+	}
+
+	public String getBaseFileName() {
+		return baseFileName;
 	}
 
 	public static Profile fromString(String profile) {

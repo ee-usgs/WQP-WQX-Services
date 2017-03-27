@@ -10,7 +10,7 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 
 import gov.usgs.cida.wqp.CsvDataSetLoader;
 import gov.usgs.cida.wqp.DBIntegrationTest;
-import gov.usgs.cida.wqp.dao.BaseDao;
+import gov.usgs.cida.wqp.dao.NameSpace;
 import gov.usgs.cida.wqp.mapping.TestPcResultMap;
 
 @Category(DBIntegrationTest.class)
@@ -18,7 +18,7 @@ import gov.usgs.cida.wqp.mapping.TestPcResultMap;
 @DbUnitConfiguration(dataSetLoader = CsvDataSetLoader.class)
 public class PCResultStreamingTest extends ResultStreamingTest {
 
-	protected String nameSpace = BaseDao.RESULT_NAMESPACE;
+	protected NameSpace nameSpace = NameSpace.RESULT;
 	protected Map<String, Object> expectedMap = TestPcResultMap.PC_RESULT;
 
 	@Test

@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import gov.usgs.cida.wqp.BaseSpringTest;
+import gov.usgs.cida.wqp.dao.NameSpace;
 import gov.usgs.cida.wqp.dao.intfc.IStreamingDao;
 import gov.usgs.cida.wqp.mapping.ActivityColumn;
 import gov.usgs.cida.wqp.mapping.BaseColumn;
@@ -109,17 +110,17 @@ public abstract class ResultStreamingTest extends BaseSpringTest {
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//Only need Result (and possibly a lookup table)
 
-	public void nullParameterTest(String nameSpace) {
+	public void nullParameterTest(NameSpace nameSpace) {
 		streamingDao.stream(nameSpace, null, handler);
 		assertEquals(TOTAL_RESULT_COUNT, String.valueOf(handler.getResults().size()));
 	}
 
-	public void emptyParameterTest(String nameSpace) {
+	public void emptyParameterTest(NameSpace nameSpace) {
 		streamingDao.stream(nameSpace, parms, handler);
 		assertEquals(TOTAL_RESULT_COUNT, String.valueOf(handler.getResults().size()));
 	}
 
-	public void allDataSortedTest(String nameSpace, Map<String, Object> expectedMap) {
+	public void allDataSortedTest(NameSpace nameSpace, Map<String, Object> expectedMap) {
 		Integer expectedColumnCount = expectedMap.keySet().size();
 		parms.put(Parameters.SORTED.toString(), "yes");
 		streamingDao.stream(nameSpace, parms, handler);
@@ -137,47 +138,48 @@ public abstract class ResultStreamingTest extends BaseSpringTest {
 		assertRow(results.get(5), NWIS_5, expectedColumnCount);
 		assertRow(results.get(6), NWIS_2, expectedColumnCount);
 		assertRow(results.get(7), NWIS_3, expectedColumnCount);
-		assertRow(results.get(8), STORET_15, expectedColumnCount);
-		assertRow(results.get(9), STORET_16, expectedColumnCount);
-		assertRow(results.get(10), STORET_17, expectedColumnCount);
-		assertRow(results.get(11), STORET_18, expectedColumnCount);
-		assertRow(results.get(12), STORET_19, expectedColumnCount);
-		assertRow(results.get(13), STORET_20, expectedColumnCount);
-		assertRow(results.get(14), STORET_21, expectedColumnCount);
-		assertRow(results.get(15), STORET_22, expectedColumnCount);
-		assertRow(results.get(16), STORET_23, expectedColumnCount);
-		assertRow(results.get(17), STORET_24, expectedColumnCount);
-		assertRow(results.get(18), STORET_25, expectedColumnCount);
-		assertRow(results.get(19), STORET_26, expectedColumnCount);
-		assertRow(results.get(20), STORET_27, expectedColumnCount);
+		assertRow(results.get(8), STORET_27, expectedColumnCount);
+		assertRow(results.get(9), STORET_15, expectedColumnCount);
+		assertRow(results.get(10), STORET_16, expectedColumnCount);
+		assertRow(results.get(11), STORET_17, expectedColumnCount);
+		assertRow(results.get(12), STORET_18, expectedColumnCount);
+		assertRow(results.get(13), STORET_19, expectedColumnCount);
+		assertRow(results.get(14), STORET_20, expectedColumnCount);
+		assertRow(results.get(15), STORET_21, expectedColumnCount);
+		assertRow(results.get(16), STORET_22, expectedColumnCount);
+		assertRow(results.get(17), STORET_23, expectedColumnCount);
+		assertRow(results.get(18), STORET_24, expectedColumnCount);
+		assertRow(results.get(19), STORET_25, expectedColumnCount);
+		assertRow(results.get(20), STORET_26, expectedColumnCount);
 		assertRow(results.get(21), STORET_28, expectedColumnCount);
 		assertRow(results.get(22), STORET_29, expectedColumnCount);
 		assertRow(results.get(23), STORET_30, expectedColumnCount);
 		assertRow(results.get(24), STORET_31, expectedColumnCount);
-		assertRow(results.get(25), STORET_32, expectedColumnCount);
-		assertRow(results.get(26), STORET_33, expectedColumnCount);
-		assertRow(results.get(27), STORET_34, expectedColumnCount);
-		assertRow(results.get(28), STORET_35, expectedColumnCount);
-		assertRow(results.get(29), STORET_36, expectedColumnCount);
-		assertRow(results.get(30), STORET_37, expectedColumnCount);
-		assertRow(results.get(31), STORET_38, expectedColumnCount);
-		assertRow(results.get(32), STORET_39, expectedColumnCount);
-		assertRow(results.get(33), STORET_40, expectedColumnCount);
-		assertRow(results.get(34), STORET_4, expectedColumnCount);
-		assertRow(results.get(35), STORET_5, expectedColumnCount);
-		assertRow(results.get(36), STORET_6, expectedColumnCount);
-		assertRow(results.get(37), STORET_7, expectedColumnCount);
-		assertRow(results.get(38), STORET_8, expectedColumnCount);
-		assertRow(results.get(39), STORET_9, expectedColumnCount);
-		assertRow(results.get(40), STORET_10, expectedColumnCount);
-		assertRow(results.get(41), STORET_11, expectedColumnCount);
-		assertRow(results.get(42), STORET_12, expectedColumnCount);
-		assertRow(results.get(43), STORET_13, expectedColumnCount);
-		assertRow(results.get(44), STORET_14, expectedColumnCount);
+		assertRow(results.get(25), STORET_33, expectedColumnCount);
+		assertRow(results.get(26), STORET_34, expectedColumnCount);
+		assertRow(results.get(27), STORET_35, expectedColumnCount);
+		assertRow(results.get(28), STORET_36, expectedColumnCount);
+		assertRow(results.get(29), STORET_37, expectedColumnCount);
+		assertRow(results.get(30), STORET_39, expectedColumnCount);
+		assertRow(results.get(31), STORET_40, expectedColumnCount);
+		assertRow(results.get(32), STORET_32, expectedColumnCount);
+		assertRow(results.get(33), STORET_38, expectedColumnCount);
+		assertRow(results.get(34), STORET_5, expectedColumnCount);
+		assertRow(results.get(35), STORET_6, expectedColumnCount);
+		assertRow(results.get(36), STORET_7, expectedColumnCount);
+		assertRow(results.get(37), STORET_8, expectedColumnCount);
+		assertRow(results.get(38), STORET_10, expectedColumnCount);
+		assertRow(results.get(39), STORET_14, expectedColumnCount);
+		assertRow(results.get(40), STORET_4, expectedColumnCount);
+		assertRow(results.get(41), STORET_9, expectedColumnCount);
+		assertRow(results.get(42), STORET_11, expectedColumnCount);
+		assertRow(results.get(43), STORET_12, expectedColumnCount);
+		assertRow(results.get(44), STORET_13, expectedColumnCount);
 		assertRow(results.get(45), STORET_45, expectedColumnCount);
 		assertRow(results.get(46), STORET_46, expectedColumnCount);
 		assertRow(results.get(47), STORET_47, expectedColumnCount);
 		assertRow(results.get(48), STORET_41, expectedColumnCount);
+		assertRow(results.get(49), STORET_42, expectedColumnCount);
 		assertRow(results.get(50), STORET_43, expectedColumnCount);
 		assertRow(results.get(51), STORET_44, expectedColumnCount);
 		assertRow(results.get(52), STORET_2, expectedColumnCount);
@@ -189,7 +191,7 @@ public abstract class ResultStreamingTest extends BaseSpringTest {
 		assertRow(results.get(58), BIODATA_42, expectedColumnCount);
 	}
 
-	public void analyticalMethodTest(String nameSpace) {
+	public void analyticalMethodTest(NameSpace nameSpace) {
 		parms.put(Parameters.ANALYTICAL_METHOD.toString(), getAnalyticalMethod());
 		streamingDao.stream(nameSpace, parms, handler);
 
@@ -199,7 +201,7 @@ public abstract class ResultStreamingTest extends BaseSpringTest {
 				STORET_44, STORET_45, STORET_46, STORET_47, STORET_48, STORET_49, STORET_50);
 	}
 
-	public void assemblageTest(String nameSpace) {
+	public void assemblageTest(NameSpace nameSpace) {
 		parms.put(Parameters.ASSEMBLAGE.toString(), getAssemblage());
 		streamingDao.stream(nameSpace, parms, handler);
 
@@ -209,7 +211,7 @@ public abstract class ResultStreamingTest extends BaseSpringTest {
 				STORET_48, STORET_49, STORET_50, BIODATA_42);
 	}
 
-	public void avoidTest(String nameSpace) {
+	public void avoidTest(NameSpace nameSpace) {
 		parms.put(Parameters.AVOID.toString().replace(".", ""), getAvoid());
 		streamingDao.stream(nameSpace, parms, handler);
 
@@ -222,7 +224,7 @@ public abstract class ResultStreamingTest extends BaseSpringTest {
 				STORET_41, STORET_42, STORET_43, STORET_44, STORET_45, STORET_46, STORET_47, STORET_48, STORET_49, STORET_50);
 	}
 
-	public void characteristicNameTest(String nameSpace) {
+	public void characteristicNameTest(NameSpace nameSpace) {
 		parms.put(Parameters.CHARACTERISTIC_NAME.toString(), getCharacteristicName());
 		streamingDao.stream(nameSpace, parms, handler);
 
@@ -232,7 +234,7 @@ public abstract class ResultStreamingTest extends BaseSpringTest {
 				STORET_48, STORET_49, STORET_50);
 	}
 
-	public void characteristicTypeTest(String nameSpace) {
+	public void characteristicTypeTest(NameSpace nameSpace) {
 		parms.put(Parameters.CHARACTERISTIC_TYPE.toString(), getCharacteristicType());
 		streamingDao.stream(nameSpace, parms, handler);
 
@@ -242,7 +244,7 @@ public abstract class ResultStreamingTest extends BaseSpringTest {
 				STORET_46, STORET_47, STORET_48, STORET_49, STORET_50);
 	}
 
-	public void countryTest(String nameSpace) {
+	public void countryTest(NameSpace nameSpace) {
 		parms.put(Parameters.COUNTRY.toString(), getCountry());
 		streamingDao.stream(nameSpace, parms, handler);
 
@@ -254,7 +256,7 @@ public abstract class ResultStreamingTest extends BaseSpringTest {
 				STORET_49, STORET_50, BIODATA_42);
 	}
 
-	public void countyTest(String nameSpace) {
+	public void countyTest(NameSpace nameSpace) {
 		parms.put(Parameters.COUNTY.toString(), getCounty());
 		streamingDao.stream(nameSpace, parms, handler);
 
@@ -266,7 +268,7 @@ public abstract class ResultStreamingTest extends BaseSpringTest {
 				STORET_49, STORET_50);
 	}
 
-	public void huc2Test(String nameSpace) {
+	public void huc2Test(NameSpace nameSpace) {
 		parms.put(Parameters.HUC.toString(), getHuc2());
 		streamingDao.stream(nameSpace, parms, handler);
 
@@ -277,7 +279,7 @@ public abstract class ResultStreamingTest extends BaseSpringTest {
 				STORET_45, STORET_46, STORET_47);
 	}
 
-	public void huc4Test(String nameSpace) {
+	public void huc4Test(NameSpace nameSpace) {
 		parms.put(Parameters.HUC.toString(), getHuc4());
 		streamingDao.stream(nameSpace, parms, handler);
 
@@ -287,7 +289,7 @@ public abstract class ResultStreamingTest extends BaseSpringTest {
 				STORET_9, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14);
 	}
 
-	public void huc6Test(String nameSpace) {
+	public void huc6Test(NameSpace nameSpace) {
 		parms.put(Parameters.HUC.toString(), getHuc6());
 		streamingDao.stream(nameSpace, parms, handler);
 
@@ -297,7 +299,7 @@ public abstract class ResultStreamingTest extends BaseSpringTest {
 				STORET_10, STORET_11, STORET_12, STORET_13, STORET_14);
 	}
 
-	public void huc8Test(String nameSpace) {
+	public void huc8Test(NameSpace nameSpace) {
 		parms.put(Parameters.HUC.toString(), getHuc8());
 		streamingDao.stream(nameSpace, parms, handler);
 
@@ -307,7 +309,7 @@ public abstract class ResultStreamingTest extends BaseSpringTest {
 				STORET_14);
 	}
 
-	public void nldiUrlTest(String nameSpace) {
+	public void nldiUrlTest(NameSpace nameSpace) {
 		try {
 			parms.put(Parameters.NLDIURL.toString(), getManySiteId());
 			streamingDao.stream(nameSpace, parms, handler);
@@ -321,7 +323,7 @@ public abstract class ResultStreamingTest extends BaseSpringTest {
 				STORET_12, STORET_13, STORET_14, STORET_42, STORET_43, STORET_44, STORET_48, STORET_49, STORET_50);
 	}
 
-	public void organizationTest(String nameSpace) {
+	public void organizationTest(NameSpace nameSpace) {
 		parms.put(Parameters.ORGANIZATION.toString(), getOrganization());
 		streamingDao.stream(nameSpace, parms, handler);
 
@@ -333,7 +335,7 @@ public abstract class ResultStreamingTest extends BaseSpringTest {
 				STORET_49, STORET_50);
 	}
 
-	public void projectTest(String nameSpace) {
+	public void projectTest(NameSpace nameSpace) {
 		parms.put(Parameters.PROJECT.toString(), getProject());
 		streamingDao.stream(nameSpace, parms, handler);
 
@@ -343,7 +345,7 @@ public abstract class ResultStreamingTest extends BaseSpringTest {
 				STORET_43, STORET_44, STORET_45, STORET_46, STORET_47, STORET_48, STORET_49, STORET_50, BIODATA_42);
 	}
 
-	public void providersTest(String nameSpace) {
+	public void providersTest(NameSpace nameSpace) {
 		parms.put(Parameters.PROVIDERS.toString(), getProviders());
 		streamingDao.stream(nameSpace, parms, handler);
 
@@ -357,7 +359,7 @@ public abstract class ResultStreamingTest extends BaseSpringTest {
 				STORET_43, STORET_44, STORET_45, STORET_46, STORET_47, STORET_48, STORET_49, STORET_50);
 	}
 
-	public void sampleMediaTest(String nameSpace) {
+	public void sampleMediaTest(NameSpace nameSpace) {
 		parms.put(Parameters.SAMPLE_MEDIA.toString(), getSampleMedia());
 		streamingDao.stream(nameSpace, parms, handler);
 
@@ -371,7 +373,7 @@ public abstract class ResultStreamingTest extends BaseSpringTest {
 				STORET_45, STORET_46, STORET_47, STORET_48, STORET_49, STORET_50, BIODATA_42);
 	}
 
-	public void startDateHiTest(String nameSpace) {
+	public void startDateHiTest(NameSpace nameSpace) {
 		parms.put(Parameters.START_DATE_HI.toString(), getStartDateHi());
 		streamingDao.stream(nameSpace, parms, handler);
 
@@ -385,7 +387,7 @@ public abstract class ResultStreamingTest extends BaseSpringTest {
 				STORET_45, STORET_46, STORET_47, STORET_48, STORET_49, STORET_50, BIODATA_42);
 	}
 
-	public void startDateLoTest(String nameSpace) {
+	public void startDateLoTest(NameSpace nameSpace) {
 		parms.put(Parameters.START_DATE_LO.toString(), getStartDateLo());
 		streamingDao.stream(nameSpace, parms, handler);
 
@@ -396,7 +398,7 @@ public abstract class ResultStreamingTest extends BaseSpringTest {
 				STORET_50, BIODATA_42);
 	}
 
-	public void siteIdTest(String nameSpace) {
+	public void siteIdTest(NameSpace nameSpace) {
 		parms.put(Parameters.SITEID.toString(), getSiteid());
 		streamingDao.stream(nameSpace, parms, handler);
 
@@ -407,7 +409,7 @@ public abstract class ResultStreamingTest extends BaseSpringTest {
 				STORET_50);
 	}
 
-	public void manySitesTest(String nameSpace) {
+	public void manySitesTest(NameSpace nameSpace) {
 		try {
 			parms.put(Parameters.SITEID.toString(), getManySiteId());
 			streamingDao.stream(nameSpace, parms, handler);
@@ -421,7 +423,7 @@ public abstract class ResultStreamingTest extends BaseSpringTest {
 				STORET_12, STORET_13, STORET_14, STORET_42, STORET_43, STORET_44, STORET_48, STORET_49, STORET_50);
 	}
 
-	public void minActivitiesTest(String nameSpace) {
+	public void minActivitiesTest(NameSpace nameSpace) {
 		parms.put(Parameters.MIN_ACTIVITIES.toString(), getMinActivities());
 		streamingDao.stream(nameSpace, parms, handler);
 
@@ -435,7 +437,7 @@ public abstract class ResultStreamingTest extends BaseSpringTest {
 				STORET_45, STORET_46, STORET_47, STORET_48, STORET_49, STORET_50);
 	}
 
-	public void minResultsTest(String nameSpace) {
+	public void minResultsTest(NameSpace nameSpace) {
 		parms.put(Parameters.MIN_RESULTS.toString(), getMinResults());
 		streamingDao.stream(nameSpace, parms, handler);
 
@@ -449,7 +451,7 @@ public abstract class ResultStreamingTest extends BaseSpringTest {
 				STORET_48, STORET_49, STORET_50);
 	}
 
-	public void pcodeTest(String nameSpace) {
+	public void pcodeTest(NameSpace nameSpace) {
 		parms.put(Parameters.PCODE.toString(), getPcode());
 		streamingDao.stream(nameSpace, parms, handler);
 
@@ -459,7 +461,7 @@ public abstract class ResultStreamingTest extends BaseSpringTest {
 				STORET_48, STORET_49, STORET_50);
 	}
 
-	public void siteTypeTest(String nameSpace) {
+	public void siteTypeTest(NameSpace nameSpace) {
 		parms.put(Parameters.SITE_TYPE.toString(), getSiteType());
 		streamingDao.stream(nameSpace, parms, handler);
 
@@ -473,7 +475,7 @@ public abstract class ResultStreamingTest extends BaseSpringTest {
 				STORET_44, STORET_45, STORET_46, STORET_47, STORET_48, STORET_49, STORET_50, BIODATA_42);
 	}
 
-	public void stateTest(String nameSpace) {
+	public void stateTest(NameSpace nameSpace) {
 		parms.put(Parameters.STATE.toString(), getState());
 		streamingDao.stream(nameSpace, parms, handler);
 
@@ -485,7 +487,7 @@ public abstract class ResultStreamingTest extends BaseSpringTest {
 				STORET_49, STORET_50);
 	}
 
-	public void subjectTaxonomicNameTest(String nameSpace) {
+	public void subjectTaxonomicNameTest(NameSpace nameSpace) {
 		parms.put(Parameters.SUBJECT_TAXONOMIC_NAME.toString(), getSubjectTaxonomicName());
 		streamingDao.stream(nameSpace, parms, handler);
 
@@ -498,7 +500,7 @@ public abstract class ResultStreamingTest extends BaseSpringTest {
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//Result + Station_Sum
 
-	public void bboxTest(String nameSpace) {
+	public void bboxTest(NameSpace nameSpace) {
 		parms.put(Parameters.BBOX.toString(), getBBox());
 		streamingDao.stream(nameSpace, parms, handler);
 
@@ -510,7 +512,7 @@ public abstract class ResultStreamingTest extends BaseSpringTest {
 				STORET_50);
 	}
 
-	public void withinTest(String nameSpace) {
+	public void withinTest(NameSpace nameSpace) {
 		parms.put(Parameters.WITHIN.toString(), getWithin());
 		parms.put(Parameters.LATITUDE.toString(), getLatitude());
 		parms.put(Parameters.LONGITUDE.toString(), getLongitude());
@@ -527,7 +529,7 @@ public abstract class ResultStreamingTest extends BaseSpringTest {
 	}
 
 
-	public void multipleParameterResultTests(String nameSpace) {
+	public void multipleParameterResultTests(NameSpace nameSpace) {
 		parms.put(Parameters.ANALYTICAL_METHOD.toString(), getAnalyticalMethod());
 		parms.put(Parameters.ASSEMBLAGE.toString(), getAssemblage());
 		parms.put(Parameters.AVOID.toString().replace(".", ""), getAvoid());
@@ -557,7 +559,7 @@ public abstract class ResultStreamingTest extends BaseSpringTest {
 				STORET_50);
 	}
 
-	public void multipleParameterResultStationSumTests(String nameSpace) {
+	public void multipleParameterResultStationSumTests(NameSpace nameSpace) {
 		parms.put(Parameters.ANALYTICAL_METHOD.toString(), getAnalyticalMethod());
 		parms.put(Parameters.ASSEMBLAGE.toString(), getAssemblage());
 		parms.put(Parameters.AVOID.toString().replace(".", ""), getAvoid());
