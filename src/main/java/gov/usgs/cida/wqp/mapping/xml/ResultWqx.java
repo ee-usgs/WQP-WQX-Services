@@ -354,6 +354,13 @@ public class ResultWqx extends BaseWqx implements IXmlMapping {
 						WQX_TAXONOMIC_DETAILS,
 						WQX_TAXONIMC_DETAIL_CITATION,
 						WQX_RESOURCE_ID)));
+		COLUMN_POSITION.put(KEY_FCDSC_URL,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_BIOLOGICAL_RESULT,
+						WQX_FREQUENCY_CLASS_INFO,
+						WQX_FREQUENCY_CLASS_INFO_URL)));
 		COLUMN_POSITION.put(KEY_FCDSC_NAME,
 				new LinkedList<String>(Arrays.asList(
 						WQX_ACTIVITY,
@@ -417,6 +424,12 @@ public class ResultWqx extends BaseWqx implements IXmlMapping {
 						WQX_RESULT,
 						WQX_ANALYTICAL_METHOD,
 						WQX_METHOD_DESCRIPTION)));
+		COLUMN_POSITION.put(KEY_METHOD_URL,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_ANALYTICAL_METHOD,
+						WQX_METHOD_URL)));
 
 		COLUMN_POSITION.put(KEY_LAB_NAME,
 				new LinkedList<String>(Arrays.asList(
@@ -478,6 +491,13 @@ public class ResultWqx extends BaseWqx implements IXmlMapping {
 						WQX_RESULT,
 						WQX_LAB_INFO,
 						WQX_LAB_COMMENT)));
+		COLUMN_POSITION.put(KEY_RES_DETECT_QNT_LMT_URL,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_LAB_INFO,
+						WQX_DETECTION_LIMIT,
+						WQX_DETECTION_LIMIT_URL)));
 		COLUMN_POSITION.put(KEY_DETECTION_LIMIT,
 				new LinkedList<String>(Arrays.asList(
 						WQX_ACTIVITY,
@@ -527,6 +547,12 @@ public class ResultWqx extends BaseWqx implements IXmlMapping {
 						WQX_LAB_INFO,
 						WQX_TAXONOMIST_ACCREDITATION_AUTHORTY)));
 
+		COLUMN_POSITION.put(KEY_PREP_METHOD_URL,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_LAB_SAMPLE_PREP,
+						WQX_LAB_SAMPLE_PREP_URL)));
 		COLUMN_POSITION.put(KEY_PREP_METHOD_ID,
 				new LinkedList<String>(Arrays.asList(
 						WQX_ACTIVITY,
@@ -664,6 +690,7 @@ public class ResultWqx extends BaseWqx implements IXmlMapping {
 						TAXON_CITATION_PUBLISHER,
 						TAXON_CITATION_DATE,
 						TAXON_CITATION_ID,
+						FCDSC_URL,
 						FCDSC_NAME,
 						FREQUENCY_CLASS_UNIT,
 						FCDSC_LOWER_BOUND,
@@ -673,6 +700,7 @@ public class ResultWqx extends BaseWqx implements IXmlMapping {
 						ANALYTICAL_METHOD_NAME,
 						ANLMTH_QUAL_TYPE,
 						ANALYTICAL_METHOD_CITATION,
+						METHOD_URL,
 						LAB_NAME,
 						ANALYSIS_START_DATE,
 						ANALYSIS_START_TIME,
@@ -682,6 +710,7 @@ public class ResultWqx extends BaseWqx implements IXmlMapping {
 						ANALYSIS_END_TIMEZONE,
 						RLCOM_CD,
 						LAB_REMARK,
+						RES_DETECT_QNT_LMT_URL,
 						DETECTION_LIMIT_DESC,
 						DETECTION_LIMIT,
 						DETECTION_LIMIT_UNIT,
@@ -689,6 +718,7 @@ public class ResultWqx extends BaseWqx implements IXmlMapping {
 						RES_LAB_ACCRED_AUTHORITY,
 						RES_TAXONOMIST_ACCRED_YN,
 						RES_TAXONOMIST_ACCRED_AUTHORTY,
+						PREP_METHOD_URL,
 						PREP_METHOD_ID,
 						PREP_METHOD_CONTEXT,
 						PREP_METHOD_NAME,

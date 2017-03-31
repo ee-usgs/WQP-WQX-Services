@@ -10,15 +10,15 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 
 import gov.usgs.cida.wqp.CsvDataSetLoader;
 import gov.usgs.cida.wqp.DBIntegrationTest;
-import gov.usgs.cida.wqp.dao.BaseDao;
+import gov.usgs.cida.wqp.dao.NameSpace;
+import gov.usgs.cida.wqp.mapping.TestStationMap;
 
 @Category(DBIntegrationTest.class)
 @DatabaseSetup("classpath:/testData/csv/")
 @DbUnitConfiguration(dataSetLoader = CsvDataSetLoader.class)
 public class StationJsonStreamingTest extends BaseStationStreamingTest {
 
-	protected String nameSpace = BaseDao.SIMPLE_STATION_NAMESPACE;
-	protected Integer expectedColumnCount = TestStationMap.STATION_JSON_COLUMN_COUNT;
+	protected NameSpace nameSpace = NameSpace.SIMPLE_STATION;
 	protected Map<String, Object> expectedMap = TestStationMap.STATION_JSON;
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -36,7 +36,7 @@ public class StationJsonStreamingTest extends BaseStationStreamingTest {
 
 	@Test
 	public void allDataSortedTest() {
-		allDataSortedTest(nameSpace, expectedColumnCount, expectedMap);
+		allDataSortedTest(nameSpace, expectedMap);
 	}
 
 	@Test

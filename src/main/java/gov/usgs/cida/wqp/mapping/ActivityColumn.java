@@ -79,13 +79,13 @@ public class ActivityColumn extends BaseColumn {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	//Profile Mapping of the Keys
-	public static final ColumnProfile ACTIVITY = new ColumnProfile(KEY_ACTIVITY, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY, Profile.ACTIVITY_METRIC, Profile.RES_DETECT_QNT_LMT);
+	public static final ColumnProfile ACTIVITY = new ColumnProfile(KEY_ACTIVITY, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY, Profile.ACTIVITY_METRIC, Profile.RES_DETECT_QNT_LMT, Profile.NARROW_RESULT);
 	public static final ColumnProfile ACTIVITY_TYPE_CODE = new ColumnProfile(KEY_ACTIVITY_TYPE_CODE, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY);
 	public static final ColumnProfile SAMPLE_MEDIA = new ColumnProfile(KEY_SAMPLE_MEDIA, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY);
 	public static final ColumnProfile ACTIVITY_MEDIA_SUBDIV_NAME = new ColumnProfile(KEY_ACTIVITY_MEDIA_SUBDIV_NAME, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY);
-	public static final ColumnProfile EVENT_DATE = new ColumnProfile(KEY_EVENT_DATE, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY);
-	public static final ColumnProfile ACTIVITY_START_TIME = new ColumnProfile(KEY_ACTIVITY_START_TIME, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY);
-	public static final ColumnProfile ACT_START_TIME_ZONE = new ColumnProfile(KEY_ACT_START_TIME_ZONE, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY);
+	public static final ColumnProfile EVENT_DATE = new ColumnProfile(KEY_EVENT_DATE, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY, Profile.NARROW_RESULT);
+	public static final ColumnProfile ACTIVITY_START_TIME = new ColumnProfile(KEY_ACTIVITY_START_TIME, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY, Profile.NARROW_RESULT);
+	public static final ColumnProfile ACT_START_TIME_ZONE = new ColumnProfile(KEY_ACT_START_TIME_ZONE, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY, Profile.NARROW_RESULT);
 	public static final ColumnProfile ACTIVITY_STOP_DATE = new ColumnProfile(KEY_ACTIVITY_STOP_DATE, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY);
 	public static final ColumnProfile ACTIVITY_STOP_TIME = new ColumnProfile(KEY_ACTIVITY_STOP_TIME, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY);
 	public static final ColumnProfile ACT_STOP_TIME_ZONE = new ColumnProfile(KEY_ACT_STOP_TIME_ZONE, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY);

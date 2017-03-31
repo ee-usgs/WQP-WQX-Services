@@ -22,10 +22,12 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 import gov.usgs.cida.wqp.BaseSpringTest;
 import gov.usgs.cida.wqp.CsvDataSetLoader;
 import gov.usgs.cida.wqp.DBIntegrationTest;
-import gov.usgs.cida.wqp.dao.BaseDao;
+import gov.usgs.cida.wqp.dao.NameSpace;
 import gov.usgs.cida.wqp.dao.intfc.IStreamingDao;
 import gov.usgs.cida.wqp.mapping.ActivityColumn;
 import gov.usgs.cida.wqp.mapping.BaseColumn;
+import gov.usgs.cida.wqp.mapping.TestActivityMap;
+import gov.usgs.cida.wqp.mapping.TestResultHandler;
 import gov.usgs.cida.wqp.parameter.Parameters;
 
 @Category(DBIntegrationTest.class)
@@ -39,7 +41,7 @@ public class ActivityStreamingTest extends BaseSpringTest {
 
 	TestResultHandler handler;
 	Map<String, Object> parms;
-	String nameSpace = BaseDao.ACTIVITY_NAMESPACE;
+	NameSpace nameSpace = NameSpace.ACTIVITY;
 
 	public static final BigDecimal[] STEWARDS_1 = new BigDecimal[]{BigDecimal.ONE, BigDecimal.ONE};
 	public static final BigDecimal[] STEWARDS_2 = new BigDecimal[]{BigDecimal.ONE, BigDecimal.valueOf(2)};
@@ -111,6 +113,8 @@ public class ActivityStreamingTest extends BaseSpringTest {
 		streamingDao.stream(nameSpace, parms, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
+		assertStoret11(results.get(15));
+
 		//Validate the number AND order of results.
 		assertEquals(TOTAL_ACTIVITY_COUNT, String.valueOf(results.size()));
 		assertStewards1(results.get(0));
@@ -128,7 +132,6 @@ public class ActivityStreamingTest extends BaseSpringTest {
 		assertStoret8(results.get(12));
 		assertStoret5(results.get(13));
 		assertStoret4(results.get(14));
-		assertStoret11(results.get(15));
 		assertStoret12(results.get(16));
 		assertStoret13(results.get(17));
 		assertStoret2(results.get(18));
@@ -671,9 +674,9 @@ public class ActivityStreamingTest extends BaseSpringTest {
 
 	public static void assertStoret2(Map<String, Object> row) {
 		assertEquals(ACTIVITY_COLUMN_COUNT, row.keySet().size());
-		for (String i : TestActivityMap.ACTIVITY.keySet()) {
-			assertEquals(i, TestActivityMap.ACTIVITY.get(i), row.get(i));
-		}
+		assertEquals(STORET, row.get(BaseColumn.KEY_DATA_SOURCE));
+		assertEquals(BigDecimal.valueOf(2), row.get(ActivityColumn.KEY_ACTIVITY_ID));
+		assertEquals("activity", row.get(ActivityColumn.KEY_ACTIVITY));
 	}
 
 	public static void assertStoret3(Map<String, Object> row) {
@@ -732,11 +735,8 @@ public class ActivityStreamingTest extends BaseSpringTest {
 		assertEquals("activityStoret", row.get(ActivityColumn.KEY_ACTIVITY));
 	}
 
-	public static void assertStoret11(Map<String, Object> row) {
-		assertEquals(ACTIVITY_COLUMN_COUNT, row.keySet().size());
-		assertEquals(STORET, row.get(BaseColumn.KEY_DATA_SOURCE));
-		assertEquals(BigDecimal.valueOf(11), row.get(ActivityColumn.KEY_ACTIVITY_ID));
-		assertEquals("activity", row.get(ActivityColumn.KEY_ACTIVITY));
+	public void assertStoret11(Map<String, Object> row) {
+		assertMapIsAsExpected(TestActivityMap.ACTIVITY, row);
 	}
 
 	public static void assertStoret12(Map<String, Object> row) {

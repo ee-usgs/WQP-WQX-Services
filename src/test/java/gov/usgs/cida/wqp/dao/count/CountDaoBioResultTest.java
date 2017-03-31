@@ -8,14 +8,14 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 
 import gov.usgs.cida.wqp.CsvDataSetLoader;
 import gov.usgs.cida.wqp.DBIntegrationTest;
-import gov.usgs.cida.wqp.dao.BaseDao;
+import gov.usgs.cida.wqp.dao.NameSpace;
 
 @Category(DBIntegrationTest.class)
 @DatabaseSetup("classpath:/testData/csv/")
 @DbUnitConfiguration(dataSetLoader = CsvDataSetLoader.class)
 public class CountDaoBioResultTest extends BaseCountDaoTest {
 
-	protected String nameSpace = BaseDao.BIOLOGICAL_RESULT_NAMESPACE;
+	protected NameSpace nameSpace = NameSpace.BIOLOGICAL_RESULT;
 	protected boolean includeActivity = true;
 	protected boolean includeResults = true;
 

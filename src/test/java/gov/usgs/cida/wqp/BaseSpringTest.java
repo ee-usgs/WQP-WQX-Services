@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
@@ -29,6 +30,7 @@ import org.springframework.util.FileCopyUtils;
 import com.github.springtestdbunit.TransactionDbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 
+import gov.usgs.cida.wqp.mapping.Profile;
 import gov.usgs.cida.wqp.springinit.TestSpringConfig;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -57,8 +59,8 @@ public abstract class BaseSpringTest {
 		return new String(FileCopyUtils.copyToByteArray(new ClassPathResource("testResult/" + file).getInputStream()));
 	}
 
-	public String getCompareFile(String name, String fileType, String suffix) throws IOException {
-		String fileName = "testResult/" + name + "/" + name + (null == suffix ? "" : suffix) + "." + fileType;
+	public String getCompareFile(Profile profile, String fileType, String suffix) throws IOException {
+		String fileName = "testResult/" + profile.toString() + "/" + profile.toString() + (null == suffix ? "" : suffix) + "." + fileType;
 		return new String(FileCopyUtils.copyToByteArray(new ClassPathResource(fileName).getInputStream()));
 	}
 
@@ -178,7 +180,7 @@ public abstract class BaseSpringTest {
 		return new String[]{"https://www.nemi.gov/methods/method_summary/4665/", "https://www.nemi.gov/methods/method_summary/8896/", "analyticalMethod"};
 	}
 
-	public String[] getActivity() {
+	public static String[] getActivity() {
 		return new String[]{"WIDNR_WQX-7788475"};
 	}
 
@@ -275,7 +277,7 @@ public abstract class BaseSpringTest {
 		return new String[]{NWIS, STEWARDS, STORET};
 	}
 
-	public String[] getResult() {
+	public static String[] getResult() {
 		return new String[]{"STORET-5"};
 	}
 
@@ -314,4 +316,15 @@ public abstract class BaseSpringTest {
 	public String[] getWithin() {
 		return new String[]{"650"};
 	}
+
+	public void assertMapIsAsExpected(Map<String, Object> expectedRow, Map<String, Object> actualRow) {
+		//Doing both left to right and right to left to catch missing/extra on either side.
+		for (String i : expectedRow.keySet()) {
+			assertEquals(i, expectedRow.get(i), actualRow.get(i));
+		}
+		for (String i : actualRow.keySet()) {
+			assertEquals(i, actualRow.get(i), expectedRow.get(i));
+		}
+	}
+
 }

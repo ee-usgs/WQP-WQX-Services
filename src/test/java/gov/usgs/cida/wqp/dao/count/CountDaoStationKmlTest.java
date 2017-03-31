@@ -8,14 +8,14 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 
 import gov.usgs.cida.wqp.CsvDataSetLoader;
 import gov.usgs.cida.wqp.DBIntegrationTest;
-import gov.usgs.cida.wqp.dao.BaseDao;
+import gov.usgs.cida.wqp.dao.NameSpace;
 
 @Category(DBIntegrationTest.class)
 @DatabaseSetup("classpath:/testData/csv/")
 @DbUnitConfiguration(dataSetLoader = CsvDataSetLoader.class)
 public class CountDaoStationKmlTest extends BaseCountDaoTest {
 
-	protected String nameSpace = BaseDao.STATION_KML_NAMESPACE;
+	protected NameSpace nameSpace = NameSpace.STATION_KML;
 	protected boolean includeActivity = false;
 	protected boolean includeResults = false;
 

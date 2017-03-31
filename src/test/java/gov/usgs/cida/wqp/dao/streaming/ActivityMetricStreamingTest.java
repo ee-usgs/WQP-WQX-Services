@@ -21,10 +21,12 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 import gov.usgs.cida.wqp.BaseSpringTest;
 import gov.usgs.cida.wqp.CsvDataSetLoader;
 import gov.usgs.cida.wqp.DBIntegrationTest;
-import gov.usgs.cida.wqp.dao.BaseDao;
+import gov.usgs.cida.wqp.dao.NameSpace;
 import gov.usgs.cida.wqp.dao.intfc.IStreamingDao;
 import gov.usgs.cida.wqp.mapping.ActivityMetricColumn;
 import gov.usgs.cida.wqp.mapping.BaseColumn;
+import gov.usgs.cida.wqp.mapping.TestActivityMetricMap;
+import gov.usgs.cida.wqp.mapping.TestResultHandler;
 import gov.usgs.cida.wqp.parameter.Parameters;
 
 @Category(DBIntegrationTest.class)
@@ -38,7 +40,7 @@ public class ActivityMetricStreamingTest extends BaseSpringTest {
 
 	TestResultHandler handler;
 	Map<String, Object> parms;
-	String nameSpace = BaseDao.ACTIVITY_METRIC_NAMESPACE;
+	NameSpace nameSpace = NameSpace.ACTIVITY_METRIC;
 
 	public static final String[] STEWARDS_1 = new String[]{STEWARDS, "1_1_type_identifier"};
 	public static final String[] STEWARDS_2 = new String[]{STEWARDS, "1_2_type_identifier"};
@@ -682,11 +684,8 @@ public class ActivityMetricStreamingTest extends BaseSpringTest {
 		assertEquals(STORET_1[1], row.get(ActivityMetricColumn.KEY_METRIC_TYPE_IDENTIFIER));
 	}
 
-	public static void assertStoret2(Map<String, Object> row) {
-		assertEquals(ACTIVITY_METRIC_COLUMN_COUNT, row.keySet().size());
-		for (String i : TestActivityMetricMap.ACTIVITY_METRIC.keySet()) {
-			assertEquals(i, TestActivityMetricMap.ACTIVITY_METRIC.get(i), row.get(i));
-		}
+	public void assertStoret2(Map<String, Object> row) {
+		assertMapIsAsExpected(TestActivityMetricMap.ACTIVITY_METRIC, row);
 	}
 
 	public static void assertStoret3(Map<String, Object> row) {

@@ -21,10 +21,12 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 import gov.usgs.cida.wqp.BaseSpringTest;
 import gov.usgs.cida.wqp.CsvDataSetLoader;
 import gov.usgs.cida.wqp.DBIntegrationTest;
-import gov.usgs.cida.wqp.dao.BaseDao;
+import gov.usgs.cida.wqp.dao.NameSpace;
 import gov.usgs.cida.wqp.dao.intfc.IStreamingDao;
 import gov.usgs.cida.wqp.mapping.BaseColumn;
 import gov.usgs.cida.wqp.mapping.ResultColumn;
+import gov.usgs.cida.wqp.mapping.TestResDetectQntLmtMap;
+import gov.usgs.cida.wqp.mapping.TestResultHandler;
 import gov.usgs.cida.wqp.parameter.Parameters;
 
 @Category(DBIntegrationTest.class)
@@ -38,7 +40,7 @@ public class ResDetectQntLmtStreamingTest extends BaseSpringTest {
 
 	TestResultHandler handler;
 	Map<String, Object> parms;
-	String nameSpace = BaseDao.RES_DETECT_QNT_LMT_NAMESPACE;
+	NameSpace nameSpace = NameSpace.RES_DETECT_QNT_LMT;
 
 	public static final String[] STEWARDS_1 = new String[]{STEWARDS, "1"};
 	public static final String[] STEWARDS_2 = new String[]{STEWARDS, "2"};
@@ -744,11 +746,8 @@ public class ResDetectQntLmtStreamingTest extends BaseSpringTest {
 		assertEquals(detectionLimit, row.get(ResultColumn.KEY_DETECTION_LIMIT));
 	}
 
-	public static void assertStoret39(Map<String, Object> row) {
-		assertEquals(RES_DETECT_QNT_LMT_COLUMN_COUNT, row.keySet().size());
-		for (String i : TestResDetectQntLmtMap.RES_DETECT_QNT_LMT.keySet()) {
-			assertEquals(i, TestResDetectQntLmtMap.RES_DETECT_QNT_LMT.get(i), row.get(i));
-		}
+	public void assertStoret39(Map<String, Object> row) {
+		assertMapIsAsExpected(TestResDetectQntLmtMap.RES_DETECT_QNT_LMT, row);
 	}
 
 	public void assertContainsResDetectQntLmt(LinkedList<Map<String, Object>> results, String[]...  resDetectQntLmt) {

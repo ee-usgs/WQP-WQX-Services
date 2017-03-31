@@ -47,9 +47,11 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 
 import gov.usgs.cida.wqp.BaseSpringTest;
-import gov.usgs.cida.wqp.dao.BaseDao;
+import gov.usgs.cida.wqp.dao.NameSpace;
 import gov.usgs.cida.wqp.dao.intfc.ICountDao;
 import gov.usgs.cida.wqp.dao.intfc.IStreamingDao;
+import gov.usgs.cida.wqp.mapping.BaseColumn;
+import gov.usgs.cida.wqp.mapping.CountColumn;
 import gov.usgs.cida.wqp.mapping.Profile;
 import gov.usgs.cida.wqp.parameter.IParameterHandler;
 import gov.usgs.cida.wqp.parameter.ParameterMap;
@@ -63,7 +65,6 @@ import gov.usgs.cida.wqp.transform.MapToXmlTransformer;
 import gov.usgs.cida.wqp.transform.Transformer;
 import gov.usgs.cida.wqp.util.HttpConstants;
 import gov.usgs.cida.wqp.util.MimeType;
-import gov.usgs.cida.wqp.util.MybatisConstants;
 
 public class BaseControllerTest {
 
@@ -268,18 +269,6 @@ public class BaseControllerTest {
 	}
 
 	@Test
-	public void determinBaseFileNameTest() {
-		TestBaseController.setProfile(Profile.STATION);
-		assertEquals("station", testController.determineBaseFileName());
-		
-		TestBaseController.setProfile(Profile.PC_RESULT);
-		assertEquals("result", testController.determineBaseFileName());
-
-		TestBaseController.setProfile(Profile.BIOLOGICAL);
-		assertEquals("biologicalresult", testController.determineBaseFileName());
-	}
-
-	@Test
 	public void getAttachementFileNameTest() {
 		TestBaseController.setMimeType(MimeType.csv);
 		TestBaseController.setZipped(false);
@@ -322,38 +311,57 @@ public class BaseControllerTest {
 	@Test
 	public void determineNamespaceTest() {
 		TestBaseController.setMimeType(MimeType.kml);
-		assertEquals(BaseDao.STATION_KML_NAMESPACE, testController.determineNamespace());
+		assertEquals(NameSpace.STATION_KML, testController.determineNamespace());
 
 		TestBaseController.setMimeType(MimeType.kmz);
-		assertEquals(BaseDao.STATION_KML_NAMESPACE, testController.determineNamespace());
+		assertEquals(NameSpace.STATION_KML, testController.determineNamespace());
 
 		TestBaseController.setMimeType(MimeType.geojson);
-		assertEquals(BaseDao.SIMPLE_STATION_NAMESPACE, testController.determineNamespace());
+		assertEquals(NameSpace.SIMPLE_STATION, testController.determineNamespace());
 
 		TestBaseController.setMimeType(MimeType.csv);
 		TestBaseController.setProfile(Profile.BIOLOGICAL);
-		assertEquals(BaseDao.BIOLOGICAL_RESULT_NAMESPACE, testController.determineNamespace());
+		assertEquals(NameSpace.BIOLOGICAL_RESULT, testController.determineNamespace());
 
 		TestBaseController.setProfile(Profile.PC_RESULT);
-		assertEquals(BaseDao.RESULT_NAMESPACE, testController.determineNamespace());
+		assertEquals(NameSpace.RESULT, testController.determineNamespace());
 
 		TestBaseController.setProfile(Profile.SIMPLE_STATION);
-		assertEquals(BaseDao.SIMPLE_STATION_NAMESPACE, testController.determineNamespace());
+		assertEquals(NameSpace.SIMPLE_STATION, testController.determineNamespace());
 
 		TestBaseController.setProfile(Profile.STATION);
-		assertEquals(BaseDao.STATION_NAMESPACE, testController.determineNamespace());
+		assertEquals(NameSpace.STATION, testController.determineNamespace());
 
 		TestBaseController.setProfile(Profile.ACTIVITY);
-		assertEquals(BaseDao.ACTIVITY_NAMESPACE, testController.determineNamespace());
+		assertEquals(NameSpace.ACTIVITY, testController.determineNamespace());
 
 		TestBaseController.setProfile(Profile.ACTIVITY_METRIC);
-		assertEquals(BaseDao.ACTIVITY_METRIC_NAMESPACE, testController.determineNamespace());
+		assertEquals(NameSpace.ACTIVITY_METRIC, testController.determineNamespace());
 
 		TestBaseController.setProfile(Profile.RES_DETECT_QNT_LMT);
-		assertEquals(BaseDao.RES_DETECT_QNT_LMT_NAMESPACE, testController.determineNamespace());
+		assertEquals(NameSpace.RES_DETECT_QNT_LMT, testController.determineNamespace());
 
-		TestBaseController.setProfile("");
-		assertEquals("", testController.determineNamespace());
+		TestBaseController.setProfile(null);
+		assertNull(testController.determineNamespace());
+	}
+
+	@Test
+	public void determineNamespaceFromProfileTest() {
+		assertEquals(NameSpace.BIOLOGICAL_RESULT, testController.determineNamespaceFromProfile(Profile.BIOLOGICAL));
+
+		assertEquals(NameSpace.RESULT, testController.determineNamespaceFromProfile(Profile.PC_RESULT));
+
+		assertEquals(NameSpace.SIMPLE_STATION, testController.determineNamespaceFromProfile(Profile.SIMPLE_STATION));
+
+		assertEquals(NameSpace.STATION, testController.determineNamespaceFromProfile(Profile.STATION));
+
+		assertEquals(NameSpace.ACTIVITY, testController.determineNamespaceFromProfile(Profile.ACTIVITY));
+
+		assertEquals(NameSpace.ACTIVITY_METRIC, testController.determineNamespaceFromProfile(Profile.ACTIVITY_METRIC));
+
+		assertEquals(NameSpace.RES_DETECT_QNT_LMT, testController.determineNamespaceFromProfile(Profile.RES_DETECT_QNT_LMT));
+
+		assertNull(testController.determineNamespaceFromProfile(null));
 	}
 
 	@Test
@@ -417,7 +425,7 @@ public class BaseControllerTest {
 		assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
 		verify(parameterHandler, never()).validateAndTransform(anyMap(), anyMap(), anyObject());
 		verify(logService, never()).logHeadComplete(response, logId);
-		verify(countDao, never()).getCounts(anyString(), anyMap());
+		verify(countDao, never()).getCounts(any(NameSpace.class), anyMap());
 	}
 
 	@Test
@@ -439,7 +447,7 @@ public class BaseControllerTest {
 		assertTrue(response.getHeader(HttpConstants.HEADER_WARNING).startsWith("299 WQP \"not cool\""));
 		verify(parameterHandler).validateAndTransform(anyMap(), anyMap(), anyObject());
 		verify(logService, never()).logHeadComplete(response, logId);
-		verify(countDao, never()).getCounts(anyString(), anyMap());
+		verify(countDao, never()).getCounts(any(NameSpace.class), anyMap());
 	}
 
 	@Test
@@ -467,7 +475,7 @@ public class BaseControllerTest {
 		assertEquals("12", response.getHeader(TestBaseController.TEST_COUNT));
 		verify(parameterHandler).validateAndTransform(anyMap(), anyMap(), anyObject());
 		verify(logService).logHeadComplete(response, logId);
-		verify(countDao).getCounts(anyString(), anyMap());
+		verify(countDao).getCounts(any(NameSpace.class), anyMap());
 	}
 
 	@Test
@@ -494,7 +502,7 @@ public class BaseControllerTest {
 		assertEquals("12", response.getHeader(TestBaseController.TEST_COUNT));
 		verify(parameterHandler).validateAndTransform(anyMap(), anyMap(), anyObject());
 		verify(logService).logHeadComplete(response, logId);
-		verify(countDao).getCounts(anyString(), anyMap());
+		verify(countDao).getCounts(any(NameSpace.class), anyMap());
 
 		request.setRequestURI("endpoint/count");
 		response = new MockHttpServletResponse();
@@ -508,7 +516,7 @@ public class BaseControllerTest {
 		verify(parameterHandler, times(2)).validateAndTransform(anyMap(), anyMap(), anyObject());
 		//logService is only one because we created a new response
 		verify(logService, times(1)).logHeadComplete(response, logId);
-		verify(countDao, times(2)).getCounts(anyString(), anyMap());
+		verify(countDao, times(2)).getCounts(any(NameSpace.class), anyMap());
 
 		request.setMethod("GET");
 		response = new MockHttpServletResponse();
@@ -522,7 +530,7 @@ public class BaseControllerTest {
 		verify(parameterHandler, times(3)).validateAndTransform(anyMap(), anyMap(), anyObject());
 		//logService is only one because we created a new response
 		verify(logService, times(1)).logHeadComplete(response, logId);
-		verify(countDao, times(3)).getCounts(anyString(), anyMap());	
+		verify(countDao, times(3)).getCounts(any(NameSpace.class), anyMap());	
 	}
 
 	@Test
@@ -740,7 +748,7 @@ public class BaseControllerTest {
 		assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
 		verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(Map.class));
 		verify(logService).logRequestComplete(any(BigDecimal.class), anyString());
-		verify(streamingDao, never()).stream(anyString(), anyMap(), any(ResultHandler.class));
+		verify(streamingDao, never()).stream(any(NameSpace.class), anyMap(), any(ResultHandler.class));
 	}
 
 	@Test
@@ -764,7 +772,7 @@ public class BaseControllerTest {
 		assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
 		verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(Map.class));
 		verify(logService).logRequestComplete(any(BigDecimal.class), anyString());
-		verify(streamingDao, never()).stream(anyString(), anyMap(), any(ResultHandler.class));
+		verify(streamingDao, never()).stream(any(NameSpace.class), anyMap(), any(ResultHandler.class));
 	}
 
 	@Test
@@ -799,9 +807,9 @@ public class BaseControllerTest {
 
 		verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(Map.class));
 		verify(parameterHandler).validateAndTransform(anyMap(), anyMap(), anyObject());
-		verify(countDao).getCounts(anyString(), anyMap());
+		verify(countDao).getCounts(any(NameSpace.class), anyMap());
 		verify(logService).logHeadComplete(any(HttpServletResponse.class), any(BigDecimal.class));
-		verify(streamingDao).stream(anyString(), anyMap(), any(ResultHandler.class));
+		verify(streamingDao).stream(any(NameSpace.class), anyMap(), any(ResultHandler.class));
 		verify(logService).logRequestComplete(any(BigDecimal.class), anyString());
 	}
 
@@ -840,9 +848,9 @@ public class BaseControllerTest {
 		assertEquals("Total-abc", testController.determineHeaderName(null, "abc"));
 		count.put("abc", "123");
 		count.put("def", "456");
-		count.put(MybatisConstants.DATA_SOURCE, null);
+		count.put(BaseColumn.KEY_DATA_SOURCE, null);
 		assertEquals("Total-xyz", testController.determineHeaderName(count, "xyz"));
-		count.put(MybatisConstants.DATA_SOURCE, "dude");
+		count.put(BaseColumn.KEY_DATA_SOURCE, "dude");
 		assertEquals("dude-xyz", testController.determineHeaderName(count, "xyz"));
 	}
 
@@ -894,9 +902,9 @@ public class BaseControllerTest {
 
 		verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(Map.class));
 		verify(parameterHandler).validateAndTransform(anyMap(), anyMap(), anyObject());
-		verify(countDao).getCounts(anyString(), anyMap());
+		verify(countDao).getCounts(any(NameSpace.class), anyMap());
 		verify(logService).logHeadComplete(any(HttpServletResponse.class), any(BigDecimal.class));
-		verify(streamingDao).stream(anyString(), anyMap(), any(ResultHandler.class));
+		verify(streamingDao).stream(any(NameSpace.class), anyMap(), any(ResultHandler.class));
 		verify(logService).logRequestComplete(any(BigDecimal.class), anyString());
 	}
 
@@ -913,7 +921,7 @@ public class BaseControllerTest {
 		ParameterMap p = new ParameterMap();
 		p.setQueryParameters(q);
 		when(parameterHandler.validateAndTransform(anyMap(), anyMap(), anyObject())).thenReturn(p);
-		when(countDao.getCounts(anyString(), anyMap())).thenReturn(getRawCounts());
+		when(countDao.getCounts(any(NameSpace.class), anyMap())).thenReturn(getRawCounts());
 
 		Map<String, String> result = testController.doPostCountRequest(request, response, json);
 
@@ -949,7 +957,7 @@ public class BaseControllerTest {
 		assertTrue(counts.containsKey("empty-total-header"));
 		assertEquals("0", counts.get("empty-total-header"));
 
-		testController.addCountHeaders(response, getRawCounts(), HttpConstants.HEADER_TOTAL_SITE_COUNT, HttpConstants.HEADER_SITE_COUNT, MybatisConstants.STATION_COUNT);
+		testController.addCountHeaders(response, getRawCounts(), HttpConstants.HEADER_TOTAL_SITE_COUNT, HttpConstants.HEADER_SITE_COUNT, CountColumn.KEY_STATION_COUNT);
 
 		empty = response.getHeaderValue("empty-header");
 		assertNull(empty);
@@ -974,7 +982,7 @@ public class BaseControllerTest {
 		assertTrue(counts.containsKey(HttpConstants.HEADER_TOTAL_SITE_COUNT));
 		assertEquals(TEST_TOTAL_STATION_COUNT, counts.get(HttpConstants.HEADER_TOTAL_SITE_COUNT));
 
-		testController.addCountHeaders(response, getRawCounts(), HttpConstants.HEADER_TOTAL_RESULT_COUNT, HttpConstants.HEADER_RESULT_COUNT, MybatisConstants.RESULT_COUNT);
+		testController.addCountHeaders(response, getRawCounts(), HttpConstants.HEADER_TOTAL_RESULT_COUNT, HttpConstants.HEADER_RESULT_COUNT, CountColumn.KEY_RESULT_COUNT);
 
 		nwisSite = response.getHeaderValue(BaseSpringTest.HEADER_NWIS_SITE_COUNT);
 		assertNotNull(nwisSite);
@@ -1058,21 +1066,21 @@ public class BaseControllerTest {
 	public static List<Map<String, Object>> getRawCounts() {
 		List<Map<String, Object>> rawCounts = new ArrayList<>();
 		Map<String, Object> nwisCountRow = new HashMap<>();
-		nwisCountRow.put(MybatisConstants.DATA_SOURCE, BaseSpringTest.NWIS);
-		nwisCountRow.put(MybatisConstants.STATION_COUNT, TEST_NWIS_STATION_COUNT);
-		nwisCountRow.put(MybatisConstants.ACTIVITY_COUNT, TEST_NWIS_ACTIVITY_COUNT);
-		nwisCountRow.put(MybatisConstants.ACTIVITY_METRIC_COUNT, TEST_NWIS_ACTIVITY_METRIC_COUNT);
-		nwisCountRow.put(MybatisConstants.RESULT_COUNT, TEST_NWIS_RESULT_COUNT);
-		nwisCountRow.put(MybatisConstants.RES_DETECT_QNT_LMT_COUNT, TEST_NWIS_RES_DETECT_QNT_LMT_COUNT);
+		nwisCountRow.put(BaseColumn.KEY_DATA_SOURCE, BaseSpringTest.NWIS);
+		nwisCountRow.put(CountColumn.KEY_STATION_COUNT, TEST_NWIS_STATION_COUNT);
+		nwisCountRow.put(CountColumn.KEY_ACTIVITY_COUNT, TEST_NWIS_ACTIVITY_COUNT);
+		nwisCountRow.put(CountColumn.KEY_ACTIVITY_METRIC_COUNT, TEST_NWIS_ACTIVITY_METRIC_COUNT);
+		nwisCountRow.put(CountColumn.KEY_RESULT_COUNT, TEST_NWIS_RESULT_COUNT);
+		nwisCountRow.put(CountColumn.KEY_RES_DETECT_QNT_LMT_COUNT, TEST_NWIS_RES_DETECT_QNT_LMT_COUNT);
 		rawCounts.add(nwisCountRow);
 
 		Map<String, Object> totalCountRow = new HashMap<>();
-		totalCountRow.put(MybatisConstants.DATA_SOURCE, null);
-		totalCountRow.put(MybatisConstants.STATION_COUNT, TEST_TOTAL_STATION_COUNT);
-		totalCountRow.put(MybatisConstants.ACTIVITY_COUNT, TEST_TOTAL_ACTIVITY_COUNT);
-		totalCountRow.put(MybatisConstants.ACTIVITY_METRIC_COUNT, TEST_TOTAL_ACTIVITY_METRIC_COUNT);
-		totalCountRow.put(MybatisConstants.RESULT_COUNT, TEST_TOTAL_RESULT_COUNT);
-		totalCountRow.put(MybatisConstants.RES_DETECT_QNT_LMT_COUNT, TEST_TOTAL_RES_DETECT_QNT_LMT_COUNT);
+		totalCountRow.put(BaseColumn.KEY_DATA_SOURCE, null);
+		totalCountRow.put(CountColumn.KEY_STATION_COUNT, TEST_TOTAL_STATION_COUNT);
+		totalCountRow.put(CountColumn.KEY_ACTIVITY_COUNT, TEST_TOTAL_ACTIVITY_COUNT);
+		totalCountRow.put(CountColumn.KEY_ACTIVITY_METRIC_COUNT, TEST_TOTAL_ACTIVITY_METRIC_COUNT);
+		totalCountRow.put(CountColumn.KEY_RESULT_COUNT, TEST_TOTAL_RESULT_COUNT);
+		totalCountRow.put(CountColumn.KEY_RES_DETECT_QNT_LMT_COUNT, TEST_TOTAL_RES_DETECT_QNT_LMT_COUNT);
 		rawCounts.add(totalCountRow);
 
 		return rawCounts;

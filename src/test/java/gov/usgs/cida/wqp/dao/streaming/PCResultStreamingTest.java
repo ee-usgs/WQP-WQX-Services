@@ -10,15 +10,15 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 
 import gov.usgs.cida.wqp.CsvDataSetLoader;
 import gov.usgs.cida.wqp.DBIntegrationTest;
-import gov.usgs.cida.wqp.dao.BaseDao;
+import gov.usgs.cida.wqp.dao.NameSpace;
+import gov.usgs.cida.wqp.mapping.TestPcResultMap;
 
 @Category(DBIntegrationTest.class)
 @DatabaseSetup("classpath:/testData/csv/")
 @DbUnitConfiguration(dataSetLoader = CsvDataSetLoader.class)
 public class PCResultStreamingTest extends ResultStreamingTest {
 
-	protected String nameSpace = BaseDao.RESULT_NAMESPACE;
-	protected Integer expectedColumnCount = TestPcResultMap.PC_RESULT_COLUMN_COUNT;
+	protected NameSpace nameSpace = NameSpace.RESULT;
 	protected Map<String, Object> expectedMap = TestPcResultMap.PC_RESULT;
 
 	@Test
@@ -33,7 +33,7 @@ public class PCResultStreamingTest extends ResultStreamingTest {
 
 	@Test
 	public void allDataSortedTest() {
-		allDataSortedTest(nameSpace, expectedColumnCount, expectedMap);
+		allDataSortedTest(nameSpace, expectedMap);
 	}
 
 	@Test

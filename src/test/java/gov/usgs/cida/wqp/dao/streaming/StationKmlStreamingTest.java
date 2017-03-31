@@ -13,7 +13,8 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 
 import gov.usgs.cida.wqp.CsvDataSetLoader;
 import gov.usgs.cida.wqp.DBIntegrationTest;
-import gov.usgs.cida.wqp.dao.BaseDao;
+import gov.usgs.cida.wqp.dao.NameSpace;
+import gov.usgs.cida.wqp.mapping.TestStationMap;
 import gov.usgs.cida.wqp.parameter.Parameters;
 
 @Category(DBIntegrationTest.class)
@@ -21,8 +22,8 @@ import gov.usgs.cida.wqp.parameter.Parameters;
 @DbUnitConfiguration(dataSetLoader = CsvDataSetLoader.class)
 public class StationKmlStreamingTest extends BaseStationStreamingTest {
 
-	protected String nameSpace = BaseDao.STATION_KML_NAMESPACE;
-	protected Integer expectedColumnCount = TestStationMap.STATION_KML_COLUMN_COUNT;
+	protected NameSpace nameSpace = NameSpace.STATION_KML;
+	protected Integer expectedColumnCount = TestStationMap.STATION_KML.keySet().size();
 	protected Map<String, Object> expectedMap = TestStationMap.STATION_KML;
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -56,7 +57,7 @@ public class StationKmlStreamingTest extends BaseStationStreamingTest {
 		assertRow(results.get(6), NWIS_1360035, expectedColumnCount);
 		assertRow(results.get(7), STORET_436723, expectedColumnCount);
 		assertRow(results.get(8), STORET_1383, expectedColumnCount);
-		assertStoret888(results.get(9), expectedColumnCount, expectedMap);
+		assertStoret888(expectedMap, results.get(9));
 		assertRow(results.get(10), STORET_777, expectedColumnCount);
 		assertRow(results.get(11), STORET_999, expectedColumnCount);
 	}

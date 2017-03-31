@@ -3,6 +3,8 @@ package gov.usgs.cida.wqp.dao.intfc;
 import java.util.List;
 import java.util.Map;
 
+import gov.usgs.cida.wqp.dao.NameSpace;
+
 public interface ICountDao {
 
 	/** 
@@ -11,6 +13,6 @@ public interface ICountDao {
 	 * @param parameterMap - the map of query parameters from the http request
 	 * @return - the list of counts.
 	 */
-	List<Map<String, Object>> getCounts(String nameSpace, Map<String, Object> parameterMap);
+	List<Map<String, Object>> getCounts(NameSpace nameSpace, Map<String, Object> parameterMap);
 
 }

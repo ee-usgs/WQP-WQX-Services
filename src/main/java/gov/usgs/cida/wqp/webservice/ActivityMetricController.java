@@ -94,7 +94,7 @@ public class ActivityMetricController extends BaseController {
 	}
 
 	@Override
-	protected Map<String, String> getMapping(String profile) {
+	protected Map<String, String> getMapping(Profile profile) {
 		return ActivityMetricDelimited.getMapping(profile);
 	}
 
@@ -104,7 +104,7 @@ public class ActivityMetricController extends BaseController {
 	}
 
 	@Override
-	protected String determineProfile(Map<String, Object> pm) {
+	protected Profile determineProfile(Map<String, Object> pm) {
 		return determineProfile(Profile.ACTIVITY_METRIC, pm);
 	}
 

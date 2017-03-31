@@ -1,4 +1,4 @@
-package gov.usgs.cida.wqp.dao.streaming;
+package gov.usgs.cida.wqp.mapping;
 
 import static gov.usgs.cida.wqp.mapping.ActivityColumn.*;
 import static gov.usgs.cida.wqp.mapping.ResultColumn.*;
@@ -12,8 +12,6 @@ import gov.usgs.cida.wqp.BaseSpringTest;
 
 public class TestPcResultMap {
 
-	public static final int PC_RESULT_COLUMN_COUNT = 71;
-
 	public static final Map<String, Object> PC_RESULT;
 	static {
 		PC_RESULT = new LinkedHashMap<String, Object>();
@@ -26,9 +24,10 @@ public class TestPcResultMap {
 		PC_RESULT.put(KEY_SAMPLE_MEDIA, "sampleMedia");
 		PC_RESULT.put(KEY_ORGANIZATION, "organization");
 		PC_RESULT.put(KEY_SITE_TYPE, "siteType");
-		PC_RESULT.put(KEY_HUC, "00000000");
+		PC_RESULT.put(KEY_HUC, "0000");
 		PC_RESULT.put(KEY_GOVERNMENTAL_UNIT_CODE, "XX:44:555");
 		PC_RESULT.put(KEY_ORGANIZATION_NAME, "organizationName");
+		PC_RESULT.put(KEY_ACTIVITY_ID, BigDecimal.valueOf(11));
 		PC_RESULT.put(KEY_ACTIVITY_TYPE_CODE, "activityTypeCode");
 		PC_RESULT.put(KEY_ACTIVITY_MEDIA_SUBDIV_NAME, "activityMediaSubdivName");
 		PC_RESULT.put(KEY_ACTIVITY_START_TIME, "activityStartTime");
@@ -55,7 +54,6 @@ public class TestPcResultMap {
 		PC_RESULT.put(KEY_SAMPLE_COLLECT_EQUIP_NAME, "sampleCollectEquipName");
 
 		PC_RESULT.put(KEY_RESULT_ID, BigDecimal.valueOf(42));
-		PC_RESULT.put(KEY_ANALYTICAL_METHOD, "analyticalMethod");
 		PC_RESULT.put(KEY_RESULT_DETECTION_CONDITION_TX, "resultDetectionConditionTx");
 		PC_RESULT.put(KEY_CHARACTERISTIC_NAME, "characteristicName");
 		PC_RESULT.put(KEY_CHARACTERISTIC_TYPE, "characteristicType");

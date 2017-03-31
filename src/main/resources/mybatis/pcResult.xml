@@ -7,21 +7,22 @@
             select * from (
         </if>
         select <include refid="dynamicWhere.resultStationHashHint"/>
-               prime.data_source_id, prime.data_source, prime.station_id, prime.site_id, to_char(prime.event_date, 'yyyy-mm-dd') event_date, prime.analytical_method, prime.p_code, prime.activity,
-                              prime.characteristic_name, prime.characteristic_type, prime.sample_media, prime.organization, prime.site_type, prime.huc, prime.governmental_unit_code,
-                              prime.organization_name, prime.activity_type_code, prime.activity_media_subdiv_name, prime.activity_start_time,
-                              prime.act_start_time_zone, prime.activity_stop_date, prime.activity_stop_time, prime.act_stop_time_zone, prime.activity_depth,
-                              prime.activity_depth_unit, prime.activity_depth_ref_point, prime.activity_upper_depth, prime.activity_upper_depth_unit,
-                              prime.activity_lower_depth, prime.activity_lower_depth_unit, prime.project_id, prime.activity_conducting_org, prime.activity_comment,
-                              prime.sample_aqfr_name, prime.hydrologic_condition_name, prime.hydrologic_event_name,
-                              prime.sample_collect_method_id, prime.sample_collect_method_ctx, prime.sample_collect_method_name, prime.sample_collect_equip_name,
-                              prime.result_id, prime.result_detection_condition_tx, prime.sample_fraction_type, prime.result_measure_value, prime.result_unit,
-                              prime.result_meas_qual_code, prime.result_value_status, prime.statistic_type, prime.result_value_type, prime.weight_basis_type, prime.duration_basis,
-                              prime.temperature_basis_level, prime.particle_size, prime.precision, prime.result_comment, prime.result_depth_meas_value,
-                              prime.result_depth_meas_unit_code, prime.result_depth_alt_ref_pt_txt, prime.sample_tissue_taxonomic_name,
-                              prime.sample_tissue_anatomy_name, prime.analytical_procedure_id, prime.analytical_procedure_source, prime.analytical_method_name,
-                              prime.analytical_method_citation, prime.lab_name, prime.analysis_start_date, prime.lab_remark, prime.detection_limit, prime.detection_limit_unit,
-                              prime.detection_limit_desc, prime.analysis_prep_date_tx
+               <include refid="base.baseColumns"/>,
+               to_char(prime.event_date, 'yyyy-mm-dd') event_date, prime.p_code, prime.activity,
+               prime.characteristic_name, prime.characteristic_type, prime.sample_media, prime.site_type, prime.huc, prime.governmental_unit_code, prime.activity_id,
+               prime.activity_type_code, prime.activity_media_subdiv_name, prime.activity_start_time,
+               prime.act_start_time_zone, prime.activity_stop_date, prime.activity_stop_time, prime.act_stop_time_zone, prime.activity_depth,
+               prime.activity_depth_unit, prime.activity_depth_ref_point, prime.activity_upper_depth, prime.activity_upper_depth_unit,
+               prime.activity_lower_depth, prime.activity_lower_depth_unit, prime.project_id, prime.activity_conducting_org, prime.activity_comment,
+               prime.sample_aqfr_name, prime.hydrologic_condition_name, prime.hydrologic_event_name,
+               prime.sample_collect_method_id, prime.sample_collect_method_ctx, prime.sample_collect_method_name, prime.sample_collect_equip_name,
+               prime.result_id, prime.result_detection_condition_tx, prime.sample_fraction_type, prime.result_measure_value, prime.result_unit,
+               prime.result_meas_qual_code, prime.result_value_status, prime.statistic_type, prime.result_value_type, prime.weight_basis_type, prime.duration_basis,
+               prime.temperature_basis_level, prime.particle_size, prime.precision, prime.result_comment, prime.result_depth_meas_value,
+               prime.result_depth_meas_unit_code, prime.result_depth_alt_ref_pt_txt, prime.sample_tissue_taxonomic_name,
+               prime.sample_tissue_anatomy_name, prime.analytical_procedure_id, prime.analytical_procedure_source, prime.analytical_method_name,
+               prime.analytical_method_citation, prime.lab_name, prime.analysis_start_date, prime.lab_remark, prime.detection_limit, prime.detection_limit_unit,
+               prime.detection_limit_desc, prime.analysis_prep_date_tx
         <if test="minactivities != null">
             , count(distinct prime.activity_id) over (partition by prime.data_source_id, prime.station_id) site_activity_count
         </if>

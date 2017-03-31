@@ -1,4 +1,4 @@
-package gov.usgs.cida.wqp.dao.streaming;
+package gov.usgs.cida.wqp.mapping;
 
 import java.math.BigDecimal;
 import java.util.LinkedHashMap;
@@ -11,10 +11,6 @@ import static gov.usgs.cida.wqp.mapping.StationColumn.*;
 import static gov.usgs.cida.wqp.mapping.xml.StationKml.*;
 
 public class TestStationMap {
-
-	public static final int STATION_COLUMN_COUNT = 38;
-	public static final int STATION_JSON_COLUMN_COUNT = 12;
-	public static final int STATION_KML_COLUMN_COUNT = 16;
 
 	public static final Map<String, Object> STATION;
 	static {

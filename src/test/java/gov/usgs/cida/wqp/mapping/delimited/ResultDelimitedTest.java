@@ -7,9 +7,9 @@ import java.util.Map;
 import org.junit.Test;
 
 import gov.usgs.cida.wqp.mapping.ActivityColumn;
+import gov.usgs.cida.wqp.mapping.BaseColumn;
 import gov.usgs.cida.wqp.mapping.Profile;
 import gov.usgs.cida.wqp.mapping.ResultColumn;
-import gov.usgs.cida.wqp.mapping.StationColumn;
 
 public class ResultDelimitedTest {
 
@@ -23,12 +23,17 @@ public class ResultDelimitedTest {
 		assertBiologicalProfile(ResultDelimited.getMapping(Profile.BIOLOGICAL));
 	}
 
+	@Test
+	public void narrowProfileTest() {
+		assertNarrowProfile(ResultDelimited.getMapping(Profile.NARROW_RESULT));
+	}
+
 	public static void assertPcResultProfile(Map<String, String> mapping) {
 		assertEquals(63, mapping.size());
 		Object[] keys = mapping.keySet().toArray();
 		//kind of large, so just random checks...
-		assertEquals(StationColumn.KEY_ORGANIZATION, keys[0]);
-		assertEquals(StationDelimited.VALUE_ORGANIZATION_IDENTIFIER, mapping.get(keys[0]));
+		assertEquals(BaseColumn.KEY_ORGANIZATION, keys[0]);
+		assertEquals(BaseDelimited.VALUE_ORGANIZATION_IDENTIFIER, mapping.get(keys[0]));
 		assertEquals(ActivityColumn.KEY_ACTIVITY_START_TIME,keys[7]);
 		assertEquals(ActivityDelimited.VALUE_ACTIVITY_START_TIME, mapping.get(keys[7]));
 		assertEquals(ActivityColumn.KEY_SAMPLE_COLLECT_METHOD_ID, keys[26]);
@@ -47,8 +52,8 @@ public class ResultDelimitedTest {
 		assertEquals(156, mapping.size());
 		Object[] keys = mapping.keySet().toArray();
 		//kind of large, so just random checks...
-		assertEquals(StationColumn.KEY_ORGANIZATION, keys[0]);
-		assertEquals(StationDelimited.VALUE_ORGANIZATION_IDENTIFIER, mapping.get(keys[0]));
+		assertEquals(BaseColumn.KEY_ORGANIZATION, keys[0]);
+		assertEquals(BaseDelimited.VALUE_ORGANIZATION_IDENTIFIER, mapping.get(keys[0]));
 		assertEquals(ActivityColumn.KEY_ACTIVITY_START_TIME,keys[7]);
 		assertEquals(ActivityDelimited.VALUE_ACTIVITY_START_TIME, mapping.get(keys[7]));
 		assertEquals(ActivityColumn.KEY_HYDROLOGIC_EVENT_NAME, keys[26]);
@@ -69,6 +74,34 @@ public class ResultDelimitedTest {
 		assertEquals(ResultDelimited.VALUE_RLCOM_CD, mapping.get(keys[134]));
 		assertEquals(ResultColumn.KEY_DATA_SOURCE, keys[155]);
 		assertEquals(ResultDelimited.VALUE_DATA_SOURCE, mapping.get(keys[155]));
+	}
+
+	public static void assertNarrowProfile(Map<String, String> mapping) {
+		assertEquals(77, mapping.size());
+		Object[] keys = mapping.keySet().toArray();
+		//kind of large, so just random checks...
+		assertEquals(BaseColumn.KEY_ORGANIZATION, keys[0]);
+		assertEquals(BaseDelimited.VALUE_ORGANIZATION_IDENTIFIER, mapping.get(keys[0]));
+		assertEquals(BaseColumn.KEY_SITE_ID,keys[6]);
+		assertEquals(BaseDelimited.VALUE_MONITORING_LOCATION_IDENTIFIER, mapping.get(keys[6]));
+		assertEquals(ResultColumn.KEY_TEMPERATURE_BASIS_LEVEL, keys[20]);
+		assertEquals(ResultDelimited.VALUE_TEMPERATURE_BASIS_LEVEL, mapping.get(keys[20]));
+		assertEquals(ResultColumn.KEY_RESULT_COMMENT, keys[27]);
+		assertEquals(ResultDelimited.VALUE_RESULT_COMMENT, mapping.get(keys[27]));
+		assertEquals(ResultColumn.KEY_RES_BIO_INDIVIDUAL_ID, keys[34]);
+		assertEquals(ResultDelimited.VALUE_RES_BIO_INDIVIDUAL_ID, mapping.get(keys[34]));
+		assertEquals(ResultColumn.KEY_CELL_SHAPE_NAME, keys[41]);
+		assertEquals(ResultDelimited.VALUE_CELL_SHAPE_NAME, mapping.get(keys[41]));
+		assertEquals(ResultColumn.KEY_TAXON_CITATION_TITLE, keys[48]);
+		assertEquals(ResultDelimited.VALUE_TAXON_CITATION_TITLE, mapping.get(keys[48]));
+		assertEquals(ResultColumn.KEY_ANALYTICAL_PROCEDURE_ID, keys[55]);
+		assertEquals(ResultDelimited.VALUE_ANALYTICAL_PROCEDURE_ID, mapping.get(keys[55]));
+		assertEquals(ResultColumn.KEY_ANALYSIS_START_DATE, keys[62]);
+		assertEquals(ResultDelimited.VALUE_ANALYSIS_START_DATE, mapping.get(keys[62]));
+		assertEquals(ResultColumn.KEY_LAB_REMARK, keys[69]);
+		assertEquals(ResultDelimited.VALUE_LAB_REMARK, mapping.get(keys[69]));
+		assertEquals(ResultColumn.KEY_DATA_SOURCE, keys[76]);
+		assertEquals(ResultDelimited.VALUE_DATA_SOURCE, mapping.get(keys[76]));
 	}
 
 }

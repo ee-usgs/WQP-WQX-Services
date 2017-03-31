@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="narrowResult">
+
+    <sql id="baseColumns">
+        prime.result_id, prime.res_data_logger_line, prime.result_detection_condition_tx, prime.method_specification_name,
+        prime.characteristic_name, prime.characteristic_type,
+        prime.sample_fraction_type, prime.result_measure_value, prime.result_unit, prime.result_meas_qual_code, prime.result_value_status, prime.statistic_type, prime.result_value_type,
+        prime.weight_basis_type, prime.duration_basis, prime.temperature_basis_level, prime.particle_size, prime.precision, prime.res_measure_bias, prime.res_measure_conf_interval,
+        prime.res_measure_upper_conf_limit, prime.res_measure_lower_conf_limit, prime.result_comment, prime.p_code, prime.result_depth_meas_value, prime.result_depth_meas_unit_code,
+        prime.result_depth_alt_ref_pt_txt, prime.res_sampling_point_name, prime.biological_intent, prime.res_bio_individual_id, prime.sample_tissue_taxonomic_name,
+        prime.unidentifiedspeciesidentifier, prime.sample_tissue_anatomy_name, prime.res_group_summary_ct_wt, prime.res_group_summary_ct_wt_unit, prime.cell_form_name,
+        prime.cell_shape_name, prime.habit_name, prime.volt_name, prime.rtdet_pollution_tolerance, prime.rtdet_pollution_tolernce_scale, prime.rtdet_trophic_level,
+        prime.rtfgrp_functional_feeding_grp, prime.taxon_citation_title, prime.taxon_citation_creator, prime.taxon_citation_subject, prime.taxon_citation_publisher,
+        prime.taxon_citation_date, prime.taxon_citation_id, prime.analytical_procedure_id,
+        prime.analytical_procedure_source, prime.analytical_method_name, prime.anlmth_qual_type, prime.analytical_method_citation, prime.lab_name, prime.analysis_start_date,
+        prime.analysis_start_time, prime.analysis_start_timezone, prime.analysis_end_date, prime.analysis_end_time, prime.analysis_end_timezone, prime.rlcom_cd, prime.lab_remark,
+        prime.res_lab_accred_yn, prime.res_lab_accred_authority, prime.res_taxonomist_accred_yn, prime.res_taxonomist_accred_authorty
+    </sql>
+
+    <select id="select" resultType="java.util.LinkedHashMap" fetchSize="500">
+        <if test="minactivities != null or minresults != null">
+            select * from (
+        </if>
+        select <include refid="dynamicWhere.resultStationHashHint"/>
+               <include refid="base.baseColumns"/>,
+               <include refid="activity.baseColumns"/>,
+               <include refid="narrowResult.baseColumns"/>,
+               prime.analytical_method,
+               null fcdsc_url,
+               case when detection_limit is not null or detection_limit_unit is not null or detection_limit_desc is not null
+                 then #{siteUrlBase,jdbcType=VARCHAR} || '/activities/' || wqp_core.pkg_dynamic_list.url_escape(prime.activity, 'true') ||
+                      '/results/' || wqp_core.pkg_dynamic_list.url_escape(prime.data_source || '-' || prime.result_id, 'true') || '/resdetectqntlmts'
+                 else null
+               end res_detect_qnt_lmt_url,
+               null prep_method_url
+        <if test="minactivities != null">
+            , count(distinct prime.activity_id) over (partition by prime.data_source_id, prime.station_id) site_activity_count
+        </if>
+        <if test="minresults != null">
+            , count(*) over (partition by prime.data_source_id, prime.station_id) site_result_count
+        </if>
+        <include refid="dynamicWhere.resultsBase"/>
+        <if test="minactivities != null or minresults != null">
+            ) prime
+            <where>
+                <if test="minactivities != null">
+                    and site_activity_count >= #{minactivities[0]}
+                </if>
+                <if test="minresults != null">
+                    and site_result_count >= #{minresults[0]}
+                </if>
+            </where>
+        </if>
+        <if test="sorted == 'yes'">
+            order by prime.data_source_id,
+                     prime.organization,
+                     prime.site_id,
+                     prime.event_date,
+                     prime.activity,
+                     prime.result_id
+        </if>
+    </select>
+
+    <select id="count" resultType="java.util.LinkedHashMap">
+        <include refid="pcResult.resultCount"/>
+    </select>
+
+</mapper>
