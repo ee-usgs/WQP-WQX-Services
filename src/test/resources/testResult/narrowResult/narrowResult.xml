@@ -534,7 +534,7 @@
 					<ResultLaboratoryCommentCode>rlcomCd</ResultLaboratoryCommentCode>
 					<ResultLaboratoryCommentText>labRemark</ResultLaboratoryCommentText>
 					<ResultDetectionQuantitationLimit>
-						<ResultDetectionQuantitationLimitUrl>/activities/activity/results/STORET-42/resdetectqntlmts</ResultDetectionQuantitationLimitUrl>
+						<ResultDetectionQuantitationLimitUrl>https://www.waterqualitydata.us/activities/activity/results/STORET-42/resdetectqntlmts</ResultDetectionQuantitationLimitUrl>
 					</ResultDetectionQuantitationLimit>
 					<LaboratoryAccreditationIndicator>resLabAccredYN</LaboratoryAccreditationIndicator>
 					<LaboratoryAccreditationAuthorityName>resLabAccredAuthority</LaboratoryAccreditationAuthorityName>
