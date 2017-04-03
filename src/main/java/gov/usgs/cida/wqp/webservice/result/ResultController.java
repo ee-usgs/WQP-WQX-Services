@@ -99,4 +99,10 @@ public class ResultController extends BaseController {
 	protected IXmlMapping getKmlMapping() {
 		return null;
 	}
+
+	@Override
+	protected void addCustomRequestParams() {
+		getPm().getQueryParameters().put("siteUrlBase", siteUrlBase);
+	}
+
 }
