@@ -3,7 +3,7 @@
 <mapper namespace="narrowResult">
 
     <sql id="baseColumns">
-        prime.result_id, prime.res_data_logger_line, prime.result_detection_condition_tx, prime.method_specification_name,
+        prime.result_id, prime.data_source || '-' || prime.result_id external_result_id, prime.res_data_logger_line, prime.result_detection_condition_tx, prime.method_specification_name,
         prime.characteristic_name, prime.characteristic_type,
         prime.sample_fraction_type, prime.result_measure_value, prime.result_unit, prime.result_meas_qual_code, prime.result_value_status, prime.statistic_type, prime.result_value_type,
         prime.weight_basis_type, prime.duration_basis, prime.temperature_basis_level, prime.particle_size, prime.precision, prime.res_measure_bias, prime.res_measure_conf_interval,

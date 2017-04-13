@@ -30,6 +30,13 @@ public class ResultWqx extends BaseWqx implements IXmlMapping {
 	static {
 		COLUMN_POSITION.putAll(ActivityWqx.COLUMN_POSITION);
 
+		COLUMN_POSITION.put(KEY_EXTERNAL_RESULT_ID,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_RESULT_DESRIPTION,
+						WQX_RESULT_IDENTIFIER)));
+
 		COLUMN_POSITION.put(KEY_RESULT_DETECTION_CONDITION_TX,
 				new LinkedList<String>(Arrays.asList(
 						WQX_ACTIVITY,
@@ -643,6 +650,7 @@ public class ResultWqx extends BaseWqx implements IXmlMapping {
 		GROUPING.putAll(ActivityWqx.GROUPING);
 		GROUPING.put(KEY_RESULT_ID,
 				new LinkedList<ColumnProfile>(Arrays.asList(
+						EXTERNAL_RESULT_ID,
 						RES_DATA_LOGGER_LINE,
 						RESULT_DETECTION_CONDITION_TX,
 						CHARACTERISTIC_NAME,

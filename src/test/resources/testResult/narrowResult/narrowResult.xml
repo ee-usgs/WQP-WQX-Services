@@ -11,6 +11,21 @@
 				<ActivityStartDate>1996-06-27</ActivityStartDate>
 				<MonitoringLocationIdentifier>ARS-IAWC-IAWC225</MonitoringLocationIdentifier>
 			</ActivityDescription>
+			<Result>
+				<ResultDescription>
+					<ResultIdentifier>STEWARDS-1</ResultIdentifier>
+				</ResultDescription>
+			</Result>
+			<Result>
+				<ResultDescription>
+					<ResultIdentifier>STEWARDS-2</ResultIdentifier>
+				</ResultDescription>
+			</Result>
+			<Result>
+				<ResultDescription>
+					<ResultIdentifier>STEWARDS-3</ResultIdentifier>
+				</ResultDescription>
+			</Result>
 		</Activity>
 	</Organization>
 	<Organization>
@@ -25,27 +40,40 @@
 				<MonitoringLocationIdentifier>USGS-05425700</MonitoringLocationIdentifier>
 			</ActivityDescription>
 			<Result>
-				<ResultAnalyticalMethod>
-					<MethodUrl>https://www.nemi.gov/methods/method_summary/8896/</MethodUrl>
-				</ResultAnalyticalMethod>
-			</Result>
-			<Result>
-				<ResultAnalyticalMethod>
-					<MethodUrl>https://www.nemi.gov/methods/method_summary/8896/</MethodUrl>
-				</ResultAnalyticalMethod>
-			</Result>
-			<Result>
-				<ResultAnalyticalMethod>
-					<MethodUrl>https://www.nemi.gov/methods/method_summary/8896/</MethodUrl>
-				</ResultAnalyticalMethod>
-			</Result>
-			<Result>
+				<ResultDescription>
+					<ResultIdentifier>NWIS-1</ResultIdentifier>
+				</ResultDescription>
 				<ResultAnalyticalMethod>
 					<MethodUrl>https://www.nemi.gov/methods/method_summary/8896/</MethodUrl>
 				</ResultAnalyticalMethod>
 			</Result>
 			<Result>
 				<ResultDescription>
+					<ResultIdentifier>NWIS-4</ResultIdentifier>
+				</ResultDescription>
+				<ResultAnalyticalMethod>
+					<MethodUrl>https://www.nemi.gov/methods/method_summary/8896/</MethodUrl>
+				</ResultAnalyticalMethod>
+			</Result>
+			<Result>
+				<ResultDescription>
+					<ResultIdentifier>NWIS-5</ResultIdentifier>
+				</ResultDescription>
+				<ResultAnalyticalMethod>
+					<MethodUrl>https://www.nemi.gov/methods/method_summary/8896/</MethodUrl>
+				</ResultAnalyticalMethod>
+			</Result>
+			<Result>
+				<ResultDescription>
+					<ResultIdentifier>NWIS-2</ResultIdentifier>
+				</ResultDescription>
+				<ResultAnalyticalMethod>
+					<MethodUrl>https://www.nemi.gov/methods/method_summary/8896/</MethodUrl>
+				</ResultAnalyticalMethod>
+			</Result>
+			<Result>
+				<ResultDescription>
+					<ResultIdentifier>NWIS-3</ResultIdentifier>
 					<USGSPCode>00004</USGSPCode>
 				</ResultDescription>
 			</Result>
@@ -64,6 +92,7 @@
 			</ActivityDescription>
 			<Result>
 				<ResultDescription>
+					<ResultIdentifier>STORET-27</ResultIdentifier>
 					<CharacteristicName>Total volatile solids</CharacteristicName>
 				</ResultDescription>
 			</Result>
@@ -76,6 +105,7 @@
 			</ActivityDescription>
 			<Result>
 				<ResultDescription>
+					<ResultIdentifier>STORET-15</ResultIdentifier>
 					<CharacteristicName>1,2,3,4,7,8-Hexachlorodibenzofuran</CharacteristicName>
 				</ResultDescription>
 				<ResultAnalyticalMethod>
@@ -84,6 +114,7 @@
 			</Result>
 			<Result>
 				<ResultDescription>
+					<ResultIdentifier>STORET-16</ResultIdentifier>
 					<CharacteristicName>1,2,3,6,7,8-Hexachlorodibenzo-p-dioxin</CharacteristicName>
 				</ResultDescription>
 				<ResultAnalyticalMethod>
@@ -92,6 +123,7 @@
 			</Result>
 			<Result>
 				<ResultDescription>
+					<ResultIdentifier>STORET-17</ResultIdentifier>
 					<CharacteristicName>1,2,3,6,7,8-Hexachlorodibenzofuran</CharacteristicName>
 				</ResultDescription>
 				<ResultAnalyticalMethod>
@@ -100,6 +132,7 @@
 			</Result>
 			<Result>
 				<ResultDescription>
+					<ResultIdentifier>STORET-18</ResultIdentifier>
 					<CharacteristicName>1,2,3,7,8,9-Hexachlorodibenzo-p-dioxin</CharacteristicName>
 				</ResultDescription>
 				<ResultAnalyticalMethod>
@@ -108,6 +141,7 @@
 			</Result>
 			<Result>
 				<ResultDescription>
+					<ResultIdentifier>STORET-19</ResultIdentifier>
 					<CharacteristicName>1,2,3,7,8,9-Hexachlorodibenzofuran</CharacteristicName>
 				</ResultDescription>
 				<ResultAnalyticalMethod>
@@ -116,6 +150,7 @@
 			</Result>
 			<Result>
 				<ResultDescription>
+					<ResultIdentifier>STORET-20</ResultIdentifier>
 					<CharacteristicName>1,2,3,7,8-Pentachlorodibenzo-p-dioxin</CharacteristicName>
 				</ResultDescription>
 				<ResultAnalyticalMethod>
@@ -124,6 +159,7 @@
 			</Result>
 			<Result>
 				<ResultDescription>
+					<ResultIdentifier>STORET-21</ResultIdentifier>
 					<CharacteristicName>1,2,3,7,8-Pentachlorodibenzofuran</CharacteristicName>
 				</ResultDescription>
 				<ResultAnalyticalMethod>
@@ -132,6 +168,7 @@
 			</Result>
 			<Result>
 				<ResultDescription>
+					<ResultIdentifier>STORET-22</ResultIdentifier>
 					<CharacteristicName>Pentachlorodibenzo-p-dioxin</CharacteristicName>
 				</ResultDescription>
 				<ResultAnalyticalMethod>
@@ -140,6 +177,7 @@
 			</Result>
 			<Result>
 				<ResultDescription>
+					<ResultIdentifier>STORET-23</ResultIdentifier>
 					<CharacteristicName>Pentachlorodibenzofuran</CharacteristicName>
 				</ResultDescription>
 				<ResultAnalyticalMethod>
@@ -148,6 +186,7 @@
 			</Result>
 			<Result>
 				<ResultDescription>
+					<ResultIdentifier>STORET-24</ResultIdentifier>
 					<CharacteristicName>Tetrachlorodibenzo-p-dioxin</CharacteristicName>
 				</ResultDescription>
 				<ResultAnalyticalMethod>
@@ -156,6 +195,7 @@
 			</Result>
 			<Result>
 				<ResultDescription>
+					<ResultIdentifier>STORET-25</ResultIdentifier>
 					<CharacteristicName>Heptachlorodibenzofuran</CharacteristicName>
 				</ResultDescription>
 				<ResultAnalyticalMethod>
@@ -164,6 +204,7 @@
 			</Result>
 			<Result>
 				<ResultDescription>
+					<ResultIdentifier>STORET-26</ResultIdentifier>
 					<CharacteristicName>Hexachlorodibenzofuran</CharacteristicName>
 				</ResultDescription>
 				<ResultAnalyticalMethod>
@@ -172,6 +213,7 @@
 			</Result>
 			<Result>
 				<ResultDescription>
+					<ResultIdentifier>STORET-28</ResultIdentifier>
 					<CharacteristicName>1,2,3,4,7,8-Hexachlorodibenzo-p-dioxin</CharacteristicName>
 				</ResultDescription>
 				<ResultAnalyticalMethod>
@@ -180,6 +222,7 @@
 			</Result>
 			<Result>
 				<ResultDescription>
+					<ResultIdentifier>STORET-29</ResultIdentifier>
 					<CharacteristicName>1,2,3,4,7,8,9-Heptachlorodibenzofuran</CharacteristicName>
 				</ResultDescription>
 				<ResultAnalyticalMethod>
@@ -188,6 +231,7 @@
 			</Result>
 			<Result>
 				<ResultDescription>
+					<ResultIdentifier>STORET-30</ResultIdentifier>
 					<CharacteristicName>1,2,3,4,6,7,8-Heptachlorodibenzofuran</CharacteristicName>
 				</ResultDescription>
 				<ResultAnalyticalMethod>
@@ -196,6 +240,7 @@
 			</Result>
 			<Result>
 				<ResultDescription>
+					<ResultIdentifier>STORET-31</ResultIdentifier>
 					<CharacteristicName>1,2,3,4,6,7,8-Heptachlorodibenzo-p-dioxin</CharacteristicName>
 				</ResultDescription>
 				<ResultAnalyticalMethod>
@@ -204,6 +249,7 @@
 			</Result>
 			<Result>
 				<ResultDescription>
+					<ResultIdentifier>STORET-33</ResultIdentifier>
 					<CharacteristicName>1,2,3,4,6,7,8,9-Octachlorodibenzo-p-dioxin</CharacteristicName>
 				</ResultDescription>
 				<ResultAnalyticalMethod>
@@ -212,6 +258,7 @@
 			</Result>
 			<Result>
 				<ResultDescription>
+					<ResultIdentifier>STORET-34</ResultIdentifier>
 					<CharacteristicName>2,3,7,8-Tetrachlorodibenzofuran</CharacteristicName>
 				</ResultDescription>
 				<ResultAnalyticalMethod>
@@ -220,6 +267,7 @@
 			</Result>
 			<Result>
 				<ResultDescription>
+					<ResultIdentifier>STORET-35</ResultIdentifier>
 					<CharacteristicName>2,3,7,8-Tetrachlorodibenzo-p-dioxin</CharacteristicName>
 				</ResultDescription>
 				<ResultAnalyticalMethod>
@@ -228,6 +276,7 @@
 			</Result>
 			<Result>
 				<ResultDescription>
+					<ResultIdentifier>STORET-36</ResultIdentifier>
 					<CharacteristicName>2,3,4,7,8-Pentachlorodibenzofuran</CharacteristicName>
 				</ResultDescription>
 				<ResultAnalyticalMethod>
@@ -236,6 +285,7 @@
 			</Result>
 			<Result>
 				<ResultDescription>
+					<ResultIdentifier>STORET-37</ResultIdentifier>
 					<CharacteristicName>2,3,4,6,7,8-Hexachlorodibenzofuran</CharacteristicName>
 				</ResultDescription>
 				<ResultAnalyticalMethod>
@@ -244,6 +294,7 @@
 			</Result>
 			<Result>
 				<ResultDescription>
+					<ResultIdentifier>STORET-39</ResultIdentifier>
 					<CharacteristicName>1,2,3,4,6,7,8,9-Octachlorodibenzofuran</CharacteristicName>
 				</ResultDescription>
 				<ResultAnalyticalMethod>
@@ -252,6 +303,7 @@
 			</Result>
 			<Result>
 				<ResultDescription>
+					<ResultIdentifier>STORET-40</ResultIdentifier>
 					<CharacteristicName>Heptachlorodibenzo-p-dioxin</CharacteristicName>
 				</ResultDescription>
 				<ResultAnalyticalMethod>
@@ -267,6 +319,7 @@
 			</ActivityDescription>
 			<Result>
 				<ResultDescription>
+					<ResultIdentifier>STORET-32</ResultIdentifier>
 					<CharacteristicName>Hexachlorodibenzo-p-dioxin</CharacteristicName>
 				</ResultDescription>
 				<ResultAnalyticalMethod>
@@ -282,6 +335,7 @@
 			</ActivityDescription>
 			<Result>
 				<ResultDescription>
+					<ResultIdentifier>STORET-38</ResultIdentifier>
 					<CharacteristicName>Pentachlorobenzene</CharacteristicName>
 				</ResultDescription>
 			</Result>
@@ -300,6 +354,7 @@
 			</ActivityDescription>
 			<Result>
 				<ResultDescription>
+					<ResultIdentifier>STORET-5</ResultIdentifier>
 					<CharacteristicName>Fecal Streptococcus Group Bacteria</CharacteristicName>
 				</ResultDescription>
 				<ResultAnalyticalMethod>
@@ -308,6 +363,7 @@
 			</Result>
 			<Result>
 				<ResultDescription>
+					<ResultIdentifier>STORET-6</ResultIdentifier>
 					<CharacteristicName>Fecal Coliform</CharacteristicName>
 				</ResultDescription>
 				<ResultAnalyticalMethod>
@@ -316,6 +372,7 @@
 			</Result>
 			<Result>
 				<ResultDescription>
+					<ResultIdentifier>STORET-7</ResultIdentifier>
 					<CharacteristicName>Fecal Coliform</CharacteristicName>
 				</ResultDescription>
 				<ResultAnalyticalMethod>
@@ -324,6 +381,7 @@
 			</Result>
 			<Result>
 				<ResultDescription>
+					<ResultIdentifier>STORET-8</ResultIdentifier>
 					<CharacteristicName>Fecal Coliform</CharacteristicName>
 				</ResultDescription>
 				<ResultAnalyticalMethod>
@@ -332,6 +390,7 @@
 			</Result>
 			<Result>
 				<ResultDescription>
+					<ResultIdentifier>STORET-10</ResultIdentifier>
 					<CharacteristicName>Fecal Streptococcus Group Bacteria</CharacteristicName>
 				</ResultDescription>
 				<ResultAnalyticalMethod>
@@ -340,6 +399,7 @@
 			</Result>
 			<Result>
 				<ResultDescription>
+					<ResultIdentifier>STORET-14</ResultIdentifier>
 					<CharacteristicName>Fecal Streptococcus Group Bacteria</CharacteristicName>
 				</ResultDescription>
 				<ResultAnalyticalMethod>
@@ -355,26 +415,31 @@
 			</ActivityDescription>
 			<Result>
 				<ResultDescription>
+					<ResultIdentifier>STORET-4</ResultIdentifier>
 					<CharacteristicName>Cloud cover</CharacteristicName>
 				</ResultDescription>
 			</Result>
 			<Result>
 				<ResultDescription>
+					<ResultIdentifier>STORET-9</ResultIdentifier>
 					<CharacteristicName>Cloud cover</CharacteristicName>
 				</ResultDescription>
 			</Result>
 			<Result>
 				<ResultDescription>
+					<ResultIdentifier>STORET-11</ResultIdentifier>
 					<CharacteristicName>Dissolved oxygen (DO)</CharacteristicName>
 				</ResultDescription>
 			</Result>
 			<Result>
 				<ResultDescription>
+					<ResultIdentifier>STORET-12</ResultIdentifier>
 					<CharacteristicName>Dissolved oxygen (DO)</CharacteristicName>
 				</ResultDescription>
 			</Result>
 			<Result>
 				<ResultDescription>
+					<ResultIdentifier>STORET-13</ResultIdentifier>
 					<CharacteristicName>Dissolved oxygen (DO)</CharacteristicName>
 				</ResultDescription>
 			</Result>
@@ -393,6 +458,7 @@
 			</ActivityDescription>
 			<Result>
 				<ResultDescription>
+					<ResultIdentifier>STORET-45</ResultIdentifier>
 					<CharacteristicName>characteristicName</CharacteristicName>
 					<USGSPCode>99999</USGSPCode>
 				</ResultDescription>
@@ -405,6 +471,7 @@
 			</Result>
 			<Result>
 				<ResultDescription>
+					<ResultIdentifier>STORET-46</ResultIdentifier>
 					<CharacteristicName>characteristicName</CharacteristicName>
 					<USGSPCode>99999</USGSPCode>
 				</ResultDescription>
@@ -417,6 +484,7 @@
 			</Result>
 			<Result>
 				<ResultDescription>
+					<ResultIdentifier>STORET-47</ResultIdentifier>
 					<CharacteristicName>characteristicName</CharacteristicName>
 					<USGSPCode>99999</USGSPCode>
 				</ResultDescription>
@@ -429,6 +497,7 @@
 			</Result>
 			<Result>
 				<ResultDescription>
+					<ResultIdentifier>STORET-41</ResultIdentifier>
 					<CharacteristicName>characteristicName</CharacteristicName>
 					<USGSPCode>99999</USGSPCode>
 				</ResultDescription>
@@ -449,6 +518,7 @@
 			</ActivityDescription>
 			<Result>
 				<ResultDescription>
+					<ResultIdentifier>STORET-42</ResultIdentifier>
 					<DataLoggerLine>resDataLoggerLine</DataLoggerLine>
 					<ResultDetectionConditionText>resultDetectionConditionTx</ResultDetectionConditionText>
 					<CharacteristicName>characteristicName</CharacteristicName>
@@ -544,6 +614,7 @@
 			</Result>
 			<Result>
 				<ResultDescription>
+					<ResultIdentifier>STORET-43</ResultIdentifier>
 					<CharacteristicName>characteristicName</CharacteristicName>
 					<USGSPCode>99999</USGSPCode>
 				</ResultDescription>
@@ -556,6 +627,7 @@
 			</Result>
 			<Result>
 				<ResultDescription>
+					<ResultIdentifier>STORET-44</ResultIdentifier>
 					<CharacteristicName>characteristicName</CharacteristicName>
 					<USGSPCode>99999</USGSPCode>
 				</ResultDescription>
@@ -568,6 +640,7 @@
 			</Result>
 			<Result>
 				<ResultDescription>
+					<ResultIdentifier>STORET-2</ResultIdentifier>
 					<CharacteristicName>characteristicName</CharacteristicName>
 					<USGSPCode>99999</USGSPCode>
 				</ResultDescription>
@@ -580,6 +653,7 @@
 			</Result>
 			<Result>
 				<ResultDescription>
+					<ResultIdentifier>STORET-48</ResultIdentifier>
 					<CharacteristicName>characteristicName</CharacteristicName>
 					<USGSPCode>99999</USGSPCode>
 				</ResultDescription>
@@ -592,6 +666,7 @@
 			</Result>
 			<Result>
 				<ResultDescription>
+					<ResultIdentifier>STORET-49</ResultIdentifier>
 					<CharacteristicName>characteristicName</CharacteristicName>
 					<USGSPCode>99999</USGSPCode>
 				</ResultDescription>
@@ -604,6 +679,7 @@
 			</Result>
 			<Result>
 				<ResultDescription>
+					<ResultIdentifier>STORET-50</ResultIdentifier>
 					<CharacteristicName>characteristicName</CharacteristicName>
 					<USGSPCode>99999</USGSPCode>
 				</ResultDescription>
@@ -616,6 +692,7 @@
 			</Result>
 			<Result>
 				<ResultDescription>
+					<ResultIdentifier>STORET-1</ResultIdentifier>
 					<CharacteristicName>characteristicName</CharacteristicName>
 					<USGSPCode>99999</USGSPCode>
 				</ResultDescription>
@@ -628,6 +705,7 @@
 			</Result>
 			<Result>
 				<ResultDescription>
+					<ResultIdentifier>STORET-3</ResultIdentifier>
 					<CharacteristicName>characteristicName</CharacteristicName>
 					<USGSPCode>99992</USGSPCode>
 				</ResultDescription>
@@ -653,6 +731,7 @@
 			</ActivityDescription>
 			<Result>
 				<ResultDescription>
+					<ResultIdentifier>BIODATA-42</ResultIdentifier>
 					<CharacteristicName>Count</CharacteristicName>
 				</ResultDescription>
 				<BiologicalResultDescription>

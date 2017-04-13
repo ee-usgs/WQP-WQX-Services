@@ -32,6 +32,7 @@ import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_RESULT_DEPTH_ALT_REF_PT
 import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_RESULT_DEPTH_MEAS_UNIT_CODE;
 import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_RESULT_DEPTH_MEAS_VALUE;
 import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_RESULT_DETECTION_CONDITION_TX;
+import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_EXTERNAL_RESULT_ID;
 import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_RESULT_ID;
 import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_RESULT_MEASURE_VALUE;
 import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_RESULT_MEAS_QUAL_CODE;
@@ -82,6 +83,7 @@ public class TestNarrowResultMap {
 	static {
 		BASE_NARROW = new LinkedHashMap<String, Object>();
 		BASE_NARROW.put(KEY_RESULT_ID, BigDecimal.valueOf(42));
+		BASE_NARROW.put(KEY_EXTERNAL_RESULT_ID, "STORET-42");
 		BASE_NARROW.put(KEY_RES_DATA_LOGGER_LINE, "resDataLoggerLine");
 		BASE_NARROW.put(KEY_RESULT_DETECTION_CONDITION_TX, "resultDetectionConditionTx");
 		BASE_NARROW.put(KEY_METHOD_SPECIFICATION_NAME, "methodSpecificationName");

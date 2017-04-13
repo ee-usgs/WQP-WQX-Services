@@ -12,7 +12,7 @@ import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_DETECTION_LIMIT;
 import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_DETECTION_LIMIT_ID;
 import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_DETECTION_LIMIT_DESC;
 import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_DETECTION_LIMIT_UNIT;
-import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_RESULT_ID;
+import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_EXTERNAL_RESULT_ID;
 
 import java.math.BigDecimal;
 import java.util.LinkedHashMap;
@@ -33,7 +33,7 @@ public class TestResDetectQntLmtMap {
 		RES_DETECT_QNT_LMT.put(KEY_CHARACTERISTIC_NAME, "Fecal Streptococcus Group Bacteria");
 		RES_DETECT_QNT_LMT.put(KEY_ORGANIZATION, "WIDNR_WQX");
 		RES_DETECT_QNT_LMT.put(KEY_ORGANIZATION_NAME, "Wisconsin Department of Natural Resources");
-		RES_DETECT_QNT_LMT.put(KEY_RESULT_ID, BaseSpringTest.STORET + "-5");
+		RES_DETECT_QNT_LMT.put(KEY_EXTERNAL_RESULT_ID, BaseSpringTest.STORET + "-5");
 		RES_DETECT_QNT_LMT.put(KEY_DETECTION_LIMIT_ID, BigDecimal.valueOf(7439));
 		RES_DETECT_QNT_LMT.put(KEY_DETECTION_LIMIT, "39");
 		RES_DETECT_QNT_LMT.put(KEY_DETECTION_LIMIT_UNIT, "cfu/100ml");

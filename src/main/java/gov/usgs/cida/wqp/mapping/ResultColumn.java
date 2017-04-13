@@ -4,6 +4,7 @@ public class ResultColumn extends BaseColumn {
 
 	//ResultSet Keys
 	public static final String KEY_RESULT_ID = "RESULT_ID";
+	public static final String KEY_EXTERNAL_RESULT_ID = "EXTERNAL_RESULT_ID";
 	public static final String KEY_ANALYTICAL_METHOD = "ANALYTICAL_METHOD";
 	public static final String KEY_RES_DATA_LOGGER_LINE = "RES_DATA_LOGGER_LINE";
 	public static final String KEY_RESULT_DETECTION_CONDITION_TX = "RESULT_DETECTION_CONDITION_TX";
@@ -100,7 +101,8 @@ public class ResultColumn extends BaseColumn {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	//Profile Mapping of the Keys
-	public static final ColumnProfile RESULT_ID = new ColumnProfile(KEY_RESULT_ID, Profile.RES_DETECT_QNT_LMT);
+	public static final ColumnProfile RESULT_ID = new ColumnProfile(KEY_RESULT_ID);
+	public static final ColumnProfile EXTERNAL_RESULT_ID = new ColumnProfile(KEY_EXTERNAL_RESULT_ID, Profile.NARROW_RESULT, Profile.RES_DETECT_QNT_LMT);
 	public static final ColumnProfile RES_DATA_LOGGER_LINE = new ColumnProfile(KEY_RES_DATA_LOGGER_LINE, Profile.BIOLOGICAL, Profile.NARROW_RESULT);
 	public static final ColumnProfile RESULT_DETECTION_CONDITION_TX = new ColumnProfile(KEY_RESULT_DETECTION_CONDITION_TX, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.NARROW_RESULT);
 	public static final ColumnProfile METHOD_SPECIFICATION_NAME = new ColumnProfile(KEY_METHOD_SPECIFICATION_NAME, Profile.BIOLOGICAL, Profile.NARROW_RESULT);

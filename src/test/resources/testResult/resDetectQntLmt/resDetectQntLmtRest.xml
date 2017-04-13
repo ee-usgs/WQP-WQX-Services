@@ -12,8 +12,8 @@
 			</ActivityDescription>
 			<Result>
 				<ResultDescription>
-					<CharacteristicName>Fecal Streptococcus Group Bacteria</CharacteristicName>
 					<ResultIdentifier>STORET-5</ResultIdentifier>
+					<CharacteristicName>Fecal Streptococcus Group Bacteria</CharacteristicName>
 				</ResultDescription>
 				<ResultLabInformation>
 					<ResultDetectionQuantitationLimit>
