@@ -77,31 +77,31 @@ public class ResultDelimitedTest {
 	}
 
 	public static void assertNarrowProfile(Map<String, String> mapping) {
-		assertEquals(77, mapping.size());
+		assertEquals(78, mapping.size());
 		Object[] keys = mapping.keySet().toArray();
 		//kind of large, so just random checks...
 		assertEquals(BaseColumn.KEY_ORGANIZATION, keys[0]);
 		assertEquals(BaseDelimited.VALUE_ORGANIZATION_IDENTIFIER, mapping.get(keys[0]));
 		assertEquals(BaseColumn.KEY_SITE_ID,keys[6]);
 		assertEquals(BaseDelimited.VALUE_MONITORING_LOCATION_IDENTIFIER, mapping.get(keys[6]));
-		assertEquals(ResultColumn.KEY_TEMPERATURE_BASIS_LEVEL, keys[20]);
-		assertEquals(ResultDelimited.VALUE_TEMPERATURE_BASIS_LEVEL, mapping.get(keys[20]));
-		assertEquals(ResultColumn.KEY_RESULT_COMMENT, keys[27]);
-		assertEquals(ResultDelimited.VALUE_RESULT_COMMENT, mapping.get(keys[27]));
-		assertEquals(ResultColumn.KEY_RES_BIO_INDIVIDUAL_ID, keys[34]);
-		assertEquals(ResultDelimited.VALUE_RES_BIO_INDIVIDUAL_ID, mapping.get(keys[34]));
-		assertEquals(ResultColumn.KEY_CELL_SHAPE_NAME, keys[41]);
-		assertEquals(ResultDelimited.VALUE_CELL_SHAPE_NAME, mapping.get(keys[41]));
-		assertEquals(ResultColumn.KEY_TAXON_CITATION_TITLE, keys[48]);
-		assertEquals(ResultDelimited.VALUE_TAXON_CITATION_TITLE, mapping.get(keys[48]));
-		assertEquals(ResultColumn.KEY_ANALYTICAL_PROCEDURE_ID, keys[55]);
-		assertEquals(ResultDelimited.VALUE_ANALYTICAL_PROCEDURE_ID, mapping.get(keys[55]));
-		assertEquals(ResultColumn.KEY_ANALYSIS_START_DATE, keys[62]);
-		assertEquals(ResultDelimited.VALUE_ANALYSIS_START_DATE, mapping.get(keys[62]));
-		assertEquals(ResultColumn.KEY_LAB_REMARK, keys[69]);
-		assertEquals(ResultDelimited.VALUE_LAB_REMARK, mapping.get(keys[69]));
-		assertEquals(ResultColumn.KEY_DATA_SOURCE, keys[76]);
-		assertEquals(ResultDelimited.VALUE_DATA_SOURCE, mapping.get(keys[76]));
+		assertEquals(ResultColumn.KEY_TEMPERATURE_BASIS_LEVEL, keys[21]);
+		assertEquals(ResultDelimited.VALUE_TEMPERATURE_BASIS_LEVEL, mapping.get(keys[21]));
+		assertEquals(ResultColumn.KEY_RESULT_COMMENT, keys[28]);
+		assertEquals(ResultDelimited.VALUE_RESULT_COMMENT, mapping.get(keys[28]));
+		assertEquals(ResultColumn.KEY_RES_BIO_INDIVIDUAL_ID, keys[35]);
+		assertEquals(ResultDelimited.VALUE_RES_BIO_INDIVIDUAL_ID, mapping.get(keys[35]));
+		assertEquals(ResultColumn.KEY_CELL_SHAPE_NAME, keys[42]);
+		assertEquals(ResultDelimited.VALUE_CELL_SHAPE_NAME, mapping.get(keys[42]));
+		assertEquals(ResultColumn.KEY_TAXON_CITATION_TITLE, keys[49]);
+		assertEquals(ResultDelimited.VALUE_TAXON_CITATION_TITLE, mapping.get(keys[49]));
+		assertEquals(ResultColumn.KEY_ANALYTICAL_PROCEDURE_ID, keys[56]);
+		assertEquals(ResultDelimited.VALUE_ANALYTICAL_PROCEDURE_ID, mapping.get(keys[56]));
+		assertEquals(ResultColumn.KEY_ANALYSIS_START_DATE, keys[63]);
+		assertEquals(ResultDelimited.VALUE_ANALYSIS_START_DATE, mapping.get(keys[63]));
+		assertEquals(ResultColumn.KEY_LAB_REMARK, keys[70]);
+		assertEquals(ResultDelimited.VALUE_LAB_REMARK, mapping.get(keys[70]));
+		assertEquals(ResultColumn.KEY_DATA_SOURCE, keys[77]);
+		assertEquals(ResultDelimited.VALUE_DATA_SOURCE, mapping.get(keys[77]));
 	}
 
 }

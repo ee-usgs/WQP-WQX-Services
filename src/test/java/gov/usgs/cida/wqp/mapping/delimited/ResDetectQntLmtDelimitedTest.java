@@ -33,11 +33,11 @@ public class ResDetectQntLmtDelimitedTest {
 		assertEquals(ResultColumn.KEY_SITE_ID, keys[3]);
 		assertEquals(ActivityDelimited.VALUE_MONITORING_LOCATION_IDENTIFIER, mapping.get(keys[3]));
 
-		assertEquals(ResultColumn.KEY_CHARACTERISTIC_NAME, keys[4]);
-		assertEquals(ResultDelimited.VALUE_CHARACTERISTIC_NAME, mapping.get(keys[4]));
+		assertEquals(ResultColumn.KEY_EXTERNAL_RESULT_ID, keys[4]);
+		assertEquals(ResultDelimited.VALUE_RESULT_IDENTIFIER, mapping.get(keys[4]));
 
-		assertEquals(ResultColumn.KEY_RESULT_ID, keys[5]);
-		assertEquals(ResultDelimited.VALUE_RESULT_IDENTIFIER, mapping.get(keys[5]));
+		assertEquals(ResultColumn.KEY_CHARACTERISTIC_NAME, keys[5]);
+		assertEquals(ResultDelimited.VALUE_CHARACTERISTIC_NAME, mapping.get(keys[5]));
 
 		assertEquals(ResultColumn.KEY_DETECTION_LIMIT_DESC, keys[6]);
 		assertEquals(ResultDelimited.VALUE_DETECTION_LIMIT_DESC, mapping.get(keys[6]));

@@ -17,8 +17,8 @@ import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_DETECTION_LIMIT;
 import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_DETECTION_LIMIT_ID;
 import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_DETECTION_LIMIT_DESC;
 import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_DETECTION_LIMIT_UNIT;
-import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_RESULT_ID;
-import static gov.usgs.cida.wqp.mapping.ResultColumn.RESULT_ID;
+import static gov.usgs.cida.wqp.mapping.ResultColumn.KEY_EXTERNAL_RESULT_ID;
+import static gov.usgs.cida.wqp.mapping.ResultColumn.EXTERNAL_RESULT_ID;
 
 import java.util.Arrays;
 import java.util.LinkedHashMap;
@@ -42,7 +42,7 @@ public class ResDetectQntLmtWqx extends BaseWqx implements IXmlMapping {
 	static {
 		HARD_BREAK.put(KEY_ORGANIZATION, ROOT_NODE);
 		HARD_BREAK.put(KEY_ACTIVITY, WQX_ORGANIZATION);
-		HARD_BREAK.put(KEY_RESULT_ID, WQX_ACTIVITY);
+		HARD_BREAK.put(KEY_EXTERNAL_RESULT_ID, WQX_ACTIVITY);
 		HARD_BREAK.put(KEY_DETECTION_LIMIT_ID, WQX_LAB_INFO);
 	}
 
@@ -67,18 +67,18 @@ public class ResDetectQntLmtWqx extends BaseWqx implements IXmlMapping {
 						WQX_ACTIVITY,
 						WQX_ACT_DESCRIPTION,
 						WQX_MONITORING_LOCATION_IDENTIFIER)));
+		COLUMN_POSITION.put(KEY_EXTERNAL_RESULT_ID,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_RESULT_DESRIPTION,
+						WQX_RESULT_IDENTIFIER)));
 		COLUMN_POSITION.put(KEY_CHARACTERISTIC_NAME,
 				new LinkedList<String>(Arrays.asList(
 						WQX_ACTIVITY,
 						WQX_RESULT,
 						WQX_RESULT_DESRIPTION,
 						WQX_CHAR_NAME)));
-		COLUMN_POSITION.put(KEY_RESULT_ID,
-				new LinkedList<String>(Arrays.asList(
-						WQX_ACTIVITY,
-						WQX_RESULT,
-						WQX_RESULT_DESRIPTION,
-						WQX_RESULT_IDENTIFIER)));
 		COLUMN_POSITION.put(KEY_DETECTION_LIMIT,
 				new LinkedList<String>(Arrays.asList(
 						WQX_ACTIVITY,
@@ -111,10 +111,10 @@ public class ResDetectQntLmtWqx extends BaseWqx implements IXmlMapping {
 				new LinkedList<ColumnProfile>(Arrays.asList(
 						ACTIVITY,
 						SITE_ID)));
-		GROUPING.put(KEY_RESULT_ID,
+		GROUPING.put(KEY_EXTERNAL_RESULT_ID,
 				new LinkedList<ColumnProfile>(Arrays.asList(
-						CHARACTERISTIC_NAME,
-						RESULT_ID)));
+						EXTERNAL_RESULT_ID,
+						CHARACTERISTIC_NAME)));
 		GROUPING.put(KEY_DETECTION_LIMIT_ID,
 				new LinkedList<ColumnProfile>(Arrays.asList(
 						DETECTION_LIMIT_DESC,
