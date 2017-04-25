@@ -80,7 +80,7 @@ public class CodesService {
 
 		URL url = null;
 		try {
-			String urlStr = codesUrl +"/"+ codeType +"/"+ URLEncoder.encode(code, HttpConstants.DEFAULT_ENCODING) + "&mimeType="+ mimeType;
+			String urlStr = codesUrl +"/"+ codeType +"/"+ URLEncoder.encode(code, HttpConstants.DEFAULT_ENCODING) + "?mimeType="+ mimeType;
 			LOG.trace("making codes url : {}", urlStr);
 			url = new URL(urlStr);
 		} catch (MalformedURLException e ) {
