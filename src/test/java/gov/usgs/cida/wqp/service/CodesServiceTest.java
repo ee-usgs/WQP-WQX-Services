@@ -52,7 +52,7 @@ public class CodesServiceTest extends BaseSpringTest {
 	public void testMakeUrl_default() throws Exception {
 		String baseUrl = "https://wqp.codes.usgs.gov/codes/";
 		URL actualUrl = new CodesService(baseUrl, JSON, 0).makeCodesUrl(Parameters.PROVIDERS, "pro/vider");
-		String expectedUrl = baseUrl +"/"+ Parameters.PROVIDERS +"/pro%2Fvider&mimeType=json";
+		String expectedUrl = baseUrl +"/"+ Parameters.PROVIDERS +"/pro%2Fvider?mimeType=json";
 		assertEquals(expectedUrl, actualUrl.toString());
 	}
 
@@ -61,7 +61,7 @@ public class CodesServiceTest extends BaseSpringTest {
 		String baseUrl = "https://wqp.codes.usgs.gov/codes/";
 		String mimeType = XML;
 		URL actualUrl = new CodesService(baseUrl, mimeType, 0).makeCodesUrl(Parameters.PROVIDERS, "provider");
-		String expectedUrl = baseUrl +"/"+ Parameters.PROVIDERS +"/provider&mimeType="+mimeType;
+		String expectedUrl = baseUrl +"/"+ Parameters.PROVIDERS +"/provider?mimeType="+mimeType;
 		assertEquals(expectedUrl, actualUrl.toString());
 	}
 
