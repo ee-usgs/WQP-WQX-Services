@@ -20,6 +20,8 @@ public class PostParms {
 	List<String> countrycode;
 	@JsonProperty("countycode")
 	List<String> countycode;
+	@JsonProperty("dataProfile")
+	String dataProfile;
 	@JsonProperty("huc")
 	List<String> huc;
 	@JsonProperty("lat")
