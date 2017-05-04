@@ -18,7 +18,11 @@ import org.apache.ibatis.session.ResultHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.web.HttpMediaTypeNotAcceptableException;
+import org.springframework.web.accept.ContentNegotiationStrategy;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.context.request.ServletWebRequest;
 
 import gov.usgs.cida.wqp.dao.NameSpace;
 import gov.usgs.cida.wqp.dao.StreamingResultHandler;
@@ -50,6 +54,7 @@ public abstract class BaseController {
 	protected final ILogService logService;
 	protected final Integer maxResultRows;
 	protected final String siteUrlBase;
+	protected final ContentNegotiationStrategy contentStrategy;
 
 	private static ThreadLocal<ParameterMap> pm = new ThreadLocal<>();
 	private static ThreadLocal<MimeType> mimeType = new ThreadLocal<>();
@@ -61,7 +66,7 @@ public abstract class BaseController {
 
 	public BaseController(IStreamingDao inStreamingDao, ICountDao inCountDao,
 			IParameterHandler inParameterHandler, ILogService inLogService,
-			Integer inMaxResultRows, String inSiteUrlBase) {
+			Integer inMaxResultRows, String inSiteUrlBase, ContentNegotiationStrategy inContentStrategy) {
 		LOG.trace(getClass().getName());
 
 		streamingDao = inStreamingDao;
@@ -70,6 +75,7 @@ public abstract class BaseController {
 		logService = inLogService;
 		maxResultRows = inMaxResultRows;
 		siteUrlBase = inSiteUrlBase;
+		contentStrategy = inContentStrategy;
 	}
 
 	public static ParameterMap getPm() {
@@ -138,8 +144,12 @@ public abstract class BaseController {
 		profile.remove();
 	}
 
-	protected boolean determineZipped(String zipParm, String mimeType) {
-		return "yes".equalsIgnoreCase(zipParm) || MimeType.kmz.toString().equalsIgnoreCase(mimeType);
+	protected void determineZipped(MediaType mediaType) {
+		String zipParam = "no";
+		if (null != getPm() && getPm().getQueryParameters().containsKey(Parameters.ZIP.toString())) {
+			zipParam = (String) getPm().getQueryParameters().get(Parameters.ZIP.toString());
+		}
+		setZipped("yes".equalsIgnoreCase(zipParam) || MimeType.kmz.getMediaType().equals(mediaType));
 	}
 
 	protected OutputStream getOutputStream(HttpServletResponse response, boolean zipped, String fileName) {
@@ -157,8 +167,8 @@ public abstract class BaseController {
 		}
 	}
 
-	protected MimeType determineMimeType(MimeType mimeType, boolean zipped) {
-		if (zipped && MimeType.kml.equals(mimeType)) {
+	protected MimeType determineMimeType(MimeType mimeType) {
+		if (getZipped() && MimeType.kml.equals(mimeType)) {
 			return MimeType.kmz;
 		} else {
 			return mimeType;
@@ -220,8 +230,7 @@ public abstract class BaseController {
 		}
 	}
 
-	protected boolean doCommonSetup(HttpServletRequest request, HttpServletResponse response,
-			Map<String, Object> postParms) {
+	protected boolean doCommonSetup(HttpServletRequest request, HttpServletResponse response, Map<String, Object> postParms) {
 		response.setCharacterEncoding(HttpConstants.DEFAULT_ENCODING);
 		processParameters(request, postParms);
 		if (!getPm().isValid() ) {
@@ -230,10 +239,7 @@ public abstract class BaseController {
 			return false;
 		}
 
-		String mimeTypeParam = (String) getPm().getQueryParameters().get(Parameters.MIMETYPE.toString());
-		String zipParam = (String) getPm().getQueryParameters().get(Parameters.ZIP.toString());
-		setZipped(determineZipped(zipParam, mimeTypeParam));
-		setMimeType(determineMimeType(MimeType.csv.fromString(mimeTypeParam), getZipped()));
+		determineContentType(request);
 		setProfile(determineProfile(getPm().getQueryParameters()));
 		setMybatisNamespace(determineNamespace());
 
@@ -254,6 +260,21 @@ public abstract class BaseController {
 		logService.logHeadComplete(response, getLogId());
 
 		return checkMaxRows(response, response.getHeader(totalHeader));
+	}
+
+	protected void determineContentType(HttpServletRequest request) {
+		try {
+			List<MediaType> mediaTypes = contentStrategy.resolveMediaTypes(new ServletWebRequest(request));
+			if (mediaTypes.size() > 1) {
+				LOG.info("More than one choice:" + mediaTypes.size());
+			}
+			MediaType mediaType = mediaTypes.get(0);
+			determineZipped(mediaType);
+			setMimeType(determineMimeType(MimeType.csv.fromMediaType(mediaType)));
+		} catch (HttpMediaTypeNotAcceptableException e) {
+			LOG.info(e.getLocalizedMessage());
+			throw new RuntimeException(e);
+		}
 	}
 
 	protected boolean checkMaxRows(HttpServletResponse response, String totalRows) {

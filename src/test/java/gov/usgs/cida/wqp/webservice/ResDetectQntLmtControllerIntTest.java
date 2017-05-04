@@ -1,5 +1,21 @@
 package gov.usgs.cida.wqp.webservice;
 
+import static gov.usgs.cida.wqp.swagger.model.ActivityCountJson.HEADER_BIODATA_ACTIVITY_COUNT;
+import static gov.usgs.cida.wqp.swagger.model.ActivityCountJson.HEADER_NWIS_ACTIVITY_COUNT;
+import static gov.usgs.cida.wqp.swagger.model.ActivityCountJson.HEADER_STEWARDS_ACTIVITY_COUNT;
+import static gov.usgs.cida.wqp.swagger.model.ActivityCountJson.HEADER_STORET_ACTIVITY_COUNT;
+import static gov.usgs.cida.wqp.swagger.model.ResDetectQntLmtCountJson.HEADER_BIODATA_RES_DETECT_QNT_LMT_COUNT;
+import static gov.usgs.cida.wqp.swagger.model.ResDetectQntLmtCountJson.HEADER_NWIS_RES_DETECT_QNT_LMT_COUNT;
+import static gov.usgs.cida.wqp.swagger.model.ResDetectQntLmtCountJson.HEADER_STEWARDS_RES_DETECT_QNT_LMT_COUNT;
+import static gov.usgs.cida.wqp.swagger.model.ResDetectQntLmtCountJson.HEADER_STORET_RES_DETECT_QNT_LMT_COUNT;
+import static gov.usgs.cida.wqp.swagger.model.ResultCountJson.HEADER_BIODATA_RESULT_COUNT;
+import static gov.usgs.cida.wqp.swagger.model.ResultCountJson.HEADER_NWIS_RESULT_COUNT;
+import static gov.usgs.cida.wqp.swagger.model.ResultCountJson.HEADER_STEWARDS_RESULT_COUNT;
+import static gov.usgs.cida.wqp.swagger.model.ResultCountJson.HEADER_STORET_RESULT_COUNT;
+import static gov.usgs.cida.wqp.swagger.model.StationCountJson.HEADER_BIODATA_SITE_COUNT;
+import static gov.usgs.cida.wqp.swagger.model.StationCountJson.HEADER_NWIS_SITE_COUNT;
+import static gov.usgs.cida.wqp.swagger.model.StationCountJson.HEADER_STEWARDS_SITE_COUNT;
+import static gov.usgs.cida.wqp.swagger.model.StationCountJson.HEADER_STORET_SITE_COUNT;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 
 import org.junit.Test;

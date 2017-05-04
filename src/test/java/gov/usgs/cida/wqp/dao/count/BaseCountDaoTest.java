@@ -1,6 +1,9 @@
 package gov.usgs.cida.wqp.dao.count;
 
-
+import static gov.usgs.cida.wqp.swagger.model.StationCountJson.BIODATA;
+import static gov.usgs.cida.wqp.swagger.model.StationCountJson.NWIS;
+import static gov.usgs.cida.wqp.swagger.model.StationCountJson.STEWARDS;
+import static gov.usgs.cida.wqp.swagger.model.StationCountJson.STORET;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;

@@ -3,12 +3,11 @@ package gov.usgs.cida.wqp.mapping;
 import static gov.usgs.cida.wqp.mapping.ActivityColumn.*;
 import static gov.usgs.cida.wqp.mapping.ResultColumn.*;
 import static gov.usgs.cida.wqp.mapping.StationColumn.*;
+import static gov.usgs.cida.wqp.swagger.model.ResultCountJson.*;
 
 import java.math.BigDecimal;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-import gov.usgs.cida.wqp.BaseSpringTest;
 
 public class TestPcResultMap {
 
@@ -16,7 +15,7 @@ public class TestPcResultMap {
 	static {
 		PC_RESULT = new LinkedHashMap<String, Object>();
 		PC_RESULT.put(KEY_DATA_SOURCE_ID, BigDecimal.valueOf(3));
-		PC_RESULT.put(KEY_DATA_SOURCE, BaseSpringTest.STORET);
+		PC_RESULT.put(KEY_DATA_SOURCE, STORET);
 		PC_RESULT.put(KEY_STATION_ID, BigDecimal.valueOf(888));
 		PC_RESULT.put(KEY_SITE_ID, "organization-siteId");
 		PC_RESULT.put(KEY_EVENT_DATE, "1999-12-28");

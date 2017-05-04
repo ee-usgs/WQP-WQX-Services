@@ -21,18 +21,17 @@ import static gov.usgs.cida.wqp.mapping.BaseColumn.KEY_DATA_SOURCE;
 import static gov.usgs.cida.wqp.mapping.BaseColumn.KEY_ORGANIZATION;
 import static gov.usgs.cida.wqp.mapping.BaseColumn.KEY_ORGANIZATION_NAME;
 import static gov.usgs.cida.wqp.mapping.BaseColumn.KEY_SITE_ID;
+import static gov.usgs.cida.wqp.swagger.model.StationCountJson.STORET;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-import gov.usgs.cida.wqp.BaseSpringTest;
 
 public class TestActivityMetricMap {
 
 	public static final Map<String, Object> ACTIVITY_METRIC;
 	static {
 		ACTIVITY_METRIC = new LinkedHashMap<String, Object>();
-		ACTIVITY_METRIC.put(KEY_DATA_SOURCE, BaseSpringTest.STORET);
+		ACTIVITY_METRIC.put(KEY_DATA_SOURCE, STORET);
 		ACTIVITY_METRIC.put(KEY_SITE_ID, "organization-siteId");
 		ACTIVITY_METRIC.put(KEY_ACTIVITY, "activity");
 		ACTIVITY_METRIC.put(KEY_ORGANIZATION, "organization");

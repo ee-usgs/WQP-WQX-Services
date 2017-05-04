@@ -5,6 +5,7 @@ import static gov.usgs.cida.wqp.util.MimeType.geojson;
 import static gov.usgs.cida.wqp.util.MimeType.json;
 import static gov.usgs.cida.wqp.util.MimeType.kml;
 import static gov.usgs.cida.wqp.util.MimeType.kmz;
+import static gov.usgs.cida.wqp.util.MimeType.text;
 import static gov.usgs.cida.wqp.util.MimeType.tsv;
 import static gov.usgs.cida.wqp.util.MimeType.xlsx;
 import static gov.usgs.cida.wqp.util.MimeType.xml;
@@ -20,8 +21,11 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.PropertySources;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.env.Environment;
+import org.springframework.util.AntPathMatcher;
 import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import gov.usgs.cida.wqp.util.WqpEnv;
@@ -68,8 +72,25 @@ public class SpringConfig extends WebMvcConfigurerAdapter implements Environment
 			.mediaType(kml.getExtension(), kml.mediaType)
 			.mediaType(kmz.getExtension(), kmz.mediaType)
 			.mediaType(geojson.getExtension(), geojson.mediaType)
-			.ignoreAcceptHeader(true);
+			.mediaType(text.getExtension(), text.mediaType)
+		;
 	}
+
+	@Override
+	public void configurePathMatch(PathMatchConfigurer configurer) {
+		//This should make the url case insensitive
+		AntPathMatcher matcher = new AntPathMatcher();
+		matcher.setCaseSensitive(false);
+		configurer.setPathMatcher(matcher);
+	}
+
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("swagger-ui.html", "webjars/**")
+			.addResourceLocations("classpath:/META-INF/resources/", "classpath:/META-INF/resources/webjars/");
+		registry.setOrder(-1);
+	}
+
 
 	/**
 	 * Expose the resources (properties defined above) as an Environment to all
@@ -96,6 +117,16 @@ public class SpringConfig extends WebMvcConfigurerAdapter implements Environment
 	@Bean
 	public String siteUrlBase() {
 		return WqpEnv.get(WqpEnvProperties.SITE_URL_BASE);
+	}
+
+	@Bean
+	public String swaggerDisplayHost() {
+		return WqpEnv.get(WqpEnvProperties.SWAGGER_DISPLAY_HOST);
+	}
+
+	@Bean
+	public String swaggerDisplayPath() {
+		return WqpEnv.get(WqpEnvProperties.SWAGGER_DISPLAY_PATH);
 	}
 
 	@Bean

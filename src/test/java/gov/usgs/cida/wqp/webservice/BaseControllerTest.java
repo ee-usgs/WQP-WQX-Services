@@ -1,5 +1,10 @@
 package gov.usgs.cida.wqp.webservice;
 
+import static gov.usgs.cida.wqp.swagger.model.ActivityCountJson.HEADER_NWIS_ACTIVITY_COUNT;
+import static gov.usgs.cida.wqp.swagger.model.ResDetectQntLmtCountJson.HEADER_NWIS_RES_DETECT_QNT_LMT_COUNT;
+import static gov.usgs.cida.wqp.swagger.model.ResultCountJson.HEADER_NWIS_RESULT_COUNT;
+import static gov.usgs.cida.wqp.swagger.model.StationCountJson.HEADER_NWIS_SITE_COUNT;
+import static gov.usgs.cida.wqp.swagger.model.StationCountJson.NWIS;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -45,8 +50,9 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.web.HttpMediaTypeNotAcceptableException;
+import org.springframework.web.accept.ContentNegotiationStrategy;
 
-import gov.usgs.cida.wqp.BaseSpringTest;
 import gov.usgs.cida.wqp.dao.NameSpace;
 import gov.usgs.cida.wqp.dao.intfc.ICountDao;
 import gov.usgs.cida.wqp.dao.intfc.IStreamingDao;
@@ -87,6 +93,8 @@ public class BaseControllerTest {
 	private ICountDao countDao;
 	@Mock
 	private ILogService logService;
+	@Mock
+	private ContentNegotiationStrategy contentStrategy;
 
 	private TestBaseController testController;
 	private MockHttpServletRequest request;
@@ -94,7 +102,7 @@ public class BaseControllerTest {
 	@Before
 	public void setup() {
 		MockitoAnnotations.initMocks(this);
-		testController = new TestBaseController(streamingDao, countDao, parameterHandler, logService, 100, "http://test-url.usgs.gov");
+		testController = new TestBaseController(streamingDao, countDao, parameterHandler, logService, 100, "http://test-url.usgs.gov", contentStrategy);
 		request = new MockHttpServletRequest();
 	}
 
@@ -169,16 +177,41 @@ public class BaseControllerTest {
 
 	@Test
 	public void determineZippedTest() {
-		assertFalse(testController.determineZipped(null, null));
-		assertFalse(testController.determineZipped("xxx", null));
-		assertFalse(testController.determineZipped("xxx", MimeType.csv.toString()));
-		assertFalse(testController.determineZipped("no", null));
-		assertFalse(testController.determineZipped("no", MimeType.kml.toString()));
-		assertTrue(testController.determineZipped("no", MimeType.kmz.toString()));
-		assertTrue(testController.determineZipped("yes", MimeType.kmz.toString()));
-		assertTrue(testController.determineZipped("yes", MimeType.json.toString()));
-		assertTrue(testController.determineZipped("yes", MimeType.csv.toString()));
+		testController.determineZipped(null);
+		assertFalse(TestBaseController.getZipped());
+
+		Map<String, Object> queryParameters = new HashMap<>();
+		ParameterMap pm = new ParameterMap();
+		pm.setQueryParameters(queryParameters);
+		TestBaseController.setPm(pm);
+
+		testController.determineZipped(null);
+		assertFalse(TestBaseController.getZipped());
+
+		queryParameters.put(Parameters.ZIP.toString(), "xxx");
+		testController.determineZipped(null);
+		assertFalse(TestBaseController.getZipped());
+		testController.determineZipped(MimeType.csv.getMediaType());
+		assertFalse(TestBaseController.getZipped());
+
+		
+		queryParameters.put(Parameters.ZIP.toString(), "no");
+		testController.determineZipped(null);
+		assertFalse(TestBaseController.getZipped());
+		testController.determineZipped(MimeType.kml.getMediaType());
+		assertFalse(TestBaseController.getZipped());
+		testController.determineZipped(MimeType.kmz.getMediaType());
+		assertTrue(TestBaseController.getZipped());
+
+		queryParameters.put(Parameters.ZIP.toString(), "yes");
+		testController.determineZipped(MimeType.kmz.getMediaType());
+		assertTrue(TestBaseController.getZipped());
+		testController.determineZipped(MimeType.json.getMediaType());
+		assertTrue(TestBaseController.getZipped());
+		testController.determineZipped(MimeType.csv.getMediaType());
+		assertTrue(TestBaseController.getZipped());
 	}
+
 
 	@Test
 	public void getOutputStreamTest() {
@@ -207,11 +240,17 @@ public class BaseControllerTest {
 
 	@Test
 	public void determineMimeTypeTest() {
-		assertEquals(MimeType.csv, testController.determineMimeType(MimeType.csv, false));
-		assertEquals(MimeType.csv, testController.determineMimeType(MimeType.csv, true));
+		TestBaseController.setZipped(false);
+		assertEquals(MimeType.csv, testController.determineMimeType(MimeType.csv));
 
-		assertEquals(MimeType.kml, testController.determineMimeType(MimeType.kml, false));
-		assertEquals(MimeType.kmz, testController.determineMimeType(MimeType.kml, true));
+		TestBaseController.setZipped(true);
+		assertEquals(MimeType.csv, testController.determineMimeType(MimeType.csv));
+
+		TestBaseController.setZipped(false);
+		assertEquals(MimeType.kml, testController.determineMimeType(MimeType.kml));
+
+		TestBaseController.setZipped(true);
+		assertEquals(MimeType.kmz, testController.determineMimeType(MimeType.kml));
 	}
 
 	@Test
@@ -452,14 +491,14 @@ public class BaseControllerTest {
 
 	@Test
 	@SuppressWarnings("unchecked")
-	public void doCommonSetupTest() {
+	public void doCommonSetupTest() throws HttpMediaTypeNotAcceptableException {
 		Map<String, Object> q = new HashMap<>();
-		q.put("mimeType", BaseSpringTest.KML);
 		q.put("zip", "yes");
 		q.put(Parameters.DATA_PROFILE.toString(), Profile.STATION);
 		ParameterMap p = new ParameterMap();
 		p.setQueryParameters(q);
 		when(parameterHandler.validateAndTransform(anyMap(), anyMap(), anyObject())).thenReturn(p);
+		when(contentStrategy.resolveMediaTypes(anyObject())).thenReturn(Arrays.asList(MimeType.kml.getMediaType()));
 
 		request.setParameter("countrycode", "US");
 		MockHttpServletResponse response = new MockHttpServletResponse();
@@ -480,13 +519,13 @@ public class BaseControllerTest {
 
 	@Test
 	@SuppressWarnings("unchecked")
-	public void doCommonSetupPostCountTest() {
+	public void doCommonSetupPostCountTest() throws HttpMediaTypeNotAcceptableException {
 		Map<String, Object> q = new HashMap<>();
-		q.put(Parameters.MIMETYPE.toString(), BaseSpringTest.JSON);
 		q.put(Parameters.DATA_PROFILE.toString(), Profile.STATION);
 		ParameterMap p = new ParameterMap();
 		p.setQueryParameters(q);
 		when(parameterHandler.validateAndTransform(anyMap(), anyMap(), anyObject())).thenReturn(p);
+		when(contentStrategy.resolveMediaTypes(anyObject())).thenReturn(Arrays.asList(MimeType.json.getMediaType()));
 		request.setParameter(Parameters.COUNTRY.toString(), "US");
 		request.setMethod("POST");
 		MockHttpServletResponse response = new MockHttpServletResponse();
@@ -535,7 +574,7 @@ public class BaseControllerTest {
 
 	@Test
 	public void checkMaxRowsTest() {
-		TestBaseController small = new TestBaseController(null, null, null, null, 10, "http://test-url.usgs.gov");
+		TestBaseController small = new TestBaseController(null, null, null, null, 10, "http://test-url.usgs.gov", null);
 		TestBaseController.setPm(new ParameterMap());
 
 		//xml formats ok when less than max & always sorted
@@ -777,14 +816,14 @@ public class BaseControllerTest {
 
 	@Test
 	@SuppressWarnings("unchecked")
-	public void doGetRequestTest() {
+	public void doGetRequestTest() throws HttpMediaTypeNotAcceptableException {
 		Map<String, Object> q = new HashMap<>();
-		q.put("mimeType", BaseSpringTest.KML);
 		q.put("zip", "yes");
 		q.put(Parameters.DATA_PROFILE.toString(), Profile.STATION);
 		ParameterMap p = new ParameterMap();
 		p.setQueryParameters(q);
 		when(parameterHandler.validateAndTransform(anyMap(), anyMap(), anyObject())).thenReturn(p);
+		when(contentStrategy.resolveMediaTypes(anyObject())).thenReturn(Arrays.asList(MimeType.kml.getMediaType()));
 
 		request.setParameter("countrycode", "US");
 		MockHttpServletResponse response = new MockHttpServletResponse();
@@ -871,15 +910,15 @@ public class BaseControllerTest {
 
 	@Test
 	@SuppressWarnings("unchecked")
-	public void doPostRequestTest() {
+	public void doPostRequestTest() throws HttpMediaTypeNotAcceptableException {
 		Map<String, Object> q = new HashMap<>();
-		q.put("mimeType", BaseSpringTest.KML);
 		q.put("zip", "yes");
 		Map<String, Object> json = new HashMap<>();
 		json.put("siteid", Arrays.asList("11NPSWRD-BICA_MFG_B","WIDNR_WQX-10030952"));
 		ParameterMap p = new ParameterMap();
 		p.setQueryParameters(q);
 		when(parameterHandler.validateAndTransform(anyMap(), anyMap(), anyObject())).thenReturn(p);
+		when(contentStrategy.resolveMediaTypes(anyObject())).thenReturn(Arrays.asList(MimeType.kml.getMediaType()));
 
 		request.setParameter("countrycode", "US");
 		MockHttpServletResponse response = new MockHttpServletResponse();
@@ -910,11 +949,10 @@ public class BaseControllerTest {
 
 	@Test
 	@SuppressWarnings("unchecked")
-	public void doPostCountRequestTest() {
+	public void doPostCountRequestTest() throws HttpMediaTypeNotAcceptableException {
 		MockHttpServletResponse response = new MockHttpServletResponse();
 
 		Map<String, Object> q = new HashMap<>();
-		q.put("mimeType", BaseSpringTest.KML);
 		q.put("zip", "yes");
 		Map<String, Object> json = new HashMap<>();
 		json.put("siteid", Arrays.asList("11NPSWRD-BICA_MFG_B","WIDNR_WQX-10030952"));
@@ -922,13 +960,14 @@ public class BaseControllerTest {
 		p.setQueryParameters(q);
 		when(parameterHandler.validateAndTransform(anyMap(), anyMap(), anyObject())).thenReturn(p);
 		when(countDao.getCounts(any(NameSpace.class), anyMap())).thenReturn(getRawCounts());
+		when(contentStrategy.resolveMediaTypes(anyObject())).thenReturn(Arrays.asList(MimeType.kml.getMediaType()));
 
 		Map<String, String> result = testController.doPostCountRequest(request, response, json);
 
 		assertNotNull(result);
 		assertEquals(2, result.size());
-		assertTrue(result.containsKey(BaseSpringTest.HEADER_NWIS_SITE_COUNT));
-		assertEquals(TEST_NWIS_STATION_COUNT, result.get(BaseSpringTest.HEADER_NWIS_SITE_COUNT));
+		assertTrue(result.containsKey(HEADER_NWIS_SITE_COUNT));
+		assertEquals(TEST_NWIS_STATION_COUNT, result.get(HEADER_NWIS_SITE_COUNT));
 		assertTrue(result.containsKey(HttpConstants.HEADER_TOTAL_SITE_COUNT));
 		assertEquals(TEST_TOTAL_STATION_COUNT, result.get(HttpConstants.HEADER_TOTAL_SITE_COUNT));
 		assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
@@ -964,7 +1003,7 @@ public class BaseControllerTest {
 		totalEmpty = response.getHeaderValue("empty-total-header");
 		assertNotNull(totalEmpty);
 		assertEquals("0", totalEmpty);
-		Object nwisSite = response.getHeaderValue(BaseSpringTest.HEADER_NWIS_SITE_COUNT);
+		Object nwisSite = response.getHeaderValue(HEADER_NWIS_SITE_COUNT);
 		assertNotNull(nwisSite);
 		assertEquals(TEST_NWIS_STATION_COUNT, nwisSite);
 		Object totalSite = response.getHeaderValue(HttpConstants.HEADER_TOTAL_SITE_COUNT);
@@ -977,20 +1016,20 @@ public class BaseControllerTest {
 		assertFalse(counts.containsKey("empty-header"));
 		assertTrue(counts.containsKey("empty-total-header"));
 		assertEquals("0", counts.get("empty-total-header"));
-		assertTrue(counts.containsKey(BaseSpringTest.HEADER_NWIS_SITE_COUNT));
-		assertEquals(TEST_NWIS_STATION_COUNT, counts.get(BaseSpringTest.HEADER_NWIS_SITE_COUNT));
+		assertTrue(counts.containsKey(HEADER_NWIS_SITE_COUNT));
+		assertEquals(TEST_NWIS_STATION_COUNT, counts.get(HEADER_NWIS_SITE_COUNT));
 		assertTrue(counts.containsKey(HttpConstants.HEADER_TOTAL_SITE_COUNT));
 		assertEquals(TEST_TOTAL_STATION_COUNT, counts.get(HttpConstants.HEADER_TOTAL_SITE_COUNT));
 
 		testController.addCountHeaders(response, getRawCounts(), HttpConstants.HEADER_TOTAL_RESULT_COUNT, HttpConstants.HEADER_RESULT_COUNT, CountColumn.KEY_RESULT_COUNT);
 
-		nwisSite = response.getHeaderValue(BaseSpringTest.HEADER_NWIS_SITE_COUNT);
+		nwisSite = response.getHeaderValue(HEADER_NWIS_SITE_COUNT);
 		assertNotNull(nwisSite);
 		assertEquals(TEST_NWIS_STATION_COUNT, nwisSite);
 		totalSite = response.getHeaderValue(HttpConstants.HEADER_TOTAL_SITE_COUNT);
 		assertNotNull(totalSite);
 		assertEquals(TEST_TOTAL_STATION_COUNT, totalSite);
-		Object nwisResult = response.getHeaderValue(BaseSpringTest.HEADER_NWIS_RESULT_COUNT);
+		Object nwisResult = response.getHeaderValue(HEADER_NWIS_RESULT_COUNT);
 		assertNotNull(nwisResult);
 		assertEquals(TEST_NWIS_RESULT_COUNT, nwisResult);
 		Object totalResult = response.getHeaderValue(HttpConstants.HEADER_TOTAL_RESULT_COUNT);
@@ -1003,12 +1042,12 @@ public class BaseControllerTest {
 		assertFalse(counts.containsKey("empty-header"));
 		assertTrue(counts.containsKey("empty-total-header"));
 		assertEquals("0", counts.get("empty-total-header"));
-		assertTrue(counts.containsKey(BaseSpringTest.HEADER_NWIS_SITE_COUNT));
-		assertEquals(TEST_NWIS_STATION_COUNT, counts.get(BaseSpringTest.HEADER_NWIS_SITE_COUNT));
+		assertTrue(counts.containsKey(HEADER_NWIS_SITE_COUNT));
+		assertEquals(TEST_NWIS_STATION_COUNT, counts.get(HEADER_NWIS_SITE_COUNT));
 		assertTrue(counts.containsKey(HttpConstants.HEADER_TOTAL_SITE_COUNT));
 		assertEquals(TEST_TOTAL_STATION_COUNT, counts.get(HttpConstants.HEADER_TOTAL_SITE_COUNT));
-		assertTrue(counts.containsKey(BaseSpringTest.HEADER_NWIS_RESULT_COUNT));
-		assertEquals(TEST_NWIS_RESULT_COUNT, counts.get(BaseSpringTest.HEADER_NWIS_RESULT_COUNT));
+		assertTrue(counts.containsKey(HEADER_NWIS_RESULT_COUNT));
+		assertEquals(TEST_NWIS_RESULT_COUNT, counts.get(HEADER_NWIS_RESULT_COUNT));
 		assertTrue(counts.containsKey(HttpConstants.HEADER_TOTAL_RESULT_COUNT));
 		assertEquals(TEST_TOTAL_RESULT_COUNT, counts.get(HttpConstants.HEADER_TOTAL_RESULT_COUNT));
 	}
@@ -1017,11 +1056,11 @@ public class BaseControllerTest {
 	public void addSiteHeadersTest() {
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		testController.addSiteHeaders(response, getRawCounts());
-		assertEquals(TEST_NWIS_STATION_COUNT, response.getHeaderValue(BaseSpringTest.HEADER_NWIS_SITE_COUNT));
+		assertEquals(TEST_NWIS_STATION_COUNT, response.getHeaderValue(HEADER_NWIS_SITE_COUNT));
 		assertEquals(TEST_TOTAL_STATION_COUNT, response.getHeaderValue(HttpConstants.HEADER_TOTAL_SITE_COUNT));
-		assertNull(response.getHeaderValue(BaseSpringTest.HEADER_NWIS_ACTIVITY_COUNT));
+		assertNull(response.getHeaderValue(HEADER_NWIS_ACTIVITY_COUNT));
 		assertNull(response.getHeaderValue(HttpConstants.HEADER_TOTAL_ACTIVITY_COUNT));
-		assertNull(response.getHeaderValue(BaseSpringTest.HEADER_NWIS_RESULT_COUNT));
+		assertNull(response.getHeaderValue(HEADER_NWIS_RESULT_COUNT));
 		assertNull(response.getHeaderValue(HttpConstants.HEADER_TOTAL_RESULT_COUNT));
 	}
 
@@ -1029,11 +1068,11 @@ public class BaseControllerTest {
 	public void addActivityHeadersTest() {
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		testController.addActivityHeaders(response, getRawCounts());
-		assertNull(response.getHeaderValue(BaseSpringTest.HEADER_NWIS_SITE_COUNT));
+		assertNull(response.getHeaderValue(HEADER_NWIS_SITE_COUNT));
 		assertNull(response.getHeaderValue(HttpConstants.HEADER_TOTAL_SITE_COUNT));
-		assertEquals(TEST_NWIS_ACTIVITY_COUNT, response.getHeaderValue(BaseSpringTest.HEADER_NWIS_ACTIVITY_COUNT));
+		assertEquals(TEST_NWIS_ACTIVITY_COUNT, response.getHeaderValue(HEADER_NWIS_ACTIVITY_COUNT));
 		assertEquals(TEST_TOTAL_ACTIVITY_COUNT, response.getHeaderValue(HttpConstants.HEADER_TOTAL_ACTIVITY_COUNT));
-		assertNull(response.getHeaderValue(BaseSpringTest.HEADER_NWIS_RESULT_COUNT));
+		assertNull(response.getHeaderValue(HEADER_NWIS_RESULT_COUNT));
 		assertNull(response.getHeaderValue(HttpConstants.HEADER_TOTAL_RESULT_COUNT));
 	}
 
@@ -1041,11 +1080,11 @@ public class BaseControllerTest {
 	public void addResultHeadersTest() {
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		testController.addResultHeaders(response, getRawCounts());
-		assertNull(response.getHeaderValue(BaseSpringTest.HEADER_NWIS_SITE_COUNT));
+		assertNull(response.getHeaderValue(HEADER_NWIS_SITE_COUNT));
 		assertNull(response.getHeaderValue(HttpConstants.HEADER_TOTAL_SITE_COUNT));
-		assertNull(response.getHeaderValue(BaseSpringTest.HEADER_NWIS_ACTIVITY_COUNT));
+		assertNull(response.getHeaderValue(HEADER_NWIS_ACTIVITY_COUNT));
 		assertNull(response.getHeaderValue(HttpConstants.HEADER_TOTAL_ACTIVITY_COUNT));
-		assertEquals(TEST_NWIS_RESULT_COUNT, response.getHeaderValue(BaseSpringTest.HEADER_NWIS_RESULT_COUNT));
+		assertEquals(TEST_NWIS_RESULT_COUNT, response.getHeaderValue(HEADER_NWIS_RESULT_COUNT));
 		assertEquals(TEST_TOTAL_RESULT_COUNT, response.getHeaderValue(HttpConstants.HEADER_TOTAL_RESULT_COUNT));
 	}
 
@@ -1053,20 +1092,20 @@ public class BaseControllerTest {
 	public void addResDetectQntLmtHeadersTest() {
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		testController.addResDetectQntLmtHeaders(response, getRawCounts());
-		assertNull(response.getHeaderValue(BaseSpringTest.HEADER_NWIS_SITE_COUNT));
+		assertNull(response.getHeaderValue(HEADER_NWIS_SITE_COUNT));
 		assertNull(response.getHeaderValue(HttpConstants.HEADER_TOTAL_SITE_COUNT));
-		assertNull(response.getHeaderValue(BaseSpringTest.HEADER_NWIS_ACTIVITY_COUNT));
+		assertNull(response.getHeaderValue(HEADER_NWIS_ACTIVITY_COUNT));
 		assertNull(response.getHeaderValue(HttpConstants.HEADER_TOTAL_ACTIVITY_COUNT));
-		assertNull(response.getHeaderValue(BaseSpringTest.HEADER_NWIS_RESULT_COUNT));
+		assertNull(response.getHeaderValue(HEADER_NWIS_RESULT_COUNT));
 		assertNull(response.getHeaderValue(HttpConstants.HEADER_TOTAL_RESULT_COUNT));
-		assertEquals(TEST_NWIS_RES_DETECT_QNT_LMT_COUNT, response.getHeaderValue(BaseSpringTest.HEADER_NWIS_RES_DETECT_QNT_LMT_COUNT));
+		assertEquals(TEST_NWIS_RES_DETECT_QNT_LMT_COUNT, response.getHeaderValue(HEADER_NWIS_RES_DETECT_QNT_LMT_COUNT));
 		assertEquals(TEST_TOTAL_RES_DETECT_QNT_LMT_COUNT, response.getHeaderValue(HttpConstants.HEADER_TOTAL_RES_DETECT_QNT_LMT_COUNT));
 	}
 
 	public static List<Map<String, Object>> getRawCounts() {
 		List<Map<String, Object>> rawCounts = new ArrayList<>();
 		Map<String, Object> nwisCountRow = new HashMap<>();
-		nwisCountRow.put(BaseColumn.KEY_DATA_SOURCE, BaseSpringTest.NWIS);
+		nwisCountRow.put(BaseColumn.KEY_DATA_SOURCE, NWIS);
 		nwisCountRow.put(CountColumn.KEY_STATION_COUNT, TEST_NWIS_STATION_COUNT);
 		nwisCountRow.put(CountColumn.KEY_ACTIVITY_COUNT, TEST_NWIS_ACTIVITY_COUNT);
 		nwisCountRow.put(CountColumn.KEY_ACTIVITY_METRIC_COUNT, TEST_NWIS_ACTIVITY_METRIC_COUNT);
