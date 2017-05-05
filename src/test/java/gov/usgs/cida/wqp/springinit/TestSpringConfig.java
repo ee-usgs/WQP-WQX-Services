@@ -17,6 +17,7 @@ import com.github.springtestdbunit.bean.DatabaseDataSourceConnectionFactoryBean;
 
 import gov.usgs.cida.wqp.service.CodesService;
 import gov.usgs.cida.wqp.service.FetchService;
+import gov.usgs.cida.wqp.swagger.SwaggerServices;
 import gov.usgs.cida.wqp.util.WqpEnv;
 import oracle.jdbc.pool.OracleDataSource;
 
@@ -64,6 +65,11 @@ public class TestSpringConfig extends SpringConfig {
 		dbUnitDatabaseConnection.setDataSource(dbUnitDataSource());
 		dbUnitDatabaseConnection.setSchema("WQP_CORE");
 		return dbUnitDatabaseConnection;
+	}
+
+	@Bean
+	public SwaggerServices swaggerServices() {
+		return new SwaggerServices();
 	}
 
 	@Bean

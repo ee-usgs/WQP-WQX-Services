@@ -1,5 +1,9 @@
 package gov.usgs.cida.wqp.webservice;
 
+import static gov.usgs.cida.wqp.swagger.model.ActivityCountJson.HEADER_NWIS_ACTIVITY_COUNT;
+import static gov.usgs.cida.wqp.swagger.model.ResDetectQntLmtCountJson.HEADER_NWIS_RES_DETECT_QNT_LMT_COUNT;
+import static gov.usgs.cida.wqp.swagger.model.ResultCountJson.HEADER_NWIS_RESULT_COUNT;
+import static gov.usgs.cida.wqp.swagger.model.StationCountJson.HEADER_NWIS_SITE_COUNT;
 import static org.junit.Assert.assertEquals;
 
 import java.util.HashMap;
@@ -22,7 +26,7 @@ public class ResDetectQntLmtControllerTest extends BaseSpringTest {
 
 	@Before
 	public void setup() {
-		controller = new ResDetectQntLmtController(null, null, null, null, null, null, null);
+		controller = new ResDetectQntLmtController(null, null, null, null, null, null, null, null);
 	}
 
 	@After

@@ -14,7 +14,8 @@ public enum MimeType {
 	xml(HttpConstants.MIME_TYPE_XML),
 	kml(HttpConstants.MIME_TYPE_KML),
 	kmz(HttpConstants.MIME_TYPE_KMZ),
-	geojson(HttpConstants.MIME_TYPE_GEOJSON);
+	geojson(HttpConstants.MIME_TYPE_GEOJSON),
+	text(HttpConstants.MIME_TYPE_TEXT);
 
 	public final String mimeType;
 	public final MediaType mediaType;
@@ -37,15 +38,11 @@ public enum MimeType {
 		return mediaType;
 	}
 
-	public MimeType fromString(String mimeType) {
+	public MimeType fromMediaType(MediaType inMediaType) {
 		MimeType type = this;
-		try {
-			type = MimeType.valueOf(mimeType);
-		} catch (Exception e) {
-			for (MimeType aType : MimeType.values()) {
-				if (aType.mimeType.equalsIgnoreCase(mimeType)) {
-					return aType;
-				}
+		for (MimeType aType : MimeType.values()) {
+			if (aType.mediaType.equals(inMediaType)) {
+				return aType;
 			}
 		}
 		return type;

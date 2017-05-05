@@ -4,11 +4,10 @@ import java.math.BigDecimal;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import gov.usgs.cida.wqp.BaseSpringTest;
-
 import static gov.usgs.cida.wqp.mapping.ActivityColumn.*;
 import static gov.usgs.cida.wqp.mapping.StationColumn.*;
 import static gov.usgs.cida.wqp.mapping.xml.StationKml.*;
+import static gov.usgs.cida.wqp.swagger.model.StationCountJson.*;
 
 public class TestStationMap {
 
@@ -53,7 +52,7 @@ public class TestStationMap {
 		STATION.put(KEY_HOLE_DEPTH_VALUE, BigDecimal.valueOf(2345));
 		STATION.put(KEY_HOLE_DEPTH_UNIT, "holeDepthUnit");
 
-		STATION.put(KEY_DATA_SOURCE, BaseSpringTest.STORET);
+		STATION.put(KEY_DATA_SOURCE, STORET);
 		STATION.put(KEY_RESULT_COUNT, BigDecimal.valueOf(4));
 	}
 

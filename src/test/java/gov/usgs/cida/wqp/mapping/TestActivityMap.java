@@ -4,10 +4,9 @@ import java.math.BigDecimal;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import gov.usgs.cida.wqp.BaseSpringTest;
-
 import static gov.usgs.cida.wqp.mapping.ActivityColumn.*;
 import static gov.usgs.cida.wqp.mapping.StationColumn.*;
+import static gov.usgs.cida.wqp.swagger.model.ActivityCountJson.*;
 
 public class TestActivityMap {
 
@@ -15,7 +14,7 @@ public class TestActivityMap {
 	static {
 		BASE_ACTIVITY = new LinkedHashMap<String, Object>();
 		BASE_ACTIVITY.put(KEY_DATA_SOURCE_ID, BigDecimal.valueOf(3));
-		BASE_ACTIVITY.put(KEY_DATA_SOURCE, BaseSpringTest.STORET);
+		BASE_ACTIVITY.put(KEY_DATA_SOURCE, STORET);
 		BASE_ACTIVITY.put(KEY_STATION_ID, BigDecimal.valueOf(888));
 		BASE_ACTIVITY.put(KEY_SITE_ID, "organization-siteId");
 		BASE_ACTIVITY.put(KEY_EVENT_DATE, "1999-12-28");

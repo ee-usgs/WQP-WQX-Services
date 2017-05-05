@@ -16,6 +16,9 @@ public class WqpEnvProperties {
 
 	public static final String SITE_URL_BASE = "site.url.base";
 
+	public static final String SWAGGER_DISPLAY_HOST ="swagger.display.host";
+	public static final String SWAGGER_DISPLAY_PATH = "swagger.display.path";
+
 	private WqpEnvProperties() {
 	}
 

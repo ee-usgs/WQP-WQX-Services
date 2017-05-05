@@ -32,6 +32,7 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 
 import gov.usgs.cida.wqp.mapping.Profile;
 import gov.usgs.cida.wqp.springinit.TestSpringConfig;
+import static gov.usgs.cida.wqp.swagger.model.StationCountJson.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestSpringConfig.class)
@@ -123,39 +124,10 @@ public abstract class BaseSpringTest {
 	public static final String FILTERED_STORET_RES_DETECT_QNT_LMT_COUNT = "7";
 	public static final String FILTERED_TOTAL_RES_DETECT_QNT_LMT_COUNT = "7";
 
-	public static final String NWIS = "NWIS";
-	public static final String STORET = "STORET";
-	public static final String STEWARDS = "STEWARDS";
-	public static final String BIODATA = "BIODATA";
-
 	public static final BigDecimal STEWARDS_ID = BigDecimal.ONE;
 	public static final BigDecimal NWIS_ID = BigDecimal.valueOf(2);
 	public static final BigDecimal STORET_ID = BigDecimal.valueOf(3);
 	public static final BigDecimal BIODATA_ID = BigDecimal.valueOf(4);
-
-	public static final String HEADER_NWIS_SITE_COUNT = "NWIS-Site-Count";
-	public static final String HEADER_NWIS_ACTIVITY_COUNT = "NWIS-Activity-Count";
-	public static final String HEADER_NWIS_ACTIVITY_METRIC_COUNT = "NWIS-ActivityMetric-Count";
-	public static final String HEADER_NWIS_RESULT_COUNT = "NWIS-Result-Count";
-	public static final String HEADER_NWIS_RES_DETECT_QNT_LMT_COUNT = "NWIS-ResultDetectionQuantitationLimit-Count";
-
-	public static final String HEADER_STEWARDS_SITE_COUNT = "STEWARDS-Site-Count";
-	public static final String HEADER_STEWARDS_ACTIVITY_COUNT = "STEWARDS-Activity-Count";
-	public static final String HEADER_STEWARDS_ACTIVITY_METRIC_COUNT = "STEWARDS-ActivityMetric-Count";
-	public static final String HEADER_STEWARDS_RESULT_COUNT = "STEWARDS-Result-Count";
-	public static final String HEADER_STEWARDS_RES_DETECT_QNT_LMT_COUNT = "STEWARDS-ResultDetectionQuantitationLimit-Count";
-
-	public static final String HEADER_STORET_SITE_COUNT = "STORET-Site-Count";
-	public static final String HEADER_STORET_ACTIVITY_COUNT = "STORET-Activity-Count";
-	public static final String HEADER_STORET_ACTIVITY_METRIC_COUNT = "STORET-ActivityMetric-Count";
-	public static final String HEADER_STORET_RESULT_COUNT = "STORET-Result-Count";
-	public static final String HEADER_STORET_RES_DETECT_QNT_LMT_COUNT = "STORET-ResultDetectionQuantitationLimit-Count";
-
-	public static final String HEADER_BIODATA_SITE_COUNT = "BIODATA-Site-Count";
-	public static final String HEADER_BIODATA_ACTIVITY_COUNT = "BIODATA-Activity-Count";
-	public static final String HEADER_BIODATA_ACTIVITY_METRIC_COUNT = "BIODATA-ActivityMetric-Count";
-	public static final String HEADER_BIODATA_RESULT_COUNT = "BIODATA-Result-Count";
-	public static final String HEADER_BIODATA_RES_DETECT_QNT_LMT_COUNT = "BIODATA-ResultDetectionQuantitationLimit-Count";
 
 	public static final String AND_ZIP = "&zip=yes";
 	public static final String CSV = "csv";

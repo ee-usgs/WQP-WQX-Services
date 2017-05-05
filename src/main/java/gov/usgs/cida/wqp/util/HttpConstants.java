@@ -59,6 +59,7 @@ public class HttpConstants {
 	public static final String MIME_TYPE_KML = "application/vnd.google-earth.kml+xml";
 	public static final String MIME_TYPE_KMZ = "application/vnd.google-earth.kmz";
 	public static final String MIME_TYPE_GEOJSON = "application/vnd.geo+json";
+	public static final String MIME_TYPE_TEXT = "text/plain";
 
 	private HttpConstants() {
 	}

@@ -1,5 +1,8 @@
 package gov.usgs.cida.wqp.webservice;
 
+import static gov.usgs.cida.wqp.swagger.model.ActivityCountJson.HEADER_STORET_ACTIVITY_COUNT;
+import static gov.usgs.cida.wqp.swagger.model.ActivityMetricCountJson.HEADER_STORET_ACTIVITY_METRIC_COUNT;
+import static gov.usgs.cida.wqp.swagger.model.StationCountJson.HEADER_STORET_SITE_COUNT;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 
 import org.junit.Test;

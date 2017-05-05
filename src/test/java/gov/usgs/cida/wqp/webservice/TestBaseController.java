@@ -5,6 +5,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.web.accept.ContentNegotiationStrategy;
+
 import gov.usgs.cida.wqp.dao.intfc.ICountDao;
 import gov.usgs.cida.wqp.dao.intfc.IStreamingDao;
 import gov.usgs.cida.wqp.mapping.Profile;
@@ -21,8 +23,9 @@ public class TestBaseController extends BaseController {
 	
 	public TestBaseController(IStreamingDao inStreamingDao,
 			ICountDao inCountDao, IParameterHandler inParameterHandler,
-			ILogService inLogService, Integer inMaxRows, String inSiteUrlBase) {
-		super(inStreamingDao, inCountDao, inParameterHandler, inLogService, inMaxRows, inSiteUrlBase);
+			ILogService inLogService, Integer inMaxRows, String inSiteUrlBase,
+			ContentNegotiationStrategy contentStrategy) {
+		super(inStreamingDao, inCountDao, inParameterHandler, inLogService, inMaxRows, inSiteUrlBase, contentStrategy);
 	}
 
 	@Override
