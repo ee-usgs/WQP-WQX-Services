@@ -19,10 +19,7 @@ public class WqpArrayTypeHandler extends ArrayTypeHandler {
 		if (parameter == null || !(parameter instanceof String[])) {
 			throw new IllegalArgumentException("parameter is invalid, must be instance of String[] with length > 0");
 		}
-//		Array array = ps.getConnection().createArrayOf("wqp_core.typ_vctbl", Arrays.asList((String[])parameter).toArray());
-//		ps.setArray(i, array);
 
-	
 		Connection c = ps.getConnection();
 		if (c instanceof DelegatingConnection) {
 			Connection pooledConnection = c;
@@ -36,8 +33,8 @@ public class WqpArrayTypeHandler extends ArrayTypeHandler {
 		if (c.isWrapperFor(oracle.jdbc.OracleConnection.class)) {
 			c = c.unwrap(oracle.jdbc.OracleConnection.class);
 		}
-		
-		ArrayDescriptor descriptor = ArrayDescriptor.createDescriptor("WQP_CORE.TYP_VCTBL", c);
+
+		ArrayDescriptor descriptor = ArrayDescriptor.createDescriptor("TYP_VCTBL", c);
 		Array array = new ARRAY(descriptor, c, parameter);
 		ps.setArray(i, array);
 	}

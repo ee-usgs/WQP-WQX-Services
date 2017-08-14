@@ -83,13 +83,13 @@
 
     <sql id="siteId">
         prime.site_id in (select /*+ dynamic_sampling(DYN 10) */ distinct column_value
-                            from table(wqp_core.pkg_dynamic_list.get_table(#{siteid, typeHandler=WqpArrayTypeHandler}))
+                            from table(pkg_dynamic_list.get_table(#{siteid, typeHandler=WqpArrayTypeHandler}))
                          )
     </sql>
 
     <sql id="nldiSiteId">
         prime.site_id in (select /*+ dynamic_sampling(DYN 10) */ distinct column_value
-                            from table(wqp_core.pkg_dynamic_list.get_table(#{nldiurl, typeHandler=WqpArrayTypeHandler}))
+                            from table(pkg_dynamic_list.get_table(#{nldiurl, typeHandler=WqpArrayTypeHandler}))
                          )
     </sql>
 

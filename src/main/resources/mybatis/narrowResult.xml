@@ -29,8 +29,8 @@
                prime.analytical_method,
                null fcdsc_url,
                case when detection_limit is not null or detection_limit_unit is not null or detection_limit_desc is not null
-                 then #{siteUrlBase,jdbcType=VARCHAR} || '/activities/' || wqp_core.pkg_dynamic_list.url_escape(prime.activity, 'true') ||
-                      '/results/' || wqp_core.pkg_dynamic_list.url_escape(prime.data_source || '-' || prime.result_id, 'true') || '/resdetectqntlmts'
+                 then #{siteUrlBase,jdbcType=VARCHAR} || '/activities/' || pkg_dynamic_list.url_escape(prime.activity, 'true') ||
+                      '/results/' || pkg_dynamic_list.url_escape(prime.data_source || '-' || prime.result_id, 'true') || '/resdetectqntlmts'
                  else null
                end res_detect_qnt_lmt_url,
                null prep_method_url
