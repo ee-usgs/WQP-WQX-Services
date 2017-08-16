@@ -182,6 +182,13 @@
 					<LongitudeMeasure>-121.5249647</LongitudeMeasure>
 				</MonitoringLocationGeospatial>
 			</MonitoringLocation>
+			<MonitoringLocation>
+				<MonitoringLocationIdentity>
+					<MonitoringLocationIdentifier>USGS-433830088977331</MonitoringLocationIdentifier>
+					<MonitoringLocationName>a well</MonitoringLocationName>
+					<ResolvedMonitoringLocationTypeName>Well</ResolvedMonitoringLocationTypeName>
+				</MonitoringLocationIdentity>
+			</MonitoringLocation>
 		</Organization>
 	</Provider>
 </WQX-Outbound>

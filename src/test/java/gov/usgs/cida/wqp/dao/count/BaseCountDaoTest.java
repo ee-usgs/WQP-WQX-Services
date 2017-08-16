@@ -46,8 +46,8 @@ public abstract class BaseCountDaoTest extends BaseSpringTest {
 	protected List<Map<String, Object>> nullParameterTest(NameSpace nameSpace, boolean includeActivity, boolean includeResults) {
 		List<Map<String, Object>> counts = countDao.getCounts(nameSpace, null);
 		if (includeActivity || includeResults) {
-			//Adjust site count for STORET site with no activities
-			assertStationResults(counts, 5, TOTAL_SITE_COUNT_MINUS_1, NWIS_SITE_COUNT, STEWARDS_SITE_COUNT, STORET_SITE_COUNT_MINUS_1, BIODATA_SITE_COUNT);
+			//Adjust site count for sites with no activities
+			assertStationResults(counts, 5, TOTAL_SITE_COUNT_MINUS_1, NWIS_SITE_COUNT, STEWARDS_SITE_COUNT, STORET_SITE_COUNT_MINUS_1, BIODATA_SITE_COUNT_MINUS_1);
 		} else {
 			assertStationResults(counts, 5, TOTAL_SITE_COUNT, NWIS_SITE_COUNT, STEWARDS_SITE_COUNT, STORET_SITE_COUNT, BIODATA_SITE_COUNT);
 		}
@@ -63,8 +63,8 @@ public abstract class BaseCountDaoTest extends BaseSpringTest {
 	protected List<Map<String, Object>> emptyParameterTest(NameSpace nameSpace, boolean includeActivity, boolean includeResults) {
 		List<Map<String, Object>> counts = countDao.getCounts(nameSpace, parms);
 		if (includeActivity || includeResults) {
-			//Adjust site count for STORET site with no activities
-			assertStationResults(counts, 5, TOTAL_SITE_COUNT_MINUS_1, NWIS_SITE_COUNT, STEWARDS_SITE_COUNT, STORET_SITE_COUNT_MINUS_1, BIODATA_SITE_COUNT);
+			//Adjust site count for sites with no activities
+			assertStationResults(counts, 5, TOTAL_SITE_COUNT_MINUS_1, NWIS_SITE_COUNT, STEWARDS_SITE_COUNT, STORET_SITE_COUNT_MINUS_1, BIODATA_SITE_COUNT_MINUS_1);
 		} else {
 			assertStationResults(counts, 5, TOTAL_SITE_COUNT, NWIS_SITE_COUNT, STEWARDS_SITE_COUNT, STORET_SITE_COUNT, BIODATA_SITE_COUNT);
 		}

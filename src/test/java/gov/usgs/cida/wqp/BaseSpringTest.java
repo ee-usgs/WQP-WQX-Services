@@ -40,7 +40,8 @@ import static gov.usgs.cida.wqp.swagger.model.StationCountJson.*;
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
 	DirtiesContextTestExecutionListener.class,
 	TransactionalTestExecutionListener.class,
-	TransactionDbUnitTestExecutionListener.class })
+	TransactionDbUnitTestExecutionListener.class
+	})
 @DbUnitConfiguration(dataSetLoader = ColumnSensingFlatXMLDataSetLoader.class)
 public abstract class BaseSpringTest {
 
@@ -79,15 +80,20 @@ public abstract class BaseSpringTest {
 		return os.toString();
 	}
 
-	public static String TOTAL_SITE_COUNT = "12";
+	public static String TOTAL_SITE_COUNT = "13";
 	public static String NWIS_SITE_COUNT = "2";
 	public static String STEWARDS_SITE_COUNT = "2";
 	public static String STORET_SITE_COUNT = "7";
-	public static String BIODATA_SITE_COUNT = "1";
+	public static String BIODATA_SITE_COUNT = "2";
 
-	//The test data has a case where a storet site has no activity/result data associated with it. Thus it should not show up in any queries/counts below the station level.
+	//The test data has a case where both a biodata and a storet site have no activity/result data associated with them. Thus they should not show up in any queries/counts below the station level.
 	public static String TOTAL_SITE_COUNT_MINUS_1 = "11";
 	public static String STORET_SITE_COUNT_MINUS_1 = "6";
+	public static String BIODATA_SITE_COUNT_MINUS_1 = "1";
+
+	//The test data has a case where a biodata site has no geom associated with it. Thus it should not show up in the json formats.
+	public static String TOTAL_SITE_COUNT_GEOM = "12";
+	public static String BIODATA_SITE_COUNT_GEOM = "1";
 
 	public static String TOTAL_ACTIVITY_COUNT = "23";
 	public static String NWIS_ACTIVITY_COUNT = "3";

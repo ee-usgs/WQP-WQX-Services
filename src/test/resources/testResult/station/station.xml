@@ -329,5 +329,17 @@
 				<CountyCode>115</CountyCode>
 			</MonitoringLocationGeospatial>
 		</MonitoringLocation>
+		<MonitoringLocation>
+			<MonitoringLocationIdentity>
+				<MonitoringLocationIdentifier>USGS-433830088977331</MonitoringLocationIdentifier>
+				<MonitoringLocationName>a well</MonitoringLocationName>
+				<HUCEightDigitCode>10090003</HUCEightDigitCode>
+			</MonitoringLocationIdentity>
+			<MonitoringLocationGeospatial>
+				<CountryCode>CN</CountryCode>
+				<StateCode>55</StateCode>
+				<CountyCode>013</CountyCode>
+			</MonitoringLocationGeospatial>
+		</MonitoringLocation>
 	</Organization>
 </WQX>

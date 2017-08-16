@@ -35,6 +35,11 @@ public class StationStreamingTest extends BaseStationStreamingTest {
 	}
 
 	@Test
+	public void mimeTypeTest() {
+		mimeTypeTest(nameSpace);
+	}
+
+	@Test
 	public void allDataSortedTest() {
 		allDataSortedTest(nameSpace, expectedMap);
 	}

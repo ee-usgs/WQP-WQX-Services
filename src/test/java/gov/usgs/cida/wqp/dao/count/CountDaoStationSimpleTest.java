@@ -13,11 +13,9 @@ import gov.usgs.cida.wqp.dao.NameSpace;
 @Category(DBIntegrationTest.class)
 @DatabaseSetup("classpath:/testData/csv/")
 @DbUnitConfiguration(dataSetLoader = CsvDataSetLoader.class)
-public class CountDaoStationSimpleTest extends BaseCountDaoTest {
+public class CountDaoStationSimpleTest extends BaseStationCountDaoTest {
 
 	protected NameSpace nameSpace = NameSpace.SIMPLE_STATION;
-	protected boolean includeActivity = false;
-	protected boolean includeResults = false;
 
 	@Test
 	public void nullParameterTest() {
@@ -27,6 +25,11 @@ public class CountDaoStationSimpleTest extends BaseCountDaoTest {
 	@Test
 	public void emptyParameterTest() {
 		emptyParameterTest(nameSpace, includeActivity, includeResults);
+	}
+
+	@Test
+	public void mimeTypeTest() {
+		mimeTypeTest(nameSpace);
 	}
 
 	@Test

@@ -97,6 +97,10 @@
         prime.site_type in <foreach item="i" collection="siteType" open="(" separator="," close=")">#{i}</foreach>
     </sql>
 
+    <sql id="spatialPresent">
+        geom is not null
+    </sql>
+
     <sql id="startDateLoHi">
         event_date
         <choose>
