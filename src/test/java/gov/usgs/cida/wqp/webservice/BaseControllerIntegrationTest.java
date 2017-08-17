@@ -200,56 +200,74 @@ public abstract class BaseControllerIntegrationTest extends BaseSpringTest {
 		}
 	}
 
-	protected void getAsKmzTest(String url, String mimeType, String fileType, Profile profile, boolean isPostable) throws Exception {
-		assertEquals("", unFilteredHeaderCheck(callMockHead(url, mimeType, getContentDisposition(profile, KMZ))).andReturn().getResponse().getContentAsString());
+	protected void getAsKmlTest(String url, String mimeType, String fileType, Profile profile, boolean isPostable) throws Exception {
+		assertEquals("", unFilteredGeomHeaderCheck(callMockHead(url, mimeType, getContentDisposition(profile, fileType))).andReturn().getResponse().getContentAsString());
 
-		MvcResult rtn = unFilteredHeaderCheck(callMockGet(url, mimeType, getContentDisposition(profile, KMZ))).andReturn();
+		MvcResult rtn = unFilteredGeomHeaderCheck(callMockGet(url, mimeType, getContentDisposition(profile, fileType))).andReturn();
+		assertEquals(harmonizeXml(getCompareFile(profile, fileType, isPostable ? null : "Rest")), harmonizeXml(rtn.getResponse().getContentAsString()));
+
+		rtn = noResultHeaderCheck(callMockGet(url + getNoResultParameters(), mimeType, getContentDisposition(profile, fileType))).andReturn();
+		assertEquals(harmonizeXml(getCompareFile(profile, fileType, "NoResult")), harmonizeXml(rtn.getResponse().getContentAsString()));
+
+		if (isPostable) {
+			rtn = unFilteredGeomHeaderCheck(callMockPostJson(url, "{}", mimeType, getContentDisposition(profile, fileType))).andReturn();
+			assertEquals(harmonizeXml(getCompareFile(profile, fileType, null)), harmonizeXml(rtn.getResponse().getContentAsString()));
+	
+			rtn = unFilteredGeomHeaderCheck(callMockPostForm(url, mimeType, getContentDisposition(profile, fileType))).andReturn();
+			assertEquals(harmonizeXml(getCompareFile(profile, fileType, null)), harmonizeXml(rtn.getResponse().getContentAsString()));
+		}
+	}
+
+	protected void getAsKmzTest(String url, String mimeType, String fileType, Profile profile, boolean isPostable) throws Exception {
+		assertEquals("", unFilteredGeomHeaderCheck(callMockHead(url, mimeType, getContentDisposition(profile, KMZ))).andReturn().getResponse().getContentAsString());
+
+		MvcResult rtn = unFilteredGeomHeaderCheck(callMockGet(url, mimeType, getContentDisposition(profile, KMZ))).andReturn();
 		assertEquals(harmonizeXml(getCompareFile(profile, KML, isPostable ? null : "Rest")), harmonizeXml(extractZipContent(rtn.getResponse().getContentAsByteArray(), getFileName(profile, KML))));
 
 		rtn = noResultHeaderCheck(callMockGet(url + getNoResultParameters(), mimeType, getContentDisposition(profile, KMZ))).andReturn();
 		assertEquals(harmonizeXml(getCompareFile(profile, KML, "NoResult")), harmonizeXml(extractZipContent(rtn.getResponse().getContentAsByteArray(), getFileName(profile, KML))));
 
 		if (isPostable) {
-			rtn = unFilteredHeaderCheck(callMockPostJson(url, "{}", mimeType, getContentDisposition(profile, KMZ))).andReturn();
+			rtn = unFilteredGeomHeaderCheck(callMockPostJson(url, "{}", mimeType, getContentDisposition(profile, KMZ))).andReturn();
 			assertEquals(harmonizeXml(getCompareFile(profile, KML, null)), harmonizeXml(extractZipContent(rtn.getResponse().getContentAsByteArray(), getFileName(profile, KML))));
 	
-			rtn = unFilteredHeaderCheck(callMockPostForm(url, mimeType, getContentDisposition(profile, KMZ))).andReturn();
+			rtn = unFilteredGeomHeaderCheck(callMockPostForm(url, mimeType, getContentDisposition(profile, KMZ))).andReturn();
 			assertEquals(harmonizeXml(getCompareFile(profile, KML, null)), harmonizeXml(extractZipContent(rtn.getResponse().getContentAsByteArray(), getFileName(profile, KML))));
 		}
 	}
 
 	protected void getAsJsonTest(String url, String mimeType, String fileType, Profile profile, boolean isPostable) throws Exception {
-		assertEquals("", unFilteredHeaderCheck(callMockHead(url, mimeType, getContentDisposition(profile, fileType))).andReturn().getResponse().getContentAsString());
+		assertEquals("", unFilteredGeomHeaderCheck(callMockHead(url, mimeType, getContentDisposition(profile, fileType))).andReturn().getResponse().getContentAsString());
 
-		MvcResult rtn = unFilteredHeaderCheck(callMockGet(url, mimeType, getContentDisposition(profile, fileType))).andReturn();
+		MvcResult rtn = unFilteredGeomHeaderCheck(callMockGet(url, mimeType, getContentDisposition(profile, fileType))).andReturn();
 		assertThat(new JSONObject(getCompareFile(profile, fileType, isPostable ? null : "Rest")), sameJSONObjectAs(new JSONObject(rtn.getResponse().getContentAsString())));
 
 		rtn = noResultHeaderCheck(callMockGet(url + getNoResultParameters(), mimeType, getContentDisposition(profile, fileType))).andReturn();
 		assertThat(new JSONObject(getCompareFile(profile, fileType, "NoResult")), sameJSONObjectAs(new JSONObject(rtn.getResponse().getContentAsString())));
 
 		if (isPostable) {
-			rtn = unFilteredHeaderCheck(callMockPostJson(url, "{}", mimeType, getContentDisposition(profile, fileType))).andReturn();
+			rtn = unFilteredGeomHeaderCheck(callMockPostJson(url, "{}", mimeType, getContentDisposition(profile, fileType))).andReturn();
 			assertThat(new JSONObject(getCompareFile(profile, fileType, null)), sameJSONObjectAs(new JSONObject(rtn.getResponse().getContentAsString())));
 	
-			rtn = unFilteredHeaderCheck(callMockPostForm(url, mimeType, getContentDisposition(profile, fileType))).andReturn();
+			rtn = unFilteredGeomHeaderCheck(callMockPostForm(url, mimeType, getContentDisposition(profile, fileType))).andReturn();
 			assertThat(new JSONObject(getCompareFile(profile, fileType, null)), sameJSONObjectAs(new JSONObject(rtn.getResponse().getContentAsString())));
 		}
 	}
 
 	protected void getAsJsonZipTest(String url, String mimeType, String fileType, Profile profile, boolean isPostable) throws Exception {
-		assertEquals("", unFilteredHeaderCheck(callMockHead(url, mimeType, getContentDisposition(profile, "zip"))).andReturn().getResponse().getContentAsString());
+		assertEquals("", unFilteredGeomHeaderCheck(callMockHead(url, mimeType, getContentDisposition(profile, "zip"))).andReturn().getResponse().getContentAsString());
 
-		MvcResult rtn = unFilteredHeaderCheck(callMockGet(url, mimeType, getContentDisposition(profile, "zip"))).andReturn();
+		MvcResult rtn = unFilteredGeomHeaderCheck(callMockGet(url, mimeType, getContentDisposition(profile, "zip"))).andReturn();
 		assertThat(new JSONObject(getCompareFile(profile, fileType, isPostable ? null : "Rest")), sameJSONObjectAs(new JSONObject(extractZipContent(rtn.getResponse().getContentAsByteArray(), getFileName(profile, fileType)))));
 
 		rtn = noResultHeaderCheck(callMockGet(url + getNoResultParameters(), mimeType, getContentDisposition(profile, "zip"))).andReturn();
 		assertThat(new JSONObject(getCompareFile(profile, fileType, "NoResult")), sameJSONObjectAs(new JSONObject(extractZipContent(rtn.getResponse().getContentAsByteArray(), getFileName(profile, fileType)))));
 
 		if (isPostable) {
-			rtn = unFilteredHeaderCheck(callMockPostJson(url, "{}", mimeType, getContentDisposition(profile, "zip"))).andReturn();
+			rtn = unFilteredGeomHeaderCheck(callMockPostJson(url, "{}", mimeType, getContentDisposition(profile, "zip"))).andReturn();
 			assertThat(new JSONObject(getCompareFile(profile, fileType, null)), sameJSONObjectAs(new JSONObject(extractZipContent(rtn.getResponse().getContentAsByteArray(), getFileName(profile, fileType)))));
 	
-			rtn = unFilteredHeaderCheck(callMockPostForm(url, mimeType, getContentDisposition(profile, "zip"))).andReturn();
+			rtn = unFilteredGeomHeaderCheck(callMockPostForm(url, mimeType, getContentDisposition(profile, "zip"))).andReturn();
 			assertThat(new JSONObject(getCompareFile(profile, fileType, null)), sameJSONObjectAs(new JSONObject(extractZipContent(rtn.getResponse().getContentAsByteArray(), getFileName(profile, fileType)))));
 		}
 	}
@@ -373,6 +391,10 @@ public abstract class BaseControllerIntegrationTest extends BaseSpringTest {
 	}
 
 	public abstract ResultActions unFilteredHeaderCheck(ResultActions resultActions) throws Exception;
+
+	public ResultActions unFilteredGeomHeaderCheck(ResultActions resultActions) throws Exception {
+		return unFilteredHeaderCheck(resultActions);
+	};
 
 	public abstract ResultActions filteredHeaderCheck(ResultActions resultActions) throws Exception;
 

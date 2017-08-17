@@ -40,6 +40,11 @@ public class StationKmlStreamingTest extends BaseStationStreamingTest {
 	}
 
 	@Test
+	public void mimeTypeTest() {
+		mimeTypeTest(nameSpace);
+	}
+
+	@Test
 	public void allDataSortedTest() {
 		//KML is sorted different than the rest.
 		parms.put(Parameters.SORTED.toString(), "yes");
@@ -55,11 +60,12 @@ public class StationKmlStreamingTest extends BaseStationStreamingTest {
 		assertRow(results.get(4), NWIS_1353690, expectedColumnCount);
 		assertRow(results.get(5), BIODATA_61233184, expectedColumnCount);
 		assertRow(results.get(6), NWIS_1360035, expectedColumnCount);
-		assertRow(results.get(7), STORET_436723, expectedColumnCount);
-		assertRow(results.get(8), STORET_1383, expectedColumnCount);
-		assertStoret888(expectedMap, results.get(9));
-		assertRow(results.get(10), STORET_777, expectedColumnCount);
-		assertRow(results.get(11), STORET_999, expectedColumnCount);
+		assertRow(results.get(7), BIODATA_433830088977331, expectedColumnCount);
+		assertRow(results.get(8), STORET_436723, expectedColumnCount);
+		assertRow(results.get(9), STORET_1383, expectedColumnCount);
+		assertStoret888(expectedMap, results.get(10));
+		assertRow(results.get(11), STORET_777, expectedColumnCount);
+		assertRow(results.get(12), STORET_999, expectedColumnCount);
 	}
 
 	@Test

@@ -109,9 +109,9 @@ public class SimpleStationControllerIntTest extends BaseControllerIntegrationTes
 	}
 
 	protected void getAsJsonTest(String url, String mimeType, String fileType) throws Exception {
-		assertEquals("", unFilteredHeaderCheck(callMockHead(url, mimeType, getContentDisposition(PROFILE, fileType))).andReturn().getResponse().getContentAsString());
+		assertEquals("", unFilteredGeomHeaderCheck(callMockHead(url, mimeType, getContentDisposition(PROFILE, fileType))).andReturn().getResponse().getContentAsString());
 
-		MvcResult rtn = unFilteredHeaderCheck(callMockGet(url, mimeType, getContentDisposition(PROFILE, fileType))).andReturn();
+		MvcResult rtn = unFilteredGeomHeaderCheck(callMockGet(url, mimeType, getContentDisposition(PROFILE, fileType))).andReturn();
 		assertThat(new JSONObject(getCompareFile(PROFILE, fileType, null)), sameJSONObjectAs(new JSONObject(rtn.getResponse().getContentAsString())));
 
 		rtn = noResultHeaderCheck(callMockGet(url + getNoResultParameters(), mimeType, getContentDisposition(PROFILE, fileType))).andReturn();
@@ -119,9 +119,9 @@ public class SimpleStationControllerIntTest extends BaseControllerIntegrationTes
 	}
 
 	protected void getAsJsonZipTest(String url, String mimeType, String fileType) throws Exception {
-		assertEquals("", unFilteredHeaderCheck(callMockHead(url, mimeType, getContentDisposition(PROFILE, "zip"))).andReturn().getResponse().getContentAsString());
+		assertEquals("", unFilteredGeomHeaderCheck(callMockHead(url, mimeType, getContentDisposition(PROFILE, "zip"))).andReturn().getResponse().getContentAsString());
 
-		MvcResult rtn = unFilteredHeaderCheck(callMockGet(url, mimeType, getContentDisposition(PROFILE, "zip"))).andReturn();
+		MvcResult rtn = unFilteredGeomHeaderCheck(callMockGet(url, mimeType, getContentDisposition(PROFILE, "zip"))).andReturn();
 		assertThat(new JSONObject(getCompareFile(PROFILE, fileType, null)), sameJSONObjectAs(new JSONObject(extractZipContent(rtn.getResponse().getContentAsByteArray(), getFileName(PROFILE, fileType)))));
 
 		rtn = noResultHeaderCheck(callMockGet(url + getNoResultParameters(), mimeType, getContentDisposition(PROFILE, "zip"))).andReturn();
@@ -135,6 +135,16 @@ public class SimpleStationControllerIntTest extends BaseControllerIntegrationTes
 				.andExpect(header().string(HEADER_STEWARDS_SITE_COUNT, STEWARDS_SITE_COUNT))
 				.andExpect(header().string(HEADER_STORET_SITE_COUNT, STORET_SITE_COUNT))
 				.andExpect(header().string(HEADER_BIODATA_SITE_COUNT, BIODATA_SITE_COUNT));
+	}
+
+	@Override
+	public ResultActions unFilteredGeomHeaderCheck(ResultActions resultActions) throws Exception {
+		return resultActions
+				.andExpect(header().string(HttpConstants.HEADER_TOTAL_SITE_COUNT, TOTAL_SITE_COUNT_GEOM))
+				.andExpect(header().string(HEADER_NWIS_SITE_COUNT, NWIS_SITE_COUNT))
+				.andExpect(header().string(HEADER_STEWARDS_SITE_COUNT, STEWARDS_SITE_COUNT))
+				.andExpect(header().string(HEADER_STORET_SITE_COUNT, STORET_SITE_COUNT))
+				.andExpect(header().string(HEADER_BIODATA_SITE_COUNT, BIODATA_SITE_COUNT_GEOM));
 	}
 
 	public ResultActions filteredHeaderCheck(ResultActions resultActions) throws Exception {

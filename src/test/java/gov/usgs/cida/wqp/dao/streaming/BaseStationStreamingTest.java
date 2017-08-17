@@ -52,6 +52,7 @@ public abstract class BaseStationStreamingTest extends BaseSpringTest {
 	public static final String[] STORET_504707 = new String[]{STORET, "21NYDECA_WQX-ONTARIO-02", STORET_SITE};
 	public static final String[] STORET_1043441 = new String[]{STORET, "11NPSWRD-BICA_MFG_B", STORET_SITE};
 	public static final String[] BIODATA_61233184 = new String[]{BIODATA, "USGS-11421000", BIODATA_SITE};
+	public static final String[] BIODATA_433830088977331 = new String[]{BIODATA, "USGS-433830088977331", BIODATA_SITE};
 
 	@Before
 	public void init() {
@@ -76,6 +77,47 @@ public abstract class BaseStationStreamingTest extends BaseSpringTest {
 	public void emptyParameterTest(NameSpace nameSpace) {
 		streamingDao.stream(nameSpace, parms, handler);
 		assertEquals(TOTAL_SITE_COUNT, String.valueOf(handler.getResults().size()));
+	}
+
+	protected void mimeTypeTest(NameSpace nameSpace) {
+		parms.put(Parameters.MIMETYPE.toString(), JSON);
+		streamingDao.stream(nameSpace, parms, handler);
+		LinkedList<Map<String, Object>> results = handler.getResults();
+		assertEquals(TOTAL_SITE_COUNT_GEOM, String.valueOf(results.size()));
+		assertContainsStation(results, STEWARDS_36, STEWARDS_46, NWIS_1353690, NWIS_1360035, STORET_777, STORET_888, STORET_999, STORET_1383, STORET_436723, STORET_504707,
+				STORET_1043441, BIODATA_61233184);
+
+		handler = new TestResultHandler();
+		parms.put(Parameters.MIMETYPE.toString(), GEOJSON);
+		streamingDao.stream(nameSpace, parms, handler);
+		results = handler.getResults();
+		assertEquals(TOTAL_SITE_COUNT_GEOM, String.valueOf(results.size()));
+		assertContainsStation(results, STEWARDS_36, STEWARDS_46, NWIS_1353690, NWIS_1360035, STORET_777, STORET_888, STORET_999, STORET_1383, STORET_436723, STORET_504707,
+				STORET_1043441, BIODATA_61233184);
+
+		handler = new TestResultHandler();
+		parms.put(Parameters.MIMETYPE.toString(), KML);
+		streamingDao.stream(nameSpace, parms, handler);
+		results = handler.getResults();
+		assertEquals(TOTAL_SITE_COUNT_GEOM, String.valueOf(results.size()));
+		assertContainsStation(results, STEWARDS_36, STEWARDS_46, NWIS_1353690, NWIS_1360035, STORET_777, STORET_888, STORET_999, STORET_1383, STORET_436723, STORET_504707,
+				STORET_1043441, BIODATA_61233184);
+
+		handler = new TestResultHandler();
+		parms.put(Parameters.MIMETYPE.toString(), KMZ);
+		streamingDao.stream(nameSpace, parms, handler);
+		results = handler.getResults();
+		assertEquals(TOTAL_SITE_COUNT_GEOM, String.valueOf(results.size()));
+		assertContainsStation(results, STEWARDS_36, STEWARDS_46, NWIS_1353690, NWIS_1360035, STORET_777, STORET_888, STORET_999, STORET_1383, STORET_436723, STORET_504707,
+				STORET_1043441, BIODATA_61233184);
+
+		handler = new TestResultHandler();
+		parms.put(Parameters.MIMETYPE.toString(), CSV);
+		streamingDao.stream(nameSpace, parms, handler);
+		results = handler.getResults();
+		assertEquals(TOTAL_SITE_COUNT, String.valueOf(results.size()));
+		assertContainsStation(results, STEWARDS_36, STEWARDS_46, NWIS_1353690, NWIS_1360035, STORET_777, STORET_888, STORET_999, STORET_1383, STORET_436723, STORET_504707,
+				STORET_1043441, BIODATA_61233184, BIODATA_433830088977331);
 	}
 
 	public void allDataSortedTest(NameSpace nameSpace, Map<String, Object> expectedMap) {
