@@ -13,7 +13,6 @@ import gov.usgs.cida.wqp.CsvDataSetLoader;
 import gov.usgs.cida.wqp.DBIntegrationTest;
 import gov.usgs.cida.wqp.dao.NameSpace;
 import gov.usgs.cida.wqp.mapping.CountColumn;
-import gov.usgs.cida.wqp.parameter.Parameters;
 
 @Category(DBIntegrationTest.class)
 @DatabaseSetup("classpath:/testData/csv/")
@@ -38,8 +37,8 @@ public class CountDaoActivityMetricTest extends BaseCountDaoTest {
 
 	@Test
 	public void activityTest() {
-		parms.put(Parameters.ACTIVITY.toString(), getActivity());
-		List<Map<String, Object>> counts = countDao.getCounts(nameSpace, parms);
+		filter.setActivity(getActivity());
+		List<Map<String, Object>> counts = countDao.getCounts(nameSpace, filter);
 		assertStationResults(counts, 2, "1", null, null, "1", null);
 		assertActivityResults(counts, 2, "1", null, null, "1", null);
 		assertActivityMetricResults(counts, 2, "6", null, null, "6", null);

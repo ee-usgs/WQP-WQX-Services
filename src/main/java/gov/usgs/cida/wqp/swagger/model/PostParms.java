@@ -1,62 +1,64 @@
 package gov.usgs.cida.wqp.swagger.model;
 
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class PostParms {
 
 	@JsonProperty("analyticalmethod")
-	List<String> analyticalmethod;
+	String[] analyticalmethod;
 	@JsonProperty("bBox")
 	String bBox;
 	@JsonProperty("assemblage")
-	List<String> assemblage;
+	String[] assemblage;
 	@JsonProperty("characteristicName")
-	List<String> characteristicName;
+	String[] characteristicName;
 	@JsonProperty("characteristicType")
-	List<String> characteristicType;
+	String[] characteristicType;
 	@JsonProperty("countrycode")
-	List<String> countrycode;
+	String[] countrycode;
 	@JsonProperty("countycode")
-	List<String> countycode;
+	String[] countycode;
 	@JsonProperty("dataProfile")
 	String dataProfile;
 	@JsonProperty("huc")
-	List<String> huc;
+	String[] huc;
 	@JsonProperty("lat")
 	String lat;
 	@JsonProperty("long")
 	String longitude;
+	@JsonProperty("mimeType")
+	String mimeType;
 	@JsonProperty("minactivities")
 	String minactivities;
 	@JsonProperty("minresults")
 	String minresults;
 	@JsonProperty("organization")
-	List<String> organization;
+	String[] organization;
 	@JsonProperty("pCode")
-	List<String> pCode;
+	String[] pCode;
 	@JsonProperty("project")
-	List<String> project;
+	String[] project;
 	@JsonProperty("sampleMedia")
-	List<String> sampleMedia;
+	String[] sampleMedia;
 	@JsonProperty("providers")
-	List<String> providers;
+	String[] providers;
 	@JsonProperty("siteid")
-	List<String> siteid;
+	String[] siteid;
 	@JsonProperty("siteType")
-	List<String> siteType;
+	String[] siteType;
 	@JsonProperty("statecode")
-	List<String> statecode;
+	String[] statecode;
 	@JsonProperty("startDateHi")
 	String startDateHi;
 	@JsonProperty("startDateLo")
 	String startDateLo;
 	@JsonProperty("subjectTaxonomicName")
-	List<String> subjectTaxonomicName;
+	String[] subjectTaxonomicName;
 	@JsonProperty("nldiurl")
 	String nldiurl;
 	@JsonProperty("within")
 	String within;
+	@JsonProperty("zip")
+	String zip;
 
 }

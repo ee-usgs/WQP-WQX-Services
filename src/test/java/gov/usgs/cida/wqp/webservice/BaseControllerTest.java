@@ -1,6 +1,7 @@
 package gov.usgs.cida.wqp.webservice;
 
 import static gov.usgs.cida.wqp.swagger.model.ActivityCountJson.HEADER_NWIS_ACTIVITY_COUNT;
+import static gov.usgs.cida.wqp.swagger.model.ActivityMetricCountJson.HEADER_NWIS_ACTIVITY_METRIC_COUNT;
 import static gov.usgs.cida.wqp.swagger.model.ResDetectQntLmtCountJson.HEADER_NWIS_RES_DETECT_QNT_LMT_COUNT;
 import static gov.usgs.cida.wqp.swagger.model.ResultCountJson.HEADER_NWIS_RESULT_COUNT;
 import static gov.usgs.cida.wqp.swagger.model.StationCountJson.HEADER_NWIS_SITE_COUNT;
@@ -12,9 +13,9 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyMap;
 import static org.mockito.Matchers.anyObject;
 import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -29,17 +30,20 @@ import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
 
 import org.apache.ibatis.session.ResultHandler;
 import org.junit.After;
@@ -47,21 +51,24 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.web.HttpMediaTypeNotAcceptableException;
 import org.springframework.web.accept.ContentNegotiationStrategy;
+import org.springframework.web.context.request.NativeWebRequest;
 
+import gov.usgs.cida.wqp.BaseSpringTest;
+import gov.usgs.cida.wqp.TestConstraintViolation;
 import gov.usgs.cida.wqp.dao.NameSpace;
 import gov.usgs.cida.wqp.dao.intfc.ICountDao;
 import gov.usgs.cida.wqp.dao.intfc.IStreamingDao;
 import gov.usgs.cida.wqp.mapping.BaseColumn;
 import gov.usgs.cida.wqp.mapping.CountColumn;
 import gov.usgs.cida.wqp.mapping.Profile;
-import gov.usgs.cida.wqp.parameter.IParameterHandler;
-import gov.usgs.cida.wqp.parameter.ParameterMap;
-import gov.usgs.cida.wqp.parameter.Parameters;
+import gov.usgs.cida.wqp.parameter.FilterParameters;
 import gov.usgs.cida.wqp.service.ILogService;
 import gov.usgs.cida.wqp.transform.MapToDelimitedTransformer;
 import gov.usgs.cida.wqp.transform.MapToJsonTransformer;
@@ -72,7 +79,7 @@ import gov.usgs.cida.wqp.transform.Transformer;
 import gov.usgs.cida.wqp.util.HttpConstants;
 import gov.usgs.cida.wqp.util.MimeType;
 
-public class BaseControllerTest {
+public class BaseControllerTest extends BaseSpringTest {
 
 	public static final String TEST_NWIS_STATION_COUNT = "12";
 	public static final String TEST_NWIS_ACTIVITY_COUNT = "113";
@@ -88,8 +95,6 @@ public class BaseControllerTest {
 	@Mock
 	private IStreamingDao streamingDao;
 	@Mock
-	private IParameterHandler parameterHandler;
-	@Mock
 	private ICountDao countDao;
 	@Mock
 	private ILogService logService;
@@ -99,80 +104,21 @@ public class BaseControllerTest {
 	private TestBaseController testController;
 	private MockHttpServletRequest request;
 
+	@Autowired
+	private Validator validator;
+
 	@Before
 	public void setup() {
 		MockitoAnnotations.initMocks(this);
-		testController = new TestBaseController(streamingDao, countDao, parameterHandler, logService, 100, "http://test-url.usgs.gov", contentStrategy);
+		testController = new TestBaseController(streamingDao, countDao, logService, 100, "http://test-url.usgs.gov", contentStrategy, validator);
 		request = new MockHttpServletRequest();
+		TestBaseController.remove();
 	}
 
 	@After
 	public void teardown() {
-		//Need to manually clear out this thread local
-		TestBaseController.setCounts(null);
-	}
-
-	@Test
-	public void isValidRequestTest() {
-		assertFalse(testController.isValidRequest(null, null, null));
-		assertFalse(testController.isValidRequest(request, null, null));
-		assertFalse(testController.isValidRequest(null, new HashMap<String, Object>(), null));
-		assertFalse(testController.isValidRequest(request, new HashMap<String, Object>(), null));
-
-		Map<String, Object> map = new HashMap<>();
-		map.put("v", "V");
-		assertTrue(testController.isValidRequest(null, map, null));
-		assertTrue(testController.isValidRequest(null, map, "x"));
-		assertTrue(testController.isValidRequest(request, map, "x"));
-		assertTrue(testController.isValidRequest(request, map, null));
-
-		assertTrue(testController.isValidRequest(null, null, "x"));
-		assertTrue(testController.isValidRequest(null, new HashMap<String, Object>(), "x"));
-		assertTrue(testController.isValidRequest(request, new HashMap<String, Object>(), "x"));
-		assertTrue(testController.isValidRequest(request, null, "x"));
-
-		request.addParameter("t", "t");
-		assertTrue(testController.isValidRequest(request, null, null));
-		assertTrue(testController.isValidRequest(request, new HashMap<String, Object>(), null));
-		assertTrue(testController.isValidRequest(request, new HashMap<String, Object>(), "x"));
-		assertTrue(testController.isValidRequest(request, null, "x"));
-
-		assertTrue(testController.isValidRequest(request, map, "x"));
-	}
-
-	@Test
-	@SuppressWarnings("unchecked")
-	public void processParametersTest_empty() {
-		testController.processParameters(request, null);
-		assertFalse(TestBaseController.getPm().isValid());
-		verify(parameterHandler, never()).validateAndTransform(anyMap(), anyMap(), anyObject());
-	}
-
-	@Test
-	@SuppressWarnings("unchecked")
-	public void processParametersTest_invalid() {
-		ParameterMap p = new ParameterMap();
-		p.setValid(false);
-		when(parameterHandler.validateAndTransform(anyMap(), anyMap(), anyObject())).thenReturn(p);
-
-		request.setParameter("countrycode", "US");
-		testController.processParameters(request, null);
-		assertEquals(p, TestBaseController.getPm());
-		assertFalse(TestBaseController.getPm().isValid());
-		verify(parameterHandler).validateAndTransform(anyMap(), anyMap(), anyObject());
-	}
-
-	@Test
-	@SuppressWarnings("unchecked")
-	public void processParametersTest_valid() {
-		ParameterMap p = new ParameterMap();
-		when(parameterHandler.validateAndTransform(anyMap(), anyMap(), anyObject())).thenReturn(p);
-
-		request.setParameter("countrycode", "US");
-		testController.processParameters(request, null);
-		assertEquals(p, TestBaseController.getPm());
-		assertTrue(TestBaseController.getPm().isValid());
-		verify(parameterHandler).validateAndTransform(anyMap(), anyMap(), anyObject());
+		//Need to manually clear out thread locals
+		TestBaseController.remove();
 	}
 
 	@Test
@@ -180,22 +126,19 @@ public class BaseControllerTest {
 		testController.determineZipped(null);
 		assertFalse(TestBaseController.getZipped());
 
-		Map<String, Object> queryParameters = new HashMap<>();
-		ParameterMap pm = new ParameterMap();
-		pm.setQueryParameters(queryParameters);
-		TestBaseController.setPm(pm);
+		FilterParameters filter = new FilterParameters();
+		TestBaseController.setFilter(filter);
 
 		testController.determineZipped(null);
 		assertFalse(TestBaseController.getZipped());
 
-		queryParameters.put(Parameters.ZIP.toString(), "xxx");
+		filter.setZip("xxx");
 		testController.determineZipped(null);
 		assertFalse(TestBaseController.getZipped());
 		testController.determineZipped(MimeType.csv.getMediaType());
 		assertFalse(TestBaseController.getZipped());
 
-		
-		queryParameters.put(Parameters.ZIP.toString(), "no");
+		filter.setZip("no");
 		testController.determineZipped(null);
 		assertFalse(TestBaseController.getZipped());
 		testController.determineZipped(MimeType.kml.getMediaType());
@@ -203,7 +146,7 @@ public class BaseControllerTest {
 		testController.determineZipped(MimeType.kmz.getMediaType());
 		assertTrue(TestBaseController.getZipped());
 
-		queryParameters.put(Parameters.ZIP.toString(), "yes");
+		filter.setZip("yes");
 		testController.determineZipped(MimeType.kmz.getMediaType());
 		assertTrue(TestBaseController.getZipped());
 		testController.determineZipped(MimeType.json.getMediaType());
@@ -211,7 +154,6 @@ public class BaseControllerTest {
 		testController.determineZipped(MimeType.csv.getMediaType());
 		assertTrue(TestBaseController.getZipped());
 	}
-
 
 	@Test
 	public void getOutputStreamTest() {
@@ -334,6 +276,545 @@ public class BaseControllerTest {
 	}
 
 	@Test
+	public void doHeadRequest2NullTest() {
+		MockHttpServletResponse response = new MockHttpServletResponse();
+		FilterParameters filter = new FilterParameters();
+		testController.doHeadRequest(request, response, filter, null, null);
+
+		assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
+		assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
+		assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
+		verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(FilterParameters.class));
+		verify(logService, never()).logHeadComplete(any(HttpServletResponse.class), any(BigDecimal.class));
+		verify(logService).logRequestComplete(any(BigDecimal.class), anyString());
+	}
+
+	@Test
+	public void doHeadRequest2ValuesTest() {
+		MockHttpServletResponse response = new MockHttpServletResponse();
+		FilterParameters filter = new FilterParameters();
+		TestBaseController.setFilter(filter);
+		testController.doHeadRequest(request, response, filter, "csv", "yes");
+
+		assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
+		assertEquals(HttpStatus.OK.value(), response.getStatus());
+		assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
+		assertEquals("csv", filter.getMimeType());
+		assertEquals("yes", filter.getZip());
+		verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(FilterParameters.class));
+		verify(logService).logHeadComplete(any(HttpServletResponse.class), any(BigDecimal.class));
+		verify(logService).logRequestComplete(any(BigDecimal.class), anyString());
+	}
+
+	@Test
+	public void doHeadRequestTest() {
+		MockHttpServletResponse response = new MockHttpServletResponse();
+		FilterParameters filter = new FilterParameters();
+		filter.setMinactivities("1");
+		testController.doHeadRequest(request, response, filter);
+
+		assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
+		assertEquals(HttpStatus.OK.value(), response.getStatus());
+		assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
+		verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(FilterParameters.class));
+		verify(logService).logHeadComplete(any(HttpServletResponse.class), any(BigDecimal.class));
+		verify(logService).logRequestComplete(any(BigDecimal.class), anyString());
+	}
+
+	@Test
+	public void doHeadRequestTest_error() {
+		MockHttpServletResponse response = new MockHttpServletResponse();
+		FilterParameters filter = new FilterParameters();
+		testController.doHeadRequest(request, response, filter);
+
+		assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
+		assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
+		assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
+		verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(FilterParameters.class));
+		verify(logService, never()).logHeadComplete(any(HttpServletResponse.class), any(BigDecimal.class));
+		verify(logService).logRequestComplete(any(BigDecimal.class), anyString());
+	}
+
+	@Test
+	public void doCommonSetupTest_NoParms() {
+		FilterParameters filter = new FilterParameters();
+		MockHttpServletResponse response = new MockHttpServletResponse();
+		BigDecimal logId = BigDecimal.ONE;
+		TestBaseController.setLogId(logId);
+
+		assertFalse(testController.doCommonSetup(request, response, null));
+		assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
+		assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
+		assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
+		verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(FilterParameters.class));
+		verify(logService, never()).logHeadComplete(any(HttpServletResponse.class), any(BigDecimal.class));
+		verify(countDao, never()).getCounts(any(NameSpace.class), any(FilterParameters.class));
+
+		assertFalse(testController.doCommonSetup(request, response, filter));
+		assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
+		assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
+		assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
+		verify(logService, times(2)).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(FilterParameters.class));
+		verify(logService, never()).logHeadComplete(any(HttpServletResponse.class), any(BigDecimal.class));
+		verify(countDao, never()).getCounts(any(NameSpace.class), any(FilterParameters.class));
+	}
+
+	@Test
+	public void doCommonSetupTest_InvalidParms() {
+		FilterParameters filter = new FilterParameters();
+		filter.setMinactivities("a");
+		MockHttpServletResponse response = new MockHttpServletResponse();
+		BigDecimal logId = BigDecimal.ONE;
+		TestBaseController.setLogId(logId);
+
+		assertFalse(testController.doCommonSetup(request, response, filter));
+		assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
+		assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
+		assertTrue(response.getHeader(HttpConstants.HEADER_WARNING).startsWith("299 WQP \"The"));
+		verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(FilterParameters.class));
+		verify(logService, never()).logHeadComplete(any(HttpServletResponse.class), any(BigDecimal.class));
+		verify(countDao, never()).getCounts(any(NameSpace.class), any(FilterParameters.class));
+	}
+
+	@Test
+	public void doCommonSetupTest() throws HttpMediaTypeNotAcceptableException {
+		FilterParameters filter = new FilterParameters();
+		filter.setZip("yes");
+		filter.setDataProfile(Profile.STATION.toString());
+		when(contentStrategy.resolveMediaTypes(anyObject())).thenReturn(Arrays.asList(MimeType.kml.getMediaType()));
+
+//		request.setParameter("countrycode", "US");
+		MockHttpServletResponse response = new MockHttpServletResponse();
+		BigDecimal logId = BigDecimal.ONE;
+		TestBaseController.setLogId(logId);
+
+		assertTrue(testController.doCommonSetup(request, response, filter));
+		assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
+		assertEquals(HttpStatus.OK.value(), response.getStatus());
+		assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
+		assertEquals("application/vnd.google-earth.kmz;charset=UTF-8", response.getHeader(HttpConstants.HEADER_CONTENT_TYPE));
+		assertEquals("attachment; filename=station.kmz", response.getHeader(HttpConstants.HEADER_CONTENT_DISPOSITION));
+		assertEquals("12", response.getHeader(TestBaseController.TEST_COUNT));
+		verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(FilterParameters.class));
+		verify(logService).logHeadComplete(any(HttpServletResponse.class), any(BigDecimal.class));
+		verify(countDao).getCounts(any(NameSpace.class), any(FilterParameters.class));
+	}
+
+	@Test
+	public void doCommonSetupPostCountTest() throws HttpMediaTypeNotAcceptableException {
+		FilterParameters filter = new FilterParameters();
+		filter.setDataProfile(Profile.STATION.toString());
+		when(contentStrategy.resolveMediaTypes(anyObject())).thenReturn(Arrays.asList(MimeType.json.getMediaType()));
+		request.setMethod("POST");
+		MockHttpServletResponse response = new MockHttpServletResponse();
+		BigDecimal logId = BigDecimal.ONE;
+		TestBaseController.setLogId(logId);
+
+		assertTrue(testController.doCommonSetup(request, response, filter));
+		assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
+		assertEquals(HttpStatus.OK.value(), response.getStatus());
+		assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
+		assertEquals("application/json;charset=UTF-8", response.getHeader(HttpConstants.HEADER_CONTENT_TYPE));
+		assertEquals("attachment; filename=station.json", response.getHeader(HttpConstants.HEADER_CONTENT_DISPOSITION));
+		assertEquals("12", response.getHeader(TestBaseController.TEST_COUNT));
+		verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(FilterParameters.class));
+		verify(logService).logHeadComplete(any(HttpServletResponse.class), any(BigDecimal.class));
+		verify(countDao).getCounts(any(NameSpace.class), any(FilterParameters.class));
+
+		request.setRequestURI("endpoint/count");
+		response = new MockHttpServletResponse();
+		assertTrue(testController.doCommonSetup(request, response, filter));
+		assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
+		assertEquals(HttpStatus.OK.value(), response.getStatus());
+		assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
+		assertEquals("application/json;charset=UTF-8", response.getHeader(HttpConstants.HEADER_CONTENT_TYPE));
+		assertNull(response.getHeader(HttpConstants.HEADER_CONTENT_DISPOSITION));
+		assertEquals("12", response.getHeader(TestBaseController.TEST_COUNT));
+		verify(logService, times(2)).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(FilterParameters.class));
+		verify(logService, times(2)).logHeadComplete(any(HttpServletResponse.class), any(BigDecimal.class));
+		verify(countDao, times(2)).getCounts(any(NameSpace.class), any(FilterParameters.class));
+
+		request.setMethod("GET");
+		response = new MockHttpServletResponse();
+		assertTrue(testController.doCommonSetup(request, response, filter));
+		assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
+		assertEquals(HttpStatus.OK.value(), response.getStatus());
+		assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
+		assertEquals("application/json;charset=UTF-8", response.getHeader(HttpConstants.HEADER_CONTENT_TYPE));
+		assertEquals("attachment; filename=station.json", response.getHeader(HttpConstants.HEADER_CONTENT_DISPOSITION));
+		assertEquals("12", response.getHeader(TestBaseController.TEST_COUNT));
+		verify(logService, times(3)).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(FilterParameters.class));
+		verify(logService, times(3)).logHeadComplete(any(HttpServletResponse.class), any(BigDecimal.class));
+		verify(countDao, times(3)).getCounts(any(NameSpace.class), any(FilterParameters.class));	
+	}
+
+	@Test
+	public void determineContentType_nothingSpecified() {
+		testController.determineContentType(request);
+		assertFalse(TestBaseController.getZipped());
+		assertEquals(MimeType.xml, TestBaseController.getMimeType());
+	}
+
+	@Test
+	public void determineContentType_single() throws HttpMediaTypeNotAcceptableException {
+		when(contentStrategy.resolveMediaTypes(any(NativeWebRequest.class))).thenReturn(Arrays.asList(new MediaType("application","vnd.google-earth.kmz")));
+		testController.determineContentType(request);
+		assertTrue(TestBaseController.getZipped());
+		assertEquals(MimeType.kmz, TestBaseController.getMimeType());
+	}
+
+	@Test
+	public void determineContentType_multiple() throws HttpMediaTypeNotAcceptableException {
+		when(contentStrategy.resolveMediaTypes(any(NativeWebRequest.class)))
+			.thenReturn(Arrays.asList(MediaType.APPLICATION_JSON, new MediaType("application","vnd.google-earth.kmz"), MediaType.APPLICATION_XML));
+		testController.determineContentType(request);
+		assertFalse(TestBaseController.getZipped());
+		assertEquals(MimeType.json, TestBaseController.getMimeType());
+	}
+
+	@Test
+	public void checkMaxRowsTest() {
+		FilterParameters filter = new FilterParameters();
+		TestBaseController small = new TestBaseController(null, null, null, 10, "http://test-url.usgs.gov", null, null);
+		TestBaseController.setFilter(filter);
+
+		//xml formats ok when less than max & always sorted
+		TestBaseController.setMimeType(MimeType.xml);
+		//No query parm
+		doMaxRowTrueAsserts(small, "5", "yes", false);
+		//now for a yes
+		filter.setSorted("yes");
+		doMaxRowTrueAsserts(small, "5", "yes", false);
+		//now for a no
+		filter.setSorted("no");
+		doMaxRowTrueAsserts(small, "5", "yes", false);
+
+		TestBaseController.setMimeType(MimeType.kml);
+		//No query parm
+		filter.setSorted("");
+		doMaxRowTrueAsserts(small, "5", "yes", false);
+		//now for a yes
+		filter.setSorted("yes");
+		doMaxRowTrueAsserts(small, "5", "yes", false);
+		//now for a no
+		filter.setSorted("no");
+		doMaxRowTrueAsserts(small, "5", "yes", false);
+
+		TestBaseController.setMimeType(MimeType.kmz);
+		//No query parm
+		filter.setSorted("");
+		doMaxRowTrueAsserts(small, "5", "yes", false);
+		//now for a yes
+		filter.setSorted("yes");
+		doMaxRowTrueAsserts(small, "5", "yes", false);
+		//now for a no
+		filter.setSorted("no");
+		doMaxRowTrueAsserts(small, "5", "yes", false);
+
+		//xml formats not ok when greater than max
+		TestBaseController.setMimeType(MimeType.xml);
+		//No query parm
+		filter.setSorted("");
+		doMaxRowFalseAsserts(small, "15");
+		//now for a yes
+		filter.setSorted("yes");
+		doMaxRowFalseAsserts(small, "15");
+		//now for a no
+		filter.setSorted("no");
+		doMaxRowFalseAsserts(small, "15");
+
+		TestBaseController.setMimeType(MimeType.kml);
+		//No query parm
+		filter.setSorted("");
+		doMaxRowFalseAsserts(small, "15");
+		//now for a yes
+		filter.setSorted("yes");
+		doMaxRowFalseAsserts(small, "15");
+		//now for a no
+		filter.setSorted("no");
+		doMaxRowFalseAsserts(small, "15");
+
+		TestBaseController.setMimeType(MimeType.kmz);
+		//No query parm
+		filter.setSorted("");
+		doMaxRowFalseAsserts(small, "15");
+		//now for a yes
+		filter.setSorted("yes");
+		doMaxRowFalseAsserts(small, "15");
+		//now for a no
+		filter.setSorted("no");
+		doMaxRowFalseAsserts(small, "15");
+
+		//other formats less than max always ok & sorting based on given (or lack of) sorted query parameter
+		TestBaseController.setMimeType(MimeType.csv);
+		//No query parm
+		filter.setSorted("");
+		doMaxRowTrueAsserts(small, "5", "yes", false);
+		//now for a yes
+		filter.setSorted("yes");
+		doMaxRowTrueAsserts(small, "5", "yes", false);
+		//now for a no
+		filter.setSorted("no");
+		doMaxRowTrueAsserts(small, "5", "no", false);
+
+		TestBaseController.setMimeType(MimeType.tsv);
+		//No query parm
+		filter.setSorted("");
+		doMaxRowTrueAsserts(small, "5", "yes", false);
+		//now for a yes
+		filter.setSorted("yes");
+		doMaxRowTrueAsserts(small, "5", "yes", false);
+		//now for a no
+		filter.setSorted("no");
+		doMaxRowTrueAsserts(small, "5", "no", false);
+
+		TestBaseController.setMimeType(MimeType.xlsx);
+		//No query parm
+		filter.setSorted("");
+		doMaxRowTrueAsserts(small, "5", "yes", false);
+		//now for a yes
+		filter.setSorted("yes");
+		doMaxRowTrueAsserts(small, "5", "yes", false);
+		//now for a no
+		filter.setSorted("no");
+		doMaxRowTrueAsserts(small, "5", "no", false);
+
+		//other formats are ok, but not sorted when greater than max - and warning header given
+		TestBaseController.setMimeType(MimeType.csv);
+		//No query parm
+		filter.setSorted("");
+		doMaxRowTrueAsserts(small, "15", "no", true);
+		//now for a yes
+		filter.setSorted("yes");
+		doMaxRowTrueAsserts(small, "15", "no", true);
+		//now for a no
+		filter.setSorted("no");
+		doMaxRowTrueAsserts(small, "15", "no", true);
+
+		TestBaseController.setMimeType(MimeType.tsv);
+		//No query parm
+		filter.setSorted("");
+		doMaxRowTrueAsserts(small, "15", "no", true);
+		//now for a yes
+		filter.setSorted("yes");
+		doMaxRowTrueAsserts(small, "15", "no", true);
+		//now for a no
+		filter.setSorted("no");
+		doMaxRowTrueAsserts(small, "15", "no", true);
+
+		TestBaseController.setMimeType(MimeType.xlsx);
+		//No query parm
+		filter.setSorted("");
+		doMaxRowTrueAsserts(small, "15", "no", true);
+		//now for a yes
+		filter.setSorted("yes");
+		doMaxRowTrueAsserts(small, "15", "no", true);
+		//now for a no
+		filter.setSorted("no");
+		doMaxRowTrueAsserts(small, "15", "no", true);
+	}
+
+	public void doMaxRowTrueAsserts(TestBaseController small, String rows, String expectedSort, boolean isHeaderexpected) {
+		HttpServletResponse response = new MockHttpServletResponse();
+		response.setHeader("total", rows);
+		assertTrue(small.checkMaxRows(response, "total"));
+		assertEquals(expectedSort, TestBaseController.getFilter().getSorted());
+		if (isHeaderexpected) {
+			assertEquals(2, response.getHeaderNames().size());
+			assertTrue(response.getHeaderNames().contains(HttpConstants.HEADER_WARNING));
+			assertEquals("This query will return in excess of 10 results, the data will not be sorted.",
+					response.getHeader(HttpConstants.HEADER_WARNING));
+		} else {
+			assertEquals(1, response.getHeaderNames().size());
+		}
+	}
+
+	public void doMaxRowFalseAsserts(TestBaseController small, String rows) {
+		HttpServletResponse response = new MockHttpServletResponse();
+		response.setHeader("total", rows);
+		assertFalse(small.checkMaxRows(response, "total"));
+		assertEquals(2, response.getHeaderNames().size());
+		assertTrue(response.getHeaderNames().contains(HttpConstants.HEADER_WARNING));
+		assertEquals("This query will return in excess of 10 results, please refine your query.",
+					response.getHeader(HttpConstants.HEADER_WARNING));
+		assertEquals(400, response.getStatus());
+	}
+
+	@Test
+	public void processParametersTest_empty() {
+		assertFalse(testController.processParameters(null));
+		assertFalse(testController.processParameters(new FilterParameters()));
+	}
+
+	@Test
+	public void processParametersTest_invalid() {
+		FilterParameters filter = new FilterParameters();
+		filter.setMinactivities("a");
+		assertFalse(testController.processParameters(filter));
+		assertFalse(TestBaseController.getFilter().isValid());
+	}
+
+	@Test
+	public void processParametersTest_valid() {
+		FilterParameters filter = new FilterParameters();
+		filter.setMinactivities("5");
+		assertTrue(testController.processParameters(filter));
+		assertTrue(TestBaseController.getFilter().isValid());
+	}
+
+	@Test
+	public void doPostCountRequestTest() throws HttpMediaTypeNotAcceptableException {
+		MockHttpServletResponse response = new MockHttpServletResponse();
+		FilterParameters filter = new FilterParameters();
+		filter.setSiteid(Arrays.asList("11NPSWRD-BICA_MFG_B","WIDNR_WQX-10030952"));
+		when(countDao.getCounts(any(NameSpace.class), any(FilterParameters.class))).thenReturn(getRawCounts());
+		when(contentStrategy.resolveMediaTypes(anyObject())).thenReturn(Arrays.asList(MimeType.kml.getMediaType()));
+
+		Map<String, String> result = testController.doPostCountRequest(request, response, filter, "kmz", "yes");
+
+		assertNotNull(result);
+		assertEquals(2, result.size());
+		assertTrue(result.containsKey(HEADER_NWIS_SITE_COUNT));
+		assertEquals(TEST_NWIS_STATION_COUNT, result.get(HEADER_NWIS_SITE_COUNT));
+		assertTrue(result.containsKey(HttpConstants.HEADER_TOTAL_SITE_COUNT));
+		assertEquals(TEST_TOTAL_STATION_COUNT, result.get(HttpConstants.HEADER_TOTAL_SITE_COUNT));
+		assertEquals("kmz", filter.getMimeType());
+		assertEquals("yes", filter.getZip());
+		assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
+		assertEquals(HttpStatus.OK.value(), response.getStatus());
+		assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
+		verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(FilterParameters.class));
+		verify(logService).logHeadComplete(any(HttpServletResponse.class), any(BigDecimal.class));
+		verify(logService).logRequestComplete(any(BigDecimal.class), anyString());
+	}
+
+	@Test
+	public void doPostCountRequestNoMimeZip() throws HttpMediaTypeNotAcceptableException {
+		MockHttpServletResponse response = new MockHttpServletResponse();
+		FilterParameters filter = new FilterParameters();
+		filter.setSiteid(Arrays.asList("11NPSWRD-BICA_MFG_B","WIDNR_WQX-10030952"));
+		when(countDao.getCounts(any(NameSpace.class), any(FilterParameters.class))).thenReturn(getRawCounts());
+		when(contentStrategy.resolveMediaTypes(anyObject())).thenReturn(Arrays.asList(MimeType.kml.getMediaType()));
+
+		Map<String, String> result = testController.doPostCountRequest(request, response, filter, null, null);
+
+		assertNotNull(result);
+		assertEquals(2, result.size());
+		assertTrue(result.containsKey(HEADER_NWIS_SITE_COUNT));
+		assertEquals(TEST_NWIS_STATION_COUNT, result.get(HEADER_NWIS_SITE_COUNT));
+		assertTrue(result.containsKey(HttpConstants.HEADER_TOTAL_SITE_COUNT));
+		assertEquals(TEST_TOTAL_STATION_COUNT, result.get(HttpConstants.HEADER_TOTAL_SITE_COUNT));
+		assertNull(filter.getMimeType());
+		assertNull(filter.getZip());
+		assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
+		assertEquals(HttpStatus.OK.value(), response.getStatus());
+		assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
+		verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(FilterParameters.class));
+		verify(logService).logHeadComplete(any(HttpServletResponse.class), any(BigDecimal.class));
+		verify(logService).logRequestComplete(any(BigDecimal.class), anyString());
+	}
+
+	@Test
+	public void doDataRequest2_noMimeZip() {
+		MockHttpServletResponse response = new MockHttpServletResponse();
+		testController.doDataRequest(request, response, new FilterParameters(), null, null);
+		assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
+		assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
+		assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
+		verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(FilterParameters.class));
+		verify(logService, never()).logHeadComplete(any(HttpServletResponse.class), any(BigDecimal.class));
+		verify(logService).logRequestComplete(any(BigDecimal.class), anyString());
+		verify(streamingDao, never()).stream(any(NameSpace.class), any(FilterParameters.class), any(ResultHandler.class));
+	}
+
+	@Test
+	public void doDataRequest2_hasMimeZip() throws HttpMediaTypeNotAcceptableException {
+		when(contentStrategy.resolveMediaTypes(anyObject())).thenReturn(Arrays.asList(MimeType.kml.getMediaType()));
+		MockHttpServletResponse response = new MockHttpServletResponse();
+		FilterParameters filter = new FilterParameters();
+		filter.setMinactivities("1");
+		testController.doDataRequest(request, response, filter, "kml", "yes");
+		assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
+		assertEquals(HttpStatus.OK.value(), response.getStatus());
+		assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
+		assertEquals("application/vnd.google-earth.kmz;charset=UTF-8", response.getHeader(HttpConstants.HEADER_CONTENT_TYPE));
+		assertEquals("attachment; filename=station.kmz", response.getHeader(HttpConstants.HEADER_CONTENT_DISPOSITION));
+		assertEquals("12", response.getHeader(TestBaseController.TEST_COUNT));
+
+		ZipInputStream in = new ZipInputStream(new ByteArrayInputStream(response.getContentAsByteArray()));
+		try {
+			ZipEntry entry = in.getNextEntry();
+			assertEquals("station.kml", entry.getName());
+		} catch (IOException e) {
+			fail("Should not get exception but did:" + e.getLocalizedMessage());
+		}
+
+		verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(FilterParameters.class));
+		verify(logService).logHeadComplete(any(HttpServletResponse.class), any(BigDecimal.class));
+		verify(logService).logRequestComplete(any(BigDecimal.class), anyString());
+		verify(countDao).getCounts(any(NameSpace.class), any(FilterParameters.class));
+		verify(streamingDao).stream(any(NameSpace.class), any(FilterParameters.class), any(ResultHandler.class));
+	}
+
+	@Test
+	public void doDataRequestTest_NoParms() {
+		MockHttpServletResponse response = new MockHttpServletResponse();
+		testController.doDataRequest(request, response, new FilterParameters());
+		assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
+		assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
+		assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
+		verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(FilterParameters.class));
+		verify(logService, never()).logHeadComplete(any(HttpServletResponse.class), any(BigDecimal.class));
+		verify(logService).logRequestComplete(any(BigDecimal.class), anyString());
+		verify(streamingDao, never()).stream(any(NameSpace.class), any(FilterParameters.class), any(ResultHandler.class));
+	}
+
+	@Test
+	public void doDataRequestTest_error() {
+		doThrow(new RuntimeException("yuck!")).when(streamingDao).stream(any(NameSpace.class), any(FilterParameters.class), any(ResultHandler.class));
+		MockHttpServletResponse response = new MockHttpServletResponse();
+		FilterParameters filter = new FilterParameters();
+		filter.setMinactivities("1");
+		testController.doDataRequest(request, response, filter);
+		assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
+		assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.value(), response.getStatus());
+		assertNotNull(response.getHeader(HttpConstants.HEADER_FATAL_ERROR));
+		verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(FilterParameters.class));
+		verify(logService).logHeadComplete(any(HttpServletResponse.class), any(BigDecimal.class));
+		verify(logService).logRequestComplete(any(BigDecimal.class), anyString());
+		verify(streamingDao).stream(any(NameSpace.class), any(FilterParameters.class), any(ResultHandler.class));
+	}
+
+	@Test
+	public void doDataRequestTest() throws HttpMediaTypeNotAcceptableException {
+		when(contentStrategy.resolveMediaTypes(anyObject())).thenReturn(Arrays.asList(MimeType.kmz.getMediaType()));
+		MockHttpServletResponse response = new MockHttpServletResponse();
+		FilterParameters filter = new FilterParameters();
+		filter.setMinactivities("1");
+		testController.doDataRequest(request, response, filter);
+		assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
+		assertEquals(HttpStatus.OK.value(), response.getStatus());
+		assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
+		assertEquals("application/vnd.google-earth.kmz;charset=UTF-8", response.getHeader(HttpConstants.HEADER_CONTENT_TYPE));
+		assertEquals("attachment; filename=station.kmz", response.getHeader(HttpConstants.HEADER_CONTENT_DISPOSITION));
+		assertEquals("12", response.getHeader(TestBaseController.TEST_COUNT));
+
+		ZipInputStream in = new ZipInputStream(new ByteArrayInputStream(response.getContentAsByteArray()));
+		try {
+			ZipEntry entry = in.getNextEntry();
+			assertEquals("station.kml", entry.getName());
+		} catch (IOException e) {
+			fail("Should not get exception but did:" + e.getLocalizedMessage());
+		}
+
+		verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(FilterParameters.class));
+		verify(logService).logHeadComplete(any(HttpServletResponse.class), any(BigDecimal.class));
+		verify(logService).logRequestComplete(any(BigDecimal.class), anyString());
+		verify(countDao).getCounts(any(NameSpace.class), any(FilterParameters.class));
+		verify(streamingDao).stream(any(NameSpace.class), any(FilterParameters.class), any(ResultHandler.class));
+	}
+
+	@Test
 	public void determineZipEntryNameTest() {
 		TestBaseController.setProfile(Profile.STATION);
 		TestBaseController.setMimeType(MimeType.csv);
@@ -386,6 +867,8 @@ public class BaseControllerTest {
 
 	@Test
 	public void determineNamespaceFromProfileTest() {
+		assertEquals(NameSpace.NARROW_RESULT, testController.determineNamespaceFromProfile(Profile.NARROW_RESULT));
+
 		assertEquals(NameSpace.BIOLOGICAL_RESULT, testController.determineNamespaceFromProfile(Profile.BIOLOGICAL));
 
 		assertEquals(NameSpace.RESULT, testController.determineNamespaceFromProfile(Profile.PC_RESULT));
@@ -434,449 +917,51 @@ public class BaseControllerTest {
 	public void determineProfileTest() {
 		assertEquals(Profile.STATION, testController.determineProfile(Profile.STATION, null));
 
-		Map<String, Object> pm = new HashMap<>();
-		pm.put(Parameters.DATA_PROFILE.toString(), null);
-		assertEquals(Profile.STATION, testController.determineProfile(Profile.STATION, pm));
+		FilterParameters filter = new FilterParameters();
+		assertEquals(Profile.STATION, testController.determineProfile(Profile.STATION, filter));
 
-		pm.put(Parameters.DATA_PROFILE.toString(), null);
-		assertEquals(Profile.STATION, testController.determineProfile(Profile.STATION, pm));
+		filter.setDataProfile("");
+		assertEquals(Profile.STATION, testController.determineProfile(Profile.STATION, filter));
 
-		pm.put(Parameters.DATA_PROFILE.toString(), "abc");
-		assertEquals(Profile.STATION, testController.determineProfile(Profile.STATION, pm));
+		filter.setDataProfile("abc");
+		assertEquals(Profile.STATION, testController.determineProfile(Profile.STATION, filter));
 
-		pm.put(Parameters.DATA_PROFILE.toString(), new String[0]);
-		assertEquals(Profile.STATION, testController.determineProfile(Profile.STATION, pm));
-
-		pm.put(Parameters.DATA_PROFILE.toString(), new String[]{"biological"});
-		assertEquals(Profile.BIOLOGICAL, testController.determineProfile(Profile.STATION, pm));
-	}
-
-	@Test
-	@SuppressWarnings("unchecked")
-	public void doCommonSetupTest_NoParms() {
-		MockHttpServletResponse response = new MockHttpServletResponse();
-		BigDecimal logId = BigDecimal.ONE;
-		TestBaseController.setLogId(logId);
-
-		assertFalse(testController.doCommonSetup(request, response, null));
-		assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
-		assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
-		assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
-		verify(parameterHandler, never()).validateAndTransform(anyMap(), anyMap(), anyObject());
-		verify(logService, never()).logHeadComplete(response, logId);
-		verify(countDao, never()).getCounts(any(NameSpace.class), anyMap());
-	}
-
-	@Test
-	@SuppressWarnings("unchecked")
-	public void doCommonSetupTest_InvalidParms() {
-		ParameterMap p = new ParameterMap();
-		p.merge("countrycode", Arrays.asList("not cool"));
-		p.setValid(false);
-		when(parameterHandler.validateAndTransform(anyMap(), anyMap(), anyObject())).thenReturn(p);
-
-		request.setParameter("countrycode", "US");
-		MockHttpServletResponse response = new MockHttpServletResponse();
-		BigDecimal logId = BigDecimal.ONE;
-		TestBaseController.setLogId(logId);
-
-		assertFalse(testController.doCommonSetup(request, response, null));
-		assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
-		assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
-		assertTrue(response.getHeader(HttpConstants.HEADER_WARNING).startsWith("299 WQP \"not cool\""));
-		verify(parameterHandler).validateAndTransform(anyMap(), anyMap(), anyObject());
-		verify(logService, never()).logHeadComplete(response, logId);
-		verify(countDao, never()).getCounts(any(NameSpace.class), anyMap());
-	}
-
-	@Test
-	@SuppressWarnings("unchecked")
-	public void doCommonSetupTest() throws HttpMediaTypeNotAcceptableException {
-		Map<String, Object> q = new HashMap<>();
-		q.put("zip", "yes");
-		q.put(Parameters.DATA_PROFILE.toString(), Profile.STATION);
-		ParameterMap p = new ParameterMap();
-		p.setQueryParameters(q);
-		when(parameterHandler.validateAndTransform(anyMap(), anyMap(), anyObject())).thenReturn(p);
-		when(contentStrategy.resolveMediaTypes(anyObject())).thenReturn(Arrays.asList(MimeType.kml.getMediaType()));
-
-		request.setParameter("countrycode", "US");
-		MockHttpServletResponse response = new MockHttpServletResponse();
-		BigDecimal logId = BigDecimal.ONE;
-		TestBaseController.setLogId(logId);
-
-		assertTrue(testController.doCommonSetup(request, response, null));
-		assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
-		assertEquals(HttpStatus.OK.value(), response.getStatus());
-		assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
-		assertEquals("application/vnd.google-earth.kmz;charset=UTF-8", response.getHeader(HttpConstants.HEADER_CONTENT_TYPE));
-		assertEquals("attachment; filename=station.kmz", response.getHeader(HttpConstants.HEADER_CONTENT_DISPOSITION));
-		assertEquals("12", response.getHeader(TestBaseController.TEST_COUNT));
-		verify(parameterHandler).validateAndTransform(anyMap(), anyMap(), anyObject());
-		verify(logService).logHeadComplete(response, logId);
-		verify(countDao).getCounts(any(NameSpace.class), anyMap());
-	}
-
-	@Test
-	@SuppressWarnings("unchecked")
-	public void doCommonSetupPostCountTest() throws HttpMediaTypeNotAcceptableException {
-		Map<String, Object> q = new HashMap<>();
-		q.put(Parameters.DATA_PROFILE.toString(), Profile.STATION);
-		ParameterMap p = new ParameterMap();
-		p.setQueryParameters(q);
-		when(parameterHandler.validateAndTransform(anyMap(), anyMap(), anyObject())).thenReturn(p);
-		when(contentStrategy.resolveMediaTypes(anyObject())).thenReturn(Arrays.asList(MimeType.json.getMediaType()));
-		request.setParameter(Parameters.COUNTRY.toString(), "US");
-		request.setMethod("POST");
-		MockHttpServletResponse response = new MockHttpServletResponse();
-		BigDecimal logId = BigDecimal.ONE;
-		TestBaseController.setLogId(logId);
-
-		assertTrue(testController.doCommonSetup(request, response, null));
-		assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
-		assertEquals(HttpStatus.OK.value(), response.getStatus());
-		assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
-		assertEquals("application/json;charset=UTF-8", response.getHeader(HttpConstants.HEADER_CONTENT_TYPE));
-		assertEquals("attachment; filename=station.json", response.getHeader(HttpConstants.HEADER_CONTENT_DISPOSITION));
-		assertEquals("12", response.getHeader(TestBaseController.TEST_COUNT));
-		verify(parameterHandler).validateAndTransform(anyMap(), anyMap(), anyObject());
-		verify(logService).logHeadComplete(response, logId);
-		verify(countDao).getCounts(any(NameSpace.class), anyMap());
-
-		request.setRequestURI("endpoint/count");
-		response = new MockHttpServletResponse();
-		assertTrue(testController.doCommonSetup(request, response, null));
-		assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
-		assertEquals(HttpStatus.OK.value(), response.getStatus());
-		assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
-		assertEquals("application/json;charset=UTF-8", response.getHeader(HttpConstants.HEADER_CONTENT_TYPE));
-		assertNull(response.getHeader(HttpConstants.HEADER_CONTENT_DISPOSITION));
-		assertEquals("12", response.getHeader(TestBaseController.TEST_COUNT));
-		verify(parameterHandler, times(2)).validateAndTransform(anyMap(), anyMap(), anyObject());
-		//logService is only one because we created a new response
-		verify(logService, times(1)).logHeadComplete(response, logId);
-		verify(countDao, times(2)).getCounts(any(NameSpace.class), anyMap());
-
-		request.setMethod("GET");
-		response = new MockHttpServletResponse();
-		assertTrue(testController.doCommonSetup(request, response, null));
-		assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
-		assertEquals(HttpStatus.OK.value(), response.getStatus());
-		assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
-		assertEquals("application/json;charset=UTF-8", response.getHeader(HttpConstants.HEADER_CONTENT_TYPE));
-		assertEquals("attachment; filename=station.json", response.getHeader(HttpConstants.HEADER_CONTENT_DISPOSITION));
-		assertEquals("12", response.getHeader(TestBaseController.TEST_COUNT));
-		verify(parameterHandler, times(3)).validateAndTransform(anyMap(), anyMap(), anyObject());
-		//logService is only one because we created a new response
-		verify(logService, times(1)).logHeadComplete(response, logId);
-		verify(countDao, times(3)).getCounts(any(NameSpace.class), anyMap());	
-	}
-
-	@Test
-	public void checkMaxRowsTest() {
-		TestBaseController small = new TestBaseController(null, null, null, null, 10, "http://test-url.usgs.gov", null);
-		TestBaseController.setPm(new ParameterMap());
-
-		//xml formats ok when less than max & always sorted
-		TestBaseController.setMimeType(MimeType.xml);
-		//No query parm
-		TestBaseController.getPm().getQueryParameters().clear();
-		doMaxRowTrueAsserts(small, "5", "yes", false);
-		//now for a yes
-		TestBaseController.getPm().getQueryParameters().put(Parameters.SORTED.toString(), "yes");
-		doMaxRowTrueAsserts(small, "5", "yes", false);
-		//now for a no
-		TestBaseController.getPm().getQueryParameters().put(Parameters.SORTED.toString(), "no");
-		doMaxRowTrueAsserts(small, "5", "yes", false);
-
-		TestBaseController.setMimeType(MimeType.kml);
-		//No query parm
-		TestBaseController.getPm().getQueryParameters().clear();
-		doMaxRowTrueAsserts(small, "5", "yes", false);
-		//now for a yes
-		TestBaseController.getPm().getQueryParameters().put(Parameters.SORTED.toString(), "yes");
-		doMaxRowTrueAsserts(small, "5", "yes", false);
-		//now for a no
-		TestBaseController.getPm().getQueryParameters().put(Parameters.SORTED.toString(), "no");
-		doMaxRowTrueAsserts(small, "5", "yes", false);
-
-		TestBaseController.setMimeType(MimeType.kmz);
-		//No query parm
-		TestBaseController.getPm().getQueryParameters().clear();
-		doMaxRowTrueAsserts(small, "5", "yes", false);
-		//now for a yes
-		TestBaseController.getPm().getQueryParameters().put(Parameters.SORTED.toString(), "yes");
-		doMaxRowTrueAsserts(small, "5", "yes", false);
-		//now for a no
-		TestBaseController.getPm().getQueryParameters().put(Parameters.SORTED.toString(), "no");
-		doMaxRowTrueAsserts(small, "5", "yes", false);
-
-		//xml formats not ok when greater than max
-		TestBaseController.setMimeType(MimeType.xml);
-		//No query parm
-		TestBaseController.getPm().getQueryParameters().clear();
-		doMaxRowFalseAsserts(small, "15");
-		//now for a yes
-		TestBaseController.getPm().getQueryParameters().put(Parameters.SORTED.toString(), "yes");
-		doMaxRowFalseAsserts(small, "15");
-		//now for a no
-		TestBaseController.getPm().getQueryParameters().put(Parameters.SORTED.toString(), "no");
-		doMaxRowFalseAsserts(small, "15");
-
-		TestBaseController.setMimeType(MimeType.kml);
-		//No query parm
-		TestBaseController.getPm().getQueryParameters().clear();
-		doMaxRowFalseAsserts(small, "15");
-		//now for a yes
-		TestBaseController.getPm().getQueryParameters().put(Parameters.SORTED.toString(), "yes");
-		doMaxRowFalseAsserts(small, "15");
-		//now for a no
-		TestBaseController.getPm().getQueryParameters().put(Parameters.SORTED.toString(), "no");
-		doMaxRowFalseAsserts(small, "15");
-
-		TestBaseController.setMimeType(MimeType.kmz);
-		//No query parm
-		TestBaseController.getPm().getQueryParameters().clear();
-		doMaxRowFalseAsserts(small, "15");
-		//now for a yes
-		TestBaseController.getPm().getQueryParameters().put(Parameters.SORTED.toString(), "yes");
-		doMaxRowFalseAsserts(small, "15");
-		//now for a no
-		TestBaseController.getPm().getQueryParameters().put(Parameters.SORTED.toString(), "no");
-		doMaxRowFalseAsserts(small, "15");
-
-		//other formats less than max always ok & sorting based on given (or lack of) sorted query parameter
-		TestBaseController.setMimeType(MimeType.csv);
-		//No query parm
-		TestBaseController.getPm().getQueryParameters().clear();
-		doMaxRowTrueAsserts(small, "5", "yes", false);
-		//now for a yes
-		TestBaseController.getPm().getQueryParameters().put(Parameters.SORTED.toString(), "yes");
-		doMaxRowTrueAsserts(small, "5", "yes", false);
-		//now for a no
-		TestBaseController.getPm().getQueryParameters().put(Parameters.SORTED.toString(), "no");
-		doMaxRowTrueAsserts(small, "5", "no", false);
-
-		TestBaseController.setMimeType(MimeType.tsv);
-		//No query parm
-		TestBaseController.getPm().getQueryParameters().clear();
-		doMaxRowTrueAsserts(small, "5", "yes", false);
-		//now for a yes
-		TestBaseController.getPm().getQueryParameters().put(Parameters.SORTED.toString(), "yes");
-		doMaxRowTrueAsserts(small, "5", "yes", false);
-		//now for a no
-		TestBaseController.getPm().getQueryParameters().put(Parameters.SORTED.toString(), "no");
-		doMaxRowTrueAsserts(small, "5", "no", false);
-
-		TestBaseController.setMimeType(MimeType.xlsx);
-		//No query parm
-		TestBaseController.getPm().getQueryParameters().clear();
-		doMaxRowTrueAsserts(small, "5", "yes", false);
-		//now for a yes
-		TestBaseController.getPm().getQueryParameters().put(Parameters.SORTED.toString(), "yes");
-		doMaxRowTrueAsserts(small, "5", "yes", false);
-		//now for a no
-		TestBaseController.getPm().getQueryParameters().put(Parameters.SORTED.toString(), "no");
-		doMaxRowTrueAsserts(small, "5", "no", false);
-
-		//other formats are ok, but not sorted when greater than max - and warning header given
-		TestBaseController.setMimeType(MimeType.csv);
-		//No query parm
-		TestBaseController.getPm().getQueryParameters().clear();
-		doMaxRowTrueAsserts(small, "15", "no", true);
-		//now for a yes
-		TestBaseController.getPm().getQueryParameters().put(Parameters.SORTED.toString(), "yes");
-		doMaxRowTrueAsserts(small, "15", "no", true);
-		//now for a no
-		TestBaseController.getPm().getQueryParameters().put(Parameters.SORTED.toString(), "no");
-		doMaxRowTrueAsserts(small, "15", "no", true);
-
-		TestBaseController.setMimeType(MimeType.tsv);
-		//No query parm
-		TestBaseController.getPm().getQueryParameters().clear();
-		doMaxRowTrueAsserts(small, "15", "no", true);
-		//now for a yes
-		TestBaseController.getPm().getQueryParameters().put(Parameters.SORTED.toString(), "yes");
-		doMaxRowTrueAsserts(small, "15", "no", true);
-		//now for a no
-		TestBaseController.getPm().getQueryParameters().put(Parameters.SORTED.toString(), "no");
-		doMaxRowTrueAsserts(small, "15", "no", true);
-
-		TestBaseController.setMimeType(MimeType.xlsx);
-		//No query parm
-		TestBaseController.getPm().getQueryParameters().clear();
-		doMaxRowTrueAsserts(small, "15", "no", true);
-		//now for a yes
-		TestBaseController.getPm().getQueryParameters().put(Parameters.SORTED.toString(), "yes");
-		doMaxRowTrueAsserts(small, "15", "no", true);
-		//now for a no
-		TestBaseController.getPm().getQueryParameters().put(Parameters.SORTED.toString(), "no");
-		doMaxRowTrueAsserts(small, "15", "no", true);
-	}
-
-	public void doMaxRowTrueAsserts(TestBaseController small, String rows, String expectedSort, boolean isHeaderexpected) {
-		HttpServletResponse response = new MockHttpServletResponse();
-		assertTrue(small.checkMaxRows(response, rows));
-		assertTrue(TestBaseController.getPm().getQueryParameters().containsKey(Parameters.SORTED.toString()));
-		assertEquals(expectedSort, TestBaseController.getPm().getQueryParameters().get(Parameters.SORTED.toString()));
-		if (isHeaderexpected) {
-			assertEquals(1, response.getHeaderNames().size());
-			assertTrue(response.getHeaderNames().contains(HttpConstants.HEADER_WARNING));
-			assertEquals("This query will return in excess of 10 results, the data will not be sorted.",
-					response.getHeader(HttpConstants.HEADER_WARNING));
-		} else {
-			assertEquals(0, response.getHeaderNames().size());
-		}
-	}
-
-	public void doMaxRowFalseAsserts(TestBaseController small, String rows) {
-		HttpServletResponse response = new MockHttpServletResponse();
-		assertFalse(small.checkMaxRows(response, rows));
-		assertEquals(1, response.getHeaderNames().size());
-		assertTrue(response.getHeaderNames().contains(HttpConstants.HEADER_WARNING));
-		assertEquals("This query will return in excess of 10 results, please refine your query.",
-					response.getHeader(HttpConstants.HEADER_WARNING));
-		assertEquals(400, response.getStatus());
-	}
-
-	@Test
-	@SuppressWarnings("unchecked")
-	public void doHeadRequestTest() {
-		MockHttpServletResponse response = new MockHttpServletResponse();
-
-		testController.doHeadRequest(request, response);
-
-		assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
-		assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
-		assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
-		verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(Map.class));
-		verify(logService).logRequestComplete(any(BigDecimal.class), anyString());
-	}
-
-	@Test
-	@SuppressWarnings("unchecked")
-	public void doHeadRequestTest_error() {
-		when(parameterHandler.validateAndTransform(anyMap(), anyMap(), anyObject())).thenThrow(new RuntimeException("test"));
-		request.setParameter("countrycode", "US");
-		MockHttpServletResponse response = new MockHttpServletResponse();
-
-		try {
-			testController.doHeadRequest(request, response);
-		} catch (RuntimeException e) {
-			if (!"test".equalsIgnoreCase(e.getMessage())) {
-				fail("not the exception we were expecting");
-			}
-		}
-
-		assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
-//		assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
-		assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
-		verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(Map.class));
-		verify(logService).logRequestComplete(any(BigDecimal.class), anyString());
-
-	}
-
-	@Test
-	@SuppressWarnings("unchecked")
-	public void doGetRequestTest_NoParms() {
-		MockHttpServletResponse response = new MockHttpServletResponse();
-
-		testController.doGetRequest(request, response);
-		assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
-		assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
-		assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
-		verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(Map.class));
-		verify(logService).logRequestComplete(any(BigDecimal.class), anyString());
-		verify(streamingDao, never()).stream(any(NameSpace.class), anyMap(), any(ResultHandler.class));
-	}
-
-	@Test
-	@SuppressWarnings("unchecked")
-	public void doGetRequestTest_error() {
-		when(parameterHandler.validateAndTransform(anyMap(), anyMap(), anyObject())).thenThrow(new RuntimeException("test"));
-		request.setParameter("countrycode", "US");
-		MockHttpServletResponse response = new MockHttpServletResponse();
-
-		try {
-			testController.doGetRequest(request, response);
-		} catch (RuntimeException e) {
-			if (!"java.lang.RuntimeException: test".equalsIgnoreCase(e.getMessage())) {
-				e.printStackTrace();
-				fail("not the exception we were expecting: " + e.getMessage());
-			}
-		}
-
-		assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
-//		assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
-		assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
-		verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(Map.class));
-		verify(logService).logRequestComplete(any(BigDecimal.class), anyString());
-		verify(streamingDao, never()).stream(any(NameSpace.class), anyMap(), any(ResultHandler.class));
-	}
-
-	@Test
-	@SuppressWarnings("unchecked")
-	public void doGetRequestTest() throws HttpMediaTypeNotAcceptableException {
-		Map<String, Object> q = new HashMap<>();
-		q.put("zip", "yes");
-		q.put(Parameters.DATA_PROFILE.toString(), Profile.STATION);
-		ParameterMap p = new ParameterMap();
-		p.setQueryParameters(q);
-		when(parameterHandler.validateAndTransform(anyMap(), anyMap(), anyObject())).thenReturn(p);
-		when(contentStrategy.resolveMediaTypes(anyObject())).thenReturn(Arrays.asList(MimeType.kml.getMediaType()));
-
-		request.setParameter("countrycode", "US");
-		MockHttpServletResponse response = new MockHttpServletResponse();
-
-		testController.doGetRequest(request, response);
-		assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
-		assertEquals(HttpStatus.OK.value(), response.getStatus());
-		assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
-		assertEquals("application/vnd.google-earth.kmz;charset=UTF-8", response.getHeader(HttpConstants.HEADER_CONTENT_TYPE));
-		assertEquals("attachment; filename=station.kmz", response.getHeader(HttpConstants.HEADER_CONTENT_DISPOSITION));
-		assertEquals("12", response.getHeader(TestBaseController.TEST_COUNT));
-
-		ZipInputStream in = new ZipInputStream(new ByteArrayInputStream(response.getContentAsByteArray()));
-		try {
-			ZipEntry entry = in.getNextEntry();
-			assertEquals("station.kml", entry.getName());
-		} catch (IOException e) {
-			fail("Should not get exception but did:" + e.getLocalizedMessage());
-		}
-
-		verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(Map.class));
-		verify(parameterHandler).validateAndTransform(anyMap(), anyMap(), anyObject());
-		verify(countDao).getCounts(any(NameSpace.class), anyMap());
-		verify(logService).logHeadComplete(any(HttpServletResponse.class), any(BigDecimal.class));
-		verify(streamingDao).stream(any(NameSpace.class), anyMap(), any(ResultHandler.class));
-		verify(logService).logRequestComplete(any(BigDecimal.class), anyString());
-	}
-
-	@Test
-	public void warningHeaderTest() {
-		assertEquals("299 WQP \"Unknown error\" date", testController.warningHeader(null, null, "date"));
-
-		assertEquals("505 WQP \"Param error\" date", testController.warningHeader(505, "Param error", "date"));
-
-		String expect = "505 WQP \"Param error\" " + new Date().toString();
-		assertEquals(expect, testController.warningHeader(505, "Param error", null));
+		filter.setDataProfile("biological");
+		assertEquals(Profile.BIOLOGICAL, testController.determineProfile(Profile.STATION, filter));
 	}
 
 	@Test
 	public void writeWarningHeadersTest() throws UnsupportedEncodingException {
 		MockHttpServletResponse response = new MockHttpServletResponse();
-		HashMap<String, List<String>> map = new HashMap<String, List<String>>();
-		map.put("abc", Arrays.asList("warning1", "warning2"));
-		map.put("def", Arrays.asList("warning3", "warning4"));
-		testController.writeWarningHeaders(response, map);
-		assertTrue( response.containsHeader("Warning") );
+		testController.writeWarningHeaders(response);
+		assertFalse(response.containsHeader("Warning"));
+
+		FilterParameters filter = new FilterParameters();
+		Set<ConstraintViolation<FilterParameters>> validationErrors = new HashSet<>();
+		validationErrors.add(new TestConstraintViolation("warning1"));
+		validationErrors.add(new TestConstraintViolation("warning2"));
+		validationErrors.add(new TestConstraintViolation("warning3"));
+		validationErrors.add(new TestConstraintViolation("warning4"));
+		filter.setValidationErrors(validationErrors);
+		TestBaseController.setFilter(filter);
+		testController.writeWarningHeaders(response);
+		assertTrue(response.containsHeader("Warning"));
 		assertEquals("", response.getContentAsString());
-		assertEquals( 4, response.getHeaderValues("Warning").size() );
+		assertEquals(4, response.getHeaderValues("Warning").size());
 		String warning = response.getHeaderValues("Warning").toString();
-		assertTrue( warning.contains("299 WQP \"warning1\"") );
-		assertTrue( warning.contains("299 WQP \"warning2\"") );
-		assertTrue( warning.contains("299 WQP \"warning3\"") );
-		assertTrue( warning.contains("299 WQP \"warning4\"") );
+		assertTrue(warning.contains("299 WQP \"warning1\""));
+		assertTrue(warning.contains("299 WQP \"warning2\""));
+		assertTrue(warning.contains("299 WQP \"warning3\""));
+		assertTrue(warning.contains("299 WQP \"warning4\""));
+	}
+
+	@Test
+	public void warningHeaderTest() {
+		assertEquals("299 WQP \"Unknown error\"", testController.warningHeader(null));
+
+		assertEquals("299 WQP \"Unknown error\"", testController.warningHeader(new TestConstraintViolation("")));
+
+		assertEquals("299 WQP \"warning1\"", testController.warningHeader(new TestConstraintViolation("warning1")));
 	}
 
 	@Test
@@ -906,75 +991,6 @@ public class BaseControllerTest {
 		assertEquals("123", testController.determineHeaderValue(count, "abc"));
 		assertEquals("456", testController.determineHeaderValue(count, "def"));
 		assertEquals("0", testController.determineHeaderValue(count, "ghi"));
-	}
-
-	@Test
-	@SuppressWarnings("unchecked")
-	public void doPostRequestTest() throws HttpMediaTypeNotAcceptableException {
-		Map<String, Object> q = new HashMap<>();
-		q.put("zip", "yes");
-		Map<String, Object> json = new HashMap<>();
-		json.put("siteid", Arrays.asList("11NPSWRD-BICA_MFG_B","WIDNR_WQX-10030952"));
-		ParameterMap p = new ParameterMap();
-		p.setQueryParameters(q);
-		when(parameterHandler.validateAndTransform(anyMap(), anyMap(), anyObject())).thenReturn(p);
-		when(contentStrategy.resolveMediaTypes(anyObject())).thenReturn(Arrays.asList(MimeType.kml.getMediaType()));
-
-		request.setParameter("countrycode", "US");
-		MockHttpServletResponse response = new MockHttpServletResponse();
-
-		testController.doPostRequest(request, response, json);
-		assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
-		assertEquals(HttpStatus.OK.value(), response.getStatus());
-		assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
-		assertEquals("application/vnd.google-earth.kmz;charset=UTF-8", response.getHeader(HttpConstants.HEADER_CONTENT_TYPE));
-		assertEquals("attachment; filename=station.kmz", response.getHeader(HttpConstants.HEADER_CONTENT_DISPOSITION));
-		assertEquals("12", response.getHeader(TestBaseController.TEST_COUNT));
-
-		ZipInputStream in = new ZipInputStream(new ByteArrayInputStream(response.getContentAsByteArray()));
-		try {
-			ZipEntry entry = in.getNextEntry();
-			assertTrue(entry.getName().contentEquals("station.kml"));
-		} catch (IOException e) {
-			fail("Should not get exception but did:" + e.getLocalizedMessage());
-		}
-
-		verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(Map.class));
-		verify(parameterHandler).validateAndTransform(anyMap(), anyMap(), anyObject());
-		verify(countDao).getCounts(any(NameSpace.class), anyMap());
-		verify(logService).logHeadComplete(any(HttpServletResponse.class), any(BigDecimal.class));
-		verify(streamingDao).stream(any(NameSpace.class), anyMap(), any(ResultHandler.class));
-		verify(logService).logRequestComplete(any(BigDecimal.class), anyString());
-	}
-
-	@Test
-	@SuppressWarnings("unchecked")
-	public void doPostCountRequestTest() throws HttpMediaTypeNotAcceptableException {
-		MockHttpServletResponse response = new MockHttpServletResponse();
-
-		Map<String, Object> q = new HashMap<>();
-		q.put("zip", "yes");
-		Map<String, Object> json = new HashMap<>();
-		json.put("siteid", Arrays.asList("11NPSWRD-BICA_MFG_B","WIDNR_WQX-10030952"));
-		ParameterMap p = new ParameterMap();
-		p.setQueryParameters(q);
-		when(parameterHandler.validateAndTransform(anyMap(), anyMap(), anyObject())).thenReturn(p);
-		when(countDao.getCounts(any(NameSpace.class), anyMap())).thenReturn(getRawCounts());
-		when(contentStrategy.resolveMediaTypes(anyObject())).thenReturn(Arrays.asList(MimeType.kml.getMediaType()));
-
-		Map<String, String> result = testController.doPostCountRequest(request, response, json);
-
-		assertNotNull(result);
-		assertEquals(2, result.size());
-		assertTrue(result.containsKey(HEADER_NWIS_SITE_COUNT));
-		assertEquals(TEST_NWIS_STATION_COUNT, result.get(HEADER_NWIS_SITE_COUNT));
-		assertTrue(result.containsKey(HttpConstants.HEADER_TOTAL_SITE_COUNT));
-		assertEquals(TEST_TOTAL_STATION_COUNT, result.get(HttpConstants.HEADER_TOTAL_SITE_COUNT));
-		assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
-		assertEquals(HttpStatus.OK.value(), response.getStatus());
-		assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
-		verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(Map.class));
-		verify(logService).logRequestComplete(any(BigDecimal.class), anyString());
 	}
 
 	@Test
@@ -1060,8 +1076,12 @@ public class BaseControllerTest {
 		assertEquals(TEST_TOTAL_STATION_COUNT, response.getHeaderValue(HttpConstants.HEADER_TOTAL_SITE_COUNT));
 		assertNull(response.getHeaderValue(HEADER_NWIS_ACTIVITY_COUNT));
 		assertNull(response.getHeaderValue(HttpConstants.HEADER_TOTAL_ACTIVITY_COUNT));
+		assertNull(response.getHeaderValue(HEADER_NWIS_ACTIVITY_METRIC_COUNT));
+		assertNull(response.getHeaderValue(HttpConstants.HEADER_TOTAL_ACTIVITY_METRIC_COUNT));
 		assertNull(response.getHeaderValue(HEADER_NWIS_RESULT_COUNT));
 		assertNull(response.getHeaderValue(HttpConstants.HEADER_TOTAL_RESULT_COUNT));
+		assertNull(response.getHeaderValue(HEADER_NWIS_RES_DETECT_QNT_LMT_COUNT));
+		assertNull(response.getHeaderValue(HttpConstants.HEADER_TOTAL_RES_DETECT_QNT_LMT_COUNT));
 	}
 
 	@Test
@@ -1072,8 +1092,28 @@ public class BaseControllerTest {
 		assertNull(response.getHeaderValue(HttpConstants.HEADER_TOTAL_SITE_COUNT));
 		assertEquals(TEST_NWIS_ACTIVITY_COUNT, response.getHeaderValue(HEADER_NWIS_ACTIVITY_COUNT));
 		assertEquals(TEST_TOTAL_ACTIVITY_COUNT, response.getHeaderValue(HttpConstants.HEADER_TOTAL_ACTIVITY_COUNT));
+		assertNull(response.getHeaderValue(HEADER_NWIS_ACTIVITY_METRIC_COUNT));
+		assertNull(response.getHeaderValue(HttpConstants.HEADER_TOTAL_ACTIVITY_METRIC_COUNT));
 		assertNull(response.getHeaderValue(HEADER_NWIS_RESULT_COUNT));
 		assertNull(response.getHeaderValue(HttpConstants.HEADER_TOTAL_RESULT_COUNT));
+		assertNull(response.getHeaderValue(HEADER_NWIS_RES_DETECT_QNT_LMT_COUNT));
+		assertNull(response.getHeaderValue(HttpConstants.HEADER_TOTAL_RES_DETECT_QNT_LMT_COUNT));
+	}
+
+	@Test
+	public void addActivityMetricHeadersTest() {
+		MockHttpServletResponse response = new MockHttpServletResponse();
+		testController.addActivityMetricHeaders(response, getRawCounts());
+		assertNull(response.getHeaderValue(HEADER_NWIS_SITE_COUNT));
+		assertNull(response.getHeaderValue(HttpConstants.HEADER_TOTAL_SITE_COUNT));
+		assertNull(response.getHeaderValue(HEADER_NWIS_ACTIVITY_COUNT));
+		assertNull(response.getHeaderValue(HttpConstants.HEADER_TOTAL_ACTIVITY_COUNT));
+		assertEquals(TEST_NWIS_ACTIVITY_METRIC_COUNT, response.getHeaderValue(HEADER_NWIS_ACTIVITY_METRIC_COUNT));
+		assertEquals(TEST_TOTAL_ACTIVITY_METRIC_COUNT, response.getHeaderValue(HttpConstants.HEADER_TOTAL_ACTIVITY_METRIC_COUNT));
+		assertNull(response.getHeaderValue(HEADER_NWIS_RESULT_COUNT));
+		assertNull(response.getHeaderValue(HttpConstants.HEADER_TOTAL_RESULT_COUNT));
+		assertNull(response.getHeaderValue(HEADER_NWIS_RES_DETECT_QNT_LMT_COUNT));
+		assertNull(response.getHeaderValue(HttpConstants.HEADER_TOTAL_RES_DETECT_QNT_LMT_COUNT));
 	}
 
 	@Test
@@ -1084,8 +1124,12 @@ public class BaseControllerTest {
 		assertNull(response.getHeaderValue(HttpConstants.HEADER_TOTAL_SITE_COUNT));
 		assertNull(response.getHeaderValue(HEADER_NWIS_ACTIVITY_COUNT));
 		assertNull(response.getHeaderValue(HttpConstants.HEADER_TOTAL_ACTIVITY_COUNT));
+		assertNull(response.getHeaderValue(HEADER_NWIS_ACTIVITY_METRIC_COUNT));
+		assertNull(response.getHeaderValue(HttpConstants.HEADER_TOTAL_ACTIVITY_METRIC_COUNT));
 		assertEquals(TEST_NWIS_RESULT_COUNT, response.getHeaderValue(HEADER_NWIS_RESULT_COUNT));
 		assertEquals(TEST_TOTAL_RESULT_COUNT, response.getHeaderValue(HttpConstants.HEADER_TOTAL_RESULT_COUNT));
+		assertNull(response.getHeaderValue(HEADER_NWIS_RES_DETECT_QNT_LMT_COUNT));
+		assertNull(response.getHeaderValue(HttpConstants.HEADER_TOTAL_RES_DETECT_QNT_LMT_COUNT));
 	}
 
 	@Test
@@ -1096,6 +1140,8 @@ public class BaseControllerTest {
 		assertNull(response.getHeaderValue(HttpConstants.HEADER_TOTAL_SITE_COUNT));
 		assertNull(response.getHeaderValue(HEADER_NWIS_ACTIVITY_COUNT));
 		assertNull(response.getHeaderValue(HttpConstants.HEADER_TOTAL_ACTIVITY_COUNT));
+		assertNull(response.getHeaderValue(HEADER_NWIS_ACTIVITY_METRIC_COUNT));
+		assertNull(response.getHeaderValue(HttpConstants.HEADER_TOTAL_ACTIVITY_METRIC_COUNT));
 		assertNull(response.getHeaderValue(HEADER_NWIS_RESULT_COUNT));
 		assertNull(response.getHeaderValue(HttpConstants.HEADER_TOTAL_RESULT_COUNT));
 		assertEquals(TEST_NWIS_RES_DETECT_QNT_LMT_COUNT, response.getHeaderValue(HEADER_NWIS_RES_DETECT_QNT_LMT_COUNT));

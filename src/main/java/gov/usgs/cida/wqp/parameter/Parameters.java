@@ -65,10 +65,5 @@ public enum Parameters {
 	public String toString() {
 		return parameterName;
 	}
-	public static boolean isValid(String paramToCheck) {
-		return validParameterNames.containsKey(paramToCheck);
-	}
-	public static Parameters fromName(String value) {
-		return isValid(value) ? validParameterNames.get(value) : null;
-	}
+
 }

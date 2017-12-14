@@ -34,7 +34,6 @@ public class SwaggerParameterBuilder implements OperationBuilderPlugin {
 		Optional<PostMapping> postMapping = context.findAnnotation(PostMapping.class);
 		
 		if (fullParameterList.isPresent()) {
-			parameters.add(SwaggerParameters.activity());
 			parameters.add(SwaggerParameters.analyticalmethod());
 			parameters.add(SwaggerParameters.assemblage());
 			parameters.add(SwaggerParameters.bBox());
@@ -52,7 +51,6 @@ public class SwaggerParameterBuilder implements OperationBuilderPlugin {
 			parameters.add(SwaggerParameters.pCode());
 			parameters.add(SwaggerParameters.project());
 			parameters.add(SwaggerParameters.providers());
-			parameters.add(SwaggerParameters.result());
 			parameters.add(SwaggerParameters.sampleMedia());
 			parameters.add(SwaggerParameters.siteid());
 			parameters.add(SwaggerParameters.siteType());

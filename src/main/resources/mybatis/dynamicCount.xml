@@ -33,10 +33,10 @@
                     <include refid="dynamicWhere.baseWhereStationGeoClauses" />
                     <include refid="dynamicWhere.baseWhereStationClauses" />
                     <if test="minactivities != null">
-                        and (prime.activity_count >= #{minactivities[0]})
+                        and (prime.activity_count >= #{minactivities})
                     </if>
                     <if test="minresults != null">
-                        and (prime.result_count >= #{minresults[0]})
+                        and (prime.result_count >= #{minresults})
                     </if>
                 </where>
                        )
@@ -66,10 +66,10 @@
                        )
                 <where>
                     <if test="minactivities != null">
-                        and site_activity_count >= #{minactivities[0]}
+                        and site_activity_count >= #{minactivities}
                     </if>
                     <if test="minresults != null">
-                        and site_result_count >= #{minresults[0]}
+                        and site_result_count >= #{minresults}
                     </if>
                 </where>
                     group by rollup(data_source)
@@ -97,10 +97,10 @@
                        )
                 <where>
                     <if test="minactivities != null">
-                        and site_activity_count >= #{minactivities[0]}
+                        and site_activity_count >= #{minactivities}
                     </if>
                     <if test="minresults != null">
-                        and site_result_count >= #{minresults[0]}
+                        and site_result_count >= #{minresults}
                     </if>
                 </where>
                     group by rollup(data_source)

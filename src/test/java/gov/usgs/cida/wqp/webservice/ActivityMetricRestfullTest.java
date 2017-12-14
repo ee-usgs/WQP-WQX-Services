@@ -26,7 +26,7 @@ public class ActivityMetricRestfullTest extends BaseControllerIntegrationTest {
 
 	protected static final Profile PROFILE = Profile.ACTIVITY_METRIC;
 	protected static final boolean POSTABLE = false;
-	protected static final String ENDPOINT = HttpConstants.ACTIVITY_METRIC_REST_ENPOINT.replace("{activity}", getActivity()[0]) + "?mimeType=";
+	protected static final String ENDPOINT = HttpConstants.ACTIVITY_METRIC_REST_ENPOINT.replace("{activity}", getActivity()) + "?mimeType=";
 
 	@Test
 	public void getAsCsvTest() throws Exception {

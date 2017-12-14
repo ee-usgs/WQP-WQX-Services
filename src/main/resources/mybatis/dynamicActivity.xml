@@ -21,10 +21,10 @@
     <sql id="activityLimitWhere">
         <where>
             <if test="minactivities != null">
-                and (filter.site_activity_count >= #{minactivities[0]})
+                and (filter.site_activity_count >= #{minactivities})
             </if>
             <if test="minresults != null">
-                and (filter.site_result_count >= #{minresults[0]})
+                and (filter.site_result_count >= #{minresults})
             </if>
         </where>
     </sql>

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Validator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import gov.usgs.cida.wqp.dao.intfc.ICountDao;
@@ -22,7 +24,7 @@ import gov.usgs.cida.wqp.dao.intfc.IStreamingDao;
 import gov.usgs.cida.wqp.mapping.Profile;
 import gov.usgs.cida.wqp.mapping.delimited.ActivityDelimited;
 import gov.usgs.cida.wqp.mapping.xml.IXmlMapping;
-import gov.usgs.cida.wqp.parameter.IParameterHandler;
+import gov.usgs.cida.wqp.parameter.FilterParameters;
 import gov.usgs.cida.wqp.service.ILogService;
 import gov.usgs.cida.wqp.swagger.SwaggerConfig;
 import gov.usgs.cida.wqp.swagger.annotation.FullParameterList;
@@ -45,48 +47,53 @@ public class ActivityController extends BaseController {
 	protected final IXmlMapping xmlMapping;
 
 	@Autowired
-	public ActivityController(IStreamingDao inStreamingDao, ICountDao inCountDao, 
-			IParameterHandler inParameterHandler, ILogService inLogService,
+	public ActivityController(IStreamingDao inStreamingDao, ICountDao inCountDao, ILogService inLogService,
 			@Qualifier("maxResultRows") Integer inMaxResultRows,
 			@Qualifier("activityWqx") IXmlMapping inXmlMapping,
 			@Qualifier("siteUrlBase") String inSiteUrlBase,
-			ContentNegotiationStrategy contentStrategy) {
-		super(inStreamingDao, inCountDao, inParameterHandler, inLogService, inMaxResultRows, inSiteUrlBase, contentStrategy);
+			ContentNegotiationStrategy contentStrategy,
+			Validator validator) {
+		super(inStreamingDao, inCountDao, inLogService, inMaxResultRows, inSiteUrlBase, contentStrategy, validator);
 		xmlMapping = inXmlMapping;
 	}
 
 	@ApiOperation(value="Return appropriate request headers (including anticipated record counts).")
 	@FullParameterList
 	@RequestMapping(method=RequestMethod.HEAD)
-	public void activityHeadRequest(HttpServletRequest request, HttpServletResponse response) {
-		doHeadRequest(request, response);
+	public void activityHeadRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter) {
+		doHeadRequest(request, response, filter);
 	}
 
 	@ApiOperation(value="Return requested data.", produces="")
 	@FullParameterList
 	@GetMapping()
-	public void activityGetRequest(HttpServletRequest request, HttpServletResponse response) {
-		doGetRequest(request, response);
+	public void activityGetRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter) {
+		doDataRequest(request, response, filter);
 	}
 
 	@ApiOperation(value="Return requested data. Use when the list of parameter values is too long for a query string.")
 	@PostMapping(consumes=MediaType.APPLICATION_JSON_VALUE)
-	public void activityJsonPostRequest(HttpServletRequest request, HttpServletResponse response, @RequestBody Map<String, Object> postParms) {
-		doPostRequest(request, response, postParms);
+	public void activityJsonPostRequest(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam(value="mimeType", required=false) String mimeType,
+			@RequestParam(value="zip", required=false) String zip,
+			@RequestBody FilterParameters filter) {
+		doDataRequest(request, response, filter, mimeType, zip);
 	}
 
 	@ApiOperation(value="Same as the JSON consumer, but hidden from swagger", hidden=true)
 	@PostMapping(consumes=MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-	public void activityFormUrlencodedPostRequest(HttpServletRequest request, HttpServletResponse response) {
-		doPostRequest(request, response, null);
+	public void activityFormUrlencodedPostRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter) {
+		doDataRequest(request, response, filter);
 	}
 
 	@ApiOperation(value="Return anticipated record counts.")
 	@ApiResponses(value={@ApiResponse(code=200, message="OK", response=ActivityCountJson.class)})
 	@PostMapping(value="count", consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
 	public Map<String, String> activityPostCountRequest(HttpServletRequest request, HttpServletResponse response,
-			@RequestBody Map<String, Object> postParms) {
-		return doPostCountRequest(request, response, postParms);
+			@RequestParam(value="mimeType", required=false) String mimeType,
+			@RequestParam(value="zip", required=false) String zip,
+			@RequestBody FilterParameters filter) {
+		return doPostCountRequest(request, response, filter, mimeType, zip);
 	}
 
 	protected String addCountHeaders(HttpServletResponse response, List<Map<String, Object>> counts) {
@@ -106,8 +113,8 @@ public class ActivityController extends BaseController {
 	}
 
 	@Override
-	protected Profile determineProfile(Map<String, Object> pm) {
-		return determineProfile(Profile.ACTIVITY, pm);
+	protected Profile determineProfile(FilterParameters filter) {
+		return determineProfile(Profile.ACTIVITY, filter);
 	}
 
 	@Override
@@ -117,7 +124,7 @@ public class ActivityController extends BaseController {
 
 	@Override
 	protected void addCustomRequestParams() {
-		getPm().getQueryParameters().put("siteUrlBase", siteUrlBase);
+		getFilter().setSiteUrlBase(siteUrlBase);
 	}
 
 }

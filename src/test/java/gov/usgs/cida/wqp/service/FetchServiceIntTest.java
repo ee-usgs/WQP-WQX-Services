@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 
 import gov.usgs.cida.wqp.BaseSpringTest;
 import gov.usgs.cida.wqp.FullIntegrationTest;
-import gov.usgs.cida.wqp.springinit.ParameterValidationConfig;
+import gov.usgs.cida.wqp.validation.NldiFetchValidator;
 
 @Category(FullIntegrationTest.class)
 public class FetchServiceIntTest extends BaseSpringTest {
@@ -28,7 +28,7 @@ public class FetchServiceIntTest extends BaseSpringTest {
 	public void fetchTimeoutTest() throws IOException {
 		service = new FetchService(1);
 		try {
-			service.fetch(ParameterValidationConfig.NLDI_WQP_FEATURE_IDENTIFIER, testNldiUrl);
+			service.fetch(NldiFetchValidator.NLDI_WQP_FEATURE_IDENTIFIER, testNldiUrl);
 			fail("Should have gotten a SocketTimeoutException");
 		} catch (SocketTimeoutException e) {
 			//This is the expected behavior

@@ -2,7 +2,7 @@
     "analyticalmethod": [
                             "https://www.nemi.gov/methods/method_summary/4665/",
                             "https://www.nemi.gov/methods/method_summary/8896/",
-                            "analyticalMethod"
+                            "https://analyticalMethod"
                         ], 
     "bBox": "-111,39,-77,47",
     "assemblage": [
@@ -37,6 +37,7 @@
                     "US:55:027",
                     "XX:44:555"
                   ],
+    "dataProfile": "[DATA_PROFILE]",
     "huc": [
             "07*",
             "0708*",
@@ -108,6 +109,6 @@
                                 "Lota lota",
                                 "sampleTissueTaxonomicName"
                             ],
-    "nldiurl": "http://cida-test.er.usgs.gov/nldi/wqp/USGS-05427880/navigate/UM/wqp",
+    "nldiurl": "https://cida-test.er.usgs.gov/nldi/wqp/USGS-05427880/navigate/UM/wqp",
     "within": "650"
 }

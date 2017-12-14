@@ -98,7 +98,7 @@ public class NarrowResultControllerIntTest extends BaseControllerIntegrationTest
 				+ "\",\"" + HEADER_STORET_ACTIVITY_COUNT + "\":\"" + FILTERED_STORET_ACTIVITY_COUNT
 				+ "\",\"" + HEADER_STORET_RESULT_COUNT + "\":\"" + FILTERED_STORET_RESULT_COUNT
 				+ "\"}";
-		postGetCountTest(urlPrefix, compareObject);
+		postGetCountTest(urlPrefix, compareObject, PROFILE);
 	}
 
 	public ResultActions unFilteredHeaderCheck(ResultActions resultActions) throws Exception {

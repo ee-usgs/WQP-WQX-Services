@@ -27,7 +27,7 @@ public class ResDetectQntLmtRestfullTest  extends BaseControllerIntegrationTest 
 
 	protected static final Profile PROFILE = Profile.RES_DETECT_QNT_LMT;
 	protected static final boolean POSTABLE = false;
-	protected static final String ENDPOINT = HttpConstants.RES_DETECT_QNT_LMT_REST_ENPOINT.replace("{activity}", getActivity()[0]).replace("{result}", getResult()[0]) + "?mimeType=";
+	protected static final String ENDPOINT = HttpConstants.RES_DETECT_QNT_LMT_REST_ENPOINT.replace("{activity}", getActivity()).replace("{result}", getResult().getSingle()) + "?mimeType=";
 
 	@Test
 	public void getAsCsvTest() throws Exception {
