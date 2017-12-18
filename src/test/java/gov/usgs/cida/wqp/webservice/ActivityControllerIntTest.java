@@ -35,7 +35,6 @@ public class ActivityControllerIntTest extends BaseControllerIntegrationTest {
 
 	@Test
 	public void getAsCsvTest() throws Exception {
-		System.out.println(ENDPOINT);
 		getAsDelimitedTest(ENDPOINT + CSV, HttpConstants.MIME_TYPE_CSV, CSV, PROFILE, POSTABLE);
 	}
 
