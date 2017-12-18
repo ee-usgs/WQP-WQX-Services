@@ -5,7 +5,6 @@ import static gov.usgs.cida.wqp.swagger.model.ActivityMetricCountJson.HEADER_NWI
 import static gov.usgs.cida.wqp.swagger.model.ResDetectQntLmtCountJson.HEADER_NWIS_RES_DETECT_QNT_LMT_COUNT;
 import static gov.usgs.cida.wqp.swagger.model.ResultCountJson.HEADER_NWIS_RESULT_COUNT;
 import static gov.usgs.cida.wqp.swagger.model.StationCountJson.HEADER_NWIS_SITE_COUNT;
-import static gov.usgs.cida.wqp.swagger.model.ProjectCountJson.HEADER_NWIS_PROJECT_COUNT;
 import static gov.usgs.cida.wqp.swagger.model.StationCountJson.NWIS;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;

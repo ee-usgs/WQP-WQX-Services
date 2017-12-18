@@ -7,7 +7,6 @@ import static gov.usgs.cida.wqp.swagger.model.StationCountJson.STORET;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
@@ -27,12 +26,9 @@ import gov.usgs.cida.wqp.CsvDataSetLoader;
 import gov.usgs.cida.wqp.DBIntegrationTest;
 import gov.usgs.cida.wqp.dao.NameSpace;
 import gov.usgs.cida.wqp.dao.intfc.IStreamingDao;
-import gov.usgs.cida.wqp.mapping.BaseColumn;
-import gov.usgs.cida.wqp.mapping.StationColumn;
 import gov.usgs.cida.wqp.mapping.ProjectColumn;
 import gov.usgs.cida.wqp.mapping.TestResultHandler;
-import gov.usgs.cida.wqp.mapping.xml.StationKml;
-import gov.usgs.cida.wqp.parameter.Parameters;
+import gov.usgs.cida.wqp.parameter.FilterParameters;
 
 @Category(DBIntegrationTest.class)
 @DatabaseSetup("classpath:/testData/csv/")
@@ -44,8 +40,8 @@ public class ProjectStreamingTest extends BaseSpringTest {
 	IStreamingDao streamingDao;
 
 	TestResultHandler handler;
-	Map<String, Object> parms;
-	
+	FilterParameters filter;
+
 	public static final String [] PROJECT_LAKE_BASELINE = new String[] {STORET, "Lake-BaselineMonitoringDNR"};
 	public static final String [] PROJECT_SAM = new String[] {STORET, "SAM"};
 	public static final String [] PROJECT_WR047 = new String[] {STORET, "WR047"};
@@ -59,13 +55,13 @@ public class ProjectStreamingTest extends BaseSpringTest {
 	@Before
 	public void init() {
 		handler = new TestResultHandler();
-		parms = new HashMap<>();
+		filter = new FilterParameters();
 	}
 
 	@After
 	public void cleanup() {
 		handler = null;
-		parms = null;
+		filter = null;
 	}
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -79,14 +75,14 @@ public class ProjectStreamingTest extends BaseSpringTest {
 
 	@Test
 	public void emptyParameterTest() {
-		streamingDao.stream(NameSpace.PROJECT, parms, handler);
+		streamingDao.stream(NameSpace.PROJECT, filter, handler);
 		assertEquals(TOTAL_PROJECT_COUNT, String.valueOf(handler.getResults().size()));
 	}
 
 	@Test
 	public void avoidTest() {
-		parms.put(Parameters.AVOID.toString().replace(".", ""), getAvoid());
-		streamingDao.stream(NameSpace.PROJECT, parms, handler);
+		filter.setCommandavoid(getAvoid());
+		streamingDao.stream(NameSpace.PROJECT, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(STORET_PROJECT_COUNT, String.valueOf(results.size()));
@@ -95,8 +91,8 @@ public class ProjectStreamingTest extends BaseSpringTest {
 
 	@Test
 	public void bboxTest() {
-		parms.put(Parameters.BBOX.toString(), getBBox());
-		streamingDao.stream(NameSpace.PROJECT, parms, handler);
+		filter.setBBox(getBBox());
+		streamingDao.stream(NameSpace.PROJECT, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(7, results.size());
@@ -105,8 +101,8 @@ public class ProjectStreamingTest extends BaseSpringTest {
 
 	@Test
 	public void countryTest() {
-		parms.put(Parameters.COUNTRY.toString(), getCountry());
-		streamingDao.stream(NameSpace.PROJECT, parms, handler);
+		filter.setCountrycode(getCountry());
+		streamingDao.stream(NameSpace.PROJECT, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		System.out.println(results);
@@ -116,8 +112,8 @@ public class ProjectStreamingTest extends BaseSpringTest {
 
 	@Test
 	public void countyTest() {
-		parms.put(Parameters.COUNTY.toString(), getCounty());
-		streamingDao.stream(NameSpace.PROJECT, parms, handler);
+		filter.setCountycode(getCounty());
+		streamingDao.stream(NameSpace.PROJECT, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(7, results.size());
@@ -127,8 +123,19 @@ public class ProjectStreamingTest extends BaseSpringTest {
 
 	@Test
 	public void huc2Test() {
-		parms.put(Parameters.HUC.toString(), getHuc2());
-		streamingDao.stream(NameSpace.PROJECT, parms, handler);
+		filter.setHuc(getHuc2());
+		streamingDao.stream(NameSpace.PROJECT, filter, handler);
+
+		LinkedList<Map<String, Object>> results = handler.getResults();
+		assertEquals(7, results.size());
+		assertContainsProject(results, PROJECT_LAKE_BASELINE, PROJECT_WR047, PROJECT_PROJECTID, PROJECT_CEAP, PROJECT_NAWQA,
+				PROJECT_EPABEACH, PROJECT_SOMETHINGELSE);
+	}
+
+	@Test
+	public void huc3Test() {
+		filter.setHuc(getHuc3());
+		streamingDao.stream(NameSpace.PROJECT, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(7, results.size());
@@ -138,8 +145,18 @@ public class ProjectStreamingTest extends BaseSpringTest {
 
 	@Test
 	public void huc4Test() {
-		parms.put(Parameters.HUC.toString(), getHuc4());
-		streamingDao.stream(NameSpace.PROJECT, parms, handler);
+		filter.setHuc(getHuc4());
+		streamingDao.stream(NameSpace.PROJECT, filter, handler);
+
+		LinkedList<Map<String, Object>> results = handler.getResults();
+		assertEquals(3, results.size());
+		assertContainsProject(results, PROJECT_LAKE_BASELINE, PROJECT_WR047, PROJECT_NAWQA);
+	}
+
+	@Test
+	public void huc5Test() {
+		filter.setHuc(getHuc5());
+		streamingDao.stream(NameSpace.PROJECT, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(3, results.size());
@@ -148,8 +165,18 @@ public class ProjectStreamingTest extends BaseSpringTest {
 
 	@Test
 	public void huc6Test() {
-		parms.put(Parameters.HUC.toString(), getHuc6());
-		streamingDao.stream(NameSpace.PROJECT, parms, handler);
+		filter.setHuc(getHuc6());
+		streamingDao.stream(NameSpace.PROJECT, filter, handler);
+
+		LinkedList<Map<String, Object>> results = handler.getResults();
+		assertEquals(3, results.size());
+		assertContainsProject(results, PROJECT_LAKE_BASELINE, PROJECT_WR047, PROJECT_NAWQA);
+	}
+
+	@Test
+	public void huc7Test() {
+		filter.setHuc(getHuc7());
+		streamingDao.stream(NameSpace.PROJECT, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(3, results.size());
@@ -158,8 +185,28 @@ public class ProjectStreamingTest extends BaseSpringTest {
 
 	@Test
 	public void huc8Test() {
-		parms.put(Parameters.HUC.toString(), getHuc8());
-		streamingDao.stream(NameSpace.PROJECT, parms, handler);
+		filter.setHuc(getHuc8());
+		streamingDao.stream(NameSpace.PROJECT, filter, handler);
+
+		LinkedList<Map<String, Object>> results = handler.getResults();
+		assertEquals(2, results.size());
+		assertContainsProject(results, PROJECT_LAKE_BASELINE, PROJECT_WR047);
+	}
+
+	@Test
+	public void huc10Test() {
+		filter.setHuc(getHuc10());
+		streamingDao.stream(NameSpace.PROJECT, filter, handler);
+
+		LinkedList<Map<String, Object>> results = handler.getResults();
+		assertEquals(2, results.size());
+		assertContainsProject(results, PROJECT_LAKE_BASELINE, PROJECT_WR047);
+	}
+
+	@Test
+	public void huc12Test() {
+		filter.setHuc(getHuc12());
+		streamingDao.stream(NameSpace.PROJECT, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(2, results.size());
@@ -169,8 +216,8 @@ public class ProjectStreamingTest extends BaseSpringTest {
 	@Test
 	public void nldiUrlTest() {
 		try {
-			parms.put(Parameters.NLDIURL.toString(), getManySiteId());
-			streamingDao.stream(NameSpace.PROJECT, parms, handler);
+			filter.setNldiSites(getManySiteId());
+			streamingDao.stream(NameSpace.PROJECT, filter, handler);
 		} catch (Exception e) {
 			fail(e.getLocalizedMessage());
 		}
@@ -183,8 +230,8 @@ public class ProjectStreamingTest extends BaseSpringTest {
 
 	@Test
 	public void organizationTest() {
-		parms.put(Parameters.ORGANIZATION.toString(), getOrganization());
-		streamingDao.stream(NameSpace.PROJECT, parms, handler);
+		filter.setOrganization(getOrganization());
+		streamingDao.stream(NameSpace.PROJECT, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(7, results.size());
@@ -194,8 +241,8 @@ public class ProjectStreamingTest extends BaseSpringTest {
 
 	@Test
 	public void providersTest() {
-		parms.put(Parameters.PROVIDERS.toString(), getProviders());
-		streamingDao.stream(NameSpace.PROJECT, parms, handler);
+		filter.setProviders(getProviders());
+		streamingDao.stream(NameSpace.PROJECT, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(8, results.size());
@@ -205,8 +252,8 @@ public class ProjectStreamingTest extends BaseSpringTest {
 
 	@Test
 	public void siteIdTest() {
-		parms.put(Parameters.SITEID.toString(), getSiteid());
-		streamingDao.stream(NameSpace.PROJECT, parms, handler);
+		filter.setSiteid(getSiteid());
+		streamingDao.stream(NameSpace.PROJECT, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(5, results.size());
@@ -216,8 +263,8 @@ public class ProjectStreamingTest extends BaseSpringTest {
 	@Test
 	public void manySitesTest() {
 		try {
-			parms.put(Parameters.SITEID.toString(), getManySiteId());
-			streamingDao.stream(NameSpace.PROJECT, parms, handler);
+			filter.setSiteid(getManySiteId());
+			streamingDao.stream(NameSpace.PROJECT, filter, handler);
 		} catch (Exception e) {
 			fail(e.getLocalizedMessage());
 		}
@@ -229,8 +276,8 @@ public class ProjectStreamingTest extends BaseSpringTest {
 
 	@Test
 	public void minActivitiesTest() {
-		parms.put(Parameters.MIN_ACTIVITIES.toString(), getMinActivities());
-		streamingDao.stream(NameSpace.PROJECT, parms, handler);
+		filter.setMinactivities(getMinActivities());
+		streamingDao.stream(NameSpace.PROJECT, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(4, results.size());
@@ -239,8 +286,8 @@ public class ProjectStreamingTest extends BaseSpringTest {
 
 	@Test
 	public void minResultsTest() {
-		parms.put(Parameters.MIN_RESULTS.toString(), getMinResults());
-		streamingDao.stream(NameSpace.PROJECT, parms, handler);
+		filter.setMinresults(getMinResults());
+		streamingDao.stream(NameSpace.PROJECT, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(5, results.size());
@@ -249,8 +296,8 @@ public class ProjectStreamingTest extends BaseSpringTest {
 
 	@Test
 	public void siteTypeTest() {
-		parms.put(Parameters.SITE_TYPE.toString(), getSiteType());
-		streamingDao.stream(NameSpace.PROJECT, parms, handler);
+		filter.setSiteType(getSiteType());
+		streamingDao.stream(NameSpace.PROJECT, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(9, results.size());
@@ -260,8 +307,8 @@ public class ProjectStreamingTest extends BaseSpringTest {
 
 	@Test
 	public void stateTest() {
-		parms.put(Parameters.STATE.toString(), getState());
-		streamingDao.stream(NameSpace.PROJECT, parms, handler);
+		filter.setStatecode(getState());
+		streamingDao.stream(NameSpace.PROJECT, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(7, results.size());
@@ -271,10 +318,10 @@ public class ProjectStreamingTest extends BaseSpringTest {
 	
 	@Test
 	public void withinTest() {
-		parms.put(Parameters.WITHIN.toString(), getWithin());
-		parms.put(Parameters.LATITUDE.toString(), getLatitude());
-		parms.put(Parameters.LONGITUDE.toString(), getLongitude());
-		streamingDao.stream(NameSpace.PROJECT, parms, handler);
+		filter.setWithin(getWithin());
+		filter.setLat(getLatitude());
+		filter.setLong(getLongitude());
+		streamingDao.stream(NameSpace.PROJECT, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(6, results.size());
@@ -284,8 +331,8 @@ public class ProjectStreamingTest extends BaseSpringTest {
 
 	@Test
 	public void projectTest() {
-		parms.put(Parameters.PROJECT.toString(), getProject());
-		streamingDao.stream(NameSpace.PROJECT, parms, handler);
+		filter.setProject(getProject());
+		streamingDao.stream(NameSpace.PROJECT, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(4, results.size());
@@ -294,19 +341,19 @@ public class ProjectStreamingTest extends BaseSpringTest {
 
 	@Test
 	public void sampleMediaTest() {
-		parms.put(Parameters.SAMPLE_MEDIA.toString(), getSampleMedia());
-		streamingDao.stream(NameSpace.PROJECT, parms, handler);
+		filter.setSampleMedia(getSampleMedia());
+		streamingDao.stream(NameSpace.PROJECT, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(9, results.size());
-		assertContainsProject(results, PROJECT_LAKE_BASELINE, PROJECT_SAM, PROJECT_WR047, PROJECT_WR047, PROJECT_PROJECTID,
+		assertContainsProject(results, PROJECT_LAKE_BASELINE, PROJECT_SAM, PROJECT_WR047, PROJECT_PROJECTID,
 				PROJECT_CEAP, PROJECT_NAWQA, PROJECT_EPABEACH, PROJECT_SOMETHINGELSE, PROJECT_SACR_BIOTDB);
 	}
 
 	@Test
 	public void startDateHiTest() {
-		parms.put(Parameters.START_DATE_HI.toString(), getStartDateHi());
-		streamingDao.stream(NameSpace.PROJECT, parms, handler);
+		filter.setStartDateHi(getStartDateHi());
+		streamingDao.stream(NameSpace.PROJECT, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(9, results.size());
@@ -316,8 +363,8 @@ public class ProjectStreamingTest extends BaseSpringTest {
 
 	@Test
 	public void startDateLoTest() {
-		parms.put(Parameters.START_DATE_LO.toString(), getStartDateLo());
-		streamingDao.stream(NameSpace.PROJECT, parms, handler);
+		filter.setStartDateLo(getStartDateLo());
+		streamingDao.stream(NameSpace.PROJECT, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(6, results.size());
@@ -330,8 +377,8 @@ public class ProjectStreamingTest extends BaseSpringTest {
 
 	@Test
 	public void analyticalMethodTest() {
-		parms.put(Parameters.ANALYTICAL_METHOD.toString(), getAnalyticalMethod());
-		streamingDao.stream(NameSpace.PROJECT, parms, handler);
+		filter.setAnalyticalmethod(getAnalyticalMethod());
+		streamingDao.stream(NameSpace.PROJECT, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(4, results.size());
@@ -340,8 +387,8 @@ public class ProjectStreamingTest extends BaseSpringTest {
 
 	@Test
 	public void assemblageTest() {
-		parms.put(Parameters.ASSEMBLAGE.toString(), getAssemblage());
-		streamingDao.stream(NameSpace.PROJECT, parms, handler);
+		filter.setAssemblage(getAssemblage());
+		streamingDao.stream(NameSpace.PROJECT, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(4, results.size());
@@ -350,8 +397,8 @@ public class ProjectStreamingTest extends BaseSpringTest {
 
 	@Test
 	public void characteristicNameTest() {
-		parms.put(Parameters.CHARACTERISTIC_NAME.toString(), getCharacteristicName());
-		streamingDao.stream(NameSpace.PROJECT, parms, handler);
+		filter.setCharacteristicName(getCharacteristicName());
+		streamingDao.stream(NameSpace.PROJECT, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(3, results.size());
@@ -360,8 +407,8 @@ public class ProjectStreamingTest extends BaseSpringTest {
 
 	@Test
 	public void characteristicTypeTest() {
-		parms.put(Parameters.CHARACTERISTIC_TYPE.toString(), getCharacteristicType());
-		streamingDao.stream(NameSpace.PROJECT, parms, handler);
+		filter.setCharacteristicType(getCharacteristicType());
+		streamingDao.stream(NameSpace.PROJECT, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(4, results.size());
@@ -370,8 +417,8 @@ public class ProjectStreamingTest extends BaseSpringTest {
 
 	@Test
 	public void pcodeTest() {
-		parms.put(Parameters.PCODE.toString(), getPcode());
-		streamingDao.stream(NameSpace.PROJECT, parms, handler);
+		filter.setPCode(getPcode());
+		streamingDao.stream(NameSpace.PROJECT, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(4, results.size());
@@ -380,8 +427,8 @@ public class ProjectStreamingTest extends BaseSpringTest {
 
 	@Test
 	public void subjectTaxonomicNameTest() {
-		parms.put(Parameters.SUBJECT_TAXONOMIC_NAME.toString(), getSubjectTaxonomicName());
-		streamingDao.stream(NameSpace.PROJECT, parms, handler);
+		filter.setSubjectTaxonomicName(getSubjectTaxonomicName());
+		streamingDao.stream(NameSpace.PROJECT, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(2, results.size());
@@ -390,22 +437,22 @@ public class ProjectStreamingTest extends BaseSpringTest {
 
 	@Test
 	public void multipleParameterStationSumTests() {
-		parms.put(Parameters.BBOX.toString(), getBBox());
-		parms.put(Parameters.COUNTRY.toString(), getCountry());
-		parms.put(Parameters.COUNTY.toString(), getCounty());
-		parms.put(Parameters.HUC.toString(), getHuc());
-		parms.put(Parameters.LATITUDE.toString(), getLatitude());
-		parms.put(Parameters.LONGITUDE.toString(), getLongitude());
-		parms.put(Parameters.ORGANIZATION.toString(), getOrganization());
-		parms.put(Parameters.PROVIDERS.toString(), getProviders());
-		parms.put(Parameters.SITEID.toString(), getSiteid());
-		parms.put(Parameters.SITE_TYPE.toString(), getSiteType());
-		parms.put(Parameters.STATE.toString(), getState());
-		parms.put(Parameters.WITHIN.toString(), getWithin());
+		filter.setBBox(getBBox());
+		filter.setCountrycode(getCountry());
+		filter.setCountycode(getCounty());
+		filter.setHuc(getHuc());
+		filter.setLat(getLatitude());
+		filter.setLong(getLongitude());
+		filter.setOrganization(getOrganization());
+		filter.setProviders(getProviders());
+		filter.setSiteid(getSiteid());
+		filter.setSiteType(getSiteType());
+		filter.setStatecode(getState());
+		filter.setWithin(getWithin());
 
-		parms.put(Parameters.MIN_ACTIVITIES.toString(), getMinActivities());
-		parms.put(Parameters.MIN_RESULTS.toString(), getMinResults());
-		streamingDao.stream(NameSpace.PROJECT, parms, handler);
+		filter.setMinactivities(getMinActivities());
+		filter.setMinresults(getMinResults());
+		streamingDao.stream(NameSpace.PROJECT, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(1, results.size());
@@ -414,26 +461,26 @@ public class ProjectStreamingTest extends BaseSpringTest {
 
 	@Test
 	public void multipleParameterActivitySumTests() {
-		parms.put(Parameters.BBOX.toString(), getBBox());
-		parms.put(Parameters.COUNTRY.toString(), getCountry());
-		parms.put(Parameters.COUNTY.toString(), getCounty());
-		parms.put(Parameters.HUC.toString(), getHuc());
-		parms.put(Parameters.LATITUDE.toString(), getLatitude());
-		parms.put(Parameters.LONGITUDE.toString(), getLongitude());
-		parms.put(Parameters.MIN_ACTIVITIES.toString(), getMinActivities());
-		parms.put(Parameters.MIN_RESULTS.toString(), getMinResults());
-		parms.put(Parameters.ORGANIZATION.toString(), getOrganization());
-		parms.put(Parameters.PROVIDERS.toString(), getProviders());
-		parms.put(Parameters.SITEID.toString(), getSiteid());
-		parms.put(Parameters.SITE_TYPE.toString(), getSiteType());
-		parms.put(Parameters.STATE.toString(), getState());
-		parms.put(Parameters.WITHIN.toString(), getWithin());
+		filter.setBBox(getBBox());
+		filter.setCountrycode(getCountry());
+		filter.setCountycode(getCounty());
+		filter.setHuc(getHuc());
+		filter.setLat(getLatitude());
+		filter.setLong(getLongitude());
+		filter.setMinactivities(getMinActivities());
+		filter.setMinresults(getMinResults());
+		filter.setOrganization(getOrganization());
+		filter.setProviders(getProviders());
+		filter.setSiteid(getSiteid());
+		filter.setSiteType(getSiteType());
+		filter.setStatecode(getState());
+		filter.setWithin(getWithin());
 
-		parms.put(Parameters.PROJECT.toString(), getProject());
-		parms.put(Parameters.SAMPLE_MEDIA.toString(), getSampleMedia());
-		parms.put(Parameters.START_DATE_HI.toString(), getStartDateHi());
-		parms.put(Parameters.START_DATE_LO.toString(), getStartDateLo());
-		streamingDao.stream(NameSpace.PROJECT, parms, handler);
+		filter.setProject(getProject());
+		filter.setSampleMedia(getSampleMedia());
+		filter.setStartDateHi(getStartDateHi());
+		filter.setStartDateLo(getStartDateLo());
+		streamingDao.stream(NameSpace.PROJECT, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(1, results.size());
@@ -442,33 +489,33 @@ public class ProjectStreamingTest extends BaseSpringTest {
 
 	@Test
 	public void multipleParameterResultSumTest() {
-		parms.put(Parameters.BBOX.toString(), getBBox());
-		parms.put(Parameters.COUNTRY.toString(), getCountry());
-		parms.put(Parameters.COUNTY.toString(), getCounty());
-		parms.put(Parameters.HUC.toString(), getHuc());
-		parms.put(Parameters.LATITUDE.toString(), getLatitude());
-		parms.put(Parameters.LONGITUDE.toString(), getLongitude());
-		parms.put(Parameters.MIN_ACTIVITIES.toString(), getMinActivities());
-		parms.put(Parameters.MIN_RESULTS.toString(), getMinResults());
-		parms.put(Parameters.ORGANIZATION.toString(), getOrganization());
-		parms.put(Parameters.PROVIDERS.toString(), getProviders());
-		parms.put(Parameters.SITEID.toString(), getSiteid());
-		parms.put(Parameters.SITE_TYPE.toString(), getSiteType());
-		parms.put(Parameters.STATE.toString(), getState());
-		parms.put(Parameters.WITHIN.toString(), getWithin());
+		filter.setBBox(getBBox());
+		filter.setCountrycode(getCountry());
+		filter.setCountycode(getCounty());
+		filter.setHuc(getHuc());
+		filter.setLat(getLatitude());
+		filter.setLong(getLongitude());
+		filter.setMinactivities(getMinActivities());
+		filter.setMinresults(getMinResults());
+		filter.setOrganization(getOrganization());
+		filter.setProviders(getProviders());
+		filter.setSiteid(getSiteid());
+		filter.setSiteType(getSiteType());
+		filter.setStatecode(getState());
+		filter.setWithin(getWithin());
 
-		parms.put(Parameters.PROJECT.toString(), getProject());
-		parms.put(Parameters.SAMPLE_MEDIA.toString(), getSampleMedia());
-		parms.put(Parameters.START_DATE_HI.toString(), getStartDateHi());
-		parms.put(Parameters.START_DATE_LO.toString(), getStartDateLo());
+		filter.setProject(getProject());
+		filter.setSampleMedia(getSampleMedia());
+		filter.setStartDateHi(getStartDateHi());
+		filter.setStartDateLo(getStartDateLo());
 
-		parms.put(Parameters.PCODE.toString(), getPcode());
-		parms.put(Parameters.ANALYTICAL_METHOD.toString(), getAnalyticalMethod());
-		parms.put(Parameters.ASSEMBLAGE.toString(), getAssemblage());
-		parms.put(Parameters.CHARACTERISTIC_NAME.toString(), getCharacteristicName());
-		parms.put(Parameters.CHARACTERISTIC_TYPE.toString(), getCharacteristicType());
-		parms.put(Parameters.SUBJECT_TAXONOMIC_NAME.toString(), getSubjectTaxonomicName());
-		streamingDao.stream(NameSpace.PROJECT, parms, handler);
+		filter.setPCode(getPcode());
+		filter.setAnalyticalmethod(getAnalyticalMethod());
+		filter.setAssemblage(getAssemblage());
+		filter.setCharacteristicName(getCharacteristicName());
+		filter.setCharacteristicType(getCharacteristicType());
+		filter.setSubjectTaxonomicName(getSubjectTaxonomicName());
+		streamingDao.stream(NameSpace.PROJECT, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		System.out.println(results);

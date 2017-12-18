@@ -1,12 +1,20 @@
 package gov.usgs.cida.wqp.mapping;
 
+import static gov.usgs.cida.wqp.mapping.BaseColumn.KEY_DATA_SOURCE;
+import static gov.usgs.cida.wqp.mapping.BaseColumn.KEY_DATA_SOURCE_ID;
+import static gov.usgs.cida.wqp.mapping.ProjectColumn.KEY_MONITORING_LOCATION_WEIGHT_URL;
+import static gov.usgs.cida.wqp.mapping.ProjectColumn.KEY_PROJECT_DESCRIPTION;
+import static gov.usgs.cida.wqp.mapping.ProjectColumn.KEY_PROJECT_FILE_URL;
+import static gov.usgs.cida.wqp.mapping.ProjectColumn.KEY_PROJECT_IDENTIFIER;
+import static gov.usgs.cida.wqp.mapping.ProjectColumn.KEY_PROJECT_NAME;
+import static gov.usgs.cida.wqp.mapping.ProjectColumn.KEY_QAPP_APPROVAL_AGENCY_NAME;
+import static gov.usgs.cida.wqp.mapping.ProjectColumn.KEY_QAPP_APPROVED_INDICATOR;
+import static gov.usgs.cida.wqp.mapping.ProjectColumn.KEY_SAMPLING_DESIGN_TYPE_CODE;
+import static gov.usgs.cida.wqp.swagger.model.StationCountJson.STORET;
+
 import java.math.BigDecimal;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-import static gov.usgs.cida.wqp.mapping.ProjectColumn.*;
-import static gov.usgs.cida.wqp.swagger.model.ProjectCountJson.*;
-import static gov.usgs.cida.wqp.swagger.model.StationCountJson.*;
 
 public class TestProjectMap {
 	
