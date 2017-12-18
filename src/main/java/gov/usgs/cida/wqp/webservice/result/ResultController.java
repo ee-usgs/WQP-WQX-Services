@@ -36,6 +36,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import springfox.documentation.annotations.ApiIgnore;
 
 @Api(tags={SwaggerConfig.RESULT_TAG_NAME})
 @RestController
@@ -63,7 +64,7 @@ public class ResultController extends BaseController {
 	@FullParameterList
 	@ProfileParameter
 	@RequestMapping(method=RequestMethod.HEAD)
-	public void resultHeadRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter) {
+	public void resultHeadRequest(HttpServletRequest request, HttpServletResponse response, @ApiIgnore FilterParameters filter) {
 		doHeadRequest(request, response, filter);
 	}
 
@@ -71,7 +72,7 @@ public class ResultController extends BaseController {
 	@FullParameterList
 	@ProfileParameter
 	@GetMapping()
-	public void resultGetRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter) {
+	public void resultGetRequest(HttpServletRequest request, HttpServletResponse response, @ApiIgnore FilterParameters filter) {
 		doDataRequest(request, response, filter);
 	}
 
@@ -81,14 +82,14 @@ public class ResultController extends BaseController {
 	public void resultJsonPostRequest(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value="mimeType", required=false) String mimeType,
 			@RequestParam(value="zip", required=false) String zip,
-			@RequestBody FilterParameters filter) {
+			@RequestBody @ApiIgnore FilterParameters filter) {
 		doDataRequest(request, response, filter, mimeType, zip);
 	}
 
 	@ApiOperation(value="Same as the JSON consumer, but hidden from swagger", hidden=true)
 	@ProfileParameter
 	@PostMapping(consumes=MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-	public void resultFormUrlencodedPostRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter) {
+	public void resultFormUrlencodedPostRequest(HttpServletRequest request, HttpServletResponse response, @ApiIgnore FilterParameters filter) {
 		doDataRequest(request, response, filter);
 	}
 
@@ -99,7 +100,7 @@ public class ResultController extends BaseController {
 	public Map<String, String> resultPostCountRequest(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value="mimeType", required=false) String mimeType,
 			@RequestParam(value="zip", required=false) String zip,
-			@RequestBody FilterParameters filter) {
+			@RequestBody @ApiIgnore FilterParameters filter) {
 		return doPostCountRequest(request, response, filter, mimeType, zip);
 	}
 

@@ -63,6 +63,7 @@ public class FilterParameters {
 	@Size(min=0, max=IN_CLAUSE_LIMIT, message="The assemblage is not between {min} and {max} occurances")
 	private List<@Lookup(parameter=Parameters.ASSEMBLAGE) String> assemblage;
 
+	@JsonProperty("command.avoid")
 	@Size(min=0, max=IN_CLAUSE_LIMIT, message="The commandavoid is not between {min} and {max} occurances")
 	private List<@Pattern(
 		regexp=REGEX_AVOID,

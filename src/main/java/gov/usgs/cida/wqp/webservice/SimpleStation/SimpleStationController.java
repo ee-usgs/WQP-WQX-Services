@@ -30,6 +30,7 @@ import gov.usgs.cida.wqp.util.HttpConstants;
 import gov.usgs.cida.wqp.webservice.BaseController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import springfox.documentation.annotations.ApiIgnore;
 
 /**
  * Endpoints in this controller have been deprecated. Please use those in the StationController.
@@ -56,21 +57,21 @@ public class SimpleStationController extends BaseController {
 			Validator validator) {
 		super(inStreamingDao, inCountDao, inLogService, inMaxResultRows, inSiteUrlBase, contentStrategy, validator);
 		xmlMapping = inXmlMapping;
-		
+
 		LOG.trace(getClass().getName());
 	}
 
 	@ApiOperation(value="Return appropriate request headers (including anticipated record counts).")
 	@FullParameterList
 	@RequestMapping(method=RequestMethod.HEAD)
-	public void simpleStationHeadRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter) {
+	public void simpleStationHeadRequest(HttpServletRequest request, HttpServletResponse response, @ApiIgnore FilterParameters filter) {
 		doHeadRequest(request, response, filter);
 	}
 
 	@ApiOperation(value="Return requested data.")
 	@FullParameterList
 	@GetMapping()
-	public void simpleStationGetRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter) {
+	public void simpleStationGetRequest(HttpServletRequest request, HttpServletResponse response, @ApiIgnore FilterParameters filter) {
 		doDataRequest(request, response, filter);
 	}
 

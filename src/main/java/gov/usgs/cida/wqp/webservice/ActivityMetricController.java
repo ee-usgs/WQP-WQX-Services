@@ -35,6 +35,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import springfox.documentation.annotations.ApiIgnore;
 
 @Api(tags={SwaggerConfig.ACTIVITY_METRIC_TAG_NAME})
 @RestController
@@ -57,13 +58,13 @@ public class ActivityMetricController extends BaseController {
 	@ApiOperation(value="Return appropriate request headers (including anticipated record counts).")
 	@FullParameterList
 	@RequestMapping(value=HttpConstants.ACTIVITY_METRIC_SEARCH_ENPOINT, method=RequestMethod.HEAD)
-	public void activityMetricHeadRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter) {
+	public void activityMetricHeadRequest(HttpServletRequest request, HttpServletResponse response, @ApiIgnore FilterParameters filter) {
 		doHeadRequest(request, response, filter);
 	}
 
 	@ApiOperation(value="Return appropriate request headers (including anticipated record counts) for the specified activity.")
 	@RequestMapping(value=HttpConstants.ACTIVITY_METRIC_REST_ENPOINT, method=RequestMethod.HEAD)
-	public void activityMetricRestHeadRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter,
+	public void activityMetricRestHeadRequest(HttpServletRequest request, HttpServletResponse response, @ApiIgnore FilterParameters filter,
 			@PathVariable("activity") String activity,
 			@RequestParam(value="mimeType", required=false) String mimeType,
 			@RequestParam(value="zip", required=false) String zip) {
@@ -74,13 +75,13 @@ public class ActivityMetricController extends BaseController {
 	@ApiOperation(value="Return requested data.")
 	@FullParameterList
 	@GetMapping(value=HttpConstants.ACTIVITY_METRIC_SEARCH_ENPOINT)
-	public void activityMetricGetRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter) {
+	public void activityMetricGetRequest(HttpServletRequest request, HttpServletResponse response, @ApiIgnore FilterParameters filter) {
 		doDataRequest(request, response, filter);
 	}
 
 	@ApiOperation(value="Return activity metric information for the specified activity.")
 	@GetMapping(value=HttpConstants.ACTIVITY_METRIC_REST_ENPOINT)
-	public void activityMetricGetRestRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter,
+	public void activityMetricGetRestRequest(HttpServletRequest request, HttpServletResponse response, @ApiIgnore FilterParameters filter,
 			@PathVariable("activity") String activity) {
 		filter.setActivity(activity);
 		doDataRequest(request, response, filter);
@@ -91,7 +92,7 @@ public class ActivityMetricController extends BaseController {
 	public void activityMetricJsonPostRequest(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value="mimeType", required=false) String mimeType,
 			@RequestParam(value="zip", required=false) String zip,
-			@RequestBody FilterParameters filter) {
+			@RequestBody @ApiIgnore FilterParameters filter) {
 		doDataRequest(request, response, filter, mimeType, zip);
 	}
 
@@ -107,7 +108,7 @@ public class ActivityMetricController extends BaseController {
 	public Map<String, String> activityMetricPostCountRequest(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value="mimeType", required=false) String mimeType,
 			@RequestParam(value="zip", required=false) String zip,
-			@RequestBody FilterParameters filter) {
+			@RequestBody @ApiIgnore FilterParameters filter) {
 		return doPostCountRequest(request, response, filter, mimeType, zip);
 	}
 
