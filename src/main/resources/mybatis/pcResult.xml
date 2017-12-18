@@ -13,7 +13,7 @@
                prime.activity_type_code, prime.activity_media_subdiv_name, prime.activity_start_time,
                prime.act_start_time_zone, prime.activity_stop_date, prime.activity_stop_time, prime.act_stop_time_zone, prime.activity_depth,
                prime.activity_depth_unit, prime.activity_depth_ref_point, prime.activity_upper_depth, prime.activity_upper_depth_unit,
-               prime.activity_lower_depth, prime.activity_lower_depth_unit, prime.project_id, prime.activity_conducting_org, prime.activity_comment,
+               prime.activity_lower_depth, prime.activity_lower_depth_unit, prime.project_id as activity_projects, prime.activity_conducting_org, prime.activity_comment,
                prime.sample_aqfr_name, prime.hydrologic_condition_name, prime.hydrologic_event_name,
                prime.sample_collect_method_id, prime.sample_collect_method_ctx, prime.sample_collect_method_name, prime.sample_collect_equip_name,
                prime.result_id, prime.result_detection_condition_tx, prime.sample_fraction_type, prime.result_measure_value, prime.result_unit,
