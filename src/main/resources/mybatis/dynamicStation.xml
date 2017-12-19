@@ -10,7 +10,7 @@
         <if test="countycode != null">
             and (<include refid="dynamicWhere.countycode" />)
         </if>
-        <if test="commandavoid != null">
+        <if test="command != null">
             and (<include refid="dynamicWhere.commandavoid" />)
         </if>
         <if test="huc != null">
@@ -25,7 +25,7 @@
         <if test="siteid != null">
             and (<include refid="dynamicWhere.siteId" />)
         </if>
-        <if test="nldiurl != null">
+        <if test="nldiSites != null">
             and (<include refid="dynamicWhere.nldiSiteId" />)
         </if>
          <if test="siteType != null">
@@ -37,7 +37,7 @@
     </sql>
 
     <sql id="baseWhereStationGeoClauses">
-        <if test="bBox != null and bBox.length == 4">
+        <if test="bBox != null">
             and (<include refid="dynamicWhere.bBox" />)
         </if>
         <if test="within != null and lat != null and long != null">
@@ -96,10 +96,10 @@
             <include refid="dynamicWhere.baseWhereStationGeoClauses" />
             <include refid="dynamicWhere.baseWhereStationClauses" />
             <if test="minactivities != null">
-                and (filter.activity_count >= #{minactivities[0]})
+                and (filter.activity_count >= #{minactivities})
             </if>
             <if test="minresults != null">
-                and (filter.result_count >= #{minresults[0]})
+                and (filter.result_count >= #{minresults})
             </if>
         </where>
     </sql>

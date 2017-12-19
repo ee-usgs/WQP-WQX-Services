@@ -7,9 +7,6 @@ import static gov.usgs.cida.wqp.swagger.model.StationCountJson.HEADER_NWIS_SITE_
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,7 +21,7 @@ import gov.usgs.cida.wqp.BaseSpringTest;
 import gov.usgs.cida.wqp.FullIntegrationTest;
 import gov.usgs.cida.wqp.mapping.Profile;
 import gov.usgs.cida.wqp.mapping.delimited.StationDelimitedTest;
-import gov.usgs.cida.wqp.parameter.Parameters;
+import gov.usgs.cida.wqp.parameter.FilterParameters;
 import gov.usgs.cida.wqp.util.HttpConstants;
 import gov.usgs.cida.wqp.webservice.BaseControllerTest;
 import gov.usgs.cida.wqp.webservice.station.StationController;
@@ -74,9 +71,9 @@ public class SimpleStationControllerTest extends BaseSpringTest {
 	public void determineProfileTest() {
 		assertEquals(Profile.SIMPLE_STATION, controller.determineProfile(null));
 
-		Map<String, Object> pm = new HashMap<>();
-		pm.put(Parameters.DATA_PROFILE.toString(), new String[]{"station"});
-		assertEquals(Profile.STATION, controller.determineProfile(pm));
+		FilterParameters filter = new FilterParameters();
+		filter.setDataProfile("station");
+		assertEquals(Profile.STATION, controller.determineProfile(filter));
 	}
 
 }

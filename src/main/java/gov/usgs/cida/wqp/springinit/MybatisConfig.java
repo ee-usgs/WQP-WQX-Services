@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
+import gov.usgs.cida.wqp.dao.WildCardTypeHandler;
 import gov.usgs.cida.wqp.dao.WqpArrayTypeHandler;
 
 public class MybatisConfig {
@@ -46,6 +47,7 @@ public class MybatisConfig {
 	private void registerAliases(TypeAliasRegistry registry) {
 		registry.registerAlias("LinkedHashMap", LinkedHashMap.class);
 		registry.registerAlias("WqpArrayTypeHandler", WqpArrayTypeHandler.class);
+		registry.registerAlias("WildCardTypeHandler", WildCardTypeHandler.class);
 	}
 
 }

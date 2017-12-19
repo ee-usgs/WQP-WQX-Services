@@ -59,7 +59,7 @@ public class SwaggerParameters {
 
 	public static Parameter bBox() {
 		return new ParameterBuilder()
-				.name("bbox")
+				.name("bBox")
 				.description("Western-most longitude, Southern-most latitude, Eastern-most longitude, and Northern-most longitude separated by commas,"
 						+ "expressed in decimal degrees, WGS84, and longitudes west of Greenwich are negative. (Example: bBox=-92.8,44.2,-88.9,46.0)")
 				.modelRef(new ModelRef("string"))
@@ -117,7 +117,7 @@ public class SwaggerParameters {
 		return new ParameterBuilder()
 				.name("dataProfile")
 				.description("Data Profile (column set) of the download. For use with the results enpoint.")
-				.modelRef(new ModelRef("", new ModelRef("string")))
+				.modelRef(new ModelRef("string"))
 				.parameterType("query")
 				.required(false)
 				.allowableValues(new AllowableListValues(Arrays.asList(Profile.BIOLOGICAL.toString(), Profile.PC_RESULT.toString(), Profile.NARROW_RESULT.toString()), "LIST"))

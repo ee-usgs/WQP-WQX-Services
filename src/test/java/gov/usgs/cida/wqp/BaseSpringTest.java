@@ -1,5 +1,8 @@
 package gov.usgs.cida.wqp;
 
+import static gov.usgs.cida.wqp.swagger.model.StationCountJson.NWIS;
+import static gov.usgs.cida.wqp.swagger.model.StationCountJson.STEWARDS;
+import static gov.usgs.cida.wqp.swagger.model.StationCountJson.STORET;
 import static org.junit.Assert.assertEquals;
 
 import java.io.ByteArrayInputStream;
@@ -8,15 +11,15 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.util.Arrays;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
@@ -26,13 +29,16 @@ import org.springframework.test.context.support.DirtiesContextTestExecutionListe
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 import com.github.springtestdbunit.TransactionDbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 
 import gov.usgs.cida.wqp.mapping.Profile;
+import gov.usgs.cida.wqp.parameter.BoundingBox;
+import gov.usgs.cida.wqp.parameter.Command;
+import gov.usgs.cida.wqp.parameter.ResultIdentifier;
 import gov.usgs.cida.wqp.springinit.TestSpringConfig;
-import static gov.usgs.cida.wqp.swagger.model.StationCountJson.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestSpringConfig.class)
@@ -48,6 +54,12 @@ public abstract class BaseSpringTest {
 	@Autowired
 	@Qualifier("TEST_NLDI_URL")
 	protected URL testNldiUrl;
+
+	@Bean
+	public LocalValidatorFactoryBean validator() {
+		LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
+		return validator;
+	}
 
 	public String harmonizeXml(String xmlDoc) {
 		return xmlDoc.replace("\r", "").replace("\n", "").replace("\t", "").replaceAll("> *<", "><");
@@ -162,145 +174,165 @@ public abstract class BaseSpringTest {
 	public static final String JSON_AND_ZIP = JSON + AND_ZIP;
 
 
-	public String[] getAnalyticalMethod() {
-		return new String[]{"https://www.nemi.gov/methods/method_summary/4665/", "https://www.nemi.gov/methods/method_summary/8896/", "analyticalMethod"};
+	public List<String> getAnalyticalMethod() {
+		return Arrays.asList("https://www.nemi.gov/methods/method_summary/4665/", "https://www.nemi.gov/methods/method_summary/8896/", "https://analyticalMethod");
 	}
 
-	public static String[] getActivity() {
-		return new String[]{"WIDNR_WQX-7788475"};
+	public static String getActivity() {
+		return "WIDNR_WQX-7788475";
 	}
 
-	public String[] getAvoid() {
-		return new String[]{NWIS};
+	public Command getCommand() {
+		return new Command(NWIS);
 	}
 
-	public String[] getBBox() {
-		return new String[]{"-111", "39", "-77", "47"};
+	public BoundingBox getBBox() {
+		return new BoundingBox("-111,39,-77,47");
 	}
 
-	public String[] getAssemblage() {
-		return new String[]{"Fish/Nekton", "Benthic Macroinvertebrates", "assemblageSampledName"};
+	public List<String> getAssemblage() {
+		return Arrays.asList("Fish/Nekton", "Benthic Macroinvertebrates", "assemblageSampledName");
 	}
 
-	public String[] getCharacteristicName() {
-		return new String[]{"Beryllium", "Nitrate", "characteristicName"};
+	public List<String> getCharacteristicName() {
+		return Arrays.asList("Beryllium", "Nitrate", "characteristicName");
 	}
 
-	public String[] getCharacteristicType() {
-		return new String[]{"Inorganics, Minor, Metals", "Nutrient", "Population/Community", "characteristicType"};
+	public List<String> getCharacteristicType() {
+		return Arrays.asList("Inorganics, Minor, Metals", "Nutrient", "Population/Community", "characteristicType");
 	}
 
-	public String[] getCountry() {
-		return new String[]{"MX", "US", "XX"};
+	public List<String> getCountry() {
+		return Arrays.asList("MX", "US", "XX");
 	}
 
-	public String[] getCounty() {
-		return new String[]{"US:19:015", "US:30:003", "US:55:017", "US:55:021", "US:55:027", "XX:44:555"};
+	public List<String> getCounty() {
+		return Arrays.asList("US:19:015", "US:30:003", "US:55:017", "US:55:021", "US:55:027", "XX:44:555");
 	}
 
-	public String[] getHuc() {
-		return new String[]{"07*", "0708*", "070801*", "07090002", "07080105", "0000"};
+	public List<String> getHuc() {
+		return Arrays.asList("07*", "0708*", "070801*", "07090002", "07080105", "0000", "0708010509", "070801050907");
 	}
 
-	public String[] getHuc2() {
-		return new String[]{"07"};
+	public List<String> getHuc2() {
+		return Arrays.asList("07");
 	}
 
-	public String[] getHuc4() {
-		return new String[]{"0709"};
+	public List<String> getHuc3() {
+		return Arrays.asList("07*");
 	}
 
-	public String[] getHuc6() {
-		return new String[]{"070900"};
+	public List<String> getHuc4() {
+		return Arrays.asList("0709");
 	}
 
-	public String[] getHuc8() {
-		return new String[]{"07090001"};
+	public List<String> getHuc5() {
+		return Arrays.asList("0709*");
 	}
 
-	public String[] getLatitude() {
-		return new String[]{"43.3836014"};
+	public List<String> getHuc6() {
+		return Arrays.asList("070900");
 	}
 
-	public String[] getLongitude() {
-		return new String[]{"-88.9773314"};
+	public List<String> getHuc7() {
+		return Arrays.asList("070900*");
 	}
 
-	public String[] getMinActivities() {
-		return new String[]{"2"};
+	public List<String> getHuc8() {
+		return Arrays.asList("07090001");
 	}
 
-	public String[] getMinResults() {
-		return new String[]{"3"};
+	public List<String> getHuc10() {
+		return Arrays.asList("0709000111");
 	}
 
-	public String[] getNldiSites() {
-		return new String[]{"11NPSWRD-BICA_MFG_B", "WIDNR_WQX-10030952", "USGS-05425700",
-				"USGS-431925089002701", "ARS-IAWC-IAWC225", "ARS-IAWC-IAWC410", "USGS-11421000", "organization-siteId2", "organization-siteId3"};
+	public List<String> getHuc12() {
+		return Arrays.asList("070900011105");
 	}
 
-	public Set<String> getNldiSitesAsSet() {
-		return new HashSet<String> (Arrays.asList(getNldiSites()));
+	public String getLatitude() {
+		return "43.3836014";
 	}
 
-	public String[] getNldiurl() {
-		return new String[]{testNldiUrl.toString()};
+	public String getLongitude() {
+		return "-88.9773314";
 	}
 
-	public String[] getOrganization() {
-		return new String[]{"ARS", "11NPSWRD", "USGS-WI", "WIDNR_WQX", "organization"};
+	public String getMinActivities() {
+		return "2";
 	}
 
-	public String[] getPcode() {
-		return new String[]{"00032", "00004", "99999"};
+	public String getMinResults() {
+		return "3";
 	}
 
-	public String[] getProject() {
-		return new String[]{"projectId", "CEAP", "NAWQA", "SACR BioTDB"};
+	public List<String> getNldiSites() {
+		return Arrays.asList("11NPSWRD-BICA_MFG_B", "WIDNR_WQX-10030952", "USGS-05425700",
+				"USGS-431925089002701", "ARS-IAWC-IAWC225", "ARS-IAWC-IAWC410", "USGS-11421000", "organization-siteId2", "organization-siteId3");
 	}
 
-	public String[] getProviders() {
-		return new String[]{NWIS, STEWARDS, STORET};
+	public String getNldiurl() {
+		return testNldiUrl.toString();
 	}
 
-	public static String[] getResult() {
-		return new String[]{"STORET-5"};
+	public List<String> getOrganization() {
+		return Arrays.asList("ARS", "11NPSWRD", "USGS-WI", "WIDNR_WQX", "organization");
 	}
 
-	public String[] getSampleMedia() {
-		return new String[]{"sampleMedia", "Other", "Sediment", "Water"};
+	public List<String> getPcode() {
+		return Arrays.asList("00032", "00004", "99999");
 	}
 
-	public String[] getSiteid() {
-		return new String[]{"organization-siteId", "organization-siteId2", "organization-siteId3", "11NPSWRD-BICA_MFG_B", "WIDNR_WQX-10030952", "USGS-05425700", "USGS-431925089002701", "ARS-IAWC-IAWC225", "ARS-IAWC-IAWC410"};
+	public List<String> getProject() {
+		return Arrays.asList("projectId", "CEAP", "NAWQA", "SACR BioTDB");
 	}
 
-	public String[] getManySiteId() throws IOException {
-		return getSourceFile("manySites.txt").split(",");
+	public List<String> getProviders() {
+		return Arrays.asList(NWIS, STEWARDS, STORET);
 	}
 
-	public String[] getSiteType() {
-		return new String[]{"siteType", "Lake, Reservoir, Impoundment", "Land", "Stream"};
+	public static ResultIdentifier getResult() {
+		return new ResultIdentifier("STORET-5");
 	}
 
-	public String[] getStartDateHi() {
-		return new String[]{"10-11-2012"};
+	public List<String> getSampleMedia() {
+		return Arrays.asList("sampleMedia", "Other", "Sediment", "Water");
 	}
 
-	public String[] getStartDateLo() {
-		return new String[]{"10-11-1995"};
+	public List<String> getSiteid() {
+		return Arrays.asList("organization-siteId", "organization-siteId2", "organization-siteId3", "11NPSWRD-BICA_MFG_B", "WIDNR_WQX-10030952", "USGS-05425700", "USGS-431925089002701", "ARS-IAWC-IAWC225", "ARS-IAWC-IAWC410");
 	}
 
-	public String[] getState() {
-		return new String[]{"XX:44", "US:19", "US:30", "US:55"};
+	public List<String> getManySiteId() throws IOException {
+		return Arrays.asList(getSourceFile("manySites.txt").split(","));
 	}
 
-	public String[] getSubjectTaxonomicName() {
-		return new String[]{"Acipenser", "Lota lota", "sampleTissueTaxonomicName"};
+	public List<String> getSiteType() {
+		return Arrays.asList("siteType", "Lake, Reservoir, Impoundment", "Land", "Stream");
 	}
 
-	public String[] getWithin() {
-		return new String[]{"650"};
+	public String getSiteUrlBase() {
+		return "http://siteUrlBase";
+	}
+
+	public String getStartDateHi() {
+		return "10-11-2012";
+	}
+
+	public String getStartDateLo() {
+		return "10-11-1995";
+	}
+
+	public List<String> getState() {
+		return Arrays.asList("XX:44", "US:19", "US:30", "US:55");
+	}
+
+	public List<String> getSubjectTaxonomicName() {
+		return Arrays.asList("Acipenser", "Lota lota", "sampleTissueTaxonomicName");
+	}
+
+	public String getWithin() {
+		return "650";
 	}
 
 	public void assertMapIsAsExpected(Map<String, Object> expectedRow, Map<String, Object> actualRow) {

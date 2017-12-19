@@ -92,7 +92,7 @@ public class ActivityMetricControllerIntTest extends BaseControllerIntegrationTe
 				+ "\",\"" + HEADER_STORET_ACTIVITY_COUNT + "\":\"" + FILTERED_STORET_ACTIVITY_COUNT
 				+ "\",\"" + HEADER_STORET_ACTIVITY_METRIC_COUNT + "\":\"" + FILTERED_STORET_ACTIVITY_METRIC_COUNT
 				+ "\"}";
-		postGetCountTest(urlPrefix, compareObject);
+		postGetCountTest(urlPrefix, compareObject, PROFILE);
 	}
 
 	public ResultActions unFilteredHeaderCheck(ResultActions resultActions) throws Exception {

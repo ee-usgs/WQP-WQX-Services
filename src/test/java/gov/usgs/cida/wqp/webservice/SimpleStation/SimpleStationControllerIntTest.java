@@ -100,7 +100,7 @@ public class SimpleStationControllerIntTest extends BaseControllerIntegrationTes
 		String fileType = JSON;
 
 		when(codesService.validate(any(Parameters.class), anyString())).thenReturn(true);
-		when(fetchService.fetch(any(String.class), any(URL.class))).thenReturn(getNldiSitesAsSet());
+		when(fetchService.fetch(any(String.class), any(URL.class))).thenReturn(getNldiSites());
 
 		assertEquals("", filteredHeaderCheck(callMockHead(url + getUrlParameters(), mimeType, getContentDisposition(PROFILE, fileType))).andReturn().getResponse().getContentAsString());
 

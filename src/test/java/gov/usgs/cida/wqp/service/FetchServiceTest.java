@@ -1,5 +1,7 @@
 package gov.usgs.cida.wqp.service;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.fail;
@@ -10,8 +12,8 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,7 +21,7 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import gov.usgs.cida.wqp.BaseSpringTest;
-import gov.usgs.cida.wqp.springinit.ParameterValidationConfig;
+import gov.usgs.cida.wqp.validation.NldiFetchValidator;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(FetchService.class)
@@ -27,9 +29,9 @@ public class FetchServiceTest extends BaseSpringTest {
 
 	protected FetchService service;
 
-	public static final Set<String> NLDI_IDENTIFIERS;
+	public static final List<String> NLDI_IDENTIFIERS;
 	static {
-		NLDI_IDENTIFIERS = new HashSet<String>();
+		NLDI_IDENTIFIERS = new ArrayList<String>();
 		NLDI_IDENTIFIERS.add("USGS-05427880");
 		NLDI_IDENTIFIERS.add("WIDNR_WQX-10001222");
 		NLDI_IDENTIFIERS.add("WIDNR_WQX-134002");
@@ -48,7 +50,7 @@ public class FetchServiceTest extends BaseSpringTest {
 	public void parseTest() {
 		service = new FetchService(1);
 		try {
-			assertSites(service.parse(ParameterValidationConfig.NLDI_WQP_FEATURE_IDENTIFIER, new ByteArrayInputStream(getSourceFile("navigation.geojson").getBytes())));
+			assertSites(service.parse(NldiFetchValidator.NLDI_WQP_FEATURE_IDENTIFIER, new ByteArrayInputStream(getSourceFile("navigation.geojson").getBytes())));
 		} catch (IOException e) {
 			fail(e.getLocalizedMessage());
 		}
@@ -64,16 +66,16 @@ public class FetchServiceTest extends BaseSpringTest {
 		when(conn.getInputStream()).thenReturn(new ByteArrayInputStream(getSourceFile("navigation.geojson").getBytes()));
 		
 		try {
-			assertSites(service.fetch(ParameterValidationConfig.NLDI_WQP_FEATURE_IDENTIFIER, url));
+			assertSites(service.fetch(NldiFetchValidator.NLDI_WQP_FEATURE_IDENTIFIER, url));
 		} catch (IOException e) {
 			fail(e.getLocalizedMessage());
 		}
 	}
 
-	private void assertSites(Set<String> sites){
+	private void assertSites(List<String> sites){
 		assertFalse(sites.isEmpty());
 		assertEquals(12, sites.size());
-		assertEquals(NLDI_IDENTIFIERS, sites);
+		assertThat(sites, containsInAnyOrder(NLDI_IDENTIFIERS.toArray()));
 	}
 
 }

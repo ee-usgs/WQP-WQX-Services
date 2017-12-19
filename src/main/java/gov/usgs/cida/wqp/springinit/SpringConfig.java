@@ -12,6 +12,7 @@ import static gov.usgs.cida.wqp.util.MimeType.xml;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -21,13 +22,18 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.PropertySources;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.env.Environment;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.util.AntPathMatcher;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import gov.usgs.cida.wqp.parameter.CustomStringArrayToListConverter;
+import gov.usgs.cida.wqp.parameter.CustomStringToArrayConverter;
+import gov.usgs.cida.wqp.parameter.CustomStringToListConverter;
 import gov.usgs.cida.wqp.util.WqpEnv;
 import gov.usgs.cida.wqp.util.WqpEnvProperties;
 
@@ -44,12 +50,28 @@ import gov.usgs.cida.wqp.util.WqpEnvProperties;
 	//This will override with values from the containers file if the file can be found
 	@PropertySource(value = WqpEnv.CONTAINER_PROPERTIES_FILE, ignoreResourceNotFound = true)
 })
-@Import({ParameterValidationConfig.class, MybatisConfig.class})
-public class SpringConfig extends WebMvcConfigurerAdapter implements EnvironmentAware {
+@Import(MybatisConfig.class)
+public class SpringConfig implements WebMvcConfigurer, EnvironmentAware {
 	private static final Logger LOG = LoggerFactory.getLogger(SpringConfig.class);
 
 	public SpringConfig() {
 		LOG.trace(getClass().getName());
+	}
+
+	@Autowired
+	CustomStringToArrayConverter customStringToArrayConverter;
+
+	@Autowired
+	CustomStringToListConverter customStringToListConverter;
+
+	@Autowired
+	CustomStringArrayToListConverter customStringArrayToListConverter;
+
+	@Override
+	public void addFormatters(FormatterRegistry registry) {
+		registry.addConverter(customStringToArrayConverter);
+		registry.addConverter(customStringToListConverter);
+		registry.addConverter(customStringArrayToListConverter);
 	}
 
 	@Override
@@ -149,4 +171,9 @@ public class SpringConfig extends WebMvcConfigurerAdapter implements Environment
 		return WqpEnv.getInt(WqpEnvProperties.NLDI_TIMEOUT_MILLI);
 	}
 
+	@Bean
+	public LocalValidatorFactoryBean validator() {
+		LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
+		return validator;
+	}
 }

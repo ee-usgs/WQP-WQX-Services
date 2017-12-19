@@ -101,7 +101,7 @@ public class ResDetectQntLmtControllerIntTest extends BaseControllerIntegrationT
 				+ "\",\"" + HEADER_STORET_RESULT_COUNT + "\":\"" + FILTERED_STORET_RESULT_COUNT
 				+ "\",\"" + HEADER_STORET_RES_DETECT_QNT_LMT_COUNT + "\":\"" + FILTERED_STORET_RES_DETECT_QNT_LMT_COUNT
 				+ "\"}";
-		postGetCountTest(urlPrefix, compareObject);
+		postGetCountTest(urlPrefix, compareObject, PROFILE);
 	}
 
 	public ResultActions unFilteredHeaderCheck(ResultActions resultActions) throws Exception {

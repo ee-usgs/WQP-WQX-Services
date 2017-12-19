@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Validator;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +22,7 @@ import gov.usgs.cida.wqp.dao.intfc.IStreamingDao;
 import gov.usgs.cida.wqp.mapping.Profile;
 import gov.usgs.cida.wqp.mapping.delimited.StationDelimited;
 import gov.usgs.cida.wqp.mapping.xml.IXmlMapping;
-import gov.usgs.cida.wqp.parameter.IParameterHandler;
+import gov.usgs.cida.wqp.parameter.FilterParameters;
 import gov.usgs.cida.wqp.service.ILogService;
 import gov.usgs.cida.wqp.swagger.SwaggerConfig;
 import gov.usgs.cida.wqp.swagger.annotation.FullParameterList;
@@ -29,6 +30,7 @@ import gov.usgs.cida.wqp.util.HttpConstants;
 import gov.usgs.cida.wqp.webservice.BaseController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import springfox.documentation.annotations.ApiIgnore;
 
 /**
  * Endpoints in this controller have been deprecated. Please use those in the StationController.
@@ -47,30 +49,30 @@ public class SimpleStationController extends BaseController {
 	protected final IXmlMapping xmlMapping;
 
 	@Autowired
-	public SimpleStationController(IStreamingDao inStreamingDao, ICountDao inCountDao, 
-			IParameterHandler inParameterHandler, ILogService inLogService,
+	public SimpleStationController(IStreamingDao inStreamingDao, ICountDao inCountDao, ILogService inLogService,
 			@Qualifier("maxResultRows") Integer inMaxResultRows,
 			@Qualifier("simpleStationWqxOutbound") IXmlMapping inXmlMapping,
 			@Qualifier("siteUrlBase") String inSiteUrlBase,
-			ContentNegotiationStrategy contentStrategy) {
-		super(inStreamingDao, inCountDao, inParameterHandler, inLogService, inMaxResultRows, inSiteUrlBase, contentStrategy);
+			ContentNegotiationStrategy contentStrategy,
+			Validator validator) {
+		super(inStreamingDao, inCountDao, inLogService, inMaxResultRows, inSiteUrlBase, contentStrategy, validator);
 		xmlMapping = inXmlMapping;
-		
+
 		LOG.trace(getClass().getName());
 	}
 
 	@ApiOperation(value="Return appropriate request headers (including anticipated record counts).")
 	@FullParameterList
 	@RequestMapping(method=RequestMethod.HEAD)
-	public void simpleStationHeadRequest(HttpServletRequest request, HttpServletResponse response) {
-		doHeadRequest(request, response);
+	public void simpleStationHeadRequest(HttpServletRequest request, HttpServletResponse response, @ApiIgnore FilterParameters filter) {
+		doHeadRequest(request, response, filter);
 	}
 
 	@ApiOperation(value="Return requested data.")
 	@FullParameterList
 	@GetMapping()
-	public void simpleStationGetRequest(HttpServletRequest request, HttpServletResponse response) {
-		doGetRequest(request, response);
+	public void simpleStationGetRequest(HttpServletRequest request, HttpServletResponse response, @ApiIgnore FilterParameters filter) {
+		doDataRequest(request, response, filter);
 	}
 
 	protected String addCountHeaders(HttpServletResponse response, List<Map<String, Object>> counts) {
@@ -89,12 +91,13 @@ public class SimpleStationController extends BaseController {
 	}
 
 	@Override
-	protected Profile determineProfile(Map<String, Object> pm) {
-		return determineProfile(Profile.SIMPLE_STATION, pm);
+	protected Profile determineProfile(FilterParameters filter) {
+		return determineProfile(Profile.SIMPLE_STATION, filter);
 	}
 
 	@Override
 	protected IXmlMapping getKmlMapping() {
 		return null;
 	}
+
 }

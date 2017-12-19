@@ -15,7 +15,6 @@ import gov.usgs.cida.wqp.CsvDataSetLoader;
 import gov.usgs.cida.wqp.DBIntegrationTest;
 import gov.usgs.cida.wqp.dao.NameSpace;
 import gov.usgs.cida.wqp.mapping.TestStationMap;
-import gov.usgs.cida.wqp.parameter.Parameters;
 
 @Category(DBIntegrationTest.class)
 @DatabaseSetup("classpath:/testData/csv/")
@@ -47,8 +46,8 @@ public class StationKmlStreamingTest extends BaseStationStreamingTest {
 	@Test
 	public void allDataSortedTest() {
 		//KML is sorted different than the rest.
-		parms.put(Parameters.SORTED.toString(), "yes");
-		streamingDao.stream(nameSpace, parms, handler);
+		filter.setSorted("yes");
+		streamingDao.stream(nameSpace, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		//Validate the number AND order of results.

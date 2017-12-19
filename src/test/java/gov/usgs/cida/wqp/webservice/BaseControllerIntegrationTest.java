@@ -14,8 +14,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static uk.co.datumedge.hamcrest.json.SameJSONAs.sameJSONObjectAs;
 
 import java.net.URL;
-import java.util.Arrays;
-import java.util.HashSet;
 
 import org.json.JSONObject;
 import org.junit.Before;
@@ -62,9 +60,9 @@ public abstract class BaseControllerIntegrationTest extends BaseSpringTest {
 	public String getUrlParameters() {
 		return
 			"&" + Parameters.ANALYTICAL_METHOD.toString() + "=" + String.join(";", getAnalyticalMethod()) +
-			"&" + Parameters.AVOID.toString() + "=" + String.join(";", getAvoid()) + 
+			"&" + Parameters.AVOID.toString() + "=" + getCommand().getAvoid() + 
 			"&" + Parameters.ASSEMBLAGE.toString() + "=" + String.join(";", getAssemblage()) +
-			"&" + Parameters.BBOX.toString() + "=" + String.join(",", getBBox()) +
+			"&" + Parameters.BBOX.toString() + "=" + getBBox().getSingle() +
 			"&" + Parameters.CHARACTERISTIC_NAME.toString() + "=" + String.join(";", getCharacteristicName()) +
 			"&" + Parameters.CHARACTERISTIC_TYPE.toString() + "=" + String.join(";", getCharacteristicType()) +
 			"&" + Parameters.COUNTRY.toString() + "=" + String.join(";", getCountry()) +
@@ -102,6 +100,10 @@ public abstract class BaseControllerIntegrationTest extends BaseSpringTest {
 		return profile.getBaseFileName() + "." + fileType;
 	}
 
+	protected String getJson(Profile profile) {
+		return "{\"" + Parameters.DATA_PROFILE.toString() + "\":\"" + profile.toString() + "\"}";
+	}
+
 	protected void getAsDelimitedTest(String url, String mimeType, String fileType, Profile profile, boolean isPostable) throws Exception {
 		assertEquals("", unFilteredHeaderCheck(callMockHead(url, mimeType, getContentDisposition(profile, fileType))).andReturn().getResponse().getContentAsString());
 
@@ -111,7 +113,7 @@ public abstract class BaseControllerIntegrationTest extends BaseSpringTest {
 		rtn = noResultHeaderCheck(callMockGet(url + getNoResultParameters(), mimeType, getContentDisposition(profile, fileType))).andReturn();
 		assertEquals(getCompareFile(profile, fileType, "NoResult"), rtn.getResponse().getContentAsString());
 		if (isPostable) {
-			rtn = unFilteredHeaderCheck(callMockPostJson(url, "{}", mimeType, getContentDisposition(profile, fileType))).andReturn();
+			rtn = unFilteredHeaderCheck(callMockPostJson(url, getJson(profile), mimeType, getContentDisposition(profile, fileType))).andReturn();
 			assertEquals(getCompareFile(profile, fileType, null), rtn.getResponse().getContentAsString());
 	
 			rtn = unFilteredHeaderCheck(callMockPostForm(url, mimeType, getContentDisposition(profile, fileType))).andReturn();
@@ -129,7 +131,7 @@ public abstract class BaseControllerIntegrationTest extends BaseSpringTest {
 		assertEquals(getCompareFile(profile, fileType, "NoResult"), extractZipContent(rtn.getResponse().getContentAsByteArray(), getFileName(profile, fileType)));
 
 		if (isPostable) {
-			rtn = unFilteredHeaderCheck(callMockPostJson(url, "{}", mimeType, getContentDisposition(profile, "zip"))).andReturn();
+			rtn = unFilteredHeaderCheck(callMockPostJson(url, getJson(profile), mimeType, getContentDisposition(profile, "zip"))).andReturn();
 			assertEquals(getCompareFile(profile, fileType, null), extractZipContent(rtn.getResponse().getContentAsByteArray(), getFileName(profile, fileType)));
 
 			rtn = unFilteredHeaderCheck(callMockPostForm(url, mimeType, getContentDisposition(profile, "zip"))).andReturn();
@@ -144,7 +146,7 @@ public abstract class BaseControllerIntegrationTest extends BaseSpringTest {
 		unFilteredHeaderCheck(callMockGet(url, mimeType, getContentDisposition(profile, fileType)));
 
 		if (isPostable) {
-			unFilteredHeaderCheck(callMockPostJson(url, "{}", mimeType, getContentDisposition(profile, fileType)));
+			unFilteredHeaderCheck(callMockPostJson(url, getJson(profile), mimeType, getContentDisposition(profile, fileType)));
 
 			unFilteredHeaderCheck(callMockPostForm(url, mimeType, getContentDisposition(profile, fileType)));
 		}
@@ -157,7 +159,7 @@ public abstract class BaseControllerIntegrationTest extends BaseSpringTest {
 		unFilteredHeaderCheck(callMockGet(url, mimeType, getContentDisposition(profile, "zip")));
 
 		if (isPostable) {
-			unFilteredHeaderCheck(callMockPostJson(url, "{}", mimeType, getContentDisposition(profile, "zip")));
+			unFilteredHeaderCheck(callMockPostJson(url, getJson(profile), mimeType, getContentDisposition(profile, "zip")));
 
 			unFilteredHeaderCheck(callMockPostForm(url, mimeType, getContentDisposition(profile, "zip")));
 		}
@@ -173,7 +175,7 @@ public abstract class BaseControllerIntegrationTest extends BaseSpringTest {
 		assertEquals(harmonizeXml(getCompareFile(profile, fileType, "NoResult")), harmonizeXml(rtn.getResponse().getContentAsString()));
 
 		if (isPostable) {
-			rtn = unFilteredHeaderCheck(callMockPostJson(url, "{}", mimeType, getContentDisposition(profile, fileType))).andReturn();
+			rtn = unFilteredHeaderCheck(callMockPostJson(url, getJson(profile), mimeType, getContentDisposition(profile, fileType))).andReturn();
 			assertEquals(harmonizeXml(getCompareFile(profile, fileType, null)), harmonizeXml(rtn.getResponse().getContentAsString()));
 	
 			rtn = unFilteredHeaderCheck(callMockPostForm(url, mimeType, getContentDisposition(profile, fileType))).andReturn();
@@ -191,7 +193,7 @@ public abstract class BaseControllerIntegrationTest extends BaseSpringTest {
 		assertEquals(harmonizeXml(getCompareFile(profile, fileType, "NoResult")), harmonizeXml(extractZipContent(rtn.getResponse().getContentAsByteArray(), getFileName(profile, fileType))));
 
 		if (isPostable) {
-			rtn = unFilteredHeaderCheck(callMockPostJson(url, "{}", mimeType, getContentDisposition(profile, "zip"))).andReturn();
+			rtn = unFilteredHeaderCheck(callMockPostJson(url, getJson(profile), mimeType, getContentDisposition(profile, "zip"))).andReturn();
 			assertEquals(harmonizeXml(getCompareFile(profile, fileType, null)), harmonizeXml(extractZipContent(rtn.getResponse().getContentAsByteArray(), getFileName(profile, fileType))));
 	
 			rtn = unFilteredHeaderCheck(callMockPostForm(url, mimeType, getContentDisposition(profile, "zip"))).andReturn();
@@ -209,7 +211,7 @@ public abstract class BaseControllerIntegrationTest extends BaseSpringTest {
 		assertEquals(harmonizeXml(getCompareFile(profile, fileType, "NoResult")), harmonizeXml(rtn.getResponse().getContentAsString()));
 
 		if (isPostable) {
-			rtn = unFilteredGeomHeaderCheck(callMockPostJson(url, "{}", mimeType, getContentDisposition(profile, fileType))).andReturn();
+			rtn = unFilteredGeomHeaderCheck(callMockPostJson(url, getJson(profile), mimeType, getContentDisposition(profile, fileType))).andReturn();
 			assertEquals(harmonizeXml(getCompareFile(profile, fileType, null)), harmonizeXml(rtn.getResponse().getContentAsString()));
 	
 			rtn = unFilteredGeomHeaderCheck(callMockPostForm(url, mimeType, getContentDisposition(profile, fileType))).andReturn();
@@ -227,7 +229,7 @@ public abstract class BaseControllerIntegrationTest extends BaseSpringTest {
 		assertEquals(harmonizeXml(getCompareFile(profile, KML, "NoResult")), harmonizeXml(extractZipContent(rtn.getResponse().getContentAsByteArray(), getFileName(profile, KML))));
 
 		if (isPostable) {
-			rtn = unFilteredGeomHeaderCheck(callMockPostJson(url, "{}", mimeType, getContentDisposition(profile, KMZ))).andReturn();
+			rtn = unFilteredGeomHeaderCheck(callMockPostJson(url, getJson(profile), mimeType, getContentDisposition(profile, KMZ))).andReturn();
 			assertEquals(harmonizeXml(getCompareFile(profile, KML, null)), harmonizeXml(extractZipContent(rtn.getResponse().getContentAsByteArray(), getFileName(profile, KML))));
 	
 			rtn = unFilteredGeomHeaderCheck(callMockPostForm(url, mimeType, getContentDisposition(profile, KMZ))).andReturn();
@@ -245,7 +247,7 @@ public abstract class BaseControllerIntegrationTest extends BaseSpringTest {
 		assertThat(new JSONObject(getCompareFile(profile, fileType, "NoResult")), sameJSONObjectAs(new JSONObject(rtn.getResponse().getContentAsString())));
 
 		if (isPostable) {
-			rtn = unFilteredGeomHeaderCheck(callMockPostJson(url, "{}", mimeType, getContentDisposition(profile, fileType))).andReturn();
+			rtn = unFilteredGeomHeaderCheck(callMockPostJson(url, getJson(profile), mimeType, getContentDisposition(profile, fileType))).andReturn();
 			assertThat(new JSONObject(getCompareFile(profile, fileType, null)), sameJSONObjectAs(new JSONObject(rtn.getResponse().getContentAsString())));
 	
 			rtn = unFilteredGeomHeaderCheck(callMockPostForm(url, mimeType, getContentDisposition(profile, fileType))).andReturn();
@@ -263,7 +265,7 @@ public abstract class BaseControllerIntegrationTest extends BaseSpringTest {
 		assertThat(new JSONObject(getCompareFile(profile, fileType, "NoResult")), sameJSONObjectAs(new JSONObject(extractZipContent(rtn.getResponse().getContentAsByteArray(), getFileName(profile, fileType)))));
 
 		if (isPostable) {
-			rtn = unFilteredGeomHeaderCheck(callMockPostJson(url, "{}", mimeType, getContentDisposition(profile, "zip"))).andReturn();
+			rtn = unFilteredGeomHeaderCheck(callMockPostJson(url, getJson(profile), mimeType, getContentDisposition(profile, "zip"))).andReturn();
 			assertThat(new JSONObject(getCompareFile(profile, fileType, null)), sameJSONObjectAs(new JSONObject(extractZipContent(rtn.getResponse().getContentAsByteArray(), getFileName(profile, fileType)))));
 	
 			rtn = unFilteredGeomHeaderCheck(callMockPostForm(url, mimeType, getContentDisposition(profile, "zip"))).andReturn();
@@ -272,7 +274,7 @@ public abstract class BaseControllerIntegrationTest extends BaseSpringTest {
 	}
 
 	protected void getAllParametersTest(String url, String mimeType, String fileType, Profile profile, boolean isPostable) throws Exception {
-		when(fetchService.fetch(any(String.class), any(URL.class))).thenReturn(getNldiSitesAsSet());
+		when(fetchService.fetch(any(String.class), any(URL.class))).thenReturn(getNldiSites());
 
 		assertEquals("", filteredHeaderCheck(callMockHead(url + getUrlParameters(), mimeType, getContentDisposition(profile, fileType))).andReturn().getResponse().getContentAsString());
 
@@ -280,7 +282,7 @@ public abstract class BaseControllerIntegrationTest extends BaseSpringTest {
 		assertEquals(getCompareFile(profile, fileType, "Filtered"), rtn.getResponse().getContentAsString());
 
 		if (isPostable) {
-			rtn = filteredHeaderCheck(callMockPostJson(url, getSourceFile("postParameters.json"), mimeType, getContentDisposition(profile, fileType))).andReturn();
+			rtn = filteredHeaderCheck(callMockPostJson(url, getSourceFile("postParameters.json").replace("[DATA_PROFILE]", profile.toString()), mimeType, getContentDisposition(profile, fileType))).andReturn();
 			assertEquals(getCompareFile(profile, fileType, "Filtered"), rtn.getResponse().getContentAsString());
 	
 			rtn = filteredHeaderCheck(callMockPostFormFiltered(url, mimeType, getContentDisposition(profile, fileType))).andReturn();
@@ -288,10 +290,10 @@ public abstract class BaseControllerIntegrationTest extends BaseSpringTest {
 		}
 	}
 
-	public void postGetCountTest(String urlPrefix, String compareObject) throws Exception {
-		when(fetchService.fetch(any(String.class), any(URL.class))).thenReturn(new HashSet<String>(Arrays.asList(getNldiSites())));
+	public void postGetCountTest(String urlPrefix, String compareObject, Profile profile) throws Exception {
+		when(fetchService.fetch(any(String.class), any(URL.class))).thenReturn(getNldiSites());
 
-		MvcResult rtn = filteredHeaderCheck(callMockPostJson(urlPrefix + JSON, getSourceFile("postParameters.json"), HttpConstants.MIME_TYPE_JSON, null))
+		MvcResult rtn = filteredHeaderCheck(callMockPostJson(urlPrefix + JSON, getSourceFile("postParameters.json").replace("[DATA_PROFILE]", profile.toString()), HttpConstants.MIME_TYPE_JSON, null))
 			.andReturn();
 	
 		assertThat(new JSONObject(rtn.getResponse().getContentAsString()),
@@ -361,11 +363,11 @@ public abstract class BaseControllerIntegrationTest extends BaseSpringTest {
 	public MockHttpServletRequestBuilder addFilters(MockHttpServletRequestBuilder requestBase) {
 		return requestBase
 				.param(Parameters.ANALYTICAL_METHOD.toString(), String.join(";", getAnalyticalMethod()))
-				.param(Parameters.BBOX.toString(), String.join(",", getBBox()))
+				.param(Parameters.BBOX.toString(),getBBox().getSingle())
 				.param(Parameters.ASSEMBLAGE.toString(), String.join(";", getAssemblage()))
 				.param(Parameters.CHARACTERISTIC_NAME.toString(), String.join(";", getCharacteristicName()))
 				.param(Parameters.CHARACTERISTIC_TYPE.toString(), String.join(";", getCharacteristicType()))
-				.param(Parameters.AVOID.toString(), String.join(";", getAvoid()))
+				.param(Parameters.AVOID.toString(), getCommand().getAvoid())
 				.param(Parameters.COUNTRY.toString(), String.join(";", getCountry()))
 				.param(Parameters.COUNTY.toString(), String.join(";", getCounty()))
 				.param(Parameters.HUC.toString(), String.join(";", getHuc()))

@@ -4,55 +4,49 @@ import static gov.usgs.cida.wqp.swagger.model.StationCountJson.BIODATA;
 import static gov.usgs.cida.wqp.swagger.model.StationCountJson.NWIS;
 import static gov.usgs.cida.wqp.swagger.model.StationCountJson.STEWARDS;
 import static gov.usgs.cida.wqp.swagger.model.StationCountJson.STORET;
-
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.github.springtestdbunit.annotation.DbUnitConfiguration;
-
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.junit.After;
 import org.junit.Before;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import gov.usgs.cida.wqp.CsvDataSetLoader;
-import gov.usgs.cida.wqp.DBIntegrationTest;
-import gov.usgs.cida.wqp.dao.NameSpace;
+import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 
 import gov.usgs.cida.wqp.BaseSpringTest;
+import gov.usgs.cida.wqp.CsvDataSetLoader;
+import gov.usgs.cida.wqp.DBIntegrationTest;
 import gov.usgs.cida.wqp.dao.CountDao;
+import gov.usgs.cida.wqp.dao.NameSpace;
 import gov.usgs.cida.wqp.mapping.BaseColumn;
 import gov.usgs.cida.wqp.mapping.CountColumn;
-import gov.usgs.cida.wqp.parameter.Parameters;
+import gov.usgs.cida.wqp.parameter.FilterParameters;
 
 
 @Category(DBIntegrationTest.class)
 @DatabaseSetup("classpath:/testData/csv/")
 @DbUnitConfiguration(dataSetLoader = CsvDataSetLoader.class)
 public class CountDaoProjectTest extends BaseSpringTest {
-	private static final Logger LOG = LoggerFactory.getLogger(CountDaoProjectTest.class);
 
 	@Autowired
 	CountDao countDao;
 
-	Map<String, Object> parms;
+	FilterParameters filter;
 
 	@Before
 	public void init() {
-		parms = new HashMap<>();
+		filter = new FilterParameters();
 	}
 
 	@After
 	public void cleanup() {
-		parms = null;
+		filter = null;
 	}
 
 	@Test
@@ -63,31 +57,31 @@ public class CountDaoProjectTest extends BaseSpringTest {
 
 	@Test
 	public void emptyParameterTest() {
-		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT, parms);
+		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT, filter);
 		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 5, TOTAL_PROJECT_COUNT, NWIS_PROJECT_COUNT, STEWARDS_PROJECT_COUNT, STORET_PROJECT_COUNT, BIODATA_PROJECT_COUNT);
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//Single Parameter Counts against activity_sum
 
 	@Test
 	public void sampleMediaTest() {
-		parms.put(Parameters.SAMPLE_MEDIA.toString(), getSampleMedia());
-		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT, parms);
+		filter.setSampleMedia(getSampleMedia());
+		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT, filter);
 		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 5, "9", "1", "1", "6", "1");
 	}
 
 	@Test
 	public void startDateHiTest() {
-		parms.put(Parameters.START_DATE_HI.toString(), getStartDateHi());
-		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT, parms);
+		filter.setStartDateHi(getStartDateHi());
+		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT, filter);
 		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 5, "9", "1", "1", "6", "1");
 	}
 
 	@Test
 	public void startDateLoTest() {
-		parms.put(Parameters.START_DATE_LO.toString(), getStartDateLo());
-		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT, parms);
+		filter.setStartDateLo(getStartDateLo());
+		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT, filter);
 		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 5, "6", "1", "1", "3", "1");
 	}
 
@@ -96,43 +90,43 @@ public class CountDaoProjectTest extends BaseSpringTest {
 
 	@Test
 	public void analyticalMethodTest() {
-		parms.put(Parameters.ANALYTICAL_METHOD.toString(), getAnalyticalMethod());
-		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT, parms);
+		filter.setAnalyticalmethod(getAnalyticalMethod());
+		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT, filter);
 		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 3, "4", "1", null, "3", null);
 	}
 
 	@Test
 	public void assemblageTest() {
-		parms.put(Parameters.ASSEMBLAGE.toString(), getAssemblage());
-		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT, parms);
+		filter.setAssemblage(getAssemblage());
+		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT, filter);
 		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 3, "4", null, null, "3", "1");
 	}
 
 	@Test
 	public void characteristicNameTest() {
-		parms.put(Parameters.CHARACTERISTIC_NAME.toString(), getCharacteristicName());
-		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT, parms);
+		filter.setCharacteristicName(getCharacteristicName());
+		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT, filter);
 		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 2, "3", null, null, "3", null);
 	}
 
 	@Test
 	public void characteristicTypeTest() {
-		parms.put(Parameters.CHARACTERISTIC_TYPE.toString(), getCharacteristicType());
-		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT, parms);
+		filter.setCharacteristicType(getCharacteristicType());
+		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT, filter);
 		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 3, "4", null, "1", "3", null);
 	}
 
 	@Test
 	public void pcodeTest() {
-		parms.put(Parameters.PCODE.toString(), getPcode());
-		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT, parms);
+		filter.setPCode(getPcode());
+		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT, filter);
 		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 3, "4", "1", null, "3", null);
 	}
 
 	@Test
 	public void subjectTaxonomicNameTest() {
-		parms.put(Parameters.SUBJECT_TAXONOMIC_NAME.toString(), getSubjectTaxonomicName());
-		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT, parms);
+		filter.setSubjectTaxonomicName(getSubjectTaxonomicName());
+		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT, filter);
 		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 3, "2", null, null, "1", "1");
 	}
 
@@ -140,108 +134,104 @@ public class CountDaoProjectTest extends BaseSpringTest {
 
 	@Test
 	public void multipleParameterActivitySumTest() {
-		parms.put(Parameters.AVOID.toString().replace(".", ""), getAvoid());
-		parms.put(Parameters.BBOX.toString(), getBBox());
-		parms.put(Parameters.COUNTRY.toString(), getCountry());
-		parms.put(Parameters.COUNTY.toString(), getCounty());
-		parms.put(Parameters.HUC.toString(), getHuc());
-		parms.put(Parameters.LATITUDE.toString(), getLatitude());
-		parms.put(Parameters.LONGITUDE.toString(), getLongitude());
-		parms.put(Parameters.MIN_ACTIVITIES.toString(), getMinActivities());
-		parms.put(Parameters.MIN_RESULTS.toString(), getMinResults());
-		parms.put(Parameters.NLDIURL.toString(), getNldiSites());
-		parms.put(Parameters.ORGANIZATION.toString(), getOrganization());
-		parms.put(Parameters.PROVIDERS.toString(), getProviders());
-		parms.put(Parameters.SITEID.toString(), getSiteid());
-		parms.put(Parameters.SITE_TYPE.toString(), getSiteType());
-		parms.put(Parameters.STATE.toString(), getState());
-		parms.put(Parameters.WITHIN.toString(), getWithin());
-		parms.put(Parameters.AVOID.toString().replace(".", ""), getAvoid());
-		parms.put(Parameters.MIN_ACTIVITIES.toString(), getMinActivities());
-		parms.put(Parameters.MIN_RESULTS.toString(), getMinResults());
-		parms.put(Parameters.PROJECT.toString(), getProject());
-		parms.put(Parameters.SAMPLE_MEDIA.toString(), getSampleMedia());
-		parms.put(Parameters.START_DATE_HI.toString(), getStartDateHi());
-		parms.put(Parameters.START_DATE_LO.toString(), getStartDateLo());
-		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT, parms);
+		filter.setCommand(getCommand());
+		filter.setBBox(getBBox());
+		filter.setCountrycode(getCountry());
+		filter.setCountycode(getCounty());
+		filter.setHuc(getHuc());
+		filter.setLat(getLatitude());
+		filter.setLong(getLongitude());
+		filter.setMinactivities(getMinActivities());
+		filter.setMinresults(getMinResults());
+		filter.setNldiSites(getNldiSites());
+		filter.setOrganization(getOrganization());
+		filter.setProviders(getProviders());
+		filter.setSiteid(getSiteid());
+		filter.setSiteType(getSiteType());
+		filter.setStatecode(getState());
+		filter.setWithin(getWithin());
+		filter.setProject(getProject());
+		filter.setSampleMedia(getSampleMedia());
+		filter.setStartDateHi(getStartDateHi());
+		filter.setStartDateLo(getStartDateLo());
+		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT, filter);
 		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 2, "1", null, null, "1", null);
 	}
 
 	@Test
 	public void multipleParameterActivitySumStationSumTest() {
-		parms.put(Parameters.AVOID.toString().replace(".", ""), getAvoid());
-		parms.put(Parameters.BBOX.toString(), getBBox());
-		parms.put(Parameters.LATITUDE.toString(), getLatitude());
-		parms.put(Parameters.LONGITUDE.toString(), getLongitude());
-		parms.put(Parameters.MIN_ACTIVITIES.toString(), getMinActivities());
-		parms.put(Parameters.MIN_RESULTS.toString(), getMinResults());
-		parms.put(Parameters.PROJECT.toString(), getProject());
-		parms.put(Parameters.SAMPLE_MEDIA.toString(), getSampleMedia());
-		parms.put(Parameters.START_DATE_HI.toString(), getStartDateHi());
-		parms.put(Parameters.START_DATE_LO.toString(), getStartDateLo());
-		parms.put(Parameters.WITHIN.toString(), getWithin());
-		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT, parms);
+		filter.setCommand(getCommand());
+		filter.setBBox(getBBox());
+		filter.setLat(getLatitude());
+		filter.setLong(getLongitude());
+		filter.setMinactivities(getMinActivities());
+		filter.setMinresults(getMinResults());
+		filter.setProject(getProject());
+		filter.setSampleMedia(getSampleMedia());
+		filter.setStartDateHi(getStartDateHi());
+		filter.setStartDateLo(getStartDateLo());
+		filter.setWithin(getWithin());
+		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT, filter);
 		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 2, "1", null, null, "1", null);
 	}
 
 	@Test
 	public void multipleParameterResultSumTest() {
-		parms.put(Parameters.ANALYTICAL_METHOD.toString(), getAnalyticalMethod());
-		parms.put(Parameters.AVOID.toString().replace(".", ""), getAvoid());
-		parms.put(Parameters.ASSEMBLAGE.toString(), getAssemblage());
-		parms.put(Parameters.CHARACTERISTIC_NAME.toString(), getCharacteristicName());
-		parms.put(Parameters.CHARACTERISTIC_TYPE.toString(), getCharacteristicType());
-		parms.put(Parameters.COUNTRY.toString(), getCountry());
-		parms.put(Parameters.COUNTY.toString(), getCounty());
-		parms.put(Parameters.HUC.toString(), getHuc());
-		parms.put(Parameters.MIN_ACTIVITIES.toString(), getMinActivities());
-		parms.put(Parameters.MIN_RESULTS.toString(), getMinResults());
-		parms.put(Parameters.NLDIURL.toString(), getNldiSites());
-		parms.put(Parameters.ORGANIZATION.toString(), getOrganization());
-		parms.put(Parameters.PCODE.toString(), getPcode());
-		parms.put(Parameters.PROJECT.toString(), getProject());
-		parms.put(Parameters.PROVIDERS.toString(), getProviders());
-		parms.put(Parameters.SAMPLE_MEDIA.toString(), getSampleMedia());
-		parms.put(Parameters.SITEID.toString(), getSiteid());
-		parms.put(Parameters.SITE_TYPE.toString(), getSiteType());
-		parms.put(Parameters.STATE.toString(), getState());
-		parms.put(Parameters.START_DATE_HI.toString(), getStartDateHi());
-		parms.put(Parameters.START_DATE_LO.toString(), getStartDateLo());
-		parms.put(Parameters.SUBJECT_TAXONOMIC_NAME.toString(), getSubjectTaxonomicName());
-		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT, parms);
+		filter.setAnalyticalmethod(getAnalyticalMethod());
+		filter.setCommand(getCommand());
+		filter.setAssemblage(getAssemblage());
+		filter.setCharacteristicName(getCharacteristicName());
+		filter.setCharacteristicType(getCharacteristicType());
+		filter.setCountrycode(getCountry());
+		filter.setCountycode(getCounty());
+		filter.setHuc(getHuc());
+		filter.setMinactivities(getMinActivities());
+		filter.setMinresults(getMinResults());
+		filter.setNldiSites(getNldiSites());
+		filter.setOrganization(getOrganization());
+		filter.setPCode(getPcode());
+		filter.setProject(getProject());
+		filter.setProviders(getProviders());
+		filter.setSampleMedia(getSampleMedia());
+		filter.setSiteid(getSiteid());
+		filter.setSiteType(getSiteType());
+		filter.setStatecode(getState());
+		filter.setStartDateHi(getStartDateHi());
+		filter.setStartDateLo(getStartDateLo());
+		filter.setSubjectTaxonomicName(getSubjectTaxonomicName());
+		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT, filter);
 		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 2, "1", null, null, "1", null);
 	}
 
 	@Test
 	public void multipleParameterResultSumActivitySumTests() {
-		parms.clear();
-		parms.put(Parameters.ANALYTICAL_METHOD.toString(), getAnalyticalMethod());
-		parms.put(Parameters.AVOID.toString().replace(".", ""), getAvoid());
-		parms.put(Parameters.ASSEMBLAGE.toString(), getAssemblage());
-		parms.put(Parameters.BBOX.toString(), getBBox());
-		parms.put(Parameters.CHARACTERISTIC_NAME.toString(), getCharacteristicName());
-		parms.put(Parameters.CHARACTERISTIC_TYPE.toString(), getCharacteristicType());
-		parms.put(Parameters.COUNTRY.toString(), getCountry());
-		parms.put(Parameters.COUNTY.toString(), getCounty());
-		parms.put(Parameters.HUC.toString(), getHuc());
-		parms.put(Parameters.LATITUDE.toString(), getLatitude());
-		parms.put(Parameters.LONGITUDE.toString(), getLongitude());
-		parms.put(Parameters.MIN_ACTIVITIES.toString(), getMinActivities());
-		parms.put(Parameters.MIN_RESULTS.toString(), getMinResults());
-		parms.put(Parameters.NLDIURL.toString(), getNldiSites());
-		parms.put(Parameters.ORGANIZATION.toString(), getOrganization());
-		parms.put(Parameters.PCODE.toString(), getPcode());
-		parms.put(Parameters.PROJECT.toString(), getProject());
-		parms.put(Parameters.PROVIDERS.toString(), getProviders());
-		parms.put(Parameters.SAMPLE_MEDIA.toString(), getSampleMedia());
-		parms.put(Parameters.SITEID.toString(), getSiteid());
-		parms.put(Parameters.SITE_TYPE.toString(), getSiteType());
-		parms.put(Parameters.START_DATE_HI.toString(), getStartDateHi());
-		parms.put(Parameters.START_DATE_LO.toString(), getStartDateLo());
-		parms.put(Parameters.STATE.toString(), getState());
-		parms.put(Parameters.SUBJECT_TAXONOMIC_NAME.toString(), getSubjectTaxonomicName());
-		parms.put(Parameters.WITHIN.toString(), getWithin());
-		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT, parms);
+		filter.setAnalyticalmethod(getAnalyticalMethod());
+		filter.setCommand(getCommand());
+		filter.setAssemblage(getAssemblage());
+		filter.setBBox(getBBox());
+		filter.setCharacteristicName(getCharacteristicName());
+		filter.setCharacteristicType(getCharacteristicType());
+		filter.setCountrycode(getCountry());
+		filter.setCountycode(getCounty());
+		filter.setHuc(getHuc());
+		filter.setLat(getLatitude());
+		filter.setLong(getLongitude());
+		filter.setMinactivities(getMinActivities());
+		filter.setMinresults(getMinResults());
+		filter.setNldiSites(getNldiSites());
+		filter.setOrganization(getOrganization());
+		filter.setPCode(getPcode());
+		filter.setProject(getProject());
+		filter.setProviders(getProviders());
+		filter.setSampleMedia(getSampleMedia());
+		filter.setSiteid(getSiteid());
+		filter.setSiteType(getSiteType());
+		filter.setStartDateHi(getStartDateHi());
+		filter.setStartDateLo(getStartDateLo());
+		filter.setStatecode(getState());
+		filter.setSubjectTaxonomicName(getSubjectTaxonomicName());
+		filter.setWithin(getWithin());
+		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT, filter);
 		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 2, "1", null, null, "1", null);
 	}
 

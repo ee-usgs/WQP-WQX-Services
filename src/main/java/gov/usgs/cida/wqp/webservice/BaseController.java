@@ -4,7 +4,6 @@ import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.math.BigDecimal;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,7 +12,10 @@ import java.util.zip.ZipOutputStream;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.ResultHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,9 +34,7 @@ import gov.usgs.cida.wqp.mapping.BaseColumn;
 import gov.usgs.cida.wqp.mapping.CountColumn;
 import gov.usgs.cida.wqp.mapping.Profile;
 import gov.usgs.cida.wqp.mapping.xml.IXmlMapping;
-import gov.usgs.cida.wqp.parameter.IParameterHandler;
-import gov.usgs.cida.wqp.parameter.ParameterMap;
-import gov.usgs.cida.wqp.parameter.Parameters;
+import gov.usgs.cida.wqp.parameter.FilterParameters;
 import gov.usgs.cida.wqp.service.ILogService;
 import gov.usgs.cida.wqp.transform.MapToDelimitedTransformer;
 import gov.usgs.cida.wqp.transform.MapToJsonTransformer;
@@ -50,13 +50,13 @@ public abstract class BaseController {
 
 	protected final IStreamingDao streamingDao;
 	protected final ICountDao countDao;
-	protected final IParameterHandler parameterHandler;
 	protected final ILogService logService;
 	protected final Integer maxResultRows;
 	protected final String siteUrlBase;
 	protected final ContentNegotiationStrategy contentStrategy;
+	protected final Validator validator;
 
-	private static ThreadLocal<ParameterMap> pm = new ThreadLocal<>();
+	private static ThreadLocal<FilterParameters> filter = new ThreadLocal<>();
 	private static ThreadLocal<MimeType> mimeType = new ThreadLocal<>();
 	private static ThreadLocal<Boolean> zipped = new ThreadLocal<>();
 	private static ThreadLocal<BigDecimal> logId = new ThreadLocal<>();
@@ -64,26 +64,26 @@ public abstract class BaseController {
 	private static ThreadLocal<NameSpace> mybatisNamespace = new ThreadLocal<>();
 	private static ThreadLocal<Profile> profile = new ThreadLocal<>();
 
-	public BaseController(IStreamingDao inStreamingDao, ICountDao inCountDao,
-			IParameterHandler inParameterHandler, ILogService inLogService,
-			Integer inMaxResultRows, String inSiteUrlBase, ContentNegotiationStrategy inContentStrategy) {
+	public BaseController(IStreamingDao inStreamingDao, ICountDao inCountDao, ILogService inLogService,
+			Integer inMaxResultRows, String inSiteUrlBase, ContentNegotiationStrategy inContentStrategy,
+			Validator inValidator) {
 		LOG.trace(getClass().getName());
 
 		streamingDao = inStreamingDao;
-		parameterHandler = inParameterHandler;
 		countDao = inCountDao;
 		logService = inLogService;
 		maxResultRows = inMaxResultRows;
 		siteUrlBase = inSiteUrlBase;
 		contentStrategy = inContentStrategy;
+		validator = inValidator;
 	}
 
-	public static ParameterMap getPm() {
-		return pm.get();
+	public static FilterParameters getFilter() {
+		return filter.get();
 	}
 
-	public static void setPm(ParameterMap inPm) {
-		pm.set(inPm);
+	public static void setFilter(FilterParameters inFilter) {
+		filter.set(inFilter);
 	}
 
 	public static MimeType getMimeType() {
@@ -135,7 +135,7 @@ public abstract class BaseController {
 	}
 
 	public static void remove() {
-		pm.remove();
+		filter.remove();
 		mimeType.remove();
 		zipped.remove();
 		logId.remove();
@@ -145,11 +145,12 @@ public abstract class BaseController {
 	}
 
 	protected void determineZipped(MediaType mediaType) {
-		String zipParam = "no";
-		if (null != getPm() && getPm().getQueryParameters().containsKey(Parameters.ZIP.toString())) {
-			zipParam = (String) getPm().getQueryParameters().get(Parameters.ZIP.toString());
+		Boolean isZipFilter = false;
+		FilterParameters filter = getFilter();
+		if (null != filter && StringUtils.isNotBlank(filter.getZip())) {
+			isZipFilter = StringUtils.containsAny("yes", filter.getZip().trim());
 		}
-		setZipped("yes".equalsIgnoreCase(zipParam) || MimeType.kmz.getMediaType().equals(mediaType));
+		setZipped(MimeType.kmz.getMediaType().equals(mediaType) || isZipFilter);
 	}
 
 	protected OutputStream getOutputStream(HttpServletResponse response, boolean zipped, String fileName) {
@@ -217,35 +218,45 @@ public abstract class BaseController {
 		return ret.toString();
 	}
 
-	protected void doHeadRequest(HttpServletRequest request, HttpServletResponse response) {
-		LOG.info("Processing Head: {}", request.getQueryString());
-		setLogId(logService.logRequest(request, response, null));
+	protected void doHeadRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter, String mimeType, String zip) {
+		if (StringUtils.isNotBlank(mimeType)) {
+			filter.setMimeType(mimeType);
+		}
+		if (StringUtils.isNotBlank(zip)) {
+			filter.setZip(zip);
+		}
+		doHeadRequest(request, response, filter);
+	}
+
+	protected void doHeadRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter) {
+		LOG.info("Processing Head: {}", filter.toJson());
 
 		try {
-			doCommonSetup(request, response, null);
+			doCommonSetup(request, response, filter);
 		} finally {
 			logService.logRequestComplete(getLogId(), String.valueOf(response.getStatus()));
-			LOG.info("Processing Head complete: {}", request.getQueryString());
+			LOG.info("Processing Head complete: {}", filter.toJson());
 			remove();
 		}
 	}
 
-	protected boolean doCommonSetup(HttpServletRequest request, HttpServletResponse response, Map<String, Object> postParms) {
+	protected boolean doCommonSetup(HttpServletRequest request, HttpServletResponse response, FilterParameters filter) {
+		setLogId(logService.logRequest(request, response, filter));
+
 		response.setCharacterEncoding(HttpConstants.DEFAULT_ENCODING);
-		processParameters(request, postParms);
-		if (!getPm().isValid() ) {
-			writeWarningHeaders(response, getPm().getValidationMessages());
-			LOG.info("Processing Head invalid params end:{}", getPm().getValidationMessages());
+		if (!processParameters(filter)) {
+			writeWarningHeaders(response);
+			LOG.info("Processing Head invalid params end:{}", null != getFilter() ? getFilter().getValidationErrors() : "No Filter");
 			return false;
 		}
 
 		determineContentType(request);
-		setProfile(determineProfile(getPm().getQueryParameters()));
+		setProfile(determineProfile(getFilter()));
 		setMybatisNamespace(determineNamespace());
 
 		addCustomRequestParams();
 
-		List<Map<String, Object>> counts = countDao.getCounts(getMybatisNamespace(), getPm().getQueryParameters());
+		List<Map<String, Object>> counts = countDao.getCounts(getMybatisNamespace(), getFilter());
 
 		response.setCharacterEncoding(HttpConstants.DEFAULT_ENCODING);
 		response.addHeader(HttpConstants.HEADER_CONTENT_TYPE, getContentHeader());
@@ -259,16 +270,25 @@ public abstract class BaseController {
 
 		logService.logHeadComplete(response, getLogId());
 
-		return checkMaxRows(response, response.getHeader(totalHeader));
+		return checkMaxRows(response, totalHeader);
 	}
 
 	protected void determineContentType(HttpServletRequest request) {
 		try {
+			MediaType mediaType = MediaType.APPLICATION_XML;
 			List<MediaType> mediaTypes = contentStrategy.resolveMediaTypes(new ServletWebRequest(request));
-			if (mediaTypes.size() > 1) {
-				LOG.info("More than one choice:" + mediaTypes.size());
+			switch (mediaTypes.size()) {
+			case 0:
+				LOG.info("Didn't get any content type choice.");
+				break;
+			case 1:
+				mediaType = mediaTypes.get(0);
+				break;
+			default:
+				mediaType = mediaTypes.get(0);
+				LOG.info("Got multiple content type choices: " + mediaTypes.size());
+				break;
 			}
-			MediaType mediaType = mediaTypes.get(0);
 			determineZipped(mediaType);
 			setMimeType(determineMimeType(MimeType.csv.fromMediaType(mediaType)));
 		} catch (HttpMediaTypeNotAcceptableException e) {
@@ -277,13 +297,15 @@ public abstract class BaseController {
 		}
 	}
 
-	protected boolean checkMaxRows(HttpServletResponse response, String totalRows) {
+	protected boolean checkMaxRows(HttpServletResponse response, String totalHeader) {
+		Integer totalRows = Integer.valueOf(response.getHeader(totalHeader));
+		FilterParameters filter = getFilter();
 		switch (getMimeType()) {
 		case kml:
 		case kmz:
 		case xml:
-			if (Integer.valueOf(totalRows) <= maxResultRows) {
-				getPm().getQueryParameters().put(Parameters.SORTED.toString(), "yes");
+			if (totalRows <= maxResultRows) {
+				filter.setSorted("yes");
 				return true;
 			} else {
 				response.setStatus(HttpStatus.BAD_REQUEST.value());
@@ -291,42 +313,31 @@ public abstract class BaseController {
 				return false;
 			}
 		default:
-			if (Integer.valueOf(totalRows) > maxResultRows) {
-				getPm().getQueryParameters().put(Parameters.SORTED.toString(), "no");
+			if (totalRows > maxResultRows) {
+				filter.setSorted("no");
 				response.addHeader(HttpConstants.HEADER_WARNING, "This query will return in excess of " + maxResultRows + " results, the data will not be sorted.");
 			} else {
-				if (!getPm().getQueryParameters().containsKey(Parameters.SORTED.toString())) {
-					getPm().getQueryParameters().put(Parameters.SORTED.toString(), "yes");
+				if (null != filter && StringUtils.isBlank(filter.getSorted())) {
+					filter.setSorted("yes");
 				}
 			}
 			return true;
 		}
 	}
 
-	protected void processParameters(HttpServletRequest request, Map<String, Object> postParms) {
-		setPm(new ParameterMap());
-		Object pathVariables = request.getAttribute("org.springframework.web.servlet.View.pathVariables");
-		if (isValidRequest(request, postParms, pathVariables)) {
-			LOG.trace("got parameters");
-			Map<String, String[]> requestParams = new HashMap<>(request.getParameterMap());
-			LOG.debug("requestParams: {}", requestParams);
-			setPm(parameterHandler.validateAndTransform(requestParams, postParms, pathVariables));
-			LOG.debug("pm: {}", getPm());
-			LOG.debug("queryParms: {}", getPm().getQueryParameters());
-		} else {
+	protected boolean processParameters(FilterParameters filter) {
+		boolean rtn = false;
+		if (null == filter || filter.isEmpty()) {
 			LOG.debug("No parameters");
-			getPm().setValid(false);
+		} else {
+			LOG.trace("got parameters");
+			LOG.debug("requestParams: {}", filter.toJson());
+			filter.setValidationErrors(validator.validate(filter));
+			LOG.debug("errors: " + filter.getValidationErrors().toString());
+			setFilter(filter);
+			rtn = filter.isValid();
 		}
-	}
-
-	protected boolean isValidRequest(HttpServletRequest request, Map<String, Object> postParms, Object pathVariables) {
-		if (null != request && null != request.getParameterMap() && !request.getParameterMap().isEmpty()) {
-			return true;
-		}
-		if (null != postParms && !postParms.isEmpty()) {
-			return true;
-		}
-		return null != pathVariables;
+		return rtn;
 	}
 
 	protected abstract String addCountHeaders(HttpServletResponse response, List<Map<String, Object>> counts);
@@ -335,131 +346,18 @@ public abstract class BaseController {
 		//default is to add nothing
 	};
 
-	protected void doGetRequest(HttpServletRequest request, HttpServletResponse response) {
-		LOG.info("Processing Get: {}", request.getQueryString());
-		setLogId(logService.logRequest(request, response, null));
-		OutputStream responseStream = null;
-		String realHttpStatus = String.valueOf(response.getStatus());
-
-		try {
-			if (doCommonSetup(request, response, null)) {
-				responseStream = getOutputStream(response, getZipped(), determineZipEntryName());
-				Transformer transformer = getTransformer(responseStream, getLogId());
-
-				ResultHandler<?> handler = new StreamingResultHandler(transformer);
-				streamingDao.stream(getMybatisNamespace(), getPm().getQueryParameters(), handler);
-
-				transformer.end();
-
-			}
-		} catch (Throwable e) {
-			response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
-			int hashValue = response.hashCode();
-			realHttpStatus = HttpStatus.INTERNAL_SERVER_ERROR.toString() + "-" + hashValue;
-			//Note: we are giving the user a generic message.  
-			//Server logs can be used to troubleshoot problems.
-			String msgText = "Something bad happened. Contact us with Reference Number: " + hashValue;
-			LOG.error("logId: {}", BaseController.getLogId());
-			LOG.error("status: {}", HttpStatus.INTERNAL_SERVER_ERROR.value());
-			LOG.error(msgText, e);
-			response.addHeader(HttpConstants.HEADER_FATAL_ERROR, msgText);
-			if (null != responseStream) {
-				try {
-					responseStream.write(msgText.getBytes(HttpConstants.DEFAULT_ENCODING));
-				} catch (IOException e2) {
-					//Just log, cause we obviously can't tell the client
-					LOG.error("Error telling client about exception", e2);
-				}
-			}
-		} finally {
-			if (null != responseStream) {
-				try {
-					if (getZipped()) {
-						closeZip(responseStream);
-					}
-				} catch (Throwable e) {
-					//Just log, cause we obviously can't tell the client
-					LOG.error("Error closing zip", e);
-				}
-				try {
-					responseStream.flush();
-				} catch (IOException e) {
-					//Just log, cause we obviously can't tell the client
-					LOG.error("Error flushing response stream", e);
-				}
-			}
-			LOG.info("Processing Get complete: {}", request.getQueryString());
-			logService.logRequestComplete(getLogId(), realHttpStatus);
-			remove();
-		}
-	}
-
-	protected void doPostRequest(HttpServletRequest request, HttpServletResponse response, Map<String, Object> postParms) {
-		LOG.info("Processing Post: {}", postParms);
-		setLogId(logService.logRequest(request, response, postParms));
-		OutputStream responseStream = null;
-		String realHttpStatus = String.valueOf(response.getStatus());
-
-		try {
-			if (doCommonSetup(request, response, postParms)) {
-				responseStream = getOutputStream(response, getZipped(), determineZipEntryName());
-				Transformer transformer = getTransformer(responseStream, getLogId());
-
-				ResultHandler<?> handler = new StreamingResultHandler(transformer);
-				streamingDao.stream(getMybatisNamespace(), getPm().getQueryParameters(), handler);
-
-				transformer.end();
-
-			}
-		} catch (Throwable e) {
-			response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
-			int hashValue = response.hashCode();
-			realHttpStatus = HttpStatus.INTERNAL_SERVER_ERROR.toString() + "-" + hashValue;
-			//Note: we are giving the user a generic message.  
-			//Server logs can be used to troubleshoot problems.
-			String msgText = "Something bad happened. Contact us with Reference Number: " + hashValue;
-			LOG.error("logId: {}", BaseController.getLogId());
-			LOG.error("status: {}", HttpStatus.INTERNAL_SERVER_ERROR.value());
-			LOG.error(msgText, e);
-			response.addHeader(HttpConstants.HEADER_FATAL_ERROR, msgText);
-			if (null != responseStream) {
-				try {
-					responseStream.write(msgText.getBytes(HttpConstants.DEFAULT_ENCODING));
-				} catch (IOException e2) {
-					//Just log, cause we obviously can't tell the client
-					LOG.error("Error telling client about exception", e2);
-				}
-			}
-		} finally {
-			if (null != responseStream) {
-				try {
-					if (getZipped()) {
-						closeZip(responseStream);
-					}
-				} catch (Throwable e) {
-					//Just log, cause we obviously can't tell the client
-					LOG.error("Error closing zip", e);
-				}
-				try {
-					responseStream.flush();
-				} catch (IOException e) {
-					//Just log, cause we obviously can't tell the client
-					LOG.error("Error flushing response stream", e);
-				}
-			}
-			LOG.info("Processing POST complete: {}", request.getQueryString());
-			logService.logRequestComplete(getLogId(), realHttpStatus);
-			remove();
-		}
-	}
-
-	protected Map<String, String> doPostCountRequest(HttpServletRequest request, HttpServletResponse response, Map<String, Object> postParms) {
+	protected Map<String, String> doPostCountRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter, String mimeType, String zip) {
 		LOG.info("Processing Post Count");
-		setLogId(logService.logRequest(request, response, postParms));
+		if (StringUtils.isNotBlank(mimeType)) {
+			filter.setMimeType(mimeType);
+		}
+		if (StringUtils.isNotBlank(zip)) {
+			filter.setZip(zip);
+		}
 		Map<String, String> counts = null;
 
 		try {
-			doCommonSetup(request, response, postParms);
+			doCommonSetup(request, response, filter);
 			counts = getCounts();
 		} finally {
 			logService.logRequestComplete(getLogId(), String.valueOf(response.getStatus()));
@@ -468,6 +366,73 @@ public abstract class BaseController {
 		}
 
 		return counts;
+	}
+
+	protected void doDataRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter, String mimeType, String zip) {
+		if (StringUtils.isNotBlank(mimeType)) {
+			filter.setMimeType(mimeType);
+		}
+		if (StringUtils.isNotBlank(zip)) {
+			filter.setZip(zip);
+		}
+		doDataRequest(request, response, filter);
+	}
+
+	protected void doDataRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter) {
+		LOG.info("Processing Data: {}", filter.toJson());
+		OutputStream responseStream = null;
+		String realHttpStatus = String.valueOf(response.getStatus());
+
+		try {
+			if (doCommonSetup(request, response, filter)) {
+				responseStream = getOutputStream(response, getZipped(), determineZipEntryName());
+				Transformer transformer = getTransformer(responseStream, getLogId());
+
+				ResultHandler<?> handler = new StreamingResultHandler(transformer);
+				streamingDao.stream(getMybatisNamespace(), getFilter(), handler);
+
+				transformer.end();
+			}
+		} catch (Throwable e) {
+			response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+			int hashValue = response.hashCode();
+			realHttpStatus = HttpStatus.INTERNAL_SERVER_ERROR.toString() + "-" + hashValue;
+			//Note: we are giving the user a generic message.  
+			//Server logs can be used to troubleshoot problems.
+			String msgText = "Something bad happened. Contact us with Reference Number: " + hashValue;
+			LOG.error("logId: {}", BaseController.getLogId());
+			LOG.error("status: {}", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			LOG.error(msgText, e);
+			response.addHeader(HttpConstants.HEADER_FATAL_ERROR, msgText);
+			if (null != responseStream) {
+				try {
+					responseStream.write(msgText.getBytes(HttpConstants.DEFAULT_ENCODING));
+				} catch (IOException e2) {
+					//Just log, cause we obviously can't tell the client
+					LOG.error("Error telling client about exception", e2);
+				}
+			}
+		} finally {
+			if (null != responseStream) {
+				try {
+					if (getZipped()) {
+						closeZip(responseStream);
+					}
+				} catch (Throwable e) {
+					//Just log, cause we obviously can't tell the client
+					LOG.error("Error closing zip", e);
+				}
+				try {
+					responseStream.flush();
+				} catch (IOException e) {
+					//Just log, cause we obviously can't tell the client
+					LOG.error("Error flushing response stream", e);
+				}
+			}
+			LOG.info("Processing Data complete: {}", filter.toJson());
+			logService.logRequestComplete(getLogId(), realHttpStatus);
+			remove();
+		}
 	}
 
 	protected String determineZipEntryName() {
@@ -548,15 +513,12 @@ public abstract class BaseController {
 		return transformer;
 	}
 
-	protected abstract Profile determineProfile(Map<String, Object> pm);
+	protected abstract Profile determineProfile(FilterParameters filter);
 
-	protected Profile determineProfile(Profile defaultProfile, Map<String, Object> pm) {
+	protected Profile determineProfile(Profile defaultProfile, FilterParameters filter) {
 		Profile profile = defaultProfile;
-		if (null != pm && pm.containsKey(Parameters.DATA_PROFILE.toString())) {
-			Object dataProfile = pm.get(Parameters.DATA_PROFILE.toString());
-			if (dataProfile instanceof String[] && 0 < ((String[]) dataProfile).length) {
-				profile = Profile.fromString(((String[]) dataProfile)[0]);
-			}
+		if (null != filter && !StringUtils.isAllBlank(filter.getDataProfile())) {
+			profile = Profile.fromString(filter.getDataProfile());
 		}
 		return profile == null ? defaultProfile : profile;
 	}
@@ -567,22 +529,19 @@ public abstract class BaseController {
 
 	protected abstract IXmlMapping getKmlMapping();
 
-	public void writeWarningHeaders(HttpServletResponse response, Map<String, List<String>> validationMessages) {
+	public void writeWarningHeaders(HttpServletResponse response) {
 		response.setStatus(HttpStatus.BAD_REQUEST.value());
-		for (List<String> msgs : validationMessages.values()) {
-			for (String msg : msgs) {
-				response.addHeader(HttpConstants.HEADER_WARNING, warningHeader(null, msg, null));
-			}
+		if (null != getFilter()) {
+			getFilter().getValidationErrors().forEach(msg -> response.addHeader(HttpConstants.HEADER_WARNING, warningHeader(msg)));
 		}
 	}
 
-	protected String warningHeader(Integer code, String text, String date) {
+	protected String warningHeader(ConstraintViolation<FilterParameters> text) {
 		StringBuilder rtn = new StringBuilder();
-		rtn.append(null == code ? HttpConstants.HEADER_WARNING_DEFAULT_CODE : code);
+		rtn.append(HttpConstants.HEADER_WARNING_DEFAULT_CODE);
 		rtn.append(" WQP \"");
-		rtn.append(null == text || 0 == text.length() ? "Unknown error" : text);
-		rtn.append("\" ");
-		rtn.append(null == date || 0 == date.length() ? new Date().toString() : date);
+		rtn.append(null == text || 0 == text.getMessage().length() ? "Unknown error" : text.getMessage());
+		rtn.append("\"");
 		return rtn.toString();
 	}
 

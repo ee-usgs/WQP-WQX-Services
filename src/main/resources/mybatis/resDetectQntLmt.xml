@@ -69,14 +69,14 @@
                 <where>
                     <include refid="dynamicWhere.baseWhereResultClauses" />
                     <if test="result != null">
-                        and data_source = #{result[0]}
+                        and data_source = #{result}
                         and result_id = #{result[1]}
                     </if>
                     <if test="minactivities != null">
-                        and site_activity_count >= #{minactivities[0]}
+                        and site_activity_count >= #{minactivities}
                     </if>
                     <if test="minresults != null">
-                        and site_result_count >= #{minresults[0]}
+                        and site_result_count >= #{minresults}
                     </if>
                 </where>
             </when>
@@ -95,8 +95,8 @@
                         <include refid="dynamicWhere.baseWhereStationGeoClauses" />
                     </if>
                     <if test="result != null">
-                        and data_source = #{result[0]}
-                        and result_id = #{result[1]}
+                        and data_source = #{result.dataSource}
+                        and result_id = #{result.resultId}
                     </if>
                 </where>
             </otherwise>

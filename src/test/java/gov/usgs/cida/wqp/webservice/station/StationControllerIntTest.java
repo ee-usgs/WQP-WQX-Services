@@ -109,7 +109,7 @@ public class StationControllerIntTest extends BaseControllerIntegrationTest {
 		String compareObject = "{\"" + HttpConstants.HEADER_TOTAL_SITE_COUNT + "\":\"" + FILTERED_TOTAL_SITE_COUNT
 				+ "\",\"" + HEADER_STORET_SITE_COUNT + "\":\"" + FILTERED_STORET_SITE_COUNT
 				+ "\"}";
-		postGetCountTest(urlPrefix, compareObject);
+		postGetCountTest(urlPrefix, compareObject, PROFILE);
 	}
 
 	public ResultActions unFilteredHeaderCheck(ResultActions resultActions) throws Exception {

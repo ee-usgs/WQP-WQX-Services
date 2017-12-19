@@ -1,13 +1,12 @@
 package gov.usgs.cida.wqp.dao;
 
-import gov.usgs.cida.wqp.dao.intfc.IStreamingDao;
-
-import java.util.Map;
-
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import gov.usgs.cida.wqp.dao.intfc.IStreamingDao;
+import gov.usgs.cida.wqp.parameter.FilterParameters;
 
 @Component
 public class StreamingDao extends BaseDao implements IStreamingDao {
@@ -20,11 +19,11 @@ public class StreamingDao extends BaseDao implements IStreamingDao {
 	}
 
 	@Override
-	public void stream(NameSpace nameSpace, Map<String, Object> parameterMap, ResultHandler<?> handler) {
+	public void stream(NameSpace nameSpace, FilterParameters filter, ResultHandler<?> handler) {
 		if (null == handler) {
 			throw new IllegalArgumentException("A ResultHandler is required for the StreamingDao.stream");
 		}
-		getSqlSession().select(nameSpace + QUERY_SELECT_ID, parameterMap, handler);
+		getSqlSession().select(nameSpace + QUERY_SELECT_ID, filter, handler);
 	}
 
 }

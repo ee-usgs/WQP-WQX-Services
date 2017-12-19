@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import gov.usgs.cida.wqp.service.ILogService;

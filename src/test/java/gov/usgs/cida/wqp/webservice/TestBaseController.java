@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Validator;
 
 import org.springframework.web.accept.ContentNegotiationStrategy;
 
@@ -14,18 +15,19 @@ import gov.usgs.cida.wqp.mapping.delimited.StationDelimited;
 import gov.usgs.cida.wqp.mapping.xml.IXmlMapping;
 import gov.usgs.cida.wqp.mapping.xml.StationKml;
 import gov.usgs.cida.wqp.mapping.xml.StationWqx;
-import gov.usgs.cida.wqp.parameter.IParameterHandler;
+import gov.usgs.cida.wqp.parameter.FilterParameters;
 import gov.usgs.cida.wqp.service.ILogService;
 
 public class TestBaseController extends BaseController {
 
 	public static final String TEST_COUNT = "TEST-COUNT";
-	
+
 	public TestBaseController(IStreamingDao inStreamingDao,
-			ICountDao inCountDao, IParameterHandler inParameterHandler,
+			ICountDao inCountDao,
 			ILogService inLogService, Integer inMaxRows, String inSiteUrlBase,
-			ContentNegotiationStrategy contentStrategy) {
-		super(inStreamingDao, inCountDao, inParameterHandler, inLogService, inMaxRows, inSiteUrlBase, contentStrategy);
+			ContentNegotiationStrategy contentStrategy,
+			Validator validator) {
+		super(inStreamingDao, inCountDao, inLogService, inMaxRows, inSiteUrlBase, contentStrategy, validator);
 	}
 
 	@Override
@@ -52,7 +54,8 @@ public class TestBaseController extends BaseController {
 	}
 
 	@Override
-	protected Profile determineProfile(Map<String, Object> pm) {
+	protected Profile determineProfile(FilterParameters filter) {
 		return Profile.STATION;
 	}
+
 }

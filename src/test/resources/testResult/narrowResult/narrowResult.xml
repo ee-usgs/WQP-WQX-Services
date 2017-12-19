@@ -466,7 +466,7 @@
 					<SubjectTaxonomicName>sampleTissueTaxonomicName</SubjectTaxonomicName>
 				</BiologicalResultDescription>
 				<ResultAnalyticalMethod>
-					<MethodUrl>analyticalMethod</MethodUrl>
+					<MethodUrl>https://analyticalMethod</MethodUrl>
 				</ResultAnalyticalMethod>
 			</Result>
 			<Result>
@@ -479,7 +479,7 @@
 					<SubjectTaxonomicName>sampleTissueTaxonomicName</SubjectTaxonomicName>
 				</BiologicalResultDescription>
 				<ResultAnalyticalMethod>
-					<MethodUrl>analyticalMethod</MethodUrl>
+					<MethodUrl>https://analyticalMethod</MethodUrl>
 				</ResultAnalyticalMethod>
 			</Result>
 			<Result>
@@ -492,7 +492,7 @@
 					<SubjectTaxonomicName>sampleTissueTaxonomicName</SubjectTaxonomicName>
 				</BiologicalResultDescription>
 				<ResultAnalyticalMethod>
-					<MethodUrl>analyticalMethod</MethodUrl>
+					<MethodUrl>https://analyticalMethod</MethodUrl>
 				</ResultAnalyticalMethod>
 			</Result>
 			<Result>
@@ -502,7 +502,7 @@
 					<USGSPCode>99999</USGSPCode>
 				</ResultDescription>
 				<ResultAnalyticalMethod>
-					<MethodUrl>analyticalMethod</MethodUrl>
+					<MethodUrl>https://analyticalMethod</MethodUrl>
 				</ResultAnalyticalMethod>
 			</Result>
 		</Activity>
@@ -587,7 +587,7 @@
 					<MethodName>analyticalMethodName</MethodName>
 					<MethodQualifierTypeName>anlmthQualType</MethodQualifierTypeName>
 					<MethodDescriptionText>analyticalMethodCitation</MethodDescriptionText>
-					<MethodUrl>analyticalMethod</MethodUrl>
+					<MethodUrl>https://analyticalMethod</MethodUrl>
 				</ResultAnalyticalMethod>
 				<ResultLabInformation>
 					<LaboratoryName>labName</LaboratoryName>
@@ -622,7 +622,7 @@
 					<SubjectTaxonomicName>sampleTissueTaxonomicName</SubjectTaxonomicName>
 				</BiologicalResultDescription>
 				<ResultAnalyticalMethod>
-					<MethodUrl>analyticalMethod</MethodUrl>
+					<MethodUrl>https://analyticalMethod</MethodUrl>
 				</ResultAnalyticalMethod>
 			</Result>
 			<Result>
@@ -635,7 +635,7 @@
 					<SubjectTaxonomicName>sampleTissueTaxonomicName</SubjectTaxonomicName>
 				</BiologicalResultDescription>
 				<ResultAnalyticalMethod>
-					<MethodUrl>analyticalMethod</MethodUrl>
+					<MethodUrl>https://analyticalMethod</MethodUrl>
 				</ResultAnalyticalMethod>
 			</Result>
 			<Result>
@@ -648,7 +648,7 @@
 					<SubjectTaxonomicName>sampleTissueTaxonomicName</SubjectTaxonomicName>
 				</BiologicalResultDescription>
 				<ResultAnalyticalMethod>
-					<MethodUrl>analyticalMethod</MethodUrl>
+					<MethodUrl>https://analyticalMethod</MethodUrl>
 				</ResultAnalyticalMethod>
 			</Result>
 			<Result>
@@ -661,7 +661,7 @@
 					<SubjectTaxonomicName>sampleTissueTaxonomicName</SubjectTaxonomicName>
 				</BiologicalResultDescription>
 				<ResultAnalyticalMethod>
-					<MethodUrl>analyticalMethod</MethodUrl>
+					<MethodUrl>https://analyticalMethod</MethodUrl>
 				</ResultAnalyticalMethod>
 			</Result>
 			<Result>
@@ -674,7 +674,7 @@
 					<SubjectTaxonomicName>sampleTissueTaxonomicName</SubjectTaxonomicName>
 				</BiologicalResultDescription>
 				<ResultAnalyticalMethod>
-					<MethodUrl>analyticalMethod</MethodUrl>
+					<MethodUrl>https://analyticalMethod</MethodUrl>
 				</ResultAnalyticalMethod>
 			</Result>
 			<Result>
@@ -687,7 +687,7 @@
 					<SubjectTaxonomicName>sampleTissueTaxonomicName</SubjectTaxonomicName>
 				</BiologicalResultDescription>
 				<ResultAnalyticalMethod>
-					<MethodUrl>analyticalMethod</MethodUrl>
+					<MethodUrl>https://analyticalMethod</MethodUrl>
 				</ResultAnalyticalMethod>
 			</Result>
 			<Result>
@@ -700,7 +700,7 @@
 					<SubjectTaxonomicName>sampleTissueTaxonomicName</SubjectTaxonomicName>
 				</BiologicalResultDescription>
 				<ResultAnalyticalMethod>
-					<MethodUrl>analyticalMethod</MethodUrl>
+					<MethodUrl>https://analyticalMethod</MethodUrl>
 				</ResultAnalyticalMethod>
 			</Result>
 			<Result>
@@ -713,7 +713,7 @@
 					<SubjectTaxonomicName>sampleTissueTaxonomicName</SubjectTaxonomicName>
 				</BiologicalResultDescription>
 				<ResultAnalyticalMethod>
-					<MethodUrl>analyticalMethod</MethodUrl>
+					<MethodUrl>https://analyticalMethod</MethodUrl>
 				</ResultAnalyticalMethod>
 			</Result>
 		</Activity>

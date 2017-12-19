@@ -1,110 +1,80 @@
 package gov.usgs.cida.wqp.validation;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+
+import javax.validation.ConstraintValidatorContext;
+import javax.validation.ConstraintValidatorContext.ConstraintViolationBuilder;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.powermock.reflect.Whitebox;
 
 import gov.usgs.cida.wqp.BaseSpringTest;
 import gov.usgs.cida.wqp.exception.WqpException;
+import gov.usgs.cida.wqp.exception.WqpExceptionId;
 import gov.usgs.cida.wqp.parameter.Parameters;
 import gov.usgs.cida.wqp.service.CodesService;
 
 public class LookupValidatorTest extends BaseSpringTest {
-	// Each individual end point should do it's own unit/integration test against the database.
 
 	@Mock
+	protected ConstraintValidatorContext context;
+	@Mock
 	protected CodesService codesService;
+	@Mock
+	protected ConstraintViolationBuilder cvb;
+
+	protected LookupValidator validator;
 
 	@Before
-	public void initTest() {
+	public void setup() {
 		MockitoAnnotations.initMocks(this);
+		validator = new LookupValidator();
+		Whitebox.setInternalState(validator, "codesService", codesService);
 	}
 
 	@Test
-	public void testConstructors_nullParameter() {
-		try {
-			new LookupValidator(null, null);
-			fail("Should have gotten an IllegalArgumentException");
-		} catch (IllegalArgumentException e) {
-			assertEquals("The Parameter being validated must be provided.", e.getMessage());
-		}
+	public void testNullValue() throws WqpException {
+		when(codesService.validate(any(Parameters.class), anyString())).thenReturn(true);
+		assertTrue(validator.isValid(null, context));
+		verify(codesService).validate(any(Parameters.class), anyString());
 	}
+
 	@Test
-	public void testConstructors_nullParmeter2() {
-		try {
-			new LookupValidator(null, null, -1, 0, null);
-			fail("Should have gotten an IllegalArgumentException");
-		} catch (IllegalArgumentException e) {
-			assertEquals("The Parameter being validated must be provided.", e.getMessage());
-		}
+	public void testEmptyStringValue() throws WqpException {
+		when(codesService.validate(any(Parameters.class), anyString())).thenReturn(true);
+		assertTrue(validator.isValid("", context));
+		verify(codesService).validate(any(Parameters.class), anyString());
 	}
+
 	@Test
-	public void testConstructors_defaults() {
-		AbstractValidator<?> validator = new LookupValidator(codesService, Parameters.COUNTRY);
-		assertEquals(AbstractValidator.DEFAULT_MIN_OCCURS, validator.getMinOccurs());
-		assertEquals(AbstractValidator.IN_CLAUSE_LIMIT, validator.getMaxOccurs());
-		assertEquals(AbstractValidator.DEFAULT_DELIMITER, validator.getDelimiter());
+	public void testNotFoundValue() throws WqpException {
+		when(codesService.validate(any(Parameters.class), anyString())).thenReturn(false);
+		assertFalse(validator.isValid("ABC", context));
+		verify(codesService).validate(any(Parameters.class), anyString());
 	}
+
 	@Test
-	public void testNullValue() {
-		LookupValidator validator = new LookupValidator(codesService, Parameters.COUNTRY, 1, 2, ";");
-		ValidationResult<String[]> vr = validator.validate(null);
-		assertFalse(vr.isValid());
-		assertEquals(1, vr.getValidationMessages().size());
-		assertEquals("The value of countrycode=null is not between 1 and 2 occurences.", vr.getValidationMessages().get(0));
-		assertArrayEquals(new String[]{}, (String[])vr.getTransformedValue());
+	public void testOkValue() throws WqpException {
+		when(codesService.validate(any(Parameters.class), anyString())).thenReturn(true);
+		assertTrue(validator.isValid("ABC", context));
+		verify(codesService).validate(any(Parameters.class), anyString());
 	}
+
 	@Test
-	public void testEmptyStringValue() {
-		LookupValidator validator = new LookupValidator(codesService, Parameters.COUNTRY, 1, 2, ";");
-		ValidationResult<String[]> vr = validator.validate("asdf");
-		assertFalse(vr.isValid());
-		assertEquals(1, vr.getValidationMessages().size());
-		assertEquals("The value of countrycode=asdf is not in the list of enumerated values", vr.getValidationMessages().get(0));
-		assertArrayEquals(new String[]{"asdf"}, vr.getTransformedValue());
+	public void testWqpException() throws WqpException {
+		when(codesService.validate(any(Parameters.class), anyString())).thenThrow(new WqpException(WqpExceptionId.URL_PARSING_EXCEPTION, null, null, "oops", null));
+		when(context.buildConstraintViolationWithTemplate(anyString())).thenReturn(cvb);
+		assertFalse(validator.isValid("ABC", context));
+		verify(codesService).validate(any(Parameters.class), anyString());
+		verify(cvb).addConstraintViolation();
 	}
-	@Test
-	public void testTooManyInvalidStringValue() {
-		LookupValidator validator = new LookupValidator(codesService, Parameters.COUNTRY, 1, 2, ";");
-		ValidationResult<String[]> vr = validator.validate("AA;BB;CC");
-		assertFalse(vr.isValid());
-		assertEquals(4, vr.getValidationMessages().size());
-		assertEquals("The value of countrycode=AA;BB;CC is not between 1 and 2 occurences.", vr.getValidationMessages().get(0));
-		assertEquals("The value of countrycode=AA is not in the list of enumerated values", vr.getValidationMessages().get(1));
-		assertEquals("The value of countrycode=BB is not in the list of enumerated values", vr.getValidationMessages().get(2));
-		assertEquals("The value of countrycode=CC is not in the list of enumerated values", vr.getValidationMessages().get(3));
-		assertArrayEquals(new String[]{"AA","BB","CC"}, (String[])vr.getTransformedValue());
-	}
-	@Test
-	public void testNotFoundValue() {
-		LookupValidator validator = new LookupValidator(codesService, Parameters.COUNTRY, 1, 2, "-");
-		ValidationResult<String[]> vr = validator.validate("AA;BB;CC");
-		assertFalse(vr.isValid());
-		assertEquals(1, vr.getValidationMessages().size());
-		assertEquals("The value of countrycode=AA;BB;CC is not in the list of enumerated values", vr.getValidationMessages().get(0));
-		assertArrayEquals(new String[]{"AA;BB;CC"}, (String[])vr.getTransformedValue());
-	}
-	
-	@Test
-	public void testOkValue() {
-		try {
-			when(codesService.validate(any(Parameters.class), any(String.class))).thenReturn(true);
-			LookupValidator validator = new LookupValidator(codesService, Parameters.COUNTRY, 1, 2, "-");
-			ValidationResult<String[]> vr = validator.validate("AA;BB;CC");
-			assertTrue(vr.isValid());
-			assertEquals(0, vr.getValidationMessages().size());
-			assertArrayEquals(new String[]{"AA;BB;CC"}, (String[])vr.getTransformedValue());
-		} catch (WqpException e) {
-			fail(e.getLocalizedMessage());
-		}
-	}
+
 }

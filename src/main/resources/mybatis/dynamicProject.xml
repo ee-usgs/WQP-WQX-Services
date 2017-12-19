@@ -20,10 +20,10 @@
 	<sql id="projectLimitWhere">
 		<where>
 			<if test="minactivities != null">
-				and (project_activity_count >= #{minactivities[0]})
+				and (project_activity_count >= #{minactivities})
 			</if>
 			<if test="minresults != null">
-				and (project_result_count >= #{minresults[0]})
+				and (project_result_count >= #{minresults})
 			</if>
 		</where>
 	</sql>
