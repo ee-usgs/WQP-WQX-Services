@@ -26,6 +26,7 @@ import gov.usgs.cida.wqp.BaseSpringTest;
 import gov.usgs.cida.wqp.exception.WqpException;
 import gov.usgs.cida.wqp.exception.WqpExceptionId;
 import gov.usgs.cida.wqp.parameter.BoundingBox;
+import gov.usgs.cida.wqp.parameter.Command;
 import gov.usgs.cida.wqp.parameter.FilterParameters;
 import gov.usgs.cida.wqp.parameter.Parameters;
 import gov.usgs.cida.wqp.service.CodesService;
@@ -56,7 +57,6 @@ public class FilterParametersValidationTest extends BaseSpringTest {
 		filter.setAssemblage(Collections.nCopies(FilterParameters.IN_CLAUSE_LIMIT + 1, "a"));
 		filter.setCharacteristicName(Collections.nCopies(FilterParameters.IN_CLAUSE_LIMIT + 1, "a"));
 		filter.setCharacteristicType(Collections.nCopies(FilterParameters.IN_CLAUSE_LIMIT + 1, "a"));
-		filter.setCommandavoid(Collections.nCopies(FilterParameters.IN_CLAUSE_LIMIT + 1, "NWIS"));
 		filter.setCountrycode(Collections.nCopies(FilterParameters.IN_CLAUSE_LIMIT + 1, "US"));
 		filter.setCountycode(Collections.nCopies(FilterParameters.IN_CLAUSE_LIMIT + 1, "US:55:019"));
 		filter.setHuc(Collections.nCopies(FilterParameters.IN_CLAUSE_LIMIT + 1, "07"));
@@ -70,13 +70,12 @@ public class FilterParametersValidationTest extends BaseSpringTest {
 		filter.setStatecode(Collections.nCopies(FilterParameters.IN_CLAUSE_LIMIT + 1, "US:55"));
 
 		Set<ConstraintViolation<FilterParameters>> validationErrors = validator.validate(filter);
-		assertEquals(15, validationErrors.size());
+		assertEquals(14, validationErrors.size());
 		assertValidationResults(validationErrors,
 				"The analyticalmethod is not between 0 and 1000 occurances",
 				"The assemblage is not between 0 and 1000 occurances",
 				"The characteristicName is not between 0 and 1000 occurances",
 				"The characteristicType is not between 0 and 1000 occurances",
-				"The commandavoid is not between 0 and 1000 occurances",
 				"The countrycode is not between 0 and 1000 occurances",
 				"The countycode is not between 0 and 1000 occurances",
 				"The huc is not between 0 and 1000 occurances",
@@ -146,7 +145,7 @@ public class FilterParametersValidationTest extends BaseSpringTest {
 
 	@Test
 	public void patternTests() throws IOException {
-		filter.setCommandavoid(Arrays.asList("a"));
+		filter.setCommand(new Command("a"));
 		filter.setCountrycode(Arrays.asList("a"));
 		filter.setCountycode(Arrays.asList("a"));
 		filter.setHuc(Arrays.asList("a"));
@@ -162,7 +161,7 @@ public class FilterParametersValidationTest extends BaseSpringTest {
 		Set<ConstraintViolation<FilterParameters>> validationErrors = validator.validate(filter);
 		assertEquals(12, validationErrors.size());
 		assertValidationResults(validationErrors,
-				"The value of command.avoid=a must match the format " + FilterParameters.REGEX_AVOID,
+				"The value of command.avoid=a must match the format " + Command.REGEX_AVOID,
 				"The value of countrycode=a must match the format " + FilterParameters.REGEX_FIPS_COUNTRY,
 				"The value of countycode=a must match the format " + FilterParameters.REGEX_FIPS_COUNTY,
 				"The value of huc=a must match the format " + FilterParameters.REGEX_HUC,

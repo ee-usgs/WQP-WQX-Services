@@ -260,7 +260,7 @@ public class ResDetectQntLmtStreamingTest extends BaseSpringTest {
 
 	@Test
 	public void avoidTest() {
-		filter.setCommandavoid(getAvoid());
+		filter.setCommand(getCommand());
 		streamingDao.stream(nameSpace, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
@@ -662,7 +662,7 @@ public class ResDetectQntLmtStreamingTest extends BaseSpringTest {
 	public void multipleParameterTests() {
 		filter.setAnalyticalmethod(getAnalyticalMethod());
 		filter.setAssemblage(getAssemblage());
-		filter.setCommandavoid(getAvoid());
+		filter.setCommand(getCommand());
 		filter.setCharacteristicName(getCharacteristicName());
 		filter.setCharacteristicType(getCharacteristicType());
 		filter.setCountrycode(getCountry());
@@ -694,7 +694,7 @@ public class ResDetectQntLmtStreamingTest extends BaseSpringTest {
 	public void multipleParameterWithStationSumTests() {
 		filter.setAnalyticalmethod(getAnalyticalMethod());
 		filter.setAssemblage(getAssemblage());
-		filter.setCommandavoid(getAvoid());
+		filter.setCommand(getCommand());
 		filter.setBBox(getBBox());
 		filter.setCharacteristicName(getCharacteristicName());
 		filter.setCharacteristicType(getCharacteristicType());

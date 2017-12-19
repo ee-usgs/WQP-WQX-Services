@@ -39,7 +39,7 @@ public class FetchService {
 		JsonFactory jsonfactory = new JsonFactory();
 		JsonParser jsonParser = jsonfactory.createParser(stream);
 
-		//Brute force, assumes every occurrence of tokens with this name should be included in the output.
+		//Brute force, assumes every unique occurrence of tokens with this name should be included in the output.
 		while (null != jsonParser.nextToken()) {
 			if (tokenName.equalsIgnoreCase(jsonParser.getCurrentName())) {
 				fetchValues.add(jsonParser.nextTextValue());

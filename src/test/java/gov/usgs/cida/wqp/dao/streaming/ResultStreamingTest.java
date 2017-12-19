@@ -211,7 +211,7 @@ public abstract class ResultStreamingTest extends BaseSpringTest {
 	}
 
 	public void avoidTest(NameSpace nameSpace) {
-		filter.setCommandavoid(getAvoid());
+		filter.setCommand(getCommand());
 		streamingDao.stream(nameSpace, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
@@ -531,7 +531,7 @@ public abstract class ResultStreamingTest extends BaseSpringTest {
 	public void multipleParameterResultTests(NameSpace nameSpace) {
 		filter.setAnalyticalmethod(getAnalyticalMethod());
 		filter.setAssemblage(getAssemblage());
-		filter.setCommandavoid(getAvoid());
+		filter.setCommand(getCommand());
 		filter.setCharacteristicName(getCharacteristicName());
 		filter.setCharacteristicType(getCharacteristicType());
 		filter.setCountrycode(getCountry());
@@ -561,7 +561,7 @@ public abstract class ResultStreamingTest extends BaseSpringTest {
 	public void multipleParameterResultStationSumTests(NameSpace nameSpace) {
 		filter.setAnalyticalmethod(getAnalyticalMethod());
 		filter.setAssemblage(getAssemblage());
-		filter.setCommandavoid(getAvoid());
+		filter.setCommand(getCommand());
 		filter.setBBox(getBBox());
 		filter.setCharacteristicName(getCharacteristicName());
 		filter.setCharacteristicType(getCharacteristicType());

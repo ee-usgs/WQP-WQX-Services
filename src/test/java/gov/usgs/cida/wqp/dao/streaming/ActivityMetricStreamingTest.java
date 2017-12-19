@@ -153,7 +153,7 @@ public class ActivityMetricStreamingTest extends BaseSpringTest {
 
 	@Test
 	public void avoidTest() {
-		filter.setCommandavoid(getAvoid());
+		filter.setCommand(getCommand());
 		streamingDao.stream(nameSpace, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
@@ -634,7 +634,7 @@ public class ActivityMetricStreamingTest extends BaseSpringTest {
 	@Test
 	public void multipleParameterResultSumTests() {
 		filter.setAnalyticalmethod(getAnalyticalMethod());
-		filter.setCommandavoid(getAvoid());
+		filter.setCommand(getCommand());
 		filter.setAssemblage(getAssemblage());
 		filter.setCharacteristicName(getCharacteristicName());
 		filter.setCharacteristicType(getCharacteristicType());
@@ -665,7 +665,7 @@ public class ActivityMetricStreamingTest extends BaseSpringTest {
 	@Test
 	public void multipleParameterResultSumStationSumTests() {
 		filter.setAnalyticalmethod(getAnalyticalMethod());
-		filter.setCommandavoid(getAvoid());
+		filter.setCommand(getCommand());
 		filter.setAssemblage(getAssemblage());
 		filter.setBBox(getBBox());
 		filter.setCharacteristicName(getCharacteristicName());

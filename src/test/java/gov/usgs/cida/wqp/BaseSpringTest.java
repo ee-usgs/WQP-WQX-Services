@@ -36,6 +36,7 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 
 import gov.usgs.cida.wqp.mapping.Profile;
 import gov.usgs.cida.wqp.parameter.BoundingBox;
+import gov.usgs.cida.wqp.parameter.Command;
 import gov.usgs.cida.wqp.parameter.ResultIdentifier;
 import gov.usgs.cida.wqp.springinit.TestSpringConfig;
 
@@ -181,8 +182,8 @@ public abstract class BaseSpringTest {
 		return "WIDNR_WQX-7788475";
 	}
 
-	public List<String> getAvoid() {
-		return Arrays.asList(NWIS);
+	public Command getCommand() {
+		return new Command(NWIS);
 	}
 
 	public BoundingBox getBBox() {

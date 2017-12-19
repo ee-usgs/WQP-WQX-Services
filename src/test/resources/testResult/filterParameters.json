@@ -2,7 +2,7 @@
 	"activity": "WIDNR_WQX-7788475",
 	"analyticalmethod": ["https://www.nemi.gov/methods/method_summary/4665/", "https://www.nemi.gov/methods/method_summary/8896/", "https://analyticalMethod"],
 	"assemblage": ["Fish/Nekton", "Benthic Macroinvertebrates", "assemblageSampledName"],
-	"commandavoid": ["NWIS"],
+	"command.avoid": "NWIS",
 	"characteristicName": ["Beryllium", "Nitrate", "characteristicName"],
 	"characteristicType": ["Inorganics, Minor, Metals", "Nutrient", "Population/Community", "characteristicType"],
 	"countrycode": ["MX", "US", "XX"],

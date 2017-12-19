@@ -60,7 +60,7 @@ public class CountDaoProjectTest extends BaseSpringTest {
 		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT, filter);
 		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 5, TOTAL_PROJECT_COUNT, NWIS_PROJECT_COUNT, STEWARDS_PROJECT_COUNT, STORET_PROJECT_COUNT, BIODATA_PROJECT_COUNT);
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//Single Parameter Counts against activity_sum
 
@@ -134,7 +134,7 @@ public class CountDaoProjectTest extends BaseSpringTest {
 
 	@Test
 	public void multipleParameterActivitySumTest() {
-		filter.setCommandavoid(getAvoid());
+		filter.setCommand(getCommand());
 		filter.setBBox(getBBox());
 		filter.setCountrycode(getCountry());
 		filter.setCountycode(getCounty());
@@ -160,7 +160,7 @@ public class CountDaoProjectTest extends BaseSpringTest {
 
 	@Test
 	public void multipleParameterActivitySumStationSumTest() {
-		filter.setCommandavoid(getAvoid());
+		filter.setCommand(getCommand());
 		filter.setBBox(getBBox());
 		filter.setLat(getLatitude());
 		filter.setLong(getLongitude());
@@ -178,7 +178,7 @@ public class CountDaoProjectTest extends BaseSpringTest {
 	@Test
 	public void multipleParameterResultSumTest() {
 		filter.setAnalyticalmethod(getAnalyticalMethod());
-		filter.setCommandavoid(getAvoid());
+		filter.setCommand(getCommand());
 		filter.setAssemblage(getAssemblage());
 		filter.setCharacteristicName(getCharacteristicName());
 		filter.setCharacteristicType(getCharacteristicType());
@@ -206,7 +206,7 @@ public class CountDaoProjectTest extends BaseSpringTest {
 	@Test
 	public void multipleParameterResultSumActivitySumTests() {
 		filter.setAnalyticalmethod(getAnalyticalMethod());
-		filter.setCommandavoid(getAvoid());
+		filter.setCommand(getCommand());
 		filter.setAssemblage(getAssemblage());
 		filter.setBBox(getBBox());
 		filter.setCharacteristicName(getCharacteristicName());

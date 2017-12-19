@@ -31,9 +31,8 @@
         prime.data_source_id in (select data_source_id
                                    from data_source
                                   where text in ('NWIS', 'STORET')
-                                        <foreach item="i" collection="commandavoid">
-                                            and text != #{i}
-                                        </foreach>)
+                                        and text != #{command.avoid}
+                                )
     </sql>
 
     <sql id="countrycode">

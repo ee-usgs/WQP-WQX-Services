@@ -80,7 +80,7 @@ public abstract class BaseCountDaoTest extends BaseSpringTest {
 	//Single Parameter Counts against station_sum
 
 	protected List<Map<String, Object>> avoidTest(NameSpace nameSpace, boolean includeActivity, boolean includeResults) {
-		filter.setCommandavoid(getAvoid());
+		filter.setCommand(getCommand());
 		List<Map<String, Object>> counts = countDao.getCounts(nameSpace, filter);
 		if (includeActivity || includeResults) {
 			//Adjust site count for STORET site with no activities
@@ -624,7 +624,7 @@ public abstract class BaseCountDaoTest extends BaseSpringTest {
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	protected List<Map<String, Object>> multipleParameterStationSumTest(NameSpace nameSpace, boolean includeActivity, boolean includeResults) {
-		filter.setCommandavoid(getAvoid());
+		filter.setCommand(getCommand());
 		filter.setBBox(getBBox());
 		filter.setCountrycode(getCountry());
 		filter.setCountycode(getCounty());
@@ -652,7 +652,7 @@ public abstract class BaseCountDaoTest extends BaseSpringTest {
 	}
 
 	protected List<Map<String, Object>> multipleParameterActivitySumTest(NameSpace nameSpace, boolean includeActivity, boolean includeResults) {
-		filter.setCommandavoid(getAvoid());
+		filter.setCommand(getCommand());
 		filter.setMinactivities(getMinActivities());
 		filter.setMinresults(getMinResults());
 		filter.setProject(getProject());
@@ -671,7 +671,7 @@ public abstract class BaseCountDaoTest extends BaseSpringTest {
 	}
 
 	protected List<Map<String, Object>> multipleParameterActivitySumStationSumTest(NameSpace nameSpace, boolean includeActivity, boolean includeResults) {
-		filter.setCommandavoid(getAvoid());
+		filter.setCommand(getCommand());
 		filter.setBBox(getBBox());
 		filter.setLat(getLatitude());
 		filter.setLong(getLongitude());
@@ -695,7 +695,7 @@ public abstract class BaseCountDaoTest extends BaseSpringTest {
 
 	protected List<Map<String, Object>> multipleParameterResultSumTest(NameSpace nameSpace, boolean includeActivity, boolean includeResults) {
 		filter.setAnalyticalmethod(getAnalyticalMethod());
-		filter.setCommandavoid(getAvoid());
+		filter.setCommand(getCommand());
 		filter.setAssemblage(getAssemblage());
 		filter.setCharacteristicName(getCharacteristicName());
 		filter.setCharacteristicType(getCharacteristicType());
@@ -729,7 +729,7 @@ public abstract class BaseCountDaoTest extends BaseSpringTest {
 
 	protected List<Map<String, Object>> multipleParameterResultSumStationSumTests(NameSpace nameSpace, boolean includeActivity, boolean includeResults) {
 		filter.setAnalyticalmethod(getAnalyticalMethod());
-		filter.setCommandavoid(getAvoid());
+		filter.setCommand(getCommand());
 		filter.setAssemblage(getAssemblage());
 		filter.setBBox(getBBox());
 		filter.setCharacteristicName(getCharacteristicName());

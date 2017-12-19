@@ -60,7 +60,7 @@ public abstract class BaseControllerIntegrationTest extends BaseSpringTest {
 	public String getUrlParameters() {
 		return
 			"&" + Parameters.ANALYTICAL_METHOD.toString() + "=" + String.join(";", getAnalyticalMethod()) +
-			"&" + Parameters.AVOID.toString() + "=" + String.join(";", getAvoid()) + 
+			"&" + Parameters.AVOID.toString() + "=" + getCommand().getAvoid() + 
 			"&" + Parameters.ASSEMBLAGE.toString() + "=" + String.join(";", getAssemblage()) +
 			"&" + Parameters.BBOX.toString() + "=" + getBBox().getSingle() +
 			"&" + Parameters.CHARACTERISTIC_NAME.toString() + "=" + String.join(";", getCharacteristicName()) +
@@ -367,7 +367,7 @@ public abstract class BaseControllerIntegrationTest extends BaseSpringTest {
 				.param(Parameters.ASSEMBLAGE.toString(), String.join(";", getAssemblage()))
 				.param(Parameters.CHARACTERISTIC_NAME.toString(), String.join(";", getCharacteristicName()))
 				.param(Parameters.CHARACTERISTIC_TYPE.toString(), String.join(";", getCharacteristicType()))
-				.param(Parameters.AVOID.toString(), String.join(";", getAvoid()))
+				.param(Parameters.AVOID.toString(), getCommand().getAvoid())
 				.param(Parameters.COUNTRY.toString(), String.join(";", getCountry()))
 				.param(Parameters.COUNTY.toString(), String.join(";", getCounty()))
 				.param(Parameters.HUC.toString(), String.join(";", getHuc()))

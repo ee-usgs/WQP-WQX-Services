@@ -81,7 +81,7 @@ public class ProjectStreamingTest extends BaseSpringTest {
 
 	@Test
 	public void avoidTest() {
-		filter.setCommandavoid(getAvoid());
+		filter.setCommand(getCommand());
 		streamingDao.stream(NameSpace.PROJECT, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();

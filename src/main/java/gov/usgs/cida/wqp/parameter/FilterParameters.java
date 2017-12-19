@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
+import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -45,7 +46,6 @@ public class FilterParameters {
 	public static final String REGEX_HUC = "(?:[0-9]{12})|(?:[0-9]{10})|(?:[0-9]{8})|(?:(?:[0-9]{2}){1,3}\\*?)";
 	public static final String REGEX_PCODE = "[0-9]{5}";
 	public static final String REGEX_MIMETYPES = "csv|tsv|tab|xlsx|xml|kml|kmz|json|geojson";
-	public static final String REGEX_AVOID = "NWIS|STORET";
 	public static final String REGEX_YES_NO = "yes|no";
 	public static final String REGEX_ACEPT_ANYTHING = ".+";
 	public static final String REGEX_HUC_WILDCARD_IN = "\\*";
@@ -63,12 +63,8 @@ public class FilterParameters {
 	@Size(min=0, max=IN_CLAUSE_LIMIT, message="The assemblage is not between {min} and {max} occurances")
 	private List<@Lookup(parameter=Parameters.ASSEMBLAGE) String> assemblage;
 
-	@JsonProperty("command.avoid")
-	@Size(min=0, max=IN_CLAUSE_LIMIT, message="The commandavoid is not between {min} and {max} occurances")
-	private List<@Pattern(
-		regexp=REGEX_AVOID,
-		message="The value of command.avoid=${validatedValue} must match the format {regexp}")
-		String> commandavoid;
+	@Valid
+	private Command command;
 
 	@BBox
 	private BoundingBox bBox;
@@ -201,11 +197,12 @@ public class FilterParameters {
 	public void setAssemblage(List<String> assemblage) {
 		this.assemblage = assemblage;
 	}
-	public List<String> getCommandavoid() {
-		return commandavoid;
+	@JsonProperty("command.avoid")
+	public Command getCommand() {
+		return command;
 	}
-	public void setCommandavoid(List<String> commandavoid) {
-		this.commandavoid = commandavoid;
+	public void setCommand(Command command) {
+		this.command = command;
 	}
 	public BoundingBox getBBox() {
 		return bBox;
@@ -411,7 +408,7 @@ public class FilterParameters {
 				&& (null == bBox || StringUtils.isBlank(bBox.getSingle()))
 				&& (null == characteristicName || characteristicName.isEmpty())
 				&& (null == characteristicType || characteristicType.isEmpty())
-				&& (null == commandavoid || commandavoid.isEmpty())
+				&& (null == command || StringUtils.isBlank(command.getAvoid()))
 				&& (null == countrycode || countrycode.isEmpty())
 				&& (null == countycode || countycode.isEmpty())
 				&& StringUtils.isBlank(dataProfile)

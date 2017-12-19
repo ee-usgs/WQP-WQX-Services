@@ -10,7 +10,7 @@
         <if test="countycode != null">
             and (<include refid="dynamicWhere.countycode" />)
         </if>
-        <if test="commandavoid != null">
+        <if test="command != null">
             and (<include refid="dynamicWhere.commandavoid" />)
         </if>
         <if test="huc != null">

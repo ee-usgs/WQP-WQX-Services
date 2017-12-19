@@ -142,7 +142,7 @@ public abstract class BaseStationStreamingTest extends BaseSpringTest {
 	}
 
 	public void avoidTest(NameSpace nameSpace) {
-		filter.setCommandavoid(getAvoid());
+		filter.setCommand(getCommand());
 		streamingDao.stream(nameSpace, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();

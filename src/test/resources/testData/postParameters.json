@@ -21,9 +21,7 @@
                             "Population/Community",
                             "characteristicType"
                           ],
-    "command.avoid": [
-                        "NWIS"
-                     ],
+    "command.avoid": "NWIS",
     "countrycode": [
                     "MX",
                     "US",

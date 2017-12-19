@@ -39,7 +39,7 @@ public class FilterParametersTest extends BaseSpringTest {
 		filter.setBBox(getBBox());
 		filter.setCharacteristicName(getCharacteristicName());
 		filter.setCharacteristicType(getCharacteristicType());
-		filter.setCommandavoid(getAvoid());
+		filter.setCommand(getCommand());
 		filter.setCountrycode(getCountry());
 		filter.setCountycode(getCounty());
 		filter.setDataProfile(Profile.ACTIVITY.name());

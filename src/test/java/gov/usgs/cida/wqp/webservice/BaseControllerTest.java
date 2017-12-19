@@ -385,7 +385,6 @@ public class BaseControllerTest extends BaseSpringTest {
 		filter.setDataProfile(Profile.STATION.toString());
 		when(contentStrategy.resolveMediaTypes(anyObject())).thenReturn(Arrays.asList(MimeType.kml.getMediaType()));
 
-//		request.setParameter("countrycode", "US");
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		BigDecimal logId = BigDecimal.ONE;
 		TestBaseController.setLogId(logId);
@@ -862,9 +861,9 @@ public class BaseControllerTest extends BaseSpringTest {
 
 		TestBaseController.setProfile(Profile.RES_DETECT_QNT_LMT);
 		assertEquals(NameSpace.RES_DETECT_QNT_LMT, testController.determineNamespace());
-		
-		//TestBaseController.setProfile(Profile.PROJECT);
-		//assertEquals(NameSpace.PROJECT, testController.determineNamespace());
+
+		TestBaseController.setProfile(Profile.PROJECT);
+		assertEquals(NameSpace.PROJECT, testController.determineNamespace());
 
 		TestBaseController.setProfile(null);
 		assertNull(testController.determineNamespace());
