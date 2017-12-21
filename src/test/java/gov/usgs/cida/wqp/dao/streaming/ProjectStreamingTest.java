@@ -51,6 +51,8 @@ public class ProjectStreamingTest extends BaseSpringTest {
 	public static final String [] PROJECT_NAWQA = new String[] {NWIS, "NAWQA"};
 	public static final String [] PROJECT_SOMETHINGELSE = new String[] {STORET, "SOMETHINGELSE"};
 	public static final String [] PROJECT_SACR_BIOTDB = new String[] {BIODATA, "SACR BioTDB"};
+	public static final String [] PROJECT_NORESULTSPROJECT = new String[] {STORET, "NoResultsProject"};
+	public static final String [] PROJECT_NORESULTSPROJECT2 = new String[] {NWIS, "NoResultsProject2"};
 
 	@Before
 	public void init() {
@@ -86,7 +88,8 @@ public class ProjectStreamingTest extends BaseSpringTest {
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(STORET_PROJECT_COUNT, String.valueOf(results.size()));
-		assertContainsProject(results, PROJECT_LAKE_BASELINE, PROJECT_WR047, PROJECT_EPABEACH, PROJECT_PROJECTID, PROJECT_SAM, PROJECT_SOMETHINGELSE);
+		assertContainsProject(results, PROJECT_LAKE_BASELINE, PROJECT_WR047, PROJECT_EPABEACH,
+				PROJECT_PROJECTID, PROJECT_SAM, PROJECT_SOMETHINGELSE, PROJECT_NORESULTSPROJECT);
 	}
 
 	@Test
@@ -105,7 +108,6 @@ public class ProjectStreamingTest extends BaseSpringTest {
 		streamingDao.stream(NameSpace.PROJECT, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		System.out.println(results);
 		assertContainsProject(results, PROJECT_SACR_BIOTDB, PROJECT_NAWQA, PROJECT_CEAP, PROJECT_LAKE_BASELINE, PROJECT_WR047,
 				PROJECT_EPABEACH, PROJECT_PROJECTID, PROJECT_SOMETHINGELSE);
 	}
@@ -223,7 +225,6 @@ public class ProjectStreamingTest extends BaseSpringTest {
 		}
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		System.out.println(results);
 		assertEquals(3, results.size());
 		assertContainsProject(results, PROJECT_LAKE_BASELINE, PROJECT_WR047, PROJECT_PROJECTID);
 	}
@@ -234,9 +235,8 @@ public class ProjectStreamingTest extends BaseSpringTest {
 		streamingDao.stream(NameSpace.PROJECT, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(7, results.size());
-		assertContainsProject(results, PROJECT_LAKE_BASELINE, PROJECT_WR047, PROJECT_PROJECTID, PROJECT_CEAP,
-				PROJECT_NAWQA, PROJECT_EPABEACH, PROJECT_SOMETHINGELSE);
+		assertEquals(1, results.size());
+		assertContainsProject(results, PROJECT_CEAP);
 	}
 
 	@Test
@@ -245,9 +245,9 @@ public class ProjectStreamingTest extends BaseSpringTest {
 		streamingDao.stream(NameSpace.PROJECT, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(8, results.size());
+		assertEquals(10, results.size());
 		assertContainsProject(results, PROJECT_LAKE_BASELINE, PROJECT_SAM, PROJECT_WR047, PROJECT_PROJECTID, PROJECT_CEAP,
-				PROJECT_NAWQA, PROJECT_EPABEACH, PROJECT_SOMETHINGELSE);
+				PROJECT_NAWQA, PROJECT_EPABEACH, PROJECT_SOMETHINGELSE, PROJECT_NORESULTSPROJECT, PROJECT_NORESULTSPROJECT2);
 	}
 
 	@Test
@@ -518,7 +518,6 @@ public class ProjectStreamingTest extends BaseSpringTest {
 		streamingDao.stream(NameSpace.PROJECT, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		System.out.println(results);
 		assertEquals(1, results.size());
 		assertContainsProject(results, PROJECT_PROJECTID);
 	}

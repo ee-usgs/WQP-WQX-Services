@@ -9,11 +9,29 @@
 		<if test="providers != null">
 			and (<include refid="dynamicWhere.providers" />)
 		</if>
-        <if test="startDateLo != null or startDateHi != null">
-            and (<include refid="dynamicWhere.startDateLoHi" />)
+        <if test="command != null">
+        	and (<include refid="dynamicWhere.commandavoid" />)
         </if>
 		<if test="project != null">
 			and (<include refid="dynamicWhere.project" />)
+		</if>
+	</sql>
+	
+	<sql id="childWhereProjectClauses">
+		<if test="organization != null">
+			and (<include refid="dynamicWhere.organization" />)
+		</if>
+		<if test="providers != null">
+			and (<include refid="dynamicWhere.providers" />)
+		</if>
+        <if test="startDateLo != null or startDateHi != null">
+            and (<include refid="dynamicWhere.startDateLoHi" />)
+        </if>
+        <if test="command != null">
+        	and (<include refid="dynamicWhere.commandavoid" />)
+        </if>
+		<if test="project != null">
+			and (<include refid="dynamicWhere.projectId" />)
 		</if>
 	</sql>
 	
@@ -44,7 +62,7 @@
 			<where>
 				<include refid="dynamicWhere.baseWhereStationGeoClauses"/>
 				<include refid="dynamicWhere.baseWhereStationClauses" />
-				<include refid="dynamicWhere.baseWhereProjectClauses" />
+				<include refid="dynamicWhere.childWhereProjectClauses" />
 			</where>
 			) tertiary
 			on prime.project_dim_value = tertiary.activity_projects
@@ -67,7 +85,7 @@
 			  	  <include refid="dynamicWhere.baseWhereStationGeoClauses" />
 			  	  <include refid="dynamicWhere.baseWhereStationClauses" />
 			  	  <include refid="dynamicWhere.baseWhereResultClauses" />
-			  	  <include refid="dynamicWhere.baseWhereProjectClauses" />
+			  	  <include refid="dynamicWhere.childWhereProjectClauses" />
 			  </where>
 			  ) tertiary
 			  on prime.project_dim_value = tertiary.activity_projects
@@ -75,22 +93,43 @@
 
 	<sql id="projectsBase">
 		from project_data prime
-		join (
-			select distinct
-				prime.code_value
-			from
-				project_dim prime
 		<choose>
+			<when test="activity == null and analyticalmethod == null and assemblage == null and 
+			            bBox == null and characteristicName == null and characteristicType == null and 
+			            countrycode == null and countycode == null and dataProfile == null and huc == null and 
+			            lat == null and long == null and mimeType == null and minactivities == null and 
+			            minresults == null and nldiSites == null and pCode == null and 
+			            result == null and sampleMedia == null and 
+			            siteid == null and siteType == null and sorted == null and startDateHi == null and 
+			            startDateLo == null and statecode == null and subjectTaxonomicName == null and 
+			            within == null">
+	            <where>
+	            	<include refid="dynamicWhere.baseWhereProjectClauses"/> 
+	            </where>           
+            </when> 
 			<when test="analyticalmethod == null and assemblage == null and characteristicName == null and
 						characteristicType == null and pCode == null and subjectTaxonomicName == null">
+				join (
+					select distinct
+						prime.code_value
+					from
+						project_dim prime
 				<include refid="dynamicWhere.projectJoinActivitySum" />
+				<include refid="dynamicWhere.projectLimitWhere"/>
+				) secondary
+				on prime.project_identifier = secondary.code_value
 			</when>
 			<otherwise>
+				join (
+					select distinct
+						prime.code_value
+					from
+						project_dim prime
 				<include refid="dynamicWhere.projectJoinResultSum"/>
+				<include refid="dynamicWhere.projectLimitWhere"/>
+				) secondary
+				on prime.project_identifier = secondary.code_value
 			</otherwise>
 		</choose>
-		<include refid="dynamicWhere.projectLimitWhere"/>
-		) secondary
-		on prime.project_identifier = secondary.code_value
 	</sql>
 </mapper>

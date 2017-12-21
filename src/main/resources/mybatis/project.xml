@@ -22,20 +22,10 @@
 	
 	<sql id="projectCount">
 		select
-			data_source, 
-			count(distinct data_source|| '-' ||prime.code_value) as project_count
-		from project_dim prime
-		<choose>
-			<when test="analyticalmethod == null and assemblage == null and characteristicName == null and
-						characteristicType == null and pCode == null and subjectTaxonomicName == null">
-				<include refid="dynamicWhere.projectJoinActivitySum" />
-			</when>
-			<otherwise>
-				<include refid="dynamicWhere.projectJoinResultSum"/>
-			</otherwise>
-		</choose>
-		<include refid="dynamicWhere.projectLimitWhere"/>
-		group by rollup(data_source)
+		    prime.data_source,
+			count (distinct prime.project_id) as project_count
+		<include refid="dynamicWhere.projectsBase"/>
+		group by rollup(prime.data_source)
 	</sql>
 	
 	<select id="count" resultType="java.util.LinkedHashMap">
