@@ -34,25 +34,12 @@
 			and (<include refid="dynamicWhere.projectId" />)
 		</if>
 	</sql>
-	
-	<sql id="projectLimitWhere">
-		<where>
-			<if test="minactivities != null">
-				and (project_activity_count >= #{minactivities})
-			</if>
-			<if test="minresults != null">
-				and (project_result_count >= #{minresults})
-			</if>
-		</where>
-	</sql>
 
 	<sql id="dynamicWhere.projectJoinActivitySum">
 		join (
 			select distinct
 					prime.data_source,
-					prime.project_id as activity_projects,
-					count(prime.activity_id) over (partition by prime.project_id) project_activity_count,
-					sum(prime.result_count) over (partition by prime.project_id) project_result_count
+					prime.project_id as activity_projects
 			from activity_sum prime
 			<if test="bBox != null or within != null">
 				join station_sum quaternary
@@ -72,9 +59,7 @@
 		join (
 			  select distinct
 			  		 prime.data_source,
-			  		 prime.project_id as activity_projects,
-			  		 count(distinct prime.activity_id) over (partition by prime.project_id) project_activity_count,
-			  		 sum(prime.result_count) over (partition by prime.project_id) project_result_count
+			  		 prime.project_id as activity_projects
 			  from result_sum prime
 			  <if test="bBox != null or within != null">
 			  	join station_sum quaternary
@@ -115,7 +100,6 @@
 					from
 						project_dim prime
 				<include refid="dynamicWhere.projectJoinActivitySum" />
-				<include refid="dynamicWhere.projectLimitWhere"/>
 				) secondary
 				on prime.project_identifier = secondary.code_value
 			</when>
@@ -126,7 +110,6 @@
 					from
 						project_dim prime
 				<include refid="dynamicWhere.projectJoinResultSum"/>
-				<include refid="dynamicWhere.projectLimitWhere"/>
 				) secondary
 				on prime.project_identifier = secondary.code_value
 			</otherwise>
