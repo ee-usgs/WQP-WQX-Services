@@ -49,7 +49,7 @@
 			<where>
 				<include refid="dynamicWhere.baseWhereStationGeoClauses"/>
 				<include refid="dynamicWhere.baseWhereStationClauses" />
-				<include refid="dynamicWhere.childWhereProjectClauses" />
+				<include refid="dynamicWhere.baseWhereProjectClauses" />
 			</where>
 			) tertiary
 			on prime.project_dim_value = tertiary.activity_projects
@@ -70,7 +70,7 @@
 			  	  <include refid="dynamicWhere.baseWhereStationGeoClauses" />
 			  	  <include refid="dynamicWhere.baseWhereStationClauses" />
 			  	  <include refid="dynamicWhere.baseWhereResultClauses" />
-			  	  <include refid="dynamicWhere.childWhereProjectClauses" />
+			  	  <include refid="dynamicWhere.baseWhereProjectClauses" />
 			  </where>
 			  ) tertiary
 			  on prime.project_dim_value = tertiary.activity_projects
