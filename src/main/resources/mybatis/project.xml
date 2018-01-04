@@ -15,9 +15,11 @@
 		       prime.project_file_url,
 		       prime.monitoring_location_weight_url
        <include refid="dynamicWhere.projectsBase"/>
-	       order by prime.data_source,
+       <if test="sorted == 'yes'">
+ 	       order by prime.data_source,
 	       			prime.organization,
-	       			prime.project_identifier
+	       			prime.project_identifier      
+       </if>
 	</select>
 	
 	<sql id="projectCount">
