@@ -78,10 +78,6 @@
     <sql id="project">
     	prime.project_identifier in <foreach item="i" collection="project" open="(" separator="," close=")">#{i}</foreach>
     </sql>
-    
-    <sql id="projectId">
-    	prime.project_id in <foreach item="i" collection="project" open="(" separator="," close=")">#{i}</foreach>
-    </sql>
 
     <sql id="providers">
         prime.data_source_id in (select data_source_id

@@ -68,21 +68,21 @@ public class CountDaoProjectTest extends BaseSpringTest {
 	public void sampleMediaTest() {
 		filter.setSampleMedia(getSampleMedia());
 		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT, filter);
-		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 5, "9", "1", "1", "6", "1");
+		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 4, "3", "1", "1", "1", null);
 	}
 
 	@Test
 	public void startDateHiTest() {
 		filter.setStartDateHi(getStartDateHi());
 		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT, filter);
-		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 5, "9", "1", "1", "6", "1");
+		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 4, "3", "1", "1", "1", null);
 	}
 
 	@Test
 	public void startDateLoTest() {
 		filter.setStartDateLo(getStartDateLo());
 		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT, filter);
-		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 5, "6", "1", "1", "3", "1");
+		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 4, "3", "1", "1", "1", null);
 	}
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -92,42 +92,42 @@ public class CountDaoProjectTest extends BaseSpringTest {
 	public void analyticalMethodTest() {
 		filter.setAnalyticalmethod(getAnalyticalMethod());
 		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT, filter);
-		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 3, "4", "1", null, "3", null);
+		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 3, "3", "1", null, "2", null);
 	}
 
 	@Test
 	public void assemblageTest() {
 		filter.setAssemblage(getAssemblage());
 		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT, filter);
-		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 3, "4", null, null, "3", "1");
+		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 2, "2", null, null, "2", null);
 	}
 
 	@Test
 	public void characteristicNameTest() {
 		filter.setCharacteristicName(getCharacteristicName());
 		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT, filter);
-		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 2, "3", null, null, "3", null);
+		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 2, "2", null, null, "2", null);
 	}
 
 	@Test
 	public void characteristicTypeTest() {
 		filter.setCharacteristicType(getCharacteristicType());
 		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT, filter);
-		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 3, "4", null, "1", "3", null);
+		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 3, "3", null, "1", "2", null);
 	}
 
 	@Test
 	public void pcodeTest() {
 		filter.setPCode(getPcode());
 		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT, filter);
-		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 3, "4", "1", null, "3", null);
+		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 3, "3", "1", null, "2", null);
 	}
 
 	@Test
 	public void subjectTaxonomicNameTest() {
 		filter.setSubjectTaxonomicName(getSubjectTaxonomicName());
 		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT, filter);
-		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 3, "2", null, null, "1", "1");
+		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 2, "1", null, null, "1", null);
 	}
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -150,7 +150,6 @@ public class CountDaoProjectTest extends BaseSpringTest {
 		filter.setSiteType(getSiteType());
 		filter.setStatecode(getState());
 		filter.setWithin(getWithin());
-		filter.setProject(getProject());
 		filter.setSampleMedia(getSampleMedia());
 		filter.setStartDateHi(getStartDateHi());
 		filter.setStartDateLo(getStartDateLo());
@@ -166,7 +165,6 @@ public class CountDaoProjectTest extends BaseSpringTest {
 		filter.setLong(getLongitude());
 		filter.setMinactivities(getMinActivities());
 		filter.setMinresults(getMinResults());
-		filter.setProject(getProject());
 		filter.setSampleMedia(getSampleMedia());
 		filter.setStartDateHi(getStartDateHi());
 		filter.setStartDateLo(getStartDateLo());
@@ -190,7 +188,6 @@ public class CountDaoProjectTest extends BaseSpringTest {
 		filter.setNldiSites(getNldiSites());
 		filter.setOrganization(getOrganization());
 		filter.setPCode(getPcode());
-		filter.setProject(getProject());
 		filter.setProviders(getProviders());
 		filter.setSampleMedia(getSampleMedia());
 		filter.setSiteid(getSiteid());
@@ -221,7 +218,6 @@ public class CountDaoProjectTest extends BaseSpringTest {
 		filter.setNldiSites(getNldiSites());
 		filter.setOrganization(getOrganization());
 		filter.setPCode(getPcode());
-		filter.setProject(getProject());
 		filter.setProviders(getProviders());
 		filter.setSampleMedia(getSampleMedia());
 		filter.setSiteid(getSiteid());

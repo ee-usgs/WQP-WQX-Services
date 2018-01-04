@@ -39,7 +39,8 @@
 		join (
 			select distinct
 					prime.data_source,
-					prime.project_id as activity_projects
+					prime.project_id as activity_projects,
+					prime.organization
 			from activity_sum prime
 			<if test="bBox != null or within != null">
 				join station_sum quaternary
@@ -49,7 +50,7 @@
 			<where>
 				<include refid="dynamicWhere.baseWhereStationGeoClauses"/>
 				<include refid="dynamicWhere.baseWhereStationClauses" />
-				<include refid="dynamicWhere.baseWhereProjectClauses" />
+				<include refid="dynamicWhere.baseWhereActivityClauses" />
 			</where>
 			) tertiary
 			on prime.project_dim_value = tertiary.activity_projects
@@ -59,7 +60,8 @@
 		join (
 			  select distinct
 			  		 prime.data_source,
-			  		 prime.project_id as activity_projects
+			  		 prime.project_id as activity_projects,
+			  		 prime.organization
 			  from result_sum prime
 			  <if test="bBox != null or within != null">
 			  	join station_sum quaternary
@@ -69,8 +71,8 @@
 			  <where>
 			  	  <include refid="dynamicWhere.baseWhereStationGeoClauses" />
 			  	  <include refid="dynamicWhere.baseWhereStationClauses" />
+			  	  <include refid="dynamicWhere.baseWhereActivityClauses" />
 			  	  <include refid="dynamicWhere.baseWhereResultClauses" />
-			  	  <include refid="dynamicWhere.baseWhereProjectClauses" />
 			  </where>
 			  ) tertiary
 			  on prime.project_dim_value = tertiary.activity_projects
@@ -79,40 +81,40 @@
 	<sql id="projectsBase">
 		from project_data prime
 		<choose>
-			<when test="activity == null and analyticalmethod == null and assemblage == null and 
-			            bBox == null and characteristicName == null and characteristicType == null and 
-			            countrycode == null and countycode == null and dataProfile == null and huc == null and 
-			            lat == null and long == null and mimeType == null and minactivities == null and 
-			            minresults == null and nldiSites == null and pCode == null and 
-			            result == null and sampleMedia == null and 
-			            siteid == null and siteType == null and sorted == null and startDateHi == null and 
-			            startDateLo == null and statecode == null and subjectTaxonomicName == null and 
-			            within == null">
-	            <where>
-	            	<include refid="dynamicWhere.baseWhereProjectClauses"/> 
-	            </where>           
-            </when> 
-			<when test="analyticalmethod == null and assemblage == null and characteristicName == null and
-						characteristicType == null and pCode == null and subjectTaxonomicName == null">
+            <when test="analyticalmethod != null or assemblage != null or characteristicName != null or
+            			characteristicType != null or pCode != null or subjectTaxonomicName != null">
 				join (
 					select distinct
-						prime.code_value
-					from
-						project_dim prime
-				<include refid="dynamicWhere.projectJoinActivitySum" />
-				) secondary
-				on prime.project_identifier = secondary.code_value
-			</when>
-			<otherwise>
-				join (
-					select distinct
-						prime.code_value
+						prime.code_value,
+						tertiary.organization
 					from
 						project_dim prime
 				<include refid="dynamicWhere.projectJoinResultSum"/>
 				) secondary
 				on prime.project_identifier = secondary.code_value
-			</otherwise>
+				and
+				prime.organization = secondary.organization         	
+    		</when>
+    		<when test="activity != null or bBox != null or countrycode != null or countycode != null or
+    					dataProfile != null or huc != null or lat != null or long != null or minactivities != null or
+    					minresults != null or nldiSites != null or result != null or sampleMedia != null or
+    					siteid != null or siteType != null or startDateHi != null or startDateLo != null or
+    					statecode != null or within != null">
+ 				join (
+					select distinct
+						prime.code_value,
+						tertiary.organization
+					from
+						project_dim prime
+				<include refid="dynamicWhere.projectJoinActivitySum" />
+				) secondary
+				on prime.project_identifier = secondary.code_value
+				and
+				prime.organization = secondary.organization   			
+    		</when>
 		</choose>
+		<where>
+			<include refid="dynamicWhere.baseWhereProjectClauses"/>
+		</where>
 	</sql>
 </mapper>
