@@ -3,7 +3,8 @@
 <mapper namespace="project">
 
 	<select id="select" resultType="java.util.LinkedHashMap" fetchSize="500">
-		select prime.data_source,
+		select prime.project_id,
+			   prime.data_source,
 			   prime.organization,
 			   prime.organization_name,
 		       prime.project_identifier,
@@ -16,7 +17,8 @@
 		       prime.monitoring_location_weight_url
        <include refid="dynamicWhere.projectsBase"/>
        <if test="sorted == 'yes'">
- 	       order by prime.data_source,
+ 	       order by prime.project_id,
+ 	       			prime.data_source,
 	       			prime.organization,
 	       			prime.project_identifier      
        </if>
