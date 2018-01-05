@@ -7,8 +7,12 @@ PROJECT_ID,DATA_SOURCE_ID,DATA_SOURCE,PROJECT_IDENTIFIER,PROJECT_NAME,DESCRIPTIO
 6,1,STEWARDS,CEAP,CEAP Name,CEAP Description,B,N,Agency 6,https://fake.org/666,https://fake.us/666,ARS,Agricultural Research Service
 7,2,NWIS,NAWQA,NAWQA Name,NAWQA Description,Z,Y,Agency 7,https://fake.org/777,https://fake.us/777,USGS-SC,USGS South Carolina Water Science Center
 8,3,STORET,SOMETHINGELSE,SOMETHINGELSE Name,SOMETHINGELSE Description,U,Y,Agency 8,https://fake.org/888,https://fake.us/888,UMC,"Univ. of Missouri, Columbia"
-9,4,BIODATA,SACR BioTDB,SACR Name,SACR Description,B,Y,Agency 9,https://fake.org/999,https://fake.us/999,USGS-NE,USGS Nebraska Water Science Center
+9,4,BIODATA,SACR BioTDB,SACR Name,SACR Description,B,Y,Agency 9,https://fake.org/999,https://fake.us/999,USGS,United States Geological Survey
 10,3,STORET,NoResultsProject,No Results Project,This project has no results,Z,Y,Agency 10,https://fake.org/1010,https://fake.us/1010,BLAH,Organization of Blah
 11,2,NWIS,NoResultsProject2,No Results Project 2,Second project with no results,B,Y,Agency 11,https://fake.org/1111,https://fake.us/1111,BLAH2,Organization of Blah 2
 12,2,NWIS,NAWQA,NAWQA Name,NAWQA Description,Z,Y,Agency 12,https://fake.org/1212,https://fake.us/1212,USGS-WI,USGS Wisconsin Water Science Center
 13,3,STORET,EPABEACH,EPA Beach Observation,EPA Beach Description,U,Y,Agency 13,https://fake.org/1313,https://fake.us/1313,organization,Some Organization
+14,3,STORET,WR047,Water Resources 47,WR047 Description 14,G,Y,Agency 14,https://fake.org/1414,https://fake.us/1414,WIDNR_WQX,Wisconsin DNR
+15,3,STORET,Lake-BaselineMonitoringDNR,Lake Baseline,Lake Baseline Monitoring,G,Y,Agency 15,https://fake.org/1515,https://fake.us/1515,WIDNR_WQX,Wisconsin DNR
+16,2,NWIS,projectIdNwis,Some NWIS Project,Some NWIS Project,X,N,Agency 16,https://fake.org/1616,https://fake.us/1616,USGS-WI,USGS Wisconsin Water Science Center
+17,1,STEWARDS,projectIdStewards,Some USDA Project,Some USDA Project,K,Y,Agency 17,https://fake.org/1717,https://fake.us/1717,ARS,Agricultural Research Service
