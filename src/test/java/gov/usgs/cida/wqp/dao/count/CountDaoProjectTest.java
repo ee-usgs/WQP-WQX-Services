@@ -150,6 +150,7 @@ public class CountDaoProjectTest extends BaseSpringTest {
 		filter.setSiteType(getSiteType());
 		filter.setStatecode(getState());
 		filter.setWithin(getWithin());
+		filter.setProject(getProject());
 		filter.setSampleMedia(getSampleMedia());
 		filter.setStartDateHi(getStartDateHi());
 		filter.setStartDateLo(getStartDateLo());
@@ -165,6 +166,7 @@ public class CountDaoProjectTest extends BaseSpringTest {
 		filter.setLong(getLongitude());
 		filter.setMinactivities(getMinActivities());
 		filter.setMinresults(getMinResults());
+		filter.setProject(getProject());
 		filter.setSampleMedia(getSampleMedia());
 		filter.setStartDateHi(getStartDateHi());
 		filter.setStartDateLo(getStartDateLo());
@@ -188,6 +190,7 @@ public class CountDaoProjectTest extends BaseSpringTest {
 		filter.setNldiSites(getNldiSites());
 		filter.setOrganization(getOrganization());
 		filter.setPCode(getPcode());
+		filter.setProject(getProject());
 		filter.setProviders(getProviders());
 		filter.setSampleMedia(getSampleMedia());
 		filter.setSiteid(getSiteid());
@@ -218,6 +221,7 @@ public class CountDaoProjectTest extends BaseSpringTest {
 		filter.setNldiSites(getNldiSites());
 		filter.setOrganization(getOrganization());
 		filter.setPCode(getPcode());
+		filter.setProject(getProject());
 		filter.setProviders(getProviders());
 		filter.setSampleMedia(getSampleMedia());
 		filter.setSiteid(getSiteid());
