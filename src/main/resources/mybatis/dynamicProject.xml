@@ -96,7 +96,7 @@
 				prime.organization = secondary.organization         	
     		</when>
     		<when test="activity != null or bBox != null or countrycode != null or countycode != null or
-    					dataProfile != null or huc != null or lat != null or long != null or minactivities != null or
+    					huc != null or lat != null or long != null or minactivities != null or
     					minresults != null or nldiSites != null or result != null or sampleMedia != null or
     					siteid != null or siteType != null or startDateHi != null or startDateLo != null or
     					statecode != null or within != null">

@@ -78,10 +78,10 @@ public class ProjectControllerIntTest extends BaseControllerIntegrationTest {
 	
 	public ResultActions unFilteredHeaderCheck(ResultActions resultActions) throws Exception {
 		return resultActions				
-				.andExpect(header().string(HttpConstants.HEADER_TOTAL_PROJECT_COUNT, TOTAL_PROJECT_COUNT_MINUS_2))
-				.andExpect(header().string(HEADER_NWIS_PROJECT_COUNT, NWIS_PROJECT_COUNT_MINUS_1))
+				.andExpect(header().string(HttpConstants.HEADER_TOTAL_PROJECT_COUNT, TOTAL_PROJECT_COUNT))
+				.andExpect(header().string(HEADER_NWIS_PROJECT_COUNT, NWIS_PROJECT_COUNT))
 				.andExpect(header().string(HEADER_STEWARDS_PROJECT_COUNT, STEWARDS_PROJECT_COUNT))
-				.andExpect(header().string(HEADER_STORET_PROJECT_COUNT, STORET_PROJECT_COUNT_MINUS_1))
+				.andExpect(header().string(HEADER_STORET_PROJECT_COUNT, STORET_PROJECT_COUNT))
 				.andExpect(header().string(HEADER_BIODATA_PROJECT_COUNT, BIODATA_PROJECT_COUNT));
 	}
 	
