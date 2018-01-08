@@ -68,21 +68,21 @@ public class CountDaoProjectTest extends BaseSpringTest {
 	public void sampleMediaTest() {
 		filter.setSampleMedia(getSampleMedia());
 		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT, filter);
-		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 4, "3", "1", "1", "1", null);
+		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 5, "6", "1", "1", "3", "1");
 	}
 
 	@Test
 	public void startDateHiTest() {
 		filter.setStartDateHi(getStartDateHi());
 		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT, filter);
-		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 4, "3", "1", "1", "1", null);
+		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 5, "6", "1", "1", "3", "1");
 	}
 
 	@Test
 	public void startDateLoTest() {
 		filter.setStartDateLo(getStartDateLo());
 		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT, filter);
-		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 4, "3", "1", "1", "1", null);
+		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 5, "4", "1", "1", "1", "1");
 	}
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -99,7 +99,7 @@ public class CountDaoProjectTest extends BaseSpringTest {
 	public void assemblageTest() {
 		filter.setAssemblage(getAssemblage());
 		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT, filter);
-		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 2, "2", null, null, "2", null);
+		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 3, "3", null, null, "2", "1");
 	}
 
 	@Test
@@ -127,7 +127,7 @@ public class CountDaoProjectTest extends BaseSpringTest {
 	public void subjectTaxonomicNameTest() {
 		filter.setSubjectTaxonomicName(getSubjectTaxonomicName());
 		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT, filter);
-		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 2, "1", null, null, "1", null);
+		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 3, "2", null, null, "1", "1");
 	}
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
