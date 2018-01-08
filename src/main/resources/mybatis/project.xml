@@ -13,8 +13,8 @@
 		       prime.sampling_design_type_code,
 		       prime.qapp_approved_indicator,
 		       prime.qapp_approval_agency_name,
-		       prime.project_file_url,
-		       prime.monitoring_location_weight_url
+		       #{siteUrlBase,jdbcType=VARCHAR} || '/projects/' || pkg_dynamic_list.url_escape(prime.project_file_url, 'true') project_file_url,
+		       #{siteUrlBase,jdbcType=VARCHAR} || '/projects/' || pkg_dynamic_list.url_escape(prime.monitoring_location_weight_url, 'true') monitoring_location_weight_url
        <include refid="dynamicWhere.projectsBase"/>
        <if test="sorted == 'yes'">
  	       order by prime.project_id,
