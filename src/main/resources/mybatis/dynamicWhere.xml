@@ -76,7 +76,7 @@
     </sql>
     
     <sql id="project">
-    	prime.project_identifier in <foreach item="i" collection="project" open="(" separator="," close=")">#{i}</foreach>
+        prime.project_identifier in <foreach item="i" collection="project" open="(" separator="," close=")">#{i}</foreach>
     </sql>
 
     <sql id="providers">
