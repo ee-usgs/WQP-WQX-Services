@@ -68,21 +68,21 @@ public class CountDaoProjectTest extends BaseSpringTest {
 	public void sampleMediaTest() {
 		filter.setSampleMedia(getSampleMedia());
 		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT, filter);
-		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 5, "9", "1", "1", "6", "1");
+		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 5, "6", "1", "1", "3", "1");
 	}
 
 	@Test
 	public void startDateHiTest() {
 		filter.setStartDateHi(getStartDateHi());
 		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT, filter);
-		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 5, "9", "1", "1", "6", "1");
+		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 5, "6", "1", "1", "3", "1");
 	}
 
 	@Test
 	public void startDateLoTest() {
 		filter.setStartDateLo(getStartDateLo());
 		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT, filter);
-		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 5, "6", "1", "1", "3", "1");
+		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 5, "4", "1", "1", "1", "1");
 	}
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -92,35 +92,35 @@ public class CountDaoProjectTest extends BaseSpringTest {
 	public void analyticalMethodTest() {
 		filter.setAnalyticalmethod(getAnalyticalMethod());
 		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT, filter);
-		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 3, "4", "1", null, "3", null);
+		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 3, "3", "1", null, "2", null);
 	}
 
 	@Test
 	public void assemblageTest() {
 		filter.setAssemblage(getAssemblage());
 		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT, filter);
-		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 3, "4", null, null, "3", "1");
+		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 3, "3", null, null, "2", "1");
 	}
 
 	@Test
 	public void characteristicNameTest() {
 		filter.setCharacteristicName(getCharacteristicName());
 		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT, filter);
-		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 2, "3", null, null, "3", null);
+		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 2, "2", null, null, "2", null);
 	}
 
 	@Test
 	public void characteristicTypeTest() {
 		filter.setCharacteristicType(getCharacteristicType());
 		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT, filter);
-		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 3, "4", null, "1", "3", null);
+		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 3, "3", null, "1", "2", null);
 	}
 
 	@Test
 	public void pcodeTest() {
 		filter.setPCode(getPcode());
 		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT, filter);
-		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 3, "4", "1", null, "3", null);
+		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 3, "3", "1", null, "2", null);
 	}
 
 	@Test

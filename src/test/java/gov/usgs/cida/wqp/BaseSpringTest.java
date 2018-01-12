@@ -131,10 +131,10 @@ public abstract class BaseSpringTest {
 	public static String STORET_RES_DETECT_QNT_LMT_COUNT = "57";
 	public static String BIODATA_RES_DETECT_QNT_LMT_COUNT = "1";
 	
-	public static String TOTAL_PROJECT_COUNT = "9";
-	public static String NWIS_PROJECT_COUNT = "1";
-	public static String STEWARDS_PROJECT_COUNT = "1";
-	public static String STORET_PROJECT_COUNT = "6";
+	public static String TOTAL_PROJECT_COUNT = "17";
+	public static String NWIS_PROJECT_COUNT = "4";
+	public static String STEWARDS_PROJECT_COUNT = "2";
+	public static String STORET_PROJECT_COUNT = "10";
 	public static String BIODATA_PROJECT_COUNT = "1";
 
 	public static final String FILTERED_STORET_SITE_COUNT = "1";
