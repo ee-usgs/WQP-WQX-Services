@@ -2,54 +2,6 @@
 <WQX xmlns='http://qwwebservices.usgs.gov/schemas/WQX-Outbound/2_0/' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='http://qwwebservices.usgs.gov/schemas/WQX-Outbound/2_0/ http://qwwebservices.usgs.gov/schemas/WQX-Outbound/2_0/index.xsd'>
   <Organization>
     <OrganizationDescription>
-      <OrganizationIdentifier>USGS-NE</OrganizationIdentifier>
-      <OrganizationFormalName>USGS Nebraska Water Science Center</OrganizationFormalName>
-    </OrganizationDescription>
-    <Project>
-      <ProjectIdentifier>SACR BioTDB</ProjectIdentifier>
-      <ProjectName>SACR Name</ProjectName>
-      <ProjectDescriptionText>SACR Description</ProjectDescriptionText>
-      <SamplingDesignTypeCode>B</SamplingDesignTypeCode>
-      <QAPPApprovedIndicator>Y</QAPPApprovedIndicator>
-      <QAPPApprovalAgencyName>Agency 9</QAPPApprovalAgencyName>
-      <ProjectFileUrl>https://fake.org/999</ProjectFileUrl>
-      <ProjectMonitoringLocationWeightingURL>https://fake.us/999</ProjectMonitoringLocationWeightingURL>
-    </Project>
-  </Organization>
-  <Organization>
-    <OrganizationDescription>
-      <OrganizationIdentifier>USGS-SC</OrganizationIdentifier>
-      <OrganizationFormalName>USGS South Carolina Water Science Center</OrganizationFormalName>
-    </OrganizationDescription>
-    <Project>
-      <ProjectIdentifier>NAWQA</ProjectIdentifier>
-      <ProjectName>NAWQA Name</ProjectName>
-      <ProjectDescriptionText>NAWQA Description</ProjectDescriptionText>
-      <SamplingDesignTypeCode>Z</SamplingDesignTypeCode>
-      <QAPPApprovedIndicator>Y</QAPPApprovedIndicator>
-      <QAPPApprovalAgencyName>Agency 7</QAPPApprovalAgencyName>
-      <ProjectFileUrl>https://fake.org/777</ProjectFileUrl>
-      <ProjectMonitoringLocationWeightingURL>https://fake.us/777</ProjectMonitoringLocationWeightingURL>
-    </Project>
-  </Organization>
-  <Organization>
-    <OrganizationDescription>
-      <OrganizationIdentifier>ARS</OrganizationIdentifier>
-      <OrganizationFormalName>Agricultural Research Service</OrganizationFormalName>
-    </OrganizationDescription>
-    <Project>
-      <ProjectIdentifier>CEAP</ProjectIdentifier>
-      <ProjectName>CEAP Name</ProjectName>
-      <ProjectDescriptionText>CEAP Description</ProjectDescriptionText>
-      <SamplingDesignTypeCode>B</SamplingDesignTypeCode>
-      <QAPPApprovedIndicator>N</QAPPApprovedIndicator>
-      <QAPPApprovalAgencyName>Agency 6</QAPPApprovalAgencyName>
-      <ProjectFileUrl>https://fake.org/666</ProjectFileUrl>
-      <ProjectMonitoringLocationWeightingURL>https://fake.us/666</ProjectMonitoringLocationWeightingURL>
-    </Project>
-  </Organization>
-  <Organization>
-    <OrganizationDescription>
       <OrganizationIdentifier>21FLVEMD</OrganizationIdentifier>
       <OrganizationFormalName>Volusa County Environmental Health Lab (Florida)</OrganizationFormalName>
     </OrganizationDescription>
@@ -60,56 +12,8 @@
       <SamplingDesignTypeCode>G</SamplingDesignTypeCode>
       <QAPPApprovedIndicator>Y</QAPPApprovedIndicator>
       <QAPPApprovalAgencyName>Agency 1</QAPPApprovalAgencyName>
-      <ProjectFileUrl>https://fake.org/111</ProjectFileUrl>
-      <ProjectMonitoringLocationWeightingURL>https://fake.us/111</ProjectMonitoringLocationWeightingURL>
-    </Project>
-  </Organization>
-  <Organization>
-    <OrganizationDescription>
-      <OrganizationIdentifier>21LABCH</OrganizationIdentifier>
-      <OrganizationFormalName>Louisiana Department of Health and Hospitals</OrganizationFormalName>
-    </OrganizationDescription>
-    <Project>
-      <ProjectIdentifier>WR047</ProjectIdentifier>
-      <ProjectName>Water Resources 47</ProjectName>
-      <ProjectDescriptionText>WR047 Description</ProjectDescriptionText>
-      <SamplingDesignTypeCode>G</SamplingDesignTypeCode>
-      <QAPPApprovedIndicator>Y</QAPPApprovedIndicator>
-      <QAPPApprovalAgencyName>Agency 3</QAPPApprovalAgencyName>
-      <ProjectFileUrl>https://fake.org/333</ProjectFileUrl>
-      <ProjectMonitoringLocationWeightingURL>https://fake.us/333</ProjectMonitoringLocationWeightingURL>
-    </Project>
-  </Organization>
-  <Organization>
-    <OrganizationDescription>
-      <OrganizationIdentifier>BLMRW</OrganizationIdentifier>
-      <OrganizationFormalName>Barr Lake Milton Reservoir Watershed (Colorado)</OrganizationFormalName>
-    </OrganizationDescription>
-    <Project>
-      <ProjectIdentifier>EPABEACH</ProjectIdentifier>
-      <ProjectName>EPA Beach Observation</ProjectName>
-      <ProjectDescriptionText>EPA Beach Description</ProjectDescriptionText>
-      <SamplingDesignTypeCode>U</SamplingDesignTypeCode>
-      <QAPPApprovedIndicator>Y</QAPPApprovedIndicator>
-      <QAPPApprovalAgencyName>Agency 5</QAPPApprovalAgencyName>
-      <ProjectFileUrl>https://fake.org/555</ProjectFileUrl>
-      <ProjectMonitoringLocationWeightingURL>https://fake.us/555</ProjectMonitoringLocationWeightingURL>
-    </Project>
-  </Organization>
-  <Organization>
-    <OrganizationDescription>
-      <OrganizationIdentifier>ERWC</OrganizationIdentifier>
-      <OrganizationFormalName>Eagle River Watershed Council (ERWC)</OrganizationFormalName>
-    </OrganizationDescription>
-    <Project>
-      <ProjectIdentifier>projectId</ProjectIdentifier>
-      <ProjectName>Some Project</ProjectName>
-      <ProjectDescriptionText>Some Project Description</ProjectDescriptionText>
-      <SamplingDesignTypeCode>Z</SamplingDesignTypeCode>
-      <QAPPApprovedIndicator>Y </QAPPApprovedIndicator>
-      <QAPPApprovalAgencyName>Agency 4</QAPPApprovalAgencyName>
-      <ProjectFileUrl>https://fake.org/444</ProjectFileUrl>
-      <ProjectMonitoringLocationWeightingURL>https://fake.us/444</ProjectMonitoringLocationWeightingURL>
+      <ProjectFileUrl>https://www.waterqualitydata.us/projects/100/files</ProjectFileUrl>
+      <ProjectMonitoringLocationWeightingURL>https://www.waterqualitydata.us/projects/100/mon_loc_weights</ProjectMonitoringLocationWeightingURL>
     </Project>
   </Organization>
   <Organization>
@@ -124,8 +28,84 @@
       <SamplingDesignTypeCode>Z</SamplingDesignTypeCode>
       <QAPPApprovedIndicator>N</QAPPApprovedIndicator>
       <QAPPApprovalAgencyName>Agency 2</QAPPApprovalAgencyName>
-      <ProjectFileUrl>https://fake.org/222</ProjectFileUrl>
-      <ProjectMonitoringLocationWeightingURL>https://fake.us/222</ProjectMonitoringLocationWeightingURL>
+      <ProjectFileUrl>https://www.waterqualitydata.us/projects/200/files</ProjectFileUrl>
+    </Project>
+  </Organization>
+  <Organization>
+    <OrganizationDescription>
+      <OrganizationIdentifier>21LABCH</OrganizationIdentifier>
+      <OrganizationFormalName>Louisiana Department of Health and Hospitals</OrganizationFormalName>
+    </OrganizationDescription>
+    <Project>
+      <ProjectIdentifier>WR047</ProjectIdentifier>
+      <ProjectName>Water Resources 47</ProjectName>
+      <ProjectDescriptionText>WR047 Description</ProjectDescriptionText>
+      <SamplingDesignTypeCode>G</SamplingDesignTypeCode>
+      <QAPPApprovedIndicator>Y</QAPPApprovedIndicator>
+      <QAPPApprovalAgencyName>Agency 3</QAPPApprovalAgencyName>
+      <ProjectFileUrl>https://www.waterqualitydata.us/projects/300/files</ProjectFileUrl>
+      <ProjectMonitoringLocationWeightingURL>https://www.waterqualitydata.us/projects/300/mon_loc_weights</ProjectMonitoringLocationWeightingURL>
+    </Project>
+  </Organization>
+  <Organization>
+    <OrganizationDescription>
+      <OrganizationIdentifier>organization</OrganizationIdentifier>
+      <OrganizationFormalName>Some Organization</OrganizationFormalName>
+    </OrganizationDescription>
+    <Project>
+      <ProjectIdentifier>projectId</ProjectIdentifier>
+      <ProjectName>Some Project</ProjectName>
+      <ProjectDescriptionText>Some Project Description</ProjectDescriptionText>
+      <SamplingDesignTypeCode>Z</SamplingDesignTypeCode>
+      <QAPPApprovedIndicator>Y </QAPPApprovedIndicator>
+      <QAPPApprovalAgencyName>Agency 4</QAPPApprovalAgencyName>
+      <ProjectFileUrl>https://www.waterqualitydata.us/projects/400/files</ProjectFileUrl>
+      <ProjectMonitoringLocationWeightingURL>https://www.waterqualitydata.us/projects/400/mon_loc_weights</ProjectMonitoringLocationWeightingURL>
+    </Project>
+  </Organization>
+  <Organization>
+    <OrganizationDescription>
+      <OrganizationIdentifier>BLMRW</OrganizationIdentifier>
+      <OrganizationFormalName>Barr Lake Milton Reservoir Watershed (Colorado)</OrganizationFormalName>
+    </OrganizationDescription>
+    <Project>
+      <ProjectIdentifier>EPABEACH</ProjectIdentifier>
+      <ProjectName>EPA Beach Observation</ProjectName>
+      <ProjectDescriptionText>EPA Beach Description</ProjectDescriptionText>
+      <SamplingDesignTypeCode>U</SamplingDesignTypeCode>
+      <QAPPApprovedIndicator>Y</QAPPApprovedIndicator>
+      <QAPPApprovalAgencyName>Agency 5</QAPPApprovalAgencyName>
+      <ProjectFileUrl>https://www.waterqualitydata.us/projects/500/files</ProjectFileUrl>
+      <ProjectMonitoringLocationWeightingURL>https://www.waterqualitydata.us/projects/500/mon_loc_weights</ProjectMonitoringLocationWeightingURL>
+    </Project>
+  </Organization>
+  <Organization>
+    <OrganizationDescription>
+      <OrganizationIdentifier>ARS</OrganizationIdentifier>
+      <OrganizationFormalName>Agricultural Research Service</OrganizationFormalName>
+    </OrganizationDescription>
+    <Project>
+      <ProjectIdentifier>CEAP</ProjectIdentifier>
+      <ProjectName>CEAP Name</ProjectName>
+      <ProjectDescriptionText>CEAP Description</ProjectDescriptionText>
+      <SamplingDesignTypeCode>B</SamplingDesignTypeCode>
+      <QAPPApprovedIndicator>N</QAPPApprovedIndicator>
+      <QAPPApprovalAgencyName>Agency 6</QAPPApprovalAgencyName>
+      <ProjectFileUrl>https://www.waterqualitydata.us/projects/600/files</ProjectFileUrl>
+    </Project>
+  </Organization>
+  <Organization>
+    <OrganizationDescription>
+      <OrganizationIdentifier>USGS-SC</OrganizationIdentifier>
+      <OrganizationFormalName>USGS South Carolina Water Science Center</OrganizationFormalName>
+    </OrganizationDescription>
+    <Project>
+      <ProjectIdentifier>NAWQA</ProjectIdentifier>
+      <ProjectName>NAWQA Name</ProjectName>
+      <ProjectDescriptionText>NAWQA Description</ProjectDescriptionText>
+      <SamplingDesignTypeCode>Z</SamplingDesignTypeCode>
+      <QAPPApprovedIndicator>Y</QAPPApprovedIndicator>
+      <QAPPApprovalAgencyName>Agency 7</QAPPApprovalAgencyName>
     </Project>
   </Organization>
   <Organization>
@@ -140,8 +120,140 @@
       <SamplingDesignTypeCode>U</SamplingDesignTypeCode>
       <QAPPApprovedIndicator>Y</QAPPApprovedIndicator>
       <QAPPApprovalAgencyName>Agency 8</QAPPApprovalAgencyName>
-      <ProjectFileUrl>https://fake.org/888</ProjectFileUrl>
-      <ProjectMonitoringLocationWeightingURL>https://fake.us/888</ProjectMonitoringLocationWeightingURL>
+      <ProjectFileUrl>https://www.waterqualitydata.us/projects/800/files</ProjectFileUrl>
+      <ProjectMonitoringLocationWeightingURL>https://www.waterqualitydata.us/projects/800/mon_loc_weights</ProjectMonitoringLocationWeightingURL>
+    </Project>
+  </Organization>
+  <Organization>
+    <OrganizationDescription>
+      <OrganizationIdentifier>USGS</OrganizationIdentifier>
+      <OrganizationFormalName>United States Geological Survey</OrganizationFormalName>
+    </OrganizationDescription>
+    <Project>
+      <ProjectIdentifier>SACR BioTDB</ProjectIdentifier>
+      <ProjectName>SACR Name</ProjectName>
+      <ProjectDescriptionText>SACR Description</ProjectDescriptionText>
+      <SamplingDesignTypeCode>B</SamplingDesignTypeCode>
+      <QAPPApprovedIndicator>Y</QAPPApprovedIndicator>
+      <QAPPApprovalAgencyName>Agency 9</QAPPApprovalAgencyName>
+      <ProjectFileUrl>https://www.waterqualitydata.us/projects/999/files</ProjectFileUrl>
+      <ProjectMonitoringLocationWeightingURL>https://www.waterqualitydata.us/projects/900/mon_loc_weights</ProjectMonitoringLocationWeightingURL>
+    </Project>
+  </Organization>
+  <Organization>
+    <OrganizationDescription>
+      <OrganizationIdentifier>BLAH</OrganizationIdentifier>
+      <OrganizationFormalName>Organization of Blah</OrganizationFormalName>
+    </OrganizationDescription>
+    <Project>
+      <ProjectIdentifier>NoResultsProject</ProjectIdentifier>
+      <ProjectName>No Results Project</ProjectName>
+      <ProjectDescriptionText>This project has no results</ProjectDescriptionText>
+      <SamplingDesignTypeCode>Z</SamplingDesignTypeCode>
+      <QAPPApprovedIndicator>Y</QAPPApprovedIndicator>
+      <QAPPApprovalAgencyName>Agency 10</QAPPApprovalAgencyName>
+      <ProjectFileUrl>https://www.waterqualitydata.us/projects/1000/files</ProjectFileUrl>
+      <ProjectMonitoringLocationWeightingURL>https://www.waterqualitydata.us/projects/1000/mon_loc_weights</ProjectMonitoringLocationWeightingURL>
+    </Project>
+  </Organization>
+  <Organization>
+    <OrganizationDescription>
+      <OrganizationIdentifier>BLAH2</OrganizationIdentifier>
+      <OrganizationFormalName>Organization of Blah 2</OrganizationFormalName>
+    </OrganizationDescription>
+    <Project>
+      <ProjectIdentifier>NoResultsProject2</ProjectIdentifier>
+      <ProjectName>No Results Project 2</ProjectName>
+      <ProjectDescriptionText>Second project with no results</ProjectDescriptionText>
+      <SamplingDesignTypeCode>B</SamplingDesignTypeCode>
+      <QAPPApprovedIndicator>Y</QAPPApprovedIndicator>
+      <QAPPApprovalAgencyName>Agency 11</QAPPApprovalAgencyName>
+      <ProjectMonitoringLocationWeightingURL>https://www.waterqualitydata.us/projects/1100/mon_loc_weights</ProjectMonitoringLocationWeightingURL>
+    </Project>
+  </Organization>
+  <Organization>
+    <OrganizationDescription>
+      <OrganizationIdentifier>USGS-WI</OrganizationIdentifier>
+      <OrganizationFormalName>USGS Wisconsin Water Science Center</OrganizationFormalName>
+    </OrganizationDescription>
+    <Project>
+      <ProjectIdentifier>NAWQA</ProjectIdentifier>
+      <ProjectName>NAWQA Name</ProjectName>
+      <ProjectDescriptionText>NAWQA Description</ProjectDescriptionText>
+      <SamplingDesignTypeCode>Z</SamplingDesignTypeCode>
+      <QAPPApprovedIndicator>Y</QAPPApprovedIndicator>
+      <QAPPApprovalAgencyName>Agency 12</QAPPApprovalAgencyName>
+      <ProjectFileUrl>https://www.waterqualitydata.us/projects/1200/files</ProjectFileUrl>
+    </Project>
+  </Organization>
+  <Organization>
+    <OrganizationDescription>
+      <OrganizationIdentifier>organization</OrganizationIdentifier>
+      <OrganizationFormalName>Some Organization</OrganizationFormalName>
+    </OrganizationDescription>
+    <Project>
+      <ProjectIdentifier>EPABEACH</ProjectIdentifier>
+      <ProjectName>EPA Beach Observation</ProjectName>
+      <ProjectDescriptionText>EPA Beach Description</ProjectDescriptionText>
+      <SamplingDesignTypeCode>U</SamplingDesignTypeCode>
+      <QAPPApprovedIndicator>Y</QAPPApprovedIndicator>
+      <QAPPApprovalAgencyName>Agency 13</QAPPApprovalAgencyName>
+      <ProjectFileUrl>https://www.waterqualitydata.us/projects/1300/files</ProjectFileUrl>
+      <ProjectMonitoringLocationWeightingURL>https://www.waterqualitydata.us/projects/1300/mon_loc_weights</ProjectMonitoringLocationWeightingURL>
+    </Project>
+  </Organization>
+  <Organization>
+    <OrganizationDescription>
+      <OrganizationIdentifier>WIDNR_WQX</OrganizationIdentifier>
+      <OrganizationFormalName>Wisconsin DNR</OrganizationFormalName>
+    </OrganizationDescription>
+    <Project>
+      <ProjectIdentifier>WR047</ProjectIdentifier>
+      <ProjectName>Water Resources 47</ProjectName>
+      <ProjectDescriptionText>WR047 Description 14</ProjectDescriptionText>
+      <SamplingDesignTypeCode>G</SamplingDesignTypeCode>
+      <QAPPApprovedIndicator>Y</QAPPApprovedIndicator>
+      <QAPPApprovalAgencyName>Agency 14</QAPPApprovalAgencyName>
+      <ProjectMonitoringLocationWeightingURL>https://www.waterqualitydata.us/projects/1400/mon_loc_weights</ProjectMonitoringLocationWeightingURL>
+    </Project>
+    <Project>
+      <ProjectIdentifier>Lake-BaselineMonitoringDNR</ProjectIdentifier>
+      <ProjectName>Lake Baseline</ProjectName>
+      <ProjectDescriptionText>Lake Baseline Monitoring</ProjectDescriptionText>
+      <SamplingDesignTypeCode>G</SamplingDesignTypeCode>
+      <QAPPApprovedIndicator>Y</QAPPApprovedIndicator>
+      <QAPPApprovalAgencyName>Agency 15</QAPPApprovalAgencyName>
+      <ProjectFileUrl>https://www.waterqualitydata.us/projects/1500/files</ProjectFileUrl>
+      <ProjectMonitoringLocationWeightingURL>https://www.waterqualitydata.us/projects/1500/mon_loc_weights</ProjectMonitoringLocationWeightingURL>
+    </Project>
+  </Organization>
+  <Organization>
+    <OrganizationDescription>
+      <OrganizationIdentifier>USGS-WI</OrganizationIdentifier>
+      <OrganizationFormalName>USGS Wisconsin Water Science Center</OrganizationFormalName>
+    </OrganizationDescription>
+    <Project>
+      <ProjectIdentifier>projectIdNwis</ProjectIdentifier>
+      <ProjectName>Some NWIS Project</ProjectName>
+      <ProjectDescriptionText>Some NWIS Project</ProjectDescriptionText>
+      <SamplingDesignTypeCode>X</SamplingDesignTypeCode>
+      <QAPPApprovedIndicator>N</QAPPApprovedIndicator>
+      <QAPPApprovalAgencyName>Agency 16</QAPPApprovalAgencyName>
+    </Project>
+  </Organization>
+  <Organization>
+    <OrganizationDescription>
+      <OrganizationIdentifier>ARS</OrganizationIdentifier>
+      <OrganizationFormalName>Agricultural Research Service</OrganizationFormalName>
+    </OrganizationDescription>
+    <Project>
+      <ProjectIdentifier>projectIdStewards</ProjectIdentifier>
+      <ProjectName>Some USDA Project</ProjectName>
+      <ProjectDescriptionText>Some USDA Project</ProjectDescriptionText>
+      <SamplingDesignTypeCode>K</SamplingDesignTypeCode>
+      <QAPPApprovedIndicator>Y</QAPPApprovedIndicator>
+      <QAPPApprovalAgencyName>Agency 17</QAPPApprovalAgencyName>
+      <ProjectFileUrl>https://www.waterqualitydata.us/projects/1700/files</ProjectFileUrl>
     </Project>
   </Organization>
 </WQX>

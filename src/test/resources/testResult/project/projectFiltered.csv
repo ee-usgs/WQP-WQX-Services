@@ -1,2 +1,2 @@
 OrganizationIdentifier,OrganizationFormalName,ProjectIdentifier,ProjectName,ProjectDescriptionText,SamplingDesignTypeCode,QAPPApprovedIndicator,QAPPApprovalAgencyName,ProjectFileUrl,ProjectMonitoringLocationWeightingURL
-ERWC,Eagle River Watershed Council (ERWC),projectId,Some Project,Some Project Description,Z,Y ,Agency 4,https://fake.org/444,https://fake.us/444
+organization,Some Organization,projectId,Some Project,Some Project Description,Z,Y ,Agency 4,https://www.waterqualitydata.us/projects/400/files,https://www.waterqualitydata.us/projects/400/mon_loc_weights

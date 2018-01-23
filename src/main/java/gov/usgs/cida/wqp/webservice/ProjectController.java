@@ -120,7 +120,12 @@ public class ProjectController extends BaseController {
 	@Override
 	protected IXmlMapping getKmlMapping() {
 		return null;
-	}	
+	}
+	
+	@Override
+	protected void addCustomRequestParams() {
+		getFilter().setSiteUrlBase(siteUrlBase);
+	}
 }
 
 

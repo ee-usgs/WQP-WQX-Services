@@ -19,7 +19,6 @@ public class ProjectDelimitedTest {
 	public static void assertProjectProfile(Map<String, String> mapping) {
 		assertEquals(10, mapping.size());
 		Object[] keys = mapping.keySet().toArray();
-		// System.out.println(keys[7]);
 		assertEquals(ProjectColumn.KEY_ORGANIZATION, keys[0]);
 		assertEquals(ProjectDelimited.VALUE_ORGANIZATION_IDENTIFIER, mapping.get(keys[0]));
 		assertEquals(ProjectColumn.KEY_ORGANIZATION_NAME, keys[1]);
