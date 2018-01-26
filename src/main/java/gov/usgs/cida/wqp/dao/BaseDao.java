@@ -19,6 +19,7 @@ public abstract class BaseDao extends SqlSessionDaoSupport {
 	public static final String RES_DETECT_QNT_LMT_NAMESPACE = "resDetectQntLmt";
 	public static final String NARROW_RESULT_NAMESPACE = "narrowResult";
 	public static final String PROJECT_NAMESPACE = "project";
+	public static final String PROJECT_MONITORING_LOCATION_WEIGHTING_NAMESPACE = "projectMonitoringLocationWeighting";
 
 	public BaseDao(SqlSessionFactory sqlSessionFactory) {
 		LOG.trace(getClass().getName());

@@ -106,7 +106,7 @@ public abstract class BaseWqx {
 	public static final String WQX_QAPP_APPROVAL_AGENCY_NAME = "QAPPApprovalAgencyName";
 	public static final String WQX_PROJECT_FILE_URL = "ProjectFileUrl";
 	public static final String WQX_PROJECT_MONITORING_LOCATION_WEIGHT_URL = "ProjectMonitoringLocationWeightingURL";
-
+	
 	public static final String WQX_ACT_LOCATION = "ActivityLocation";
 
 	public static final String WQX_BIO_ACT_DESCRIPTION = "BiologicalActivityDescription";
@@ -239,6 +239,20 @@ public abstract class BaseWqx {
 	public static final String WQX_PREP_END_DATE = "PreparationEndDate";
 	public static final String WQX_PREP_END_TIME = "PreparationEndTime";
 	public static final String WQX_SUBSTITUTION_DILUTION_FACTOR = "SubstitutionDilutionFactorNumeric";
+	
+	public static final String WQX_STATISTICAL_STRATUM_TEXT = "StatisticalStratumText";
+	
+	public static final String WQX_LOCATION_CATEGORY_NAME = "LocationCategoryName";
+	public static final String WQX_LOCATION_STATUS_NAME = "LocationStatusName";
+	
+	public static final String WQX_REFERENCE_LOCATION_TYPE_CODE = "ReferenceLocationTypeCode";
+	public static final String WQX_REFERENCE_LOCATION_START_DATE = "ReferenceLocationStartDate";
+	public static final String WQX_REFERENCE_LOCATION_END_DATE = "ReferenceLocationEndDate";
+	public static final String WQX_REFERENCE_LOCATION_CITATION = "ReferenceLocationCitation";
+	
+	public static final String WQX_PROJECT_MONITORING_LOCATION_WEIGHTING = "ProjectMonitoringLocationWeighting";
+	public static final String WQX_PROJECT_MONITORING_LOCATION_WEIGHTING_FACTOR_MEASURE = "LocationWeightingFactorMeasure";
+	public static final String WQX_PROJECT_MONITORING_LOCATION_WEIGHTING_COMMENT_TEXT = "ProjectMonitoringLocationWeightingCommentText";
 
 	protected BaseWqx() {
 	}

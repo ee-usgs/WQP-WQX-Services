@@ -14,7 +14,8 @@ public enum Profile {
 	ACTIVITY_METRIC ("activityMetric", "activitymetric"),
 	RES_DETECT_QNT_LMT ("resDetectQntLmt", "resdetectqntlmt"),
 	NARROW_RESULT ("narrowResult", "narrowresult"),
-	PROJECT ("project", "project");
+	PROJECT ("project", "project"),
+	PROJECT_MONITORING_LOCATION_WEIGHTING ("projectMonitoringLocationWeighting", "projectmonitoringlocationweighting");
 
 	private final String name;
 	private final String baseFileName;

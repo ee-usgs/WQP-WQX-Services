@@ -14,8 +14,8 @@ public class ProjectColumn extends BaseColumn {
 	public static final String KEY_MONITORING_LOCATION_WEIGHT_URL = "MONITORING_LOCATION_WEIGHT_URL";
 	
 	//Profile Mapping of the Keys
-	public static final ColumnProfile PROJECT_ID = new ColumnProfile(KEY_PROJECT_ID, Profile.PROJECT);
-	public static final ColumnProfile PROJECT_IDENTIFIER = new ColumnProfile(KEY_PROJECT_IDENTIFIER, Profile.PROJECT);
+	public static final ColumnProfile PROJECT_ID = new ColumnProfile(KEY_PROJECT_ID, Profile.PROJECT, Profile.PROJECT_MONITORING_LOCATION_WEIGHTING);
+	public static final ColumnProfile PROJECT_IDENTIFIER = new ColumnProfile(KEY_PROJECT_IDENTIFIER, Profile.PROJECT, Profile.PROJECT_MONITORING_LOCATION_WEIGHTING);
 	public static final ColumnProfile PROJECT_NAME = new ColumnProfile(KEY_PROJECT_NAME, Profile.PROJECT);
 	public static final ColumnProfile PROJECT_DESCRIPTION = new ColumnProfile(KEY_PROJECT_DESCRIPTION, Profile.PROJECT);
 	public static final ColumnProfile SAMPLING_DESIGN_TYPE_CODE = new ColumnProfile(KEY_SAMPLING_DESIGN_TYPE_CODE, Profile.PROJECT);
