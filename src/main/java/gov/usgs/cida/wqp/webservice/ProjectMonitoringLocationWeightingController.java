@@ -15,6 +15,7 @@ import static gov.usgs.cida.wqp.webservice.BaseController.getFilter;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.ApiResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -59,18 +60,17 @@ public class ProjectMonitoringLocationWeightingController extends BaseController
 
 	@ApiOperation(value="Return the project monitoring location weightings associated with the specified project and organization.")
 	@GetMapping(value="/organizations/{organization}/projects/{projectIdentifier}/projectMonitoringLocationWeightings")
-	public void projectMonitoringLocationWeightingProjectRequest(HttpServletRequest request, HttpServletResponse response,
+	public void projectMonitoringLocationWeightingProjectRequest(HttpServletRequest request, HttpServletResponse response, @ApiIgnore FilterParameters filter,
 			@PathVariable("organization") String organization, @PathVariable("projectIdentifier") String projectIdentifier) throws IOException {
-		FilterParameters fetchParams = new FilterParameters();
 		List<String> organizationFilter = new ArrayList<>();
 		List<String> projectFilter = new ArrayList<>();
 
 		organizationFilter.add(organization);
 		projectFilter.add(projectIdentifier);
-		fetchParams.setOrganization(organizationFilter);
-		fetchParams.setProject(projectFilter);
+		filter.setOrganization(organizationFilter);
+		filter.setProject(projectFilter);
 
-		projectMonitoringLocationWeightingGetRequest(request, response, fetchParams);
+		doDataRequest(request, response, filter);
 	}
 
 	@ApiOperation(value="Return appropriate request headers (including anticipated record counts).")
