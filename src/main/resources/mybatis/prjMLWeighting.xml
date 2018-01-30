@@ -2,16 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="projectMonitoringLocationWeighting">
 
-    <select id="select" resultType="java.util.LinkedHashMap" resultOrdered="true" fetchSize="500" >
+    <select id="select" resultType="java.util.LinkedHashMap" fetchSize="500" >
         select prime.measure_value,
                prime.unit_code,
                prime.comment_text,
                prime.statistical_stratum,
                prime.location_category,
                prime.location_status,
-               prime.reference_location_type_code,
-               prime.reference_location_start_date,
-               prime.reference_location_end_date
+               prime.ref_location_type_code,
+               prime.ref_location_start_date,
+               prime.ref_location_end_date,
                prime.resource_title,
                prime.resource_creator,
                prime.resource_subject,
@@ -22,12 +22,25 @@
                prime.organization_name,
                prime.site_id,
                prime.project_identifier,
-               prime.data_source,
-               filter.result_count
+               prime.data_source
         <include refid="dynamicWhere.projectMonitoringLocationWeightingBase"/>
+        <if test="sorted == 'yes'">
             order by prime.data_source_id,
                      prime.organization,
-                     prime.project_id,
+                     prime.project_identifier,
                      prime.site_id
+        </if>
+    </select>
+
+    <sql id="prjMLWeightingCount">
+        select
+            prime.data_source,
+            count (*) as prj_ml_weighting_count
+        <include refid="dynamicWhere.projectMonitoringLocationWeightingBase"/>
+        group by rollup(prime.data_source)
+    </sql>
+
+    <select id="count" resultType="java.util.LinkedHashMap">
+        <include refid="projectMonitoringLocationWeighting.prjMLWeightingCount"/>
     </select>
 </mapper>

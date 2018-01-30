@@ -74,7 +74,6 @@ public abstract class BaseWqx {
 	public static final String WQX_WELL_DEPTH = "WellDepthMeasure";
 	public static final String WQX_HOLE_DEPTH = "WellHoleDepthMeasure";
 
-
 	public static final String WQX_ACTIVITY = "Activity";
 
 	public static final String WQX_ACT_DESCRIPTION = "ActivityDescription";
@@ -106,7 +105,7 @@ public abstract class BaseWqx {
 	public static final String WQX_QAPP_APPROVAL_AGENCY_NAME = "QAPPApprovalAgencyName";
 	public static final String WQX_PROJECT_FILE_URL = "ProjectFileUrl";
 	public static final String WQX_PROJECT_MONITORING_LOCATION_WEIGHT_URL = "ProjectMonitoringLocationWeightingURL";
-	
+
 	public static final String WQX_ACT_LOCATION = "ActivityLocation";
 
 	public static final String WQX_BIO_ACT_DESCRIPTION = "BiologicalActivityDescription";

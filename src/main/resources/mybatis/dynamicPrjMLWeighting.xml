@@ -2,7 +2,18 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="dynamicWhere">
+    <sql id="baseWhereProjectMonitoringLocationWeightingClauses">
+        <if test="project != null">
+            and (<include refid="dynamicWhere.project" />)
+        </if>
+        <if test="organization != null">
+            and (<include refid="dynamicWhere.organization" />)
+        </if>
+    </sql>
     <sql id="projectMonitoringLocationWeightingBase">
          from prj_ml_weighting prime
+         <where>
+            <include refid="dynamicWhere.baseWhereProjectMonitoringLocationWeightingClauses" />
+         </where>
     </sql>
 </mapper>

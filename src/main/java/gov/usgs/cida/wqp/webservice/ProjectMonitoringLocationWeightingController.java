@@ -11,7 +11,6 @@ import gov.usgs.cida.wqp.swagger.SwaggerConfig;
 import gov.usgs.cida.wqp.swagger.annotation.FullParameterList;
 import gov.usgs.cida.wqp.swagger.model.ProjectMonitoringLocationWeightingCountJson;
 import gov.usgs.cida.wqp.util.HttpConstants;
-import static gov.usgs.cida.wqp.webservice.BaseController.getFilter;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponses;
@@ -114,7 +113,7 @@ public class ProjectMonitoringLocationWeightingController extends BaseController
 
 	protected String addCountHeaders(HttpServletResponse response, List<Map<String, Object>> counts) {
 		addProjectMonitoringLocationWeightingHeaders(response, counts);
-		return HttpConstants.HEADER_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT;
+		return HttpConstants.HEADER_TOTAL_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT;
 	}
 	
 	@Override
