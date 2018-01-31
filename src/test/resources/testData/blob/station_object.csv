@@ -1,0 +1,6 @@
+"DATA_SOURCE_ID","OBJECT_ID","DATA_SOURCE","ORGANIZATION","STATION_ID","SITE_ID","OBJECT_NAME","OBJECT_TYPE","OBJECT_CONTENT"
+3,1,"STORET","WIDNR_WQX",1383,"WIDNR_WQX-113086","WIDNR_WQX-113086_one.txt",'TXT","This is a small text file."
+3,2,"STORET","WIDNR_WQX",1383,"WIDNR_WQX-113086","WIDNR_WQX-113086_two.txt",'TXT","This is another small text file."
+3,3,"STORET","WIDNR_WQX",1383,"WIDNR_WQX-113086","WIDNR_WQX-113086_three.txt",'TXT","This is yet another small text file."
+3,4,"STORET","WIDNR_WQX",436723,"WIDNR_WQX-10030952","WIDNR_WQX-10030952_one.txt",'TXT","This is a single small text file."
+3,5,"STORET","21NYDECA_WQX",504707,"21NYDECA_WQX-ONTARIO-02","21NYDECA_WQX-ONTARIO-02_three.txt",'TXT","This is a single small text file, but you might think it is the third one."

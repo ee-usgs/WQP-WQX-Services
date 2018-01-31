@@ -34,6 +34,7 @@ import gov.usgs.cida.wqp.swagger.model.ResDetectQntLmtCountJson;
 import gov.usgs.cida.wqp.util.HttpConstants;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import springfox.documentation.annotations.ApiIgnore;
@@ -65,11 +66,12 @@ public class ResDetectQntLmtController extends BaseController {
 
 	@ApiOperation(value="Return appropriate request headers (including anticipated record counts) for the specified result.")
 	@RequestMapping(value=HttpConstants.RES_DETECT_QNT_LMT_REST_ENPOINT, method=RequestMethod.HEAD)
-	public void resDetectQntLmtHeadRequest(HttpServletRequest request, HttpServletResponse response, @ApiIgnore FilterParameters filter,
-			@PathVariable("activity") String activity,
-			@PathVariable("result") String result,
+	public void resDetectQntLmtHeadRestRequest(HttpServletRequest request, HttpServletResponse response,
+			@PathVariable("activity") @ApiParam(value=BlobController.ACTIVITY_DESCRIPTION) String activity,
+			@PathVariable("result") @ApiParam(value=BlobController.RESULT_DESCRIPTION) String result,
 			@RequestParam(value="mimeType", required=false) String mimeType,
 			@RequestParam(value="zip", required=false) String zip) {
+		FilterParameters filter = new FilterParameters();
 		filter.setActivity(activity);
 		filter.setResult(new ResultIdentifier(result));
 		doHeadRequest(request, response, filter, mimeType, zip);
@@ -84,12 +86,15 @@ public class ResDetectQntLmtController extends BaseController {
 
 	@ApiOperation(value="Return result detection quantitative limit information for the specified result.")
 	@GetMapping(value=HttpConstants.RES_DETECT_QNT_LMT_REST_ENPOINT)
-	public void resDetectQntLmtGetRestRequest(HttpServletRequest request, HttpServletResponse response, @ApiIgnore FilterParameters filter,
-			@PathVariable("activity") String activity,
-			@PathVariable("result") String result,
+	public void resDetectQntLmtGetRestRequest(HttpServletRequest request, HttpServletResponse response,
+			@PathVariable("activity") @ApiParam(value=BlobController.ACTIVITY_DESCRIPTION) String activity,
+			@PathVariable("result") @ApiParam(value=BlobController.RESULT_DESCRIPTION) String result,
 			@RequestParam(value="mimeType", required=false) String mimeType,
 			@RequestParam(value="zip", required=false) String zip) {
-		doDataRequest(request, response, filter);
+		FilterParameters filter = new FilterParameters();
+		filter.setActivity(activity);
+		filter.setResult(new ResultIdentifier(result));
+		doDataRequest(request, response, filter, mimeType, zip);
 	}
 
 	@ApiOperation(value="Return requested data. Use when the list of parameter values is too long for a query string.")

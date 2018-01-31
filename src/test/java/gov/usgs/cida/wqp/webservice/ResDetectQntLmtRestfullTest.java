@@ -23,7 +23,7 @@ import gov.usgs.cida.wqp.util.HttpConstants;
 @WebAppConfiguration
 @DatabaseSetup("classpath:/testData/csv/")
 @DbUnitConfiguration(dataSetLoader = CsvDataSetLoader.class)
-public class ResDetectQntLmtRestfullTest  extends BaseControllerIntegrationTest {
+public class ResDetectQntLmtRestfullTest extends BaseControllerIntegrationTest {
 
 	protected static final Profile PROFILE = Profile.RES_DETECT_QNT_LMT;
 	protected static final boolean POSTABLE = false;
@@ -67,6 +67,11 @@ public class ResDetectQntLmtRestfullTest  extends BaseControllerIntegrationTest 
 	@Test
 	public void getAsXmlZipGetTest() throws Exception {
 		getAsXmlZipTest(ENDPOINT + XML_AND_ZIP, HttpConstants.MIME_TYPE_ZIP, XML, PROFILE, POSTABLE);
+	}
+
+	@Override
+	protected String getNoResultParameters(String url) {
+		return url.replace(getActivity(), "abc");
 	}
 
 	@Override

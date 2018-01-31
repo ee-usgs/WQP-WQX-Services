@@ -69,8 +69,8 @@
                 <where>
                     <include refid="dynamicWhere.baseWhereResultClauses" />
                     <if test="result != null">
-                        and data_source = #{result}
-                        and result_id = #{result[1]}
+                        and data_source = #{result.dataSource}
+                        and result_id = #{result.resultId}
                     </if>
                     <if test="minactivities != null">
                         and site_activity_count >= #{minactivities}

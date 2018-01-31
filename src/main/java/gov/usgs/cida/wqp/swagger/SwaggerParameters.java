@@ -15,6 +15,7 @@ import java.util.Arrays;
 import org.springframework.stereotype.Component;
 
 import gov.usgs.cida.wqp.mapping.Profile;
+import gov.usgs.cida.wqp.webservice.BlobController;
 import springfox.documentation.builders.ParameterBuilder;
 import springfox.documentation.schema.ModelRef;
 import springfox.documentation.service.AllowableListValues;
@@ -28,7 +29,7 @@ public class SwaggerParameters {
 	public static Parameter activity() {
 		return new ParameterBuilder()
 				.name("activity")
-				.description("Activity to filter by.")
+				.description(BlobController.ACTIVITY_DESCRIPTION)
 				.modelRef(new ModelRef("string"))
 				.parameterType("query")
 				.required(false)
@@ -200,7 +201,7 @@ public class SwaggerParameters {
 	public static Parameter organization() {
 		return new ParameterBuilder()
 				.name("organization")
-				.description("One or more case-sensitive Organizations.")
+				.description("One or more case-sensitive Organization Identifiers.")
 				.modelRef(new ModelRef("", new ModelRef("string")))
 				.parameterType("query")
 				.required(false)
@@ -222,7 +223,7 @@ public class SwaggerParameters {
 	public static Parameter project() {
 		return new ParameterBuilder()
 				.name("project")
-				.description("One or more case-sensitive Projects.")
+				.description("One or more case-sensitive Project Identifiers.")
 				.modelRef(new ModelRef("", new ModelRef("string")))
 				.parameterType("query")
 				.required(false)
@@ -244,7 +245,7 @@ public class SwaggerParameters {
 	public static Parameter result() {
 		return new ParameterBuilder()
 				.name("result")
-				.description("Result to filter by.")
+				.description(BlobController.RESULT_DESCRIPTION)
 				.modelRef(new ModelRef("string"))
 				.parameterType("query")
 				.required(false)

@@ -16,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import gov.usgs.cida.wqp.parameter.ResultIdentifier;
+
 @Repository
 public class BlobDao {
 
@@ -36,9 +38,26 @@ public class BlobDao {
 		jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 
-	public void getFiles(ZipOutputStream target, String organization, String projectIdentifier) {
-		LOG.trace("Getting file for: {}/{}", organization, projectIdentifier);
-		jdbcTemplate.query("select object_name, object_content from project_object where organization = ? and project_identifier = ?", new Object[] {organization, projectIdentifier}, (resultSet) -> {
+	public void getProjectFiles(ZipOutputStream target, String organization, String projectIdentifier) {
+		LOG.trace("Getting file for: organization/{}/project/{}", organization, projectIdentifier);
+		jdbcTemplate.query("select object_name, object_content from project_object where organization = ? and project_identifier = ? order by object_id",
+				new Object[] {organization, projectIdentifier}, (resultSet) -> {
+			streamFile(resultSet, target);
+		});
+	}
+
+	public void getMonitoringLocationFiles(ZipOutputStream target, String organization, String monitoringLocation) {
+		LOG.trace("Getting file for: organization/{}/monitoringLocation/{}", organization, monitoringLocation);
+		jdbcTemplate.query("select object_name, object_content from station_object where organization = ? and site_id = ? order by object_id",
+				new Object[] {organization, monitoringLocation}, (resultSet) -> {
+			streamFile(resultSet, target);
+		});
+	}
+
+	public void getResultFiles(ZipOutputStream target, String organization, String activity, ResultIdentifier resultIdentifier) {
+		LOG.trace("Getting file for: organization/{}/activity/{}/result/{}", organization, activity, resultIdentifier.getSingle());
+		jdbcTemplate.query("select object_name, object_content from result_object where organization = ? and activity = ? and data_source = ? and result_id = ? order by object_id",
+				new Object[] {organization, activity, resultIdentifier.getDataSource(), resultIdentifier.getResultId()}, (resultSet) -> {
 			streamFile(resultSet, target);
 		});
 	}

@@ -54,7 +54,7 @@ public class SimpleStationControllerIntTest extends BaseControllerIntegrationTes
 		MvcResult rtn = unFilteredHeaderCheck(callMockGet(url, mimeType, getContentDisposition(PROFILE, fileType))).andReturn();
 		assertEquals(harmonizeXml(getCompareFile(PROFILE, fileType, null)), harmonizeXml(rtn.getResponse().getContentAsString()));
 
-		rtn = noResultHeaderCheck(callMockGet(url + getNoResultParameters(), mimeType, getContentDisposition(PROFILE, fileType))).andReturn();
+		rtn = noResultHeaderCheck(callMockGet(getNoResultParameters(url), mimeType, getContentDisposition(PROFILE, fileType))).andReturn();
 		assertEquals(harmonizeXml(getCompareFile(PROFILE, fileType, "NoResult")), harmonizeXml(rtn.getResponse().getContentAsString()));
 	}
 
@@ -69,7 +69,7 @@ public class SimpleStationControllerIntTest extends BaseControllerIntegrationTes
 		MvcResult rtn = unFilteredHeaderCheck(callMockGet(url, mimeType, getContentDisposition(PROFILE, "zip"))).andReturn();
 		assertEquals(harmonizeXml(getCompareFile(PROFILE, fileType, null)), harmonizeXml(extractZipContent(rtn.getResponse().getContentAsByteArray(), getFileName(PROFILE, fileType))));
 
-		rtn = noResultHeaderCheck(callMockGet(url + getNoResultParameters(), mimeType, getContentDisposition(PROFILE, "zip"))).andReturn();
+		rtn = noResultHeaderCheck(callMockGet(getNoResultParameters(url), mimeType, getContentDisposition(PROFILE, "zip"))).andReturn();
 		assertEquals(harmonizeXml(getCompareFile(PROFILE, fileType, "NoResult")), harmonizeXml(extractZipContent(rtn.getResponse().getContentAsByteArray(), getFileName(PROFILE, fileType))));
 	}
 
@@ -114,7 +114,7 @@ public class SimpleStationControllerIntTest extends BaseControllerIntegrationTes
 		MvcResult rtn = unFilteredGeomHeaderCheck(callMockGet(url, mimeType, getContentDisposition(PROFILE, fileType))).andReturn();
 		assertThat(new JSONObject(getCompareFile(PROFILE, fileType, null)), sameJSONObjectAs(new JSONObject(rtn.getResponse().getContentAsString())));
 
-		rtn = noResultHeaderCheck(callMockGet(url + getNoResultParameters(), mimeType, getContentDisposition(PROFILE, fileType))).andReturn();
+		rtn = noResultHeaderCheck(callMockGet(getNoResultParameters(url), mimeType, getContentDisposition(PROFILE, fileType))).andReturn();
 		assertThat(new JSONObject(getCompareFile(PROFILE, fileType, "NoResult")), sameJSONObjectAs(new JSONObject(rtn.getResponse().getContentAsString())));
 	}
 
@@ -124,7 +124,7 @@ public class SimpleStationControllerIntTest extends BaseControllerIntegrationTes
 		MvcResult rtn = unFilteredGeomHeaderCheck(callMockGet(url, mimeType, getContentDisposition(PROFILE, "zip"))).andReturn();
 		assertThat(new JSONObject(getCompareFile(PROFILE, fileType, null)), sameJSONObjectAs(new JSONObject(extractZipContent(rtn.getResponse().getContentAsByteArray(), getFileName(PROFILE, fileType)))));
 
-		rtn = noResultHeaderCheck(callMockGet(url + getNoResultParameters(), mimeType, getContentDisposition(PROFILE, "zip"))).andReturn();
+		rtn = noResultHeaderCheck(callMockGet(getNoResultParameters(url), mimeType, getContentDisposition(PROFILE, "zip"))).andReturn();
 		assertThat(new JSONObject(getCompareFile(PROFILE, fileType, "NoResult")), sameJSONObjectAs(new JSONObject(extractZipContent(rtn.getResponse().getContentAsByteArray(), getFileName(PROFILE, fileType)))));
 	}
 

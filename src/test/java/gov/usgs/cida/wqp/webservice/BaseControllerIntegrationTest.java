@@ -88,8 +88,8 @@ public abstract class BaseControllerIntegrationTest extends BaseSpringTest {
 			;
 	}
 
-	protected String getNoResultParameters() {
-		return "&" + Parameters.COUNTRY.toString() + "=DS";
+	protected String getNoResultParameters(String url) {
+		return url + "&" + Parameters.COUNTRY.toString() + "=DS";
 	}
 
 	protected String getContentDisposition(Profile profile, String fileType) {
@@ -110,7 +110,7 @@ public abstract class BaseControllerIntegrationTest extends BaseSpringTest {
 		MvcResult rtn = unFilteredHeaderCheck(callMockGet(url, mimeType, getContentDisposition(profile, fileType))).andReturn();
 		assertEquals(getCompareFile(profile, fileType, isPostable ? null : "Rest"), rtn.getResponse().getContentAsString());
 
-		rtn = noResultHeaderCheck(callMockGet(url + getNoResultParameters(), mimeType, getContentDisposition(profile, fileType))).andReturn();
+		rtn = noResultHeaderCheck(callMockGet(getNoResultParameters(url), mimeType, getContentDisposition(profile, fileType))).andReturn();
 		assertEquals(getCompareFile(profile, fileType, "NoResult"), rtn.getResponse().getContentAsString());
 		if (isPostable) {
 			rtn = unFilteredHeaderCheck(callMockPostJson(url, getJson(profile), mimeType, getContentDisposition(profile, fileType))).andReturn();
@@ -127,7 +127,7 @@ public abstract class BaseControllerIntegrationTest extends BaseSpringTest {
 		MvcResult rtn = unFilteredHeaderCheck(callMockGet(url, mimeType, getContentDisposition(profile, "zip"))).andReturn();
 		assertEquals(getCompareFile(profile, fileType, isPostable ? null : "Rest"), extractZipContent(rtn.getResponse().getContentAsByteArray(), getFileName(profile, fileType)));
 
-		rtn = noResultHeaderCheck(callMockGet(url + getNoResultParameters(), mimeType, getContentDisposition(profile, "zip"))).andReturn();
+		rtn = noResultHeaderCheck(callMockGet(getNoResultParameters(url), mimeType, getContentDisposition(profile, "zip"))).andReturn();
 		assertEquals(getCompareFile(profile, fileType, "NoResult"), extractZipContent(rtn.getResponse().getContentAsByteArray(), getFileName(profile, fileType)));
 
 		if (isPostable) {
@@ -171,7 +171,7 @@ public abstract class BaseControllerIntegrationTest extends BaseSpringTest {
 		MvcResult rtn = unFilteredHeaderCheck(callMockGet(url, mimeType, getContentDisposition(profile, fileType))).andReturn();
 		assertEquals(harmonizeXml(getCompareFile(profile, fileType, isPostable ? null : "Rest")), harmonizeXml(rtn.getResponse().getContentAsString()));
 
-		rtn = noResultHeaderCheck(callMockGet(url + getNoResultParameters(), mimeType, getContentDisposition(profile, fileType))).andReturn();
+		rtn = noResultHeaderCheck(callMockGet(getNoResultParameters(url), mimeType, getContentDisposition(profile, fileType))).andReturn();
 		assertEquals(harmonizeXml(getCompareFile(profile, fileType, "NoResult")), harmonizeXml(rtn.getResponse().getContentAsString()));
 
 		if (isPostable) {
@@ -189,7 +189,7 @@ public abstract class BaseControllerIntegrationTest extends BaseSpringTest {
 		MvcResult rtn = unFilteredHeaderCheck(callMockGet(url, mimeType, getContentDisposition(profile, "zip"))).andReturn();
 		assertEquals(harmonizeXml(getCompareFile(profile, fileType, isPostable ? null : "Rest")), harmonizeXml(extractZipContent(rtn.getResponse().getContentAsByteArray(), getFileName(profile, fileType))));
 
-		rtn = noResultHeaderCheck(callMockGet(url + getNoResultParameters(), mimeType, getContentDisposition(profile, "zip"))).andReturn();
+		rtn = noResultHeaderCheck(callMockGet(getNoResultParameters(url), mimeType, getContentDisposition(profile, "zip"))).andReturn();
 		assertEquals(harmonizeXml(getCompareFile(profile, fileType, "NoResult")), harmonizeXml(extractZipContent(rtn.getResponse().getContentAsByteArray(), getFileName(profile, fileType))));
 
 		if (isPostable) {
@@ -207,7 +207,7 @@ public abstract class BaseControllerIntegrationTest extends BaseSpringTest {
 		MvcResult rtn = unFilteredGeomHeaderCheck(callMockGet(url, mimeType, getContentDisposition(profile, fileType))).andReturn();
 		assertEquals(harmonizeXml(getCompareFile(profile, fileType, isPostable ? null : "Rest")), harmonizeXml(rtn.getResponse().getContentAsString()));
 
-		rtn = noResultHeaderCheck(callMockGet(url + getNoResultParameters(), mimeType, getContentDisposition(profile, fileType))).andReturn();
+		rtn = noResultHeaderCheck(callMockGet(getNoResultParameters(url), mimeType, getContentDisposition(profile, fileType))).andReturn();
 		assertEquals(harmonizeXml(getCompareFile(profile, fileType, "NoResult")), harmonizeXml(rtn.getResponse().getContentAsString()));
 
 		if (isPostable) {
@@ -225,7 +225,7 @@ public abstract class BaseControllerIntegrationTest extends BaseSpringTest {
 		MvcResult rtn = unFilteredGeomHeaderCheck(callMockGet(url, mimeType, getContentDisposition(profile, KMZ))).andReturn();
 		assertEquals(harmonizeXml(getCompareFile(profile, KML, isPostable ? null : "Rest")), harmonizeXml(extractZipContent(rtn.getResponse().getContentAsByteArray(), getFileName(profile, KML))));
 
-		rtn = noResultHeaderCheck(callMockGet(url + getNoResultParameters(), mimeType, getContentDisposition(profile, KMZ))).andReturn();
+		rtn = noResultHeaderCheck(callMockGet(getNoResultParameters(url), mimeType, getContentDisposition(profile, KMZ))).andReturn();
 		assertEquals(harmonizeXml(getCompareFile(profile, KML, "NoResult")), harmonizeXml(extractZipContent(rtn.getResponse().getContentAsByteArray(), getFileName(profile, KML))));
 
 		if (isPostable) {
@@ -243,7 +243,7 @@ public abstract class BaseControllerIntegrationTest extends BaseSpringTest {
 		MvcResult rtn = unFilteredGeomHeaderCheck(callMockGet(url, mimeType, getContentDisposition(profile, fileType))).andReturn();
 		assertThat(new JSONObject(getCompareFile(profile, fileType, isPostable ? null : "Rest")), sameJSONObjectAs(new JSONObject(rtn.getResponse().getContentAsString())));
 
-		rtn = noResultHeaderCheck(callMockGet(url + getNoResultParameters(), mimeType, getContentDisposition(profile, fileType))).andReturn();
+		rtn = noResultHeaderCheck(callMockGet(getNoResultParameters(url), mimeType, getContentDisposition(profile, fileType))).andReturn();
 		assertThat(new JSONObject(getCompareFile(profile, fileType, "NoResult")), sameJSONObjectAs(new JSONObject(rtn.getResponse().getContentAsString())));
 
 		if (isPostable) {
@@ -261,7 +261,7 @@ public abstract class BaseControllerIntegrationTest extends BaseSpringTest {
 		MvcResult rtn = unFilteredGeomHeaderCheck(callMockGet(url, mimeType, getContentDisposition(profile, "zip"))).andReturn();
 		assertThat(new JSONObject(getCompareFile(profile, fileType, isPostable ? null : "Rest")), sameJSONObjectAs(new JSONObject(extractZipContent(rtn.getResponse().getContentAsByteArray(), getFileName(profile, fileType)))));
 
-		rtn = noResultHeaderCheck(callMockGet(url + getNoResultParameters(), mimeType, getContentDisposition(profile, "zip"))).andReturn();
+		rtn = noResultHeaderCheck(callMockGet(getNoResultParameters(url), mimeType, getContentDisposition(profile, "zip"))).andReturn();
 		assertThat(new JSONObject(getCompareFile(profile, fileType, "NoResult")), sameJSONObjectAs(new JSONObject(extractZipContent(rtn.getResponse().getContentAsByteArray(), getFileName(profile, fileType)))));
 
 		if (isPostable) {

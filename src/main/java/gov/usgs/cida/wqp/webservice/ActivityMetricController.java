@@ -33,6 +33,7 @@ import gov.usgs.cida.wqp.swagger.model.ActivityMetricCountJson;
 import gov.usgs.cida.wqp.util.HttpConstants;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import springfox.documentation.annotations.ApiIgnore;
@@ -64,10 +65,11 @@ public class ActivityMetricController extends BaseController {
 
 	@ApiOperation(value="Return appropriate request headers (including anticipated record counts) for the specified activity.")
 	@RequestMapping(value=HttpConstants.ACTIVITY_METRIC_REST_ENPOINT, method=RequestMethod.HEAD)
-	public void activityMetricRestHeadRequest(HttpServletRequest request, HttpServletResponse response, @ApiIgnore FilterParameters filter,
-			@PathVariable("activity") String activity,
+	public void activityMetricRestHeadRequest(HttpServletRequest request, HttpServletResponse response,
+			@PathVariable("activity") @ApiParam(value=BlobController.ACTIVITY_DESCRIPTION) String activity,
 			@RequestParam(value="mimeType", required=false) String mimeType,
 			@RequestParam(value="zip", required=false) String zip) {
+		FilterParameters filter = new FilterParameters();
 		filter.setActivity(activity);
 		doHeadRequest(request, response, filter, mimeType, zip);
 	}
@@ -81,10 +83,13 @@ public class ActivityMetricController extends BaseController {
 
 	@ApiOperation(value="Return activity metric information for the specified activity.")
 	@GetMapping(value=HttpConstants.ACTIVITY_METRIC_REST_ENPOINT)
-	public void activityMetricGetRestRequest(HttpServletRequest request, HttpServletResponse response, @ApiIgnore FilterParameters filter,
-			@PathVariable("activity") String activity) {
+	public void activityMetricGetRestRequest(HttpServletRequest request, HttpServletResponse response,
+			@PathVariable("activity") @ApiParam(value=BlobController.ACTIVITY_DESCRIPTION) String activity,
+			@RequestParam(value="mimeType", required=false) String mimeType,
+			@RequestParam(value="zip", required=false) String zip) {
+		FilterParameters filter = new FilterParameters();
 		filter.setActivity(activity);
-		doDataRequest(request, response, filter);
+		doDataRequest(request, response, filter, mimeType, zip);
 	}
 
 	@ApiOperation(value="Return requested data. Use when the list of parameter values is too long for a query string.")

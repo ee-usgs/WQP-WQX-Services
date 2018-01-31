@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import gov.usgs.cida.wqp.service.ApplicationVersion;
 import gov.usgs.cida.wqp.swagger.SwaggerConfig;
+import gov.usgs.cida.wqp.swagger.annotation.NoQueryParametersList;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -14,6 +15,7 @@ import io.swagger.annotations.ApiOperation;
 public class VersionController {
 
 	@ApiOperation(value="Return the web service version information.")
+	@NoQueryParametersList
 	@GetMapping(value="version", produces=MediaType.TEXT_PLAIN_VALUE)
 	public String getVersion() {
 		return ApplicationVersion.getVersion();
