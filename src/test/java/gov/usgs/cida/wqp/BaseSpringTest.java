@@ -137,6 +137,12 @@ public abstract class BaseSpringTest {
 	public static String STORET_PROJECT_COUNT = "10";
 	public static String BIODATA_PROJECT_COUNT = "1";
 
+	public static String TOTAL_PRJ_ML_WEIGHTING_COUNT = "10";
+	public static String NWIS_PRJ_ML_WEIGHTING_COUNT = "2";
+	public static String STEWARDS_PRJ_ML_WEIGHTING_COUNT = "1";
+	public static String STORET_PRJ_ML_WEIGHTING_COUNT = "6";
+	public static String BIODATA_PRJ_ML_WEIGHTING_COUNT = "1";
+
 	public static final String FILTERED_STORET_SITE_COUNT = "1";
 	public static final String FILTERED_TOTAL_SITE_COUNT = "1";
 	public static final String FILTERED_STORET_ACTIVITY_COUNT = "2";
@@ -149,6 +155,8 @@ public abstract class BaseSpringTest {
 	public static final String FILTERED_TOTAL_RES_DETECT_QNT_LMT_COUNT = "7";
 	public static final String FILTERED_TOTAL_PROJECT_COUNT = "1";
 	public static final String FILTERED_STORET_PROJECT_COUNT = "1";
+	public static final String FILTERED_TOTAL_PRJ_ML_WEIGHTING_COUNT = "1";
+	public static final String FILTERED_STORET_PRJ_ML_WEIGHTING_COUNT = "1";
 
 	public static final BigDecimal STEWARDS_ID = BigDecimal.ONE;
 	public static final BigDecimal NWIS_ID = BigDecimal.valueOf(2);
