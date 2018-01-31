@@ -10,7 +10,7 @@ import org.springframework.mock.web.MockHttpServletResponse;
 
 import gov.usgs.cida.wqp.BaseSpringTest;
 import gov.usgs.cida.wqp.mapping.Profile;
-import gov.usgs.cida.wqp.mapping.delimited.ProjectDelimitedTest;
+import gov.usgs.cida.wqp.mapping.delimited.ProjectMLWeightingDelimitedTest;
 import gov.usgs.cida.wqp.parameter.FilterParameters;
 import gov.usgs.cida.wqp.util.HttpConstants;
 
@@ -40,7 +40,7 @@ public class ProjectMLWeightingControllerTest extends BaseSpringTest {
 
 	@Test
 	public void getMappingTest() {
-		ProjectDelimitedTest.assertProjectProfile(controller.getMapping(Profile.PROJECT));
+		ProjectMLWeightingDelimitedTest.assertProjectMLWeightingProfile(controller.getMapping(Profile.PROJECT_MONITORING_LOCATION_WEIGHTING));
 	}
 
 	@Test
