@@ -24,6 +24,8 @@ public class HttpConstants {
 	public static final String PROJECT_SEARCH_ENDPOINT = '/' + ENDPOINT_PROJECT + ENPOINT_SEARCH;
 	public static final String PROJECT_MONITORING_LOCATION_WEIGHTING_SEARCH_ENDPOINT = '/' + ENDPOINT_PROJECT_MONITORING_LOCATION_WEIGHTING + ENPOINT_SEARCH;
 
+	public static final String PROJECT_MONITORING_LOCATION_WEIGHTING_REST_ENDPOINT = "/organizations/{organization}/projects/{projectIdentifier}/projectMonitoringLocationWeightings";
+
 	public static final String ACTIVITY_REST_ENDPOINT = "/activities/{activity}";
 	public static final String ACTIVITY_METRIC_REST_ENPOINT = ACTIVITY_REST_ENDPOINT + "/activitymetrics";
 	public static final String RES_DETECT_QNT_LMT_REST_ENPOINT = ACTIVITY_REST_ENDPOINT + "/results/{result}/resdetectqntlmts";
