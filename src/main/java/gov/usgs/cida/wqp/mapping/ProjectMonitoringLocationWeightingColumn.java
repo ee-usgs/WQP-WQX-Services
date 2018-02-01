@@ -16,7 +16,7 @@ public class ProjectMonitoringLocationWeightingColumn extends BaseColumn {
 	public static final String KEY_REFERENCE_LOCATION_CITATION_CREATOR = "RESOURCE_CREATOR";
 	public static final String KEY_REFERENCE_LOCATION_CITATION_SUBJECT = "RESOURCE_SUBJECT";
 	public static final String KEY_REFERENCE_LOCATION_CITATION_PUBLISHER = "RESOURCE_PUBLISHER";
-	public static final String KEY_REFERENCE_LOCATION_CITATION_DATE = "RESOURCE_DATE ";
+	public static final String KEY_REFERENCE_LOCATION_CITATION_DATE = "RESOURCE_DATE";
 	public static final String KEY_REFERENCE_LOCATION_CITATION_IDENTIFIER = "RESOURCE_IDENTIFIER";
 	
 	//Profile Mapping of the Keys
