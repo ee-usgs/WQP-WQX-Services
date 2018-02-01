@@ -1,7 +1,6 @@
 package gov.usgs.cida.wqp.dao.streaming;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 import java.util.LinkedList;
 import java.util.Map;
@@ -23,7 +22,6 @@ import gov.usgs.cida.wqp.DBIntegrationTest;
 import gov.usgs.cida.wqp.dao.NameSpace;
 import gov.usgs.cida.wqp.dao.intfc.IStreamingDao;
 import gov.usgs.cida.wqp.mapping.BaseColumn;
-import gov.usgs.cida.wqp.mapping.ProjectColumn;
 import gov.usgs.cida.wqp.mapping.StationColumn;
 import gov.usgs.cida.wqp.mapping.TestProjectMLWeightingMap;
 import gov.usgs.cida.wqp.mapping.TestResultHandler;
