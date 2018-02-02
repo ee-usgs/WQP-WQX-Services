@@ -63,6 +63,7 @@ public abstract class BaseController {
 	private static ThreadLocal<Map<String, String>> counts = new ThreadLocal<>();
 	private static ThreadLocal<NameSpace> mybatisNamespace = new ThreadLocal<>();
 	private static ThreadLocal<Profile> profile = new ThreadLocal<>();
+	private static ThreadLocal<Map<String, Integer>> downloadDetails = new ThreadLocal<>();
 
 	public BaseController(IStreamingDao inStreamingDao, ICountDao inCountDao, ILogService inLogService,
 			Integer inMaxResultRows, String inSiteUrlBase, ContentNegotiationStrategy inContentStrategy,
@@ -81,57 +82,53 @@ public abstract class BaseController {
 	public static FilterParameters getFilter() {
 		return filter.get();
 	}
-
 	public static void setFilter(FilterParameters inFilter) {
 		filter.set(inFilter);
 	}
-
 	public static MimeType getMimeType() {
 		return mimeType.get();
 	}
-
 	public static void setMimeType(MimeType inMimeType) {
 		mimeType.set(inMimeType);
 	}
-
 	public static boolean getZipped() {
 		return zipped.get();
 	}
-
 	public static void setZipped(Boolean inZipped) {
 		zipped.set(inZipped);
 	}
-
 	public static BigDecimal getLogId() {
 		return logId.get();
 	}
-
 	public static void setLogId(BigDecimal inLogId) {
 		logId.set(inLogId);
 	}
-
 	public static Map<String, String> getCounts() {
 		return counts.get();
 	}
-
 	public static void setCounts(Map<String, String> inCounts) {
 		counts.set(inCounts);
 	}
-
 	public static NameSpace getMybatisNamespace() {
 		return mybatisNamespace.get();
 	}
-
 	public static void setMybatisNamespace(NameSpace inMybatisNamespace) {
 		mybatisNamespace.set(inMybatisNamespace);
 	}
-
 	public static Profile getProfile() {
 		return profile.get();
 	}
-
 	public static void setProfile(Profile inProfile) {
 		profile.set(inProfile);
+	}
+	public static Map<String, Integer> getDownloadDetails() {
+		if (null == downloadDetails.get()) {
+			downloadDetails.set(new HashMap<String, Integer>());
+		}
+		return downloadDetails.get();
+	}
+	public static void setDownloadDetails(Map<String, Integer> inDownloadDetails) {
+		downloadDetails.set(inDownloadDetails);
 	}
 
 	public static void remove() {
@@ -142,6 +139,7 @@ public abstract class BaseController {
 		counts.remove();
 		mybatisNamespace.remove();
 		profile.remove();
+		downloadDetails.remove();
 	}
 
 	protected void determineZipped(MediaType mediaType) {
@@ -234,7 +232,7 @@ public abstract class BaseController {
 		try {
 			doCommonSetup(request, response, filter);
 		} finally {
-			logService.logRequestComplete(getLogId(), String.valueOf(response.getStatus()));
+			logService.logRequestComplete(getLogId(), String.valueOf(response.getStatus()), null);
 			LOG.info("Processing Head complete: {}", filter.toJson());
 			remove();
 		}
@@ -360,7 +358,7 @@ public abstract class BaseController {
 			doCommonSetup(request, response, filter);
 			counts = getCounts();
 		} finally {
-			logService.logRequestComplete(getLogId(), String.valueOf(response.getStatus()));
+			logService.logRequestComplete(getLogId(), String.valueOf(response.getStatus()), null);
 			LOG.info("Processing Post Count complete");
 			remove();
 		}
@@ -430,7 +428,7 @@ public abstract class BaseController {
 				}
 			}
 			LOG.info("Processing Data complete: {}", filter.toJson());
-			logService.logRequestComplete(getLogId(), realHttpStatus);
+			logService.logRequestComplete(getLogId(), realHttpStatus, getDownloadDetails());
 			remove();
 		}
 	}

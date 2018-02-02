@@ -25,6 +25,8 @@ public class LogDao extends BaseDao implements ILogDao {
 	public static final String DATA_STORE_COUNTS = "dataStoreCounts";
 	public static final String HTTP_STATUS_CODE = "httpStatusCode";
 	public static final String POST_DATA = "postData";
+	public static final String USER_AGENT = "userAgent";
+	public static final String DOWNLOAD_DETAILS = "downloadDetails";
 
 	@Autowired
 	public LogDao(SqlSessionFactory sqlSessionFactory) {

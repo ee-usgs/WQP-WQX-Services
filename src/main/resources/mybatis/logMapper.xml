@@ -11,7 +11,8 @@
                                                                    #{callType,jdbcType=CHAR},
                                                                    #{endPoint,jdbcType=CHAR},
                                                                    #{queryString,jdbcType=CHAR},
-                                                                   #{postData,jdbcType=CHAR})}
+                                                                   #{postData,jdbcType=CHAR},
+                                                                   #{userAgent,jdbcType=CHAR})}
     </select>
 
     <select id="head" parameterType="map" statementType="CALLABLE" >
@@ -23,7 +24,7 @@
     </select>
 
     <select id="complete" parameterType="map" statementType="CALLABLE" >
-        {call log_helper.log_request_complete(#{id}, #{httpStatusCode,jdbcType=CHAR})}
+        {call log_helper.log_request_complete(#{id}, #{httpStatusCode,jdbcType=CHAR}, #{downloadDetails,jdbcType=CHAR})}
     </select>
 
 </mapper>

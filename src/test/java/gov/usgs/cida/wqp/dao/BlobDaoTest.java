@@ -88,7 +88,7 @@ public class BlobDaoTest extends BaseSpringTest {
 	@Test
 	public void singleFileStationTest() {
 		try {
-			blobDao.getMonitoringLocationFiles(target, SINGLE_FILE_STATION_ORG, SINGLE_FILE_STATION_STATION);
+			assertEquals(1, blobDao.getMonitoringLocationFiles(target, SINGLE_FILE_STATION_ORG, SINGLE_FILE_STATION_STATION));
 			ZipInputStream stream = getStream(response);
 			assertSingleFileStation(stream);
 		} catch (IOException e) {
@@ -99,7 +99,7 @@ public class BlobDaoTest extends BaseSpringTest {
 	@Test
 	public void threeFileStationTest() {
 		try {
-			blobDao.getMonitoringLocationFiles(target, THREE_FILE_STATION_ORG, THREE_FILE_STATION_STATION);
+			assertEquals(3, blobDao.getMonitoringLocationFiles(target, THREE_FILE_STATION_ORG, THREE_FILE_STATION_STATION));
 			ZipInputStream stream = getStream(response);
 			assertThreeFileStation(stream);
 		} catch (IOException e) {
@@ -110,7 +110,7 @@ public class BlobDaoTest extends BaseSpringTest {
 	@Test
 	public void singleFileProjectTest() {
 		try {
-			blobDao.getProjectFiles(target, SINGLE_FILE_PROJECT_ORG, SINGLE_FILE_PROJECT_PROJECT);
+			assertEquals(1, blobDao.getProjectFiles(target, SINGLE_FILE_PROJECT_ORG, SINGLE_FILE_PROJECT_PROJECT));
 			ZipInputStream stream = getStream(response);
 			assertSingleFileProject(stream);
 		} catch (IOException e) {
@@ -121,7 +121,7 @@ public class BlobDaoTest extends BaseSpringTest {
 	@Test
 	public void threeFileProjectTest() {
 		try {
-			blobDao.getProjectFiles(target, THREE_FILE_PROJECT_ORG, THREE_FILE_PROJECT_PROJECT);
+			assertEquals(3, blobDao.getProjectFiles(target, THREE_FILE_PROJECT_ORG, THREE_FILE_PROJECT_PROJECT));
 			ZipInputStream stream = getStream(response);
 			assertThreeFileProject(stream);
 		} catch (IOException e) {
@@ -132,7 +132,7 @@ public class BlobDaoTest extends BaseSpringTest {
 	@Test
 	public void singleFileResultTest() {
 		try {
-			blobDao.getResultFiles(target, SINGLE_FILE_RESULT_ORG, SINGLE_FILE_RESULT_ACTIVITY, new ResultIdentifier(SINGLE_FILE_RESULT_RESULT));
+			assertEquals(1, blobDao.getResultFiles(target, SINGLE_FILE_RESULT_ORG, SINGLE_FILE_RESULT_ACTIVITY, new ResultIdentifier(SINGLE_FILE_RESULT_RESULT)));
 			ZipInputStream stream = getStream(response);
 			assertSingleFileResult(stream);
 		} catch (IOException e) {
@@ -143,7 +143,7 @@ public class BlobDaoTest extends BaseSpringTest {
 	@Test
 	public void threeFileResultTest() {
 		try {
-			blobDao.getResultFiles(target, THREE_FILE_RESULT_ORG, THREE_FILE_RESULT_ACTIVITY, new ResultIdentifier(THREE_FILE_RESULT_RESULT));
+			assertEquals(3, blobDao.getResultFiles(target, THREE_FILE_RESULT_ORG, THREE_FILE_RESULT_ACTIVITY, new ResultIdentifier(THREE_FILE_RESULT_RESULT)));
 			ZipInputStream stream = getStream(response);
 			assertThreeFileResult(stream);
 		} catch (IOException e) {
