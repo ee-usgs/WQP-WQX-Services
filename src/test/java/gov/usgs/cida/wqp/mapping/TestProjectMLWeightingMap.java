@@ -6,7 +6,6 @@ import java.util.Map;
 
 import static gov.usgs.cida.wqp.mapping.ProjectColumn.*;
 import static gov.usgs.cida.wqp.mapping.ProjectMonitoringLocationWeightingColumn.*;
-import static gov.usgs.cida.wqp.swagger.model.StationCountJson.STORET;
 
 public class TestProjectMLWeightingMap {
 
@@ -14,7 +13,8 @@ public class TestProjectMLWeightingMap {
 	static {
 		PROJECT_MONITORING_LOCATION_WEIGHTING = new LinkedHashMap<String, Object>();
 		PROJECT_MONITORING_LOCATION_WEIGHTING.put(KEY_DATA_SOURCE_ID, BigDecimal.valueOf(3));
-		PROJECT_MONITORING_LOCATION_WEIGHTING.put(KEY_DATA_SOURCE, STORET);
+		PROJECT_MONITORING_LOCATION_WEIGHTING.put(KEY_ORGANIZATION, "test-org");
+		PROJECT_MONITORING_LOCATION_WEIGHTING.put(KEY_ORGANIZATION_NAME, "test-org-name");
 		PROJECT_MONITORING_LOCATION_WEIGHTING.put(KEY_PROJECT_IDENTIFIER, "YZ123");
 		PROJECT_MONITORING_LOCATION_WEIGHTING.put(KEY_SITE_ID, "SITE-321");
 		PROJECT_MONITORING_LOCATION_WEIGHTING.put(KEY_PRJMLW_VALUE, 52);
