@@ -13,6 +13,7 @@ public class HttpConstants {
 	public static final String ENDPOINT_SIMPLE_STATION = "simplestation";
 	public static final String ENPOINT_SEARCH = "/search";
 	public static final String ENDPOINT_RES_DETECT_QNT_LMT = "ResultDetectionQuantitationLimit";
+	public static final String ENDPOINT_FILE = "/files";
 
 	public static final String ACTIVITY_SEARCH_ENPOINT = "/" + ENDPOINT_ACTIVITY + ENPOINT_SEARCH;
 	public static final String ACTIVITY_METRIC_SEARCH_ENPOINT = "/" + ENDPOINT_ACTIVITY_METRIC + ENPOINT_SEARCH;
@@ -25,6 +26,12 @@ public class HttpConstants {
 	public static final String ACTIVITY_REST_ENDPOINT = "/activities/{activity}";
 	public static final String ACTIVITY_METRIC_REST_ENPOINT = ACTIVITY_REST_ENDPOINT + "/activitymetrics";
 	public static final String RES_DETECT_QNT_LMT_REST_ENPOINT = ACTIVITY_REST_ENDPOINT + "/results/{result}/resdetectqntlmts";
+
+	public static final String ORGANIZATION_REST_ENDPOINT = "/organizations/{organization}";
+	public static final String MONITORING_LOCATION_FILE_REST_ENDPOINT = ORGANIZATION_REST_ENDPOINT + "/monitoringlocations/{monitoringLocation}" + ENDPOINT_FILE;
+	public static final String PROJECT_FILE_REST_ENDPOINT = ORGANIZATION_REST_ENDPOINT + "/projects/{project}" + ENDPOINT_FILE;
+	public static final String ACTIVITY_FILE_REST_ENDPOINT = ORGANIZATION_REST_ENDPOINT + ACTIVITY_REST_ENDPOINT + ENDPOINT_FILE;
+	public static final String RESULT_FILE_REST_ENDPOINT = ORGANIZATION_REST_ENDPOINT + ACTIVITY_REST_ENDPOINT + "/results/{result}" + ENDPOINT_FILE;
 
 	public static final int HEADER_WARNING_DEFAULT_CODE = 299;
 	public static final String HEADER_FATAL_ERROR = "FATAL-ERROR";

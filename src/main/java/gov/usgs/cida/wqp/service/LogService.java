@@ -30,19 +30,22 @@ public class LogService implements ILogService {
 	}
 
 	@Override
+	public BigDecimal logRequest(HttpServletRequest request, final HttpServletResponse response) {
+		return logRequest(request, response, new FilterParameters());
+	}
+
+	@Override
 	public BigDecimal logRequest(HttpServletRequest request, final HttpServletResponse response, FilterParameters filter) {
 		Map<String, Object> parameterMap = new HashMap<String, Object>();
 		parameterMap.put(LogDao.ID, null);
 		if (null != request) {
-			String origin = (null==request.getHeader("referer")) ?"Direct Call" :"WQP Site";
+			String origin = (null==request.getHeader("referer")) ? "Direct Call" : "WQP Site";
 			parameterMap.put(LogDao.ORIGIN, origin);
 
 			String callType = request.getMethod();
 			parameterMap.put(LogDao.CALL_TYPE, callType);
 
-			EndPoint endpoint = EndPoint.getEnumByCode(request.getRequestURI());
-			String endpt = (null == endpoint) ? request.getRequestURI() : endpoint.getName();
-			parameterMap.put(LogDao.END_POINT, endpt);
+			parameterMap.put(LogDao.END_POINT, request.getRequestURI());
 
 			String queryString = "All filter data is now in the POST_DATA";
 			parameterMap.put(LogDao.QUERY_STRING, queryString);
@@ -98,11 +101,12 @@ public class LogService implements ILogService {
 	}
 
 	protected static String getNodeName(String headerName) {
-		String rtn = HttpConstants.ENDPOINT_RESULT.toLowerCase();
-		if (headerName.equalsIgnoreCase(HttpConstants.HEADER_SITE)) {
-			rtn = HttpConstants.ENDPOINT_STATION.toLowerCase();
+		switch (headerName) {
+		case HttpConstants.HEADER_SITE:
+			return HttpConstants.ENDPOINT_STATION.toLowerCase();
+		default:
+			return headerName.toLowerCase();
 		}
-		return rtn;
 	}
 
 	@Override

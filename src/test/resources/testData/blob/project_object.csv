@@ -1,0 +1,6 @@
+"DATA_SOURCE_ID","OBJECT_ID","DATA_SOURCE","ORGANIZATION","PROJECT_IDENTIFIER","OBJECT_NAME","OBJECT_TYPE","OBJECT_CONTENT"
+3,1,"STORET","WIDNR_WQX","WR047","WR047_one.txt","TXT","A project text file."
+3,2,"STORET","WIDNR_WQX","WR047","WR047_two.txt","TXT","A second project text file."
+3,3,"STORET","WIDNR_WQX","WR047","WR047_three.txt","TXT","A third project text file."
+3,4,"STORET","21NYDECA_WQX","WR047","WR047_five.txt","TXT","A fourth project text file."
+3,5,"STORET","21NYDECA_WQX","EPABEACH","EPABEACH_three.txt","TXT","A fifth project text file."

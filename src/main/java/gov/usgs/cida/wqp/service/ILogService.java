@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import gov.usgs.cida.wqp.parameter.FilterParameters;
 
 public interface ILogService {
+	BigDecimal logRequest(final HttpServletRequest request, final HttpServletResponse response);
 	BigDecimal logRequest(final HttpServletRequest request, final HttpServletResponse response, FilterParameters filter);
 	void logHeadComplete(HttpServletResponse response, BigDecimal logId);
 	void logFirstRowComplete(BigDecimal logId);

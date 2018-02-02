@@ -1,5 +1,6 @@
 package gov.usgs.cida.wqp.swagger;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.google.common.base.Optional;
 
 import gov.usgs.cida.wqp.swagger.annotation.FullParameterList;
+import gov.usgs.cida.wqp.swagger.annotation.NoQueryParametersList;
 import gov.usgs.cida.wqp.swagger.annotation.ProfileParameter;
 import springfox.documentation.service.Parameter;
 import springfox.documentation.spi.DocumentationType;
@@ -29,10 +31,16 @@ public class SwaggerParameterBuilder implements OperationBuilderPlugin {
 	@Override
 	public void apply(OperationContext context) {
 		List<Parameter> parameters = new ArrayList<>();
+		Optional<NoQueryParametersList> noQueryParametersList = context.findAnnotation(NoQueryParametersList.class);
 		Optional<FullParameterList> fullParameterList = context.findAnnotation(FullParameterList.class);
 		Optional<ProfileParameter> profileParameter = context.findAnnotation(ProfileParameter.class);
 		Optional<PostMapping> postMapping = context.findAnnotation(PostMapping.class);
-		
+
+		if (!noQueryParametersList.isPresent()) {
+			parameters.add(SwaggerParameters.mimeType());
+			parameters.add(SwaggerParameters.zip());
+		};
+
 		if (fullParameterList.isPresent()) {
 			parameters.add(SwaggerParameters.analyticalmethod());
 			parameters.add(SwaggerParameters.assemblage());

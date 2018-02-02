@@ -1,0 +1,207 @@
+package gov.usgs.cida.wqp.dao;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
+import java.util.zip.ZipOutputStream;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.github.springtestdbunit.annotation.DbUnitConfiguration;
+
+import gov.usgs.cida.wqp.BaseSpringTest;
+import gov.usgs.cida.wqp.CsvDataSetLoader;
+import gov.usgs.cida.wqp.DBIntegrationTest;
+import gov.usgs.cida.wqp.parameter.ResultIdentifier;
+
+@Category(DBIntegrationTest.class)
+@DatabaseSetup("classpath:/testData/blob/")
+@DbUnitConfiguration(dataSetLoader = CsvDataSetLoader.class)
+public class BlobDaoTest extends BaseSpringTest {
+
+	public static final String SINGLE_FILE_PROJECT_ORG = "21NYDECA_WQX";
+	public static final String SINGLE_FILE_PROJECT_PROJECT = "EPABEACH";
+	public static final String SINGLE_FILE_PROJECT_ENTRY = "EPABEACH_three.txt";
+	public static final String SINGLE_FILE_PROJECT_CONTENTS = "A fifth project text file.";
+
+	public static final String THREE_FILE_PROJECT_ORG = "WIDNR_WQX";
+	public static final String THREE_FILE_PROJECT_PROJECT = "WR047";
+	public static final String THREE_FILE_PROJECT_ENTRY_ONE = "WR047_one.txt";
+	public static final String THREE_FILE_PROJECT_CONTENTS_ONE = "A project text file.";
+	public static final String THREE_FILE_PROJECT_ENTRY_TWO = "WR047_two.txt";
+	public static final String THREE_FILE_PROJECT_CONTENTS_TWO = "A second project text file.";
+	public static final String THREE_FILE_PROJECT_ENTRY_THREE = "WR047_three.txt";
+	public static final String THREE_FILE_PROJECT_CONTENTS_THREE = "A third project text file.";
+
+	public static final String SINGLE_FILE_STATION_ORG = "21NYDECA_WQX";
+	public static final String SINGLE_FILE_STATION_STATION = "21NYDECA_WQX-ONTARIO-02";
+	public static final String SINGLE_FILE_STATION_ENTRY = "21NYDECA_WQX-ONTARIO-02_three.txt";
+	public static final String SINGLE_FILE_STATION_CONTENTS = "This is a single small text file, but you might think it is the third one.";
+
+	public static final String THREE_FILE_STATION_ORG = "WIDNR_WQX";
+	public static final String THREE_FILE_STATION_STATION = "WIDNR_WQX-113086";
+	public static final String THREE_FILE_STATION_ENTRY_ONE = "WIDNR_WQX-113086_one.txt";
+	public static final String THREE_FILE_STATION_CONTENTS_ONE = "This is a small text file.";
+	public static final String THREE_FILE_STATION_ENTRY_TWO = "WIDNR_WQX-113086_two.txt";
+	public static final String THREE_FILE_STATION_CONTENTS_TWO = "This is another small text file.";
+	public static final String THREE_FILE_STATION_ENTRY_THREE = "WIDNR_WQX-113086_three.txt";
+	public static final String THREE_FILE_STATION_CONTENTS_THREE = "This is yet another small text file.";
+
+	public static final String SINGLE_FILE_RESULT_ORG = "21NYDECA_WQX";
+	public static final String SINGLE_FILE_RESULT_ACTIVITY = "21NYDECA_WQX-020206";
+	public static final String SINGLE_FILE_RESULT_RESULT = "STORET-21";
+	public static final String SINGLE_FILE_RESULT_ENTRY= "21NYDECA_WQX-020206_three.txt";
+	public static final String SINGLE_FILE_RESULT_CONTENTS= "This is a single small text result file, but you might think it is the third one.";
+
+	public static final String THREE_FILE_RESULT_ORG = "WIDNR_WQX";
+	public static final String THREE_FILE_RESULT_ACTIVITY = "WIDNR_WQX-7788480";
+	public static final String THREE_FILE_RESULT_RESULT= "STORET-4";
+	public static final String THREE_FILE_RESULT_ENTRY_ONE= "WIDNR_WQX-7788480_one.txt";
+	public static final String THREE_FILE_RESULT_CONTENTS_ONE= "This is a small text result file.";
+	public static final String THREE_FILE_RESULT_ENTRY_TWO= "WIDNR_WQX-7788480_two.txt";
+	public static final String THREE_FILE_RESULT_CONTENTS_TWO= "This is another small text result file.";
+	public static final String THREE_FILE_RESULT_ENTRY_THREE= "WIDNR_WQX-7788480_three.txt";
+	public static final String THREE_FILE_RESULT_CONTENTS_THREE= "This is yet another small text result file.";
+
+	ByteArrayOutputStream response;
+	ZipOutputStream target;
+
+	@Autowired
+	BlobDao blobDao;
+
+	@Before
+	public void setup() {
+		response = new ByteArrayOutputStream();
+		target = new ZipOutputStream(response);
+	}
+
+	@Test
+	public void singleFileStationTest() {
+		try {
+			blobDao.getMonitoringLocationFiles(target, SINGLE_FILE_STATION_ORG, SINGLE_FILE_STATION_STATION);
+			ZipInputStream stream = getStream(response);
+			assertSingleFileStation(stream);
+		} catch (IOException e) {
+			fail("Should not get exception but did:" + e.getLocalizedMessage());
+		}
+	}
+
+	@Test
+	public void threeFileStationTest() {
+		try {
+			blobDao.getMonitoringLocationFiles(target, THREE_FILE_STATION_ORG, THREE_FILE_STATION_STATION);
+			ZipInputStream stream = getStream(response);
+			assertThreeFileStation(stream);
+		} catch (IOException e) {
+			fail("Should not get exception but did:" + e.getLocalizedMessage());
+		}
+	}
+
+	@Test
+	public void singleFileProjectTest() {
+		try {
+			blobDao.getProjectFiles(target, SINGLE_FILE_PROJECT_ORG, SINGLE_FILE_PROJECT_PROJECT);
+			ZipInputStream stream = getStream(response);
+			assertSingleFileProject(stream);
+		} catch (IOException e) {
+			fail("Should not get exception but did:" + e.getLocalizedMessage());
+		}
+	}
+
+	@Test
+	public void threeFileProjectTest() {
+		try {
+			blobDao.getProjectFiles(target, THREE_FILE_PROJECT_ORG, THREE_FILE_PROJECT_PROJECT);
+			ZipInputStream stream = getStream(response);
+			assertThreeFileProject(stream);
+		} catch (IOException e) {
+			fail("Should not get exception but did:" + e.getLocalizedMessage());
+		}
+	}
+
+	@Test
+	public void singleFileResultTest() {
+		try {
+			blobDao.getResultFiles(target, SINGLE_FILE_RESULT_ORG, SINGLE_FILE_RESULT_ACTIVITY, new ResultIdentifier(SINGLE_FILE_RESULT_RESULT));
+			ZipInputStream stream = getStream(response);
+			assertSingleFileResult(stream);
+		} catch (IOException e) {
+			fail("Should not get exception but did:" + e.getLocalizedMessage());
+		}
+	}
+
+	@Test
+	public void threeFileResultTest() {
+		try {
+			blobDao.getResultFiles(target, THREE_FILE_RESULT_ORG, THREE_FILE_RESULT_ACTIVITY, new ResultIdentifier(THREE_FILE_RESULT_RESULT));
+			ZipInputStream stream = getStream(response);
+			assertThreeFileResult(stream);
+		} catch (IOException e) {
+			fail("Should not get exception but did:" + e.getLocalizedMessage());
+		}
+	}
+
+	protected ZipInputStream getStream(ByteArrayOutputStream response) {
+		return new ZipInputStream(new ByteArrayInputStream(response.toByteArray()));
+	}
+
+	public static void assertSingleFileStation(ZipInputStream stream) throws IOException {
+		assertContents(stream, SINGLE_FILE_STATION_ENTRY, SINGLE_FILE_STATION_CONTENTS);
+		assertNull(stream.getNextEntry());
+	}
+
+	public static void assertThreeFileStation(ZipInputStream stream) throws IOException {
+		assertContents(stream, THREE_FILE_STATION_ENTRY_ONE, THREE_FILE_STATION_CONTENTS_ONE);
+		assertContents(stream, THREE_FILE_STATION_ENTRY_TWO, THREE_FILE_STATION_CONTENTS_TWO);
+		assertContents(stream, THREE_FILE_STATION_ENTRY_THREE, THREE_FILE_STATION_CONTENTS_THREE);
+		assertNull(stream.getNextEntry());
+	}
+
+	public static void assertSingleFileProject(ZipInputStream stream) throws IOException {
+		assertContents(stream, SINGLE_FILE_PROJECT_ENTRY, SINGLE_FILE_PROJECT_CONTENTS);
+		assertNull(stream.getNextEntry());
+	}
+
+	public static void assertThreeFileProject(ZipInputStream stream) throws IOException {
+		assertContents(stream, THREE_FILE_PROJECT_ENTRY_ONE, THREE_FILE_PROJECT_CONTENTS_ONE);
+		assertContents(stream, THREE_FILE_PROJECT_ENTRY_TWO, THREE_FILE_PROJECT_CONTENTS_TWO);
+		assertContents(stream, THREE_FILE_PROJECT_ENTRY_THREE, THREE_FILE_PROJECT_CONTENTS_THREE);
+		assertNull(stream.getNextEntry());
+	}
+
+	public static void assertSingleFileResult(ZipInputStream stream) throws IOException {
+		assertContents(stream, SINGLE_FILE_RESULT_ENTRY, SINGLE_FILE_RESULT_CONTENTS);
+		assertNull(stream.getNextEntry());
+	}
+
+	public static void assertThreeFileResult(ZipInputStream stream) throws IOException {
+		assertContents(stream, THREE_FILE_RESULT_ENTRY_ONE, THREE_FILE_RESULT_CONTENTS_ONE);
+		assertContents(stream, THREE_FILE_RESULT_ENTRY_TWO, THREE_FILE_RESULT_CONTENTS_TWO);
+		assertContents(stream, THREE_FILE_RESULT_ENTRY_THREE, THREE_FILE_RESULT_CONTENTS_THREE);
+		assertNull(stream.getNextEntry());
+	}
+
+	public static void assertContents(ZipInputStream stream, String entryName, String entryContents) throws IOException {
+		ZipEntry entry = stream.getNextEntry();
+		assertEquals(entryName, entry.getName());
+
+		ByteArrayOutputStream os = new ByteArrayOutputStream();
+		int len;
+		byte[] buffer = new byte[1024];
+		while ((len = stream.read(buffer)) > 0) {
+			os.write(buffer, 0, len);
+		}
+		assertEquals(entryContents, os.toString());
+	}
+
+}
