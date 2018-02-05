@@ -3,6 +3,8 @@ package gov.usgs.cida.wqp.webservice;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.zip.ZipOutputStream;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +19,7 @@ import gov.usgs.cida.wqp.dao.BlobDao;
 import gov.usgs.cida.wqp.parameter.ResultIdentifier;
 import gov.usgs.cida.wqp.service.ILogService;
 import gov.usgs.cida.wqp.swagger.SwaggerConfig;
+import gov.usgs.cida.wqp.swagger.SwaggerParameters;
 import gov.usgs.cida.wqp.swagger.annotation.NoQueryParametersList;
 import gov.usgs.cida.wqp.util.HttpConstants;
 import io.swagger.annotations.Api;
@@ -37,11 +40,6 @@ public class BlobController {
 	public static final String MONITORING_LOCATION_FILE = "monitoringLocation.zip";
 	public static final String PROJECT_FILE = "project.zip";
 	public static final String RESULT_FILE = "result.zip";
-	public static final String MONITORING_LOCATION_DESCRIPTION = "Case-sensitive Monitoring Location (Site ID).";
-	public static final String ORGANIZATION_DESCRIPTION = "Case-sensitive Organization Identifier.";
-	public static final String PROJECT_IDENTIFIER_DESCRIPTION = "Case-sensitive Project Identifier.";
-	public static final String ACTIVITY_DESCRIPTION = "Case-sensitive Activity Identifier.";
-	public static final String RESULT_DESCRIPTION = "Case-sensitive Result Identifier.";
 
 	@Autowired
 	public BlobController(BlobDao blobDao, ILogService inLogService) {
@@ -78,34 +76,37 @@ public class BlobController {
 	@GetMapping(value=HttpConstants.MONITORING_LOCATION_FILE_REST_ENDPOINT)
 	@NoQueryParametersList
 	public void monitoringLocationBlobFilesGetRestRequest(HttpServletRequest request, HttpServletResponse response,
-			@PathVariable("organization") @ApiParam(value=ORGANIZATION_DESCRIPTION) String organization,
-			@PathVariable("monitoringLocation") @ApiParam(value=MONITORING_LOCATION_DESCRIPTION) String monitoringLocation) throws IOException {
+			@PathVariable("organization") @ApiParam(value=SwaggerParameters.ORGANIZATION_DESCRIPTION) String organization,
+			@PathVariable("monitoringLocation") @ApiParam(value=SwaggerParameters.MONITORING_LOCATION_DESCRIPTION) String monitoringLocation) throws IOException {
 		setupResponse(request, response, MONITORING_LOCATION_FILE);
-		blobDao.getMonitoringLocationFiles(getZipOutputStream(), organization, monitoringLocation);
-		finishResponse(response);
+		Map<String, Integer> downloadDetails = new HashMap<>();
+		downloadDetails.put(organization, blobDao.getMonitoringLocationFiles(getZipOutputStream(), organization, monitoringLocation));
+		finishResponse(response, downloadDetails);
 	}
 
 	@ApiOperation(value="Return zipped artifact with all files available for the specified organization/project.")
 	@GetMapping(value=HttpConstants.PROJECT_FILE_REST_ENDPOINT)
 	@NoQueryParametersList
 	public void projectBlobFilesGetRestRequest(HttpServletRequest request, HttpServletResponse response,
-			@PathVariable("organization") @ApiParam(value=ORGANIZATION_DESCRIPTION) String organization,
-			@PathVariable("project") @ApiParam(value=PROJECT_IDENTIFIER_DESCRIPTION) String project) throws IOException {
+			@PathVariable("organization") @ApiParam(value=SwaggerParameters.ORGANIZATION_DESCRIPTION) String organization,
+			@PathVariable("project") @ApiParam(value=SwaggerParameters.PROJECT_IDENTIFIER_DESCRIPTION) String project) throws IOException {
 		setupResponse(request, response, PROJECT_FILE);
-		blobDao.getProjectFiles(getZipOutputStream(), organization, project);
-		finishResponse(response);
+		Map<String, Integer> downloadDetails = new HashMap<>();
+		downloadDetails.put(organization, blobDao.getProjectFiles(getZipOutputStream(), organization, project));
+		finishResponse(response, downloadDetails);
 	}
 
 	@ApiOperation(value="Return zipped artifact with all files available for the specified organization/activity/result.")
 	@GetMapping(value=HttpConstants.RESULT_FILE_REST_ENDPOINT)
 	@NoQueryParametersList
 	public void resultBlobFilesGetRestRequest(HttpServletRequest request, HttpServletResponse response,
-			@PathVariable("organization") @ApiParam(value=ORGANIZATION_DESCRIPTION) String organization,
-			@PathVariable("activity") @ApiParam(value=ACTIVITY_DESCRIPTION) String activity,
-			@PathVariable("result") @ApiParam(value=RESULT_DESCRIPTION) String result) throws IOException {
+			@PathVariable("organization") @ApiParam(value=SwaggerParameters.ORGANIZATION_DESCRIPTION) String organization,
+			@PathVariable("activity") @ApiParam(value=SwaggerParameters.ACTIVITY_DESCRIPTION) String activity,
+			@PathVariable("result") @ApiParam(value=SwaggerParameters.RESULT_DESCRIPTION) String result) throws IOException {
 		setupResponse(request, response, RESULT_FILE);
-		blobDao.getResultFiles(getZipOutputStream(), organization, activity, new ResultIdentifier(result));
-		finishResponse(response);
+		Map<String, Integer> downloadDetails = new HashMap<>();
+		downloadDetails.put(organization, blobDao.getResultFiles(getZipOutputStream(), organization, activity, new ResultIdentifier(result)));
+		finishResponse(response, downloadDetails);
 	}
 
 	protected void setupResponse(HttpServletRequest request, HttpServletResponse response, String fileName) throws IOException {
@@ -115,11 +116,11 @@ public class BlobController {
 		setZipOutputStream(new ZipOutputStream(getOutputStream()));
 	}
 
-	protected void finishResponse(HttpServletResponse response) throws IOException {
+	protected void finishResponse(HttpServletResponse response, Map<String, Integer> downloadDetails) throws IOException {
 		getZipOutputStream().finish();
 		getZipOutputStream().close();
 		getOutputStream().flush();
-		logService.logRequestComplete(getLogId(), String.valueOf(response.getStatus()));
+		logService.logRequestComplete(getLogId(), String.valueOf(response.getStatus()), downloadDetails);
 		remove();
 	}
 

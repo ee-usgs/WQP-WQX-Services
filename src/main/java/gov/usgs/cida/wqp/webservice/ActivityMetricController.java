@@ -28,6 +28,7 @@ import gov.usgs.cida.wqp.mapping.xml.IXmlMapping;
 import gov.usgs.cida.wqp.parameter.FilterParameters;
 import gov.usgs.cida.wqp.service.ILogService;
 import gov.usgs.cida.wqp.swagger.SwaggerConfig;
+import gov.usgs.cida.wqp.swagger.SwaggerParameters;
 import gov.usgs.cida.wqp.swagger.annotation.FullParameterList;
 import gov.usgs.cida.wqp.swagger.model.ActivityMetricCountJson;
 import gov.usgs.cida.wqp.util.HttpConstants;
@@ -66,7 +67,7 @@ public class ActivityMetricController extends BaseController {
 	@ApiOperation(value="Return appropriate request headers (including anticipated record counts) for the specified activity.")
 	@RequestMapping(value=HttpConstants.ACTIVITY_METRIC_REST_ENPOINT, method=RequestMethod.HEAD)
 	public void activityMetricRestHeadRequest(HttpServletRequest request, HttpServletResponse response,
-			@PathVariable("activity") @ApiParam(value=BlobController.ACTIVITY_DESCRIPTION) String activity,
+			@PathVariable("activity") @ApiParam(value=SwaggerParameters.ACTIVITY_DESCRIPTION) String activity,
 			@RequestParam(value="mimeType", required=false) String mimeType,
 			@RequestParam(value="zip", required=false) String zip) {
 		FilterParameters filter = new FilterParameters();
@@ -84,7 +85,7 @@ public class ActivityMetricController extends BaseController {
 	@ApiOperation(value="Return activity metric information for the specified activity.")
 	@GetMapping(value=HttpConstants.ACTIVITY_METRIC_REST_ENPOINT)
 	public void activityMetricGetRestRequest(HttpServletRequest request, HttpServletResponse response,
-			@PathVariable("activity") @ApiParam(value=BlobController.ACTIVITY_DESCRIPTION) String activity,
+			@PathVariable("activity") @ApiParam(value=SwaggerParameters.ACTIVITY_DESCRIPTION) String activity,
 			@RequestParam(value="mimeType", required=false) String mimeType,
 			@RequestParam(value="zip", required=false) String zip) {
 		FilterParameters filter = new FilterParameters();

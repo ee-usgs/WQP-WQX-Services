@@ -15,7 +15,6 @@ import java.util.Arrays;
 import org.springframework.stereotype.Component;
 
 import gov.usgs.cida.wqp.mapping.Profile;
-import gov.usgs.cida.wqp.webservice.BlobController;
 import springfox.documentation.builders.ParameterBuilder;
 import springfox.documentation.schema.ModelRef;
 import springfox.documentation.service.AllowableListValues;
@@ -24,12 +23,18 @@ import springfox.documentation.service.Parameter;
 @Component
 public class SwaggerParameters {
 
+	public static final String MONITORING_LOCATION_DESCRIPTION = "Case-sensitive Monitoring Location (Site ID).";
+	public static final String ORGANIZATION_DESCRIPTION = "Case-sensitive Organization Identifier.";
+	public static final String PROJECT_IDENTIFIER_DESCRIPTION = "Case-sensitive Project Identifier.";
+	public static final String ACTIVITY_DESCRIPTION = "Case-sensitive Activity Identifier.";
+	public static final String RESULT_DESCRIPTION = "Case-sensitive Result Identifier.";
+
 	private SwaggerParameters() {}
 
 	public static Parameter activity() {
 		return new ParameterBuilder()
 				.name("activity")
-				.description(BlobController.ACTIVITY_DESCRIPTION)
+				.description(ACTIVITY_DESCRIPTION)
 				.modelRef(new ModelRef("string"))
 				.parameterType("query")
 				.required(false)
@@ -245,7 +250,7 @@ public class SwaggerParameters {
 	public static Parameter result() {
 		return new ParameterBuilder()
 				.name("result")
-				.description(BlobController.RESULT_DESCRIPTION)
+				.description(RESULT_DESCRIPTION)
 				.modelRef(new ModelRef("string"))
 				.parameterType("query")
 				.required(false)

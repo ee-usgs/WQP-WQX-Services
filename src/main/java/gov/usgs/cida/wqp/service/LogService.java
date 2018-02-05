@@ -12,6 +12,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import gov.usgs.cida.wqp.dao.LogDao;
 import gov.usgs.cida.wqp.dao.intfc.ILogDao;
 import gov.usgs.cida.wqp.parameter.FilterParameters;
@@ -30,12 +33,12 @@ public class LogService implements ILogService {
 	}
 
 	@Override
-	public BigDecimal logRequest(HttpServletRequest request, final HttpServletResponse response) {
+	public BigDecimal logRequest(HttpServletRequest request, HttpServletResponse response) {
 		return logRequest(request, response, new FilterParameters());
 	}
 
 	@Override
-	public BigDecimal logRequest(HttpServletRequest request, final HttpServletResponse response, FilterParameters filter) {
+	public BigDecimal logRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter) {
 		Map<String, Object> parameterMap = new HashMap<String, Object>();
 		parameterMap.put(LogDao.ID, null);
 		if (null != request) {
@@ -51,6 +54,8 @@ public class LogService implements ILogService {
 			parameterMap.put(LogDao.QUERY_STRING, queryString);
 
 			parameterMap.put(LogDao.POST_DATA, filter.toJson());
+
+			parameterMap.put(LogDao.USER_AGENT, request.getHeader("user-agent"));
 		}
 
 		return logDao.addLog(parameterMap);
@@ -117,10 +122,20 @@ public class LogService implements ILogService {
 	}
 
 	@Override
-	public void logRequestComplete(BigDecimal logId, String httpStatusCode) {
+	public void logRequestComplete(BigDecimal logId, String httpStatusCode, Map<String, Integer> downloadDetails) {
+		ObjectMapper mapper = new ObjectMapper();
+		String json = "";
+		try {
+			json = null == downloadDetails ? "{}" : mapper.writeValueAsString(downloadDetails);
+		} catch (JsonProcessingException e) {
+			//Not sure how this can happen, but is part of the API
+			json = "{\"Error serializing downloadDetails\"}";
+			LOG.info(json, e);
+		}
 		Map<String, Object> parameterMap = new HashMap<String, Object>();
 		parameterMap.put(LogDao.ID, logId);
 		parameterMap.put(LogDao.HTTP_STATUS_CODE, httpStatusCode);
+		parameterMap.put(LogDao.DOWNLOAD_DETAILS, json);
 		logDao.setRequestComplete(parameterMap);
 	}
 

@@ -3,6 +3,7 @@ package gov.usgs.cida.wqp.transform;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyMap;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.never;
@@ -68,6 +69,7 @@ public class TransformerTest {
 	}
 
 	@Test
+	@SuppressWarnings("unchecked")
 	public void writeTest() {
 		TTransformer transformer = new TTransformer(new ByteArrayOutputStream(), null, logService, logId);
 
@@ -80,7 +82,7 @@ public class TransformerTest {
 			verify(logService, never()).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(FilterParameters.class));
 			verify(logService, never()).logHeadComplete(any(HttpServletResponse.class), eq(logId));
 			verify(logService, never()).logFirstRowComplete(logId);
-			verify(logService, never()).logRequestComplete(eq(logId), anyString());
+			verify(logService, never()).logRequestComplete(eq(logId), anyString(), anyMap());
 			transformer.close();
 		} catch (IOException e) {
 			fail(e.getLocalizedMessage());
@@ -95,7 +97,7 @@ public class TransformerTest {
 			verify(logService, never()).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(FilterParameters.class));
 			verify(logService, never()).logHeadComplete(any(HttpServletResponse.class), eq(logId));
 			verify(logService, never()).logFirstRowComplete(logId);
-			verify(logService, never()).logRequestComplete(eq(logId), anyString());
+			verify(logService, never()).logRequestComplete(eq(logId), anyString(), anyMap());
 			transformer.close();
 		} catch (IOException e) {
 			fail(e.getLocalizedMessage());
@@ -114,7 +116,7 @@ public class TransformerTest {
 			verify(logService, never()).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(FilterParameters.class));
 			verify(logService, never()).logHeadComplete(any(HttpServletResponse.class), eq(logId));
 			verify(logService, times(1)).logFirstRowComplete(logId);
-			verify(logService, never()).logRequestComplete(eq(logId), anyString());
+			verify(logService, never()).logRequestComplete(eq(logId), anyString(), anyMap());
 			transformer.close();
 		} catch (IOException e) {
 			fail(e.getLocalizedMessage());
