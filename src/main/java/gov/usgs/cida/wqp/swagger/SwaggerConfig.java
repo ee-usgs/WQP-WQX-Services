@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -18,12 +17,11 @@ import com.fasterxml.classmate.TypeResolver;
 import gov.usgs.cida.wqp.swagger.model.ActivityCountJson;
 import gov.usgs.cida.wqp.swagger.model.ActivityMetricCountJson;
 import gov.usgs.cida.wqp.swagger.model.PostParms;
+import gov.usgs.cida.wqp.swagger.model.ProjectCountJson;
 import gov.usgs.cida.wqp.swagger.model.ResDetectQntLmtCountJson;
 import gov.usgs.cida.wqp.swagger.model.ResultCountJson;
 import gov.usgs.cida.wqp.swagger.model.StationCountJson;
-import gov.usgs.cida.wqp.swagger.model.ProjectCountJson;
 import springfox.documentation.PathProvider;
-import springfox.documentation.service.Parameter;
 import springfox.documentation.service.Tag;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.paths.AbstractPathProvider;
@@ -40,9 +38,11 @@ public class SwaggerConfig {
 	public static final String SIMPLE_STATION_TAG_NAME = "Simple Station (deprecated)";
 	public static final String STATION_TAG_NAME = "Station";
 	public static final String VERSION_TAG_NAME = "Application Version";
+	public static final String VERSION_TAG_DESCRIPTION = "Display Application Version";
 	public static final String PROJECT_TAG_NAME = "Project";
 	public static final String PROJECT_MONITORING_LOCATION_WEIGHTING_TAG_NAME = "Project Monitoring Location Weighting";
-	private static final String TAG_DESCRIPTION = "Data Download";
+	public static final String TAG_DESCRIPTION = "Data Download";
+	public static final String FILE_DOWNLOAD_TAG_NAME = "File Download";
 
 	@Autowired
 	@Qualifier("swaggerDisplayHost")
@@ -72,17 +72,11 @@ public class SwaggerConfig {
 
 	@Bean
 	public Docket qwPortalServicesApi() {
-		List<Parameter> operationParameters = Arrays.asList(
-				SwaggerParameters.mimeType(),
-				SwaggerParameters.zip()
-		);
-
 		return new Docket(DocumentationType.SWAGGER_2)
 				.protocols(new HashSet<>(Arrays.asList("https")))
 				.host(swaggerDisplayHost)
 				.pathProvider(pathProvider())
 				.useDefaultResponseMessages(false)
-				.globalOperationParameters(operationParameters)
 				.additionalModels(typeResolver.resolve(PostParms.class),
 						typeResolver.resolve(StationCountJson.class),
 						typeResolver.resolve(ActivityCountJson.class),
@@ -96,7 +90,8 @@ public class SwaggerConfig {
 						new Tag(RESULT_TAG_NAME, TAG_DESCRIPTION),
 						new Tag(SIMPLE_STATION_TAG_NAME, TAG_DESCRIPTION),
 						new Tag(STATION_TAG_NAME, TAG_DESCRIPTION),
-						new Tag(VERSION_TAG_NAME, "Display"))
+						new Tag(VERSION_TAG_NAME, VERSION_TAG_DESCRIPTION),
+						new Tag(FILE_DOWNLOAD_TAG_NAME, FILE_DOWNLOAD_TAG_NAME))
 		;
 	}
 

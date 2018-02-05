@@ -69,6 +69,11 @@ public class ActivityMetricRestfullTest extends BaseControllerIntegrationTest {
 	}
 
 	@Override
+	protected String getNoResultParameters(String url) {
+		return url.replace(getActivity(), "abc");
+	}
+
+	@Override
 	public ResultActions unFilteredHeaderCheck(ResultActions resultActions) throws Exception {
 		return resultActions
 				.andExpect(header().string(HttpConstants.HEADER_TOTAL_SITE_COUNT, "1"))

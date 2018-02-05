@@ -23,12 +23,18 @@ import springfox.documentation.service.Parameter;
 @Component
 public class SwaggerParameters {
 
+	public static final String MONITORING_LOCATION_DESCRIPTION = "Case-sensitive Monitoring Location (Site ID).";
+	public static final String ORGANIZATION_DESCRIPTION = "Case-sensitive Organization Identifier.";
+	public static final String PROJECT_IDENTIFIER_DESCRIPTION = "Case-sensitive Project Identifier.";
+	public static final String ACTIVITY_DESCRIPTION = "Case-sensitive Activity Identifier.";
+	public static final String RESULT_DESCRIPTION = "Case-sensitive Result Identifier.";
+
 	private SwaggerParameters() {}
 
 	public static Parameter activity() {
 		return new ParameterBuilder()
 				.name("activity")
-				.description("Activity to filter by.")
+				.description(ACTIVITY_DESCRIPTION)
 				.modelRef(new ModelRef("string"))
 				.parameterType("query")
 				.required(false)
@@ -200,7 +206,7 @@ public class SwaggerParameters {
 	public static Parameter organization() {
 		return new ParameterBuilder()
 				.name("organization")
-				.description("One or more case-sensitive Organizations.")
+				.description("One or more case-sensitive Organization Identifiers.")
 				.modelRef(new ModelRef("", new ModelRef("string")))
 				.parameterType("query")
 				.required(false)
@@ -222,7 +228,7 @@ public class SwaggerParameters {
 	public static Parameter project() {
 		return new ParameterBuilder()
 				.name("project")
-				.description("One or more case-sensitive Projects.")
+				.description("One or more case-sensitive Project Identifiers.")
 				.modelRef(new ModelRef("", new ModelRef("string")))
 				.parameterType("query")
 				.required(false)
@@ -244,7 +250,7 @@ public class SwaggerParameters {
 	public static Parameter result() {
 		return new ParameterBuilder()
 				.name("result")
-				.description("Result to filter by.")
+				.description(RESULT_DESCRIPTION)
 				.modelRef(new ModelRef("string"))
 				.parameterType("query")
 				.required(false)

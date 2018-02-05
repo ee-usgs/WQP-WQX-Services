@@ -92,19 +92,6 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 		assertProjectMLWeighting(results.get(3), BIODATA_PRJMLW);
 	}
 
-	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// Activity_Sum
-
-	@Test
-	public void avoidTest() {
-		filter.setCommand(getCommand());
-		streamingDao.stream(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, filter, handler);
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(TOTAL_PRJ_ML_WEIGHTING_COUNT, String.valueOf(results.size()));
-		assertContainsProjectMLWeightings(results, STORET_PRJMLW, BIODATA_PRJMLW, STEWARDS_PRJMLW, NWIS_PRJMLW);
-	}
-
 	@Test
 	public void bboxTest() {
 		filter.setBBox(getBBox());
@@ -355,9 +342,6 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 		assertEquals(3, results.size());
 		assertContainsProjectMLWeightings(results, STEWARDS_PRJMLW, NWIS_PRJMLW, BIODATA_PRJMLW);
 	}
-
-	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// Result_Sum
 
 	@Test
 	public void analyticalMethodTest() {
