@@ -2,7 +2,6 @@ project_data
 project_dim
 station
 station_sum
-prj_ml_weighting
 activity
 act_metric
 activity_sum
@@ -10,3 +9,4 @@ result
 result_sum
 r_detect_qnt_lmt
 web_service_log
+prj_ml_weighting

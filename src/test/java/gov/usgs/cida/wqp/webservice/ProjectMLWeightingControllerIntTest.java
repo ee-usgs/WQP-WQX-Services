@@ -68,25 +68,23 @@ public class ProjectMLWeightingControllerIntTest extends BaseControllerIntegrati
 		getAsXmlZipTest(ENDPOINT + XML_AND_ZIP, HttpConstants.MIME_TYPE_ZIP, XML, PROFILE, POSTABLE);
 	}
 	
-	@Test
-	public void getAllParametersTest() throws Exception {
-		getAllParametersTest(ENDPOINT + CSV, HttpConstants.MIME_TYPE_CSV, CSV, PROFILE, POSTABLE);
-	}
-	
+	@Override
 	public ResultActions unFilteredHeaderCheck(ResultActions resultActions) throws Exception {
 		return resultActions				
-				.andExpect(header().string(HttpConstants.HEADER_TOTAL_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT, TOTAL_PROJECT_COUNT))
+				.andExpect(header().string(HttpConstants.HEADER_TOTAL_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT, TOTAL_PRJ_ML_WEIGHTING_COUNT))
 				.andExpect(header().string(HEADER_NWIS_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT, NWIS_PRJ_ML_WEIGHTING_COUNT))
 				.andExpect(header().string(HEADER_STEWARDS_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT, STEWARDS_PRJ_ML_WEIGHTING_COUNT))
 				.andExpect(header().string(HEADER_STORET_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT, STORET_PRJ_ML_WEIGHTING_COUNT))
 				.andExpect(header().string(HEADER_BIODATA_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT, BIODATA_PRJ_ML_WEIGHTING_COUNT));
 	}
-	
+
+	@Override
 	public ResultActions filteredHeaderCheck(ResultActions resultActions) throws Exception {
 		return resultActions
 				.andExpect(header().string(HttpConstants.HEADER_TOTAL_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT, FILTERED_TOTAL_PRJ_ML_WEIGHTING_COUNT));
 	}
 	
+	@Override
 	public ResultActions noResultHeaderCheck(ResultActions resultActions) throws Exception {
 		return resultActions
 				.andExpect(header().string(HttpConstants.HEADER_TOTAL_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT, "0"));
