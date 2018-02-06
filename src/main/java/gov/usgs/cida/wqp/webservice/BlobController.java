@@ -40,6 +40,7 @@ public class BlobController {
 	public static final String MONITORING_LOCATION_FILE = "monitoringLocation.zip";
 	public static final String PROJECT_FILE = "project.zip";
 	public static final String RESULT_FILE = "result.zip";
+	public static final String ACTIVITY_FILE = "activity.zip";
 
 	@Autowired
 	public BlobController(BlobDao blobDao, ILogService inLogService) {
@@ -106,6 +107,18 @@ public class BlobController {
 		setupResponse(request, response, RESULT_FILE);
 		Map<String, Integer> downloadDetails = new HashMap<>();
 		downloadDetails.put(organization, blobDao.getResultFiles(getZipOutputStream(), organization, activity, new ResultIdentifier(result)));
+		finishResponse(response, downloadDetails);
+	}
+	
+	@ApiOperation(value="Return zipped artifact with all files available for the specified organization/activity.")
+	@GetMapping(value=HttpConstants.ACTIVITY_FILE_REST_ENDPOINT)
+	@NoQueryParametersList
+	public void activityBlobFilesGetRestRequest(HttpServletRequest request, HttpServletResponse response,
+			@PathVariable("organization") @ApiParam(value=SwaggerParameters.ORGANIZATION_DESCRIPTION) String organization,
+			@PathVariable("activity") @ApiParam(value=SwaggerParameters.ACTIVITY_DESCRIPTION) String activity) throws IOException {
+		setupResponse(request, response, ACTIVITY_FILE);
+		Map<String, Integer> downloadDetails = new HashMap<>();
+		downloadDetails.put(organization, blobDao.getActivityFiles(getZipOutputStream(), organization, activity));
 		finishResponse(response, downloadDetails);
 	}
 
