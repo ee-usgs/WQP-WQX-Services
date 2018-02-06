@@ -1,6 +1,7 @@
 package gov.usgs.cida.wqp.parameter;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import java.util.Arrays;
 
@@ -12,7 +13,9 @@ public class CustomStringToListConverterTest {
 
 	@Test
 	public void emptyStringTest() {
-		assertEquals(Arrays.asList(""), converter.convert(""));
+		assertNull(converter.convert(null));
+		assertNull(converter.convert(""));
+		assertNull(converter.convert(";;;;;"));
 	}
 
 	@Test
@@ -22,7 +25,7 @@ public class CustomStringToListConverterTest {
 
 	@Test
 	public void hasDelimiterTest() {
-		assertEquals(Arrays.asList("wow", "this", "is", "fun"), converter.convert("wow;this;is;fun"));
+		assertEquals(Arrays.asList("wow", "this", "is", "fun"), converter.convert(" ;wow;;this;is;fun;; "));
 	}
 
 }
