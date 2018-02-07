@@ -73,6 +73,21 @@ public class BlobDaoTest extends BaseSpringTest {
 	public static final String THREE_FILE_RESULT_ENTRY_THREE= "WIDNR_WQX-7788480_three.txt";
 	public static final String THREE_FILE_RESULT_CONTENTS_THREE= "This is yet another small text result file.";
 
+	public static final String SINGLE_FILE_ACTIVITY_ORG = "11NPSWRD_WQX";
+	public static final String SINGLE_FILE_ACTIVITY_ACTIVITY = "STORET_SAMPLING";
+	public static final String SINGLE_FILE_ACTIVITY_ENTRY = "STORET_SAMPLING_three.txt";
+	public static final String SINGLE_FILE_ACTIVITY_CONTENTS = "A fifth activity text file.";
+	
+	public static final String THREE_FILE_ACTIVITY_ORG = "BR549_WQX";
+	public static final String THREE_FILE_ACTIVITY_ACTIVITY = "BR549";
+	public static final String THREE_FILE_ACTIVITY_ENTRY_ONE = "BR549_one.txt";
+	public static final String THREE_FILE_ACTIVITY_CONTENTS_ONE = "An activity text file.";
+	public static final String THREE_FILE_ACTIVITY_ENTRY_TWO = "BR549_two.txt";
+	public static final String THREE_FILE_ACTIVITY_CONTENTS_TWO = "A second activity text file.";
+	public static final String THREE_FILE_ACTIVITY_ENTRY_THREE = "BR549_three.txt";
+	public static final String THREE_FILE_ACTIVITY_CONTENTS_THREE = "A third activity text file.";
+	
+	
 	ByteArrayOutputStream response;
 	ZipOutputStream target;
 
@@ -150,6 +165,28 @@ public class BlobDaoTest extends BaseSpringTest {
 			fail("Should not get exception but did:" + e.getLocalizedMessage());
 		}
 	}
+	
+	@Test
+	public void singleFileActivityTest() {
+		try {
+			assertEquals(1, blobDao.getActivityFiles(target, SINGLE_FILE_ACTIVITY_ORG, SINGLE_FILE_ACTIVITY_ACTIVITY));
+			ZipInputStream stream = getStream(response);
+			assertSingleFileActivity(stream);
+		} catch (IOException e) {
+			fail("Should not get exception but did:" + e.getLocalizedMessage());
+		}
+	}
+	
+	@Test
+	public void threeFileActivityTest() {
+		try {
+			assertEquals(3, blobDao.getActivityFiles(target, THREE_FILE_ACTIVITY_ORG, THREE_FILE_ACTIVITY_ACTIVITY));
+			ZipInputStream stream = getStream(response);
+			assertThreeFileActivity(stream);
+		} catch (IOException e) {
+			fail("Should not get exception but did:" + e.getLocalizedMessage());
+		}
+	}
 
 	protected ZipInputStream getStream(ByteArrayOutputStream response) {
 		return new ZipInputStream(new ByteArrayInputStream(response.toByteArray()));
@@ -188,6 +225,18 @@ public class BlobDaoTest extends BaseSpringTest {
 		assertContents(stream, THREE_FILE_RESULT_ENTRY_ONE, THREE_FILE_RESULT_CONTENTS_ONE);
 		assertContents(stream, THREE_FILE_RESULT_ENTRY_TWO, THREE_FILE_RESULT_CONTENTS_TWO);
 		assertContents(stream, THREE_FILE_RESULT_ENTRY_THREE, THREE_FILE_RESULT_CONTENTS_THREE);
+		assertNull(stream.getNextEntry());
+	}
+	
+	public static void assertSingleFileActivity(ZipInputStream stream) throws IOException {
+		assertContents(stream, SINGLE_FILE_ACTIVITY_ENTRY, SINGLE_FILE_ACTIVITY_CONTENTS);
+		assertNull(stream.getNextEntry());
+	}
+	
+	public static void assertThreeFileActivity(ZipInputStream stream) throws IOException {
+		assertContents(stream, THREE_FILE_ACTIVITY_ENTRY_ONE, THREE_FILE_ACTIVITY_CONTENTS_ONE);
+		assertContents(stream, THREE_FILE_ACTIVITY_ENTRY_TWO, THREE_FILE_ACTIVITY_CONTENTS_TWO);
+		assertContents(stream, THREE_FILE_ACTIVITY_ENTRY_THREE, THREE_FILE_ACTIVITY_CONTENTS_THREE);
 		assertNull(stream.getNextEntry());
 	}
 
