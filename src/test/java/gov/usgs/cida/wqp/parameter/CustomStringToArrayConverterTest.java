@@ -1,6 +1,7 @@
 package gov.usgs.cida.wqp.parameter;
 
 import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 
@@ -12,9 +13,9 @@ public class CustomStringToArrayConverterTest extends BaseSpringTest {
 
 	@Test
 	public void emptyStringTest() {
-		String[] mt = new String[0];
-		assertArrayEquals(mt, converter.convert(null));
-		assertArrayEquals(mt, converter.convert(""));
+		assertNull(converter.convert(null));
+		assertNull(converter.convert(""));
+		assertNull(converter.convert(";;;;;"));
 	}
 
 	@Test
@@ -24,7 +25,7 @@ public class CustomStringToArrayConverterTest extends BaseSpringTest {
 
 	@Test
 	public void hasDelimiterTest() {
-		assertArrayEquals(new String[]{"wow", "this", "is", "fun"}, converter.convert("wow;this;is;fun"));
+		assertArrayEquals(new String[]{"wow", "this", "is", "fun"}, converter.convert(" ;wow;;this;is;fun;; "));
 	}
 
 }

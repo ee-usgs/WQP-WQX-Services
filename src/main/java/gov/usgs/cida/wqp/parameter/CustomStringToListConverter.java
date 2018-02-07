@@ -1,8 +1,8 @@
 package gov.usgs.cida.wqp.parameter;
 
-import java.util.Arrays;
 import java.util.List;
 
+import org.apache.commons.text.StrTokenizer;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
@@ -11,7 +11,8 @@ public class CustomStringToListConverter implements Converter<String, List<Strin
 
 	@Override
 	public List<String> convert(String source) {
-		return Arrays.asList(source.split(";"));
+		List<String> x = new StrTokenizer(source, ";").getTokenList();
+		return x.isEmpty() ? null : x;
 	}
 
 }
