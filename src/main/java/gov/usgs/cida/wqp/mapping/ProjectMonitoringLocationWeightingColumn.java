@@ -3,6 +3,7 @@ package gov.usgs.cida.wqp.mapping;
 public class ProjectMonitoringLocationWeightingColumn extends BaseColumn {
 	
 	//ResultSet Keys
+	public static final String KEY_PRJMLW_ID = "PRJMLW_ID";
 	public static final String KEY_PRJMLW_VALUE = "MEASURE_VALUE";
 	public static final String KEY_PRJMLW_UNIT = "UNIT_CODE";
 	public static final String KEY_PRJMLW_COMMENT = "COMMENT_TEXT";
@@ -20,6 +21,7 @@ public class ProjectMonitoringLocationWeightingColumn extends BaseColumn {
 	public static final String KEY_REFERENCE_LOCATION_CITATION_IDENTIFIER = "RESOURCE_IDENTIFIER";
 	
 	//Profile Mapping of the Keys
+	public static final ColumnProfile PRJMLW_ID = new ColumnProfile(KEY_PRJMLW_ID, Profile.PROJECT_MONITORING_LOCATION_WEIGHTING);
 	public static final ColumnProfile PRJMLW_VALUE = new ColumnProfile(KEY_PRJMLW_VALUE, Profile.PROJECT_MONITORING_LOCATION_WEIGHTING);
 	public static final ColumnProfile PRJMLW_UNIT = new ColumnProfile(KEY_PRJMLW_UNIT, Profile.PROJECT_MONITORING_LOCATION_WEIGHTING);
 	public static final ColumnProfile PRJMLW_COMMENT = new ColumnProfile(KEY_PRJMLW_COMMENT, Profile.PROJECT_MONITORING_LOCATION_WEIGHTING);

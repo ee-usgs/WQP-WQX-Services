@@ -59,8 +59,9 @@ public class ProjectMonitoringLocationWeightingController extends BaseController
 
 	@ApiOperation(value="Return the project monitoring location weightings associated with the specified project and organization.")
 	@GetMapping(value=HttpConstants.PROJECT_MONITORING_LOCATION_WEIGHTING_REST_ENDPOINT)
-	public void projectMonitoringLocationWeightingRestGet(HttpServletRequest request, HttpServletResponse response, @ApiIgnore FilterParameters filter,
+	public void projectMonitoringLocationWeightingRestGet(HttpServletRequest request, HttpServletResponse response,
 			@PathVariable("organization") String organization, @PathVariable("projectIdentifier") String projectIdentifier) throws IOException {
+		FilterParameters filter = new FilterParameters();
 		List<String> organizationFilter = new ArrayList<>();
 		List<String> projectFilter = new ArrayList<>();
 
@@ -74,11 +75,12 @@ public class ProjectMonitoringLocationWeightingController extends BaseController
 
 	@ApiOperation(value="Return appropriate request headers (including anticipated record counts) for the project monitoring location weightings associated with the specified project and organization.")
 	@RequestMapping(value=HttpConstants.PROJECT_MONITORING_LOCATION_WEIGHTING_REST_ENDPOINT, method=RequestMethod.HEAD)
-	public void projectMonitoringLocationWeightingRestHead(HttpServletRequest request, HttpServletResponse response, @ApiIgnore FilterParameters filter,
+	public void projectMonitoringLocationWeightingRestHead(HttpServletRequest request, HttpServletResponse response,
 			@PathVariable("organization") String organization, 
 			@PathVariable("projectIdentifier") String projectIdentifier, 
 			@RequestParam(value="mimeType", required=false) String mimeType,
 			@RequestParam(value="zip", required=false) String zip) throws IOException {
+		FilterParameters filter = new FilterParameters();
 		List<String> organizationFilter = new ArrayList<>();
 		List<String> projectFilter = new ArrayList<>();
 

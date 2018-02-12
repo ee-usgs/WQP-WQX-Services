@@ -137,10 +137,10 @@ public abstract class BaseSpringTest {
 	public static String STORET_PROJECT_COUNT = "10";
 	public static String BIODATA_PROJECT_COUNT = "1";
 
-	public static String TOTAL_PRJ_ML_WEIGHTING_COUNT = "4";
-	public static String NWIS_PRJ_ML_WEIGHTING_COUNT = "1";
+	public static String TOTAL_PRJ_ML_WEIGHTING_COUNT = "7";
+	public static String NWIS_PRJ_ML_WEIGHTING_COUNT = "2";
 	public static String STEWARDS_PRJ_ML_WEIGHTING_COUNT = "1";
-	public static String STORET_PRJ_ML_WEIGHTING_COUNT = "1";
+	public static String STORET_PRJ_ML_WEIGHTING_COUNT = "3";
 	public static String BIODATA_PRJ_ML_WEIGHTING_COUNT = "1";
 
 	public static final String FILTERED_STORET_SITE_COUNT = "1";

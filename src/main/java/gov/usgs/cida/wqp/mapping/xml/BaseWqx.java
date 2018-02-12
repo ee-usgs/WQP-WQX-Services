@@ -251,7 +251,7 @@ public abstract class BaseWqx {
 	
 	public static final String WQX_PROJECT_MONITORING_LOCATION_WEIGHTING = "ProjectMonitoringLocationWeighting";
 	public static final String WQX_PROJECT_MONITORING_LOCATION_WEIGHTING_FACTOR_MEASURE = "LocationWeightingFactorMeasure";
-	public static final String WQX_PROJECT_MONITORING_LOCATION_WEIGHTING_COMMENT_TEXT = "ProjectMonitoringLocationWeightingCommentText";
+	public static final String WQX_PROJECT_MONITORING_LOCATION_WEIGHTING_COMMENT_TEXT = "CommentText";
 
 	protected BaseWqx() {
 	}

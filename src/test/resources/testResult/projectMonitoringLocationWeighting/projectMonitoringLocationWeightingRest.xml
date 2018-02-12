@@ -27,6 +27,7 @@
 					<ResourceDate>2018-01-01</ResourceDate>
 					<ResourceIdentifier>stew_resource_identifier</ResourceIdentifier>
 				</ReferenceLocationCitation>
+				<CommentText>stew-comment</CommentText>
 			</ProjectMonitoringLocationWeighting>
 		</Project>
 	</Organization>
@@ -57,6 +58,60 @@
 					<ResourceDate>2018-01-01</ResourceDate>
 					<ResourceIdentifier>nwis_resource_identifier</ResourceIdentifier>
 				</ReferenceLocationCitation>
+				<CommentText>nwis-comment</CommentText>
+			</ProjectMonitoringLocationWeighting>
+			<ProjectMonitoringLocationWeighting>
+				<MonitoringLocationIdentifier>USGS-431925089002701</MonitoringLocationIdentifier>
+				<LocationWeightingFactorMeasure>
+					<MeasureValue>1</MeasureValue>
+					<MeasureUnitCode>nwis-unit</MeasureUnitCode>
+				</LocationWeightingFactorMeasure>
+				<StatisticalStratumText>nwis-stratum</StatisticalStratumText>
+				<LocationCategoryName>nwis-category</LocationCategoryName>
+				<LocationStatusName>nwis-status</LocationStatusName>
+				<ReferenceLocationTypeCode>nwis-ref-code</ReferenceLocationTypeCode>
+				<ReferenceLocationStartDate>2018-01-01</ReferenceLocationStartDate>
+				<ReferenceLocationEndDate>2018-01-01</ReferenceLocationEndDate>
+				<ReferenceLocationCitation>
+					<ResourceTitleName>nwis_resource_title</ResourceTitleName>
+					<ResourceCreatorName>nwis_resource_creator</ResourceCreatorName>
+					<ResourceSubjectText>nwis_resource_subject</ResourceSubjectText>
+					<ResourcePublisherName>nwis_resource_publisher</ResourcePublisherName>
+					<ResourceDate>2018-01-01</ResourceDate>
+					<ResourceIdentifier>nwis_resource_identifier</ResourceIdentifier>
+				</ReferenceLocationCitation>
+				<CommentText>nwis-comment</CommentText>
+			</ProjectMonitoringLocationWeighting>
+		</Project>
+	</Organization>
+	<Organization>
+		<OrganizationDescription>
+			<OrganizationIdentifier>MDNR</OrganizationIdentifier>
+			<OrganizationFormalName>Missouri Dept. of Natural Resources</OrganizationFormalName>
+		</OrganizationDescription>
+		<Project>
+			<ProjectIdentifier>SAM</ProjectIdentifier>
+			<ProjectMonitoringLocationWeighting>
+				<MonitoringLocationIdentifier>21NYDECA_WQX-ONTARIO-02</MonitoringLocationIdentifier>
+				<LocationWeightingFactorMeasure>
+					<MeasureValue>1</MeasureValue>
+					<MeasureUnitCode>sam-unit</MeasureUnitCode>
+				</LocationWeightingFactorMeasure>
+				<StatisticalStratumText>sam-stratum</StatisticalStratumText>
+				<LocationCategoryName>sam-category</LocationCategoryName>
+				<LocationStatusName>sam-status</LocationStatusName>
+				<ReferenceLocationTypeCode>sam-ref-code</ReferenceLocationTypeCode>
+				<ReferenceLocationStartDate>2018-01-01</ReferenceLocationStartDate>
+				<ReferenceLocationEndDate>2018-01-01</ReferenceLocationEndDate>
+				<ReferenceLocationCitation>
+					<ResourceTitleName>sam_resource_title</ResourceTitleName>
+					<ResourceCreatorName>sam_resource_creator</ResourceCreatorName>
+					<ResourceSubjectText>sam_resource_subject</ResourceSubjectText>
+					<ResourcePublisherName>sam_resource_publisher</ResourcePublisherName>
+					<ResourceDate>2018-01-01</ResourceDate>
+					<ResourceIdentifier>sam_resource_identifier</ResourceIdentifier>
+				</ReferenceLocationCitation>
+				<CommentText>sam-comment</CommentText>
 			</ProjectMonitoringLocationWeighting>
 		</Project>
 	</Organization>
@@ -65,6 +120,31 @@
 			<OrganizationIdentifier>WIDNR_WQX</OrganizationIdentifier>
 			<OrganizationFormalName>Wisconsin Department of Natural Resources</OrganizationFormalName>
 		</OrganizationDescription>
+		<Project>
+			<ProjectIdentifier>Lake-BaselineMonitoringDNR</ProjectIdentifier>
+			<ProjectMonitoringLocationWeighting>
+				<MonitoringLocationIdentifier>WIDNR_WQX-113086</MonitoringLocationIdentifier>
+				<LocationWeightingFactorMeasure>
+					<MeasureValue>1</MeasureValue>
+					<MeasureUnitCode>storet-unit</MeasureUnitCode>
+				</LocationWeightingFactorMeasure>
+				<StatisticalStratumText>storet-stratum</StatisticalStratumText>
+				<LocationCategoryName>storet-category</LocationCategoryName>
+				<LocationStatusName>storet-status</LocationStatusName>
+				<ReferenceLocationTypeCode>storet-ref-code</ReferenceLocationTypeCode>
+				<ReferenceLocationStartDate>2018-01-01</ReferenceLocationStartDate>
+				<ReferenceLocationEndDate>2018-01-01</ReferenceLocationEndDate>
+				<ReferenceLocationCitation>
+					<ResourceTitleName>storet_resource_title</ResourceTitleName>
+					<ResourceCreatorName>storet_resource_creator</ResourceCreatorName>
+					<ResourceSubjectText>storet_resource_subject</ResourceSubjectText>
+					<ResourcePublisherName>storet_resource_publisher</ResourcePublisherName>
+					<ResourceDate>2018-01-01</ResourceDate>
+					<ResourceIdentifier>storet_resource_identifier</ResourceIdentifier>
+				</ReferenceLocationCitation>
+				<CommentText>storet-comment</CommentText>
+			</ProjectMonitoringLocationWeighting>
+		</Project>
 		<Project>
 			<ProjectIdentifier>WR047</ProjectIdentifier>
 			<ProjectMonitoringLocationWeighting>
@@ -87,6 +167,7 @@
 					<ResourceDate>2018-01-01</ResourceDate>
 					<ResourceIdentifier>storet_resource_identifier</ResourceIdentifier>
 				</ReferenceLocationCitation>
+				<CommentText>storet-comment</CommentText>
 			</ProjectMonitoringLocationWeighting>
 		</Project>
 	</Organization>
@@ -117,6 +198,7 @@
 					<ResourceDate>2018-01-01</ResourceDate>
 					<ResourceIdentifier>bio_resource_identifier</ResourceIdentifier>
 				</ReferenceLocationCitation>
+				<CommentText>bio-comment</CommentText>
 			</ProjectMonitoringLocationWeighting>
 		</Project>
 	</Organization>

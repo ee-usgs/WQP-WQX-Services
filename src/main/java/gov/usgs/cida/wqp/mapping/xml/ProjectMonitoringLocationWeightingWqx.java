@@ -24,9 +24,8 @@ public class ProjectMonitoringLocationWeightingWqx extends BaseWqx implements IX
 
     //Hard Break
 	static {
-		HARD_BREAK.put(KEY_ORGANIZATION, ROOT_NODE);
-		HARD_BREAK.put(KEY_PROJECT_IDENTIFIER, WQX_ORGANIZATION);
-		HARD_BREAK.put(KEY_SITE_ID, WQX_PROJECT);
+		HARD_BREAK.putAll(ProjectWqx.HARD_BREAK);
+		HARD_BREAK.put(KEY_PRJMLW_ID, WQX_PROJECT);
 	}
     
     //Column Position
@@ -41,7 +40,6 @@ public class ProjectMonitoringLocationWeightingWqx extends BaseWqx implements IX
 						WQX_ORGANIZATION,
 						WQX_ORGANIZATION_DESCRIPTION,
 						WQX_ORGANIZATION_FORMAL_NAME)));
-
 		COLUMN_POSITION.put(KEY_PROJECT_IDENTIFIER,
 				new LinkedList<String>(Arrays.asList(
 						WQX_ORGANIZATION,
@@ -67,7 +65,6 @@ public class ProjectMonitoringLocationWeightingWqx extends BaseWqx implements IX
 						WQX_PROJECT_MONITORING_LOCATION_WEIGHTING,
 						WQX_PROJECT_MONITORING_LOCATION_WEIGHTING_FACTOR_MEASURE,
 						WQX_MEASURE_UNIT)));
-
 		COLUMN_POSITION.put(KEY_PRJMLW_STATISTICAL_STRATUM,
 				new LinkedList<String>(Arrays.asList(
 						WQX_ORGANIZATION,
@@ -104,7 +101,6 @@ public class ProjectMonitoringLocationWeightingWqx extends BaseWqx implements IX
 						WQX_PROJECT,
 						WQX_PROJECT_MONITORING_LOCATION_WEIGHTING,
 						WQX_REFERENCE_LOCATION_END_DATE)));
-
 		COLUMN_POSITION.put(KEY_REFERENCE_LOCATION_CITATION_TITLE,
 				new LinkedList<String>(Arrays.asList(
 						WQX_ORGANIZATION,
@@ -147,13 +143,11 @@ public class ProjectMonitoringLocationWeightingWqx extends BaseWqx implements IX
 						WQX_PROJECT_MONITORING_LOCATION_WEIGHTING,
 						WQX_REFERENCE_LOCATION_CITATION,
 						WQX_RESOURCE_ID)));
-
 		COLUMN_POSITION.put(KEY_PRJMLW_COMMENT,
 				new LinkedList<String>(Arrays.asList(
 						WQX_ORGANIZATION,
 						WQX_PROJECT,
 						WQX_PROJECT_MONITORING_LOCATION_WEIGHTING,
-						WQX_PROJECT_MONITORING_LOCATION_WEIGHTING_FACTOR_MEASURE,
 						WQX_PROJECT_MONITORING_LOCATION_WEIGHTING_COMMENT_TEXT)));
 	}
 
@@ -164,11 +158,11 @@ public class ProjectMonitoringLocationWeightingWqx extends BaseWqx implements IX
 					ORGANIZATION, 
 					ORGANIZATION_NAME)));
 
-		GROUPING.put(KEY_PROJECT_IDENTIFIER,
+		GROUPING.put(KEY_PROJECT_ID,
 				new LinkedList<ColumnProfile>(Arrays.asList(
 					PROJECT_IDENTIFIER)));
-
-		GROUPING.put(KEY_SITE_ID,
+		
+		GROUPING.put(KEY_PRJMLW_ID,
 				new LinkedList<ColumnProfile>(Arrays.asList(
 						SITE_ID,
 						PRJMLW_VALUE,
@@ -184,7 +178,8 @@ public class ProjectMonitoringLocationWeightingWqx extends BaseWqx implements IX
 						REFERENCE_LOCATION_CITATION_SUBJECT,
 						REFERENCE_LOCATION_CITATION_PUBLISHER,
 						REFERENCE_LOCATION_CITATION_DATE,
-						REFERENCE_LOCATION_CITATION_IDENTIFIER)));
+						REFERENCE_LOCATION_CITATION_IDENTIFIER,
+						PRJMLW_COMMENT)));
 	}
 
 	public Map<String, List<String>> getStructure() {

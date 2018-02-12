@@ -767,7 +767,6 @@ public abstract class BaseCountDaoTest extends BaseSpringTest {
 
 	protected void assertStationResults(List<Map<String, Object>> counts, int size,
 			String total, String nwis, String stewards, String storet, String biodata) {
-		LOG.debug(counts.toString());
 		assertResults(counts, CountColumn.KEY_STATION_COUNT, size, total, nwis, stewards, storet, biodata);
 	}
 

@@ -98,7 +98,7 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 		streamingDao.stream(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(3, results.size());
+		assertEquals(5, results.size());
 		assertContainsProjectMLWeightings(results, STORET_PRJMLW, STEWARDS_PRJMLW, NWIS_PRJMLW);
 	}
 
@@ -108,7 +108,7 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 		streamingDao.stream(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(4, results.size());
+		assertEquals(6, results.size());
 		assertContainsProjectMLWeightings(results, STORET_PRJMLW, STEWARDS_PRJMLW, NWIS_PRJMLW, BIODATA_PRJMLW);
 	}
 
@@ -118,7 +118,7 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 		streamingDao.stream(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(3, results.size());
+		assertEquals(5, results.size());
 		assertContainsProjectMLWeightings(results, STORET_PRJMLW, STEWARDS_PRJMLW, NWIS_PRJMLW);
 	}
 
@@ -128,7 +128,7 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 		streamingDao.stream(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(3, results.size());
+		assertEquals(5, results.size());
 		assertContainsProjectMLWeightings(results, STORET_PRJMLW, STEWARDS_PRJMLW, NWIS_PRJMLW);
 	}
 
@@ -138,7 +138,7 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 		streamingDao.stream(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(3, results.size());
+		assertEquals(5, results.size());
 		assertContainsProjectMLWeightings(results, STORET_PRJMLW, STEWARDS_PRJMLW, NWIS_PRJMLW);
 	}
 
@@ -148,7 +148,7 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 		streamingDao.stream(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(2, results.size());
+		assertEquals(4, results.size());
 		assertContainsProjectMLWeightings(results, STORET_PRJMLW, NWIS_PRJMLW);
 	}
 
@@ -158,7 +158,7 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 		streamingDao.stream(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(2, results.size());
+		assertEquals(4, results.size());
 		assertContainsProjectMLWeightings(results, STORET_PRJMLW, NWIS_PRJMLW);
 	}
 
@@ -168,7 +168,7 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 		streamingDao.stream(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(2, results.size());
+		assertEquals(4, results.size());
 		assertContainsProjectMLWeightings(results, STORET_PRJMLW, NWIS_PRJMLW);
 	}
 
@@ -178,7 +178,7 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 		streamingDao.stream(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(2, results.size());
+		assertEquals(4, results.size());
 		assertContainsProjectMLWeightings(results, STORET_PRJMLW, NWIS_PRJMLW);
 	}
 
@@ -188,7 +188,7 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 		streamingDao.stream(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(1, results.size());
+		assertEquals(4, results.size());
 		assertContainsProjectMLWeightings(results, STORET_PRJMLW);
 	}
 
@@ -198,7 +198,7 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 		streamingDao.stream(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(1, results.size());
+		assertEquals(2, results.size());
 		assertContainsProjectMLWeightings(results, STORET_PRJMLW);
 	}
 
@@ -208,7 +208,7 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 		streamingDao.stream(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(1, results.size());
+		assertEquals(2, results.size());
 		assertContainsProjectMLWeightings(results, STORET_PRJMLW);
 	}
 
@@ -222,7 +222,7 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 		}
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(1, results.size());
+		assertEquals(2, results.size());
 		assertContainsProjectMLWeightings(results, STORET_PRJMLW);
 	}
 
@@ -232,7 +232,7 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 		streamingDao.stream(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(3, results.size());
+		assertEquals(5, results.size());
 		assertContainsProjectMLWeightings(results, STORET_PRJMLW, STEWARDS_PRJMLW, NWIS_PRJMLW);
 	}
 
@@ -242,7 +242,7 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 		streamingDao.stream(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(4, results.size());
+		assertEquals(7, results.size());
 		assertContainsProjectMLWeightings(results, STORET_PRJMLW, STEWARDS_PRJMLW, NWIS_PRJMLW, BIODATA_PRJMLW);
 	}
 
@@ -252,7 +252,7 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 		streamingDao.stream(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(2, results.size());
+		assertEquals(3, results.size());
 		assertContainsProjectMLWeightings(results, STEWARDS_PRJMLW, NWIS_PRJMLW);
 	}
 
@@ -266,7 +266,7 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 		}
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(1, results.size());
+		assertEquals(2, results.size());
 		assertContainsProjectMLWeightings(results, STORET_PRJMLW);
 	}
 
@@ -277,7 +277,7 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 		streamingDao.stream(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(4, results.size());
+		assertEquals(6, results.size());
 		assertContainsProjectMLWeightings(results, STORET_PRJMLW, STEWARDS_PRJMLW, NWIS_PRJMLW, BIODATA_PRJMLW);
 	}
 
@@ -287,7 +287,7 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 		streamingDao.stream(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(3, results.size());
+		assertEquals(5, results.size());
 		assertContainsProjectMLWeightings(results, STORET_PRJMLW, STEWARDS_PRJMLW, NWIS_PRJMLW);
 	}
 	
@@ -299,7 +299,7 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 		streamingDao.stream(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(3, results.size());
+		assertEquals(5, results.size());
 		assertContainsProjectMLWeightings(results, STEWARDS_PRJMLW, STORET_PRJMLW, NWIS_PRJMLW);
 	}
 
@@ -309,7 +309,7 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 		streamingDao.stream(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(3, results.size());
+		assertEquals(4, results.size());
 		assertContainsProjectMLWeightings(results, STEWARDS_PRJMLW, BIODATA_PRJMLW, NWIS_PRJMLW);
 	}
 
@@ -319,7 +319,7 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 		streamingDao.stream(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(4, results.size());
+		assertEquals(6, results.size());
 		assertContainsProjectMLWeightings(results, STORET_PRJMLW, STEWARDS_PRJMLW, NWIS_PRJMLW, BIODATA_PRJMLW);
 	}
 
@@ -329,7 +329,7 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 		streamingDao.stream(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(4, results.size());
+		assertEquals(6, results.size());
 		assertContainsProjectMLWeightings(results, STORET_PRJMLW, STEWARDS_PRJMLW, NWIS_PRJMLW, BIODATA_PRJMLW);
 	}
 
@@ -339,7 +339,7 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 		streamingDao.stream(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(3, results.size());
+		assertEquals(4, results.size());
 		assertContainsProjectMLWeightings(results, STEWARDS_PRJMLW, NWIS_PRJMLW, BIODATA_PRJMLW);
 	}
 
@@ -349,7 +349,7 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 		streamingDao.stream(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(1, results.size());
+		assertEquals(2, results.size());
 		assertContainsProjectMLWeightings(results, NWIS_PRJMLW);
 	}
 
@@ -388,7 +388,7 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 		streamingDao.stream(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(1, results.size());
+		assertEquals(2, results.size());
 		assertContainsProjectMLWeightings(results, NWIS_PRJMLW);
 	}
 
@@ -422,7 +422,7 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 		streamingDao.stream(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(2, results.size());
+		assertEquals(3, results.size());
 		assertContainsProjectMLWeightings(results, STEWARDS_PRJMLW, NWIS_PRJMLW);
 	}
 
@@ -450,7 +450,7 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 		streamingDao.stream(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(2, results.size());
+		assertEquals(3, results.size());
 		assertContainsProjectMLWeightings(results, STEWARDS_PRJMLW, NWIS_PRJMLW);
 	}
 

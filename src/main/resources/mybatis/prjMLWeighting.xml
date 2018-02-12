@@ -22,6 +22,8 @@
                prime.organization_name,
                prime.site_id,
                prime.project_identifier,
+			   prime.project_id,
+			   (prime.project_id || '-' || prime.site_id) as PRJMLW_ID,
                prime.data_source
         <include refid="dynamicWhere.projectMonitoringLocationWeightingBase"/>
         <if test="sorted == 'yes'">
