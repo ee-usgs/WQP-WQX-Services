@@ -14,7 +14,6 @@ public class CustomStringArrayToListConverter implements Converter<String[], Lis
 
 	@Override
 	public List<String> convert(String[] source) {
-		//
 		List<String> a = 
 				Arrays.stream(source)
 					.flatMap(x -> Arrays.stream(new StrTokenizer(x, ";").getTokenArray()))
