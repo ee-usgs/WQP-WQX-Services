@@ -31,7 +31,9 @@ import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import gov.usgs.cida.wqp.parameter.CustomBoundingBoxConverter;
 import gov.usgs.cida.wqp.parameter.CustomStringArrayToListConverter;
+import gov.usgs.cida.wqp.parameter.CustomStringConverter;
 import gov.usgs.cida.wqp.parameter.CustomStringToArrayConverter;
 import gov.usgs.cida.wqp.parameter.CustomStringToListConverter;
 import gov.usgs.cida.wqp.util.WqpEnv;
@@ -67,11 +69,19 @@ public class SpringConfig implements WebMvcConfigurer, EnvironmentAware {
 	@Autowired
 	CustomStringArrayToListConverter customStringArrayToListConverter;
 
+	@Autowired
+	CustomStringConverter customStringConverter;
+
+	@Autowired
+	CustomBoundingBoxConverter customBoundingBoxConverter;
+
 	@Override
 	public void addFormatters(FormatterRegistry registry) {
 		registry.addConverter(customStringToArrayConverter);
 		registry.addConverter(customStringToListConverter);
 		registry.addConverter(customStringArrayToListConverter);
+		registry.addConverter(customStringConverter);
+		registry.addConverter(customBoundingBoxConverter);
 	}
 
 	@Override
