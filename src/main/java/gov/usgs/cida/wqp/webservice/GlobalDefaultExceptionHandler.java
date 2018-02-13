@@ -27,7 +27,8 @@ public class GlobalDefaultExceptionHandler {
 		} else if (ex instanceof HttpMessageNotReadableException
 				|| ex instanceof MissingServletRequestParameterException
 				|| ex instanceof HttpMediaTypeNotSupportedException) {
-			response.sendError(HttpStatus.BAD_REQUEST.value(), ex.getLocalizedMessage().substring(0, ex.getLocalizedMessage().indexOf("\n")));
+			int x = ex.getLocalizedMessage().indexOf("\n");
+			response.sendError(HttpStatus.BAD_REQUEST.value(), (x > 0 ? ex.getLocalizedMessage().substring(0, x) : ex.getLocalizedMessage()) );
 		} else {
 			int hashValue = response.hashCode();
 			//Note: we are giving the user a generic message.  
