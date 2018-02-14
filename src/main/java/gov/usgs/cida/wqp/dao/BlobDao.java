@@ -65,4 +65,5 @@ public class BlobDao {
 				handler);
 		return handler.getRowCount();
 	}
+
 }

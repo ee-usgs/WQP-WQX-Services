@@ -10,8 +10,6 @@ import static org.junit.Assert.fail;
 import java.util.LinkedList;
 import java.util.Map;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.slf4j.Logger;
@@ -76,35 +74,82 @@ public class ActivityMetricStreamingTest extends BaseSpringTest {
 
 	public static final int ACTIVITY_METRIC_COLUMN_COUNT = TestActivityMetricMap.ACTIVITY_METRIC.keySet().size();
 
-	@Before
 	public void init() {
 		handler = new TestResultHandler();
 		filter = new FilterParameters();
 	}
 
-	@After
 	public void cleanup() {
 		handler = null;
 		filter = null;
 	}
 
+	@Test
+	public void testHarness() {
+		nullParameterTest();
+		emptyParameterTest();
+		allDataSortedTest();
+		activityTest();
+		analyticalMethodTest();
+		assemblageTest();
+		avoidTest();
+		bboxTest();
+		characteristicNameTest();
+		characteristicTypeTest();
+		countryTest();
+		countyTest();
+		huc2Test();
+		huc3Test();
+		huc4Test();
+		huc5Test();
+		huc6Test();
+		huc7Test();
+		huc8Test();
+		huc10Test();
+		huc12Test();
+		minActivitiesTest();
+		minResultsTest();
+		nldiUrlTest();
+		organizationTest();
+		pcodeTest();
+		projectTest();
+		providersTest();
+		sampleMediaTest();
+		siteIdTest();
+		manySitesTest();
+		siteTypeTest();
+		startDateHiTest();
+		startDateLoTest();
+		stateTest();
+		subjectTaxonomicNameTest();
+		withinTest();
+		multipleParameterStationSumTest();
+		multipleParameterActivityTest();
+		multipleParameterActivitySumTest();
+		multipleParameterActivitySumStationSumTest();
+		multipleParameterResultSumTest();
+		multipleParameterResultSumStationSumTest();
+	}
+
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//Only need Activity (and possibly a lookup table)
 
-	@Test
 	public void nullParameterTest() {
+		init();
 		streamingDao.stream(nameSpace, null, handler);
 		assertEquals(TOTAL_ACTIVITY_METRIC_COUNT, String.valueOf(handler.getResults().size()));
+		cleanup();
 	}
 
-	@Test
 	public void emptyParameterTest() {
+		init();
 		streamingDao.stream(nameSpace, filter, handler);
 		assertEquals(TOTAL_ACTIVITY_METRIC_COUNT, String.valueOf(handler.getResults().size()));
+		cleanup();
 	}
 
-	@Test
 	public void allDataSortedTest() {
+		init();
 		filter.setSorted("yes");
 		streamingDao.stream(nameSpace, filter, handler);
 
@@ -139,20 +184,22 @@ public class ActivityMetricStreamingTest extends BaseSpringTest {
 		assertStoret1(results.get(25));
 		assertStoret3(results.get(26));
 		assertBiodata1(results.get(27));
+		cleanup();
 	}
 
-	@Test
 	public void activityTest() {
+		init();
 		filter.setActivity(getActivity());
 		streamingDao.stream(nameSpace, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(6, results.size());
 		assertContainsActivityMetric(results, STORET_5A, STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F);
+		cleanup();
 	}
 
-	@Test
 	public void avoidTest() {
+		init();
 		filter.setCommand(getCommand());
 		streamingDao.stream(nameSpace, filter, handler);
 
@@ -161,10 +208,11 @@ public class ActivityMetricStreamingTest extends BaseSpringTest {
 		assertContainsActivityMetric(results, STORET_1, STORET_2, STORET_3, STORET_4, STORET_5A, STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F,
 				STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14, STORET_15,
 				STORET_16);
+		cleanup();
 	}
 
-	@Test
 	public void countryTest() {
+		init();
 		filter.setCountrycode(getCountry());
 		streamingDao.stream(nameSpace, filter, handler);
 
@@ -173,10 +221,11 @@ public class ActivityMetricStreamingTest extends BaseSpringTest {
 		assertContainsActivityMetric(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_4,
 				STORET_5A, STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F, STORET_10, STORET_11, STORET_12, STORET_13,
 				STORET_14, STORET_15, STORET_16, BIODATA_1);
+		cleanup();
 	}
 
-	@Test
 	public void countyTest() {
+		init();
 		filter.setCountycode(getCounty());
 		streamingDao.stream(nameSpace, filter, handler);
 
@@ -185,10 +234,11 @@ public class ActivityMetricStreamingTest extends BaseSpringTest {
 		assertContainsActivityMetric(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_4,
 				STORET_5A, STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F, STORET_10, STORET_11, STORET_12, STORET_13,
 				STORET_14, STORET_15, STORET_16);
+		cleanup();
 	}
 
-	@Test
 	public void huc2Test() {
+		init();
 		filter.setHuc(getHuc2());
 		streamingDao.stream(nameSpace, filter, handler);
 
@@ -196,10 +246,11 @@ public class ActivityMetricStreamingTest extends BaseSpringTest {
 		assertEquals(16, results.size());
 		assertContainsActivityMetric(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_4, STORET_5A, STORET_5B, STORET_5C,
 				STORET_5D, STORET_5E, STORET_5F, STORET_10, STORET_14, STORET_15);
+		cleanup();
 	}
 
-	@Test
 	public void huc3Test() {
+		init();
 		filter.setHuc(getHuc3());
 		streamingDao.stream(nameSpace, filter, handler);
 
@@ -207,80 +258,88 @@ public class ActivityMetricStreamingTest extends BaseSpringTest {
 		assertEquals(16, results.size());
 		assertContainsActivityMetric(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_4, STORET_5A, STORET_5B, STORET_5C,
 				STORET_5D, STORET_5E, STORET_5F, STORET_10, STORET_14, STORET_15);
+		cleanup();
 	}
 
-	@Test
 	public void huc4Test() {
+		init();
 		filter.setHuc(getHuc4());
 		streamingDao.stream(nameSpace, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(10, results.size());
 		assertContainsActivityMetric(results, NWIS_1, NWIS_2, NWIS_3, STORET_4, STORET_5A, STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F);
+		cleanup();
 	}
 
-	@Test
 	public void huc5Test() {
+		init();
 		filter.setHuc(getHuc5());
 		streamingDao.stream(nameSpace, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(10, results.size());
 		assertContainsActivityMetric(results, NWIS_1, NWIS_2, NWIS_3, STORET_4, STORET_5A, STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F);
+		cleanup();
 	}
 
-	@Test
 	public void huc6Test() {
+		init();
 		filter.setHuc(getHuc6());
 		streamingDao.stream(nameSpace, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(9, results.size());
 		assertContainsActivityMetric(results, NWIS_1, NWIS_2, STORET_4, STORET_5A, STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F);
+		cleanup();
 	}
 
-	@Test
 	public void huc7Test() {
+		init();
 		filter.setHuc(getHuc7());
 		streamingDao.stream(nameSpace, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(9, results.size());
 		assertContainsActivityMetric(results, NWIS_1, NWIS_2, STORET_4, STORET_5A, STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F);
+		cleanup();
 	}
 
-	@Test
 	public void huc8Test() {
+		init();
 		filter.setHuc(getHuc8());
 		streamingDao.stream(nameSpace, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(7, results.size());
 		assertContainsActivityMetric(results, STORET_4, STORET_5A, STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F);
+		cleanup();
 	}
 
-	@Test
 	public void huc10Test() {
+		init();
 		filter.setHuc(getHuc10());
 		streamingDao.stream(nameSpace, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(7, results.size());
 		assertContainsActivityMetric(results, STORET_4, STORET_5A, STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F);
+		cleanup();
 	}
 
-	@Test
 	public void huc12Test() {
+		init();
 		filter.setHuc(getHuc12());
 		streamingDao.stream(nameSpace, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(7, results.size());
 		assertContainsActivityMetric(results, STORET_4, STORET_5A, STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F);
+		cleanup();
 	}
 
-	@Test
 	public void nldiUrlTest() {
+		init();
 		try {
 			filter.setNldiSites(getManySiteId());
 			streamingDao.stream(nameSpace, filter, handler);
@@ -292,10 +351,11 @@ public class ActivityMetricStreamingTest extends BaseSpringTest {
 		assertEquals(13, results.size());
 		assertContainsActivityMetric(results, STORET_1, STORET_2, STORET_4, STORET_5A, STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F, STORET_11,
 				STORET_12, STORET_13, STORET_16);
+		cleanup();
 	}
 
-	@Test
 	public void organizationTest() {
+		init();
 		filter.setOrganization(getOrganization());
 		streamingDao.stream(nameSpace, filter, handler);
 
@@ -304,10 +364,11 @@ public class ActivityMetricStreamingTest extends BaseSpringTest {
 		assertContainsActivityMetric(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_4,
 				STORET_5A, STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F, STORET_10, STORET_11, STORET_12, STORET_13,
 				STORET_14, STORET_15, STORET_16);
+		cleanup();
 	}
 
-	@Test
 	public void projectTest() {
+		init();
 		filter.setProject(getProject());
 		streamingDao.stream(nameSpace, filter, handler);
 
@@ -315,10 +376,11 @@ public class ActivityMetricStreamingTest extends BaseSpringTest {
 		assertEquals(14, results.size());
 		assertContainsActivityMetric(results, STEWARDS_1,  STEWARDS_3, NWIS_1, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_11, STORET_12, STORET_13,
 				STORET_14, STORET_15, STORET_16, BIODATA_1);
+		cleanup();
 	}
 
-	@Test
 	public void providersTest() {
+		init();
 		filter.setProviders(getProviders());
 		streamingDao.stream(nameSpace, filter, handler);
 
@@ -327,10 +389,11 @@ public class ActivityMetricStreamingTest extends BaseSpringTest {
 		assertContainsActivityMetric(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_4,
 				STORET_5A, STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F, STORET_6, STORET_7, STORET_8, STORET_9,
 				STORET_10, STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_16);
+		cleanup();
 	}
 
-	@Test
 	public void sampleMediaTest() {
+		init();
 		filter.setSampleMedia(getSampleMedia());
 		streamingDao.stream(nameSpace, filter, handler);
 
@@ -339,10 +402,11 @@ public class ActivityMetricStreamingTest extends BaseSpringTest {
 		assertContainsActivityMetric(results, STEWARDS_1, STEWARDS_3, NWIS_1, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_4, STORET_5A, STORET_5B,
 				STORET_5C, STORET_5D, STORET_5E, STORET_5F, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, STORET_11,
 				STORET_12, STORET_13, STORET_14, STORET_15, STORET_16, BIODATA_1);
+		cleanup();
 	}
 
-	@Test
 	public void startDateHiTest() {
+		init();
 		filter.setStartDateHi(getStartDateHi());
 		streamingDao.stream(nameSpace, filter, handler);
 
@@ -351,10 +415,11 @@ public class ActivityMetricStreamingTest extends BaseSpringTest {
 		assertContainsActivityMetric(results, STEWARDS_1, STEWARDS_3, NWIS_1, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_4, STORET_5A, STORET_5B,
 				STORET_5C, STORET_5D, STORET_5E, STORET_5F, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, STORET_11,
 				STORET_12, STORET_13, STORET_14, STORET_15, STORET_16, BIODATA_1);
+		cleanup();
 	}
 
-	@Test
 	public void startDateLoTest() {
+		init();
 		filter.setStartDateLo(getStartDateLo());
 		streamingDao.stream(nameSpace, filter, handler);
 
@@ -362,10 +427,11 @@ public class ActivityMetricStreamingTest extends BaseSpringTest {
 		assertEquals(17, results.size());
 		assertContainsActivityMetric(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_10,
 				STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_1, BIODATA_1);
+		cleanup();
 	}
 
-	@Test
 	public void siteIdTest() {
+		init();
 		filter.setSiteid(getSiteid());
 		streamingDao.stream(nameSpace, filter, handler);
 
@@ -373,10 +439,11 @@ public class ActivityMetricStreamingTest extends BaseSpringTest {
 		assertEquals(16, results.size());
 		assertContainsActivityMetric(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_10,
 				STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_16);
+		cleanup();
 	}
 
-	@Test
 	public void manySitesTest() {
+		init();
 		try {
 			filter.setSiteid(getManySiteId());
 			streamingDao.stream(nameSpace, filter, handler);
@@ -388,10 +455,11 @@ public class ActivityMetricStreamingTest extends BaseSpringTest {
 		assertEquals(13, results.size());
 		assertContainsActivityMetric(results, STORET_1, STORET_2, STORET_4, STORET_5A, STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F, STORET_11,
 				STORET_12, STORET_13, STORET_16);
+		cleanup();
 	}
 
-	@Test
 	public void siteTypeTest() {
+		init();
 		filter.setSiteType(getSiteType());
 		streamingDao.stream(nameSpace, filter, handler);
 
@@ -400,10 +468,11 @@ public class ActivityMetricStreamingTest extends BaseSpringTest {
 		assertContainsActivityMetric(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, STORET_1, STORET_2, STORET_3, STORET_4, STORET_5A,
 				STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10,
 				STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_1, BIODATA_1);
+		cleanup();
 	}
 
-	@Test
 	public void stateTest() {
+		init();
 		filter.setStatecode(getState());
 		streamingDao.stream(nameSpace, filter, handler);
 
@@ -412,13 +481,14 @@ public class ActivityMetricStreamingTest extends BaseSpringTest {
 		assertContainsActivityMetric(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_4,
 				STORET_5A, STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F, STORET_10, STORET_11, STORET_12, STORET_13,
 				STORET_14, STORET_15, STORET_1);
+		cleanup();
 	}
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//Activity + Activity_Sum
 
-	@Test
 	public void minActivitiesTest() {
+		init();
 		filter.setMinactivities(getMinActivities());
 		streamingDao.stream(nameSpace, filter, handler);
 
@@ -427,10 +497,11 @@ public class ActivityMetricStreamingTest extends BaseSpringTest {
 		assertContainsActivityMetric(results, STEWARDS_1, STEWARDS_2, NWIS_1, NWIS_2, STORET_1, STORET_2, STORET_4, STORET_5A, STORET_5B, STORET_5C,
 				STORET_5D, STORET_5E, STORET_5F, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, STORET_11, STORET_12,
 				STORET_13, STORET_14, STORET_15, STORET_16);
+		cleanup();
 	}
 
-	@Test
 	public void minResultsTest() {
+		init();
 		filter.setMinresults(getMinResults());
 		streamingDao.stream(nameSpace, filter, handler);
 
@@ -439,13 +510,14 @@ public class ActivityMetricStreamingTest extends BaseSpringTest {
 		assertContainsActivityMetric(results, NWIS_1, NWIS_2, STORET_1, STORET_2, STORET_4, STORET_5A, STORET_5B, STORET_5C, STORET_5D, STORET_5E,
 				STORET_5F, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14,
 				STORET_15, STORET_16);
+		cleanup();
 	}
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//Activity + Station_Sum
 
-	@Test
 	public void bboxTest() {
+		init();
 		filter.setBBox(getBBox());
 		streamingDao.stream(nameSpace, filter, handler);
 
@@ -454,10 +526,11 @@ public class ActivityMetricStreamingTest extends BaseSpringTest {
 		assertContainsActivityMetric(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_1, STORET_2, STORET_4, STORET_5A,
 				STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14,
 				STORET_15, STORET_16);
+		cleanup();
 	}
 
-	@Test
 	public void withinTest() {
+		init();
 		filter.setWithin(getWithin());
 		filter.setLat(getLatitude());
 		filter.setLong(getLongitude());
@@ -468,13 +541,14 @@ public class ActivityMetricStreamingTest extends BaseSpringTest {
 		assertContainsActivityMetric(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_4,
 				STORET_5A, STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F, STORET_6, STORET_7, STORET_8, STORET_9,
 				STORET_11, STORET_12, STORET_13, STORET_16);
+		cleanup();
 	}
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//Activity + Result_Sum
 
-	@Test
 	public void analyticalMethodTest() {
+		init();
 		filter.setAnalyticalmethod(getAnalyticalMethod());
 		streamingDao.stream(nameSpace, filter, handler);
 
@@ -482,30 +556,33 @@ public class ActivityMetricStreamingTest extends BaseSpringTest {
 		assertEquals(12, results.size());
 		assertContainsActivityMetric(results, NWIS_1, NWIS_2, STORET_1, STORET_2, STORET_3, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14,
 				STORET_15, STORET_16);
+		cleanup();
 	}
 
-	@Test
 	public void assemblageTest() {
+		init();
 		filter.setAssemblage(getAssemblage());
 		streamingDao.stream(nameSpace, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(11, results.size());
 		assertContainsActivityMetric(results, STORET_1, STORET_2, STORET_3, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_16, BIODATA_1);
+		cleanup();
 	}
 
-	@Test
 	public void characteristicNameTest() {
+		init();
 		filter.setCharacteristicName(getCharacteristicName());
 		streamingDao.stream(nameSpace, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(10, results.size());
 		assertContainsActivityMetric(results, STORET_1, STORET_2, STORET_3, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_16);
+		cleanup();
 	}
 
-	@Test
 	public void characteristicTypeTest() {
+		init();
 		filter.setCharacteristicType(getCharacteristicType());
 		streamingDao.stream(nameSpace, filter, handler);
 
@@ -513,30 +590,33 @@ public class ActivityMetricStreamingTest extends BaseSpringTest {
 		assertEquals(12, results.size());
 		assertContainsActivityMetric(results, STEWARDS_1, STEWARDS_2, STORET_1, STORET_2, STORET_3, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14,
 				STORET_15, STORET_16);
+		cleanup();
 	}
 
-	@Test
 	public void pcodeTest() {
+		init();
 		filter.setPCode(getPcode());
 		streamingDao.stream(nameSpace, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(10, results.size());
 		assertContainsActivityMetric(results, NWIS_3, STORET_1, STORET_2, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_16);
+		cleanup();
 	}
 
-	@Test
 	public void subjectTaxonomicNameTest() {
+		init();
 		filter.setSubjectTaxonomicName(getSubjectTaxonomicName());
 		streamingDao.stream(nameSpace, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(10, results.size());
 		assertContainsActivityMetric(results, STORET_1, STORET_2, STORET_3, STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_16, BIODATA_1);
+		cleanup();
 	}
 
-	@Test
-	public void multipleParameterActivityTests() {
+	public void multipleParameterActivityTest() {
+		init();
 		filter.setCountrycode(getCountry());
 		filter.setCountycode(getCounty());
 		filter.setHuc(getHuc());
@@ -555,10 +635,11 @@ public class ActivityMetricStreamingTest extends BaseSpringTest {
 		assertEquals(12, results.size());
 		assertContainsActivityMetric(results, STEWARDS_1, STEWARDS_3, NWIS_1, STORET_1, STORET_2, STORET_3, STORET_11, STORET_12, STORET_13, STORET_14,
 				STORET_15, STORET_16);
+		cleanup();
 	}
 
-	@Test
-	public void multipleParameterStationSumTests() {
+	public void multipleParameterStationSumTest() {
+		init();
 		filter.setBBox(getBBox());
 		filter.setCountrycode(getCountry());
 		filter.setCountycode(getCounty());
@@ -580,10 +661,11 @@ public class ActivityMetricStreamingTest extends BaseSpringTest {
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(9, results.size());
 		assertContainsActivityMetric(results, STEWARDS_1, STEWARDS_3, NWIS_1, STORET_1, STORET_2, STORET_11, STORET_12, STORET_13, STORET_16);
+		cleanup();
 	}
 
-	@Test
-	public void multipleParameterActivitySumTests() {
+	public void multipleParameterActivitySumTest() {
+		init();
 		filter.setCountrycode(getCountry());
 		filter.setCountycode(getCounty());
 		filter.setHuc(getHuc());
@@ -603,10 +685,11 @@ public class ActivityMetricStreamingTest extends BaseSpringTest {
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(8, results.size());
 		assertContainsActivityMetric(results, STORET_1, STORET_2, STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_16);
+		cleanup();
 	}
 
-	@Test
-	public void multipleParameterActivitySumStationSumTests() {
+	public void multipleParameterActivitySumStationSumTest() {
+		init();
 		filter.setBBox(getBBox());
 		filter.setCountrycode(getCountry());
 		filter.setCountycode(getCounty());
@@ -629,10 +712,11 @@ public class ActivityMetricStreamingTest extends BaseSpringTest {
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(6, results.size());
 		assertContainsActivityMetric(results, STORET_1, STORET_2, STORET_11, STORET_12, STORET_13, STORET_16);
+		cleanup();
 	}
 
-	@Test
-	public void multipleParameterResultSumTests() {
+	public void multipleParameterResultSumTest() {
+		init();
 		filter.setAnalyticalmethod(getAnalyticalMethod());
 		filter.setCommand(getCommand());
 		filter.setAssemblage(getAssemblage());
@@ -660,10 +744,11 @@ public class ActivityMetricStreamingTest extends BaseSpringTest {
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(4, results.size());
 		assertContainsActivityMetric(results, STORET_1, STORET_14, STORET_15, STORET_16);
+		cleanup();
 	}
 
-	@Test
-	public void multipleParameterResultSumStationSumTests() {
+	public void multipleParameterResultSumStationSumTest() {
+		init();
 		filter.setAnalyticalmethod(getAnalyticalMethod());
 		filter.setCommand(getCommand());
 		filter.setAssemblage(getAssemblage());
@@ -694,6 +779,7 @@ public class ActivityMetricStreamingTest extends BaseSpringTest {
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(2, results.size());
 		assertContainsActivityMetric(results, STORET_1, STORET_16);
+		cleanup();
 	}
 
 	public static void assertStewards1(Map<String, Object> row) {
