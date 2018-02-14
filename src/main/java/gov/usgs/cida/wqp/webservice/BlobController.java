@@ -72,7 +72,6 @@ public class BlobController {
 		zipOutputStream.remove();
 	}
 
-
 	@ApiOperation(value="Return zipped artifact with all files available for the specified organization/monitoringLocation.")
 	@GetMapping(value=HttpConstants.MONITORING_LOCATION_FILE_REST_ENDPOINT)
 	@NoQueryParametersList
@@ -109,7 +108,7 @@ public class BlobController {
 		downloadDetails.put(organization, blobDao.getResultFiles(getZipOutputStream(), organization, activity, new ResultIdentifier(result)));
 		finishResponse(response, downloadDetails);
 	}
-	
+
 	@ApiOperation(value="Return zipped artifact with all files available for the specified organization/activity.")
 	@GetMapping(value=HttpConstants.ACTIVITY_FILE_REST_ENDPOINT)
 	@NoQueryParametersList
