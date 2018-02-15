@@ -27,6 +27,7 @@ import gov.usgs.cida.wqp.DBIntegrationTest;
 import gov.usgs.cida.wqp.dao.NameSpace;
 import gov.usgs.cida.wqp.dao.intfc.IStreamingDao;
 import gov.usgs.cida.wqp.mapping.BaseColumn;
+import gov.usgs.cida.wqp.mapping.ProjectColumn;
 import gov.usgs.cida.wqp.mapping.ProjectMonitoringLocationWeightingColumn;
 import gov.usgs.cida.wqp.mapping.StationColumn;
 import gov.usgs.cida.wqp.mapping.TestProjectMLWeightingMap;
@@ -46,10 +47,13 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 	FilterParameters filter;
 	NameSpace nameSpace = NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING;
 
-	public static final String[] STEWARDS_PRJMLW = new String[]{STEWARDS, "ARS-IAWC-IAWC225"};
-	public static final String[] NWIS_PRJMLW = new String[]{NWIS, "USGS-05425700"};
-	public static final String[] STORET_PRJMLW = new String[]{STORET, "WIDNR_WQX-113086"};
-	public static final String[] BIODATA_PRJMLW = new String[]{BIODATA, "USGS-11421000"};
+	public static final String[] STEWARDS_PRJMLW = new String[]{STEWARDS, "CEAP", "ARS-IAWC-IAWC225"};
+	public static final String[] NWIS_PRJMLW1 = new String[]{NWIS, "NAWQA", "USGS-05425700"};
+	public static final String[] NWIS_PRJMLW2 = new String[]{NWIS, "NAWQA", "USGS-431925089002701"};
+	public static final String[] STORET_PRJMLW1 = new String[]{STORET, "WR047", "WIDNR_WQX-113086"};
+	public static final String[] STORET_PRJMLW2 = new String[]{STORET, "Lake-BaselineMonitoringDNR", "WIDNR_WQX-113086"};
+	public static final String[] STORET_PRJMLW3 = new String[]{STORET, "SAM", "21NYDECA_WQX-ONTARIO-02"};
+	public static final String[] BIODATA_PRJMLW = new String[]{BIODATA, "SACR BioTDB", "USGS-11421000"};
 
 	public static final int PRJ_ML_WEIGHTING_COLUMN_COUNT = TestProjectMLWeightingMap.PROJECT_MONITORING_LOCATION_WEIGHTING.keySet().size();
 
@@ -87,9 +91,12 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 		assertEquals(TOTAL_PRJ_ML_WEIGHTING_COUNT, String.valueOf(results.size()));
 
 		assertProjectMLWeighting(results.get(0), STEWARDS_PRJMLW);
-		assertProjectMLWeighting(results.get(1), NWIS_PRJMLW);
-		assertProjectMLWeighting(results.get(2), STORET_PRJMLW);
-		assertProjectMLWeighting(results.get(3), BIODATA_PRJMLW);
+		assertProjectMLWeighting(results.get(1), NWIS_PRJMLW1);
+		assertProjectMLWeighting(results.get(2), NWIS_PRJMLW2);
+		assertProjectMLWeighting(results.get(3), STORET_PRJMLW3);
+		assertProjectMLWeighting(results.get(4), STORET_PRJMLW2);
+		assertProjectMLWeighting(results.get(5), STORET_PRJMLW1);
+		assertProjectMLWeighting(results.get(6), BIODATA_PRJMLW);
 	}
 
 	@Test
@@ -99,7 +106,7 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(5, results.size());
-		assertContainsProjectMLWeightings(results, STORET_PRJMLW, STEWARDS_PRJMLW, NWIS_PRJMLW);
+		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2);
 	}
 
 	@Test
@@ -109,7 +116,7 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(6, results.size());
-		assertContainsProjectMLWeightings(results, STORET_PRJMLW, STEWARDS_PRJMLW, NWIS_PRJMLW, BIODATA_PRJMLW);
+		assertContainsProjectMLWeightings(results, STORET_PRJMLW1,  STORET_PRJMLW2, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2, BIODATA_PRJMLW);
 	}
 
 	@Test
@@ -119,7 +126,7 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(5, results.size());
-		assertContainsProjectMLWeightings(results, STORET_PRJMLW, STEWARDS_PRJMLW, NWIS_PRJMLW);
+		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2);
 	}
 
 	@Test
@@ -129,7 +136,7 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(5, results.size());
-		assertContainsProjectMLWeightings(results, STORET_PRJMLW, STEWARDS_PRJMLW, NWIS_PRJMLW);
+		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2);
 	}
 
 	@Test
@@ -139,7 +146,7 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(5, results.size());
-		assertContainsProjectMLWeightings(results, STORET_PRJMLW, STEWARDS_PRJMLW, NWIS_PRJMLW);
+		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2);
 	}
 
 	@Test
@@ -149,7 +156,7 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(4, results.size());
-		assertContainsProjectMLWeightings(results, STORET_PRJMLW, NWIS_PRJMLW);
+		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, NWIS_PRJMLW1, NWIS_PRJMLW2);
 	}
 
 	@Test
@@ -159,7 +166,7 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(4, results.size());
-		assertContainsProjectMLWeightings(results, STORET_PRJMLW, NWIS_PRJMLW);
+		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, NWIS_PRJMLW1, NWIS_PRJMLW2);
 	}
 
 	@Test
@@ -169,7 +176,7 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(4, results.size());
-		assertContainsProjectMLWeightings(results, STORET_PRJMLW, NWIS_PRJMLW);
+		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, NWIS_PRJMLW1, NWIS_PRJMLW2);
 	}
 
 	@Test
@@ -179,7 +186,7 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(4, results.size());
-		assertContainsProjectMLWeightings(results, STORET_PRJMLW, NWIS_PRJMLW);
+		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, NWIS_PRJMLW1, NWIS_PRJMLW2);
 	}
 
 	@Test
@@ -188,8 +195,8 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 		streamingDao.stream(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, filter, handler);
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(4, results.size());
-		assertContainsProjectMLWeightings(results, STORET_PRJMLW);
+		assertEquals(2, results.size());
+		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2);
 	}
 
 	@Test
@@ -199,7 +206,7 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(2, results.size());
-		assertContainsProjectMLWeightings(results, STORET_PRJMLW);
+		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2);
 	}
 
 	@Test
@@ -209,7 +216,7 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(2, results.size());
-		assertContainsProjectMLWeightings(results, STORET_PRJMLW);
+		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2);
 	}
 
 	@Test
@@ -223,7 +230,7 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(2, results.size());
-		assertContainsProjectMLWeightings(results, STORET_PRJMLW);
+		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2);
 	}
 
 	@Test
@@ -233,7 +240,7 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(5, results.size());
-		assertContainsProjectMLWeightings(results, STORET_PRJMLW, STEWARDS_PRJMLW, NWIS_PRJMLW);
+		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2);
 	}
 
 	@Test
@@ -243,7 +250,7 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(7, results.size());
-		assertContainsProjectMLWeightings(results, STORET_PRJMLW, STEWARDS_PRJMLW, NWIS_PRJMLW, BIODATA_PRJMLW);
+		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, STORET_PRJMLW3, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2, BIODATA_PRJMLW);
 	}
 
 	@Test
@@ -253,7 +260,7 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(3, results.size());
-		assertContainsProjectMLWeightings(results, STEWARDS_PRJMLW, NWIS_PRJMLW);
+		assertContainsProjectMLWeightings(results, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2);
 	}
 
 	@Test
@@ -267,7 +274,7 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(2, results.size());
-		assertContainsProjectMLWeightings(results, STORET_PRJMLW);
+		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2);
 	}
 
 
@@ -278,7 +285,7 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(6, results.size());
-		assertContainsProjectMLWeightings(results, STORET_PRJMLW, STEWARDS_PRJMLW, NWIS_PRJMLW, BIODATA_PRJMLW);
+		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2, BIODATA_PRJMLW);
 	}
 
 	@Test
@@ -288,7 +295,7 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(5, results.size());
-		assertContainsProjectMLWeightings(results, STORET_PRJMLW, STEWARDS_PRJMLW, NWIS_PRJMLW);
+		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2);
 	}
 	
 	@Test
@@ -300,7 +307,7 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(5, results.size());
-		assertContainsProjectMLWeightings(results, STEWARDS_PRJMLW, STORET_PRJMLW, NWIS_PRJMLW);
+		assertContainsProjectMLWeightings(results, STEWARDS_PRJMLW, STORET_PRJMLW1, STORET_PRJMLW2, NWIS_PRJMLW1, NWIS_PRJMLW2);
 	}
 
 	@Test
@@ -310,7 +317,7 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(4, results.size());
-		assertContainsProjectMLWeightings(results, STEWARDS_PRJMLW, BIODATA_PRJMLW, NWIS_PRJMLW);
+		assertContainsProjectMLWeightings(results, STEWARDS_PRJMLW, BIODATA_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2);
 	}
 
 	@Test
@@ -320,7 +327,7 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(6, results.size());
-		assertContainsProjectMLWeightings(results, STORET_PRJMLW, STEWARDS_PRJMLW, NWIS_PRJMLW, BIODATA_PRJMLW);
+		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2, BIODATA_PRJMLW);
 	}
 
 	@Test
@@ -330,7 +337,7 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(6, results.size());
-		assertContainsProjectMLWeightings(results, STORET_PRJMLW, STEWARDS_PRJMLW, NWIS_PRJMLW, BIODATA_PRJMLW);
+		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2, BIODATA_PRJMLW);
 	}
 
 	@Test
@@ -340,7 +347,7 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(4, results.size());
-		assertContainsProjectMLWeightings(results, STEWARDS_PRJMLW, NWIS_PRJMLW, BIODATA_PRJMLW);
+		assertContainsProjectMLWeightings(results, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2, BIODATA_PRJMLW);
 	}
 
 	@Test
@@ -350,7 +357,7 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(2, results.size());
-		assertContainsProjectMLWeightings(results, NWIS_PRJMLW);
+		assertContainsProjectMLWeightings(results, NWIS_PRJMLW1, NWIS_PRJMLW2);
 	}
 
 	@Test
@@ -389,7 +396,7 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(2, results.size());
-		assertContainsProjectMLWeightings(results, NWIS_PRJMLW);
+		assertContainsProjectMLWeightings(results, NWIS_PRJMLW1, NWIS_PRJMLW2);
 	}
 
 	@Test
@@ -423,7 +430,7 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(3, results.size());
-		assertContainsProjectMLWeightings(results, STEWARDS_PRJMLW, NWIS_PRJMLW);
+		assertContainsProjectMLWeightings(results, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2);
 	}
 
 	@Test
@@ -451,7 +458,7 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 
 		LinkedList<Map<String, Object>> results = handler.getResults();
 		assertEquals(3, results.size());
-		assertContainsProjectMLWeightings(results, STEWARDS_PRJMLW, NWIS_PRJMLW);
+		assertContainsProjectMLWeightings(results, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2);
 	}
 
 	@Test
@@ -493,7 +500,8 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 			for (Map<String, Object> result : results) {
 				if (result.containsKey(BaseColumn.KEY_DATA_SOURCE)
 						&& i[0].equalsIgnoreCase(((String) result.get(BaseColumn.KEY_DATA_SOURCE)))
-						&& i[1].equalsIgnoreCase(((String) result.get(StationColumn.KEY_SITE_ID)))) {
+						&& i[1].equalsIgnoreCase(((String) result.get(ProjectColumn.KEY_PROJECT_IDENTIFIER)))
+						&& i[2].equalsIgnoreCase(((String) result.get(StationColumn.KEY_SITE_ID)))) {
 					isFound = true;
 					break;
 				}
@@ -519,6 +527,7 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 	private void assertProjectMLWeighting(Map<String,Object> row, String[] comparison) {
 		assertEquals(PRJ_ML_WEIGHTING_COLUMN_COUNT, row.keySet().size());
 		assertEquals(row.get(BaseColumn.KEY_DATA_SOURCE), comparison[0]);
-		assertEquals(row.get(StationColumn.KEY_SITE_ID), comparison[1]);
+		assertEquals(row.get(ProjectColumn.KEY_PROJECT_IDENTIFIER), comparison[1]);
+		assertEquals(row.get(StationColumn.KEY_SITE_ID), comparison[2]);
 	}
 }
