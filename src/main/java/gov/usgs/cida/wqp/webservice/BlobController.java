@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -81,7 +82,7 @@ public class BlobController {
 		setupResponse(request, response, MONITORING_LOCATION_FILE);
 		Map<String, Integer> downloadDetails = new HashMap<>();
 		downloadDetails.put(organization, blobDao.getMonitoringLocationFiles(getZipOutputStream(), organization, monitoringLocation));
-		finishResponse(response, downloadDetails);
+		finishResponse(response, organization, downloadDetails);
 	}
 
 	@ApiOperation(value="Return zipped artifact with all files available for the specified organization/project.")
@@ -93,7 +94,7 @@ public class BlobController {
 		setupResponse(request, response, PROJECT_FILE);
 		Map<String, Integer> downloadDetails = new HashMap<>();
 		downloadDetails.put(organization, blobDao.getProjectFiles(getZipOutputStream(), organization, project));
-		finishResponse(response, downloadDetails);
+		finishResponse(response, organization, downloadDetails);
 	}
 
 	@ApiOperation(value="Return zipped artifact with all files available for the specified organization/activity/result.")
@@ -106,7 +107,7 @@ public class BlobController {
 		setupResponse(request, response, RESULT_FILE);
 		Map<String, Integer> downloadDetails = new HashMap<>();
 		downloadDetails.put(organization, blobDao.getResultFiles(getZipOutputStream(), organization, activity, new ResultIdentifier(result)));
-		finishResponse(response, downloadDetails);
+		finishResponse(response, organization, downloadDetails);
 	}
 
 	@ApiOperation(value="Return zipped artifact with all files available for the specified organization/activity.")
@@ -118,7 +119,7 @@ public class BlobController {
 		setupResponse(request, response, ACTIVITY_FILE);
 		Map<String, Integer> downloadDetails = new HashMap<>();
 		downloadDetails.put(organization, blobDao.getActivityFiles(getZipOutputStream(), organization, activity));
-		finishResponse(response, downloadDetails);
+		finishResponse(response, organization, downloadDetails);
 	}
 
 	protected void setupResponse(HttpServletRequest request, HttpServletResponse response, String fileName) throws IOException {
@@ -128,7 +129,11 @@ public class BlobController {
 		setZipOutputStream(new ZipOutputStream(getOutputStream()));
 	}
 
-	protected void finishResponse(HttpServletResponse response, Map<String, Integer> downloadDetails) throws IOException {
+	protected void finishResponse(HttpServletResponse response, String organization, Map<String, Integer> downloadDetails) throws IOException {
+		Integer rowCnt = downloadDetails.get(organization);
+		if (null == rowCnt || 0 == rowCnt) {
+			response.setStatus(HttpStatus.NOT_FOUND.value());
+		}
 		getZipOutputStream().finish();
 		getZipOutputStream().close();
 		getOutputStream().flush();
