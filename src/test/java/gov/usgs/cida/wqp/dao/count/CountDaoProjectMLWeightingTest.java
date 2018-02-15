@@ -88,66 +88,88 @@ public class CountDaoProjectMLWeightingTest extends BaseCountDaoTest {
 	}
 
 	public void nullParameterTest() {
+		init();
 		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, null);
 		assertResults(counts, CountColumn.KEY_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT, 5, TOTAL_PRJ_ML_WEIGHTING_COUNT, NWIS_PRJ_ML_WEIGHTING_COUNT, STEWARDS_PRJ_ML_WEIGHTING_COUNT, STORET_PRJ_ML_WEIGHTING_COUNT, BIODATA_PRJ_ML_WEIGHTING_COUNT);
+		cleanup();
 	}
 
 	public void emptyParameterTest() {
+		init();
 		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, filter);
 		assertResults(counts, CountColumn.KEY_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT, 5, TOTAL_PRJ_ML_WEIGHTING_COUNT, NWIS_PRJ_ML_WEIGHTING_COUNT, STEWARDS_PRJ_ML_WEIGHTING_COUNT, STORET_PRJ_ML_WEIGHTING_COUNT, BIODATA_PRJ_ML_WEIGHTING_COUNT);
+		cleanup();
 	}
 
 	public void sampleMediaTest() {
+		init();
 		filter.setSampleMedia(getSampleMedia());
 		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, filter);
 		assertResults(counts, CountColumn.KEY_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT, 5, "6", "2", "1", "2", "1");
+		cleanup();
 	}
 
 	public void startDateHiTest() {
+		init();
 		filter.setStartDateHi(getStartDateHi());
 		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, filter);
 		assertResults(counts, CountColumn.KEY_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT, 5, "6", "2", "1", "2", "1");
+		cleanup();
 	}
 
 	public void startDateLoTest() {
+		init();
 		filter.setStartDateLo(getStartDateLo());
 		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, filter);
 		assertResults(counts, CountColumn.KEY_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT, 4, "4", "2", "1", null, "1");
+		cleanup();
 	}
 
 	public void analyticalMethodTest() {
+		init();
 		filter.setAnalyticalmethod(getAnalyticalMethod());
 		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, filter);
 		assertResults(counts, CountColumn.KEY_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT, 2, "2", "2", null, null, null);
+		cleanup();
 	}
 
 	public void assemblageTest() {
+		init();
 		filter.setAssemblage(getAssemblage());
 		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, filter);
 		assertResults(counts, CountColumn.KEY_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT, 2, "1", null, null, null, "1");
+		cleanup();
 	}
 
 	public void characteristicNameTest() {
+		init();
 		filter.setCharacteristicName(getCharacteristicName());
 		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, filter);
 		assertResults(counts, CountColumn.KEY_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT, 0, null, null, null, null, null);
+		cleanup();
 	}
 
 	public void characteristicTypeTest() {
+		init();
 		filter.setCharacteristicType(getCharacteristicType());
 		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, filter);
 		assertResults(counts, CountColumn.KEY_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT, 2, "1", null, "1", null, null);
+		cleanup();
 	}
 
 	public void pcodeTest() {
+		init();
 		filter.setPCode(getPcode());
 		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, filter);
 		assertResults(counts, CountColumn.KEY_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT, 2, "2", "2", null, null, null);
+		cleanup();
 	}
 
 	public void subjectTaxonomicNameTest() {
+		init();
 		filter.setSubjectTaxonomicName(getSubjectTaxonomicName());
 		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, filter);
 		assertResults(counts, CountColumn.KEY_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT, 2, "1", null, null, null, "1");
+		cleanup();
 	}
 }
