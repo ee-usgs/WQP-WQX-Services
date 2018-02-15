@@ -70,7 +70,7 @@ public class BlobControllerTest extends BaseSpringTest {
 		zip.putNextEntry(new ZipEntry("what"));
 		zip.write("something".getBytes());
 		BlobController.setZipOutputStream(zip);
-		controller.finishResponse(response, LogServiceTest.getDownloadDetails());
+		controller.finishResponse(response, "test", LogServiceTest.getDownloadDetails());
 		verify(logService).logRequestComplete(anyObject(), anyObject(), anyMap());
 		assertNull(BlobController.getLogId());
 		assertNull(BlobController.getOutputStream());

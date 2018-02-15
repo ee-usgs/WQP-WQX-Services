@@ -10,39 +10,28 @@ import static org.junit.Assert.fail;
 import java.util.LinkedList;
 import java.util.Map;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 
-import gov.usgs.cida.wqp.BaseSpringTest;
 import gov.usgs.cida.wqp.CsvDataSetLoader;
 import gov.usgs.cida.wqp.DBIntegrationTest;
 import gov.usgs.cida.wqp.dao.NameSpace;
-import gov.usgs.cida.wqp.dao.intfc.IStreamingDao;
 import gov.usgs.cida.wqp.mapping.BaseColumn;
 import gov.usgs.cida.wqp.mapping.ResultColumn;
 import gov.usgs.cida.wqp.mapping.TestResDetectQntLmtMap;
-import gov.usgs.cida.wqp.mapping.TestResultHandler;
 import gov.usgs.cida.wqp.parameter.FilterParameters;
 
 @Category(DBIntegrationTest.class)
 @DatabaseSetup("classpath:/testData/csv/")
 @DbUnitConfiguration(dataSetLoader = CsvDataSetLoader.class)
-public class ResDetectQntLmtStreamingTest extends BaseSpringTest {
+public class ResDetectQntLmtStreamingTest extends BaseStreamingTest {
 	private static final Logger LOG = LoggerFactory.getLogger(ActivityMetricStreamingTest.class);
 
-	@Autowired 
-	IStreamingDao streamingDao;
-
-	TestResultHandler handler;
-	FilterParameters filter;
 	NameSpace nameSpace = NameSpace.RES_DETECT_QNT_LMT;
 
 	public static final String[] STEWARDS_1 = new String[]{STEWARDS, "1"};
@@ -122,41 +111,62 @@ public class ResDetectQntLmtStreamingTest extends BaseSpringTest {
 
 	public static final int RES_DETECT_QNT_LMT_COLUMN_COUNT = TestResDetectQntLmtMap.RES_DETECT_QNT_LMT.keySet().size();
 
-	@Before
-	public void init() {
-		handler = new TestResultHandler();
-		filter = new FilterParameters();
-	}
-
-	@After
-	public void cleanup() {
-		handler = null;
-		filter = null;
+	@Test
+	public void testHarness() {
+		nullParameterTest();
+		emptyParameterTest();
+		allDataSortedTest();
+		analyticalMethodTest();
+		assemblageTest();
+		avoidTest();
+		bboxTest();
+		characteristicNameTest();
+		characteristicTypeTest();
+		countryTest();
+		countyTest();
+		huc2Test();
+		huc3Test();
+		huc4Test();
+		huc5Test();
+		huc6Test();
+		huc7Test();
+		huc8Test();
+		huc10Test();
+		huc12Test();
+		minActivitiesTest();
+		minResultsTest();
+		nldiUrlTest();
+		organizationTest();
+		pcodeTest();
+		projectTest();
+		providersTest();
+		resultTest();
+		sampleMediaTest();
+		siteIdTest();
+		manySitesTest();
+		siteTypeTest();
+		startDateHiTest();
+		startDateLoTest();
+		stateTest();
+		subjectTaxonomicNameTest();
+		withinTest();
+		multipleParameterTest();
+		multipleParameterWithStationSumTest();
 	}
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//Only need Activity (and possibly a lookup table)
 
-	@Test
 	public void nullParameterTest() {
-		streamingDao.stream(nameSpace, null, handler);
-		assertEquals(TOTAL_RES_DETECT_QNT_LMT_COUNT, String.valueOf(handler.getResults().size()));
+		nullParameterTest(nameSpace, Integer.valueOf(TOTAL_RES_DETECT_QNT_LMT_COUNT));
 	}
 
-	@Test
 	public void emptyParameterTest() {
-		streamingDao.stream(nameSpace, filter, handler);
-		assertEquals(TOTAL_RES_DETECT_QNT_LMT_COUNT, String.valueOf(handler.getResults().size()));
+		emptyParameterTest(nameSpace, Integer.valueOf(TOTAL_RES_DETECT_QNT_LMT_COUNT));
 	}
 
-	@Test
 	public void allDataSortedTest() {
-		filter.setSorted("yes");
-		streamingDao.stream(nameSpace, filter, handler);
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		//Validate the number AND order of results.
-		assertEquals(TOTAL_RES_DETECT_QNT_LMT_COUNT, String.valueOf(results.size()));
+		LinkedList<Map<String, Object>> results = allDataSortedTest(nameSpace, Integer.valueOf(TOTAL_RES_DETECT_QNT_LMT_COUNT));
 		assertStewards("1", results.get(0));
 		assertStewards("2", results.get(1));
 		assertStewards("5", results.get(2));
@@ -233,38 +243,23 @@ public class ResDetectQntLmtStreamingTest extends BaseSpringTest {
 		assertBiodata("74", results.get(73));
 	}
 
-	@Test
 	public void analyticalMethodTest() {
-		filter.setAnalyticalmethod(getAnalyticalMethod());
-		streamingDao.stream(nameSpace, filter, handler);
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(22, results.size());
+		LinkedList<Map<String, Object>> results = analyticalMethodTest(nameSpace, 22);
 		assertContainsResDetectQntLmt(results,
 				NWIS_10, NWIS_11, NWIS_12, NWIS_13, NWIS_14, NWIS_15, STORET_17, STORET_18, STORET_19, STORET_20,
 				STORET_21, STORET_22, STORET_23, STORET_24, STORET_25, STORET_26, STORET_27, STORET_28, STORET_70, STORET_71, 
 				STORET_72, STORET_73);
 	}
 
-	@Test
 	public void assemblageTest() {
-		filter.setAssemblage(getAssemblage());
-		streamingDao.stream(nameSpace, filter, handler);
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(17, results.size());
+		LinkedList<Map<String, Object>> results = assemblageTest(nameSpace, 17);
 		assertContainsResDetectQntLmt(results,
 				STORET_17, STORET_18, STORET_19, STORET_20, STORET_21, STORET_22, STORET_23, STORET_24, STORET_25, STORET_26,
 				STORET_27, STORET_28, STORET_70, STORET_71, STORET_72, STORET_73, BIODATA_74);
 	}
 
-	@Test
 	public void avoidTest() {
-		filter.setCommand(getCommand());
-		streamingDao.stream(nameSpace, filter, handler);
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(STORET_RES_DETECT_QNT_LMT_COUNT, String.valueOf(results.size()));
+		LinkedList<Map<String, Object>> results = avoidTest(nameSpace, Integer.valueOf(STORET_RES_DETECT_QNT_LMT_COUNT));
 		assertContainsResDetectQntLmt(results,
 				STORET_17, STORET_18, STORET_19, STORET_20, STORET_21, STORET_22, STORET_23, STORET_24, STORET_25, STORET_26,
 				STORET_27, STORET_28, STORET_29, STORET_30, STORET_31, STORET_32, STORET_33, STORET_34, STORET_35, STORET_36,
@@ -274,13 +269,8 @@ public class ResDetectQntLmtStreamingTest extends BaseSpringTest {
 				STORET_67, STORET_68, STORET_69, STORET_70, STORET_71, STORET_72, STORET_73);
 	}
 
-	@Test
 	public void bboxTest() {
-		filter.setBBox(getBBox());
-		streamingDao.stream(nameSpace, filter, handler);
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(42, results.size());
+		LinkedList<Map<String, Object>> results = bboxTest(nameSpace, 42);
 		assertContainsResDetectQntLmt(results,
 				STEWARDS_1, STEWARDS_2, STEWARDS_3, STEWARDS_4, STEWARDS_5, STEWARDS_6, STEWARDS_7, STEWARDS_8, STEWARDS_9, NWIS_10,
 				NWIS_11, NWIS_12, NWIS_13, NWIS_14, NWIS_15, NWIS_16, STORET_17, STORET_18, STORET_19, STORET_20,
@@ -289,38 +279,23 @@ public class ResDetectQntLmtStreamingTest extends BaseSpringTest {
 				STORET_72, STORET_73);
 	}
 
-	@Test
 	public void characteristicNameTest() {
-		filter.setCharacteristicName(getCharacteristicName());
-		streamingDao.stream(nameSpace, filter, handler);
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(16, results.size());
+		LinkedList<Map<String, Object>> results = characteristicNameTest(nameSpace, 16);
 		assertContainsResDetectQntLmt(results,
 				STORET_17, STORET_18, STORET_19, STORET_20, STORET_21, STORET_22, STORET_23, STORET_24, STORET_25, STORET_26,
 				STORET_27, STORET_28, STORET_70, STORET_71, STORET_72, STORET_73);
 	}
 
-	@Test
 	public void characteristicTypeTest() {
-		filter.setCharacteristicType(getCharacteristicType());
-		streamingDao.stream(nameSpace, filter, handler);
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(21, results.size());
+		LinkedList<Map<String, Object>> results = characteristicTypeTest(nameSpace, 21);
 		assertContainsResDetectQntLmt(results,
 				STEWARDS_1, STEWARDS_2, STEWARDS_3, STEWARDS_4, STEWARDS_5, STORET_17, STORET_18, STORET_19, STORET_20, STORET_21,
 				STORET_22, STORET_23, STORET_24, STORET_25, STORET_26, STORET_27, STORET_28, STORET_70, STORET_71, STORET_72,
 				STORET_73);
 	}
 
-	@Test
 	public void countryTest() {
-		filter.setCountrycode(getCountry());
-		streamingDao.stream(nameSpace, filter, handler);
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(44, results.size());
+		LinkedList<Map<String, Object>> results = countryTest(nameSpace, 44);
 		assertContainsResDetectQntLmt(results,
 				STEWARDS_1, STEWARDS_2, STEWARDS_3, STEWARDS_4, STEWARDS_5, STEWARDS_6, STEWARDS_7, STEWARDS_8, STEWARDS_9, NWIS_10,
 				NWIS_11, NWIS_12, NWIS_13, NWIS_14, NWIS_15, NWIS_16, STORET_17, STORET_18, STORET_19, STORET_20,
@@ -329,13 +304,8 @@ public class ResDetectQntLmtStreamingTest extends BaseSpringTest {
 				STORET_71, STORET_72, STORET_73, BIODATA_74);
 	}
 
-	@Test
 	public void countyTest() {
-		filter.setCountycode(getCounty());
-		streamingDao.stream(nameSpace, filter, handler);
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(43, results.size());
+		LinkedList<Map<String, Object>> results = countyTest(nameSpace, 43);
 		assertContainsResDetectQntLmt(results,
 				STEWARDS_1, STEWARDS_2, STEWARDS_3, STEWARDS_4, STEWARDS_5, STEWARDS_6, STEWARDS_7, STEWARDS_8, STEWARDS_9, NWIS_10,
 				NWIS_11, NWIS_12, NWIS_13, NWIS_14, NWIS_15, NWIS_16, STORET_17, STORET_18, STORET_19, STORET_20,
@@ -344,13 +314,8 @@ public class ResDetectQntLmtStreamingTest extends BaseSpringTest {
 				STORET_71, STORET_72, STORET_73);
 	}
 
-	@Test
 	public void huc2Test() {
-		filter.setHuc(getHuc2());
-		streamingDao.stream(nameSpace, filter, handler);
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(31, results.size());
+		LinkedList<Map<String, Object>> results = huc2Test(nameSpace, 31);
 		assertContainsResDetectQntLmt(results,
 				STEWARDS_1, STEWARDS_2, STEWARDS_3, STEWARDS_4, STEWARDS_5, STEWARDS_6, STEWARDS_7, STEWARDS_8, STEWARDS_9, NWIS_10,
 				NWIS_11, NWIS_12, NWIS_13, NWIS_14, NWIS_15, NWIS_16, STORET_29, STORET_30, STORET_31, STORET_32,
@@ -358,66 +323,74 @@ public class ResDetectQntLmtStreamingTest extends BaseSpringTest {
 				STORET_73);
 	}
 
-	@Test
-	public void huc4Test() {
-		filter.setHuc(getHuc4());
-		streamingDao.stream(nameSpace, filter, handler);
+	public void huc3Test() {
+		LinkedList<Map<String, Object>> results = huc3Test(nameSpace, 31);
+		assertContainsResDetectQntLmt(results,
+				STEWARDS_1, STEWARDS_2, STEWARDS_3, STEWARDS_4, STEWARDS_5, STEWARDS_6, STEWARDS_7, STEWARDS_8, STEWARDS_9, NWIS_10,
+				NWIS_11, NWIS_12, NWIS_13, NWIS_14, NWIS_15, NWIS_16, STORET_29, STORET_30, STORET_31, STORET_32,
+				STORET_33, STORET_34, STORET_35, STORET_36, STORET_37, STORET_38, STORET_39, STORET_70, STORET_71, STORET_72,
+				STORET_73);
+	}
 
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(18, results.size());
+	public void huc4Test() {
+		LinkedList<Map<String, Object>> results = huc4Test(nameSpace, 18);
 		assertContainsResDetectQntLmt(results,
 				NWIS_10, NWIS_11, NWIS_12, NWIS_13, NWIS_14, NWIS_15, NWIS_16, STORET_29, STORET_30, STORET_31,
 				STORET_32, STORET_33, STORET_34, STORET_35, STORET_36, STORET_37, STORET_38, STORET_39);
 	}
 
-	@Test
-	public void huc6Test() {
-		filter.setHuc(getHuc6());
-		streamingDao.stream(nameSpace, filter, handler);
+	public void huc5Test() {
+		LinkedList<Map<String, Object>> results = huc5Test(nameSpace, 18);
+		assertContainsResDetectQntLmt(results,
+				NWIS_10, NWIS_11, NWIS_12, NWIS_13, NWIS_14, NWIS_15, NWIS_16, STORET_29, STORET_30, STORET_31,
+				STORET_32, STORET_33, STORET_34, STORET_35, STORET_36, STORET_37, STORET_38, STORET_39);
+	}
 
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(17, results.size());
+	public void huc6Test() {
+		LinkedList<Map<String, Object>> results = huc6Test(nameSpace, 17);
 		assertContainsResDetectQntLmt(results,
 				NWIS_10, NWIS_11, NWIS_12, NWIS_13, NWIS_14, NWIS_15, STORET_29, STORET_30, STORET_31, STORET_32,
 				STORET_33, STORET_34, STORET_35, STORET_36, STORET_37, STORET_38, STORET_39);
 	}
 
-	@Test
-	public void huc8Test() {
-		filter.setHuc(getHuc8());
-		streamingDao.stream(nameSpace, filter, handler);
+	public void huc7Test() {
+		LinkedList<Map<String, Object>> results = huc7Test(nameSpace, 17);
+		assertContainsResDetectQntLmt(results,
+				NWIS_10, NWIS_11, NWIS_12, NWIS_13, NWIS_14, NWIS_15, STORET_29, STORET_30, STORET_31, STORET_32,
+				STORET_33, STORET_34, STORET_35, STORET_36, STORET_37, STORET_38, STORET_39);
+	}
 
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(11, results.size());
+	public void huc8Test() {
+		LinkedList<Map<String, Object>> results = huc8Test(nameSpace, 11);
 		assertContainsResDetectQntLmt(results,
 				STORET_29, STORET_30, STORET_31, STORET_32, STORET_33, STORET_34, STORET_35, STORET_36, STORET_37, STORET_38,
 				STORET_39);
 	}
 
-	@Test
-	public void manySitesTest() {
-		try {
-			filter.setSiteid(getManySiteId());
-			streamingDao.stream(nameSpace, filter, handler);
-		} catch (Exception e) {
-			fail(e.getLocalizedMessage());
-		}
+	public void huc10Test() {
+		LinkedList<Map<String, Object>> results = huc10Test(nameSpace, 11);
+		assertContainsResDetectQntLmt(results,
+				STORET_29, STORET_30, STORET_31, STORET_32, STORET_33, STORET_34, STORET_35, STORET_36, STORET_37, STORET_38,
+				STORET_39);
+	}
 
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(22, results.size());
+	public void huc12Test() {
+		LinkedList<Map<String, Object>> results = huc12Test(nameSpace, 11);
+		assertContainsResDetectQntLmt(results,
+				STORET_29, STORET_30, STORET_31, STORET_32, STORET_33, STORET_34, STORET_35, STORET_36, STORET_37, STORET_38,
+				STORET_39);
+	}
+
+	public void manySitesTest() {
+		LinkedList<Map<String, Object>> results = manySitesTest(nameSpace, 22);
 		assertContainsResDetectQntLmt(results,
 				STORET_17, STORET_18, STORET_19, STORET_20, STORET_21, STORET_22, STORET_23, STORET_24, STORET_25, STORET_26,
 				STORET_27, STORET_29, STORET_30, STORET_31, STORET_32, STORET_33, STORET_34, STORET_35, STORET_36, STORET_37,
 				STORET_38, STORET_39);
 	}
 
-	@Test
 	public void minActivitiesTest() {
-		filter.setMinactivities(getMinActivities());
-		streamingDao.stream(nameSpace, filter, handler);
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(67, results.size());
+		LinkedList<Map<String, Object>> results = minActivitiesTest(nameSpace, 67);
 		assertContainsResDetectQntLmt(results,
 				STEWARDS_1, STEWARDS_2, STEWARDS_3, STEWARDS_4, STEWARDS_5, NWIS_10, NWIS_11, NWIS_12, NWIS_13, NWIS_14,
 				NWIS_15, STORET_17, STORET_18, STORET_19, STORET_20, STORET_21, STORET_22, STORET_23, STORET_24, STORET_25,
@@ -428,13 +401,8 @@ public class ResDetectQntLmtStreamingTest extends BaseSpringTest {
 				STORET_67, STORET_68, STORET_69, STORET_70, STORET_71, STORET_72, STORET_73);
 	}
 
-	@Test
 	public void minResultsTest() {
-		filter.setMinresults(getMinResults());
-		streamingDao.stream(nameSpace, filter, handler);
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(62, results.size());
+		LinkedList<Map<String, Object>> results = minResultsTest(nameSpace, 62);
 		assertContainsResDetectQntLmt(results,
 				NWIS_10, NWIS_11, NWIS_12, NWIS_13, NWIS_14, NWIS_15, STORET_17, STORET_18, STORET_19, STORET_20,
 				STORET_21, STORET_22, STORET_23, STORET_24, STORET_25, STORET_26, STORET_27, STORET_29, STORET_30, STORET_31,
@@ -445,30 +413,16 @@ public class ResDetectQntLmtStreamingTest extends BaseSpringTest {
 				STORET_72, STORET_73);
 	}
 
-	@Test
 	public void nldiUrlTest() {
-		try {
-			filter.setNldiSites(getManySiteId());
-			streamingDao.stream(nameSpace, filter, handler);
-		} catch (Exception e) {
-			fail(e.getLocalizedMessage());
-		}
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(22, results.size());
+		LinkedList<Map<String, Object>> results = nldiUrlTest(nameSpace, 22);
 		assertContainsResDetectQntLmt(results,
 				STORET_17, STORET_18, STORET_19, STORET_20, STORET_21, STORET_22, STORET_23, STORET_24, STORET_25, STORET_26,
 				STORET_27, STORET_29, STORET_30, STORET_31, STORET_32, STORET_33, STORET_34, STORET_35, STORET_36, STORET_37,
 				STORET_38, STORET_39);
 	}
 
-	@Test
 	public void organizationTest() {
-		filter.setOrganization(getOrganization());
-		streamingDao.stream(nameSpace, filter, handler);
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(43, results.size());
+		LinkedList<Map<String, Object>> results = organizationTest(nameSpace, 43);
 		assertContainsResDetectQntLmt(results,
 				STEWARDS_1, STEWARDS_2, STEWARDS_3, STEWARDS_4, STEWARDS_5, STEWARDS_6, STEWARDS_7, STEWARDS_8, STEWARDS_9, NWIS_10,
 				NWIS_11, NWIS_12, NWIS_13, NWIS_14, NWIS_15, NWIS_16, STORET_17, STORET_18, STORET_19, STORET_20,
@@ -477,38 +431,23 @@ public class ResDetectQntLmtStreamingTest extends BaseSpringTest {
 				STORET_71, STORET_72, STORET_73);
 	}
 
-	@Test
 	public void pcodeTest() {
-		filter.setPCode(getPcode());
-		streamingDao.stream(nameSpace, filter, handler);
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(16, results.size());
+		LinkedList<Map<String, Object>> results = pcodeTest(nameSpace, 16);
 		assertContainsResDetectQntLmt(results,
 				NWIS_16, STORET_17, STORET_18, STORET_19, STORET_20, STORET_21, STORET_22, STORET_23, STORET_24, STORET_25,
 				STORET_26, STORET_27, STORET_70, STORET_71, STORET_72, STORET_73);
 	}
 
-	@Test
 	public void projectTest() {
-		filter.setProject(getProject());
-		streamingDao.stream(nameSpace, filter, handler);
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(28, results.size());
+		LinkedList<Map<String, Object>> results = projectTest(nameSpace, 28);
 		assertContainsResDetectQntLmt(results,
 				STEWARDS_1, STEWARDS_2, STEWARDS_6, STEWARDS_7, STEWARDS_8, STEWARDS_9, NWIS_10, NWIS_11, NWIS_12, NWIS_13,
 				NWIS_14, NWIS_16, STORET_17, STORET_18, STORET_19, STORET_20, STORET_21, STORET_22, STORET_23, STORET_24,
 				STORET_25, STORET_26, STORET_27, STORET_28, STORET_70, STORET_72, STORET_73, BIODATA_74);
 	}
 
-	@Test
 	public void providersTest() {
-		filter.setProviders(getProviders());
-		streamingDao.stream(nameSpace, filter, handler);
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(73, results.size());
+		LinkedList<Map<String, Object>> results = providersTest(nameSpace, 73);
 		assertContainsResDetectQntLmt(results,
 				STEWARDS_1, STEWARDS_2, STEWARDS_3, STEWARDS_4, STEWARDS_5, STEWARDS_6, STEWARDS_7, STEWARDS_8, STEWARDS_9, NWIS_10,
 				NWIS_11, NWIS_12, NWIS_13, NWIS_14, NWIS_15, NWIS_16, STORET_17, STORET_18, STORET_19, STORET_20,
@@ -520,24 +459,14 @@ public class ResDetectQntLmtStreamingTest extends BaseSpringTest {
 				STORET_71, STORET_72, STORET_73);
 	}
 
-	@Test
 	public void resultTest() {
-		filter.setResult(getResult());
-		streamingDao.stream(nameSpace, filter, handler);
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(1, results.size());
+		LinkedList<Map<String, Object>> results = resultTest(nameSpace, 1);
 		assertContainsResDetectQntLmt(results,
 				STORET_39);
 	}
 
-	@Test
 	public void sampleMediaTest() {
-		filter.setSampleMedia(getSampleMedia());
-		streamingDao.stream(nameSpace, filter, handler);
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(70, results.size());
+		LinkedList<Map<String, Object>> results = sampleMediaTest(nameSpace, 70);
 		assertContainsResDetectQntLmt(results,
 				STEWARDS_1, STEWARDS_2, STEWARDS_6, STEWARDS_7, STEWARDS_8, STEWARDS_9, NWIS_10, NWIS_11, NWIS_12, NWIS_13,
 				NWIS_14, NWIS_16, STORET_17, STORET_18, STORET_19, STORET_20, STORET_21, STORET_22, STORET_23, STORET_24,
@@ -548,13 +477,8 @@ public class ResDetectQntLmtStreamingTest extends BaseSpringTest {
 				STORET_65, STORET_66, STORET_67, STORET_68, STORET_69, STORET_70, STORET_71, STORET_72, STORET_73, BIODATA_74);
 	}
 
-	@Test
 	public void siteIdTest() {
-		filter.setSiteid(getSiteid());
-		streamingDao.stream(nameSpace, filter, handler);
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(32, results.size());
+		LinkedList<Map<String, Object>> results = siteIdTest(nameSpace, 32);
 		assertContainsResDetectQntLmt(results,
 				STEWARDS_1, STEWARDS_2, STEWARDS_3, STEWARDS_4, STEWARDS_5, STEWARDS_6, STEWARDS_7, STEWARDS_8, STEWARDS_9, NWIS_10,
 				NWIS_11, NWIS_12, NWIS_13, NWIS_14, NWIS_15, NWIS_16, STORET_17, STORET_18, STORET_19, STORET_20,
@@ -562,14 +486,8 @@ public class ResDetectQntLmtStreamingTest extends BaseSpringTest {
 				STORET_72, STORET_73);
 	}
 
-
-	@Test
 	public void siteTypeTest() {
-		filter.setSiteType(getSiteType());
-		streamingDao.stream(nameSpace, filter, handler);
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(73, results.size());
+		LinkedList<Map<String, Object>> results = siteTypeTest(nameSpace, 73);
 		assertContainsResDetectQntLmt(results,
 				STEWARDS_1, STEWARDS_2, STEWARDS_3, STEWARDS_4, STEWARDS_5, STEWARDS_6, STEWARDS_7, STEWARDS_8, STEWARDS_9, NWIS_10,
 				NWIS_11, NWIS_12, NWIS_13, NWIS_14, NWIS_15, STORET_17, STORET_18, STORET_19, STORET_20, STORET_21,
@@ -581,13 +499,8 @@ public class ResDetectQntLmtStreamingTest extends BaseSpringTest {
 				STORET_72, STORET_73, BIODATA_74);
 	}
 
-	@Test
 	public void startDateHiTest() {
-		filter.setStartDateHi(getStartDateHi());
-		streamingDao.stream(nameSpace, filter, handler);
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(70, results.size());
+		LinkedList<Map<String, Object>> results = startDateHiTest(nameSpace, 70);
 		assertContainsResDetectQntLmt(results,
 				STEWARDS_1, STEWARDS_2, STEWARDS_6, STEWARDS_7, STEWARDS_8, STEWARDS_9, NWIS_10, NWIS_11, NWIS_12, NWIS_13,
 				NWIS_14, NWIS_16, STORET_17, STORET_18, STORET_19, STORET_20, STORET_21, STORET_22, STORET_23, STORET_24,
@@ -598,13 +511,8 @@ public class ResDetectQntLmtStreamingTest extends BaseSpringTest {
 				STORET_65, STORET_66, STORET_67, STORET_68, STORET_69, STORET_70, STORET_71, STORET_72, STORET_73, BIODATA_74);
 	}
 
-	@Test
 	public void startDateLoTest() {
-		filter.setStartDateLo(getStartDateLo());
-		streamingDao.stream(nameSpace, filter, handler);
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(33, results.size());
+		LinkedList<Map<String, Object>> results = startDateLoTest(nameSpace, 33);
 		assertContainsResDetectQntLmt(results,
 				STEWARDS_1, STEWARDS_2, STEWARDS_3, STEWARDS_4, STEWARDS_5, STEWARDS_6, STEWARDS_7, STEWARDS_8, STEWARDS_9, NWIS_10,
 				NWIS_11, NWIS_12, NWIS_13, NWIS_14, NWIS_15, NWIS_16, STORET_17, STORET_18, STORET_19, STORET_20,
@@ -612,13 +520,8 @@ public class ResDetectQntLmtStreamingTest extends BaseSpringTest {
 				STORET_72, STORET_73, BIODATA_74);
 	}
 
-	@Test
 	public void stateTest() {
-		filter.setStatecode(getState());
-		streamingDao.stream(nameSpace, filter, handler);
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(43, results.size());
+		LinkedList<Map<String, Object>> results = stateTest(nameSpace, 43);
 		assertContainsResDetectQntLmt(results,
 				STEWARDS_1, STEWARDS_2, STEWARDS_3, STEWARDS_4, STEWARDS_5, STEWARDS_6, STEWARDS_7, STEWARDS_8, STEWARDS_9, NWIS_10,
 				NWIS_11, NWIS_12, NWIS_13, NWIS_14, NWIS_15, NWIS_16, STORET_17, STORET_18, STORET_19, STORET_20,
@@ -627,27 +530,15 @@ public class ResDetectQntLmtStreamingTest extends BaseSpringTest {
 				STORET_71, STORET_72, STORET_73);
 	}
 
-	@Test
 	public void subjectTaxonomicNameTest() {
-		filter.setSubjectTaxonomicName(getSubjectTaxonomicName());
-		streamingDao.stream(nameSpace, filter, handler);
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(16, results.size());
+		LinkedList<Map<String, Object>> results = subjectTaxonomicNameTest(nameSpace, 16);
 		assertContainsResDetectQntLmt(results,
 				STORET_17, STORET_18, STORET_19, STORET_20, STORET_21, STORET_22, STORET_23, STORET_24, STORET_25, STORET_26,
 				STORET_27, STORET_28, STORET_70, STORET_72, STORET_73, BIODATA_74);
 	}
 
-	@Test
 	public void withinTest() {
-		filter.setWithin(getWithin());
-		filter.setLat(getLatitude());
-		filter.setLong(getLongitude());
-		streamingDao.stream(nameSpace, filter, handler);
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(69, results.size());
+		LinkedList<Map<String, Object>> results = withinTest(nameSpace, 69);
 		assertContainsResDetectQntLmt(results,
 				STEWARDS_1, STEWARDS_2, STEWARDS_3, STEWARDS_4, STEWARDS_5, STEWARDS_6, STEWARDS_7, STEWARDS_8, STEWARDS_9, NWIS_10,
 				NWIS_11, NWIS_12, NWIS_13, NWIS_14, NWIS_15, NWIS_16, STORET_17, STORET_18, STORET_19, STORET_20,
@@ -658,8 +549,8 @@ public class ResDetectQntLmtStreamingTest extends BaseSpringTest {
 				STORET_61, STORET_62, STORET_63, STORET_64, STORET_65, STORET_66, STORET_67, STORET_68, STORET_69);
 	}
 
-	@Test
-	public void multipleParameterTests() {
+	public void multipleParameterTest() {
+		FilterParameters filter = new FilterParameters();
 		filter.setAnalyticalmethod(getAnalyticalMethod());
 		filter.setAssemblage(getAssemblage());
 		filter.setCommand(getCommand());
@@ -682,16 +573,14 @@ public class ResDetectQntLmtStreamingTest extends BaseSpringTest {
 		filter.setStartDateLo(getStartDateLo());
 		filter.setStatecode(getState());
 		filter.setSubjectTaxonomicName(getSubjectTaxonomicName());
-		streamingDao.stream(nameSpace, filter, handler);
 
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(10, results.size());
+		LinkedList<Map<String, Object>> results = callDao(nameSpace, 10, filter);
 		assertContainsResDetectQntLmt(results,
 				STORET_17, STORET_18, STORET_19, STORET_20, STORET_21, STORET_22, STORET_23, STORET_70, STORET_72, STORET_73);
 	}
 
-	@Test
-	public void multipleParameterWithStationSumTests() {
+	public void multipleParameterWithStationSumTest() {
+		FilterParameters filter = new FilterParameters();
 		filter.setAnalyticalmethod(getAnalyticalMethod());
 		filter.setAssemblage(getAssemblage());
 		filter.setCommand(getCommand());
@@ -718,9 +607,7 @@ public class ResDetectQntLmtStreamingTest extends BaseSpringTest {
 		filter.setStatecode(getState());
 		filter.setSubjectTaxonomicName(getSubjectTaxonomicName());
 		filter.setWithin(getWithin());
-		streamingDao.stream(nameSpace, filter, handler);
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(7, results.size());
+		LinkedList<Map<String, Object>> results = callDao(nameSpace, 7, filter);
 		assertContainsResDetectQntLmt(results,
 				STORET_17, STORET_18, STORET_19, STORET_20, STORET_21, STORET_22, STORET_23);
 	}

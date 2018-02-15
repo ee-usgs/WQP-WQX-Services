@@ -15,6 +15,7 @@ import gov.usgs.cida.wqp.CsvDataSetLoader;
 import gov.usgs.cida.wqp.DBIntegrationTest;
 import gov.usgs.cida.wqp.dao.NameSpace;
 import gov.usgs.cida.wqp.mapping.TestStationMap;
+import gov.usgs.cida.wqp.parameter.FilterParameters;
 
 @Category(DBIntegrationTest.class)
 @DatabaseSetup("classpath:/testData/csv/")
@@ -25,32 +26,70 @@ public class StationKmlStreamingTest extends BaseStationStreamingTest {
 	protected Integer expectedColumnCount = TestStationMap.STATION_KML.keySet().size();
 	protected Map<String, Object> expectedMap = TestStationMap.STATION_KML;
 
+	@Test
+	public void testHarness() {
+		nullParameterTest();
+		emptyParameterTest();
+		allDataSortedTest();
+		analyticalMethodTest();
+		assemblageTest();
+		avoidTest();
+		bboxTest();
+		characteristicNameTest();
+		characteristicTypeTest();
+		countryTest();
+		countyTest();
+		huc2Test();
+		huc3Test();
+		huc4Test();
+		huc5Test();
+		huc6Test();
+		huc7Test();
+		huc8Test();
+		huc10Test();
+		huc12Test();
+		mimeTypeTest();
+		minActivitiesTest();
+		minResultsTest();
+		nldiUrlTest();
+		organizationTest();
+		pcodeTest();
+		projectTest();
+		providersTest();
+		sampleMediaTest();
+		siteIdTest();
+		manySitesTest();
+		siteTypeTest();
+		startDateHiTest();
+		startDateLoTest();
+		stateTest();
+		subjectTaxonomicNameTest();
+		withinTest();
+		multipleParameterStationSumTest();
+		multipleParameterActivitySumTest();
+		multipleParameterResultSumTest();
+	}
+
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//Station + Station_Sum 
 
-	@Test
 	public void nullParameterTest() {
 		nullParameterTest(nameSpace);
 	}
 
-	@Test
 	public void emptyParameterTest() {
 		emptyParameterTest(nameSpace);
 	}
 
-	@Test
 	public void mimeTypeTest() {
 		mimeTypeTest(nameSpace);
 	}
 
-	@Test
 	public void allDataSortedTest() {
 		//KML is sorted different than the rest.
+		FilterParameters filter = new FilterParameters();
 		filter.setSorted("yes");
-		streamingDao.stream(nameSpace, filter, handler);
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		//Validate the number AND order of results.
+		LinkedList<Map<String, Object>> results = callDao(nameSpace, Integer.valueOf(TOTAL_SITE_COUNT), filter);
 		assertEquals(TOTAL_SITE_COUNT, String.valueOf(results.size()));
 		assertRow(results.get(0), STORET_1043441, expectedColumnCount);
 		assertRow(results.get(1), STORET_504707, expectedColumnCount);
@@ -67,92 +106,94 @@ public class StationKmlStreamingTest extends BaseStationStreamingTest {
 		assertRow(results.get(12), STORET_999, expectedColumnCount);
 	}
 
-	@Test
 	public void avoidTest() {
 		avoidTest(nameSpace);
 	}
 
-	@Test
 	public void bboxTest() {
 		bboxTest(nameSpace);
 	}
 
-	@Test
 	public void countryTest() {
 		countryTest(nameSpace);
 	}
 
-	@Test
 	public void countyTest() {
 		countyTest(nameSpace);
 	}
 
-	@Test
 	public void huc2Test() {
 		huc2Test(nameSpace);
 	}
 
-	@Test
+	public void huc3Test() {
+		huc3Test(nameSpace);
+	}
+
 	public void huc4Test() {
 		huc4Test(nameSpace);
 	}
 
-	@Test
+	public void huc5Test() {
+		huc5Test(nameSpace);
+	}
+	
 	public void huc6Test() {
 		huc6Test(nameSpace);
 	}
 
-	@Test
+	public void huc7Test() {
+		huc7Test(nameSpace);
+	}
+
 	public void huc8Test() {
 		huc8Test(nameSpace);
 	}
 
-	@Test
+	public void huc10Test() {
+		huc10Test(nameSpace);
+	}
+
+	public void huc12Test() {
+		huc12Test(nameSpace);
+	}
+
 	public void nldiUrlTest() {
 		nldiUrlTest(nameSpace);
 	}
 
-	@Test
 	public void organizationTest() {
 		organizationTest(nameSpace);
 	}
 
-	@Test
 	public void providersTest() {
 		providersTest(nameSpace);
 	}
 
-	@Test
 	public void siteIdTest() {
 		siteIdTest(nameSpace);
 	}
 
-	@Test
 	public void manySitesTest() {
 		manySitesTest(nameSpace);
 	}
 
-	@Test
 	public void minActivitiesTest() {
 		minActivitiesTest(nameSpace);
 	}
 
-	@Test
 	public void minResultsTest() {
 		minResultsTest(nameSpace);
 	}
 
-	@Test
 	public void siteTypeTest() {
 		siteTypeTest(nameSpace);
 	}
 
-	@Test
 	public void stateTest() {
 		stateTest(nameSpace);
 	}
 
-	@Test
 	public void withinTest() {
 		withinTest(nameSpace);
 	}
@@ -160,22 +201,18 @@ public class StationKmlStreamingTest extends BaseStationStreamingTest {
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//Station + Activity_Sum 
 
-	@Test
 	public void projectTest() {
 		projectTest(nameSpace);
 	}
 
-	@Test
 	public void sampleMediaTest() {
 		sampleMediaTest(nameSpace);
 	}
 
-	@Test
 	public void startDateHiTest() {
 		startDateHiTest(nameSpace);
 	}
 
-	@Test
 	public void startDateLoTest() {
 		startDateLoTest(nameSpace);
 	}
@@ -183,47 +220,38 @@ public class StationKmlStreamingTest extends BaseStationStreamingTest {
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//Station + Result_Sum
 
-	@Test
 	public void analyticalMethodTest() {
 		analyticalMethodTest(nameSpace);
 	}
 
-	@Test
 	public void assemblageTest() {
 		assemblageTest(nameSpace);
 	}
 
-	@Test
 	public void characteristicNameTest() {
 		characteristicNameTest(nameSpace);
 	}
 
-	@Test
 	public void characteristicTypeTest() {
 		characteristicTypeTest(nameSpace);
 	}
 
-	@Test
 	public void pcodeTest() {
 		pcodeTest(nameSpace);
 	}
 
-	@Test
 	public void subjectTaxonomicNameTest() {
 		subjectTaxonomicNameTest(nameSpace);
 	}
 
-	@Test
-	public void multipleParameterStationSumTests() {
-		multipleParameterStationSumTests(nameSpace);
+	public void multipleParameterStationSumTest() {
+		multipleParameterStationSumTest(nameSpace);
 	}
 
-	@Test
-	public void multipleParameterActivitySumTests() {
-		multipleParameterActivitySumTests(nameSpace);
+	public void multipleParameterActivitySumTest() {
+		multipleParameterActivitySumTest(nameSpace);
 	}
 
-	@Test
 	public void multipleParameterResultSumTest() {
 		multipleParameterResultSumTest(nameSpace);
 	}

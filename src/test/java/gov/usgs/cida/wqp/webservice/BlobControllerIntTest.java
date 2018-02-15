@@ -43,6 +43,17 @@ public class BlobControllerIntTest extends BaseSpringTest{
 	}
 
 	@Test
+	public void testHarness() throws Exception {
+		singleFileStationTest();
+		threeFileStationTest();
+		singleFileProjectTest();
+		threeFileProjectTest();
+		singleFileResultTest();
+		threeFileResultTest();
+		singleFileActivityTest();
+		threeFileActivityTest();
+	}
+
 	public void singleFileStationTest() throws Exception {
 		MvcResult rtn = mockMvc.perform(get(buildMonitoringLocationUrl(BlobDaoTest.SINGLE_FILE_STATION_ORG, BlobDaoTest.SINGLE_FILE_STATION_STATION)))
 				.andExpect(status().isOk())
@@ -53,7 +64,6 @@ public class BlobControllerIntTest extends BaseSpringTest{
 			BlobDaoTest.assertSingleFileStation(stream);
 	}
 
-	@Test
 	public void threeFileStationTest() throws Exception {
 		MvcResult rtn = mockMvc.perform(get(buildMonitoringLocationUrl(BlobDaoTest.THREE_FILE_STATION_ORG, BlobDaoTest.THREE_FILE_STATION_STATION)))
 				.andExpect(status().isOk())
@@ -65,7 +75,6 @@ public class BlobControllerIntTest extends BaseSpringTest{
 	}
 
 
-	@Test
 	public void singleFileProjectTest() throws Exception {
 		MvcResult rtn = mockMvc.perform(get(buildProjectUrl(BlobDaoTest.SINGLE_FILE_PROJECT_ORG, BlobDaoTest.SINGLE_FILE_PROJECT_PROJECT)))
 				.andExpect(status().isOk())
@@ -76,7 +85,6 @@ public class BlobControllerIntTest extends BaseSpringTest{
 			BlobDaoTest.assertSingleFileProject(stream);
 	}
 
-	@Test
 	public void threeFileProjectTest() throws Exception {
 		MvcResult rtn = mockMvc.perform(get(buildProjectUrl(BlobDaoTest.THREE_FILE_PROJECT_ORG, BlobDaoTest.THREE_FILE_PROJECT_PROJECT)))
 				.andExpect(status().isOk())
@@ -87,7 +95,7 @@ public class BlobControllerIntTest extends BaseSpringTest{
 			BlobDaoTest.assertThreeFileProject(stream);
 	}
 
-	@Test
+
 	public void singleFileResultTest() throws Exception {
 		MvcResult rtn = mockMvc.perform(get(buildResultUrl(BlobDaoTest.SINGLE_FILE_RESULT_ORG, BlobDaoTest.SINGLE_FILE_RESULT_ACTIVITY,
 				BlobDaoTest.SINGLE_FILE_RESULT_RESULT)))
@@ -99,7 +107,6 @@ public class BlobControllerIntTest extends BaseSpringTest{
 			BlobDaoTest.assertSingleFileResult(stream);
 	}
 
-	@Test
 	public void threeFileResultTest() throws Exception {
 		MvcResult rtn = mockMvc.perform(get(buildResultUrl(BlobDaoTest.THREE_FILE_RESULT_ORG, BlobDaoTest.THREE_FILE_RESULT_ACTIVITY,
 				BlobDaoTest.THREE_FILE_RESULT_RESULT)))
@@ -109,6 +116,27 @@ public class BlobControllerIntTest extends BaseSpringTest{
 
 			ZipInputStream stream = getStream(rtn);
 			BlobDaoTest.assertThreeFileResult(stream);
+	}
+
+
+	public void singleFileActivityTest() throws Exception {
+		MvcResult rtn = mockMvc.perform(get(buildActivityUrl(BlobDaoTest.SINGLE_FILE_ACTIVITY_ORG, BlobDaoTest.SINGLE_FILE_ACTIVITY_ACTIVITY)))
+				.andExpect(status().isOk())
+				.andExpect(header().string(HttpConstants.HEADER_CONTENT_DISPOSITION,"attachment; filename=" + BlobController.ACTIVITY_FILE))
+				.andReturn();
+
+			ZipInputStream stream = getStream(rtn);
+			BlobDaoTest.assertSingleFileActivity(stream);
+	}
+
+	public void threeFileActivityTest() throws Exception {
+		MvcResult rtn = mockMvc.perform(get(buildActivityUrl(BlobDaoTest.THREE_FILE_ACTIVITY_ORG, BlobDaoTest.THREE_FILE_ACTIVITY_ACTIVITY)))
+				.andExpect(status().isOk())
+				.andExpect(header().string(HttpConstants.HEADER_CONTENT_DISPOSITION,"attachment; filename=" + BlobController.ACTIVITY_FILE))
+				.andReturn();
+
+			ZipInputStream stream = getStream(rtn);
+			BlobDaoTest.assertThreeFileActivity(stream);
 	}
 
 	protected String buildBaseUrl(String template, String organization) {

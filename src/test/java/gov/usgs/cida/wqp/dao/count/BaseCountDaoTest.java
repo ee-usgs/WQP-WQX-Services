@@ -32,17 +32,16 @@ public abstract class BaseCountDaoTest extends BaseSpringTest {
 
 	FilterParameters filter;
 
-	@Before
 	public void init() {
 		filter = new FilterParameters();
 	}
 
-	@After
 	public void cleanup() {
 		filter = null;
 	}
 
 	protected List<Map<String, Object>> nullParameterTest(NameSpace nameSpace, boolean includeActivity, boolean includeResults) {
+		init();
 		List<Map<String, Object>> counts = countDao.getCounts(nameSpace, null);
 		if (includeActivity || includeResults) {
 			//Adjust site count for sites with no activities
@@ -56,10 +55,12 @@ public abstract class BaseCountDaoTest extends BaseSpringTest {
 		if (includeResults) {
 			assertResultResults(counts, 5, TOTAL_RESULT_COUNT, NWIS_RESULT_COUNT, STEWARDS_RESULT_COUNT, STORET_RESULT_COUNT, BIODATA_RESULT_COUNT);
 		}
+		cleanup();
 		return counts;
 	}
 
 	protected List<Map<String, Object>> emptyParameterTest(NameSpace nameSpace, boolean includeActivity, boolean includeResults) {
+		init();
 		List<Map<String, Object>> counts = countDao.getCounts(nameSpace, filter);
 		if (includeActivity || includeResults) {
 			//Adjust site count for sites with no activities
@@ -73,6 +74,7 @@ public abstract class BaseCountDaoTest extends BaseSpringTest {
 		if (includeResults) {
 			assertResultResults(counts, 5, TOTAL_RESULT_COUNT, NWIS_RESULT_COUNT, STEWARDS_RESULT_COUNT, STORET_RESULT_COUNT, BIODATA_RESULT_COUNT);
 		}
+		cleanup();
 		return counts;
 	}
 
@@ -80,6 +82,7 @@ public abstract class BaseCountDaoTest extends BaseSpringTest {
 	//Single Parameter Counts against station_sum
 
 	protected List<Map<String, Object>> avoidTest(NameSpace nameSpace, boolean includeActivity, boolean includeResults) {
+		init();
 		filter.setCommand(getCommand());
 		List<Map<String, Object>> counts = countDao.getCounts(nameSpace, filter);
 		if (includeActivity || includeResults) {
@@ -94,10 +97,12 @@ public abstract class BaseCountDaoTest extends BaseSpringTest {
 		if (includeResults) {
 			assertResultResults(counts, 2, STORET_RESULT_COUNT, null, null, STORET_RESULT_COUNT, null);
 		}
+		cleanup();
 		return counts;
 	}
 
 	protected List<Map<String, Object>> bboxTest(NameSpace nameSpace, boolean includeActivity, boolean includeResults) {
+		init();
 		filter.setBBox(getBBox());
 		List<Map<String, Object>> counts = countDao.getCounts(nameSpace, filter);
 		if (includeActivity || includeResults) {
@@ -112,10 +117,12 @@ public abstract class BaseCountDaoTest extends BaseSpringTest {
 		if (includeResults) {
 			assertResultResults(counts, 4, "31", "5", "3", "23", null);
 		}
+		cleanup();
 		return counts;
 	}
 
 	protected List<Map<String, Object>> countryTest(NameSpace nameSpace, boolean includeActivity, boolean includeResults) {
+		init();
 		filter.setCountrycode(getCountry());
 		List<Map<String, Object>> counts = countDao.getCounts(nameSpace, filter);
 		if (includeActivity || includeResults) {
@@ -130,10 +137,12 @@ public abstract class BaseCountDaoTest extends BaseSpringTest {
 		if (includeResults) {
 			assertResultResults(counts, 5, "33", "5", "3", "24", "1");
 		}
+		cleanup();
 		return counts;
 	}
 
 	protected List<Map<String, Object>> countyTest(NameSpace nameSpace, boolean includeActivity, boolean includeResults) {
+		init();
 		filter.setCountycode(getCounty());
 		List<Map<String, Object>> counts = countDao.getCounts(nameSpace, filter);
 		if (includeActivity || includeResults) {
@@ -148,10 +157,12 @@ public abstract class BaseCountDaoTest extends BaseSpringTest {
 		if (includeResults) {
 			assertResultResults(counts, 4, "32", "5", "3", "24", null);
 		}
+		cleanup();
 		return counts;
 	}
 
 	protected List<Map<String, Object>> huc2Test(NameSpace nameSpace, boolean includeActivity, boolean includeResults) {
+		init();
 		filter.setHuc(getHuc2());
 		List<Map<String, Object>> counts = countDao.getCounts(nameSpace, filter);
 		if (includeActivity || includeResults) {
@@ -166,11 +177,13 @@ public abstract class BaseCountDaoTest extends BaseSpringTest {
 		if (includeResults) {
 			assertResultResults(counts, 4, "23", "5", "3", "15", null);
 		}
+		cleanup();
 		return counts;
 	}
 
 
 	protected List<Map<String, Object>> huc3Test(NameSpace nameSpace, boolean includeActivity, boolean includeResults) {
+		init();
 		filter.setHuc(getHuc3());
 		List<Map<String, Object>> counts = countDao.getCounts(nameSpace, filter);
 		if (includeActivity || includeResults) {
@@ -185,10 +198,12 @@ public abstract class BaseCountDaoTest extends BaseSpringTest {
 		if (includeResults) {
 			assertResultResults(counts, 4, "23", "5", "3", "15", null);
 		}
+		cleanup();
 		return counts;
 	}
 
 	protected List<Map<String, Object>> huc4Test(NameSpace nameSpace, boolean includeActivity, boolean includeResults) {
+		init();
 		filter.setHuc(getHuc4());
 		List<Map<String, Object>> counts = countDao.getCounts(nameSpace, filter);
 		if (includeActivity || includeResults) {
@@ -203,10 +218,12 @@ public abstract class BaseCountDaoTest extends BaseSpringTest {
 		if (includeResults) {
 			assertResultResults(counts, 3, "16", "5", null, "11", null);
 		}
+		cleanup();
 		return counts;
 	}
 
 	protected List<Map<String, Object>> huc5Test(NameSpace nameSpace, boolean includeActivity, boolean includeResults) {
+		init();
 		filter.setHuc(getHuc5());
 		List<Map<String, Object>> counts = countDao.getCounts(nameSpace, filter);
 		if (includeActivity || includeResults) {
@@ -221,10 +238,12 @@ public abstract class BaseCountDaoTest extends BaseSpringTest {
 		if (includeResults) {
 			assertResultResults(counts, 3, "16", "5", null, "11", null);
 		}
+		cleanup();
 		return counts;
 	}
 
 	protected List<Map<String, Object>> huc6Test(NameSpace nameSpace, boolean includeActivity, boolean includeResults) {
+		init();
 		filter.setHuc(getHuc6());
 		List<Map<String, Object>> counts = countDao.getCounts(nameSpace, filter);
 		if (includeActivity || includeResults) {
@@ -239,10 +258,12 @@ public abstract class BaseCountDaoTest extends BaseSpringTest {
 		if (includeResults) {
 			assertResultResults(counts, 3, "15", "4", null, "11", null);
 		}
+		cleanup();
 		return counts;
 	}
 
 	protected List<Map<String, Object>> huc7Test(NameSpace nameSpace, boolean includeActivity, boolean includeResults) {
+		init();
 		filter.setHuc(getHuc7());
 		List<Map<String, Object>> counts = countDao.getCounts(nameSpace, filter);
 		if (includeActivity || includeResults) {
@@ -257,10 +278,12 @@ public abstract class BaseCountDaoTest extends BaseSpringTest {
 		if (includeResults) {
 			assertResultResults(counts, 3, "15", "4", null, "11", null);
 		}
+		cleanup();
 		return counts;
 	}
 
 	protected List<Map<String, Object>> huc8Test(NameSpace nameSpace, boolean includeActivity, boolean includeResults) {
+		init();
 		filter.setHuc(getHuc8());
 		List<Map<String, Object>> counts = countDao.getCounts(nameSpace, filter);
 		if (includeActivity || includeResults) {
@@ -275,10 +298,12 @@ public abstract class BaseCountDaoTest extends BaseSpringTest {
 		if (includeResults) {
 			assertResultResults(counts, 2, "11", null, null, "11", null);
 		}
+		cleanup();
 		return counts;
 	}
 
 	protected List<Map<String, Object>> huc10Test(NameSpace nameSpace, boolean includeActivity, boolean includeResults) {
+		init();
 		filter.setHuc(getHuc10());
 		List<Map<String, Object>> counts = countDao.getCounts(nameSpace, filter);
 		if (includeActivity || includeResults) {
@@ -293,10 +318,12 @@ public abstract class BaseCountDaoTest extends BaseSpringTest {
 		if (includeResults) {
 			assertResultResults(counts, 2, "11", null, null, "11", null);
 		}
+		cleanup();
 		return counts;
 	}
 
 	protected List<Map<String, Object>> huc12Test(NameSpace nameSpace, boolean includeActivity, boolean includeResults) {
+		init();
 		filter.setHuc(getHuc12());
 		List<Map<String, Object>> counts = countDao.getCounts(nameSpace, filter);
 		if (includeActivity || includeResults) {
@@ -311,10 +338,12 @@ public abstract class BaseCountDaoTest extends BaseSpringTest {
 		if (includeResults) {
 			assertResultResults(counts, 2, "11", null, null, "11", null);
 		}
+		cleanup();
 		return counts;
 	}
 
 	protected List<Map<String, Object>> minActivitiesTest(NameSpace nameSpace, boolean includeActivity, boolean includeResults) {
+		init();
 		filter.setMinactivities(getMinActivities());
 		List<Map<String, Object>> counts = countDao.getCounts(nameSpace, filter);
 		assertStationResults(counts, 4, "7", "1", "1", "5", null);
@@ -324,10 +353,12 @@ public abstract class BaseCountDaoTest extends BaseSpringTest {
 		if (includeResults) {
 			assertResultResults(counts, 4, "55", "4", "2", "49", null);
 		}
+		cleanup();
 		return counts;
 	}
 
 	protected List<Map<String, Object>> minResultsTest(NameSpace nameSpace, boolean includeActivity, boolean includeResults) {
+		init();
 		filter.setMinresults(getMinResults());
 		List<Map<String, Object>> counts = countDao.getCounts(nameSpace, filter);
 		assertStationResults(counts, 3, "6", "1", null, "5", null);
@@ -337,10 +368,12 @@ public abstract class BaseCountDaoTest extends BaseSpringTest {
 		if (includeResults) {
 			assertResultResults(counts, 3, "53", "4", null, "49", null);
 		}
+		cleanup();
 		return counts;
 	}
 
 	protected List<Map<String, Object>> nldiUrlTest(NameSpace nameSpace, boolean includeActivity, boolean includeResults) {
+		init();
 		try {
 			filter.setNldiSites(getManySiteId());
 			filter.setSiteid(getManySiteId());
@@ -355,10 +388,12 @@ public abstract class BaseCountDaoTest extends BaseSpringTest {
 		if (includeResults) {
 			assertResultResults(counts, 2, "19", null, null, "19", null);
 		}
+		cleanup();
 		return counts;
 	}
 
 	protected List<Map<String, Object>> organizationTest(NameSpace nameSpace, boolean includeActivity, boolean includeResults) {
+		init();
 		filter.setOrganization(getOrganization());
 		List<Map<String, Object>> counts = countDao.getCounts(nameSpace, filter);
 		if (includeActivity || includeResults) {
@@ -373,10 +408,12 @@ public abstract class BaseCountDaoTest extends BaseSpringTest {
 		if (includeResults) {
 			assertResultResults(counts, 4, "32", "5", "3", "24", null);
 		}
+		cleanup();
 		return counts;
 	}
 
 	protected List<Map<String, Object>> providersTest(NameSpace nameSpace, boolean includeActivity, boolean includeResults) {
+		init();
 		filter.setProviders(getProviders());
 		List<Map<String, Object>> counts = countDao.getCounts(nameSpace, filter);
 		if (includeActivity || includeResults) {
@@ -391,10 +428,12 @@ public abstract class BaseCountDaoTest extends BaseSpringTest {
 		if (includeResults) {
 			assertResultResults(counts, 4, "58", "5", "3", "50", null);
 		}
+		cleanup();
 		return counts;
 	}
 
 	protected List<Map<String, Object>> siteIdTest(NameSpace nameSpace, boolean includeActivity, boolean includeResults) {
+		init();
 		filter.setSiteid(getSiteid());
 		List<Map<String, Object>> counts = countDao.getCounts(nameSpace, filter);
 		if (includeActivity || includeResults) {
@@ -409,10 +448,12 @@ public abstract class BaseCountDaoTest extends BaseSpringTest {
 		if (includeResults) {
 			assertResultResults(counts, 4, "21", "5", "3", "13", null);
 		}
+		cleanup();
 		return counts;
 	}
 
 	protected List<Map<String, Object>> manySitesTest(NameSpace nameSpace, boolean includeActivity, boolean includeResults) {
+		init();
 		try {
 			filter.setSiteid(getManySiteId());
 		} catch (Exception e) {
@@ -426,10 +467,12 @@ public abstract class BaseCountDaoTest extends BaseSpringTest {
 		if (includeResults) {
 			assertResultResults(counts, 2, "19", null, null, "19", null);
 		}
+		cleanup();
 		return counts;
 	}
 
 	protected List<Map<String, Object>> siteTypeTest(NameSpace nameSpace, boolean includeActivity, boolean includeResults) {
+		init();
 		filter.setSiteType(getSiteType());
 		List<Map<String, Object>> counts = countDao.getCounts(nameSpace, filter);
 		if (includeActivity || includeResults) {
@@ -444,10 +487,12 @@ public abstract class BaseCountDaoTest extends BaseSpringTest {
 		if (includeResults) {
 			assertResultResults(counts, 5, "58", "4", "3", "50", "1");
 		}
+		cleanup();
 		return counts;
 	}
 
 	protected List<Map<String, Object>> stateTest(NameSpace nameSpace, boolean includeActivity, boolean includeResults) {
+		init();
 		filter.setStatecode(getState());
 		List<Map<String, Object>> counts = countDao.getCounts(nameSpace, filter);
 		if (includeActivity || includeResults) {
@@ -462,10 +507,12 @@ public abstract class BaseCountDaoTest extends BaseSpringTest {
 		if (includeResults) {
 			assertResultResults(counts, 4, "32", "5", "3", "24", null);
 		}
+		cleanup();
 		return counts;
 	}
 
 	protected List<Map<String, Object>> withinTest(NameSpace nameSpace, boolean includeActivity, boolean includeResults) {
+		init();
 		filter.setWithin(getWithin());
 		filter.setLat(getLatitude());
 		filter.setLong(getLongitude());
@@ -482,6 +529,7 @@ public abstract class BaseCountDaoTest extends BaseSpringTest {
 		if (includeResults) {
 			assertResultResults(counts, 4, "54", "5", "3", "46", null);
 		}
+		cleanup();
 		return counts;
 	}
 
@@ -489,6 +537,7 @@ public abstract class BaseCountDaoTest extends BaseSpringTest {
 	//Single Parameter Counts against activity_sum
 
 	protected List<Map<String, Object>> projectTest(NameSpace nameSpace, boolean includeActivity, boolean includeResults) {
+		init();
 		filter.setProject(getProject());
 		List<Map<String, Object>> counts = countDao.getCounts(nameSpace, filter);
 		assertStationResults(counts, 5, "9", "2", "2", "4", "1");
@@ -498,10 +547,12 @@ public abstract class BaseCountDaoTest extends BaseSpringTest {
 		if (includeResults) {
 			assertResultResults(counts, 5, "19", "4", "2", "12", "1");
 		}
+		cleanup();
 		return counts;
 	}
 
 	protected List<Map<String, Object>> sampleMediaTest(NameSpace nameSpace, boolean includeActivity, boolean includeResults) {
+		init();
 		filter.setSampleMedia(getSampleMedia());
 		List<Map<String, Object>> counts = countDao.getCounts(nameSpace, filter);
 		assertStationResults(counts, 5, "11", "2", "2", "6", "1");
@@ -511,10 +562,12 @@ public abstract class BaseCountDaoTest extends BaseSpringTest {
 		if (includeResults) {
 			assertResultResults(counts, 5, "57", "4", "2", "50", "1");
 		}
+		cleanup();
 		return counts;
 	}
 
 	protected List<Map<String, Object>> startDateHiTest(NameSpace nameSpace, boolean includeActivity, boolean includeResults) {
+		init();
 		filter.setStartDateHi(getStartDateHi());
 		List<Map<String, Object>> counts = countDao.getCounts(nameSpace, filter);
 		assertStationResults(counts, 5, "11", "2", "2", "6", "1");
@@ -524,10 +577,12 @@ public abstract class BaseCountDaoTest extends BaseSpringTest {
 		if (includeResults) {
 			assertResultResults(counts, 5, "57", "4", "2", "50", "1");
 		}
+		cleanup();
 		return counts;
 	}
 
 	protected List<Map<String, Object>> startDateLoTest(NameSpace nameSpace, boolean includeActivity, boolean includeResults) {
+		init();
 		filter.setStartDateLo(getStartDateLo());
 		List<Map<String, Object>> counts = countDao.getCounts(nameSpace, filter);
 		assertStationResults(counts, 5, "9", "2", "2", "4", "1");
@@ -537,6 +592,7 @@ public abstract class BaseCountDaoTest extends BaseSpringTest {
 		if (includeResults) {
 			assertResultResults(counts, 5, "22", "5", "3", "13", "1");
 		}
+		cleanup();
 		return counts;
 	}
 
@@ -544,6 +600,7 @@ public abstract class BaseCountDaoTest extends BaseSpringTest {
 	//Single Parameter Counts against result_sum
 
 	protected List<Map<String, Object>> analyticalMethodTest(NameSpace nameSpace, boolean includeActivity, boolean includeResults) {
+		init();
 		filter.setAnalyticalmethod(getAnalyticalMethod());
 		List<Map<String, Object>> counts = countDao.getCounts(nameSpace, filter);
 		assertStationResults(counts, 3, "5", "1", null, "4", null);
@@ -553,10 +610,12 @@ public abstract class BaseCountDaoTest extends BaseSpringTest {
 		if (includeResults) {
 			assertResultResults(counts, 3, "17", "4", null, "13", null);
 		}
+		cleanup();
 		return counts;
 	}
 
 	protected List<Map<String, Object>> assemblageTest(NameSpace nameSpace, boolean includeActivity, boolean includeResults) {
+		init();
 		filter.setAssemblage(getAssemblage());
 		List<Map<String, Object>> counts = countDao.getCounts(nameSpace, filter);
 		assertStationResults(counts, 3, "5", null, null, "4", "1");
@@ -566,10 +625,12 @@ public abstract class BaseCountDaoTest extends BaseSpringTest {
 		if (includeResults) {
 			assertResultResults(counts, 3, "14", null, null, "13", "1");
 		}
+		cleanup();
 		return counts;
 	}
 
 	protected List<Map<String, Object>> characteristicNameTest(NameSpace nameSpace, boolean includeActivity, boolean includeResults) {
+		init();
 		filter.setCharacteristicName(getCharacteristicName());
 		List<Map<String, Object>> counts = countDao.getCounts(nameSpace, filter);
 		assertStationResults(counts, 2, "4", null, null, "4", null);
@@ -579,10 +640,12 @@ public abstract class BaseCountDaoTest extends BaseSpringTest {
 		if (includeResults) {
 			assertResultResults(counts, 2, "13", null, null, "13", null);
 		}
+		cleanup();
 		return counts;
 	}
 
 	protected List<Map<String, Object>> characteristicTypeTest(NameSpace nameSpace, boolean includeActivity, boolean includeResults) {
+		init();
 		filter.setCharacteristicType(getCharacteristicType());
 		List<Map<String, Object>> counts = countDao.getCounts(nameSpace, filter);
 		assertStationResults(counts, 3, "5", null, "1", "4", null);
@@ -592,10 +655,12 @@ public abstract class BaseCountDaoTest extends BaseSpringTest {
 		if (includeResults) {
 			assertResultResults(counts, 3, "15", null, "2", "13", null);
 		}
+		cleanup();
 		return counts;
 	}
 
 	protected List<Map<String, Object>> pcodeTest(NameSpace nameSpace, boolean includeActivity, boolean includeResults) {
+		init();
 		filter.setPCode(getPcode());
 		List<Map<String, Object>> counts = countDao.getCounts(nameSpace, filter);
 		assertStationResults(counts, 3, "4", "1", null, "3", null);
@@ -605,10 +670,12 @@ public abstract class BaseCountDaoTest extends BaseSpringTest {
 		if (includeResults) {
 			assertResultResults(counts, 3, "13", "1", null, "12", null);
 		}
+		cleanup();
 		return counts;
 	}
 
 	protected List<Map<String, Object>> subjectTaxonomicNameTest(NameSpace nameSpace, boolean includeActivity, boolean includeResults) {
+		init();
 		filter.setSubjectTaxonomicName(getSubjectTaxonomicName());
 		List<Map<String, Object>> counts = countDao.getCounts(nameSpace, filter);
 		assertStationResults(counts, 3, "5", null, null, "4", "1");
@@ -618,12 +685,14 @@ public abstract class BaseCountDaoTest extends BaseSpringTest {
 		if (includeResults) {
 			assertResultResults(counts, 3, "13", null, null, "12", "1");
 		}
+		cleanup();
 		return counts;
 	}
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	protected List<Map<String, Object>> multipleParameterStationSumTest(NameSpace nameSpace, boolean includeActivity, boolean includeResults) {
+		init();
 		filter.setCommand(getCommand());
 		filter.setBBox(getBBox());
 		filter.setCountrycode(getCountry());
@@ -648,10 +717,12 @@ public abstract class BaseCountDaoTest extends BaseSpringTest {
 		if (includeResults) {
 			assertResultResults(counts, 2, "4", null, null, "4", null);
 		}
+		cleanup();
 		return counts;
 	}
 
 	protected List<Map<String, Object>> multipleParameterActivitySumTest(NameSpace nameSpace, boolean includeActivity, boolean includeResults) {
+		init();
 		filter.setCommand(getCommand());
 		filter.setMinactivities(getMinActivities());
 		filter.setMinresults(getMinResults());
@@ -667,10 +738,12 @@ public abstract class BaseCountDaoTest extends BaseSpringTest {
 		if (includeResults) {
 			assertResultResults(counts, 2, "11", null, null, "11", null);
 		}
+		cleanup();
 		return counts;
 	}
 
 	protected List<Map<String, Object>> multipleParameterActivitySumStationSumTest(NameSpace nameSpace, boolean includeActivity, boolean includeResults) {
+		init();
 		filter.setCommand(getCommand());
 		filter.setBBox(getBBox());
 		filter.setLat(getLatitude());
@@ -690,10 +763,12 @@ public abstract class BaseCountDaoTest extends BaseSpringTest {
 		if (includeResults) {
 			assertResultResults(counts, 2, "8", null, null, "8", null);
 		}
+		cleanup();
 		return counts;
 	}
 
 	protected List<Map<String, Object>> multipleParameterResultSumTest(NameSpace nameSpace, boolean includeActivity, boolean includeResults) {
+		init();
 		filter.setAnalyticalmethod(getAnalyticalMethod());
 		filter.setCommand(getCommand());
 		filter.setAssemblage(getAssemblage());
@@ -724,10 +799,12 @@ public abstract class BaseCountDaoTest extends BaseSpringTest {
 		if (includeResults) {
 			assertResultResults(counts, 2, "7", null, null, "7", null);
 		}
+		cleanup();
 		return counts;
 	}
 
 	protected List<Map<String, Object>> multipleParameterResultSumStationSumTests(NameSpace nameSpace, boolean includeActivity, boolean includeResults) {
+		init();
 		filter.setAnalyticalmethod(getAnalyticalMethod());
 		filter.setCommand(getCommand());
 		filter.setAssemblage(getAssemblage());
@@ -762,6 +839,7 @@ public abstract class BaseCountDaoTest extends BaseSpringTest {
 		if (includeResults) {
 			assertResultResults(counts, 2, FILTERED_TOTAL_RESULT_COUNT, null, null, FILTERED_STORET_RESULT_COUNT, null);
 		}
+		cleanup();
 		return counts;
 	}
 

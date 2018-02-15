@@ -21,115 +21,157 @@ public class StationStreamingTest extends BaseStationStreamingTest {
 	protected NameSpace nameSpace = NameSpace.STATION;
 	protected Map<String, Object> expectedMap = TestStationMap.STATION;
 
+	@Test
+	public void testHarness() {
+		nullParameterTest();
+		emptyParameterTest();
+		allDataSortedTest();
+		analyticalMethodTest();
+		assemblageTest();
+		avoidTest();
+		bboxTest();
+		characteristicNameTest();
+		characteristicTypeTest();
+		countryTest();
+		countyTest();
+		huc2Test();
+		huc3Test();
+		huc4Test();
+		huc5Test();
+		huc6Test();
+		huc7Test();
+		huc8Test();
+		huc10Test();
+		huc12Test();
+		mimeTypeTest();
+		minActivitiesTest();
+		minResultsTest();
+		nldiUrlTest();
+		organizationTest();
+		pcodeTest();
+		projectTest();
+		providersTest();
+		sampleMediaTest();
+		siteIdTest();
+		manySitesTest();
+		siteTypeTest();
+		startDateHiTest();
+		startDateLoTest();
+		stateTest();
+		subjectTaxonomicNameTest();
+		withinTest();
+		multipleParameterStationSumTest();
+		multipleParameterActivitySumTest();
+		multipleParameterResultSumTest();
+	}
+
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//Station + Station_Sum 
 
-	@Test
 	public void nullParameterTest() {
 		nullParameterTest(nameSpace);
 	}
 
-	@Test
 	public void emptyParameterTest() {
 		emptyParameterTest(nameSpace);
 	}
 
-	@Test
 	public void mimeTypeTest() {
 		mimeTypeTest(nameSpace);
 	}
 
-	@Test
 	public void allDataSortedTest() {
 		allDataSortedTest(nameSpace, expectedMap);
 	}
 
-	@Test
 	public void avoidTest() {
 		avoidTest(nameSpace);
 	}
 
-	@Test
 	public void bboxTest() {
 		bboxTest(nameSpace);
 	}
 
-	@Test
 	public void countryTest() {
 		countryTest(nameSpace);
 	}
 
-	@Test
 	public void countyTest() {
 		countyTest(nameSpace);
 	}
 
-	@Test
 	public void huc2Test() {
 		huc2Test(nameSpace);
 	}
 
-	@Test
+	public void huc3Test() {
+		huc3Test(nameSpace);
+	}
+
 	public void huc4Test() {
 		huc4Test(nameSpace);
 	}
 
-	@Test
+	public void huc5Test() {
+		huc5Test(nameSpace);
+	}
+
 	public void huc6Test() {
 		huc6Test(nameSpace);
 	}
 
-	@Test
+	public void huc7Test() {
+		huc7Test(nameSpace);
+	}
+
 	public void huc8Test() {
 		huc8Test(nameSpace);
 	}
 
-	@Test
+	public void huc10Test() {
+		huc10Test(nameSpace);
+	}
+
+	public void huc12Test() {
+		huc12Test(nameSpace);
+	}
+
 	public void nldiUrlTest() {
 		nldiUrlTest(nameSpace);
 	}
 
-	@Test
 	public void organizationTest() {
 		organizationTest(nameSpace);
 	}
 
-	@Test
 	public void providersTest() {
 		providersTest(nameSpace);
 	}
 
-	@Test
 	public void siteIdTest() {
 		siteIdTest(nameSpace);
 	}
 
-	@Test
 	public void manySitesTest() {
 		manySitesTest(nameSpace);
 	}
 
-	@Test
 	public void minActivitiesTest() {
 		minActivitiesTest(nameSpace);
 	}
 
-	@Test
 	public void minResultsTest() {
 		minResultsTest(nameSpace);
 	}
 
-	@Test
 	public void siteTypeTest() {
 		siteTypeTest(nameSpace);
 	}
 
-	@Test
 	public void stateTest() {
 		stateTest(nameSpace);
 	}
 
-	@Test
 	public void withinTest() {
 		withinTest(nameSpace);
 	}
@@ -137,22 +179,18 @@ public class StationStreamingTest extends BaseStationStreamingTest {
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//Station + Activity_Sum 
 
-	@Test
 	public void projectTest() {
 		projectTest(nameSpace);
 	}
 
-	@Test
 	public void sampleMediaTest() {
 		sampleMediaTest(nameSpace);
 	}
 
-	@Test
 	public void startDateHiTest() {
 		startDateHiTest(nameSpace);
 	}
 
-	@Test
 	public void startDateLoTest() {
 		startDateLoTest(nameSpace);
 	}
@@ -160,47 +198,38 @@ public class StationStreamingTest extends BaseStationStreamingTest {
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//Station + Result_Sum
 
-	@Test
 	public void analyticalMethodTest() {
 		analyticalMethodTest(nameSpace);
 	}
 
-	@Test
 	public void assemblageTest() {
 		assemblageTest(nameSpace);
 	}
 
-	@Test
 	public void characteristicNameTest() {
 		characteristicNameTest(nameSpace);
 	}
 
-	@Test
 	public void characteristicTypeTest() {
 		characteristicTypeTest(nameSpace);
 	}
 
-	@Test
 	public void pcodeTest() {
 		pcodeTest(nameSpace);
 	}
 
-	@Test
 	public void subjectTaxonomicNameTest() {
 		subjectTaxonomicNameTest(nameSpace);
 	}
 
-	@Test
-	public void multipleParameterStationSumTests() {
-		multipleParameterStationSumTests(nameSpace);
+	public void multipleParameterStationSumTest() {
+		multipleParameterStationSumTest(nameSpace);
 	}
 
-	@Test
-	public void multipleParameterActivitySumTests() {
-		multipleParameterActivitySumTests(nameSpace);
+	public void multipleParameterActivitySumTest() {
+		multipleParameterActivitySumTest(nameSpace);
 	}
 
-	@Test
 	public void multipleParameterResultSumTest() {
 		multipleParameterResultSumTest(nameSpace);
 	}

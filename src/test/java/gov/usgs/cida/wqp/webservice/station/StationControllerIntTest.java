@@ -34,6 +34,24 @@ public class StationControllerIntTest extends BaseControllerIntegrationTest {
 	protected static final String ENDPOINT = HttpConstants.STATION_SEARCH_ENPOINT + "?mimeType=";
 
 	@Test
+	public void testHarness() throws Exception {
+		getAsCsvTest();
+		getAsCsvZipTest();
+		getAsTsvTest();
+		getAsTsvZipTest();
+		getAsXlsxTest();
+		getAsXlsxZipTest();
+		getAsXmlTest();
+		getAsXmlZipTest();
+		getAsKmlTest();
+		getAsKmlZipTest();
+		getAsKmzTest();
+		getAsGeoJsonTest();
+		getAsGeoJsonZipTest();
+		getAllParametersTest();
+		postGetCountTest();
+	}
+
 	public void getAsCsvTest() throws Exception {
 		getAsDelimitedTest(ENDPOINT + CSV, HttpConstants.MIME_TYPE_CSV, CSV, PROFILE, POSTABLE);
 	}

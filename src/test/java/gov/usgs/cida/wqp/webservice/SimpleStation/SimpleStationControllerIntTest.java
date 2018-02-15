@@ -44,6 +44,14 @@ public class SimpleStationControllerIntTest extends BaseControllerIntegrationTes
 	protected static final String ENDPOINT = HttpConstants.SIMPLE_STATION_ENDPOINT + "?mimeType=";
 
 	@Test
+	public void testHarness() throws Exception {
+		getAsXmlTest();
+		getAsXmlZipTest();
+		getAsGeoJsonTest();
+		getAsGeoJsonZipTest();
+		getAllParametersTest();
+	}
+
 	public void getAsXmlTest() throws Exception {
 		String url = ENDPOINT + XML;
 		String mimeType = HttpConstants.MIME_TYPE_XML;

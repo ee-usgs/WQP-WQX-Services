@@ -29,42 +29,46 @@ public class ProjectMLWeightingControllerIntTest extends BaseControllerIntegrati
 	protected static final String ENDPOINT = HttpConstants.PROJECT_MONITORING_LOCATION_WEIGHTING_SEARCH_ENDPOINT + "?mimeType=";
 	
 	@Test
+	public void testHarness() throws Exception {
+		getAsCsvTest();
+		getAsCsvZipTest();
+		getAsTsvTest();
+		getAsTsvZipTest();
+		getAsXlsxTest();
+		getAsXlsxZipTest();
+		getAsXmlTest();
+		getAsXmlZipTest();
+	}
+
 	public void getAsCsvTest() throws Exception {
 		getAsDelimitedTest(ENDPOINT + CSV, HttpConstants.MIME_TYPE_CSV, CSV, PROFILE, POSTABLE);
 	}
 	
-	@Test
 	public void getAsCsvZipTest() throws Exception {
 		getAsDelimitedZipTest(ENDPOINT + CSV_AND_ZIP, HttpConstants.MIME_TYPE_ZIP, CSV, PROFILE, POSTABLE);
 	}
 	
-	@Test
 	public void getAsTsvTest() throws Exception {
 		getAsDelimitedTest(ENDPOINT + TSV, HttpConstants.MIME_TYPE_TSV, TSV, PROFILE, POSTABLE);
 	}
 
-	@Test
 	public void getAsTsvZipTest() throws Exception {
 		getAsDelimitedZipTest(ENDPOINT + TSV_AND_ZIP, HttpConstants.MIME_TYPE_ZIP, TSV, PROFILE, POSTABLE);
 	}
 	
-	@Test
 	public void getAsXlsxTest() throws Exception {
 		getAsXlsxTest(ENDPOINT + XLSX, HttpConstants.MIME_TYPE_XLSX, XLSX, PROFILE, POSTABLE);
 	}
 
-	@Test
 	public void getAsXlsxZipTest() throws Exception {
 		getAsXlsxZipTest(ENDPOINT + XLSX_AND_ZIP, HttpConstants.MIME_TYPE_ZIP, XLSX, PROFILE, POSTABLE);
 	}
 	
-	@Test
 	public void getAsXmlTest() throws Exception {
 		getAsXmlTest(ENDPOINT + XML, HttpConstants.MIME_TYPE_XML, XML, PROFILE, POSTABLE);
 	}
 
-	@Test
-	public void getAsXmlZipGetTest() throws Exception {
+	public void getAsXmlZipTest() throws Exception {
 		getAsXmlZipTest(ENDPOINT + XML_AND_ZIP, HttpConstants.MIME_TYPE_ZIP, XML, PROFILE, POSTABLE);
 	}
 	

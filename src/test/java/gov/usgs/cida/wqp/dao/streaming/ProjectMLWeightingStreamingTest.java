@@ -70,18 +70,55 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 	}
 
 	@Test
+	public void testHarness() {
+		nullParameterTest();
+		emptyParameterTest();
+		allDataSortedTest();
+		analyticalMethodTest();
+		assemblageTest();
+		bboxTest();
+		characteristicNameTest();
+		characteristicTypeTest();
+		countryTest();
+		countyTest();
+		huc2Test();
+		huc3Test();
+		huc4Test();
+		huc5Test();
+		huc6Test();
+		huc7Test();
+		huc8Test();
+		huc10Test();
+		huc12Test();
+		nldiUrlTest();
+		organizationTest();
+		pcodeTest();
+		projectTest();
+		providersTest();
+		sampleMediaTest();
+		siteIdTest();
+		manySitesTest();
+		siteTypeTest();
+		startDateHiTest();
+		startDateLoTest();
+		stateTest();
+		subjectTaxonomicNameTest();
+		withinTest();
+		multipleParameterStationSumTest();
+		multipleParameterActivitySumTest();
+		multipleParameterResultSumTest();
+	}
+
 	public void nullParameterTest() {
 		streamingDao.stream(nameSpace, null, handler);
 		assertEquals(TOTAL_PRJ_ML_WEIGHTING_COUNT, String.valueOf(handler.getResults().size()));
 	}
 
-	@Test
 	public void emptyParameterTest() {
 		streamingDao.stream(nameSpace, filter, handler);
 		assertEquals(TOTAL_PRJ_ML_WEIGHTING_COUNT, String.valueOf(handler.getResults().size()));
 	}
 
-	@Test
 	public void allDataSortedTest() {
 		filter.setSorted("yes");
 		streamingDao.stream(nameSpace, filter, handler);
@@ -99,7 +136,6 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 		assertProjectMLWeighting(results.get(6), BIODATA_PRJMLW);
 	}
 
-	@Test
 	public void bboxTest() {
 		filter.setBBox(getBBox());
 		streamingDao.stream(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, filter, handler);
@@ -109,7 +145,6 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2);
 	}
 
-	@Test
 	public void countryTest() {
 		filter.setCountrycode(getCountry());
 		streamingDao.stream(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, filter, handler);
@@ -119,7 +154,6 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 		assertContainsProjectMLWeightings(results, STORET_PRJMLW1,  STORET_PRJMLW2, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2, BIODATA_PRJMLW);
 	}
 
-	@Test
 	public void countyTest() {
 		filter.setCountycode(getCounty());
 		streamingDao.stream(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, filter, handler);
@@ -129,7 +163,6 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2);
 	}
 
-	@Test
 	public void huc2Test() {
 		filter.setHuc(getHuc2());
 		streamingDao.stream(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, filter, handler);
@@ -139,7 +172,6 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2);
 	}
 
-	@Test
 	public void huc3Test() {
 		filter.setHuc(getHuc3());
 		streamingDao.stream(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, filter, handler);
@@ -149,7 +181,6 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2);
 	}
 
-	@Test
 	public void huc4Test() {
 		filter.setHuc(getHuc4());
 		streamingDao.stream(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, filter, handler);
@@ -159,7 +190,6 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, NWIS_PRJMLW1, NWIS_PRJMLW2);
 	}
 
-	@Test
 	public void huc5Test() {
 		filter.setHuc(getHuc5());
 		streamingDao.stream(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, filter, handler);
@@ -169,7 +199,6 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, NWIS_PRJMLW1, NWIS_PRJMLW2);
 	}
 
-	@Test
 	public void huc6Test() {
 		filter.setHuc(getHuc6());
 		streamingDao.stream(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, filter, handler);
@@ -179,7 +208,6 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, NWIS_PRJMLW1, NWIS_PRJMLW2);
 	}
 
-	@Test
 	public void huc7Test() {
 		filter.setHuc(getHuc7());
 		streamingDao.stream(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, filter, handler);
@@ -189,7 +217,6 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, NWIS_PRJMLW1, NWIS_PRJMLW2);
 	}
 
-	@Test
 	public void huc8Test() {
 		filter.setHuc(getHuc8());
 		streamingDao.stream(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, filter, handler);
@@ -199,7 +226,6 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2);
 	}
 
-	@Test
 	public void huc10Test() {
 		filter.setHuc(getHuc10());
 		streamingDao.stream(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, filter, handler);
@@ -209,7 +235,6 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2);
 	}
 
-	@Test
 	public void huc12Test() {
 		filter.setHuc(getHuc12());
 		streamingDao.stream(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, filter, handler);
@@ -219,7 +244,6 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2);
 	}
 
-	@Test
 	public void nldiUrlTest() {
 		try {
 			filter.setNldiSites(getManySiteId());
@@ -233,7 +257,6 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2);
 	}
 
-	@Test
 	public void organizationTest() {
 		filter.setOrganization(getOrganization());
 		streamingDao.stream(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, filter, handler);
@@ -243,7 +266,6 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2);
 	}
 
-	@Test
 	public void providersTest() {
 		filter.setProviders(getProviders());
 		streamingDao.stream(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, filter, handler);
@@ -253,7 +275,6 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, STORET_PRJMLW3, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2, BIODATA_PRJMLW);
 	}
 
-	@Test
 	public void siteIdTest() {
 		filter.setSiteid(getSiteid());
 		streamingDao.stream(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, filter, handler);
@@ -263,7 +284,6 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 		assertContainsProjectMLWeightings(results, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2);
 	}
 
-	@Test
 	public void manySitesTest() {
 		try {
 			filter.setSiteid(getManySiteId());
@@ -277,8 +297,6 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2);
 	}
 
-
-	@Test
 	public void siteTypeTest() {
 		filter.setSiteType(getSiteType());
 		streamingDao.stream(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, filter, handler);
@@ -288,7 +306,6 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2, BIODATA_PRJMLW);
 	}
 
-	@Test
 	public void stateTest() {
 		filter.setStatecode(getState());
 		streamingDao.stream(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, filter, handler);
@@ -298,7 +315,6 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2);
 	}
 	
-	@Test
 	public void withinTest() {
 		filter.setWithin(getWithin());
 		filter.setLat(getLatitude());
@@ -310,7 +326,6 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 		assertContainsProjectMLWeightings(results, STEWARDS_PRJMLW, STORET_PRJMLW1, STORET_PRJMLW2, NWIS_PRJMLW1, NWIS_PRJMLW2);
 	}
 
-	@Test
 	public void projectTest() {
 		filter.setProject(getProject());
 		streamingDao.stream(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, filter, handler);
@@ -320,7 +335,6 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 		assertContainsProjectMLWeightings(results, STEWARDS_PRJMLW, BIODATA_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2);
 	}
 
-	@Test
 	public void sampleMediaTest() {
 		filter.setSampleMedia(getSampleMedia());
 		streamingDao.stream(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, filter, handler);
@@ -330,7 +344,6 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2, BIODATA_PRJMLW);
 	}
 
-	@Test
 	public void startDateHiTest() {
 		filter.setStartDateHi(getStartDateHi());
 		streamingDao.stream(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, filter, handler);
@@ -340,7 +353,6 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2, BIODATA_PRJMLW);
 	}
 
-	@Test
 	public void startDateLoTest() {
 		filter.setStartDateLo(getStartDateLo());
 		streamingDao.stream(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, filter, handler);
@@ -350,7 +362,6 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 		assertContainsProjectMLWeightings(results, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2, BIODATA_PRJMLW);
 	}
 
-	@Test
 	public void analyticalMethodTest() {
 		filter.setAnalyticalmethod(getAnalyticalMethod());
 		streamingDao.stream(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, filter, handler);
@@ -360,7 +371,6 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 		assertContainsProjectMLWeightings(results, NWIS_PRJMLW1, NWIS_PRJMLW2);
 	}
 
-	@Test
 	public void assemblageTest() {
 		filter.setAssemblage(getAssemblage());
 		streamingDao.stream(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, filter, handler);
@@ -370,7 +380,6 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 		assertContainsProjectMLWeightings(results, BIODATA_PRJMLW);
 	}
 
-	@Test
 	public void characteristicNameTest() {
 		filter.setCharacteristicName(getCharacteristicName());
 		streamingDao.stream(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, filter, handler);
@@ -379,7 +388,6 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 		assertEquals(0, results.size());
 	}
 
-	@Test
 	public void characteristicTypeTest() {
 		filter.setCharacteristicType(getCharacteristicType());
 		streamingDao.stream(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, filter, handler);
@@ -389,7 +397,6 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 		assertContainsProjectMLWeightings(results, STEWARDS_PRJMLW);
 	}
 
-	@Test
 	public void pcodeTest() {
 		filter.setPCode(getPcode());
 		streamingDao.stream(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, filter, handler);
@@ -399,7 +406,6 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 		assertContainsProjectMLWeightings(results, NWIS_PRJMLW1, NWIS_PRJMLW2);
 	}
 
-	@Test
 	public void subjectTaxonomicNameTest() {
 		filter.setSubjectTaxonomicName(getSubjectTaxonomicName());
 		streamingDao.stream(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, filter, handler);
@@ -409,8 +415,7 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 		assertContainsProjectMLWeightings(results, BIODATA_PRJMLW);
 	}
 
-	@Test
-	public void multipleParameterStationSumTests() {
+	public void multipleParameterStationSumTest() {
 		filter.setBBox(getBBox());
 		filter.setCountrycode(getCountry());
 		filter.setCountycode(getCounty());
@@ -433,8 +438,7 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 		assertContainsProjectMLWeightings(results, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2);
 	}
 
-	@Test
-	public void multipleParameterActivitySumTests() {
+	public void multipleParameterActivitySumTest() {
 		filter.setBBox(getBBox());
 		filter.setCountrycode(getCountry());
 		filter.setCountycode(getCounty());
@@ -461,7 +465,6 @@ public class ProjectMLWeightingStreamingTest extends BaseSpringTest {
 		assertContainsProjectMLWeightings(results, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2);
 	}
 
-	@Test
 	public void multipleParameterResultSumTest() {
 		filter.setBBox(getBBox());
 		filter.setCountrycode(getCountry());

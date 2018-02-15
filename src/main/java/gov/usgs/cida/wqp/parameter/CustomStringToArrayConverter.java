@@ -1,15 +1,21 @@
 package gov.usgs.cida.wqp.parameter;
 
+import java.util.Arrays;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.text.StrTokenizer;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 
 @Component
-public class CustomStringToArrayConverter implements Converter<String, String[]>{
+public class CustomStringToArrayConverter implements Converter<String, String[]> {
 
 	@Override
 	public String[] convert(String source) {
-		return StringUtils.delimitedListToStringArray(source, ";");
+		String[] a = Arrays.stream(new StrTokenizer(source, ";").getTokenArray())
+				.filter(x -> StringUtils.isNotBlank(x))
+				.toArray(String[]::new);
+		return 0 == a.length ? null : a;
 	}
 
 }
