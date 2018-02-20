@@ -14,11 +14,11 @@
             prime.qapp_approved_indicator,
             prime.qapp_approval_agency_name,
         case when prime.project_file_url is not null
-            then #{siteUrlBase,jdbcType=VARCHAR} || '/projects' || pkg_dynamic_list.url_escape(prime.project_file_url, 'false')
+            then #{siteUrlBase,jdbcType=VARCHAR} || pkg_dynamic_list.url_escape(prime.project_file_url, 'false')
             else null
         end project_file_url,
         case when prime.monitoring_location_weight_url is not null
-            then #{siteUrlBase,jdbcType=VARCHAR} || '/projects' || pkg_dynamic_list.url_escape(prime.monitoring_location_weight_url, 'false')
+            then #{siteUrlBase,jdbcType=VARCHAR} || pkg_dynamic_list.url_escape(prime.monitoring_location_weight_url, 'false')
             else null
         end monitoring_location_weight_url
         <include refid="dynamicWhere.projectsBase" />
