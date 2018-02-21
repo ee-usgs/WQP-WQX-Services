@@ -13,6 +13,7 @@ import gov.usgs.cida.wqp.CsvDataSetLoader;
 import gov.usgs.cida.wqp.DBIntegrationTest;
 import gov.usgs.cida.wqp.dao.NameSpace;
 import gov.usgs.cida.wqp.mapping.CountColumn;
+import gov.usgs.cida.wqp.parameter.FilterParameters;
 
 @Category(DBIntegrationTest.class)
 @DatabaseSetup("classpath:/testData/csv/")
@@ -204,14 +205,13 @@ public class CountDaoResDetectQntLmtTest extends BaseCountDaoTest {
 	}
 
 	public void resultTest() {
-		init();
+		FilterParameters filter = new FilterParameters();
 		filter.setResult(getResult());
 		List<Map<String, Object>> counts = countDao.getCounts(nameSpace, filter);
 		assertStationResults(counts, 2, "1", null, null, "1", null);
 		assertActivityResults(counts, 2, "1", null, null, "1", null);
 		assertResultResults(counts, 2, "1", null, null, "1", null);
 		assertResDetectQntLmtResults(counts, 2, "1", null, null, "1", null);
-		cleanup();
 	}
 
 	public void sampleMediaTest() {

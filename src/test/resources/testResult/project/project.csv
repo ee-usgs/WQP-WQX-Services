@@ -1,18 +1,18 @@
 OrganizationIdentifier,OrganizationFormalName,ProjectIdentifier,ProjectName,ProjectDescriptionText,SamplingDesignTypeCode,QAPPApprovedIndicator,QAPPApprovalAgencyName,ProjectFileUrl,ProjectMonitoringLocationWeightingURL
-21FLVEMD,Volusa County Environmental Health Lab (Florida),Lake-BaselineMonitoringDNR,Lake Baseline,Lake Baseline Monitoring,G,Y,Agency 1,https://www.waterqualitydata.us/projects/100/files,https://www.waterqualitydata.us/projects/100/mon_loc_weights
-MDNR,Missouri Dept. of Natural Resources,SAM,Surface Air Measurements,SAM Description,Z,N,Agency 2,https://www.waterqualitydata.us/projects/200/files,
-21LABCH,Louisiana Department of Health and Hospitals,WR047,Water Resources 47,WR047 Description,G,Y,Agency 3,https://www.waterqualitydata.us/projects/300/files,https://www.waterqualitydata.us/projects/300/mon_loc_weights
-organization,Some Organization,projectId,Some Project,Some Project Description,Z,Y ,Agency 4,https://www.waterqualitydata.us/projects/400/files,https://www.waterqualitydata.us/projects/400/mon_loc_weights
-BLMRW,Barr Lake Milton Reservoir Watershed (Colorado),EPABEACH,EPA Beach Observation,EPA Beach Description,U,Y,Agency 5,https://www.waterqualitydata.us/projects/500/files,https://www.waterqualitydata.us/projects/500/mon_loc_weights
-ARS,Agricultural Research Service,CEAP,CEAP Name,CEAP Description,B,N,Agency 6,https://www.waterqualitydata.us/projects/600/files,
+21FLVEMD,Volusa County Environmental Health Lab (Florida),Lake-BaselineMonitoringDNR,Lake Baseline,Lake Baseline Monitoring,G,Y,Agency 1,https://www.waterqualitydata.us/100/files,https://www.waterqualitydata.us/100/mon_loc_weights
+MDNR,Missouri Dept. of Natural Resources,SAM,Surface Air Measurements,SAM Description,Z,N,Agency 2,https://www.waterqualitydata.us/200/files,
+21LABCH,Louisiana Department of Health and Hospitals,WR047,Water Resources 47,WR047 Description,G,Y,Agency 3,https://www.waterqualitydata.us/300/files,https://www.waterqualitydata.us/300/mon_loc_weights
+organization,Some Organization,projectId,Some Project,Some Project Description,Z,Y ,Agency 4,https://www.waterqualitydata.us/400/files,https://www.waterqualitydata.us/400/mon_loc_weights
+BLMRW,Barr Lake Milton Reservoir Watershed (Colorado),EPABEACH,EPA Beach Observation,EPA Beach Description,U,Y,Agency 5,https://www.waterqualitydata.us/500/files,https://www.waterqualitydata.us/500/mon_loc_weights
+ARS,Agricultural Research Service,CEAP,CEAP Name,CEAP Description,B,N,Agency 6,https://www.waterqualitydata.us/600/files,
 USGS-SC,USGS South Carolina Water Science Center,NAWQA,NAWQA Name,NAWQA Description,Z,Y,Agency 7,,
-UMC,"Univ. of Missouri, Columbia",SOMETHINGELSE,SOMETHINGELSE Name,SOMETHINGELSE Description,U,Y,Agency 8,https://www.waterqualitydata.us/projects/800/files,https://www.waterqualitydata.us/projects/800/mon_loc_weights
-USGS,United States Geological Survey,SACR BioTDB,SACR Name,SACR Description,B,Y,Agency 9,https://www.waterqualitydata.us/projects/999/files,https://www.waterqualitydata.us/projects/900/mon_loc_weights
-BLAH,Organization of Blah,NoResultsProject,No Results Project,This project has no results,Z,Y,Agency 10,https://www.waterqualitydata.us/projects/1000/files,https://www.waterqualitydata.us/projects/1000/mon_loc_weights
-BLAH2,Organization of Blah 2,NoResultsProject2,No Results Project 2,Second project with no results,B,Y,Agency 11,,https://www.waterqualitydata.us/projects/1100/mon_loc_weights
-USGS-WI,USGS Wisconsin Water Science Center,NAWQA,NAWQA Name,NAWQA Description,Z,Y,Agency 12,https://www.waterqualitydata.us/projects/1200/files,
-organization,Some Organization,EPABEACH,EPA Beach Observation,EPA Beach Description,U,Y,Agency 13,https://www.waterqualitydata.us/projects/1300/files,https://www.waterqualitydata.us/projects/1300/mon_loc_weights
-WIDNR_WQX,Wisconsin DNR,WR047,Water Resources 47,WR047 Description 14,G,Y,Agency 14,,https://www.waterqualitydata.us/projects/1400/mon_loc_weights
-WIDNR_WQX,Wisconsin DNR,Lake-BaselineMonitoringDNR,Lake Baseline,Lake Baseline Monitoring,G,Y,Agency 15,https://www.waterqualitydata.us/projects/1500/files,https://www.waterqualitydata.us/projects/1500/mon_loc_weights
+UMC,"Univ. of Missouri, Columbia",SOMETHINGELSE,SOMETHINGELSE Name,SOMETHINGELSE Description,U,Y,Agency 8,https://www.waterqualitydata.us/800/files,https://www.waterqualitydata.us/800/mon_loc_weights
+USGS,United States Geological Survey,SACR BioTDB,SACR Name,SACR Description,B,Y,Agency 9,https://www.waterqualitydata.us/999/files,https://www.waterqualitydata.us/900/mon_loc_weights
+BLAH,Organization of Blah,NoResultsProject,No Results Project,This project has no results,Z,Y,Agency 10,https://www.waterqualitydata.us/1000/files,https://www.waterqualitydata.us/1000/mon_loc_weights
+BLAH2,Organization of Blah 2,NoResultsProject2,No Results Project 2,Second project with no results,B,Y,Agency 11,,https://www.waterqualitydata.us/1100/mon_loc_weights
+USGS-WI,USGS Wisconsin Water Science Center,NAWQA,NAWQA Name,NAWQA Description,Z,Y,Agency 12,https://www.waterqualitydata.us/1200/files,
+organization,Some Organization,EPABEACH,EPA Beach Observation,EPA Beach Description,U,Y,Agency 13,https://www.waterqualitydata.us/1300/files,https://www.waterqualitydata.us/1300/mon_loc_weights
+WIDNR_WQX,Wisconsin DNR,WR047,Water Resources 47,WR047 Description 14,G,Y,Agency 14,,https://www.waterqualitydata.us/1400/mon_loc_weights
+WIDNR_WQX,Wisconsin DNR,Lake-BaselineMonitoringDNR,Lake Baseline,Lake Baseline Monitoring,G,Y,Agency 15,https://www.waterqualitydata.us/1500/files,https://www.waterqualitydata.us/1500/mon_loc_weights
 USGS-WI,USGS Wisconsin Water Science Center,projectIdNwis,Some NWIS Project,Some NWIS Project,X,N,Agency 16,,
-ARS,Agricultural Research Service,projectIdStewards,Some USDA Project,Some USDA Project,K,Y,Agency 17,https://www.waterqualitydata.us/projects/1700/files,
+ARS,Agricultural Research Service,projectIdStewards,Some USDA Project,Some USDA Project,K,Y,Agency 17,https://www.waterqualitydata.us/1700/files,
