@@ -88,12 +88,14 @@ public class BaseControllerTest extends BaseSpringTest {
 	public static final String TEST_NWIS_RESULT_COUNT = "359";
 	public static final String TEST_NWIS_RES_DETECT_QNT_LMT_COUNT = "432";
 	public static final String TEST_NWIS_PROJECT_COUNT = "106";
+	public static final String TEST_NWIS_PROJECT_ML_WEIGHTING_COUNT = "1";
 	public static final String TEST_TOTAL_STATION_COUNT = "121";
 	public static final String TEST_TOTAL_ACTIVITY_COUNT = "1131";
 	public static final String TEST_TOTAL_ACTIVITY_METRIC_COUNT = "321";
 	public static final String TEST_TOTAL_RESULT_COUNT = "3591";
 	public static final String TEST_TOTAL_RES_DETECT_QNT_LMT_COUNT = "4321";
 	public static final String TEST_TOTAL_PROJECT_COUNT = "1061";
+	public static final String TEST_TOTAL_PROJECT_ML_WEIGHTING_COUNT = "4";
 
 	@Mock
 	private IStreamingDao streamingDao;
@@ -1174,6 +1176,7 @@ public class BaseControllerTest extends BaseSpringTest {
 		nwisCountRow.put(CountColumn.KEY_RESULT_COUNT, TEST_NWIS_RESULT_COUNT);
 		nwisCountRow.put(CountColumn.KEY_RES_DETECT_QNT_LMT_COUNT, TEST_NWIS_RES_DETECT_QNT_LMT_COUNT);
 		nwisCountRow.put(CountColumn.KEY_PROJECT_COUNT, TEST_NWIS_PROJECT_COUNT);
+		nwisCountRow.put(CountColumn.KEY_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT, TEST_NWIS_PROJECT_ML_WEIGHTING_COUNT);
 		rawCounts.add(nwisCountRow);
 
 		Map<String, Object> totalCountRow = new HashMap<>();
@@ -1184,6 +1187,7 @@ public class BaseControllerTest extends BaseSpringTest {
 		totalCountRow.put(CountColumn.KEY_RESULT_COUNT, TEST_TOTAL_RESULT_COUNT);
 		totalCountRow.put(CountColumn.KEY_RES_DETECT_QNT_LMT_COUNT, TEST_TOTAL_RES_DETECT_QNT_LMT_COUNT);
 		totalCountRow.put(CountColumn.KEY_PROJECT_COUNT, TEST_TOTAL_PROJECT_COUNT);
+		totalCountRow.put(CountColumn.KEY_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT, TEST_TOTAL_PROJECT_ML_WEIGHTING_COUNT);
 		rawCounts.add(totalCountRow);
 
 		return rawCounts;

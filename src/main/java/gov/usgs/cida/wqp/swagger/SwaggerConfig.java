@@ -40,6 +40,7 @@ public class SwaggerConfig {
 	public static final String VERSION_TAG_NAME = "Application Version";
 	public static final String VERSION_TAG_DESCRIPTION = "Display Application Version";
 	public static final String PROJECT_TAG_NAME = "Project";
+	public static final String PROJECT_MONITORING_LOCATION_WEIGHTING_TAG_NAME = "Project Monitoring Location Weighting";
 	public static final String TAG_DESCRIPTION = "Data Download";
 	public static final String FILE_DOWNLOAD_TAG_NAME = "File Download";
 

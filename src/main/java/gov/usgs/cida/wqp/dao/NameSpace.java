@@ -13,6 +13,8 @@ public enum NameSpace {
 	STATION_KML ("stationKml", null),
 	
 	PROJECT ("project", null),
+	
+	PROJECT_MONITORING_LOCATION_WEIGHTING ("projectMonitoringLocationWeighting", null),
 
 	ACTIVITY ("activity", Parameters.MIN_ACTIVITIES),
 

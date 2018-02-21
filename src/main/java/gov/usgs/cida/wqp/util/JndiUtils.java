@@ -33,7 +33,7 @@ public abstract class JndiUtils {
 		} catch (NamingException e) {
 			LOG.error("JNDI ERROR: Cannot access Tomcat {}", lookupResource, e);
 		} catch (ClassCastException e) {
-			LOG.error("JNDI ERROR: This resouce is not a DataSource. {}", lookupResource, e);
+			LOG.error("JNDI ERROR: This resource is not a DataSource. {}", lookupResource, e);
 		}
 		return ds;
 	}

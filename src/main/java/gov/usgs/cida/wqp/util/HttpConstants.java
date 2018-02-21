@@ -10,6 +10,7 @@ public class HttpConstants {
 	public static final String ENDPOINT_RESULT = "Result";
 	public static final String ENDPOINT_STATION = "Station";
 	public static final String ENDPOINT_PROJECT = "Project";
+	public static final String ENDPOINT_PROJECT_MONITORING_LOCATION_WEIGHTING = "ProjectMonitoringLocationWeighting";
 	public static final String ENDPOINT_SIMPLE_STATION = "simplestation";
 	public static final String ENPOINT_SEARCH = "/search";
 	public static final String ENDPOINT_RES_DETECT_QNT_LMT = "ResultDetectionQuantitationLimit";
@@ -22,6 +23,9 @@ public class HttpConstants {
 	public static final String SIMPLE_STATION_ENDPOINT = "/" + ENDPOINT_SIMPLE_STATION + ENPOINT_SEARCH;
 	public static final String RES_DETECT_QNT_LMT_SEARCH_ENPOINT = "/" + ENDPOINT_RES_DETECT_QNT_LMT + ENPOINT_SEARCH;
 	public static final String PROJECT_SEARCH_ENDPOINT = '/' + ENDPOINT_PROJECT + ENPOINT_SEARCH;
+	public static final String PROJECT_MONITORING_LOCATION_WEIGHTING_SEARCH_ENDPOINT = '/' + ENDPOINT_PROJECT_MONITORING_LOCATION_WEIGHTING + ENPOINT_SEARCH;
+
+	public static final String PROJECT_MONITORING_LOCATION_WEIGHTING_REST_ENDPOINT = "/organizations/{organization}/projects/{projectIdentifier}/projectMonitoringLocationWeightings";
 
 	public static final String ACTIVITY_REST_ENDPOINT = "/activities/{activity}";
 	public static final String ACTIVITY_METRIC_REST_ENPOINT = ACTIVITY_REST_ENDPOINT + "/activitymetrics";
@@ -61,6 +65,9 @@ public class HttpConstants {
 	
 	public static final String HEADER_PROJECT_COUNT = ENDPOINT_PROJECT + HEADER_DELIMITER + HEADER_COUNT;
 	public static final String HEADER_TOTAL_PROJECT_COUNT = HEADER_TOTAL + HEADER_DELIMITER + HEADER_PROJECT_COUNT;
+
+	public static final String HEADER_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT = ENDPOINT_PROJECT_MONITORING_LOCATION_WEIGHTING + HEADER_DELIMITER + HEADER_COUNT;
+	public static final String HEADER_TOTAL_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT = HEADER_TOTAL + HEADER_DELIMITER + HEADER_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT;
 
 	public static final String MIME_TYPE_ZIP  = "application/zip";
 	public static final String MIME_TYPE_CSV  = "text/csv";
