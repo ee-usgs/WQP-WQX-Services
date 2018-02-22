@@ -7,7 +7,6 @@ import static gov.usgs.cida.wqp.swagger.model.StationCountJson.HEADER_NWIS_SITE_
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -24,7 +23,6 @@ import gov.usgs.cida.wqp.mapping.delimited.StationDelimitedTest;
 import gov.usgs.cida.wqp.parameter.FilterParameters;
 import gov.usgs.cida.wqp.util.HttpConstants;
 import gov.usgs.cida.wqp.webservice.BaseControllerTest;
-import gov.usgs.cida.wqp.webservice.station.StationController;
 
 @Category(FullIntegrationTest.class)
 @WebAppConfiguration
@@ -39,12 +37,7 @@ public class SimpleStationControllerTest extends BaseSpringTest {
 	@Before
 	public void setup() {
 		controller = new SimpleStationController(null, null, null, null, null, null, null, null);
-	}
-
-	@After
-	public void teardown() {
-		//Need to manually clear out this thread local
-		StationController.setCounts(null);
+		SimpleStationController.remove();
 	}
 
 	@Test

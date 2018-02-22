@@ -7,7 +7,6 @@ import static gov.usgs.cida.wqp.swagger.model.StationCountJson.HEADER_NWIS_SITE_
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.mock.web.MockHttpServletResponse;
@@ -25,12 +24,7 @@ public class ActivityControllerTest extends BaseSpringTest {
 	@Before
 	public void setup() {
 		controller = new ActivityController(null, null, null, null, null, null, null, null);
-	}
-
-	@After
-	public void teardown() {
-		//Need to manually clear out this thread local
-		ActivityController.setCounts(null);
+		ActivityController.remove();
 	}
 
 	@Test

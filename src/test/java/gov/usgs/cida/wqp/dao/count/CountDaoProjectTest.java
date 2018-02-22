@@ -13,7 +13,7 @@ import gov.usgs.cida.wqp.CsvDataSetLoader;
 import gov.usgs.cida.wqp.DBIntegrationTest;
 import gov.usgs.cida.wqp.dao.NameSpace;
 import gov.usgs.cida.wqp.mapping.CountColumn;
-
+import gov.usgs.cida.wqp.parameter.FilterParameters;
 
 @Category(DBIntegrationTest.class)
 @DatabaseSetup("classpath:/testData/csv/")
@@ -65,101 +65,89 @@ public class CountDaoProjectTest extends BaseCountDaoTest {
 	}
 
 	public void nullParameterTest() {
-		init();
 		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT, null);
 		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 5, TOTAL_PROJECT_COUNT, NWIS_PROJECT_COUNT, STEWARDS_PROJECT_COUNT, STORET_PROJECT_COUNT, BIODATA_PROJECT_COUNT);
-		cleanup();
 	}
 
 	public void emptyParameterTest() {
-		init();
+		FilterParameters filter = new FilterParameters();
 		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT, filter);
 		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 5, TOTAL_PROJECT_COUNT, NWIS_PROJECT_COUNT, STEWARDS_PROJECT_COUNT, STORET_PROJECT_COUNT, BIODATA_PROJECT_COUNT);
-		cleanup();
 	}
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//Single Parameter Counts against activity_sum
 
 	public void sampleMediaTest() {
-		init();
+		FilterParameters filter = new FilterParameters();
 		filter.setSampleMedia(getSampleMedia());
 		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT, filter);
 		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 5, "6", "1", "1", "3", "1");
-		cleanup();
 	}
 
 	public void startDateHiTest() {
-		init();
+		FilterParameters filter = new FilterParameters();
 		filter.setStartDateHi(getStartDateHi());
 		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT, filter);
 		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 5, "6", "1", "1", "3", "1");
-		cleanup();
 	}
 
 	public void startDateLoTest() {
-		init();
+		FilterParameters filter = new FilterParameters();
 		filter.setStartDateLo(getStartDateLo());
 		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT, filter);
 		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 5, "4", "1", "1", "1", "1");
-		cleanup();
 	}
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//Single Parameter Counts against result_sum
 
 	public void analyticalMethodTest() {
-		init();
+		FilterParameters filter = new FilterParameters();
 		filter.setAnalyticalmethod(getAnalyticalMethod());
 		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT, filter);
 		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 3, "3", "1", null, "2", null);
-		cleanup();
 	}
 
 	public void assemblageTest() {
-		init();
+		FilterParameters filter = new FilterParameters();
 		filter.setAssemblage(getAssemblage());
 		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT, filter);
 		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 3, "3", null, null, "2", "1");
-		cleanup();
 	}
 
 	public void characteristicNameTest() {
-		init();
+		FilterParameters filter = new FilterParameters();
 		filter.setCharacteristicName(getCharacteristicName());
 		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT, filter);
 		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 2, "2", null, null, "2", null);
-		cleanup();
 	}
 
 	public void characteristicTypeTest() {
-		init();
+		FilterParameters filter = new FilterParameters();
 		filter.setCharacteristicType(getCharacteristicType());
 		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT, filter);
 		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 3, "3", null, "1", "2", null);
-		cleanup();
 	}
 
 	public void pcodeTest() {
-		init();
+		FilterParameters filter = new FilterParameters();
 		filter.setPCode(getPcode());
 		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT, filter);
 		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 3, "3", "1", null, "2", null);
-		cleanup();
 	}
 
 	public void subjectTaxonomicNameTest() {
-		init();
+		FilterParameters filter = new FilterParameters();
 		filter.setSubjectTaxonomicName(getSubjectTaxonomicName());
 		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT, filter);
 		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 3, "2", null, null, "1", "1");
-		cleanup();
 	}
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	public void multipleParameterActivitySumTest() {
-		init();
+		FilterParameters filter = new FilterParameters();
 		filter.setCommand(getCommand());
 		filter.setBBox(getBBox());
 		filter.setCountrycode(getCountry());
@@ -182,11 +170,10 @@ public class CountDaoProjectTest extends BaseCountDaoTest {
 		filter.setStartDateLo(getStartDateLo());
 		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT, filter);
 		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 2, "1", null, null, "1", null);
-		cleanup();
 	}
 
 	public void multipleParameterActivitySumStationSumTest() {
-		init();
+		FilterParameters filter = new FilterParameters();
 		filter.setCommand(getCommand());
 		filter.setBBox(getBBox());
 		filter.setLat(getLatitude());
@@ -200,11 +187,10 @@ public class CountDaoProjectTest extends BaseCountDaoTest {
 		filter.setWithin(getWithin());
 		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT, filter);
 		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 2, "1", null, null, "1", null);
-		cleanup();
 	}
 
 	public void multipleParameterResultSumTest() {
-		init();
+		FilterParameters filter = new FilterParameters();
 		filter.setAnalyticalmethod(getAnalyticalMethod());
 		filter.setCommand(getCommand());
 		filter.setAssemblage(getAssemblage());
@@ -229,11 +215,10 @@ public class CountDaoProjectTest extends BaseCountDaoTest {
 		filter.setSubjectTaxonomicName(getSubjectTaxonomicName());
 		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT, filter);
 		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 2, "1", null, null, "1", null);
-		cleanup();
 	}
 
 	public void multipleParameterResultSumActivitySumTests() {
-		init();
+		FilterParameters filter = new FilterParameters();
 		filter.setAnalyticalmethod(getAnalyticalMethod());
 		filter.setCommand(getCommand());
 		filter.setAssemblage(getAssemblage());
@@ -262,7 +247,6 @@ public class CountDaoProjectTest extends BaseCountDaoTest {
 		filter.setWithin(getWithin());
 		List<Map<String, Object>> counts = countDao.getCounts(NameSpace.PROJECT, filter);
 		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, 2, "1", null, null, "1", null);
-		cleanup();
 	}
 
 }
