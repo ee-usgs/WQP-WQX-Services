@@ -56,7 +56,9 @@
                                count(*) over (partition by prime.data_source_id, prime.station_id) site_activity_count,
                                sum(prime.result_count) over (partition by prime.data_source_id, prime.station_id) site_result_count
                           from activity_sum prime
-                <if test="within != null or bBox != null">
+                <if test="within != null or bBox != null or
+                            (mimeType != null and (mimeType == 'geojson' or mimeType == 'json' or mimeType == 'kml' or mimeType == 'kmz')
+                             and dataProfile != null and (dataProfile == 'station' or dataProfile == 'simplestation'))">
                     <include refid="dynamicWhere.geoJoin"/>
                 </if>
                 <where>
@@ -87,7 +89,9 @@
                                count(distinct prime.activity_id) over (partition by prime.data_source_id, prime.station_id) site_activity_count,
                                sum(prime.result_count) over (partition by prime.data_source_id, prime.station_id) site_result_count
                           from result_sum prime
-                <if test="within != null or bBox != null">
+                <if test="within != null or bBox != null or
+                            (mimeType != null and (mimeType == 'geojson' or mimeType == 'json' or mimeType == 'kml' or mimeType == 'kmz')
+                             and dataProfile != null and (dataProfile == 'station' or dataProfile == 'simplestation'))">
                     <include refid="dynamicWhere.geoJoin"/>
                 </if>
                 <where>

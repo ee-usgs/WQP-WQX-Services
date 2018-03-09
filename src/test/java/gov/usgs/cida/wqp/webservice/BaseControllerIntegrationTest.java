@@ -78,7 +78,7 @@ public abstract class BaseControllerIntegrationTest extends BaseSpringTest {
 			"&" + Parameters.PROJECT.toString() + "=" + String.join(";", getProject()) +
 			"&" + Parameters.PROVIDERS.toString() + "=" + String.join(";", getProviders()) +
 			"&" + Parameters.SAMPLE_MEDIA.toString() + "=" + String.join(";", getSampleMedia()) +
-			"&" + Parameters.SITEID.toString() + "=" + String.join(";", getSiteid()) +
+			"&" + Parameters.SITEID.toString() + "=" + String.join(";", getSiteId()) +
 			"&" + Parameters.SITE_TYPE.toString() + "=" + String.join(";", getSiteType()) +
 			"&" + Parameters.START_DATE_HI.toString() + "=" + String.join(";", getStartDateHi()) +
 			"&" + Parameters.START_DATE_LO.toString() + "=" + String.join(";", getStartDateLo()) +
@@ -417,7 +417,7 @@ public abstract class BaseControllerIntegrationTest extends BaseSpringTest {
 				.param(Parameters.PROJECT.toString(), String.join(";", getProject()))
 				.param(Parameters.SAMPLE_MEDIA.toString(), String.join(";", getSampleMedia()))
 				.param(Parameters.PROVIDERS.toString(), String.join(";", getProviders()))
-				.param(Parameters.SITEID.toString(), String.join(";", getSiteid()))
+				.param(Parameters.SITEID.toString(), String.join(";", getSiteId()))
 				.param(Parameters.SITE_TYPE.toString(), String.join(";", getSiteType()))
 				.param(Parameters.STATE.toString(), String.join(";", getState()))
 				.param(Parameters.START_DATE_HI.toString(), String.join(";", getStartDateHi()))

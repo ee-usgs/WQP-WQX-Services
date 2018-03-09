@@ -1,29 +1,27 @@
 package gov.usgs.cida.wqp.dao.streaming;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.Map.Entry;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 import static gov.usgs.cida.wqp.swagger.model.StationCountJson.BIODATA;
 import static gov.usgs.cida.wqp.swagger.model.StationCountJson.NWIS;
 import static gov.usgs.cida.wqp.swagger.model.StationCountJson.STEWARDS;
 import static gov.usgs.cida.wqp.swagger.model.StationCountJson.STORET;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
-import gov.usgs.cida.wqp.BaseSpringTest;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.github.springtestdbunit.annotation.DbUnitConfiguration;
+
 import gov.usgs.cida.wqp.CsvDataSetLoader;
 import gov.usgs.cida.wqp.DBIntegrationTest;
+import gov.usgs.cida.wqp.dao.FilteredProjectDaoTest;
 import gov.usgs.cida.wqp.dao.NameSpace;
 import gov.usgs.cida.wqp.dao.intfc.IStreamingDao;
 import gov.usgs.cida.wqp.mapping.BaseColumn;
@@ -36,8 +34,10 @@ import gov.usgs.cida.wqp.parameter.FilterParameters;
 @Category(DBIntegrationTest.class)
 @DatabaseSetup("classpath:/testData/csv/")
 @DbUnitConfiguration(dataSetLoader = CsvDataSetLoader.class)
-public class ProjectMLWeightingStreamingTest extends BaseStreamingTest {
-	private static final Logger LOG = LoggerFactory.getLogger(ProjectMLWeightingStreamingTest.class);
+public class ProjectMLWeightingStreamingTest extends FilteredProjectDaoTest {
+
+	@Autowired 
+	IStreamingDao streamingDao;
 
 	NameSpace nameSpace = NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING;
 
@@ -53,16 +53,16 @@ public class ProjectMLWeightingStreamingTest extends BaseStreamingTest {
 
 	@Test
 	public void testHarness() {
-		nullParameterTest();
-		emptyParameterTest();
-		allDataSortedTest();
+		activityTest();
 		analyticalMethodTest();
 		assemblageTest();
+		avoidTest();
 		bboxTest();
 		characteristicNameTest();
 		characteristicTypeTest();
 		countryTest();
 		countyTest();
+		emptyParameterTest();
 		huc2Test();
 		huc3Test();
 		huc4Test();
@@ -72,35 +72,204 @@ public class ProjectMLWeightingStreamingTest extends BaseStreamingTest {
 		huc8Test();
 		huc10Test();
 		huc12Test();
+		mimeTypeTest();
+		minActivitiesTest();
+		minResultsTest();
+		nldiSitesTest();
 		nldiUrlTest();
+		nullParameterTest();
 		organizationTest();
 		pcodeTest();
 		projectTest();
 		providersTest();
+		resultTest();
 		sampleMediaTest();
 		siteIdTest();
-		manySitesTest();
+		siteIdLargeListTest();
 		siteTypeTest();
+		siteUrlBaseTest();
+		sortedTest();
 		startDateHiTest();
 		startDateLoTest();
 		stateTest();
 		subjectTaxonomicNameTest();
 		withinTest();
+		zipTest();
 		multipleParameterStationSumTest();
 		multipleParameterActivitySumTest();
 		multipleParameterResultSumTest();
 	}
 
-	public void nullParameterTest() {
-		nullParameterTest(nameSpace, Integer.valueOf(TOTAL_PRJ_ML_WEIGHTING_COUNT));
+	public void activityTest() {
+		activityTest(nameSpace, Integer.valueOf(TOTAL_PRJ_ML_WEIGHTING_COUNT));
+	}
+
+	public void analyticalMethodTest() {
+		List<Map<String, Object>> results = analyticalMethodTest(nameSpace, 2);
+		assertContainsProjectMLWeightings(results, NWIS_PRJMLW1, NWIS_PRJMLW2);
+	}
+
+	public void assemblageTest() {
+		List<Map<String, Object>> results = assemblageTest(nameSpace, 1);
+		assertContainsProjectMLWeightings(results, BIODATA_PRJMLW);
+	}
+
+	public void avoidTest() {
+		avoidTest(nameSpace, Integer.valueOf(TOTAL_PRJ_ML_WEIGHTING_COUNT));
+	}
+
+	public void bboxTest() {
+		List<Map<String, Object>> results = bboxTest(nameSpace, 5);
+		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2);
+	}
+
+	public void characteristicNameTest() {
+		characteristicNameTest(nameSpace, 0);
+	}
+
+	public void characteristicTypeTest() {
+		List<Map<String, Object>> results = characteristicTypeTest(nameSpace, 1);
+		assertContainsProjectMLWeightings(results, STEWARDS_PRJMLW);
+	}
+
+	public void countryTest() {
+		List<Map<String, Object>> results = countryTest(nameSpace, 6);
+		assertContainsProjectMLWeightings(results, STORET_PRJMLW1,  STORET_PRJMLW2, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2, BIODATA_PRJMLW);
+	}
+
+	public void countyTest() {
+		List<Map<String, Object>> results = countyTest(nameSpace, 5);
+		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2);
 	}
 
 	public void emptyParameterTest() {
 		emptyParameterTest(nameSpace, Integer.valueOf(TOTAL_PRJ_ML_WEIGHTING_COUNT));
 	}
 
-	public void allDataSortedTest() {
-		LinkedList<Map<String, Object>> results = allDataSortedTest(nameSpace, Integer.valueOf(TOTAL_PRJ_ML_WEIGHTING_COUNT));
+	public void huc2Test() {
+		List<Map<String, Object>> results = huc2Test(nameSpace, 5);
+		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2);
+	}
+
+	public void huc3Test() {
+		List<Map<String, Object>> results = huc3Test(nameSpace, 5);
+		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2);
+	}
+
+	public void huc4Test() {
+		List<Map<String, Object>> results = huc4Test(nameSpace, 4);
+		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, NWIS_PRJMLW1, NWIS_PRJMLW2);
+	}
+
+	public void huc5Test() {
+		List<Map<String, Object>> results = huc5Test(nameSpace, 4);
+		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, NWIS_PRJMLW1, NWIS_PRJMLW2);
+	}
+
+	public void huc6Test() {
+		List<Map<String, Object>> results = huc6Test(nameSpace, 4);
+		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, NWIS_PRJMLW1, NWIS_PRJMLW2);
+	}
+
+	public void huc7Test() {
+		List<Map<String, Object>> results = huc7Test(nameSpace, 4);
+		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, NWIS_PRJMLW1, NWIS_PRJMLW2);
+	}
+
+	public void huc8Test() {
+		List<Map<String, Object>> results = huc8Test(nameSpace, 2);
+		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2);
+	}
+
+	public void huc10Test() {
+		List<Map<String, Object>> results = huc10Test(nameSpace, 2);
+		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2);
+	}
+
+	public void huc12Test() {
+		List<Map<String, Object>> results = huc12Test(nameSpace, 2);
+		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2);
+	}
+
+	public void mimeTypeTest() {
+		mimeTypeJsonTest(nameSpace, Integer.valueOf(TOTAL_PRJ_ML_WEIGHTING_COUNT));
+		mimeTypeGeoJsonTest(nameSpace, Integer.valueOf(TOTAL_PRJ_ML_WEIGHTING_COUNT));
+		mimeTypeKmlTest(nameSpace, Integer.valueOf(TOTAL_PRJ_ML_WEIGHTING_COUNT));
+		mimeTypeKmzTest(nameSpace, Integer.valueOf(TOTAL_PRJ_ML_WEIGHTING_COUNT));
+		mimeTypeCsvTest(nameSpace, Integer.valueOf(TOTAL_PRJ_ML_WEIGHTING_COUNT));
+		mimeTypeTsvTest(nameSpace, Integer.valueOf(TOTAL_PRJ_ML_WEIGHTING_COUNT));
+		mimeTypeXmlTest(nameSpace, Integer.valueOf(TOTAL_PRJ_ML_WEIGHTING_COUNT));
+		mimeTypeXlsxTest(nameSpace, Integer.valueOf(TOTAL_PRJ_ML_WEIGHTING_COUNT));
+	}
+
+	public void minActivitiesTest() {
+		List<Map<String, Object>> results = minActivitiesTest(nameSpace, 6);
+		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2, BIODATA_PRJMLW);
+	}
+
+	public void minResultsTest() {
+		List<Map<String, Object>> results = minResultsTest(nameSpace, 6);
+		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2, BIODATA_PRJMLW);
+	}
+
+	public void nldiSitesTest() {
+		List<Map<String, Object>> results = nldiSitesTest(nameSpace, 2);
+		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2);
+	}
+
+	public void nldiUrlTest() {
+		nldiUrlTest(nameSpace, Integer.valueOf(TOTAL_PRJ_ML_WEIGHTING_COUNT));
+	}
+
+	public void nullParameterTest() {
+		nullParameterTest(nameSpace, Integer.valueOf(TOTAL_PRJ_ML_WEIGHTING_COUNT));
+	}
+
+	public void organizationTest() {
+		List<Map<String, Object>> results = organizationTest(nameSpace, 5);
+		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2);
+	}
+
+	public void projectTest() {
+		List<Map<String, Object>> results = projectTest(nameSpace, 4);
+		assertContainsProjectMLWeightings(results, STEWARDS_PRJMLW, BIODATA_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2);
+	}
+
+	public void providersTest() {
+		List<Map<String, Object>> results = providersTest(nameSpace, 7);
+		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, STORET_PRJMLW3, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2, BIODATA_PRJMLW);
+	}
+
+	public void resultTest() {
+		resultTest(nameSpace, Integer.valueOf(TOTAL_PRJ_ML_WEIGHTING_COUNT));
+	}
+
+	public void sampleMediaTest() {
+		List<Map<String, Object>> results = sampleMediaTest(nameSpace, 6);
+		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2, BIODATA_PRJMLW);
+	}
+
+	public void siteIdTest() {
+		List<Map<String, Object>> results = siteIdTest(nameSpace, 3);
+		assertContainsProjectMLWeightings(results, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2);
+	}
+
+	public void siteIdLargeListTest() {
+		List<Map<String, Object>> results = siteIdLargeListTest(nameSpace, 2);
+		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2);
+	}
+
+	public void siteTypeTest() {
+		List<Map<String, Object>> results = siteTypeTest(nameSpace, 6);
+		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2, BIODATA_PRJMLW);
+	}
+
+	public void siteUrlBaseTest() {
+		siteUrlBaseTest(nameSpace, Integer.valueOf(TOTAL_PRJ_ML_WEIGHTING_COUNT));
+	}
+
+	public void sortedTest() {
+		List<Map<String, Object>> results = sortedTest(nameSpace, Integer.valueOf(TOTAL_PRJ_ML_WEIGHTING_COUNT));
 
 		//Validate order of results.
 		assertProjectMLWeighting(results.get(0), STEWARDS_PRJMLW);
@@ -112,171 +281,56 @@ public class ProjectMLWeightingStreamingTest extends BaseStreamingTest {
 		assertProjectMLWeighting(results.get(6), BIODATA_PRJMLW);
 	}
 
-	public void bboxTest() {
-		LinkedList<Map<String, Object>> results = bboxTest(nameSpace, 5);
-		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2);
-	}
-
-	public void countryTest() {
-		LinkedList<Map<String, Object>> results = countryTest(nameSpace, 6);
-		assertContainsProjectMLWeightings(results, STORET_PRJMLW1,  STORET_PRJMLW2, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2, BIODATA_PRJMLW);
-	}
-
-	public void countyTest() {
-		LinkedList<Map<String, Object>> results = countyTest(nameSpace, 5);
-		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2);
-	}
-
-	public void huc2Test() {
-		LinkedList<Map<String, Object>> results = huc2Test(nameSpace, 5);
-		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2);
-	}
-
-	public void huc3Test() {
-		LinkedList<Map<String, Object>> results = huc3Test(nameSpace, 5);
-		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2);
-	}
-
-	public void huc4Test() {
-		LinkedList<Map<String, Object>> results = huc4Test(nameSpace, 4);
-		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, NWIS_PRJMLW1, NWIS_PRJMLW2);
-	}
-
-	public void huc5Test() {
-		LinkedList<Map<String, Object>> results = huc5Test(nameSpace, 4);
-		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, NWIS_PRJMLW1, NWIS_PRJMLW2);
-	}
-
-	public void huc6Test() {
-		LinkedList<Map<String, Object>> results = huc6Test(nameSpace, 4);
-		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, NWIS_PRJMLW1, NWIS_PRJMLW2);
-	}
-
-	public void huc7Test() {
-		LinkedList<Map<String, Object>> results = huc7Test(nameSpace, 4);
-		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, NWIS_PRJMLW1, NWIS_PRJMLW2);
-	}
-
-	public void huc8Test() {
-		LinkedList<Map<String, Object>> results = huc8Test(nameSpace, 2);
-		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2);
-	}
-
-	public void huc10Test() {
-		LinkedList<Map<String, Object>> results = huc10Test(nameSpace, 2);
-		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2);
-	}
-
-	public void huc12Test() {
-		LinkedList<Map<String, Object>> results = huc12Test(nameSpace, 2);
-		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2);
-	}
-
-	public void nldiUrlTest() {
-		LinkedList<Map<String, Object>> results = nldiUrlTest(nameSpace, 2);
-		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2);
-	}
-
-	public void organizationTest() {
-		LinkedList<Map<String, Object>> results = organizationTest(nameSpace, 5);
-		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2);
-	}
-
-	public void providersTest() {
-		LinkedList<Map<String, Object>> results = providersTest(nameSpace, 7);
-		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, STORET_PRJMLW3, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2, BIODATA_PRJMLW);
-	}
-
-	public void siteIdTest() {
-		LinkedList<Map<String, Object>> results = siteIdTest(nameSpace, 3);
-		assertContainsProjectMLWeightings(results, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2);
-	}
-
-	public void manySitesTest() {
-		LinkedList<Map<String, Object>> results = manySitesTest(nameSpace, 2);
-		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2);
-	}
-
-	public void siteTypeTest() {
-		LinkedList<Map<String, Object>> results = siteTypeTest(nameSpace, 6);
-		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2, BIODATA_PRJMLW);
-	}
-
-	public void stateTest() {
-		LinkedList<Map<String, Object>> results = stateTest(nameSpace, 5);
-		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2);
-	}
-	
-	public void withinTest() {
-		LinkedList<Map<String, Object>> results = withinTest(nameSpace, 5);
-		assertContainsProjectMLWeightings(results, STEWARDS_PRJMLW, STORET_PRJMLW1, STORET_PRJMLW2, NWIS_PRJMLW1, NWIS_PRJMLW2);
-	}
-
-	public void projectTest() {
-		LinkedList<Map<String, Object>> results = projectTest(nameSpace, 4);
-		assertContainsProjectMLWeightings(results, STEWARDS_PRJMLW, BIODATA_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2);
-	}
-
-	public void sampleMediaTest() {
-		LinkedList<Map<String, Object>> results = sampleMediaTest(nameSpace, 6);
-		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2, BIODATA_PRJMLW);
-	}
-
 	public void startDateHiTest() {
-		LinkedList<Map<String, Object>> results = startDateHiTest(nameSpace, 6);
+		List<Map<String, Object>> results = startDateHiTest(nameSpace, 6);
 		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2, BIODATA_PRJMLW);
 	}
 
 	public void startDateLoTest() {
-		LinkedList<Map<String, Object>> results = startDateLoTest(nameSpace, 4);
+		List<Map<String, Object>> results = startDateLoTest(nameSpace, 4);
 		assertContainsProjectMLWeightings(results, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2, BIODATA_PRJMLW);
 	}
 
-	public void analyticalMethodTest() {
-		LinkedList<Map<String, Object>> results = analyticalMethodTest(nameSpace, 2);
-		assertContainsProjectMLWeightings(results, NWIS_PRJMLW1, NWIS_PRJMLW2);
-	}
-
-	public void assemblageTest() {
-		LinkedList<Map<String, Object>> results = assemblageTest(nameSpace, 1);
-		assertContainsProjectMLWeightings(results, BIODATA_PRJMLW);
-	}
-
-	public void characteristicNameTest() {
-		LinkedList<Map<String, Object>> results = characteristicNameTest(nameSpace, 0);
-	}
-
-	public void characteristicTypeTest() {
-		LinkedList<Map<String, Object>> results = characteristicTypeTest(nameSpace, 1);
-		assertContainsProjectMLWeightings(results, STEWARDS_PRJMLW);
-	}
-
-	public void pcodeTest() {
-		LinkedList<Map<String, Object>> results = pcodeTest(nameSpace, 2);
-		assertContainsProjectMLWeightings(results, NWIS_PRJMLW1, NWIS_PRJMLW2);
+	public void stateTest() {
+		List<Map<String, Object>> results = stateTest(nameSpace, 5);
+		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2);
 	}
 
 	public void subjectTaxonomicNameTest() {
-		LinkedList<Map<String, Object>> results = subjectTaxonomicNameTest(nameSpace, 1);
+		List<Map<String, Object>> results = subjectTaxonomicNameTest(nameSpace, 1);
 		assertContainsProjectMLWeightings(results, BIODATA_PRJMLW);
 	}
 
+	public void withinTest() {
+		List<Map<String, Object>> results = withinTest(nameSpace, 5);
+		assertContainsProjectMLWeightings(results, STEWARDS_PRJMLW, STORET_PRJMLW1, STORET_PRJMLW2, NWIS_PRJMLW1, NWIS_PRJMLW2);
+	}
+
+	public void zipTest() {
+		zipTest(nameSpace, Integer.valueOf(TOTAL_PRJ_ML_WEIGHTING_COUNT));
+	}
+
+	public void pcodeTest() {
+		List<Map<String, Object>> results = pcodeTest(nameSpace, 2);
+		assertContainsProjectMLWeightings(results, NWIS_PRJMLW1, NWIS_PRJMLW2);
+	}
+
 	public void multipleParameterStationSumTest() {
-		LinkedList<Map<String, Object>> results = multipleParameterStationSumTest(nameSpace, 3);
+		List<Map<String, Object>> results = multipleParameterStationSumTest(nameSpace, 3);
 		assertContainsProjectMLWeightings(results, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2);
 	}
 
 	public void multipleParameterActivitySumTest() {
-		LinkedList<Map<String, Object>> results = multipleParameterActivitySumTest(nameSpace, 3);
+		List<Map<String, Object>> results = multipleParameterActivitySumTest(nameSpace, 3);
 		assertContainsProjectMLWeightings(results, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2);
 	}
 
 	public void multipleParameterResultSumTest() {
-		LinkedList<Map<String, Object>> results = multipleParameterResultSumTest(nameSpace, 0);
+		List<Map<String, Object>> results = multipleParameterResultSumTest(nameSpace, 0);
 		assertContainsProjectMLWeightings(results);
 	}
 
-	private void assertContainsProjectMLWeightings(LinkedList<Map<String, Object>> results, String[]... prjmlws) {
+	private void assertContainsProjectMLWeightings(List<Map<String, Object>> results, String[]... prjmlws) {
 		for (String[] i : prjmlws) {
 			boolean isFound = false;
 			for (Map<String, Object> result : results) {
@@ -312,4 +366,18 @@ public class ProjectMLWeightingStreamingTest extends BaseStreamingTest {
 		assertEquals(row.get(ProjectColumn.KEY_PROJECT_IDENTIFIER), comparison[1]);
 		assertEquals(row.get(StationColumn.KEY_SITE_ID), comparison[2]);
 	}
+
+	@Override
+	public LinkedList<Map<String, Object>> callDao(NameSpace nameSpace, int expectedSize, FilterParameters filter) {
+		TestResultHandler handler = new TestResultHandler();
+		streamingDao.stream(nameSpace, filter, handler);
+		assertEquals(expectedSize, handler.getResults().size());
+		return handler.getResults();
+	}
+
+	@Override
+	protected void assertSiteUrlBase(Map<String, Object> row) {
+		//Nothing to do for this one.
+	}
+
 }

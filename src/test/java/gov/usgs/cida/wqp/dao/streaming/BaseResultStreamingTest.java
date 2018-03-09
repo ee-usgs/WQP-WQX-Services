@@ -5,19 +5,27 @@ import static org.junit.Assert.fail;
 
 import java.math.BigDecimal;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import gov.usgs.cida.wqp.dao.FilteredResultDaoTest;
 import gov.usgs.cida.wqp.dao.NameSpace;
+import gov.usgs.cida.wqp.dao.intfc.IStreamingDao;
 import gov.usgs.cida.wqp.mapping.ActivityColumn;
 import gov.usgs.cida.wqp.mapping.BaseColumn;
 import gov.usgs.cida.wqp.mapping.ResultColumn;
+import gov.usgs.cida.wqp.mapping.TestResultHandler;
 import gov.usgs.cida.wqp.parameter.FilterParameters;
 
-public abstract class ResultStreamingTest extends BaseStreamingTest {
-	private static final Logger LOG = LoggerFactory.getLogger(ResultStreamingTest.class);
+public abstract class BaseResultStreamingTest extends FilteredResultDaoTest {
+	private static final Logger LOG = LoggerFactory.getLogger(BaseResultStreamingTest.class);
+
+	@Autowired 
+	IStreamingDao streamingDao;
 
 	public static final BigDecimal[] STEWARDS_1 = new BigDecimal[]{STEWARDS_ID, BigDecimal.ONE};
 	public static final BigDecimal[] STEWARDS_2 = new BigDecimal[]{STEWARDS_ID, BigDecimal.valueOf(2)};
@@ -93,9 +101,24 @@ public abstract class ResultStreamingTest extends BaseStreamingTest {
 		emptyParameterTest(nameSpace, Integer.valueOf(TOTAL_RESULT_COUNT));
 	}
 
-	public void allDataSortedTest(NameSpace nameSpace, Map<String, Object> expectedMap) {
+	public void activityTest(NameSpace nameSpace) {
+		activityTest(nameSpace, Integer.valueOf(TOTAL_RESULT_COUNT));
+	}
+
+	public void mimeTypeTest(NameSpace nameSpace) {
+		mimeTypeJsonTest(nameSpace, Integer.valueOf(TOTAL_RESULT_COUNT));
+		mimeTypeGeoJsonTest(nameSpace, Integer.valueOf(TOTAL_RESULT_COUNT));
+		mimeTypeKmlTest(nameSpace, Integer.valueOf(TOTAL_RESULT_COUNT));
+		mimeTypeKmzTest(nameSpace, Integer.valueOf(TOTAL_RESULT_COUNT));
+		mimeTypeCsvTest(nameSpace, Integer.valueOf(TOTAL_RESULT_COUNT));
+		mimeTypeTsvTest(nameSpace, Integer.valueOf(TOTAL_RESULT_COUNT));
+		mimeTypeXmlTest(nameSpace, Integer.valueOf(TOTAL_RESULT_COUNT));
+		mimeTypeXlsxTest(nameSpace, Integer.valueOf(TOTAL_RESULT_COUNT));
+	}
+
+	public void sortedTest(NameSpace nameSpace, Map<String, Object> expectedMap) {
 		Integer expectedColumnCount = expectedMap.keySet().size();
-		LinkedList<Map<String, Object>> results = allDataSortedTest(nameSpace, Integer.valueOf(TOTAL_RESULT_COUNT));
+		List<Map<String, Object>> results = sortedTest(nameSpace, Integer.valueOf(TOTAL_RESULT_COUNT));
 		assertRow(results.get(0), STEWARDS_1, expectedColumnCount);
 		assertRow(results.get(1), STEWARDS_2, expectedColumnCount);
 		assertRow(results.get(2), STEWARDS_3, expectedColumnCount);
@@ -158,19 +181,19 @@ public abstract class ResultStreamingTest extends BaseStreamingTest {
 	}
 
 	public void analyticalMethodTest(NameSpace nameSpace) {
-		LinkedList<Map<String, Object>> results = analyticalMethodTest(nameSpace, 17);
+		List<Map<String, Object>> results = analyticalMethodTest(nameSpace, 17);
 		assertContainsResult(results, NWIS_1, NWIS_2, NWIS_4, NWIS_5, STORET_1, STORET_2, STORET_3, STORET_41, STORET_42, STORET_43,
 				STORET_44, STORET_45, STORET_46, STORET_47, STORET_48, STORET_49, STORET_50);
 	}
 
 	public void assemblageTest(NameSpace nameSpace) {
-		LinkedList<Map<String, Object>> results = assemblageTest(nameSpace, 14);
+		List<Map<String, Object>> results = assemblageTest(nameSpace, 14);
 		assertContainsResult(results, STORET_1, STORET_2, STORET_3, STORET_41, STORET_42, STORET_43, STORET_44, STORET_45, STORET_46, STORET_47,
 				STORET_48, STORET_49, STORET_50, BIODATA_42);
 	}
 
 	public void avoidTest(NameSpace nameSpace) {
-		LinkedList<Map<String, Object>> results = avoidTest(nameSpace, Integer.valueOf(STORET_RESULT_COUNT));
+		List<Map<String, Object>> results = avoidTest(nameSpace, Integer.valueOf(STORET_RESULT_COUNT));
 		assertContainsResult(results, STORET_1, STORET_2, STORET_3, STORET_4, STORET_5, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10,
 				STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_16, STORET_17, STORET_18, STORET_19, STORET_20,
 				STORET_21, STORET_22, STORET_23, STORET_24, STORET_25, STORET_26, STORET_27, STORET_28, STORET_29, STORET_30,
@@ -179,19 +202,19 @@ public abstract class ResultStreamingTest extends BaseStreamingTest {
 	}
 
 	public void characteristicNameTest(NameSpace nameSpace) {
-		LinkedList<Map<String, Object>> results = characteristicNameTest(nameSpace, 13);
+		List<Map<String, Object>> results = characteristicNameTest(nameSpace, 13);
 		assertContainsResult(results, STORET_1, STORET_2, STORET_3, STORET_41, STORET_42, STORET_43, STORET_44, STORET_45, STORET_46, STORET_47,
 				STORET_48, STORET_49, STORET_50);
 	}
 
 	public void characteristicTypeTest(NameSpace nameSpace) {
-		LinkedList<Map<String, Object>> results = characteristicTypeTest(nameSpace, 15);
+		List<Map<String, Object>> results = characteristicTypeTest(nameSpace, 15);
 		assertContainsResult(results, STEWARDS_1, STEWARDS_2, STORET_1, STORET_2, STORET_3, STORET_41, STORET_42, STORET_43, STORET_44, STORET_45,
 				STORET_46, STORET_47, STORET_48, STORET_49, STORET_50);
 	}
 
 	public void countryTest(NameSpace nameSpace) {
-		LinkedList<Map<String, Object>> results = countryTest(nameSpace, 33);
+		List<Map<String, Object>> results = countryTest(nameSpace, 33);
 		assertContainsResult(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, NWIS_4, NWIS_5, STORET_1, STORET_2,
 				STORET_3, STORET_4, STORET_5, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, STORET_11, STORET_12,
 				STORET_13, STORET_14, STORET_41, STORET_42, STORET_43, STORET_44, STORET_45, STORET_46, STORET_47, STORET_48,
@@ -199,7 +222,7 @@ public abstract class ResultStreamingTest extends BaseStreamingTest {
 	}
 
 	public void countyTest(NameSpace nameSpace) {
-		LinkedList<Map<String, Object>> results = countyTest(nameSpace, 32);
+		List<Map<String, Object>> results = countyTest(nameSpace, 32);
 		assertContainsResult(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, NWIS_4, NWIS_5, STORET_1, STORET_2,
 				STORET_3, STORET_4, STORET_5, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, STORET_11, STORET_12,
 				STORET_13, STORET_14, STORET_41, STORET_42, STORET_43, STORET_44, STORET_45, STORET_46, STORET_47, STORET_48,
@@ -207,69 +230,73 @@ public abstract class ResultStreamingTest extends BaseStreamingTest {
 	}
 
 	public void huc2Test(NameSpace nameSpace) {
-		LinkedList<Map<String, Object>> results = huc2Test(nameSpace, 23);
+		List<Map<String, Object>> results = huc2Test(nameSpace, 23);
 		assertContainsResult(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, NWIS_4, NWIS_5, STORET_4, STORET_5,
 				STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14, STORET_41,
 				STORET_45, STORET_46, STORET_47);
 	}
 
 	public void huc3Test(NameSpace nameSpace) {
-		LinkedList<Map<String, Object>> results = huc3Test(nameSpace, 23);
+		List<Map<String, Object>> results = huc3Test(nameSpace, 23);
 		assertContainsResult(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, NWIS_4, NWIS_5, STORET_4, STORET_5,
 				STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14, STORET_41,
 				STORET_45, STORET_46, STORET_47);
 	}
 
 	public void huc4Test(NameSpace nameSpace) {
-		LinkedList<Map<String, Object>> results = huc4Test(nameSpace, 16);
+		List<Map<String, Object>> results = huc4Test(nameSpace, 16);
 		assertContainsResult(results, NWIS_1, NWIS_2, NWIS_3, NWIS_4, NWIS_5, STORET_4, STORET_5, STORET_6, STORET_7, STORET_8,
 				STORET_9, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14);
 	}
 
 	public void huc5Test(NameSpace nameSpace) {
-		LinkedList<Map<String, Object>> results = huc5Test(nameSpace, 16);
+		List<Map<String, Object>> results = huc5Test(nameSpace, 16);
 		assertContainsResult(results, NWIS_1, NWIS_2, NWIS_3, NWIS_4, NWIS_5, STORET_4, STORET_5, STORET_6, STORET_7, STORET_8,
 				STORET_9, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14);
 	}
 
 	public void huc6Test(NameSpace nameSpace) {
-		LinkedList<Map<String, Object>> results = huc6Test(nameSpace, 15);
+		List<Map<String, Object>> results = huc6Test(nameSpace, 15);
 		assertContainsResult(results, NWIS_1, NWIS_2, NWIS_4, NWIS_5, STORET_4, STORET_5, STORET_6, STORET_7, STORET_8, STORET_9,
 				STORET_10, STORET_11, STORET_12, STORET_13, STORET_14);
 	}
 
 	public void huc7Test(NameSpace nameSpace) {
-		LinkedList<Map<String, Object>> results = huc7Test(nameSpace, 15);
+		List<Map<String, Object>> results = huc7Test(nameSpace, 15);
 		assertContainsResult(results, NWIS_1, NWIS_2, NWIS_4, NWIS_5, STORET_4, STORET_5, STORET_6, STORET_7, STORET_8, STORET_9,
 				STORET_10, STORET_11, STORET_12, STORET_13, STORET_14);
 	}
 
 	public void huc8Test(NameSpace nameSpace) {
-		LinkedList<Map<String, Object>> results = huc8Test(nameSpace, 11);
+		List<Map<String, Object>> results = huc8Test(nameSpace, 11);
 		assertContainsResult(results, STORET_4, STORET_5, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, STORET_11, STORET_12, STORET_13,
 				STORET_14);
 	}
 
 	public void huc10Test(NameSpace nameSpace) {
-		LinkedList<Map<String, Object>> results = huc10Test(nameSpace, 11);
+		List<Map<String, Object>> results = huc10Test(nameSpace, 11);
 		assertContainsResult(results, STORET_4, STORET_5, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, STORET_11, STORET_12, STORET_13,
 				STORET_14);
 	}
 
 	public void huc12Test(NameSpace nameSpace) {
-		LinkedList<Map<String, Object>> results = huc12Test(nameSpace, 11);
+		List<Map<String, Object>> results = huc12Test(nameSpace, 11);
 		assertContainsResult(results, STORET_4, STORET_5, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, STORET_11, STORET_12, STORET_13,
 				STORET_14);
 	}
 
-	public void nldiUrlTest(NameSpace nameSpace) {
-		LinkedList<Map<String, Object>> results = nldiUrlTest(nameSpace, 19);
+	public void nldiSitesTest(NameSpace nameSpace) {
+		List<Map<String, Object>> results = nldiSitesTest(nameSpace, 19);
 		assertContainsResult(results, STORET_1, STORET_2, STORET_4, STORET_5, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, STORET_11,
 				STORET_12, STORET_13, STORET_14, STORET_42, STORET_43, STORET_44, STORET_48, STORET_49, STORET_50);
 	}
 
+	public void nldiUrlTest(NameSpace nameSpace) {
+		nldiUrlTest(nameSpace, Integer.valueOf(TOTAL_RESULT_COUNT));
+	}
+
 	public void organizationTest(NameSpace nameSpace) {
-		LinkedList<Map<String, Object>> results = organizationTest(nameSpace, 32);
+		List<Map<String, Object>> results = organizationTest(nameSpace, 32);
 		assertContainsResult(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, NWIS_4, NWIS_5, STORET_1, STORET_2,
 				STORET_3, STORET_4, STORET_5, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, STORET_11, STORET_12,
 				STORET_13, STORET_14, STORET_41, STORET_42, STORET_43, STORET_44, STORET_45, STORET_46, STORET_47, STORET_48,
@@ -277,13 +304,13 @@ public abstract class ResultStreamingTest extends BaseStreamingTest {
 	}
 
 	public void projectTest(NameSpace nameSpace) {
-		LinkedList<Map<String, Object>> results = projectTest(nameSpace, 19);
+		List<Map<String, Object>> results = projectTest(nameSpace, 19);
 		assertContainsResult(results, STEWARDS_1, STEWARDS_3, NWIS_1, NWIS_3, NWIS_4, NWIS_5, STORET_1, STORET_2, STORET_3, STORET_42,
 				STORET_43, STORET_44, STORET_45, STORET_46, STORET_47, STORET_48, STORET_49, STORET_50, BIODATA_42);
 	}
 
 	public void providersTest(NameSpace nameSpace) {
-		LinkedList<Map<String, Object>> results = providersTest(nameSpace, 58);
+		List<Map<String, Object>> results = providersTest(nameSpace, 58);
 		assertContainsResult(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, NWIS_4, NWIS_5, STORET_1, STORET_2,
 				STORET_3, STORET_4, STORET_5, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, STORET_11, STORET_12,
 				STORET_13, STORET_14, STORET_15, STORET_16, STORET_17, STORET_18, STORET_19, STORET_20, STORET_21, STORET_22,
@@ -292,8 +319,12 @@ public abstract class ResultStreamingTest extends BaseStreamingTest {
 				STORET_43, STORET_44, STORET_45, STORET_46, STORET_47, STORET_48, STORET_49, STORET_50);
 	}
 
+	public void resultTest(NameSpace nameSpace) {
+		resultTest(nameSpace, Integer.valueOf(TOTAL_RESULT_COUNT));
+	}
+
 	public void sampleMediaTest(NameSpace nameSpace) {
-		LinkedList<Map<String, Object>> results = sampleMediaTest(nameSpace, 57);
+		List<Map<String, Object>> results = sampleMediaTest(nameSpace, 57);
 		assertContainsResult(results, STEWARDS_1, STEWARDS_3, NWIS_1, NWIS_3, NWIS_4, NWIS_5, STORET_1, STORET_2, STORET_3, STORET_4,
 				STORET_5, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14,
 				STORET_15, STORET_16, STORET_17, STORET_18, STORET_19, STORET_20, STORET_21, STORET_22, STORET_23, STORET_24,
@@ -303,7 +334,7 @@ public abstract class ResultStreamingTest extends BaseStreamingTest {
 	}
 
 	public void startDateHiTest(NameSpace nameSpace) {
-		LinkedList<Map<String, Object>> results = startDateHiTest(nameSpace, 57);
+		List<Map<String, Object>> results = startDateHiTest(nameSpace, 57);
 		assertContainsResult(results, STEWARDS_1, STEWARDS_3, NWIS_1, NWIS_3, NWIS_4, NWIS_5, STORET_1, STORET_2, STORET_3, STORET_4,
 				STORET_5, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14,
 				STORET_15, STORET_16, STORET_17, STORET_18, STORET_19, STORET_20, STORET_21, STORET_22, STORET_23, STORET_24,
@@ -313,27 +344,31 @@ public abstract class ResultStreamingTest extends BaseStreamingTest {
 	}
 
 	public void startDateLoTest(NameSpace nameSpace) {
-		LinkedList<Map<String, Object>> results = startDateLoTest(nameSpace, 22);
+		List<Map<String, Object>> results = startDateLoTest(nameSpace, 22);
 		assertContainsResult(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, NWIS_4, NWIS_5, STORET_1, STORET_2,
 				STORET_3, STORET_41, STORET_42, STORET_43, STORET_44, STORET_45, STORET_46, STORET_47, STORET_48, STORET_49,
 				STORET_50, BIODATA_42);
 	}
 
 	public void siteIdTest(NameSpace nameSpace) {
-		LinkedList<Map<String, Object>> results = siteIdTest(nameSpace, 21);
+		List<Map<String, Object>> results = siteIdTest(nameSpace, 21);
 		assertContainsResult(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, NWIS_4, NWIS_5, STORET_1, STORET_2,
 				STORET_3, STORET_41, STORET_42, STORET_43, STORET_44, STORET_45, STORET_46, STORET_47, STORET_48, STORET_49,
 				STORET_50);
 	}
 
-	public void manySitesTest(NameSpace nameSpace) {
-		LinkedList<Map<String, Object>> results = manySitesTest(nameSpace, 19);
+	public void siteIdLargeListTest(NameSpace nameSpace) {
+		List<Map<String, Object>> results = siteIdLargeListTest(nameSpace, 19);
 		assertContainsResult(results, STORET_1, STORET_2, STORET_4, STORET_5, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, STORET_11,
 				STORET_12, STORET_13, STORET_14, STORET_42, STORET_43, STORET_44, STORET_48, STORET_49, STORET_50);
 	}
 
+	public void siteUrlBaseTest(NameSpace nameSpace) {
+		siteUrlBaseTest(nameSpace, Integer.valueOf(TOTAL_RESULT_COUNT));
+	}
+
 	public void minActivitiesTest(NameSpace nameSpace) {
-		LinkedList<Map<String, Object>> results = minActivitiesTest(nameSpace, 55);
+		List<Map<String, Object>> results = minActivitiesTest(nameSpace, 55);
 		assertContainsResult(results, STEWARDS_1, STEWARDS_2, NWIS_1, NWIS_2, NWIS_4, NWIS_5, STORET_1, STORET_2, STORET_4, STORET_5,
 				STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14, STORET_15,
 				STORET_16, STORET_17, STORET_18, STORET_19, STORET_20, STORET_21, STORET_22, STORET_23, STORET_24, STORET_25,
@@ -343,7 +378,7 @@ public abstract class ResultStreamingTest extends BaseStreamingTest {
 	}
 
 	public void minResultsTest(NameSpace nameSpace) {
-		LinkedList<Map<String, Object>> results = minResultsTest(nameSpace, 53);
+		List<Map<String, Object>> results = minResultsTest(nameSpace, 53);
 		assertContainsResult(results, NWIS_1, NWIS_2, NWIS_4, NWIS_5, STORET_1, STORET_2, STORET_4, STORET_5, STORET_6, STORET_7,
 				STORET_8, STORET_9, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_16, STORET_17,
 				STORET_18, STORET_19, STORET_20, STORET_21, STORET_22, STORET_23, STORET_24, STORET_25, STORET_26, STORET_27,
@@ -353,13 +388,13 @@ public abstract class ResultStreamingTest extends BaseStreamingTest {
 	}
 
 	public void pcodeTest(NameSpace nameSpace) {
-		LinkedList<Map<String, Object>> results = pcodeTest(nameSpace, 13);
+		List<Map<String, Object>> results = pcodeTest(nameSpace, 13);
 		assertContainsResult(results, NWIS_3, STORET_1, STORET_2, STORET_41, STORET_42, STORET_43, STORET_44, STORET_45, STORET_46, STORET_47,
 				STORET_48, STORET_49, STORET_50);
 	}
 
 	public void siteTypeTest(NameSpace nameSpace) {
-		LinkedList<Map<String, Object>> results = siteTypeTest(nameSpace, 58);
+		List<Map<String, Object>> results = siteTypeTest(nameSpace, 58);
 		assertContainsResult(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_4, NWIS_5, STORET_1, STORET_2, STORET_3,
 				STORET_4, STORET_5, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, STORET_11, STORET_12, STORET_13,
 				STORET_14, STORET_15, STORET_16, STORET_17, STORET_18, STORET_19, STORET_20, STORET_21, STORET_22, STORET_23,
@@ -369,7 +404,7 @@ public abstract class ResultStreamingTest extends BaseStreamingTest {
 	}
 
 	public void stateTest(NameSpace nameSpace) {
-		LinkedList<Map<String, Object>> results = stateTest(nameSpace, 32);
+		List<Map<String, Object>> results = stateTest(nameSpace, 32);
 		assertContainsResult(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, NWIS_4, NWIS_5, STORET_1, STORET_2,
 				STORET_3, STORET_4, STORET_5, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, STORET_11, STORET_12,
 				STORET_13, STORET_14, STORET_41, STORET_42, STORET_43, STORET_44, STORET_45, STORET_46, STORET_47, STORET_48,
@@ -377,16 +412,20 @@ public abstract class ResultStreamingTest extends BaseStreamingTest {
 	}
 
 	public void subjectTaxonomicNameTest(NameSpace nameSpace) {
-		LinkedList<Map<String, Object>> results = subjectTaxonomicNameTest(nameSpace, 13);
+		List<Map<String, Object>> results = subjectTaxonomicNameTest(nameSpace, 13);
 		assertContainsResult(results, STORET_1, STORET_2, STORET_3, STORET_42, STORET_43, STORET_44, STORET_45, STORET_46, STORET_47, STORET_48,
 				STORET_49, STORET_50, BIODATA_42);
+	}
+
+	public void zipTest(NameSpace nameSpace) {
+		zipTest(nameSpace, Integer.valueOf(TOTAL_RESULT_COUNT));
 	}
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//Result + Station_Sum
 
 	public void bboxTest(NameSpace nameSpace) {
-		LinkedList<Map<String, Object>> results = bboxTest(nameSpace, 31);
+		List<Map<String, Object>> results = bboxTest(nameSpace, 31);
 		assertContainsResult(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, NWIS_4, NWIS_5, STORET_1, STORET_2,
 				STORET_4, STORET_5, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, STORET_11, STORET_12, STORET_13,
 				STORET_14, STORET_41, STORET_42, STORET_43, STORET_44, STORET_45, STORET_46, STORET_47, STORET_48, STORET_49,
@@ -394,7 +433,7 @@ public abstract class ResultStreamingTest extends BaseStreamingTest {
 	}
 
 	public void withinTest(NameSpace nameSpace) {
-		LinkedList<Map<String, Object>> results = withinTest(nameSpace, 54);
+		List<Map<String, Object>> results = withinTest(nameSpace, 54);
 		assertContainsResult(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, NWIS_4, NWIS_5, STORET_1, STORET_2,
 				STORET_3, STORET_4, STORET_5, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, STORET_11, STORET_12,
 				STORET_13, STORET_14, STORET_15, STORET_16, STORET_17, STORET_18, STORET_19, STORET_20, STORET_21, STORET_22,
@@ -405,62 +444,13 @@ public abstract class ResultStreamingTest extends BaseStreamingTest {
 
 
 	public void multipleParameterResultTest(NameSpace nameSpace) {
-		FilterParameters filter = new FilterParameters();
-		filter.setAnalyticalmethod(getAnalyticalMethod());
-		filter.setAssemblage(getAssemblage());
-		filter.setCommand(getCommand());
-		filter.setCharacteristicName(getCharacteristicName());
-		filter.setCharacteristicType(getCharacteristicType());
-		filter.setCountrycode(getCountry());
-		filter.setCountycode(getCounty());
-		filter.setHuc(getHuc());
-		filter.setMinactivities(getMinActivities());
-		filter.setMinresults(getMinResults());
-		filter.setOrganization(getOrganization());
-		filter.setPCode(getPcode());
-		filter.setProject(getProject());
-		filter.setProviders(getProviders());
-		filter.setSampleMedia(getSampleMedia());
-		filter.setSiteType(getSiteType());
-		filter.setSiteid(getSiteid());
-		filter.setStartDateHi(getStartDateHi());
-		filter.setStartDateLo(getStartDateLo());
-		filter.setStatecode(getState());
-		filter.setSubjectTaxonomicName(getSubjectTaxonomicName());
-		LinkedList<Map<String, Object>> results = callDao(nameSpace, 11, filter);
+		List<Map<String, Object>> results = multipleParameterResultTest(nameSpace, 11);
 		assertContainsResult(results, STORET_1, STORET_2, STORET_42, STORET_43, STORET_44, STORET_45, STORET_46, STORET_47, STORET_48, STORET_49,
 				STORET_50);
 	}
 
 	public void multipleParameterResultStationSumTest(NameSpace nameSpace) {
-		FilterParameters filter = new FilterParameters();
-		filter.setAnalyticalmethod(getAnalyticalMethod());
-		filter.setAssemblage(getAssemblage());
-		filter.setCommand(getCommand());
-		filter.setBBox(getBBox());
-		filter.setCharacteristicName(getCharacteristicName());
-		filter.setCharacteristicType(getCharacteristicType());
-		filter.setCountrycode(getCountry());
-		filter.setCountycode(getCounty());
-		filter.setHuc(getHuc());
-		filter.setLat(getLatitude());
-		filter.setLong(getLongitude());
-		filter.setMinactivities(getMinActivities());
-		filter.setMinresults(getMinResults());
-		filter.setNldiSites(getNldiSites());
-		filter.setOrganization(getOrganization());
-		filter.setPCode(getPcode());
-		filter.setProject(getProject());
-		filter.setProviders(getProviders());
-		filter.setSampleMedia(getSampleMedia());
-		filter.setSiteType(getSiteType());
-		filter.setSiteid(getSiteid());
-		filter.setStartDateHi(getStartDateHi());
-		filter.setStartDateLo(getStartDateLo());
-		filter.setStatecode(getState());
-		filter.setSubjectTaxonomicName(getSubjectTaxonomicName());
-		filter.setWithin(getWithin());
-		LinkedList<Map<String, Object>> results = callDao(nameSpace, 4, filter);
+		List<Map<String, Object>> results = multipleParameterResultStationSumTest(nameSpace, 4);
 		assertContainsResult(results, STORET_1, STORET_48, STORET_49, STORET_50);
 	}
 
@@ -474,7 +464,7 @@ public abstract class ResultStreamingTest extends BaseStreamingTest {
 		assertMapIsAsExpected(compareRow, resultRow);
 	}
 
-	public void assertContainsResult(LinkedList<Map<String, Object>> results, BigDecimal[]...  resultIds) {
+	public void assertContainsResult(List<Map<String, Object>> results, BigDecimal[]...  resultIds) {
 		for (Map<String, Object> result : results) {
 			LOG.debug(ActivityColumn.KEY_DATA_SOURCE_ID + ":" + result.get(ActivityColumn.KEY_DATA_SOURCE_ID) + "/" + ResultColumn.KEY_RESULT_ID + ":" +  result.get(ResultColumn.KEY_RESULT_ID));
 		}
@@ -493,6 +483,14 @@ public abstract class ResultStreamingTest extends BaseStreamingTest {
 			}
 		}
 		assertEquals("Double check expected size", results.size(), resultIds.length);
+	}
+
+	@Override
+	public LinkedList<Map<String, Object>> callDao(NameSpace nameSpace, int expectedSize, FilterParameters filter) {
+		TestResultHandler handler = new TestResultHandler();
+		streamingDao.stream(nameSpace, filter, handler);
+		assertEquals(expectedSize, handler.getResults().size());
+		return handler.getResults();
 	}
 
 }

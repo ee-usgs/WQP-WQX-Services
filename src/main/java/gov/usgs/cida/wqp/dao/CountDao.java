@@ -29,6 +29,7 @@ public class CountDao extends BaseDao implements ICountDao {
 	public List<Map<String, Object>> getCounts(NameSpace nameSpace, FilterParameters filter) {
 		LOG.trace("Getting counts for: {}", nameSpace);
 		FilterParameters adjustedFilter = adjustMinCount(nameSpace, filter);
+		LOG.trace("With filter: {}", null == adjustedFilter ? null : adjustedFilter.toJson());
 		return getSqlSession().selectList(nameSpace + QUERY_SELECT_ID, adjustedFilter);
 	}
 

@@ -8,29 +8,37 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 
 import gov.usgs.cida.wqp.CsvDataSetLoader;
 import gov.usgs.cida.wqp.DBIntegrationTest;
+import gov.usgs.cida.wqp.dao.FilteredResDetectQntLmtDaoTest;
 import gov.usgs.cida.wqp.dao.NameSpace;
+import gov.usgs.cida.wqp.dao.intfc.IStreamingDao;
 import gov.usgs.cida.wqp.mapping.BaseColumn;
 import gov.usgs.cida.wqp.mapping.ResultColumn;
 import gov.usgs.cida.wqp.mapping.TestResDetectQntLmtMap;
+import gov.usgs.cida.wqp.mapping.TestResultHandler;
 import gov.usgs.cida.wqp.parameter.FilterParameters;
 
 @Category(DBIntegrationTest.class)
 @DatabaseSetup("classpath:/testData/csv/")
 @DbUnitConfiguration(dataSetLoader = CsvDataSetLoader.class)
-public class ResDetectQntLmtStreamingTest extends BaseStreamingTest {
+public class ResDetectQntLmtStreamingTest extends FilteredResDetectQntLmtDaoTest {
 	private static final Logger LOG = LoggerFactory.getLogger(ActivityMetricStreamingTest.class);
+
+	@Autowired 
+	IStreamingDao streamingDao;
 
 	NameSpace nameSpace = NameSpace.RES_DETECT_QNT_LMT;
 
@@ -113,9 +121,7 @@ public class ResDetectQntLmtStreamingTest extends BaseStreamingTest {
 
 	@Test
 	public void testHarness() {
-		nullParameterTest();
-		emptyParameterTest();
-		allDataSortedTest();
+		activityTest();
 		analyticalMethodTest();
 		assemblageTest();
 		avoidTest();
@@ -124,6 +130,7 @@ public class ResDetectQntLmtStreamingTest extends BaseStreamingTest {
 		characteristicTypeTest();
 		countryTest();
 		countyTest();
+		emptyParameterTest();
 		huc2Test();
 		huc3Test();
 		huc4Test();
@@ -133,9 +140,12 @@ public class ResDetectQntLmtStreamingTest extends BaseStreamingTest {
 		huc8Test();
 		huc10Test();
 		huc12Test();
+		mimeTypeTest();
 		minActivitiesTest();
 		minResultsTest();
+		nldiSitesTest();
 		nldiUrlTest();
+		nullParameterTest();
 		organizationTest();
 		pcodeTest();
 		projectTest();
@@ -143,30 +153,311 @@ public class ResDetectQntLmtStreamingTest extends BaseStreamingTest {
 		resultTest();
 		sampleMediaTest();
 		siteIdTest();
-		manySitesTest();
+		siteIdLargeListTest();
 		siteTypeTest();
+		siteUrlBaseTest();
+		sortedTest();
 		startDateHiTest();
 		startDateLoTest();
 		stateTest();
 		subjectTaxonomicNameTest();
 		withinTest();
+		zipTest();
 		multipleParameterTest();
 		multipleParameterWithStationSumTest();
+		multipleParameterWithResultSumTest();
+		multipleParameterWithStationSumAndResultSumTest();
 	}
 
-	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	//Only need Activity (and possibly a lookup table)
+	public void activityTest() {
+		activityTest(nameSpace, Integer.valueOf(TOTAL_RES_DETECT_QNT_LMT_COUNT));
+	}
 
-	public void nullParameterTest() {
-		nullParameterTest(nameSpace, Integer.valueOf(TOTAL_RES_DETECT_QNT_LMT_COUNT));
+	public void analyticalMethodTest() {
+		List<Map<String, Object>> results = analyticalMethodTest(nameSpace, 22);
+		assertContainsResDetectQntLmt(results,
+				NWIS_10, NWIS_11, NWIS_12, NWIS_13, NWIS_14, NWIS_15, STORET_17, STORET_18, STORET_19, STORET_20,
+				STORET_21, STORET_22, STORET_23, STORET_24, STORET_25, STORET_26, STORET_27, STORET_28, STORET_70, STORET_71, 
+				STORET_72, STORET_73);
+	}
+
+	public void assemblageTest() {
+		List<Map<String, Object>> results = assemblageTest(nameSpace, 17);
+		assertContainsResDetectQntLmt(results,
+				STORET_17, STORET_18, STORET_19, STORET_20, STORET_21, STORET_22, STORET_23, STORET_24, STORET_25, STORET_26,
+				STORET_27, STORET_28, STORET_70, STORET_71, STORET_72, STORET_73, BIODATA_74);
+	}
+
+	public void avoidTest() {
+		List<Map<String, Object>> results = avoidTest(nameSpace, Integer.valueOf(STORET_RES_DETECT_QNT_LMT_COUNT));
+		assertContainsResDetectQntLmt(results,
+				STORET_17, STORET_18, STORET_19, STORET_20, STORET_21, STORET_22, STORET_23, STORET_24, STORET_25, STORET_26,
+				STORET_27, STORET_28, STORET_29, STORET_30, STORET_31, STORET_32, STORET_33, STORET_34, STORET_35, STORET_36,
+				STORET_37, STORET_38, STORET_39, STORET_40, STORET_41, STORET_42, STORET_43, STORET_44, STORET_45, STORET_46,
+				STORET_47, STORET_48, STORET_49, STORET_50, STORET_51, STORET_52, STORET_53, STORET_54, STORET_55, STORET_56,
+				STORET_57, STORET_58, STORET_59, STORET_60, STORET_61, STORET_62, STORET_63, STORET_64, STORET_65, STORET_66,
+				STORET_67, STORET_68, STORET_69, STORET_70, STORET_71, STORET_72, STORET_73);
+	}
+
+	public void bboxTest() {
+		List<Map<String, Object>> results = bboxTest(nameSpace, 42);
+		assertContainsResDetectQntLmt(results,
+				STEWARDS_1, STEWARDS_2, STEWARDS_3, STEWARDS_4, STEWARDS_5, STEWARDS_6, STEWARDS_7, STEWARDS_8, STEWARDS_9, NWIS_10,
+				NWIS_11, NWIS_12, NWIS_13, NWIS_14, NWIS_15, NWIS_16, STORET_17, STORET_18, STORET_19, STORET_20,
+				STORET_21, STORET_22, STORET_23, STORET_24, STORET_25, STORET_26, STORET_27, STORET_29, STORET_30, STORET_31,
+				STORET_32, STORET_33, STORET_34, STORET_35, STORET_36, STORET_37, STORET_38, STORET_39, STORET_70, STORET_71,
+				STORET_72, STORET_73);
+	}
+
+	public void characteristicNameTest() {
+		List<Map<String, Object>> results = characteristicNameTest(nameSpace, 16);
+		assertContainsResDetectQntLmt(results,
+				STORET_17, STORET_18, STORET_19, STORET_20, STORET_21, STORET_22, STORET_23, STORET_24, STORET_25, STORET_26,
+				STORET_27, STORET_28, STORET_70, STORET_71, STORET_72, STORET_73);
+	}
+
+	public void characteristicTypeTest() {
+		List<Map<String, Object>> results = characteristicTypeTest(nameSpace, 21);
+		assertContainsResDetectQntLmt(results,
+				STEWARDS_1, STEWARDS_2, STEWARDS_3, STEWARDS_4, STEWARDS_5, STORET_17, STORET_18, STORET_19, STORET_20, STORET_21,
+				STORET_22, STORET_23, STORET_24, STORET_25, STORET_26, STORET_27, STORET_28, STORET_70, STORET_71, STORET_72,
+				STORET_73);
+	}
+
+	public void countryTest() {
+		List<Map<String, Object>> results = countryTest(nameSpace, 44);
+		assertContainsResDetectQntLmt(results,
+				STEWARDS_1, STEWARDS_2, STEWARDS_3, STEWARDS_4, STEWARDS_5, STEWARDS_6, STEWARDS_7, STEWARDS_8, STEWARDS_9, NWIS_10,
+				NWIS_11, NWIS_12, NWIS_13, NWIS_14, NWIS_15, NWIS_16, STORET_17, STORET_18, STORET_19, STORET_20,
+				STORET_21, STORET_22, STORET_23, STORET_24, STORET_25, STORET_26, STORET_27, STORET_28, STORET_29, STORET_30,
+				STORET_31, STORET_32, STORET_33, STORET_34, STORET_35, STORET_36, STORET_37, STORET_38, STORET_39, STORET_70,
+				STORET_71, STORET_72, STORET_73, BIODATA_74);
+	}
+
+	public void countyTest() {
+		List<Map<String, Object>> results = countyTest(nameSpace, 43);
+		assertContainsResDetectQntLmt(results,
+				STEWARDS_1, STEWARDS_2, STEWARDS_3, STEWARDS_4, STEWARDS_5, STEWARDS_6, STEWARDS_7, STEWARDS_8, STEWARDS_9, NWIS_10,
+				NWIS_11, NWIS_12, NWIS_13, NWIS_14, NWIS_15, NWIS_16, STORET_17, STORET_18, STORET_19, STORET_20,
+				STORET_21, STORET_22, STORET_23, STORET_24, STORET_25, STORET_26, STORET_27, STORET_28, STORET_29, STORET_30,
+				STORET_31, STORET_32, STORET_33, STORET_34, STORET_35, STORET_36, STORET_37, STORET_38, STORET_39, STORET_70,
+				STORET_71, STORET_72, STORET_73);
 	}
 
 	public void emptyParameterTest() {
 		emptyParameterTest(nameSpace, Integer.valueOf(TOTAL_RES_DETECT_QNT_LMT_COUNT));
 	}
 
-	public void allDataSortedTest() {
-		LinkedList<Map<String, Object>> results = allDataSortedTest(nameSpace, Integer.valueOf(TOTAL_RES_DETECT_QNT_LMT_COUNT));
+	public void huc2Test() {
+		List<Map<String, Object>> results = huc2Test(nameSpace, 31);
+		assertContainsResDetectQntLmt(results,
+				STEWARDS_1, STEWARDS_2, STEWARDS_3, STEWARDS_4, STEWARDS_5, STEWARDS_6, STEWARDS_7, STEWARDS_8, STEWARDS_9, NWIS_10,
+				NWIS_11, NWIS_12, NWIS_13, NWIS_14, NWIS_15, NWIS_16, STORET_29, STORET_30, STORET_31, STORET_32,
+				STORET_33, STORET_34, STORET_35, STORET_36, STORET_37, STORET_38, STORET_39, STORET_70, STORET_71, STORET_72,
+				STORET_73);
+	}
+
+	public void huc3Test() {
+		List<Map<String, Object>> results = huc3Test(nameSpace, 31);
+		assertContainsResDetectQntLmt(results,
+				STEWARDS_1, STEWARDS_2, STEWARDS_3, STEWARDS_4, STEWARDS_5, STEWARDS_6, STEWARDS_7, STEWARDS_8, STEWARDS_9, NWIS_10,
+				NWIS_11, NWIS_12, NWIS_13, NWIS_14, NWIS_15, NWIS_16, STORET_29, STORET_30, STORET_31, STORET_32,
+				STORET_33, STORET_34, STORET_35, STORET_36, STORET_37, STORET_38, STORET_39, STORET_70, STORET_71, STORET_72,
+				STORET_73);
+	}
+
+	public void huc4Test() {
+		List<Map<String, Object>> results = huc4Test(nameSpace, 18);
+		assertContainsResDetectQntLmt(results,
+				NWIS_10, NWIS_11, NWIS_12, NWIS_13, NWIS_14, NWIS_15, NWIS_16, STORET_29, STORET_30, STORET_31,
+				STORET_32, STORET_33, STORET_34, STORET_35, STORET_36, STORET_37, STORET_38, STORET_39);
+	}
+
+	public void huc5Test() {
+		List<Map<String, Object>> results = huc5Test(nameSpace, 18);
+		assertContainsResDetectQntLmt(results,
+				NWIS_10, NWIS_11, NWIS_12, NWIS_13, NWIS_14, NWIS_15, NWIS_16, STORET_29, STORET_30, STORET_31,
+				STORET_32, STORET_33, STORET_34, STORET_35, STORET_36, STORET_37, STORET_38, STORET_39);
+	}
+
+	public void huc6Test() {
+		List<Map<String, Object>> results = huc6Test(nameSpace, 17);
+		assertContainsResDetectQntLmt(results,
+				NWIS_10, NWIS_11, NWIS_12, NWIS_13, NWIS_14, NWIS_15, STORET_29, STORET_30, STORET_31, STORET_32,
+				STORET_33, STORET_34, STORET_35, STORET_36, STORET_37, STORET_38, STORET_39);
+	}
+
+	public void huc7Test() {
+		List<Map<String, Object>> results = huc7Test(nameSpace, 17);
+		assertContainsResDetectQntLmt(results,
+				NWIS_10, NWIS_11, NWIS_12, NWIS_13, NWIS_14, NWIS_15, STORET_29, STORET_30, STORET_31, STORET_32,
+				STORET_33, STORET_34, STORET_35, STORET_36, STORET_37, STORET_38, STORET_39);
+	}
+
+	public void huc8Test() {
+		List<Map<String, Object>> results = huc8Test(nameSpace, 11);
+		assertContainsResDetectQntLmt(results,
+				STORET_29, STORET_30, STORET_31, STORET_32, STORET_33, STORET_34, STORET_35, STORET_36, STORET_37, STORET_38,
+				STORET_39);
+	}
+
+	public void huc10Test() {
+		List<Map<String, Object>> results = huc10Test(nameSpace, 11);
+		assertContainsResDetectQntLmt(results,
+				STORET_29, STORET_30, STORET_31, STORET_32, STORET_33, STORET_34, STORET_35, STORET_36, STORET_37, STORET_38,
+				STORET_39);
+	}
+
+	public void huc12Test() {
+		List<Map<String, Object>> results = huc12Test(nameSpace, 11);
+		assertContainsResDetectQntLmt(results,
+				STORET_29, STORET_30, STORET_31, STORET_32, STORET_33, STORET_34, STORET_35, STORET_36, STORET_37, STORET_38,
+				STORET_39);
+	}
+
+	public void mimeTypeTest() {
+		mimeTypeJsonTest(nameSpace, Integer.valueOf(TOTAL_RES_DETECT_QNT_LMT_COUNT));
+		mimeTypeGeoJsonTest(nameSpace, Integer.valueOf(TOTAL_RES_DETECT_QNT_LMT_COUNT));
+		mimeTypeKmlTest(nameSpace, Integer.valueOf(TOTAL_RES_DETECT_QNT_LMT_COUNT));
+		mimeTypeKmzTest(nameSpace, Integer.valueOf(TOTAL_RES_DETECT_QNT_LMT_COUNT));
+		mimeTypeCsvTest(nameSpace, Integer.valueOf(TOTAL_RES_DETECT_QNT_LMT_COUNT));
+		mimeTypeTsvTest(nameSpace, Integer.valueOf(TOTAL_RES_DETECT_QNT_LMT_COUNT));
+		mimeTypeXmlTest(nameSpace, Integer.valueOf(TOTAL_RES_DETECT_QNT_LMT_COUNT));
+		mimeTypeXlsxTest(nameSpace, Integer.valueOf(TOTAL_RES_DETECT_QNT_LMT_COUNT));
+	}
+
+	public void minActivitiesTest() {
+		List<Map<String, Object>> results = minActivitiesTest(nameSpace, 67);
+		assertContainsResDetectQntLmt(results,
+				STEWARDS_1, STEWARDS_2, STEWARDS_3, STEWARDS_4, STEWARDS_5, NWIS_10, NWIS_11, NWIS_12, NWIS_13, NWIS_14,
+				NWIS_15, STORET_17, STORET_18, STORET_19, STORET_20, STORET_21, STORET_22, STORET_23, STORET_24, STORET_25,
+				STORET_26, STORET_27, STORET_29, STORET_30, STORET_31, STORET_32, STORET_33, STORET_34, STORET_35, STORET_36,
+				STORET_37, STORET_38, STORET_39, STORET_40, STORET_41, STORET_42, STORET_43, STORET_44, STORET_45, STORET_46,
+				STORET_47, STORET_48, STORET_49, STORET_50, STORET_51, STORET_52, STORET_53, STORET_54, STORET_55, STORET_56,
+				STORET_57, STORET_58, STORET_59, STORET_60, STORET_61, STORET_62, STORET_63, STORET_64, STORET_65, STORET_66,
+				STORET_67, STORET_68, STORET_69, STORET_70, STORET_71, STORET_72, STORET_73);
+	}
+
+	public void minResultsTest() {
+		List<Map<String, Object>> results = minResultsTest(nameSpace, 62);
+		assertContainsResDetectQntLmt(results,
+				NWIS_10, NWIS_11, NWIS_12, NWIS_13, NWIS_14, NWIS_15, STORET_17, STORET_18, STORET_19, STORET_20,
+				STORET_21, STORET_22, STORET_23, STORET_24, STORET_25, STORET_26, STORET_27, STORET_29, STORET_30, STORET_31,
+				STORET_32, STORET_33, STORET_34, STORET_35, STORET_36, STORET_37, STORET_38, STORET_39, STORET_40, STORET_41,
+				STORET_42, STORET_43, STORET_44, STORET_45, STORET_46, STORET_47, STORET_48, STORET_49, STORET_50, STORET_51,
+				STORET_52, STORET_53, STORET_54, STORET_55, STORET_56, STORET_57, STORET_58, STORET_59, STORET_60, STORET_61,
+				STORET_62, STORET_63, STORET_64, STORET_65, STORET_66, STORET_67, STORET_68, STORET_69, STORET_70, STORET_71,
+				STORET_72, STORET_73);
+	}
+
+	public void nldiSitesTest() {
+		List<Map<String, Object>> results = nldiSitesTest(nameSpace, 22);
+		assertContainsResDetectQntLmt(results,
+				STORET_17, STORET_18, STORET_19, STORET_20, STORET_21, STORET_22, STORET_23, STORET_24, STORET_25, STORET_26,
+				STORET_27, STORET_29, STORET_30, STORET_31, STORET_32, STORET_33, STORET_34, STORET_35, STORET_36, STORET_37,
+				STORET_38, STORET_39);
+	}
+
+	public void nldiUrlTest() {
+		nldiUrlTest(nameSpace, Integer.valueOf(TOTAL_RES_DETECT_QNT_LMT_COUNT));
+	}
+
+	public void nullParameterTest() {
+		nullParameterTest(nameSpace, Integer.valueOf(TOTAL_RES_DETECT_QNT_LMT_COUNT));
+	}
+
+	public void organizationTest() {
+		List<Map<String, Object>> results = organizationTest(nameSpace, 43);
+		assertContainsResDetectQntLmt(results,
+				STEWARDS_1, STEWARDS_2, STEWARDS_3, STEWARDS_4, STEWARDS_5, STEWARDS_6, STEWARDS_7, STEWARDS_8, STEWARDS_9, NWIS_10,
+				NWIS_11, NWIS_12, NWIS_13, NWIS_14, NWIS_15, NWIS_16, STORET_17, STORET_18, STORET_19, STORET_20,
+				STORET_21, STORET_22, STORET_23, STORET_24, STORET_25, STORET_26, STORET_27, STORET_28, STORET_29, STORET_30,
+				STORET_31, STORET_32, STORET_33, STORET_34, STORET_35, STORET_36, STORET_37, STORET_38, STORET_39, STORET_70,
+				STORET_71, STORET_72, STORET_73);
+	}
+
+	public void pcodeTest() {
+		List<Map<String, Object>> results = pcodeTest(nameSpace, 16);
+		assertContainsResDetectQntLmt(results,
+				NWIS_16, STORET_17, STORET_18, STORET_19, STORET_20, STORET_21, STORET_22, STORET_23, STORET_24, STORET_25,
+				STORET_26, STORET_27, STORET_70, STORET_71, STORET_72, STORET_73);
+	}
+
+	public void projectTest() {
+		List<Map<String, Object>> results = projectTest(nameSpace, 28);
+		assertContainsResDetectQntLmt(results,
+				STEWARDS_1, STEWARDS_2, STEWARDS_6, STEWARDS_7, STEWARDS_8, STEWARDS_9, NWIS_10, NWIS_11, NWIS_12, NWIS_13,
+				NWIS_14, NWIS_16, STORET_17, STORET_18, STORET_19, STORET_20, STORET_21, STORET_22, STORET_23, STORET_24,
+				STORET_25, STORET_26, STORET_27, STORET_28, STORET_70, STORET_72, STORET_73, BIODATA_74);
+	}
+
+	public void providersTest() {
+		List<Map<String, Object>> results = providersTest(nameSpace, 73);
+		assertContainsResDetectQntLmt(results,
+				STEWARDS_1, STEWARDS_2, STEWARDS_3, STEWARDS_4, STEWARDS_5, STEWARDS_6, STEWARDS_7, STEWARDS_8, STEWARDS_9, NWIS_10,
+				NWIS_11, NWIS_12, NWIS_13, NWIS_14, NWIS_15, NWIS_16, STORET_17, STORET_18, STORET_19, STORET_20,
+				STORET_21, STORET_22, STORET_23, STORET_24, STORET_25, STORET_26, STORET_27, STORET_28, STORET_29, STORET_30,
+				STORET_31, STORET_32, STORET_33, STORET_34, STORET_35, STORET_36, STORET_37, STORET_38, STORET_39, STORET_40,
+				STORET_41, STORET_42, STORET_43, STORET_44, STORET_45, STORET_46, STORET_47, STORET_48, STORET_49, STORET_50,
+				STORET_51, STORET_52, STORET_53, STORET_54, STORET_55, STORET_56, STORET_57, STORET_58, STORET_59, STORET_60,
+				STORET_61, STORET_62, STORET_63, STORET_64, STORET_65, STORET_66, STORET_67, STORET_68, STORET_69, STORET_70,
+				STORET_71, STORET_72, STORET_73);
+	}
+
+	public void resultTest() {
+		List<Map<String, Object>> results = resultTest(nameSpace, 1);
+		assertContainsResDetectQntLmt(results,
+				STORET_39);
+	}
+
+	public void sampleMediaTest() {
+		List<Map<String, Object>> results = sampleMediaTest(nameSpace, 70);
+		assertContainsResDetectQntLmt(results,
+				STEWARDS_1, STEWARDS_2, STEWARDS_6, STEWARDS_7, STEWARDS_8, STEWARDS_9, NWIS_10, NWIS_11, NWIS_12, NWIS_13,
+				NWIS_14, NWIS_16, STORET_17, STORET_18, STORET_19, STORET_20, STORET_21, STORET_22, STORET_23, STORET_24,
+				STORET_25, STORET_26, STORET_27, STORET_28, STORET_29, STORET_30, STORET_31, STORET_32, STORET_33, STORET_34,
+				STORET_35, STORET_36, STORET_37, STORET_38, STORET_39, STORET_40, STORET_41, STORET_42, STORET_43, STORET_44,
+				STORET_45, STORET_46, STORET_47, STORET_48, STORET_49, STORET_50, STORET_51, STORET_52, STORET_53, STORET_54,
+				STORET_55, STORET_56, STORET_57, STORET_58, STORET_59, STORET_60, STORET_61, STORET_62, STORET_63, STORET_64,
+				STORET_65, STORET_66, STORET_67, STORET_68, STORET_69, STORET_70, STORET_71, STORET_72, STORET_73, BIODATA_74);
+	}
+
+	public void siteIdTest() {
+		List<Map<String, Object>> results = siteIdTest(nameSpace, 32);
+		assertContainsResDetectQntLmt(results,
+				STEWARDS_1, STEWARDS_2, STEWARDS_3, STEWARDS_4, STEWARDS_5, STEWARDS_6, STEWARDS_7, STEWARDS_8, STEWARDS_9, NWIS_10,
+				NWIS_11, NWIS_12, NWIS_13, NWIS_14, NWIS_15, NWIS_16, STORET_17, STORET_18, STORET_19, STORET_20,
+				STORET_21, STORET_22, STORET_23, STORET_24, STORET_25, STORET_26, STORET_27, STORET_28, STORET_70, STORET_71,
+				STORET_72, STORET_73);
+	}
+
+	public void siteIdLargeListTest() {
+		List<Map<String, Object>> results = siteIdLargeListTest(nameSpace, 22);
+		assertContainsResDetectQntLmt(results,
+				STORET_17, STORET_18, STORET_19, STORET_20, STORET_21, STORET_22, STORET_23, STORET_24, STORET_25, STORET_26,
+				STORET_27, STORET_29, STORET_30, STORET_31, STORET_32, STORET_33, STORET_34, STORET_35, STORET_36, STORET_37,
+				STORET_38, STORET_39);
+	}
+
+	public void siteTypeTest() {
+		List<Map<String, Object>> results = siteTypeTest(nameSpace, 73);
+		assertContainsResDetectQntLmt(results,
+				STEWARDS_1, STEWARDS_2, STEWARDS_3, STEWARDS_4, STEWARDS_5, STEWARDS_6, STEWARDS_7, STEWARDS_8, STEWARDS_9, NWIS_10,
+				NWIS_11, NWIS_12, NWIS_13, NWIS_14, NWIS_15, STORET_17, STORET_18, STORET_19, STORET_20, STORET_21,
+				STORET_22, STORET_23, STORET_24, STORET_25, STORET_26, STORET_27, STORET_28, STORET_29, STORET_30, STORET_31,
+				STORET_32, STORET_33, STORET_34, STORET_35, STORET_36, STORET_37, STORET_38, STORET_39, STORET_40, STORET_41,
+				STORET_42, STORET_43, STORET_44, STORET_45, STORET_46, STORET_47, STORET_48, STORET_49, STORET_50, STORET_51,
+				STORET_52, STORET_53, STORET_54, STORET_55, STORET_56, STORET_57, STORET_58, STORET_59, STORET_60, STORET_61,
+				STORET_62, STORET_63, STORET_64, STORET_65, STORET_66, STORET_67, STORET_68, STORET_69, STORET_70, STORET_71,
+				STORET_72, STORET_73, BIODATA_74);
+	}
+
+	public void siteUrlBaseTest() {
+		siteUrlBaseTest(nameSpace, Integer.valueOf(TOTAL_RES_DETECT_QNT_LMT_COUNT));
+	}
+
+	public void sortedTest() {
+		List<Map<String, Object>> results = sortedTest(nameSpace, Integer.valueOf(TOTAL_RES_DETECT_QNT_LMT_COUNT));
 		assertStewards("1", results.get(0));
 		assertStewards("2", results.get(1));
 		assertStewards("5", results.get(2));
@@ -243,264 +534,8 @@ public class ResDetectQntLmtStreamingTest extends BaseStreamingTest {
 		assertBiodata("74", results.get(73));
 	}
 
-	public void analyticalMethodTest() {
-		LinkedList<Map<String, Object>> results = analyticalMethodTest(nameSpace, 22);
-		assertContainsResDetectQntLmt(results,
-				NWIS_10, NWIS_11, NWIS_12, NWIS_13, NWIS_14, NWIS_15, STORET_17, STORET_18, STORET_19, STORET_20,
-				STORET_21, STORET_22, STORET_23, STORET_24, STORET_25, STORET_26, STORET_27, STORET_28, STORET_70, STORET_71, 
-				STORET_72, STORET_73);
-	}
-
-	public void assemblageTest() {
-		LinkedList<Map<String, Object>> results = assemblageTest(nameSpace, 17);
-		assertContainsResDetectQntLmt(results,
-				STORET_17, STORET_18, STORET_19, STORET_20, STORET_21, STORET_22, STORET_23, STORET_24, STORET_25, STORET_26,
-				STORET_27, STORET_28, STORET_70, STORET_71, STORET_72, STORET_73, BIODATA_74);
-	}
-
-	public void avoidTest() {
-		LinkedList<Map<String, Object>> results = avoidTest(nameSpace, Integer.valueOf(STORET_RES_DETECT_QNT_LMT_COUNT));
-		assertContainsResDetectQntLmt(results,
-				STORET_17, STORET_18, STORET_19, STORET_20, STORET_21, STORET_22, STORET_23, STORET_24, STORET_25, STORET_26,
-				STORET_27, STORET_28, STORET_29, STORET_30, STORET_31, STORET_32, STORET_33, STORET_34, STORET_35, STORET_36,
-				STORET_37, STORET_38, STORET_39, STORET_40, STORET_41, STORET_42, STORET_43, STORET_44, STORET_45, STORET_46,
-				STORET_47, STORET_48, STORET_49, STORET_50, STORET_51, STORET_52, STORET_53, STORET_54, STORET_55, STORET_56,
-				STORET_57, STORET_58, STORET_59, STORET_60, STORET_61, STORET_62, STORET_63, STORET_64, STORET_65, STORET_66,
-				STORET_67, STORET_68, STORET_69, STORET_70, STORET_71, STORET_72, STORET_73);
-	}
-
-	public void bboxTest() {
-		LinkedList<Map<String, Object>> results = bboxTest(nameSpace, 42);
-		assertContainsResDetectQntLmt(results,
-				STEWARDS_1, STEWARDS_2, STEWARDS_3, STEWARDS_4, STEWARDS_5, STEWARDS_6, STEWARDS_7, STEWARDS_8, STEWARDS_9, NWIS_10,
-				NWIS_11, NWIS_12, NWIS_13, NWIS_14, NWIS_15, NWIS_16, STORET_17, STORET_18, STORET_19, STORET_20,
-				STORET_21, STORET_22, STORET_23, STORET_24, STORET_25, STORET_26, STORET_27, STORET_29, STORET_30, STORET_31,
-				STORET_32, STORET_33, STORET_34, STORET_35, STORET_36, STORET_37, STORET_38, STORET_39, STORET_70, STORET_71,
-				STORET_72, STORET_73);
-	}
-
-	public void characteristicNameTest() {
-		LinkedList<Map<String, Object>> results = characteristicNameTest(nameSpace, 16);
-		assertContainsResDetectQntLmt(results,
-				STORET_17, STORET_18, STORET_19, STORET_20, STORET_21, STORET_22, STORET_23, STORET_24, STORET_25, STORET_26,
-				STORET_27, STORET_28, STORET_70, STORET_71, STORET_72, STORET_73);
-	}
-
-	public void characteristicTypeTest() {
-		LinkedList<Map<String, Object>> results = characteristicTypeTest(nameSpace, 21);
-		assertContainsResDetectQntLmt(results,
-				STEWARDS_1, STEWARDS_2, STEWARDS_3, STEWARDS_4, STEWARDS_5, STORET_17, STORET_18, STORET_19, STORET_20, STORET_21,
-				STORET_22, STORET_23, STORET_24, STORET_25, STORET_26, STORET_27, STORET_28, STORET_70, STORET_71, STORET_72,
-				STORET_73);
-	}
-
-	public void countryTest() {
-		LinkedList<Map<String, Object>> results = countryTest(nameSpace, 44);
-		assertContainsResDetectQntLmt(results,
-				STEWARDS_1, STEWARDS_2, STEWARDS_3, STEWARDS_4, STEWARDS_5, STEWARDS_6, STEWARDS_7, STEWARDS_8, STEWARDS_9, NWIS_10,
-				NWIS_11, NWIS_12, NWIS_13, NWIS_14, NWIS_15, NWIS_16, STORET_17, STORET_18, STORET_19, STORET_20,
-				STORET_21, STORET_22, STORET_23, STORET_24, STORET_25, STORET_26, STORET_27, STORET_28, STORET_29, STORET_30,
-				STORET_31, STORET_32, STORET_33, STORET_34, STORET_35, STORET_36, STORET_37, STORET_38, STORET_39, STORET_70,
-				STORET_71, STORET_72, STORET_73, BIODATA_74);
-	}
-
-	public void countyTest() {
-		LinkedList<Map<String, Object>> results = countyTest(nameSpace, 43);
-		assertContainsResDetectQntLmt(results,
-				STEWARDS_1, STEWARDS_2, STEWARDS_3, STEWARDS_4, STEWARDS_5, STEWARDS_6, STEWARDS_7, STEWARDS_8, STEWARDS_9, NWIS_10,
-				NWIS_11, NWIS_12, NWIS_13, NWIS_14, NWIS_15, NWIS_16, STORET_17, STORET_18, STORET_19, STORET_20,
-				STORET_21, STORET_22, STORET_23, STORET_24, STORET_25, STORET_26, STORET_27, STORET_28, STORET_29, STORET_30,
-				STORET_31, STORET_32, STORET_33, STORET_34, STORET_35, STORET_36, STORET_37, STORET_38, STORET_39, STORET_70,
-				STORET_71, STORET_72, STORET_73);
-	}
-
-	public void huc2Test() {
-		LinkedList<Map<String, Object>> results = huc2Test(nameSpace, 31);
-		assertContainsResDetectQntLmt(results,
-				STEWARDS_1, STEWARDS_2, STEWARDS_3, STEWARDS_4, STEWARDS_5, STEWARDS_6, STEWARDS_7, STEWARDS_8, STEWARDS_9, NWIS_10,
-				NWIS_11, NWIS_12, NWIS_13, NWIS_14, NWIS_15, NWIS_16, STORET_29, STORET_30, STORET_31, STORET_32,
-				STORET_33, STORET_34, STORET_35, STORET_36, STORET_37, STORET_38, STORET_39, STORET_70, STORET_71, STORET_72,
-				STORET_73);
-	}
-
-	public void huc3Test() {
-		LinkedList<Map<String, Object>> results = huc3Test(nameSpace, 31);
-		assertContainsResDetectQntLmt(results,
-				STEWARDS_1, STEWARDS_2, STEWARDS_3, STEWARDS_4, STEWARDS_5, STEWARDS_6, STEWARDS_7, STEWARDS_8, STEWARDS_9, NWIS_10,
-				NWIS_11, NWIS_12, NWIS_13, NWIS_14, NWIS_15, NWIS_16, STORET_29, STORET_30, STORET_31, STORET_32,
-				STORET_33, STORET_34, STORET_35, STORET_36, STORET_37, STORET_38, STORET_39, STORET_70, STORET_71, STORET_72,
-				STORET_73);
-	}
-
-	public void huc4Test() {
-		LinkedList<Map<String, Object>> results = huc4Test(nameSpace, 18);
-		assertContainsResDetectQntLmt(results,
-				NWIS_10, NWIS_11, NWIS_12, NWIS_13, NWIS_14, NWIS_15, NWIS_16, STORET_29, STORET_30, STORET_31,
-				STORET_32, STORET_33, STORET_34, STORET_35, STORET_36, STORET_37, STORET_38, STORET_39);
-	}
-
-	public void huc5Test() {
-		LinkedList<Map<String, Object>> results = huc5Test(nameSpace, 18);
-		assertContainsResDetectQntLmt(results,
-				NWIS_10, NWIS_11, NWIS_12, NWIS_13, NWIS_14, NWIS_15, NWIS_16, STORET_29, STORET_30, STORET_31,
-				STORET_32, STORET_33, STORET_34, STORET_35, STORET_36, STORET_37, STORET_38, STORET_39);
-	}
-
-	public void huc6Test() {
-		LinkedList<Map<String, Object>> results = huc6Test(nameSpace, 17);
-		assertContainsResDetectQntLmt(results,
-				NWIS_10, NWIS_11, NWIS_12, NWIS_13, NWIS_14, NWIS_15, STORET_29, STORET_30, STORET_31, STORET_32,
-				STORET_33, STORET_34, STORET_35, STORET_36, STORET_37, STORET_38, STORET_39);
-	}
-
-	public void huc7Test() {
-		LinkedList<Map<String, Object>> results = huc7Test(nameSpace, 17);
-		assertContainsResDetectQntLmt(results,
-				NWIS_10, NWIS_11, NWIS_12, NWIS_13, NWIS_14, NWIS_15, STORET_29, STORET_30, STORET_31, STORET_32,
-				STORET_33, STORET_34, STORET_35, STORET_36, STORET_37, STORET_38, STORET_39);
-	}
-
-	public void huc8Test() {
-		LinkedList<Map<String, Object>> results = huc8Test(nameSpace, 11);
-		assertContainsResDetectQntLmt(results,
-				STORET_29, STORET_30, STORET_31, STORET_32, STORET_33, STORET_34, STORET_35, STORET_36, STORET_37, STORET_38,
-				STORET_39);
-	}
-
-	public void huc10Test() {
-		LinkedList<Map<String, Object>> results = huc10Test(nameSpace, 11);
-		assertContainsResDetectQntLmt(results,
-				STORET_29, STORET_30, STORET_31, STORET_32, STORET_33, STORET_34, STORET_35, STORET_36, STORET_37, STORET_38,
-				STORET_39);
-	}
-
-	public void huc12Test() {
-		LinkedList<Map<String, Object>> results = huc12Test(nameSpace, 11);
-		assertContainsResDetectQntLmt(results,
-				STORET_29, STORET_30, STORET_31, STORET_32, STORET_33, STORET_34, STORET_35, STORET_36, STORET_37, STORET_38,
-				STORET_39);
-	}
-
-	public void manySitesTest() {
-		LinkedList<Map<String, Object>> results = manySitesTest(nameSpace, 22);
-		assertContainsResDetectQntLmt(results,
-				STORET_17, STORET_18, STORET_19, STORET_20, STORET_21, STORET_22, STORET_23, STORET_24, STORET_25, STORET_26,
-				STORET_27, STORET_29, STORET_30, STORET_31, STORET_32, STORET_33, STORET_34, STORET_35, STORET_36, STORET_37,
-				STORET_38, STORET_39);
-	}
-
-	public void minActivitiesTest() {
-		LinkedList<Map<String, Object>> results = minActivitiesTest(nameSpace, 67);
-		assertContainsResDetectQntLmt(results,
-				STEWARDS_1, STEWARDS_2, STEWARDS_3, STEWARDS_4, STEWARDS_5, NWIS_10, NWIS_11, NWIS_12, NWIS_13, NWIS_14,
-				NWIS_15, STORET_17, STORET_18, STORET_19, STORET_20, STORET_21, STORET_22, STORET_23, STORET_24, STORET_25,
-				STORET_26, STORET_27, STORET_29, STORET_30, STORET_31, STORET_32, STORET_33, STORET_34, STORET_35, STORET_36,
-				STORET_37, STORET_38, STORET_39, STORET_40, STORET_41, STORET_42, STORET_43, STORET_44, STORET_45, STORET_46,
-				STORET_47, STORET_48, STORET_49, STORET_50, STORET_51, STORET_52, STORET_53, STORET_54, STORET_55, STORET_56,
-				STORET_57, STORET_58, STORET_59, STORET_60, STORET_61, STORET_62, STORET_63, STORET_64, STORET_65, STORET_66,
-				STORET_67, STORET_68, STORET_69, STORET_70, STORET_71, STORET_72, STORET_73);
-	}
-
-	public void minResultsTest() {
-		LinkedList<Map<String, Object>> results = minResultsTest(nameSpace, 62);
-		assertContainsResDetectQntLmt(results,
-				NWIS_10, NWIS_11, NWIS_12, NWIS_13, NWIS_14, NWIS_15, STORET_17, STORET_18, STORET_19, STORET_20,
-				STORET_21, STORET_22, STORET_23, STORET_24, STORET_25, STORET_26, STORET_27, STORET_29, STORET_30, STORET_31,
-				STORET_32, STORET_33, STORET_34, STORET_35, STORET_36, STORET_37, STORET_38, STORET_39, STORET_40, STORET_41,
-				STORET_42, STORET_43, STORET_44, STORET_45, STORET_46, STORET_47, STORET_48, STORET_49, STORET_50, STORET_51,
-				STORET_52, STORET_53, STORET_54, STORET_55, STORET_56, STORET_57, STORET_58, STORET_59, STORET_60, STORET_61,
-				STORET_62, STORET_63, STORET_64, STORET_65, STORET_66, STORET_67, STORET_68, STORET_69, STORET_70, STORET_71,
-				STORET_72, STORET_73);
-	}
-
-	public void nldiUrlTest() {
-		LinkedList<Map<String, Object>> results = nldiUrlTest(nameSpace, 22);
-		assertContainsResDetectQntLmt(results,
-				STORET_17, STORET_18, STORET_19, STORET_20, STORET_21, STORET_22, STORET_23, STORET_24, STORET_25, STORET_26,
-				STORET_27, STORET_29, STORET_30, STORET_31, STORET_32, STORET_33, STORET_34, STORET_35, STORET_36, STORET_37,
-				STORET_38, STORET_39);
-	}
-
-	public void organizationTest() {
-		LinkedList<Map<String, Object>> results = organizationTest(nameSpace, 43);
-		assertContainsResDetectQntLmt(results,
-				STEWARDS_1, STEWARDS_2, STEWARDS_3, STEWARDS_4, STEWARDS_5, STEWARDS_6, STEWARDS_7, STEWARDS_8, STEWARDS_9, NWIS_10,
-				NWIS_11, NWIS_12, NWIS_13, NWIS_14, NWIS_15, NWIS_16, STORET_17, STORET_18, STORET_19, STORET_20,
-				STORET_21, STORET_22, STORET_23, STORET_24, STORET_25, STORET_26, STORET_27, STORET_28, STORET_29, STORET_30,
-				STORET_31, STORET_32, STORET_33, STORET_34, STORET_35, STORET_36, STORET_37, STORET_38, STORET_39, STORET_70,
-				STORET_71, STORET_72, STORET_73);
-	}
-
-	public void pcodeTest() {
-		LinkedList<Map<String, Object>> results = pcodeTest(nameSpace, 16);
-		assertContainsResDetectQntLmt(results,
-				NWIS_16, STORET_17, STORET_18, STORET_19, STORET_20, STORET_21, STORET_22, STORET_23, STORET_24, STORET_25,
-				STORET_26, STORET_27, STORET_70, STORET_71, STORET_72, STORET_73);
-	}
-
-	public void projectTest() {
-		LinkedList<Map<String, Object>> results = projectTest(nameSpace, 28);
-		assertContainsResDetectQntLmt(results,
-				STEWARDS_1, STEWARDS_2, STEWARDS_6, STEWARDS_7, STEWARDS_8, STEWARDS_9, NWIS_10, NWIS_11, NWIS_12, NWIS_13,
-				NWIS_14, NWIS_16, STORET_17, STORET_18, STORET_19, STORET_20, STORET_21, STORET_22, STORET_23, STORET_24,
-				STORET_25, STORET_26, STORET_27, STORET_28, STORET_70, STORET_72, STORET_73, BIODATA_74);
-	}
-
-	public void providersTest() {
-		LinkedList<Map<String, Object>> results = providersTest(nameSpace, 73);
-		assertContainsResDetectQntLmt(results,
-				STEWARDS_1, STEWARDS_2, STEWARDS_3, STEWARDS_4, STEWARDS_5, STEWARDS_6, STEWARDS_7, STEWARDS_8, STEWARDS_9, NWIS_10,
-				NWIS_11, NWIS_12, NWIS_13, NWIS_14, NWIS_15, NWIS_16, STORET_17, STORET_18, STORET_19, STORET_20,
-				STORET_21, STORET_22, STORET_23, STORET_24, STORET_25, STORET_26, STORET_27, STORET_28, STORET_29, STORET_30,
-				STORET_31, STORET_32, STORET_33, STORET_34, STORET_35, STORET_36, STORET_37, STORET_38, STORET_39, STORET_40,
-				STORET_41, STORET_42, STORET_43, STORET_44, STORET_45, STORET_46, STORET_47, STORET_48, STORET_49, STORET_50,
-				STORET_51, STORET_52, STORET_53, STORET_54, STORET_55, STORET_56, STORET_57, STORET_58, STORET_59, STORET_60,
-				STORET_61, STORET_62, STORET_63, STORET_64, STORET_65, STORET_66, STORET_67, STORET_68, STORET_69, STORET_70,
-				STORET_71, STORET_72, STORET_73);
-	}
-
-	public void resultTest() {
-		LinkedList<Map<String, Object>> results = resultTest(nameSpace, 1);
-		assertContainsResDetectQntLmt(results,
-				STORET_39);
-	}
-
-	public void sampleMediaTest() {
-		LinkedList<Map<String, Object>> results = sampleMediaTest(nameSpace, 70);
-		assertContainsResDetectQntLmt(results,
-				STEWARDS_1, STEWARDS_2, STEWARDS_6, STEWARDS_7, STEWARDS_8, STEWARDS_9, NWIS_10, NWIS_11, NWIS_12, NWIS_13,
-				NWIS_14, NWIS_16, STORET_17, STORET_18, STORET_19, STORET_20, STORET_21, STORET_22, STORET_23, STORET_24,
-				STORET_25, STORET_26, STORET_27, STORET_28, STORET_29, STORET_30, STORET_31, STORET_32, STORET_33, STORET_34,
-				STORET_35, STORET_36, STORET_37, STORET_38, STORET_39, STORET_40, STORET_41, STORET_42, STORET_43, STORET_44,
-				STORET_45, STORET_46, STORET_47, STORET_48, STORET_49, STORET_50, STORET_51, STORET_52, STORET_53, STORET_54,
-				STORET_55, STORET_56, STORET_57, STORET_58, STORET_59, STORET_60, STORET_61, STORET_62, STORET_63, STORET_64,
-				STORET_65, STORET_66, STORET_67, STORET_68, STORET_69, STORET_70, STORET_71, STORET_72, STORET_73, BIODATA_74);
-	}
-
-	public void siteIdTest() {
-		LinkedList<Map<String, Object>> results = siteIdTest(nameSpace, 32);
-		assertContainsResDetectQntLmt(results,
-				STEWARDS_1, STEWARDS_2, STEWARDS_3, STEWARDS_4, STEWARDS_5, STEWARDS_6, STEWARDS_7, STEWARDS_8, STEWARDS_9, NWIS_10,
-				NWIS_11, NWIS_12, NWIS_13, NWIS_14, NWIS_15, NWIS_16, STORET_17, STORET_18, STORET_19, STORET_20,
-				STORET_21, STORET_22, STORET_23, STORET_24, STORET_25, STORET_26, STORET_27, STORET_28, STORET_70, STORET_71,
-				STORET_72, STORET_73);
-	}
-
-	public void siteTypeTest() {
-		LinkedList<Map<String, Object>> results = siteTypeTest(nameSpace, 73);
-		assertContainsResDetectQntLmt(results,
-				STEWARDS_1, STEWARDS_2, STEWARDS_3, STEWARDS_4, STEWARDS_5, STEWARDS_6, STEWARDS_7, STEWARDS_8, STEWARDS_9, NWIS_10,
-				NWIS_11, NWIS_12, NWIS_13, NWIS_14, NWIS_15, STORET_17, STORET_18, STORET_19, STORET_20, STORET_21,
-				STORET_22, STORET_23, STORET_24, STORET_25, STORET_26, STORET_27, STORET_28, STORET_29, STORET_30, STORET_31,
-				STORET_32, STORET_33, STORET_34, STORET_35, STORET_36, STORET_37, STORET_38, STORET_39, STORET_40, STORET_41,
-				STORET_42, STORET_43, STORET_44, STORET_45, STORET_46, STORET_47, STORET_48, STORET_49, STORET_50, STORET_51,
-				STORET_52, STORET_53, STORET_54, STORET_55, STORET_56, STORET_57, STORET_58, STORET_59, STORET_60, STORET_61,
-				STORET_62, STORET_63, STORET_64, STORET_65, STORET_66, STORET_67, STORET_68, STORET_69, STORET_70, STORET_71,
-				STORET_72, STORET_73, BIODATA_74);
-	}
-
 	public void startDateHiTest() {
-		LinkedList<Map<String, Object>> results = startDateHiTest(nameSpace, 70);
+		List<Map<String, Object>> results = startDateHiTest(nameSpace, 70);
 		assertContainsResDetectQntLmt(results,
 				STEWARDS_1, STEWARDS_2, STEWARDS_6, STEWARDS_7, STEWARDS_8, STEWARDS_9, NWIS_10, NWIS_11, NWIS_12, NWIS_13,
 				NWIS_14, NWIS_16, STORET_17, STORET_18, STORET_19, STORET_20, STORET_21, STORET_22, STORET_23, STORET_24,
@@ -512,7 +547,7 @@ public class ResDetectQntLmtStreamingTest extends BaseStreamingTest {
 	}
 
 	public void startDateLoTest() {
-		LinkedList<Map<String, Object>> results = startDateLoTest(nameSpace, 33);
+		List<Map<String, Object>> results = startDateLoTest(nameSpace, 33);
 		assertContainsResDetectQntLmt(results,
 				STEWARDS_1, STEWARDS_2, STEWARDS_3, STEWARDS_4, STEWARDS_5, STEWARDS_6, STEWARDS_7, STEWARDS_8, STEWARDS_9, NWIS_10,
 				NWIS_11, NWIS_12, NWIS_13, NWIS_14, NWIS_15, NWIS_16, STORET_17, STORET_18, STORET_19, STORET_20,
@@ -521,7 +556,7 @@ public class ResDetectQntLmtStreamingTest extends BaseStreamingTest {
 	}
 
 	public void stateTest() {
-		LinkedList<Map<String, Object>> results = stateTest(nameSpace, 43);
+		List<Map<String, Object>> results = stateTest(nameSpace, 43);
 		assertContainsResDetectQntLmt(results,
 				STEWARDS_1, STEWARDS_2, STEWARDS_3, STEWARDS_4, STEWARDS_5, STEWARDS_6, STEWARDS_7, STEWARDS_8, STEWARDS_9, NWIS_10,
 				NWIS_11, NWIS_12, NWIS_13, NWIS_14, NWIS_15, NWIS_16, STORET_17, STORET_18, STORET_19, STORET_20,
@@ -531,14 +566,14 @@ public class ResDetectQntLmtStreamingTest extends BaseStreamingTest {
 	}
 
 	public void subjectTaxonomicNameTest() {
-		LinkedList<Map<String, Object>> results = subjectTaxonomicNameTest(nameSpace, 16);
+		List<Map<String, Object>> results = subjectTaxonomicNameTest(nameSpace, 16);
 		assertContainsResDetectQntLmt(results,
 				STORET_17, STORET_18, STORET_19, STORET_20, STORET_21, STORET_22, STORET_23, STORET_24, STORET_25, STORET_26,
 				STORET_27, STORET_28, STORET_70, STORET_72, STORET_73, BIODATA_74);
 	}
 
 	public void withinTest() {
-		LinkedList<Map<String, Object>> results = withinTest(nameSpace, 69);
+		List<Map<String, Object>> results = withinTest(nameSpace, 69);
 		assertContainsResDetectQntLmt(results,
 				STEWARDS_1, STEWARDS_2, STEWARDS_3, STEWARDS_4, STEWARDS_5, STEWARDS_6, STEWARDS_7, STEWARDS_8, STEWARDS_9, NWIS_10,
 				NWIS_11, NWIS_12, NWIS_13, NWIS_14, NWIS_15, NWIS_16, STORET_17, STORET_18, STORET_19, STORET_20,
@@ -549,65 +584,30 @@ public class ResDetectQntLmtStreamingTest extends BaseStreamingTest {
 				STORET_61, STORET_62, STORET_63, STORET_64, STORET_65, STORET_66, STORET_67, STORET_68, STORET_69);
 	}
 
-	public void multipleParameterTest() {
-		FilterParameters filter = new FilterParameters();
-		filter.setAnalyticalmethod(getAnalyticalMethod());
-		filter.setAssemblage(getAssemblage());
-		filter.setCommand(getCommand());
-		filter.setCharacteristicName(getCharacteristicName());
-		filter.setCharacteristicType(getCharacteristicType());
-		filter.setCountrycode(getCountry());
-		filter.setCountycode(getCounty());
-		filter.setHuc(getHuc());
-		filter.setMinactivities(getMinActivities());
-		filter.setMinresults(getMinResults());
-		filter.setNldiSites(getNldiSites());
-		filter.setOrganization(getOrganization());
-		filter.setPCode(getPcode());
-		filter.setProject(getProject());
-		filter.setProviders(getProviders());
-		filter.setSampleMedia(getSampleMedia());
-		filter.setSiteid(getSiteid());
-		filter.setSiteType(getSiteType());
-		filter.setStartDateHi(getStartDateHi());
-		filter.setStartDateLo(getStartDateLo());
-		filter.setStatecode(getState());
-		filter.setSubjectTaxonomicName(getSubjectTaxonomicName());
+	public void zipTest() {
+		zipTest(nameSpace, Integer.valueOf(TOTAL_RES_DETECT_QNT_LMT_COUNT));
+	}
 
-		LinkedList<Map<String, Object>> results = callDao(nameSpace, 10, filter);
+	public void multipleParameterTest() {
+		List<Map<String, Object>> results = multipleParameterTest(nameSpace, 10);
 		assertContainsResDetectQntLmt(results,
 				STORET_17, STORET_18, STORET_19, STORET_20, STORET_21, STORET_22, STORET_23, STORET_70, STORET_72, STORET_73);
 	}
 
 	public void multipleParameterWithStationSumTest() {
-		FilterParameters filter = new FilterParameters();
-		filter.setAnalyticalmethod(getAnalyticalMethod());
-		filter.setAssemblage(getAssemblage());
-		filter.setCommand(getCommand());
-		filter.setBBox(getBBox());
-		filter.setCharacteristicName(getCharacteristicName());
-		filter.setCharacteristicType(getCharacteristicType());
-		filter.setCountrycode(getCountry());
-		filter.setCountycode(getCounty());
-		filter.setHuc(getHuc());
-		filter.setLat(getLatitude());
-		filter.setLong(getLongitude());
-		filter.setMinactivities(getMinActivities());
-		filter.setMinresults(getMinResults());
-		filter.setNldiSites(getNldiSites());
-		filter.setOrganization(getOrganization());
-		filter.setPCode(getPcode());
-		filter.setProject(getProject());
-		filter.setProviders(getProviders());
-		filter.setSampleMedia(getSampleMedia());
-		filter.setSiteid(getSiteid());
-		filter.setSiteType(getSiteType());
-		filter.setStartDateHi(getStartDateHi());
-		filter.setStartDateLo(getStartDateLo());
-		filter.setStatecode(getState());
-		filter.setSubjectTaxonomicName(getSubjectTaxonomicName());
-		filter.setWithin(getWithin());
-		LinkedList<Map<String, Object>> results = callDao(nameSpace, 7, filter);
+		List<Map<String, Object>> results = multipleParameterWithStationSumTest(nameSpace, 7);
+		assertContainsResDetectQntLmt(results,
+				STORET_17, STORET_18, STORET_19, STORET_20, STORET_21, STORET_22, STORET_23);
+	}
+
+	public void multipleParameterWithResultSumTest() {
+		List<Map<String, Object>> results = multipleParameterWithResultSumTest(nameSpace, 10);
+		assertContainsResDetectQntLmt(results,
+				STORET_17, STORET_18, STORET_19, STORET_20, STORET_21, STORET_22, STORET_23, STORET_70, STORET_72, STORET_73);
+	}
+
+	public void multipleParameterWithStationSumAndResultSumTest() {
+		List<Map<String, Object>> results = multipleParameterWithStationSumAndResultSumTest(nameSpace, 7);
 		assertContainsResDetectQntLmt(results,
 				STORET_17, STORET_18, STORET_19, STORET_20, STORET_21, STORET_22, STORET_23);
 	}
@@ -640,7 +640,7 @@ public class ResDetectQntLmtStreamingTest extends BaseStreamingTest {
 		assertMapIsAsExpected(TestResDetectQntLmtMap.RES_DETECT_QNT_LMT, row);
 	}
 
-	public void assertContainsResDetectQntLmt(LinkedList<Map<String, Object>> results, String[]...  resDetectQntLmt) {
+	public void assertContainsResDetectQntLmt(List<Map<String, Object>> results, String[]...  resDetectQntLmt) {
 		for (Map<String, Object> result : results) {
 			LOG.debug(BaseColumn.KEY_DATA_SOURCE + ":" + result.get(BaseColumn.KEY_DATA_SOURCE) + "/" 
 						+ ResultColumn.KEY_DETECTION_LIMIT + ":" +  result.get(ResultColumn.KEY_DETECTION_LIMIT));
@@ -661,6 +661,19 @@ public class ResDetectQntLmtStreamingTest extends BaseStreamingTest {
 			}
 		}
 		assertEquals("Double check expected size", results.size(), resDetectQntLmt.length);
+	}
+
+	@Override
+	public LinkedList<Map<String, Object>> callDao(NameSpace nameSpace, int expectedSize, FilterParameters filter) {
+		TestResultHandler handler = new TestResultHandler();
+		streamingDao.stream(nameSpace, filter, handler);
+		assertEquals(expectedSize, handler.getResults().size());
+		return handler.getResults();
+	}
+
+	@Override
+	protected void assertSiteUrlBase(Map<String, Object> row) {
+		// Nothing to do here
 	}
 
 }

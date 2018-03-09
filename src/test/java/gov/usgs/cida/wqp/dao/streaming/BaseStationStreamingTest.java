@@ -8,19 +8,27 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import gov.usgs.cida.wqp.dao.FilteredStationDaoTest;
 import gov.usgs.cida.wqp.dao.NameSpace;
+import gov.usgs.cida.wqp.dao.intfc.IStreamingDao;
 import gov.usgs.cida.wqp.mapping.BaseColumn;
 import gov.usgs.cida.wqp.mapping.StationColumn;
+import gov.usgs.cida.wqp.mapping.TestResultHandler;
 import gov.usgs.cida.wqp.mapping.xml.StationKml;
 import gov.usgs.cida.wqp.parameter.FilterParameters;
 
-public abstract class BaseStationStreamingTest extends BaseStreamingTest {
+public abstract class BaseStationStreamingTest extends FilteredStationDaoTest {
 	private static final Logger LOG = LoggerFactory.getLogger(BaseStationStreamingTest.class);
+
+	@Autowired 
+	IStreamingDao streamingDao;
 
 	public static final String ARS_SITE = "ARSSite";
 	public static final String NWIS_SITE = "NWISSite";
@@ -52,37 +60,63 @@ public abstract class BaseStationStreamingTest extends BaseStreamingTest {
 		emptyParameterTest(nameSpace, Integer.valueOf(TOTAL_SITE_COUNT));
 	}
 
+	public void activityTest(NameSpace nameSpace) {
+		activityTest(nameSpace, Integer.valueOf(TOTAL_SITE_COUNT));
+	}
+
+	public void nldiUrlTest(NameSpace nameSpace) {
+		nldiUrlTest(nameSpace, Integer.valueOf(TOTAL_SITE_COUNT));
+	}
+
+	public void resultTest(NameSpace nameSpace) {
+		resultTest(nameSpace, Integer.valueOf(TOTAL_SITE_COUNT));
+	}
+
+	public void siteUrlBaseTest(NameSpace nameSpace) {
+		siteUrlBaseTest(nameSpace, Integer.valueOf(TOTAL_SITE_COUNT));
+	}
+
+	public void zipTest(NameSpace nameSpace) {
+		zipTest(nameSpace, Integer.valueOf(TOTAL_SITE_COUNT));
+	}
+
 	protected void mimeTypeTest(NameSpace nameSpace) {
-		FilterParameters filter = new FilterParameters();
-		filter.setMimeType(JSON);
-		LinkedList<Map<String, Object>> results = callDao(nameSpace, Integer.valueOf(TOTAL_SITE_COUNT_GEOM), filter);
+		List<Map<String, Object>> results = mimeTypeJsonTest(nameSpace, Integer.valueOf(TOTAL_SITE_COUNT_GEOM));
 		assertContainsStation(results, STEWARDS_36, STEWARDS_46, NWIS_1353690, NWIS_1360035, STORET_777, STORET_888, STORET_999, STORET_1383, STORET_436723, STORET_504707,
 				STORET_1043441, BIODATA_61233184);
 
-		filter.setMimeType(GEOJSON);
-		results = callDao(nameSpace, Integer.valueOf(TOTAL_SITE_COUNT_GEOM), filter);
+		results = mimeTypeGeoJsonTest(nameSpace, Integer.valueOf(TOTAL_SITE_COUNT_GEOM));
 		assertContainsStation(results, STEWARDS_36, STEWARDS_46, NWIS_1353690, NWIS_1360035, STORET_777, STORET_888, STORET_999, STORET_1383, STORET_436723, STORET_504707,
 				STORET_1043441, BIODATA_61233184);
 
-		filter.setMimeType(KML);
-		results = callDao(nameSpace, Integer.valueOf(TOTAL_SITE_COUNT_GEOM), filter);
+		results = mimeTypeKmlTest(nameSpace, Integer.valueOf(TOTAL_SITE_COUNT_GEOM));
 		assertContainsStation(results, STEWARDS_36, STEWARDS_46, NWIS_1353690, NWIS_1360035, STORET_777, STORET_888, STORET_999, STORET_1383, STORET_436723, STORET_504707,
 				STORET_1043441, BIODATA_61233184);
 
-		filter.setMimeType(KMZ);
-		results = callDao(nameSpace, Integer.valueOf(TOTAL_SITE_COUNT_GEOM), filter);
+		results = mimeTypeKmzTest(nameSpace, Integer.valueOf(TOTAL_SITE_COUNT_GEOM));
 		assertContainsStation(results, STEWARDS_36, STEWARDS_46, NWIS_1353690, NWIS_1360035, STORET_777, STORET_888, STORET_999, STORET_1383, STORET_436723, STORET_504707,
 				STORET_1043441, BIODATA_61233184);
 
-		filter.setMimeType(CSV);
-		results = callDao(nameSpace, Integer.valueOf(TOTAL_SITE_COUNT), filter);
+		results = mimeTypeCsvTest(nameSpace, Integer.valueOf(TOTAL_SITE_COUNT));
+		assertContainsStation(results, STEWARDS_36, STEWARDS_46, NWIS_1353690, NWIS_1360035, STORET_777, STORET_888, STORET_999, STORET_1383, STORET_436723, STORET_504707,
+				STORET_1043441, BIODATA_61233184, BIODATA_433830088977331);
+
+		results = mimeTypeTsvTest(nameSpace, Integer.valueOf(TOTAL_SITE_COUNT));
+		assertContainsStation(results, STEWARDS_36, STEWARDS_46, NWIS_1353690, NWIS_1360035, STORET_777, STORET_888, STORET_999, STORET_1383, STORET_436723, STORET_504707,
+				STORET_1043441, BIODATA_61233184, BIODATA_433830088977331);
+
+		results = mimeTypeXmlTest(nameSpace, Integer.valueOf(TOTAL_SITE_COUNT));
+		assertContainsStation(results, STEWARDS_36, STEWARDS_46, NWIS_1353690, NWIS_1360035, STORET_777, STORET_888, STORET_999, STORET_1383, STORET_436723, STORET_504707,
+				STORET_1043441, BIODATA_61233184, BIODATA_433830088977331);
+
+		results = mimeTypeXlsxTest(nameSpace, Integer.valueOf(TOTAL_SITE_COUNT));
 		assertContainsStation(results, STEWARDS_36, STEWARDS_46, NWIS_1353690, NWIS_1360035, STORET_777, STORET_888, STORET_999, STORET_1383, STORET_436723, STORET_504707,
 				STORET_1043441, BIODATA_61233184, BIODATA_433830088977331);
 	}
 
-	public void allDataSortedTest(NameSpace nameSpace, Map<String, Object> expectedMap) {
+	public void sortedTest(NameSpace nameSpace, Map<String, Object> expectedMap) {
 		Integer expectedColumnCount = expectedMap.keySet().size();
-		LinkedList<Map<String, Object>> results = allDataSortedTest(nameSpace, Integer.valueOf(TOTAL_SITE_COUNT));
+		List<Map<String, Object>> results = sortedTest(nameSpace, Integer.valueOf(TOTAL_SITE_COUNT));
 		assertRow(results.get(0), STEWARDS_36, expectedColumnCount);
 		assertRow(results.get(1), STEWARDS_46, expectedColumnCount);
 		assertRow(results.get(2), NWIS_1353690, expectedColumnCount);
@@ -98,120 +132,120 @@ public abstract class BaseStationStreamingTest extends BaseStreamingTest {
 	}
 
 	public void avoidTest(NameSpace nameSpace) {
-		LinkedList<Map<String, Object>> results = avoidTest(nameSpace, Integer.valueOf(STORET_SITE_COUNT));
+		List<Map<String, Object>> results = avoidTest(nameSpace, Integer.valueOf(STORET_SITE_COUNT));
 		assertContainsStation(results, STORET_777, STORET_888, STORET_999, STORET_1383, STORET_436723, STORET_504707, STORET_1043441);
 	}
 
 	public void bboxTest(NameSpace nameSpace) {
-		LinkedList<Map<String, Object>> results = bboxTest(nameSpace, 9);
+		List<Map<String, Object>> results = bboxTest(nameSpace, 9);
 		assertContainsStation(results, STEWARDS_36, STEWARDS_46, NWIS_1353690, NWIS_1360035, STORET_777, STORET_888, STORET_1383, STORET_436723, STORET_1043441);
 	}
 
 	public void countryTest(NameSpace nameSpace) {
-		LinkedList<Map<String, Object>> results = countryTest(nameSpace, 11);
+		List<Map<String, Object>> results = countryTest(nameSpace, 11);
 		assertContainsStation(results, STEWARDS_36, STEWARDS_46, NWIS_1353690, NWIS_1360035, STORET_777, STORET_888, STORET_999, STORET_1383, STORET_436723, STORET_1043441,
 				BIODATA_61233184);
 	}
 
 	public void countyTest(NameSpace nameSpace) {
-		LinkedList<Map<String, Object>> results = countyTest(nameSpace, 10);
+		List<Map<String, Object>> results = countyTest(nameSpace, 10);
 		assertContainsStation(results, STEWARDS_36, STEWARDS_46, NWIS_1353690, NWIS_1360035, STORET_777, STORET_888, STORET_999, STORET_1383, STORET_436723, STORET_1043441);
 	}
 
 	public void huc2Test(NameSpace nameSpace) {
-		LinkedList<Map<String, Object>> results = huc2Test(nameSpace, 7);
+		List<Map<String, Object>> results = huc2Test(nameSpace, 7);
 		assertContainsStation(results, STEWARDS_36, STEWARDS_46, NWIS_1353690, NWIS_1360035, STORET_1383, STORET_436723, STORET_1043441);
 	}
 
 	public void huc3Test(NameSpace nameSpace) {
-		LinkedList<Map<String, Object>> results = huc3Test(nameSpace, 7);
+		List<Map<String, Object>> results = huc3Test(nameSpace, 7);
 		assertContainsStation(results, STEWARDS_36, STEWARDS_46, NWIS_1353690, NWIS_1360035, STORET_1383, STORET_436723, STORET_1043441);
 	}
 
 	public void huc4Test(NameSpace nameSpace) {
-		LinkedList<Map<String, Object>> results = huc4Test(nameSpace, 4);
+		List<Map<String, Object>> results = huc4Test(nameSpace, 4);
 		assertContainsStation(results, NWIS_1353690, NWIS_1360035, STORET_1383, STORET_436723);
 	}
 
 	public void huc5Test(NameSpace nameSpace) {
-		LinkedList<Map<String, Object>> results = huc5Test(nameSpace, 4);
+		List<Map<String, Object>> results = huc5Test(nameSpace, 4);
 		assertContainsStation(results, NWIS_1353690, NWIS_1360035, STORET_1383, STORET_436723);
 	}
 
 	public void huc6Test(NameSpace nameSpace) {
-		LinkedList<Map<String, Object>> results = huc6Test(nameSpace, 3);
+		List<Map<String, Object>> results = huc6Test(nameSpace, 3);
 		assertContainsStation(results, NWIS_1353690, STORET_1383, STORET_436723);
 	}
 
 	public void huc7Test(NameSpace nameSpace) {
-		LinkedList<Map<String, Object>> results = huc7Test(nameSpace, 3);
+		List<Map<String, Object>> results = huc7Test(nameSpace, 3);
 		assertContainsStation(results, NWIS_1353690, STORET_1383, STORET_436723);
 	}
 
 	public void huc8Test(NameSpace nameSpace) {
-		LinkedList<Map<String, Object>> results = huc8Test(nameSpace, 2);
+		List<Map<String, Object>> results = huc8Test(nameSpace, 2);
 		assertContainsStation(results, STORET_1383, STORET_436723);
 	}
 
 	public void huc10Test(NameSpace nameSpace) {
-		LinkedList<Map<String, Object>> results = huc10Test(nameSpace, 2);
+		List<Map<String, Object>> results = huc10Test(nameSpace, 2);
 		assertContainsStation(results, STORET_1383, STORET_436723);
 	}
 
 	public void huc12Test(NameSpace nameSpace) {
-		LinkedList<Map<String, Object>> results = huc12Test(nameSpace, 2);
+		List<Map<String, Object>> results = huc12Test(nameSpace, 2);
 		assertContainsStation(results, STORET_1383, STORET_436723);
 	}
 
-	public void nldiUrlTest(NameSpace nameSpace) {
-		LinkedList<Map<String, Object>> results = nldiUrlTest(nameSpace, 3);
+	public void nldiSitesTest(NameSpace nameSpace) {
+		List<Map<String, Object>> results = nldiSitesTest(nameSpace, 3);
 		assertContainsStation(results, STORET_777, STORET_888, STORET_1383);
 	}
 
 	public void organizationTest(NameSpace nameSpace) {
-		LinkedList<Map<String, Object>> results = organizationTest(nameSpace, 10);
+		List<Map<String, Object>> results = organizationTest(nameSpace, 10);
 		assertContainsStation(results, STEWARDS_36, STEWARDS_46, NWIS_1353690, NWIS_1360035, STORET_777, STORET_888, STORET_999, STORET_1383, STORET_436723, STORET_1043441);
 	}
 
 	public void providersTest(NameSpace nameSpace) {
-		LinkedList<Map<String, Object>> results = providersTest(nameSpace, 11);
+		List<Map<String, Object>> results = providersTest(nameSpace, 11);
 		assertContainsStation(results, STEWARDS_36, STEWARDS_46, NWIS_1353690, NWIS_1360035, STORET_777, STORET_888, STORET_999, STORET_1383, STORET_436723, STORET_504707,
 				STORET_1043441);
 	}
 
 	public void siteIdTest(NameSpace nameSpace) {
-		LinkedList<Map<String, Object>> results = siteIdTest(nameSpace, 9);
+		List<Map<String, Object>> results = siteIdTest(nameSpace, 9);
 		assertContainsStation(results, STEWARDS_36, STEWARDS_46, NWIS_1353690, NWIS_1360035, STORET_777, STORET_888, STORET_999, STORET_436723, STORET_1043441);
 	}
 
-	public void manySitesTest(NameSpace nameSpace) {
-		LinkedList<Map<String, Object>> results = manySitesTest(nameSpace, 3);
+	public void siteIdLargeListTest(NameSpace nameSpace) {
+		List<Map<String, Object>> results = siteIdLargeListTest(nameSpace, 3);
 		assertContainsStation(results, STORET_777, STORET_888, STORET_1383);
 	}
 
 	public void minActivitiesTest(NameSpace nameSpace) {
-		LinkedList<Map<String, Object>> results = minActivitiesTest(nameSpace, 7);
+		List<Map<String, Object>> results = minActivitiesTest(nameSpace, 7);
 		assertContainsStation(results, STEWARDS_36, NWIS_1353690, STORET_777, STORET_888, STORET_1383, STORET_504707, STORET_1043441);
 	}
 
 	public void minResultsTest(NameSpace nameSpace) {
-		LinkedList<Map<String, Object>> results = minResultsTest(nameSpace, 6);
+		List<Map<String, Object>> results = minResultsTest(nameSpace, 6);
 		assertContainsStation(results, NWIS_1353690, STORET_777, STORET_888, STORET_1383, STORET_504707, STORET_1043441);
 	}
 
 	public void siteTypeTest(NameSpace nameSpace) {
-		LinkedList<Map<String, Object>> results = siteTypeTest(nameSpace, 11);
+		List<Map<String, Object>> results = siteTypeTest(nameSpace, 11);
 		assertContainsStation(results, STEWARDS_36, STEWARDS_46, NWIS_1353690, STORET_777, STORET_888, STORET_999, STORET_1383, STORET_436723, STORET_504707, STORET_1043441,
 				BIODATA_61233184);
 	}
 
 	public void stateTest(NameSpace nameSpace) {
-		LinkedList<Map<String, Object>> results = stateTest(nameSpace, 10);
+		List<Map<String, Object>> results = stateTest(nameSpace, 10);
 		assertContainsStation(results, STEWARDS_36, STEWARDS_46, NWIS_1353690, NWIS_1360035, STORET_777, STORET_888, STORET_999, STORET_1383, STORET_436723, STORET_1043441);
 	}
 
 	public void withinTest(NameSpace nameSpace) {
-		LinkedList<Map<String, Object>> results = withinTest(nameSpace, 10);
+		List<Map<String, Object>> results = withinTest(nameSpace, 10);
 		assertContainsStation(results, STEWARDS_36, STEWARDS_46, NWIS_1353690, NWIS_1360035, STORET_777, STORET_888, STORET_999, STORET_1383, STORET_436723, STORET_504707);
 	}
 
@@ -219,24 +253,24 @@ public abstract class BaseStationStreamingTest extends BaseStreamingTest {
 	//Station + Activity_Sum 
 
 	public void projectTest(NameSpace nameSpace) {
-		LinkedList<Map<String, Object>> results = projectTest(nameSpace, 9);
+		List<Map<String, Object>> results = projectTest(nameSpace, 9);
 		assertContainsStation(results, STEWARDS_36, STEWARDS_46, NWIS_1353690, NWIS_1360035, STORET_777, STORET_888, STORET_999, STORET_1043441, BIODATA_61233184);
 	}
 
 	public void sampleMediaTest(NameSpace nameSpace) {
-		LinkedList<Map<String, Object>> results = sampleMediaTest(nameSpace, 11);
+		List<Map<String, Object>> results = sampleMediaTest(nameSpace, 11);
 		assertContainsStation(results, STEWARDS_36, STEWARDS_46, NWIS_1353690, NWIS_1360035, STORET_777, STORET_888, STORET_999, STORET_1383, STORET_504707, STORET_1043441,
 				BIODATA_61233184);
 	}
 
 	public void startDateHiTest(NameSpace nameSpace) {
-		LinkedList<Map<String, Object>> results = startDateHiTest(nameSpace, 11);
+		List<Map<String, Object>> results = startDateHiTest(nameSpace, 11);
 		assertContainsStation(results, STEWARDS_36, STEWARDS_46, NWIS_1353690, NWIS_1360035, STORET_777, STORET_888, STORET_999, STORET_1383, STORET_504707, STORET_1043441,
 				BIODATA_61233184);
 	}
 
 	public void startDateLoTest(NameSpace nameSpace) {
-		LinkedList<Map<String, Object>> results = startDateLoTest(nameSpace, 9);
+		List<Map<String, Object>> results = startDateLoTest(nameSpace, 9);
 		assertContainsStation(results, STEWARDS_36, STEWARDS_46, NWIS_1353690, NWIS_1360035, STORET_777, STORET_888, STORET_999, STORET_1043441, BIODATA_61233184);
 	}
 
@@ -244,110 +278,47 @@ public abstract class BaseStationStreamingTest extends BaseStreamingTest {
 	//Station + Result_Sum
 
 	public void analyticalMethodTest(NameSpace nameSpace) {
-		LinkedList<Map<String, Object>> results = analyticalMethodTest(nameSpace, 5);
+		List<Map<String, Object>> results = analyticalMethodTest(nameSpace, 5);
 		assertContainsStation(results, NWIS_1353690, STORET_777, STORET_888, STORET_999, STORET_1043441);
 	}
 
 	public void assemblageTest(NameSpace nameSpace) {
-		LinkedList<Map<String, Object>> results = assemblageTest(nameSpace, 5);
+		List<Map<String, Object>> results = assemblageTest(nameSpace, 5);
 		assertContainsStation(results, STORET_777, STORET_888, STORET_999, STORET_1043441, BIODATA_61233184);
 	}
 
 	public void characteristicNameTest(NameSpace nameSpace) {
-		LinkedList<Map<String, Object>> results = characteristicNameTest(nameSpace, 4);
+		List<Map<String, Object>> results = characteristicNameTest(nameSpace, 4);
 		assertContainsStation(results, STORET_777, STORET_888, STORET_999, STORET_1043441);
 	}
 
 	public void characteristicTypeTest(NameSpace nameSpace) {
-		LinkedList<Map<String, Object>> results = characteristicTypeTest(nameSpace, 5);
+		List<Map<String, Object>> results = characteristicTypeTest(nameSpace, 5);
 		assertContainsStation(results, STEWARDS_36, STORET_777, STORET_888, STORET_999, STORET_1043441);
 	}
 
 	public void pcodeTest(NameSpace nameSpace) {
-		LinkedList<Map<String, Object>> results = pcodeTest(nameSpace, 4);
+		List<Map<String, Object>> results = pcodeTest(nameSpace, 4);
 		assertContainsStation(results, NWIS_1360035, STORET_777, STORET_888, STORET_1043441);
 	}
 
 	public void subjectTaxonomicNameTest(NameSpace nameSpace) {
-		LinkedList<Map<String, Object>> results = subjectTaxonomicNameTest(nameSpace, 5);
+		List<Map<String, Object>> results = subjectTaxonomicNameTest(nameSpace, 5);
 		assertContainsStation(results, STORET_777, STORET_888, STORET_999, STORET_1043441, BIODATA_61233184);
 	}
 
 	public void multipleParameterStationSumTest(NameSpace nameSpace) {
-		FilterParameters filter = new FilterParameters();
-		filter.setBBox(getBBox());
-		filter.setCountrycode(getCountry());
-		filter.setCountycode(getCounty());
-		filter.setHuc(getHuc());
-		filter.setLat(getLatitude());
-		filter.setLong(getLongitude());
-		filter.setOrganization(getOrganization());
-		filter.setProviders(getProviders());
-		filter.setSiteid(getSiteid());
-		filter.setSiteType(getSiteType());
-		filter.setStatecode(getState());
-		filter.setWithin(getWithin());
-
-		filter.setMinactivities(getMinActivities());
-		filter.setMinresults(getMinResults());
-		LinkedList<Map<String, Object>> results = callDao(nameSpace, 3, filter);
+		List<Map<String, Object>> results = multipleParameterStationSumTest(nameSpace, 3);
 		assertContainsStation(results, NWIS_1353690, STORET_777, STORET_888);
 	}
 
 	public void multipleParameterActivitySumTest(NameSpace nameSpace) {
-		FilterParameters filter = new FilterParameters();
-		filter.setBBox(getBBox());
-		filter.setCountrycode(getCountry());
-		filter.setCountycode(getCounty());
-		filter.setHuc(getHuc());
-		filter.setLat(getLatitude());
-		filter.setLong(getLongitude());
-		filter.setMinactivities(getMinActivities());
-		filter.setMinresults(getMinResults());
-		filter.setOrganization(getOrganization());
-		filter.setProviders(getProviders());
-		filter.setSiteid(getSiteid());
-		filter.setSiteType(getSiteType());
-		filter.setStatecode(getState());
-		filter.setWithin(getWithin());
-
-		filter.setProject(getProject());
-		filter.setSampleMedia(getSampleMedia());
-		filter.setStartDateHi(getStartDateHi());
-		filter.setStartDateLo(getStartDateLo());
-		LinkedList<Map<String, Object>> results = callDao(nameSpace, 2, filter);
+		List<Map<String, Object>> results = multipleParameterActivitySumTest(nameSpace, 2);
 		assertContainsStation(results, STORET_777, STORET_888);
 	}
 
 	public void multipleParameterResultSumTest(NameSpace nameSpace) {
-		FilterParameters filter = new FilterParameters();
-		filter.setBBox(getBBox());
-		filter.setCountrycode(getCountry());
-		filter.setCountycode(getCounty());
-		filter.setHuc(getHuc());
-		filter.setLat(getLatitude());
-		filter.setLong(getLongitude());
-		filter.setMinactivities(getMinActivities());
-		filter.setMinresults(getMinResults());
-		filter.setOrganization(getOrganization());
-		filter.setProviders(getProviders());
-		filter.setSiteid(getSiteid());
-		filter.setSiteType(getSiteType());
-		filter.setStatecode(getState());
-		filter.setWithin(getWithin());
-
-		filter.setProject(getProject());
-		filter.setSampleMedia(getSampleMedia());
-		filter.setStartDateHi(getStartDateHi());
-		filter.setStartDateLo(getStartDateLo());
-
-		filter.setPCode(getPcode());
-		filter.setAnalyticalmethod(getAnalyticalMethod());
-		filter.setAssemblage(getAssemblage());
-		filter.setCharacteristicName(getCharacteristicName());
-		filter.setCharacteristicType(getCharacteristicType());
-		filter.setSubjectTaxonomicName(getSubjectTaxonomicName());
-		LinkedList<Map<String, Object>> results = callDao(nameSpace, 2, filter);
+		List<Map<String, Object>> results = multipleParameterResultSumTest(nameSpace, 2);
 		assertContainsStation(results, STORET_777, STORET_888);
 	}
 
@@ -367,7 +338,7 @@ public abstract class BaseStationStreamingTest extends BaseStreamingTest {
 		assertMapIsAsExpected(expectedRow, actualRow);
 	}
 
-	public void assertContainsStation(LinkedList<Map<String, Object>> results, String[]...  stations) {
+	public void assertContainsStation(List<Map<String, Object>> results, String[]...  stations) {
 		for (Map<String, Object> result : results) {
 			LOG.debug(StationColumn.KEY_DATA_SOURCE + ":" + result.get(StationColumn.KEY_DATA_SOURCE) + "/" + StationColumn.KEY_SITE_ID + ":" +  result.get(StationColumn.KEY_SITE_ID));
 		}
@@ -395,6 +366,19 @@ public abstract class BaseStationStreamingTest extends BaseStreamingTest {
 			}
 		}
 		assertEquals("Double check result set expected size", stations.length, results.size());
+	}
+
+	@Override
+	public LinkedList<Map<String, Object>> callDao(NameSpace nameSpace, int expectedSize, FilterParameters filter) {
+		TestResultHandler handler = new TestResultHandler();
+		streamingDao.stream(nameSpace, filter, handler);
+		assertEquals(expectedSize, handler.getResults().size());
+		return handler.getResults();
+	}
+
+	@Override
+	protected void assertSiteUrlBase(Map<String, Object> row) {
+		// Nothing to do here
 	}
 
 }

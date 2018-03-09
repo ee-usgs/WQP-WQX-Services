@@ -66,7 +66,6 @@ public class SimpleStationControllerIntTest extends BaseControllerIntegrationTes
 		assertEquals(harmonizeXml(getCompareFile(PROFILE, fileType, "NoResult")), harmonizeXml(rtn.getResponse().getContentAsString()));
 	}
 
-	@Test
 	public void getAsXmlZipTest() throws Exception {
 		String url = ENDPOINT + XML_AND_ZIP;
 		String mimeType = HttpConstants.MIME_TYPE_ZIP;
@@ -81,27 +80,22 @@ public class SimpleStationControllerIntTest extends BaseControllerIntegrationTes
 		assertEquals(harmonizeXml(getCompareFile(PROFILE, fileType, "NoResult")), harmonizeXml(extractZipContent(rtn.getResponse().getContentAsByteArray(), getFileName(PROFILE, fileType))));
 	}
 
-	@Test
 	public void getAsGeoJsonTest() throws Exception {
 		getAsJsonTest(ENDPOINT + GEOJSON, HttpConstants.MIME_TYPE_GEOJSON, GEOJSON);
 	}
 
-	@Test
 	public void getAsGeoJsonZipTest() throws Exception {
 		getAsJsonZipTest(ENDPOINT + GEOJSON_AND_ZIP, HttpConstants.MIME_TYPE_ZIP, GEOJSON);
 	}
 
-	@Test
 	public void getAsJsonTest() throws Exception {
 		getAsJsonTest(ENDPOINT + JSON, HttpConstants.MIME_TYPE_JSON, JSON);
 	}
 
-	@Test
 	public void getAsJsonZipTest() throws Exception {
 		getAsJsonZipTest(ENDPOINT + JSON_AND_ZIP, HttpConstants.MIME_TYPE_ZIP, JSON);
 	}
 
-	@Test
 	public void getAllParametersTest() throws Exception {
 		String url = ENDPOINT + JSON;
 		String mimeType = HttpConstants.MIME_TYPE_JSON;

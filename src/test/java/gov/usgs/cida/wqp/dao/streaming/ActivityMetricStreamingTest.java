@@ -8,6 +8,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
@@ -19,9 +20,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 
-import gov.usgs.cida.wqp.BaseSpringTest;
 import gov.usgs.cida.wqp.CsvDataSetLoader;
 import gov.usgs.cida.wqp.DBIntegrationTest;
+import gov.usgs.cida.wqp.dao.FilteredActivityMetricDaoTest;
 import gov.usgs.cida.wqp.dao.NameSpace;
 import gov.usgs.cida.wqp.dao.intfc.IStreamingDao;
 import gov.usgs.cida.wqp.mapping.ActivityMetricColumn;
@@ -33,14 +34,12 @@ import gov.usgs.cida.wqp.parameter.FilterParameters;
 @Category(DBIntegrationTest.class)
 @DatabaseSetup("classpath:/testData/csv/")
 @DbUnitConfiguration(dataSetLoader = CsvDataSetLoader.class)
-public class ActivityMetricStreamingTest extends BaseSpringTest {
+public class ActivityMetricStreamingTest extends FilteredActivityMetricDaoTest {
 	private static final Logger LOG = LoggerFactory.getLogger(ActivityMetricStreamingTest.class);
 
 	@Autowired 
 	IStreamingDao streamingDao;
 
-	TestResultHandler handler;
-	FilterParameters filter;
 	NameSpace nameSpace = NameSpace.ACTIVITY_METRIC;
 
 	public static final String[] STEWARDS_1 = new String[]{STEWARDS, "1_1_type_identifier"};
@@ -74,21 +73,8 @@ public class ActivityMetricStreamingTest extends BaseSpringTest {
 
 	public static final int ACTIVITY_METRIC_COLUMN_COUNT = TestActivityMetricMap.ACTIVITY_METRIC.keySet().size();
 
-	public void init() {
-		handler = new TestResultHandler();
-		filter = new FilterParameters();
-	}
-
-	public void cleanup() {
-		handler = null;
-		filter = null;
-	}
-
 	@Test
 	public void testHarness() {
-		nullParameterTest();
-		emptyParameterTest();
-		allDataSortedTest();
 		activityTest();
 		analyticalMethodTest();
 		assemblageTest();
@@ -98,6 +84,7 @@ public class ActivityMetricStreamingTest extends BaseSpringTest {
 		characteristicTypeTest();
 		countryTest();
 		countyTest();
+		emptyParameterTest();
 		huc2Test();
 		huc3Test();
 		huc4Test();
@@ -107,22 +94,29 @@ public class ActivityMetricStreamingTest extends BaseSpringTest {
 		huc8Test();
 		huc10Test();
 		huc12Test();
+		mimeTypeTest();
 		minActivitiesTest();
 		minResultsTest();
+		nldiSitesTest();
 		nldiUrlTest();
+		nullParameterTest();
 		organizationTest();
 		pcodeTest();
 		projectTest();
 		providersTest();
+		resultTest();
 		sampleMediaTest();
 		siteIdTest();
-		manySitesTest();
+		siteIdLargeListTest();
 		siteTypeTest();
+		siteUrlBaseTest();
+		sortedTest();
 		startDateHiTest();
 		startDateLoTest();
 		stateTest();
 		subjectTaxonomicNameTest();
 		withinTest();
+		zipTest();
 		multipleParameterStationSumTest();
 		multipleParameterActivityTest();
 		multipleParameterActivitySumTest();
@@ -134,28 +128,145 @@ public class ActivityMetricStreamingTest extends BaseSpringTest {
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//Only need Activity (and possibly a lookup table)
 
-	public void nullParameterTest() {
-		init();
-		streamingDao.stream(nameSpace, null, handler);
-		assertEquals(TOTAL_ACTIVITY_METRIC_COUNT, String.valueOf(handler.getResults().size()));
-		cleanup();
+	public void activityTest() {
+		List<Map<String, Object>> results = activityTest(nameSpace, 6);
+		assertContainsActivityMetric(results, STORET_5A, STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F);
+	}
+
+	public void avoidTest() {
+		List<Map<String, Object>> results = avoidTest(nameSpace, Integer.valueOf(STORET_ACTIVITY_METRIC_COUNT));
+		assertContainsActivityMetric(results, STORET_1, STORET_2, STORET_3, STORET_4, STORET_5A, STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F,
+				STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14, STORET_15,
+				STORET_16);
+	}
+
+	public void countryTest() {
+		List<Map<String, Object>> results = countryTest(nameSpace, 24);
+		assertContainsActivityMetric(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_4,
+				STORET_5A, STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F, STORET_10, STORET_11, STORET_12, STORET_13,
+				STORET_14, STORET_15, STORET_16, BIODATA_1);
+	}
+
+	public void countyTest() {
+		List<Map<String, Object>> results = countyTest(nameSpace, 23);
+		assertContainsActivityMetric(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_4,
+				STORET_5A, STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F, STORET_10, STORET_11, STORET_12, STORET_13,
+				STORET_14, STORET_15, STORET_16);
 	}
 
 	public void emptyParameterTest() {
-		init();
-		streamingDao.stream(nameSpace, filter, handler);
-		assertEquals(TOTAL_ACTIVITY_METRIC_COUNT, String.valueOf(handler.getResults().size()));
-		cleanup();
+		emptyParameterTest(nameSpace, Integer.valueOf(TOTAL_ACTIVITY_METRIC_COUNT));
 	}
 
-	public void allDataSortedTest() {
-		init();
-		filter.setSorted("yes");
-		streamingDao.stream(nameSpace, filter, handler);
+	public void huc2Test() {
+		List<Map<String, Object>> results = huc2Test(nameSpace, 16);
+		assertContainsActivityMetric(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_4, STORET_5A, STORET_5B, STORET_5C,
+				STORET_5D, STORET_5E, STORET_5F, STORET_10, STORET_14, STORET_15);
+	}
 
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		//Validate the number AND order of results.
-		assertEquals(TOTAL_ACTIVITY_METRIC_COUNT, String.valueOf(results.size()));
+	public void huc3Test() {
+		List<Map<String, Object>> results = huc3Test(nameSpace, 16);
+		assertContainsActivityMetric(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_4, STORET_5A, STORET_5B, STORET_5C,
+				STORET_5D, STORET_5E, STORET_5F, STORET_10, STORET_14, STORET_15);
+	}
+
+	public void huc4Test() {
+		List<Map<String, Object>> results = huc4Test(nameSpace, 10);
+		assertContainsActivityMetric(results, NWIS_1, NWIS_2, NWIS_3, STORET_4, STORET_5A, STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F);
+	}
+
+	public void huc5Test() {
+		List<Map<String, Object>> results = huc5Test(nameSpace, 10);
+		assertContainsActivityMetric(results, NWIS_1, NWIS_2, NWIS_3, STORET_4, STORET_5A, STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F);
+	}
+
+	public void huc6Test() {
+		List<Map<String, Object>> results = huc6Test(nameSpace, 9);
+		assertContainsActivityMetric(results, NWIS_1, NWIS_2, STORET_4, STORET_5A, STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F);
+	}
+
+	public void huc7Test() {
+		List<Map<String, Object>> results = huc7Test(nameSpace, 9);
+		assertContainsActivityMetric(results, NWIS_1, NWIS_2, STORET_4, STORET_5A, STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F);
+	}
+
+	public void huc8Test() {
+		List<Map<String, Object>> results = huc8Test(nameSpace, 7);
+		assertContainsActivityMetric(results, STORET_4, STORET_5A, STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F);
+	}
+
+	public void huc10Test() {
+		List<Map<String, Object>> results = huc10Test(nameSpace, 7);
+		assertContainsActivityMetric(results, STORET_4, STORET_5A, STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F);
+	}
+
+	public void huc12Test() {
+		List<Map<String, Object>> results = huc12Test(nameSpace, 7);
+		assertContainsActivityMetric(results, STORET_4, STORET_5A, STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F);
+	}
+
+	public void mimeTypeTest() {
+		mimeTypeJsonTest(nameSpace, Integer.valueOf(TOTAL_ACTIVITY_METRIC_COUNT));
+		mimeTypeGeoJsonTest(nameSpace, Integer.valueOf(TOTAL_ACTIVITY_METRIC_COUNT));
+		mimeTypeKmlTest(nameSpace, Integer.valueOf(TOTAL_ACTIVITY_METRIC_COUNT));
+		mimeTypeKmzTest(nameSpace, Integer.valueOf(TOTAL_ACTIVITY_METRIC_COUNT));
+		mimeTypeCsvTest(nameSpace, Integer.valueOf(TOTAL_ACTIVITY_METRIC_COUNT));
+		mimeTypeTsvTest(nameSpace, Integer.valueOf(TOTAL_ACTIVITY_METRIC_COUNT));
+		mimeTypeXmlTest(nameSpace, Integer.valueOf(TOTAL_ACTIVITY_METRIC_COUNT));
+		mimeTypeXlsxTest(nameSpace, Integer.valueOf(TOTAL_ACTIVITY_METRIC_COUNT));
+	}
+
+	public void nldiUrlTest() {
+		nldiUrlTest(nameSpace,  Integer.valueOf(TOTAL_ACTIVITY_METRIC_COUNT));
+	}
+
+	public void nldiSitesTest() {
+		List<Map<String, Object>> results = nldiSitesTest(nameSpace, 13);
+		assertContainsActivityMetric(results, STORET_1, STORET_2, STORET_4, STORET_5A, STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F, STORET_11,
+				STORET_12, STORET_13, STORET_16);
+	}
+
+	public void nullParameterTest() {
+		nullParameterTest(nameSpace, Integer.valueOf(TOTAL_ACTIVITY_METRIC_COUNT));
+	}
+
+	public void organizationTest() {
+		List<Map<String, Object>> results = organizationTest(nameSpace, 23);
+		assertContainsActivityMetric(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_4,
+				STORET_5A, STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F, STORET_10, STORET_11, STORET_12, STORET_13,
+				STORET_14, STORET_15, STORET_16);
+	}
+
+	public void projectTest() {
+		List<Map<String, Object>> results = projectTest(nameSpace, 14);
+		assertContainsActivityMetric(results, STEWARDS_1,  STEWARDS_3, NWIS_1, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_11, STORET_12, STORET_13,
+				STORET_14, STORET_15, STORET_16, BIODATA_1);
+	}
+
+	public void providersTest() {
+		List<Map<String, Object>> results = providersTest(nameSpace, 27);
+		assertContainsActivityMetric(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_4,
+				STORET_5A, STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F, STORET_6, STORET_7, STORET_8, STORET_9,
+				STORET_10, STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_16);
+	}
+
+	public void resultTest() {
+		resultTest(nameSpace, Integer.valueOf(TOTAL_ACTIVITY_METRIC_COUNT));
+	}
+
+	public void sampleMediaTest() {
+		List<Map<String, Object>> results = sampleMediaTest(nameSpace, 26);
+		assertContainsActivityMetric(results, STEWARDS_1, STEWARDS_3, NWIS_1, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_4, STORET_5A, STORET_5B,
+				STORET_5C, STORET_5D, STORET_5E, STORET_5F, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, STORET_11,
+				STORET_12, STORET_13, STORET_14, STORET_15, STORET_16, BIODATA_1);
+	}
+
+	public void siteUrlBaseTest() {
+		siteUrlBaseTest(nameSpace, Integer.valueOf(TOTAL_ACTIVITY_METRIC_COUNT));
+	}
+
+	public void sortedTest() {
+		List<Map<String, Object>> results = sortedTest(nameSpace, Integer.valueOf(TOTAL_ACTIVITY_METRIC_COUNT));
 		assertStewards1(results.get(0));
 		assertStewards2(results.get(1));
 		assertStewards3(results.get(2));
@@ -184,602 +295,149 @@ public class ActivityMetricStreamingTest extends BaseSpringTest {
 		assertStoret1(results.get(25));
 		assertStoret3(results.get(26));
 		assertBiodata1(results.get(27));
-		cleanup();
-	}
-
-	public void activityTest() {
-		init();
-		filter.setActivity(getActivity());
-		streamingDao.stream(nameSpace, filter, handler);
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(6, results.size());
-		assertContainsActivityMetric(results, STORET_5A, STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F);
-		cleanup();
-	}
-
-	public void avoidTest() {
-		init();
-		filter.setCommand(getCommand());
-		streamingDao.stream(nameSpace, filter, handler);
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(STORET_ACTIVITY_METRIC_COUNT, String.valueOf(results.size()));
-		assertContainsActivityMetric(results, STORET_1, STORET_2, STORET_3, STORET_4, STORET_5A, STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F,
-				STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14, STORET_15,
-				STORET_16);
-		cleanup();
-	}
-
-	public void countryTest() {
-		init();
-		filter.setCountrycode(getCountry());
-		streamingDao.stream(nameSpace, filter, handler);
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(24, results.size());
-		assertContainsActivityMetric(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_4,
-				STORET_5A, STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F, STORET_10, STORET_11, STORET_12, STORET_13,
-				STORET_14, STORET_15, STORET_16, BIODATA_1);
-		cleanup();
-	}
-
-	public void countyTest() {
-		init();
-		filter.setCountycode(getCounty());
-		streamingDao.stream(nameSpace, filter, handler);
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(23, results.size());
-		assertContainsActivityMetric(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_4,
-				STORET_5A, STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F, STORET_10, STORET_11, STORET_12, STORET_13,
-				STORET_14, STORET_15, STORET_16);
-		cleanup();
-	}
-
-	public void huc2Test() {
-		init();
-		filter.setHuc(getHuc2());
-		streamingDao.stream(nameSpace, filter, handler);
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(16, results.size());
-		assertContainsActivityMetric(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_4, STORET_5A, STORET_5B, STORET_5C,
-				STORET_5D, STORET_5E, STORET_5F, STORET_10, STORET_14, STORET_15);
-		cleanup();
-	}
-
-	public void huc3Test() {
-		init();
-		filter.setHuc(getHuc3());
-		streamingDao.stream(nameSpace, filter, handler);
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(16, results.size());
-		assertContainsActivityMetric(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_4, STORET_5A, STORET_5B, STORET_5C,
-				STORET_5D, STORET_5E, STORET_5F, STORET_10, STORET_14, STORET_15);
-		cleanup();
-	}
-
-	public void huc4Test() {
-		init();
-		filter.setHuc(getHuc4());
-		streamingDao.stream(nameSpace, filter, handler);
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(10, results.size());
-		assertContainsActivityMetric(results, NWIS_1, NWIS_2, NWIS_3, STORET_4, STORET_5A, STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F);
-		cleanup();
-	}
-
-	public void huc5Test() {
-		init();
-		filter.setHuc(getHuc5());
-		streamingDao.stream(nameSpace, filter, handler);
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(10, results.size());
-		assertContainsActivityMetric(results, NWIS_1, NWIS_2, NWIS_3, STORET_4, STORET_5A, STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F);
-		cleanup();
-	}
-
-	public void huc6Test() {
-		init();
-		filter.setHuc(getHuc6());
-		streamingDao.stream(nameSpace, filter, handler);
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(9, results.size());
-		assertContainsActivityMetric(results, NWIS_1, NWIS_2, STORET_4, STORET_5A, STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F);
-		cleanup();
-	}
-
-	public void huc7Test() {
-		init();
-		filter.setHuc(getHuc7());
-		streamingDao.stream(nameSpace, filter, handler);
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(9, results.size());
-		assertContainsActivityMetric(results, NWIS_1, NWIS_2, STORET_4, STORET_5A, STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F);
-		cleanup();
-	}
-
-	public void huc8Test() {
-		init();
-		filter.setHuc(getHuc8());
-		streamingDao.stream(nameSpace, filter, handler);
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(7, results.size());
-		assertContainsActivityMetric(results, STORET_4, STORET_5A, STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F);
-		cleanup();
-	}
-
-	public void huc10Test() {
-		init();
-		filter.setHuc(getHuc10());
-		streamingDao.stream(nameSpace, filter, handler);
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(7, results.size());
-		assertContainsActivityMetric(results, STORET_4, STORET_5A, STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F);
-		cleanup();
-	}
-
-	public void huc12Test() {
-		init();
-		filter.setHuc(getHuc12());
-		streamingDao.stream(nameSpace, filter, handler);
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(7, results.size());
-		assertContainsActivityMetric(results, STORET_4, STORET_5A, STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F);
-		cleanup();
-	}
-
-	public void nldiUrlTest() {
-		init();
-		try {
-			filter.setNldiSites(getManySiteId());
-			streamingDao.stream(nameSpace, filter, handler);
-		} catch (Exception e) {
-			fail(e.getLocalizedMessage());
-		}
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(13, results.size());
-		assertContainsActivityMetric(results, STORET_1, STORET_2, STORET_4, STORET_5A, STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F, STORET_11,
-				STORET_12, STORET_13, STORET_16);
-		cleanup();
-	}
-
-	public void organizationTest() {
-		init();
-		filter.setOrganization(getOrganization());
-		streamingDao.stream(nameSpace, filter, handler);
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(23, results.size());
-		assertContainsActivityMetric(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_4,
-				STORET_5A, STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F, STORET_10, STORET_11, STORET_12, STORET_13,
-				STORET_14, STORET_15, STORET_16);
-		cleanup();
-	}
-
-	public void projectTest() {
-		init();
-		filter.setProject(getProject());
-		streamingDao.stream(nameSpace, filter, handler);
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(14, results.size());
-		assertContainsActivityMetric(results, STEWARDS_1,  STEWARDS_3, NWIS_1, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_11, STORET_12, STORET_13,
-				STORET_14, STORET_15, STORET_16, BIODATA_1);
-		cleanup();
-	}
-
-	public void providersTest() {
-		init();
-		filter.setProviders(getProviders());
-		streamingDao.stream(nameSpace, filter, handler);
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(27, results.size());
-		assertContainsActivityMetric(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_4,
-				STORET_5A, STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F, STORET_6, STORET_7, STORET_8, STORET_9,
-				STORET_10, STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_16);
-		cleanup();
-	}
-
-	public void sampleMediaTest() {
-		init();
-		filter.setSampleMedia(getSampleMedia());
-		streamingDao.stream(nameSpace, filter, handler);
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(26, results.size());
-		assertContainsActivityMetric(results, STEWARDS_1, STEWARDS_3, NWIS_1, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_4, STORET_5A, STORET_5B,
-				STORET_5C, STORET_5D, STORET_5E, STORET_5F, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, STORET_11,
-				STORET_12, STORET_13, STORET_14, STORET_15, STORET_16, BIODATA_1);
-		cleanup();
 	}
 
 	public void startDateHiTest() {
-		init();
-		filter.setStartDateHi(getStartDateHi());
-		streamingDao.stream(nameSpace, filter, handler);
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(26, results.size());
+		List<Map<String, Object>> results = startDateHiTest(nameSpace, 26);
 		assertContainsActivityMetric(results, STEWARDS_1, STEWARDS_3, NWIS_1, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_4, STORET_5A, STORET_5B,
 				STORET_5C, STORET_5D, STORET_5E, STORET_5F, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, STORET_11,
 				STORET_12, STORET_13, STORET_14, STORET_15, STORET_16, BIODATA_1);
-		cleanup();
 	}
 
 	public void startDateLoTest() {
-		init();
-		filter.setStartDateLo(getStartDateLo());
-		streamingDao.stream(nameSpace, filter, handler);
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(17, results.size());
+		List<Map<String, Object>> results = startDateLoTest(nameSpace, 17);
 		assertContainsActivityMetric(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_10,
 				STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_1, BIODATA_1);
-		cleanup();
 	}
 
 	public void siteIdTest() {
-		init();
-		filter.setSiteid(getSiteid());
-		streamingDao.stream(nameSpace, filter, handler);
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(16, results.size());
+		List<Map<String, Object>> results = siteIdTest(nameSpace, 16);
 		assertContainsActivityMetric(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_10,
 				STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_16);
-		cleanup();
 	}
 
-	public void manySitesTest() {
-		init();
-		try {
-			filter.setSiteid(getManySiteId());
-			streamingDao.stream(nameSpace, filter, handler);
-		} catch (Exception e) {
-			fail(e.getLocalizedMessage());
-		}
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(13, results.size());
+	public void siteIdLargeListTest() {
+		List<Map<String, Object>> results = siteIdLargeListTest(nameSpace, 13);
 		assertContainsActivityMetric(results, STORET_1, STORET_2, STORET_4, STORET_5A, STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F, STORET_11,
 				STORET_12, STORET_13, STORET_16);
-		cleanup();
 	}
 
 	public void siteTypeTest() {
-		init();
-		filter.setSiteType(getSiteType());
-		streamingDao.stream(nameSpace, filter, handler);
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(27, results.size());
+		List<Map<String, Object>> results = siteTypeTest(nameSpace, 27);
 		assertContainsActivityMetric(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, STORET_1, STORET_2, STORET_3, STORET_4, STORET_5A,
 				STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10,
 				STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_1, BIODATA_1);
-		cleanup();
 	}
 
 	public void stateTest() {
-		init();
-		filter.setStatecode(getState());
-		streamingDao.stream(nameSpace, filter, handler);
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(23, results.size());
+		List<Map<String, Object>> results = stateTest(nameSpace, 23);
 		assertContainsActivityMetric(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_4,
 				STORET_5A, STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F, STORET_10, STORET_11, STORET_12, STORET_13,
 				STORET_14, STORET_15, STORET_1);
-		cleanup();
+	}
+
+	public void zipTest() {
+		zipTest(nameSpace, Integer.valueOf(TOTAL_ACTIVITY_METRIC_COUNT));
 	}
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//Activity + Activity_Sum
 
 	public void minActivitiesTest() {
-		init();
-		filter.setMinactivities(getMinActivities());
-		streamingDao.stream(nameSpace, filter, handler);
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(24, results.size());
+		List<Map<String, Object>> results = minActivitiesTest(nameSpace, 24);
 		assertContainsActivityMetric(results, STEWARDS_1, STEWARDS_2, NWIS_1, NWIS_2, STORET_1, STORET_2, STORET_4, STORET_5A, STORET_5B, STORET_5C,
 				STORET_5D, STORET_5E, STORET_5F, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, STORET_11, STORET_12,
 				STORET_13, STORET_14, STORET_15, STORET_16);
-		cleanup();
 	}
 
 	public void minResultsTest() {
-		init();
-		filter.setMinresults(getMinResults());
-		streamingDao.stream(nameSpace, filter, handler);
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(22, results.size());
+		List<Map<String, Object>> results = minResultsTest(nameSpace, 22);
 		assertContainsActivityMetric(results, NWIS_1, NWIS_2, STORET_1, STORET_2, STORET_4, STORET_5A, STORET_5B, STORET_5C, STORET_5D, STORET_5E,
 				STORET_5F, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14,
 				STORET_15, STORET_16);
-		cleanup();
 	}
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//Activity + Station_Sum
 
 	public void bboxTest() {
-		init();
-		filter.setBBox(getBBox());
-		streamingDao.stream(nameSpace, filter, handler);
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(22, results.size());
+		List<Map<String, Object>> results = bboxTest(nameSpace, 22);
 		assertContainsActivityMetric(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_1, STORET_2, STORET_4, STORET_5A,
 				STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14,
 				STORET_15, STORET_16);
-		cleanup();
 	}
 
 	public void withinTest() {
-		init();
-		filter.setWithin(getWithin());
-		filter.setLat(getLatitude());
-		filter.setLong(getLongitude());
-		streamingDao.stream(nameSpace, filter, handler);
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(24, results.size());
+		List<Map<String, Object>> results = withinTest(nameSpace, 24);
 		assertContainsActivityMetric(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_4,
 				STORET_5A, STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F, STORET_6, STORET_7, STORET_8, STORET_9,
 				STORET_11, STORET_12, STORET_13, STORET_16);
-		cleanup();
 	}
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//Activity + Result_Sum
 
 	public void analyticalMethodTest() {
-		init();
-		filter.setAnalyticalmethod(getAnalyticalMethod());
-		streamingDao.stream(nameSpace, filter, handler);
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(12, results.size());
+		List<Map<String, Object>> results = analyticalMethodTest(nameSpace, 12);
 		assertContainsActivityMetric(results, NWIS_1, NWIS_2, STORET_1, STORET_2, STORET_3, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14,
 				STORET_15, STORET_16);
-		cleanup();
 	}
 
 	public void assemblageTest() {
-		init();
-		filter.setAssemblage(getAssemblage());
-		streamingDao.stream(nameSpace, filter, handler);
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(11, results.size());
+		List<Map<String, Object>> results = assemblageTest(nameSpace, 11);
 		assertContainsActivityMetric(results, STORET_1, STORET_2, STORET_3, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_16, BIODATA_1);
-		cleanup();
 	}
 
 	public void characteristicNameTest() {
-		init();
-		filter.setCharacteristicName(getCharacteristicName());
-		streamingDao.stream(nameSpace, filter, handler);
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(10, results.size());
+		List<Map<String, Object>> results = characteristicNameTest(nameSpace, 10);
 		assertContainsActivityMetric(results, STORET_1, STORET_2, STORET_3, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_16);
-		cleanup();
 	}
 
 	public void characteristicTypeTest() {
-		init();
-		filter.setCharacteristicType(getCharacteristicType());
-		streamingDao.stream(nameSpace, filter, handler);
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(12, results.size());
+		List<Map<String, Object>> results = characteristicTypeTest(nameSpace, 12);
 		assertContainsActivityMetric(results, STEWARDS_1, STEWARDS_2, STORET_1, STORET_2, STORET_3, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14,
 				STORET_15, STORET_16);
-		cleanup();
 	}
 
 	public void pcodeTest() {
-		init();
-		filter.setPCode(getPcode());
-		streamingDao.stream(nameSpace, filter, handler);
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(10, results.size());
+		List<Map<String, Object>> results = pcodeTest(nameSpace, 10);
 		assertContainsActivityMetric(results, NWIS_3, STORET_1, STORET_2, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_16);
-		cleanup();
 	}
 
 	public void subjectTaxonomicNameTest() {
-		init();
-		filter.setSubjectTaxonomicName(getSubjectTaxonomicName());
-		streamingDao.stream(nameSpace, filter, handler);
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(10, results.size());
+		List<Map<String, Object>> results = subjectTaxonomicNameTest(nameSpace, 10);
 		assertContainsActivityMetric(results, STORET_1, STORET_2, STORET_3, STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_16, BIODATA_1);
-		cleanup();
 	}
 
 	public void multipleParameterActivityTest() {
-		init();
-		filter.setCountrycode(getCountry());
-		filter.setCountycode(getCounty());
-		filter.setHuc(getHuc());
-		filter.setOrganization(getOrganization());
-		filter.setProject(getProject());
-		filter.setProviders(getProviders());
-		filter.setSiteid(getSiteid());
-		filter.setSiteType(getSiteType());
-		filter.setStatecode(getState());
-		filter.setSampleMedia(getSampleMedia());
-		filter.setStartDateHi(getStartDateHi());
-		filter.setStartDateLo(getStartDateLo());
-		streamingDao.stream(nameSpace, filter, handler);
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(12, results.size());
+		List<Map<String, Object>> results = multipleParameterActivityTest(nameSpace, 12);
 		assertContainsActivityMetric(results, STEWARDS_1, STEWARDS_3, NWIS_1, STORET_1, STORET_2, STORET_3, STORET_11, STORET_12, STORET_13, STORET_14,
 				STORET_15, STORET_16);
-		cleanup();
 	}
 
 	public void multipleParameterStationSumTest() {
-		init();
-		filter.setBBox(getBBox());
-		filter.setCountrycode(getCountry());
-		filter.setCountycode(getCounty());
-		filter.setHuc(getHuc());
-		filter.setLat(getLatitude());
-		filter.setLong(getLongitude());
-		filter.setOrganization(getOrganization());
-		filter.setProject(getProject());
-		filter.setProviders(getProviders());
-		filter.setSiteid(getSiteid());
-		filter.setSiteType(getSiteType());
-		filter.setStatecode(getState());
-		filter.setSampleMedia(getSampleMedia());
-		filter.setStartDateHi(getStartDateHi());
-		filter.setStartDateLo(getStartDateLo());
-		filter.setWithin(getWithin());
-		streamingDao.stream(nameSpace, filter, handler);
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(9, results.size());
+		List<Map<String, Object>> results = multipleParameterStationSumTest(nameSpace, 9);
 		assertContainsActivityMetric(results, STEWARDS_1, STEWARDS_3, NWIS_1, STORET_1, STORET_2, STORET_11, STORET_12, STORET_13, STORET_16);
-		cleanup();
 	}
 
 	public void multipleParameterActivitySumTest() {
-		init();
-		filter.setCountrycode(getCountry());
-		filter.setCountycode(getCounty());
-		filter.setHuc(getHuc());
-		filter.setMinactivities(getMinActivities());
-		filter.setMinresults(getMinResults());
-		filter.setOrganization(getOrganization());
-		filter.setProject(getProject());
-		filter.setProviders(getProviders());
-		filter.setSiteid(getSiteid());
-		filter.setSiteType(getSiteType());
-		filter.setStatecode(getState());
-		filter.setSampleMedia(getSampleMedia());
-		filter.setStartDateHi(getStartDateHi());
-		filter.setStartDateLo(getStartDateLo());
-		streamingDao.stream(nameSpace, filter, handler);
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(8, results.size());
+		List<Map<String, Object>> results = multipleParameterActivitySumTest(nameSpace, 8);
 		assertContainsActivityMetric(results, STORET_1, STORET_2, STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_16);
-		cleanup();
 	}
 
 	public void multipleParameterActivitySumStationSumTest() {
-		init();
-		filter.setBBox(getBBox());
-		filter.setCountrycode(getCountry());
-		filter.setCountycode(getCounty());
-		filter.setHuc(getHuc());
-		filter.setLat(getLatitude());
-		filter.setLong(getLongitude());
-		filter.setMinactivities(getMinActivities());
-		filter.setMinresults(getMinResults());
-		filter.setOrganization(getOrganization());
-		filter.setProject(getProject());
-		filter.setProviders(getProviders());
-		filter.setSiteid(getSiteid());
-		filter.setSiteType(getSiteType());
-		filter.setStatecode(getState());
-		filter.setSampleMedia(getSampleMedia());
-		filter.setStartDateHi(getStartDateHi());
-		filter.setStartDateLo(getStartDateLo());
-		filter.setWithin(getWithin());
-		streamingDao.stream(nameSpace, filter, handler);
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(6, results.size());
+		List<Map<String, Object>> results = multipleParameterActivitySumStationSumTest(nameSpace, 6);
 		assertContainsActivityMetric(results, STORET_1, STORET_2, STORET_11, STORET_12, STORET_13, STORET_16);
-		cleanup();
 	}
 
 	public void multipleParameterResultSumTest() {
-		init();
-		filter.setAnalyticalmethod(getAnalyticalMethod());
-		filter.setCommand(getCommand());
-		filter.setAssemblage(getAssemblage());
-		filter.setCharacteristicName(getCharacteristicName());
-		filter.setCharacteristicType(getCharacteristicType());
-		filter.setCountrycode(getCountry());
-		filter.setCountycode(getCounty());
-		filter.setHuc(getHuc());
-		filter.setMinactivities(getMinActivities());
-		filter.setMinresults(getMinResults());
-		filter.setNldiSites(getNldiSites());
-		filter.setOrganization(getOrganization());
-		filter.setProject(getProject());
-		filter.setProviders(getProviders());
-		filter.setSiteid(getSiteid());
-		filter.setSiteType(getSiteType());
-		filter.setStatecode(getState());
-		filter.setPCode(getPcode());
-		filter.setSampleMedia(getSampleMedia());
-		filter.setStartDateHi(getStartDateHi());
-		filter.setStartDateLo(getStartDateLo());
-		filter.setSubjectTaxonomicName(getSubjectTaxonomicName());
-		streamingDao.stream(nameSpace, filter, handler);
-
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(4, results.size());
+		List<Map<String, Object>> results = multipleParameterResultSumTest(nameSpace, 4);
 		assertContainsActivityMetric(results, STORET_1, STORET_14, STORET_15, STORET_16);
-		cleanup();
 	}
 
 	public void multipleParameterResultSumStationSumTest() {
-		init();
-		filter.setAnalyticalmethod(getAnalyticalMethod());
-		filter.setCommand(getCommand());
-		filter.setAssemblage(getAssemblage());
-		filter.setBBox(getBBox());
-		filter.setCharacteristicName(getCharacteristicName());
-		filter.setCharacteristicType(getCharacteristicType());
-		filter.setCountrycode(getCountry());
-		filter.setCountycode(getCounty());
-		filter.setHuc(getHuc());
-		filter.setLat(getLatitude());
-		filter.setLong(getLongitude());
-		filter.setMinactivities(getMinActivities());
-		filter.setMinresults(getMinResults());
-		filter.setNldiSites(getNldiSites());
-		filter.setOrganization(getOrganization());
-		filter.setPCode(getPcode());
-		filter.setProject(getProject());
-		filter.setProviders(getProviders());
-		filter.setSampleMedia(getSampleMedia());
-		filter.setSiteid(getSiteid());
-		filter.setSiteType(getSiteType());
-		filter.setStartDateHi(getStartDateHi());
-		filter.setStartDateLo(getStartDateLo());
-		filter.setStatecode(getState());
-		filter.setSubjectTaxonomicName(getSubjectTaxonomicName());
-		filter.setWithin(getWithin());
-		streamingDao.stream(nameSpace, filter, handler);
-		LinkedList<Map<String, Object>> results = handler.getResults();
-		assertEquals(2, results.size());
+		List<Map<String, Object>> results = multipleParameterResultSumStationSumTest(nameSpace, 2);
 		assertContainsActivityMetric(results, STORET_1, STORET_16);
-		cleanup();
 	}
 
 	public static void assertStewards1(Map<String, Object> row) {
@@ -948,7 +606,7 @@ public class ActivityMetricStreamingTest extends BaseSpringTest {
 		assertEquals(BIODATA_1[1], row.get(ActivityMetricColumn.KEY_METRIC_TYPE_IDENTIFIER));
 	}
 
-	public void assertContainsActivityMetric(LinkedList<Map<String, Object>> results, String[]...  activityMetrics) {
+	public void assertContainsActivityMetric(List<Map<String, Object>> results, String[]...  activityMetrics) {
 		for (Map<String, Object> result : results) {
 			LOG.debug(BaseColumn.KEY_DATA_SOURCE + ":" + result.get(BaseColumn.KEY_DATA_SOURCE) + "/" 
 						+ ActivityMetricColumn.KEY_METRIC_TYPE_IDENTIFIER + ":" +  result.get(ActivityMetricColumn.KEY_METRIC_TYPE_IDENTIFIER));
@@ -969,6 +627,19 @@ public class ActivityMetricStreamingTest extends BaseSpringTest {
 			}
 		}
 		assertEquals("Double check expected size", activityMetrics.length, results.size());
+	}
+
+	@Override
+	public LinkedList<Map<String, Object>> callDao(NameSpace nameSpace, int expectedSize, FilterParameters filter) {
+		TestResultHandler handler = new TestResultHandler();
+		streamingDao.stream(nameSpace, filter, handler);
+		assertEquals(expectedSize, handler.getResults().size());
+		return handler.getResults();
+	}
+
+	@Override
+	protected void assertSiteUrlBase(Map<String, Object> row) {
+		//Nothing to do for this one.
 	}
 
 }
