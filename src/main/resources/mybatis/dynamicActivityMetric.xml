@@ -20,7 +20,12 @@
                 <include refid="dynamicWhere.activityJoinResultSum"/>
             </otherwise>
         </choose>
-        <include refid="dynamicWhere.activityLimitWhere"/>
+        <where>
+            <include refid="dynamicWhere.activityLimitWhere"/>
+            <if test="activity != null">
+                and (<include refid="dynamicWhere.activity" />)
+            </if>
+        </where>
     </sql>
 
 </mapper>

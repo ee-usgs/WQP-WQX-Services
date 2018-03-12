@@ -4,35 +4,37 @@ import java.util.List;
 import java.util.Map;
 
 import gov.usgs.cida.wqp.dao.NameSpace;
-import gov.usgs.cida.wqp.parameter.FilterParameters;
 
 public abstract class BaseStationCountDaoTest extends BaseCountDaoTest {
 
 	protected boolean includeActivity = false;
 	protected boolean includeResults = false;
 
-	protected void mimeTypeTest(NameSpace nameSpace) {
-		FilterParameters filter = new FilterParameters();
+	@Override
+	protected void mimeTypeTest(NameSpace nameSpace, boolean includeActivity, boolean includeResults) {
+		List<Map<String, Object>> counts = mimeTypeJsonTest(nameSpace, 5);
+		assertStationResults(counts, TOTAL_SITE_COUNT_GEOM, NWIS_SITE_COUNT, STEWARDS_SITE_COUNT, STORET_SITE_COUNT, BIODATA_SITE_COUNT_GEOM);
 
-		filter.setMimeType(JSON);
-		List<Map<String, Object>> counts = countDao.getCounts(nameSpace, filter);
-		assertStationResults(counts, 5, TOTAL_SITE_COUNT_GEOM, NWIS_SITE_COUNT, STEWARDS_SITE_COUNT, STORET_SITE_COUNT, BIODATA_SITE_COUNT_GEOM);
+		counts = mimeTypeGeoJsonTest(nameSpace, 5);
+		assertStationResults(counts, TOTAL_SITE_COUNT_GEOM, NWIS_SITE_COUNT, STEWARDS_SITE_COUNT, STORET_SITE_COUNT, BIODATA_SITE_COUNT_GEOM);
 
-		filter.setMimeType(GEOJSON);
-		counts = countDao.getCounts(nameSpace, filter);
-		assertStationResults(counts, 5, TOTAL_SITE_COUNT_GEOM, NWIS_SITE_COUNT, STEWARDS_SITE_COUNT, STORET_SITE_COUNT, BIODATA_SITE_COUNT_GEOM);
+		counts = mimeTypeKmlTest(nameSpace, 5);
+		assertStationResults(counts, TOTAL_SITE_COUNT_GEOM, NWIS_SITE_COUNT, STEWARDS_SITE_COUNT, STORET_SITE_COUNT, BIODATA_SITE_COUNT_GEOM);
 
-		filter.setMimeType(KML);
-		counts = countDao.getCounts(nameSpace, filter);
-		assertStationResults(counts, 5, TOTAL_SITE_COUNT_GEOM, NWIS_SITE_COUNT, STEWARDS_SITE_COUNT, STORET_SITE_COUNT, BIODATA_SITE_COUNT_GEOM);
+		counts = mimeTypeKmzTest(nameSpace, 5);
+		assertStationResults(counts, TOTAL_SITE_COUNT_GEOM, NWIS_SITE_COUNT, STEWARDS_SITE_COUNT, STORET_SITE_COUNT, BIODATA_SITE_COUNT_GEOM);
 
-		filter.setMimeType(KMZ);
-		counts = countDao.getCounts(nameSpace, filter);
-		assertStationResults(counts, 5, TOTAL_SITE_COUNT_GEOM, NWIS_SITE_COUNT, STEWARDS_SITE_COUNT, STORET_SITE_COUNT, BIODATA_SITE_COUNT_GEOM);
+		counts = mimeTypeCsvTest(nameSpace, 5);
+		assertFullDbReturned(counts, includeActivity, includeResults);
 
-		filter.setMimeType(CSV);
-		counts = countDao.getCounts(nameSpace, filter);
-		assertStationResults(counts, 5, TOTAL_SITE_COUNT, NWIS_SITE_COUNT, STEWARDS_SITE_COUNT, STORET_SITE_COUNT, BIODATA_SITE_COUNT);
+		counts = mimeTypeTsvTest(nameSpace, 5);
+		assertFullDbReturned(counts, includeActivity, includeResults);
+
+		counts = mimeTypeXmlTest(nameSpace, 5);
+		assertFullDbReturned(counts, includeActivity, includeResults);
+
+		counts = mimeTypeXlsxTest(nameSpace, 5);
+		assertFullDbReturned(counts, includeActivity, includeResults);
 	}
 
 }

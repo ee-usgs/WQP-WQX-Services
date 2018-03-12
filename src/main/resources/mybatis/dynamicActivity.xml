@@ -13,20 +13,15 @@
         <if test="startDateLo != null or startDateHi != null">
             and (<include refid="dynamicWhere.startDateLoHi" />)
         </if>
-        <if test="activity != null">
-            and (<include refid="dynamicWhere.activity"/>)
-        </if>
     </sql>
-    
+
     <sql id="activityLimitWhere">
-        <where>
-            <if test="minactivities != null">
-                and (filter.site_activity_count >= #{minactivities})
-            </if>
-            <if test="minresults != null">
-                and (filter.site_result_count >= #{minresults})
-            </if>
-        </where>
+        <if test="minactivities != null">
+            and (filter.site_activity_count >= #{minactivities})
+        </if>
+        <if test="minresults != null">
+            and (filter.site_result_count >= #{minresults})
+        </if>
     </sql>
 
     <sql id="activityJoinStationSum">
@@ -108,7 +103,9 @@
                 <include refid="dynamicWhere.activityJoinResultSum"/>
             </otherwise>
         </choose>
-        <include refid="dynamicWhere.activityLimitWhere"/>
+        <where>
+            <include refid="dynamicWhere.activityLimitWhere"/>
+        </where>
     </sql>
 
 </mapper>

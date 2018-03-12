@@ -3,43 +3,38 @@
 <mapper namespace="project">
 
     <select id="select" resultType="java.util.LinkedHashMap" fetchSize="500">
-        select prime.project_id,
-            prime.data_source,
-            prime.organization,
-            prime.organization_name,
-            prime.project_identifier,
-            prime.project_name,
-            prime.description,
-            prime.sampling_design_type_code,
-            prime.qapp_approved_indicator,
-            prime.qapp_approval_agency_name,
-        case when prime.project_file_url is not null
-            then #{siteUrlBase,jdbcType=VARCHAR} || pkg_dynamic_list.url_escape(prime.project_file_url, 'false')
-            else null
-        end project_file_url,
-        case when prime.monitoring_location_weight_url is not null
-            then #{siteUrlBase,jdbcType=VARCHAR} || pkg_dynamic_list.url_escape(prime.monitoring_location_weight_url, 'false')
-            else null
-        end monitoring_location_weight_url
+        select project_id,
+               data_source,
+               organization,
+               organization_name,
+               project_identifier,
+               project_name,
+               description,
+               sampling_design_type_code,
+               qapp_approved_indicator,
+               qapp_approval_agency_name,
+               case when project_file_url is not null
+                 then #{siteUrlBase,jdbcType=VARCHAR} || pkg_dynamic_list.url_escape(project_file_url, 'false')
+                 else null
+               end project_file_url,
+               case when monitoring_location_weight_url is not null
+                 then #{siteUrlBase,jdbcType=VARCHAR} || pkg_dynamic_list.url_escape(monitoring_location_weight_url, 'false')
+                  else null
+               end monitoring_location_weight_url
         <include refid="dynamicWhere.projectsBase" />
         <if test="sorted == 'yes'">
-            order by prime.project_id,
-            prime.data_source,
-            prime.organization,
-            prime.project_identifier
+            order by project_id,
+                     data_source,
+                     organization,
+                     project_identifier
         </if>
     </select>
 
-    <sql id="projectCount">
-        select
-            prime.data_source,
-            count (distinct prime.project_id) as project_count
-        <include refid="dynamicWhere.projectsBase" />
-        group by rollup(prime.data_source)
-    </sql>
-
     <select id="count" resultType="java.util.LinkedHashMap">
-        <include refid="project.projectCount" />
+        select data_source,
+               count (distinct project_id) as project_count
+        <include refid="dynamicWhere.projectsBase" />
+            group by rollup(data_source)
     </select>
 
 </mapper>

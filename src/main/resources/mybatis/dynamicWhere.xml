@@ -74,7 +74,7 @@
                from project_dim
               where code_value in <foreach item="i" collection="project" open="(" separator="," close=")">#{i}</foreach>)
     </sql>
-    
+
     <sql id="project">
         prime.project_identifier in <foreach item="i" collection="project" open="(" separator="," close=")">#{i}</foreach>
     </sql>

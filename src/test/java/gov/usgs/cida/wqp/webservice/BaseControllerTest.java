@@ -306,7 +306,8 @@ public class BaseControllerTest extends BaseSpringTest {
 		assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
 		assertEquals(HttpStatus.OK.value(), response.getStatus());
 		assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
-		assertEquals("csv", filter.getMimeType());
+		//This is xml because we did not go through the normal Spring path and thus got no media type and defaulted to xml
+		assertEquals("xml", filter.getMimeType());
 		assertEquals("yes", filter.getZip());
 		verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(FilterParameters.class));
 		verify(logService).logHeadComplete(any(HttpServletResponse.class), any(BigDecimal.class));
@@ -714,8 +715,8 @@ public class BaseControllerTest extends BaseSpringTest {
 		assertEquals(TEST_NWIS_STATION_COUNT, result.get(HEADER_NWIS_SITE_COUNT));
 		assertTrue(result.containsKey(HttpConstants.HEADER_TOTAL_SITE_COUNT));
 		assertEquals(TEST_TOTAL_STATION_COUNT, result.get(HttpConstants.HEADER_TOTAL_SITE_COUNT));
-		assertNull(filter.getMimeType());
-		assertNull(filter.getZip());
+		assertEquals("kml", filter.getMimeType());
+		assertEquals("no", filter.getZip());
 		assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
 		assertEquals(HttpStatus.OK.value(), response.getStatus());
 		assertNull(response.getHeader(HttpConstants.HEADER_WARNING));

@@ -80,6 +80,9 @@ public abstract class BaseController {
 	}
 
 	public static FilterParameters getFilter() {
+		if (null == filter.get()) {
+			filter.set(new FilterParameters());
+		}
 		return filter.get();
 	}
 	public static void setFilter(FilterParameters inFilter) {
@@ -89,12 +92,14 @@ public abstract class BaseController {
 		return mimeType.get();
 	}
 	public static void setMimeType(MimeType inMimeType) {
+		getFilter().setMimeType(null == inMimeType ? null : inMimeType.getExtension());
 		mimeType.set(inMimeType);
 	}
 	public static boolean getZipped() {
 		return zipped.get();
 	}
 	public static void setZipped(Boolean inZipped) {
+		getFilter().setZip(inZipped ? "yes" : "no");
 		zipped.set(inZipped);
 	}
 	public static BigDecimal getLogId() {
@@ -119,6 +124,7 @@ public abstract class BaseController {
 		return profile.get();
 	}
 	public static void setProfile(Profile inProfile) {
+		getFilter().setDataProfile(null == inProfile ? null : inProfile.toString());
 		profile.set(inProfile);
 	}
 	public static Map<String, Integer> getDownloadDetails() {
@@ -531,7 +537,7 @@ public abstract class BaseController {
 
 	public void writeWarningHeaders(HttpServletResponse response) {
 		response.setStatus(HttpStatus.BAD_REQUEST.value());
-		if (null != getFilter()) {
+		if (null != getFilter() && null != getFilter().getValidationErrors()) {
 			getFilter().getValidationErrors().forEach(msg -> response.addHeader(HttpConstants.HEADER_WARNING, warningHeader(msg)));
 		}
 	}

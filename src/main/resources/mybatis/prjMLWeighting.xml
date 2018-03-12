@@ -34,15 +34,11 @@
         </if>
     </select>
 
-    <sql id="prjMLWeightingCount">
-        select
-            prime.data_source,
-            count (*) as prj_ml_weighting_count
-        <include refid="dynamicWhere.projectMonitoringLocationWeightingBase"/>
-        group by rollup(prime.data_source)
-    </sql>
-
     <select id="count" resultType="java.util.LinkedHashMap">
-        <include refid="projectMonitoringLocationWeighting.prjMLWeightingCount"/>
+        select data_source,
+               count (*) as prj_ml_weighting_count
+        <include refid="dynamicWhere.projectMonitoringLocationWeightingBase"/>
+            group by rollup(data_source)
     </select>
+
 </mapper>

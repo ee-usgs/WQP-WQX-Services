@@ -307,11 +307,11 @@ public abstract class BaseSpringTest {
 		return Arrays.asList("sampleMedia", "Other", "Sediment", "Water");
 	}
 
-	public List<String> getSiteid() {
+	public List<String> getSiteId() {
 		return Arrays.asList("organization-siteId", "organization-siteId2", "organization-siteId3", "11NPSWRD-BICA_MFG_B", "WIDNR_WQX-10030952", "USGS-05425700", "USGS-431925089002701", "ARS-IAWC-IAWC225", "ARS-IAWC-IAWC410");
 	}
 
-	public List<String> getManySiteId() throws IOException {
+	public List<String> getSiteIdLargeList() throws IOException {
 		return Arrays.asList(getSourceFile("manySites.txt").split(","));
 	}
 
@@ -341,6 +341,10 @@ public abstract class BaseSpringTest {
 
 	public String getWithin() {
 		return "650";
+	}
+
+	public String getZip() {
+		return "yes";
 	}
 
 	public void assertMapIsAsExpected(Map<String, Object> expectedRow, Map<String, Object> actualRow) {

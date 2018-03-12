@@ -56,7 +56,7 @@ public class FilterParametersTest extends BaseSpringTest {
 		filter.setProviders(getProviders());
 		filter.setResult(getResult());
 		filter.setSampleMedia(getSampleMedia());
-		filter.setSiteid(getSiteid());
+		filter.setSiteid(getSiteId());
 		filter.setSiteType(getSiteType());
 		filter.setSorted("yes");
 		filter.setStartDateHi(getStartDateHi());
