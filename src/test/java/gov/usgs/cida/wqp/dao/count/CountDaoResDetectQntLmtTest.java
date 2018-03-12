@@ -290,7 +290,7 @@ public class CountDaoResDetectQntLmtTest extends BaseCountDaoTest {
 
 	public void multipleParameterStationSumTest() {
 		List<Map<String, Object>> counts = multipleParameterStationSumTest(nameSpace, includeActivity, includeResults);
-		assertResDetectQntLmtResults(counts, "7", null, null, "7", null);
+		assertResDetectQntLmtResults(counts, "17", "6", null, "11", null);
 	}
 
 	public void multipleParameterActivitySumTest() {

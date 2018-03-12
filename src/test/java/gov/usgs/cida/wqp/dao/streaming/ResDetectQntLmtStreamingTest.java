@@ -170,7 +170,9 @@ public class ResDetectQntLmtStreamingTest extends FilteredResDetectQntLmtDaoTest
 	}
 
 	public void activityTest() {
-		activityTest(nameSpace, Integer.valueOf(TOTAL_RES_DETECT_QNT_LMT_COUNT));
+		List<Map<String, Object>> results = activityTest(nameSpace, 4);
+		assertContainsResDetectQntLmt(results,
+				STORET_29, STORET_30, STORET_31, STORET_39);
 	}
 
 	public void analyticalMethodTest() {

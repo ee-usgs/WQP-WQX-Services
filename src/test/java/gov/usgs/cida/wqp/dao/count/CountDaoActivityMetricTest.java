@@ -287,7 +287,7 @@ public class CountDaoActivityMetricTest extends BaseCountDaoTest {
 
 	public void multipleParameterStationSumTest() {
 		List<Map<String, Object>> counts = multipleParameterStationSumTest(nameSpace, includeActivity, includeResults);
-		assertActivityMetricResults(counts, "2", null, null, "2", null);
+		assertActivityMetricResults(counts, "8", "2", null, "6", null);
 	}
 
 	public void multipleParameterActivitySumTest() {

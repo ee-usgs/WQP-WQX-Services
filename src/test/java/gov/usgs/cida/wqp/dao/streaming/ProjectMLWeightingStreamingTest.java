@@ -236,8 +236,8 @@ public class ProjectMLWeightingStreamingTest extends FilteredProjectDaoTest {
 	}
 
 	public void providersTest() {
-		List<Map<String, Object>> results = providersTest(nameSpace, 7);
-		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, STORET_PRJMLW3, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2, BIODATA_PRJMLW);
+		List<Map<String, Object>> results = providersTest(nameSpace, 6);
+		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, STORET_PRJMLW3, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2);
 	}
 
 	public void resultTest() {

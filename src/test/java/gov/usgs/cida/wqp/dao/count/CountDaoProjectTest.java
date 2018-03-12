@@ -206,8 +206,8 @@ public class CountDaoProjectTest extends BaseCountDaoTest {
 	}
 
 	public void nldiSitesTest() {
-		List<Map<String, Object>> counts = nldiSitesTest(NameSpace.PROJECT, 3);
-		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, "3", "1", "1", "1", null);
+		List<Map<String, Object>> counts = nldiSitesTest(NameSpace.PROJECT, 2);
+		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, "3", null, null, "3", null);
 	}
 
 	public void nldiUrlTest() {
@@ -221,8 +221,8 @@ public class CountDaoProjectTest extends BaseCountDaoTest {
 	}
 
 	public void organizationTest() {
-		List<Map<String, Object>> counts = organizationTest(NameSpace.PROJECT, 5);
-		assertFullDbReturned(counts);
+		List<Map<String, Object>> counts = organizationTest(NameSpace.PROJECT, 4);
+		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, "8", "2", "2", "4", null);
 	}
 
 	public void pcodeTest() {
@@ -232,17 +232,17 @@ public class CountDaoProjectTest extends BaseCountDaoTest {
 
 	public void projectTest() {
 		List<Map<String, Object>> counts = projectTest(NameSpace.PROJECT, 5);
-		//TODO Count verification
+		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, "5", "2", "1", "1", "1");
 	}
 
 	public void providersTest() {
-		List<Map<String, Object>> counts = providersTest(NameSpace.PROJECT, 5);
-		//TODO Count verification
+		List<Map<String, Object>> counts = providersTest(NameSpace.PROJECT, 4);
+		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, "16", "4", "2", "10", null);
 	}
 
 	public void resultTest() {
 		List<Map<String, Object>> counts = resultTest(NameSpace.PROJECT, 5);
-		//TODO Count verification
+		assertFullDbReturned(counts);
 	}
 
 	public void sampleMediaTest() {
@@ -251,18 +251,18 @@ public class CountDaoProjectTest extends BaseCountDaoTest {
 	}
 
 	public void siteIdTest() {
-		List<Map<String, Object>> counts = siteIdTest(NameSpace.PROJECT, 5);
-		//TODO Count verification
+		List<Map<String, Object>> counts = siteIdTest(NameSpace.PROJECT, 4);
+		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, "3", "1", "1", "1", null);
 	}
 
 	public void siteIdLargeListTest() {
-		List<Map<String, Object>> counts = siteIdLargeListTest(NameSpace.PROJECT, 5);
-		//TODO Count verification
+		List<Map<String, Object>> counts = siteIdLargeListTest(NameSpace.PROJECT, 2);
+		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, "3", null, null, "3", null);
 	}
 
 	public void siteTypeTest() {
 		List<Map<String, Object>> counts = siteTypeTest(NameSpace.PROJECT, 5);
-		//TODO Count verification
+		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, "6", "1", "1", "3", "1");
 	}
 
 	public void siteUrlBaseTest() {
@@ -274,6 +274,7 @@ public class CountDaoProjectTest extends BaseCountDaoTest {
 		List<Map<String, Object>> counts = sortedTest(NameSpace.PROJECT, 5);
 		assertFullDbReturned(counts);
 	}
+
 	public void startDateHiTest() {
 		List<Map<String, Object>> counts = startDateHiTest(NameSpace.PROJECT, 5);
 		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, "6", "1", "1", "3", "1");
@@ -285,8 +286,8 @@ public class CountDaoProjectTest extends BaseCountDaoTest {
 	}
 
 	public void stateTest() {
-		List<Map<String, Object>> counts = stateTest(NameSpace.PROJECT, 5);
-		//TODO Count verification
+		List<Map<String, Object>> counts = stateTest(NameSpace.PROJECT, 4);
+		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, "5", "1", "1", "3", null);
 	}
 
 	public void subjectTaxonomicNameTest() {
@@ -295,8 +296,8 @@ public class CountDaoProjectTest extends BaseCountDaoTest {
 	}
 
 	public void withinTest() {
-		List<Map<String, Object>> counts = withinTest(NameSpace.PROJECT, 5);
-		//TODO Count verification
+		List<Map<String, Object>> counts = withinTest(NameSpace.PROJECT, 4);
+		assertResults(counts, CountColumn.KEY_PROJECT_COUNT, "5", "1", "1", "3", null);
 	}
 
 	public void zipTest() {

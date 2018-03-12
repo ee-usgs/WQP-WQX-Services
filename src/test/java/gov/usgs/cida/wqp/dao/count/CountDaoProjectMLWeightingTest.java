@@ -78,7 +78,7 @@ public class CountDaoProjectMLWeightingTest extends BaseCountDaoTest {
 
 	public void activityTest() {
 		List<Map<String, Object>> counts = activityTest(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, 5);
-		//TODO Count verification
+		assertFullDbReturned(counts);
 	}
 
 	public void analyticalMethodTest() {
@@ -97,8 +97,8 @@ public class CountDaoProjectMLWeightingTest extends BaseCountDaoTest {
 	}
 
 	public void bboxTest() {
-		List<Map<String, Object>> counts = bboxTest(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, 5);
-		//TODO Count verification
+		List<Map<String, Object>> counts = bboxTest(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, 4);
+		assertResults(counts, CountColumn.KEY_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT, "5", "2", "1", "2", null);
 	}
 
 	public void characteristicNameTest() {
@@ -113,12 +113,12 @@ public class CountDaoProjectMLWeightingTest extends BaseCountDaoTest {
 
 	public void countryTest() {
 		List<Map<String, Object>> counts = countryTest(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, 5);
-		//TODO Count verification
+		assertResults(counts, CountColumn.KEY_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT, "6", "2", "1", "2", "1");
 	}
 
 	public void countyTest() {
-		List<Map<String, Object>> counts = countyTest(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, 5);
-		//TODO Count verification
+		List<Map<String, Object>> counts = countyTest(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, 4);
+		assertResults(counts, CountColumn.KEY_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT, "5", "2", "1", "2", null);
 	}
 
 	public void emptyParameterTest() {
@@ -127,48 +127,48 @@ public class CountDaoProjectMLWeightingTest extends BaseCountDaoTest {
 	}
 
 	public void huc2Test() {
-		List<Map<String, Object>> counts = huc2Test(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, 5);
-		//TODO Count verification
+		List<Map<String, Object>> counts = huc2Test(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, 4);
+		assertResults(counts, CountColumn.KEY_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT, "5", "2", "1", "2", null);
 	}
 
 	public void huc3Test() {
-		List<Map<String, Object>> counts = huc3Test(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, 5);
-		//TODO Count verification
+		List<Map<String, Object>> counts = huc3Test(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, 4);
+		assertResults(counts, CountColumn.KEY_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT, "5", "2", "1", "2", null);
 	}
 
 	public void huc4Test() {
-		List<Map<String, Object>> counts = huc4Test(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, 5);
-		//TODO Count verification
+		List<Map<String, Object>> counts = huc4Test(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, 3);
+		assertResults(counts, CountColumn.KEY_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT, "4", "2", null, "2", null);
 	}
 
 	public void huc5Test() {
-		List<Map<String, Object>> counts = huc5Test(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, 5);
-		//TODO Count verification
+		List<Map<String, Object>> counts = huc5Test(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, 3);
+		assertResults(counts, CountColumn.KEY_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT, "4", "2", null, "2", null);
 	}
 
 	public void huc6Test() {
-		List<Map<String, Object>> counts = huc6Test(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, 5);
-		//TODO Count verification
+		List<Map<String, Object>> counts = huc6Test(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING,  3);
+		assertResults(counts, CountColumn.KEY_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT, "4", "2", null, "2", null);
 	}
 
 	public void huc7Test() {
-		List<Map<String, Object>> counts = huc7Test(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, 5);
-		//TODO Count verification
+		List<Map<String, Object>> counts = huc7Test(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING,  3);
+		assertResults(counts, CountColumn.KEY_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT, "4", "2", null, "2", null);
 	}
 
 	public void huc8Test() {
-		List<Map<String, Object>> counts = huc8Test(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, 5);
-		//TODO Count verification
+		List<Map<String, Object>> counts = huc8Test(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, 2);
+		assertResults(counts, CountColumn.KEY_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT, "2", null, null, "2", null);
 	}
 
 	public void huc10Test() {
-		List<Map<String, Object>> counts = huc10Test(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, 5);
-		//TODO Count verification
+		List<Map<String, Object>> counts = huc10Test(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, 2);
+		assertResults(counts, CountColumn.KEY_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT, "2", null, null, "2", null);
 	}
 
 	public void huc12Test() {
-		List<Map<String, Object>> counts = huc12Test(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, 5);
-		//TODO Count verification
+		List<Map<String, Object>> counts = huc12Test(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, 2);
+		assertResults(counts, CountColumn.KEY_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT, "2", null, null, "2", null);
 	}
 
 	public void mimeTypeTest() {
@@ -199,22 +199,24 @@ public class CountDaoProjectMLWeightingTest extends BaseCountDaoTest {
 
 	public void minActivitiesTest() {
 		List<Map<String, Object>> counts = minActivitiesTest(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, 5);
-		//TODO Count verification
+		//TODO implement the correct SQL
+		assertResults(counts, CountColumn.KEY_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT, "6", "2", "1", "2", "1");
 	}
 
 	public void minResultsTest() {
 		List<Map<String, Object>> counts = minResultsTest(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, 5);
-		//TODO Count verification
+		//TODO implement the correct SQL
+		assertResults(counts, CountColumn.KEY_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT, "6", "2", "1", "2", "1");
 	}
 
 	public void nldiSitesTest() {
-		List<Map<String, Object>> counts = nldiSitesTest(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, 5);
-		//TODO Count verification
+		List<Map<String, Object>> counts = nldiSitesTest(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, 2);
+		assertResults(counts, CountColumn.KEY_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT, "2", null, null, "2", null);
 	}
 
 	public void nldiUrlTest() {
 		List<Map<String, Object>> counts = nldiUrlTest(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, 5);
-		//TODO Count verification
+		assertFullDbReturned(counts);
 	}
 
 	public void nullParameterTest() {
@@ -223,8 +225,8 @@ public class CountDaoProjectMLWeightingTest extends BaseCountDaoTest {
 	}
 
 	public void organizationTest() {
-		List<Map<String, Object>> counts = organizationTest(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, 5);
-		assertFullDbReturned(counts);
+		List<Map<String, Object>> counts = organizationTest(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, 4);
+		assertResults(counts, CountColumn.KEY_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT, "5", "2", "1", "2", null);
 	}
 
 	public void pcodeTest() {
@@ -233,18 +235,18 @@ public class CountDaoProjectMLWeightingTest extends BaseCountDaoTest {
 	}
 
 	public void projectTest() {
-		List<Map<String, Object>> counts = projectTest(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, 5);
-		//TODO Count verification
+		List<Map<String, Object>> counts = projectTest(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, 4);
+		assertResults(counts, CountColumn.KEY_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT, "4", "2", "1", null, "1");
 	}
 
 	public void providersTest() {
-		List<Map<String, Object>> counts = providersTest(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, 5);
-		//TODO Count verification
+		List<Map<String, Object>> counts = providersTest(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, 4);
+		assertResults(counts, CountColumn.KEY_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT, "6", "2", "1", "3", null);
 	}
 
 	public void resultTest() {
 		List<Map<String, Object>> counts = resultTest(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, 5);
-		//TODO Count verification
+		assertFullDbReturned(counts);
 	}
 
 	public void sampleMediaTest() {
@@ -253,18 +255,18 @@ public class CountDaoProjectMLWeightingTest extends BaseCountDaoTest {
 	}
 
 	public void siteIdTest() {
-		List<Map<String, Object>> counts = siteIdTest(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, 5);
-		//TODO Count verification
+		List<Map<String, Object>> counts = siteIdTest(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, 3);
+		assertResults(counts, CountColumn.KEY_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT, "3", "2", "1", null, null);
 	}
 
 	public void siteIdLargeListTest() {
-		List<Map<String, Object>> counts = siteIdLargeListTest(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, 5);
-		//TODO Count verification
+		List<Map<String, Object>> counts = siteIdLargeListTest(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, 2);
+		assertResults(counts, CountColumn.KEY_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT, "2", null, null, "2", null);
 	}
 
 	public void siteTypeTest() {
 		List<Map<String, Object>> counts = siteTypeTest(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, 5);
-		//TODO Count verification
+		assertResults(counts, CountColumn.KEY_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT, "6", "2", "1", "2", "1");
 	}
 
 	public void siteUrlBaseTest() {
@@ -288,8 +290,8 @@ public class CountDaoProjectMLWeightingTest extends BaseCountDaoTest {
 	}
 
 	public void stateTest() {
-		List<Map<String, Object>> counts = stateTest(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, 5);
-		//TODO Count verification
+		List<Map<String, Object>> counts = stateTest(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, 4);
+		assertResults(counts, CountColumn.KEY_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT, "5", "2", "1", "2", null);
 	}
 
 	public void subjectTaxonomicNameTest() {
@@ -298,8 +300,8 @@ public class CountDaoProjectMLWeightingTest extends BaseCountDaoTest {
 	}
 
 	public void withinTest() {
-		List<Map<String, Object>> counts = withinTest(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, 5);
-		//TODO Count verification
+		List<Map<String, Object>> counts = withinTest(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, 4);
+		assertResults(counts, CountColumn.KEY_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT, "5", "2", "1", "2", null);
 	}
 
 	public void zipTest() {
