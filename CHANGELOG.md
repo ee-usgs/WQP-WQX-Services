@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.13.0] - 2018-03-13
+### Changed
+- Fixed issue with inappropriate parameters being applied to retrieval.
+- Refactor of tests in support of this bug fix.
+
 ## [0.12.0] - 2018-02-22
 ### Added
 - Project Monitoring Location Weighting Download.
@@ -35,6 +40,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Migrated repository to NWQMC
 
 [Unreleased]: https://github.com/NWQMC/WQP-WQX-Services/compare/wqp-0.12.0...master
+[0.13.0]: https://github.com/NWQMC/WQP-WQX-Services/compare/wqp-0.12.0...wqp-0.13.0
 [0.12.0]: https://github.com/NWQMC/WQP-WQX-Services/compare/wqp-0.11.0...wqp-0.12.0
 [0.11.0]: https://github.com/NWQMC/WQP-WQX-Services/compare/wqp-0.10.0...wqp-0.11.0
 [0.10.0]: https://github.com/NWQMC/WQP-WQX-Services/compare/wqp-0.9.0...wqp-0.10.0
