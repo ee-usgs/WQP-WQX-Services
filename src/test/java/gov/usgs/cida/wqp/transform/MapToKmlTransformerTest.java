@@ -8,6 +8,7 @@ import static org.junit.Assert.fail;
 import gov.usgs.cida.wqp.mapping.Profile;
 import gov.usgs.cida.wqp.mapping.xml.IXmlMapping;
 import gov.usgs.cida.wqp.mapping.xml.StationKml;
+import gov.usgs.cida.wqp.service.ConfigurationService;
 import gov.usgs.cida.wqp.service.ILogService;
 import gov.usgs.cida.wqp.util.HttpConstants;
 
@@ -26,13 +27,16 @@ public class MapToKmlTransformerTest {
 	@Mock
 	protected ILogService logService;
 	protected BigDecimal logId = new BigDecimal(1);
-	protected IXmlMapping fieldMapping = new StationKml("abc");
+	protected IXmlMapping fieldMapping;
 	protected MapToKmlTransformer transformer;
 	protected ByteArrayOutputStream baos;
+	private ConfigurationService configurationService;
 
 	@Before
 	public void initTest() {
 		MockitoAnnotations.initMocks(this);
+		configurationService = new ConfigurationService();
+		fieldMapping = new StationKml(configurationService);
 		baos = new ByteArrayOutputStream();
 		transformer = new MapToKmlTransformer(baos, fieldMapping, logService, logId, Profile.STATION);
 	}

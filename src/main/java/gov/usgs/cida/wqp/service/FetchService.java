@@ -10,7 +10,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.JsonFactory;
@@ -19,18 +18,18 @@ import com.fasterxml.jackson.core.JsonParser;
 @Service
 public class FetchService {
 
-	private final int timeoutMilli;
+	private final ConfigurationService configurationService;
 
 	@Autowired
-	public FetchService(@Qualifier("nldiTimeoutMilli") int timeoutMilli) {
-		this.timeoutMilli = timeoutMilli;
+	public FetchService(ConfigurationService configurationService) {
+		this.configurationService = configurationService;
 	}
 
 	public List<String> fetch(String tokenName, URL url) throws IOException {
 		//We are opening our own connection so we can set the timeouts. The JsonFactor.createParser(URL) does not allow this.
 		URLConnection conn = url.openConnection();
-		conn.setReadTimeout(timeoutMilli);
-		conn.setConnectTimeout(timeoutMilli);
+		conn.setReadTimeout(configurationService.getNldiTimeoutMilli());
+		conn.setConnectTimeout(configurationService.getNldiTimeoutMilli());
 		return parse(tokenName, conn.getInputStream());
 	}
 

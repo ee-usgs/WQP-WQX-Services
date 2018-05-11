@@ -5,12 +5,12 @@ import static org.junit.Assert.fail;
 import java.util.List;
 import java.util.Map;
 
-import gov.usgs.cida.wqp.BaseSpringTest;
+import gov.usgs.cida.wqp.BaseIT;
 import gov.usgs.cida.wqp.mapping.Profile;
 import gov.usgs.cida.wqp.parameter.FilterParameters;
 
 
-public abstract class FilteredDaoTest extends BaseSpringTest {
+public abstract class FilteredDaoTest extends BaseIT {
 
 	public List<Map<String, Object>> nullParameterTest(NameSpace nameSpace, int expectedSize) {
 		return callDao(nameSpace, expectedSize, null);

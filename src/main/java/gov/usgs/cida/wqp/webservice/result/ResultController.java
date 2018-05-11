@@ -25,6 +25,7 @@ import gov.usgs.cida.wqp.mapping.Profile;
 import gov.usgs.cida.wqp.mapping.delimited.ResultDelimited;
 import gov.usgs.cida.wqp.mapping.xml.IXmlMapping;
 import gov.usgs.cida.wqp.parameter.FilterParameters;
+import gov.usgs.cida.wqp.service.ConfigurationService;
 import gov.usgs.cida.wqp.service.ILogService;
 import gov.usgs.cida.wqp.swagger.SwaggerConfig;
 import gov.usgs.cida.wqp.swagger.annotation.FullParameterList;
@@ -51,12 +52,10 @@ public class ResultController extends BaseController {
 
 	@Autowired
 	public ResultController(IStreamingDao inStreamingDao, ICountDao inCountDao, ILogService inLogService,
-			@Qualifier("maxResultRows") Integer inMaxResultRows,
 			@Qualifier("resultWqx") IXmlMapping inXmlMapping,
-			@Qualifier("siteUrlBase") String inSiteUrlBase,
 			ContentNegotiationStrategy contentStrategy,
-			Validator validator) {
-		super(inStreamingDao, inCountDao, inLogService, inMaxResultRows, inSiteUrlBase, contentStrategy, validator);
+			Validator validator, ConfigurationService configurationService) {
+		super(inStreamingDao, inCountDao, inLogService, contentStrategy, validator, configurationService);
 		xmlMapping = inXmlMapping;
 	}
 
@@ -133,7 +132,7 @@ public class ResultController extends BaseController {
 
 	@Override
 	protected void addCustomRequestParams() {
-		getFilter().setSiteUrlBase(siteUrlBase);
+		getFilter().setSiteUrlBase(configurationService.getSiteUrlBase());
 	}
 
 }

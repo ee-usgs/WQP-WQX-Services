@@ -8,19 +8,18 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.mock.web.MockHttpServletResponse;
 
-import gov.usgs.cida.wqp.BaseSpringTest;
 import gov.usgs.cida.wqp.mapping.Profile;
 import gov.usgs.cida.wqp.mapping.delimited.ProjectDelimitedTest;
 import gov.usgs.cida.wqp.parameter.FilterParameters;
 import gov.usgs.cida.wqp.util.HttpConstants;
 
-public class ProjectControllerTest extends BaseSpringTest {
+public class ProjectControllerTest {
 
 	protected ProjectController controller;
 
 	@Before
 	public void setup() {
-		controller = new ProjectController(null, null, null, null, null, null, null, null);
+		controller = new ProjectController(null, null, null, null, null, null, null);
 	}
 
 	@After

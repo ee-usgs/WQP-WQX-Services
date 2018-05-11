@@ -6,3 +6,4 @@
 java_pid*
 /.*
 /bin/
+/application-it.yml

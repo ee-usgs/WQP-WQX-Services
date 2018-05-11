@@ -8,19 +8,18 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.mock.web.MockHttpServletResponse;
 
-import gov.usgs.cida.wqp.BaseSpringTest;
 import gov.usgs.cida.wqp.mapping.Profile;
 import gov.usgs.cida.wqp.mapping.delimited.ProjectMLWeightingDelimitedTest;
 import gov.usgs.cida.wqp.parameter.FilterParameters;
 import gov.usgs.cida.wqp.util.HttpConstants;
 
-public class ProjectMLWeightingControllerTest extends BaseSpringTest {
+public class ProjectMLWeightingControllerTest {
 
 	protected ProjectMonitoringLocationWeightingController controller;
 
 	@Before
 	public void setup() {
-		controller = new ProjectMonitoringLocationWeightingController(null, null, null, null, null, null, null, null);
+		controller = new ProjectMonitoringLocationWeightingController(null, null, null, null, null, null, null);
 	}
 
 	@After

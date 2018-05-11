@@ -26,7 +26,7 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import gov.usgs.cida.wqp.BaseSpringTest;
+import gov.usgs.cida.wqp.BaseIT;
 import gov.usgs.cida.wqp.exception.WqpException;
 import gov.usgs.cida.wqp.mapping.Profile;
 import gov.usgs.cida.wqp.parameter.Parameters;
@@ -34,21 +34,17 @@ import gov.usgs.cida.wqp.service.CodesService;
 import gov.usgs.cida.wqp.service.FetchService;
 import gov.usgs.cida.wqp.util.HttpConstants;
 
-public abstract class BaseControllerIntegrationTest extends BaseSpringTest {
+public abstract class BaseControllerIntegrationTest extends BaseIT {
 
 	@Autowired
-	private WebApplicationContext wac;
-
+	private MockMvc mockMvc;
 	@Autowired
 	protected CodesService codesService;
 	@Autowired
 	protected FetchService fetchService;
 
-	private MockMvc mockMvc;
-
 	@Before
 	public void setup() {
-		mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
 		try {
 			when(codesService.validate(any(Parameters.class), anyString())).thenReturn(true);
 		} catch (WqpException e) {

@@ -16,11 +16,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Test;
 
-import gov.usgs.cida.wqp.BaseSpringTest;
+import gov.usgs.cida.wqp.BaseTest;
 import gov.usgs.cida.wqp.TestConstraintViolation;
 import gov.usgs.cida.wqp.mapping.Profile;
 
-public class FilterParametersTest extends BaseSpringTest {
+public class FilterParametersTest extends BaseTest {
 
 	@Test
 	public void emptyStuff() {

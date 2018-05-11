@@ -1,7 +1,31 @@
 package gov.usgs.cida.wqp.mapping.xml;
 
-import static gov.usgs.cida.wqp.mapping.BaseColumn.*;
-import static gov.usgs.cida.wqp.mapping.StationColumn.*;
+import static gov.usgs.cida.wqp.mapping.BaseColumn.KEY_ORGANIZATION;
+import static gov.usgs.cida.wqp.mapping.BaseColumn.KEY_ORGANIZATION_NAME;
+import static gov.usgs.cida.wqp.mapping.BaseColumn.KEY_SITE_ID;
+import static gov.usgs.cida.wqp.mapping.BaseColumn.ORGANIZATION;
+import static gov.usgs.cida.wqp.mapping.BaseColumn.ORGANIZATION_NAME;
+import static gov.usgs.cida.wqp.mapping.BaseColumn.SITE_ID;
+import static gov.usgs.cida.wqp.mapping.StationColumn.AQFR_NAME;
+import static gov.usgs.cida.wqp.mapping.StationColumn.AQFR_TYPE_NAME;
+import static gov.usgs.cida.wqp.mapping.StationColumn.CONTRIB_DRAIN_AREA_UNIT;
+import static gov.usgs.cida.wqp.mapping.StationColumn.CONTRIB_DRAIN_AREA_VALUE;
+import static gov.usgs.cida.wqp.mapping.StationColumn.HUC_8;
+import static gov.usgs.cida.wqp.mapping.StationColumn.KEY_AQFR_NAME;
+import static gov.usgs.cida.wqp.mapping.StationColumn.KEY_AQFR_TYPE_NAME;
+import static gov.usgs.cida.wqp.mapping.StationColumn.KEY_CONTRIB_DRAIN_AREA_UNIT;
+import static gov.usgs.cida.wqp.mapping.StationColumn.KEY_CONTRIB_DRAIN_AREA_VALUE;
+import static gov.usgs.cida.wqp.mapping.StationColumn.KEY_HUC_8;
+import static gov.usgs.cida.wqp.mapping.StationColumn.KEY_MONITORING_LOCATION_DESCRIPTION;
+import static gov.usgs.cida.wqp.mapping.StationColumn.KEY_MONITORING_LOCATION_TYPE;
+import static gov.usgs.cida.wqp.mapping.StationColumn.KEY_STATION_NAME;
+import static gov.usgs.cida.wqp.mapping.StationColumn.KEY_WELL_DEPTH_UNIT;
+import static gov.usgs.cida.wqp.mapping.StationColumn.KEY_WELL_DEPTH_VALUE;
+import static gov.usgs.cida.wqp.mapping.StationColumn.MONITORING_LOCATION_DESCRIPTION;
+import static gov.usgs.cida.wqp.mapping.StationColumn.MONITORING_LOCATION_TYPE;
+import static gov.usgs.cida.wqp.mapping.StationColumn.STATION_NAME;
+import static gov.usgs.cida.wqp.mapping.StationColumn.WELL_DEPTH_UNIT;
+import static gov.usgs.cida.wqp.mapping.StationColumn.WELL_DEPTH_VALUE;
 
 import java.util.Arrays;
 import java.util.LinkedHashMap;
@@ -10,16 +34,16 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import gov.usgs.cida.wqp.mapping.ColumnProfile;
 import gov.usgs.cida.wqp.mapping.Profile;
+import gov.usgs.cida.wqp.service.ConfigurationService;
 
 @Component
 public class StationKml implements IXmlMapping {
 
-	protected final String kmlStyleUrl;
+	protected ConfigurationService configurationService;
 
 	public static final String KEY_STYLE_URL = "STYLE_URL";
 	public static final String KEY_COORDINATES = "COORDINATES";
@@ -199,8 +223,8 @@ public class StationKml implements IXmlMapping {
 	}
 
 	@Autowired
-	public StationKml(@Qualifier("kmlStyleUrl") String kmlStyleUrl) {
-		this.kmlStyleUrl = kmlStyleUrl;
+	public StationKml(ConfigurationService configurationService) {
+		this.configurationService = configurationService;
 	}
 
 	public String getRoot() {
@@ -209,12 +233,12 @@ public class StationKml implements IXmlMapping {
 
 	public String getHeader() {
 		return "<kml><Document>" +
-			   "<StyleMap id='ARSSite'><Pair><key>normal</key><styleUrl>" + kmlStyleUrl + "#normalARSSite</styleUrl></Pair>" +
-			   "<Pair><key>highlight</key><styleUrl>" + kmlStyleUrl + "#highlightARSSite</styleUrl></Pair></StyleMap>" +
-			   "<StyleMap id='NWISSite'><Pair><key>normal</key><styleUrl>" + kmlStyleUrl + "#normalNWISSite</styleUrl></Pair>" +
-			   "<Pair><key>highlight</key><styleUrl>" + kmlStyleUrl + "#highlightNWISSite</styleUrl></Pair></StyleMap>" +
-			   "<StyleMap id='STORETSite'><Pair><key>normal</key><styleUrl>" + kmlStyleUrl + "#normalSTORETSite</styleUrl></Pair>" +
-			   "<Pair><key>highlight</key><styleUrl>" + kmlStyleUrl + "#highlightSTORETSite</styleUrl></Pair></StyleMap>";
+			   "<StyleMap id='ARSSite'><Pair><key>normal</key><styleUrl>" + configurationService.getKmlStyleUrl() + "#normalARSSite</styleUrl></Pair>" +
+			   "<Pair><key>highlight</key><styleUrl>" + configurationService.getKmlStyleUrl() + "#highlightARSSite</styleUrl></Pair></StyleMap>" +
+			   "<StyleMap id='NWISSite'><Pair><key>normal</key><styleUrl>" + configurationService.getKmlStyleUrl() + "#normalNWISSite</styleUrl></Pair>" +
+			   "<Pair><key>highlight</key><styleUrl>" + configurationService.getKmlStyleUrl() + "#highlightNWISSite</styleUrl></Pair></StyleMap>" +
+			   "<StyleMap id='STORETSite'><Pair><key>normal</key><styleUrl>" + configurationService.getKmlStyleUrl() + "#normalSTORETSite</styleUrl></Pair>" +
+			   "<Pair><key>highlight</key><styleUrl>" + configurationService.getKmlStyleUrl() + "#highlightSTORETSite</styleUrl></Pair></StyleMap>";
 	}
 
 	public String getEntryNodeName() {

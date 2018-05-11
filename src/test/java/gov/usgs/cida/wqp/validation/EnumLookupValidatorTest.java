@@ -11,11 +11,11 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
 
-import gov.usgs.cida.wqp.BaseSpringTest;
+import gov.usgs.cida.wqp.BaseTest;
 import gov.usgs.cida.wqp.exception.WqpException;
 import gov.usgs.cida.wqp.parameter.Parameters;
 
-public class EnumLookupValidatorTest extends BaseSpringTest {
+public class EnumLookupValidatorTest extends BaseTest {
 
 	@Mock
 	protected ConstraintValidatorContext context;

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import springfox.documentation.swagger.web.SwaggerResource;
@@ -12,6 +13,7 @@ import springfox.documentation.swagger.web.SwaggerResourcesProvider;
 
 @Component
 @Primary
+@Profile("swagger")
 public class GatewaySwaggerResourceProvider implements SwaggerResourcesProvider {
 
 	SwaggerServices swaggerServices;

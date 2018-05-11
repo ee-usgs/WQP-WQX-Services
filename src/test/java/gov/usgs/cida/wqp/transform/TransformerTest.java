@@ -69,7 +69,6 @@ public class TransformerTest {
 	}
 
 	@Test
-	@SuppressWarnings("unchecked")
 	public void writeTest() {
 		TTransformer transformer = new TTransformer(new ByteArrayOutputStream(), null, logService, logId);
 

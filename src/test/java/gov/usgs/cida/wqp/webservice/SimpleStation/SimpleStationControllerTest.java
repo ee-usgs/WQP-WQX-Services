@@ -9,34 +9,21 @@ import static org.junit.Assert.assertFalse;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 import org.springframework.mock.web.MockHttpServletResponse;
-import org.springframework.test.context.web.WebAppConfiguration;
 
-import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.github.springtestdbunit.annotation.DatabaseSetups;
-
-import gov.usgs.cida.wqp.BaseSpringTest;
-import gov.usgs.cida.wqp.FullIntegrationTest;
 import gov.usgs.cida.wqp.mapping.Profile;
 import gov.usgs.cida.wqp.mapping.delimited.StationDelimitedTest;
 import gov.usgs.cida.wqp.parameter.FilterParameters;
 import gov.usgs.cida.wqp.util.HttpConstants;
 import gov.usgs.cida.wqp.webservice.BaseControllerTest;
 
-@Category(FullIntegrationTest.class)
-@WebAppConfiguration
-@DatabaseSetups({
-	@DatabaseSetup("classpath:/testData/clearAll.xml"),
-	@DatabaseSetup("classpath:/testData/simpleStation.xml")
-})
-public class SimpleStationControllerTest extends BaseSpringTest {
+public class SimpleStationControllerTest {
 
 	protected SimpleStationController controller;
 
 	@Before
 	public void setup() {
-		controller = new SimpleStationController(null, null, null, null, null, null, null, null);
+		controller = new SimpleStationController(null, null, null, null, null, null, null);
 		SimpleStationController.remove();
 	}
 

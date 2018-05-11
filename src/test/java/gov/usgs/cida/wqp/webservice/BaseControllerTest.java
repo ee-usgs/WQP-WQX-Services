@@ -12,10 +12,10 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyMap;
-import static org.mockito.Matchers.anyObject;
-import static org.mockito.Matchers.anyString;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyMap;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
@@ -31,6 +31,7 @@ import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -47,12 +48,13 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 
 import org.apache.ibatis.session.ResultHandler;
+import org.hibernate.validator.internal.engine.ConstraintViolationImpl;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.powermock.reflect.Whitebox;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -61,7 +63,6 @@ import org.springframework.web.HttpMediaTypeNotAcceptableException;
 import org.springframework.web.accept.ContentNegotiationStrategy;
 import org.springframework.web.context.request.NativeWebRequest;
 
-import gov.usgs.cida.wqp.BaseSpringTest;
 import gov.usgs.cida.wqp.TestConstraintViolation;
 import gov.usgs.cida.wqp.dao.NameSpace;
 import gov.usgs.cida.wqp.dao.intfc.ICountDao;
@@ -70,6 +71,7 @@ import gov.usgs.cida.wqp.mapping.BaseColumn;
 import gov.usgs.cida.wqp.mapping.CountColumn;
 import gov.usgs.cida.wqp.mapping.Profile;
 import gov.usgs.cida.wqp.parameter.FilterParameters;
+import gov.usgs.cida.wqp.service.ConfigurationService;
 import gov.usgs.cida.wqp.service.ILogService;
 import gov.usgs.cida.wqp.transform.MapToDelimitedTransformer;
 import gov.usgs.cida.wqp.transform.MapToJsonTransformer;
@@ -80,7 +82,7 @@ import gov.usgs.cida.wqp.transform.Transformer;
 import gov.usgs.cida.wqp.util.HttpConstants;
 import gov.usgs.cida.wqp.util.MimeType;
 
-public class BaseControllerTest extends BaseSpringTest {
+public class BaseControllerTest {
 
 	public static final String TEST_NWIS_STATION_COUNT = "12";
 	public static final String TEST_NWIS_ACTIVITY_COUNT = "113";
@@ -105,19 +107,23 @@ public class BaseControllerTest extends BaseSpringTest {
 	private ILogService logService;
 	@Mock
 	private ContentNegotiationStrategy contentStrategy;
+	@Mock
+	private Validator validator;
 
 	private TestBaseController testController;
 	private MockHttpServletRequest request;
-
-	@Autowired
-	private Validator validator;
+	private ConfigurationService configurationService;
 
 	@Before
 	public void setup() {
 		MockitoAnnotations.initMocks(this);
-		testController = new TestBaseController(streamingDao, countDao, logService, 100, "http://test-url.usgs.gov", contentStrategy, validator);
+		configurationService = new ConfigurationService();
+		Whitebox.setInternalState(configurationService, "maxResultRows", 100);
+		Whitebox.setInternalState(configurationService, "codesUrl", "http://test-url.usgs.gov");
+		testController = new TestBaseController(streamingDao, countDao, logService, contentStrategy, validator, configurationService);
 		request = new MockHttpServletRequest();
 		TestBaseController.remove();
+		when(validator.validate(any(FilterParameters.class))).thenReturn(Collections.emptySet());
 	}
 
 	@After
@@ -281,7 +287,6 @@ public class BaseControllerTest extends BaseSpringTest {
 	}
 
 	@Test
-	@SuppressWarnings("unchecked")
 	public void doHeadRequest2NullTest() {
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		FilterParameters filter = new FilterParameters();
@@ -292,11 +297,10 @@ public class BaseControllerTest extends BaseSpringTest {
 		assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
 		verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(FilterParameters.class));
 		verify(logService, never()).logHeadComplete(any(HttpServletResponse.class), any(BigDecimal.class));
-		verify(logService).logRequestComplete(any(BigDecimal.class), anyString(), anyMap());
+		verify(logService).logRequestComplete(isNull(), anyString(), isNull());
 	}
 
 	@Test
-	@SuppressWarnings("unchecked")
 	public void doHeadRequest2ValuesTest() {
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		FilterParameters filter = new FilterParameters();
@@ -310,12 +314,11 @@ public class BaseControllerTest extends BaseSpringTest {
 		assertEquals("xml", filter.getMimeType());
 		assertEquals("yes", filter.getZip());
 		verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(FilterParameters.class));
-		verify(logService).logHeadComplete(any(HttpServletResponse.class), any(BigDecimal.class));
-		verify(logService).logRequestComplete(any(BigDecimal.class), anyString(), anyMap());
+		verify(logService).logHeadComplete(any(HttpServletResponse.class), isNull());
+		verify(logService).logRequestComplete(isNull(), anyString(), isNull());
 	}
 
 	@Test
-	@SuppressWarnings("unchecked")
 	public void doHeadRequestTest() {
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		FilterParameters filter = new FilterParameters();
@@ -326,12 +329,11 @@ public class BaseControllerTest extends BaseSpringTest {
 		assertEquals(HttpStatus.OK.value(), response.getStatus());
 		assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
 		verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(FilterParameters.class));
-		verify(logService).logHeadComplete(any(HttpServletResponse.class), any(BigDecimal.class));
-		verify(logService).logRequestComplete(any(BigDecimal.class), anyString(), anyMap());
+		verify(logService).logHeadComplete(any(HttpServletResponse.class), isNull());
+		verify(logService).logRequestComplete(isNull(), anyString(), isNull());
 	}
 
 	@Test
-	@SuppressWarnings("unchecked")
 	public void doHeadRequestTest_error() {
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		FilterParameters filter = new FilterParameters();
@@ -342,7 +344,7 @@ public class BaseControllerTest extends BaseSpringTest {
 		assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
 		verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(FilterParameters.class));
 		verify(logService, never()).logHeadComplete(any(HttpServletResponse.class), any(BigDecimal.class));
-		verify(logService).logRequestComplete(any(BigDecimal.class), anyString(), anyMap());
+		verify(logService).logRequestComplete(isNull(), anyString(), isNull());
 	}
 
 	@Test
@@ -356,7 +358,7 @@ public class BaseControllerTest extends BaseSpringTest {
 		assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
 		assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
 		assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
-		verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(FilterParameters.class));
+		verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), isNull());
 		verify(logService, never()).logHeadComplete(any(HttpServletResponse.class), any(BigDecimal.class));
 		verify(countDao, never()).getCounts(any(NameSpace.class), any(FilterParameters.class));
 
@@ -364,7 +366,7 @@ public class BaseControllerTest extends BaseSpringTest {
 		assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
 		assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
 		assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
-		verify(logService, times(2)).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(FilterParameters.class));
+		verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(FilterParameters.class));
 		verify(logService, never()).logHeadComplete(any(HttpServletResponse.class), any(BigDecimal.class));
 		verify(countDao, never()).getCounts(any(NameSpace.class), any(FilterParameters.class));
 	}
@@ -376,11 +378,12 @@ public class BaseControllerTest extends BaseSpringTest {
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		BigDecimal logId = BigDecimal.ONE;
 		TestBaseController.setLogId(logId);
+		when(validator.validate(filter)).thenReturn(getConstraintViolations(filter));
 
 		assertFalse(testController.doCommonSetup(request, response, filter));
 		assertEquals(HttpConstants.DEFAULT_ENCODING, response.getCharacterEncoding());
 		assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
-		assertTrue(response.getHeader(HttpConstants.HEADER_WARNING).startsWith("299 WQP \"The"));
+		assertTrue(response.getHeader(HttpConstants.HEADER_WARNING).startsWith("299 WQP \"Unknown"));
 		verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(FilterParameters.class));
 		verify(logService, never()).logHeadComplete(any(HttpServletResponse.class), any(BigDecimal.class));
 		verify(countDao, never()).getCounts(any(NameSpace.class), any(FilterParameters.class));
@@ -391,7 +394,7 @@ public class BaseControllerTest extends BaseSpringTest {
 		FilterParameters filter = new FilterParameters();
 		filter.setZip("yes");
 		filter.setDataProfile(Profile.STATION.toString());
-		when(contentStrategy.resolveMediaTypes(anyObject())).thenReturn(Arrays.asList(MimeType.kml.getMediaType()));
+		when(contentStrategy.resolveMediaTypes(any())).thenReturn(Arrays.asList(MimeType.kml.getMediaType()));
 
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		BigDecimal logId = BigDecimal.ONE;
@@ -405,7 +408,7 @@ public class BaseControllerTest extends BaseSpringTest {
 		assertEquals("attachment; filename=station.kmz", response.getHeader(HttpConstants.HEADER_CONTENT_DISPOSITION));
 		assertEquals("12", response.getHeader(TestBaseController.TEST_COUNT));
 		verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(FilterParameters.class));
-		verify(logService).logHeadComplete(any(HttpServletResponse.class), any(BigDecimal.class));
+		verify(logService).logHeadComplete(any(HttpServletResponse.class), isNull());
 		verify(countDao).getCounts(any(NameSpace.class), any(FilterParameters.class));
 	}
 
@@ -413,7 +416,7 @@ public class BaseControllerTest extends BaseSpringTest {
 	public void doCommonSetupPostCountTest() throws HttpMediaTypeNotAcceptableException {
 		FilterParameters filter = new FilterParameters();
 		filter.setDataProfile(Profile.STATION.toString());
-		when(contentStrategy.resolveMediaTypes(anyObject())).thenReturn(Arrays.asList(MimeType.json.getMediaType()));
+		when(contentStrategy.resolveMediaTypes(any())).thenReturn(Arrays.asList(MimeType.json.getMediaType()));
 		request.setMethod("POST");
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		BigDecimal logId = BigDecimal.ONE;
@@ -427,7 +430,7 @@ public class BaseControllerTest extends BaseSpringTest {
 		assertEquals("attachment; filename=station.json", response.getHeader(HttpConstants.HEADER_CONTENT_DISPOSITION));
 		assertEquals("12", response.getHeader(TestBaseController.TEST_COUNT));
 		verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(FilterParameters.class));
-		verify(logService).logHeadComplete(any(HttpServletResponse.class), any(BigDecimal.class));
+		verify(logService).logHeadComplete(any(HttpServletResponse.class), isNull());
 		verify(countDao).getCounts(any(NameSpace.class), any(FilterParameters.class));
 
 		request.setRequestURI("endpoint/count");
@@ -440,7 +443,7 @@ public class BaseControllerTest extends BaseSpringTest {
 		assertNull(response.getHeader(HttpConstants.HEADER_CONTENT_DISPOSITION));
 		assertEquals("12", response.getHeader(TestBaseController.TEST_COUNT));
 		verify(logService, times(2)).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(FilterParameters.class));
-		verify(logService, times(2)).logHeadComplete(any(HttpServletResponse.class), any(BigDecimal.class));
+		verify(logService, times(2)).logHeadComplete(any(HttpServletResponse.class), isNull());
 		verify(countDao, times(2)).getCounts(any(NameSpace.class), any(FilterParameters.class));
 
 		request.setMethod("GET");
@@ -453,7 +456,7 @@ public class BaseControllerTest extends BaseSpringTest {
 		assertEquals("attachment; filename=station.json", response.getHeader(HttpConstants.HEADER_CONTENT_DISPOSITION));
 		assertEquals("12", response.getHeader(TestBaseController.TEST_COUNT));
 		verify(logService, times(3)).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(FilterParameters.class));
-		verify(logService, times(3)).logHeadComplete(any(HttpServletResponse.class), any(BigDecimal.class));
+		verify(logService, times(3)).logHeadComplete(any(HttpServletResponse.class), isNull());
 		verify(countDao, times(3)).getCounts(any(NameSpace.class), any(FilterParameters.class));	
 	}
 
@@ -484,7 +487,8 @@ public class BaseControllerTest extends BaseSpringTest {
 	@Test
 	public void checkMaxRowsTest() {
 		FilterParameters filter = new FilterParameters();
-		TestBaseController small = new TestBaseController(null, null, null, 10, "http://test-url.usgs.gov", null, null);
+		Whitebox.setInternalState(configurationService, "maxResultRows", 10);
+		TestBaseController small = new TestBaseController(null, null, null, null, null, configurationService);
 		TestBaseController.setFilter(filter);
 
 		//xml formats ok when less than max & always sorted
@@ -659,6 +663,7 @@ public class BaseControllerTest extends BaseSpringTest {
 	public void processParametersTest_invalid() {
 		FilterParameters filter = new FilterParameters();
 		filter.setMinactivities("a");
+		when(validator.validate(any(FilterParameters.class))).thenReturn(getConstraintViolations(filter));
 		assertFalse(testController.processParameters(filter));
 		assertFalse(TestBaseController.getFilter().isValid());
 	}
@@ -672,13 +677,12 @@ public class BaseControllerTest extends BaseSpringTest {
 	}
 
 	@Test
-	@SuppressWarnings("unchecked")
 	public void doPostCountRequestTest() throws HttpMediaTypeNotAcceptableException {
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		FilterParameters filter = new FilterParameters();
 		filter.setSiteid(Arrays.asList("11NPSWRD-BICA_MFG_B","WIDNR_WQX-10030952"));
 		when(countDao.getCounts(any(NameSpace.class), any(FilterParameters.class))).thenReturn(getRawCounts());
-		when(contentStrategy.resolveMediaTypes(anyObject())).thenReturn(Arrays.asList(MimeType.kml.getMediaType()));
+		when(contentStrategy.resolveMediaTypes(any())).thenReturn(Arrays.asList(MimeType.kml.getMediaType()));
 
 		Map<String, String> result = testController.doPostCountRequest(request, response, filter, "kmz", "yes");
 
@@ -694,18 +698,17 @@ public class BaseControllerTest extends BaseSpringTest {
 		assertEquals(HttpStatus.OK.value(), response.getStatus());
 		assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
 		verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(FilterParameters.class));
-		verify(logService).logHeadComplete(any(HttpServletResponse.class), any(BigDecimal.class));
-		verify(logService).logRequestComplete(any(BigDecimal.class), anyString(), anyMap());
+		verify(logService).logHeadComplete(any(HttpServletResponse.class), isNull());
+		verify(logService).logRequestComplete(isNull(), anyString(), isNull());
 	}
 
 	@Test
-	@SuppressWarnings("unchecked")
 	public void doPostCountRequestNoMimeZip() throws HttpMediaTypeNotAcceptableException {
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		FilterParameters filter = new FilterParameters();
 		filter.setSiteid(Arrays.asList("11NPSWRD-BICA_MFG_B","WIDNR_WQX-10030952"));
 		when(countDao.getCounts(any(NameSpace.class), any(FilterParameters.class))).thenReturn(getRawCounts());
-		when(contentStrategy.resolveMediaTypes(anyObject())).thenReturn(Arrays.asList(MimeType.kml.getMediaType()));
+		when(contentStrategy.resolveMediaTypes(any())).thenReturn(Arrays.asList(MimeType.kml.getMediaType()));
 
 		Map<String, String> result = testController.doPostCountRequest(request, response, filter, null, null);
 
@@ -721,12 +724,11 @@ public class BaseControllerTest extends BaseSpringTest {
 		assertEquals(HttpStatus.OK.value(), response.getStatus());
 		assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
 		verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(FilterParameters.class));
-		verify(logService).logHeadComplete(any(HttpServletResponse.class), any(BigDecimal.class));
-		verify(logService).logRequestComplete(any(BigDecimal.class), anyString(), anyMap());
+		verify(logService).logHeadComplete(any(HttpServletResponse.class), isNull());
+		verify(logService).logRequestComplete(isNull(), anyString(), isNull());
 	}
 
 	@Test
-	@SuppressWarnings("unchecked")
 	public void doDataRequest2_noMimeZip() {
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		testController.doDataRequest(request, response, new FilterParameters(), null, null);
@@ -735,14 +737,13 @@ public class BaseControllerTest extends BaseSpringTest {
 		assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
 		verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(FilterParameters.class));
 		verify(logService, never()).logHeadComplete(any(HttpServletResponse.class), any(BigDecimal.class));
-		verify(logService).logRequestComplete(any(BigDecimal.class), anyString(), anyMap());
+		verify(logService).logRequestComplete(isNull(), anyString(), anyMap());
 		verify(streamingDao, never()).stream(any(NameSpace.class), any(FilterParameters.class), any(ResultHandler.class));
 	}
 
 	@Test
-	@SuppressWarnings("unchecked")
 	public void doDataRequest2_hasMimeZip() throws HttpMediaTypeNotAcceptableException {
-		when(contentStrategy.resolveMediaTypes(anyObject())).thenReturn(Arrays.asList(MimeType.kml.getMediaType()));
+		when(contentStrategy.resolveMediaTypes(any())).thenReturn(Arrays.asList(MimeType.kml.getMediaType()));
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		FilterParameters filter = new FilterParameters();
 		filter.setMinactivities("1");
@@ -763,14 +764,13 @@ public class BaseControllerTest extends BaseSpringTest {
 		}
 
 		verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(FilterParameters.class));
-		verify(logService).logHeadComplete(any(HttpServletResponse.class), any(BigDecimal.class));
-		verify(logService).logRequestComplete(any(BigDecimal.class), anyString(), anyMap());
+		verify(logService).logHeadComplete(any(HttpServletResponse.class), isNull());
+		verify(logService).logRequestComplete(isNull(), anyString(), anyMap());
 		verify(countDao).getCounts(any(NameSpace.class), any(FilterParameters.class));
 		verify(streamingDao).stream(any(NameSpace.class), any(FilterParameters.class), any(ResultHandler.class));
 	}
 
 	@Test
-	@SuppressWarnings("unchecked")
 	public void doDataRequestTest_NoParms() {
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		testController.doDataRequest(request, response, new FilterParameters());
@@ -779,12 +779,11 @@ public class BaseControllerTest extends BaseSpringTest {
 		assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
 		verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(FilterParameters.class));
 		verify(logService, never()).logHeadComplete(any(HttpServletResponse.class), any(BigDecimal.class));
-		verify(logService).logRequestComplete(any(BigDecimal.class), anyString(), anyMap());
+		verify(logService).logRequestComplete(isNull(), anyString(), anyMap());
 		verify(streamingDao, never()).stream(any(NameSpace.class), any(FilterParameters.class), any(ResultHandler.class));
 	}
 
 	@Test
-	@SuppressWarnings("unchecked")
 	public void doDataRequestTest_error() {
 		doThrow(new RuntimeException("yuck!")).when(streamingDao).stream(any(NameSpace.class), any(FilterParameters.class), any(ResultHandler.class));
 		MockHttpServletResponse response = new MockHttpServletResponse();
@@ -795,15 +794,14 @@ public class BaseControllerTest extends BaseSpringTest {
 		assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.value(), response.getStatus());
 		assertNotNull(response.getHeader(HttpConstants.HEADER_FATAL_ERROR));
 		verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(FilterParameters.class));
-		verify(logService).logHeadComplete(any(HttpServletResponse.class), any(BigDecimal.class));
-		verify(logService).logRequestComplete(any(BigDecimal.class), anyString(), anyMap());
+		verify(logService).logHeadComplete(any(HttpServletResponse.class), isNull());
+		verify(logService).logRequestComplete(isNull(), anyString(), anyMap());
 		verify(streamingDao).stream(any(NameSpace.class), any(FilterParameters.class), any(ResultHandler.class));
 	}
 
 	@Test
-	@SuppressWarnings("unchecked")
 	public void doDataRequestTest() throws HttpMediaTypeNotAcceptableException {
-		when(contentStrategy.resolveMediaTypes(anyObject())).thenReturn(Arrays.asList(MimeType.kmz.getMediaType()));
+		when(contentStrategy.resolveMediaTypes(any())).thenReturn(Arrays.asList(MimeType.kmz.getMediaType()));
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		FilterParameters filter = new FilterParameters();
 		filter.setMinactivities("1");
@@ -824,8 +822,8 @@ public class BaseControllerTest extends BaseSpringTest {
 		}
 
 		verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(FilterParameters.class));
-		verify(logService).logHeadComplete(any(HttpServletResponse.class), any(BigDecimal.class));
-		verify(logService).logRequestComplete(any(BigDecimal.class), anyString(), anyMap());
+		verify(logService).logHeadComplete(any(HttpServletResponse.class), isNull());
+		verify(logService).logRequestComplete(isNull(), anyString(), anyMap());
 		verify(countDao).getCounts(any(NameSpace.class), any(FilterParameters.class));
 		verify(streamingDao).stream(any(NameSpace.class), any(FilterParameters.class), any(ResultHandler.class));
 	}
@@ -1192,5 +1190,10 @@ public class BaseControllerTest extends BaseSpringTest {
 		rawCounts.add(totalCountRow);
 
 		return rawCounts;
+	}
+
+	public <T> Set<ConstraintViolation<T>> getConstraintViolations(T object) {
+		ConstraintViolation<T> x = ConstraintViolationImpl.forBeanValidation(null, null, null, null, null, null, object, object, null, null, null, object);
+		return Collections.singleton(x);
 	}
 }

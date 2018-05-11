@@ -11,20 +11,20 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.mock.web.MockHttpServletResponse;
 
-import gov.usgs.cida.wqp.BaseSpringTest;
+import gov.usgs.cida.wqp.BaseTest;
 import gov.usgs.cida.wqp.mapping.Profile;
 import gov.usgs.cida.wqp.mapping.delimited.ResultDelimitedTest;
 import gov.usgs.cida.wqp.parameter.FilterParameters;
 import gov.usgs.cida.wqp.util.HttpConstants;
 import gov.usgs.cida.wqp.webservice.BaseControllerTest;
 
-public class ResultControllerTest extends BaseSpringTest {
+public class ResultControllerTest extends BaseTest {
 
 	protected ResultController controller;
 
 	@Before
 	public void setup() {
-		controller = new ResultController(null, null, null, null, null, null, null, null);
+		controller = new ResultController(null, null, null, null, null, null, null);
 		ResultController.remove();
 	}
 

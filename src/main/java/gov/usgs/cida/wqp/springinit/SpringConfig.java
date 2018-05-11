@@ -13,22 +13,11 @@ import static gov.usgs.cida.wqp.util.MimeType.xml;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.EnvironmentAware;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.context.annotation.PropertySources;
-import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
-import org.springframework.core.env.Environment;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.util.AntPathMatcher;
-import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import gov.usgs.cida.wqp.parameter.CustomBoundingBoxConverter;
@@ -36,24 +25,9 @@ import gov.usgs.cida.wqp.parameter.CustomStringArrayToListConverter;
 import gov.usgs.cida.wqp.parameter.CustomStringConverter;
 import gov.usgs.cida.wqp.parameter.CustomStringToArrayConverter;
 import gov.usgs.cida.wqp.parameter.CustomStringToListConverter;
-import gov.usgs.cida.wqp.util.WqpEnv;
-import gov.usgs.cida.wqp.util.WqpEnvProperties;
 
-/**
- * This class takes the place of the old Spring servlet.xml configuration that
- * used to reside in /WEB-INF.
- */
 @Configuration
-@ComponentScan(basePackages= {WqpEnv.BASE_PACKAGE})
-@EnableWebMvc
-@PropertySources({
-	//This will get the defaults
-	@PropertySource(value = "classpath:" + WqpEnv.PROPERTIES_FILE),
-	//This will override with values from the containers file if the file can be found
-	@PropertySource(value = WqpEnv.CONTAINER_PROPERTIES_FILE, ignoreResourceNotFound = true)
-})
-@Import(MybatisConfig.class)
-public class SpringConfig implements WebMvcConfigurer, EnvironmentAware {
+public class SpringConfig implements WebMvcConfigurer {
 	private static final Logger LOG = LoggerFactory.getLogger(SpringConfig.class);
 
 	public SpringConfig() {
@@ -85,12 +59,6 @@ public class SpringConfig implements WebMvcConfigurer, EnvironmentAware {
 	}
 
 	@Override
-	public void setEnvironment(Environment env) {
-		LOG.trace("setting evnironment");
-		WqpEnv.setEnv(env);
-	}
-
-	@Override
 	public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
 		configurer
 			.favorPathExtension(false)
@@ -116,74 +84,4 @@ public class SpringConfig implements WebMvcConfigurer, EnvironmentAware {
 		configurer.setPathMatcher(matcher);
 	}
 
-	@Override
-	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("swagger-ui.html", "webjars/**")
-			.addResourceLocations("classpath:/META-INF/resources/", "classpath:/META-INF/resources/webjars/");
-		registry.setOrder(-1);
-	}
-
-
-	/**
-	 * Expose the resources (properties defined above) as an Environment to all
-	 * classes.  Must declare a class variable with:
-	 *
-	 * 		@Autowired
-	 *		private Environment environment;
-	 */
-	@Bean
-	public static PropertySourcesPlaceholderConfigurer propertyPlaceHolderConfigurer() {
-		return new PropertySourcesPlaceholderConfigurer();
-	}
-
-	@Bean
-	public String kmlStyleUrl() {
-		return WqpEnv.get(WqpEnvProperties.KML_STYLE_URL);
-	}
-
-	@Bean
-	public Integer maxResultRows() {
-		return WqpEnv.getInt(WqpEnvProperties.MAX_RESULT_ROWS);
-	}
-
-	@Bean
-	public String siteUrlBase() {
-		return WqpEnv.get(WqpEnvProperties.SITE_URL_BASE);
-	}
-
-	@Bean
-	public String swaggerDisplayHost() {
-		return WqpEnv.get(WqpEnvProperties.SWAGGER_DISPLAY_HOST);
-	}
-
-	@Bean
-	public String swaggerDisplayPath() {
-		return WqpEnv.get(WqpEnvProperties.SWAGGER_DISPLAY_PATH);
-	}
-
-	@Bean
-	public String codesUrl() {
-		return WqpEnv.get(WqpEnvProperties.CODES_URL);
-	}
-
-	@Bean
-	public String codesMimeType() {
-		return WqpEnv.get(WqpEnvProperties.CODES_MIME_TYPE);
-	}
-
-	@Bean
-	public Integer codesTimeoutMilli() {
-		return WqpEnv.getInt(WqpEnvProperties.CODES_TIMEOUT_MILLI);
-	}
-
-	@Bean
-	public Integer nldiTimeoutMilli() {
-		return WqpEnv.getInt(WqpEnvProperties.NLDI_TIMEOUT_MILLI);
-	}
-
-	@Bean
-	public LocalValidatorFactoryBean validator() {
-		LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
-		return validator;
-	}
 }

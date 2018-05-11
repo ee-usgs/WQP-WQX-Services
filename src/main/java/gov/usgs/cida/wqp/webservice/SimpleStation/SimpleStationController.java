@@ -23,6 +23,7 @@ import gov.usgs.cida.wqp.mapping.Profile;
 import gov.usgs.cida.wqp.mapping.delimited.StationDelimited;
 import gov.usgs.cida.wqp.mapping.xml.IXmlMapping;
 import gov.usgs.cida.wqp.parameter.FilterParameters;
+import gov.usgs.cida.wqp.service.ConfigurationService;
 import gov.usgs.cida.wqp.service.ILogService;
 import gov.usgs.cida.wqp.swagger.SwaggerConfig;
 import gov.usgs.cida.wqp.swagger.annotation.FullParameterList;
@@ -50,12 +51,10 @@ public class SimpleStationController extends BaseController {
 
 	@Autowired
 	public SimpleStationController(IStreamingDao inStreamingDao, ICountDao inCountDao, ILogService inLogService,
-			@Qualifier("maxResultRows") Integer inMaxResultRows,
 			@Qualifier("simpleStationWqxOutbound") IXmlMapping inXmlMapping,
-			@Qualifier("siteUrlBase") String inSiteUrlBase,
 			ContentNegotiationStrategy contentStrategy,
-			Validator validator) {
-		super(inStreamingDao, inCountDao, inLogService, inMaxResultRows, inSiteUrlBase, contentStrategy, validator);
+			Validator validator, ConfigurationService configurationService) {
+		super(inStreamingDao, inCountDao, inLogService, contentStrategy, validator, configurationService);
 		xmlMapping = inXmlMapping;
 
 		LOG.trace(getClass().getName());

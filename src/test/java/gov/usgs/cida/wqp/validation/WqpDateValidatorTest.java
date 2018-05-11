@@ -9,9 +9,10 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.powermock.reflect.Whitebox;
 
-import gov.usgs.cida.wqp.BaseSpringTest;
+import gov.usgs.cida.wqp.BaseTest;
 import gov.usgs.cida.wqp.parameter.FilterParameters;
-public class WqpDateValidatorTest extends BaseSpringTest {
+
+public class WqpDateValidatorTest extends BaseTest {
 
 	@Mock
 	protected ConstraintValidatorContext context;

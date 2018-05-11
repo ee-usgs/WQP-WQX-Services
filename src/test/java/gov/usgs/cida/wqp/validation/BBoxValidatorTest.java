@@ -9,10 +9,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 
-import gov.usgs.cida.wqp.BaseSpringTest;
+import gov.usgs.cida.wqp.BaseTest;
 import gov.usgs.cida.wqp.parameter.BoundingBox;
 
-public class BBoxValidatorTest extends BaseSpringTest {
+public class BBoxValidatorTest extends BaseTest {
 
 	@Mock
 	protected ConstraintValidatorContext context;

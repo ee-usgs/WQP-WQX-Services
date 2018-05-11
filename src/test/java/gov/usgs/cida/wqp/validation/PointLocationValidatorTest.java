@@ -19,10 +19,10 @@ import org.hibernate.validator.internal.engine.path.PathImpl;
 import org.junit.Before;
 import org.junit.Test;
 
-import gov.usgs.cida.wqp.BaseSpringTest;
+import gov.usgs.cida.wqp.BaseTest;
 import gov.usgs.cida.wqp.parameter.FilterParameters;
 
-public class PointLocationValidatorTest extends BaseSpringTest {
+public class PointLocationValidatorTest extends BaseTest {
 
 	protected ConstraintValidatorContext context;
 
@@ -31,7 +31,7 @@ public class PointLocationValidatorTest extends BaseSpringTest {
 	@Before
 	public void setup() {
 		validator = new PointLocationValidator();
-		context = new ConstraintValidatorContextImpl(null, null, PathImpl.createPathFromString("WOW"), null);
+		context = new ConstraintValidatorContextImpl(null, null, PathImpl.createPathFromString("WOW"), null, null);
 	}
 
 	@Test
