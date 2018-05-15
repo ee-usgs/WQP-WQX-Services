@@ -2,19 +2,32 @@
 logging:
   config: classpath:logback-spring.xml
 
-site.url.base: https://www.waterqualitydata.us
+site:
+  url:
+    base: https://www.waterqualitydata.us
 
 swaggerServicesConfigFile: abc
-swagger.display.host: localhost:8443
-swagger.display.path: /wqp
 
-codes.url: http://localhost:8080/qw_portal_services/codes
-codes.mimeType: json
-codes.timeout.milli: 1000
+swagger:
+  display:
+    host: localhost:8443
+    path: /wqp
 
-nldi.url: https://cida-test.er.usgs.gov/nldi/wqp/USGS-05427880/navigate/UM/wqp
-nldi.timeout.milli: 10000
+codes:
+  url: http://localhost:8080/qw_portal_services/codes
+  mimeType: json
+  timeout:
+    milli: 1000
 
-kml.style.url: https://www.waterqualitydata.us/kml/wqp_styles.kml
+nldi:
+  url: https://cida-test.er.usgs.gov/nldi/wqp/USGS-05427880/navigate/UM/wqp
+  timeout:
+    milli: 10000
 
-max.result.rows: 20000000
+kml:
+  style:
+    url: https://www.waterqualitydata.us/kml/wqp_styles.kml
+
+max:
+  result:
+    rows: 20000000

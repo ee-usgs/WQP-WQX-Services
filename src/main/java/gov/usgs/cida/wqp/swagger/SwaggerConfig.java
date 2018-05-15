@@ -90,7 +90,7 @@ public class SwaggerConfig {
 						new Tag(FILE_DOWNLOAD_TAG_NAME, FILE_DOWNLOAD_TAG_NAME)
 					)
 				.select().paths(PathSelectors.any())
-				.apis(RequestHandlerSelectors.basePackage("gov.usgs.cida.qw"))
+				.apis(RequestHandlerSelectors.basePackage("gov.usgs.cida.wqp"))
 				.build()
 		;
 	}
