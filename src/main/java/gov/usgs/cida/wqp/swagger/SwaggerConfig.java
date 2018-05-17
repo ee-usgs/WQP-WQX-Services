@@ -3,12 +3,15 @@ package gov.usgs.cida.wqp.swagger;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.core.env.Environment;
 import org.yaml.snakeyaml.Yaml;
 
 import com.fasterxml.classmate.TypeResolver;
@@ -24,6 +27,7 @@ import gov.usgs.cida.wqp.swagger.model.StationCountJson;
 import springfox.documentation.PathProvider;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.service.ApiKey;
 import springfox.documentation.service.Tag;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.paths.AbstractPathProvider;
@@ -54,6 +58,9 @@ public class SwaggerConfig {
 	@Autowired
 	private TypeResolver typeResolver;
 
+	@Autowired
+	private Environment environment;
+
 	@Bean
 	public SwaggerServices swaggerServices() {
 		SwaggerServices props = new SwaggerServices();
@@ -68,31 +75,38 @@ public class SwaggerConfig {
 
 	@Bean
 	public Docket qwPortalServicesApi() {
-		return new Docket(DocumentationType.SWAGGER_2)
-				.protocols(new HashSet<>(Arrays.asList("https")))
-				.host(configurationService.getSwaggerDisplayHost())
-				.pathProvider(pathProvider())
-				.useDefaultResponseMessages(false)
-				.additionalModels(typeResolver.resolve(PostParms.class),
-						typeResolver.resolve(StationCountJson.class),
-						typeResolver.resolve(ActivityCountJson.class),
-						typeResolver.resolve(ActivityMetricCountJson.class),
-						typeResolver.resolve(ResultCountJson.class),
-						typeResolver.resolve(ResDetectQntLmtCountJson.class),
-						typeResolver.resolve(ProjectCountJson.class))
-				.tags(new Tag(ACTIVITY_TAG_NAME, TAG_DESCRIPTION),
-						new Tag(ACTIVITY_METRIC_TAG_NAME, TAG_DESCRIPTION),
-						new Tag(RES_DETECT_QNT_LMT_TAG_NAME, TAG_DESCRIPTION),
-						new Tag(RESULT_TAG_NAME, TAG_DESCRIPTION),
-						new Tag(SIMPLE_STATION_TAG_NAME, TAG_DESCRIPTION),
-						new Tag(STATION_TAG_NAME, TAG_DESCRIPTION),
-						new Tag(VERSION_TAG_NAME, VERSION_TAG_DESCRIPTION),
-						new Tag(FILE_DOWNLOAD_TAG_NAME, FILE_DOWNLOAD_TAG_NAME)
-					)
-				.select().paths(PathSelectors.any())
-				.apis(RequestHandlerSelectors.basePackage("gov.usgs.cida.wqp"))
-				.build()
+		Docket docket = new Docket(DocumentationType.SWAGGER_2)
+			.protocols(new HashSet<>(Arrays.asList("https")))
+			.host(configurationService.getSwaggerDisplayHost())
+			.pathProvider(pathProvider())
+			.useDefaultResponseMessages(false)
+			.additionalModels(typeResolver.resolve(PostParms.class),
+					typeResolver.resolve(StationCountJson.class),
+					typeResolver.resolve(ActivityCountJson.class),
+					typeResolver.resolve(ActivityMetricCountJson.class),
+					typeResolver.resolve(ResultCountJson.class),
+					typeResolver.resolve(ResDetectQntLmtCountJson.class),
+					typeResolver.resolve(ProjectCountJson.class))
+			.tags(new Tag(ACTIVITY_TAG_NAME, TAG_DESCRIPTION),
+					new Tag(ACTIVITY_METRIC_TAG_NAME, TAG_DESCRIPTION),
+					new Tag(RES_DETECT_QNT_LMT_TAG_NAME, TAG_DESCRIPTION),
+					new Tag(RESULT_TAG_NAME, TAG_DESCRIPTION),
+					new Tag(SIMPLE_STATION_TAG_NAME, TAG_DESCRIPTION),
+					new Tag(STATION_TAG_NAME, TAG_DESCRIPTION),
+					new Tag(VERSION_TAG_NAME, VERSION_TAG_DESCRIPTION),
+					new Tag(FILE_DOWNLOAD_TAG_NAME, FILE_DOWNLOAD_TAG_NAME)
+				)
+			.select().paths(PathSelectors.any())
+			.apis(RequestHandlerSelectors.basePackage("gov.usgs.cida.wqp"))
+			.build()
 		;
+
+		if (ArrayUtils.contains(environment.getActiveProfiles(), "internal")) {
+			//Add in the Authorize button for WQP Internal
+			docket.securitySchemes(Collections.singletonList(apiKey()));
+		}
+
+		return docket;
 	}
 
 	@Bean
@@ -111,6 +125,10 @@ public class SwaggerConfig {
 		protected String getDocumentationPath() {
 			return configurationService.getSwaggerDisplayPath();
 		}
+	}
+
+	private ApiKey apiKey() {
+		return new ApiKey("mykey", "Authorization", "header");
 	}
 
 	@Bean
