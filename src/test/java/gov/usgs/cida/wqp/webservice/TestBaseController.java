@@ -16,6 +16,7 @@ import gov.usgs.cida.wqp.mapping.xml.IXmlMapping;
 import gov.usgs.cida.wqp.mapping.xml.StationKml;
 import gov.usgs.cida.wqp.mapping.xml.StationWqx;
 import gov.usgs.cida.wqp.parameter.FilterParameters;
+import gov.usgs.cida.wqp.service.ConfigurationService;
 import gov.usgs.cida.wqp.service.ILogService;
 
 public class TestBaseController extends BaseController {
@@ -24,10 +25,10 @@ public class TestBaseController extends BaseController {
 
 	public TestBaseController(IStreamingDao inStreamingDao,
 			ICountDao inCountDao,
-			ILogService inLogService, Integer inMaxRows, String inSiteUrlBase,
+			ILogService inLogService,
 			ContentNegotiationStrategy contentStrategy,
-			Validator validator) {
-		super(inStreamingDao, inCountDao, inLogService, inMaxRows, inSiteUrlBase, contentStrategy, validator);
+			Validator validator, ConfigurationService configurationService) {
+		super(inStreamingDao, inCountDao, inLogService, contentStrategy, validator, configurationService);
 	}
 
 	@Override
@@ -50,7 +51,7 @@ public class TestBaseController extends BaseController {
 
 	@Override
 	protected IXmlMapping getKmlMapping() {
-		return new StationKml("");
+		return new StationKml(configurationService);
 	}
 
 	@Override

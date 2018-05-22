@@ -1,0 +1,33 @@
+
+logging:
+  config: classpath:logback-spring.xml
+
+site:
+  url:
+    base: https://www.waterqualitydata.us
+
+swaggerServicesConfigFile: abc
+
+swagger:
+  display:
+    host: localhost:8443
+    path: /wqp
+
+codes:
+  url: http://localhost:8080/qw_portal_services/codes
+  mimeType: json
+  timeout:
+    milli: 1000
+
+nldi:
+  url: https://cida-test.er.usgs.gov/nldi/wqp/USGS-05427880/navigate/UM/wqp
+  timeout:
+    milli: 10000
+
+kml:
+  style:
+    url: https://www.waterqualitydata.us/kml/wqp_styles.kml
+
+max:
+  result:
+    rows: 20000000

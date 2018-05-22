@@ -3,7 +3,7 @@ package gov.usgs.cida.wqp.service;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import static org.mockito.Matchers.anyMap;
+import static org.mockito.ArgumentMatchers.anyMap;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
@@ -70,7 +70,6 @@ public class LogServiceTest {
 	}
 
 	@Test
-	@SuppressWarnings("unchecked")
 	public void legRequestNullTest() {
 		assertEquals(FIFTY_FIVE, service.logRequest(null, null, filter));
 		assertEquals(1, valueCapture.getValue().size());
@@ -84,7 +83,6 @@ public class LogServiceTest {
 	}
 
 	@Test
-	@SuppressWarnings("unchecked")
 	public void logRequestEmptyTest() {
 		assertEquals(FIFTY_FIVE, service.logRequest(request, response, filter));
 		assertEquals(7, valueCapture.getValue().size());
@@ -110,7 +108,6 @@ public class LogServiceTest {
 	}
 
 	@Test
-	@SuppressWarnings("unchecked")
 	public void logRequestDataTest() {
 		request.addHeader("referer", "ui");
 		request.addHeader("user-agent", "myBrowserType");
@@ -141,14 +138,12 @@ public class LogServiceTest {
 	}
 
 	@Test
-	@SuppressWarnings("unchecked")
 	public void logHeadCompleteNullTest() {
 		service.logHeadComplete(null, FIFTY_FIVE);
 		verify(logDao, never()).setHeadComplete(anyMap());
 	}
 
 	@Test
-	@SuppressWarnings("unchecked")
 	public void logHeadCompleteTest() {
 		response = setCountHeaders(response);
 		service.logHeadComplete(response, FIFTY_FIVE);
@@ -160,7 +155,6 @@ public class LogServiceTest {
 	}
 
 	@Test
-	@SuppressWarnings("unchecked")
 	public void logFirstRowCompleteTest() {
 		service.logFirstRowComplete(FIFTY_FIVE);
 		assertEquals(1, valueCapture.getValue().size());
@@ -169,7 +163,6 @@ public class LogServiceTest {
 	}
 
 	@Test
-	@SuppressWarnings("unchecked")
 	public void logRequestCompleteNullTest() throws JSONException {
 		service.logRequestComplete(FIFTY_FIVE, null, null);
 		assertEquals(3, valueCapture.getValue().size());
@@ -189,7 +182,6 @@ public class LogServiceTest {
 	}
 
 	@Test
-	@SuppressWarnings("unchecked")
 	public void logRequestCompleteTest() throws JSONException {
 		service.logRequestComplete(FIFTY_FIVE, "200", getDownloadDetails());
 		assertEquals(3, valueCapture.getValue().size());
@@ -201,7 +193,7 @@ public class LogServiceTest {
 	}
 
 	protected MockHttpServletResponse setCountHeaders(MockHttpServletResponse response) {
-		TestBaseController testController = new TestBaseController(null, null, null, null, null, null, null);
+		TestBaseController testController = new TestBaseController(null, null, null, null, null, null);
 		testController.addSiteHeaders(response, BaseControllerTest.getRawCounts());
 		testController.addActivityHeaders(response, BaseControllerTest.getRawCounts());
 		testController.addActivityMetricHeaders(response, BaseControllerTest.getRawCounts());

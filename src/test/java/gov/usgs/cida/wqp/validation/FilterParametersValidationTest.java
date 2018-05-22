@@ -3,8 +3,8 @@ package gov.usgs.cida.wqp.validation;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyString;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 import java.io.IOException;
@@ -20,9 +20,11 @@ import javax.validation.Validator;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Import;
+import org.springframework.test.context.junit4.SpringRunner;
 
-import gov.usgs.cida.wqp.BaseSpringTest;
 import gov.usgs.cida.wqp.exception.WqpException;
 import gov.usgs.cida.wqp.exception.WqpExceptionId;
 import gov.usgs.cida.wqp.parameter.BoundingBox;
@@ -32,8 +34,11 @@ import gov.usgs.cida.wqp.parameter.Parameters;
 import gov.usgs.cida.wqp.service.CodesService;
 import gov.usgs.cida.wqp.service.FetchService;
 import gov.usgs.cida.wqp.service.FetchServiceTest;
+import gov.usgs.cida.wqp.springinit.SpringTestConfig;
 
-public class FilterParametersValidationTest extends BaseSpringTest {
+@RunWith(SpringRunner.class)
+@Import(SpringTestConfig.class)
+public class FilterParametersValidationTest {
 
 	@Autowired
 	protected Validator validator;

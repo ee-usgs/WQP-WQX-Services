@@ -5,9 +5,7 @@ import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 
-import gov.usgs.cida.wqp.BaseSpringTest;
-
-public class CustomStringToArrayConverterTest extends BaseSpringTest {
+public class CustomStringToArrayConverterTest {
 
 	CustomStringToArrayConverter converter = new CustomStringToArrayConverter();
 

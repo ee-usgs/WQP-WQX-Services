@@ -16,7 +16,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import gov.usgs.cida.wqp.exception.WqpException;
@@ -28,16 +27,11 @@ import gov.usgs.cida.wqp.util.WqpEnvProperties;
 public class CodesService {
 	private static final Logger LOG = LoggerFactory.getLogger(CodesService.class);
 
-	private final String codesUrl;
-	private final String mimeType;
-	private final int timeoutMilli;
+	private final ConfigurationService configurationService;
 
 	@Autowired
-	public CodesService(@Qualifier("codesUrl") String codesUrl, @Qualifier("codesMimeType") String mimeType,
-			@Qualifier("codesTimeoutMilli") int timeoutMilli) {
-		this.codesUrl = codesUrl;
-		this.mimeType = mimeType;
-		this.timeoutMilli = timeoutMilli;
+	public CodesService(ConfigurationService configurationService) {
+		this.configurationService = configurationService;
 	}
 
 	public boolean validate(Parameters codeType, String code) throws WqpException {
@@ -47,8 +41,8 @@ public class CodesService {
 		try {
 			URL url = makeCodesUrl(codeType, code);
 			URLConnection conn = url.openConnection();
-			conn.setReadTimeout(timeoutMilli);
-			conn.setConnectTimeout(timeoutMilli);
+			conn.setReadTimeout(configurationService.getCodesTimeoutMilli());
+			conn.setConnectTimeout(configurationService.getCodesTimeoutMilli());
 			conn.getContent();
 			response = true;
 		} catch (IOException e) {
@@ -80,7 +74,7 @@ public class CodesService {
 
 		URL url = null;
 		try {
-			String urlStr = codesUrl +"/"+ codeType +"/validate?value="+ URLEncoder.encode(code, HttpConstants.DEFAULT_ENCODING) + "&mimeType="+ mimeType;
+			String urlStr = configurationService.getCodesUrl() +"/"+ codeType +"/validate?value="+ URLEncoder.encode(code, HttpConstants.DEFAULT_ENCODING) + "&mimeType="+ configurationService.getCodesMimeType();
 			LOG.trace("making codes url : {}", urlStr);
 			url = new URL(urlStr);
 		} catch (MalformedURLException e ) {

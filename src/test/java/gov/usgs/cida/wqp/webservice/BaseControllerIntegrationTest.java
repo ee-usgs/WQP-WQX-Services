@@ -2,8 +2,8 @@ package gov.usgs.cida.wqp.webservice;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyString;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.head;
@@ -23,10 +23,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
 
-import gov.usgs.cida.wqp.BaseSpringTest;
+import gov.usgs.cida.wqp.BaseIT;
 import gov.usgs.cida.wqp.exception.WqpException;
 import gov.usgs.cida.wqp.mapping.Profile;
 import gov.usgs.cida.wqp.parameter.Parameters;
@@ -34,21 +32,17 @@ import gov.usgs.cida.wqp.service.CodesService;
 import gov.usgs.cida.wqp.service.FetchService;
 import gov.usgs.cida.wqp.util.HttpConstants;
 
-public abstract class BaseControllerIntegrationTest extends BaseSpringTest {
+public abstract class BaseControllerIntegrationTest extends BaseIT {
 
 	@Autowired
-	private WebApplicationContext wac;
-
+	private MockMvc mockMvc;
 	@Autowired
 	protected CodesService codesService;
 	@Autowired
 	protected FetchService fetchService;
 
-	private MockMvc mockMvc;
-
 	@Before
 	public void setup() {
-		mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
 		try {
 			when(codesService.validate(any(Parameters.class), anyString())).thenReturn(true);
 		} catch (WqpException e) {

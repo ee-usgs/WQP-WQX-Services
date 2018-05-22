@@ -11,19 +11,18 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.mock.web.MockHttpServletResponse;
 
-import gov.usgs.cida.wqp.BaseSpringTest;
 import gov.usgs.cida.wqp.mapping.Profile;
 import gov.usgs.cida.wqp.mapping.delimited.ActivityDelimitedTest;
 import gov.usgs.cida.wqp.parameter.FilterParameters;
 import gov.usgs.cida.wqp.util.HttpConstants;
 
-public class ActivityControllerTest extends BaseSpringTest {
+public class ActivityControllerTest {
 
 	protected ActivityController controller;
 
 	@Before
 	public void setup() {
-		controller = new ActivityController(null, null, null, null, null, null, null, null);
+		controller = new ActivityController(null, null, null, null, null, null, null);
 		ActivityController.remove();
 	}
 

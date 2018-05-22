@@ -35,6 +35,7 @@ import gov.usgs.cida.wqp.mapping.CountColumn;
 import gov.usgs.cida.wqp.mapping.Profile;
 import gov.usgs.cida.wqp.mapping.xml.IXmlMapping;
 import gov.usgs.cida.wqp.parameter.FilterParameters;
+import gov.usgs.cida.wqp.service.ConfigurationService;
 import gov.usgs.cida.wqp.service.ILogService;
 import gov.usgs.cida.wqp.transform.MapToDelimitedTransformer;
 import gov.usgs.cida.wqp.transform.MapToJsonTransformer;
@@ -51,8 +52,7 @@ public abstract class BaseController {
 	protected final IStreamingDao streamingDao;
 	protected final ICountDao countDao;
 	protected final ILogService logService;
-	protected final Integer maxResultRows;
-	protected final String siteUrlBase;
+	protected final ConfigurationService configurationService;
 	protected final ContentNegotiationStrategy contentStrategy;
 	protected final Validator validator;
 
@@ -66,17 +66,16 @@ public abstract class BaseController {
 	private static ThreadLocal<Map<String, Integer>> downloadDetails = new ThreadLocal<>();
 
 	public BaseController(IStreamingDao inStreamingDao, ICountDao inCountDao, ILogService inLogService,
-			Integer inMaxResultRows, String inSiteUrlBase, ContentNegotiationStrategy inContentStrategy,
-			Validator inValidator) {
+			ContentNegotiationStrategy inContentStrategy,
+			Validator inValidator, ConfigurationService configurationService) {
 		LOG.trace(getClass().getName());
 
 		streamingDao = inStreamingDao;
 		countDao = inCountDao;
 		logService = inLogService;
-		maxResultRows = inMaxResultRows;
-		siteUrlBase = inSiteUrlBase;
 		contentStrategy = inContentStrategy;
 		validator = inValidator;
+		this.configurationService = configurationService;
 	}
 
 	public static FilterParameters getFilter() {
@@ -308,18 +307,18 @@ public abstract class BaseController {
 		case kml:
 		case kmz:
 		case xml:
-			if (totalRows <= maxResultRows) {
+			if (totalRows <= configurationService.getMaxResultRows()) {
 				filter.setSorted("yes");
 				return true;
 			} else {
 				response.setStatus(HttpStatus.BAD_REQUEST.value());
-				response.addHeader(HttpConstants.HEADER_WARNING, "This query will return in excess of " + maxResultRows + " results, please refine your query.");
+				response.addHeader(HttpConstants.HEADER_WARNING, "This query will return in excess of " + configurationService.getMaxResultRows() + " results, please refine your query.");
 				return false;
 			}
 		default:
-			if (totalRows > maxResultRows) {
+			if (totalRows > configurationService.getMaxResultRows()) {
 				filter.setSorted("no");
-				response.addHeader(HttpConstants.HEADER_WARNING, "This query will return in excess of " + maxResultRows + " results, the data will not be sorted.");
+				response.addHeader(HttpConstants.HEADER_WARNING, "This query will return in excess of " + configurationService.getMaxResultRows() + " results, the data will not be sorted.");
 			} else {
 				if (null != filter && StringUtils.isBlank(filter.getSorted())) {
 					filter.setSorted("yes");
@@ -496,7 +495,7 @@ public abstract class BaseController {
 		switch (getMimeType()) {
 		case json:
 		case geojson:
-			transformer = new MapToJsonTransformer(responseStream, null, logService, logId, siteUrlBase);
+			transformer = new MapToJsonTransformer(responseStream, null, logService, logId, configurationService.getSiteUrlBase());
 			break;
 		case xlsx:
 			transformer = new MapToXlsxTransformer(responseStream, getMapping(getProfile()), logService, logId);
@@ -546,7 +545,7 @@ public abstract class BaseController {
 		StringBuilder rtn = new StringBuilder();
 		rtn.append(HttpConstants.HEADER_WARNING_DEFAULT_CODE);
 		rtn.append(" WQP \"");
-		rtn.append(null == text || 0 == text.getMessage().length() ? "Unknown error" : text.getMessage());
+		rtn.append(null == text || null == text.getMessage() || 0 == text.getMessage().length() ? "Unknown error" : text.getMessage());
 		rtn.append("\"");
 		return rtn.toString();
 	}

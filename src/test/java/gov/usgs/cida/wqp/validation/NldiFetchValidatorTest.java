@@ -5,8 +5,8 @@ import static org.hamcrest.collection.IsIterableContainingInAnyOrder.containsInA
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyString;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -24,12 +24,12 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
 
-import gov.usgs.cida.wqp.BaseSpringTest;
+import gov.usgs.cida.wqp.BaseTest;
 import gov.usgs.cida.wqp.parameter.FilterParameters;
 import gov.usgs.cida.wqp.service.FetchService;
 import gov.usgs.cida.wqp.service.FetchServiceTest;
 
-public class NldiFetchValidatorTest extends BaseSpringTest {
+public class NldiFetchValidatorTest extends BaseTest {
 
 	@Mock
 	protected ConstraintValidatorContext context;

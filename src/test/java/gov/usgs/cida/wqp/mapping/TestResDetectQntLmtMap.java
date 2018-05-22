@@ -19,14 +19,14 @@ import java.math.BigDecimal;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import gov.usgs.cida.wqp.BaseSpringTest;
+import gov.usgs.cida.wqp.BaseIT;
 
 public class TestResDetectQntLmtMap {
 
 	public static final Map<String, Object> RES_DETECT_QNT_LMT;
 	static {
 		RES_DETECT_QNT_LMT = new LinkedHashMap<String, Object>();
-		RES_DETECT_QNT_LMT.put(KEY_DATA_SOURCE_ID, BaseSpringTest.STORET_ID);
+		RES_DETECT_QNT_LMT.put(KEY_DATA_SOURCE_ID, BaseIT.STORET_ID);
 		RES_DETECT_QNT_LMT.put(KEY_DATA_SOURCE, STORET);
 		RES_DETECT_QNT_LMT.put(KEY_SITE_ID, "WIDNR_WQX-113086");
 		RES_DETECT_QNT_LMT.put(KEY_STATION_ID, BigDecimal.valueOf(1383));

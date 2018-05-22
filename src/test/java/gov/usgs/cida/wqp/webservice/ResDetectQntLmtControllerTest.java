@@ -10,19 +10,18 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.mock.web.MockHttpServletResponse;
 
-import gov.usgs.cida.wqp.BaseSpringTest;
 import gov.usgs.cida.wqp.mapping.Profile;
 import gov.usgs.cida.wqp.mapping.delimited.ResDetectQntLmtDelimitedTest;
 import gov.usgs.cida.wqp.parameter.FilterParameters;
 import gov.usgs.cida.wqp.util.HttpConstants;
 
-public class ResDetectQntLmtControllerTest extends BaseSpringTest {
+public class ResDetectQntLmtControllerTest {
 
 	protected ResDetectQntLmtController controller;
 
 	@Before
 	public void setup() {
-		controller = new ResDetectQntLmtController(null, null, null, null, null, null, null, null);
+		controller = new ResDetectQntLmtController(null, null, null, null, null, null, null);
 		ResDetectQntLmtController.remove();
 	}
 

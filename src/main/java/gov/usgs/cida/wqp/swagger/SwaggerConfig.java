@@ -6,14 +6,14 @@ import java.util.Arrays;
 import java.util.HashSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
-import org.springframework.core.io.Resource;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.yaml.snakeyaml.Yaml;
 
 import com.fasterxml.classmate.TypeResolver;
 
+import gov.usgs.cida.wqp.service.ConfigurationService;
 import gov.usgs.cida.wqp.swagger.model.ActivityCountJson;
 import gov.usgs.cida.wqp.swagger.model.ActivityMetricCountJson;
 import gov.usgs.cida.wqp.swagger.model.PostParms;
@@ -22,6 +22,8 @@ import gov.usgs.cida.wqp.swagger.model.ResDetectQntLmtCountJson;
 import gov.usgs.cida.wqp.swagger.model.ResultCountJson;
 import gov.usgs.cida.wqp.swagger.model.StationCountJson;
 import springfox.documentation.PathProvider;
+import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.Tag;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.paths.AbstractPathProvider;
@@ -29,7 +31,9 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger.web.UiConfiguration;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+@Configuration
 @EnableSwagger2
+@Profile("swagger")
 public class SwaggerConfig {
 	public static final String ACTIVITY_TAG_NAME = "Activity";
 	public static final String ACTIVITY_METRIC_TAG_NAME = "Activity Metric";
@@ -45,15 +49,7 @@ public class SwaggerConfig {
 	public static final String FILE_DOWNLOAD_TAG_NAME = "File Download";
 
 	@Autowired
-	@Qualifier("swaggerDisplayHost")
-	private String swaggerDisplayHost;
-
-	@Autowired
-	@Qualifier("swaggerDisplayPath")
-	private String swaggerDisplayPath;
-
-	@Value("file:${catalina.base}/conf/swaggerServices.yml")
-	private Resource servicesConfigFile;
+	private ConfigurationService configurationService;
 
 	@Autowired
 	private TypeResolver typeResolver;
@@ -62,7 +58,7 @@ public class SwaggerConfig {
 	public SwaggerServices swaggerServices() {
 		SwaggerServices props = new SwaggerServices();
 		Yaml yaml = new Yaml();  
-		try( InputStream in = servicesConfigFile.getInputStream()) {
+		try( InputStream in = configurationService.getSwaggerServicesConfigFile().getInputStream()) {
 			props = yaml.loadAs(in, SwaggerServices.class );
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -74,7 +70,7 @@ public class SwaggerConfig {
 	public Docket qwPortalServicesApi() {
 		return new Docket(DocumentationType.SWAGGER_2)
 				.protocols(new HashSet<>(Arrays.asList("https")))
-				.host(swaggerDisplayHost)
+				.host(configurationService.getSwaggerDisplayHost())
 				.pathProvider(pathProvider())
 				.useDefaultResponseMessages(false)
 				.additionalModels(typeResolver.resolve(PostParms.class),
@@ -91,7 +87,11 @@ public class SwaggerConfig {
 						new Tag(SIMPLE_STATION_TAG_NAME, TAG_DESCRIPTION),
 						new Tag(STATION_TAG_NAME, TAG_DESCRIPTION),
 						new Tag(VERSION_TAG_NAME, VERSION_TAG_DESCRIPTION),
-						new Tag(FILE_DOWNLOAD_TAG_NAME, FILE_DOWNLOAD_TAG_NAME))
+						new Tag(FILE_DOWNLOAD_TAG_NAME, FILE_DOWNLOAD_TAG_NAME)
+					)
+				.select().paths(PathSelectors.any())
+				.apis(RequestHandlerSelectors.basePackage("gov.usgs.cida.wqp"))
+				.build()
 		;
 	}
 
@@ -104,12 +104,12 @@ public class SwaggerConfig {
 	public class ProxyPathProvider extends AbstractPathProvider {
 		@Override
 		protected String applicationPath() {
-			return swaggerDisplayPath;
+			return configurationService.getSwaggerDisplayPath();
 		}
 	
 		@Override
 		protected String getDocumentationPath() {
-			return swaggerDisplayPath;
+			return configurationService.getSwaggerDisplayPath();
 		}
 	}
 
