@@ -19,6 +19,7 @@ import com.fasterxml.classmate.TypeResolver;
 import gov.usgs.cida.wqp.service.ConfigurationService;
 import gov.usgs.cida.wqp.swagger.model.ActivityCountJson;
 import gov.usgs.cida.wqp.swagger.model.ActivityMetricCountJson;
+import gov.usgs.cida.wqp.swagger.model.OrganizationCountJson;
 import gov.usgs.cida.wqp.swagger.model.PostParms;
 import gov.usgs.cida.wqp.swagger.model.ProjectCountJson;
 import gov.usgs.cida.wqp.swagger.model.ResDetectQntLmtCountJson;
@@ -39,6 +40,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 @Profile("swagger")
 public class SwaggerConfig {
+	public static final String ORGANIZATION_TAG_NAME = "Organization";
 	public static final String ACTIVITY_TAG_NAME = "Activity";
 	public static final String ACTIVITY_METRIC_TAG_NAME = "Activity Metric";
 	public static final String RES_DETECT_QNT_LMT_TAG_NAME = "Result Detection Quantitation Limit";
@@ -81,13 +83,15 @@ public class SwaggerConfig {
 			.pathProvider(pathProvider())
 			.useDefaultResponseMessages(false)
 			.additionalModels(typeResolver.resolve(PostParms.class),
+					typeResolver.resolve(OrganizationCountJson.class),
 					typeResolver.resolve(StationCountJson.class),
 					typeResolver.resolve(ActivityCountJson.class),
 					typeResolver.resolve(ActivityMetricCountJson.class),
 					typeResolver.resolve(ResultCountJson.class),
 					typeResolver.resolve(ResDetectQntLmtCountJson.class),
 					typeResolver.resolve(ProjectCountJson.class))
-			.tags(new Tag(ACTIVITY_TAG_NAME, TAG_DESCRIPTION),
+			.tags(new Tag(ORGANIZATION_TAG_NAME, TAG_DESCRIPTION),
+					new Tag(ACTIVITY_TAG_NAME, TAG_DESCRIPTION),
 					new Tag(ACTIVITY_METRIC_TAG_NAME, TAG_DESCRIPTION),
 					new Tag(RES_DETECT_QNT_LMT_TAG_NAME, TAG_DESCRIPTION),
 					new Tag(RESULT_TAG_NAME, TAG_DESCRIPTION),

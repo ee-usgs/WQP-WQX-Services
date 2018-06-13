@@ -32,6 +32,27 @@ public abstract class BaseWqx {
 	public static final String WQX_ORGANIZATION_DESCRIPTION = "OrganizationDescription";
 	public static final String WQX_ORGANIZATION_IDENTIFIER = "OrganizationIdentifier";
 	public static final String WQX_ORGANIZATION_FORMAL_NAME = "OrganizationFormalName";
+	public static final String WQX_ORGANIZATION_DESCRIPTION_TEXT ="OrganizationDescriptionText";
+	public static final String WQX_TRIBAL_CODE ="TribalCode";
+
+	public static final String WQX_ELECTRONIC_ADDRESS ="ElectronicAddress";
+	public static final String WQX_ELECTRONIC_ADDRESS_TEXT ="ElectronicAddressText";
+	public static final String WQX_ELECTRONIC_ADDRESS_TYPE_NAME ="ElectronicAddressTypeName";
+
+	public static final String WQX_TELEPHONIC ="Telephonic";
+	public static final String WQX_TELEPHONE_NUMBER_TEXT ="TelephoneNumberText";
+	public static final String WQX_TELEPHONE_NUMBER_TYPE_NAME ="TelephoneNumberTypeName";
+	public static final String WQX_TELEPHONE_EXTENSION_NUMBER_TEXT ="TelephoneExtensionNumberText";
+
+	public static final String WQX_ORGANIZATION_ADDRESS ="OrganizationAddress";
+	public static final String WQX_ADDRESS_TYPE_NAME ="AddressTypeName";
+	public static final String WQX_ADDRESS_TEXT ="AddressText";
+	public static final String WQX_SUPPLEMENTAL_ADDRESS_TEXT ="SupplementalAddressText";
+	public static final String WQX_LOCALITY_NAME ="LocalityName";
+	public static final String WQX_STATE_CODE ="StateCode";
+	public static final String WQX_POSTAL_CODE ="PostalCode";
+	public static final String WQX_COUNTRY_CODE ="CountryCode";
+	public static final String WQX_COUNTY_CODE ="CountyCode";
 
 	public static final String WQX_MONITORING_LOCATION = "MonitoringLocation";
 	public static final String WQX_MONITORING_LOCATION_IDENTITY = "MonitoringLocationIdentity";
@@ -61,9 +82,6 @@ public abstract class BaseWqx {
 
 	public static final String WQX_VERTICAL_COLLECTION_METHOD = "VerticalCollectionMethodName";
 	public static final String WQX_VERTICAL_DATUM = "VerticalCoordinateReferenceSystemDatumName";
-	public static final String WQX_COUNTRY_CODE = "CountryCode";
-	public static final String WQX_STATE_CODE = "StateCode";
-	public static final String WQX_COUNTY_CODE = "CountyCode";
 
 	public static final String WQX_NAT_AQFR_NAME = "AquiferName";
 	public static final String WQX_AQFR_NAME = "FormationTypeText";
@@ -95,7 +113,7 @@ public abstract class BaseWqx {
 	public static final String WQX_SAMPLE_AQUIFER = "SampleAquifer";
 	public static final String WQX_HYDROLOGIC_CONDITION = "HydrologicCondition";
 	public static final String WQX_HYDROLOGIC_EVENT = "HydrologicEvent";
-	
+
 	public static final String WQX_PROJECT = "Project";
 	public static final String WQX_PROJECT_IDENTIFIER = "ProjectIdentifier";
 	public static final String WQX_PROJECT_NAME = "ProjectName";
@@ -238,17 +256,17 @@ public abstract class BaseWqx {
 	public static final String WQX_PREP_END_DATE = "PreparationEndDate";
 	public static final String WQX_PREP_END_TIME = "PreparationEndTime";
 	public static final String WQX_SUBSTITUTION_DILUTION_FACTOR = "SubstitutionDilutionFactorNumeric";
-	
+
 	public static final String WQX_STATISTICAL_STRATUM_TEXT = "StatisticalStratumText";
-	
+
 	public static final String WQX_LOCATION_CATEGORY_NAME = "LocationCategoryName";
 	public static final String WQX_LOCATION_STATUS_NAME = "LocationStatusName";
-	
+
 	public static final String WQX_REFERENCE_LOCATION_TYPE_CODE = "ReferenceLocationTypeCode";
 	public static final String WQX_REFERENCE_LOCATION_START_DATE = "ReferenceLocationStartDate";
 	public static final String WQX_REFERENCE_LOCATION_END_DATE = "ReferenceLocationEndDate";
 	public static final String WQX_REFERENCE_LOCATION_CITATION = "ReferenceLocationCitation";
-	
+
 	public static final String WQX_PROJECT_MONITORING_LOCATION_WEIGHTING = "ProjectMonitoringLocationWeighting";
 	public static final String WQX_PROJECT_MONITORING_LOCATION_WEIGHTING_FACTOR_MEASURE = "LocationWeightingFactorMeasure";
 	public static final String WQX_PROJECT_MONITORING_LOCATION_WEIGHTING_COMMENT_TEXT = "CommentText";

@@ -8,6 +8,7 @@ public class CountColumn {
 	public static final String KEY_RES_DETECT_QNT_LMT_COUNT = "RES_DETECT_QNT_LMT_COUNT";
 	public static final String KEY_PROJECT_COUNT = "PROJECT_COUNT";
 	public static final String KEY_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT = "PRJ_ML_WEIGHTING_COUNT";
+	public static final String KEY_ORGANIZATION_COUNT = "ORGANIZATION_COUNT";
 
 	private CountColumn() {
 	}

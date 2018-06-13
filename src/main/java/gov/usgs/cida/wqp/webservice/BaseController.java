@@ -483,6 +483,8 @@ public abstract class BaseController {
 					return NameSpace.PROJECT;
 				case PROJECT_MONITORING_LOCATION_WEIGHTING:
 					return NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING;
+				case ORGANIZATION:
+					return NameSpace.ORGANIZATION;
 				default:
 					//Should never get here...
 					return null;
@@ -617,9 +619,13 @@ public abstract class BaseController {
 	public void addResDetectQntLmtHeaders(HttpServletResponse response, List<Map<String, Object>> counts) {
 		addCountHeaders(response, counts, HttpConstants.HEADER_TOTAL_RES_DETECT_QNT_LMT_COUNT, HttpConstants.HEADER_RES_DETECT_QNT_LMT_COUNT, CountColumn.KEY_RES_DETECT_QNT_LMT_COUNT);
 	}
-	
+
 	public void addProjectHeaders(HttpServletResponse response, List<Map<String, Object>> counts) {
 		addCountHeaders(response, counts, HttpConstants.HEADER_TOTAL_PROJECT_COUNT, HttpConstants.HEADER_PROJECT_COUNT, CountColumn.KEY_PROJECT_COUNT);
+	}
+
+	public void addOrganizationHeaders(HttpServletResponse response, List<Map<String, Object>> counts) {
+		addCountHeaders(response, counts, HttpConstants.HEADER_TOTAL_ORGANIZATION_COUNT, HttpConstants.HEADER_ORGANIZATION_COUNT, CountColumn.KEY_ORGANIZATION_COUNT);
 	}
 
 	public void addProjectMonitoringLocationWeightingHeaders(HttpServletResponse response, List<Map<String, Object>> counts) {
