@@ -6,6 +6,7 @@ import java.util.Set;
 
 public enum Profile {
 
+	ORGANIZATION ("organization", "organization"),
 	STATION ("station", "station"),
 	SIMPLE_STATION ("simplestation", "simplestation"),
 	BIOLOGICAL ("biological", "biologicalresult"),
@@ -20,7 +21,7 @@ public enum Profile {
 	private final String name;
 	private final String baseFileName;
 	private static Map<String, Profile> profileMap = new HashMap<>();
-	
+
 	static {
 		for (Profile profile : Profile.values()) {
 			profileMap.put(profile.name, profile);

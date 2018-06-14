@@ -8,12 +8,14 @@ import gov.usgs.cida.wqp.parameter.Parameters;
 
 public enum NameSpace {
 
+	ORGANIZATION ("organization", null),
+
 	STATION ("station", null),
 	SIMPLE_STATION ("simpleStation", null),
 	STATION_KML ("stationKml", null),
-	
+
 	PROJECT ("project", null),
-	
+
 	PROJECT_MONITORING_LOCATION_WEIGHTING ("projectMonitoringLocationWeighting", null),
 
 	ACTIVITY ("activity", Parameters.MIN_ACTIVITIES),
@@ -33,7 +35,7 @@ public enum NameSpace {
 	//This is an artifact of the summary tables and how queries get build for the header counts.
 	private final Parameters adjustParameter;
 	private static Map<String, NameSpace> nameSpaceMap = new HashMap<>();
-	
+
 	static {
 		for (NameSpace nameSpace : NameSpace.values()) {
 			nameSpaceMap.put(nameSpace.name, nameSpace);

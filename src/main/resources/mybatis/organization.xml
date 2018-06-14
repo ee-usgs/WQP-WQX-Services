@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="organization">
+
+    <select id="select" resultType="java.util.LinkedHashMap" fetchSize="500">
+        select prime.data_source,
+               prime.data_source_id,
+               prime.organization_id,
+               prime.organization,
+               prime.organization_name,
+               prime.organization_description,
+               prime.tribal_code,
+               prime.electronic_address,
+               prime.telephonic,
+               prime.address_type_1,
+               prime.address_text_1,
+               prime.supplemental_address_text_1,
+               prime.locality_name_1,
+               prime.postal_code_1,
+               prime.country_code_1,
+               prime.state_code_1,
+               prime.county_code_1,
+               prime.address_type_2,
+               prime.address_text_2,
+               prime.supplemental_address_text_2,
+               prime.locality_name_2,
+               prime.postal_code_2,
+               prime.country_code_2,
+               prime.state_code_2,
+               prime.county_code_2,
+               prime.address_type_3,
+               prime.address_text_3,
+               prime.supplemental_address_text_3,
+               prime.locality_name_3,
+               prime.postal_code_3,
+               prime.country_code_3,
+               prime.state_code_3,
+               prime.county_code_3
+        <include refid="dynamicWhere.organizationBase"/>
+        <if test="sorted == 'yes'">
+            order by prime.data_source_id,
+                     prime.organization
+        </if>
+    </select>
+
+    <select id="count" resultType="java.util.LinkedHashMap">
+        select data_source, count(*) organization_count
+          from (select prime.data_source,
+                       prime.organization_id
+                  <include refid="dynamicWhere.organizationBase"/>)
+             group by rollup(data_source)
+    </select>
+
+</mapper>

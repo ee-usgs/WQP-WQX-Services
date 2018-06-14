@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dynamicWhere">
+
+    <sql id="baseWhereOrganizationClauses">
+        <if test="organization != null">
+            and (<include refid="dynamicWhere.organization" />)
+        </if>
+        <if test="providers != null">
+            and (<include refid="dynamicWhere.providers" />)
+        </if>
+    </sql>
+
+    <sql id="organizationBase">
+         from org_data prime
+
+        <if test="analyticalmethod != null or assemblage != null or characteristicName != null or
+                  characteristicType != null or countrycode != null or countycode != null or
+                  command != null or huc != null or minactivities != null or minresults != null or
+                  pCode != null or project != null or sampleMedia != null or
+                  siteid != null or nldiSites != null or siteType != null or statecode != null or
+                  startDateHi != null or startDateLo != null or subjectTaxonomicName != null or
+                  bBox != null or (within != null and lat != null and long != null)">
+              join (
+
+            <choose>
+                <when test="analyticalmethod == null and assemblage == null and characteristicName == null and
+                            characteristicType == null and pCode == null and project == null and sampleMedia == null and
+                            startDateHi == null and startDateLo == null and subjectTaxonomicName == null">
+                    select prime.data_source_id, prime.organization, sum(prime.activity_count) activity_count, sum(prime.result_count) result_count
+                      from station_sum prime
+                    <where>
+                        <include refid="dynamicWhere.baseWhereStationGeoClauses" />
+                        <include refid="dynamicWhere.baseWhereStationClauses" />
+                    </where>
+                </when>
+
+                <when test="analyticalmethod == null and assemblage == null and characteristicName == null and
+                            characteristicType == null and pCode == null and subjectTaxonomicName == null">
+                    select prime.data_source_id, prime.organization, count(*) activity_count, sum(prime.result_count) result_count
+                      from activity_sum prime
+                    <if test="bBox != null or within != null">
+                           join station_sum secondary
+                             on prime.station_id = secondary.station_id and
+                                prime.data_source_id = secondary.data_source_id
+                    </if>
+                    <where>
+                        <include refid="dynamicWhere.baseWhereStationGeoClauses" />
+                        <include refid="dynamicWhere.baseWhereStationClauses" />
+                        <include refid="dynamicWhere.baseWhereActivityClauses" />
+                    </where>
+                </when>
+
+                <otherwise>
+                    select prime.data_source_id, prime.organization, count(distinct prime.activity_id) activity_count, sum(prime.result_count) result_count
+                      from result_sum prime
+                    <if test="bBox != null or within != null">
+                           join station_sum secondary
+                             on prime.station_id = secondary.station_id and
+                                prime.data_source_id = secondary.data_source_id
+                    </if>
+                    <where>
+                        <include refid="dynamicWhere.baseWhereStationGeoClauses" />
+                        <include refid="dynamicWhere.baseWhereStationClauses" />
+                        <include refid="dynamicWhere.baseWhereResultClauses" />
+                    </where>
+                </otherwise>
+
+            </choose>
+                     group by prime.data_source_id, prime.organization
+                   ) filter
+                on prime.organization = filter.organization and
+                   prime.data_source_id = filter.data_source_id
+        </if>
+
+        <where>
+            <include refid="dynamicWhere.baseWhereOrganizationClauses" />
+            <if test="minactivities != null">
+                and (filter.activity_count >= #{minactivities})
+            </if>
+            <if test="minresults != null">
+                and (filter.result_count >= #{minresults})
+            </if>
+        </where>
+    </sql>
+
+</mapper>

@@ -5,6 +5,7 @@ import org.springframework.http.MediaType;
 public class HttpConstants {
 	public static final String DEFAULT_ENCODING = "UTF-8";
 
+	public static final String ENDPOINT_ORGANIZATION = "Organization";
 	public static final String ENDPOINT_ACTIVITY = "Activity";
 	public static final String ENDPOINT_ACTIVITY_METRIC = "ActivityMetric";
 	public static final String ENDPOINT_RESULT = "Result";
@@ -24,6 +25,7 @@ public class HttpConstants {
 	public static final String RES_DETECT_QNT_LMT_SEARCH_ENPOINT = "/" + ENDPOINT_RES_DETECT_QNT_LMT + ENPOINT_SEARCH;
 	public static final String PROJECT_SEARCH_ENDPOINT = '/' + ENDPOINT_PROJECT + ENPOINT_SEARCH;
 	public static final String PROJECT_MONITORING_LOCATION_WEIGHTING_SEARCH_ENDPOINT = '/' + ENDPOINT_PROJECT_MONITORING_LOCATION_WEIGHTING + ENPOINT_SEARCH;
+	public static final String ORGANIZATION_SEARCH_ENDPOINT = "/" + ENDPOINT_ORGANIZATION + ENPOINT_SEARCH;
 
 	public static final String PROJECT_MONITORING_LOCATION_WEIGHTING_REST_ENDPOINT = "/organizations/{organization}/projects/{projectIdentifier}/projectMonitoringLocationWeightings";
 
@@ -48,6 +50,9 @@ public class HttpConstants {
 	public static final String HEADER_SITE = "Site";
 	public static final String HEADER_TOTAL = "Total";
 
+	public static final String HEADER_ORGANIZATION_COUNT = ENDPOINT_ORGANIZATION + HEADER_DELIMITER + HEADER_COUNT;
+	public static final String HEADER_TOTAL_ORGANIZATION_COUNT = HEADER_TOTAL + HEADER_DELIMITER + HEADER_ORGANIZATION_COUNT;
+
 	public static final String HEADER_SITE_COUNT = HEADER_SITE + HEADER_DELIMITER + HEADER_COUNT;
 	public static final String HEADER_TOTAL_SITE_COUNT = HEADER_TOTAL + HEADER_DELIMITER + HEADER_SITE_COUNT;
 
@@ -62,7 +67,7 @@ public class HttpConstants {
 
 	public static final String HEADER_RES_DETECT_QNT_LMT_COUNT = ENDPOINT_RES_DETECT_QNT_LMT + HEADER_DELIMITER + HEADER_COUNT;
 	public static final String HEADER_TOTAL_RES_DETECT_QNT_LMT_COUNT = HEADER_TOTAL + HEADER_DELIMITER + HEADER_RES_DETECT_QNT_LMT_COUNT;
-	
+
 	public static final String HEADER_PROJECT_COUNT = ENDPOINT_PROJECT + HEADER_DELIMITER + HEADER_COUNT;
 	public static final String HEADER_TOTAL_PROJECT_COUNT = HEADER_TOTAL + HEADER_DELIMITER + HEADER_PROJECT_COUNT;
 

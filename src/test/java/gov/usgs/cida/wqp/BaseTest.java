@@ -105,7 +105,7 @@ public abstract class BaseTest {
 	public static String STEWARDS_RES_DETECT_QNT_LMT_COUNT = "9";
 	public static String STORET_RES_DETECT_QNT_LMT_COUNT = "57";
 	public static String BIODATA_RES_DETECT_QNT_LMT_COUNT = "1";
-	
+
 	public static String TOTAL_PROJECT_COUNT = "17";
 	public static String NWIS_PROJECT_COUNT = "4";
 	public static String STEWARDS_PROJECT_COUNT = "2";
@@ -117,6 +117,12 @@ public abstract class BaseTest {
 	public static String STEWARDS_PRJ_ML_WEIGHTING_COUNT = "1";
 	public static String STORET_PRJ_ML_WEIGHTING_COUNT = "3";
 	public static String BIODATA_PRJ_ML_WEIGHTING_COUNT = "1";
+
+	public static String TOTAL_ORGANIZATION_COUNT = "8";
+	public static String NWIS_ORGANIZATION_COUNT = "1";
+	public static String STEWARDS_ORGANIZATION_COUNT = "1";
+	public static String STORET_ORGANIZATION_COUNT = "5";
+	public static String BIODATA_ORGANIZATION_COUNT = "1";
 
 	public static final String FILTERED_STORET_SITE_COUNT = "1";
 	public static final String FILTERED_TOTAL_SITE_COUNT = "1";
@@ -132,6 +138,8 @@ public abstract class BaseTest {
 	public static final String FILTERED_STORET_PROJECT_COUNT = "1";
 	public static final String FILTERED_TOTAL_PRJ_ML_WEIGHTING_COUNT = "1";
 	public static final String FILTERED_STORET_PRJ_ML_WEIGHTING_COUNT = "1";
+	public static final String FILTERED_TOTAL_ORGANIZATION_COUNT = "1";
+	public static final String FILTERED_STORET_ORGANIZATION_COUNT = "1";
 
 	public static final BigDecimal STEWARDS_ID = BigDecimal.ONE;
 	public static final BigDecimal NWIS_ID = BigDecimal.valueOf(2);

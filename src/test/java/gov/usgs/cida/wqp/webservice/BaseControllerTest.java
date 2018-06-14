@@ -2,6 +2,7 @@ package gov.usgs.cida.wqp.webservice;
 
 import static gov.usgs.cida.wqp.swagger.model.ActivityCountJson.HEADER_NWIS_ACTIVITY_COUNT;
 import static gov.usgs.cida.wqp.swagger.model.ActivityMetricCountJson.HEADER_NWIS_ACTIVITY_METRIC_COUNT;
+import static gov.usgs.cida.wqp.swagger.model.OrganizationCountJson.HEADER_NWIS_ORGANIZATION_COUNT;
 import static gov.usgs.cida.wqp.swagger.model.ResDetectQntLmtCountJson.HEADER_NWIS_RES_DETECT_QNT_LMT_COUNT;
 import static gov.usgs.cida.wqp.swagger.model.ResultCountJson.HEADER_NWIS_RESULT_COUNT;
 import static gov.usgs.cida.wqp.swagger.model.StationCountJson.HEADER_NWIS_SITE_COUNT;
@@ -98,6 +99,8 @@ public class BaseControllerTest {
 	public static final String TEST_TOTAL_RES_DETECT_QNT_LMT_COUNT = "4321";
 	public static final String TEST_TOTAL_PROJECT_COUNT = "1061";
 	public static final String TEST_TOTAL_PROJECT_ML_WEIGHTING_COUNT = "4";
+	public static final String TEST_NWIS_ORGANIZATION_COUNT = "1";
+	public static final String TEST_TOTAL_ORGANIZATION_COUNT = "1";
 
 	@Mock
 	private IStreamingDao streamingDao;
@@ -900,6 +903,12 @@ public class BaseControllerTest {
 
 		assertEquals(NameSpace.RES_DETECT_QNT_LMT, testController.determineNamespaceFromProfile(Profile.RES_DETECT_QNT_LMT));
 
+		assertEquals(NameSpace.PROJECT, testController.determineNamespaceFromProfile(Profile.PROJECT));
+
+		assertEquals(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, testController.determineNamespaceFromProfile(Profile.PROJECT_MONITORING_LOCATION_WEIGHTING));
+
+		assertEquals(NameSpace.ORGANIZATION, testController.determineNamespaceFromProfile(Profile.ORGANIZATION));
+
 		assertNull(testController.determineNamespaceFromProfile(null));
 	}
 
@@ -1099,6 +1108,8 @@ public class BaseControllerTest {
 		assertNull(response.getHeaderValue(HttpConstants.HEADER_TOTAL_RESULT_COUNT));
 		assertNull(response.getHeaderValue(HEADER_NWIS_RES_DETECT_QNT_LMT_COUNT));
 		assertNull(response.getHeaderValue(HttpConstants.HEADER_TOTAL_RES_DETECT_QNT_LMT_COUNT));
+		assertNull(response.getHeaderValue(HEADER_NWIS_ORGANIZATION_COUNT));
+		assertNull(response.getHeaderValue(HttpConstants.HEADER_TOTAL_ORGANIZATION_COUNT));
 	}
 
 	@Test
@@ -1115,6 +1126,8 @@ public class BaseControllerTest {
 		assertNull(response.getHeaderValue(HttpConstants.HEADER_TOTAL_RESULT_COUNT));
 		assertNull(response.getHeaderValue(HEADER_NWIS_RES_DETECT_QNT_LMT_COUNT));
 		assertNull(response.getHeaderValue(HttpConstants.HEADER_TOTAL_RES_DETECT_QNT_LMT_COUNT));
+		assertNull(response.getHeaderValue(HEADER_NWIS_ORGANIZATION_COUNT));
+		assertNull(response.getHeaderValue(HttpConstants.HEADER_TOTAL_ORGANIZATION_COUNT));
 	}
 
 	@Test
@@ -1131,6 +1144,8 @@ public class BaseControllerTest {
 		assertNull(response.getHeaderValue(HttpConstants.HEADER_TOTAL_RESULT_COUNT));
 		assertNull(response.getHeaderValue(HEADER_NWIS_RES_DETECT_QNT_LMT_COUNT));
 		assertNull(response.getHeaderValue(HttpConstants.HEADER_TOTAL_RES_DETECT_QNT_LMT_COUNT));
+		assertNull(response.getHeaderValue(HEADER_NWIS_ORGANIZATION_COUNT));
+		assertNull(response.getHeaderValue(HttpConstants.HEADER_TOTAL_ORGANIZATION_COUNT));
 	}
 
 	@Test
@@ -1147,6 +1162,8 @@ public class BaseControllerTest {
 		assertEquals(TEST_TOTAL_RESULT_COUNT, response.getHeaderValue(HttpConstants.HEADER_TOTAL_RESULT_COUNT));
 		assertNull(response.getHeaderValue(HEADER_NWIS_RES_DETECT_QNT_LMT_COUNT));
 		assertNull(response.getHeaderValue(HttpConstants.HEADER_TOTAL_RES_DETECT_QNT_LMT_COUNT));
+		assertNull(response.getHeaderValue(HEADER_NWIS_ORGANIZATION_COUNT));
+		assertNull(response.getHeaderValue(HttpConstants.HEADER_TOTAL_ORGANIZATION_COUNT));
 	}
 
 	@Test
@@ -1163,6 +1180,26 @@ public class BaseControllerTest {
 		assertNull(response.getHeaderValue(HttpConstants.HEADER_TOTAL_RESULT_COUNT));
 		assertEquals(TEST_NWIS_RES_DETECT_QNT_LMT_COUNT, response.getHeaderValue(HEADER_NWIS_RES_DETECT_QNT_LMT_COUNT));
 		assertEquals(TEST_TOTAL_RES_DETECT_QNT_LMT_COUNT, response.getHeaderValue(HttpConstants.HEADER_TOTAL_RES_DETECT_QNT_LMT_COUNT));
+		assertNull(response.getHeaderValue(HEADER_NWIS_ORGANIZATION_COUNT));
+		assertNull(response.getHeaderValue(HttpConstants.HEADER_TOTAL_ORGANIZATION_COUNT));
+	}
+
+	@Test
+	public void addOrganizationHeadersTest() {
+		MockHttpServletResponse response = new MockHttpServletResponse();
+		testController.addOrganizationHeaders(response, getRawCounts());
+		assertNull(response.getHeaderValue(HEADER_NWIS_SITE_COUNT));
+		assertNull(response.getHeaderValue(HttpConstants.HEADER_TOTAL_SITE_COUNT));
+		assertNull(response.getHeaderValue(HEADER_NWIS_ACTIVITY_COUNT));
+		assertNull(response.getHeaderValue(HttpConstants.HEADER_TOTAL_ACTIVITY_COUNT));
+		assertNull(response.getHeaderValue(HEADER_NWIS_ACTIVITY_METRIC_COUNT));
+		assertNull(response.getHeaderValue(HttpConstants.HEADER_TOTAL_ACTIVITY_METRIC_COUNT));
+		assertNull(response.getHeaderValue(HEADER_NWIS_RESULT_COUNT));
+		assertNull(response.getHeaderValue(HttpConstants.HEADER_TOTAL_RESULT_COUNT));
+		assertNull(response.getHeaderValue(HEADER_NWIS_RES_DETECT_QNT_LMT_COUNT));
+		assertNull(response.getHeaderValue(HttpConstants.HEADER_TOTAL_RES_DETECT_QNT_LMT_COUNT));
+		assertEquals(TEST_NWIS_ORGANIZATION_COUNT, response.getHeaderValue(HEADER_NWIS_ORGANIZATION_COUNT));
+		assertEquals(TEST_TOTAL_ORGANIZATION_COUNT, response.getHeaderValue(HttpConstants.HEADER_TOTAL_ORGANIZATION_COUNT));
 	}
 
 	public static List<Map<String, Object>> getRawCounts() {
@@ -1176,6 +1213,7 @@ public class BaseControllerTest {
 		nwisCountRow.put(CountColumn.KEY_RES_DETECT_QNT_LMT_COUNT, TEST_NWIS_RES_DETECT_QNT_LMT_COUNT);
 		nwisCountRow.put(CountColumn.KEY_PROJECT_COUNT, TEST_NWIS_PROJECT_COUNT);
 		nwisCountRow.put(CountColumn.KEY_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT, TEST_NWIS_PROJECT_ML_WEIGHTING_COUNT);
+		nwisCountRow.put(CountColumn.KEY_ORGANIZATION_COUNT, TEST_NWIS_ORGANIZATION_COUNT);
 		rawCounts.add(nwisCountRow);
 
 		Map<String, Object> totalCountRow = new HashMap<>();
@@ -1187,6 +1225,7 @@ public class BaseControllerTest {
 		totalCountRow.put(CountColumn.KEY_RES_DETECT_QNT_LMT_COUNT, TEST_TOTAL_RES_DETECT_QNT_LMT_COUNT);
 		totalCountRow.put(CountColumn.KEY_PROJECT_COUNT, TEST_TOTAL_PROJECT_COUNT);
 		totalCountRow.put(CountColumn.KEY_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT, TEST_TOTAL_PROJECT_ML_WEIGHTING_COUNT);
+		totalCountRow.put(CountColumn.KEY_ORGANIZATION_COUNT, TEST_TOTAL_ORGANIZATION_COUNT);
 		rawCounts.add(totalCountRow);
 
 		return rawCounts;
