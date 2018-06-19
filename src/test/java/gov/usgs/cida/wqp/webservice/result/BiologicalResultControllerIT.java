@@ -45,7 +45,7 @@ public class BiologicalResultControllerIT extends BaseControllerIntegrationTest 
 
 	protected static final Profile PROFILE = Profile.BIOLOGICAL;
 	protected static final boolean POSTABLE = true;
-	protected static final String ENDPOINT = HttpConstants.RESULT_SEARCH_ENPOINT + "?" 
+	protected static final String ENDPOINT = HttpConstants.RESULT_SEARCH_ENDPOINT + "?"
 			+ Parameters.DATA_PROFILE + "=" + Profile.BIOLOGICAL + "&mimeType=";
 
 	@Test
@@ -99,7 +99,7 @@ public class BiologicalResultControllerIT extends BaseControllerIntegrationTest 
 	}
 
 	public void postGetCountTest() throws Exception {
-		String urlPrefix = HttpConstants.RESULT_SEARCH_ENPOINT + "/count?mimeType=";
+		String urlPrefix = HttpConstants.RESULT_SEARCH_ENDPOINT + "/count?mimeType=";
 		String compareObject = "{\"" + HttpConstants.HEADER_TOTAL_SITE_COUNT + "\":\"" + FILTERED_TOTAL_SITE_COUNT
 				+ "\",\"" + HttpConstants.HEADER_TOTAL_ACTIVITY_COUNT + "\":\"" + FILTERED_TOTAL_ACTIVITY_COUNT
 				+ "\",\"" + HttpConstants.HEADER_TOTAL_RESULT_COUNT + "\":\"" + FILTERED_TOTAL_RESULT_COUNT

@@ -4,6 +4,7 @@ package gov.usgs.cida.wqp.swagger;
 import java.util.ArrayList;
 import java.util.List;
 
+import gov.usgs.cida.wqp.swagger.annotation.ProfileParameterResult;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -13,7 +14,7 @@ import com.google.common.base.Optional;
 
 import gov.usgs.cida.wqp.swagger.annotation.FullParameterList;
 import gov.usgs.cida.wqp.swagger.annotation.NoQueryParametersList;
-import gov.usgs.cida.wqp.swagger.annotation.ProfileParameter;
+import gov.usgs.cida.wqp.swagger.annotation.ProfileParameterActivity;
 import springfox.documentation.service.Parameter;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.OperationBuilderPlugin;
@@ -33,7 +34,8 @@ public class SwaggerParameterBuilder implements OperationBuilderPlugin {
 		List<Parameter> parameters = new ArrayList<>();
 		Optional<NoQueryParametersList> noQueryParametersList = context.findAnnotation(NoQueryParametersList.class);
 		Optional<FullParameterList> fullParameterList = context.findAnnotation(FullParameterList.class);
-		Optional<ProfileParameter> profileParameter = context.findAnnotation(ProfileParameter.class);
+		Optional<ProfileParameterActivity> profileParameterActivity = context.findAnnotation(ProfileParameterActivity.class);
+		Optional<ProfileParameterResult> profileParameterResult = context.findAnnotation(ProfileParameterResult.class);
 		Optional<PostMapping> postMapping = context.findAnnotation(PostMapping.class);
 
 		if (!noQueryParametersList.isPresent()) {
@@ -70,7 +72,11 @@ public class SwaggerParameterBuilder implements OperationBuilderPlugin {
 			parameters.add(SwaggerParameters.within());
 		}
 
-		if (profileParameter.isPresent()) {
+		if (profileParameterActivity.isPresent()) {
+			parameters.add(SwaggerParameters.dataProfile());
+		}
+
+		if (profileParameterResult.isPresent()) {
 			parameters.add(SwaggerParameters.dataProfile());
 		}
 

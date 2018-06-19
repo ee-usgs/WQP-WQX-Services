@@ -90,6 +90,10 @@ public class ActivityDelimited extends BaseDelimited {
 	public static final String VALUE_THERMAL_PRESERVATIVE_NAME = WQX_THERMAL_PRESERVATIVE;
 	public static final String VALUE_ACT_SAM_TRANSPORT_STORAGE_DESC = WQX_TRANSPORT_STORAGE;
 	public static final String VALUE_ACTIVITY_METRIC_URL = WQX_ACTIVITY_METRIC_URL;
+	public static final String VALUE_ACTIVITY_OBJECT_NAME = WQX_FILE_NAME;
+	public static final String VALUE_ACTIVITY_OBJECT_TYPE = WQX_FILE_TYPE;
+	public static final String VALUE_ACTIVITY_FILE_URL = WQX_ACTIVITY_FILE_URL;
+	public static final String VALUE_RESULT_COUNT = WQX_RESULT_COUNT;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -181,6 +185,10 @@ public class ActivityDelimited extends BaseDelimited {
 		MAPPINGS.put(ACT_SAM_TRANSPORT_STORAGE_DESC, VALUE_ACT_SAM_TRANSPORT_STORAGE_DESC);
 
 		MAPPINGS.put(ACTIVITY_METRIC_URL, VALUE_ACTIVITY_METRIC_URL);
+		MAPPINGS.put(ACTIVITY_OBJECT_NAME, VALUE_ACTIVITY_OBJECT_NAME);
+		MAPPINGS.put(ACTIVITY_OBJECT_TYPE, VALUE_ACTIVITY_OBJECT_TYPE);
+		MAPPINGS.put(ACTIVITY_FILE_URL, VALUE_ACTIVITY_FILE_URL);
+		MAPPINGS.put(RESULT_COUNT, VALUE_RESULT_COUNT);
 		MAPPINGS.put(DATA_SOURCE, VALUE_DATA_SOURCE);
 	}
 

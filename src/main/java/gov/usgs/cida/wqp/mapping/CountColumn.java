@@ -2,6 +2,7 @@ package gov.usgs.cida.wqp.mapping;
 
 public class CountColumn {
 	public static final String KEY_ACTIVITY_COUNT = "ACTIVITY_COUNT";
+	public static final String KEY_ACTIVITY_ALL_COUNT = "ACTIVITY_ALL_COUNT";
 	public static final String KEY_ACTIVITY_METRIC_COUNT = "ACTIVITY_METRIC_COUNT";
 	public static final String KEY_STATION_COUNT = "STATION_COUNT";
 	public static final String KEY_RESULT_COUNT = "RESULT_COUNT";

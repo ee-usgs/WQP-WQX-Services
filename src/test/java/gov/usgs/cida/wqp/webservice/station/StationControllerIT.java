@@ -36,7 +36,7 @@ public class StationControllerIT extends BaseControllerIntegrationTest {
 
 	protected static final Profile PROFILE = Profile.STATION;
 	protected static final boolean POSTABLE = true;
-	protected static final String ENDPOINT = HttpConstants.STATION_SEARCH_ENPOINT + "?mimeType=";
+	protected static final String ENDPOINT = HttpConstants.STATION_SEARCH_ENDPOINT + "?mimeType=";
 
 	@Test
 	public void testHarness() throws Exception {
@@ -128,7 +128,7 @@ public class StationControllerIT extends BaseControllerIntegrationTest {
 
 	@Test
 	public void postGetCountTest() throws Exception {
-		String urlPrefix = HttpConstants.STATION_SEARCH_ENPOINT + "/count?mimeType=";
+		String urlPrefix = HttpConstants.STATION_SEARCH_ENDPOINT + "/count?mimeType=";
 		String compareObject = "{\"" + HttpConstants.HEADER_TOTAL_SITE_COUNT + "\":\"" + FILTERED_TOTAL_SITE_COUNT
 				+ "\",\"" + HEADER_STORET_SITE_COUNT + "\":\"" + FILTERED_STORET_SITE_COUNT
 				+ "\"}";

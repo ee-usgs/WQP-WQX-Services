@@ -31,7 +31,7 @@ public class ActivityMetricRestfullIT extends BaseControllerIntegrationTest {
 
 	protected static final Profile PROFILE = Profile.ACTIVITY_METRIC;
 	protected static final boolean POSTABLE = false;
-	protected static final String ENDPOINT = HttpConstants.ACTIVITY_METRIC_REST_ENPOINT.replace("{activity}", getActivity()) + "?mimeType=";
+	protected static final String ENDPOINT = HttpConstants.ACTIVITY_METRIC_REST_ENDPOINT.replace("{activity}", getActivity()) + "?mimeType=";
 
 	@Test
 	public void testHarness() throws Exception {

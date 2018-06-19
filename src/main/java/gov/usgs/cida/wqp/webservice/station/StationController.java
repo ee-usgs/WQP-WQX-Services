@@ -40,7 +40,7 @@ import springfox.documentation.annotations.ApiIgnore;
 
 @Api(tags={SwaggerConfig.STATION_TAG_NAME})
 @RestController
-@RequestMapping(value=HttpConstants.STATION_SEARCH_ENPOINT,
+@RequestMapping(value=HttpConstants.STATION_SEARCH_ENDPOINT,
 	produces={HttpConstants.MIME_TYPE_XLSX,
 			HttpConstants.MIME_TYPE_CSV,
 			HttpConstants.MIME_TYPE_TSV,

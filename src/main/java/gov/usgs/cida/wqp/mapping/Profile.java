@@ -12,6 +12,7 @@ public enum Profile {
 	BIOLOGICAL ("biological", "biologicalresult"),
 	PC_RESULT ("pcresult", "result"),
 	ACTIVITY ("activity", "activity"),
+	ACTIVITY_ALL("activityAll", "activityall"),
 	ACTIVITY_METRIC ("activityMetric", "activitymetric"),
 	RES_DETECT_QNT_LMT ("resDetectQntLmt", "resdetectqntlmt"),
 	NARROW_RESULT ("narrowResult", "narrowresult"),

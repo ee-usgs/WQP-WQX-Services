@@ -47,7 +47,7 @@ public class ResDetectQntLmtControllerIT extends BaseControllerIntegrationTest {
 
 	protected static final Profile PROFILE = Profile.RES_DETECT_QNT_LMT;
 	protected static final boolean POSTABLE = true;
-	protected static final String ENDPOINT = HttpConstants.RES_DETECT_QNT_LMT_SEARCH_ENPOINT + "?mimeType=";
+	protected static final String ENDPOINT = HttpConstants.RES_DETECT_QNT_LMT_SEARCH_ENDPOINT + "?mimeType=";
 
 	@Test
 	public void testHarness() throws Exception {
@@ -100,7 +100,7 @@ public class ResDetectQntLmtControllerIT extends BaseControllerIntegrationTest {
 	}
 
 	public void postGetCountTest() throws Exception {
-		String urlPrefix = HttpConstants.RES_DETECT_QNT_LMT_SEARCH_ENPOINT + "/count?mimeType=";
+		String urlPrefix = HttpConstants.RES_DETECT_QNT_LMT_SEARCH_ENDPOINT + "/count?mimeType=";
 		String compareObject = "{\"" + HttpConstants.HEADER_TOTAL_SITE_COUNT + "\":\"" + FILTERED_TOTAL_SITE_COUNT
 				+ "\",\"" + HttpConstants.HEADER_TOTAL_ACTIVITY_COUNT + "\":\"" + FILTERED_TOTAL_ACTIVITY_COUNT
 				+ "\",\"" + HttpConstants.HEADER_TOTAL_RESULT_COUNT + "\":\"" + FILTERED_TOTAL_RESULT_COUNT

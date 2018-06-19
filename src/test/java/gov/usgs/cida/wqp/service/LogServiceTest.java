@@ -112,14 +112,14 @@ public class LogServiceTest {
 		request.addHeader("referer", "ui");
 		request.addHeader("user-agent", "myBrowserType");
 		request.setMethod("GET");
-		request.setRequestURI(HttpConstants.RESULT_SEARCH_ENPOINT);
+		request.setRequestURI(HttpConstants.RESULT_SEARCH_ENDPOINT);
 		filter.setActivity("act");
 		assertEquals(FIFTY_FIVE, service.logRequest(request, response, filter));
 		assertEquals(7, valueCapture.getValue().size());
 		assertNull(valueCapture.getValue().get(LogDao.ID));
 		assertEquals("WQP Site", valueCapture.getValue().get(LogDao.ORIGIN));
 		assertEquals("GET", valueCapture.getValue().get(LogDao.CALL_TYPE));
-		assertEquals(HttpConstants.RESULT_SEARCH_ENPOINT, valueCapture.getValue().get(LogDao.END_POINT));
+		assertEquals(HttpConstants.RESULT_SEARCH_ENDPOINT, valueCapture.getValue().get(LogDao.END_POINT));
 		assertEquals("All filter data is now in the POST_DATA", valueCapture.getValue().get(LogDao.QUERY_STRING));
 		assertEquals("{\"activity\":\"act\"}", valueCapture.getValue().get(LogDao.POST_DATA));
 		assertEquals("myBrowserType", valueCapture.getValue().get(LogDao.USER_AGENT));
@@ -130,7 +130,7 @@ public class LogServiceTest {
 		assertNull(valueCapture.getValue().get(LogDao.ID));
 		assertEquals("WQP Site", valueCapture.getValue().get(LogDao.ORIGIN));
 		assertEquals("GET", valueCapture.getValue().get(LogDao.CALL_TYPE));
-		assertEquals(HttpConstants.RESULT_SEARCH_ENPOINT, valueCapture.getValue().get(LogDao.END_POINT));
+		assertEquals(HttpConstants.RESULT_SEARCH_ENDPOINT, valueCapture.getValue().get(LogDao.END_POINT));
 		assertEquals("All filter data is now in the POST_DATA", valueCapture.getValue().get(LogDao.QUERY_STRING));
 		assertEquals("{}", valueCapture.getValue().get(LogDao.POST_DATA));
 		assertEquals("myBrowserType", valueCapture.getValue().get(LogDao.USER_AGENT));

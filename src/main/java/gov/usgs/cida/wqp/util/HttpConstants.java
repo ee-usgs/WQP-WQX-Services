@@ -13,25 +13,25 @@ public class HttpConstants {
 	public static final String ENDPOINT_PROJECT = "Project";
 	public static final String ENDPOINT_PROJECT_MONITORING_LOCATION_WEIGHTING = "ProjectMonitoringLocationWeighting";
 	public static final String ENDPOINT_SIMPLE_STATION = "simplestation";
-	public static final String ENPOINT_SEARCH = "/search";
+	public static final String ENDPOINT_SEARCH = "/search";
 	public static final String ENDPOINT_RES_DETECT_QNT_LMT = "ResultDetectionQuantitationLimit";
 	public static final String ENDPOINT_FILE = "/files";
 
-	public static final String ACTIVITY_SEARCH_ENPOINT = "/" + ENDPOINT_ACTIVITY + ENPOINT_SEARCH;
-	public static final String ACTIVITY_METRIC_SEARCH_ENPOINT = "/" + ENDPOINT_ACTIVITY_METRIC + ENPOINT_SEARCH;
-	public static final String RESULT_SEARCH_ENPOINT = "/" + ENDPOINT_RESULT + ENPOINT_SEARCH;
-	public static final String STATION_SEARCH_ENPOINT = "/" + ENDPOINT_STATION + ENPOINT_SEARCH;
-	public static final String SIMPLE_STATION_ENDPOINT = "/" + ENDPOINT_SIMPLE_STATION + ENPOINT_SEARCH;
-	public static final String RES_DETECT_QNT_LMT_SEARCH_ENPOINT = "/" + ENDPOINT_RES_DETECT_QNT_LMT + ENPOINT_SEARCH;
-	public static final String PROJECT_SEARCH_ENDPOINT = '/' + ENDPOINT_PROJECT + ENPOINT_SEARCH;
-	public static final String PROJECT_MONITORING_LOCATION_WEIGHTING_SEARCH_ENDPOINT = '/' + ENDPOINT_PROJECT_MONITORING_LOCATION_WEIGHTING + ENPOINT_SEARCH;
-	public static final String ORGANIZATION_SEARCH_ENDPOINT = "/" + ENDPOINT_ORGANIZATION + ENPOINT_SEARCH;
+	public static final String ACTIVITY_SEARCH_ENDPOINT = "/" + ENDPOINT_ACTIVITY + ENDPOINT_SEARCH;
+	public static final String ACTIVITY_METRIC_SEARCH_ENDPOINT = "/" + ENDPOINT_ACTIVITY_METRIC + ENDPOINT_SEARCH;
+	public static final String RESULT_SEARCH_ENDPOINT = "/" + ENDPOINT_RESULT + ENDPOINT_SEARCH;
+	public static final String STATION_SEARCH_ENDPOINT = "/" + ENDPOINT_STATION + ENDPOINT_SEARCH;
+	public static final String SIMPLE_STATION_ENDPOINT = "/" + ENDPOINT_SIMPLE_STATION + ENDPOINT_SEARCH;
+	public static final String RES_DETECT_QNT_LMT_SEARCH_ENDPOINT = "/" + ENDPOINT_RES_DETECT_QNT_LMT + ENDPOINT_SEARCH;
+	public static final String PROJECT_SEARCH_ENDPOINT = '/' + ENDPOINT_PROJECT + ENDPOINT_SEARCH;
+	public static final String PROJECT_MONITORING_LOCATION_WEIGHTING_SEARCH_ENDPOINT = '/' + ENDPOINT_PROJECT_MONITORING_LOCATION_WEIGHTING + ENDPOINT_SEARCH;
+	public static final String ORGANIZATION_SEARCH_ENDPOINT = "/" + ENDPOINT_ORGANIZATION + ENDPOINT_SEARCH;
 
 	public static final String PROJECT_MONITORING_LOCATION_WEIGHTING_REST_ENDPOINT = "/organizations/{organization}/projects/{projectIdentifier}/projectMonitoringLocationWeightings";
 
 	public static final String ACTIVITY_REST_ENDPOINT = "/activities/{activity}";
-	public static final String ACTIVITY_METRIC_REST_ENPOINT = ACTIVITY_REST_ENDPOINT + "/activitymetrics";
-	public static final String RES_DETECT_QNT_LMT_REST_ENPOINT = ACTIVITY_REST_ENDPOINT + "/results/{result}/resdetectqntlmts";
+	public static final String ACTIVITY_METRIC_REST_ENDPOINT = ACTIVITY_REST_ENDPOINT + "/activitymetrics";
+	public static final String RES_DETECT_QNT_LMT_REST_ENDPOINT = ACTIVITY_REST_ENDPOINT + "/results/{result}/resdetectqntlmts";
 
 	public static final String ORGANIZATION_REST_ENDPOINT = "/organizations/{organization}";
 	public static final String MONITORING_LOCATION_FILE_REST_ENDPOINT = ORGANIZATION_REST_ENDPOINT + "/monitoringlocations/{monitoringLocation}" + ENDPOINT_FILE;
