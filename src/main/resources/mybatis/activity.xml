@@ -23,11 +23,11 @@
         select <include refid="base.baseColumns"/>,
                <include refid="activity.baseColumns"/>,
                   <if test="dataProfile == 'activityAll'">
-                      'activityObjectName' activity_object_name,
-                      'activityObjectType' activity_object_type,
-                      'activityFileUrl' activity_file_url,
-                      1 result_count
-                  </if>,
+                      activity_object_name,
+                      activity_object_type,
+                      #{siteUrlBase,jdbcType=VARCHAR} || '/' || activity_file_url activity_file_url,
+                      result_count,
+                  </if>
                #{siteUrlBase,jdbcType=VARCHAR} || '/activities/' || pkg_dynamic_list.url_escape(prime.activity, 'true') || '/activitymetrics' activity_metric_url
         <include refid="dynamicWhere.activityBase"/>
         <if test="sorted == 'yes'">

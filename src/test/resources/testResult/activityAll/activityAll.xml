@@ -120,11 +120,11 @@
 				</SamplePreparation>
 			</SampleDescription>
 			<ActivityAttachedBinaryObject>
-				<BinaryObjectFileName>activityObjectName</BinaryObjectFileName>
-				<BinaryObjectFileTypeCode>activityObjectType</BinaryObjectFileTypeCode>
-				<ActivityFileUrl>activityFileUrl</ActivityFileUrl>
+				<BinaryObjectFileName>actObjectName</BinaryObjectFileName>
+				<BinaryObjectFileTypeCode>actObjectType</BinaryObjectFileTypeCode>
+				<ActivityFileUrl>https://www.waterqualitydata.us/actFileUrl</ActivityFileUrl>
 			</ActivityAttachedBinaryObject>
-			<ResultCount>1</ResultCount>
+			<ResultCount>123</ResultCount>
 			<ActivityMetricURL>https://www.waterqualitydata.us/activities/activityStewards/activitymetrics</ActivityMetricURL>
 		</Activity>
 	</Organization>
@@ -248,11 +248,11 @@
 				</SamplePreparation>
 			</SampleDescription>
 			<ActivityAttachedBinaryObject>
-				<BinaryObjectFileName>activityObjectName</BinaryObjectFileName>
-				<BinaryObjectFileTypeCode>activityObjectType</BinaryObjectFileTypeCode>
-				<ActivityFileUrl>activityFileUrl</ActivityFileUrl>
+				<BinaryObjectFileName>actObjectName</BinaryObjectFileName>
+				<BinaryObjectFileTypeCode>actObjectType</BinaryObjectFileTypeCode>
+				<ActivityFileUrl>https://www.waterqualitydata.us/actFileUrl</ActivityFileUrl>
 			</ActivityAttachedBinaryObject>
-			<ResultCount>1</ResultCount>
+			<ResultCount>123</ResultCount>
 			<ActivityMetricURL>https://www.waterqualitydata.us/activities/activityNwis/activitymetrics</ActivityMetricURL>
 		</Activity>
 	</Organization>
@@ -295,11 +295,11 @@
 				<SampleCollectionEquipmentName>Bucket</SampleCollectionEquipmentName>
 			</SampleDescription>
 			<ActivityAttachedBinaryObject>
-				<BinaryObjectFileName>activityObjectName</BinaryObjectFileName>
-				<BinaryObjectFileTypeCode>activityObjectType</BinaryObjectFileTypeCode>
-				<ActivityFileUrl>activityFileUrl</ActivityFileUrl>
+				<BinaryObjectFileName>actObjectName</BinaryObjectFileName>
+				<BinaryObjectFileTypeCode>actObjectType</BinaryObjectFileTypeCode>
+				<ActivityFileUrl>https://www.waterqualitydata.us/actFileUrl</ActivityFileUrl>
 			</ActivityAttachedBinaryObject>
-			<ResultCount>1</ResultCount>
+			<ResultCount>123</ResultCount>
 			<ActivityMetricURL>https://www.waterqualitydata.us/activities/activityStoret/activitymetrics</ActivityMetricURL>
 		</Activity>
 	</Organization>
@@ -339,11 +339,11 @@
 				<SampleCollectionEquipmentName>Box Corer</SampleCollectionEquipmentName>
 			</SampleDescription>
 			<ActivityAttachedBinaryObject>
-				<BinaryObjectFileName>activityObjectName</BinaryObjectFileName>
-				<BinaryObjectFileTypeCode>activityObjectType</BinaryObjectFileTypeCode>
-				<ActivityFileUrl>activityFileUrl</ActivityFileUrl>
+				<BinaryObjectFileName>actObjectName</BinaryObjectFileName>
+				<BinaryObjectFileTypeCode>actObjectType</BinaryObjectFileTypeCode>
+				<ActivityFileUrl>https://www.waterqualitydata.us/actFileUrl</ActivityFileUrl>
 			</ActivityAttachedBinaryObject>
-			<ResultCount>1</ResultCount>
+			<ResultCount>123</ResultCount>
 			<ActivityMetricURL>https://www.waterqualitydata.us/activities/21NYDECA_WQX-020002/activitymetrics</ActivityMetricURL>
 		</Activity>
 		<Activity>
@@ -377,11 +377,11 @@
 				<SampleCollectionEquipmentName>Box Corer</SampleCollectionEquipmentName>
 			</SampleDescription>
 			<ActivityAttachedBinaryObject>
-				<BinaryObjectFileName>activityObjectName</BinaryObjectFileName>
-				<BinaryObjectFileTypeCode>activityObjectType</BinaryObjectFileTypeCode>
-				<ActivityFileUrl>activityFileUrl</ActivityFileUrl>
+				<BinaryObjectFileName>actObjectName</BinaryObjectFileName>
+				<BinaryObjectFileTypeCode>actObjectType</BinaryObjectFileTypeCode>
+				<ActivityFileUrl>https://www.waterqualitydata.us/actFileUrl</ActivityFileUrl>
 			</ActivityAttachedBinaryObject>
-			<ResultCount>1</ResultCount>
+			<ResultCount>123</ResultCount>
 			<ActivityMetricURL>https://www.waterqualitydata.us/activities/21NYDECA_WQX-020206/activitymetrics</ActivityMetricURL>
 		</Activity>
 		<Activity>
@@ -415,11 +415,11 @@
 				<SampleCollectionEquipmentName>Box Corer</SampleCollectionEquipmentName>
 			</SampleDescription>
 			<ActivityAttachedBinaryObject>
-				<BinaryObjectFileName>activityObjectName</BinaryObjectFileName>
-				<BinaryObjectFileTypeCode>activityObjectType</BinaryObjectFileTypeCode>
-				<ActivityFileUrl>activityFileUrl</ActivityFileUrl>
+				<BinaryObjectFileName>actObjectName</BinaryObjectFileName>
+				<BinaryObjectFileTypeCode>actObjectType</BinaryObjectFileTypeCode>
+				<ActivityFileUrl>https://www.waterqualitydata.us/actFileUrl</ActivityFileUrl>
 			</ActivityAttachedBinaryObject>
-			<ResultCount>1</ResultCount>
+			<ResultCount>123</ResultCount>
 			<ActivityMetricURL>https://www.waterqualitydata.us/activities/21NYDECA_WQX-020610/activitymetrics</ActivityMetricURL>
 		</Activity>
 		<Activity>
@@ -453,11 +453,11 @@
 				<SampleCollectionEquipmentName>Box Corer</SampleCollectionEquipmentName>
 			</SampleDescription>
 			<ActivityAttachedBinaryObject>
-				<BinaryObjectFileName>activityObjectName</BinaryObjectFileName>
-				<BinaryObjectFileTypeCode>activityObjectType</BinaryObjectFileTypeCode>
-				<ActivityFileUrl>activityFileUrl</ActivityFileUrl>
+				<BinaryObjectFileName>actObjectName</BinaryObjectFileName>
+				<BinaryObjectFileTypeCode>actObjectType</BinaryObjectFileTypeCode>
+				<ActivityFileUrl>https://www.waterqualitydata.us/actFileUrl</ActivityFileUrl>
 			</ActivityAttachedBinaryObject>
-			<ResultCount>1</ResultCount>
+			<ResultCount>123</ResultCount>
 			<ActivityMetricURL>https://www.waterqualitydata.us/activities/21NYDECA_WQX-0210EN/activitymetrics</ActivityMetricURL>
 		</Activity>
 	</Organization>
@@ -500,11 +500,11 @@
 				<SampleCollectionEquipmentName>Bucket</SampleCollectionEquipmentName>
 			</SampleDescription>
 			<ActivityAttachedBinaryObject>
-				<BinaryObjectFileName>activityObjectName</BinaryObjectFileName>
-				<BinaryObjectFileTypeCode>activityObjectType</BinaryObjectFileTypeCode>
-				<ActivityFileUrl>activityFileUrl</ActivityFileUrl>
+				<BinaryObjectFileName>actObjectName</BinaryObjectFileName>
+				<BinaryObjectFileTypeCode>actObjectType</BinaryObjectFileTypeCode>
+				<ActivityFileUrl>https://www.waterqualitydata.us/actFileUrl</ActivityFileUrl>
 			</ActivityAttachedBinaryObject>
-			<ResultCount>1</ResultCount>
+			<ResultCount>123</ResultCount>
 			<ActivityMetricURL>https://www.waterqualitydata.us/activities/WIDNR_WQX-7788475/activitymetrics</ActivityMetricURL>
 		</Activity>
 		<Activity>
@@ -540,11 +540,11 @@
 				<SampleCollectionEquipmentName>Unknown</SampleCollectionEquipmentName>
 			</SampleDescription>
 			<ActivityAttachedBinaryObject>
-				<BinaryObjectFileName>activityObjectName</BinaryObjectFileName>
-				<BinaryObjectFileTypeCode>activityObjectType</BinaryObjectFileTypeCode>
-				<ActivityFileUrl>activityFileUrl</ActivityFileUrl>
+				<BinaryObjectFileName>actObjectName</BinaryObjectFileName>
+				<BinaryObjectFileTypeCode>actObjectType</BinaryObjectFileTypeCode>
+				<ActivityFileUrl>https://www.waterqualitydata.us/actFileUrl</ActivityFileUrl>
 			</ActivityAttachedBinaryObject>
-			<ResultCount>1</ResultCount>
+			<ResultCount>123</ResultCount>
 			<ActivityMetricURL>https://www.waterqualitydata.us/activities/WIDNR_WQX-7788480/activitymetrics</ActivityMetricURL>
 		</Activity>
 	</Organization>
@@ -668,11 +668,11 @@
 				</SamplePreparation>
 			</SampleDescription>
 			<ActivityAttachedBinaryObject>
-				<BinaryObjectFileName>activityObjectName</BinaryObjectFileName>
-				<BinaryObjectFileTypeCode>activityObjectType</BinaryObjectFileTypeCode>
-				<ActivityFileUrl>activityFileUrl</ActivityFileUrl>
+				<BinaryObjectFileName>actObjectName</BinaryObjectFileName>
+				<BinaryObjectFileTypeCode>actObjectType</BinaryObjectFileTypeCode>
+				<ActivityFileUrl>https://www.waterqualitydata.us/actFileUrl</ActivityFileUrl>
 			</ActivityAttachedBinaryObject>
-			<ResultCount>1</ResultCount>
+			<ResultCount>123</ResultCount>
 			<ActivityMetricURL>https://www.waterqualitydata.us/activities/activity/activitymetrics</ActivityMetricURL>
 		</Activity>
 	</Organization>
@@ -715,11 +715,11 @@
 				<SampleCollectionEquipmentName>Bucket</SampleCollectionEquipmentName>
 			</SampleDescription>
 			<ActivityAttachedBinaryObject>
-				<BinaryObjectFileName>activityObjectName</BinaryObjectFileName>
-				<BinaryObjectFileTypeCode>activityObjectType</BinaryObjectFileTypeCode>
-				<ActivityFileUrl>activityFileUrl</ActivityFileUrl>
+				<BinaryObjectFileName>actObjectName</BinaryObjectFileName>
+				<BinaryObjectFileTypeCode>actObjectType</BinaryObjectFileTypeCode>
+				<ActivityFileUrl>https://www.waterqualitydata.us/actFileUrl</ActivityFileUrl>
 			</ActivityAttachedBinaryObject>
-			<ResultCount>1</ResultCount>
+			<ResultCount>123</ResultCount>
 			<ActivityMetricURL>https://www.waterqualitydata.us/activities/activityBiodata/activitymetrics</ActivityMetricURL>
 		</Activity>
 	</Organization>
