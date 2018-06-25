@@ -137,7 +137,6 @@ public abstract class BaseTest {
 	public static final String FILTERED_TOTAL_PROJECT_COUNT = "1";
 	public static final String FILTERED_STORET_PROJECT_COUNT = "1";
 	public static final String FILTERED_TOTAL_PRJ_ML_WEIGHTING_COUNT = "1";
-	public static final String FILTERED_STORET_PRJ_ML_WEIGHTING_COUNT = "1";
 	public static final String FILTERED_TOTAL_ORGANIZATION_COUNT = "1";
 	public static final String FILTERED_STORET_ORGANIZATION_COUNT = "1";
 

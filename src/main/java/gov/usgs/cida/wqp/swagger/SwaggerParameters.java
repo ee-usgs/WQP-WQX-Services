@@ -122,11 +122,12 @@ public class SwaggerParameters {
 	public static Parameter dataProfile() {
 		return new ParameterBuilder()
 				.name("dataProfile")
-				.description("Data Profile (column set) of the download. For use with the results enpoint.")
+				.description("Data Profile (column set) of the download. For use with the results endpoint.")
 				.modelRef(new ModelRef("string"))
 				.parameterType("query")
 				.required(false)
-				.allowableValues(new AllowableListValues(Arrays.asList(Profile.BIOLOGICAL.toString(), Profile.PC_RESULT.toString(), Profile.NARROW_RESULT.toString()), "LIST"))
+				.allowableValues(new AllowableListValues(Arrays.asList(Profile.BIOLOGICAL.toString(), Profile.PC_RESULT.toString(),
+						Profile.NARROW_RESULT.toString(), Profile.ACTIVITY.toString(), Profile.ACTIVITY_ALL.toString()), "LIST"))
 				.build();
 	}
 

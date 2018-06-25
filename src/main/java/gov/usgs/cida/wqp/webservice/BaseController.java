@@ -475,6 +475,8 @@ public abstract class BaseController {
 					return NameSpace.SIMPLE_STATION;
 				case ACTIVITY:
 					return NameSpace.ACTIVITY;
+				case ACTIVITY_ALL:
+					return NameSpace.ACTIVITY_ALL;
 				case ACTIVITY_METRIC:
 					return NameSpace.ACTIVITY_METRIC;
 				case RES_DETECT_QNT_LMT:

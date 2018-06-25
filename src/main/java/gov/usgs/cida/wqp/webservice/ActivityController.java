@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Validator;
 
+import gov.usgs.cida.wqp.swagger.annotation.ProfileParameterActivity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
@@ -39,7 +40,7 @@ import springfox.documentation.annotations.ApiIgnore;
 
 @Api(tags={SwaggerConfig.ACTIVITY_TAG_NAME})
 @RestController
-@RequestMapping(value=HttpConstants.ACTIVITY_SEARCH_ENPOINT,
+@RequestMapping(value=HttpConstants.ACTIVITY_SEARCH_ENDPOINT,
 	produces={HttpConstants.MIME_TYPE_TSV,
 			HttpConstants.MIME_TYPE_CSV,
 			HttpConstants.MIME_TYPE_XLSX,
@@ -59,6 +60,7 @@ public class ActivityController extends BaseController {
 
 	@ApiOperation(value="Return appropriate request headers (including anticipated record counts).")
 	@FullParameterList
+	@ProfileParameterActivity
 	@RequestMapping(method=RequestMethod.HEAD)
 	public void activityHeadRequest(HttpServletRequest request, HttpServletResponse response, @ApiIgnore FilterParameters filter) {
 		doHeadRequest(request, response, filter);
@@ -66,12 +68,14 @@ public class ActivityController extends BaseController {
 
 	@ApiOperation(value="Return requested data.", produces="")
 	@FullParameterList
+	@ProfileParameterActivity
 	@GetMapping()
 	public void activityGetRequest(HttpServletRequest request, HttpServletResponse response, @ApiIgnore FilterParameters filter) {
 		doDataRequest(request, response, filter);
 	}
 
 	@ApiOperation(value="Return requested data. Use when the list of parameter values is too long for a query string.")
+	@ProfileParameterActivity
 	@PostMapping(consumes=MediaType.APPLICATION_JSON_VALUE)
 	public void activityJsonPostRequest(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value="mimeType", required=false) String mimeType,
@@ -81,6 +85,7 @@ public class ActivityController extends BaseController {
 	}
 
 	@ApiOperation(value="Same as the JSON consumer, but hidden from swagger", hidden=true)
+	@ProfileParameterActivity
 	@PostMapping(consumes=MediaType.APPLICATION_FORM_URLENCODED_VALUE)
 	public void activityFormUrlencodedPostRequest(HttpServletRequest request, HttpServletResponse response, @ApiIgnore FilterParameters filter) {
 		doDataRequest(request, response, filter);
@@ -88,6 +93,7 @@ public class ActivityController extends BaseController {
 
 	@ApiOperation(value="Return anticipated record counts.")
 	@ApiResponses(value={@ApiResponse(code=200, message="OK", response=ActivityCountJson.class)})
+	@ProfileParameterActivity
 	@PostMapping(value="count", consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
 	public Map<String, String> activityPostCountRequest(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value="mimeType", required=false) String mimeType,

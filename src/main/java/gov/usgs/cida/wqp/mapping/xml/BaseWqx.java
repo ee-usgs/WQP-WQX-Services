@@ -172,6 +172,7 @@ public abstract class BaseWqx {
 	public static final String WQX_FILE_NAME = "BinaryObjectFileName";
 	public static final String WQX_FILE_TYPE = "BinaryObjectFileTypeCode";
 	public static final String WQX_RESULT_COUNT = "ResultCount";
+	public static final String WQX_ACTIVITY_FILE_URL = "ActivityFileUrl";
 
 	public static final String WQX_RESULT = "Result";
 	public static final String WQX_RESULT_DESRIPTION = "ResultDescription";

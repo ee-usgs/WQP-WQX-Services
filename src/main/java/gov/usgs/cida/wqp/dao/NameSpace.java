@@ -20,6 +20,8 @@ public enum NameSpace {
 
 	ACTIVITY ("activity", Parameters.MIN_ACTIVITIES),
 
+	ACTIVITY_ALL ("activity", Parameters.MIN_ACTIVITIES),
+
 	ACTIVITY_METRIC ("activityMetric", null),
 
 	RESULT ("pcResult", Parameters.MIN_RESULTS),

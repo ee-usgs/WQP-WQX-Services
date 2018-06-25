@@ -40,7 +40,7 @@ public class ActivityMetricControllerIT extends BaseControllerIntegrationTest {
 
 	protected static final Profile PROFILE = Profile.ACTIVITY_METRIC;
 	protected static final boolean POSTABLE = true;
-	protected static final String ENDPOINT = HttpConstants.ACTIVITY_METRIC_SEARCH_ENPOINT + "?mimeType=";
+	protected static final String ENDPOINT = HttpConstants.ACTIVITY_METRIC_SEARCH_ENDPOINT + "?mimeType=";
 
 	@Test
 	public void testHarness() throws Exception {
@@ -93,7 +93,7 @@ public class ActivityMetricControllerIT extends BaseControllerIntegrationTest {
 	}
 
 	public void postGetCountTest() throws Exception {
-		String urlPrefix = HttpConstants.ACTIVITY_METRIC_SEARCH_ENPOINT + "/count?mimeType=";
+		String urlPrefix = HttpConstants.ACTIVITY_METRIC_SEARCH_ENDPOINT + "/count?mimeType=";
 		String compareObject = "{\"" + HttpConstants.HEADER_TOTAL_SITE_COUNT + "\":\"" + FILTERED_TOTAL_SITE_COUNT
 				+ "\",\"" + HttpConstants.HEADER_TOTAL_ACTIVITY_COUNT + "\":\"" + FILTERED_TOTAL_ACTIVITY_COUNT
 				+ "\",\"" + HttpConstants.HEADER_TOTAL_ACTIVITY_METRIC_COUNT + "\":\"" + FILTERED_TOTAL_ACTIVITY_METRIC_COUNT

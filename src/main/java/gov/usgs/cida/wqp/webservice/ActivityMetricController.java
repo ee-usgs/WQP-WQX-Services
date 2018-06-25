@@ -58,13 +58,13 @@ public class ActivityMetricController extends BaseController {
 
 	@ApiOperation(value="Return appropriate request headers (including anticipated record counts).")
 	@FullParameterList
-	@RequestMapping(value=HttpConstants.ACTIVITY_METRIC_SEARCH_ENPOINT, method=RequestMethod.HEAD)
+	@RequestMapping(value=HttpConstants.ACTIVITY_METRIC_SEARCH_ENDPOINT, method=RequestMethod.HEAD)
 	public void activityMetricHeadRequest(HttpServletRequest request, HttpServletResponse response, @ApiIgnore FilterParameters filter) {
 		doHeadRequest(request, response, filter);
 	}
 
 	@ApiOperation(value="Return appropriate request headers (including anticipated record counts) for the specified activity.")
-	@RequestMapping(value=HttpConstants.ACTIVITY_METRIC_REST_ENPOINT, method=RequestMethod.HEAD)
+	@RequestMapping(value=HttpConstants.ACTIVITY_METRIC_REST_ENDPOINT, method=RequestMethod.HEAD)
 	public void activityMetricRestHeadRequest(HttpServletRequest request, HttpServletResponse response,
 			@PathVariable("activity") @ApiParam(value=SwaggerParameters.ACTIVITY_DESCRIPTION) String activity,
 			@RequestParam(value="mimeType", required=false) String mimeType,
@@ -76,13 +76,13 @@ public class ActivityMetricController extends BaseController {
 
 	@ApiOperation(value="Return requested data.")
 	@FullParameterList
-	@GetMapping(value=HttpConstants.ACTIVITY_METRIC_SEARCH_ENPOINT)
+	@GetMapping(value=HttpConstants.ACTIVITY_METRIC_SEARCH_ENDPOINT)
 	public void activityMetricGetRequest(HttpServletRequest request, HttpServletResponse response, @ApiIgnore FilterParameters filter) {
 		doDataRequest(request, response, filter);
 	}
 
 	@ApiOperation(value="Return activity metric information for the specified activity.")
-	@GetMapping(value=HttpConstants.ACTIVITY_METRIC_REST_ENPOINT)
+	@GetMapping(value=HttpConstants.ACTIVITY_METRIC_REST_ENDPOINT)
 	public void activityMetricGetRestRequest(HttpServletRequest request, HttpServletResponse response,
 			@PathVariable("activity") @ApiParam(value=SwaggerParameters.ACTIVITY_DESCRIPTION) String activity,
 			@RequestParam(value="mimeType", required=false) String mimeType,
@@ -93,7 +93,7 @@ public class ActivityMetricController extends BaseController {
 	}
 
 	@ApiOperation(value="Return requested data. Use when the list of parameter values is too long for a query string.")
-	@PostMapping(value=HttpConstants.ACTIVITY_METRIC_SEARCH_ENPOINT, consumes=MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value=HttpConstants.ACTIVITY_METRIC_SEARCH_ENDPOINT, consumes=MediaType.APPLICATION_JSON_VALUE)
 	public void activityMetricJsonPostRequest(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value="mimeType", required=false) String mimeType,
 			@RequestParam(value="zip", required=false) String zip,
@@ -102,14 +102,14 @@ public class ActivityMetricController extends BaseController {
 	}
 
 	@ApiOperation(value="Same as the JSON consumer, but hidden from swagger", hidden=true)
-	@PostMapping(value=HttpConstants.ACTIVITY_METRIC_SEARCH_ENPOINT, consumes=MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+	@PostMapping(value=HttpConstants.ACTIVITY_METRIC_SEARCH_ENDPOINT, consumes=MediaType.APPLICATION_FORM_URLENCODED_VALUE)
 	public void activityMetricFormUrlencodedPostRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter) {
 		doDataRequest(request, response, filter);
 	}
 
 	@ApiOperation(value="Return anticipated record counts.")
 	@ApiResponses(value={@ApiResponse(code=200, message="OK", response=ActivityMetricCountJson.class)})
-	@PostMapping(value=HttpConstants.ACTIVITY_METRIC_SEARCH_ENPOINT + "/count", produces=MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value=HttpConstants.ACTIVITY_METRIC_SEARCH_ENDPOINT + "/count", produces=MediaType.APPLICATION_JSON_VALUE)
 	public Map<String, String> activityMetricPostCountRequest(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value="mimeType", required=false) String mimeType,
 			@RequestParam(value="zip", required=false) String zip,

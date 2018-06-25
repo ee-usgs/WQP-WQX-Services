@@ -59,13 +59,13 @@ public class ResDetectQntLmtController extends BaseController {
 
 	@ApiOperation(value="Return appropriate request headers (including anticipated record counts).")
 	@FullParameterList
-	@RequestMapping(value=HttpConstants.RES_DETECT_QNT_LMT_SEARCH_ENPOINT, method=RequestMethod.HEAD)
+	@RequestMapping(value=HttpConstants.RES_DETECT_QNT_LMT_SEARCH_ENDPOINT, method=RequestMethod.HEAD)
 	public void resDetectQntLmtHeadRequest(HttpServletRequest request, HttpServletResponse response, @ApiIgnore FilterParameters filter) {
 		doHeadRequest(request, response, filter);
 	}
 
 	@ApiOperation(value="Return appropriate request headers (including anticipated record counts) for the specified result.")
-	@RequestMapping(value=HttpConstants.RES_DETECT_QNT_LMT_REST_ENPOINT, method=RequestMethod.HEAD)
+	@RequestMapping(value=HttpConstants.RES_DETECT_QNT_LMT_REST_ENDPOINT, method=RequestMethod.HEAD)
 	public void resDetectQntLmtHeadRestRequest(HttpServletRequest request, HttpServletResponse response,
 			@PathVariable("activity") @ApiParam(value=SwaggerParameters.ACTIVITY_DESCRIPTION) String activity,
 			@PathVariable("result") @ApiParam(value=SwaggerParameters.RESULT_DESCRIPTION) String result,
@@ -79,13 +79,13 @@ public class ResDetectQntLmtController extends BaseController {
 
 	@ApiOperation(value="Return requested data.")
 	@FullParameterList
-	@GetMapping(value=HttpConstants.RES_DETECT_QNT_LMT_SEARCH_ENPOINT)
+	@GetMapping(value=HttpConstants.RES_DETECT_QNT_LMT_SEARCH_ENDPOINT)
 	public void resDetectQntLmtGetRequest(HttpServletRequest request, HttpServletResponse response, @ApiIgnore FilterParameters filter) {
 		doDataRequest(request, response, filter);
 	}
 
 	@ApiOperation(value="Return result detection quantitative limit information for the specified result.")
-	@GetMapping(value=HttpConstants.RES_DETECT_QNT_LMT_REST_ENPOINT)
+	@GetMapping(value=HttpConstants.RES_DETECT_QNT_LMT_REST_ENDPOINT)
 	public void resDetectQntLmtGetRestRequest(HttpServletRequest request, HttpServletResponse response,
 			@PathVariable("activity") @ApiParam(value=SwaggerParameters.ACTIVITY_DESCRIPTION) String activity,
 			@PathVariable("result") @ApiParam(value=SwaggerParameters.RESULT_DESCRIPTION) String result,
@@ -98,7 +98,7 @@ public class ResDetectQntLmtController extends BaseController {
 	}
 
 	@ApiOperation(value="Return requested data. Use when the list of parameter values is too long for a query string.")
-	@PostMapping(value=HttpConstants.RES_DETECT_QNT_LMT_SEARCH_ENPOINT, consumes=MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value=HttpConstants.RES_DETECT_QNT_LMT_SEARCH_ENDPOINT, consumes=MediaType.APPLICATION_JSON_VALUE)
 	public void resDetectQntLmtJsonPostRequest(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value="mimeType", required=false) String mimeType,
 			@RequestParam(value="zip", required=false) String zip,
@@ -107,14 +107,14 @@ public class ResDetectQntLmtController extends BaseController {
 	}
 
 	@ApiOperation(value="Same as the JSON consumer, but hidden from swagger", hidden=true)
-	@PostMapping(value=HttpConstants.RES_DETECT_QNT_LMT_SEARCH_ENPOINT, consumes=MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+	@PostMapping(value=HttpConstants.RES_DETECT_QNT_LMT_SEARCH_ENDPOINT, consumes=MediaType.APPLICATION_FORM_URLENCODED_VALUE)
 	public void resDetectQntLmtFormUrlencodedPostRequest(HttpServletRequest request, HttpServletResponse response, @ApiIgnore FilterParameters filter) {
 		doDataRequest(request, response, filter);
 	}
 
 	@ApiOperation(value="Return anticipated record counts.")
 	@ApiResponses(value={@ApiResponse(code=200, message="OK", response=ResDetectQntLmtCountJson.class)})
-	@PostMapping(value=HttpConstants.RES_DETECT_QNT_LMT_SEARCH_ENPOINT + "/count", produces=MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value=HttpConstants.RES_DETECT_QNT_LMT_SEARCH_ENDPOINT + "/count", produces=MediaType.APPLICATION_JSON_VALUE)
 	public Map<String, String> resDetectQntLmtPostCountRequest(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value="mimeType", required=false) String mimeType,
 			@RequestParam(value="zip", required=false) String zip,

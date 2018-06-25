@@ -872,6 +872,9 @@ public class BaseControllerTest {
 		TestBaseController.setProfile(Profile.ACTIVITY);
 		assertEquals(NameSpace.ACTIVITY, testController.determineNamespace());
 
+		TestBaseController.setProfile(Profile.ACTIVITY_ALL);
+		assertEquals(NameSpace.ACTIVITY_ALL, testController.determineNamespace());
+
 		TestBaseController.setProfile(Profile.ACTIVITY_METRIC);
 		assertEquals(NameSpace.ACTIVITY_METRIC, testController.determineNamespace());
 
@@ -898,6 +901,8 @@ public class BaseControllerTest {
 		assertEquals(NameSpace.STATION, testController.determineNamespaceFromProfile(Profile.STATION));
 
 		assertEquals(NameSpace.ACTIVITY, testController.determineNamespaceFromProfile(Profile.ACTIVITY));
+
+		assertEquals(NameSpace.ACTIVITY_ALL, testController.determineNamespaceFromProfile(Profile.ACTIVITY_ALL));
 
 		assertEquals(NameSpace.ACTIVITY_METRIC, testController.determineNamespaceFromProfile(Profile.ACTIVITY_METRIC));
 
