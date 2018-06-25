@@ -27,4 +27,7 @@ public abstract class BaseColumn {
 	public static final ColumnProfile SITE_ID = new ColumnProfile(KEY_SITE_ID, Profile.STATION, Profile.PC_RESULT, Profile.BIOLOGICAL, Profile.SIMPLE_STATION, Profile.ACTIVITY, Profile.ACTIVITY_ALL,
 			Profile.ACTIVITY_METRIC, Profile.RES_DETECT_QNT_LMT, Profile.NARROW_RESULT, Profile.PROJECT_MONITORING_LOCATION_WEIGHTING);
 
+	public static final ColumnProfile RESULT_COUNT = new ColumnProfile(KEY_RESULT_COUNT, Profile.ACTIVITY_ALL);
+
+
 }

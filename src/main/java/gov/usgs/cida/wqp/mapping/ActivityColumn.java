@@ -154,7 +154,6 @@ public class ActivityColumn extends BaseColumn {
 	public static final ColumnProfile ACTIVITY_OBJECT_NAME = new ColumnProfile(KEY_ACTIVITY_OBJECT_NAME, Profile.ACTIVITY_ALL);
 	public static final ColumnProfile ACTIVITY_OBJECT_TYPE = new ColumnProfile(KEY_ACTIVITY_OBJECT_TYPE, Profile.ACTIVITY_ALL);
 	public static final ColumnProfile ACTIVITY_FILE_URL = new ColumnProfile(KEY_ACTIVITY_FILE_URL, Profile.ACTIVITY_ALL);
-	public static final ColumnProfile RESULT_COUNT = new ColumnProfile(KEY_RESULT_COUNT, Profile.ACTIVITY_ALL);
 
 	private ActivityColumn() {
 	}
