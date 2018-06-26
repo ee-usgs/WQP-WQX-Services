@@ -119,9 +119,6 @@
 					<SampleTransportStorageDescription>actSamTransportStorageDescStewards</SampleTransportStorageDescription>
 				</SamplePreparation>
 			</SampleDescription>
-            <ActivityAttachedBinaryObject>
-                <ActivityFileUrl>https://www.waterqualitydata.us/</ActivityFileUrl>
-            </ActivityAttachedBinaryObject>
 			<ActivityMetricURL>https://www.waterqualitydata.us/activities/activityStewards/activitymetrics</ActivityMetricURL>
 		</Activity>
 	</Organization>
@@ -244,9 +241,6 @@
 					<SampleTransportStorageDescription>actSamTransportStorageDesc</SampleTransportStorageDescription>
 				</SamplePreparation>
 			</SampleDescription>
-            <ActivityAttachedBinaryObject>
-                <ActivityFileUrl>https://www.waterqualitydata.us/</ActivityFileUrl>
-            </ActivityAttachedBinaryObject>
 			<ActivityMetricURL>https://www.waterqualitydata.us/activities/activityNwis/activitymetrics</ActivityMetricURL>
 		</Activity>
 	</Organization>
@@ -708,9 +702,6 @@
 				</SampleCollectionMethod>
 				<SampleCollectionEquipmentName>Bucket</SampleCollectionEquipmentName>
 			</SampleDescription>
-            <ActivityAttachedBinaryObject>
-                <ActivityFileUrl>https://www.waterqualitydata.us/</ActivityFileUrl>
-            </ActivityAttachedBinaryObject>
 			<ActivityMetricURL>https://www.waterqualitydata.us/activities/activityBiodata/activitymetrics</ActivityMetricURL>
 		</Activity>
 	</Organization>
