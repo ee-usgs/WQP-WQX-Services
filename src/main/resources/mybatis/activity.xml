@@ -25,7 +25,7 @@
                   <if test="dataProfile == 'activityAll'">
                       activity_object_name,
                       activity_object_type,
-                      #{siteUrlBase,jdbcType=VARCHAR} || '/' || activity_file_url activity_file_url,
+                      nvl2(activity_file_url, #{siteUrlBase,jdbcType=VARCHAR} || '/' || activity_file_url, null) activity_file_url,
                       result_count,
                   </if>
                #{siteUrlBase,jdbcType=VARCHAR} || '/activities/' || pkg_dynamic_list.url_escape(prime.activity, 'true') || '/activitymetrics' activity_metric_url
