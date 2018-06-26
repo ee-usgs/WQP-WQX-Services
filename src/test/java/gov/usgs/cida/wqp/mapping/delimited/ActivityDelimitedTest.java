@@ -68,16 +68,16 @@ public class ActivityDelimitedTest {
 		assertEquals(ActivityDelimited.VALUE_TOXICITY_TEST_TYPE_NAME, mapping.get(keys[53]));
 		assertEquals(ActivityColumn.KEY_SAMPLE_CONTAINER_TYPE, keys[66]);
 		assertEquals(ActivityDelimited.VALUE_SAMPLE_CONTAINER_TYPE, mapping.get(keys[66]));
-		assertEquals(ActivityColumn.KEY_ACTIVITY_METRIC_URL, keys[71]);
-		assertEquals(ActivityDelimited.VALUE_ACTIVITY_METRIC_URL, mapping.get(keys[71]));
-		assertEquals(ActivityColumn.KEY_ACTIVITY_OBJECT_NAME, keys[72]);
-		assertEquals(ActivityDelimited.VALUE_ACTIVITY_OBJECT_NAME, mapping.get(keys[72]));
-		assertEquals(ActivityColumn.KEY_ACTIVITY_OBJECT_TYPE, keys[73]);
-		assertEquals(ActivityDelimited.VALUE_ACTIVITY_OBJECT_TYPE, mapping.get(keys[73]));
-		assertEquals(ActivityColumn.KEY_ACTIVITY_FILE_URL, keys[74]);
-		assertEquals(ActivityDelimited.VALUE_ACTIVITY_FILE_URL, mapping.get(keys[74]));
-		assertEquals(ActivityColumn.KEY_RESULT_COUNT, keys[75]);
-		assertEquals(ActivityDelimited.VALUE_RESULT_COUNT, mapping.get(keys[75]));
+		assertEquals(ActivityColumn.KEY_ACTIVITY_OBJECT_NAME, keys[71]);
+		assertEquals(ActivityDelimited.VALUE_ACTIVITY_OBJECT_NAME, mapping.get(keys[71]));
+		assertEquals(ActivityColumn.KEY_ACTIVITY_OBJECT_TYPE, keys[72]);
+		assertEquals(ActivityDelimited.VALUE_ACTIVITY_OBJECT_TYPE, mapping.get(keys[72]));
+		assertEquals(ActivityColumn.KEY_ACTIVITY_FILE_URL, keys[73]);
+		assertEquals(ActivityDelimited.VALUE_ACTIVITY_FILE_URL, mapping.get(keys[73]));
+		assertEquals(ActivityColumn.KEY_RESULT_COUNT, keys[74]);
+		assertEquals(ActivityDelimited.VALUE_RESULT_COUNT, mapping.get(keys[74]));
+		assertEquals(ActivityColumn.KEY_ACTIVITY_METRIC_URL, keys[75]);
+		assertEquals(ActivityDelimited.VALUE_ACTIVITY_METRIC_URL, mapping.get(keys[75]));
 		assertEquals(ActivityColumn.KEY_DATA_SOURCE, keys[76]);
 		assertEquals(ActivityDelimited.VALUE_DATA_SOURCE, mapping.get(keys[76]));
 
