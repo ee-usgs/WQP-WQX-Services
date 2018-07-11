@@ -49,7 +49,7 @@ public class ActivityDelimitedTest {
 	}
 
 	public static void assertActivityAllProfile(Map<String, String> mapping) {
-		assertEquals(77, mapping.size());
+		assertEquals(76, mapping.size());
 		Object[] keys = mapping.keySet().toArray();
 		//kind of large, so just random checks...
 		assertEquals(StationColumn.KEY_ORGANIZATION, keys[0]);
@@ -74,12 +74,10 @@ public class ActivityDelimitedTest {
 		assertEquals(ActivityDelimited.VALUE_ACTIVITY_OBJECT_TYPE, mapping.get(keys[72]));
 		assertEquals(ActivityColumn.KEY_ACTIVITY_FILE_URL, keys[73]);
 		assertEquals(ActivityDelimited.VALUE_ACTIVITY_FILE_URL, mapping.get(keys[73]));
-		assertEquals(ActivityColumn.KEY_RESULT_COUNT, keys[74]);
-		assertEquals(ActivityDelimited.VALUE_RESULT_COUNT, mapping.get(keys[74]));
-		assertEquals(ActivityColumn.KEY_ACTIVITY_METRIC_URL, keys[75]);
-		assertEquals(ActivityDelimited.VALUE_ACTIVITY_METRIC_URL, mapping.get(keys[75]));
-		assertEquals(ActivityColumn.KEY_DATA_SOURCE, keys[76]);
-		assertEquals(ActivityDelimited.VALUE_DATA_SOURCE, mapping.get(keys[76]));
+		assertEquals(ActivityColumn.KEY_ACTIVITY_METRIC_URL, keys[74]);
+		assertEquals(ActivityDelimited.VALUE_ACTIVITY_METRIC_URL, mapping.get(keys[74]));
+		assertEquals(ActivityColumn.KEY_DATA_SOURCE, keys[75]);
+		assertEquals(ActivityDelimited.VALUE_DATA_SOURCE, mapping.get(keys[75]));
 
 	}
 
