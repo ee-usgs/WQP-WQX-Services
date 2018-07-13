@@ -74,8 +74,13 @@ public class MapToJsonTransformer extends Transformer {
 					+ "/" + getValue(resultMap, StationColumn.KEY_ORGANIZATION) + "/" + getValue(resultMap, StationColumn.KEY_SITE_ID) + "/");
 			g.writeStringField("activityCount", getValue(resultMap, StationColumn.KEY_ACTIVITY_COUNT));
 			g.writeStringField("resultCount", getValue(resultMap, StationColumn.KEY_RESULT_COUNT));
-			g.writeEndObject();
-
+                        g.writeStringField("StateName", getValue(resultMap, StationColumn.KEY_STATE_NAME));
+                        g.writeStringField("CountyName", getValue(resultMap, StationColumn.KEY_COUNTY_NAME));
+                        
+                        g.writeFieldName("characteristicGroupResultCount");
+                        g.writeRawValue(getValue(resultMap, StationColumn.KEY_CHARACTERISTIC_TYPE_COUNT));
+                        
+                        g.writeEndObject();
 			g.writeEndObject();
 		} catch (IOException e) {
 			throw new RuntimeException("Error writing station json", e);

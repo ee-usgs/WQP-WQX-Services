@@ -15,9 +15,82 @@
                prime.station_type_name,
                prime.huc_8,
                nvl(filter.activity_count, 0) activity_count,
-               nvl(filter.result_count, 0) result_count
-        <include refid="dynamicWhere.stationsBase"/>
-            order by prime.data_source_id,
+               nvl(filter.result_count, 0) result_count,
+               state_name,
+               county_name,
+               '{' || xxx.characteristic_type_count || '}' characteristic_type_count
+        
+        FROM station prime
+            JOIN (
+                SELECT data_source_id, station_id, count(distinct activity_id) activity_count, sum(result_count) result_count
+                  FROM result_sum prime
+                <where>
+                    <include refid="dynamicWhere.baseWhereResultClauses" />
+                </where>
+                group by data_source_id, station_id
+                        ) filter
+                  ON prime.station_id = filter.station_id and
+                     prime.data_source_id = filter.data_source_id
+        
+        LEFT JOIN (
+            SELECT
+                data_source_id,
+                station_id,
+                LISTAGG('"'
+                          || code_value
+                          || '" : '
+                          || result_count_sum,',') WITHIN GROUP(
+                    ORDER BY
+                        code_value,station_id
+                ) characteristic_type_count
+
+            FROM
+                (
+                    SELECT
+                        result_sum.data_source_id,
+                        result_sum.station_id,
+                        char_type.code_value,
+                        SUM(result_sum.result_count) result_count_sum 
+                    FROM
+                        result_sum
+                        JOIN char_type ON result_sum.characteristic_type = char_type.code_value
+                                          AND result_sum.data_source_id = char_type.data_source_id
+                    GROUP BY
+                        result_sum.data_source_id,
+                        result_sum.station_id,
+                        char_type.code_value
+                )
+
+            GROUP BY
+                data_source_id,
+                station_id
+        ) xxx ON prime.data_source_id = xxx.data_source_id
+             AND prime.station_id = xxx.station_id
+             
+             
+        JOIN (
+            SELECT 
+                data_source_id,
+                code_value,
+                description_with_out_country state_name
+            FROM
+                state
+        ) state_info ON prime.data_source_id = state_info.data_source_id
+            AND prime.state_code = state_info.code_value
+    
+    
+        JOIN (
+            SELECT
+                data_source_id,
+                code_value,
+                description county_name
+            FROM county 
+        ) county_info ON prime.data_source_id = county_info.data_source_id
+            AND prime.county_code = county_info.code_value
+        
+        <include refid="dynamicWhere.baseStationWhere"/>
+        
+        ORDER BY prime.data_source_id,
                      prime.organization,
                      prime.site_id
     </select>

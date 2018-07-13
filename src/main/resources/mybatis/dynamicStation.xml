@@ -96,7 +96,12 @@
             </otherwise>
 
         </choose>
-
+        
+        <include refid="dynamicWhere.baseStationWhere"/>
+        
+    </sql>
+    
+    <sql id="baseStationWhere">
         <where>
             <include refid="dynamicWhere.baseWhereStationGeoClauses" />
             <include refid="dynamicWhere.baseWhereStationClauses" />
@@ -107,6 +112,6 @@
                 and (filter.result_count >= #{minresults})
             </if>
         </where>
-    </sql>
-
+    </sql> 
+    
 </mapper>
