@@ -93,7 +93,6 @@ public class ActivityDelimited extends BaseDelimited {
 	public static final String VALUE_ACTIVITY_OBJECT_NAME = WQX_FILE_NAME;
 	public static final String VALUE_ACTIVITY_OBJECT_TYPE = WQX_FILE_TYPE;
 	public static final String VALUE_ACTIVITY_FILE_URL = WQX_ACTIVITY_FILE_URL;
-	public static final String VALUE_RESULT_COUNT = WQX_RESULT_COUNT;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -187,7 +186,6 @@ public class ActivityDelimited extends BaseDelimited {
 		MAPPINGS.put(ACTIVITY_OBJECT_NAME, VALUE_ACTIVITY_OBJECT_NAME);
 		MAPPINGS.put(ACTIVITY_OBJECT_TYPE, VALUE_ACTIVITY_OBJECT_TYPE);
 		MAPPINGS.put(ACTIVITY_FILE_URL, VALUE_ACTIVITY_FILE_URL);
-		MAPPINGS.put(RESULT_COUNT, VALUE_RESULT_COUNT);
 		MAPPINGS.put(ACTIVITY_METRIC_URL, VALUE_ACTIVITY_METRIC_URL);
 		MAPPINGS.put(DATA_SOURCE, VALUE_DATA_SOURCE);
 	}
