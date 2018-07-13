@@ -5,6 +5,7 @@ public abstract class OrganizationColumn extends BaseColumn {
 	//ResultSet Keys
 	public static final String KEY_ORGANIZATION_ID = "ORGANIZATION_ID";
 	public static final String KEY_ORGANIZATION_DESCRIPTION = "ORGANIZATION_DESCRIPTION";
+	public static final String KEY_ORGANIZATION_TYPE = "ORGANIZATION_TYPE";
 	public static final String KEY_TRIBAL_CODE = "TRIBAL_CODE";
 	public static final String KEY_ELECTRONIC_ADDRESS = "ELECTRONIC_ADDRESS";
 	public static final String KEY_TELEPHONIC = "TELEPHONIC";
@@ -36,6 +37,8 @@ public abstract class OrganizationColumn extends BaseColumn {
 
 	//Profile Mapping of the Keys
 	public static final ColumnProfile ORGANIZATION_DESCRIPTION = new ColumnProfile(KEY_ORGANIZATION_DESCRIPTION, Profile.ORGANIZATION);
+
+	public static final ColumnProfile ORGANIZATION_TYPE = new ColumnProfile(KEY_ORGANIZATION_TYPE, Profile.ORGANIZATION);
 
 	public static final ColumnProfile TRIBAL_CODE = new ColumnProfile(KEY_TRIBAL_CODE, Profile.ORGANIZATION);
 

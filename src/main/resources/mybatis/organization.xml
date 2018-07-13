@@ -9,6 +9,7 @@
                prime.organization,
                prime.organization_name,
                prime.organization_description,
+			   prime.organization_type,
                prime.tribal_code,
                prime.electronic_address,
                prime.telephonic,

@@ -33,6 +33,7 @@ public abstract class BaseWqx {
 	public static final String WQX_ORGANIZATION_IDENTIFIER = "OrganizationIdentifier";
 	public static final String WQX_ORGANIZATION_FORMAL_NAME = "OrganizationFormalName";
 	public static final String WQX_ORGANIZATION_DESCRIPTION_TEXT ="OrganizationDescriptionText";
+	public static final String WQX_ORGANIZATION_TYPE = "OrganizationType"; /* TODO: verify */
 	public static final String WQX_TRIBAL_CODE ="TribalCode";
 
 	public static final String WQX_ELECTRONIC_ADDRESS ="ElectronicAddress";

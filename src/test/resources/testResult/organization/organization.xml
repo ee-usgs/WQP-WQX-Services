@@ -43,6 +43,7 @@
 			<OrganizationIdentifier>WIDNR_WQX</OrganizationIdentifier>
 			<OrganizationFormalName>Wisconsin Department of Natural Resources</OrganizationFormalName>
 			<OrganizationDescriptionText>Wisconsin Department of Natural Resources.</OrganizationDescriptionText>
+			<OrganizationType>DNR</OrganizationType>
 		</OrganizationDescription>
 		<ElectronicAddress>first.last@wisconsin.gov (Email)</ElectronicAddress>
 		<Telephonic>608-555-5234 (Office)</Telephonic>
@@ -62,6 +63,7 @@
 			<OrganizationIdentifier>organization</OrganizationIdentifier>
 			<OrganizationFormalName>organization formal name</OrganizationFormalName>
 			<OrganizationDescriptionText>organization description</OrganizationDescriptionText>
+			<OrganizationType>organization type</OrganizationType>
 			<TribalCode>tribe name</TribalCode>
 		</OrganizationDescription>
 		<ElectronicAddress>org@epa.gov (Email); https://epa.gov/org (Internet)</ElectronicAddress>
