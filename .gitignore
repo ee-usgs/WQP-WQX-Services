@@ -7,5 +7,5 @@ java_pid*
 /.*
 /bin/
 /application-it.yml
-nb-configuration.xml
-src/main/webapp/META-INF/context.xml
+/nb-configuration.xml
+src/main/webapp
