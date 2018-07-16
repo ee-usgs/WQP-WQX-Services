@@ -29,6 +29,7 @@ import gov.usgs.cida.wqp.dao.StreamingDao;
 import gov.usgs.cida.wqp.dao.intfc.IStreamingDao;
 import gov.usgs.cida.wqp.mapping.OrganizationColumn;
 import gov.usgs.cida.wqp.mapping.ProjectColumn;
+import gov.usgs.cida.wqp.mapping.TestOrganizationMap;
 import gov.usgs.cida.wqp.mapping.TestResultHandler;
 import gov.usgs.cida.wqp.parameter.FilterParameters;
 import gov.usgs.cida.wqp.springinit.DBTestConfig;
@@ -168,6 +169,7 @@ public class OrganizationStreamingIT extends FilteredProjectDaoTest {
 		assertEquals(STORET_WIDNR_WQX[1], results.get(5).get(OrganizationColumn.KEY_ORGANIZATION).toString());
 		assertEquals(STORET_ORGANIZATION[1], results.get(6).get(OrganizationColumn.KEY_ORGANIZATION).toString());
 		assertEquals(BIODATA_USGS[1], results.get(7).get(OrganizationColumn.KEY_ORGANIZATION).toString());
+		assertMapIsAsExpected(TestOrganizationMap.ORGANIZATION, results.get(6));
 	}
 
 	public void zipTest() {

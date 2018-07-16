@@ -45,6 +45,12 @@ public class OrganizationWqx extends BaseWqx implements IXmlMapping {
 						WQX_ORGANIZATION,
 						WQX_ORGANIZATION_DESCRIPTION,
 						WQX_ORGANIZATION_DESCRIPTION_TEXT)));
+		/* TODO: Not sure where to put OrganizationType in the schema so this is temporary until we know for sure */
+		COLUMN_POSITION.put(KEY_ORGANIZATION_TYPE,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ORGANIZATION,
+						WQX_ORGANIZATION_DESCRIPTION,
+						WQX_ORGANIZATION_TYPE)));
 		COLUMN_POSITION.put(KEY_TRIBAL_CODE,
 				new LinkedList<String>(Arrays.asList(
 						WQX_ORGANIZATION,
@@ -189,6 +195,7 @@ public class OrganizationWqx extends BaseWqx implements IXmlMapping {
 						ORGANIZATION,
 						ORGANIZATION_NAME,
 						ORGANIZATION_DESCRIPTION,
+						ORGANIZATION_TYPE,
 						TRIBAL_CODE,
 						ELECTRONIC_ADDRESS,
 						TELEPHONIC

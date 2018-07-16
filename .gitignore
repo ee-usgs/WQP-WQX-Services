@@ -7,3 +7,5 @@ java_pid*
 /.*
 /bin/
 /application-it.yml
+/nb-configuration.xml
+src/main/webapp
