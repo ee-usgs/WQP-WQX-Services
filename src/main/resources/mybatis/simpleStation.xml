@@ -19,52 +19,17 @@
             nvl(filter.activity_count,0) activity_count,
             nvl(filter.result_count,0) result_count,
             state.description_with_out_country state_name,
-            county.description county_name,
-            '{'|| filter.characteristic_type_count || '}' characteristic_type_count
-        FROM
-            station prime
-            JOIN (
-                SELECT
-                    data_source_id,
-                    station_id,
-                    LISTAGG('"'
-                              || characteristic_type
-                              || '" : '
-                              || result_count_type,',') WITHIN GROUP(
-                        ORDER BY
-                            characteristic_type,station_id
-                    ) characteristic_type_count,
-                    MIN(activity_count) activity_count,
-                    SUM(result_count_type) result_count
-                FROM
-                    (
-                        SELECT DISTINCT
-                            prime.data_source_id,
-                            prime.station_id,
-                            prime.characteristic_type,
-                            SUM(prime.result_count) OVER(
-                                PARTITION BY prime.data_source_id,prime.station_id,prime.characteristic_type
-                            ) result_count_type,
-                            COUNT(DISTINCT prime.activity_id) OVER(
-                                PARTITION BY prime.data_source_id,prime.station_id
-                            ) activity_count
-                        FROM
-                            result_sum prime
+            county.description county_name
         
-                        <include refid="dynamicWhere.baseWhereResultClauses" />
-                    )
+        <include refid="dynamicWhere.stationsBaseFrom"/>
         
-                GROUP BY
-                    data_source_id,
-                    station_id
-            ) filter ON prime.data_source_id = filter.data_source_id
-                        AND prime.station_id = filter.station_id
-            JOIN state ON prime.data_source_id = state.data_source_id
-                          AND prime.state_code = state.code_value
-            JOIN county ON prime.data_source_id = county.data_source_id
-                           AND prime.county_code = county.code_value
+        JOIN state ON prime.data_source_id = state.data_source_id
+                      AND prime.state_code = state.code_value
+        
+        JOIN county ON prime.data_source_id = county.data_source_id
+                       AND prime.county_code = county.code_value
 
-            <include refid="dynamicWhere.baseStationWhere"/>
+        <include refid="dynamicWhere.baseStationWhere"/>
             
         ORDER BY
             prime.data_source_id,

@@ -73,14 +73,13 @@ public class MapToJsonTransformerTest {
 		map.put(StationColumn.KEY_RESULT_COUNT, 857);
                 map.put(StationColumn.KEY_STATE_NAME, "Wisconsin");
                 map.put(StationColumn.KEY_COUNTY_NAME, "Dane");      
-                map.put(StationColumn.KEY_CHARACTERISTIC_TYPE_COUNT, "{\"Biological\":42}");
 		try {
 			transformer.writeData(map);
 			//need to flush the JsonGenerator to get at output. 
 			transformer.g.flush();
-			assertEquals(JSON_HEADER.length() + 556, baos.size());
+			assertEquals(JSON_HEADER.length() + 505, baos.size());
 			assertEquals(JSON_HEADER + "{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[long,lat]},\"properties\":{\"ProviderName\":\"ds\",\"OrganizationIdentifier\":\"org\",\"OrganizationFormalName\":\"org/name\",\"MonitoringLocationIdentifier\":\"site\",\"MonitoringLocationName\":\"station\",\"MonitoringLocationTypeName\":\"realType\",\"ResolvedMonitoringLocationTypeName\":\"type\",\"HUCEightDigitCode\":\"huceight\""
-					+ ",\"siteUrl\":\"http://test-url.usgs.gov/provider/ds/org/site/\",\"activityCount\":\"57\",\"resultCount\":\"857\",\"StateName\":\"Wisconsin\",\"CountyName\":\"Dane\",\"characteristicGroupResultCount\":{\"Biological\":42}}}",
+					+ ",\"siteUrl\":\"http://test-url.usgs.gov/provider/ds/org/site/\",\"activityCount\":\"57\",\"resultCount\":\"857\",\"StateName\":\"Wisconsin\",\"CountyName\":\"Dane\"}}",
 					new String(baos.toByteArray(), HttpConstants.DEFAULT_ENCODING));
 		} catch (IOException e) {
 			fail(e.getLocalizedMessage());
@@ -100,17 +99,16 @@ public class MapToJsonTransformerTest {
 		map.put(StationColumn.KEY_RESULT_COUNT, 667);
                 map.put(StationColumn.KEY_STATE_NAME, "Wisconsin");
                 map.put(StationColumn.KEY_COUNTY_NAME, "Dane");
-                map.put(StationColumn.KEY_CHARACTERISTIC_TYPE_COUNT, "{\"Biological\":42}");
 
 		try {
 			transformer.writeData(map);
 			//need to flush the JsonGenerator to get at output. 
 			transformer.g.flush();
-			assertEquals(JSON_HEADER.length() + 1125, baos.size());
+			assertEquals(JSON_HEADER.length() + 1023, baos.size());
 			assertEquals(JSON_HEADER + "{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[long,lat]},\"properties\":{\"ProviderName\":\"ds\",\"OrganizationIdentifier\":\"org\",\"OrganizationFormalName\":\"org/name\",\"MonitoringLocationIdentifier\":\"site\",\"MonitoringLocationName\":\"station\",\"MonitoringLocationTypeName\":\"realType\",\"ResolvedMonitoringLocationTypeName\":\"type\",\"HUCEightDigitCode\":\"huceight\""
-					+ ",\"siteUrl\":\"http://test-url.usgs.gov/provider/ds/org/site/\",\"activityCount\":\"57\",\"resultCount\":\"857\",\"StateName\":\"Wisconsin\",\"CountyName\":\"Dane\",\"characteristicGroupResultCount\":{\"Biological\":42}}}"
+					+ ",\"siteUrl\":\"http://test-url.usgs.gov/provider/ds/org/site/\",\"activityCount\":\"57\",\"resultCount\":\"857\",\"StateName\":\"Wisconsin\",\"CountyName\":\"Dane\"}}"
 					+ ",{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[long2,lat2]},\"properties\":{\"ProviderName\":\"ds2\",\"OrganizationIdentifier\":\"org2\",\"OrganizationFormalName\":\"org/name2\",\"MonitoringLocationIdentifier\":\"site2\",\"MonitoringLocationName\":\"station2\",\"MonitoringLocationTypeName\":\"realType2\",\"ResolvedMonitoringLocationTypeName\":\"type2\",\"HUCEightDigitCode\":\"huceigh2\""
-					+ ",\"siteUrl\":\"http://test-url.usgs.gov/provider/ds2/org2/site2/\",\"activityCount\":\"67\",\"resultCount\":\"667\",\"StateName\":\"Wisconsin\",\"CountyName\":\"Dane\",\"characteristicGroupResultCount\":{\"Biological\":42}}}",
+					+ ",\"siteUrl\":\"http://test-url.usgs.gov/provider/ds2/org2/site2/\",\"activityCount\":\"67\",\"resultCount\":\"667\",\"StateName\":\"Wisconsin\",\"CountyName\":\"Dane\"}}",
 					new String(baos.toByteArray(), HttpConstants.DEFAULT_ENCODING));
 		} catch (IOException e) {
 			fail(e.getLocalizedMessage());

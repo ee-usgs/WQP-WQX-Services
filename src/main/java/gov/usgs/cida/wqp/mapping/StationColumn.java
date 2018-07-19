@@ -39,7 +39,6 @@ public class StationColumn extends BaseColumn {
 	public static final String KEY_HOLE_DEPTH_UNIT = "HOLE_DEPTH_UNIT";
         public static final String KEY_STATE_NAME = "STATE_NAME";
         public static final String KEY_COUNTY_NAME = "COUNTY_NAME";
-        public static final String KEY_CHARACTERISTIC_TYPE_COUNT = "CHARACTERISTIC_TYPE_COUNT";
 
 	//Profile Mapping of the Keys
 	public static final ColumnProfile STATION_NAME = new ColumnProfile(KEY_STATION_NAME, Profile.STATION, Profile.SIMPLE_STATION);
@@ -78,7 +77,6 @@ public class StationColumn extends BaseColumn {
 	public static final ColumnProfile HOLE_DEPTH_UNIT = new ColumnProfile(KEY_HOLE_DEPTH_UNIT, Profile.STATION);
         public static final ColumnProfile STATE_NAME = new ColumnProfile(KEY_STATE_NAME, Profile.SIMPLE_STATION);
         public static final ColumnProfile COUNTY_NAME = new ColumnProfile(KEY_COUNTY_NAME, Profile.SIMPLE_STATION);
-        public static final ColumnProfile CHARACTERISTIC_TYPE_COUNT = new ColumnProfile(KEY_CHARACTERISTIC_TYPE_COUNT, Profile.SIMPLE_STATION);
 
 	private StationColumn() {
 	}

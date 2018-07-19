@@ -77,9 +77,6 @@ public class MapToJsonTransformer extends Transformer {
                         g.writeStringField("StateName", getValue(resultMap, StationColumn.KEY_STATE_NAME));
                         g.writeStringField("CountyName", getValue(resultMap, StationColumn.KEY_COUNTY_NAME));
                         
-                        g.writeFieldName("characteristicGroupResultCount");
-                        g.writeRawValue(getValue(resultMap, StationColumn.KEY_CHARACTERISTIC_TYPE_COUNT));
-                        
                         g.writeEndObject();
 			g.writeEndObject();
 		} catch (IOException e) {

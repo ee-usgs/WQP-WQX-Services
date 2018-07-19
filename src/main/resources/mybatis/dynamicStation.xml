@@ -54,6 +54,11 @@
     </sql>
 
     <sql id="stationsBase">
+        <include refid="dynamicWhere.stationsBaseFrom"/>
+        <include refid="dynamicWhere.baseStationWhere"/>
+    </sql>
+    
+    <sql id="stationsBaseFrom">
          from station prime
 
         <choose>
@@ -96,8 +101,6 @@
             </otherwise>
 
         </choose>
-        
-        <include refid="dynamicWhere.baseStationWhere"/>
         
     </sql>
     
