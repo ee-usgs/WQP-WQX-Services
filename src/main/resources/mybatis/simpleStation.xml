@@ -23,10 +23,10 @@
         
         <include refid="dynamicWhere.stationsBaseFrom"/>
         
-        JOIN state ON prime.data_source_id = state.data_source_id
+        LEFT JOIN state ON prime.data_source_id = state.data_source_id
                       AND prime.state_code = state.code_value
         
-        JOIN county ON prime.data_source_id = county.data_source_id
+        LEFT JOIN county ON prime.data_source_id = county.data_source_id
                        AND prime.county_code = county.code_value
 
         <include refid="dynamicWhere.baseStationWhere"/>
