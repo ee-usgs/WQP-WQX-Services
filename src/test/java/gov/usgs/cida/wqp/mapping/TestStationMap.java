@@ -71,6 +71,8 @@ public class TestStationMap {
 		STATION_JSON.put(KEY_HUC_8, "00000000");
 		STATION_JSON.put(KEY_ACTIVITY_COUNT, BigDecimal.valueOf(4));
 		STATION_JSON.put(KEY_RESULT_COUNT, BigDecimal.valueOf(4));
+		STATION_JSON.put(KEY_STATE_NAME, "");
+		STATION_JSON.put(KEY_COUNTY_NAME, "");
 	}
 
 	public static final Map<String, Object> STATION_KML;
