@@ -54,6 +54,11 @@
     </sql>
 
     <sql id="stationsBase">
+        <include refid="dynamicWhere.stationsBaseFrom"/>
+        <include refid="dynamicWhere.baseStationWhere"/>
+    </sql>
+    
+    <sql id="stationsBaseFrom">
          from station prime
 
         <choose>
@@ -96,7 +101,10 @@
             </otherwise>
 
         </choose>
-
+        
+    </sql>
+    
+    <sql id="baseStationWhere">
         <where>
             <include refid="dynamicWhere.baseWhereStationGeoClauses" />
             <include refid="dynamicWhere.baseWhereStationClauses" />
@@ -107,6 +115,6 @@
                 and (filter.result_count >= #{minresults})
             </if>
         </where>
-    </sql>
-
+    </sql> 
+    
 </mapper>
