@@ -19,7 +19,7 @@
             nvl(filter.activity_count,0) activity_count,
             nvl(filter.result_count,0) result_count,
             state.description_with_out_country state_name,
-            county.description county_name
+            county.description_wo_country_state county_name
         
         <include refid="dynamicWhere.stationsBaseFrom"/>
         
