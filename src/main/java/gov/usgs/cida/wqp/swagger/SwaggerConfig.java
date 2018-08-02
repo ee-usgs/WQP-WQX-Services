@@ -48,6 +48,7 @@ public class SwaggerConfig {
 	public static final String RESULT_TAG_NAME = "Result";
 	public static final String SIMPLE_STATION_TAG_NAME = "Simple Station (deprecated)";
 	public static final String STATION_TAG_NAME = "Station";
+	public static final String SUMMARY_STATION_TAG_NAME = "Summary Station";
 	public static final String VERSION_TAG_NAME = "Application Version";
 	public static final String VERSION_TAG_DESCRIPTION = "Display Application Version";
 	public static final String PROJECT_TAG_NAME = "Project";
