@@ -457,6 +457,12 @@ public abstract class BaseController {
 			return determineNamespaceFromProfile(getProfile());
 		}
 	}
+	
+//	protected NameSpace determineGeoJsonNameSpace() {
+//		switch() {
+//			
+//		}
+//	}
 
 	protected NameSpace determineNamespaceFromProfile(Profile profile) {
 		if (null == profile) {
@@ -473,6 +479,8 @@ public abstract class BaseController {
 					return NameSpace.STATION;
 				case SIMPLE_STATION:
 					return NameSpace.SIMPLE_STATION;
+				case SUMMARY_STATION:
+					return NameSpace.SUMMARY_STATION;
 				case ACTIVITY:
 					return NameSpace.ACTIVITY;
 				case ACTIVITY_ALL:

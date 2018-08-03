@@ -63,20 +63,20 @@ public class SummaryStationController extends BaseController {
 	@ApiOperation(value="Return appropriate request headers (including anticipated record counts).")
 	@FullParameterList
 	@RequestMapping(method=RequestMethod.HEAD)
-	public void stationHeadRequest(HttpServletRequest request, HttpServletResponse response, @ApiIgnore FilterParameters filter) {
+	public void summaryStationHeadRequest(HttpServletRequest request, HttpServletResponse response, @ApiIgnore FilterParameters filter) {
 		doHeadRequest(request, response, filter);
 	}
 
 	@ApiOperation(value="Return requested data.")
 	@FullParameterList
 	@GetMapping()
-	public void stationGetRequest(HttpServletRequest request, HttpServletResponse response, @ApiIgnore FilterParameters filter) {
+	public void summaryStationGetRequest(HttpServletRequest request, HttpServletResponse response, @ApiIgnore FilterParameters filter) {
 		doDataRequest(request, response, filter);
 	}
 
 	@ApiOperation(value="Return requested data. Use when the list of parameter values is too long for a query string.")
 	@PostMapping(consumes=MediaType.APPLICATION_JSON_VALUE)
-	public void stationJsonPostRequest(HttpServletRequest request, HttpServletResponse response,
+	public void summaryStationJsonPostRequest(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value="mimeType", required=false) String mimeType,
 			@RequestParam(value="zip", required=false) String zip,
 			@RequestBody @ApiIgnore FilterParameters filter) {
@@ -85,14 +85,14 @@ public class SummaryStationController extends BaseController {
 
 	@ApiOperation(value="Same as the JSON consumer, but hidden from swagger", hidden=true)
 	@PostMapping(consumes=MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-	public void stationFormUrlencodedPostRequest(HttpServletRequest request, HttpServletResponse response, @ApiIgnore FilterParameters filter) {
+	public void summaryStationFormUrlencodedPostRequest(HttpServletRequest request, HttpServletResponse response, @ApiIgnore FilterParameters filter) {
 		doDataRequest(request, response, filter);
 	}
 
 	@ApiOperation(value="Return anticipated record counts.")
 	@ApiResponses(value={@ApiResponse(code=200, message="OK", response=StationCountJson.class)})
 	@PostMapping(value="count", produces=MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, String> stationPostCountRequest(HttpServletRequest request, HttpServletResponse response,
+	public Map<String, String> summaryStationPostCountRequest(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value="mimeType", required=false) String mimeType,
 			@RequestParam(value="zip", required=false) String zip,
 			@RequestBody @ApiIgnore FilterParameters filter) {
@@ -122,7 +122,7 @@ public class SummaryStationController extends BaseController {
 
 	@Override
 	protected Profile determineProfile(FilterParameters filter) {
-		return determineProfile(Profile.STATION, filter);
+		return determineProfile(Profile.SUMMARY_STATION, filter);
 	}
 
 }
