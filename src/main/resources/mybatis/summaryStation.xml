@@ -20,11 +20,27 @@
             nvl(filter.result_count,0) result_count,
             state.description_with_out_country state_name,
             county.description_wo_country_state county_name,
-	    nvl(filter.summary_past_12_months, 0) summary_past_12_months,
-	    nvl(filter.summary_past_60_months, 0) summary_past_60_months,
-            nvl(filter.summary_all_months, 0) summary_all_months
+	    TO_CHAR(filter.summary_past_12_months) summary_past_12_months,
+	    TO_CHAR(filter.summary_past_60_months) summary_past_60_months,
+            TO_CHAR(filter.summary_all_months) summary_all_months
 	    
-        <include refid="dynamicWhere.stationsBaseFrom"/>
+	FROM station prime
+	    
+	join (
+	    select 
+		data_source_id, 
+		station_id, 
+		activity_count, 
+		result_count, 
+		summary_past_12_months, 
+		summary_past_60_months, 
+		summary_all_months
+	    
+	    from station_sum
+	    
+	    ) filter
+	on prime.station_id = filter.station_id and
+	 prime.data_source_id = filter.data_source_id
 
         LEFT JOIN state ON prime.data_source_id = state.data_source_id
                       AND prime.state_code = state.code_value
