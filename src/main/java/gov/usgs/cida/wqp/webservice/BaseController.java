@@ -452,7 +452,7 @@ public abstract class BaseController {
 		case kmz:
 			return NameSpace.STATION_KML;
 		case geojson:
-			getGeoJsonNameSpace(getProfile());	
+			return getGeoJsonNameSpace(getProfile());	
 		default:
 			return determineNamespaceFromProfile(getProfile());
 		}
