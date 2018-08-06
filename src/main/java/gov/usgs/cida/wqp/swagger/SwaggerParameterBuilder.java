@@ -15,6 +15,7 @@ import com.google.common.base.Optional;
 import gov.usgs.cida.wqp.swagger.annotation.FullParameterList;
 import gov.usgs.cida.wqp.swagger.annotation.NoQueryParametersList;
 import gov.usgs.cida.wqp.swagger.annotation.ProfileParameterActivity;
+import gov.usgs.cida.wqp.swagger.annotation.ProfileParameterSummary;
 import springfox.documentation.service.Parameter;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.OperationBuilderPlugin;
@@ -83,7 +84,7 @@ public class SwaggerParameterBuilder implements OperationBuilderPlugin {
 		}
 
                 if (profileParameterSummary.isPresent()) {
-                    //TODO add needed params
+                    parameters.add(SwaggerParameters.summaryYears());                    
                 }
 		if (postMapping.isPresent()) {
 			parameters.add(SwaggerParameters.postParms());
