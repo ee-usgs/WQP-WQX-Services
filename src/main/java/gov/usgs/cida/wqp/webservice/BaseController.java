@@ -460,7 +460,7 @@ public abstract class BaseController {
 	
 	protected NameSpace getGeoJsonNameSpace(Profile theProfile) {
 		NameSpace theNameSpace = null;
-		if (theProfile == Profile.SIMPLE_STATION) {
+		if (theProfile == Profile.SIMPLE_STATION || theProfile == Profile.STATION) {
 			theNameSpace = NameSpace.SIMPLE_STATION;
 		} else if (theProfile == Profile.SUMMARY_STATION) {
 			theNameSpace = NameSpace.SUMMARY_STATION;
