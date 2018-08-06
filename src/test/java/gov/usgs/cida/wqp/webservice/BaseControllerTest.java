@@ -852,9 +852,13 @@ public class BaseControllerTest {
 
 		TestBaseController.setMimeType(MimeType.kmz);
 		assertEquals(NameSpace.STATION_KML, testController.determineNamespace());
-
+		
 		TestBaseController.setMimeType(MimeType.geojson);
+		TestBaseController.setProfile(Profile.SIMPLE_STATION);
 		assertEquals(NameSpace.SIMPLE_STATION, testController.determineNamespace());
+		
+		TestBaseController.setProfile(Profile.SUMMARY_STATION);
+		assertEquals(NameSpace.SUMMARY_STATION, testController.determineNamespace());
 
 		TestBaseController.setMimeType(MimeType.csv);
 		TestBaseController.setProfile(Profile.BIOLOGICAL);
