@@ -78,8 +78,10 @@ public class MapToJsonTransformer extends Transformer {
                         g.writeStringField("CountyName", getValue(resultMap, StationColumn.KEY_COUNTY_NAME));
 			
 			// TODO null check? check which summary column to use
-			g.writeStringField("characteristicGroupResultCount", getValue(resultMap, StationColumn.KEY_SUMMARY_PAST_60_MONTHS));
-                        
+			if (resultMap.containsKey(StationColumn.KEY_SUMMARY_PAST_60_MONTHS)) {
+				g.writeStringField("characteristicGroupResultCount", getValue(resultMap, StationColumn.KEY_SUMMARY_PAST_60_MONTHS));
+			}
+			                        
                         g.writeEndObject();
 			g.writeEndObject();
 		} catch (IOException e) {
