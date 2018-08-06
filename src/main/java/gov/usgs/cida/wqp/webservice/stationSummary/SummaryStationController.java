@@ -10,6 +10,7 @@ import gov.usgs.cida.wqp.service.ConfigurationService;
 import gov.usgs.cida.wqp.service.ILogService;
 import gov.usgs.cida.wqp.swagger.SwaggerConfig;
 import gov.usgs.cida.wqp.swagger.annotation.FullParameterList;
+import gov.usgs.cida.wqp.swagger.annotation.ProfileParameterSummary;
 import gov.usgs.cida.wqp.swagger.model.StationCountJson;
 import gov.usgs.cida.wqp.util.HttpConstants;
 import gov.usgs.cida.wqp.webservice.BaseController;
@@ -61,14 +62,14 @@ public class SummaryStationController extends BaseController {
 	}
 
 	@ApiOperation(value="Return appropriate request headers (including anticipated record counts).")
-	@FullParameterList
+	@ProfileParameterSummary
 	@RequestMapping(method=RequestMethod.HEAD)
 	public void summaryStationHeadRequest(HttpServletRequest request, HttpServletResponse response, @ApiIgnore FilterParameters filter) {
 		doHeadRequest(request, response, filter);
 	}
 
 	@ApiOperation(value="Return requested data.")
-	@FullParameterList
+	@ProfileParameterSummary
 	@GetMapping()
 	public void summaryStationGetRequest(HttpServletRequest request, HttpServletResponse response, @ApiIgnore FilterParameters filter) {
 		doDataRequest(request, response, filter);
