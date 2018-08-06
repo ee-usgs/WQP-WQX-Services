@@ -84,7 +84,18 @@ public class SwaggerParameterBuilder implements OperationBuilderPlugin {
 		}
 
                 if (profileParameterSummary.isPresent()) {
-                    parameters.add(SwaggerParameters.summaryYears());                    
+		    parameters.add(SwaggerParameters.bBox());
+		    parameters.add(SwaggerParameters.countrycode());
+		    parameters.add(SwaggerParameters.huc());
+		    parameters.add(SwaggerParameters.lat());
+		    parameters.add(SwaggerParameters.longitude());
+		    parameters.add(SwaggerParameters.organization());
+		    parameters.add(SwaggerParameters.providers());
+		    parameters.add(SwaggerParameters.siteid());
+		    parameters.add(SwaggerParameters.siteType());
+		    parameters.add(SwaggerParameters.statecode());
+		    parameters.add(SwaggerParameters.summaryYears());
+		    parameters.add(SwaggerParameters.within());
                 }
 		if (postMapping.isPresent()) {
 			parameters.add(SwaggerParameters.postParms());
