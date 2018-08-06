@@ -1,4 +1,4 @@
-package gov.usgs.cida.wqp.webservice.stationSummary;
+package gov.usgs.cida.wqp.webservice.summary;
 
 import gov.usgs.cida.wqp.dao.intfc.ICountDao;
 import gov.usgs.cida.wqp.dao.intfc.IStreamingDao;
