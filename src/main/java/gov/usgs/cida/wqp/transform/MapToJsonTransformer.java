@@ -77,24 +77,14 @@ public class MapToJsonTransformer extends Transformer {
                         g.writeStringField("StateName", getValue(resultMap, StationColumn.KEY_STATE_NAME));
                         g.writeStringField("CountyName", getValue(resultMap, StationColumn.KEY_COUNTY_NAME));
 
-			// TODO null check? check which summary column to use
-			if (mapping.containsKey(StationColumn.KEY_SUMMARY_PAST_60_MONTHS) && resultMap.containsKey(StationColumn.KEY_SUMMARY_PAST_60_MONTHS)) {
+			if (resultMap.containsKey(StationColumn.KEY_SUMMARY_PAST_12_MONTHS)) {
+				g.writeStringField("characteristicGroupResultCount", getValue(resultMap, StationColumn.KEY_SUMMARY_PAST_12_MONTHS));
+			} else if (resultMap.containsKey(StationColumn.KEY_SUMMARY_PAST_60_MONTHS)) {
 				g.writeStringField("characteristicGroupResultCount", getValue(resultMap, StationColumn.KEY_SUMMARY_PAST_60_MONTHS));
+			} else if (resultMap.containsKey(StationColumn.KEY_SUMMARY_ALL_MONTHS)) {
+				g.writeStringField("characteristicGroupResultCount", getValue(resultMap, StationColumn.KEY_SUMMARY_ALL_MONTHS));
 			}
 			
-			
-//			if (mapping.containsKey(StationColumn.KEY_SUMMARY_PAST_12_MONTHS) && 
-//				resultMap.containsKey(StationColumn.KEY_SUMMARY_PAST_12_MONTHS)) {
-//				g.writeStringField("characteristicGroupResultCount", getValue(resultMap, StationColumn.KEY_SUMMARY_PAST_12_MONTHS));
-//			} else if (mapping.containsKey(StationColumn.KEY_SUMMARY_PAST_60_MONTHS) && 
-//				resultMap.containsKey(StationColumn.KEY_SUMMARY_PAST_60_MONTHS)) {
-//				g.writeStringField("characteristicGroupResultCount", getValue(resultMap, StationColumn.KEY_SUMMARY_PAST_60_MONTHS));
-//			} else if (mapping.containsKey(StationColumn.KEY_SUMMARY_ALL_MONTHS) && 
-//				resultMap.containsKey(StationColumn.KEY_SUMMARY_ALL_MONTHS)) {
-//				g.writeStringField("characteristicGroupResultCount", getValue(resultMap, StationColumn.KEY_SUMMARY_ALL_MONTHS));
-//			}
-			
-			                        
                         g.writeEndObject();
 			g.writeEndObject();
 		} catch (IOException e) {
