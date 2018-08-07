@@ -97,6 +97,7 @@ public class SwaggerParameterBuilder implements OperationBuilderPlugin {
 		    parameters.add(SwaggerParameters.summaryYears());
 		    parameters.add(SwaggerParameters.within());
                 }
+                
 		if (postMapping.isPresent()) {
 			parameters.add(SwaggerParameters.postParms());
 		}
