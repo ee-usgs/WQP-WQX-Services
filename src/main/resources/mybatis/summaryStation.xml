@@ -20,9 +20,14 @@
             nvl(filter.result_count,0) result_count,
             state.description_with_out_country state_name,
             county.description_wo_country_state county_name,
-	    TO_CHAR(filter.summary_past_12_months) summary_past_12_months,
-	    TO_CHAR(filter.summary_past_60_months) summary_past_60_months,
-            TO_CHAR(filter.summary_all_months) summary_all_months
+	    
+	    <if test="summaryYears != null">
+		<choose>
+			<when test="summaryYears == '1'">TO_CHAR(filter.summary_past_12_months) summary_past_12_months</when>
+			<when test="summaryYears == '5'">TO_CHAR(filter.summary_past_60_months) summary_past_60_months</when>
+			<when test="summaryYears == 'all'">TO_CHAR(filter.summary_all_months) summary_all_months</when>
+		</choose>
+	    </if>
 	    
 	FROM station prime
 	    
