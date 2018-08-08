@@ -79,9 +79,13 @@ public class MapToJsonTransformer extends Transformer {
 
 			String charGroupResultCount = "characteristicGroupResultCount";	
 			
-			if (resultMap.containsKey(StationColumn.KEY_SUMMARY_PAST_12_MONTHS)) {
+			if (resultMap.containsKey(StationColumn.KEY_SUMMARY_PAST_12_MONTHS)) {                                
 				g.writeFieldName(charGroupResultCount);
-				g.writeRawValue(getValue(resultMap, StationColumn.KEY_SUMMARY_PAST_12_MONTHS));
+                                if ((getValue(resultMap, StationColumn.KEY_SUMMARY_PAST_12_MONTHS)).equals("")) {
+                                    g.writeObject("this is a null value");
+                                } else {
+                                    g.writeRawValue(getValue(resultMap, StationColumn.KEY_SUMMARY_PAST_12_MONTHS));
+                                }
 			} else if (resultMap.containsKey(StationColumn.KEY_SUMMARY_PAST_60_MONTHS)) {
 				g.writeFieldName(charGroupResultCount);
 				g.writeRawValue(getValue(resultMap, StationColumn.KEY_SUMMARY_PAST_60_MONTHS));
