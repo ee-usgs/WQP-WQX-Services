@@ -77,12 +77,19 @@ public class MapToJsonTransformer extends Transformer {
                         g.writeStringField("StateName", getValue(resultMap, StationColumn.KEY_STATE_NAME));
                         g.writeStringField("CountyName", getValue(resultMap, StationColumn.KEY_COUNTY_NAME));
 
-			if (resultMap.containsKey(StationColumn.KEY_SUMMARY_PAST_12_MONTHS)) {
-				g.writeStringField("characteristicGroupResultCount", getValue(resultMap, StationColumn.KEY_SUMMARY_PAST_12_MONTHS));
+			if (resultMap.containsKey(StationColumn.KEY_SUMMARY_PAST_12_MONTHS)) {   
+                                g.writeFieldName("characteristicGroupResultCount");                            
+                                g.writeRawValue(getValue(resultMap, StationColumn.KEY_SUMMARY_PAST_12_MONTHS)); 
+                               // g.writeStringField("characteristicGroupResultCount", getValue(resultMap, StationColumn.KEY_SUMMARY_PAST_12_MONTHS));
 			} else if (resultMap.containsKey(StationColumn.KEY_SUMMARY_PAST_60_MONTHS)) {
-				g.writeStringField("characteristicGroupResultCount", getValue(resultMap, StationColumn.KEY_SUMMARY_PAST_60_MONTHS));
+                                g.writeFieldName("characteristicGroupResultCount");                            
+                                g.writeRawValue(getValue(resultMap, StationColumn.KEY_SUMMARY_PAST_60_MONTHS)); 
+				//g.writeStringField("characteristicGroupResultCount", getValue(resultMap, StationColumn.KEY_SUMMARY_PAST_60_MONTHS));
 			} else if (resultMap.containsKey(StationColumn.KEY_SUMMARY_ALL_MONTHS)) {
-				g.writeStringField("characteristicGroupResultCount", getValue(resultMap, StationColumn.KEY_SUMMARY_ALL_MONTHS));
+                                g.writeFieldName("characteristicGroupResultCount");                            
+                                g.writeRawValue(getValue(resultMap, StationColumn.KEY_SUMMARY_ALL_MONTHS));                              
+                               
+				
 			}
 			
                         g.writeEndObject();
