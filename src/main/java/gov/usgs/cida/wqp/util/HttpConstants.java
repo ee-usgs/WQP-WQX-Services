@@ -14,16 +14,17 @@ public class HttpConstants {
 	public static final String ENDPOINT_PROJECT_MONITORING_LOCATION_WEIGHTING = "ProjectMonitoringLocationWeighting";
 	public static final String ENDPOINT_SIMPLE_STATION = "simplestation";
 	public static final String ENDPOINT_SEARCH = "/search";
-	public static final String ENDPOINT_SUMMARY_STATION = "summarystation";
+	public static final String ENDPOINT_SUMMARY = "summary";
 	public static final String ENDPOINT_RES_DETECT_QNT_LMT = "ResultDetectionQuantitationLimit";
 	public static final String ENDPOINT_FILE = "/files";
+	public static final String ENDPOINT_MONITORING_LOCATION = "/monitoringlocation";
 
 	public static final String ACTIVITY_SEARCH_ENDPOINT = "/" + ENDPOINT_ACTIVITY + ENDPOINT_SEARCH;
 	public static final String ACTIVITY_METRIC_SEARCH_ENDPOINT = "/" + ENDPOINT_ACTIVITY_METRIC + ENDPOINT_SEARCH;
 	public static final String RESULT_SEARCH_ENDPOINT = "/" + ENDPOINT_RESULT + ENDPOINT_SEARCH;
 	public static final String STATION_SEARCH_ENDPOINT = "/" + ENDPOINT_STATION + ENDPOINT_SEARCH;
 	public static final String SIMPLE_STATION_ENDPOINT = "/" + ENDPOINT_SIMPLE_STATION + ENDPOINT_SEARCH;
-	public static final String SUMMARY_STATION_ENDPOINT = "/" + ENDPOINT_SUMMARY_STATION + ENDPOINT_SEARCH;
+	public static final String SUMMARY_STATION_ENDPOINT = "/" + ENDPOINT_SUMMARY + ENDPOINT_MONITORING_LOCATION + ENDPOINT_SEARCH;
 	public static final String RES_DETECT_QNT_LMT_SEARCH_ENDPOINT = "/" + ENDPOINT_RES_DETECT_QNT_LMT + ENDPOINT_SEARCH;
 	public static final String PROJECT_SEARCH_ENDPOINT = '/' + ENDPOINT_PROJECT + ENDPOINT_SEARCH;
 	public static final String PROJECT_MONITORING_LOCATION_WEIGHTING_SEARCH_ENDPOINT = '/' + ENDPOINT_PROJECT_MONITORING_LOCATION_WEIGHTING + ENDPOINT_SEARCH;

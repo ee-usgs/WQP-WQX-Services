@@ -84,7 +84,7 @@ public class MapToJsonTransformer extends Transformer {
 			} else if (resultMap.containsKey(StationColumn.KEY_SUMMARY_ALL_MONTHS)) {
 				g.writeStringField("characteristicGroupResultCount", getValue(resultMap, StationColumn.KEY_SUMMARY_ALL_MONTHS));
 			}
-			
+
                         g.writeEndObject();
 			g.writeEndObject();
 		} catch (IOException e) {
