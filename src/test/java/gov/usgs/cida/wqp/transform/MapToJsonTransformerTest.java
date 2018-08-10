@@ -11,12 +11,17 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
+import org.mockito.Mockito;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import org.mockito.MockitoAnnotations;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,24 +35,24 @@ public class MapToJsonTransformerTest {
 	protected BigDecimal logId = new BigDecimal(1);
 	protected MapToJsonTransformer transformer;
 	protected ByteArrayOutputStream baos;
-	protected String siteUrlBase = "http://test-url.usgs.gov";
+	protected String siteUrlBase = "http://test-url.usgs.gov";    
 
 	@Before
 	public void initTest() {
 		MockitoAnnotations.initMocks(this);
 		baos = new ByteArrayOutputStream();
 		transformer = new MapToJsonTransformer(baos, null, logService, logId, siteUrlBase);
-	}
+        }
 
 	@After
 	public void closeTest() throws IOException {
 		transformer.close();
 	}
-
-	@Test
+        
+        @Test
 	public void writeHeaderTest() {
 		try {
-			//need to flush the JsonGenerator to get at output. 
+			//need to flush the JsonGenerator to get an output. 
 			transformer.g.flush();
 			assertEquals(JSON_HEADER.length(), baos.size());
 			assertEquals(JSON_HEADER, new String(baos.toByteArray(), HttpConstants.DEFAULT_ENCODING));
@@ -72,7 +77,9 @@ public class MapToJsonTransformerTest {
 		map.put(StationColumn.KEY_ACTIVITY_COUNT, 57);
 		map.put(StationColumn.KEY_RESULT_COUNT, 857);
                 map.put(StationColumn.KEY_STATE_NAME, "Wisconsin");
-                map.put(StationColumn.KEY_COUNTY_NAME, "Dane");      
+                map.put(StationColumn.KEY_COUNTY_NAME, "Dane"); 
+                
+                
 		try {
 			transformer.writeData(map);
 			//need to flush the JsonGenerator to get at output. 
@@ -114,7 +121,48 @@ public class MapToJsonTransformerTest {
 			fail(e.getLocalizedMessage());
 		}
 	}
+        
+        @Test public void checkIfCharacteristicGroupCountPresentTest() throws IOException {
+                String fieldName = "characteristicGroupResultCount";
+                String keyValue = "SUMMARY_PAST_12_MONTHS";
+                MapToJsonTransformer spyTransformer = Mockito.spy(new MapToJsonTransformer(baos, null, logService, logId, siteUrlBase));
+                Map<String, Object> map = new HashMap<>();
+                
+                map.put(StationColumn.KEY_STATE_NAME, "Wisconsin");
+                map.put(StationColumn.KEY_COUNTY_NAME, "Dane");
+                map.put(StationColumn.KEY_SUMMARY_PAST_12_MONTHS, "");
 
+                try {
+                        spyTransformer.g.writeStartObject();                        
+                        spyTransformer.checkIfCharacteristicGroupCountPresent(map);
+                       
+                        verify(spyTransformer, times(1)).writeCharacteristicGroupCount(fieldName, map, keyValue);             
+                               
+                } catch (IOException e) {
+			fail(e.getLocalizedMessage());
+		}
+        }        
+           
+        @Test public void writeCharateristicGroupCountTest() {
+                String fieldName = "characteristicGroupResultCount";
+                String keyValue = "SUMMARY_PAST_12_MONTHS";
+                MapToJsonTransformer spyTransformer = Mockito.spy(new MapToJsonTransformer(baos, null, logService, logId, siteUrlBase));
+                Map<String, Object> map = new HashMap<>();
+                map.put(StationColumn.KEY_STATE_NAME, "Wisconsin");
+                map.put(StationColumn.KEY_COUNTY_NAME, "Dane");
+                map.put(StationColumn.KEY_SUMMARY_PAST_12_MONTHS, "");                 
+                
+            try {
+                        spyTransformer.g.writeStartObject();
+                        spyTransformer.writeCharacteristicGroupCount(fieldName, map, keyValue); 
+               
+                        verify(spyTransformer, times(1)).g.writeObject("Not Available");
+                
+            } catch (IOException ex) {
+                java.util.logging.Logger.getLogger(MapToJsonTransformerTest.class.getName()).log(Level.SEVERE, null, ex);
+            }  
+        }  
+        
 	@Test
 	public void endTestData() {
 		try {

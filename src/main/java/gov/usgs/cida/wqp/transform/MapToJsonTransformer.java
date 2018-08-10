@@ -77,7 +77,7 @@ public class MapToJsonTransformer extends Transformer {
                         g.writeStringField("StateName", getValue(resultMap, StationColumn.KEY_STATE_NAME));
                         g.writeStringField("CountyName", getValue(resultMap, StationColumn.KEY_COUNTY_NAME));
                         
-                        checkIfCharateristicGroupCountPresent(resultMap);
+                        checkIfCharacteristicGroupCountPresent(resultMap);
                         
                         g.writeEndObject();
 			g.writeEndObject();
@@ -106,18 +106,18 @@ public class MapToJsonTransformer extends Transformer {
 		}
 	}
         
-        private void checkIfCharateristicGroupCountPresent(Map<String, Object> resultMap) throws IOException {
+        protected void checkIfCharacteristicGroupCountPresent(Map<String, Object> resultMap) throws IOException {
                 String charGroupResultCount = "characteristicGroupResultCount";
                 if (resultMap.containsKey(StationColumn.KEY_SUMMARY_PAST_12_MONTHS)) { 
-                    writeCharateristicGroupCount(charGroupResultCount, resultMap, StationColumn.KEY_SUMMARY_PAST_12_MONTHS);		
+                    writeCharacteristicGroupCount(charGroupResultCount, resultMap, StationColumn.KEY_SUMMARY_PAST_12_MONTHS);		
                 } else if (resultMap.containsKey(StationColumn.KEY_SUMMARY_PAST_60_MONTHS)) {
-                    writeCharateristicGroupCount(charGroupResultCount, resultMap, StationColumn.KEY_SUMMARY_PAST_60_MONTHS);				
+                    writeCharacteristicGroupCount(charGroupResultCount, resultMap, StationColumn.KEY_SUMMARY_PAST_60_MONTHS);				
                 } else if (resultMap.containsKey(StationColumn.KEY_SUMMARY_ALL_MONTHS)) {
-                    writeCharateristicGroupCount(charGroupResultCount, resultMap, StationColumn.KEY_SUMMARY_ALL_MONTHS);				
+                    writeCharacteristicGroupCount(charGroupResultCount, resultMap, StationColumn.KEY_SUMMARY_ALL_MONTHS);				
                 }
         }
         
-        private void writeCharateristicGroupCount(String fieldName, Map<String, Object> resultMap, String keyValue) throws IOException {
+        protected void writeCharacteristicGroupCount(String fieldName, Map<String, Object> resultMap, String keyValue) throws IOException {
                 g.writeFieldName(fieldName);
                 
                 if ((getValue(resultMap, keyValue)).equals("")) {
@@ -132,5 +132,4 @@ public class MapToJsonTransformer extends Transformer {
 		//The jackson code takes care of encoding these values.
 		return value;
 	}
-
 }
