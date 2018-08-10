@@ -320,6 +320,10 @@ public abstract class BaseTest {
 	public List<String> getSubjectTaxonomicName() {
 		return Arrays.asList("Acipenser", "Lota lota", "sampleTissueTaxonomicName");
 	}
+	
+	public String getSummaryYears() {
+		return "1";
+	}
 
 	public String getWithin() {
 		return "650";

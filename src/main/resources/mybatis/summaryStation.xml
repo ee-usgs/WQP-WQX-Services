@@ -19,13 +19,13 @@
             nvl(filter.activity_count,0) activity_count,
             nvl(filter.result_count,0) result_count,
             state.description_with_out_country state_name,
-            county.description_wo_country_state county_name,
+            county.description_wo_country_state county_name
 	    
 	    <if test="summaryYears != null">
 		<choose>
-			<when test="summaryYears.equalsIgnoreCase('1')">TO_CHAR(filter.summary_past_12_months) summary_past_12_months</when>
-			<when test="summaryYears.equalsIgnoreCase('5')">TO_CHAR(filter.summary_past_60_months) summary_past_60_months</when>
-			<when test="summaryYears.equalsIgnoreCase('all')">TO_CHAR(filter.summary_all_months) summary_all_months</when>
+			<when test="summaryYears.equalsIgnoreCase('1')">, TO_CHAR(filter.summary_past_12_months) summary_past_12_months</when>
+			<when test="summaryYears.equalsIgnoreCase('5')">, TO_CHAR(filter.summary_past_60_months) summary_past_60_months</when>
+			<when test="summaryYears.equalsIgnoreCase('all')">, TO_CHAR(filter.summary_all_months) summary_all_months</when>
 		</choose>
 	    </if>
 	    
@@ -53,7 +53,10 @@
         LEFT JOIN county ON prime.data_source_id = county.data_source_id
                        AND prime.county_code = county.code_value
 
-        <include refid="dynamicWhere.baseStationWhere"/>
+        <where>
+            <include refid="dynamicWhere.baseWhereStationGeoClauses" />
+            <include refid="dynamicWhere.baseWhereStationClauses" />
+	</where>
             
         ORDER BY
             prime.data_source_id,

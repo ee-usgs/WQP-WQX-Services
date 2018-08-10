@@ -16,25 +16,15 @@ import gov.usgs.cida.wqp.Application;
 import static gov.usgs.cida.wqp.BaseTest.BIODATA_SITE_COUNT;
 import static gov.usgs.cida.wqp.BaseTest.BIODATA_SITE_COUNT_GEOM;
 import static gov.usgs.cida.wqp.BaseTest.CSV;
-import static gov.usgs.cida.wqp.BaseTest.CSV_AND_ZIP;
 import static gov.usgs.cida.wqp.BaseTest.FILTERED_STORET_SITE_COUNT;
 import static gov.usgs.cida.wqp.BaseTest.FILTERED_TOTAL_SITE_COUNT;
 import static gov.usgs.cida.wqp.BaseTest.GEOJSON;
 import static gov.usgs.cida.wqp.BaseTest.GEOJSON_AND_ZIP;
-import static gov.usgs.cida.wqp.BaseTest.KML;
-import static gov.usgs.cida.wqp.BaseTest.KML_AND_ZIP;
-import static gov.usgs.cida.wqp.BaseTest.KMZ;
 import static gov.usgs.cida.wqp.BaseTest.NWIS_SITE_COUNT;
 import static gov.usgs.cida.wqp.BaseTest.STEWARDS_SITE_COUNT;
 import static gov.usgs.cida.wqp.BaseTest.STORET_SITE_COUNT;
 import static gov.usgs.cida.wqp.BaseTest.TOTAL_SITE_COUNT;
 import static gov.usgs.cida.wqp.BaseTest.TOTAL_SITE_COUNT_GEOM;
-import static gov.usgs.cida.wqp.BaseTest.TSV;
-import static gov.usgs.cida.wqp.BaseTest.TSV_AND_ZIP;
-import static gov.usgs.cida.wqp.BaseTest.XLSX;
-import static gov.usgs.cida.wqp.BaseTest.XLSX_AND_ZIP;
-import static gov.usgs.cida.wqp.BaseTest.XML;
-import static gov.usgs.cida.wqp.BaseTest.XML_AND_ZIP;
 import gov.usgs.cida.wqp.CsvDataSetLoader;
 import gov.usgs.cida.wqp.mapping.Profile;
 import gov.usgs.cida.wqp.springinit.DBTestConfig;
@@ -44,6 +34,11 @@ import static gov.usgs.cida.wqp.swagger.model.StationCountJson.HEADER_STEWARDS_S
 import static gov.usgs.cida.wqp.swagger.model.StationCountJson.HEADER_STORET_SITE_COUNT;
 import gov.usgs.cida.wqp.util.HttpConstants;
 import gov.usgs.cida.wqp.webservice.BaseControllerIntegrationTest;
+import java.net.URL;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+import org.springframework.test.web.servlet.MvcResult;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 
 @EnableWebMvc
@@ -65,60 +60,6 @@ public class SummaryStationControllerIT extends BaseControllerIntegrationTest {
 		getAsGeoJsonZipTest();
 		getAllParametersTest(); // TODO: Make new version of this
 	}
-	
-	public void getAsCsvTest() throws Exception {
-		getAsDelimitedTest(ENDPOINT + CSV, HttpConstants.MIME_TYPE_CSV, CSV, PROFILE, POSTABLE);
-	}
-
-	@Test
-	public void getAsCsvZipTest() throws Exception {
-		getAsDelimitedZipTest(ENDPOINT + CSV_AND_ZIP, HttpConstants.MIME_TYPE_ZIP, CSV, PROFILE, POSTABLE);
-	}
-
-	@Test
-	public void getAsTsvTest() throws Exception {
-		getAsDelimitedTest(ENDPOINT + TSV, HttpConstants.MIME_TYPE_TSV, TSV, PROFILE, POSTABLE);
-	}
-
-	@Test
-	public void getAsTsvZipTest() throws Exception {
-		getAsDelimitedZipTest(ENDPOINT + TSV_AND_ZIP, HttpConstants.MIME_TYPE_ZIP, TSV, PROFILE, POSTABLE);
-	}
-
-	@Test
-	public void getAsXlsxTest() throws Exception {
-		getAsXlsxTest(ENDPOINT + XLSX, HttpConstants.MIME_TYPE_XLSX, XLSX, PROFILE, POSTABLE);
-	}
-
-	@Test
-	public void getAsXlsxZipTest() throws Exception {
-		getAsXlsxZipTest(ENDPOINT + XLSX_AND_ZIP, HttpConstants.MIME_TYPE_ZIP, XLSX, PROFILE, POSTABLE);
-	}
-
-	@Test
-	public void getAsXmlTest() throws Exception {
-		getAsXmlTest(ENDPOINT + XML, HttpConstants.MIME_TYPE_XML, XML, PROFILE, POSTABLE);
-	}
-
-	@Test
-	public void getAsXmlZipTest() throws Exception {
-		getAsXmlZipTest(ENDPOINT + XML_AND_ZIP, HttpConstants.MIME_TYPE_ZIP, XML, PROFILE, POSTABLE);
-	}
-
-	@Test
-	public void getAsKmlTest() throws Exception {
-		getAsKmlTest(ENDPOINT + KML, HttpConstants.MIME_TYPE_KML, KML, PROFILE, POSTABLE);
-	}
-
-	@Test
-	public void getAsKmlZipTest() throws Exception {
-		getAsKmzTest(ENDPOINT + KML_AND_ZIP, HttpConstants.MIME_TYPE_KMZ, KMZ, PROFILE, POSTABLE);
-	}
-
-	@Test
-	public void getAsKmzTest() throws Exception {
-		getAsKmzTest(ENDPOINT + KMZ, HttpConstants.MIME_TYPE_KMZ, KMZ, PROFILE, POSTABLE);
-	}
 
 	@Test
 	public void getAsGeoJsonTest() throws Exception {
@@ -137,7 +78,7 @@ public class SummaryStationControllerIT extends BaseControllerIntegrationTest {
 
 	@Test
 	public void postGetCountTest() throws Exception {
-		String urlPrefix = HttpConstants.STATION_SEARCH_ENDPOINT + "/count?mimeType=";
+		String urlPrefix = HttpConstants.SUMMARY_STATION_ENDPOINT + "/count?mimeType=";
 		String compareObject = "{\"" + HttpConstants.HEADER_TOTAL_SITE_COUNT + "\":\"" + FILTERED_TOTAL_SITE_COUNT
 				+ "\",\"" + HEADER_STORET_SITE_COUNT + "\":\"" + FILTERED_STORET_SITE_COUNT
 				+ "\"}";
@@ -172,6 +113,26 @@ public class SummaryStationControllerIT extends BaseControllerIntegrationTest {
 	public ResultActions noResultHeaderCheck(ResultActions resultActions) throws Exception {
 		return resultActions
 				.andExpect(header().string(HttpConstants.HEADER_TOTAL_SITE_COUNT, "0"));
+	}
+	
+	protected void getAllParametersTest(String url, String mimeType, String fileType, Profile profile, boolean isPostable) throws Exception {
+		when(fetchService.fetch(any(String.class), any(URL.class))).thenReturn(getNldiSites());
+
+		assertEquals("", filteredHeaderCheck(callMockHead(url + getUrlParameters(), mimeType, getContentDisposition(profile, fileType))).andReturn().getResponse().getContentAsString());
+
+		MvcResult rtn = filteredHeaderCheck(callMockGet(url + getUrlParameters(), mimeType, getContentDisposition(profile, fileType))).andReturn();
+		assertEquals(getCompareFile(profile, fileType, "Filtered"), rtn.getResponse().getContentAsString());
+
+		if (isPostable) {
+			rtn = filteredHeaderCheck(callMockPostJson(url, getSourceFile("postParameters.json").replace("[DATA_PROFILE]", profile.toString()), mimeType, getContentDisposition(profile, fileType))).andReturn();
+			assertEquals(getCompareFile(profile, fileType, "Filtered"), rtn.getResponse().getContentAsString());
+
+			rtn = filteredHeaderCheck(callMockPostFormFiltered(url, mimeType, getContentDisposition(profile, fileType))).andReturn();
+			assertEquals(getCompareFile(profile, fileType, "Filtered"), rtn.getResponse().getContentAsString());
+
+			rtn = unFilteredHeaderCheck(callMockPostEmptyForm(url, mimeType, getContentDisposition(profile, fileType))).andReturn();
+			assertEquals(getCompareFile(profile, fileType, null), rtn.getResponse().getContentAsString());
+		}
 	}
 	
 }

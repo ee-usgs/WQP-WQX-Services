@@ -84,11 +84,15 @@ public class SwaggerParameterBuilder implements OperationBuilderPlugin {
 		}
 
                 if (profileParameterSummary.isPresent()) {
+		    parameters.add(SwaggerParameters.mimeType());
+		    parameters.add(SwaggerParameters.zip());
 		    parameters.add(SwaggerParameters.bBox());
 		    parameters.add(SwaggerParameters.countrycode());
+		    parameters.add(SwaggerParameters.countycode());
 		    parameters.add(SwaggerParameters.huc());
 		    parameters.add(SwaggerParameters.lat());
 		    parameters.add(SwaggerParameters.longitude());
+		    parameters.add(SwaggerParameters.nldiurl());
 		    parameters.add(SwaggerParameters.organization());
 		    parameters.add(SwaggerParameters.providers());
 		    parameters.add(SwaggerParameters.siteid());
