@@ -20,7 +20,7 @@
             nvl(filter.result_count,0) result_count,
             state.description_with_out_country state_name,
             county.description_wo_country_state county_name
-	    
+
 	    <if test="summaryYears != null">
 		<choose>
 			<when test="summaryYears.equalsIgnoreCase('1')">, TO_CHAR(filter.summary_past_12_months) summary_past_12_months</when>

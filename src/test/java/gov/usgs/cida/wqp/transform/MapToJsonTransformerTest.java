@@ -7,6 +7,7 @@ import gov.usgs.cida.wqp.service.ILogService;
 import gov.usgs.cida.wqp.util.HttpConstants;
 
 import java.io.ByteArrayOutputStream;
+
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -17,8 +18,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 
 public class MapToJsonTransformerTest {
 
@@ -30,24 +33,24 @@ public class MapToJsonTransformerTest {
 	protected BigDecimal logId = new BigDecimal(1);
 	protected MapToJsonTransformer transformer;
 	protected ByteArrayOutputStream baos;
-	protected String siteUrlBase = "http://test-url.usgs.gov";
+	protected String siteUrlBase = "http://test-url.usgs.gov";   
 
 	@Before
 	public void initTest() {
 		MockitoAnnotations.initMocks(this);
 		baos = new ByteArrayOutputStream();
 		transformer = new MapToJsonTransformer(baos, null, logService, logId, siteUrlBase);
-	}
+        }
 
 	@After
 	public void closeTest() throws IOException {
 		transformer.close();
 	}
-
-	@Test
+        
+        @Test
 	public void writeHeaderTest() {
 		try {
-			//need to flush the JsonGenerator to get at output. 
+			//need to flush the JsonGenerator to get an output. 
 			transformer.g.flush();
 			assertEquals(JSON_HEADER.length(), baos.size());
 			assertEquals(JSON_HEADER, new String(baos.toByteArray(), HttpConstants.DEFAULT_ENCODING));
@@ -72,7 +75,9 @@ public class MapToJsonTransformerTest {
 		map.put(StationColumn.KEY_ACTIVITY_COUNT, 57);
 		map.put(StationColumn.KEY_RESULT_COUNT, 857);
                 map.put(StationColumn.KEY_STATE_NAME, "Wisconsin");
-                map.put(StationColumn.KEY_COUNTY_NAME, "Dane");      
+                map.put(StationColumn.KEY_COUNTY_NAME, "Dane"); 
+                
+                
 		try {
 			transformer.writeData(map);
 			//need to flush the JsonGenerator to get at output. 
@@ -114,7 +119,46 @@ public class MapToJsonTransformerTest {
 			fail(e.getLocalizedMessage());
 		}
 	}
-
+        
+        @Test public void getSummaryColumnNameTest() {             
+                Map<String, Object> map = new HashMap<>();
+                Map<String, Object> mapWithoutSummary = new HashMap<>();
+                
+                map.put(StationColumn.KEY_STATE_NAME, "Wisconsin");
+                map.put(StationColumn.KEY_COUNTY_NAME, "Dane");
+                map.put(StationColumn.KEY_SUMMARY_PAST_12_MONTHS, "");
+                
+                mapWithoutSummary.put(StationColumn.KEY_STATE_NAME, "Wisconsin");
+                mapWithoutSummary.put(StationColumn.KEY_COUNTY_NAME, "Dane"); 
+                
+                assertEquals(transformer.getSummaryColumnName(map), "SUMMARY_PAST_12_MONTHS" );
+                assertEquals(transformer.getSummaryColumnName(mapWithoutSummary), null);   
+        }       
+     
+        @Test
+        public void writeCharacteristicGroupCountTest() {
+                String fieldName = "characteristicGroupResultCount";
+                String keyValue = "SUMMARY_PAST_12_MONTHS";                
+                Map<String, Object> map = new HashMap<>();
+                map.put(StationColumn.KEY_STATE_NAME, "Wisconsin");
+                map.put(StationColumn.KEY_COUNTY_NAME, "Dane");
+                map.put(StationColumn.KEY_SUMMARY_PAST_12_MONTHS, "");
+                
+            try {
+                transformer.g.writeStartObject();
+                transformer.writeCharacteristicGroupCount(fieldName, map, keyValue);
+                //need to flush the JsonGenerator to get at output. 
+                transformer.g.flush();
+                
+                assertEquals(JSON_HEADER.length() + 49, baos.size());
+                assertEquals(JSON_HEADER + "{\"characteristicGroupResultCount\":\"Not Available\"",
+					new String(baos.toByteArray(), HttpConstants.DEFAULT_ENCODING));
+                
+            } catch (IOException e) {
+                fail(e.getLocalizedMessage());
+            } 
+        }        
+        
 	@Test
 	public void endTestData() {
 		try {

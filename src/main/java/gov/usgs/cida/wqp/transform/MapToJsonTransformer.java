@@ -76,28 +76,19 @@ public class MapToJsonTransformer extends Transformer {
 			g.writeStringField("resultCount", getValue(resultMap, StationColumn.KEY_RESULT_COUNT));
                         g.writeStringField("StateName", getValue(resultMap, StationColumn.KEY_STATE_NAME));
                         g.writeStringField("CountyName", getValue(resultMap, StationColumn.KEY_COUNTY_NAME));
-
-			String charGroupResultCount = "characteristicGroupResultCount";	
-			
-			if (resultMap.containsKey(StationColumn.KEY_SUMMARY_PAST_12_MONTHS)) {
-				g.writeFieldName(charGroupResultCount);
-				g.writeRawValue(getValue(resultMap, StationColumn.KEY_SUMMARY_PAST_12_MONTHS));
-			} else if (resultMap.containsKey(StationColumn.KEY_SUMMARY_PAST_60_MONTHS)) {
-				g.writeFieldName(charGroupResultCount);
-				g.writeRawValue(getValue(resultMap, StationColumn.KEY_SUMMARY_PAST_60_MONTHS));
-			} else if (resultMap.containsKey(StationColumn.KEY_SUMMARY_ALL_MONTHS)) {
-				g.writeFieldName(charGroupResultCount);
-				g.writeRawValue(getValue(resultMap, StationColumn.KEY_SUMMARY_ALL_MONTHS));
-			}
-
+                        
+                        String summaryColumnName  = getSummaryColumnName(resultMap); 
+                        if (summaryColumnName != null) {
+                            writeCharacteristicGroupCount("characteristicGroupResultCount", resultMap, summaryColumnName);
+                        }
                         g.writeEndObject();
 			g.writeEndObject();
 		} catch (IOException e) {
 			throw new RuntimeException("Error writing station json", e);
 		}
 	}
-
-	/** output the closing tags and close stuff as appropriate. */
+        
+        /** output the closing tags and close stuff as appropriate. */
 	@Override
 	public void end() {
 		try {
@@ -116,11 +107,32 @@ public class MapToJsonTransformer extends Transformer {
 			return "";
 		}
 	}
+                
+        protected String getSummaryColumnName(Map<String, Object> resultMap) {                
+                String summaryColumnName = null;
+                if (resultMap.containsKey(StationColumn.KEY_SUMMARY_PAST_12_MONTHS)) { 
+                    summaryColumnName = StationColumn.KEY_SUMMARY_PAST_12_MONTHS;		
+                } else if (resultMap.containsKey(StationColumn.KEY_SUMMARY_PAST_60_MONTHS)) {
+                    summaryColumnName = StationColumn.KEY_SUMMARY_PAST_60_MONTHS;				
+                } else if (resultMap.containsKey(StationColumn.KEY_SUMMARY_ALL_MONTHS)) {
+                    summaryColumnName = StationColumn.KEY_SUMMARY_ALL_MONTHS;				
+                }
+                return summaryColumnName;
+        }
+        
+        protected void writeCharacteristicGroupCount(String fieldName, Map<String, Object> resultMap, String keyValue) throws IOException {
+                g.writeFieldName(fieldName);
+
+                if ("".equals(getValue(resultMap, keyValue))) {
+                    g.writeObject("Not Available");
+                } else {
+                    g.writeRawValue(getValue(resultMap, keyValue));
+                }
+        }
 
 	@Override
 	public String encode(String value) {
 		//The jackson code takes care of encoding these values.
 		return value;
 	}
-
 }
