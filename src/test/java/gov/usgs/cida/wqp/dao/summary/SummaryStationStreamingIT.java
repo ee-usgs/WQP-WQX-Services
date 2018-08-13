@@ -10,7 +10,6 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 import gov.usgs.cida.wqp.ColumnSensingFlatXMLDataSetLoader;
 
-import gov.usgs.cida.wqp.CsvDataSetLoader;
 import gov.usgs.cida.wqp.dao.NameSpace;
 import gov.usgs.cida.wqp.dao.StreamingDao;
 import gov.usgs.cida.wqp.dao.streaming.BaseStationStreamingTest;
@@ -21,10 +20,8 @@ import java.util.List;
 
 @SpringBootTest(webEnvironment=WebEnvironment.NONE,
 	classes={DBTestConfig.class, StreamingDao.class})
-//@DatabaseSetup("classpath:/testData/csv/")
 @DatabaseSetup("classpath:/testData/clearAll.xml/")
 @DatabaseSetup("classpath:/testData/station.xml/")
-//@DbUnitConfiguration(dataSetLoader = CsvDataSetLoader.class)
 @DbUnitConfiguration(dataSetLoader = ColumnSensingFlatXMLDataSetLoader.class)
 public class SummaryStationStreamingIT extends BaseStationStreamingTest {
 
@@ -34,22 +31,21 @@ public class SummaryStationStreamingIT extends BaseStationStreamingTest {
 
 	@Test
 	public void testHarness() {
-		// cut out the tests you don't need according to what's in the swagger spec
-//		bboxTest(nameSpace);
-//		countryTest(nameSpace);
-//		emptyParameterTest(nameSpace);
-//		huc8Test(nameSpace);
-		// mimeTypeTest(nameSpace); // fails
-//		nullParameterTest(nameSpace);
-//		organizationTest(nameSpace);
-//		providersTest(nameSpace);
-//		siteIdTest(nameSpace);
-//		siteTypeTest(nameSpace);
-		sortedSummaryTest(nameSpace, expectedMap); // fails
-//		stateTest(nameSpace);
-//		withinTest(nameSpace);
-//		zipTest(nameSpace);
-//		multipleParameterStationSumTest(nameSpace);
+		bboxTest(nameSpace);
+		countryTest(nameSpace);
+		emptyParameterTest(nameSpace);
+		huc8Test(nameSpace);
+		mimeTypeSummaryTest(nameSpace);
+		nullParameterTest(nameSpace);
+		organizationTest(nameSpace);
+		providersTest(nameSpace);
+		siteIdTest(nameSpace);
+		siteTypeTest(nameSpace);
+		sortedSummaryTest(nameSpace, expectedMap);
+		stateTest(nameSpace);
+		withinTest(nameSpace);
+		zipTest(nameSpace);
+		multipleParameterStationSumTest(nameSpace);
 	}
 	
 	public void multipleParameterStationSumTest(NameSpace nameSpace) {
@@ -61,7 +57,6 @@ public class SummaryStationStreamingIT extends BaseStationStreamingTest {
 			BaseStationStreamingTest.STORET_888,
 			BaseStationStreamingTest.STEWARDS_36,
 			BaseStationStreamingTest.STEWARDS_46
-			
 		);
 	}
 	
@@ -108,6 +103,56 @@ public class SummaryStationStreamingIT extends BaseStationStreamingTest {
 	public List<Map<String, Object>> sortedTest(NameSpace nameSpace, int expectedSize) {
 		FilterParameters filter = new FilterParameters();
 		filter.setSorted("yes");
+		filter.setSummaryYears(SUMMARY_YEARS_12_MONTHS);
+		return callDao(nameSpace, expectedSize, filter);
+	}
+	
+	protected void mimeTypeSummaryTest(NameSpace nameSpace) {
+		List<Map<String, Object>> results = mimeTypeJsonSummaryTest(nameSpace, Integer.valueOf(TOTAL_SITE_COUNT_GEOM));
+		assertContainsStation(results, 
+			STEWARDS_36, 
+			STEWARDS_46, 
+			NWIS_1353690, 
+			NWIS_1360035, 
+			STORET_777, 
+			STORET_888, 
+			STORET_999, 
+			STORET_1383, 
+			STORET_436723, 
+			STORET_504707,
+			STORET_1043441, 
+			BIODATA_61233184
+		);
+
+		results = mimeTypeGeoJsonSummaryTest(nameSpace, Integer.valueOf(TOTAL_SITE_COUNT_GEOM));
+		assertContainsStation(results, 
+			STEWARDS_36, 
+			STEWARDS_46, 
+			NWIS_1353690, 
+			NWIS_1360035, 
+			STORET_777, 
+			STORET_888, 
+			STORET_999, 
+			STORET_1383, 
+			STORET_436723, 
+			STORET_504707,
+			STORET_1043441, 
+			BIODATA_61233184
+		);
+	}
+	
+	public List<Map<String, Object>> mimeTypeJsonSummaryTest(NameSpace nameSpace, int expectedSize) {
+		FilterParameters filter = new FilterParameters();
+		filter.setDataProfile(getDataProfileFromNameSpace(nameSpace));
+		filter.setMimeType(JSON);
+		filter.setSummaryYears(SUMMARY_YEARS_12_MONTHS);
+		return callDao(nameSpace, expectedSize, filter);
+	}
+	
+	public List<Map<String, Object>> mimeTypeGeoJsonSummaryTest(NameSpace nameSpace, int expectedSize) {
+		FilterParameters filter = new FilterParameters();
+		filter.setDataProfile(getDataProfileFromNameSpace(nameSpace));
+		filter.setMimeType(GEOJSON);
 		filter.setSummaryYears(SUMMARY_YEARS_12_MONTHS);
 		return callDao(nameSpace, expectedSize, filter);
 	}

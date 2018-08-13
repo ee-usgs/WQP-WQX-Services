@@ -25,6 +25,7 @@ import static gov.usgs.cida.wqp.BaseTest.STEWARDS_SITE_COUNT;
 import static gov.usgs.cida.wqp.BaseTest.STORET_SITE_COUNT;
 import static gov.usgs.cida.wqp.BaseTest.TOTAL_SITE_COUNT;
 import static gov.usgs.cida.wqp.BaseTest.TOTAL_SITE_COUNT_GEOM;
+import gov.usgs.cida.wqp.ColumnSensingFlatXMLDataSetLoader;
 import gov.usgs.cida.wqp.CsvDataSetLoader;
 import gov.usgs.cida.wqp.mapping.Profile;
 import gov.usgs.cida.wqp.springinit.DBTestConfig;
@@ -45,8 +46,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc(secure=false)
 @SpringBootTest(webEnvironment=WebEnvironment.MOCK,
 	classes={DBTestConfig.class, Application.class})
-@DatabaseSetup("classpath:/testData/csv/")
-@DbUnitConfiguration(dataSetLoader = CsvDataSetLoader.class)
+//@DatabaseSetup("classpath:/testData/csv/")
+//@DbUnitConfiguration(dataSetLoader = CsvDataSetLoader.class)
+@DatabaseSetup("classpath:/testData/clearAll.xml/")
+@DatabaseSetup("classpath:/testData/station.xml/")
+@DbUnitConfiguration(dataSetLoader = ColumnSensingFlatXMLDataSetLoader.class)
 @DirtiesContext(classMode=ClassMode.AFTER_CLASS)
 public class SummaryStationControllerIT extends BaseControllerIntegrationTest {
 	
