@@ -204,16 +204,14 @@ public class FilterParameters {
 	public void setCommand(Command command) {
 		this.command = command;
 	}
+	@JsonProperty("bBox")
 	public BoundingBox getBBox() {
 		return bBox;
 	}
 	public void setBBox(BoundingBox bBox) {
 		this.bBox = bBox;
-	}
-	@JsonProperty("bbox")
-	public String getBBoxForJson() {
-		return null == bBox ? null : bBox.getSingle();
-	}
+	}	
+	
 	public List<String> getCharacteristicName() {
 		return characteristicName;
 	}
@@ -298,6 +296,7 @@ public class FilterParameters {
 	public void setOrganization(List<String> organization) {
 		this.organization = organization;
 	}
+	@JsonProperty("pCode")
 	public List<String> getPCode() {
 		return pCode;
 	}
@@ -319,13 +318,11 @@ public class FilterParameters {
 	public ResultIdentifier getResult() {
 		return result;
 	}
+	
 	public void setResult(ResultIdentifier result) {
 		this.result = result;
 	}
-	@JsonProperty("result")
-	public String getResultJson() {
-		return null == result ? null : result.getSingle();
-	}
+	
 	public List<String> getSampleMedia() {
 		return sampleMedia;
 	}

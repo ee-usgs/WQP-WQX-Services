@@ -1,25 +1,21 @@
 package gov.usgs.cida.wqp.parameter;
 
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static uk.co.datumedge.hamcrest.json.SameJSONAs.sameJSONObjectAs;
-
-import java.io.IOException;
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.validation.ConstraintViolation;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.junit.Test;
 
 import gov.usgs.cida.wqp.BaseTest;
-import gov.usgs.cida.wqp.TestConstraintViolation;
 import gov.usgs.cida.wqp.mapping.Profile;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.json.AutoConfigureJsonTesters;
+import org.springframework.boot.test.autoconfigure.json.JsonTest;
+import org.springframework.boot.test.json.JacksonTester;
+import org.springframework.test.context.junit4.SpringRunner;
 
+@AutoConfigureJsonTesters
+@RunWith(SpringRunner.class)
+@JsonTest
 public class FilterParametersTest extends BaseTest {
 
 	@Test
@@ -29,9 +25,8 @@ public class FilterParametersTest extends BaseTest {
 		assertTrue(filter.isValid());
 		assertEquals("{}", filter.toJson());
 	}
-
-	@Test
-	public void fullHouse() throws IOException, JSONException {
+	
+	private FilterParameters getTestFilterParameters() {
 		FilterParameters filter = new FilterParameters();
 		filter.setActivity(getActivity());
 		filter.setAnalyticalmethod(getAnalyticalMethod());
@@ -65,15 +60,24 @@ public class FilterParametersTest extends BaseTest {
 		filter.setSubjectTaxonomicName(getSubjectTaxonomicName());
 		filter.setWithin(getWithin());
 		filter.setZip("no");
-		Set<ConstraintViolation<FilterParameters>> validationErrors = new HashSet<>();
-		validationErrors.add(new TestConstraintViolation("warning1"));
-		validationErrors.add(new TestConstraintViolation("warning2"));
-		validationErrors.add(new TestConstraintViolation("warning3"));
-		validationErrors.add(new TestConstraintViolation("warning4"));
-		filter.setValidationErrors(validationErrors);
-		assertFalse(filter.isEmpty());
-		assertFalse(filter.isValid());
-		assertThat(new JSONObject(getCompareFile("filterParameters.json")), sameJSONObjectAs(new JSONObject(filter.toJson())));
+		
+		return filter;
+	}
+
+	
+	
+	@Autowired
+	private JacksonTester<FilterParameters> json;
+	
+	@Test
+	public void testSerialize() throws Exception {
+		org.assertj.core.api.Assertions.assertThat(this.json.write(getTestFilterParameters())).isEqualToJson("/src/test/resources/testResult/filterParameters.json", FilterParameters.class);
+	}
+	
+	
+	@Test
+	public void testDeserialize() throws Exception {
+		org.assertj.core.api.Assertions.assertThat(this.json.parse(getCompareFile("filterParameters.json"))).isEqualToComparingFieldByFieldRecursively(getTestFilterParameters());
 	}
 
 }
