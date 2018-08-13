@@ -1,8 +1,5 @@
 package gov.usgs.cida.wqp.transform;
 
-import com.fasterxml.jackson.core.JsonEncoding;
-import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.core.JsonGenerator;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import gov.usgs.cida.wqp.mapping.StationColumn;
@@ -10,20 +7,16 @@ import gov.usgs.cida.wqp.service.ILogService;
 import gov.usgs.cida.wqp.util.HttpConstants;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
+
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 import org.mockito.MockitoAnnotations;
 
 import org.slf4j.Logger;
@@ -127,9 +120,7 @@ public class MapToJsonTransformerTest {
 		}
 	}
         
-        @Test public void checkIfCharacteristicGroupCountPresentTest() {
-                String fieldName = "characteristicGroupResultCount";
-                String keyValue = "SUMMARY_PAST_12_MONTHS";               
+        @Test public void getSummaryColumnNameTest() {             
                 Map<String, Object> map = new HashMap<>();
                 Map<String, Object> mapWithoutSummary = new HashMap<>();
                 
@@ -141,29 +132,32 @@ public class MapToJsonTransformerTest {
                 mapWithoutSummary.put(StationColumn.KEY_COUNTY_NAME, "Dane"); 
                 
                 assertEquals(transformer.getSummaryColumnName(map), "SUMMARY_PAST_12_MONTHS" );
-                assertEquals(transformer.getSummaryColumnName(mapWithoutSummary), "" );   
+                assertEquals(transformer.getSummaryColumnName(mapWithoutSummary), null);   
+        }       
+     
+        @Test
+        public void writeCharacteristicGroupCountTest() {
+                String fieldName = "characteristicGroupResultCount";
+                String keyValue = "SUMMARY_PAST_12_MONTHS";                
+                Map<String, Object> map = new HashMap<>();
+                map.put(StationColumn.KEY_STATE_NAME, "Wisconsin");
+                map.put(StationColumn.KEY_COUNTY_NAME, "Dane");
+                map.put(StationColumn.KEY_SUMMARY_PAST_12_MONTHS, "");
+                
+            try {
+                transformer.g.writeStartObject();
+                transformer.writeCharacteristicGroupCount(fieldName, map, keyValue);
+                //need to flush the JsonGenerator to get at output. 
+                transformer.g.flush();
+                
+                assertEquals(JSON_HEADER.length() + 49, baos.size());
+                assertEquals(JSON_HEADER + "{\"characteristicGroupResultCount\":\"Not Available\"",
+					new String(baos.toByteArray(), HttpConstants.DEFAULT_ENCODING));
+                
+            } catch (IOException e) {
+                fail(e.getLocalizedMessage());
+            } 
         }        
-           
-//        @Test public void writeCharateristicGroupCountTest() throws IOException {
-//                String fieldName = "characteristicGroupResultCount";
-//                String keyValue = "SUMMARY_PAST_12_MONTHS";
-//                MapToJsonTransformer spyTransformer = Mockito.spy(new MapToJsonTransformer(baos, null, logService, logId, siteUrlBase));
-//                Map<String, Object> map = new HashMap<>();
-//                map.put(StationColumn.KEY_STATE_NAME, "Wisconsin");
-//                map.put(StationColumn.KEY_COUNTY_NAME, "Dane");
-//                map.put(StationColumn.KEY_SUMMARY_PAST_12_MONTHS, ""); 
-//                 
-////            //try {
-////                        spyTransformer.g.writeStartObject();
-////                        spyTransformer.writeCharacteristicGroupCount(fieldName, map, keyValue); 
-////                        spyTransformer.g.writeEndObject();
-////                        verify(spyTransformer, times(10)).g.writeObject("Not Available");
-////                        
-////                        
-////            //} catch (IOException ex) {
-////                        //java.util.logging.Logger.getLogger(MapToJsonTransformerTest.class.getName()).log(Level.SEVERE, null, ex);
-////            //}  
-//        }  
         
 	@Test
 	public void endTestData() {

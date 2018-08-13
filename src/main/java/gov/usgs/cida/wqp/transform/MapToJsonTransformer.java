@@ -77,12 +77,10 @@ public class MapToJsonTransformer extends Transformer {
                         g.writeStringField("StateName", getValue(resultMap, StationColumn.KEY_STATE_NAME));
                         g.writeStringField("CountyName", getValue(resultMap, StationColumn.KEY_COUNTY_NAME));
                         
-                        //checkIfCharacteristicGroupCountPresent(resultMap);
                         String summaryColumnName  = getSummaryColumnName(resultMap); 
-                        if ("".equals(summaryColumnName)) {
+                        if (summaryColumnName != null) {
                             writeCharacteristicGroupCount("characteristicGroupResultCount", resultMap, summaryColumnName);
                         }
-                        
                         g.writeEndObject();
 			g.writeEndObject();
 		} catch (IOException e) {
@@ -111,7 +109,7 @@ public class MapToJsonTransformer extends Transformer {
 	}
                 
         protected String getSummaryColumnName(Map<String, Object> resultMap) {                
-                String summaryColumnName ="";
+                String summaryColumnName = null;
                 if (resultMap.containsKey(StationColumn.KEY_SUMMARY_PAST_12_MONTHS)) { 
                     summaryColumnName = StationColumn.KEY_SUMMARY_PAST_12_MONTHS;		
                 } else if (resultMap.containsKey(StationColumn.KEY_SUMMARY_PAST_60_MONTHS)) {
@@ -125,7 +123,7 @@ public class MapToJsonTransformer extends Transformer {
         protected void writeCharacteristicGroupCount(String fieldName, Map<String, Object> resultMap, String keyValue) throws IOException {
                 g.writeFieldName(fieldName);
 
-                if ((getValue(resultMap, keyValue)).equals("")) {
+                if ("".equals(getValue(resultMap, keyValue))) {
                     g.writeObject("Not Available");
                 } else {
                     g.writeRawValue(getValue(resultMap, keyValue));
