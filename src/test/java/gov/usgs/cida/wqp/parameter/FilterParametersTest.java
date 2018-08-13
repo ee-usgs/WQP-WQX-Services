@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.json.AutoConfigureJsonTesters;
 import org.springframework.boot.test.autoconfigure.json.JsonTest;
 import org.springframework.boot.test.json.JacksonTester;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @AutoConfigureJsonTesters
@@ -71,7 +72,9 @@ public class FilterParametersTest extends BaseTest {
 	
 	@Test
 	public void testSerialize() throws Exception {
-		org.assertj.core.api.Assertions.assertThat(this.json.write(getTestFilterParameters())).isEqualToJson("/src/test/resources/testResult/filterParameters.json", FilterParameters.class);
+		org.assertj.core.api.Assertions.assertThat(this.json.write(getTestFilterParameters())).isEqualToJson(new ClassPathResource("testResult/filterParameters.json").getInputStream());
+		//assertEquals(getCompareFile("filterParameters.json"), this.json.write(getTestFilterParameters()));
+		//assertThat(new JSONObject(getCompareFile("filterParameters.json")), sameJSONObjectAs(new JSONObject(this.json.write(getTestFilterParameters()))));
 	}
 	
 	
