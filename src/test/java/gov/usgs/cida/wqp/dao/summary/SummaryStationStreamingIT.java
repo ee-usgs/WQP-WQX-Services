@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DbUnitConfiguration;
+import gov.usgs.cida.wqp.ColumnSensingFlatXMLDataSetLoader;
 
 import gov.usgs.cida.wqp.CsvDataSetLoader;
 import gov.usgs.cida.wqp.dao.NameSpace;
@@ -20,12 +21,16 @@ import java.util.List;
 
 @SpringBootTest(webEnvironment=WebEnvironment.NONE,
 	classes={DBTestConfig.class, StreamingDao.class})
-@DatabaseSetup("classpath:/testData/csv/")
-@DbUnitConfiguration(dataSetLoader = CsvDataSetLoader.class)
+//@DatabaseSetup("classpath:/testData/csv/")
+@DatabaseSetup("classpath:/testData/clearAll.xml/")
+@DatabaseSetup("classpath:/testData/station.xml/")
+//@DbUnitConfiguration(dataSetLoader = CsvDataSetLoader.class)
+@DbUnitConfiguration(dataSetLoader = ColumnSensingFlatXMLDataSetLoader.class)
 public class SummaryStationStreamingIT extends BaseStationStreamingTest {
 
 	protected NameSpace nameSpace = NameSpace.SUMMARY_STATION;
 	protected Map<String, Object> expectedMap = TestSummaryStationMap.SUMMARY_STATION;
+	public static final String SUMMARY_YEARS_12_MONTHS = "1";
 
 	@Test
 	public void testHarness() {
@@ -40,7 +45,7 @@ public class SummaryStationStreamingIT extends BaseStationStreamingTest {
 //		providersTest(nameSpace);
 //		siteIdTest(nameSpace);
 //		siteTypeTest(nameSpace);
-		sortedTest(nameSpace, expectedMap); // fails
+		sortedSummaryTest(nameSpace, expectedMap); // fails
 //		stateTest(nameSpace);
 //		withinTest(nameSpace);
 //		zipTest(nameSpace);
@@ -79,6 +84,31 @@ public class SummaryStationStreamingIT extends BaseStationStreamingTest {
 		filter.setSummaryYears(getSummaryYears());
 		filter.setWithin(getWithin());
 
+		return callDao(nameSpace, expectedSize, filter);
+	}
+	
+	
+	public void sortedSummaryTest(NameSpace nameSpace, Map<String, Object> expectedMap) {
+		Integer expectedColumnCount = expectedMap.keySet().size();
+		List<Map<String, Object>> results = sortedTest(nameSpace, Integer.valueOf(TOTAL_SITE_COUNT));
+		assertRow(results.get(0), STEWARDS_36, expectedColumnCount);
+		assertRow(results.get(1), STEWARDS_46, expectedColumnCount);
+		assertRow(results.get(2), NWIS_1353690, expectedColumnCount);
+		assertRow(results.get(3), NWIS_1360035, expectedColumnCount);
+		assertRow(results.get(4), STORET_1043441, expectedColumnCount);
+		assertRow(results.get(5), STORET_504707, expectedColumnCount);
+		assertRow(results.get(6), STORET_436723, expectedColumnCount);
+		assertRow(results.get(7), STORET_1383, expectedColumnCount);
+		assertStoret888(expectedMap, results.get(8));
+		assertRow(results.get(9), STORET_777, expectedColumnCount);
+		assertRow(results.get(10), STORET_999, expectedColumnCount);
+		assertRow(results.get(11), BIODATA_61233184, expectedColumnCount);
+	}
+	
+	public List<Map<String, Object>> sortedTest(NameSpace nameSpace, int expectedSize) {
+		FilterParameters filter = new FilterParameters();
+		filter.setSorted("yes");
+		filter.setSummaryYears(SUMMARY_YEARS_12_MONTHS);
 		return callDao(nameSpace, expectedSize, filter);
 	}
 
