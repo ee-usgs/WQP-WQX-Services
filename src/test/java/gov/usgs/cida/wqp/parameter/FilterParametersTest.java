@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import gov.usgs.cida.wqp.BaseTest;
 import gov.usgs.cida.wqp.mapping.Profile;
+import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.json.AutoConfigureJsonTesters;
@@ -72,15 +73,13 @@ public class FilterParametersTest extends BaseTest {
 	
 	@Test
 	public void testSerialize() throws Exception {
-		org.assertj.core.api.Assertions.assertThat(this.json.write(getTestFilterParameters())).isEqualToJson(new ClassPathResource("testResult/filterParameters.json").getInputStream());
-		//assertEquals(getCompareFile("filterParameters.json"), this.json.write(getTestFilterParameters()));
-		//assertThat(new JSONObject(getCompareFile("filterParameters.json")), sameJSONObjectAs(new JSONObject(this.json.write(getTestFilterParameters()))));
+		assertThat(this.json.write(getTestFilterParameters())).isEqualToJson(new ClassPathResource("testResult/filterParameters.json").getInputStream());
 	}
 	
 	
 	@Test
 	public void testDeserialize() throws Exception {
-		org.assertj.core.api.Assertions.assertThat(this.json.parse(getCompareFile("filterParameters.json"))).isEqualToComparingFieldByFieldRecursively(getTestFilterParameters());
+		assertThat(this.json.parse(getCompareFile("filterParameters.json"))).isEqualToComparingFieldByFieldRecursively(getTestFilterParameters());
 	}
 
 }
