@@ -69,7 +69,7 @@
 			"StateName": "Wisconsin",
 			"CountyName": "Columbia County",
 			"characteristicGroupResultCount": {
-				"": 4
+				"": 1
 			}
 		}
 	}, {
@@ -117,7 +117,7 @@
 			"StateName": "Montana",
 			"CountyName": "Big Horn County",
 			"characteristicGroupResultCount": {
-				"characteristicType": 4
+				"characteristicType": 2
 			}
 		}
 	}, {
@@ -141,8 +141,8 @@
 			"StateName": "",
 			"CountyName": "",
 			"characteristicGroupResultCount": {
-				"Organics, Other": 23,
-				"Organics, Pesticide": 2,
+				"Organics, Other": 10,
+				"Organics, Pesticide": 1,
 				"Physical": 1
 			}
 		}
@@ -189,8 +189,8 @@
 			"StateName": "Wisconsin",
 			"CountyName": "Dodge County",
 			"characteristicGroupResultCount": {
-				"Microbiological": 6,
-				"Physical": 5
+				"Microbiological": 1,
+				"Physical": 2
 			}
 		}
 	}, {
@@ -214,7 +214,7 @@
 			"StateName": "",
 			"CountyName": "",
 			"characteristicGroupResultCount": {
-				"characteristicType": 4
+				"characteristicType": 3
 			}
 		}
 	}, {
@@ -238,7 +238,7 @@
 			"StateName": "",
 			"CountyName": "",
 			"characteristicGroupResultCount": {
-				"characteristicType": 4
+				"characteristicType": 1
 			}
 		}
 	}, {
@@ -286,7 +286,7 @@
 			"StateName": "California",
 			"CountyName": "Yuba County",
 			"characteristicGroupResultCount": {
-				"Biological": 5
+				"Biological": 1
 			}
 		}
 	}]
