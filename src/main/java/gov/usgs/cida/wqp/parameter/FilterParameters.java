@@ -122,6 +122,7 @@ public class FilterParameters {
 	private List<@Lookup(parameter=Parameters.ORGANIZATION) String> organization;
 
 	@Size(min=0, max=IN_CLAUSE_LIMIT, message="The pCode is not between {min} and {max} occurances")
+	@JsonProperty("pCode")
 	private List<@Pattern(
 		regexp=REGEX_PCODE,
 		message="The value of pCode=${validatedValue} must match the format {regexp}")
@@ -303,7 +304,7 @@ public class FilterParameters {
 	public void setOrganization(List<String> organization) {
 		this.organization = organization;
 	}
-	@JsonProperty("pCode")
+	
 	public List<String> getPCode() {
 		return pCode;
 	}
