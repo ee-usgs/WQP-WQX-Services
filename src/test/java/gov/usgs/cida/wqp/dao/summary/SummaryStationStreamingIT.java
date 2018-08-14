@@ -20,8 +20,8 @@ import java.util.List;
 
 @SpringBootTest(webEnvironment=WebEnvironment.NONE,
 	classes={DBTestConfig.class, StreamingDao.class})
-@DatabaseSetup("classpath:/testData/clearAll.xml/")
-@DatabaseSetup("classpath:/testData/station.xml/")
+@DatabaseSetup("classpath:/testData/clearAll.xml")
+@DatabaseSetup("classpath:/testData/station.xml")
 @DbUnitConfiguration(dataSetLoader = ColumnSensingFlatXMLDataSetLoader.class)
 public class SummaryStationStreamingIT extends BaseStationStreamingTest {
 

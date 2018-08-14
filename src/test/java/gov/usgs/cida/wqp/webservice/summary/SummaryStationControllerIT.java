@@ -48,8 +48,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 	classes={DBTestConfig.class, Application.class})
 //@DatabaseSetup("classpath:/testData/csv/")
 //@DbUnitConfiguration(dataSetLoader = CsvDataSetLoader.class)
-@DatabaseSetup("classpath:/testData/clearAll.xml/")
-@DatabaseSetup("classpath:/testData/station.xml/")
+@DatabaseSetup("classpath:/testData/clearAll.xml")
+@DatabaseSetup("classpath:/testData/state.xml")
+@DatabaseSetup("classpath:/testData/county.xml")
+@DatabaseSetup("classpath:/testData/station.xml")
 @DbUnitConfiguration(dataSetLoader = ColumnSensingFlatXMLDataSetLoader.class)
 @DirtiesContext(classMode=ClassMode.AFTER_CLASS)
 public class SummaryStationControllerIT extends BaseControllerIntegrationTest {
