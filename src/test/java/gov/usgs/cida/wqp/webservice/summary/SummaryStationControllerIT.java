@@ -27,6 +27,7 @@ import static gov.usgs.cida.wqp.BaseTest.TOTAL_SITE_COUNT;
 import static gov.usgs.cida.wqp.BaseTest.TOTAL_SITE_COUNT_GEOM;
 import gov.usgs.cida.wqp.ColumnSensingFlatXMLDataSetLoader;
 import gov.usgs.cida.wqp.CsvDataSetLoader;
+import gov.usgs.cida.wqp.dao.summary.SummaryStationStreamingIT;
 import gov.usgs.cida.wqp.mapping.Profile;
 import gov.usgs.cida.wqp.springinit.DBTestConfig;
 import static gov.usgs.cida.wqp.swagger.model.StationCountJson.HEADER_BIODATA_SITE_COUNT;
@@ -58,7 +59,7 @@ public class SummaryStationControllerIT extends BaseControllerIntegrationTest {
 	
 	protected static final Profile PROFILE = Profile.SUMMARY_STATION;
 	protected static final boolean POSTABLE = true;
-	protected static final String ENDPOINT = HttpConstants.SUMMARY_STATION_ENDPOINT + "?mimeType=";
+	protected static final String ENDPOINT = HttpConstants.SUMMARY_STATION_ENDPOINT + "?summaryYears=" + SummaryStationStreamingIT.SUMMARY_YEARS_12_MONTHS + "&mimeType=";
 	
 	@Test
 	public void testHarness() throws Exception {

@@ -150,8 +150,8 @@ public class MapToJsonTransformerTest {
                 //need to flush the JsonGenerator to get at output. 
                 transformer.g.flush();
                 
-                assertEquals(JSON_HEADER.length() + 49, baos.size());
-                assertEquals(JSON_HEADER + "{\"characteristicGroupResultCount\":\"Not Available\"",
+                assertEquals(JSON_HEADER.length() + 36, baos.size());
+                assertEquals(JSON_HEADER + "{\"characteristicGroupResultCount\":\"\"",
 					new String(baos.toByteArray(), HttpConstants.DEFAULT_ENCODING));
                 
             } catch (IOException e) {

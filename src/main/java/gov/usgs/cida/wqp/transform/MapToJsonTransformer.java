@@ -124,7 +124,7 @@ public class MapToJsonTransformer extends Transformer {
                 g.writeFieldName(fieldName);
 
                 if ("".equals(getValue(resultMap, keyValue))) {
-                    g.writeObject("Not Available");
+                    g.writeObject("");
                 } else {
                     g.writeRawValue(getValue(resultMap, keyValue));
                 }

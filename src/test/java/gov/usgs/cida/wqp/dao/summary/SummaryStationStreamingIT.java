@@ -21,13 +21,19 @@ import java.util.List;
 @SpringBootTest(webEnvironment=WebEnvironment.NONE,
 	classes={DBTestConfig.class, StreamingDao.class})
 @DatabaseSetup("classpath:/testData/clearAll.xml")
+@DatabaseSetup("classpath:/testData/state.xml")
+@DatabaseSetup("classpath:/testData/county.xml")
 @DatabaseSetup("classpath:/testData/station.xml")
 @DbUnitConfiguration(dataSetLoader = ColumnSensingFlatXMLDataSetLoader.class)
 public class SummaryStationStreamingIT extends BaseStationStreamingTest {
 
 	protected NameSpace nameSpace = NameSpace.SUMMARY_STATION;
-	protected Map<String, Object> expectedMap = TestSummaryStationMap.SUMMARY_STATION;
+	protected Map<String, Object> expectedMapOneYear = TestSummaryStationMap.SUMMARY_STATION_ONE_YEAR;
+	protected Map<String, Object> expectedMapFiveYears = TestSummaryStationMap.SUMMARY_STATION_FIVE_YEARS;
+	protected Map<String, Object> expectedMapAllYears = TestSummaryStationMap.SUMMARY_STATION_ALL_YEARS;
 	public static final String SUMMARY_YEARS_12_MONTHS = "1";
+	public static final String SUMMARY_YEARS_60_MONTHS = "5";
+	public static final String SUMMARY_YEARS_ALL_MONTHS = "all";
 
 	@Test
 	public void testHarness() {
@@ -41,7 +47,9 @@ public class SummaryStationStreamingIT extends BaseStationStreamingTest {
 		providersTest(nameSpace);
 		siteIdTest(nameSpace);
 		siteTypeTest(nameSpace);
-		sortedSummaryTest(nameSpace, expectedMap);
+		sortedSummaryTest(nameSpace, expectedMapOneYear, SUMMARY_YEARS_12_MONTHS);
+		sortedSummaryTest(nameSpace, expectedMapFiveYears, SUMMARY_YEARS_60_MONTHS);
+		sortedSummaryTest(nameSpace, expectedMapAllYears, SUMMARY_YEARS_ALL_MONTHS);
 		stateTest(nameSpace);
 		withinTest(nameSpace);
 		zipTest(nameSpace);
@@ -83,9 +91,12 @@ public class SummaryStationStreamingIT extends BaseStationStreamingTest {
 	}
 	
 	
-	public void sortedSummaryTest(NameSpace nameSpace, Map<String, Object> expectedMap) {
+	public void sortedSummaryTest(NameSpace nameSpace, Map<String, Object> expectedMap, String summaryYears) {
 		Integer expectedColumnCount = expectedMap.keySet().size();
-		List<Map<String, Object>> results = sortedTest(nameSpace, Integer.valueOf(TOTAL_SITE_COUNT));
+		Integer totalSiteCount = Integer.valueOf(TOTAL_SITE_COUNT);
+		
+		List<Map<String, Object>> results = sortedSumTest(summaryYears, nameSpace, totalSiteCount);
+	
 		assertRow(results.get(0), STEWARDS_36, expectedColumnCount);
 		assertRow(results.get(1), STEWARDS_46, expectedColumnCount);
 		assertRow(results.get(2), NWIS_1353690, expectedColumnCount);
@@ -99,11 +110,11 @@ public class SummaryStationStreamingIT extends BaseStationStreamingTest {
 		assertRow(results.get(10), STORET_999, expectedColumnCount);
 		assertRow(results.get(11), BIODATA_61233184, expectedColumnCount);
 	}
-	
-	public List<Map<String, Object>> sortedTest(NameSpace nameSpace, int expectedSize) {
+
+	public List<Map<String, Object>> sortedSumTest(String summaryYears, NameSpace nameSpace, int expectedSize) {
 		FilterParameters filter = new FilterParameters();
 		filter.setSorted("yes");
-		filter.setSummaryYears(SUMMARY_YEARS_12_MONTHS);
+		filter.setSummaryYears(summaryYears);
 		return callDao(nameSpace, expectedSize, filter);
 	}
 	
