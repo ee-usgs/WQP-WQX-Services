@@ -84,8 +84,6 @@ public class SwaggerParameterBuilder implements OperationBuilderPlugin {
 		}
 
                 if (profileParameterSummary.isPresent()) {
-		    parameters.add(SwaggerParameters.mimeType());
-		    parameters.add(SwaggerParameters.zip());
 		    parameters.add(SwaggerParameters.bBox());
 		    parameters.add(SwaggerParameters.countrycode());
 		    parameters.add(SwaggerParameters.countycode());
