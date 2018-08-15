@@ -122,6 +122,7 @@ public class FilterParameters {
 	private List<@Lookup(parameter=Parameters.ORGANIZATION) String> organization;
 
 	@Size(min=0, max=IN_CLAUSE_LIMIT, message="The pCode is not between {min} and {max} occurances")
+	@JsonProperty("pCode")
 	private List<@Pattern(
 		regexp=REGEX_PCODE,
 		message="The value of pCode=${validatedValue} must match the format {regexp}")
@@ -209,8 +210,13 @@ public class FilterParameters {
 	}
 	public void setBBox(BoundingBox bBox) {
 		this.bBox = bBox;
+	}	
+	
+	@JsonProperty("bBox")
+	public void setBboxFromJson(String bBox) {
+		this.bBox = new BoundingBox(bBox);
 	}
-	@JsonProperty("bbox")
+	@JsonProperty("bBox")
 	public String getBBoxForJson() {
 		return null == bBox ? null : bBox.getSingle();
 	}
@@ -298,6 +304,7 @@ public class FilterParameters {
 	public void setOrganization(List<String> organization) {
 		this.organization = organization;
 	}
+	
 	public List<String> getPCode() {
 		return pCode;
 	}
@@ -316,16 +323,26 @@ public class FilterParameters {
 	public void setProviders(List<String> providers) {
 		this.providers = providers;
 	}
+	
+	
 	public ResultIdentifier getResult() {
 		return result;
 	}
+	
 	public void setResult(ResultIdentifier result) {
 		this.result = result;
 	}
+	
 	@JsonProperty("result")
-	public String getResultJson() {
+	public void setResultFromJson(String result) {
+		this.result = new ResultIdentifier(result);
+	}
+	
+	@JsonProperty("result")
+	public String getResultForJson() {
 		return null == result ? null : result.getSingle();
 	}
+	
 	public List<String> getSampleMedia() {
 		return sampleMedia;
 	}
