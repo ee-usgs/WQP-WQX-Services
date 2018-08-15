@@ -5,8 +5,13 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import gov.usgs.cida.wqp.BaseTest;
+import gov.usgs.cida.wqp.TestConstraintViolation;
 import gov.usgs.cida.wqp.mapping.Profile;
+import java.util.HashSet;
+import java.util.Set;
+import javax.validation.ConstraintViolation;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertFalse;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.json.AutoConfigureJsonTesters;
@@ -73,7 +78,17 @@ public class FilterParametersTest extends BaseTest {
 	
 	@Test
 	public void testSerialize() throws Exception {
-		assertThat(this.json.write(getTestFilterParameters())).isEqualToJson(new ClassPathResource("testResult/filterParameters.json").getInputStream());
+		FilterParameters filter = getTestFilterParameters();
+		Set<ConstraintViolation<FilterParameters>> validationErrors = new HashSet<>();
+		validationErrors.add(new TestConstraintViolation("warning1"));
+		validationErrors.add(new TestConstraintViolation("warning2"));
+		validationErrors.add(new TestConstraintViolation("warning3"));
+		validationErrors.add(new TestConstraintViolation("warning4"));
+		filter.setValidationErrors(validationErrors);
+		
+		assertFalse(filter.isEmpty());
+		assertFalse(filter.isValid());
+		assertThat(this.json.write(filter)).isEqualToJson(new ClassPathResource("testResult/filterParameters.json").getInputStream());
 	}
 	
 	
