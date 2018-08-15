@@ -3,12 +3,6 @@
 
 <mapper namespace="dynamicWhere">
 
-    <sql id="resultStationHashHint">
-        <if test="bBox != null or within != null">
-            /*+ use_hash(prime) use_hash(secondary) */
-        </if>
-    </sql>
-
     <sql id="baseWhereResultClauses">
         <include refid="dynamicWhere.baseWhereActivityClauses" />
         <if test="analyticalmethod != null">

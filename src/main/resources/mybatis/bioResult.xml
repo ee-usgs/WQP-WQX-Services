@@ -6,8 +6,7 @@
         <if test="minactivities != null or minresults != null">
             select * from (
         </if>
-        select <include refid="dynamicWhere.resultStationHashHint"/>
-               <include refid="base.baseColumns"/>,
+        select <include refid="base.baseColumns"/>,
                <include refid="activity.baseColumns"/>,
                <include refid="narrowResult.baseColumns"/>,
                <include refid="resFreqClass.baseColumns"/>,
