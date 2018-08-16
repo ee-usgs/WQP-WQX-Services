@@ -78,7 +78,8 @@ public abstract class BaseTest {
 	public static String STORET_SITE_COUNT_MINUS_1 = "6";
 	public static String BIODATA_SITE_COUNT_MINUS_1 = "1";
 
-	//The test data has a case where a biodata site has no geom associated with it. Thus it should not show up in the json formats.
+	//The test data has a case where a biodata site has no geom associated with it. Thus it should not show up in the json formats. 
+	//Look at dynamicWhere.spatialNeeded if you need to add a dataprofile.
 	public static String TOTAL_SITE_COUNT_GEOM = "12";
 	public static String BIODATA_SITE_COUNT_GEOM = "1";
 
@@ -319,6 +320,10 @@ public abstract class BaseTest {
 
 	public List<String> getSubjectTaxonomicName() {
 		return Arrays.asList("Acipenser", "Lota lota", "sampleTissueTaxonomicName");
+	}
+	
+	public String getSummaryYears() {
+		return "1";
 	}
 
 	public String getWithin() {

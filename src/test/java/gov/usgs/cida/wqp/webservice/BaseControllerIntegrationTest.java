@@ -35,7 +35,7 @@ import gov.usgs.cida.wqp.util.HttpConstants;
 public abstract class BaseControllerIntegrationTest extends BaseIT {
 
 	@Autowired
-	private MockMvc mockMvc;
+	protected MockMvc mockMvc;
 	@Autowired
 	protected CodesService codesService;
 	@Autowired
