@@ -9,7 +9,6 @@ import gov.usgs.cida.wqp.parameter.FilterParameters;
 import gov.usgs.cida.wqp.service.ConfigurationService;
 import gov.usgs.cida.wqp.service.ILogService;
 import gov.usgs.cida.wqp.swagger.SwaggerConfig;
-import gov.usgs.cida.wqp.swagger.annotation.FullParameterList;
 import gov.usgs.cida.wqp.swagger.annotation.ProfileParameterSummary;
 import gov.usgs.cida.wqp.swagger.model.StationCountJson;
 import gov.usgs.cida.wqp.util.HttpConstants;
@@ -113,12 +112,12 @@ public class SummaryStationController extends BaseController {
 
 	@Override
 	protected IXmlMapping getXmlMapping() {
-		return xmlMapping;
+		return null;
 	}
 
 	@Override
 	protected IXmlMapping getKmlMapping() {
-		return kmlMapping;
+		return null;
 	}
 
 	@Override

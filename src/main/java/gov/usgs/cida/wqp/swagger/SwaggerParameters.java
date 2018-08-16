@@ -347,7 +347,7 @@ public class SwaggerParameters {
 	public static Parameter summaryYears() {
 		return new ParameterBuilder()
 				.name("summaryYears")
-				.description("Select summary data for 1, 5, or all years.")
+				.description("Select summary data for 1, 5, or all years. If no summary year is selected, all years is returned by default.")
 				.modelRef(new ModelRef("string"))
 				.parameterType("query")
 				.required(false)
