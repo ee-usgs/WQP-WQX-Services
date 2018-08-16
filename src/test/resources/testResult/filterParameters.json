@@ -28,7 +28,7 @@
 	"subjectTaxonomicName": ["Acipenser", "Lota lota", "sampleTissueTaxonomicName"],
 	"within": "650",
 	"zip": "no",
-	"pcode": ["00032", "00004", "99999"],
-	"bbox": "-111,39,-77,47",
+	"pCode": ["00032", "00004", "99999"],
+	"bBox": "-111,39,-77,47",
 	"long": "-88.9773314"
 }

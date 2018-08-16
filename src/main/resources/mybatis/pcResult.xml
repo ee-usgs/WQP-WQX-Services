@@ -6,8 +6,7 @@
         <if test="minactivities != null or minresults != null">
             select * from (
         </if>
-        select <include refid="dynamicWhere.resultStationHashHint"/>
-               <include refid="base.baseColumns"/>,
+        select <include refid="base.baseColumns"/>,
                to_char(prime.event_date, 'yyyy-mm-dd') event_date, prime.p_code, prime.activity,
                prime.characteristic_name, prime.characteristic_type, prime.sample_media, prime.site_type, prime.huc, prime.governmental_unit_code, prime.activity_id,
                prime.activity_type_code, prime.activity_media_subdiv_name, prime.activity_start_time,
