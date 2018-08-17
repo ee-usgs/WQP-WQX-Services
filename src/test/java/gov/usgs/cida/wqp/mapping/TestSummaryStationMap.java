@@ -1,0 +1,75 @@
+package gov.usgs.cida.wqp.mapping;
+
+import java.math.BigDecimal;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+import static gov.usgs.cida.wqp.mapping.ActivityColumn.*;
+import static gov.usgs.cida.wqp.mapping.StationColumn.*;
+import static gov.usgs.cida.wqp.swagger.model.StationCountJson.*;
+
+public class TestSummaryStationMap {
+
+	public static final Map<String, Object> SUMMARY_STATION_ONE_YEAR;
+	static {
+		SUMMARY_STATION_ONE_YEAR = new LinkedHashMap<String, Object>();
+		SUMMARY_STATION_ONE_YEAR.put(KEY_DATA_SOURCE, STORET);
+		SUMMARY_STATION_ONE_YEAR.put(KEY_SITE_ID, "organization-siteId");
+		SUMMARY_STATION_ONE_YEAR.put(KEY_ORGANIZATION, "organization");
+		SUMMARY_STATION_ONE_YEAR.put(KEY_ORGANIZATION_NAME, "organizationName");
+		SUMMARY_STATION_ONE_YEAR.put(KEY_SITE_TYPE, "siteType");
+		SUMMARY_STATION_ONE_YEAR.put(KEY_HUC_8, "00000000");
+		SUMMARY_STATION_ONE_YEAR.put(KEY_MONITORING_LOCATION_TYPE, "stationTypeName");
+		SUMMARY_STATION_ONE_YEAR.put(KEY_LATITUDE, "43.3330000");
+		SUMMARY_STATION_ONE_YEAR.put(KEY_LONGITUDE, "-89.8989000");
+		SUMMARY_STATION_ONE_YEAR.put(KEY_ACTIVITY_COUNT, BigDecimal.valueOf(4));
+		SUMMARY_STATION_ONE_YEAR.put(KEY_RESULT_COUNT, BigDecimal.valueOf(4));
+		SUMMARY_STATION_ONE_YEAR.put(KEY_SUMMARY_PAST_12_MONTHS, "{\"characteristicType\": 3}");	
+		SUMMARY_STATION_ONE_YEAR.put(KEY_STATE_NAME, null);
+		SUMMARY_STATION_ONE_YEAR.put(KEY_COUNTY_NAME, null);
+		SUMMARY_STATION_ONE_YEAR.put(KEY_STATION_NAME, "stationName");
+	}
+	
+	public static final Map<String, Object> SUMMARY_STATION_FIVE_YEARS;
+	static {
+		SUMMARY_STATION_FIVE_YEARS = new LinkedHashMap<String, Object>();
+		SUMMARY_STATION_FIVE_YEARS.put(KEY_DATA_SOURCE, STORET);
+		SUMMARY_STATION_FIVE_YEARS.put(KEY_SITE_ID, "organization-siteId");
+		SUMMARY_STATION_FIVE_YEARS.put(KEY_ORGANIZATION, "organization");
+		SUMMARY_STATION_FIVE_YEARS.put(KEY_ORGANIZATION_NAME, "organizationName");
+		SUMMARY_STATION_FIVE_YEARS.put(KEY_SITE_TYPE, "siteType");
+		SUMMARY_STATION_FIVE_YEARS.put(KEY_HUC_8, "00000000");
+		SUMMARY_STATION_FIVE_YEARS.put(KEY_MONITORING_LOCATION_TYPE, "stationTypeName");
+		SUMMARY_STATION_FIVE_YEARS.put(KEY_LATITUDE, "43.3330000");
+		SUMMARY_STATION_FIVE_YEARS.put(KEY_LONGITUDE, "-89.8989000");
+		SUMMARY_STATION_FIVE_YEARS.put(KEY_ACTIVITY_COUNT, BigDecimal.valueOf(4));
+		SUMMARY_STATION_FIVE_YEARS.put(KEY_RESULT_COUNT, BigDecimal.valueOf(4));
+		SUMMARY_STATION_FIVE_YEARS.put(KEY_SUMMARY_PAST_60_MONTHS, "{\"characteristicType\": 4}");	
+		SUMMARY_STATION_FIVE_YEARS.put(KEY_STATE_NAME, null);
+		SUMMARY_STATION_FIVE_YEARS.put(KEY_COUNTY_NAME, null);
+		SUMMARY_STATION_FIVE_YEARS.put(KEY_STATION_NAME, "stationName");
+	}
+	
+	public static final Map<String, Object> SUMMARY_STATION_ALL_YEARS;
+	static {
+		SUMMARY_STATION_ALL_YEARS = new LinkedHashMap<String, Object>();
+		SUMMARY_STATION_ALL_YEARS.put(KEY_DATA_SOURCE, STORET);
+		SUMMARY_STATION_ALL_YEARS.put(KEY_SITE_ID, "organization-siteId");
+		SUMMARY_STATION_ALL_YEARS.put(KEY_ORGANIZATION, "organization");
+		SUMMARY_STATION_ALL_YEARS.put(KEY_ORGANIZATION_NAME, "organizationName");
+		SUMMARY_STATION_ALL_YEARS.put(KEY_SITE_TYPE, "siteType");
+		SUMMARY_STATION_ALL_YEARS.put(KEY_HUC_8, "00000000");
+		SUMMARY_STATION_ALL_YEARS.put(KEY_MONITORING_LOCATION_TYPE, "stationTypeName");
+		SUMMARY_STATION_ALL_YEARS.put(KEY_LATITUDE, "43.3330000");
+		SUMMARY_STATION_ALL_YEARS.put(KEY_LONGITUDE, "-89.8989000");
+		SUMMARY_STATION_ALL_YEARS.put(KEY_ACTIVITY_COUNT, BigDecimal.valueOf(4));
+		SUMMARY_STATION_ALL_YEARS.put(KEY_RESULT_COUNT, BigDecimal.valueOf(4));
+		SUMMARY_STATION_ALL_YEARS.put(KEY_SUMMARY_ALL_MONTHS, "{\"characteristicType\": 4}");	
+		SUMMARY_STATION_ALL_YEARS.put(KEY_STATE_NAME, null);
+		SUMMARY_STATION_ALL_YEARS.put(KEY_COUNTY_NAME, null);
+		SUMMARY_STATION_ALL_YEARS.put(KEY_STATION_NAME, "stationName");
+	}
+
+	private TestSummaryStationMap() {
+	}
+}
