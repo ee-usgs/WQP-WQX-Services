@@ -76,6 +76,7 @@ public class ActivityColumn extends BaseColumn {
 	public static final String KEY_ACTIVITY_OBJECT_TYPE = "ACTIVITY_OBJECT_TYPE";
 	public static final String KEY_ACTIVITY_FILE_URL = "ACTIVITY_FILE_URL";
 	public static final String KEY_ACTIVITY_METRIC_URL = "ACTIVITY_METRIC_URL";
+	public static final String KEY_ACTIVITY_GROUP_URL = "ACTIVITY_GROUP_URL";
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -153,6 +154,7 @@ public class ActivityColumn extends BaseColumn {
 	public static final ColumnProfile ACTIVITY_OBJECT_TYPE = new ColumnProfile(KEY_ACTIVITY_OBJECT_TYPE, Profile.ACTIVITY_ALL);
 	public static final ColumnProfile ACTIVITY_FILE_URL = new ColumnProfile(KEY_ACTIVITY_FILE_URL, Profile.ACTIVITY_ALL);
 	public static final ColumnProfile ACTIVITY_METRIC_URL = new ColumnProfile(KEY_ACTIVITY_METRIC_URL, Profile.ACTIVITY, Profile.ACTIVITY_ALL);
+	public static final ColumnProfile ACTIVITY_GROUP_URL = new ColumnProfile(KEY_ACTIVITY_GROUP_URL, Profile.ACTIVITY_ALL);
 
 	private ActivityColumn() {
 	}

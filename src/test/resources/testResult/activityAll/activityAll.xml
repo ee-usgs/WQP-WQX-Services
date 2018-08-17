@@ -283,7 +283,7 @@
 			<ActivityAttachedBinaryObject>
 				<BinaryObjectFileName>actObjectName6</BinaryObjectFileName>
 				<BinaryObjectFileTypeCode>actObjectType6</BinaryObjectFileTypeCode>
-				<ActivityFileUrl>https://www.waterqualitydata.us//organizations/11NPSWRD/activities/11NPSWRD-14/files</ActivityFileUrl>
+				<ActivityFileUrl>https://www.waterqualitydata.us/organizations/11NPSWRD/activities/11NPSWRD-14/files</ActivityFileUrl>
 			</ActivityAttachedBinaryObject>
 			<ActivityMetricURL>https://www.waterqualitydata.us/activities/11NPSWRD-14/activitymetrics</ActivityMetricURL>
 		</Activity>
@@ -326,7 +326,7 @@
 			<ActivityAttachedBinaryObject>
 				<BinaryObjectFileName>actObjectName5</BinaryObjectFileName>
 				<BinaryObjectFileTypeCode>actObjectType5</BinaryObjectFileTypeCode>
-				<ActivityFileUrl>https://www.waterqualitydata.us//organizations/21NYDECA_WQX/activities/21NYDECA_WQX-6/files</ActivityFileUrl>
+				<ActivityFileUrl>https://www.waterqualitydata.us/organizations/21NYDECA_WQX/activities/21NYDECA_WQX-6/files</ActivityFileUrl>
 			</ActivityAttachedBinaryObject>
 			<ActivityMetricURL>https://www.waterqualitydata.us/activities/21NYDECA_WQX-6/activitymetrics</ActivityMetricURL>
 		</Activity>
@@ -363,7 +363,7 @@
 			<ActivityAttachedBinaryObject>
 				<BinaryObjectFileName>actObjectName5</BinaryObjectFileName>
 				<BinaryObjectFileTypeCode>actObjectType5</BinaryObjectFileTypeCode>
-				<ActivityFileUrl>https://www.waterqualitydata.us//organizations/21NYDECA_WQX/activities/21NYDECA_WQX-7/files</ActivityFileUrl>
+				<ActivityFileUrl>https://www.waterqualitydata.us/organizations/21NYDECA_WQX/activities/21NYDECA_WQX-7/files</ActivityFileUrl>
 			</ActivityAttachedBinaryObject>
 			<ActivityMetricURL>https://www.waterqualitydata.us/activities/21NYDECA_WQX-7/activitymetrics</ActivityMetricURL>
 		</Activity>
@@ -400,7 +400,7 @@
 			<ActivityAttachedBinaryObject>
 				<BinaryObjectFileName>actObjectName5</BinaryObjectFileName>
 				<BinaryObjectFileTypeCode>actObjectType5</BinaryObjectFileTypeCode>
-				<ActivityFileUrl>https://www.waterqualitydata.us//organizations/21NYDECA_WQX/activities/21NYDECA_WQX-9/files</ActivityFileUrl>
+				<ActivityFileUrl>https://www.waterqualitydata.us/organizations/21NYDECA_WQX/activities/21NYDECA_WQX-9/files</ActivityFileUrl>
 			</ActivityAttachedBinaryObject>
 			<ActivityMetricURL>https://www.waterqualitydata.us/activities/21NYDECA_WQX-9/activitymetrics</ActivityMetricURL>
 		</Activity>
@@ -437,7 +437,7 @@
 			<ActivityAttachedBinaryObject>
 				<BinaryObjectFileName>actObjectName5</BinaryObjectFileName>
 				<BinaryObjectFileTypeCode>actObjectType5</BinaryObjectFileTypeCode>
-				<ActivityFileUrl>https://www.waterqualitydata.us//organizations/21NYDECA_WQX/activities/21NYDECA_WQX-8/files</ActivityFileUrl>
+				<ActivityFileUrl>https://www.waterqualitydata.us/organizations/21NYDECA_WQX/activities/21NYDECA_WQX-8/files</ActivityFileUrl>
 			</ActivityAttachedBinaryObject>
 			<ActivityMetricURL>https://www.waterqualitydata.us/activities/21NYDECA_WQX-8/activitymetrics</ActivityMetricURL>
 		</Activity>
@@ -483,7 +483,7 @@
 			<ActivityAttachedBinaryObject>
 				<BinaryObjectFileName>actObjectName4</BinaryObjectFileName>
 				<BinaryObjectFileTypeCode>actObjectType4</BinaryObjectFileTypeCode>
-				<ActivityFileUrl>https://www.waterqualitydata.us//organizations/WIDNR_WQX/activities/WIDNR_WQX-5/files</ActivityFileUrl>
+				<ActivityFileUrl>https://www.waterqualitydata.us/organizations/WIDNR_WQX/activities/WIDNR_WQX-5/files</ActivityFileUrl>
 			</ActivityAttachedBinaryObject>
 			<ActivityMetricURL>https://www.waterqualitydata.us/activities/WIDNR_WQX-5/activitymetrics</ActivityMetricURL>
 		</Activity>
@@ -522,7 +522,7 @@
 			<ActivityAttachedBinaryObject>
 				<BinaryObjectFileName>actObjectName4</BinaryObjectFileName>
 				<BinaryObjectFileTypeCode>actObjectType4</BinaryObjectFileTypeCode>
-				<ActivityFileUrl>https://www.waterqualitydata.us//organizations/WIDNR_WQX/activities/WIDNR_WQX-4/files</ActivityFileUrl>
+				<ActivityFileUrl>https://www.waterqualitydata.us/organizations/WIDNR_WQX/activities/WIDNR_WQX-4/files</ActivityFileUrl>
 			</ActivityAttachedBinaryObject>
 			<ActivityMetricURL>https://www.waterqualitydata.us/activities/WIDNR_WQX-4/activitymetrics</ActivityMetricURL>
 		</Activity>
@@ -649,7 +649,7 @@
 			<ActivityAttachedBinaryObject>
 				<BinaryObjectFileName>actObjectName2</BinaryObjectFileName>
 				<BinaryObjectFileTypeCode>actObjectType2</BinaryObjectFileTypeCode>
-				<ActivityFileUrl>https://www.waterqualitydata.us//organizations/organization/activities/organization-11/files</ActivityFileUrl>
+				<ActivityFileUrl>https://www.waterqualitydata.us/organizations/organization/activities/organization-11/files</ActivityFileUrl>
 			</ActivityAttachedBinaryObject>
 			<ActivityMetricURL>https://www.waterqualitydata.us/activities/organization-11/activitymetrics</ActivityMetricURL>
 		</Activity>

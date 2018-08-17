@@ -100,6 +100,16 @@ public class TestActivityMap {
 		ACTIVITY.put(KEY_ACTIVITY_METRIC_URL, "/activities/organization-11/activitymetrics");
 	}
 
+	public static final Map<String, Object> ACTIVITY_ALL;
+	static {
+		ACTIVITY_ALL = new LinkedHashMap<String, Object>();
+		ACTIVITY_ALL.putAll(ACTIVITY);
+		ACTIVITY_ALL.put(KEY_ACTIVITY_OBJECT_NAME, "actObjectName2");
+		ACTIVITY_ALL.put(KEY_ACTIVITY_OBJECT_TYPE, "actObjectType2");
+		ACTIVITY_ALL.put(KEY_ACTIVITY_FILE_URL, "/organizations/organization/activities/organization-11/files");
+		ACTIVITY_ALL.put(KEY_ACTIVITY_GROUP_URL, null);
+	}
+
 	private TestActivityMap() {
 	}
 }

@@ -1,6 +1,7 @@
 package gov.usgs.cida.wqp.dao.streaming;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 import java.util.Map;
@@ -15,6 +16,8 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 import gov.usgs.cida.wqp.CsvDataSetLoader;
 import gov.usgs.cida.wqp.dao.NameSpace;
 import gov.usgs.cida.wqp.dao.StreamingDao;
+import gov.usgs.cida.wqp.mapping.ActivityColumn;
+import gov.usgs.cida.wqp.mapping.Profile;
 import gov.usgs.cida.wqp.mapping.TestActivityMap;
 import gov.usgs.cida.wqp.mapping.TestResultHandler;
 import gov.usgs.cida.wqp.parameter.FilterParameters;
@@ -24,9 +27,9 @@ import gov.usgs.cida.wqp.springinit.DBTestConfig;
 	classes={DBTestConfig.class, StreamingDao.class})
 @DatabaseSetup("classpath:/testData/csv/")
 @DbUnitConfiguration(dataSetLoader = CsvDataSetLoader.class)
-public class ActivityStreamingIT extends BaseActivityStreamingTest {
+public class ActivityAllStreamingIT extends BaseActivityStreamingTest {
 
-	public static final int ACTIVITY_COLUMN_COUNT = TestActivityMap.ACTIVITY.keySet().size();
+	public static final int ACTIVITY_ALL_COLUMN_COUNT = TestActivityMap.ACTIVITY_ALL.keySet().size();
 
 	@Test
 	public void testHarness() {
@@ -54,7 +57,8 @@ public class ActivityStreamingIT extends BaseActivityStreamingTest {
 		minResultsTest();
 		nldiSitesTest();
 		nldiUrlTest();
-		nullParameterTest();
+		//The filter will never be null - it will at the very least have a profile. ActivityStreamingIT exercises the nullParameterTest for this namespace.
+		//nullParameterTest();
 		organizationTest();
 		pcodeTest();
 		projectTest();
@@ -65,7 +69,7 @@ public class ActivityStreamingIT extends BaseActivityStreamingTest {
 		siteIdLargeListTest();
 		siteTypeTest();
 		siteUrlBaseTest();
-		sortedTest(ACTIVITY_COLUMN_COUNT);
+		sortedTest(ACTIVITY_ALL_COLUMN_COUNT);
 		startDateHiTest();
 		startDateLoTest();
 		stateTest();
@@ -82,15 +86,24 @@ public class ActivityStreamingIT extends BaseActivityStreamingTest {
 
 	@Override
 	public void assertStoret11(int columnCount, Map<String, Object> row) {
-		assertMapIsAsExpected(TestActivityMap.ACTIVITY, row);
+		assertMapIsAsExpected(TestActivityMap.ACTIVITY_ALL, row);
 	}
 
 	@Override
 	public List<Map<String, Object>> callDao(NameSpace nameSpace, int expectedSize, FilterParameters filter) {
 		TestResultHandler handler = new TestResultHandler();
+		filter.setDataProfile(Profile.ACTIVITY_ALL.toString());
 		streamingDao.stream(nameSpace, filter, handler);
 		assertEquals(expectedSize, handler.getResults().size());
 		return handler.getResults();
+	}
+
+	@Override
+	protected void assertSiteUrlBase(Map<String, Object> row) {
+		super.assertSiteUrlBase(row);
+		if (null != row.get(ActivityColumn.KEY_ACTIVITY_FILE_URL)) {
+			assertTrue("ActivityFileURL incorrect", row.get(ActivityColumn.KEY_ACTIVITY_FILE_URL).toString().startsWith("http://siteUrlBase/"));
+		}
 	}
 
 }

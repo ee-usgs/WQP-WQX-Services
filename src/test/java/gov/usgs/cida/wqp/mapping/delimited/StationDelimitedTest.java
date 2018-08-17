@@ -16,7 +16,7 @@ public class StationDelimitedTest {
 		assertStationProfile(StationDelimited.getMapping(Profile.STATION));
 	}
 
-		@Test
+	@Test
 	public void simpleStationProfileTest() {
 		assertSimpleStationProfile(StationDelimited.getMapping(Profile.SIMPLE_STATION));
 	}
