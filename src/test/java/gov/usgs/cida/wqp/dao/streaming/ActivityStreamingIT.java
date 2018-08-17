@@ -612,7 +612,7 @@ public class ActivityStreamingIT extends FilteredActivityDaoTest {
 	@Override
 	protected void assertSiteUrlBase(Map<String, Object> row) {
 		if (null != row.get(ActivityColumn.KEY_ACTIVITY_METRIC_URL)) {
-			assertTrue("ActivityMetricURL incorrect", row.get(ActivityColumn.KEY_ACTIVITY_METRIC_URL).toString().startsWith("http://siteUrlBase/activities/"));
+			assertTrue("ActivityMetricURL incorrect", row.get(ActivityColumn.KEY_ACTIVITY_METRIC_URL).toString().startsWith("http://siteUrlBase/"));
 		}
 	}
 
