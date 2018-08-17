@@ -12,7 +12,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Post bodies now correctly decode 'pCode' and 'bBox'
 - Removed the use_hash hint for geospatial result queries
 
-
 ## [0.14.0]
 ### Added
 - Converted project to Spring Boot 2.
