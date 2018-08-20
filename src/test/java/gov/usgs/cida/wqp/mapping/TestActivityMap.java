@@ -97,7 +97,7 @@ public class TestActivityMap {
 	static {
 		ACTIVITY = new LinkedHashMap<String, Object>();
 		ACTIVITY.putAll(BASE_ACTIVITY);
-		ACTIVITY.put(KEY_ACTIVITY_METRIC_URL, "/activities/activity/activitymetrics");
+		ACTIVITY.put(KEY_ACTIVITY_METRIC_URL, "/activities/organization-11/activitymetrics");
 	}
 
 	private TestActivityMap() {

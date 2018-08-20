@@ -22,12 +22,12 @@
     <select id="select" resultType="java.util.LinkedHashMap" fetchSize="500">
         select <include refid="base.baseColumns"/>,
                <include refid="activity.baseColumns"/>,
-                  <if test="dataProfile == 'activityAll'">
-                      activity_object_name,
-                      activity_object_type,
-                      nvl2(activity_file_url, #{siteUrlBase,jdbcType=VARCHAR} || '/' || activity_file_url, null) activity_file_url,
-                  </if>
-               #{siteUrlBase,jdbcType=VARCHAR} || '/activities/' || pkg_dynamic_list.url_escape(prime.activity, 'true') || '/activitymetrics' activity_metric_url
+               <if test="dataProfile == 'activityAll'">
+                   activity_object_name,
+                   activity_object_type,
+                   nvl2(activity_file_url, #{siteUrlBase,jdbcType=VARCHAR} || '/' || activity_file_url, null) activity_file_url,
+               </if>
+               nvl2(activity_metric_url, #{siteUrlBase,jdbcType=VARCHAR} || '/' || activity_metric_url, null) activity_metric_url
         <include refid="dynamicWhere.activityBase"/>
         <if test="sorted == 'yes'">
             order by prime.data_source_id,

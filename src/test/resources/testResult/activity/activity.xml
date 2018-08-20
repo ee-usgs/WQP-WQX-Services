@@ -119,7 +119,6 @@
 					<SampleTransportStorageDescription>actSamTransportStorageDescStewards</SampleTransportStorageDescription>
 				</SamplePreparation>
 			</SampleDescription>
-			<ActivityMetricURL>https://www.waterqualitydata.us/activities/activityStewards/activitymetrics</ActivityMetricURL>
 		</Activity>
 	</Organization>
 	<Organization>
@@ -241,7 +240,6 @@
 					<SampleTransportStorageDescription>actSamTransportStorageDesc</SampleTransportStorageDescription>
 				</SamplePreparation>
 			</SampleDescription>
-			<ActivityMetricURL>https://www.waterqualitydata.us/activities/activityNwis/activitymetrics</ActivityMetricURL>
 		</Activity>
 	</Organization>
 	<Organization>
@@ -282,7 +280,7 @@
 				</SampleCollectionMethod>
 				<SampleCollectionEquipmentName>Bucket</SampleCollectionEquipmentName>
 			</SampleDescription>
-			<ActivityMetricURL>https://www.waterqualitydata.us/activities/activityStoret/activitymetrics</ActivityMetricURL>
+			<ActivityMetricURL>https://www.waterqualitydata.us/activities/11NPSWRD-14/activitymetrics</ActivityMetricURL>
 		</Activity>
 	</Organization>
 	<Organization>
@@ -320,7 +318,7 @@
 				</SampleCollectionMethod>
 				<SampleCollectionEquipmentName>Box Corer</SampleCollectionEquipmentName>
 			</SampleDescription>
-			<ActivityMetricURL>https://www.waterqualitydata.us/activities/21NYDECA_WQX-020002/activitymetrics</ActivityMetricURL>
+			<ActivityMetricURL>https://www.waterqualitydata.us/activities/21NYDECA_WQX-6/activitymetrics</ActivityMetricURL>
 		</Activity>
 		<Activity>
 			<ActivityDescription>
@@ -352,7 +350,7 @@
 				</SampleCollectionMethod>
 				<SampleCollectionEquipmentName>Box Corer</SampleCollectionEquipmentName>
 			</SampleDescription>
-			<ActivityMetricURL>https://www.waterqualitydata.us/activities/21NYDECA_WQX-020206/activitymetrics</ActivityMetricURL>
+			<ActivityMetricURL>https://www.waterqualitydata.us/activities/21NYDECA_WQX-7/activitymetrics</ActivityMetricURL>
 		</Activity>
 		<Activity>
 			<ActivityDescription>
@@ -384,7 +382,7 @@
 				</SampleCollectionMethod>
 				<SampleCollectionEquipmentName>Box Corer</SampleCollectionEquipmentName>
 			</SampleDescription>
-			<ActivityMetricURL>https://www.waterqualitydata.us/activities/21NYDECA_WQX-020610/activitymetrics</ActivityMetricURL>
+			<ActivityMetricURL>https://www.waterqualitydata.us/activities/21NYDECA_WQX-9/activitymetrics</ActivityMetricURL>
 		</Activity>
 		<Activity>
 			<ActivityDescription>
@@ -416,7 +414,7 @@
 				</SampleCollectionMethod>
 				<SampleCollectionEquipmentName>Box Corer</SampleCollectionEquipmentName>
 			</SampleDescription>
-			<ActivityMetricURL>https://www.waterqualitydata.us/activities/21NYDECA_WQX-0210EN/activitymetrics</ActivityMetricURL>
+			<ActivityMetricURL>https://www.waterqualitydata.us/activities/21NYDECA_WQX-8/activitymetrics</ActivityMetricURL>
 		</Activity>
 	</Organization>
 	<Organization>
@@ -457,7 +455,7 @@
 				</SampleCollectionMethod>
 				<SampleCollectionEquipmentName>Bucket</SampleCollectionEquipmentName>
 			</SampleDescription>
-			<ActivityMetricURL>https://www.waterqualitydata.us/activities/WIDNR_WQX-7788475/activitymetrics</ActivityMetricURL>
+			<ActivityMetricURL>https://www.waterqualitydata.us/activities/WIDNR_WQX-5/activitymetrics</ActivityMetricURL>
 		</Activity>
 		<Activity>
 			<ActivityDescription>
@@ -491,7 +489,7 @@
 				</SampleCollectionMethod>
 				<SampleCollectionEquipmentName>Unknown</SampleCollectionEquipmentName>
 			</SampleDescription>
-			<ActivityMetricURL>https://www.waterqualitydata.us/activities/WIDNR_WQX-7788480/activitymetrics</ActivityMetricURL>
+			<ActivityMetricURL>https://www.waterqualitydata.us/activities/WIDNR_WQX-4/activitymetrics</ActivityMetricURL>
 		</Activity>
 	</Organization>
 	<Organization>
@@ -613,7 +611,7 @@
 					<SampleTransportStorageDescription>actSamTransportStorageDesc</SampleTransportStorageDescription>
 				</SamplePreparation>
 			</SampleDescription>
-			<ActivityMetricURL>https://www.waterqualitydata.us/activities/activity/activitymetrics</ActivityMetricURL>
+			<ActivityMetricURL>https://www.waterqualitydata.us/activities/organization-11/activitymetrics</ActivityMetricURL>
 		</Activity>
 	</Organization>
 	<Organization>
@@ -654,7 +652,6 @@
 				</SampleCollectionMethod>
 				<SampleCollectionEquipmentName>Bucket</SampleCollectionEquipmentName>
 			</SampleDescription>
-			<ActivityMetricURL>https://www.waterqualitydata.us/activities/activityBiodata/activitymetrics</ActivityMetricURL>
 		</Activity>
 	</Organization>
 </WQX>
