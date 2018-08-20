@@ -474,6 +474,10 @@ public class ActivityWqx extends BaseWqx implements IXmlMapping {
 				new LinkedList<String>(Arrays.asList(
 						WQX_ACTIVITY,
 						WQX_ACTIVITY_METRIC_URL)));
+		COLUMN_POSITION.put(KEY_ACTIVITY_GROUP_URL,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_ACTIVITY_GROUP_URL)));
 	}
 
 	static {
@@ -569,7 +573,8 @@ public class ActivityWqx extends BaseWqx implements IXmlMapping {
 						ACTIVITY_OBJECT_NAME,
 						ACTIVITY_OBJECT_TYPE,
 						ACTIVITY_FILE_URL,
-						ACTIVITY_METRIC_URL
+						ACTIVITY_METRIC_URL,
+						ACTIVITY_GROUP_URL
 						)));
 	}
 

@@ -54,16 +54,17 @@ import static uk.co.datumedge.hamcrest.json.SameJSONAs.sameJSONObjectAs;
 @DbUnitConfiguration(dataSetLoader = ColumnSensingFlatXMLDataSetLoader.class)
 @DirtiesContext(classMode=ClassMode.AFTER_CLASS)
 public class SummaryStationControllerIT extends BaseControllerIntegrationTest {
-	
+
 	protected static final Profile PROFILE = Profile.SUMMARY_STATION;
 	protected static final boolean POSTABLE = true;
 	protected static final String ENDPOINT = HttpConstants.SUMMARY_STATION_ENDPOINT + "?summaryYears=" + SummaryStationStreamingIT.SUMMARY_YEARS_ALL_MONTHS + "&mimeType=";
-	
+
 	@Test
 	public void testHarness() throws Exception {
 		getAsGeoJsonTest();
 		getAsGeoJsonZipTest();
 		getAllParametersTest();
+		postGetCountTest();
 	}
 
 	public void getAsGeoJsonTest() throws Exception {
@@ -77,8 +78,7 @@ public class SummaryStationControllerIT extends BaseControllerIntegrationTest {
 	public void getAllParametersTest() throws Exception {
 		getAllParametersTest(ENDPOINT + GEOJSON, HttpConstants.MIME_TYPE_GEOJSON, GEOJSON, PROFILE, POSTABLE);
 	}
-	
-	@Test
+
 	public void postGetCountTest() throws Exception {
 		String urlPrefix = HttpConstants.SUMMARY_STATION_ENDPOINT + "/count?mimeType=";
 		String compareObject = "{\"" + HttpConstants.HEADER_TOTAL_SITE_COUNT + "\":\"" + TOTAL_SITE_COUNT_GEOM
@@ -89,26 +89,25 @@ public class SummaryStationControllerIT extends BaseControllerIntegrationTest {
 				+ "\"}";
 		postGetCountTest(urlPrefix, compareObject, PROFILE);
 	}
-	
+
 	public void postGetCountTest(String urlPrefix, String compareObject, Profile profile) throws Exception {
 		when(fetchService.fetch(any(String.class), any(URL.class))).thenReturn(getNldiSites());
 
 		MvcResult rtn = filteredHeaderCheck(callMockPostJson(urlPrefix + JSON, getSourceFile("summaryPostParameters.json").replace("[DATA_PROFILE]", profile.toString()), HttpConstants.MIME_TYPE_JSON, null))
 			.andReturn();
-	
+
 		assertThat(new JSONObject(rtn.getResponse().getContentAsString()),
 				sameJSONObjectAs(new JSONObject(compareObject)));
-	
+
 		callMockPostJsonBadRequest(urlPrefix+ GEOJSON);
 		callMockPostJsonBadRequest(urlPrefix+ GEOJSON_AND_ZIP);
 	}
-	
+
 	public ResultActions callMockPostJsonBadRequest(String url) throws Exception {
 		return mockMvc.perform(post(url)
 				.content(getSourceFile("summaryPostParameters.json")).contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isNotAcceptable());
 	}
-	
 
 	public ResultActions unFilteredHeaderCheck(ResultActions resultActions) throws Exception {
 		return resultActions
@@ -139,17 +138,17 @@ public class SummaryStationControllerIT extends BaseControllerIntegrationTest {
 		return resultActions
 				.andExpect(header().string(HttpConstants.HEADER_TOTAL_SITE_COUNT, "0"));
 	}
-	
+
 	protected void getAllParametersTest(String url, String mimeType, String fileType, Profile profile, boolean isPostable) throws Exception {
 		when(fetchService.fetch(any(String.class), any(URL.class))).thenReturn(getNldiSites());
-		
+
 		assertEquals("", filteredHeaderCheck(callMockHead(url, mimeType, getContentDisposition(profile, fileType))).andReturn().getResponse().getContentAsString());
 
 		String filteredUrl = HttpConstants.SUMMARY_STATION_ENDPOINT + "?summaryYears=" + SummaryStationStreamingIT.SUMMARY_YEARS_12_MONTHS + "&mimeType=" + GEOJSON;
-		
+
 		MvcResult rtn = filteredHeaderCheck(callMockGet(filteredUrl, mimeType, getContentDisposition(profile, fileType))).andReturn();
 		assertThat(new JSONObject(getCompareFile(profile, fileType, "Filtered")), sameJSONObjectAs(new JSONObject(rtn.getResponse().getContentAsString())));
-		
+
 		if (isPostable) {
 			rtn = filteredHeaderCheck(callMockPostJson(url, getSourceFile("summaryPostParameters.json").replace("[DATA_PROFILE]", profile.toString()), mimeType, getContentDisposition(profile, fileType))).andReturn();
 			assertThat(new JSONObject(getCompareFile(profile, fileType, "Filtered")), sameJSONObjectAs(new JSONObject(rtn.getResponse().getContentAsString())));
@@ -158,5 +157,5 @@ public class SummaryStationControllerIT extends BaseControllerIntegrationTest {
 			assertThat(new JSONObject(getCompareFile(profile, fileType, null)), sameJSONObjectAs(new JSONObject(rtn.getResponse().getContentAsString())));
 		}
 	}
-	
+
 }

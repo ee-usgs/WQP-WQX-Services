@@ -69,12 +69,10 @@ public class ActivityMetricRestfullIT extends BaseControllerIntegrationTest {
 		getAsXlsxZipTest(ENDPOINT + XLSX_AND_ZIP, HttpConstants.MIME_TYPE_ZIP, XLSX, PROFILE, POSTABLE);
 	}
 
-	@Test
 	public void getAsXmlTest() throws Exception {
 		getAsXmlTest(ENDPOINT + XML, HttpConstants.MIME_TYPE_XML, XML, PROFILE, POSTABLE);
 	}
 
-	@Test
 	public void getAsXmlZipTest() throws Exception {
 		getAsXmlZipTest(ENDPOINT + XML_AND_ZIP, HttpConstants.MIME_TYPE_ZIP, XML, PROFILE, POSTABLE);
 	}

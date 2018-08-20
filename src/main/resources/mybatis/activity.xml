@@ -26,6 +26,7 @@
                    activity_object_name,
                    activity_object_type,
                    nvl2(activity_file_url, #{siteUrlBase,jdbcType=VARCHAR} || '/' || activity_file_url, null) activity_file_url,
+                   null activity_group_url,
                </if>
                nvl2(activity_metric_url, #{siteUrlBase,jdbcType=VARCHAR} || '/' || activity_metric_url, null) activity_metric_url
         <include refid="dynamicWhere.activityBase"/>

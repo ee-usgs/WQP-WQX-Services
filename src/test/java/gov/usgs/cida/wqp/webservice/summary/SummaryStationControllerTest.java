@@ -17,17 +17,17 @@ import org.springframework.mock.web.MockHttpServletResponse;
 
 
 public class SummaryStationControllerTest {
-    protected SummaryStationController controller;
-    
-    @Before
-    public void setup() {
-        controller = new SummaryStationController(null, null, null, null, null, null, null, null);
-        SummaryStationController.remove();
-    }
-    
-    @Test
-    public void addCountHeaderTest() {
-        	MockHttpServletResponse response = new MockHttpServletResponse();
+	protected SummaryStationController controller;
+
+	@Before
+	public void setup() {
+		controller = new SummaryStationController(null, null, null, null, null, null, null, null);
+		SummaryStationController.remove();
+	}
+
+	@Test
+	public void addCountHeaderTest() {
+		MockHttpServletResponse response = new MockHttpServletResponse();
 		String countHeader = controller.addCountHeaders(response, BaseControllerTest.getRawCounts());
 		assertEquals(HttpConstants.HEADER_TOTAL_SITE_COUNT, countHeader);
 		assertEquals(BaseControllerTest.TEST_NWIS_STATION_COUNT, response.getHeaderValue(HEADER_NWIS_SITE_COUNT));
@@ -38,21 +38,21 @@ public class SummaryStationControllerTest {
 		assertFalse(response.containsHeader(HttpConstants.HEADER_TOTAL_RESULT_COUNT));
 		assertFalse(response.containsHeader(HEADER_NWIS_RES_DETECT_QNT_LMT_COUNT));
 		assertFalse(response.containsHeader(HttpConstants.HEADER_TOTAL_RES_DETECT_QNT_LMT_COUNT));
-    }
-    
-    @Test
-    public void getMappingTest() {
-            StationDelimitedTest.assertStationProfile(controller.getMapping(Profile.STATION));
-            StationDelimitedTest.assertSimpleStationProfile(controller.getMapping(Profile.SIMPLE_STATION));
-    }
-    
-    @Test
-    public void determineProfileTest() {
-            assertEquals(Profile.SUMMARY_STATION, controller.determineProfile(null));
+	}
 
-            FilterParameters filter = new FilterParameters();
-            filter.setDataProfile("summarystation");
-            assertEquals(Profile.SUMMARY_STATION, controller.determineProfile(filter));
-    }
-    
+	@Test
+	public void getMappingTest() {
+		StationDelimitedTest.assertStationProfile(controller.getMapping(Profile.STATION));
+		StationDelimitedTest.assertSimpleStationProfile(controller.getMapping(Profile.SIMPLE_STATION));
+	}
+
+	@Test
+	public void determineProfileTest() {
+		assertEquals(Profile.SUMMARY_STATION, controller.determineProfile(null));
+
+		FilterParameters filter = new FilterParameters();
+		filter.setDataProfile("summarystation");
+		assertEquals(Profile.SUMMARY_STATION, controller.determineProfile(filter));
+	}
+
 }
