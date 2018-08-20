@@ -4,7 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html). (Patch version X.Y.0 is implied if not specified.)
 
-## [Unreleased]
+## [0.15.0]
+### Added
+- Added station summary service
+
+### Fixed
+- Post bodies now correctly decode 'pCode' and 'bBox'
+- Removed the use_hash hint for geospatial result queries
+
+## [0.14.0]
 ### Added
 - Converted project to Spring Boot 2.
 - OAuth2 Security for Internal App.
@@ -42,7 +50,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - Migrated repository to NWQMC
 
-[Unreleased]: https://github.com/NWQMC/WQP-WQX-Services/compare/wqp-0.13.0...master
+[Unreleased]: https://github.com/NWQMC/WQP-WQX-Services/compare/wqp-0.15.0...master
+[0.15.0]: https://github.com/NWQMC/WQP-WQX-Services/compare/wqp-0.14.0...wqp-0.15.0
+[0.14.0]: https://github.com/NWQMC/WQP-WQX-Services/compare/wqp-0.13.0...wqp-0.14.0
 [0.13.0]: https://github.com/NWQMC/WQP-WQX-Services/compare/wqp-0.12.0...wqp-0.13.0
 [0.12.0]: https://github.com/NWQMC/WQP-WQX-Services/compare/wqp-0.11.0...wqp-0.12.0
 [0.11.0]: https://github.com/NWQMC/WQP-WQX-Services/compare/wqp-0.10.0...wqp-0.11.0
