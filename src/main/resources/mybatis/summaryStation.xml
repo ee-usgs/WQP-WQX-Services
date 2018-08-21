@@ -47,7 +47,6 @@
 		summary_all_months
 
 	    from station_sum
-	    
 	    ) filter
 	on prime.station_id = filter.station_id and
 	prime.data_source_id = filter.data_source_id
@@ -61,6 +60,20 @@
         <where>
             <include refid="dynamicWhere.baseWhereStationGeoClauses" />
             <include refid="dynamicWhere.baseWhereStationClauses" />
+			and
+			<choose>
+				<when test="summaryYears == null or summaryYears.equalsIgnoreCase('all')">
+					summary_all_months is not null
+				</when>
+				<otherwise>
+					<choose>
+						<when test="summaryYears.equalsIgnoreCase('1')">summary_past_12_months is not null</when>
+						<when test="summaryYears.equalsIgnoreCase('5')">summary_past_60_months is not null</when>
+						<otherwise>summary_all_months is not null</otherwise>
+					</choose>
+				</otherwise>
+			</choose>
+			
         </where>
             
         ORDER BY
@@ -71,7 +84,42 @@
     </select>
 
     <select id="count" resultType="java.util.LinkedHashMap">
-        <include refid="station.stationCount"/>
+        select data_source,
+			   count(distinct data_source||'-'||station_id) station_count
+		from (select prime.data_source,
+					prime.station_id
+					<choose>
+						<when test="summaryYears == null or summaryYears.equalsIgnoreCase('all')">
+							, TO_CHAR(prime.summary_all_months) summary_all_months
+						</when>
+						<otherwise>
+							<choose>
+								<when test="summaryYears.equalsIgnoreCase('1')">, TO_CHAR(prime.summary_past_12_months) summary_past_12_months</when>
+								<when test="summaryYears.equalsIgnoreCase('5')">, TO_CHAR(prime.summary_past_60_months) summary_past_60_months</when>
+								<otherwise>, TO_CHAR(filter.summary_all_months) summary_all_months</otherwise>
+							</choose>
+						</otherwise>
+					</choose>
+			  from station_sum prime
+		<where>
+			<include refid="dynamicWhere.baseWhereStationGeoClauses" />
+            <include refid="dynamicWhere.baseWhereStationClauses" />
+			and
+			<choose>
+				<when test="summaryYears == null or summaryYears.equalsIgnoreCase('all')">
+					summary_all_months is not null
+				</when>
+				<otherwise>
+					<choose>
+						<when test="summaryYears.equalsIgnoreCase('1')">summary_past_12_months is not null</when>
+						<when test="summaryYears.equalsIgnoreCase('5')">summary_past_60_months is not null</when>
+						<otherwise>summary_all_months is not null</otherwise>
+					</choose>
+				</otherwise>
+			</choose>
+		</where>
+			)
+			group by rollup(data_source)   
     </select>
 
 </mapper>
