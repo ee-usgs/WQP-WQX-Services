@@ -2,61 +2,32 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="pcResult">
 
-    <select id="select" resultType="java.util.LinkedHashMap" fetchSize="500">
-        <if test="minactivities != null or minresults != null">
-            select * from (
-        </if>
-        select <include refid="base.baseColumns"/>,
-               to_char(prime.event_date, 'yyyy-mm-dd') event_date, prime.p_code, prime.activity,
-               prime.characteristic_name, prime.characteristic_type, prime.sample_media, prime.site_type, prime.huc, prime.governmental_unit_code, prime.activity_id,
-               prime.activity_type_code, prime.activity_media_subdiv_name, prime.activity_start_time,
-               prime.act_start_time_zone, prime.activity_stop_date, prime.activity_stop_time, prime.act_stop_time_zone, prime.activity_depth,
-               prime.activity_depth_unit, prime.activity_depth_ref_point, prime.activity_upper_depth, prime.activity_upper_depth_unit,
-               prime.activity_lower_depth, prime.activity_lower_depth_unit, prime.project_id as activity_projects, prime.activity_conducting_org, prime.activity_comment,
-               prime.sample_aqfr_name, prime.hydrologic_condition_name, prime.hydrologic_event_name,
-               prime.sample_collect_method_id, prime.sample_collect_method_ctx, prime.sample_collect_method_name, prime.sample_collect_equip_name,
-               prime.result_id, prime.result_detection_condition_tx, prime.sample_fraction_type, prime.result_measure_value, prime.result_unit,
-               prime.result_meas_qual_code, prime.result_value_status, prime.statistic_type, prime.result_value_type, prime.weight_basis_type, prime.duration_basis,
-               prime.temperature_basis_level, prime.particle_size, prime.precision, prime.result_comment, prime.result_depth_meas_value,
-               prime.result_depth_meas_unit_code, prime.result_depth_alt_ref_pt_txt, prime.sample_tissue_taxonomic_name,
-               prime.sample_tissue_anatomy_name, prime.analytical_procedure_id, prime.analytical_procedure_source, prime.analytical_method_name,
-               prime.analytical_method_citation, prime.lab_name, prime.analysis_start_date, prime.lab_remark, prime.detection_limit, prime.detection_limit_unit,
-               prime.detection_limit_desc, prime.analysis_prep_date_tx
-        <if test="minactivities != null">
-            , count(distinct prime.activity_id) over (partition by prime.data_source_id, prime.station_id) site_activity_count
-        </if>
-        <if test="minresults != null">
-            , count(*) over (partition by prime.data_source_id, prime.station_id) site_result_count
-        </if>
-        <include refid="dynamicWhere.resultsBase"/>
-        <if test="minactivities != null or minresults != null">
-            ) prime
-            <where>
-                <if test="minactivities != null">
-                    and site_activity_count >= #{minactivities}
-                </if>
-                <if test="minresults != null">
-                    and site_result_count >= #{minresults}
-                </if>
-            </where>
-        </if>
-        <if test="sorted == 'yes'">
-            order by prime.data_source_id,
-                     prime.organization,
-                     prime.site_id,
-                     prime.event_date,
-                     prime.activity,
-                     prime.result_id
-        </if>
-    </select>
-
-    <sql id="resultCount">
-        select data_source, station_count, activity_count, result_count
-          from (<include refid="dynamicWhere.countBase"/>)
+    <sql id="baseColumns">
+        to_char(prime.event_date, 'yyyy-mm-dd') event_date, prime.p_code, prime.activity,
+        prime.characteristic_name, prime.characteristic_type, prime.sample_media, prime.site_type, prime.huc, prime.governmental_unit_code, prime.activity_id,
+        prime.activity_type_code, prime.activity_media_subdiv_name, prime.activity_start_time,
+        prime.act_start_time_zone, prime.activity_stop_date, prime.activity_stop_time, prime.act_stop_time_zone, prime.activity_depth,
+        prime.activity_depth_unit, prime.activity_depth_ref_point, prime.activity_upper_depth, prime.activity_upper_depth_unit,
+        prime.activity_lower_depth, prime.activity_lower_depth_unit, prime.project_id as activity_projects, prime.activity_conducting_org, prime.activity_comment,
+        prime.sample_aqfr_name, prime.hydrologic_condition_name, prime.hydrologic_event_name,
+        prime.sample_collect_method_id, prime.sample_collect_method_ctx, prime.sample_collect_method_name, prime.sample_collect_equip_name,
+        prime.result_id, prime.result_detection_condition_tx, prime.sample_fraction_type, prime.result_measure_value, prime.result_unit,
+        prime.result_meas_qual_code, prime.result_value_status, prime.statistic_type, prime.result_value_type, prime.weight_basis_type, prime.duration_basis,
+        prime.temperature_basis_level, prime.particle_size, prime.precision, prime.result_comment, prime.result_depth_meas_value,
+        prime.result_depth_meas_unit_code, prime.result_depth_alt_ref_pt_txt, prime.sample_tissue_taxonomic_name,
+        prime.sample_tissue_anatomy_name, prime.analytical_procedure_id, prime.analytical_procedure_source, prime.analytical_method_name,
+        prime.analytical_method_citation, prime.lab_name, prime.analysis_start_date, prime.lab_remark, prime.detection_limit, prime.detection_limit_unit,
+        prime.detection_limit_desc, prime.analysis_prep_date_tx
     </sql>
 
+    <select id="select" resultType="java.util.LinkedHashMap" fetchSize="500">
+        <include refid="result.pre"/>
+        <include refid="pcResult.baseColumns"/>
+        <include refid="result.post"/>
+    </select>
+
     <select id="count" resultType="java.util.LinkedHashMap">
-        <include refid="pcResult.resultCount"/>
+        <include refid="result.resultCount"/>
     </select>
 
 </mapper>

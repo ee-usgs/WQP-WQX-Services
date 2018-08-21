@@ -18,5 +18,6 @@
     <logger name="org.mybatis" level="INFO" />
     <logger name="java.sql" level="INFO" />
     <logger name="springfox" level="INFO" />
+    <logger name="org.dbunit" level="INFO" />
 
 </configuration>

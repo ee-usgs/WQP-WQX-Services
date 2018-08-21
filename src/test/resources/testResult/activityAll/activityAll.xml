@@ -285,7 +285,7 @@
 				<BinaryObjectFileTypeCode>actObjectType6</BinaryObjectFileTypeCode>
 				<ActivityFileUrl>https://www.waterqualitydata.us/organizations/11NPSWRD/activities/11NPSWRD-14/files</ActivityFileUrl>
 			</ActivityAttachedBinaryObject>
-			<ActivityMetricURL>https://www.waterqualitydata.us/activities/11NPSWRD-14/activitymetrics</ActivityMetricURL>
+			<ActivityMetricUrl>https://www.waterqualitydata.us/activities/11NPSWRD-14/activitymetrics</ActivityMetricUrl>
 		</Activity>
 	</Organization>
 	<Organization>
@@ -328,7 +328,7 @@
 				<BinaryObjectFileTypeCode>actObjectType5</BinaryObjectFileTypeCode>
 				<ActivityFileUrl>https://www.waterqualitydata.us/organizations/21NYDECA_WQX/activities/21NYDECA_WQX-6/files</ActivityFileUrl>
 			</ActivityAttachedBinaryObject>
-			<ActivityMetricURL>https://www.waterqualitydata.us/activities/21NYDECA_WQX-6/activitymetrics</ActivityMetricURL>
+			<ActivityMetricUrl>https://www.waterqualitydata.us/activities/21NYDECA_WQX-6/activitymetrics</ActivityMetricUrl>
 		</Activity>
 		<Activity>
 			<ActivityDescription>
@@ -365,7 +365,7 @@
 				<BinaryObjectFileTypeCode>actObjectType5</BinaryObjectFileTypeCode>
 				<ActivityFileUrl>https://www.waterqualitydata.us/organizations/21NYDECA_WQX/activities/21NYDECA_WQX-7/files</ActivityFileUrl>
 			</ActivityAttachedBinaryObject>
-			<ActivityMetricURL>https://www.waterqualitydata.us/activities/21NYDECA_WQX-7/activitymetrics</ActivityMetricURL>
+			<ActivityMetricUrl>https://www.waterqualitydata.us/activities/21NYDECA_WQX-7/activitymetrics</ActivityMetricUrl>
 		</Activity>
 		<Activity>
 			<ActivityDescription>
@@ -402,7 +402,7 @@
 				<BinaryObjectFileTypeCode>actObjectType5</BinaryObjectFileTypeCode>
 				<ActivityFileUrl>https://www.waterqualitydata.us/organizations/21NYDECA_WQX/activities/21NYDECA_WQX-9/files</ActivityFileUrl>
 			</ActivityAttachedBinaryObject>
-			<ActivityMetricURL>https://www.waterqualitydata.us/activities/21NYDECA_WQX-9/activitymetrics</ActivityMetricURL>
+			<ActivityMetricUrl>https://www.waterqualitydata.us/activities/21NYDECA_WQX-9/activitymetrics</ActivityMetricUrl>
 		</Activity>
 		<Activity>
 			<ActivityDescription>
@@ -439,7 +439,7 @@
 				<BinaryObjectFileTypeCode>actObjectType5</BinaryObjectFileTypeCode>
 				<ActivityFileUrl>https://www.waterqualitydata.us/organizations/21NYDECA_WQX/activities/21NYDECA_WQX-8/files</ActivityFileUrl>
 			</ActivityAttachedBinaryObject>
-			<ActivityMetricURL>https://www.waterqualitydata.us/activities/21NYDECA_WQX-8/activitymetrics</ActivityMetricURL>
+			<ActivityMetricUrl>https://www.waterqualitydata.us/activities/21NYDECA_WQX-8/activitymetrics</ActivityMetricUrl>
 		</Activity>
 	</Organization>
 	<Organization>
@@ -485,7 +485,7 @@
 				<BinaryObjectFileTypeCode>actObjectType4</BinaryObjectFileTypeCode>
 				<ActivityFileUrl>https://www.waterqualitydata.us/organizations/WIDNR_WQX/activities/WIDNR_WQX-5/files</ActivityFileUrl>
 			</ActivityAttachedBinaryObject>
-			<ActivityMetricURL>https://www.waterqualitydata.us/activities/WIDNR_WQX-5/activitymetrics</ActivityMetricURL>
+			<ActivityMetricUrl>https://www.waterqualitydata.us/activities/WIDNR_WQX-5/activitymetrics</ActivityMetricUrl>
 		</Activity>
 		<Activity>
 			<ActivityDescription>
@@ -524,7 +524,7 @@
 				<BinaryObjectFileTypeCode>actObjectType4</BinaryObjectFileTypeCode>
 				<ActivityFileUrl>https://www.waterqualitydata.us/organizations/WIDNR_WQX/activities/WIDNR_WQX-4/files</ActivityFileUrl>
 			</ActivityAttachedBinaryObject>
-			<ActivityMetricURL>https://www.waterqualitydata.us/activities/WIDNR_WQX-4/activitymetrics</ActivityMetricURL>
+			<ActivityMetricUrl>https://www.waterqualitydata.us/activities/WIDNR_WQX-4/activitymetrics</ActivityMetricUrl>
 		</Activity>
 	</Organization>
 	<Organization>
@@ -651,7 +651,7 @@
 				<BinaryObjectFileTypeCode>actObjectType2</BinaryObjectFileTypeCode>
 				<ActivityFileUrl>https://www.waterqualitydata.us/organizations/organization/activities/organization-11/files</ActivityFileUrl>
 			</ActivityAttachedBinaryObject>
-			<ActivityMetricURL>https://www.waterqualitydata.us/activities/organization-11/activitymetrics</ActivityMetricURL>
+			<ActivityMetricUrl>https://www.waterqualitydata.us/activities/organization-11/activitymetrics</ActivityMetricUrl>
 		</Activity>
 	</Organization>
 	<Organization>

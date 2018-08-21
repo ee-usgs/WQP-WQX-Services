@@ -3,6 +3,8 @@ package gov.usgs.cida.wqp.mapping.xml;
 import static gov.usgs.cida.wqp.mapping.BaseColumn.*;
 import static gov.usgs.cida.wqp.mapping.ActivityColumn.*;
 import static gov.usgs.cida.wqp.mapping.ActivityMetricColumn.*;
+import static gov.usgs.cida.wqp.mapping.ProjectColumn.*;
+import static gov.usgs.cida.wqp.mapping.StationColumn.*;
 
 import java.util.Arrays;
 import java.util.LinkedHashMap;
@@ -142,6 +144,11 @@ public class ActivityWqx extends BaseWqx implements IXmlMapping {
 						WQX_ACTIVITY,
 						WQX_ACT_DESCRIPTION,
 						WQX_PROJECT_IDENTIFIER)));
+		COLUMN_POSITION.put(KEY_PROJECT_NAME,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_ACT_DESCRIPTION,
+						WQX_PROJECT_NAME)));
 		COLUMN_POSITION.put(KEY_ACTIVITY_CONDUCTING_ORG,
 				new LinkedList<String>(Arrays.asList(
 						WQX_ACTIVITY,
@@ -152,6 +159,11 @@ public class ActivityWqx extends BaseWqx implements IXmlMapping {
 						WQX_ACTIVITY,
 						WQX_ACT_DESCRIPTION,
 						WQX_MONITORING_LOCATION_IDENTIFIER)));
+		COLUMN_POSITION.put(KEY_STATION_NAME,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_ACT_DESCRIPTION,
+						WQX_MONITORING_LOCATION_NAME)));
 		COLUMN_POSITION.put(KEY_ACTIVITY_COMMENT,
 				new LinkedList<String>(Arrays.asList(
 						WQX_ACTIVITY,
@@ -504,8 +516,10 @@ public class ActivityWqx extends BaseWqx implements IXmlMapping {
 						ACTIVITY_LOWER_DEPTH,
 						ACTIVITY_LOWER_DEPTH_UNIT,
 						ACTIVITY_PROJECTS,
+						PROJECT_NAME,
 						ACTIVITY_CONDUCTING_ORG,
 						SITE_ID,
+						STATION_NAME,
 						ACTIVITY_COMMENT,
 						SAMPLE_AQFR_NAME,
 						HYDROLOGIC_CONDITION_NAME,

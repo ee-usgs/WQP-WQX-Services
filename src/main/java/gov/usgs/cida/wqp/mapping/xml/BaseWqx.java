@@ -123,7 +123,7 @@ public abstract class BaseWqx {
 	public static final String WQX_QAPP_APPROVED_INDICATOR = "QAPPApprovedIndicator";
 	public static final String WQX_QAPP_APPROVAL_AGENCY_NAME = "QAPPApprovalAgencyName";
 	public static final String WQX_PROJECT_FILE_URL = "ProjectFileUrl";
-	public static final String WQX_PROJECT_MONITORING_LOCATION_WEIGHT_URL = "ProjectMonitoringLocationWeightingURL";
+	public static final String WQX_PROJECT_MONITORING_LOCATION_WEIGHT_URL = "ProjectMonitoringLocationWeightingUrl";
 
 	public static final String WQX_ACT_LOCATION = "ActivityLocation";
 
@@ -158,7 +158,7 @@ public abstract class BaseWqx {
 
 	public static final String WQX_ACTIVITY_METRIC = "ActivityMetric";
 	public static final String WQX_ACTIVITY_METRIC_TYPE = "ActivityMetricType";
-	public static final String WQX_ACTIVITY_METRIC_URL = "ActivityMetricURL";
+	public static final String WQX_ACTIVITY_METRIC_URL = "ActivityMetricUrl";
 	public static final String WQX_METRIC_TYPE_ID = "MetricTypeIdentifier";
 	public static final String WQX_METRIC_TYPE_ID_CONTEXT = "MetricTypeIdentifierContext";
 	public static final String WQX_METRIC_TYPE = "MetricTypeName";
@@ -182,7 +182,11 @@ public abstract class BaseWqx {
 	public static final String WQX_CHAR_NAME = "CharacteristicName";
 	public static final String WQX_RESULT_IDENTIFIER = "ResultIdentifier";
 	public static final String WQX_DETECTION_CONDITION = "ResultDetectionConditionText";
+
+	//Note that "SPECIATION" is correct and "SPECIFICATION" is a typo.
+	public static final String WQX_METHOD_SPECIATION = "MethodSpeciationName";
 	public static final String WQX_METHOD_SPECIFICATION = "MethodSpecificationName";
+
 	public static final String WQX_SAMPLE_FRACTION = "ResultSampleFractionText";
 	public static final String WQX_RESULT_MEASURE = "ResultMeasure";
 	public static final String WQX_RESULT_MEASURE_VALUE = "ResultMeasureValue";
@@ -273,6 +277,9 @@ public abstract class BaseWqx {
 	public static final String WQX_PROJECT_MONITORING_LOCATION_WEIGHTING = "ProjectMonitoringLocationWeighting";
 	public static final String WQX_PROJECT_MONITORING_LOCATION_WEIGHTING_FACTOR_MEASURE = "LocationWeightingFactorMeasure";
 	public static final String WQX_PROJECT_MONITORING_LOCATION_WEIGHTING_COMMENT_TEXT = "CommentText";
+	public static final String WQX_RESULT_FILE_URL = "ResultFileUrl";
+
+	public static final String WQX_LAST_UPDATED = "LastUpdated";
 
 	protected BaseWqx() {
 	}

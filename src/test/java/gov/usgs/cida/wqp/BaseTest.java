@@ -95,16 +95,16 @@ public abstract class BaseTest {
 	public static String STORET_ACTIVITY_METRIC_COUNT = "21";
 	public static String BIODATA_ACTIVITY_METRIC_COUNT = "1";
 
-	public static String TOTAL_RESULT_COUNT = "59";
+	public static String TOTAL_RESULT_COUNT = "55";
 	public static String NWIS_RESULT_COUNT = "5";
 	public static String STEWARDS_RESULT_COUNT = "3";
-	public static String STORET_RESULT_COUNT = "50";
+	public static String STORET_RESULT_COUNT = "46";
 	public static String BIODATA_RESULT_COUNT = "1";
 
-	public static String TOTAL_RES_DETECT_QNT_LMT_COUNT = "74";
+	public static String TOTAL_RES_DETECT_QNT_LMT_COUNT = "70";
 	public static String NWIS_RES_DETECT_QNT_LMT_COUNT = "7";
 	public static String STEWARDS_RES_DETECT_QNT_LMT_COUNT = "9";
-	public static String STORET_RES_DETECT_QNT_LMT_COUNT = "57";
+	public static String STORET_RES_DETECT_QNT_LMT_COUNT = "53";
 	public static String BIODATA_RES_DETECT_QNT_LMT_COUNT = "1";
 
 	public static String TOTAL_PROJECT_COUNT = "17";

@@ -12,7 +12,7 @@
         select <include refid="base.baseColumns"/>,
                prime.activity,
                prime.characteristic_name,
-               prime.data_source || '-' ||prime.result_id external_result_id, 
+               <include refid="result.externalResultId"/>, 
                prime.detection_limit_id,
                <include refid="resDetectQntLmt.baseColumns"/>
         <include refid="resDetectQntLmtBase"/>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="resultPhysChem">
+
+    <select id="select" resultType="java.util.LinkedHashMap" fetchSize="500">
+        <include refid="result.pre"/>
+        <include refid="pcResult.baseColumns"/>,
+        prime.activity_relative_depth_name,
+        prime.project_name,
+        prime.monitoring_location_name station_name,
+        prime.activity_latitude,
+        prime.activity_longitude,
+        prime.method_specification_name method_speciation_name,
+        prime.res_measure_bias,
+        prime.res_measure_conf_interval,
+        prime.res_measure_upper_conf_limit,
+        prime.res_measure_lower_conf_limit,
+        prime.analytical_method,
+        prime.result_object_name,
+        prime.result_object_type,
+        nvl2(prime.result_file_url, #{siteUrlBase,jdbcType=VARCHAR} || '/' || prime.result_file_url, null) result_file_url,
+        prime.last_updated,
+        <include refid="result.externalResultId"/>,
+        <include refid="result.labSamplePrepUrl"/>,
+        <include refid="result.resDetectQntLmtUrl"/>
+        <include refid="result.post"/>
+    </select>
+
+    <select id="count" resultType="java.util.LinkedHashMap">
+        <include refid="result.resultCount"/>
+    </select>
+
+</mapper>

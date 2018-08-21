@@ -1,2 +1,2 @@
-OrganizationIdentifier,OrganizationFormalName,ProjectIdentifier,ProjectName,ProjectDescriptionText,SamplingDesignTypeCode,QAPPApprovedIndicator,QAPPApprovalAgencyName,ProjectFileUrl,ProjectMonitoringLocationWeightingURL
+OrganizationIdentifier,OrganizationFormalName,ProjectIdentifier,ProjectName,ProjectDescriptionText,SamplingDesignTypeCode,QAPPApprovedIndicator,QAPPApprovalAgencyName,ProjectFileUrl,ProjectMonitoringLocationWeightingUrl
 organization,Some Organization,projectId,Some Project,Some Project Description,Z,Y ,Agency 4,https://www.waterqualitydata.us/400/files,https://www.waterqualitydata.us/400/mon_loc_weights

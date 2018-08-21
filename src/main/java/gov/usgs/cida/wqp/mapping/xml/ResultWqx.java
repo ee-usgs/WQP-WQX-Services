@@ -55,12 +55,22 @@ public class ResultWqx extends BaseWqx implements IXmlMapping {
 						WQX_RESULT,
 						WQX_RESULT_DESRIPTION,
 						WQX_DATA_LOGGER_LINE)));
+
+
+		//Note that "SPECIATION" is correct and "SPECIFICATION" is a typo.
+		COLUMN_POSITION.put(KEY_METHOD_SPECIATION_NAME,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_RESULT_DESRIPTION,
+						WQX_METHOD_SPECIATION)));
 		COLUMN_POSITION.put(KEY_METHOD_SPECIFICATION_NAME,
 				new LinkedList<String>(Arrays.asList(
 						WQX_ACTIVITY,
 						WQX_RESULT,
 						WQX_RESULT_DESRIPTION,
 						WQX_METHOD_SPECIFICATION)));
+
 
 		COLUMN_POSITION.put(KEY_SAMPLE_FRACTION_TYPE,
 				new LinkedList<String>(Arrays.asList(
@@ -398,6 +408,28 @@ public class ResultWqx extends BaseWqx implements IXmlMapping {
 						WQX_UPPER_CLASS_BOUND)));
 
 
+		COLUMN_POSITION.put(KEY_RESULT_OBJECT_NAME, 
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_ATTACHED_BINARY_OBJECT,
+						WQX_FILE_NAME
+						)));
+		COLUMN_POSITION.put(KEY_RESULT_OBJECT_NAME, 
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_ATTACHED_BINARY_OBJECT,
+						WQX_FILE_TYPE
+						)));
+		COLUMN_POSITION.put(KEY_RESULT_FILE_URL,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_ATTACHED_BINARY_OBJECT,
+						WQX_RESULT_FILE_URL
+						)));
+
 
 		COLUMN_POSITION.put(KEY_ANALYTICAL_PROCEDURE_ID,
 				new LinkedList<String>(Arrays.asList(
@@ -554,12 +586,6 @@ public class ResultWqx extends BaseWqx implements IXmlMapping {
 						WQX_LAB_INFO,
 						WQX_TAXONOMIST_ACCREDITATION_AUTHORTY)));
 
-		COLUMN_POSITION.put(KEY_PREP_METHOD_URL,
-				new LinkedList<String>(Arrays.asList(
-						WQX_ACTIVITY,
-						WQX_RESULT,
-						WQX_LAB_SAMPLE_PREP,
-						WQX_LAB_SAMPLE_PREP_URL)));
 		COLUMN_POSITION.put(KEY_PREP_METHOD_ID,
 				new LinkedList<String>(Arrays.asList(
 						WQX_ACTIVITY,
@@ -643,7 +669,19 @@ public class ResultWqx extends BaseWqx implements IXmlMapping {
 						WQX_RESULT,
 						WQX_LAB_SAMPLE_PREP,
 						WQX_SUBSTITUTION_DILUTION_FACTOR)));
-		
+		COLUMN_POSITION.put(KEY_LAB_SAMPLE_PREP_URL,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_LAB_SAMPLE_PREP,
+						WQX_LAB_SAMPLE_PREP_URL)));
+
+
+		COLUMN_POSITION.put(KEY_LAST_UPDATED,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_LAST_UPDATED)));
 	}
 
 	static {
@@ -654,7 +692,11 @@ public class ResultWqx extends BaseWqx implements IXmlMapping {
 						RES_DATA_LOGGER_LINE,
 						RESULT_DETECTION_CONDITION_TX,
 						CHARACTERISTIC_NAME,
+
+						//Note that "SPECIATION" is correct and "SPECIFICATION" is a typo.
+						METHOD_SPECIATION_NAME,
 						METHOD_SPECIFICATION_NAME,
+
 						SAMPLE_FRACTION_TYPE,
 						RESULT_MEASURE_VALUE,
 						RESULT_UNIT,
@@ -703,6 +745,9 @@ public class ResultWqx extends BaseWqx implements IXmlMapping {
 						FREQUENCY_CLASS_UNIT,
 						FCDSC_LOWER_BOUND,
 						FCDSC_UPPER_BOUND,
+						RESULT_OBJECT_NAME,
+						RESULT_OBJECT_NAME,
+						RESULT_FILE_URL,
 						ANALYTICAL_PROCEDURE_ID,
 						ANALYTICAL_PROCEDURE_SOURCE,
 						ANALYTICAL_METHOD_NAME,
@@ -726,7 +771,6 @@ public class ResultWqx extends BaseWqx implements IXmlMapping {
 						RES_LAB_ACCRED_AUTHORITY,
 						RES_TAXONOMIST_ACCRED_YN,
 						RES_TAXONOMIST_ACCRED_AUTHORTY,
-						PREP_METHOD_URL,
 						PREP_METHOD_ID,
 						PREP_METHOD_CONTEXT,
 						PREP_METHOD_NAME,
@@ -738,7 +782,9 @@ public class ResultWqx extends BaseWqx implements IXmlMapping {
 						PREP_END_DATE,
 						PREP_END_TIME,
 						PREP_END_TIMEZONE,
-						PREP_DILUTION_FACTOR
+						PREP_DILUTION_FACTOR,
+						LAB_SAMPLE_PREP_URL,
+						LAST_UPDATED
 						)));
 	}
 

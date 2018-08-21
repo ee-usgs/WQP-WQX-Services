@@ -217,6 +217,30 @@
 				<ActivityIdentifier>WIDNR_WQX-7788475</ActivityIdentifier>
 				<ActivityMediaName>Water</ActivityMediaName>
 				<ActivityStartDate>1992-07-28</ActivityStartDate>
+				<ProjectIdentifier>Lake-BaselineMonitoringDNR</ProjectIdentifier>
+				<MonitoringLocationIdentifier>WIDNR_WQX-113086</MonitoringLocationIdentifier>
+			</ActivityDescription>
+			<Result>
+				<ResultDescription>
+					<CharacteristicName>Fecal Coliform</CharacteristicName>
+				</ResultDescription>
+			</Result>
+			<Result>
+				<ResultDescription>
+					<CharacteristicName>Dissolved oxygen (DO)</CharacteristicName>
+				</ResultDescription>
+			</Result>
+			<Result>
+				<ResultDescription>
+					<CharacteristicName>Fecal Streptococcus Group Bacteria</CharacteristicName>
+				</ResultDescription>
+			</Result>
+		</Activity>
+		<Activity>
+			<ActivityDescription>
+				<ActivityIdentifier>WIDNR_WQX-7788480</ActivityIdentifier>
+				<ActivityMediaName>Water</ActivityMediaName>
+				<ActivityStartDate>1992-07-28</ActivityStartDate>
 				<ProjectIdentifier>WR047</ProjectIdentifier>
 				<MonitoringLocationIdentifier>WIDNR_WQX-113086</MonitoringLocationIdentifier>
 			</ActivityDescription>
@@ -232,51 +256,7 @@
 			</Result>
 			<Result>
 				<ResultDescription>
-					<CharacteristicName>Fecal Coliform</CharacteristicName>
-				</ResultDescription>
-			</Result>
-			<Result>
-				<ResultDescription>
-					<CharacteristicName>Fecal Coliform</CharacteristicName>
-				</ResultDescription>
-			</Result>
-			<Result>
-				<ResultDescription>
-					<CharacteristicName>Fecal Streptococcus Group Bacteria</CharacteristicName>
-				</ResultDescription>
-			</Result>
-			<Result>
-				<ResultDescription>
-					<CharacteristicName>Fecal Streptococcus Group Bacteria</CharacteristicName>
-				</ResultDescription>
-			</Result>
-		</Activity>
-		<Activity>
-			<ActivityDescription>
-				<ActivityIdentifier>WIDNR_WQX-7788480</ActivityIdentifier>
-				<ActivityMediaName>Water</ActivityMediaName>
-				<ActivityStartDate>1992-07-28</ActivityStartDate>
-				<ProjectIdentifier>WR046</ProjectIdentifier>
-				<MonitoringLocationIdentifier>WIDNR_WQX-113086</MonitoringLocationIdentifier>
-			</ActivityDescription>
-			<Result>
-				<ResultDescription>
 					<CharacteristicName>Cloud cover</CharacteristicName>
-				</ResultDescription>
-			</Result>
-			<Result>
-				<ResultDescription>
-					<CharacteristicName>Cloud cover</CharacteristicName>
-				</ResultDescription>
-			</Result>
-			<Result>
-				<ResultDescription>
-					<CharacteristicName>Dissolved oxygen (DO)</CharacteristicName>
-				</ResultDescription>
-			</Result>
-			<Result>
-				<ResultDescription>
-					<CharacteristicName>Dissolved oxygen (DO)</CharacteristicName>
 				</ResultDescription>
 			</Result>
 			<Result>
