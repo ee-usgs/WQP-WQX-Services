@@ -708,11 +708,18 @@ public class ResultWqx extends BaseWqx implements IXmlMapping {
 						DURATION_BASIS,
 						TEMPERATURE_BASIS_LEVEL,
 						PARTICLE_SIZE,
+
+						//Note that later profiles specify the "DataQuality" prefix (RES_MEASURE_BIAS always had it)
 						PRECISION,
+						DQ_PRECISION,
 						RES_MEASURE_BIAS,
 						RES_MEASURE_CONF_INTERVAL,
+						DQ_RES_MEASURE_CONF_INTERVAL,
 						RES_MEASURE_UPPER_CONF_LIMIT,
+						DQ_RES_MEASURE_UPPER_CONF_LIMIT,
 						RES_MEASURE_LOWER_CONF_LIMIT,
+						DQ_RES_MEASURE_LOWER_CONF_LIMIT,
+
 						RESULT_COMMENT,
 						P_CODE,
 						RESULT_DEPTH_MEAS_VALUE,
@@ -752,7 +759,12 @@ public class ResultWqx extends BaseWqx implements IXmlMapping {
 						ANALYTICAL_PROCEDURE_SOURCE,
 						ANALYTICAL_METHOD_NAME,
 						ANLMTH_QUAL_TYPE,
+
+
+						//Note that later profiles specify the "ResultAnalyticalMethod" prefix
 						ANALYTICAL_METHOD_CITATION,
+						R_ANALYTICAL_METHOD_CITATION,
+
 						METHOD_URL,
 						LAB_NAME,
 						ANALYSIS_START_DATE,

@@ -376,20 +376,6 @@
 			<Result>
 				<ResultDescription>
 					<ResultIdentifier>STORET-6</ResultIdentifier>
-						
-			
-		   
-					   
-															
-						
-			
-		   
-					   
-															
-						
-			
-		   
-					   
 					<CharacteristicName>Fecal Coliform</CharacteristicName>
 				</ResultDescription>
 				<ResultAnalyticalMethod>
@@ -425,10 +411,6 @@
 				<ResultDescription>
 					<ResultIdentifier>STORET-5</ResultIdentifier>
 					<CharacteristicName>Fecal Streptococcus Group Bacteria</CharacteristicName>
-			
-		   
-					   
-														 
 				</ResultDescription>
 				<ResultAnalyticalMethod>
 					<MethodUrl>https://www.nemi.gov/methods/method_summary/5587/</MethodUrl>

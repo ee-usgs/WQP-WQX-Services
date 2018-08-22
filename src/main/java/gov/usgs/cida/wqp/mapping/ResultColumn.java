@@ -129,11 +129,19 @@ public class ResultColumn extends BaseColumn {
 	public static final ColumnProfile DURATION_BASIS = new ColumnProfile(KEY_DURATION_BASIS, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.NARROW_RESULT, Profile.RESULT_PHYS_CHEM);
 	public static final ColumnProfile TEMPERATURE_BASIS_LEVEL = new ColumnProfile(KEY_TEMPERATURE_BASIS_LEVEL, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.NARROW_RESULT, Profile.RESULT_PHYS_CHEM);
 	public static final ColumnProfile PARTICLE_SIZE = new ColumnProfile(KEY_PARTICLE_SIZE, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.NARROW_RESULT, Profile.RESULT_PHYS_CHEM);
-	public static final ColumnProfile PRECISION = new ColumnProfile(KEY_PRECISION, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.NARROW_RESULT, Profile.RESULT_PHYS_CHEM);
+
+	//Note that later profiles specify the "DataQuality" prefix (RES_MEASURE_BIAS always had it)
+	public static final ColumnProfile PRECISION = new ColumnProfile(KEY_PRECISION, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.NARROW_RESULT);
+	public static final ColumnProfile DQ_PRECISION = new ColumnProfile(KEY_PRECISION, Profile.RESULT_PHYS_CHEM);
 	public static final ColumnProfile RES_MEASURE_BIAS = new ColumnProfile(KEY_RES_MEASURE_BIAS, Profile.BIOLOGICAL, Profile.NARROW_RESULT, Profile.RESULT_PHYS_CHEM);
-	public static final ColumnProfile RES_MEASURE_CONF_INTERVAL = new ColumnProfile(KEY_RES_MEASURE_CONF_INTERVAL, Profile.BIOLOGICAL, Profile.NARROW_RESULT, Profile.RESULT_PHYS_CHEM);
-	public static final ColumnProfile RES_MEASURE_UPPER_CONF_LIMIT = new ColumnProfile(KEY_RES_MEASURE_UPPER_CONF_LIMIT, Profile.BIOLOGICAL, Profile.NARROW_RESULT, Profile.RESULT_PHYS_CHEM);
-	public static final ColumnProfile RES_MEASURE_LOWER_CONF_LIMIT = new ColumnProfile(KEY_RES_MEASURE_LOWER_CONF_LIMIT, Profile.BIOLOGICAL, Profile.NARROW_RESULT, Profile.RESULT_PHYS_CHEM);
+	public static final ColumnProfile RES_MEASURE_CONF_INTERVAL = new ColumnProfile(KEY_RES_MEASURE_CONF_INTERVAL, Profile.BIOLOGICAL, Profile.NARROW_RESULT);
+	public static final ColumnProfile DQ_RES_MEASURE_CONF_INTERVAL = new ColumnProfile(KEY_RES_MEASURE_CONF_INTERVAL, Profile.RESULT_PHYS_CHEM);
+	public static final ColumnProfile RES_MEASURE_UPPER_CONF_LIMIT = new ColumnProfile(KEY_RES_MEASURE_UPPER_CONF_LIMIT, Profile.BIOLOGICAL, Profile.NARROW_RESULT);
+	public static final ColumnProfile DQ_RES_MEASURE_UPPER_CONF_LIMIT = new ColumnProfile(KEY_RES_MEASURE_UPPER_CONF_LIMIT, Profile.RESULT_PHYS_CHEM);
+	public static final ColumnProfile RES_MEASURE_LOWER_CONF_LIMIT = new ColumnProfile(KEY_RES_MEASURE_LOWER_CONF_LIMIT, Profile.BIOLOGICAL, Profile.NARROW_RESULT);
+	public static final ColumnProfile DQ_RES_MEASURE_LOWER_CONF_LIMIT = new ColumnProfile(KEY_RES_MEASURE_LOWER_CONF_LIMIT, Profile.RESULT_PHYS_CHEM);
+
+
 	public static final ColumnProfile RESULT_COMMENT = new ColumnProfile(KEY_RESULT_COMMENT, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.NARROW_RESULT, Profile.RESULT_PHYS_CHEM);
 	public static final ColumnProfile P_CODE = new ColumnProfile(KEY_P_CODE, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.NARROW_RESULT, Profile.RESULT_PHYS_CHEM);
 	public static final ColumnProfile RESULT_DEPTH_MEAS_VALUE = new ColumnProfile(KEY_RESULT_DEPTH_MEAS_VALUE, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.NARROW_RESULT, Profile.RESULT_PHYS_CHEM);
@@ -171,7 +179,11 @@ public class ResultColumn extends BaseColumn {
 	public static final ColumnProfile ANALYTICAL_PROCEDURE_SOURCE = new ColumnProfile(KEY_ANALYTICAL_PROCEDURE_SOURCE, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.NARROW_RESULT, Profile.RESULT_PHYS_CHEM);
 	public static final ColumnProfile ANALYTICAL_METHOD_NAME = new ColumnProfile(KEY_ANALYTICAL_METHOD_NAME, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.NARROW_RESULT, Profile.RESULT_PHYS_CHEM);
 	public static final ColumnProfile ANLMTH_QUAL_TYPE = new ColumnProfile(KEY_ANLMTH_QUAL_TYPE, Profile.BIOLOGICAL, Profile.NARROW_RESULT);
-	public static final ColumnProfile ANALYTICAL_METHOD_CITATION = new ColumnProfile(KEY_ANALYTICAL_METHOD_CITATION, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.NARROW_RESULT, Profile.RESULT_PHYS_CHEM);
+
+	//Note that later profiles specify the "ResultAnalyticalMethod" prefix
+	public static final ColumnProfile ANALYTICAL_METHOD_CITATION = new ColumnProfile(KEY_ANALYTICAL_METHOD_CITATION, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.NARROW_RESULT);
+	public static final ColumnProfile R_ANALYTICAL_METHOD_CITATION = new ColumnProfile(KEY_ANALYTICAL_METHOD_CITATION, Profile.RESULT_PHYS_CHEM);
+
 	public static final ColumnProfile LAB_NAME = new ColumnProfile(KEY_LAB_NAME, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.NARROW_RESULT, Profile.RESULT_PHYS_CHEM);
 	public static final ColumnProfile ANALYSIS_START_DATE = new ColumnProfile(KEY_ANALYSIS_START_DATE, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.NARROW_RESULT, Profile.RESULT_PHYS_CHEM);
 	public static final ColumnProfile ANALYSIS_START_TIME = new ColumnProfile(KEY_ANALYSIS_START_TIME, Profile.BIOLOGICAL, Profile.NARROW_RESULT);
@@ -207,7 +219,6 @@ public class ResultColumn extends BaseColumn {
 	public static final ColumnProfile RESULT_FILE_URL = new ColumnProfile(KEY_RESULT_FILE_URL, Profile.RESULT_PHYS_CHEM);
 
 
-	//TODO BLOBS & LastUpdated
 	private ResultColumn() {
 	}
 }
