@@ -35,7 +35,7 @@ public class SummaryStationStreamingIT extends BaseStationStreamingTest {
 	public static final String SUMMARY_YEARS_60_MONTHS = "5";
 	public static final String SUMMARY_YEARS_ALL_MONTHS = "all";
 	
-	public static String TOTAL_SITE_SUMMARY_COUNT = "11";
+	public static final String TOTAL_SITE_SUMMARY_COUNT = "11";
 
 	@Test
 	public void testHarness() {
@@ -245,7 +245,7 @@ public class SummaryStationStreamingIT extends BaseStationStreamingTest {
 	}
 	
 	protected void mimeTypeSummaryTest(NameSpace nameSpace) {
-		List<Map<String, Object>> results = mimeTypeJsonSummaryTest(nameSpace, Integer.valueOf(TOTAL_SITE_SUMMARY_COUNT));
+		List<Map<String, Object>> results = mimeTypeJsonTest(nameSpace, Integer.valueOf(TOTAL_SITE_SUMMARY_COUNT));
 		assertContainsStation(results, 
 			STEWARDS_36, 
 			STEWARDS_46, 
@@ -260,7 +260,7 @@ public class SummaryStationStreamingIT extends BaseStationStreamingTest {
 			BIODATA_61233184
 		);
 
-		results = mimeTypeGeoJsonSummaryTest(nameSpace, Integer.valueOf(TOTAL_SITE_SUMMARY_COUNT));
+		results = mimeTypeGeoJsonTest(nameSpace, Integer.valueOf(TOTAL_SITE_SUMMARY_COUNT));
 		assertContainsStation(results, 
 			STEWARDS_36, 
 			STEWARDS_46, 
@@ -275,19 +275,4 @@ public class SummaryStationStreamingIT extends BaseStationStreamingTest {
 			BIODATA_61233184
 		);
 	}
-	
-	public List<Map<String, Object>> mimeTypeJsonSummaryTest(NameSpace nameSpace, int expectedSize) {
-		FilterParameters filter = new FilterParameters();
-		filter.setDataProfile(getDataProfileFromNameSpace(nameSpace));
-		filter.setMimeType(JSON);
-		return callDao(nameSpace, expectedSize, filter);
-	}
-	
-	public List<Map<String, Object>> mimeTypeGeoJsonSummaryTest(NameSpace nameSpace, int expectedSize) {
-		FilterParameters filter = new FilterParameters();
-		filter.setDataProfile(getDataProfileFromNameSpace(nameSpace));
-		filter.setMimeType(GEOJSON);
-		return callDao(nameSpace, expectedSize, filter);
-	}
-
 }
