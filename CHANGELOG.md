@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - Added station summary service
 
+### Changed
+- Station summary service returns only sites that have summary information.
+
 ### Fixed
 - Post bodies now correctly decode 'pCode' and 'bBox'
 - Removed the use_hash hint for geospatial result queries
