@@ -6,13 +6,13 @@
     <sql id="selectSummaryByYear">
         <choose>
             <when test="summaryYears == null or summaryYears.equalsIgnoreCase('all')">
-                , TO_CHAR(summary_all_months) summary_all_months
+                TO_CHAR(summary_all_months) summary_all_months
             </when>
             <otherwise>
                 <choose>
-                    <when test="summaryYears.equalsIgnoreCase('1')">, TO_CHAR(summary_past_12_months) summary_past_12_months</when>
-                    <when test="summaryYears.equalsIgnoreCase('5')">, TO_CHAR(summary_past_60_months) summary_past_60_months</when>
-                    <otherwise>, TO_CHAR(summary_all_months) summary_all_months</otherwise>
+                    <when test="summaryYears.equalsIgnoreCase('1')">TO_CHAR(summary_past_12_months) summary_past_12_months</when>
+                    <when test="summaryYears.equalsIgnoreCase('5')">TO_CHAR(summary_past_60_months) summary_past_60_months</when>
+                    <otherwise>TO_CHAR(summary_all_months) summary_all_months</otherwise>
                 </choose>
             </otherwise>
         </choose>
@@ -22,16 +22,15 @@
         <where>
             <include refid="dynamicWhere.baseWhereStationGeoClauses" />
             <include refid="dynamicWhere.baseWhereStationClauses" />
-            and
             <choose>
                 <when test="summaryYears == null or summaryYears.equalsIgnoreCase('all')">
-                    summary_all_months is not null
+                    and summary_all_months is not null
                 </when>
                 <otherwise>
                     <choose>
-                        <when test="summaryYears.equalsIgnoreCase('1')">summary_past_12_months is not null</when>
-                        <when test="summaryYears.equalsIgnoreCase('5')">summary_past_60_months is not null</when>
-                        <otherwise>summary_all_months is not null</otherwise>
+                        <when test="summaryYears.equalsIgnoreCase('1')">and summary_past_12_months is not null</when>
+                        <when test="summaryYears.equalsIgnoreCase('5')">and summary_past_60_months is not null</when>
+                        <otherwise>and summary_all_months is not null</otherwise>
                     </choose>
                 </otherwise>
             </choose>
@@ -54,23 +53,22 @@
         nvl(filter.activity_count,0) activity_count,
         nvl(filter.result_count,0) result_count,
         state.description_with_out_country state_name,
-        county.description_wo_country_state county_name
+        county.description_wo_country_state county_name,
         <include refid="selectSummaryByYear" />
 			    
         FROM station prime
 	    
         join (
-        select 
-        data_source_id, 
-        station_id, 
-        activity_count, 
-        result_count, 
-        summary_past_12_months, 
-        summary_past_60_months, 
-        summary_all_months
-
-        from station_sum
-        ) filter
+            select 
+                data_source_id, 
+                station_id, 
+                activity_count, 
+                result_count, 
+                summary_past_12_months, 
+                summary_past_60_months, 
+                summary_all_months
+            from station_sum
+            ) filter
         on prime.station_id = filter.station_id and
         prime.data_source_id = filter.data_source_id
 
@@ -89,13 +87,12 @@
 
     <select id="count" resultType="java.util.LinkedHashMap">
         select data_source,
-        count(distinct data_source||'-'||station_id) station_count
+               count(distinct data_source||'-'||station_id) station_count
         from (select prime.data_source,
-        prime.station_id
-        <include refid="selectSummaryByYear" />
-        from station_sum prime
-        <include refid="summaryYearWhere" />
-        ) prime
+                     prime.station_id
+              from station_sum prime
+              <include refid="summaryYearWhere" />
+             ) prime
         group by rollup(data_source)   
     </select>
 
