@@ -9,8 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - ActivityGroupURL to the activityAll dataProfile.
 - resultPhysChem dataProfile.
 
-### Fixed
-- ActivityFileUrl, ActivityMetricURL, and ActivityAttachedBinaryObject logic errors.
+### Changed
+- Station summary service returns only sites that have summary information.
+- ActivityFileUrl, ActivityMetricURL, and ActivityAttachedBinaryObject logic erroros.
 
 ## [0.15.0]
 ### Added
