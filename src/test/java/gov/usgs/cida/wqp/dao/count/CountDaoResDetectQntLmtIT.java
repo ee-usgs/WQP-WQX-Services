@@ -81,7 +81,7 @@ public class CountDaoResDetectQntLmtIT extends BaseCountDaoTest {
 		List<Map<String, Object>> counts = activityTest(nameSpace, 2);
 		assertStationResults(counts, "1", null, null, "1", null);
 		assertActivityResults(counts, "1", null, null, "1", null);
-		assertResDetectQntLmtResults(counts, "4", null, null, "4", null);
+		assertResDetectQntLmtResults(counts, "3", null, null, "3", null);
 	}
 
 	public void analyticalMethodTest() {
@@ -101,7 +101,7 @@ public class CountDaoResDetectQntLmtIT extends BaseCountDaoTest {
 
 	public void bboxTest() {
 		List<Map<String, Object>> counts = bboxTest(nameSpace, includeActivity, includeResults);
-		assertResDetectQntLmtResults(counts, "42", "7", "9", "26", null);
+		assertResDetectQntLmtResults(counts, "38", "7", "9", "22", null);
 	}
 
 	public void characteristicNameTest() {
@@ -116,12 +116,12 @@ public class CountDaoResDetectQntLmtIT extends BaseCountDaoTest {
 
 	public void countryTest() {
 		List<Map<String, Object>> counts = countryTest(nameSpace, includeActivity, includeResults);
-		assertResDetectQntLmtResults(counts, "44", "7", "9", "27", "1");
+		assertResDetectQntLmtResults(counts, "40", "7", "9", "23", "1");
 	}
 
 	public void countyTest() {
 		List<Map<String, Object>> counts = countyTest(nameSpace, includeActivity, includeResults);
-		assertResDetectQntLmtResults(counts, "43", "7", "9", "27", null);
+		assertResDetectQntLmtResults(counts, "39", "7", "9", "23", null);
 	}
 
 	public void emptyParameterTest() {
@@ -131,47 +131,47 @@ public class CountDaoResDetectQntLmtIT extends BaseCountDaoTest {
 
 	public void huc2Test() {
 		List<Map<String, Object>> counts = huc2Test(nameSpace, includeActivity, includeResults);
-		assertResDetectQntLmtResults(counts, "31", "7", "9", "15", null);
+		assertResDetectQntLmtResults(counts, "27", "7", "9", "11", null);
 	}
 
 	public void huc3Test() {
 		List<Map<String, Object>> counts = huc3Test(nameSpace, includeActivity, includeResults);
-		assertResDetectQntLmtResults(counts, "31", "7", "9", "15", null);
+		assertResDetectQntLmtResults(counts, "27", "7", "9", "11", null);
 	}
 
 	public void huc4Test() {
 		List<Map<String, Object>> counts = huc4Test(nameSpace, includeActivity, includeResults);
-		assertResDetectQntLmtResults(counts, "18", "7", null, "11", null);
+		assertResDetectQntLmtResults(counts, "14", "7", null, "7", null);
 	}
 
 	public void huc5Test() {
 		List<Map<String, Object>> counts = huc5Test(nameSpace, includeActivity, includeResults);
-		assertResDetectQntLmtResults(counts, "18", "7", null, "11", null);
+		assertResDetectQntLmtResults(counts, "14", "7", null, "7", null);
 	}
 
 	public void huc6Test() {
 		List<Map<String, Object>> counts = huc6Test(nameSpace, includeActivity, includeResults);
-		assertResDetectQntLmtResults(counts, "17", "6", null, "11", null);
+		assertResDetectQntLmtResults(counts, "13", "6", null, "7", null);
 	}
 
 	public void huc7Test() {
 		List<Map<String, Object>> counts = huc7Test(nameSpace, includeActivity, includeResults);
-		assertResDetectQntLmtResults(counts, "17", "6", null, "11", null);
+		assertResDetectQntLmtResults(counts, "13", "6", null, "7", null);
 	}
 
 	public void huc8Test() {
 		List<Map<String, Object>> counts = huc8Test(nameSpace, includeActivity, includeResults);
-		assertResDetectQntLmtResults(counts, "11", null, null, "11", null);
+		assertResDetectQntLmtResults(counts, "7", null, null, "7", null);
 	}
 
 	public void huc10Test() {
 		List<Map<String, Object>> counts = huc10Test(nameSpace, includeActivity, includeResults);
-		assertResDetectQntLmtResults(counts, "11", null, null, "11", null);
+		assertResDetectQntLmtResults(counts, "7", null, null, "7", null);
 	}
 
 	public void huc12Test() {
 		List<Map<String, Object>> counts = huc12Test(nameSpace, includeActivity, includeResults);
-		assertResDetectQntLmtResults(counts, "11", null, null, "11", null);
+		assertResDetectQntLmtResults(counts, "7", null, null, "7", null);
 	}
 
 	public void mimeTypeTest() {
@@ -180,17 +180,17 @@ public class CountDaoResDetectQntLmtIT extends BaseCountDaoTest {
 
 	public void minActivitiesTest() {
 		List<Map<String, Object>> counts = minActivitiesTest(nameSpace, includeActivity, includeResults);
-		assertResDetectQntLmtResults(counts, "67", "6", "5", "56", null);
+		assertResDetectQntLmtResults(counts, "63", "6", "5", "52", null);
 	}
 
 	public void minResultsTest() {
 		List<Map<String, Object>> counts = minResultsTest(nameSpace, includeActivity, includeResults);
-		assertResDetectQntLmtResults(counts, "62", "6", null, "56", null);
+		assertResDetectQntLmtResults(counts, "58", "6", null, "52", null);
 	}
 
 	public void nldiSitesTest() {
 		List<Map<String, Object>> counts = nldiSitesTest(nameSpace, includeActivity, includeResults);
-		assertResDetectQntLmtResults(counts, "22", null, null, "22", null);
+		assertResDetectQntLmtResults(counts, "18", null, null, "18", null);
 	}
 
 	public void nldiUrlTest() {
@@ -205,7 +205,7 @@ public class CountDaoResDetectQntLmtIT extends BaseCountDaoTest {
 
 	public void organizationTest() {
 		List<Map<String, Object>> counts = organizationTest(nameSpace, includeActivity, includeResults);
-		assertResDetectQntLmtResults(counts, "43", "7", "9", "27", null);
+		assertResDetectQntLmtResults(counts, "39", "7", "9", "23", null);
 	}
 
 	public void pcodeTest() {
@@ -220,7 +220,7 @@ public class CountDaoResDetectQntLmtIT extends BaseCountDaoTest {
 
 	public void providersTest() {
 		List<Map<String, Object>> counts = providersTest(nameSpace, includeActivity, includeResults);
-		assertResDetectQntLmtResults(counts, "73", "7", "9", "57", null);
+		assertResDetectQntLmtResults(counts, "69", "7", "9", "53", null);
 	}
 
 	public void resultTest() {
@@ -233,7 +233,7 @@ public class CountDaoResDetectQntLmtIT extends BaseCountDaoTest {
 
 	public void sampleMediaTest() {
 		List<Map<String, Object>> counts = sampleMediaTest(nameSpace, includeActivity, includeResults);
-		assertResDetectQntLmtResults(counts, "70", "6", "6", "57", "1");
+		assertResDetectQntLmtResults(counts, "66", "6", "6", "53", "1");
 	}
 
 	public void siteIdTest() {
@@ -243,12 +243,12 @@ public class CountDaoResDetectQntLmtIT extends BaseCountDaoTest {
 
 	public void siteIdLargeListTest() {
 		List<Map<String, Object>> counts = siteIdLargeListTest(nameSpace, includeActivity, includeResults);
-		assertResDetectQntLmtResults(counts, "22", null, null, "22", null);
+		assertResDetectQntLmtResults(counts, "18", null, null, "18", null);
 	}
 
 	public void siteTypeTest() {
 		List<Map<String, Object>> counts = siteTypeTest(nameSpace, includeActivity, includeResults);
-		assertResDetectQntLmtResults(counts, "73", "6", "9", "57", "1");
+		assertResDetectQntLmtResults(counts, "69", "6", "9", "53", "1");
 	}
 
 	public void siteUrlBaseTest() {
@@ -263,7 +263,7 @@ public class CountDaoResDetectQntLmtIT extends BaseCountDaoTest {
 
 	public void startDateHiTest() {
 		List<Map<String, Object>> counts = startDateHiTest(nameSpace, includeActivity, includeResults);
-		assertResDetectQntLmtResults(counts, "70", "6", "6", "57", "1");
+		assertResDetectQntLmtResults(counts, "66", "6", "6", "53", "1");
 	}
 
 	public void startDateLoTest() {
@@ -273,7 +273,7 @@ public class CountDaoResDetectQntLmtIT extends BaseCountDaoTest {
 
 	public void stateTest() {
 		List<Map<String, Object>> counts = stateTest(nameSpace, includeActivity, includeResults);
-		assertResDetectQntLmtResults(counts, "43", "7", "9", "27", null);
+		assertResDetectQntLmtResults(counts, "39", "7", "9", "23", null);
 	}
 
 	public void subjectTaxonomicNameTest() {
@@ -283,7 +283,7 @@ public class CountDaoResDetectQntLmtIT extends BaseCountDaoTest {
 
 	public void withinTest() {
 		List<Map<String, Object>> counts = withinTest(nameSpace, includeActivity, includeResults);
-		assertResDetectQntLmtResults(counts, "69", "7", "9", "53", null);
+		assertResDetectQntLmtResults(counts, "65", "7", "9", "49", null);
 	}
 
 	public void zipTest() {

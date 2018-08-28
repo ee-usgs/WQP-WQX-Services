@@ -1,4 +1,4 @@
-package gov.usgs.cida.wqp.dao.count;
+package gov.usgs.cida.wqp.dao.count.result;
 
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,15 +10,16 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 import gov.usgs.cida.wqp.CsvDataSetLoader;
 import gov.usgs.cida.wqp.dao.CountDao;
 import gov.usgs.cida.wqp.dao.NameSpace;
+import gov.usgs.cida.wqp.dao.count.BaseCountDaoTest;
 import gov.usgs.cida.wqp.springinit.DBTestConfig;
 
 @SpringBootTest(webEnvironment=WebEnvironment.NONE,
 	classes={DBTestConfig.class, CountDao.class})
 @DatabaseSetup("classpath:/testData/csv/")
 @DbUnitConfiguration(dataSetLoader = CsvDataSetLoader.class)
-public class CountDaoNarrowResultIT extends BaseCountDaoTest {
+public class CountDaoBioResultIT extends BaseCountDaoTest {
 
-	protected NameSpace nameSpace = NameSpace.NARROW_RESULT;
+	protected NameSpace nameSpace = NameSpace.BIOLOGICAL_RESULT;
 	protected boolean includeActivity = true;
 	protected boolean includeResults = true;
 

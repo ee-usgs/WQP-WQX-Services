@@ -472,37 +472,7 @@ public abstract class BaseController {
 		if (null == profile) {
 			return null;
 		} else {
-			switch (profile) {
-				case BIOLOGICAL:
-					return NameSpace.BIOLOGICAL_RESULT;
-				case PC_RESULT:
-					return NameSpace.RESULT;
-				case NARROW_RESULT:
-					return NameSpace.NARROW_RESULT;
-				case STATION:
-					return NameSpace.STATION;
-				case SIMPLE_STATION:
-					return NameSpace.SIMPLE_STATION;
-				case SUMMARY_STATION:
-					return NameSpace.SUMMARY_STATION;
-				case ACTIVITY:
-					return NameSpace.ACTIVITY;
-				case ACTIVITY_ALL:
-					return NameSpace.ACTIVITY_ALL;
-				case ACTIVITY_METRIC:
-					return NameSpace.ACTIVITY_METRIC;
-				case RES_DETECT_QNT_LMT:
-					return NameSpace.RES_DETECT_QNT_LMT;
-				case PROJECT:
-					return NameSpace.PROJECT;
-				case PROJECT_MONITORING_LOCATION_WEIGHTING:
-					return NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING;
-				case ORGANIZATION:
-					return NameSpace.ORGANIZATION;
-				default:
-					//Should never get here...
-					return null;
-			}
+			return profile.getDefaultNameSpace();
 		}
 	}
 

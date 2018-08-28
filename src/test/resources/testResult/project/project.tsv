@@ -1,4 +1,4 @@
-OrganizationIdentifier	OrganizationFormalName	ProjectIdentifier	ProjectName	ProjectDescriptionText	SamplingDesignTypeCode	QAPPApprovedIndicator	QAPPApprovalAgencyName	ProjectFileUrl	ProjectMonitoringLocationWeightingURL
+OrganizationIdentifier	OrganizationFormalName	ProjectIdentifier	ProjectName	ProjectDescriptionText	SamplingDesignTypeCode	QAPPApprovedIndicator	QAPPApprovalAgencyName	ProjectFileUrl	ProjectMonitoringLocationWeightingUrl
 21FLVEMD	Volusa County Environmental Health Lab (Florida)	Lake-BaselineMonitoringDNR	Lake Baseline	Lake Baseline Monitoring	G	Y	Agency 1	https://www.waterqualitydata.us/100/files	https://www.waterqualitydata.us/100/mon_loc_weights
 MDNR	Missouri Dept. of Natural Resources	SAM	Surface Air Measurements	SAM Description	Z	N	Agency 2	https://www.waterqualitydata.us/200/files	
 21LABCH	Louisiana Department of Health and Hospitals	WR047	Water Resources 47	WR047 Description	G	Y	Agency 3	https://www.waterqualitydata.us/300/files	https://www.waterqualitydata.us/300/mon_loc_weights

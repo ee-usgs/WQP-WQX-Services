@@ -19,50 +19,17 @@
     </sql>
 
     <select id="select" resultType="java.util.LinkedHashMap" fetchSize="500">
-        <if test="minactivities != null or minresults != null">
-            select * from (
-        </if>
-        select <include refid="base.baseColumns"/>,
+        <include refid="result.pre"/>
                <include refid="activity.baseColumns"/>,
                <include refid="narrowResult.baseColumns"/>,
                prime.analytical_method,
-               null fcdsc_url,
-               case when detection_limit is not null or detection_limit_unit is not null or detection_limit_desc is not null
-                 then #{siteUrlBase,jdbcType=VARCHAR} || '/activities/' || pkg_dynamic_list.url_escape(prime.activity, 'true') ||
-                      '/results/' || pkg_dynamic_list.url_escape(prime.data_source || '-' || prime.result_id, 'true') || '/resdetectqntlmts'
-                 else null
-               end res_detect_qnt_lmt_url,
-               null prep_method_url
-        <if test="minactivities != null">
-            , count(distinct prime.activity_id) over (partition by prime.data_source_id, prime.station_id) site_activity_count
-        </if>
-        <if test="minresults != null">
-            , count(*) over (partition by prime.data_source_id, prime.station_id) site_result_count
-        </if>
-        <include refid="dynamicWhere.resultsBase"/>
-        <if test="minactivities != null or minresults != null">
-            ) prime
-            <where>
-                <if test="minactivities != null">
-                    and site_activity_count >= #{minactivities}
-                </if>
-                <if test="minresults != null">
-                    and site_result_count >= #{minresults}
-                </if>
-            </where>
-        </if>
-        <if test="sorted == 'yes'">
-            order by prime.data_source_id,
-                     prime.organization,
-                     prime.site_id,
-                     prime.event_date,
-                     prime.activity,
-                     prime.result_id
-        </if>
+        <include refid="result.labSamplePrepUrl"/>,
+        <include refid="result.resDetectQntLmtUrl"/>
+        <include refid="result.post"/>
     </select>
 
     <select id="count" resultType="java.util.LinkedHashMap">
-        <include refid="pcResult.resultCount"/>
+        <include refid="result.resultCount"/>
     </select>
 
 </mapper>

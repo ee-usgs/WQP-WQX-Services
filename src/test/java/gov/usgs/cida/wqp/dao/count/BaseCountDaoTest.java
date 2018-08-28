@@ -130,7 +130,7 @@ public abstract class BaseCountDaoTest extends FilteredStationDaoTest {
 			assertActivityResults(counts, "17", "3", "3", "11", null);
 		}
 		if (includeResults) {
-			assertResultResults(counts, "31", "5", "3", "23", null);
+			assertResultResults(counts, "27", "5", "3", "19", null);
 		}
 		return counts;
 	}
@@ -147,7 +147,7 @@ public abstract class BaseCountDaoTest extends FilteredStationDaoTest {
 			assertActivityResults(counts, "19", "3", "3", "12", "1");
 		}
 		if (includeResults) {
-			assertResultResults(counts, "33", "5", "3", "24", "1");
+			assertResultResults(counts, "29", "5", "3", "20", "1");
 		}
 		return counts;
 	}
@@ -164,7 +164,7 @@ public abstract class BaseCountDaoTest extends FilteredStationDaoTest {
 			assertActivityResults(counts, "18", "3", "3", "12", null);
 		}
 		if (includeResults) {
-			assertResultResults(counts, "32", "5", "3", "24", null);
+			assertResultResults(counts, "28", "5", "3", "20", null);
 		}
 		return counts;
 	}
@@ -181,7 +181,7 @@ public abstract class BaseCountDaoTest extends FilteredStationDaoTest {
 			assertActivityResults(counts, "11", "3", "3", "5", null);
 		}
 		if (includeResults) {
-			assertResultResults(counts, "23", "5", "3", "15", null);
+			assertResultResults(counts, "19", "5", "3", "11", null);
 		}
 		return counts;
 	}
@@ -199,7 +199,7 @@ public abstract class BaseCountDaoTest extends FilteredStationDaoTest {
 			assertActivityResults(counts, "11", "3", "3", "5", null);
 		}
 		if (includeResults) {
-			assertResultResults(counts, "23", "5", "3", "15", null);
+			assertResultResults(counts, "19", "5", "3", "11", null);
 		}
 		return counts;
 	}
@@ -216,7 +216,7 @@ public abstract class BaseCountDaoTest extends FilteredStationDaoTest {
 			assertActivityResults(counts, "5", "3", null, "2", null);
 		}
 		if (includeResults) {
-			assertResultResults(counts, "16", "5", null, "11", null);
+			assertResultResults(counts, "12", "5", null, "7", null);
 		}
 		return counts;
 	}
@@ -233,7 +233,7 @@ public abstract class BaseCountDaoTest extends FilteredStationDaoTest {
 			assertActivityResults(counts, "5", "3", null, "2", null);
 		}
 		if (includeResults) {
-			assertResultResults(counts, "16", "5", null, "11", null);
+			assertResultResults(counts, "12", "5", null, "7", null);
 		}
 		return counts;
 	}
@@ -250,7 +250,7 @@ public abstract class BaseCountDaoTest extends FilteredStationDaoTest {
 			assertActivityResults(counts, "4", "2", null, "2", null);
 		}
 		if (includeResults) {
-			assertResultResults(counts, "15", "4", null, "11", null);
+			assertResultResults(counts, "11", "4", null, "7", null);
 		}
 		return counts;
 	}
@@ -267,7 +267,7 @@ public abstract class BaseCountDaoTest extends FilteredStationDaoTest {
 			assertActivityResults(counts, "4", "2", null, "2", null);
 		}
 		if (includeResults) {
-			assertResultResults(counts, "15", "4", null, "11", null);
+			assertResultResults(counts, "11", "4", null, "7", null);
 		}
 		return counts;
 	}
@@ -284,7 +284,7 @@ public abstract class BaseCountDaoTest extends FilteredStationDaoTest {
 			assertActivityResults(counts, "2", null, null, "2", null);
 		}
 		if (includeResults) {
-			assertResultResults(counts, "11", null, null, "11", null);
+			assertResultResults(counts, "7", null, null, "7", null);
 		}
 		return counts;
 	}
@@ -301,7 +301,7 @@ public abstract class BaseCountDaoTest extends FilteredStationDaoTest {
 			assertActivityResults(counts, "2", null, null, "2", null);
 		}
 		if (includeResults) {
-			assertResultResults(counts, "11", null, null, "11", null);
+			assertResultResults(counts, "7", null, null, "7", null);
 		}
 		return counts;
 	}
@@ -318,7 +318,7 @@ public abstract class BaseCountDaoTest extends FilteredStationDaoTest {
 			assertActivityResults(counts, "2", null, null, "2", null);
 		}
 		if (includeResults) {
-			assertResultResults(counts, "11", null, null, "11", null);
+			assertResultResults(counts, "7", null, null, "7", null);
 		}
 		return counts;
 	}
@@ -330,7 +330,7 @@ public abstract class BaseCountDaoTest extends FilteredStationDaoTest {
 			assertActivityResults(counts, "19", "2", "2", "15", null);
 		}
 		if (includeResults) {
-			assertResultResults(counts, "55", "4", "2", "49", null);
+			assertResultResults(counts, "51", "4", "2", "45", null);
 		}
 		return counts;
 	}
@@ -342,7 +342,7 @@ public abstract class BaseCountDaoTest extends FilteredStationDaoTest {
 			assertActivityResults(counts, "17", "2", null, "15", null);
 		}
 		if (includeResults) {
-			assertResultResults(counts, "53", "4", null, "49", null);
+			assertResultResults(counts, "49", "4", null, "45", null);
 		}
 		return counts;
 	}
@@ -354,7 +354,7 @@ public abstract class BaseCountDaoTest extends FilteredStationDaoTest {
 			assertActivityResults(counts, "8", null, null, "8", null);
 		}
 		if (includeResults) {
-			assertResultResults(counts, "19", null, null, "19", null);
+			assertResultResults(counts, "15", null, null, "15", null);
 		}
 		return counts;
 	}
@@ -371,7 +371,7 @@ public abstract class BaseCountDaoTest extends FilteredStationDaoTest {
 			assertActivityResults(counts, "18", "3", "3", "12", null);
 		}
 		if (includeResults) {
-			assertResultResults(counts, "32", "5", "3", "24", null);
+			assertResultResults(counts, "28", "5", "3", "20", null);
 		}
 		return counts;
 	}
@@ -388,7 +388,7 @@ public abstract class BaseCountDaoTest extends FilteredStationDaoTest {
 			assertActivityResults(counts, "22", "3", "3", "16", null);
 		}
 		if (includeResults) {
-			assertResultResults(counts, "58", "5", "3", "50", null);
+			assertResultResults(counts, "54", "5", "3", "46", null);
 		}
 		return counts;
 	}
@@ -417,7 +417,7 @@ public abstract class BaseCountDaoTest extends FilteredStationDaoTest {
 			assertActivityResults(counts, "8", null, null, "8", null);
 		}
 		if (includeResults) {
-			assertResultResults(counts, "19", null, null, "19", null);
+			assertResultResults(counts, "15", null, null, "15", null);
 		}
 		return counts;
 	}
@@ -434,7 +434,7 @@ public abstract class BaseCountDaoTest extends FilteredStationDaoTest {
 			assertActivityResults(counts, "22", "2", "3", "16", "1");
 		}
 		if (includeResults) {
-			assertResultResults(counts, "58", "4", "3", "50", "1");
+			assertResultResults(counts, "54", "4", "3", "46", "1");
 		}
 		return counts;
 	}
@@ -451,7 +451,7 @@ public abstract class BaseCountDaoTest extends FilteredStationDaoTest {
 			assertActivityResults(counts, "18", "3", "3", "12", null);
 		}
 		if (includeResults) {
-			assertResultResults(counts, "32", "5", "3", "24", null);
+			assertResultResults(counts, "28", "5", "3", "20", null);
 		}
 		return counts;
 	}
@@ -468,7 +468,7 @@ public abstract class BaseCountDaoTest extends FilteredStationDaoTest {
 			assertActivityResults(counts, "19", "3", "3", "13", null);
 		}
 		if (includeResults) {
-			assertResultResults(counts, "54", "5", "3", "46", null);
+			assertResultResults(counts, "50", "5", "3", "42", null);
 		}
 		return counts;
 	}
@@ -495,7 +495,7 @@ public abstract class BaseCountDaoTest extends FilteredStationDaoTest {
 			assertActivityResults(counts, "21", "2", "2", "16", "1");
 		}
 		if (includeResults) {
-			assertResultResults(counts, "57", "4", "2", "50", "1");
+			assertResultResults(counts, "53", "4", "2", "46", "1");
 		}
 		return counts;
 	}
@@ -507,7 +507,7 @@ public abstract class BaseCountDaoTest extends FilteredStationDaoTest {
 			assertActivityResults(counts, "21", "2", "2", "16", "1");
 		}
 		if (includeResults) {
-			assertResultResults(counts, "57", "4", "2", "50", "1");
+			assertResultResults(counts, "53", "4", "2", "46", "1");
 		}
 		return counts;
 	}

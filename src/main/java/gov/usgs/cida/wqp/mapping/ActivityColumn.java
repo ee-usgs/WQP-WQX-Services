@@ -82,32 +82,35 @@ public class ActivityColumn extends BaseColumn {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	//Profile Mapping of the Keys
-	public static final ColumnProfile ACTIVITY = new ColumnProfile(KEY_ACTIVITY, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY, Profile.ACTIVITY_ALL, Profile.ACTIVITY_METRIC, Profile.RES_DETECT_QNT_LMT, Profile.NARROW_RESULT);
-	public static final ColumnProfile ACTIVITY_TYPE_CODE = new ColumnProfile(KEY_ACTIVITY_TYPE_CODE, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY, Profile.ACTIVITY_ALL);
-	public static final ColumnProfile SAMPLE_MEDIA = new ColumnProfile(KEY_SAMPLE_MEDIA, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY, Profile.ACTIVITY_ALL);
-	public static final ColumnProfile ACTIVITY_MEDIA_SUBDIV_NAME = new ColumnProfile(KEY_ACTIVITY_MEDIA_SUBDIV_NAME, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY, Profile.ACTIVITY_ALL);
-	public static final ColumnProfile EVENT_DATE = new ColumnProfile(KEY_EVENT_DATE, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY, Profile.ACTIVITY_ALL, Profile.NARROW_RESULT);
-	public static final ColumnProfile ACTIVITY_START_TIME = new ColumnProfile(KEY_ACTIVITY_START_TIME, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY, Profile.ACTIVITY_ALL, Profile.NARROW_RESULT);
-	public static final ColumnProfile ACT_START_TIME_ZONE = new ColumnProfile(KEY_ACT_START_TIME_ZONE, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY, Profile.ACTIVITY_ALL, Profile.NARROW_RESULT);
-	public static final ColumnProfile ACTIVITY_STOP_DATE = new ColumnProfile(KEY_ACTIVITY_STOP_DATE, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY, Profile.ACTIVITY_ALL);
-	public static final ColumnProfile ACTIVITY_STOP_TIME = new ColumnProfile(KEY_ACTIVITY_STOP_TIME, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY, Profile.ACTIVITY_ALL);
-	public static final ColumnProfile ACT_STOP_TIME_ZONE = new ColumnProfile(KEY_ACT_STOP_TIME_ZONE, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY, Profile.ACTIVITY_ALL);
-	public static final ColumnProfile ACTIVITY_RELATIVE_DEPTH = new ColumnProfile(KEY_ACTIVITY_RELATIVE_DEPTH, Profile.BIOLOGICAL, Profile.ACTIVITY, Profile.ACTIVITY_ALL);
-	public static final ColumnProfile ACTIVITY_DEPTH = new ColumnProfile(KEY_ACTIVITY_DEPTH, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY, Profile.ACTIVITY_ALL);
-	public static final ColumnProfile ACTIVITY_DEPTH_UNIT = new ColumnProfile(KEY_ACTIVITY_DEPTH_UNIT, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY, Profile.ACTIVITY_ALL);
-	public static final ColumnProfile ACTIVITY_DEPTH_REF_POINT = new ColumnProfile(KEY_ACTIVITY_DEPTH_REF_POINT, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY, Profile.ACTIVITY_ALL);
-	public static final ColumnProfile ACTIVITY_UPPER_DEPTH = new ColumnProfile(KEY_ACTIVITY_UPPER_DEPTH, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY, Profile.ACTIVITY_ALL);
-	public static final ColumnProfile ACTIVITY_UPPER_DEPTH_UNIT = new ColumnProfile(KEY_ACTIVITY_UPPER_DEPTH_UNIT, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY, Profile.ACTIVITY_ALL);
-	public static final ColumnProfile ACTIVITY_LOWER_DEPTH = new ColumnProfile(KEY_ACTIVITY_LOWER_DEPTH, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY, Profile.ACTIVITY_ALL);
-	public static final ColumnProfile ACTIVITY_LOWER_DEPTH_UNIT = new ColumnProfile(KEY_ACTIVITY_LOWER_DEPTH_UNIT, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY, Profile.ACTIVITY_ALL);
-	public static final ColumnProfile ACTIVITY_PROJECTS = new ColumnProfile(KEY_ACTIVITY_PROJECTS, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY, Profile.ACTIVITY_ALL);
-	public static final ColumnProfile ACTIVITY_CONDUCTING_ORG = new ColumnProfile(KEY_ACTIVITY_CONDUCTING_ORG, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY, Profile.ACTIVITY_ALL);
-	public static final ColumnProfile ACTIVITY_COMMENT = new ColumnProfile(KEY_ACTIVITY_COMMENT, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY, Profile.ACTIVITY_ALL);
-	public static final ColumnProfile SAMPLE_AQFR_NAME = new ColumnProfile(KEY_SAMPLE_AQFR_NAME, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY, Profile.ACTIVITY_ALL);
-	public static final ColumnProfile HYDROLOGIC_CONDITION_NAME = new ColumnProfile(KEY_HYDROLOGIC_CONDITION_NAME, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY, Profile.ACTIVITY_ALL);
-	public static final ColumnProfile HYDROLOGIC_EVENT_NAME = new ColumnProfile(KEY_HYDROLOGIC_EVENT_NAME, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY, Profile.ACTIVITY_ALL);
-	public static final ColumnProfile ACTIVITY_LATITUDE = new ColumnProfile(KEY_ACTIVITY_LATITUDE, Profile.BIOLOGICAL, Profile.ACTIVITY, Profile.ACTIVITY_ALL);
-	public static final ColumnProfile ACTIVITY_LONGITUDE = new ColumnProfile(KEY_ACTIVITY_LONGITUDE, Profile.BIOLOGICAL, Profile.ACTIVITY, Profile.ACTIVITY_ALL);
+	public static final ColumnProfile ACTIVITY = new ColumnProfile(KEY_ACTIVITY, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY, Profile.ACTIVITY_ALL, Profile.ACTIVITY_METRIC, Profile.RES_DETECT_QNT_LMT,
+			Profile.NARROW_RESULT, Profile.RESULT_PHYS_CHEM);
+	public static final ColumnProfile ACTIVITY_TYPE_CODE = new ColumnProfile(KEY_ACTIVITY_TYPE_CODE, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY, Profile.ACTIVITY_ALL, Profile.RESULT_PHYS_CHEM);
+	public static final ColumnProfile SAMPLE_MEDIA = new ColumnProfile(KEY_SAMPLE_MEDIA, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY, Profile.ACTIVITY_ALL, Profile.RESULT_PHYS_CHEM);
+	public static final ColumnProfile ACTIVITY_MEDIA_SUBDIV_NAME = new ColumnProfile(KEY_ACTIVITY_MEDIA_SUBDIV_NAME, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY, Profile.ACTIVITY_ALL, Profile.RESULT_PHYS_CHEM);
+	public static final ColumnProfile EVENT_DATE = new ColumnProfile(KEY_EVENT_DATE, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY, Profile.ACTIVITY_ALL, Profile.NARROW_RESULT, Profile.RESULT_PHYS_CHEM);
+	public static final ColumnProfile ACTIVITY_START_TIME = new ColumnProfile(KEY_ACTIVITY_START_TIME, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY, Profile.ACTIVITY_ALL, Profile.NARROW_RESULT,
+			Profile.RESULT_PHYS_CHEM);
+	public static final ColumnProfile ACT_START_TIME_ZONE = new ColumnProfile(KEY_ACT_START_TIME_ZONE, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY, Profile.ACTIVITY_ALL, Profile.NARROW_RESULT,
+			Profile.RESULT_PHYS_CHEM);
+	public static final ColumnProfile ACTIVITY_STOP_DATE = new ColumnProfile(KEY_ACTIVITY_STOP_DATE, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY, Profile.ACTIVITY_ALL, Profile.RESULT_PHYS_CHEM);
+	public static final ColumnProfile ACTIVITY_STOP_TIME = new ColumnProfile(KEY_ACTIVITY_STOP_TIME, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY, Profile.ACTIVITY_ALL, Profile.RESULT_PHYS_CHEM);
+	public static final ColumnProfile ACT_STOP_TIME_ZONE = new ColumnProfile(KEY_ACT_STOP_TIME_ZONE, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY, Profile.ACTIVITY_ALL, Profile.RESULT_PHYS_CHEM);
+	public static final ColumnProfile ACTIVITY_RELATIVE_DEPTH = new ColumnProfile(KEY_ACTIVITY_RELATIVE_DEPTH, Profile.BIOLOGICAL, Profile.ACTIVITY, Profile.ACTIVITY_ALL, Profile.RESULT_PHYS_CHEM);
+	public static final ColumnProfile ACTIVITY_DEPTH = new ColumnProfile(KEY_ACTIVITY_DEPTH, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY, Profile.ACTIVITY_ALL, Profile.RESULT_PHYS_CHEM);
+	public static final ColumnProfile ACTIVITY_DEPTH_UNIT = new ColumnProfile(KEY_ACTIVITY_DEPTH_UNIT, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY, Profile.ACTIVITY_ALL, Profile.RESULT_PHYS_CHEM);
+	public static final ColumnProfile ACTIVITY_DEPTH_REF_POINT = new ColumnProfile(KEY_ACTIVITY_DEPTH_REF_POINT, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY, Profile.ACTIVITY_ALL, Profile.RESULT_PHYS_CHEM);
+	public static final ColumnProfile ACTIVITY_UPPER_DEPTH = new ColumnProfile(KEY_ACTIVITY_UPPER_DEPTH, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY, Profile.ACTIVITY_ALL, Profile.RESULT_PHYS_CHEM);
+	public static final ColumnProfile ACTIVITY_UPPER_DEPTH_UNIT = new ColumnProfile(KEY_ACTIVITY_UPPER_DEPTH_UNIT, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY, Profile.ACTIVITY_ALL, Profile.RESULT_PHYS_CHEM);
+	public static final ColumnProfile ACTIVITY_LOWER_DEPTH = new ColumnProfile(KEY_ACTIVITY_LOWER_DEPTH, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY, Profile.ACTIVITY_ALL, Profile.RESULT_PHYS_CHEM);
+	public static final ColumnProfile ACTIVITY_LOWER_DEPTH_UNIT = new ColumnProfile(KEY_ACTIVITY_LOWER_DEPTH_UNIT, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY, Profile.ACTIVITY_ALL, Profile.RESULT_PHYS_CHEM);
+	public static final ColumnProfile ACTIVITY_PROJECTS = new ColumnProfile(KEY_ACTIVITY_PROJECTS, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY, Profile.ACTIVITY_ALL, Profile.RESULT_PHYS_CHEM);
+	public static final ColumnProfile ACTIVITY_CONDUCTING_ORG = new ColumnProfile(KEY_ACTIVITY_CONDUCTING_ORG, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY, Profile.ACTIVITY_ALL, Profile.RESULT_PHYS_CHEM);
+	public static final ColumnProfile ACTIVITY_COMMENT = new ColumnProfile(KEY_ACTIVITY_COMMENT, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY, Profile.ACTIVITY_ALL, Profile.RESULT_PHYS_CHEM);
+	public static final ColumnProfile SAMPLE_AQFR_NAME = new ColumnProfile(KEY_SAMPLE_AQFR_NAME, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY, Profile.ACTIVITY_ALL, Profile.RESULT_PHYS_CHEM);
+	public static final ColumnProfile HYDROLOGIC_CONDITION_NAME = new ColumnProfile(KEY_HYDROLOGIC_CONDITION_NAME, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY, Profile.ACTIVITY_ALL, Profile.RESULT_PHYS_CHEM);
+	public static final ColumnProfile HYDROLOGIC_EVENT_NAME = new ColumnProfile(KEY_HYDROLOGIC_EVENT_NAME, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY, Profile.ACTIVITY_ALL, Profile.RESULT_PHYS_CHEM);
+	public static final ColumnProfile ACTIVITY_LATITUDE = new ColumnProfile(KEY_ACTIVITY_LATITUDE, Profile.BIOLOGICAL, Profile.ACTIVITY, Profile.ACTIVITY_ALL, Profile.RESULT_PHYS_CHEM);
+	public static final ColumnProfile ACTIVITY_LONGITUDE = new ColumnProfile(KEY_ACTIVITY_LONGITUDE, Profile.BIOLOGICAL, Profile.ACTIVITY, Profile.ACTIVITY_ALL, Profile.RESULT_PHYS_CHEM);
 	public static final ColumnProfile ACTIVITY_SOURCE_MAP_SCALE = new ColumnProfile(KEY_ACTIVITY_SOURCE_MAP_SCALE, Profile.BIOLOGICAL, Profile.ACTIVITY, Profile.ACTIVITY_ALL);
 	public static final ColumnProfile ACT_HORIZONTAL_ACCURACY = new ColumnProfile(KEY_ACT_HORIZONTAL_ACCURACY, Profile.BIOLOGICAL, Profile.ACTIVITY, Profile.ACTIVITY_ALL);
 	public static final ColumnProfile ACT_HORIZONTAL_ACCURACY_UNIT = new ColumnProfile(KEY_ACT_HORIZONTAL_ACCURACY_UNIT, Profile.BIOLOGICAL, Profile.ACTIVITY, Profile.ACTIVITY_ALL);
@@ -133,12 +136,12 @@ public class ActivityColumn extends BaseColumn {
 	public static final ColumnProfile ACT_CURRENT_SPEED = new ColumnProfile(KEY_ACT_CURRENT_SPEED, Profile.BIOLOGICAL, Profile.ACTIVITY, Profile.ACTIVITY_ALL);
 	public static final ColumnProfile ACT_CURRENT_SPEED_UNIT = new ColumnProfile(KEY_ACT_CURRENT_SPEED_UNIT, Profile.BIOLOGICAL, Profile.ACTIVITY, Profile.ACTIVITY_ALL);
 	public static final ColumnProfile TOXICITY_TEST_TYPE_NAME = new ColumnProfile(KEY_TOXICITY_TEST_TYPE_NAME, Profile.BIOLOGICAL, Profile.ACTIVITY, Profile.ACTIVITY_ALL);
-	public static final ColumnProfile SAMPLE_COLLECT_METHOD_ID = new ColumnProfile(KEY_SAMPLE_COLLECT_METHOD_ID, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY, Profile.ACTIVITY_ALL);
-	public static final ColumnProfile SAMPLE_COLLECT_METHOD_CTX = new ColumnProfile(KEY_SAMPLE_COLLECT_METHOD_CTX, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY, Profile.ACTIVITY_ALL);
-	public static final ColumnProfile SAMPLE_COLLECT_METHOD_NAME = new ColumnProfile(KEY_SAMPLE_COLLECT_METHOD_NAME, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY, Profile.ACTIVITY_ALL);
+	public static final ColumnProfile SAMPLE_COLLECT_METHOD_ID = new ColumnProfile(KEY_SAMPLE_COLLECT_METHOD_ID, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY, Profile.ACTIVITY_ALL, Profile.RESULT_PHYS_CHEM);
+	public static final ColumnProfile SAMPLE_COLLECT_METHOD_CTX = new ColumnProfile(KEY_SAMPLE_COLLECT_METHOD_CTX, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY, Profile.ACTIVITY_ALL, Profile.RESULT_PHYS_CHEM);
+	public static final ColumnProfile SAMPLE_COLLECT_METHOD_NAME = new ColumnProfile(KEY_SAMPLE_COLLECT_METHOD_NAME, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY, Profile.ACTIVITY_ALL, Profile.RESULT_PHYS_CHEM);
 	public static final ColumnProfile ACT_SAM_COLLECT_METH_QUAL_TYPE = new ColumnProfile(KEY_ACT_SAM_COLLECT_METH_QUAL_TYPE, Profile.BIOLOGICAL, Profile.ACTIVITY, Profile.ACTIVITY_ALL);
-	public static final ColumnProfile ACT_SAM_COLLECT_METH_DESC = new ColumnProfile(KEY_ACT_SAM_COLLECT_METH_DESC, Profile.BIOLOGICAL, Profile.ACTIVITY, Profile.ACTIVITY_ALL);
-	public static final ColumnProfile SAMPLE_COLLECT_EQUIP_NAME = new ColumnProfile(KEY_SAMPLE_COLLECT_EQUIP_NAME, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY, Profile.ACTIVITY_ALL);
+	public static final ColumnProfile ACT_SAM_COLLECT_METH_DESC = new ColumnProfile(KEY_ACT_SAM_COLLECT_METH_DESC, Profile.BIOLOGICAL, Profile.ACTIVITY, Profile.ACTIVITY_ALL, Profile.RESULT_PHYS_CHEM);
+	public static final ColumnProfile SAMPLE_COLLECT_EQUIP_NAME = new ColumnProfile(KEY_SAMPLE_COLLECT_EQUIP_NAME, Profile.BIOLOGICAL, Profile.PC_RESULT, Profile.ACTIVITY, Profile.ACTIVITY_ALL, Profile.RESULT_PHYS_CHEM);
 	public static final ColumnProfile ACT_SAM_COLLECT_EQUIP_COMMENTS = new ColumnProfile(KEY_ACT_SAM_COLLECT_EQUIP_COMMENTS, Profile.BIOLOGICAL, Profile.ACTIVITY, Profile.ACTIVITY_ALL);
 	public static final ColumnProfile ACT_SAM_PREP_METH_ID = new ColumnProfile(KEY_ACT_SAM_PREP_METH_ID, Profile.BIOLOGICAL, Profile.ACTIVITY, Profile.ACTIVITY_ALL);
 	public static final ColumnProfile ACT_SAM_PREP_METH_CONTEXT = new ColumnProfile(KEY_ACT_SAM_PREP_METH_CONTEXT, Profile.BIOLOGICAL, Profile.ACTIVITY, Profile.ACTIVITY_ALL);

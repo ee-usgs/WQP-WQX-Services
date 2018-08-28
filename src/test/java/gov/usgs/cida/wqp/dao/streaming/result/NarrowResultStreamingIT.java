@@ -1,4 +1,6 @@
-package gov.usgs.cida.wqp.dao.streaming;
+package gov.usgs.cida.wqp.dao.streaming.result;
+
+import static org.junit.Assert.assertTrue;
 
 import java.util.Map;
 
@@ -12,17 +14,18 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 import gov.usgs.cida.wqp.CsvDataSetLoader;
 import gov.usgs.cida.wqp.dao.NameSpace;
 import gov.usgs.cida.wqp.dao.StreamingDao;
-import gov.usgs.cida.wqp.mapping.TestBioResultMap;
+import gov.usgs.cida.wqp.mapping.ActivityColumn;
+import gov.usgs.cida.wqp.mapping.TestNarrowResultMap;
 import gov.usgs.cida.wqp.springinit.DBTestConfig;
 
 @SpringBootTest(webEnvironment=WebEnvironment.NONE,
 	classes={DBTestConfig.class, StreamingDao.class})
 @DatabaseSetup("classpath:/testData/csv/")
 @DbUnitConfiguration(dataSetLoader = CsvDataSetLoader.class)
-public class BioResultStreamingIT extends BaseResultStreamingTest {
+public class NarrowResultStreamingIT extends BaseResultStreamingTest {
 
-	protected NameSpace nameSpace = NameSpace.BIOLOGICAL_RESULT;
-	protected Map<String, Object> expectedMap = TestBioResultMap.BIO_RESULT;
+	protected NameSpace nameSpace = NameSpace.NARROW_RESULT;
+	protected Map<String, Object> expectedMap = TestNarrowResultMap.NARROW;
 
 	@Test
 	public void testHarness() {
@@ -74,7 +77,9 @@ public class BioResultStreamingIT extends BaseResultStreamingTest {
 
 	@Override
 	protected void assertSiteUrlBase(Map<String, Object> row) {
-		// Nothing to do here
+		if (null != row.get(ActivityColumn.KEY_ACTIVITY_METRIC_URL)) {
+			assertTrue("ActivityMetricURL incorrect", row.get(ActivityColumn.KEY_ACTIVITY_METRIC_URL).toString().startsWith("http://siteUrlBase/activities/"));
+		}
 	}
 
 }

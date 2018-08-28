@@ -13,7 +13,7 @@
       <QAPPApprovedIndicator>Y</QAPPApprovedIndicator>
       <QAPPApprovalAgencyName>Agency 1</QAPPApprovalAgencyName>
       <ProjectFileUrl>https://www.waterqualitydata.us/100/files</ProjectFileUrl>
-      <ProjectMonitoringLocationWeightingURL>https://www.waterqualitydata.us/100/mon_loc_weights</ProjectMonitoringLocationWeightingURL>
+      <ProjectMonitoringLocationWeightingUrl>https://www.waterqualitydata.us/100/mon_loc_weights</ProjectMonitoringLocationWeightingUrl>
     </Project>
   </Organization>
   <Organization>
@@ -44,7 +44,7 @@
       <QAPPApprovedIndicator>Y</QAPPApprovedIndicator>
       <QAPPApprovalAgencyName>Agency 3</QAPPApprovalAgencyName>
       <ProjectFileUrl>https://www.waterqualitydata.us/300/files</ProjectFileUrl>
-      <ProjectMonitoringLocationWeightingURL>https://www.waterqualitydata.us/300/mon_loc_weights</ProjectMonitoringLocationWeightingURL>
+      <ProjectMonitoringLocationWeightingUrl>https://www.waterqualitydata.us/300/mon_loc_weights</ProjectMonitoringLocationWeightingUrl>
     </Project>
   </Organization>
   <Organization>
@@ -60,7 +60,7 @@
       <QAPPApprovedIndicator>Y </QAPPApprovedIndicator>
       <QAPPApprovalAgencyName>Agency 4</QAPPApprovalAgencyName>
       <ProjectFileUrl>https://www.waterqualitydata.us/400/files</ProjectFileUrl>
-      <ProjectMonitoringLocationWeightingURL>https://www.waterqualitydata.us/400/mon_loc_weights</ProjectMonitoringLocationWeightingURL>
+      <ProjectMonitoringLocationWeightingUrl>https://www.waterqualitydata.us/400/mon_loc_weights</ProjectMonitoringLocationWeightingUrl>
     </Project>
   </Organization>
   <Organization>
@@ -76,7 +76,7 @@
       <QAPPApprovedIndicator>Y</QAPPApprovedIndicator>
       <QAPPApprovalAgencyName>Agency 5</QAPPApprovalAgencyName>
       <ProjectFileUrl>https://www.waterqualitydata.us/500/files</ProjectFileUrl>
-      <ProjectMonitoringLocationWeightingURL>https://www.waterqualitydata.us/500/mon_loc_weights</ProjectMonitoringLocationWeightingURL>
+      <ProjectMonitoringLocationWeightingUrl>https://www.waterqualitydata.us/500/mon_loc_weights</ProjectMonitoringLocationWeightingUrl>
     </Project>
   </Organization>
   <Organization>
@@ -121,7 +121,7 @@
       <QAPPApprovedIndicator>Y</QAPPApprovedIndicator>
       <QAPPApprovalAgencyName>Agency 8</QAPPApprovalAgencyName>
       <ProjectFileUrl>https://www.waterqualitydata.us/800/files</ProjectFileUrl>
-      <ProjectMonitoringLocationWeightingURL>https://www.waterqualitydata.us/800/mon_loc_weights</ProjectMonitoringLocationWeightingURL>
+      <ProjectMonitoringLocationWeightingUrl>https://www.waterqualitydata.us/800/mon_loc_weights</ProjectMonitoringLocationWeightingUrl>
     </Project>
   </Organization>
   <Organization>
@@ -137,7 +137,7 @@
       <QAPPApprovedIndicator>Y</QAPPApprovedIndicator>
       <QAPPApprovalAgencyName>Agency 9</QAPPApprovalAgencyName>
       <ProjectFileUrl>https://www.waterqualitydata.us/999/files</ProjectFileUrl>
-      <ProjectMonitoringLocationWeightingURL>https://www.waterqualitydata.us/900/mon_loc_weights</ProjectMonitoringLocationWeightingURL>
+      <ProjectMonitoringLocationWeightingUrl>https://www.waterqualitydata.us/900/mon_loc_weights</ProjectMonitoringLocationWeightingUrl>
     </Project>
   </Organization>
   <Organization>
@@ -153,7 +153,7 @@
       <QAPPApprovedIndicator>Y</QAPPApprovedIndicator>
       <QAPPApprovalAgencyName>Agency 10</QAPPApprovalAgencyName>
       <ProjectFileUrl>https://www.waterqualitydata.us/1000/files</ProjectFileUrl>
-      <ProjectMonitoringLocationWeightingURL>https://www.waterqualitydata.us/1000/mon_loc_weights</ProjectMonitoringLocationWeightingURL>
+      <ProjectMonitoringLocationWeightingUrl>https://www.waterqualitydata.us/1000/mon_loc_weights</ProjectMonitoringLocationWeightingUrl>
     </Project>
   </Organization>
   <Organization>
@@ -168,7 +168,7 @@
       <SamplingDesignTypeCode>B</SamplingDesignTypeCode>
       <QAPPApprovedIndicator>Y</QAPPApprovedIndicator>
       <QAPPApprovalAgencyName>Agency 11</QAPPApprovalAgencyName>
-      <ProjectMonitoringLocationWeightingURL>https://www.waterqualitydata.us/1100/mon_loc_weights</ProjectMonitoringLocationWeightingURL>
+      <ProjectMonitoringLocationWeightingUrl>https://www.waterqualitydata.us/1100/mon_loc_weights</ProjectMonitoringLocationWeightingUrl>
     </Project>
   </Organization>
   <Organization>
@@ -199,7 +199,7 @@
       <QAPPApprovedIndicator>Y</QAPPApprovedIndicator>
       <QAPPApprovalAgencyName>Agency 13</QAPPApprovalAgencyName>
       <ProjectFileUrl>https://www.waterqualitydata.us/1300/files</ProjectFileUrl>
-      <ProjectMonitoringLocationWeightingURL>https://www.waterqualitydata.us/1300/mon_loc_weights</ProjectMonitoringLocationWeightingURL>
+      <ProjectMonitoringLocationWeightingUrl>https://www.waterqualitydata.us/1300/mon_loc_weights</ProjectMonitoringLocationWeightingUrl>
     </Project>
   </Organization>
   <Organization>
@@ -214,7 +214,7 @@
       <SamplingDesignTypeCode>G</SamplingDesignTypeCode>
       <QAPPApprovedIndicator>Y</QAPPApprovedIndicator>
       <QAPPApprovalAgencyName>Agency 14</QAPPApprovalAgencyName>
-      <ProjectMonitoringLocationWeightingURL>https://www.waterqualitydata.us/1400/mon_loc_weights</ProjectMonitoringLocationWeightingURL>
+      <ProjectMonitoringLocationWeightingUrl>https://www.waterqualitydata.us/1400/mon_loc_weights</ProjectMonitoringLocationWeightingUrl>
     </Project>
     <Project>
       <ProjectIdentifier>Lake-BaselineMonitoringDNR</ProjectIdentifier>
@@ -224,7 +224,7 @@
       <QAPPApprovedIndicator>Y</QAPPApprovedIndicator>
       <QAPPApprovalAgencyName>Agency 15</QAPPApprovalAgencyName>
       <ProjectFileUrl>https://www.waterqualitydata.us/1500/files</ProjectFileUrl>
-      <ProjectMonitoringLocationWeightingURL>https://www.waterqualitydata.us/1500/mon_loc_weights</ProjectMonitoringLocationWeightingURL>
+      <ProjectMonitoringLocationWeightingUrl>https://www.waterqualitydata.us/1500/mon_loc_weights</ProjectMonitoringLocationWeightingUrl>
     </Project>
   </Organization>
   <Organization>
