@@ -150,28 +150,6 @@
 		"type": "Feature",
 		"geometry": {
 			"type": "Point",
-			"coordinates": [-88.9557000, 43.3262980]
-		},
-		"properties": {
-			"ProviderName": "STORET",
-			"OrganizationIdentifier": "WIDNR_WQX",
-			"OrganizationFormalName": "Wisconsin Department of Natural Resources",
-			"MonitoringLocationIdentifier": "WIDNR_WQX-10030952",
-			"MonitoringLocationName": "Crawfish River -- Astico County Park Canoe Launch",
-			"MonitoringLocationTypeName": "",
-			"ResolvedMonitoringLocationTypeName": "Stream",
-			"HUCEightDigitCode": "07090001",
-			"siteUrl": "https://www.waterqualitydata.us/provider/STORET/WIDNR_WQX/WIDNR_WQX-10030952/",
-			"activityCount": "17",
-			"resultCount": "3",
-			"StateName": "Wisconsin",
-			"CountyName": "Chippewa County",
-			"characteristicGroupResultCount": ""
-		}
-	}, {
-		"type": "Feature",
-		"geometry": {
-			"type": "Point",
 			"coordinates": [-89.0092550, 43.3485620]
 		},
 		"properties": {
@@ -211,54 +189,6 @@
 			"siteUrl": "https://www.waterqualitydata.us/provider/STORET/organization/organization-siteId/",
 			"activityCount": "4",
 			"resultCount": "4",
-			"StateName": "",
-			"CountyName": "",
-			"characteristicGroupResultCount": {
-				"characteristicType": 3
-			}
-		}
-	}, {
-		"type": "Feature",
-		"geometry": {
-			"type": "Point",
-			"coordinates": [-90.8989000, 43.3330000]
-		},
-		"properties": {
-			"ProviderName": "STORET",
-			"OrganizationIdentifier": "organization",
-			"OrganizationFormalName": "organizationName",
-			"MonitoringLocationIdentifier": "organization-siteId2",
-			"MonitoringLocationName": "stationName",
-			"MonitoringLocationTypeName": "stationTypeName",
-			"ResolvedMonitoringLocationTypeName": "siteType",
-			"HUCEightDigitCode": "00000000",
-			"siteUrl": "https://www.waterqualitydata.us/provider/STORET/organization/organization-siteId2/",
-			"activityCount": "2",
-			"resultCount": "4",
-			"StateName": "",
-			"CountyName": "",
-			"characteristicGroupResultCount": {
-				"characteristicType": 1
-			}
-		}
-	}, {
-		"type": "Feature",
-		"geometry": {
-			"type": "Point",
-			"coordinates": [-76.8989000, 43.3330000]
-		},
-		"properties": {
-			"ProviderName": "STORET",
-			"OrganizationIdentifier": "organization",
-			"OrganizationFormalName": "organizationName",
-			"MonitoringLocationIdentifier": "organization-siteId3",
-			"MonitoringLocationName": "stationName",
-			"MonitoringLocationTypeName": "stationTypeName",
-			"ResolvedMonitoringLocationTypeName": "siteType",
-			"HUCEightDigitCode": "00000000",
-			"siteUrl": "https://www.waterqualitydata.us/provider/STORET/organization/organization-siteId3/",
-			"activityCount": "1",
-			"resultCount": "1",
 			"StateName": "",
 			"CountyName": "",
 			"characteristicGroupResultCount": {

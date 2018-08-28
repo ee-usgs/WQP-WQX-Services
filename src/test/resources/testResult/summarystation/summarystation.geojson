@@ -150,28 +150,6 @@
 		"type": "Feature",
 		"geometry": {
 			"type": "Point",
-			"coordinates": [-88.9557000, 43.3262980]
-		},
-		"properties": {
-			"ProviderName": "STORET",
-			"OrganizationIdentifier": "WIDNR_WQX",
-			"OrganizationFormalName": "Wisconsin Department of Natural Resources",
-			"MonitoringLocationIdentifier": "WIDNR_WQX-10030952",
-			"MonitoringLocationName": "Crawfish River -- Astico County Park Canoe Launch",
-			"MonitoringLocationTypeName": "",
-			"ResolvedMonitoringLocationTypeName": "Stream",
-			"HUCEightDigitCode": "07090001",
-			"siteUrl": "https://www.waterqualitydata.us/provider/STORET/WIDNR_WQX/WIDNR_WQX-10030952/",
-			"activityCount": "17",
-			"resultCount": "3",
-			"StateName": "Wisconsin",
-			"CountyName": "Chippewa County",
-			"characteristicGroupResultCount": ""
-		}
-	}, {
-		"type": "Feature",
-		"geometry": {
-			"type": "Point",
 			"coordinates": [-89.0092550, 43.3485620]
 		},
 		"properties": {
