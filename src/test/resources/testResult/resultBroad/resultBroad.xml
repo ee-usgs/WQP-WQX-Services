@@ -687,18 +687,24 @@
                         </TaxonomicDetailsCitation>
                     </TaxonomicDetails>
                     <FrequencyClassInformation>
-                        <FrequencyClassDescriptorCode>freqClassCode1</FrequencyClassDescriptorCode>
-                        <FrequencyClassDescriptorCode>freqClassCode2</FrequencyClassDescriptorCode>
-                        <FrequencyClassDescriptorCode>freqClassCode3</FrequencyClassDescriptorCode>
-                        <FrequencyClassDescriptorUnitCode>freqClassUnit1</FrequencyClassDescriptorUnitCode>
-                        <FrequencyClassDescriptorUnitCode>freqClassUnit2</FrequencyClassDescriptorUnitCode>
-                        <FrequencyClassDescriptorUnitCode>freqClassUnit3</FrequencyClassDescriptorUnitCode>
-                        <LowerClassBoundValue>freqClassLowerBound1</LowerClassBoundValue>
-                        <LowerClassBoundValue>freqClassLowerBound2</LowerClassBoundValue>
-                        <LowerClassBoundValue>freqClassLowerBound3</LowerClassBoundValue>
-                        <UpperClassBoundValue>freqClassUpperBound1</UpperClassBoundValue>
-                        <UpperClassBoundValue>freqClassUpperBound2</UpperClassBoundValue>
-                        <UpperClassBoundValue>freqClassUpperBound3</UpperClassBoundValue>
+                        <FrequencyClassInformation1>
+                            <FrequencyClassDescriptorCode>freqClassCode1</FrequencyClassDescriptorCode>
+                            <FrequencyClassDescriptorUnitCode>freqClassUnit1</FrequencyClassDescriptorUnitCode>
+                            <LowerClassBoundValue>freqClassLowerBound1</LowerClassBoundValue>
+                            <UpperClassBoundValue>freqClassUpperBound1</UpperClassBoundValue>
+                        </FrequencyClassInformation1>
+                        <FrequencyClassInformation2>
+                            <FrequencyClassDescriptorCode>freqClassCode2</FrequencyClassDescriptorCode>
+                            <FrequencyClassDescriptorUnitCode>freqClassUnit2</FrequencyClassDescriptorUnitCode>
+                            <LowerClassBoundValue>freqClassLowerBound2</LowerClassBoundValue>
+                            <UpperClassBoundValue>freqClassUpperBound2</UpperClassBoundValue>
+                        </FrequencyClassInformation2>
+                        <FrequencyClassInformation3>
+                            <FrequencyClassDescriptorCode>freqClassCode3</FrequencyClassDescriptorCode>
+                            <FrequencyClassDescriptorUnitCode>freqClassUnit3</FrequencyClassDescriptorUnitCode>
+                            <LowerClassBoundValue>freqClassLowerBound3</LowerClassBoundValue>
+                            <UpperClassBoundValue>freqClassUpperBound3</UpperClassBoundValue>
+                        </FrequencyClassInformation3>
                     </FrequencyClassInformation>
                 </BiologicalResultDescription>
                 <AttachedBinaryObject>

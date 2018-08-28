@@ -232,7 +232,12 @@ public abstract class BaseWqx {
 	public static final String WQX_TROPHIC_LEVEL = "TrophicLevelName";
 	public static final String WQX_FUNCTIONAL_FEEDING_GROUP = "FunctionalFeedingGroupName";
 	public static final String WQX_TAXONIMC_DETAIL_CITATION = "TaxonomicDetailsCitation";
+
+	//Repeated with the suffix to correctly group the data in the later xml profiles.
 	public static final String WQX_FREQUENCY_CLASS_INFO = "FrequencyClassInformation";
+	public static final String WQX_FREQUENCY_CLASS_INFO_1 = "FrequencyClassInformation1";
+	public static final String WQX_FREQUENCY_CLASS_INFO_2 = "FrequencyClassInformation2";
+	public static final String WQX_FREQUENCY_CLASS_INFO_3 = "FrequencyClassInformation3";
 	public static final String WQX_FREQUENCY_CLASS_INFO_URL = "FrequencyClassInformationUrl";
 	public static final String WQX_FREQUENCY_CLASS_DESCRIPTOR = "FrequencyClassDescriptorCode";
 	public static final String WQX_FREQUENCE_CLASS_DESCRIPTOR_UNIT = "FrequencyClassDescriptorUnitCode";
