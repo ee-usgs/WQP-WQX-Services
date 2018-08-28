@@ -222,7 +222,11 @@ public abstract class BaseWqx {
 	public static final String WQX_CELL_FORM = "CellFormName";
 	public static final String WQX_CELL_SHAPE = "CellShapeName";
 	public static final String WQX_HABIT = "HabitName";
+
+	//Note that Voltism is a typo, real value is Voltinism
 	public static final String WQX_VOLTISM = "VoltismName";
+	public static final String WQX_VOLTINISM = "VoltinismName";
+
 	public static final String WQX_POLLUTION_TOLERANCE = "TaxonomicPollutionTolerance";
 	public static final String WQX_TOLERANCE_SCALE = "TaxonomicPollutionToleranceScaleText";
 	public static final String WQX_TROPHIC_LEVEL = "TrophicLevelName";

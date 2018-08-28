@@ -2,26 +2,44 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="activity">
 
+    <sql id="baseLocationColumns">
+        prime.activity_latitude,
+        prime.activity_longitude
+    </sql>
+
+    <sql id="extendedLocationColumns">
+        <include refid="activity.baseLocationColumns"/>,
+        prime.activity_source_map_scale
+    </sql>
+
     <sql id="baseColumns">
-        to_char(prime.event_date, 'yyyy-mm-dd') event_date, prime.activity,
-        prime.sample_media, prime.site_type, prime.huc, prime.governmental_unit_code, prime.activity_id,
-        prime.activity_type_code, prime.activity_media_subdiv_name, prime.activity_start_time, prime.act_start_time_zone, prime.activity_stop_date, prime.activity_stop_time,
+        <include refid="station.baseColumns"/>,
+        prime.activity, prime.site_type,
+        prime.huc, prime.governmental_unit_code, prime.activity_id,
+        prime.activity_type_code, prime.sample_media, prime.activity_media_subdiv_name,
+        to_char(prime.event_date, 'yyyy-mm-dd') event_date,
+        prime.activity_start_time, prime.act_start_time_zone, prime.activity_stop_date, prime.activity_stop_time,
         prime.act_stop_time_zone, prime.activity_relative_depth_name, prime.activity_depth, prime.activity_depth_unit, prime.activity_depth_ref_point, prime.activity_upper_depth,
         prime.activity_upper_depth_unit, prime.activity_lower_depth, prime.activity_lower_depth_unit, prime.project_id as activity_projects, prime.activity_conducting_org, prime.activity_comment,
-        prime.sample_aqfr_name, prime.hydrologic_condition_name, prime.hydrologic_event_name, prime.activity_latitude, prime.activity_longitude, prime.activity_source_map_scale,
-        prime.act_horizontal_accuracy, prime.act_horizontal_accuracy_unit, prime.act_horizontal_collect_method, prime.act_horizontal_datum_name, prime.assemblage_sampled_name,
-        prime.act_collection_duration, prime.act_collection_duration_unit, prime.act_sam_compnt_name, prime.act_sam_compnt_place_in_series, prime.act_reach_length,
-        prime.act_reach_length_unit, prime.act_reach_width, prime.act_reach_width_unit, prime.act_pass_count, prime.net_type_name, prime.act_net_surface_area, prime.act_net_surface_area_unit,
-        prime.act_net_mesh_size, prime.act_net_mesh_size_unit, prime.act_boat_speed, prime.act_boat_speed_unit, prime.act_current_speed, prime.act_current_speed_unit,
-        prime.toxicity_test_type_name, prime.sample_collect_method_id, prime.sample_collect_method_ctx, prime.sample_collect_method_name, prime.act_sam_collect_meth_qual_type,
+        prime.sample_aqfr_name, prime.hydrologic_condition_name, prime.hydrologic_event_name,
+        prime.sample_collect_method_id, prime.sample_collect_method_ctx, prime.sample_collect_method_name,
         prime.act_sam_collect_meth_desc, prime.sample_collect_equip_name, prime.act_sam_collect_equip_comments, prime.act_sam_prep_meth_id, prime.act_sam_prep_meth_context,
         prime.act_sam_prep_meth_name, prime.act_sam_prep_meth_qual_type, prime.act_sam_prep_meth_desc, prime.sample_container_type, prime.sample_container_color,
         prime.act_sam_chemical_preservative, prime.thermal_preservative_name, prime.act_sam_transport_storage_desc
     </sql>
 
+    <sql id="extendedColumns">
+        <include refid="activity.baseColumns"/>,
+        <include refid="activity.extendedLocationColumns"/>,
+        prime.act_horizontal_accuracy, prime.act_horizontal_accuracy_unit, prime.act_horizontal_collect_method, prime.act_horizontal_datum_name, prime.assemblage_sampled_name,
+        prime.act_collection_duration, prime.act_collection_duration_unit, prime.act_sam_compnt_name, prime.act_sam_compnt_place_in_series, prime.act_reach_length,
+        prime.act_reach_length_unit, prime.act_reach_width, prime.act_reach_width_unit, prime.act_pass_count, prime.net_type_name, prime.act_net_surface_area, prime.act_net_surface_area_unit,
+        prime.act_net_mesh_size, prime.act_net_mesh_size_unit, prime.act_boat_speed, prime.act_boat_speed_unit, prime.act_current_speed, prime.act_current_speed_unit,
+        prime.toxicity_test_type_name, prime.act_sam_collect_meth_qual_type
+    </sql>
+
     <select id="select" resultType="java.util.LinkedHashMap" fetchSize="500">
-        select <include refid="base.baseColumns"/>,
-               <include refid="activity.baseColumns"/>,
+        select <include refid="activity.extendedColumns"/>,
                <if test="dataProfile == 'activityAll'">
                    prime.activity_object_name,
                    prime.activity_object_type,

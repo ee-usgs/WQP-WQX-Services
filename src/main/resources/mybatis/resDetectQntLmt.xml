@@ -9,7 +9,7 @@
     </sql>
 
     <select id="select" resultType="java.util.LinkedHashMap" fetchSize="500">
-        select <include refid="base.baseColumns"/>,
+        select <include refid="station.baseColumns"/>,
                prime.activity,
                prime.characteristic_name,
                <include refid="result.externalResultId"/>, 

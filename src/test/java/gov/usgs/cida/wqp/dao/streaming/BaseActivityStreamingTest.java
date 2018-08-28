@@ -5,7 +5,6 @@ import static gov.usgs.cida.wqp.swagger.model.StationCountJson.NWIS;
 import static gov.usgs.cida.wqp.swagger.model.StationCountJson.STEWARDS;
 import static gov.usgs.cida.wqp.swagger.model.StationCountJson.STORET;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.math.BigDecimal;
@@ -21,7 +20,6 @@ import gov.usgs.cida.wqp.dao.NameSpace;
 import gov.usgs.cida.wqp.dao.intfc.IStreamingDao;
 import gov.usgs.cida.wqp.mapping.ActivityColumn;
 import gov.usgs.cida.wqp.mapping.BaseColumn;
-import gov.usgs.cida.wqp.mapping.TestActivityMap;
 
 public abstract class BaseActivityStreamingTest extends FilteredActivityDaoTest {
 	private static final Logger LOG = LoggerFactory.getLogger(BaseActivityStreamingTest.class);
@@ -530,10 +528,15 @@ public abstract class BaseActivityStreamingTest extends FilteredActivityDaoTest 
 		assertEquals("Double check expected size", results.size(), activityIds.length);
 	}
 
-	@Override
-	protected void assertSiteUrlBase(Map<String, Object> row) {
-		if (null != row.get(ActivityColumn.KEY_ACTIVITY_METRIC_URL)) {
-			assertTrue("ActivityMetricURL incorrect", row.get(ActivityColumn.KEY_ACTIVITY_METRIC_URL).toString().startsWith("http://siteUrlBase/"));
-		}
+	protected void assertActivityMetricURL(Map<String, Object> row) {
+		assertUrl(ActivityColumn.KEY_ACTIVITY_METRIC_URL, row);
+	}
+
+	protected void assertActivityFileURL(Map<String, Object> row) {
+		assertUrl(ActivityColumn.KEY_ACTIVITY_FILE_URL, row);
+	}
+
+	protected void assertActivityGroupURL(Map<String, Object> row) {
+		assertUrl(ActivityColumn.KEY_ACTIVITY_GROUP_URL, row);
 	}
 }

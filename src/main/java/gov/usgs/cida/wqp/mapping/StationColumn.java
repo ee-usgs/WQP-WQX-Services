@@ -44,7 +44,7 @@ public class StationColumn extends BaseColumn {
 	public static final String KEY_SUMMARY_ALL_MONTHS = "SUMMARY_ALL_MONTHS";
 
 	//Profile Mapping of the Keys
-	public static final ColumnProfile STATION_NAME = new ColumnProfile(KEY_STATION_NAME, Profile.STATION, Profile.SIMPLE_STATION, Profile.RESULT_PHYS_CHEM);
+	public static final ColumnProfile STATION_NAME = new ColumnProfile(KEY_STATION_NAME, Profile.STATION, Profile.SIMPLE_STATION, Profile.RESULT_PHYS_CHEM, Profile.RESULT_BROAD);
 	public static final ColumnProfile MONITORING_LOCATION_TYPE = new ColumnProfile(KEY_MONITORING_LOCATION_TYPE, Profile.STATION);
 	public static final ColumnProfile MONITORING_LOCATION_DESCRIPTION = new ColumnProfile(KEY_MONITORING_LOCATION_DESCRIPTION, Profile.STATION);
 	public static final ColumnProfile SITE_TYPE = new ColumnProfile(KEY_SITE_TYPE, Profile.SIMPLE_STATION);

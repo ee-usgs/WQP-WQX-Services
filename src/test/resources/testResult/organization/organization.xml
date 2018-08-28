@@ -61,7 +61,7 @@
 	<Organization>
 		<OrganizationDescription>
 			<OrganizationIdentifier>organization</OrganizationIdentifier>
-			<OrganizationFormalName>organization formal name</OrganizationFormalName>
+			<OrganizationFormalName>organizationName</OrganizationFormalName>
 			<OrganizationDescriptionText>organization description</OrganizationDescriptionText>
 			<OrganizationType>organization type</OrganizationType>
 			<TribalCode>tribe name</TribalCode>

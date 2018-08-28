@@ -9,13 +9,19 @@ import java.util.Map;
 
 public class TestOrganizationMap {
 
+	public static final Map<String, Object> BASE_ORGANIZATION;
+	static {
+		BASE_ORGANIZATION = new LinkedHashMap<String, Object>();
+		BASE_ORGANIZATION.put(KEY_DATA_SOURCE_ID, BigDecimal.valueOf(3));
+		BASE_ORGANIZATION.put(KEY_DATA_SOURCE, STORET);
+		BASE_ORGANIZATION.put(KEY_ORGANIZATION, "organization");
+		BASE_ORGANIZATION.put(KEY_ORGANIZATION_NAME, "organizationName");
+	}
+
 	public static final Map<String, Object> ORGANIZATION;
 	static {
 		ORGANIZATION = new LinkedHashMap<String, Object>();
-		ORGANIZATION.put(KEY_DATA_SOURCE_ID, BigDecimal.valueOf(3));
-		ORGANIZATION.put(KEY_DATA_SOURCE, STORET);
-		ORGANIZATION.put(KEY_ORGANIZATION, "organization");
-		ORGANIZATION.put(KEY_ORGANIZATION_NAME, "organization formal name");
+		ORGANIZATION.putAll(BASE_ORGANIZATION);
 		ORGANIZATION.put(KEY_ORGANIZATION_ID, BigDecimal.valueOf(1));
 		ORGANIZATION.put(KEY_ORGANIZATION_DESCRIPTION, "organization description");
 		ORGANIZATION.put(KEY_TRIBAL_CODE, "tribe name");

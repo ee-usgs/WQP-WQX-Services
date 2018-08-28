@@ -288,6 +288,8 @@ public class ResultWqx extends BaseWqx implements IXmlMapping {
 						WQX_BIOLOGICAL_RESULT,
 						WQX_TAXONOMIC_DETAILS,
 						WQX_HABIT)));
+
+		//Note that Voltism is a typo, real value is Voltinism
 		COLUMN_POSITION.put(KEY_VOLT_NAME,
 				new LinkedList<String>(Arrays.asList(
 						WQX_ACTIVITY,
@@ -295,6 +297,14 @@ public class ResultWqx extends BaseWqx implements IXmlMapping {
 						WQX_BIOLOGICAL_RESULT,
 						WQX_TAXONOMIC_DETAILS,
 						WQX_VOLTISM)));
+		COLUMN_POSITION.put(KEY_VOLTINISM_NAME,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_BIOLOGICAL_RESULT,
+						WQX_TAXONOMIC_DETAILS,
+						WQX_VOLTINISM)));
+
 		COLUMN_POSITION.put(KEY_RTDET_POLLUTION_TOLERANCE,
 				new LinkedList<String>(Arrays.asList(
 						WQX_ACTIVITY,
@@ -371,6 +381,9 @@ public class ResultWqx extends BaseWqx implements IXmlMapping {
 						WQX_TAXONOMIC_DETAILS,
 						WQX_TAXONIMC_DETAIL_CITATION,
 						WQX_RESOURCE_ID)));
+
+
+		//Split into 3 columns for each value in newer profiles.
 		COLUMN_POSITION.put(KEY_FCDSC_URL,
 				new LinkedList<String>(Arrays.asList(
 						WQX_ACTIVITY,
@@ -385,7 +398,49 @@ public class ResultWqx extends BaseWqx implements IXmlMapping {
 						WQX_BIOLOGICAL_RESULT,
 						WQX_FREQUENCY_CLASS_INFO,
 						WQX_FREQUENCY_CLASS_DESCRIPTOR)));
+		COLUMN_POSITION.put(KEY_FREQUENCY_CLASS_CODE_1,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_BIOLOGICAL_RESULT,
+						WQX_FREQUENCY_CLASS_INFO,
+						WQX_FREQUENCY_CLASS_DESCRIPTOR)));
+		COLUMN_POSITION.put(KEY_FREQUENCY_CLASS_CODE_2,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_BIOLOGICAL_RESULT,
+						WQX_FREQUENCY_CLASS_INFO,
+						WQX_FREQUENCY_CLASS_DESCRIPTOR)));
+		COLUMN_POSITION.put(KEY_FREQUENCY_CLASS_CODE_3,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_BIOLOGICAL_RESULT,
+						WQX_FREQUENCY_CLASS_INFO,
+						WQX_FREQUENCY_CLASS_DESCRIPTOR)));
 		COLUMN_POSITION.put(KEY_FREQUENCY_CLASS_UNIT,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_BIOLOGICAL_RESULT,
+						WQX_FREQUENCY_CLASS_INFO,
+						WQX_FREQUENCE_CLASS_DESCRIPTOR_UNIT)));
+		COLUMN_POSITION.put(KEY_FREQUENCY_CLASS_UNIT_1,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_BIOLOGICAL_RESULT,
+						WQX_FREQUENCY_CLASS_INFO,
+						WQX_FREQUENCE_CLASS_DESCRIPTOR_UNIT)));
+		COLUMN_POSITION.put(KEY_FREQUENCY_CLASS_UNIT_2,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_BIOLOGICAL_RESULT,
+						WQX_FREQUENCY_CLASS_INFO,
+						WQX_FREQUENCE_CLASS_DESCRIPTOR_UNIT)));
+		COLUMN_POSITION.put(KEY_FREQUENCY_CLASS_UNIT_3,
 				new LinkedList<String>(Arrays.asList(
 						WQX_ACTIVITY,
 						WQX_RESULT,
@@ -399,7 +454,49 @@ public class ResultWqx extends BaseWqx implements IXmlMapping {
 						WQX_BIOLOGICAL_RESULT,
 						WQX_FREQUENCY_CLASS_INFO,
 						WQX_LOWER_CLASS_BOUND)));
+		COLUMN_POSITION.put(KEY_FREQUENCY_CLASS_LOWER_BOUND_1,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_BIOLOGICAL_RESULT,
+						WQX_FREQUENCY_CLASS_INFO,
+						WQX_LOWER_CLASS_BOUND)));
+		COLUMN_POSITION.put(KEY_FREQUENCY_CLASS_LOWER_BOUND_2,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_BIOLOGICAL_RESULT,
+						WQX_FREQUENCY_CLASS_INFO,
+						WQX_LOWER_CLASS_BOUND)));
+		COLUMN_POSITION.put(KEY_FREQUENCY_CLASS_LOWER_BOUND_3,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_BIOLOGICAL_RESULT,
+						WQX_FREQUENCY_CLASS_INFO,
+						WQX_LOWER_CLASS_BOUND)));
 		COLUMN_POSITION.put(KEY_FCDSC_UPPER_BOUND,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_BIOLOGICAL_RESULT,
+						WQX_FREQUENCY_CLASS_INFO,
+						WQX_UPPER_CLASS_BOUND)));
+		COLUMN_POSITION.put(KEY_FREQUENCY_CLASS_UPPER_BOUND_1,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_BIOLOGICAL_RESULT,
+						WQX_FREQUENCY_CLASS_INFO,
+						WQX_UPPER_CLASS_BOUND)));
+		COLUMN_POSITION.put(KEY_FREQUENCY_CLASS_UPPER_BOUND_2,
+				new LinkedList<String>(Arrays.asList(
+						WQX_ACTIVITY,
+						WQX_RESULT,
+						WQX_BIOLOGICAL_RESULT,
+						WQX_FREQUENCY_CLASS_INFO,
+						WQX_UPPER_CLASS_BOUND)));
+		COLUMN_POSITION.put(KEY_FREQUENCY_CLASS_UPPER_BOUND_3,
 				new LinkedList<String>(Arrays.asList(
 						WQX_ACTIVITY,
 						WQX_RESULT,
@@ -415,7 +512,7 @@ public class ResultWqx extends BaseWqx implements IXmlMapping {
 						WQX_ATTACHED_BINARY_OBJECT,
 						WQX_FILE_NAME
 						)));
-		COLUMN_POSITION.put(KEY_RESULT_OBJECT_NAME, 
+		COLUMN_POSITION.put(KEY_RESULT_OBJECT_TYPE, 
 				new LinkedList<String>(Arrays.asList(
 						WQX_ACTIVITY,
 						WQX_RESULT,
@@ -736,7 +833,11 @@ public class ResultWqx extends BaseWqx implements IXmlMapping {
 						CELL_FORM_NAME,
 						CELL_SHAPE_NAME,
 						HABIT_NAME,
+
+						//Note that Voltism is a typo, real value is Voltinism
 						VOLT_NAME,
+						VOLTINISM_NAME,
+
 						RTDET_POLLUTION_TOLERANCE,
 						RTDET_POLLUTION_TOLERNCE_SCALE,
 						RTDET_TROPHIC_LEVEL,
@@ -747,13 +848,28 @@ public class ResultWqx extends BaseWqx implements IXmlMapping {
 						TAXON_CITATION_PUBLISHER,
 						TAXON_CITATION_DATE,
 						TAXON_CITATION_ID,
+
+						//TODO FORMAT THESE CORRECTLY!!!!
+						//Split into 3 columns for each value in newer profiles.
 						FCDSC_URL,
 						FCDSC_NAME,
+						FREQUENCY_CLASS_CODE_1,
+						FREQUENCY_CLASS_CODE_2,
+						FREQUENCY_CLASS_CODE_3,
 						FREQUENCY_CLASS_UNIT,
+						FREQUENCY_CLASS_UNIT_1,
+						FREQUENCY_CLASS_UNIT_2,
+						FREQUENCY_CLASS_UNIT_3,
 						FCDSC_LOWER_BOUND,
+						FREQUENCY_CLASS_LOWER_BOUND_1,
+						FREQUENCY_CLASS_LOWER_BOUND_2,
+						FREQUENCY_CLASS_LOWER_BOUND_3,
 						FCDSC_UPPER_BOUND,
+						FREQUENCY_CLASS_UPPER_BOUND_1,
+						FREQUENCY_CLASS_UPPER_BOUND_2,
+						FREQUENCY_CLASS_UPPER_BOUND_3,
 						RESULT_OBJECT_NAME,
-						RESULT_OBJECT_NAME,
+						RESULT_OBJECT_TYPE,
 						RESULT_FILE_URL,
 						ANALYTICAL_PROCEDURE_ID,
 						ANALYTICAL_PROCEDURE_SOURCE,

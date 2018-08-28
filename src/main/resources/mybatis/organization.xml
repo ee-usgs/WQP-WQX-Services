@@ -2,12 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="organization">
 
+    <sql id="baseColumns">
+        prime.data_source_id,
+        prime.data_source,
+        prime.organization,
+        prime.organization_name
+    </sql>
+
     <select id="select" resultType="java.util.LinkedHashMap" fetchSize="500">
-        select prime.data_source,
-               prime.data_source_id,
+        select <include refid="organization.baseColumns"/>,
                prime.organization_id,
-               prime.organization,
-               prime.organization_name,
                prime.organization_description,
                prime.organization_type,
                prime.tribal_code,

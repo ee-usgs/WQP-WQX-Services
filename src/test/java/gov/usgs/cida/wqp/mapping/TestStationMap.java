@@ -5,18 +5,27 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import static gov.usgs.cida.wqp.mapping.ActivityColumn.*;
+import static gov.usgs.cida.wqp.mapping.BaseColumn.KEY_STATION_ID;
 import static gov.usgs.cida.wqp.mapping.StationColumn.*;
 import static gov.usgs.cida.wqp.mapping.xml.StationKml.*;
 import static gov.usgs.cida.wqp.swagger.model.StationCountJson.*;
+import static gov.usgs.cida.wqp.mapping.TestOrganizationMap.BASE_ORGANIZATION;
 
 public class TestStationMap {
+
+	public static final Map<String, Object> BASE_STATION;
+	static {
+		BASE_STATION = new LinkedHashMap<String, Object>();
+		BASE_STATION.putAll(BASE_ORGANIZATION);
+		BASE_STATION.put(KEY_STATION_ID, BigDecimal.valueOf(888));
+		BASE_STATION.put(KEY_SITE_ID, "organization-siteId");
+	}
 
 	public static final Map<String, Object> STATION;
 	static {
 		STATION = new LinkedHashMap<String, Object>();
-		STATION.put(KEY_ORGANIZATION, "organization");
-		STATION.put(KEY_ORGANIZATION_NAME, "organizationName");
-		STATION.put(KEY_SITE_ID, "organization-siteId");
+		STATION.putAll(BASE_STATION);
+
 		STATION.put(KEY_STATION_NAME, "stationName");
 		STATION.put(KEY_MONITORING_LOCATION_TYPE, "stationTypeName");
 		STATION.put(KEY_MONITORING_LOCATION_DESCRIPTION, "descriptionText");
