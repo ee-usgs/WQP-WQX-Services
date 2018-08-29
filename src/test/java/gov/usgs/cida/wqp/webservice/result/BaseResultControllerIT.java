@@ -14,89 +14,51 @@ import static gov.usgs.cida.wqp.swagger.model.StationCountJson.HEADER_STEWARDS_S
 import static gov.usgs.cida.wqp.swagger.model.StationCountJson.HEADER_STORET_SITE_COUNT;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 
-import org.junit.Test;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
-import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.github.springtestdbunit.annotation.DbUnitConfiguration;
-
-import gov.usgs.cida.wqp.Application;
-import gov.usgs.cida.wqp.CsvDataSetLoader;
 import gov.usgs.cida.wqp.mapping.Profile;
-import gov.usgs.cida.wqp.springinit.DBTestConfig;
 import gov.usgs.cida.wqp.util.HttpConstants;
 import gov.usgs.cida.wqp.webservice.BaseControllerIntegrationTest;
 
-@EnableWebMvc
-@AutoConfigureMockMvc(secure=false)
-@SpringBootTest(webEnvironment=WebEnvironment.MOCK,
-	classes={DBTestConfig.class, Application.class})
-@DatabaseSetup("classpath:/testData/csv/")
-@DbUnitConfiguration(dataSetLoader = CsvDataSetLoader.class)
-@DirtiesContext(classMode=ClassMode.AFTER_CLASS)
-public class ResultControllerIT extends BaseControllerIntegrationTest {
+public abstract class BaseResultControllerIT extends BaseControllerIntegrationTest {
 
-	protected static final Profile PROFILE = Profile.PC_RESULT;
-	protected static final boolean POSTABLE = true;
-	protected static final String ENDPOINT = HttpConstants.RESULT_SEARCH_ENDPOINT + "?mimeType=";
-
-	@Test
-	public void testHarness() throws Exception {
-		getAsCsvTest();
-		getAsCsvZipTest();
-		getAsTsvTest();
-		getAsTsvZipTest();
-		getAsXlsxTest();
-		getAsXlsxZipTest();
-		getAsXmlTest();
-		getAsXmlZipTest();
-		getAllParametersTest();
-		postGetCountTest();
+	public void getAsCsvTest(String endpoint, Profile profile, boolean postable) throws Exception {
+		getAsDelimitedTest(endpoint + CSV, HttpConstants.MIME_TYPE_CSV, CSV, profile, postable);
 	}
 
-	public void getAsCsvTest() throws Exception {
-		getAsDelimitedTest(ENDPOINT + CSV, HttpConstants.MIME_TYPE_CSV, CSV, PROFILE, POSTABLE);
+	public void getAsCsvZipTest(String endpoint, Profile profile, boolean postable) throws Exception {
+		getAsDelimitedZipTest(endpoint + CSV_AND_ZIP, HttpConstants.MIME_TYPE_ZIP, CSV, profile, postable);
 	}
 
-	public void getAsCsvZipTest() throws Exception {
-		getAsDelimitedZipTest(ENDPOINT + CSV_AND_ZIP, HttpConstants.MIME_TYPE_ZIP, CSV, PROFILE, POSTABLE);
+	public void getAsTsvTest(String endpoint, Profile profile, boolean postable) throws Exception {
+		getAsDelimitedTest(endpoint + TSV, HttpConstants.MIME_TYPE_TSV, TSV, profile, postable);
 	}
 
-	public void getAsTsvTest() throws Exception {
-		getAsDelimitedTest(ENDPOINT + TSV, HttpConstants.MIME_TYPE_TSV, TSV, PROFILE, POSTABLE);
+	public void getAsTsvZipTest(String endpoint, Profile profile, boolean postable) throws Exception {
+		getAsDelimitedZipTest(endpoint + TSV_AND_ZIP, HttpConstants.MIME_TYPE_ZIP, TSV, profile, postable);
 	}
 
-	public void getAsTsvZipTest() throws Exception {
-		getAsDelimitedZipTest(ENDPOINT + TSV_AND_ZIP, HttpConstants.MIME_TYPE_ZIP, TSV, PROFILE, POSTABLE);
+	public void getAsXlsxTest(String endpoint, Profile profile, boolean postable) throws Exception {
+		getAsXlsxTest(endpoint + XLSX, HttpConstants.MIME_TYPE_XLSX, XLSX, profile, postable);
 	}
 
-	public void getAsXlsxTest() throws Exception {
-		getAsXlsxTest(ENDPOINT + XLSX, HttpConstants.MIME_TYPE_XLSX, XLSX, PROFILE, POSTABLE);
+	public void getAsXlsxZipTest(String endpoint, Profile profile, boolean postable) throws Exception {
+		getAsXlsxZipTest(endpoint + XLSX_AND_ZIP, HttpConstants.MIME_TYPE_ZIP, XLSX, profile, postable);
 	}
 
-	public void getAsXlsxZipTest() throws Exception {
-		getAsXlsxZipTest(ENDPOINT + XLSX_AND_ZIP, HttpConstants.MIME_TYPE_ZIP, XLSX, PROFILE, POSTABLE);
+	public void getAsXmlTest(String endpoint, Profile profile, boolean postable) throws Exception {
+		getAsXmlTest(endpoint + XML, HttpConstants.MIME_TYPE_XML, XML, profile, postable);
 	}
 
-	public void getAsXmlTest() throws Exception {
-		getAsXmlTest(ENDPOINT + XML, HttpConstants.MIME_TYPE_XML, XML, PROFILE, POSTABLE);
+	public void getAsXmlZipTest(String endpoint, Profile profile, boolean postable) throws Exception {
+		getAsXmlZipTest(endpoint + XML_AND_ZIP, HttpConstants.MIME_TYPE_ZIP, XML, profile, postable);
 	}
 
-	public void getAsXmlZipTest() throws Exception {
-		getAsXmlZipTest(ENDPOINT + XML_AND_ZIP, HttpConstants.MIME_TYPE_ZIP, XML, PROFILE, POSTABLE);
+	public void getAllParametersTest(String endpoint, Profile profile, boolean postable) throws Exception {
+		getAllParametersTest(endpoint + CSV, HttpConstants.MIME_TYPE_CSV, CSV, profile, postable);
 	}
 
-	public void getAllParametersTest() throws Exception {
-		getAllParametersTest(ENDPOINT + CSV, HttpConstants.MIME_TYPE_CSV, CSV, PROFILE, POSTABLE);
-	}
-
-	public void postGetCountTest() throws Exception {
+	public void postGetCountTest(Profile profile) throws Exception {
 		String urlPrefix = HttpConstants.RESULT_SEARCH_ENDPOINT + "/count?mimeType=";
 		String compareObject = "{\"" + HttpConstants.HEADER_TOTAL_SITE_COUNT + "\":\"" + FILTERED_TOTAL_SITE_COUNT
 				+ "\",\"" + HttpConstants.HEADER_TOTAL_ACTIVITY_COUNT + "\":\"" + FILTERED_TOTAL_ACTIVITY_COUNT
@@ -105,7 +67,7 @@ public class ResultControllerIT extends BaseControllerIntegrationTest {
 				+ "\",\"" + HEADER_STORET_ACTIVITY_COUNT + "\":\"" + FILTERED_STORET_ACTIVITY_COUNT
 				+ "\",\"" + HEADER_STORET_RESULT_COUNT + "\":\"" + FILTERED_STORET_RESULT_COUNT
 				+ "\"}";
-		postGetCountTest(urlPrefix, compareObject, PROFILE);
+		postGetCountTest(urlPrefix, compareObject, profile);
 	}
 
 	public ResultActions unFilteredHeaderCheck(ResultActions resultActions) throws Exception {
@@ -149,5 +111,4 @@ public class ResultControllerIT extends BaseControllerIntegrationTest {
 
 				.andExpect(header().string(HttpConstants.HEADER_TOTAL_RESULT_COUNT, "0"));
 	}
-
 }

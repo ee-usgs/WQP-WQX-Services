@@ -4,24 +4,34 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import gov.usgs.cida.wqp.dao.NameSpace;
+
 public enum Profile {
 
-	ORGANIZATION ("organization", "organization"),
-	STATION ("station", "station"),
-	SIMPLE_STATION ("simplestation", "simplestation"),
-	SUMMARY_STATION ("summarystation","summarystation"),
-	BIOLOGICAL ("biological", "biologicalresult"),
-	PC_RESULT ("pcresult", "result"),
-	ACTIVITY ("activity", "activity"),
-	ACTIVITY_ALL("activityAll", "activityall"),
-	ACTIVITY_METRIC ("activityMetric", "activitymetric"),
-	RES_DETECT_QNT_LMT ("resDetectQntLmt", "resdetectqntlmt"),
-	NARROW_RESULT ("narrowResult", "narrowresult"),
-	PROJECT ("project", "project"),
-	PROJECT_MONITORING_LOCATION_WEIGHTING ("projectMonitoringLocationWeighting", "projectmonitoringlocationweighting");
+	ORGANIZATION ("organization", "organization", NameSpace.ORGANIZATION),
+
+	STATION ("station", "station", NameSpace.STATION),
+	SIMPLE_STATION ("simplestation", "simplestation", NameSpace.SIMPLE_STATION),
+	SUMMARY_STATION ("summarystation","summarystation", NameSpace.SUMMARY_STATION),
+
+	PROJECT ("project", "project", NameSpace.PROJECT),
+	PROJECT_MONITORING_LOCATION_WEIGHTING ("projectMonitoringLocationWeighting", "projectmonitoringlocationweighting",
+			NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING),
+
+	ACTIVITY ("activity", "activity", NameSpace.ACTIVITY),
+	ACTIVITY_ALL("activityAll", "activityall", NameSpace.ACTIVITY_ALL),
+	ACTIVITY_METRIC ("activityMetric", "activitymetric", NameSpace.ACTIVITY_METRIC),
+
+	BIOLOGICAL ("biological", "biologicalresult", NameSpace.BIOLOGICAL_RESULT),
+	PC_RESULT ("pcresult", "result", NameSpace.RESULT),
+	NARROW_RESULT ("narrowResult", "narrowresult", NameSpace.NARROW_RESULT),
+	RESULT_PHYS_CHEM ("resultPhysChem", "resultphyschem", NameSpace.RESULT_PHYS_CHEM),
+
+	RES_DETECT_QNT_LMT ("resDetectQntLmt", "resdetectqntlmt", NameSpace.RES_DETECT_QNT_LMT);
 
 	private final String name;
 	private final String baseFileName;
+	private final NameSpace defaultNameSpace;
 	private static Map<String, Profile> profileMap = new HashMap<>();
 
 	static {
@@ -30,9 +40,10 @@ public enum Profile {
 		}
 	}
 
-	private Profile(String name, String baseFileName) {
+	private Profile(String name, String baseFileName, NameSpace defaultNameSpace) {
 		this.name = name;
 		this.baseFileName = baseFileName;
+		this.defaultNameSpace = defaultNameSpace;
 	}
 
 	@Override
@@ -42,6 +53,10 @@ public enum Profile {
 
 	public String getBaseFileName() {
 		return baseFileName;
+	}
+
+	public NameSpace getDefaultNameSpace() {
+		return defaultNameSpace;
 	}
 
 	public static Profile fromString(String profile) {

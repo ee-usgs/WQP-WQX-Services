@@ -47,13 +47,9 @@ USGS-WI,USGS Wisconsin Water Science Center,activityNwis,USGS-431925089002701,NW
 21NYDECA_WQX,New York State DEC Division of Water,21NYDECA_WQX-0210EN,21NYDECA_WQX-ONTARIO-02,STORET-38,Pentachlorobenzene,Instrument Detection Level,65,#/100ml,STORET
 WIDNR_WQX,Wisconsin Department of Natural Resources,WIDNR_WQX-7788475,WIDNR_WQX-113086,STORET-5,Fecal Streptococcus Group Bacteria,Reporting limit,39,cfu/100ml,STORET
 WIDNR_WQX,Wisconsin Department of Natural Resources,WIDNR_WQX-7788475,WIDNR_WQX-113086,STORET-6,Fecal Coliform,Drinking Water Maximum,29,cfu/100ml,STORET
-WIDNR_WQX,Wisconsin Department of Natural Resources,WIDNR_WQX-7788475,WIDNR_WQX-113086,STORET-7,Fecal Coliform,Practical Quantitation Limit,30,#/100ml,STORET
 WIDNR_WQX,Wisconsin Department of Natural Resources,WIDNR_WQX-7788475,WIDNR_WQX-113086,STORET-8,Fecal Coliform,Sample-specific min detect conc,31,cfu/100ml,STORET
-WIDNR_WQX,Wisconsin Department of Natural Resources,WIDNR_WQX-7788480,WIDNR_WQX-113086,STORET-4,Cloud cover,Blank-adjusted method detect limit,38,#/100ml,STORET
 WIDNR_WQX,Wisconsin Department of Natural Resources,WIDNR_WQX-7788480,WIDNR_WQX-113086,STORET-9,Cloud cover,Interim Reporting Level,32,#/100ml,STORET
-WIDNR_WQX,Wisconsin Department of Natural Resources,WIDNR_WQX-7788480,WIDNR_WQX-113086,STORET-10,Fecal Streptococcus Group Bacteria,Laboratory Reporting Level,33,cfu/100ml,STORET
 WIDNR_WQX,Wisconsin Department of Natural Resources,WIDNR_WQX-7788480,WIDNR_WQX-113086,STORET-11,Dissolved oxygen (DO),Minimum Reporting Level,34,#/100ml,STORET
-WIDNR_WQX,Wisconsin Department of Natural Resources,WIDNR_WQX-7788480,WIDNR_WQX-113086,STORET-12,Dissolved oxygen (DO),Contract Quantitation Limit,35,cfu/100ml,STORET
 WIDNR_WQX,Wisconsin Department of Natural Resources,WIDNR_WQX-7788480,WIDNR_WQX-113086,STORET-13,Dissolved oxygen (DO),Daily detection limit,36,#/100ml,STORET
 WIDNR_WQX,Wisconsin Department of Natural Resources,WIDNR_WQX-7788480,WIDNR_WQX-113086,STORET-14,Fecal Streptococcus Group Bacteria,Lower limit of detection,37,cfu/100ml,STORET
 organization,Wisconsin Department of Natural Resources,activityStoret,11NPSWRD-BICA_MFG_B,STORET-45,characteristicName,Estimated Quantitation Limit,72,cfu/100ml,STORET

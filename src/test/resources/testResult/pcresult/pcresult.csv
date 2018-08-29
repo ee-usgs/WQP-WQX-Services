@@ -33,17 +33,13 @@ USGS-WI,USGS Wisconsin Water Science Center,activityNwis,,Water,,1996-06-27,,,,,
 21NYDECA_WQX,New York State DEC Division of Water,21NYDECA_WQX-020206,,Sediment,,1995-09-26,,,,,,,,,,,,,SAM,,21NYDECA_WQX-ONTARIO-02,,,,,,,,,,Heptachlorodibenzo-p-dioxin,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,STORET
 21NYDECA_WQX,New York State DEC Division of Water,21NYDECA_WQX-020610,,Sediment,,1995-09-26,,,,,,,,,,,,,SAM,,21NYDECA_WQX-ONTARIO-02,,,,,,,,,,Hexachlorodibenzo-p-dioxin,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,STORET
 21NYDECA_WQX,New York State DEC Division of Water,21NYDECA_WQX-0210EN,,Sediment,,1995-09-26,,,,,,,,,,,,,SAM,,21NYDECA_WQX-ONTARIO-02,,,,,,,,,,Pentachlorobenzene,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,STORET
-WIDNR_WQX,Wisconsin Department of Natural Resources,WIDNR_WQX-7788475,,Water,,1992-07-28,,,,,,,,,,,,,WR047,,WIDNR_WQX-113086,,,,,,,,,,Fecal Streptococcus Group Bacteria,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,STORET
 WIDNR_WQX,Wisconsin Department of Natural Resources,WIDNR_WQX-7788475,,Water,,1992-07-28,,,,,,,,,,,,,Lake-BaselineMonitoringDNR,,WIDNR_WQX-113086,,,,,,,,,,Fecal Coliform,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,STORET
-WIDNR_WQX,Wisconsin Department of Natural Resources,WIDNR_WQX-7788475,,Water,,1992-07-28,,,,,,,,,,,,,WR046,,WIDNR_WQX-113086,,,,,,,,,,Fecal Coliform,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,STORET
-WIDNR_WQX,Wisconsin Department of Natural Resources,WIDNR_WQX-7788475,,Water,,1992-07-28,,,,,,,,,,,,,WR047,,WIDNR_WQX-113086,,,,,,,,,,Fecal Coliform,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,STORET
-WIDNR_WQX,Wisconsin Department of Natural Resources,WIDNR_WQX-7788475,,Water,,1992-07-28,,,,,,,,,,,,,WR046,,WIDNR_WQX-113086,,,,,,,,,,Fecal Streptococcus Group Bacteria,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,STORET
+WIDNR_WQX,Wisconsin Department of Natural Resources,WIDNR_WQX-7788475,,Water,,1992-07-28,,,,,,,,,,,,,Lake-BaselineMonitoringDNR,,WIDNR_WQX-113086,,,,,,,,,,Dissolved oxygen (DO),,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,STORET
 WIDNR_WQX,,WIDNR_WQX-7788475,,Water,,1992-07-28,,,,,,,,,,,,,Lake-BaselineMonitoringDNR,,WIDNR_WQX-113086,,,,,,,,,,Fecal Streptococcus Group Bacteria,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,STORET
-WIDNR_WQX,Wisconsin Department of Natural Resources,WIDNR_WQX-7788480,,Water,,1992-07-28,,,,,,,,,,,,,WR046,,WIDNR_WQX-113086,,,,,,,,,,Cloud cover,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,STORET
+WIDNR_WQX,Wisconsin Department of Natural Resources,WIDNR_WQX-7788480,,Water,,1992-07-28,,,,,,,,,,,,,WR047,,WIDNR_WQX-113086,,,,,,,,,,Fecal Streptococcus Group Bacteria,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,STORET
+WIDNR_WQX,Wisconsin Department of Natural Resources,WIDNR_WQX-7788480,,Water,,1992-07-28,,,,,,,,,,,,,WR047,,WIDNR_WQX-113086,,,,,,,,,,Fecal Coliform,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,STORET
 WIDNR_WQX,Wisconsin Department of Natural Resources,WIDNR_WQX-7788480,,Water,,1992-07-28,,,,,,,,,,,,,WR047,,WIDNR_WQX-113086,,,,,,,,,,Cloud cover,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,STORET
 WIDNR_WQX,Wisconsin Department of Natural Resources,WIDNR_WQX-7788480,,Water,,1992-07-28,,,,,,,,,,,,,WR047,,WIDNR_WQX-113086,,,,,,,,,,Dissolved oxygen (DO),,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,STORET
-WIDNR_WQX,Wisconsin Department of Natural Resources,WIDNR_WQX-7788480,,Water,,1992-07-28,,,,,,,,,,,,,WR046,,WIDNR_WQX-113086,,,,,,,,,,Dissolved oxygen (DO),,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,STORET
-WIDNR_WQX,Wisconsin Department of Natural Resources,WIDNR_WQX-7788480,,Water,,1992-07-28,,,,,,,,,,,,,Lake-BaselineMonitoringDNR,,WIDNR_WQX-113086,,,,,,,,,,Dissolved oxygen (DO),,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,STORET
 organization,Wisconsin Department of Natural Resources,activityStoret,,sampleMedia,,1996-06-24,,,,,,,,,,,,,projectId,,11NPSWRD-BICA_MFG_B,,,,,,,,,,characteristicName,,,,,,,,,,,,,,99999,,,,sampleTissueTaxonomicName,,,,,,,,,,,,,STORET
 organization,Wisconsin Department of Natural Resources,activityStoret,,sampleMedia,,1996-06-25,,,,,,,,,,,,,projectId,,11NPSWRD-BICA_MFG_B,,,,,,,,,,characteristicName,,,,,,,,,,,,,,99999,,,,sampleTissueTaxonomicName,,,,,,,,,,,,,STORET
 organization,Wisconsin Department of Natural Resources,activityStoret,,sampleMedia,,1996-06-26,,,,,,,,,,,,,projectId,,11NPSWRD-BICA_MFG_B,,,,,,,,,,characteristicName,,,,,,,,,,,,,,99999,,,,sampleTissueTaxonomicName,,,,,,,,,,,,,STORET

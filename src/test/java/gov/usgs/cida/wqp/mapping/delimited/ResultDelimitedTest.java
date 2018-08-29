@@ -28,6 +28,11 @@ public class ResultDelimitedTest {
 		assertNarrowProfile(ResultDelimited.getMapping(Profile.NARROW_RESULT));
 	}
 
+	@Test
+	public void resultPhysChemProfileTest() {
+		assertResultPhysChemProfile(ResultDelimited.getMapping(Profile.RESULT_PHYS_CHEM));
+	}
+
 	public static void assertPcResultProfile(Map<String, String> mapping) {
 		assertEquals(63, mapping.size());
 		Object[] keys = mapping.keySet().toArray();
@@ -102,6 +107,30 @@ public class ResultDelimitedTest {
 		assertEquals(ResultDelimited.VALUE_LAB_REMARK, mapping.get(keys[70]));
 		assertEquals(ResultColumn.KEY_DATA_SOURCE, keys[77]);
 		assertEquals(ResultDelimited.VALUE_DATA_SOURCE, mapping.get(keys[77]));
+	}
+
+	public static void assertResultPhysChemProfile(Map<String, String> mapping) {
+		assertEquals(81, mapping.size());
+		Object[] keys = mapping.keySet().toArray();
+		//kind of large, so just random checks...
+		assertEquals(BaseColumn.KEY_ORGANIZATION, keys[0]);
+		assertEquals(BaseDelimited.VALUE_ORGANIZATION_IDENTIFIER, mapping.get(keys[0]));
+		assertEquals(ActivityColumn.KEY_ACTIVITY_START_TIME,keys[7]);
+		assertEquals(ActivityDelimited.VALUE_ACTIVITY_START_TIME, mapping.get(keys[7]));
+		assertEquals(ActivityColumn.KEY_SAMPLE_COLLECT_METHOD_ID, keys[31]);
+		assertEquals(ActivityDelimited.VALUE_SAMPLE_COLLECT_METHOD_ID, mapping.get(keys[31]));
+		assertEquals(ResultColumn.KEY_EXTERNAL_RESULT_ID, keys[36]);
+		assertEquals(ResultDelimited.VALUE_RESULT_IDENTIFIER, mapping.get(keys[36]));
+		assertEquals(ResultColumn.KEY_RESULT_MEAS_QUAL_CODE, keys[43]);
+		assertEquals(ResultDelimited.VALUE_RESULT_MEAS_QUAL_CODE, mapping.get(keys[43]));
+		assertEquals(ResultColumn.KEY_RESULT_COMMENT, keys[56]);
+		assertEquals(ResultDelimited.VALUE_RESULT_COMMENT, mapping.get(keys[56]));
+		assertEquals(ResultColumn.KEY_ANALYTICAL_PROCEDURE_ID, keys[66]);
+		assertEquals(ResultDelimited.VALUE_ANALYTICAL_PROCEDURE_ID, mapping.get(keys[66]));
+		assertEquals(ResultColumn.KEY_LAST_UPDATED, keys[79]);
+		assertEquals(ResultDelimited.VALUE_LAST_UPDATED, mapping.get(keys[79]));
+		assertEquals(ResultColumn.KEY_DATA_SOURCE, keys[80]);
+		assertEquals(ResultDelimited.VALUE_DATA_SOURCE, mapping.get(keys[80]));
 	}
 
 }

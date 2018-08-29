@@ -1,4 +1,4 @@
-package gov.usgs.cida.wqp.dao.streaming;
+package gov.usgs.cida.wqp.dao.streaming.result;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -40,15 +40,11 @@ public abstract class BaseResultStreamingTest extends FilteredResultDaoTest {
 	public static final BigDecimal[] STORET_1 = new BigDecimal[]{STORET_ID, BigDecimal.ONE};
 	public static final BigDecimal[] STORET_2 = new BigDecimal[]{STORET_ID, BigDecimal.valueOf(2)};
 	public static final BigDecimal[] STORET_3 = new BigDecimal[]{STORET_ID, BigDecimal.valueOf(3)};
-	public static final BigDecimal[] STORET_4 = new BigDecimal[]{STORET_ID, BigDecimal.valueOf(4)};
 	public static final BigDecimal[] STORET_5 = new BigDecimal[]{STORET_ID, BigDecimal.valueOf(5)};
 	public static final BigDecimal[] STORET_6 = new BigDecimal[]{STORET_ID, BigDecimal.valueOf(6)};
-	public static final BigDecimal[] STORET_7 = new BigDecimal[]{STORET_ID, BigDecimal.valueOf(7)};
 	public static final BigDecimal[] STORET_8 = new BigDecimal[]{STORET_ID, BigDecimal.valueOf(8)};
 	public static final BigDecimal[] STORET_9 = new BigDecimal[]{STORET_ID, BigDecimal.valueOf(9)};
-	public static final BigDecimal[] STORET_10 = new BigDecimal[]{STORET_ID, BigDecimal.TEN};
 	public static final BigDecimal[] STORET_11 = new BigDecimal[]{STORET_ID, BigDecimal.valueOf(11)};
-	public static final BigDecimal[] STORET_12 = new BigDecimal[]{STORET_ID, BigDecimal.valueOf(12)};
 	public static final BigDecimal[] STORET_13 = new BigDecimal[]{STORET_ID, BigDecimal.valueOf(13)};
 	public static final BigDecimal[] STORET_14 = new BigDecimal[]{STORET_ID, BigDecimal.valueOf(14)};
 	public static final BigDecimal[] STORET_15 = new BigDecimal[]{STORET_ID, BigDecimal.valueOf(15)};
@@ -153,31 +149,27 @@ public abstract class BaseResultStreamingTest extends FilteredResultDaoTest {
 		assertRow(results.get(31), STORET_40, expectedColumnCount);
 		assertRow(results.get(32), STORET_32, expectedColumnCount);
 		assertRow(results.get(33), STORET_38, expectedColumnCount);
-		assertRow(results.get(34), STORET_5, expectedColumnCount);
-		assertRow(results.get(35), STORET_6, expectedColumnCount);
-		assertRow(results.get(36), STORET_7, expectedColumnCount);
-		assertRow(results.get(37), STORET_8, expectedColumnCount);
-		assertRow(results.get(38), STORET_10, expectedColumnCount);
-		assertRow(results.get(39), STORET_14, expectedColumnCount);
-		assertRow(results.get(40), STORET_4, expectedColumnCount);
-		assertRow(results.get(41), STORET_9, expectedColumnCount);
-		assertRow(results.get(42), STORET_11, expectedColumnCount);
-		assertRow(results.get(43), STORET_12, expectedColumnCount);
-		assertRow(results.get(44), STORET_13, expectedColumnCount);
-		assertRow(results.get(45), STORET_45, expectedColumnCount);
-		assertRow(results.get(46), STORET_46, expectedColumnCount);
-		assertRow(results.get(47), STORET_47, expectedColumnCount);
-		assertRow(results.get(48), STORET_41, expectedColumnCount);
-		assertStoret42(expectedMap, results.get(49));
-		assertRow(results.get(50), STORET_43, expectedColumnCount);
-		assertRow(results.get(51), STORET_44, expectedColumnCount);
-		assertRow(results.get(52), STORET_2, expectedColumnCount);
-		assertRow(results.get(53), STORET_48, expectedColumnCount);
-		assertRow(results.get(54), STORET_49, expectedColumnCount);
-		assertRow(results.get(55), STORET_50, expectedColumnCount);
-		assertRow(results.get(56), STORET_1, expectedColumnCount);
-		assertRow(results.get(57), STORET_3, expectedColumnCount);
-		assertRow(results.get(58), BIODATA_42, expectedColumnCount);
+		assertRow(results.get(34), STORET_6, expectedColumnCount);
+		assertRow(results.get(35), STORET_13, expectedColumnCount);
+		assertRow(results.get(36), STORET_14, expectedColumnCount);
+		assertRow(results.get(37), STORET_5, expectedColumnCount);
+		assertRow(results.get(38), STORET_8, expectedColumnCount);
+		assertRow(results.get(39), STORET_9, expectedColumnCount);
+		assertRow(results.get(40), STORET_11, expectedColumnCount);
+		assertRow(results.get(41), STORET_45, expectedColumnCount);
+		assertRow(results.get(42), STORET_46, expectedColumnCount);
+		assertRow(results.get(43), STORET_47, expectedColumnCount);
+		assertRow(results.get(44), STORET_41, expectedColumnCount);
+		assertStoret42(expectedMap, results.get(45));
+		assertRow(results.get(46), STORET_43, expectedColumnCount);
+		assertRow(results.get(47), STORET_44, expectedColumnCount);
+		assertRow(results.get(48), STORET_2, expectedColumnCount);
+		assertRow(results.get(49), STORET_48, expectedColumnCount);
+		assertRow(results.get(50), STORET_49, expectedColumnCount);
+		assertRow(results.get(51), STORET_50, expectedColumnCount);
+		assertRow(results.get(52), STORET_1, expectedColumnCount);
+		assertRow(results.get(53), STORET_3, expectedColumnCount);
+		assertRow(results.get(54), BIODATA_42, expectedColumnCount);
 	}
 
 	public void analyticalMethodTest(NameSpace nameSpace) {
@@ -194,11 +186,11 @@ public abstract class BaseResultStreamingTest extends FilteredResultDaoTest {
 
 	public void avoidTest(NameSpace nameSpace) {
 		List<Map<String, Object>> results = avoidTest(nameSpace, Integer.valueOf(STORET_RESULT_COUNT));
-		assertContainsResult(results, STORET_1, STORET_2, STORET_3, STORET_4, STORET_5, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10,
-				STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_16, STORET_17, STORET_18, STORET_19, STORET_20,
-				STORET_21, STORET_22, STORET_23, STORET_24, STORET_25, STORET_26, STORET_27, STORET_28, STORET_29, STORET_30,
-				STORET_31, STORET_32, STORET_33, STORET_34, STORET_35, STORET_36, STORET_37, STORET_38, STORET_39, STORET_40,
-				STORET_41, STORET_42, STORET_43, STORET_44, STORET_45, STORET_46, STORET_47, STORET_48, STORET_49, STORET_50);
+		assertContainsResult(results, STORET_1, STORET_2, STORET_3, STORET_5, STORET_6, STORET_8, STORET_9, STORET_11, STORET_13, STORET_14,
+				STORET_15, STORET_16, STORET_17, STORET_18, STORET_19, STORET_20, STORET_21, STORET_22, STORET_23, STORET_24,
+				STORET_25, STORET_26, STORET_27, STORET_28, STORET_29, STORET_30, STORET_31, STORET_32, STORET_33, STORET_34,
+				STORET_35, STORET_36, STORET_37, STORET_38, STORET_39, STORET_40, STORET_41, STORET_42, STORET_43, STORET_44,
+				STORET_45, STORET_46, STORET_47, STORET_48, STORET_49, STORET_50);
 	}
 
 	public void characteristicNameTest(NameSpace nameSpace) {
@@ -214,81 +206,75 @@ public abstract class BaseResultStreamingTest extends FilteredResultDaoTest {
 	}
 
 	public void countryTest(NameSpace nameSpace) {
-		List<Map<String, Object>> results = countryTest(nameSpace, 33);
+		List<Map<String, Object>> results = countryTest(nameSpace, 29);
 		assertContainsResult(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, NWIS_4, NWIS_5, STORET_1, STORET_2,
-				STORET_3, STORET_4, STORET_5, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, STORET_11, STORET_12,
-				STORET_13, STORET_14, STORET_41, STORET_42, STORET_43, STORET_44, STORET_45, STORET_46, STORET_47, STORET_48,
-				STORET_49, STORET_50, BIODATA_42);
+				STORET_3, STORET_5, STORET_6, STORET_8, STORET_9, STORET_11, STORET_13, STORET_14, STORET_41, STORET_42,
+				STORET_43, STORET_44, STORET_45, STORET_46, STORET_47, STORET_48, STORET_49, STORET_50, BIODATA_42);
 	}
 
 	public void countyTest(NameSpace nameSpace) {
-		List<Map<String, Object>> results = countyTest(nameSpace, 32);
+		List<Map<String, Object>> results = countyTest(nameSpace, 28);
 		assertContainsResult(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, NWIS_4, NWIS_5, STORET_1, STORET_2,
-				STORET_3, STORET_4, STORET_5, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, STORET_11, STORET_12,
-				STORET_13, STORET_14, STORET_41, STORET_42, STORET_43, STORET_44, STORET_45, STORET_46, STORET_47, STORET_48,
-				STORET_49, STORET_50);
+				STORET_3, STORET_5, STORET_6, STORET_8, STORET_9, STORET_11, STORET_13, STORET_14, STORET_41, STORET_42,
+				STORET_43, STORET_44, STORET_45, STORET_46, STORET_47, STORET_48, STORET_49, STORET_50);
 	}
 
 	public void huc2Test(NameSpace nameSpace) {
-		List<Map<String, Object>> results = huc2Test(nameSpace, 23);
-		assertContainsResult(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, NWIS_4, NWIS_5, STORET_4, STORET_5,
-				STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14, STORET_41,
-				STORET_45, STORET_46, STORET_47);
+		List<Map<String, Object>> results = huc2Test(nameSpace, 19);
+		assertContainsResult(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, NWIS_4, NWIS_5, STORET_5, STORET_6,
+				STORET_8, STORET_9, STORET_11, STORET_13, STORET_14, STORET_41, STORET_45, STORET_46, STORET_47);
 	}
 
 	public void huc3Test(NameSpace nameSpace) {
-		List<Map<String, Object>> results = huc3Test(nameSpace, 23);
-		assertContainsResult(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, NWIS_4, NWIS_5, STORET_4, STORET_5,
-				STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14, STORET_41,
-				STORET_45, STORET_46, STORET_47);
+		List<Map<String, Object>> results = huc3Test(nameSpace, 19);
+		assertContainsResult(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, NWIS_4, NWIS_5, STORET_5, STORET_6,
+				STORET_8, STORET_9, STORET_11, STORET_13, STORET_14, STORET_41, STORET_45, STORET_46, STORET_47);
 	}
 
 	public void huc4Test(NameSpace nameSpace) {
-		List<Map<String, Object>> results = huc4Test(nameSpace, 16);
-		assertContainsResult(results, NWIS_1, NWIS_2, NWIS_3, NWIS_4, NWIS_5, STORET_4, STORET_5, STORET_6, STORET_7, STORET_8,
-				STORET_9, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14);
+		List<Map<String, Object>> results = huc4Test(nameSpace, 12);
+		assertContainsResult(results, NWIS_1, NWIS_2, NWIS_3, NWIS_4, NWIS_5, STORET_5, STORET_6, STORET_8, STORET_9, STORET_11,
+				STORET_13, STORET_14);
 	}
 
 	public void huc5Test(NameSpace nameSpace) {
-		List<Map<String, Object>> results = huc5Test(nameSpace, 16);
-		assertContainsResult(results, NWIS_1, NWIS_2, NWIS_3, NWIS_4, NWIS_5, STORET_4, STORET_5, STORET_6, STORET_7, STORET_8,
-				STORET_9, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14);
+		List<Map<String, Object>> results = huc5Test(nameSpace, 12);
+		assertContainsResult(results, NWIS_1, NWIS_2, NWIS_3, NWIS_4, NWIS_5, STORET_5, STORET_6, STORET_8, STORET_9, STORET_11,
+				STORET_13, STORET_14);
 	}
 
 	public void huc6Test(NameSpace nameSpace) {
-		List<Map<String, Object>> results = huc6Test(nameSpace, 15);
-		assertContainsResult(results, NWIS_1, NWIS_2, NWIS_4, NWIS_5, STORET_4, STORET_5, STORET_6, STORET_7, STORET_8, STORET_9,
-				STORET_10, STORET_11, STORET_12, STORET_13, STORET_14);
-	}
-
-	public void huc7Test(NameSpace nameSpace) {
-		List<Map<String, Object>> results = huc7Test(nameSpace, 15);
-		assertContainsResult(results, NWIS_1, NWIS_2, NWIS_4, NWIS_5, STORET_4, STORET_5, STORET_6, STORET_7, STORET_8, STORET_9,
-				STORET_10, STORET_11, STORET_12, STORET_13, STORET_14);
-	}
-
-	public void huc8Test(NameSpace nameSpace) {
-		List<Map<String, Object>> results = huc8Test(nameSpace, 11);
-		assertContainsResult(results, STORET_4, STORET_5, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, STORET_11, STORET_12, STORET_13,
+		List<Map<String, Object>> results = huc6Test(nameSpace, 11);
+		assertContainsResult(results, NWIS_1, NWIS_2, NWIS_4, NWIS_5, STORET_5, STORET_6, STORET_8, STORET_9, STORET_11, STORET_13,
 				STORET_14);
 	}
 
+	public void huc7Test(NameSpace nameSpace) {
+		List<Map<String, Object>> results = huc7Test(nameSpace, 11);
+		assertContainsResult(results, NWIS_1, NWIS_2, NWIS_4, NWIS_5, STORET_5, STORET_6, STORET_8, STORET_9, STORET_11, STORET_13,
+				STORET_14);
+	}
+
+	public void huc8Test(NameSpace nameSpace) {
+		List<Map<String, Object>> results = huc8Test(nameSpace, 7);
+		assertContainsResult(results, STORET_5, STORET_6, STORET_8, STORET_9, STORET_11, STORET_13, STORET_14);
+	}
+
 	public void huc10Test(NameSpace nameSpace) {
-		List<Map<String, Object>> results = huc10Test(nameSpace, 11);
-		assertContainsResult(results, STORET_4, STORET_5, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, STORET_11, STORET_12, STORET_13,
+		List<Map<String, Object>> results = huc10Test(nameSpace, 7);
+		assertContainsResult(results, STORET_5, STORET_6, STORET_8, STORET_9, STORET_11, STORET_13,
 				STORET_14);
 	}
 
 	public void huc12Test(NameSpace nameSpace) {
-		List<Map<String, Object>> results = huc12Test(nameSpace, 11);
-		assertContainsResult(results, STORET_4, STORET_5, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, STORET_11, STORET_12, STORET_13,
-				STORET_14);
+		List<Map<String, Object>> results = huc12Test(nameSpace, 7);
+		assertContainsResult(results, STORET_5, STORET_6, STORET_8, STORET_9, STORET_11, STORET_13, STORET_14);
 	}
 
 	public void nldiSitesTest(NameSpace nameSpace) {
-		List<Map<String, Object>> results = nldiSitesTest(nameSpace, 19);
-		assertContainsResult(results, STORET_1, STORET_2, STORET_4, STORET_5, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, STORET_11,
-				STORET_12, STORET_13, STORET_14, STORET_42, STORET_43, STORET_44, STORET_48, STORET_49, STORET_50);
+		List<Map<String, Object>> results = nldiSitesTest(nameSpace, 15);
+		assertContainsResult(results, STORET_1, STORET_2, STORET_5, STORET_6, STORET_8, STORET_9, STORET_11, STORET_13, STORET_14, STORET_42,
+				STORET_43, STORET_44, STORET_48, STORET_49, STORET_50);
 	}
 
 	public void nldiUrlTest(NameSpace nameSpace) {
@@ -296,11 +282,10 @@ public abstract class BaseResultStreamingTest extends FilteredResultDaoTest {
 	}
 
 	public void organizationTest(NameSpace nameSpace) {
-		List<Map<String, Object>> results = organizationTest(nameSpace, 32);
+		List<Map<String, Object>> results = organizationTest(nameSpace, 28);
 		assertContainsResult(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, NWIS_4, NWIS_5, STORET_1, STORET_2,
-				STORET_3, STORET_4, STORET_5, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, STORET_11, STORET_12,
-				STORET_13, STORET_14, STORET_41, STORET_42, STORET_43, STORET_44, STORET_45, STORET_46, STORET_47, STORET_48,
-				STORET_49, STORET_50);
+				STORET_3, STORET_5, STORET_6, STORET_8, STORET_9, STORET_11, STORET_13, STORET_14, STORET_41, STORET_42,
+				STORET_43, STORET_44, STORET_45, STORET_46, STORET_47, STORET_48, STORET_49, STORET_50);
 	}
 
 	public void projectTest(NameSpace nameSpace) {
@@ -310,13 +295,13 @@ public abstract class BaseResultStreamingTest extends FilteredResultDaoTest {
 	}
 
 	public void providersTest(NameSpace nameSpace) {
-		List<Map<String, Object>> results = providersTest(nameSpace, 58);
+		List<Map<String, Object>> results = providersTest(nameSpace, 54);
 		assertContainsResult(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, NWIS_4, NWIS_5, STORET_1, STORET_2,
-				STORET_3, STORET_4, STORET_5, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, STORET_11, STORET_12,
-				STORET_13, STORET_14, STORET_15, STORET_16, STORET_17, STORET_18, STORET_19, STORET_20, STORET_21, STORET_22,
-				STORET_23, STORET_24, STORET_25, STORET_26, STORET_27, STORET_28, STORET_29, STORET_30, STORET_31, STORET_32,
-				STORET_33, STORET_34, STORET_35, STORET_36, STORET_37, STORET_38, STORET_39, STORET_40, STORET_41, STORET_42,
-				STORET_43, STORET_44, STORET_45, STORET_46, STORET_47, STORET_48, STORET_49, STORET_50);
+				STORET_3, STORET_5, STORET_6, STORET_8, STORET_9, STORET_11, STORET_13, STORET_14, STORET_15, STORET_16,
+				STORET_17, STORET_18, STORET_19, STORET_20, STORET_21, STORET_22, STORET_23, STORET_24, STORET_25, STORET_26,
+				STORET_27, STORET_28, STORET_29, STORET_30, STORET_31, STORET_32, STORET_33, STORET_34, STORET_35, STORET_36,
+				STORET_37, STORET_38, STORET_39, STORET_40, STORET_41, STORET_42, STORET_43, STORET_44, STORET_45, STORET_46,
+				STORET_47, STORET_48, STORET_49, STORET_50);
 	}
 
 	public void resultTest(NameSpace nameSpace) {
@@ -324,23 +309,23 @@ public abstract class BaseResultStreamingTest extends FilteredResultDaoTest {
 	}
 
 	public void sampleMediaTest(NameSpace nameSpace) {
-		List<Map<String, Object>> results = sampleMediaTest(nameSpace, 57);
-		assertContainsResult(results, STEWARDS_1, STEWARDS_3, NWIS_1, NWIS_3, NWIS_4, NWIS_5, STORET_1, STORET_2, STORET_3, STORET_4,
-				STORET_5, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14,
-				STORET_15, STORET_16, STORET_17, STORET_18, STORET_19, STORET_20, STORET_21, STORET_22, STORET_23, STORET_24,
-				STORET_25, STORET_26, STORET_27, STORET_28, STORET_29, STORET_30, STORET_31, STORET_32, STORET_33, STORET_34,
-				STORET_35, STORET_36, STORET_37, STORET_38, STORET_39, STORET_40, STORET_41, STORET_42, STORET_43, STORET_44,
-				STORET_45, STORET_46, STORET_47, STORET_48, STORET_49, STORET_50, BIODATA_42);
+		List<Map<String, Object>> results = sampleMediaTest(nameSpace, 53);
+		assertContainsResult(results, STEWARDS_1, STEWARDS_3, NWIS_1, NWIS_3, NWIS_4, NWIS_5, STORET_1, STORET_2, STORET_3, STORET_5,
+				STORET_6, STORET_8, STORET_9, STORET_11, STORET_13, STORET_14, 	STORET_15, STORET_16, STORET_17, STORET_18,
+				STORET_19, STORET_20, STORET_21, STORET_22, STORET_23, STORET_24, STORET_25, STORET_26, STORET_27, STORET_28,
+				STORET_29, STORET_30, STORET_31, STORET_32, STORET_33, STORET_34, STORET_35, STORET_36, STORET_37, STORET_38,
+				STORET_39, STORET_40, STORET_41, STORET_42, STORET_43, STORET_44, STORET_45, STORET_46, STORET_47, STORET_48,
+				STORET_49, STORET_50, BIODATA_42);
 	}
 
 	public void startDateHiTest(NameSpace nameSpace) {
-		List<Map<String, Object>> results = startDateHiTest(nameSpace, 57);
-		assertContainsResult(results, STEWARDS_1, STEWARDS_3, NWIS_1, NWIS_3, NWIS_4, NWIS_5, STORET_1, STORET_2, STORET_3, STORET_4,
-				STORET_5, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14,
-				STORET_15, STORET_16, STORET_17, STORET_18, STORET_19, STORET_20, STORET_21, STORET_22, STORET_23, STORET_24,
-				STORET_25, STORET_26, STORET_27, STORET_28, STORET_29, STORET_30, STORET_31, STORET_32, STORET_33, STORET_34,
-				STORET_35, STORET_36, STORET_37, STORET_38, STORET_39, STORET_40, STORET_41, STORET_42, STORET_43, STORET_44,
-				STORET_45, STORET_46, STORET_47, STORET_48, STORET_49, STORET_50, BIODATA_42);
+		List<Map<String, Object>> results = startDateHiTest(nameSpace, 53);
+		assertContainsResult(results, STEWARDS_1, STEWARDS_3, NWIS_1, NWIS_3, NWIS_4, NWIS_5, STORET_1, STORET_2, STORET_3, STORET_5,
+				STORET_6, STORET_8, STORET_9, STORET_11, STORET_13, STORET_14, STORET_15, STORET_16, STORET_17, STORET_18,
+				STORET_19, STORET_20, STORET_21, STORET_22, STORET_23, STORET_24, STORET_25, STORET_26, STORET_27, STORET_28,
+				STORET_29, STORET_30, STORET_31, STORET_32, STORET_33, STORET_34, STORET_35, STORET_36, STORET_37, STORET_38,
+				STORET_39, STORET_40, STORET_41, STORET_42, STORET_43, STORET_44, STORET_45, STORET_46, STORET_47, STORET_48,
+				STORET_49, STORET_50, BIODATA_42);
 	}
 
 	public void startDateLoTest(NameSpace nameSpace) {
@@ -358,9 +343,9 @@ public abstract class BaseResultStreamingTest extends FilteredResultDaoTest {
 	}
 
 	public void siteIdLargeListTest(NameSpace nameSpace) {
-		List<Map<String, Object>> results = siteIdLargeListTest(nameSpace, 19);
-		assertContainsResult(results, STORET_1, STORET_2, STORET_4, STORET_5, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, STORET_11,
-				STORET_12, STORET_13, STORET_14, STORET_42, STORET_43, STORET_44, STORET_48, STORET_49, STORET_50);
+		List<Map<String, Object>> results = siteIdLargeListTest(nameSpace, 15);
+		assertContainsResult(results, STORET_1, STORET_2, STORET_5, STORET_6, STORET_8, STORET_9, STORET_11, STORET_13, STORET_14, STORET_42,
+				STORET_43, STORET_44, STORET_48, STORET_49, STORET_50);
 	}
 
 	public void siteUrlBaseTest(NameSpace nameSpace) {
@@ -368,23 +353,22 @@ public abstract class BaseResultStreamingTest extends FilteredResultDaoTest {
 	}
 
 	public void minActivitiesTest(NameSpace nameSpace) {
-		List<Map<String, Object>> results = minActivitiesTest(nameSpace, 55);
-		assertContainsResult(results, STEWARDS_1, STEWARDS_2, NWIS_1, NWIS_2, NWIS_4, NWIS_5, STORET_1, STORET_2, STORET_4, STORET_5,
-				STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14, STORET_15,
-				STORET_16, STORET_17, STORET_18, STORET_19, STORET_20, STORET_21, STORET_22, STORET_23, STORET_24, STORET_25,
-				STORET_26, STORET_27, STORET_28, STORET_29, STORET_30, STORET_31, STORET_32, STORET_33, STORET_34, STORET_35,
-				STORET_36, STORET_37, STORET_38, STORET_39, STORET_40, STORET_41, STORET_42, STORET_43, STORET_44,
-				STORET_45, STORET_46, STORET_47, STORET_48, STORET_49, STORET_50);
+		List<Map<String, Object>> results = minActivitiesTest(nameSpace, 51);
+		assertContainsResult(results, STEWARDS_1, STEWARDS_2, NWIS_1, NWIS_2, NWIS_4, NWIS_5, STORET_1, STORET_2, STORET_5, STORET_6,
+				STORET_8, STORET_9, STORET_11, STORET_13, STORET_14, STORET_15, STORET_16, STORET_17, STORET_18, STORET_19,
+				STORET_20, STORET_21, STORET_22, STORET_23, STORET_24, STORET_25, STORET_26, STORET_27, STORET_28, STORET_29,
+				STORET_30, STORET_31, STORET_32, STORET_33, STORET_34, STORET_35, STORET_36, STORET_37, STORET_38, STORET_39,
+				STORET_40, STORET_41, STORET_42, STORET_43, STORET_44, STORET_45, STORET_46, STORET_47, STORET_48, STORET_49,
+				STORET_50);
 	}
 
 	public void minResultsTest(NameSpace nameSpace) {
-		List<Map<String, Object>> results = minResultsTest(nameSpace, 53);
-		assertContainsResult(results, NWIS_1, NWIS_2, NWIS_4, NWIS_5, STORET_1, STORET_2, STORET_4, STORET_5, STORET_6, STORET_7,
-				STORET_8, STORET_9, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_16, STORET_17,
-				STORET_18, STORET_19, STORET_20, STORET_21, STORET_22, STORET_23, STORET_24, STORET_25, STORET_26, STORET_27,
-				STORET_28, STORET_29, STORET_30, STORET_31, STORET_32, STORET_33, STORET_34, STORET_35, STORET_36, STORET_37,
-				STORET_38, STORET_39, STORET_40, STORET_41, STORET_42, STORET_43, STORET_44, STORET_45, STORET_46, STORET_47,
-				STORET_48, STORET_49, STORET_50);
+		List<Map<String, Object>> results = minResultsTest(nameSpace, 49);
+		assertContainsResult(results, NWIS_1, NWIS_2, NWIS_4, NWIS_5, STORET_1, STORET_2, STORET_5, STORET_6, STORET_8, STORET_9,
+				STORET_11, STORET_13, STORET_14, STORET_15, STORET_16, STORET_17, STORET_18, STORET_19, STORET_20, STORET_21,
+				STORET_22, STORET_23, STORET_24, STORET_25, STORET_26, STORET_27, STORET_28, STORET_29, STORET_30, STORET_31,
+				STORET_32, STORET_33, STORET_34, STORET_35, STORET_36, STORET_37, STORET_38, STORET_39, STORET_40, STORET_41,
+				STORET_42, STORET_43, STORET_44, STORET_45, STORET_46, STORET_47, STORET_48, STORET_49, STORET_50);
 	}
 
 	public void pcodeTest(NameSpace nameSpace) {
@@ -394,21 +378,20 @@ public abstract class BaseResultStreamingTest extends FilteredResultDaoTest {
 	}
 
 	public void siteTypeTest(NameSpace nameSpace) {
-		List<Map<String, Object>> results = siteTypeTest(nameSpace, 58);
+		List<Map<String, Object>> results = siteTypeTest(nameSpace, 54);
 		assertContainsResult(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_4, NWIS_5, STORET_1, STORET_2, STORET_3,
-				STORET_4, STORET_5, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, STORET_11, STORET_12, STORET_13,
-				STORET_14, STORET_15, STORET_16, STORET_17, STORET_18, STORET_19, STORET_20, STORET_21, STORET_22, STORET_23,
-				STORET_24, STORET_25, STORET_26, STORET_27, STORET_28, STORET_29, STORET_30, STORET_31, STORET_32, STORET_33,
-				STORET_34, STORET_35, STORET_36, STORET_37, STORET_38, STORET_39, STORET_40, STORET_41, STORET_42, STORET_43,
-				STORET_44, STORET_45, STORET_46, STORET_47, STORET_48, STORET_49, STORET_50, BIODATA_42);
+				STORET_5, STORET_6, STORET_8, STORET_9, STORET_11, STORET_13, STORET_14, STORET_15, STORET_16, STORET_17,
+				STORET_18, STORET_19, STORET_20, STORET_21, STORET_22, STORET_23, STORET_24, STORET_25, STORET_26, STORET_27,
+				STORET_28, STORET_29, STORET_30, STORET_31, STORET_32, STORET_33, STORET_34, STORET_35, STORET_36, STORET_37,
+				STORET_38, STORET_39, STORET_40, STORET_41, STORET_42, STORET_43, STORET_44, STORET_45, STORET_46, STORET_47,
+				STORET_48, STORET_49, STORET_50, BIODATA_42);
 	}
 
 	public void stateTest(NameSpace nameSpace) {
-		List<Map<String, Object>> results = stateTest(nameSpace, 32);
+		List<Map<String, Object>> results = stateTest(nameSpace, 28);
 		assertContainsResult(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, NWIS_4, NWIS_5, STORET_1, STORET_2,
-				STORET_3, STORET_4, STORET_5, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, STORET_11, STORET_12,
-				STORET_13, STORET_14, STORET_41, STORET_42, STORET_43, STORET_44, STORET_45, STORET_46, STORET_47, STORET_48,
-				STORET_49, STORET_50);
+				STORET_3, STORET_5, STORET_6, STORET_8, STORET_9, STORET_11, STORET_13, STORET_14, STORET_41, STORET_42,
+				STORET_43, STORET_44, STORET_45, STORET_46, STORET_47, STORET_48, STORET_49, STORET_50);
 	}
 
 	public void subjectTaxonomicNameTest(NameSpace nameSpace) {
@@ -425,21 +408,19 @@ public abstract class BaseResultStreamingTest extends FilteredResultDaoTest {
 	//Result + Station_Sum
 
 	public void bboxTest(NameSpace nameSpace) {
-		List<Map<String, Object>> results = bboxTest(nameSpace, 31);
+		List<Map<String, Object>> results = bboxTest(nameSpace, 27);
 		assertContainsResult(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, NWIS_4, NWIS_5, STORET_1, STORET_2,
-				STORET_4, STORET_5, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, STORET_11, STORET_12, STORET_13,
-				STORET_14, STORET_41, STORET_42, STORET_43, STORET_44, STORET_45, STORET_46, STORET_47, STORET_48, STORET_49,
-				STORET_50);
+				STORET_5, STORET_6, STORET_8, STORET_9, STORET_11, STORET_13, STORET_14, STORET_41, STORET_42, STORET_43,
+				STORET_44, STORET_45, STORET_46, STORET_47, STORET_48, STORET_49, STORET_50);
 	}
 
 	public void withinTest(NameSpace nameSpace) {
-		List<Map<String, Object>> results = withinTest(nameSpace, 54);
+		List<Map<String, Object>> results = withinTest(nameSpace, 50);
 		assertContainsResult(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, NWIS_4, NWIS_5, STORET_1, STORET_2,
-				STORET_3, STORET_4, STORET_5, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, STORET_11, STORET_12,
-				STORET_13, STORET_14, STORET_15, STORET_16, STORET_17, STORET_18, STORET_19, STORET_20, STORET_21, STORET_22,
-				STORET_23, STORET_24, STORET_25, STORET_26, STORET_27, STORET_28, STORET_29, STORET_30, STORET_31, STORET_32,
-				STORET_33, STORET_34, STORET_35, STORET_36, STORET_37, STORET_38, STORET_39, STORET_40, STORET_42, STORET_43,
-				STORET_44, STORET_48, STORET_49, STORET_50);
+				STORET_3, STORET_5, STORET_6, STORET_8, STORET_9, STORET_11, STORET_13, STORET_14, STORET_15, STORET_16,
+				STORET_17, STORET_18, STORET_19, STORET_20, STORET_21, STORET_22, STORET_23, STORET_24, STORET_25, STORET_26,
+				STORET_27, STORET_28, STORET_29, STORET_30, STORET_31, STORET_32, STORET_33, STORET_34, STORET_35, STORET_36,
+				STORET_37, STORET_38, STORET_39, STORET_40, STORET_42, STORET_43, STORET_44, STORET_48, STORET_49, STORET_50);
 	}
 
 

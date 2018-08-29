@@ -1,4 +1,4 @@
-package gov.usgs.cida.wqp.dao.streaming;
+package gov.usgs.cida.wqp.dao.streaming.result;
 
 import java.util.Map;
 
@@ -12,17 +12,17 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 import gov.usgs.cida.wqp.CsvDataSetLoader;
 import gov.usgs.cida.wqp.dao.NameSpace;
 import gov.usgs.cida.wqp.dao.StreamingDao;
-import gov.usgs.cida.wqp.mapping.TestPcResultMap;
+import gov.usgs.cida.wqp.mapping.TestBioResultMap;
 import gov.usgs.cida.wqp.springinit.DBTestConfig;
 
 @SpringBootTest(webEnvironment=WebEnvironment.NONE,
 	classes={DBTestConfig.class, StreamingDao.class})
 @DatabaseSetup("classpath:/testData/csv/")
 @DbUnitConfiguration(dataSetLoader = CsvDataSetLoader.class)
-public class PCResultStreamingIT extends BaseResultStreamingTest {
+public class BioResultStreamingIT extends BaseResultStreamingTest {
 
-	protected NameSpace nameSpace = NameSpace.RESULT;
-	protected Map<String, Object> expectedMap = TestPcResultMap.PC_RESULT;
+	protected NameSpace nameSpace = NameSpace.BIOLOGICAL_RESULT;
+	protected Map<String, Object> expectedMap = TestBioResultMap.BIO_RESULT;
 
 	@Test
 	public void testHarness() {

@@ -4,6 +4,7 @@ import static gov.usgs.cida.wqp.mapping.xml.BaseWqx.WQX_MONITORING_LOCATION_IDEN
 import static gov.usgs.cida.wqp.mapping.xml.BaseWqx.WQX_ORGANIZATION_FORMAL_NAME;
 import static gov.usgs.cida.wqp.mapping.xml.BaseWqx.WQX_ORGANIZATION_IDENTIFIER;
 import static gov.usgs.cida.wqp.mapping.xml.BaseWqx.WQX_PROVIDER_NAME;
+import static gov.usgs.cida.wqp.mapping.xml.BaseWqx.WQX_LAST_UPDATED;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -20,6 +21,7 @@ public abstract class BaseDelimited {
 	public static final String VALUE_ORGANIZATION_IDENTIFIER  = WQX_ORGANIZATION_IDENTIFIER;
 	public static final String VALUE_ORGANIZATION_FORMAL_NAME = WQX_ORGANIZATION_FORMAL_NAME;
 	public static final String VALUE_MONITORING_LOCATION_IDENTIFIER = WQX_MONITORING_LOCATION_IDENTIFIER;
+	public static final String VALUE_LAST_UPDATED = WQX_LAST_UPDATED;
 
 	protected BaseDelimited() {
 	}
