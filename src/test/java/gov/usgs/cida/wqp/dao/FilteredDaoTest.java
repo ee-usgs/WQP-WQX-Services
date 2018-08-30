@@ -1,5 +1,6 @@
 package gov.usgs.cida.wqp.dao;
 
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.List;
@@ -8,7 +9,6 @@ import java.util.Map;
 import gov.usgs.cida.wqp.BaseIT;
 import gov.usgs.cida.wqp.mapping.Profile;
 import gov.usgs.cida.wqp.parameter.FilterParameters;
-
 
 public abstract class FilteredDaoTest extends BaseIT {
 
@@ -378,4 +378,10 @@ public abstract class FilteredDaoTest extends BaseIT {
 
 	protected abstract void assertSiteUrlBase(Map<String, Object> row);
 
+	protected void assertUrl(String columnName, Map<String, Object> row) {
+		Object url = row.get(columnName);
+		if (null != url) {
+			assertTrue(columnName + "is incorrect: " + url, url.toString().startsWith(getSiteUrlBase()));
+		}
+	}
 }

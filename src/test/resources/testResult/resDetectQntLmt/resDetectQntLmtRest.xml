@@ -17,7 +17,7 @@
 				</ResultDescription>
 				<ResultLabInformation>
 					<ResultDetectionQuantitationLimit>
-						<DetectionQuantitationLimitTypeName>Reporting limit</DetectionQuantitationLimitTypeName>
+						<DetectionQuantitationLimitTypeName>detectionLimitDesc</DetectionQuantitationLimitTypeName>
 						<DetectionQuantitationLimitMeasure>
 							<MeasureValue>39</MeasureValue>
 							<MeasureUnitCode>cfu/100ml</MeasureUnitCode>

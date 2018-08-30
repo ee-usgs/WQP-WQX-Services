@@ -30,6 +30,8 @@ public enum NameSpace {
 	BIOLOGICAL_RESULT ("bioResult", Parameters.MIN_RESULTS),
 	NARROW_RESULT ("narrowResult", Parameters.MIN_RESULTS),
 	RESULT_PHYS_CHEM ("resultPhysChem", Parameters.MIN_RESULTS),
+	RESULT_PRIMARY("resultPrimary", Parameters.MIN_RESULTS),
+	RESULT_BROAD("resultBroad", Parameters.MIN_RESULTS),
 
 	RES_DETECT_QNT_LMT ("resDetectQntLmt", null),
 

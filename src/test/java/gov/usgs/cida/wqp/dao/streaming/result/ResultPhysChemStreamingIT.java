@@ -12,7 +12,7 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 import gov.usgs.cida.wqp.CsvDataSetLoader;
 import gov.usgs.cida.wqp.dao.NameSpace;
 import gov.usgs.cida.wqp.dao.StreamingDao;
-import gov.usgs.cida.wqp.mapping.TestResultPhysChemMap;
+import gov.usgs.cida.wqp.mapping.TestResultMap;
 import gov.usgs.cida.wqp.springinit.DBTestConfig;
 
 @SpringBootTest(webEnvironment=WebEnvironment.NONE,
@@ -22,7 +22,7 @@ classes={DBTestConfig.class, StreamingDao.class})
 public class ResultPhysChemStreamingIT  extends BaseResultStreamingTest {
 
 	protected NameSpace nameSpace = NameSpace.RESULT_PHYS_CHEM;
-	protected Map<String, Object> expectedMap = TestResultPhysChemMap.PHYS_CHEM;
+	protected Map<String, Object> expectedMap = TestResultMap.RESULT_PHYS_CHEM;
 
 	@Test
 	public void testHarness() {
@@ -74,7 +74,9 @@ public class ResultPhysChemStreamingIT  extends BaseResultStreamingTest {
 
 	@Override
 	protected void assertSiteUrlBase(Map<String, Object> row) {
-		// Nothing to do here
+		assertResDetectQntLmtUrl(row);
+		assertLabSamplePrepUrl(row);
+		assertResultFileUrl(row);
 	}
 
 }

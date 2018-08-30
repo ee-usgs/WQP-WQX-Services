@@ -816,7 +816,7 @@ public abstract class BaseCountDaoTest extends FilteredStationDaoTest {
 
 	@Override
 	protected void assertSiteUrlBase(Map<String, Object> row) {
-		// Nothing to do here
+		// Nothing to do here - The site.url.base is never used on a count.
 	}
 
 }

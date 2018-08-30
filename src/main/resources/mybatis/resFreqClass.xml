@@ -9,4 +9,18 @@
         prime.fcdsc_upper_bound
     </sql>
 
+    <sql id="extendedColumns">
+        prime.frequency_class_code_1,
+        prime.frequency_class_code_2,
+        prime.frequency_class_code_3,
+        prime.frequency_class_unit_1,
+        prime.frequency_class_unit_2,
+        prime.frequency_class_unit_3,
+        prime.frequency_class_lower_bound_1,
+        prime.frequency_class_lower_bound_2,
+        prime.frequency_class_lower_bound_3,
+        prime.frequency_class_upper_bound_1,
+        prime.frequency_class_upper_bound_2,
+        prime.frequency_class_upper_bound_3
+    </sql>
 </mapper>
