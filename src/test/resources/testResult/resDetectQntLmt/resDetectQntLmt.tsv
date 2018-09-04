@@ -13,7 +13,7 @@ USGS-WI	USGS Wisconsin Water Science Center	activityNwis	USGS-05425700	NWIS-4		C
 USGS-WI	USGS Wisconsin Water Science Center	activityNwis	USGS-05425700	NWIS-4		Daily detection limit	12	#/100ml	NWIS
 USGS-WI	USGS Wisconsin Water Science Center	activityNwis	USGS-05425700	NWIS-4		Lower limit of detection	13	cfu/100ml	NWIS
 USGS-WI	USGS Wisconsin Water Science Center	activityNwis	USGS-05425700	NWIS-5		Blank-adjusted method detect limit	14	#/100ml	NWIS
-USGS-WI	USGS Wisconsin Water Science Center	activityNwis	USGS-05425700	NWIS-2		Reporting limit	15	#/100ml	NWIS
+USGS-WI	USGS Wisconsin Water Science Center	activityNwis	USGS-05425700	NWIS-2		detectionLimitDesc	15	#/100ml	NWIS
 USGS-WI	USGS Wisconsin Water Science Center	activityNwis	USGS-431925089002701	NWIS-3		Sample-Specific Quantitation Limit	16	#/100ml	NWIS
 21NYDECA_WQX	New York State DEC Division of Water	21NYDECA_WQX-020002	21NYDECA_WQX-ONTARIO-02	STORET-27	Total volatile solids	Instrument Detection Level	56	#/100ml	STORET
 21NYDECA_WQX	New York State DEC Division of Water	21NYDECA_WQX-020206	21NYDECA_WQX-ONTARIO-02	STORET-15	1,2,3,4,7,8-Hexachlorodibenzofuran	Sample-Specific Quantitation Limit	40	#/100ml	STORET
@@ -45,7 +45,7 @@ USGS-WI	USGS Wisconsin Water Science Center	activityNwis	USGS-431925089002701	NW
 21NYDECA_WQX	New York State DEC Division of Water	21NYDECA_WQX-020206	21NYDECA_WQX-ONTARIO-02	STORET-40	Heptachlorodibenzo-p-dioxin	Instrument Detection Level	69	#/100ml	STORET
 21NYDECA_WQX	New York State DEC Division of Water	21NYDECA_WQX-020610	21NYDECA_WQX-ONTARIO-02	STORET-32	Hexachlorodibenzo-p-dioxin	Instrument Detection Level	61	cfu/100ml	STORET
 21NYDECA_WQX	New York State DEC Division of Water	21NYDECA_WQX-0210EN	21NYDECA_WQX-ONTARIO-02	STORET-38	Pentachlorobenzene	Instrument Detection Level	65	#/100ml	STORET
-WIDNR_WQX	Wisconsin Department of Natural Resources	WIDNR_WQX-7788475	WIDNR_WQX-113086	STORET-5	Fecal Streptococcus Group Bacteria	Reporting limit	39	cfu/100ml	STORET
+WIDNR_WQX	Wisconsin Department of Natural Resources	WIDNR_WQX-7788475	WIDNR_WQX-113086	STORET-5	Fecal Streptococcus Group Bacteria	detectionLimitDesc	39	cfu/100ml	STORET
 WIDNR_WQX	Wisconsin Department of Natural Resources	WIDNR_WQX-7788475	WIDNR_WQX-113086	STORET-6	Fecal Coliform	Drinking Water Maximum	29	cfu/100ml	STORET
 WIDNR_WQX	Wisconsin Department of Natural Resources	WIDNR_WQX-7788475	WIDNR_WQX-113086	STORET-8	Fecal Coliform	Sample-specific min detect conc	31	cfu/100ml	STORET
 WIDNR_WQX	Wisconsin Department of Natural Resources	WIDNR_WQX-7788480	WIDNR_WQX-113086	STORET-9	Cloud cover	Interim Reporting Level	32	#/100ml	STORET

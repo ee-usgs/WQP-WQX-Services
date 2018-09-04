@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="resultBroad">
+
+    <sql id="baseColumns">
+        <include refid="bioResult.baseColumns"/>,
+        prime.volt_name voltinism_name,
+        prime.method_specification_name method_speciation_name,
+        prime.project_name,
+        prime.monitoring_location_name station_name,
+        prime.analytical_method,
+        <include refid="result.labSamplePrepUrl"/>,
+        <include refid="result.resDetectQntLmtUrl"/>,
+        <include refid="result.resultObjectColumns"/>,
+        prime.last_updated
+    </sql>
+
+    <select id="select" resultType="java.util.LinkedHashMap" fetchSize="500">
+        <include refid="result.pre"/>
+        select <include refid="resultBroad.baseColumns"/>,
+               <include refid="resFreqClass.extendedColumns"/>
+        <include refid="result.post"/>
+    </select>
+
+    <select id="count" resultType="java.util.LinkedHashMap">
+        <include refid="result.resultCount"/>
+    </select>
+
+</mapper>

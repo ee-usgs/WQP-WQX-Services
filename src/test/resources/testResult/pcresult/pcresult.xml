@@ -403,8 +403,8 @@
                     <ResultDetectionQuantitationLimit>
                         <DetectionQuantitationLimitTypeName>detectionLimitDesc</DetectionQuantitationLimitTypeName>
                         <DetectionQuantitationLimitMeasure>
-                            <MeasureValue>detectionLimit</MeasureValue>
-                            <MeasureUnitCode>detectionLimitUnit</MeasureUnitCode>
+                            <MeasureValue>39</MeasureValue>
+                            <MeasureUnitCode>cfu/100ml</MeasureUnitCode>
                         </DetectionQuantitationLimitMeasure>
                     </ResultDetectionQuantitationLimit>
                 </ResultLabInformation>

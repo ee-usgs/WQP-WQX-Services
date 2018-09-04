@@ -23,6 +23,14 @@ import gov.usgs.cida.wqp.BaseIT;
 
 public class TestResDetectQntLmtMap {
 
+	public static final Map<String, Object> BASE_RES_DETECT_QNT_LMT;
+	static {
+		BASE_RES_DETECT_QNT_LMT = new LinkedHashMap<String, Object>();
+		BASE_RES_DETECT_QNT_LMT.put(KEY_DETECTION_LIMIT, "39");
+		BASE_RES_DETECT_QNT_LMT.put(KEY_DETECTION_LIMIT_UNIT, "cfu/100ml");
+		BASE_RES_DETECT_QNT_LMT.put(KEY_DETECTION_LIMIT_DESC, "detectionLimitDesc");
+	}
+
 	public static final Map<String, Object> RES_DETECT_QNT_LMT;
 	static {
 		RES_DETECT_QNT_LMT = new LinkedHashMap<String, Object>();
@@ -36,9 +44,7 @@ public class TestResDetectQntLmtMap {
 		RES_DETECT_QNT_LMT.put(KEY_ORGANIZATION_NAME, "Wisconsin Department of Natural Resources");
 		RES_DETECT_QNT_LMT.put(KEY_EXTERNAL_RESULT_ID, STORET + "-5");
 		RES_DETECT_QNT_LMT.put(KEY_DETECTION_LIMIT_ID, BigDecimal.valueOf(7439));
-		RES_DETECT_QNT_LMT.put(KEY_DETECTION_LIMIT, "39");
-		RES_DETECT_QNT_LMT.put(KEY_DETECTION_LIMIT_UNIT, "cfu/100ml");
-		RES_DETECT_QNT_LMT.put(KEY_DETECTION_LIMIT_DESC, "Reporting limit");
+		RES_DETECT_QNT_LMT.putAll(BASE_RES_DETECT_QNT_LMT);
 	}
 
 	private TestResDetectQntLmtMap() {

@@ -12,7 +12,7 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 import gov.usgs.cida.wqp.CsvDataSetLoader;
 import gov.usgs.cida.wqp.dao.NameSpace;
 import gov.usgs.cida.wqp.dao.StreamingDao;
-import gov.usgs.cida.wqp.mapping.TestPcResultMap;
+import gov.usgs.cida.wqp.mapping.TestResultMap;
 import gov.usgs.cida.wqp.springinit.DBTestConfig;
 
 @SpringBootTest(webEnvironment=WebEnvironment.NONE,
@@ -22,7 +22,7 @@ import gov.usgs.cida.wqp.springinit.DBTestConfig;
 public class PCResultStreamingIT extends BaseResultStreamingTest {
 
 	protected NameSpace nameSpace = NameSpace.RESULT;
-	protected Map<String, Object> expectedMap = TestPcResultMap.PC_RESULT;
+	protected Map<String, Object> expectedMap = TestResultMap.PC_RESULT;
 
 	@Test
 	public void testHarness() {

@@ -2,13 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="bioResult">
 
+    <sql id="baseColumns">
+        <include refid="activity.extendedColumns"/>,
+        <include refid="result.extendedColumns"/>,
+        <include refid="resDetectQntLmt.baseColumns"/>,
+        <include refid="labSamplePrep.baseColumns"/>
+    </sql>
+
     <select id="select" resultType="java.util.LinkedHashMap" fetchSize="500">
         <include refid="result.pre"/>
-               <include refid="activity.baseColumns"/>,
-               <include refid="narrowResult.baseColumns"/>,
-               <include refid="resFreqClass.baseColumns"/>,
-               <include refid="resDetectQntLmt.baseColumns"/>,
-               <include refid="labSamplePrep.baseColumns"/>
+        select <include refid="bioResult.baseColumns"/>,
+               prime.volt_name,
+               prime.method_specification_name,
+        <include refid="resFreqClass.baseColumns"/>
         <include refid="result.post"/>
     </select>
 

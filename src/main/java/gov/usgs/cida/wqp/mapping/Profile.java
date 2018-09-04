@@ -26,6 +26,8 @@ public enum Profile {
 	PC_RESULT ("pcresult", "result", NameSpace.RESULT),
 	NARROW_RESULT ("narrowResult", "narrowresult", NameSpace.NARROW_RESULT),
 	RESULT_PHYS_CHEM ("resultPhysChem", "resultphyschem", NameSpace.RESULT_PHYS_CHEM),
+	RESULT_PRIMARY ("resultPrimary", "resultprimary", NameSpace.RESULT_PRIMARY),
+	RESULT_BROAD ("resultBroad", "resultbroad", NameSpace.RESULT_BROAD),
 
 	RES_DETECT_QNT_LMT ("resDetectQntLmt", "resdetectqntlmt", NameSpace.RES_DETECT_QNT_LMT);
 

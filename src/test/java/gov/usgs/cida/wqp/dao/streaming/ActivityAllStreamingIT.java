@@ -1,7 +1,6 @@
 package gov.usgs.cida.wqp.dao.streaming;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 import java.util.Map;
@@ -16,7 +15,6 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 import gov.usgs.cida.wqp.CsvDataSetLoader;
 import gov.usgs.cida.wqp.dao.NameSpace;
 import gov.usgs.cida.wqp.dao.StreamingDao;
-import gov.usgs.cida.wqp.mapping.ActivityColumn;
 import gov.usgs.cida.wqp.mapping.Profile;
 import gov.usgs.cida.wqp.mapping.TestActivityMap;
 import gov.usgs.cida.wqp.mapping.TestResultHandler;
@@ -100,10 +98,9 @@ public class ActivityAllStreamingIT extends BaseActivityStreamingTest {
 
 	@Override
 	protected void assertSiteUrlBase(Map<String, Object> row) {
-		super.assertSiteUrlBase(row);
-		if (null != row.get(ActivityColumn.KEY_ACTIVITY_FILE_URL)) {
-			assertTrue("ActivityFileURL incorrect", row.get(ActivityColumn.KEY_ACTIVITY_FILE_URL).toString().startsWith("http://siteUrlBase/"));
-		}
+		assertActivityMetricURL(row);
+		assertActivityFileURL(row);
+		assertActivityGroupURL(row);
 	}
 
 }

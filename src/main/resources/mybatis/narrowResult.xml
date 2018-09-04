@@ -3,28 +3,22 @@
 <mapper namespace="narrowResult">
 
     <sql id="baseColumns">
-        prime.result_id, prime.data_source || '-' || prime.result_id external_result_id, prime.res_data_logger_line, prime.result_detection_condition_tx, prime.method_specification_name,
-        prime.characteristic_name, prime.characteristic_type,
-        prime.sample_fraction_type, prime.result_measure_value, prime.result_unit, prime.result_meas_qual_code, prime.result_value_status, prime.statistic_type, prime.result_value_type,
-        prime.weight_basis_type, prime.duration_basis, prime.temperature_basis_level, prime.particle_size, prime.precision, prime.res_measure_bias, prime.res_measure_conf_interval,
-        prime.res_measure_upper_conf_limit, prime.res_measure_lower_conf_limit, prime.result_comment, prime.p_code, prime.result_depth_meas_value, prime.result_depth_meas_unit_code,
-        prime.result_depth_alt_ref_pt_txt, prime.res_sampling_point_name, prime.biological_intent, prime.res_bio_individual_id, prime.sample_tissue_taxonomic_name,
-        prime.unidentifiedspeciesidentifier, prime.sample_tissue_anatomy_name, prime.res_group_summary_ct_wt, prime.res_group_summary_ct_wt_unit, prime.cell_form_name,
-        prime.cell_shape_name, prime.habit_name, prime.volt_name, prime.rtdet_pollution_tolerance, prime.rtdet_pollution_tolernce_scale, prime.rtdet_trophic_level,
-        prime.rtfgrp_functional_feeding_grp, prime.taxon_citation_title, prime.taxon_citation_creator, prime.taxon_citation_subject, prime.taxon_citation_publisher,
-        prime.taxon_citation_date, prime.taxon_citation_id, prime.analytical_procedure_id,
-        prime.analytical_procedure_source, prime.analytical_method_name, prime.anlmth_qual_type, prime.analytical_method_citation, prime.lab_name, prime.analysis_start_date,
-        prime.analysis_start_time, prime.analysis_start_timezone, prime.analysis_end_date, prime.analysis_end_time, prime.analysis_end_timezone, prime.rlcom_cd, prime.lab_remark,
-        prime.res_lab_accred_yn, prime.res_lab_accred_authority, prime.res_taxonomist_accred_yn, prime.res_taxonomist_accred_authorty
+        <include refid="station.baseColumns"/>,
+        prime.activity,
+        to_char(prime.event_date, 'yyyy-mm-dd') event_date,
+        prime.activity_start_time,
+        prime.act_start_time_zone,
+        <include refid="result.extendedColumns"/>,
+        prime.volt_name,
+        prime.analytical_method,
+        <include refid="result.resDetectQntLmtUrl"/>,
+        <include refid="result.labSamplePrepUrl"/>
     </sql>
 
     <select id="select" resultType="java.util.LinkedHashMap" fetchSize="500">
         <include refid="result.pre"/>
-               <include refid="activity.baseColumns"/>,
-               <include refid="narrowResult.baseColumns"/>,
-               prime.analytical_method,
-        <include refid="result.labSamplePrepUrl"/>,
-        <include refid="result.resDetectQntLmtUrl"/>
+        select <include refid="narrowResult.baseColumns"/>,
+               prime.method_specification_name
         <include refid="result.post"/>
     </select>
 

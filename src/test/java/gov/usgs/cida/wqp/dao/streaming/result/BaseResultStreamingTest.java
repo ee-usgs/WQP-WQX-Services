@@ -474,4 +474,15 @@ public abstract class BaseResultStreamingTest extends FilteredResultDaoTest {
 		return handler.getResults();
 	}
 
+	protected void assertResDetectQntLmtUrl(Map<String, Object> row) {
+		assertUrl(ResultColumn.KEY_RES_DETECT_QNT_LMT_URL, row);
+	}
+
+	protected void assertLabSamplePrepUrl(Map<String, Object> row) {
+		assertUrl(ResultColumn.KEY_LAB_SAMPLE_PREP_URL, row);
+	}
+
+	protected void assertResultFileUrl(Map<String, Object> row) {
+		assertUrl(ResultColumn.KEY_RESULT_FILE_URL, row);
+	}
 }

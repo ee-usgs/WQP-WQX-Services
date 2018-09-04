@@ -2,11 +2,83 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="result">
 
+    <sql id="baseColumns">
+        prime.result_id,
+        prime.result_detection_condition_tx,
+        prime.characteristic_name,
+        prime.characteristic_type,
+        prime.sample_fraction_type,
+        prime.result_measure_value,
+        prime.result_unit,
+        prime.result_meas_qual_code,
+        prime.result_value_status,
+        prime.statistic_type,
+        prime.result_value_type,
+        prime.weight_basis_type,
+        prime.duration_basis,
+        prime.temperature_basis_level,
+        prime.particle_size,
+        prime.precision,
+        prime.result_comment,
+        prime.p_code,
+        prime.result_depth_meas_value,
+        prime.result_depth_meas_unit_code,
+        prime.result_depth_alt_ref_pt_txt,
+        prime.sample_tissue_taxonomic_name,
+        prime.sample_tissue_anatomy_name,
+        prime.analytical_procedure_id,
+        prime.analytical_procedure_source,
+        prime.analytical_method_name,
+        prime.analytical_method_citation,
+        prime.lab_name,
+        prime.analysis_start_date,
+        prime.lab_remark
+    </sql>
+
+    <sql id="extendedColumns">
+        <include refid="result.baseColumns"/>,
+        <include refid="result.externalResultId"/>,
+        prime.res_data_logger_line,
+        prime.res_measure_bias,
+        prime.res_measure_conf_interval,
+        prime.res_measure_upper_conf_limit,
+        prime.res_measure_lower_conf_limit,
+        prime.res_sampling_point_name,
+        prime.biological_intent,
+        prime.res_bio_individual_id,
+        prime.unidentifiedspeciesidentifier,
+        prime.res_group_summary_ct_wt,
+        prime.res_group_summary_ct_wt_unit,
+        prime.cell_form_name,
+        prime.cell_shape_name,
+        prime.habit_name,
+        prime.rtdet_pollution_tolerance,
+        prime.rtdet_pollution_tolernce_scale,
+        prime.rtdet_trophic_level,
+        prime.rtfgrp_functional_feeding_grp,
+        prime.taxon_citation_title,
+        prime.taxon_citation_creator,
+        prime.taxon_citation_subject,
+        prime.taxon_citation_publisher,
+        prime.taxon_citation_date,
+        prime.taxon_citation_id,
+        prime.anlmth_qual_type,
+        prime.analysis_start_time,
+        prime.analysis_start_timezone,
+        prime.analysis_end_date,
+        prime.analysis_end_time,
+        prime.analysis_end_timezone,
+        prime.rlcom_cd,
+        prime.res_lab_accred_yn,
+        prime.res_lab_accred_authority,
+        prime.res_taxonomist_accred_yn,
+        prime.res_taxonomist_accred_authorty
+    </sql>
+
     <sql id="pre">
         <if test="minactivities != null or minresults != null">
             select * from (
         </if>
-        select <include refid="base.baseColumns"/>,
     </sql>
 
     <sql id="post">
@@ -53,5 +125,11 @@
 
     <sql id="externalResultId">
         prime.data_source || '-' ||prime.result_id external_result_id
+    </sql>
+
+    <sql id="resultObjectColumns">
+        prime.result_object_name,
+        prime.result_object_type,
+        nvl2(prime.result_file_url, #{siteUrlBase,jdbcType=VARCHAR} || '/' || prime.result_file_url, null) result_file_url
     </sql>
 </mapper>

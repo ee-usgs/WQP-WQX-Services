@@ -93,4 +93,9 @@ public class ActivityStreamingIT extends BaseActivityStreamingTest {
 		return handler.getResults();
 	}
 
+	@Override
+	protected void assertSiteUrlBase(Map<String, Object> row) {
+		assertActivityMetricURL(row);
+	}
+
 }
