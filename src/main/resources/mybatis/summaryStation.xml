@@ -23,12 +23,12 @@
     
     <sql id="selectSummaryByYear">
         <choose>
-            <when test="summaryYears == null or summaryYears.equalsIgnoreCase('all')"><include refid="selectSummaryAllYears" /></when>
+            <when test="summaryYears == null or summaryYears.equalsIgnoreCase('all')"><include refid="selectSummaryAllMonths" /></when>
             <otherwise>
                 <choose>
                     <when test="summaryYears.equalsIgnoreCase('1')"><include refid="selectSummary12Months" /></when>
                     <when test="summaryYears.equalsIgnoreCase('5')"><include refid="selectSummary60Months" /></when>
-                    <otherwise><include refid="selectSummaryAllYears" /></otherwise>
+                    <otherwise><include refid="selectSummaryAllMonths" /></otherwise>
                 </choose>
             </otherwise>
         </choose>
@@ -80,7 +80,11 @@
                 result_count, 
                 summary_past_12_months, 
                 summary_past_60_months, 
-                summary_all_months
+                summary_all_months,
+                activity_count_past_12_months,
+                activity_count_past_60_months,
+                result_count_past_12_months,
+                result_count_past_60_months
             from station_sum
             ) filter
         on prime.station_id = filter.station_id and
