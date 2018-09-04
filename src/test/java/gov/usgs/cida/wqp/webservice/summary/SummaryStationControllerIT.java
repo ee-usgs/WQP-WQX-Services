@@ -13,13 +13,8 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 
 import gov.usgs.cida.wqp.Application;
-import static gov.usgs.cida.wqp.BaseTest.BIODATA_SITE_COUNT_GEOM;
 import static gov.usgs.cida.wqp.BaseTest.GEOJSON;
 import static gov.usgs.cida.wqp.BaseTest.GEOJSON_AND_ZIP;
-import static gov.usgs.cida.wqp.BaseTest.NWIS_SITE_COUNT;
-import static gov.usgs.cida.wqp.BaseTest.STEWARDS_SITE_COUNT;
-import static gov.usgs.cida.wqp.BaseTest.STORET_SITE_COUNT;
-import static gov.usgs.cida.wqp.BaseTest.TOTAL_SITE_COUNT_GEOM;
 import gov.usgs.cida.wqp.ColumnSensingFlatXMLDataSetLoader;
 import gov.usgs.cida.wqp.dao.summary.SummaryStationStreamingIT;
 import gov.usgs.cida.wqp.mapping.Profile;

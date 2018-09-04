@@ -3,16 +3,32 @@
 
 <mapper namespace="summaryStation">
 	
+    <sql id="selectSummaryAllMonths">
+        TO_CHAR(summary_all_months) summary_all_months,
+        nvl(filter.activity_count,0) activity_count,
+        nvl(filter.result_count,0) result_count
+    </sql>
+    
+    <sql id="selectSummary12Months">
+        TO_CHAR(summary_past_12_months) summary_past_12_months,
+        nvl(filter.activity_count_past_12_months,0) activity_count,
+        nvl(filter.result_count_past_12_months,0) result_count
+    </sql>
+    
+    <sql id="selectSummary60Months">
+        TO_CHAR(summary_past_60_months) summary_past_60_months,
+        nvl(filter.activity_count_past_60_months,0) activity_count,
+        nvl(filter.result_count_past_60_months,0) result_count
+    </sql>
+    
     <sql id="selectSummaryByYear">
         <choose>
-            <when test="summaryYears == null or summaryYears.equalsIgnoreCase('all')">
-                TO_CHAR(summary_all_months) summary_all_months
-            </when>
+            <when test="summaryYears == null or summaryYears.equalsIgnoreCase('all')"><include refid="selectSummaryAllMonths" /></when>
             <otherwise>
                 <choose>
-                    <when test="summaryYears.equalsIgnoreCase('1')">TO_CHAR(summary_past_12_months) summary_past_12_months</when>
-                    <when test="summaryYears.equalsIgnoreCase('5')">TO_CHAR(summary_past_60_months) summary_past_60_months</when>
-                    <otherwise>TO_CHAR(summary_all_months) summary_all_months</otherwise>
+                    <when test="summaryYears.equalsIgnoreCase('1')"><include refid="selectSummary12Months" /></when>
+                    <when test="summaryYears.equalsIgnoreCase('5')"><include refid="selectSummary60Months" /></when>
+                    <otherwise><include refid="selectSummaryAllMonths" /></otherwise>
                 </choose>
             </otherwise>
         </choose>
@@ -50,8 +66,6 @@
         TO_CHAR(prime.geom.sdo_point.x,'FM990.0000000') longitude,
         prime.station_type_name,
         prime.huc_8,
-        nvl(filter.activity_count,0) activity_count,
-        nvl(filter.result_count,0) result_count,
         state.description_with_out_country state_name,
         county.description_wo_country_state county_name,
         <include refid="selectSummaryByYear" />
@@ -66,7 +80,11 @@
                 result_count, 
                 summary_past_12_months, 
                 summary_past_60_months, 
-                summary_all_months
+                summary_all_months,
+                activity_count_past_12_months,
+                activity_count_past_60_months,
+                result_count_past_12_months,
+                result_count_past_60_months
             from station_sum
             ) filter
         on prime.station_id = filter.station_id and
