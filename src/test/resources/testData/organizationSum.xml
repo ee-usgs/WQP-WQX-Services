@@ -1,0 +1,348 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+    <organization_sum 
+        DATA_SOURCE_ID="1"
+        DATA_SOURCE="STORET"
+        ORGANIZATION_ID="605"
+        ORGANIZATION="WIDNR_WQX"
+        ORGANIZATION_NAME="Wisconsin Department of Natural Resources"
+        LAST_RESULT="24-JUN-18"
+        TOTAL_MONITORING_LOCATIONS="500"
+        TOTAL_ACTIVITIES="25000"
+        ALL_TIME_SUMMARY="{
+            `year`: 2018,
+            `start`: `01-01-2018`,
+            `end`: `08-21-2018`,
+            `activityCount`: 50,
+            `resultCount`: 5400,
+            `monitoringLocationsSampled`: 25,
+            `characteristicGroupResultCount`: {
+                `Inorganics, Minor, Non-metals`: 1,
+                `Microbiological`: 6,
+                `Not Assigned`: 3,
+                `Nutrient`: 28,
+                `Organics, Other`: 7,
+                `Physical`: 18
+            },
+            `characteristicNameSummary`: [
+                {
+                    `characteristicName`: `Nitrate`,
+                    `characteristicType`: `Nutrient`,
+                    `activityCount`: 12,
+                    `resultCount`: 23,
+                    `monitoringLocationCount`: 5
+                },
+                {
+                    `characteristicName`: `Phosphate`,
+                    `characteristicType`: `Nutrient`,
+                    `activityCount`: 12,
+                    `resultCount`: 15,
+                    `monitoringLocationCount`: 5
+                }
+            ]
+        },
+        {
+            `year`: 2017,
+            `start`: `2017-01-01`,
+            `end`: `2017-12-31`,
+            `activityCount`: 150,
+            `resultCount`: 7400,
+            `monitoringLocationsSampled`: 125,
+            `characteristicGroupResultCount`: {
+                `Inorganics, Minor, Non-metals`: 34,
+                `Microbiological`: 12,
+                `Not Assigned`: 6,
+                `Nutrient`: 5500,
+                `Organics, Other`: 12,
+                `Physical`: 18
+            },
+            `characteristicNameSummary`: [
+                {
+                    `characteristicName`: `Nitrate`,
+                    `characteristicType`: `Nutrient`,
+                    `activityCount`: 30,
+                    `resultCount`: 12,
+                    `monitoringLocationCount`: 4
+                },
+                {
+                    `characteristicName`: `Phosphate`,
+                    `characteristicType`: `Nutrient`,
+                    `activityCount`: 15,
+                    `resultCount`: 34,
+                    `monitoringLocationCount`: 15
+                }
+            ]
+        },
+        {
+            `year`: 2016,
+            `start`: `2016-01-01`,
+            `end`: `2016-12-31`,
+            `activityCount`: 151,
+            `resultCount`: 7401,
+            `monitoringLocationsSampled`: 126,
+            `characteristicGroupResultCount`: {
+                `Inorganics, Minor, Non-metals`: 35,
+                `Microbiological`: 13,
+                `Not Assigned`: 7,
+                `Bar`: 5501,
+                `Organics, Other`: 13,
+                `Physical`: 19
+            },
+            `characteristicNameSummary`: [
+                {
+                    `characteristicName`: `Foo`,
+                    `characteristicType`: `Bar`,
+                    `activityCount`: 31,
+                    `resultCount`: 13,
+                    `monitoringLocationCount`: 5
+                },
+            ]
+        },
+        {
+            `year`: 2015,
+            `start`: `2015-01-01`,
+            `end`: `2015-12-31`,
+            `activityCount`: 152,
+            `resultCount`: 7402,
+            `monitoringLocationsSampled`: 127,
+            `characteristicGroupResultCount`: {
+                `Inorganics, Minor, Non-metals`: 36,
+                `Microbiological`: 14,
+                `Not Assigned`: 8,
+                `Input`: 5502,
+                `Organics, Other`: 14,
+                `Physical`: 20
+            },
+            `characteristicNameSummary`: [
+                {
+                    `characteristicName`: `Fake`,
+                    `characteristicType`: `Input`,
+                    `activityCount`: 32,
+                    `resultCount`: 14,
+                    `monitoringLocationCount`: 6
+                },
+            ]
+        },
+        {
+            `year`: 2014,
+            `start`: `2014-01-01`,
+            `end`: `2014-12-31`,
+            `activityCount`: 153,
+            `resultCount`: 7403,
+            `monitoringLocationsSampled`: 128,
+            `characteristicGroupResultCount`: {
+                `Inorganics, Minor, Non-metals`: 37,
+                `Microbiological`: 15,
+                `Not Assigned`: 9,
+                `Nutrients`: 5503,
+                `Organics, Other`: 15,
+                `Physical`: 21
+            },
+            `characteristicNameSummary`: [
+                {
+                    `characteristicName`: `Nitrates`,
+                    `characteristicType`: `Nutrients`,
+                    `activityCount`: 33,
+                    `resultCount`: 15,
+                    `monitoringLocationCount`: 7
+                },
+            ]
+        },
+        {
+            `year`: 2012,
+            `start`: `2012-01-01`,
+            `end`: `2012-12-31`,
+            `activityCount`: 153,
+            `resultCount`: 7403,
+            `monitoringLocationsSampled`: 128,
+            `characteristicGroupResultCount`: {
+                `Inorganics, Minor, Non-metals`: 37,
+                `Microbiological`: 15,
+                `Not Assigned`: 9,
+                `Nutrient`: 5503,
+                `Organics, Other`: 15,
+                `Physical`: 21
+            },
+            `characteristicNameSummary`: [
+                {
+                    `characteristicName`: `Nitrites`,
+                    `characteristicType`: `Nutrient`,
+                    `activityCount`: 33,
+                    `resultCount`: 15,
+                    `monitoringLocationCount`: 7
+                },
+            ]
+        }"
+        CURRENT_YEAR_SUMMARY="{
+            `year`: 2018,
+            `start`: `01-01-2018`,
+            `end`: `08-21-2018`,
+            `activityCount`: 50,
+            `resultCount`: 5400,
+            `monitoringLocationsSampled`: 25,
+            `characteristicGroupResultCount`: {
+                `Inorganics, Minor, Non-metals`: 1,
+                `Microbiological`: 6,
+                `Not Assigned`: 3,
+                `Nutrient`: 28,
+                `Organics, Other`: 7,
+                `Physical`: 18
+            },
+            `characteristicNameSummary`: [
+                {
+                    `characteristicName`: `Nitrate`,
+                    `characteristicType`: `Nutrient`,
+                    `activityCount`: 12,
+                    `resultCount`: 23,
+                    `monitoringLocationCount`: 5
+                },
+                {
+                    `characteristicName`: `Phosphate`,
+                    `characteristicType`: `Nutrient`,
+                    `activityCount`: 12,
+                    `resultCount`: 15,
+                    `monitoringLocationCount`: 5
+                }
+            ]
+        }"
+        FIVE_YEAR_SUMMARY="{
+            `year`: 2018,
+            `start`: `01-01-2018`,
+            `end`: `08-21-2018`,
+            `activityCount`: 50,
+            `resultCount`: 5400,
+            `monitoringLocationsSampled`: 25,
+            `characteristicGroupResultCount`: {
+                `Inorganics, Minor, Non-metals`: 1,
+                `Microbiological`: 6,
+                `Not Assigned`: 3,
+                `Nutrient`: 28,
+                `Organics, Other`: 7,
+                `Physical`: 18
+            },
+            `characteristicNameSummary`: [
+                {
+                    `characteristicName`: `Nitrate`,
+                    `characteristicType`: `Nutrient`,
+                    `activityCount`: 12,
+                    `resultCount`: 23,
+                    `monitoringLocationCount`: 5
+                },
+                {
+                    `characteristicName`: `Phosphate`,
+                    `characteristicType`: `Nutrient`,
+                    `activityCount`: 12,
+                    `resultCount`: 15,
+                    `monitoringLocationCount`: 5
+                }
+            ]
+        },
+        {
+            `year`: 2017,
+            `start`: `2017-01-01`,
+            `end`: `2017-12-31`,
+            `activityCount`: 150,
+            `resultCount`: 7400,
+            `monitoringLocationsSampled`: 125,
+            `characteristicGroupResultCount`: {
+                `Inorganics, Minor, Non-metals`: 34,
+                `Microbiological`: 12,
+                `Not Assigned`: 6,
+                `Nutrient`: 5500,
+                `Organics, Other`: 12,
+                `Physical`: 18
+            },
+            `characteristicNameSummary`: [
+                {
+                    `characteristicName`: `Nitrate`,
+                    `characteristicType`: `Nutrient`,
+                    `activityCount`: 30,
+                    `resultCount`: 12,
+                    `monitoringLocationCount`: 4
+                },
+                {
+                    `characteristicName`: `Phosphate`,
+                    `characteristicType`: `Nutrient`,
+                    `activityCount`: 15,
+                    `resultCount`: 34,
+                    `monitoringLocationCount`: 15
+                }
+            ]
+        },
+        {
+            `year`: 2016,
+            `start`: `2016-01-01`,
+            `end`: `2016-12-31`,
+            `activityCount`: 151,
+            `resultCount`: 7401,
+            `monitoringLocationsSampled`: 126,
+            `characteristicGroupResultCount`: {
+                `Inorganics, Minor, Non-metals`: 35,
+                `Microbiological`: 13,
+                `Not Assigned`: 7,
+                `Bar`: 5501,
+                `Organics, Other`: 13,
+                `Physical`: 19
+            },
+            `characteristicNameSummary`: [
+                {
+                    `characteristicName`: `Foo`,
+                    `characteristicType`: `Bar`,
+                    `activityCount`: 31,
+                    `resultCount`: 13,
+                    `monitoringLocationCount`: 5
+                },
+            ]
+        },
+        {
+            `year`: 2015,
+            `start`: `2015-01-01`,
+            `end`: `2015-12-31`,
+            `activityCount`: 152,
+            `resultCount`: 7402,
+            `monitoringLocationsSampled`: 127,
+            `characteristicGroupResultCount`: {
+                `Inorganics, Minor, Non-metals`: 36,
+                `Microbiological`: 14,
+                `Not Assigned`: 8,
+                `Input`: 5502,
+                `Organics, Other`: 14,
+                `Physical`: 20
+            },
+            `characteristicNameSummary`: [
+                {
+                    `characteristicName`: `Fake`,
+                    `characteristicType`: `Input`,
+                    `activityCount`: 32,
+                    `resultCount`: 14,
+                    `monitoringLocationCount`: 6
+                },
+            ]
+        },
+        {
+            `year`: 2014,
+            `start`: `2014-01-01`,
+            `end`: `2014-12-31`,
+            `activityCount`: 153,
+            `resultCount`: 7403,
+            `monitoringLocationsSampled`: 128,
+            `characteristicGroupResultCount`: {
+                `Inorganics, Minor, Non-metals`: 37,
+                `Microbiological`: 15,
+                `Not Assigned`: 9,
+                `Nutrients`: 5503,
+                `Organics, Other`: 15,
+                `Physical`: 21
+            },
+            `characteristicNameSummary`: [
+                {
+                    `characteristicName`: `Nitrates`,
+                    `characteristicType`: `Nutrients`,
+                    `activityCount`: 33,
+                    `resultCount`: 15,
+                    `monitoringLocationCount`: 7
+                },
+            ]
+        }"
+    />
+</dataset>
