@@ -33,7 +33,7 @@ public class TestActivityMetricMap {
 		ACTIVITY_METRIC = new LinkedHashMap<String, Object>();
 		ACTIVITY_METRIC.put(KEY_DATA_SOURCE, STORET);
 		ACTIVITY_METRIC.put(KEY_SITE_ID, "organization-siteId");
-		ACTIVITY_METRIC.put(KEY_ACTIVITY, "activity");
+		ACTIVITY_METRIC.put(KEY_ACTIVITY, "activity-2");
 		ACTIVITY_METRIC.put(KEY_ORGANIZATION, "organization");
 		ACTIVITY_METRIC.put(KEY_ORGANIZATION_NAME, "organizationName");
 		ACTIVITY_METRIC.put(KEY_METRIC_TYPE_IDENTIFIER, "3_2_type_identifier");

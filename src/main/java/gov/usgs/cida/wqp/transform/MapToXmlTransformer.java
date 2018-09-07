@@ -1,5 +1,10 @@
 package gov.usgs.cida.wqp.transform;
 
+import static gov.usgs.cida.wqp.mapping.xml.BaseWqx.WQX_FREQUENCY_CLASS_INFO;
+import static gov.usgs.cida.wqp.mapping.xml.BaseWqx.WQX_FREQUENCY_CLASS_INFO_1;
+import static gov.usgs.cida.wqp.mapping.xml.BaseWqx.WQX_FREQUENCY_CLASS_INFO_2;
+import static gov.usgs.cida.wqp.mapping.xml.BaseWqx.WQX_FREQUENCY_CLASS_INFO_3;
+
 import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.util.Deque;
@@ -9,8 +14,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.text.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.text.StringEscapeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -101,13 +106,25 @@ public class MapToXmlTransformer extends Transformer {
 				if ( ! lNode.equalsIgnoreCase(nodes.peek()) ) {
 					closeNodes(sb, lNode);
 				}
-				sb.append("<").append(node).append(">");
+				sb.append("<").append(cleanse_node(node)).append(">");
 				nodes.push(node);
 			}
 			lNode = node;
 		}
 		sb.append(val);
 		sb.append(getClosingNodeText(nodes.pop()));
+	}
+
+	/** Small hack to correctly format child nodes that are not controllable by a hard break. */
+	protected String cleanse_node(String node) {
+		switch (node) {
+		case WQX_FREQUENCY_CLASS_INFO_1:
+		case WQX_FREQUENCY_CLASS_INFO_2:
+		case WQX_FREQUENCY_CLASS_INFO_3:
+			return WQX_FREQUENCY_CLASS_INFO;
+		default:
+			return node;
+		}
 	}
 
 	protected void closeNodes(StringBuilder sb, String targetNode) {
@@ -141,10 +158,11 @@ public class MapToXmlTransformer extends Transformer {
 		return StringEscapeUtils.escapeXml10(value);
 	}
 
-	protected String getClosingNodeText(String rawText) {
-		if (StringUtils.isBlank(rawText)) {
+	protected String getClosingNodeText(String rText) {
+		if (StringUtils.isBlank(rText)) {
 			return "";
 		} else {
+			String rawText = cleanse_node(rText);
 			StringBuilder closingNode = new StringBuilder("</");
 			if (rawText.trim().contains(" ")) {
 				closingNode.append(rawText.trim().substring(0, rawText.trim().indexOf(" ")));

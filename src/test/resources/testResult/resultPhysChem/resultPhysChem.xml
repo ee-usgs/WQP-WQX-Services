@@ -7,7 +7,7 @@
         </OrganizationDescription>
         <Activity>
             <ActivityDescription>
-                <ActivityIdentifier>activityStewards</ActivityIdentifier>
+                <ActivityIdentifier>activityStewards-1</ActivityIdentifier>
                 <ActivityMediaName>Water</ActivityMediaName>
                 <ActivityStartDate>1996-06-27</ActivityStartDate>
                 <ProjectIdentifier>CEAP</ProjectIdentifier>
@@ -19,11 +19,31 @@
                     <ResultIdentifier>STEWARDS-1</ResultIdentifier>
                 </ResultDescription>
             </Result>
+        </Activity>
+        <Activity>
+            <ActivityDescription>
+                <ActivityIdentifier>activityStewards-2</ActivityIdentifier>
+                <ActivityMediaName>sampleMediaStewards</ActivityMediaName>
+                <ActivityStartDate>2015-05-17</ActivityStartDate>
+                <ProjectIdentifier>projectIdStewards</ProjectIdentifier>
+                <ProjectName>Some USDA Project</ProjectName>
+                <MonitoringLocationIdentifier>ARS-IAWC-IAWC225</MonitoringLocationIdentifier>
+            </ActivityDescription>
             <Result>
                 <ResultDescription>
                     <ResultIdentifier>STEWARDS-2</ResultIdentifier>
                 </ResultDescription>
             </Result>
+        </Activity>
+        <Activity>
+            <ActivityDescription>
+                <ActivityIdentifier>activityStewards-3</ActivityIdentifier>
+                <ActivityMediaName>Water</ActivityMediaName>
+                <ActivityStartDate>1996-06-27</ActivityStartDate>
+                <ProjectIdentifier>CEAP</ProjectIdentifier>
+                <ProjectName>CEAP Name</ProjectName>
+                <MonitoringLocationIdentifier>ARS-IAWC-IAWC410</MonitoringLocationIdentifier>
+            </ActivityDescription>
             <Result>
                 <ResultDescription>
                     <ResultIdentifier>STEWARDS-3</ResultIdentifier>
@@ -38,7 +58,7 @@
         </OrganizationDescription>
         <Activity>
             <ActivityDescription>
-                <ActivityIdentifier>activityNwis</ActivityIdentifier>
+                <ActivityIdentifier>activityNwis-1</ActivityIdentifier>
                 <ActivityMediaName>Water</ActivityMediaName>
                 <ActivityStartDate>1996-06-27</ActivityStartDate>
                 <ProjectIdentifier>NAWQA</ProjectIdentifier>
@@ -69,6 +89,16 @@
                     <MethodUrl>https://www.nemi.gov/methods/method_summary/8896/</MethodUrl>
                 </ResultAnalyticalMethod>
             </Result>
+        </Activity>
+        <Activity>
+            <ActivityDescription>
+                <ActivityIdentifier>activityNwis-2</ActivityIdentifier>
+                <ActivityMediaName>sampleMediaNwis</ActivityMediaName>
+                <ActivityStartDate>2015-05-15</ActivityStartDate>
+                <ProjectIdentifier>projectIdNwis</ProjectIdentifier>
+                <ProjectName>Some NWIS Project</ProjectName>
+                <MonitoringLocationIdentifier>USGS-05425700</MonitoringLocationIdentifier>
+            </ActivityDescription>
             <Result>
                 <ResultDescription>
                     <ResultIdentifier>NWIS-2</ResultIdentifier>
@@ -77,6 +107,16 @@
                     <MethodUrl>https://www.nemi.gov/methods/method_summary/8896/</MethodUrl>
                 </ResultAnalyticalMethod>
             </Result>
+        </Activity>
+        <Activity>
+            <ActivityDescription>
+                <ActivityIdentifier>activityNwis-3</ActivityIdentifier>
+                <ActivityMediaName>Water</ActivityMediaName>
+                <ActivityStartDate>1996-06-27</ActivityStartDate>
+                <ProjectIdentifier>NAWQA</ProjectIdentifier>
+                <ProjectName>NAWQA Name</ProjectName>
+                <MonitoringLocationIdentifier>USGS-431925089002701</MonitoringLocationIdentifier>
+            </ActivityDescription>
             <Result>
                 <ResultDescription>
                     <ResultIdentifier>NWIS-3</ResultIdentifier>
@@ -92,7 +132,7 @@
         </OrganizationDescription>
         <Activity>
             <ActivityDescription>
-                <ActivityIdentifier>21NYDECA_WQX-020002</ActivityIdentifier>
+                <ActivityIdentifier>21NYDECA_WQX-020002-6</ActivityIdentifier>
                 <ActivityMediaName>Sediment</ActivityMediaName>
                 <ActivityStartDate>1995-09-26</ActivityStartDate>
                 <ProjectIdentifier>SAM</ProjectIdentifier>
@@ -108,7 +148,7 @@
         </Activity>
         <Activity>
             <ActivityDescription>
-                <ActivityIdentifier>21NYDECA_WQX-020206</ActivityIdentifier>
+                <ActivityIdentifier>21NYDECA_WQX-020206-7</ActivityIdentifier>
                 <ActivityMediaName>Sediment</ActivityMediaName>
                 <ActivityStartDate>1995-09-26</ActivityStartDate>
                 <ProjectIdentifier>SAM</ProjectIdentifier>
@@ -325,7 +365,7 @@
         </Activity>
         <Activity>
             <ActivityDescription>
-                <ActivityIdentifier>21NYDECA_WQX-020610</ActivityIdentifier>
+                <ActivityIdentifier>21NYDECA_WQX-020610-9</ActivityIdentifier>
                 <ActivityMediaName>Sediment</ActivityMediaName>
                 <ActivityStartDate>1995-09-26</ActivityStartDate>
                 <ProjectIdentifier>SAM</ProjectIdentifier>
@@ -344,7 +384,7 @@
         </Activity>
         <Activity>
             <ActivityDescription>
-                <ActivityIdentifier>21NYDECA_WQX-0210EN</ActivityIdentifier>
+                <ActivityIdentifier>21NYDECA_WQX-0210EN-8</ActivityIdentifier>
                 <ActivityMediaName>Sediment</ActivityMediaName>
                 <ActivityStartDate>1995-09-26</ActivityStartDate>
                 <ProjectIdentifier>SAM</ProjectIdentifier>
@@ -366,7 +406,7 @@
         </OrganizationDescription>
         <Activity>
             <ActivityDescription>
-                <ActivityIdentifier>WIDNR_WQX-7788475</ActivityIdentifier>
+                <ActivityIdentifier>WIDNR_WQX-7788475-5</ActivityIdentifier>
                 <ActivityMediaName>Water</ActivityMediaName>
                 <ActivityStartDate>1992-07-28</ActivityStartDate>
                 <ProjectIdentifier>Lake-BaselineMonitoringDNR</ProjectIdentifier>
@@ -400,7 +440,7 @@
         </Activity>
         <Activity>
             <ActivityDescription>
-                <ActivityIdentifier>WIDNR_WQX-7788480</ActivityIdentifier>
+                <ActivityIdentifier>WIDNR_WQX-7788480-4</ActivityIdentifier>
                 <ActivityMediaName>Water</ActivityMediaName>
                 <ActivityStartDate>1992-07-28</ActivityStartDate>
                 <ProjectIdentifier>WR047</ProjectIdentifier>
@@ -446,9 +486,9 @@
         </OrganizationDescription>
         <Activity>
             <ActivityDescription>
-                <ActivityIdentifier>activityStoret</ActivityIdentifier>
+                <ActivityIdentifier>activityStoret-14</ActivityIdentifier>
                 <ActivityMediaName>sampleMedia</ActivityMediaName>
-                <ActivityStartDate>1996-06-24</ActivityStartDate>
+                <ActivityStartDate>1996-06-25</ActivityStartDate>
                 <ProjectIdentifier>projectId</ProjectIdentifier>
                 <ProjectName>Some Project</ProjectName>
                 <MonitoringLocationIdentifier>11NPSWRD-BICA_MFG_B</MonitoringLocationIdentifier>
@@ -479,6 +519,16 @@
                     <MethodUrl>https://analyticalMethod</MethodUrl>
                 </ResultAnalyticalMethod>
             </Result>
+        </Activity>
+        <Activity>
+            <ActivityDescription>
+                <ActivityIdentifier>activityStoret-15</ActivityIdentifier>
+                <ActivityMediaName>sampleMedia</ActivityMediaName>
+                <ActivityStartDate>1996-06-26</ActivityStartDate>
+                <ProjectIdentifier>projectId</ProjectIdentifier>
+                <ProjectName>Some Project</ProjectName>
+                <MonitoringLocationIdentifier>11NPSWRD-BICA_MFG_B</MonitoringLocationIdentifier>
+            </ActivityDescription>
             <Result>
                 <ResultDescription>
                     <ResultIdentifier>STORET-47</ResultIdentifier>
@@ -492,6 +542,16 @@
                     <MethodUrl>https://analyticalMethod</MethodUrl>
                 </ResultAnalyticalMethod>
             </Result>
+        </Activity>
+        <Activity>
+            <ActivityDescription>
+                <ActivityIdentifier>activityStoret-10</ActivityIdentifier>
+                <ActivityMediaName>sampleMedia</ActivityMediaName>
+                <ActivityStartDate>1996-06-27</ActivityStartDate>
+                <ProjectIdentifier>EPABEACH;SOMETHINGELSE</ProjectIdentifier>
+                <ProjectName>EPA Beach Observation;SOMETHINGELSE Name</ProjectName>
+                <MonitoringLocationIdentifier>11NPSWRD-BICA_MFG_B</MonitoringLocationIdentifier>
+            </ActivityDescription>
             <Result>
                 <ResultDescription>
                     <ResultIdentifier>STORET-41</ResultIdentifier>
@@ -505,7 +565,7 @@
         </Activity>
         <Activity>
             <ActivityDescription>
-                <ActivityIdentifier>activity</ActivityIdentifier>
+                <ActivityIdentifier>activity-11</ActivityIdentifier>
                 <ActivityTypeCode>activityTypeCode</ActivityTypeCode>
                 <ActivityMediaName>sampleMedia</ActivityMediaName>
                 <ActivityMediaSubdivisionName>activityMediaSubdivName</ActivityMediaSubdivisionName>
@@ -624,6 +684,16 @@
                 </LabSamplePreparation>
                 <LastUpdated>2018-08-20 15:22:33.0</LastUpdated>
             </Result>
+        </Activity>
+        <Activity>
+            <ActivityDescription>
+                <ActivityIdentifier>activity-12</ActivityIdentifier>
+                <ActivityMediaName>sampleMedia</ActivityMediaName>
+                <ActivityStartDate>1999-12-29</ActivityStartDate>
+                <ProjectIdentifier>projectId</ProjectIdentifier>
+                <ProjectName>Some Project</ProjectName>
+                <MonitoringLocationIdentifier>organization-siteId</MonitoringLocationIdentifier>
+            </ActivityDescription>
             <Result>
                 <ResultDescription>
                     <ResultIdentifier>STORET-43</ResultIdentifier>
@@ -637,6 +707,16 @@
                     <MethodUrl>https://analyticalMethod</MethodUrl>
                 </ResultAnalyticalMethod>
             </Result>
+        </Activity>
+        <Activity>
+            <ActivityDescription>
+                <ActivityIdentifier>activity-13</ActivityIdentifier>
+                <ActivityMediaName>sampleMedia</ActivityMediaName>
+                <ActivityStartDate>1999-12-30</ActivityStartDate>
+                <ProjectIdentifier>projectId</ProjectIdentifier>
+                <ProjectName>Some Project</ProjectName>
+                <MonitoringLocationIdentifier>organization-siteId</MonitoringLocationIdentifier>
+            </ActivityDescription>
             <Result>
                 <ResultDescription>
                     <ResultIdentifier>STORET-44</ResultIdentifier>
@@ -650,6 +730,16 @@
                     <MethodUrl>https://analyticalMethod</MethodUrl>
                 </ResultAnalyticalMethod>
             </Result>
+        </Activity>
+        <Activity>
+            <ActivityDescription>
+                <ActivityIdentifier>activity-2</ActivityIdentifier>
+                <ActivityMediaName>sampleMedia</ActivityMediaName>
+                <ActivityStartDate>1999-12-31</ActivityStartDate>
+                <ProjectIdentifier>projectId</ProjectIdentifier>
+                <ProjectName>Some Project</ProjectName>
+                <MonitoringLocationIdentifier>organization-siteId</MonitoringLocationIdentifier>
+            </ActivityDescription>
             <Result>
                 <ResultDescription>
                     <ResultIdentifier>STORET-2</ResultIdentifier>
@@ -663,6 +753,16 @@
                     <MethodUrl>https://analyticalMethod</MethodUrl>
                 </ResultAnalyticalMethod>
             </Result>
+        </Activity>
+        <Activity>
+            <ActivityDescription>
+                <ActivityIdentifier>activity-16</ActivityIdentifier>
+                <ActivityMediaName>sampleMedia</ActivityMediaName>
+                <ActivityStartDate>1999-12-30</ActivityStartDate>
+                <ProjectIdentifier>projectId</ProjectIdentifier>
+                <ProjectName>Some Project</ProjectName>
+                <MonitoringLocationIdentifier>organization-siteId2</MonitoringLocationIdentifier>
+            </ActivityDescription>
             <Result>
                 <ResultDescription>
                     <ResultIdentifier>STORET-48</ResultIdentifier>
@@ -702,6 +802,16 @@
                     <MethodUrl>https://analyticalMethod</MethodUrl>
                 </ResultAnalyticalMethod>
             </Result>
+        </Activity>
+        <Activity>
+            <ActivityDescription>
+                <ActivityIdentifier>activity-1</ActivityIdentifier>
+                <ActivityMediaName>sampleMedia</ActivityMediaName>
+                <ActivityStartDate>1999-12-31</ActivityStartDate>
+                <ProjectIdentifier>projectId</ProjectIdentifier>
+                <ProjectName>Some Project</ProjectName>
+                <MonitoringLocationIdentifier>organization-siteId2</MonitoringLocationIdentifier>
+            </ActivityDescription>
             <Result>
                 <ResultDescription>
                     <ResultIdentifier>STORET-1</ResultIdentifier>
@@ -715,6 +825,16 @@
                     <MethodUrl>https://analyticalMethod</MethodUrl>
                 </ResultAnalyticalMethod>
             </Result>
+        </Activity>
+        <Activity>
+            <ActivityDescription>
+                <ActivityIdentifier>activity-3</ActivityIdentifier>
+                <ActivityMediaName>sampleMedia</ActivityMediaName>
+                <ActivityStartDate>1999-12-31</ActivityStartDate>
+                <ProjectIdentifier>projectId</ProjectIdentifier>
+                <ProjectName>Some Project</ProjectName>
+                <MonitoringLocationIdentifier>organization-siteId3</MonitoringLocationIdentifier>
+            </ActivityDescription>
             <Result>
                 <ResultDescription>
                     <ResultIdentifier>STORET-3</ResultIdentifier>
@@ -737,7 +857,7 @@
         </OrganizationDescription>
         <Activity>
             <ActivityDescription>
-                <ActivityIdentifier>activityBiodata</ActivityIdentifier>
+                <ActivityIdentifier>activityBiodata-1</ActivityIdentifier>
                 <ActivityMediaName>Water</ActivityMediaName>
                 <ActivityStartDate>1996-06-27</ActivityStartDate>
                 <ProjectIdentifier>SACR BioTDB</ProjectIdentifier>
