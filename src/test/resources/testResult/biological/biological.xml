@@ -7,11 +7,29 @@
         </OrganizationDescription>
         <Activity>
             <ActivityDescription>
-                <ActivityIdentifier>activityStewards</ActivityIdentifier>
+                <ActivityIdentifier>activityStewards-1</ActivityIdentifier>
                 <ActivityMediaName>Water</ActivityMediaName>
                 <ActivityStartDate>1996-06-27</ActivityStartDate>
                 <ProjectIdentifier>CEAP</ProjectIdentifier>
                 <MonitoringLocationIdentifier>ARS-IAWC-IAWC225</MonitoringLocationIdentifier>
+            </ActivityDescription>
+        </Activity>
+        <Activity>
+            <ActivityDescription>
+                <ActivityIdentifier>activityStewards-2</ActivityIdentifier>
+                <ActivityMediaName>sampleMediaStewards</ActivityMediaName>
+                <ActivityStartDate>2015-05-17</ActivityStartDate>
+                <ProjectIdentifier>projectIdStewards</ProjectIdentifier>
+                <MonitoringLocationIdentifier>ARS-IAWC-IAWC225</MonitoringLocationIdentifier>
+            </ActivityDescription>
+        </Activity>
+        <Activity>
+            <ActivityDescription>
+                <ActivityIdentifier>activityStewards-3</ActivityIdentifier>
+                <ActivityMediaName>Water</ActivityMediaName>
+                <ActivityStartDate>1996-06-27</ActivityStartDate>
+                <ProjectIdentifier>CEAP</ProjectIdentifier>
+                <MonitoringLocationIdentifier>ARS-IAWC-IAWC410</MonitoringLocationIdentifier>
             </ActivityDescription>
         </Activity>
     </Organization>
@@ -22,11 +40,29 @@
         </OrganizationDescription>
         <Activity>
             <ActivityDescription>
-                <ActivityIdentifier>activityNwis</ActivityIdentifier>
+                <ActivityIdentifier>activityNwis-1</ActivityIdentifier>
                 <ActivityMediaName>Water</ActivityMediaName>
                 <ActivityStartDate>1996-06-27</ActivityStartDate>
                 <ProjectIdentifier>NAWQA</ProjectIdentifier>
                 <MonitoringLocationIdentifier>USGS-05425700</MonitoringLocationIdentifier>
+            </ActivityDescription>
+        </Activity>
+        <Activity>
+            <ActivityDescription>
+                <ActivityIdentifier>activityNwis-2</ActivityIdentifier>
+                <ActivityMediaName>sampleMediaNwis</ActivityMediaName>
+                <ActivityStartDate>2015-05-15</ActivityStartDate>
+                <ProjectIdentifier>projectIdNwis</ProjectIdentifier>
+                <MonitoringLocationIdentifier>USGS-05425700</MonitoringLocationIdentifier>
+            </ActivityDescription>
+        </Activity>
+        <Activity>
+            <ActivityDescription>
+                <ActivityIdentifier>activityNwis-3</ActivityIdentifier>
+                <ActivityMediaName>Water</ActivityMediaName>
+                <ActivityStartDate>1996-06-27</ActivityStartDate>
+                <ProjectIdentifier>NAWQA</ProjectIdentifier>
+                <MonitoringLocationIdentifier>USGS-431925089002701</MonitoringLocationIdentifier>
             </ActivityDescription>
             <Result>
                 <ResultDescription>
@@ -42,7 +78,7 @@
         </OrganizationDescription>
         <Activity>
             <ActivityDescription>
-                <ActivityIdentifier>21NYDECA_WQX-020002</ActivityIdentifier>
+                <ActivityIdentifier>21NYDECA_WQX-020002-6</ActivityIdentifier>
                 <ActivityMediaName>Sediment</ActivityMediaName>
                 <ActivityStartDate>1995-09-26</ActivityStartDate>
                 <ProjectIdentifier>SAM</ProjectIdentifier>
@@ -56,7 +92,7 @@
         </Activity>
         <Activity>
             <ActivityDescription>
-                <ActivityIdentifier>21NYDECA_WQX-020206</ActivityIdentifier>
+                <ActivityIdentifier>21NYDECA_WQX-020206-7</ActivityIdentifier>
                 <ActivityMediaName>Sediment</ActivityMediaName>
                 <ActivityStartDate>1995-09-26</ActivityStartDate>
                 <ProjectIdentifier>SAM</ProjectIdentifier>
@@ -180,7 +216,7 @@
         </Activity>
         <Activity>
             <ActivityDescription>
-                <ActivityIdentifier>21NYDECA_WQX-020610</ActivityIdentifier>
+                <ActivityIdentifier>21NYDECA_WQX-020610-9</ActivityIdentifier>
                 <ActivityMediaName>Sediment</ActivityMediaName>
                 <ActivityStartDate>1995-09-26</ActivityStartDate>
                 <ProjectIdentifier>SAM</ProjectIdentifier>
@@ -194,7 +230,7 @@
         </Activity>
         <Activity>
             <ActivityDescription>
-                <ActivityIdentifier>21NYDECA_WQX-0210EN</ActivityIdentifier>
+                <ActivityIdentifier>21NYDECA_WQX-0210EN-8</ActivityIdentifier>
                 <ActivityMediaName>Sediment</ActivityMediaName>
                 <ActivityStartDate>1995-09-26</ActivityStartDate>
                 <ProjectIdentifier>SAM</ProjectIdentifier>
@@ -214,7 +250,7 @@
         </OrganizationDescription>
         <Activity>
             <ActivityDescription>
-                <ActivityIdentifier>WIDNR_WQX-7788475</ActivityIdentifier>
+                <ActivityIdentifier>WIDNR_WQX-7788475-5</ActivityIdentifier>
                 <ActivityMediaName>Water</ActivityMediaName>
                 <ActivityStartDate>1992-07-28</ActivityStartDate>
                 <ProjectIdentifier>Lake-BaselineMonitoringDNR</ProjectIdentifier>
@@ -238,7 +274,7 @@
         </Activity>
         <Activity>
             <ActivityDescription>
-                <ActivityIdentifier>WIDNR_WQX-7788480</ActivityIdentifier>
+                <ActivityIdentifier>WIDNR_WQX-7788480-4</ActivityIdentifier>
                 <ActivityMediaName>Water</ActivityMediaName>
                 <ActivityStartDate>1992-07-28</ActivityStartDate>
                 <ProjectIdentifier>WR047</ProjectIdentifier>
@@ -273,9 +309,9 @@
         </OrganizationDescription>
         <Activity>
             <ActivityDescription>
-                <ActivityIdentifier>activityStoret</ActivityIdentifier>
+                <ActivityIdentifier>activityStoret-14</ActivityIdentifier>
                 <ActivityMediaName>sampleMedia</ActivityMediaName>
-                <ActivityStartDate>1996-06-24</ActivityStartDate>
+                <ActivityStartDate>1996-06-25</ActivityStartDate>
                 <ProjectIdentifier>projectId</ProjectIdentifier>
                 <MonitoringLocationIdentifier>11NPSWRD-BICA_MFG_B</MonitoringLocationIdentifier>
             </ActivityDescription>
@@ -300,6 +336,18 @@
                     <SubjectTaxonomicName>sampleTissueTaxonomicName</SubjectTaxonomicName>
                 </BiologicalResultDescription>
             </Result>
+        </Activity>
+        <Activity>
+            <ActivityDescription>
+                <ActivityIdentifier>activityStoret-15</ActivityIdentifier>
+                <ActivityMediaName>sampleMedia</ActivityMediaName>
+                <ActivityStartDate>1996-06-26</ActivityStartDate>
+                <ProjectIdentifier>projectId</ProjectIdentifier>
+                <MonitoringLocationIdentifier>11NPSWRD-BICA_MFG_B</MonitoringLocationIdentifier>
+            </ActivityDescription>
+            <BiologicalActivityDescription>
+                <AssemblageSampledName>assemblageSampledName</AssemblageSampledName>
+            </BiologicalActivityDescription>
             <Result>
                 <ResultDescription>
                     <CharacteristicName>characteristicName</CharacteristicName>
@@ -309,6 +357,18 @@
                     <SubjectTaxonomicName>sampleTissueTaxonomicName</SubjectTaxonomicName>
                 </BiologicalResultDescription>
             </Result>
+        </Activity>
+        <Activity>
+            <ActivityDescription>
+                <ActivityIdentifier>activityStoret-10</ActivityIdentifier>
+                <ActivityMediaName>sampleMedia</ActivityMediaName>
+                <ActivityStartDate>1996-06-27</ActivityStartDate>
+                <ProjectIdentifier>EPABEACH;SOMETHINGELSE</ProjectIdentifier>
+                <MonitoringLocationIdentifier>11NPSWRD-BICA_MFG_B</MonitoringLocationIdentifier>
+            </ActivityDescription>
+            <BiologicalActivityDescription>
+                <AssemblageSampledName>Fish/Nekton</AssemblageSampledName>
+            </BiologicalActivityDescription>
             <Result>
                 <ResultDescription>
                     <CharacteristicName>characteristicName</CharacteristicName>
@@ -318,7 +378,7 @@
         </Activity>
         <Activity>
             <ActivityDescription>
-                <ActivityIdentifier>activity</ActivityIdentifier>
+                <ActivityIdentifier>activity-11</ActivityIdentifier>
                 <ActivityTypeCode>activityTypeCode</ActivityTypeCode>
                 <ActivityMediaName>sampleMedia</ActivityMediaName>
                 <ActivityMediaSubdivisionName>activityMediaSubdivName</ActivityMediaSubdivisionName>
@@ -554,6 +614,81 @@
                     <SubstitutionDilutionFactorNumeric>prepDilutionFactor</SubstitutionDilutionFactorNumeric>
                 </LabSamplePreparation>
             </Result>
+        </Activity>
+        <Activity>
+            <ActivityDescription>
+                <ActivityIdentifier>activity-12</ActivityIdentifier>
+                <ActivityMediaName>sampleMedia</ActivityMediaName>
+                <ActivityStartDate>1999-12-29</ActivityStartDate>
+                <ProjectIdentifier>projectId</ProjectIdentifier>
+                <MonitoringLocationIdentifier>organization-siteId</MonitoringLocationIdentifier>
+            </ActivityDescription>
+            <BiologicalActivityDescription>
+                <AssemblageSampledName>assemblageSampledName</AssemblageSampledName>
+            </BiologicalActivityDescription>
+            <Result>
+                <ResultDescription>
+                    <CharacteristicName>characteristicName</CharacteristicName>
+                    <USGSPCode>99999</USGSPCode>
+                </ResultDescription>
+                <BiologicalResultDescription>
+                    <SubjectTaxonomicName>sampleTissueTaxonomicName</SubjectTaxonomicName>
+                </BiologicalResultDescription>
+            </Result>
+        </Activity>
+        <Activity>
+            <ActivityDescription>
+                <ActivityIdentifier>activity-13</ActivityIdentifier>
+                <ActivityMediaName>sampleMedia</ActivityMediaName>
+                <ActivityStartDate>1999-12-30</ActivityStartDate>
+                <ProjectIdentifier>projectId</ProjectIdentifier>
+                <MonitoringLocationIdentifier>organization-siteId</MonitoringLocationIdentifier>
+            </ActivityDescription>
+            <BiologicalActivityDescription>
+                <AssemblageSampledName>assemblageSampledName</AssemblageSampledName>
+            </BiologicalActivityDescription>
+            <Result>
+                <ResultDescription>
+                    <CharacteristicName>characteristicName</CharacteristicName>
+                    <USGSPCode>99999</USGSPCode>
+                </ResultDescription>
+                <BiologicalResultDescription>
+                    <SubjectTaxonomicName>sampleTissueTaxonomicName</SubjectTaxonomicName>
+                </BiologicalResultDescription>
+            </Result>
+        </Activity>
+        <Activity>
+            <ActivityDescription>
+                <ActivityIdentifier>activity-2</ActivityIdentifier>
+                <ActivityMediaName>sampleMedia</ActivityMediaName>
+                <ActivityStartDate>1999-12-31</ActivityStartDate>
+                <ProjectIdentifier>projectId</ProjectIdentifier>
+                <MonitoringLocationIdentifier>organization-siteId</MonitoringLocationIdentifier>
+            </ActivityDescription>
+            <BiologicalActivityDescription>
+                <AssemblageSampledName>assemblageSampledName</AssemblageSampledName>
+            </BiologicalActivityDescription>
+            <Result>
+                <ResultDescription>
+                    <CharacteristicName>characteristicName</CharacteristicName>
+                    <USGSPCode>99999</USGSPCode>
+                </ResultDescription>
+                <BiologicalResultDescription>
+                    <SubjectTaxonomicName>sampleTissueTaxonomicName</SubjectTaxonomicName>
+                </BiologicalResultDescription>
+            </Result>
+        </Activity>
+        <Activity>
+            <ActivityDescription>
+                <ActivityIdentifier>activity-16</ActivityIdentifier>
+                <ActivityMediaName>sampleMedia</ActivityMediaName>
+                <ActivityStartDate>1999-12-30</ActivityStartDate>
+                <ProjectIdentifier>projectId</ProjectIdentifier>
+                <MonitoringLocationIdentifier>organization-siteId2</MonitoringLocationIdentifier>
+            </ActivityDescription>
+            <BiologicalActivityDescription>
+                <AssemblageSampledName>assemblageSampledName</AssemblageSampledName>
+            </BiologicalActivityDescription>
             <Result>
                 <ResultDescription>
                     <CharacteristicName>characteristicName</CharacteristicName>
@@ -581,6 +716,18 @@
                     <SubjectTaxonomicName>sampleTissueTaxonomicName</SubjectTaxonomicName>
                 </BiologicalResultDescription>
             </Result>
+        </Activity>
+        <Activity>
+            <ActivityDescription>
+                <ActivityIdentifier>activity-1</ActivityIdentifier>
+                <ActivityMediaName>sampleMedia</ActivityMediaName>
+                <ActivityStartDate>1999-12-31</ActivityStartDate>
+                <ProjectIdentifier>projectId</ProjectIdentifier>
+                <MonitoringLocationIdentifier>organization-siteId2</MonitoringLocationIdentifier>
+            </ActivityDescription>
+            <BiologicalActivityDescription>
+                <AssemblageSampledName>assemblageSampledName</AssemblageSampledName>
+            </BiologicalActivityDescription>
             <Result>
                 <ResultDescription>
                     <CharacteristicName>characteristicName</CharacteristicName>
@@ -590,33 +737,18 @@
                     <SubjectTaxonomicName>sampleTissueTaxonomicName</SubjectTaxonomicName>
                 </BiologicalResultDescription>
             </Result>
-            <Result>
-                <ResultDescription>
-                    <CharacteristicName>characteristicName</CharacteristicName>
-                    <USGSPCode>99999</USGSPCode>
-                </ResultDescription>
-                <BiologicalResultDescription>
-                    <SubjectTaxonomicName>sampleTissueTaxonomicName</SubjectTaxonomicName>
-                </BiologicalResultDescription>
-            </Result>
-            <Result>
-                <ResultDescription>
-                    <CharacteristicName>characteristicName</CharacteristicName>
-                    <USGSPCode>99999</USGSPCode>
-                </ResultDescription>
-                <BiologicalResultDescription>
-                    <SubjectTaxonomicName>sampleTissueTaxonomicName</SubjectTaxonomicName>
-                </BiologicalResultDescription>
-            </Result>
-            <Result>
-                <ResultDescription>
-                    <CharacteristicName>characteristicName</CharacteristicName>
-                    <USGSPCode>99999</USGSPCode>
-                </ResultDescription>
-                <BiologicalResultDescription>
-                    <SubjectTaxonomicName>sampleTissueTaxonomicName</SubjectTaxonomicName>
-                </BiologicalResultDescription>
-            </Result>
+        </Activity>
+        <Activity>
+            <ActivityDescription>
+                <ActivityIdentifier>activity-3</ActivityIdentifier>
+                <ActivityMediaName>sampleMedia</ActivityMediaName>
+                <ActivityStartDate>1999-12-31</ActivityStartDate>
+                <ProjectIdentifier>projectId</ProjectIdentifier>
+                <MonitoringLocationIdentifier>organization-siteId3</MonitoringLocationIdentifier>
+            </ActivityDescription>
+            <BiologicalActivityDescription>
+                <AssemblageSampledName>assemblageSampledName</AssemblageSampledName>
+            </BiologicalActivityDescription>
             <Result>
                 <ResultDescription>
                     <CharacteristicName>characteristicName</CharacteristicName>
@@ -635,7 +767,7 @@
         </OrganizationDescription>
         <Activity>
             <ActivityDescription>
-                <ActivityIdentifier>activityBiodata</ActivityIdentifier>
+                <ActivityIdentifier>activityBiodata-1</ActivityIdentifier>
                 <ActivityMediaName>Water</ActivityMediaName>
                 <ActivityStartDate>1996-06-27</ActivityStartDate>
                 <ProjectIdentifier>SACR BioTDB</ProjectIdentifier>

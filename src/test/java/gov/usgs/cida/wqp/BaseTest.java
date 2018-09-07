@@ -170,7 +170,7 @@ public abstract class BaseTest {
 	}
 
 	public static String getActivity() {
-		return "WIDNR_WQX-7788475";
+		return "WIDNR_WQX-7788475-5";
 	}
 
 	public Command getCommand() {

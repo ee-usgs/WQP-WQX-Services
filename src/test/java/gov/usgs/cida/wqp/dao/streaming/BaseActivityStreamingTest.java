@@ -355,112 +355,112 @@ public abstract class BaseActivityStreamingTest extends FilteredActivityDaoTest 
 		assertEquals(columnCount, row.keySet().size());
 		assertEquals(STEWARDS, row.get(BaseColumn.KEY_DATA_SOURCE));
 		assertEquals(BigDecimal.ONE, row.get(ActivityColumn.KEY_ACTIVITY_ID));
-		assertEquals("activityStewards", row.get(ActivityColumn.KEY_ACTIVITY));
+		assertEquals("activityStewards-1", row.get(ActivityColumn.KEY_ACTIVITY));
 	}
 
 	public static void assertStewards2(int columnCount, Map<String, Object> row) {
 		assertEquals(columnCount, row.keySet().size());
 		assertEquals(STEWARDS, row.get(BaseColumn.KEY_DATA_SOURCE));
 		assertEquals(BigDecimal.valueOf(2), row.get(ActivityColumn.KEY_ACTIVITY_ID));
-		assertEquals("activityStewards", row.get(ActivityColumn.KEY_ACTIVITY));
+		assertEquals("activityStewards-2", row.get(ActivityColumn.KEY_ACTIVITY));
 	}
 
 	public static void assertStewards3(int columnCount, Map<String, Object> row) {
 		assertEquals(columnCount, row.keySet().size());
 		assertEquals(STEWARDS, row.get(BaseColumn.KEY_DATA_SOURCE));
 		assertEquals(BigDecimal.valueOf(3), row.get(ActivityColumn.KEY_ACTIVITY_ID));
-		assertEquals("activityStewards", row.get(ActivityColumn.KEY_ACTIVITY));
+		assertEquals("activityStewards-3", row.get(ActivityColumn.KEY_ACTIVITY));
 	}
 
 	public static void assertNwis1(int columnCount, Map<String, Object> row) {
 		assertEquals(columnCount, row.keySet().size());
 		assertEquals(NWIS, row.get(BaseColumn.KEY_DATA_SOURCE));
 		assertEquals(BigDecimal.ONE, row.get(ActivityColumn.KEY_ACTIVITY_ID));
-		assertEquals("activityNwis", row.get(ActivityColumn.KEY_ACTIVITY));
+		assertEquals("activityNwis-1", row.get(ActivityColumn.KEY_ACTIVITY));
 	}
 
 	public static void assertNwis2(int columnCount, Map<String, Object> row) {
 		assertEquals(columnCount, row.keySet().size());
 		assertEquals(NWIS, row.get(BaseColumn.KEY_DATA_SOURCE));
 		assertEquals(BigDecimal.valueOf(2), row.get(ActivityColumn.KEY_ACTIVITY_ID));
-		assertEquals("activityNwis", row.get(ActivityColumn.KEY_ACTIVITY));
+		assertEquals("activityNwis-2", row.get(ActivityColumn.KEY_ACTIVITY));
 	}
 
 	public static void assertNwis3(int columnCount, Map<String, Object> row) {
 		assertEquals(columnCount, row.keySet().size());
 		assertEquals(NWIS, row.get(BaseColumn.KEY_DATA_SOURCE));
 		assertEquals(BigDecimal.valueOf(3), row.get(ActivityColumn.KEY_ACTIVITY_ID));
-		assertEquals("activityNwis", row.get(ActivityColumn.KEY_ACTIVITY));
+		assertEquals("activityNwis-3", row.get(ActivityColumn.KEY_ACTIVITY));
 	}
 
 	public static void assertStoret1(int columnCount, Map<String, Object> row) {
 		assertEquals(columnCount, row.keySet().size());
 		assertEquals(STORET, row.get(BaseColumn.KEY_DATA_SOURCE));
 		assertEquals(BigDecimal.ONE, row.get(ActivityColumn.KEY_ACTIVITY_ID));
-		assertEquals("activity", row.get(ActivityColumn.KEY_ACTIVITY));
+		assertEquals("activity-1", row.get(ActivityColumn.KEY_ACTIVITY));
 	}
 
 	public static void assertStoret2(int columnCount, Map<String, Object> row) {
 		assertEquals(columnCount, row.keySet().size());
 		assertEquals(STORET, row.get(BaseColumn.KEY_DATA_SOURCE));
 		assertEquals(BigDecimal.valueOf(2), row.get(ActivityColumn.KEY_ACTIVITY_ID));
-		assertEquals("activity", row.get(ActivityColumn.KEY_ACTIVITY));
+		assertEquals("activity-2", row.get(ActivityColumn.KEY_ACTIVITY));
 	}
 
 	public static void assertStoret3(int columnCount, Map<String, Object> row) {
 		assertEquals(columnCount, row.keySet().size());
 		assertEquals(STORET, row.get(BaseColumn.KEY_DATA_SOURCE));
 		assertEquals(BigDecimal.valueOf(3), row.get(ActivityColumn.KEY_ACTIVITY_ID));
-		assertEquals("activity", row.get(ActivityColumn.KEY_ACTIVITY));
+		assertEquals("activity-3", row.get(ActivityColumn.KEY_ACTIVITY));
 	}
 
 	public static void assertStoret4(int columnCount, Map<String, Object> row) {
 		assertEquals(columnCount, row.keySet().size());
 		assertEquals(STORET, row.get(BaseColumn.KEY_DATA_SOURCE));
 		assertEquals(BigDecimal.valueOf(4), row.get(ActivityColumn.KEY_ACTIVITY_ID));
-		assertEquals("WIDNR_WQX-7788480", row.get(ActivityColumn.KEY_ACTIVITY));
+		assertEquals("WIDNR_WQX-7788480-4", row.get(ActivityColumn.KEY_ACTIVITY));
 	}
 
 	public static void assertStoret5(int columnCount, Map<String, Object> row) {
 		assertEquals(columnCount, row.keySet().size());
 		assertEquals(STORET, row.get(BaseColumn.KEY_DATA_SOURCE));
 		assertEquals(BigDecimal.valueOf(5), row.get(ActivityColumn.KEY_ACTIVITY_ID));
-		assertEquals("WIDNR_WQX-7788475", row.get(ActivityColumn.KEY_ACTIVITY));
+		assertEquals("WIDNR_WQX-7788475-5", row.get(ActivityColumn.KEY_ACTIVITY));
 	}
 
 	public static void assertStoret6(int columnCount, Map<String, Object> row) {
 		assertEquals(columnCount, row.keySet().size());
 		assertEquals(STORET, row.get(BaseColumn.KEY_DATA_SOURCE));
 		assertEquals(BigDecimal.valueOf(6), row.get(ActivityColumn.KEY_ACTIVITY_ID));
-		assertEquals("21NYDECA_WQX-020002", row.get(ActivityColumn.KEY_ACTIVITY));
+		assertEquals("21NYDECA_WQX-020002-6", row.get(ActivityColumn.KEY_ACTIVITY));
 	}
 
 	public static void assertStoret7(int columnCount, Map<String, Object> row) {
 		assertEquals(columnCount, row.keySet().size());
 		assertEquals(STORET, row.get(BaseColumn.KEY_DATA_SOURCE));
 		assertEquals(BigDecimal.valueOf(7), row.get(ActivityColumn.KEY_ACTIVITY_ID));
-		assertEquals("21NYDECA_WQX-020206", row.get(ActivityColumn.KEY_ACTIVITY));
+		assertEquals("21NYDECA_WQX-020206-7", row.get(ActivityColumn.KEY_ACTIVITY));
 	}
 
 	public static void assertStoret8(int columnCount, Map<String, Object> row) {
 		assertEquals(columnCount, row.keySet().size());
 		assertEquals(STORET, row.get(BaseColumn.KEY_DATA_SOURCE));
 		assertEquals(BigDecimal.valueOf(8), row.get(ActivityColumn.KEY_ACTIVITY_ID));
-		assertEquals("21NYDECA_WQX-0210EN", row.get(ActivityColumn.KEY_ACTIVITY));
+		assertEquals("21NYDECA_WQX-0210EN-8", row.get(ActivityColumn.KEY_ACTIVITY));
 	}
 
 	public static void assertStoret9(int columnCount, Map<String, Object> row) {
 		assertEquals(columnCount, row.keySet().size());
 		assertEquals(STORET, row.get(BaseColumn.KEY_DATA_SOURCE));
 		assertEquals(BigDecimal.valueOf(9), row.get(ActivityColumn.KEY_ACTIVITY_ID));
-		assertEquals("21NYDECA_WQX-020610", row.get(ActivityColumn.KEY_ACTIVITY));
+		assertEquals("21NYDECA_WQX-020610-9", row.get(ActivityColumn.KEY_ACTIVITY));
 	}
 
 	public static void assertStoret10(int columnCount, Map<String, Object> row) {
 		assertEquals(columnCount, row.keySet().size());
 		assertEquals(STORET, row.get(BaseColumn.KEY_DATA_SOURCE));
 		assertEquals(BigDecimal.TEN, row.get(ActivityColumn.KEY_ACTIVITY_ID));
-		assertEquals("activityStoret", row.get(ActivityColumn.KEY_ACTIVITY));
+		assertEquals("activityStoret-10", row.get(ActivityColumn.KEY_ACTIVITY));
 	}
 
 	public abstract void assertStoret11(int columnCount, Map<String, Object> row);
@@ -469,42 +469,42 @@ public abstract class BaseActivityStreamingTest extends FilteredActivityDaoTest 
 		assertEquals(columnCount, row.keySet().size());
 		assertEquals(STORET, row.get(BaseColumn.KEY_DATA_SOURCE));
 		assertEquals(BigDecimal.valueOf(12), row.get(ActivityColumn.KEY_ACTIVITY_ID));
-		assertEquals("activity", row.get(ActivityColumn.KEY_ACTIVITY));
+		assertEquals("activity-12", row.get(ActivityColumn.KEY_ACTIVITY));
 	}
 
 	public static void assertStoret13(int columnCount, Map<String, Object> row) {
 		assertEquals(columnCount, row.keySet().size());
 		assertEquals(STORET, row.get(BaseColumn.KEY_DATA_SOURCE));
 		assertEquals(BigDecimal.valueOf(13), row.get(ActivityColumn.KEY_ACTIVITY_ID));
-		assertEquals("activity", row.get(ActivityColumn.KEY_ACTIVITY));
+		assertEquals("activity-13", row.get(ActivityColumn.KEY_ACTIVITY));
 	}
 
 	public static void assertStoret14(int columnCount, Map<String, Object> row) {
 		assertEquals(columnCount, row.keySet().size());
 		assertEquals(STORET, row.get(BaseColumn.KEY_DATA_SOURCE));
 		assertEquals(BigDecimal.valueOf(14), row.get(ActivityColumn.KEY_ACTIVITY_ID));
-		assertEquals("activityStoret", row.get(ActivityColumn.KEY_ACTIVITY));
+		assertEquals("activityStoret-14", row.get(ActivityColumn.KEY_ACTIVITY));
 	}
 
 	public static void assertStoret15(int columnCount, Map<String, Object> row) {
 		assertEquals(columnCount, row.keySet().size());
 		assertEquals(STORET, row.get(BaseColumn.KEY_DATA_SOURCE));
 		assertEquals(BigDecimal.valueOf(15), row.get(ActivityColumn.KEY_ACTIVITY_ID));
-		assertEquals("activityStoret", row.get(ActivityColumn.KEY_ACTIVITY));
+		assertEquals("activityStoret-15", row.get(ActivityColumn.KEY_ACTIVITY));
 	}
 
 	public static void assertStoret16(int columnCount, Map<String, Object> row) {
 		assertEquals(columnCount, row.keySet().size());
 		assertEquals(STORET, row.get(BaseColumn.KEY_DATA_SOURCE));
 		assertEquals(BigDecimal.valueOf(16), row.get(ActivityColumn.KEY_ACTIVITY_ID));
-		assertEquals("activity", row.get(ActivityColumn.KEY_ACTIVITY));
+		assertEquals("activity-16", row.get(ActivityColumn.KEY_ACTIVITY));
 	}
 
 	public static void assertBiodata1(int columnCount, Map<String, Object> row) {
 		assertEquals(columnCount, row.keySet().size());
 		assertEquals(BIODATA, row.get(BaseColumn.KEY_DATA_SOURCE));
 		assertEquals(BigDecimal.ONE, row.get(ActivityColumn.KEY_ACTIVITY_ID));
-		assertEquals("activityBiodata", row.get(ActivityColumn.KEY_ACTIVITY));
+		assertEquals("activityBiodata-1", row.get(ActivityColumn.KEY_ACTIVITY));
 	}
 
 	public void assertContainsActivity(List<Map<String, Object>> results, BigDecimal[]...  activityIds) {

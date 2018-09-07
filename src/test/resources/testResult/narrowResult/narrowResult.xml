@@ -7,7 +7,7 @@
         </OrganizationDescription>
         <Activity>
             <ActivityDescription>
-                <ActivityIdentifier>activityStewards</ActivityIdentifier>
+                <ActivityIdentifier>activityStewards-1</ActivityIdentifier>
                 <ActivityStartDate>1996-06-27</ActivityStartDate>
                 <MonitoringLocationIdentifier>ARS-IAWC-IAWC225</MonitoringLocationIdentifier>
             </ActivityDescription>
@@ -16,11 +16,25 @@
                     <ResultIdentifier>STEWARDS-1</ResultIdentifier>
                 </ResultDescription>
             </Result>
+        </Activity>
+        <Activity>
+            <ActivityDescription>
+                <ActivityIdentifier>activityStewards-2</ActivityIdentifier>
+                <ActivityStartDate>2015-05-17</ActivityStartDate>
+                <MonitoringLocationIdentifier>ARS-IAWC-IAWC225</MonitoringLocationIdentifier>
+            </ActivityDescription>
             <Result>
                 <ResultDescription>
                     <ResultIdentifier>STEWARDS-2</ResultIdentifier>
                 </ResultDescription>
             </Result>
+        </Activity>
+        <Activity>
+            <ActivityDescription>
+                <ActivityIdentifier>activityStewards-3</ActivityIdentifier>
+                <ActivityStartDate>1996-06-27</ActivityStartDate>
+                <MonitoringLocationIdentifier>ARS-IAWC-IAWC410</MonitoringLocationIdentifier>
+            </ActivityDescription>
             <Result>
                 <ResultDescription>
                     <ResultIdentifier>STEWARDS-3</ResultIdentifier>
@@ -35,7 +49,7 @@
         </OrganizationDescription>
         <Activity>
             <ActivityDescription>
-                <ActivityIdentifier>activityNwis</ActivityIdentifier>
+                <ActivityIdentifier>activityNwis-1</ActivityIdentifier>
                 <ActivityStartDate>1996-06-27</ActivityStartDate>
                 <MonitoringLocationIdentifier>USGS-05425700</MonitoringLocationIdentifier>
             </ActivityDescription>
@@ -63,6 +77,13 @@
                     <MethodUrl>https://www.nemi.gov/methods/method_summary/8896/</MethodUrl>
                 </ResultAnalyticalMethod>
             </Result>
+        </Activity>
+        <Activity>
+            <ActivityDescription>
+                <ActivityIdentifier>activityNwis-2</ActivityIdentifier>
+                <ActivityStartDate>2015-05-15</ActivityStartDate>
+                <MonitoringLocationIdentifier>USGS-05425700</MonitoringLocationIdentifier>
+            </ActivityDescription>
             <Result>
                 <ResultDescription>
                     <ResultIdentifier>NWIS-2</ResultIdentifier>
@@ -71,6 +92,13 @@
                     <MethodUrl>https://www.nemi.gov/methods/method_summary/8896/</MethodUrl>
                 </ResultAnalyticalMethod>
             </Result>
+        </Activity>
+        <Activity>
+            <ActivityDescription>
+                <ActivityIdentifier>activityNwis-3</ActivityIdentifier>
+                <ActivityStartDate>1996-06-27</ActivityStartDate>
+                <MonitoringLocationIdentifier>USGS-431925089002701</MonitoringLocationIdentifier>
+            </ActivityDescription>
             <Result>
                 <ResultDescription>
                     <ResultIdentifier>NWIS-3</ResultIdentifier>
@@ -86,7 +114,7 @@
         </OrganizationDescription>
         <Activity>
             <ActivityDescription>
-                <ActivityIdentifier>21NYDECA_WQX-020002</ActivityIdentifier>
+                <ActivityIdentifier>21NYDECA_WQX-020002-6</ActivityIdentifier>
                 <ActivityStartDate>1995-09-26</ActivityStartDate>
                 <MonitoringLocationIdentifier>21NYDECA_WQX-ONTARIO-02</MonitoringLocationIdentifier>
             </ActivityDescription>
@@ -99,7 +127,7 @@
         </Activity>
         <Activity>
             <ActivityDescription>
-                <ActivityIdentifier>21NYDECA_WQX-020206</ActivityIdentifier>
+                <ActivityIdentifier>21NYDECA_WQX-020206-7</ActivityIdentifier>
                 <ActivityStartDate>1995-09-26</ActivityStartDate>
                 <MonitoringLocationIdentifier>21NYDECA_WQX-ONTARIO-02</MonitoringLocationIdentifier>
             </ActivityDescription>
@@ -313,7 +341,7 @@
         </Activity>
         <Activity>
             <ActivityDescription>
-                <ActivityIdentifier>21NYDECA_WQX-020610</ActivityIdentifier>
+                <ActivityIdentifier>21NYDECA_WQX-020610-9</ActivityIdentifier>
                 <ActivityStartDate>1995-09-26</ActivityStartDate>
                 <MonitoringLocationIdentifier>21NYDECA_WQX-ONTARIO-02</MonitoringLocationIdentifier>
             </ActivityDescription>
@@ -329,7 +357,7 @@
         </Activity>
         <Activity>
             <ActivityDescription>
-                <ActivityIdentifier>21NYDECA_WQX-0210EN</ActivityIdentifier>
+                <ActivityIdentifier>21NYDECA_WQX-0210EN-8</ActivityIdentifier>
                 <ActivityStartDate>1995-09-26</ActivityStartDate>
                 <MonitoringLocationIdentifier>21NYDECA_WQX-ONTARIO-02</MonitoringLocationIdentifier>
             </ActivityDescription>
@@ -348,7 +376,7 @@
         </OrganizationDescription>
         <Activity>
             <ActivityDescription>
-                <ActivityIdentifier>WIDNR_WQX-7788475</ActivityIdentifier>
+                <ActivityIdentifier>WIDNR_WQX-7788475-5</ActivityIdentifier>
                 <ActivityStartDate>1992-07-28</ActivityStartDate>
                 <MonitoringLocationIdentifier>WIDNR_WQX-113086</MonitoringLocationIdentifier>
             </ActivityDescription>
@@ -379,7 +407,7 @@
         </Activity>
         <Activity>
             <ActivityDescription>
-                <ActivityIdentifier>WIDNR_WQX-7788480</ActivityIdentifier>
+                <ActivityIdentifier>WIDNR_WQX-7788480-4</ActivityIdentifier>
                 <ActivityStartDate>1992-07-28</ActivityStartDate>
                 <MonitoringLocationIdentifier>WIDNR_WQX-113086</MonitoringLocationIdentifier>
             </ActivityDescription>
@@ -422,8 +450,8 @@
         </OrganizationDescription>
         <Activity>
             <ActivityDescription>
-                <ActivityIdentifier>activityStoret</ActivityIdentifier>
-                <ActivityStartDate>1996-06-24</ActivityStartDate>
+                <ActivityIdentifier>activityStoret-14</ActivityIdentifier>
+                <ActivityStartDate>1996-06-25</ActivityStartDate>
                 <MonitoringLocationIdentifier>11NPSWRD-BICA_MFG_B</MonitoringLocationIdentifier>
             </ActivityDescription>
             <Result>
@@ -452,6 +480,13 @@
                     <MethodUrl>https://analyticalMethod</MethodUrl>
                 </ResultAnalyticalMethod>
             </Result>
+        </Activity>
+        <Activity>
+            <ActivityDescription>
+                <ActivityIdentifier>activityStoret-15</ActivityIdentifier>
+                <ActivityStartDate>1996-06-26</ActivityStartDate>
+                <MonitoringLocationIdentifier>11NPSWRD-BICA_MFG_B</MonitoringLocationIdentifier>
+            </ActivityDescription>
             <Result>
                 <ResultDescription>
                     <ResultIdentifier>STORET-47</ResultIdentifier>
@@ -465,6 +500,13 @@
                     <MethodUrl>https://analyticalMethod</MethodUrl>
                 </ResultAnalyticalMethod>
             </Result>
+        </Activity>
+        <Activity>
+            <ActivityDescription>
+                <ActivityIdentifier>activityStoret-10</ActivityIdentifier>
+                <ActivityStartDate>1996-06-27</ActivityStartDate>
+                <MonitoringLocationIdentifier>11NPSWRD-BICA_MFG_B</MonitoringLocationIdentifier>
+            </ActivityDescription>
             <Result>
                 <ResultDescription>
                     <ResultIdentifier>STORET-41</ResultIdentifier>
@@ -478,7 +520,7 @@
         </Activity>
         <Activity>
             <ActivityDescription>
-                <ActivityIdentifier>activity</ActivityIdentifier>
+                <ActivityIdentifier>activity-11</ActivityIdentifier>
                 <ActivityStartDate>1999-12-28</ActivityStartDate>
                 <ActivityStartTime>
                     <Time>activityStartTime</Time>
@@ -585,6 +627,13 @@
                     <LabSamplePreparationUrl>https://www.waterqualitydata.us/labSamplePrepUrl</LabSamplePreparationUrl>
                 </LabSamplePreparation>
             </Result>
+        </Activity>
+        <Activity>
+            <ActivityDescription>
+                <ActivityIdentifier>activity-12</ActivityIdentifier>
+                <ActivityStartDate>1999-12-29</ActivityStartDate>
+                <MonitoringLocationIdentifier>organization-siteId</MonitoringLocationIdentifier>
+            </ActivityDescription>
             <Result>
                 <ResultDescription>
                     <ResultIdentifier>STORET-43</ResultIdentifier>
@@ -598,6 +647,13 @@
                     <MethodUrl>https://analyticalMethod</MethodUrl>
                 </ResultAnalyticalMethod>
             </Result>
+        </Activity>
+        <Activity>
+            <ActivityDescription>
+                <ActivityIdentifier>activity-13</ActivityIdentifier>
+                <ActivityStartDate>1999-12-30</ActivityStartDate>
+                <MonitoringLocationIdentifier>organization-siteId</MonitoringLocationIdentifier>
+            </ActivityDescription>
             <Result>
                 <ResultDescription>
                     <ResultIdentifier>STORET-44</ResultIdentifier>
@@ -611,6 +667,13 @@
                     <MethodUrl>https://analyticalMethod</MethodUrl>
                 </ResultAnalyticalMethod>
             </Result>
+        </Activity>
+        <Activity>
+            <ActivityDescription>
+                <ActivityIdentifier>activity-2</ActivityIdentifier>
+                <ActivityStartDate>1999-12-31</ActivityStartDate>
+                <MonitoringLocationIdentifier>organization-siteId</MonitoringLocationIdentifier>
+            </ActivityDescription>
             <Result>
                 <ResultDescription>
                     <ResultIdentifier>STORET-2</ResultIdentifier>
@@ -624,6 +687,13 @@
                     <MethodUrl>https://analyticalMethod</MethodUrl>
                 </ResultAnalyticalMethod>
             </Result>
+        </Activity>
+        <Activity>
+            <ActivityDescription>
+                <ActivityIdentifier>activity-16</ActivityIdentifier>
+                <ActivityStartDate>1999-12-30</ActivityStartDate>
+                <MonitoringLocationIdentifier>organization-siteId2</MonitoringLocationIdentifier>
+            </ActivityDescription>
             <Result>
                 <ResultDescription>
                     <ResultIdentifier>STORET-48</ResultIdentifier>
@@ -663,6 +733,13 @@
                     <MethodUrl>https://analyticalMethod</MethodUrl>
                 </ResultAnalyticalMethod>
             </Result>
+        </Activity>
+        <Activity>
+            <ActivityDescription>
+                <ActivityIdentifier>activity-1</ActivityIdentifier>
+                <ActivityStartDate>1999-12-31</ActivityStartDate>
+                <MonitoringLocationIdentifier>organization-siteId2</MonitoringLocationIdentifier>
+            </ActivityDescription>
             <Result>
                 <ResultDescription>
                     <ResultIdentifier>STORET-1</ResultIdentifier>
@@ -676,6 +753,13 @@
                     <MethodUrl>https://analyticalMethod</MethodUrl>
                 </ResultAnalyticalMethod>
             </Result>
+        </Activity>
+        <Activity>
+            <ActivityDescription>
+                <ActivityIdentifier>activity-3</ActivityIdentifier>
+                <ActivityStartDate>1999-12-31</ActivityStartDate>
+                <MonitoringLocationIdentifier>organization-siteId3</MonitoringLocationIdentifier>
+            </ActivityDescription>
             <Result>
                 <ResultDescription>
                     <ResultIdentifier>STORET-3</ResultIdentifier>
@@ -698,7 +782,7 @@
         </OrganizationDescription>
         <Activity>
             <ActivityDescription>
-                <ActivityIdentifier>activityBiodata</ActivityIdentifier>
+                <ActivityIdentifier>activityBiodata-1</ActivityIdentifier>
                 <ActivityStartDate>1996-06-27</ActivityStartDate>
                 <MonitoringLocationIdentifier>USGS-11421000</MonitoringLocationIdentifier>
             </ActivityDescription>

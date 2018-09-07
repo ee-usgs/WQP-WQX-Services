@@ -59,13 +59,13 @@ public class BlobDaoIT extends BaseIT {
 	public static final String THREE_FILE_STATION_CONTENTS_THREE = "This is yet another small text file.";
 
 	public static final String SINGLE_FILE_RESULT_ORG = "21NYDECA_WQX";
-	public static final String SINGLE_FILE_RESULT_ACTIVITY = "21NYDECA_WQX-020206";
+	public static final String SINGLE_FILE_RESULT_ACTIVITY = "21NYDECA_WQX-020206-7";
 	public static final String SINGLE_FILE_RESULT_RESULT = "STORET-21";
 	public static final String SINGLE_FILE_RESULT_ENTRY= "21NYDECA_WQX-020206_three.txt";
 	public static final String SINGLE_FILE_RESULT_CONTENTS= "This is a single small text result file, but you might think it is the third one.";
 
 	public static final String THREE_FILE_RESULT_ORG = "WIDNR_WQX";
-	public static final String THREE_FILE_RESULT_ACTIVITY = "WIDNR_WQX-7788480";
+	public static final String THREE_FILE_RESULT_ACTIVITY = "WIDNR_WQX-7788480-4";
 	public static final String THREE_FILE_RESULT_RESULT= "STORET-4";
 	public static final String THREE_FILE_RESULT_ENTRY_ONE= "WIDNR_WQX-7788480_one.txt";
 	public static final String THREE_FILE_RESULT_CONTENTS_ONE= "This is a small text result file.";
