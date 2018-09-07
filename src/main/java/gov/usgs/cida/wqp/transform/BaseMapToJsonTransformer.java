@@ -11,13 +11,13 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import gov.usgs.cida.wqp.mapping.StationColumn;
 import gov.usgs.cida.wqp.service.ILogService;
 
-public class MapToJsonTransformer extends Transformer {
+public class BaseMapToJsonTransformer extends Transformer {
 
 	protected JsonFactory f;
 	protected JsonGenerator g;
 	protected String siteUrlBase;
 
-	public MapToJsonTransformer(OutputStream target, Map<String, String> mapping, ILogService logService, BigDecimal logId, String siteUrlBase) {
+	public BaseMapToJsonTransformer(OutputStream target, Map<String, String> mapping, ILogService logService, BigDecimal logId, String siteUrlBase) {
 		super(target, mapping, logService, logId);
 		this.siteUrlBase = siteUrlBase;
 		init();
@@ -75,12 +75,11 @@ public class MapToJsonTransformer extends Transformer {
 			g.writeStringField("activityCount", getValue(resultMap, StationColumn.KEY_ACTIVITY_COUNT));
 			g.writeStringField("resultCount", getValue(resultMap, StationColumn.KEY_RESULT_COUNT));
                         g.writeStringField("StateName", getValue(resultMap, StationColumn.KEY_STATE_NAME));
-                        g.writeStringField("CountyName", getValue(resultMap, StationColumn.KEY_COUNTY_NAME));
+                        g.writeStringField("CountyName", getValue(resultMap, StationColumn.KEY_COUNTY_NAME));                        
                         
-                        String summaryColumnName  = getSummaryColumnName(resultMap); 
-                        if (summaryColumnName != null) {
-                            writeCharacteristicGroupCount("characteristicGroupResultCount", resultMap, summaryColumnName);
-                        }
+			g.writeFieldName("characteristicGroupResultCount");
+			g.writeRawValue(getValue(resultMap, getSummaryColumnName(resultMap)));
+			
                         g.writeEndObject();
 			g.writeEndObject();
 		} catch (IOException e) {
@@ -118,17 +117,7 @@ public class MapToJsonTransformer extends Transformer {
                     summaryColumnName = StationColumn.KEY_SUMMARY_ALL_MONTHS;				
                 }
                 return summaryColumnName;
-        }
-        
-        protected void writeCharacteristicGroupCount(String fieldName, Map<String, Object> resultMap, String keyValue) throws IOException {
-                g.writeFieldName(fieldName);
-
-                if ("".equals(getValue(resultMap, keyValue))) {
-                    g.writeObject("");
-                } else {
-                    g.writeRawValue(getValue(resultMap, keyValue));
-                }
-        }
+        }       
 
 	@Override
 	public String encode(String value) {

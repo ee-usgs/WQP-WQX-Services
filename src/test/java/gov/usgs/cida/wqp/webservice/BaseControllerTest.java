@@ -75,7 +75,7 @@ import gov.usgs.cida.wqp.parameter.FilterParameters;
 import gov.usgs.cida.wqp.service.ConfigurationService;
 import gov.usgs.cida.wqp.service.ILogService;
 import gov.usgs.cida.wqp.transform.MapToDelimitedTransformer;
-import gov.usgs.cida.wqp.transform.MapToJsonTransformer;
+import gov.usgs.cida.wqp.transform.BaseMapToJsonTransformer;
 import gov.usgs.cida.wqp.transform.MapToKmlTransformer;
 import gov.usgs.cida.wqp.transform.MapToXlsxTransformer;
 import gov.usgs.cida.wqp.transform.MapToXmlTransformer;
@@ -936,9 +936,9 @@ public class BaseControllerTest {
 	public void getTransformerTest() {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		TestBaseController.setMimeType(MimeType.json);
-		assertTrue(testController.getTransformer(baos, null) instanceof MapToJsonTransformer);
+		assertTrue(testController.getTransformer(baos, null) instanceof BaseMapToJsonTransformer);
 		TestBaseController.setMimeType(MimeType.geojson);
-		assertTrue(testController.getTransformer(baos, null) instanceof MapToJsonTransformer);
+		assertTrue(testController.getTransformer(baos, null) instanceof BaseMapToJsonTransformer);
 		TestBaseController.setMimeType(MimeType.xlsx);
 		assertTrue(testController.getTransformer(baos, null) instanceof MapToXlsxTransformer);
 		TestBaseController.setMimeType(MimeType.xml);
