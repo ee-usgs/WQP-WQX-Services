@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<mapper namespace="summaryOrganization">
+	
+    <sql id="selectAllTimeSummary">
+        TO_CHAR(all_time_summary) organization_sum_data
+    </sql>
+    
+    <sql id="selectCurrentYearSummary">
+        TO_CHAR(current_year_summary) organization_sum_data
+    </sql>
+    
+    <sql id="selectFiveYearSummary">
+        TO_CHAR(five_year_summary) organization_sum_data
+    </sql>
+    
+    <sql id="selectSummaryByYear">
+        <choose>
+            <when test="summaryYears == null or summaryYears.equalsIgnoreCase('all')"><include refid="selectAllTimeSummary" /></when>
+            <otherwise>
+                <choose>
+                    <when test="summaryYears.equalsIgnoreCase('1')"><include refid="selectCurrentYearSummary" /></when>
+                    <when test="summaryYears.equalsIgnoreCase('5')"><include refid="selectFiveYearSummary" /></when>
+                    <otherwise><include refid="selectAllTimeSummary" /></otherwise>
+                </choose>
+            </otherwise>
+        </choose>
+    </sql>
+	
+    <sql id="summaryYearWhere">
+        <where>
+            <if test="organization != null">
+                organization in <foreach item="i" collection="organization" open="(" separator="," close=")">#{i}</foreach>
+                <choose>
+                    <when test="summaryYears == null or summaryYears.equalsIgnoreCase('all')">
+                        and all_time_summary is not null
+                    </when>
+                    <otherwise>
+                        <choose>
+                            <when test="summaryYears.equalsIgnoreCase('1')">and current_year_summary is not null</when>
+                            <when test="summaryYears.equalsIgnoreCase('5')">and five_year_summary is not null</when>
+                            <otherwise>and all_time_summary is not null</otherwise>
+                        </choose>
+                    </otherwise>
+                </choose>
+            </if>
+        </where>
+    </sql>
+
+    <select id="select" resultType="java.util.LinkedHashMap" fetchSize="500">
+
+    SELECT
+
+    organization,
+    organization_name,
+    ('https://www.waterqualitydata.us/provider/' || data_source || '/' || organization || '/') organization_wqp_url,
+    last_result,
+    total_monitoring_locations,
+    total_activities,
+    <include refid="selectSummaryByYear" />
+
+    FROM
+
+    organization_sum
+
+    <include refid="summaryYearWhere" />
+
+</mapper>
