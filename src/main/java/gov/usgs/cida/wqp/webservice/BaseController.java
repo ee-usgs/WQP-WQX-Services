@@ -43,6 +43,7 @@ import gov.usgs.cida.wqp.transform.MapToKmlTransformer;
 import gov.usgs.cida.wqp.transform.MapToXlsxTransformer;
 import gov.usgs.cida.wqp.transform.MapToXmlTransformer;
 import gov.usgs.cida.wqp.transform.MonitoringLocMapToJsonTransformer; // added for testing
+import gov.usgs.cida.wqp.transform.OrganizationSumMapToJsonTransformer;
 import gov.usgs.cida.wqp.transform.Transformer;
 import gov.usgs.cida.wqp.util.HttpConstants;
 import gov.usgs.cida.wqp.util.MimeType;
@@ -485,7 +486,7 @@ public abstract class BaseController {
 // TODO add logic to select between MonitoringLocMapToJson and OrganisationSumMapToJsonTransformer
 // altering following line for testing purposes		    
 //			transformer = new BaseMapToJsonTransformer(responseStream, null, logService, logId, configurationService.getSiteUrlBase());
-    transformer = new MonitoringLocMapToJsonTransformer(responseStream, null, logService, logId, configurationService.getSiteUrlBase());
+    transformer = new OrganizationSumMapToJsonTransformer(responseStream, null, logService, logId, configurationService.getSiteUrlBase());
 		    break;
 		case xlsx:
 			transformer = new MapToXlsxTransformer(responseStream, getMapping(getProfile()), logService, logId);
