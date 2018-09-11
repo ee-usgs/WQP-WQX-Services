@@ -459,13 +459,15 @@ public abstract class BaseController {
 			return determineNamespaceFromProfile(getProfile());
 		}
 	}
-	
+//TODO FIX TO MAP OR SWITCH	
 	protected NameSpace getGeoJsonNameSpace(Profile theProfile) {
 		NameSpace theNameSpace = null;
 		if (theProfile == Profile.SIMPLE_STATION || theProfile == Profile.STATION) {
 			theNameSpace = NameSpace.SIMPLE_STATION;
 		} else if (theProfile == Profile.SUMMARY_STATION) {
 			theNameSpace = NameSpace.SUMMARY_STATION;
+		} else if (theProfile == Profile.SUMMARY_ORGANIZATION) {
+			theNameSpace = NameSpace.SUMMARY_ORGANIZATION;		    
 		}
 		return theNameSpace;
 	}
@@ -479,6 +481,8 @@ public abstract class BaseController {
 	}
 
 	protected Transformer getTransformer(OutputStream responseStream, BigDecimal logId) {
+// TODO add logic to use profile to select correct transformer
+	    Profile testProfile = getProfile();
 		Transformer transformer;
 		switch (getMimeType()) {
 		case json:

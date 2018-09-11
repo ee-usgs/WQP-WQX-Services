@@ -8,7 +8,7 @@ import gov.usgs.cida.wqp.parameter.FilterParameters;
 import gov.usgs.cida.wqp.service.ConfigurationService;
 import gov.usgs.cida.wqp.service.ILogService;
 import gov.usgs.cida.wqp.swagger.SwaggerConfig;
-import gov.usgs.cida.wqp.swagger.annotation.ProfileParameterSummary;
+import gov.usgs.cida.wqp.swagger.annotation.ProfileParameterSummaryOrganization;
 import gov.usgs.cida.wqp.swagger.model.StationCountJson;
 import gov.usgs.cida.wqp.util.HttpConstants;
 import gov.usgs.cida.wqp.webservice.BaseController;
@@ -43,14 +43,14 @@ public class SummaryOrganizationController extends BaseController {
     }
     
     @ApiOperation(value="Return appropriate request headers (including anticipated record counts).")
-    @ProfileParameterSummary
+    @ProfileParameterSummaryOrganization
     @RequestMapping(method=RequestMethod.HEAD)
     public void summaryOrganizationRequest(HttpServletRequest request, HttpServletResponse response, @ApiIgnore FilterParameters filter) {
 	    doHeadRequest(request, response, filter);
     }
     
     @ApiOperation(value="Return requested data.")
-    @ProfileParameterSummary
+    @ProfileParameterSummaryOrganization
     @GetMapping()
     public void summaryOrganizationGetRequest(HttpServletRequest request, HttpServletResponse response, @ApiIgnore FilterParameters filter) {
 	    doDataRequest(request, response, filter);
