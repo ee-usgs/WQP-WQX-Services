@@ -37,7 +37,7 @@ public class SwaggerParameterBuilder implements OperationBuilderPlugin {
 		Optional<FullParameterList> fullParameterList = context.findAnnotation(FullParameterList.class);
 		Optional<ProfileParameterActivity> profileParameterActivity = context.findAnnotation(ProfileParameterActivity.class);
 		Optional<ProfileParameterResult> profileParameterResult = context.findAnnotation(ProfileParameterResult.class);
-                Optional<ProfileParameterSummary> profileParameterSummary = context.findAnnotation(ProfileParameterSummary.class);
+		Optional<ProfileParameterSummary> profileParameterSummary = context.findAnnotation(ProfileParameterSummary.class);
 		Optional<PostMapping> postMapping = context.findAnnotation(PostMapping.class);
 
 		if (!noQueryParametersList.isPresent()) {
@@ -73,14 +73,13 @@ public class SwaggerParameterBuilder implements OperationBuilderPlugin {
 			parameters.add(SwaggerParameters.subjectTaxonomicName());
 			parameters.add(SwaggerParameters.within());
 		}
-                
 
 		if (profileParameterActivity.isPresent()) {
-			parameters.add(SwaggerParameters.dataProfile());
+			parameters.add(SwaggerParameters.dataProfileActivity());
 		}
 
 		if (profileParameterResult.isPresent()) {
-			parameters.add(SwaggerParameters.dataProfile());
+			parameters.add(SwaggerParameters.dataProfileResult());
 		}
 
 		if (profileParameterSummary.isPresent()) {
@@ -98,8 +97,8 @@ public class SwaggerParameterBuilder implements OperationBuilderPlugin {
 			parameters.add(SwaggerParameters.statecode());
 			parameters.add(SwaggerParameters.summaryYears());
 			parameters.add(SwaggerParameters.within());
-                }
-                
+		}
+
 		if (postMapping.isPresent()) {
 			parameters.add(SwaggerParameters.postParms());
 		}

@@ -116,11 +116,11 @@
     </sql>
 
     <sql id="resDetectQntLmtUrl">
-        nvl2(prime.res_detect_qnt_lmt_url, #{siteUrlBase,jdbcType=VARCHAR} || '/' || prime.res_detect_qnt_lmt_url, null) res_detect_qnt_lmt_url
+        nvl2(prime.res_detect_qnt_lmt_url, #{siteUrlBase,jdbcType=VARCHAR} || prime.res_detect_qnt_lmt_url, null) res_detect_qnt_lmt_url
     </sql>
 
     <sql id="labSamplePrepUrl">
-        nvl2(prime.lab_sample_prep_url, #{siteUrlBase,jdbcType=VARCHAR} || '/' || prime.lab_sample_prep_url, null) lab_sample_prep_url
+        nvl2(prime.lab_sample_prep_url, #{siteUrlBase,jdbcType=VARCHAR} || prime.lab_sample_prep_url, null) lab_sample_prep_url
     </sql>
 
     <sql id="externalResultId">
@@ -130,6 +130,6 @@
     <sql id="resultObjectColumns">
         prime.result_object_name,
         prime.result_object_type,
-        nvl2(prime.result_file_url, #{siteUrlBase,jdbcType=VARCHAR} || '/' || prime.result_file_url, null) result_file_url
+        nvl2(prime.result_file_url, #{siteUrlBase,jdbcType=VARCHAR} || prime.result_file_url, null) result_file_url
     </sql>
 </mapper>

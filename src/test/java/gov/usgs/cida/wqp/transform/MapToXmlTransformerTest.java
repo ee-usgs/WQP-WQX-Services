@@ -1,5 +1,9 @@
 package gov.usgs.cida.wqp.transform;
 
+import static gov.usgs.cida.wqp.mapping.xml.BaseWqx.WQX_FREQUENCY_CLASS_INFO;
+import static gov.usgs.cida.wqp.mapping.xml.BaseWqx.WQX_FREQUENCY_CLASS_INFO_1;
+import static gov.usgs.cida.wqp.mapping.xml.BaseWqx.WQX_FREQUENCY_CLASS_INFO_2;
+import static gov.usgs.cida.wqp.mapping.xml.BaseWqx.WQX_FREQUENCY_CLASS_INFO_3;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
@@ -171,5 +175,14 @@ public class MapToXmlTransformerTest {
 		assertEquals("</a>", transformer.getClosingNodeText("a b"));
 		assertEquals("</a>", transformer.getClosingNodeText("a b c"));
 		assertEquals("</a>", transformer.getClosingNodeText(" a b c d "));
+	}
+
+	@Test
+	public void cleanseNodeTest() {
+		assertEquals("abc", transformer.cleanse_node("abc"));
+		assertEquals(WQX_FREQUENCY_CLASS_INFO, transformer.cleanse_node(WQX_FREQUENCY_CLASS_INFO_1));
+		assertEquals(WQX_FREQUENCY_CLASS_INFO, transformer.cleanse_node(WQX_FREQUENCY_CLASS_INFO_2));
+		assertEquals(WQX_FREQUENCY_CLASS_INFO, transformer.cleanse_node(WQX_FREQUENCY_CLASS_INFO_3));
+		assertEquals(WQX_FREQUENCY_CLASS_INFO_3 + "a", transformer.cleanse_node(WQX_FREQUENCY_CLASS_INFO_3 + "a"));
 	}
 }

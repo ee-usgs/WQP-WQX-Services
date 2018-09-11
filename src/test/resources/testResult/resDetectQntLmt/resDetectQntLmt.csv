@@ -1,71 +1,71 @@
 OrganizationIdentifier,OrganizationFormalName,ActivityIdentifier,MonitoringLocationIdentifier,ResultIdentifier,CharacteristicName,DetectionQuantitationLimitTypeName,DetectionQuantitationLimitMeasure/MeasureValue,DetectionQuantitationLimitMeasure/MeasureUnitCode,ProviderName
-ARS,USDA Agricultural Research Service,activityStewards,ARS-IAWC-IAWC225,STEWARDS-1,,Instrument Detection Level,1,cfu/100ml,STEWARDS
-ARS,USDA Agricultural Research Service,activityStewards,ARS-IAWC-IAWC225,STEWARDS-1,,Method Detection Level,2,#/100ml,STEWARDS
-ARS,USDA Agricultural Research Service,activityStewards,ARS-IAWC-IAWC225,STEWARDS-2,,Drinking Water Maximum,5,cfu/100ml,STEWARDS
-ARS,USDA Agricultural Research Service,activityStewards,ARS-IAWC-IAWC225,STEWARDS-2,,Estimated Detection Level,3,cfu/100ml,STEWARDS
-ARS,USDA Agricultural Research Service,activityStewards,ARS-IAWC-IAWC225,STEWARDS-2,,Long Term Method Detection Level,4,#/100ml,STEWARDS
-ARS,USDA Agricultural Research Service,activityStewards,ARS-IAWC-IAWC410,STEWARDS-3,,Interim Reporting Level,8,#/100ml,STEWARDS
-ARS,USDA Agricultural Research Service,activityStewards,ARS-IAWC-IAWC410,STEWARDS-3,,Laboratory Reporting Level,9,cfu/100ml,STEWARDS
-ARS,USDA Agricultural Research Service,activityStewards,ARS-IAWC-IAWC410,STEWARDS-3,,Practical Quantitation Limit,6,#/100ml,STEWARDS
-ARS,USDA Agricultural Research Service,activityStewards,ARS-IAWC-IAWC410,STEWARDS-3,,Sample-specific min detect conc,7,cfu/100ml,STEWARDS
-USGS-WI,USGS Wisconsin Water Science Center,activityNwis,USGS-05425700,NWIS-1,,Minimum Reporting Level,10,#/100ml,NWIS
-USGS-WI,USGS Wisconsin Water Science Center,activityNwis,USGS-05425700,NWIS-4,,Contract Quantitation Limit,11,cfu/100ml,NWIS
-USGS-WI,USGS Wisconsin Water Science Center,activityNwis,USGS-05425700,NWIS-4,,Daily detection limit,12,#/100ml,NWIS
-USGS-WI,USGS Wisconsin Water Science Center,activityNwis,USGS-05425700,NWIS-4,,Lower limit of detection,13,cfu/100ml,NWIS
-USGS-WI,USGS Wisconsin Water Science Center,activityNwis,USGS-05425700,NWIS-5,,Blank-adjusted method detect limit,14,#/100ml,NWIS
-USGS-WI,USGS Wisconsin Water Science Center,activityNwis,USGS-05425700,NWIS-2,,detectionLimitDesc,15,#/100ml,NWIS
-USGS-WI,USGS Wisconsin Water Science Center,activityNwis,USGS-431925089002701,NWIS-3,,Sample-Specific Quantitation Limit,16,#/100ml,NWIS
-21NYDECA_WQX,New York State DEC Division of Water,21NYDECA_WQX-020002,21NYDECA_WQX-ONTARIO-02,STORET-27,Total volatile solids,Instrument Detection Level,56,#/100ml,STORET
-21NYDECA_WQX,New York State DEC Division of Water,21NYDECA_WQX-020206,21NYDECA_WQX-ONTARIO-02,STORET-15,"1,2,3,4,7,8-Hexachlorodibenzofuran",Sample-Specific Quantitation Limit,40,#/100ml,STORET
-21NYDECA_WQX,New York State DEC Division of Water,21NYDECA_WQX-020206,21NYDECA_WQX-ONTARIO-02,STORET-16,"1,2,3,6,7,8-Hexachlorodibenzo-p-dioxin",Specified in workplan,41,cfu/100ml,STORET
-21NYDECA_WQX,New York State DEC Division of Water,21NYDECA_WQX-020206,21NYDECA_WQX-ONTARIO-02,STORET-17,"1,2,3,6,7,8-Hexachlorodibenzofuran",Taxanomic Loss Threshold,42,#/100ml,STORET
-21NYDECA_WQX,New York State DEC Division of Water,21NYDECA_WQX-020206,21NYDECA_WQX-ONTARIO-02,STORET-18,"1,2,3,7,8,9-Hexachlorodibenzo-p-dioxin",Field Holding Time Limit,47,cfu/100ml,STORET
-21NYDECA_WQX,New York State DEC Division of Water,21NYDECA_WQX-020206,21NYDECA_WQX-ONTARIO-02,STORET-18,"1,2,3,7,8,9-Hexachlorodibenzo-p-dioxin",Laboratory Holding Time Limit,46,#/100ml,STORET
-21NYDECA_WQX,New York State DEC Division of Water,21NYDECA_WQX-020206,21NYDECA_WQX-ONTARIO-02,STORET-18,"1,2,3,7,8,9-Hexachlorodibenzo-p-dioxin",Measurement Uncertainty,43,cfu/100ml,STORET
-21NYDECA_WQX,New York State DEC Division of Water,21NYDECA_WQX-020206,21NYDECA_WQX-ONTARIO-02,STORET-18,"1,2,3,7,8,9-Hexachlorodibenzo-p-dioxin",Statistical Uncertainty,44,#/100ml,STORET
-21NYDECA_WQX,New York State DEC Division of Water,21NYDECA_WQX-020206,21NYDECA_WQX-ONTARIO-02,STORET-18,"1,2,3,7,8,9-Hexachlorodibenzo-p-dioxin",Systematic Uncertainty,45,cfu/100ml,STORET
-21NYDECA_WQX,New York State DEC Division of Water,21NYDECA_WQX-020206,21NYDECA_WQX-ONTARIO-02,STORET-19,"1,2,3,7,8,9-Hexachlorodibenzofuran",Sample Detection Limit,48,#/100ml,STORET
-21NYDECA_WQX,New York State DEC Division of Water,21NYDECA_WQX-020206,21NYDECA_WQX-ONTARIO-02,STORET-20,"1,2,3,7,8-Pentachlorodibenzo-p-dioxin",Estimated Quantitation Limit,49,cfu/100ml,STORET
-21NYDECA_WQX,New York State DEC Division of Water,21NYDECA_WQX-020206,21NYDECA_WQX-ONTARIO-02,STORET-21,"1,2,3,7,8-Pentachlorodibenzofuran",Contract Detection Limit,50,#/100ml,STORET
-21NYDECA_WQX,New York State DEC Division of Water,21NYDECA_WQX-020206,21NYDECA_WQX-ONTARIO-02,STORET-22,Pentachlorodibenzo-p-dioxin,Upper Calibration Limit,51,cfu/100ml,STORET
-21NYDECA_WQX,New York State DEC Division of Water,21NYDECA_WQX-020206,21NYDECA_WQX-ONTARIO-02,STORET-23,Pentachlorodibenzofuran,Instrument Detection Level,52,#/100ml,STORET
-21NYDECA_WQX,New York State DEC Division of Water,21NYDECA_WQX-020206,21NYDECA_WQX-ONTARIO-02,STORET-24,Tetrachlorodibenzo-p-dioxin,Instrument Detection Level,53,cfu/100ml,STORET
-21NYDECA_WQX,New York State DEC Division of Water,21NYDECA_WQX-020206,21NYDECA_WQX-ONTARIO-02,STORET-25,Heptachlorodibenzofuran,Instrument Detection Level,54,#/100ml,STORET
-21NYDECA_WQX,New York State DEC Division of Water,21NYDECA_WQX-020206,21NYDECA_WQX-ONTARIO-02,STORET-26,Hexachlorodibenzofuran,Instrument Detection Level,55,cfu/100ml,STORET
-21NYDECA_WQX,New York State DEC Division of Water,21NYDECA_WQX-020206,21NYDECA_WQX-ONTARIO-02,STORET-28,"1,2,3,4,7,8-Hexachlorodibenzo-p-dioxin",Instrument Detection Level,57,cfu/100ml,STORET
-21NYDECA_WQX,New York State DEC Division of Water,21NYDECA_WQX-020206,21NYDECA_WQX-ONTARIO-02,STORET-29,"1,2,3,4,7,8,9-Heptachlorodibenzofuran",Instrument Detection Level,58,#/100ml,STORET
-21NYDECA_WQX,New York State DEC Division of Water,21NYDECA_WQX-020206,21NYDECA_WQX-ONTARIO-02,STORET-30,"1,2,3,4,6,7,8-Heptachlorodibenzofuran",Instrument Detection Level,59,cfu/100ml,STORET
-21NYDECA_WQX,New York State DEC Division of Water,21NYDECA_WQX-020206,21NYDECA_WQX-ONTARIO-02,STORET-31,"1,2,3,4,6,7,8-Heptachlorodibenzo-p-dioxin",Instrument Detection Level,60,#/100ml,STORET
-21NYDECA_WQX,New York State DEC Division of Water,21NYDECA_WQX-020206,21NYDECA_WQX-ONTARIO-02,STORET-33,"1,2,3,4,6,7,8,9-Octachlorodibenzo-p-dioxin",Instrument Detection Level,62,#/100ml,STORET
-21NYDECA_WQX,New York State DEC Division of Water,21NYDECA_WQX-020206,21NYDECA_WQX-ONTARIO-02,STORET-34,"2,3,7,8-Tetrachlorodibenzofuran",Instrument Detection Level,63,cfu/100ml,STORET
-21NYDECA_WQX,New York State DEC Division of Water,21NYDECA_WQX-020206,21NYDECA_WQX-ONTARIO-02,STORET-35,"2,3,7,8-Tetrachlorodibenzo-p-dioxin",Instrument Detection Level,67,#/100ml,STORET
-21NYDECA_WQX,New York State DEC Division of Water,21NYDECA_WQX-020206,21NYDECA_WQX-ONTARIO-02,STORET-36,"2,3,4,7,8-Pentachlorodibenzofuran",Instrument Detection Level,68,cfu/100ml,STORET
-21NYDECA_WQX,New York State DEC Division of Water,21NYDECA_WQX-020206,21NYDECA_WQX-ONTARIO-02,STORET-37,"2,3,4,6,7,8-Hexachlorodibenzofuran",Instrument Detection Level,64,cfu/100ml,STORET
-21NYDECA_WQX,New York State DEC Division of Water,21NYDECA_WQX-020206,21NYDECA_WQX-ONTARIO-02,STORET-39,"1,2,3,4,6,7,8,9-Octachlorodibenzofuran",Instrument Detection Level,66,cfu/100ml,STORET
-21NYDECA_WQX,New York State DEC Division of Water,21NYDECA_WQX-020206,21NYDECA_WQX-ONTARIO-02,STORET-40,Heptachlorodibenzo-p-dioxin,Instrument Detection Level,69,#/100ml,STORET
-21NYDECA_WQX,New York State DEC Division of Water,21NYDECA_WQX-020610,21NYDECA_WQX-ONTARIO-02,STORET-32,Hexachlorodibenzo-p-dioxin,Instrument Detection Level,61,cfu/100ml,STORET
-21NYDECA_WQX,New York State DEC Division of Water,21NYDECA_WQX-0210EN,21NYDECA_WQX-ONTARIO-02,STORET-38,Pentachlorobenzene,Instrument Detection Level,65,#/100ml,STORET
-WIDNR_WQX,Wisconsin Department of Natural Resources,WIDNR_WQX-7788475,WIDNR_WQX-113086,STORET-5,Fecal Streptococcus Group Bacteria,detectionLimitDesc,39,cfu/100ml,STORET
-WIDNR_WQX,Wisconsin Department of Natural Resources,WIDNR_WQX-7788475,WIDNR_WQX-113086,STORET-6,Fecal Coliform,Drinking Water Maximum,29,cfu/100ml,STORET
-WIDNR_WQX,Wisconsin Department of Natural Resources,WIDNR_WQX-7788475,WIDNR_WQX-113086,STORET-8,Fecal Coliform,Sample-specific min detect conc,31,cfu/100ml,STORET
-WIDNR_WQX,Wisconsin Department of Natural Resources,WIDNR_WQX-7788480,WIDNR_WQX-113086,STORET-9,Cloud cover,Interim Reporting Level,32,#/100ml,STORET
-WIDNR_WQX,Wisconsin Department of Natural Resources,WIDNR_WQX-7788480,WIDNR_WQX-113086,STORET-11,Dissolved oxygen (DO),Minimum Reporting Level,34,#/100ml,STORET
-WIDNR_WQX,Wisconsin Department of Natural Resources,WIDNR_WQX-7788480,WIDNR_WQX-113086,STORET-13,Dissolved oxygen (DO),Daily detection limit,36,#/100ml,STORET
-WIDNR_WQX,Wisconsin Department of Natural Resources,WIDNR_WQX-7788480,WIDNR_WQX-113086,STORET-14,Fecal Streptococcus Group Bacteria,Lower limit of detection,37,cfu/100ml,STORET
-organization,Wisconsin Department of Natural Resources,activityStoret,11NPSWRD-BICA_MFG_B,STORET-45,characteristicName,Estimated Quantitation Limit,72,cfu/100ml,STORET
-organization,Wisconsin Department of Natural Resources,activityStoret,11NPSWRD-BICA_MFG_B,STORET-46,characteristicName,Sample Detection Limit,73,#/100ml,STORET
-organization,Wisconsin Department of Natural Resources,activityStoret,11NPSWRD-BICA_MFG_B,STORET-47,characteristicName,Upper Calibration Limit,70,cfu/100ml,STORET
-organization,Wisconsin Department of Natural Resources,activityStoret,11NPSWRD-BICA_MFG_B,STORET-41,characteristicName,Contract Detection Limit,71,#/100ml,STORET
-organization,organizationName,activity,organization-siteId,STORET-42,characteristicName,Sample Detection Limit,24,#/100ml,STORET
-organization,organizationName,activity,organization-siteId,STORET-43,characteristicName,Instrument Detection Level,25,cfu/100ml,STORET
-organization,organizationName,activity,organization-siteId,STORET-44,characteristicName,Method Detection Level,26,#/100ml,STORET
-organization,organizationName,activity,organization-siteId,STORET-2,characteristicName,Estimated Detection Level,27,cfu/100ml,STORET
-organization,organizationName,activity,organization-siteId2,STORET-48,characteristicName,Specified in workplan,17,cfu/100ml,STORET
-organization,organizationName,activity,organization-siteId2,STORET-49,characteristicName,Taxanomic Loss Threshold,18,#/100ml,STORET
-organization,organizationName,activity,organization-siteId2,STORET-50,characteristicName,Measurement Uncertainty,19,cfu/100ml,STORET
-organization,organizationName,activity,organization-siteId2,STORET-1,characteristicName,Field Holding Time Limit,23,cfu/100ml,STORET
-organization,organizationName,activity,organization-siteId2,STORET-1,characteristicName,Laboratory Holding Time Limit,22,#/100ml,STORET
-organization,organizationName,activity,organization-siteId2,STORET-1,characteristicName,Statistical Uncertainty,20,#/100ml,STORET
-organization,organizationName,activity,organization-siteId2,STORET-1,characteristicName,Systematic Uncertainty,21,cfu/100ml,STORET
-organization,organizationName,activity,organization-siteId3,STORET-3,characteristicName,Long Term Method Detection Level,28,#/100ml,STORET
-USGS,Wisconsin Department of Natural Resources,activityBiodata,USGS-11421000,BIODATA-42,Count,Instrument Detection Level,74,cfu/100ml,BIODATA
+ARS,USDA Agricultural Research Service,activityStewards-1,ARS-IAWC-IAWC225,STEWARDS-1,,Instrument Detection Level,1,cfu/100ml,STEWARDS
+ARS,USDA Agricultural Research Service,activityStewards-1,ARS-IAWC-IAWC225,STEWARDS-1,,Method Detection Level,2,#/100ml,STEWARDS
+ARS,USDA Agricultural Research Service,activityStewards-2,ARS-IAWC-IAWC225,STEWARDS-2,,Drinking Water Maximum,5,cfu/100ml,STEWARDS
+ARS,USDA Agricultural Research Service,activityStewards-2,ARS-IAWC-IAWC225,STEWARDS-2,,Estimated Detection Level,3,cfu/100ml,STEWARDS
+ARS,USDA Agricultural Research Service,activityStewards-2,ARS-IAWC-IAWC225,STEWARDS-2,,Long Term Method Detection Level,4,#/100ml,STEWARDS
+ARS,USDA Agricultural Research Service,activityStewards-3,ARS-IAWC-IAWC410,STEWARDS-3,,Interim Reporting Level,8,#/100ml,STEWARDS
+ARS,USDA Agricultural Research Service,activityStewards-3,ARS-IAWC-IAWC410,STEWARDS-3,,Laboratory Reporting Level,9,cfu/100ml,STEWARDS
+ARS,USDA Agricultural Research Service,activityStewards-3,ARS-IAWC-IAWC410,STEWARDS-3,,Practical Quantitation Limit,6,#/100ml,STEWARDS
+ARS,USDA Agricultural Research Service,activityStewards-3,ARS-IAWC-IAWC410,STEWARDS-3,,Sample-specific min detect conc,7,cfu/100ml,STEWARDS
+USGS-WI,USGS Wisconsin Water Science Center,activityNwis-1,USGS-05425700,NWIS-1,,Minimum Reporting Level,10,#/100ml,NWIS
+USGS-WI,USGS Wisconsin Water Science Center,activityNwis-1,USGS-05425700,NWIS-4,,Contract Quantitation Limit,11,cfu/100ml,NWIS
+USGS-WI,USGS Wisconsin Water Science Center,activityNwis-1,USGS-05425700,NWIS-4,,Daily detection limit,12,#/100ml,NWIS
+USGS-WI,USGS Wisconsin Water Science Center,activityNwis-1,USGS-05425700,NWIS-4,,Lower limit of detection,13,cfu/100ml,NWIS
+USGS-WI,USGS Wisconsin Water Science Center,activityNwis-1,USGS-05425700,NWIS-5,,Blank-adjusted method detect limit,14,#/100ml,NWIS
+USGS-WI,USGS Wisconsin Water Science Center,activityNwis-2,USGS-05425700,NWIS-2,,detectionLimitDesc,15,#/100ml,NWIS
+USGS-WI,USGS Wisconsin Water Science Center,activityNwis-3,USGS-431925089002701,NWIS-3,,Sample-Specific Quantitation Limit,16,#/100ml,NWIS
+21NYDECA_WQX,New York State DEC Division of Water,21NYDECA_WQX-020002-6,21NYDECA_WQX-ONTARIO-02,STORET-27,Total volatile solids,Instrument Detection Level,56,#/100ml,STORET
+21NYDECA_WQX,New York State DEC Division of Water,21NYDECA_WQX-020206-7,21NYDECA_WQX-ONTARIO-02,STORET-15,"1,2,3,4,7,8-Hexachlorodibenzofuran",Sample-Specific Quantitation Limit,40,#/100ml,STORET
+21NYDECA_WQX,New York State DEC Division of Water,21NYDECA_WQX-020206-7,21NYDECA_WQX-ONTARIO-02,STORET-16,"1,2,3,6,7,8-Hexachlorodibenzo-p-dioxin",Specified in workplan,41,cfu/100ml,STORET
+21NYDECA_WQX,New York State DEC Division of Water,21NYDECA_WQX-020206-7,21NYDECA_WQX-ONTARIO-02,STORET-17,"1,2,3,6,7,8-Hexachlorodibenzofuran",Taxanomic Loss Threshold,42,#/100ml,STORET
+21NYDECA_WQX,New York State DEC Division of Water,21NYDECA_WQX-020206-7,21NYDECA_WQX-ONTARIO-02,STORET-18,"1,2,3,7,8,9-Hexachlorodibenzo-p-dioxin",Field Holding Time Limit,47,cfu/100ml,STORET
+21NYDECA_WQX,New York State DEC Division of Water,21NYDECA_WQX-020206-7,21NYDECA_WQX-ONTARIO-02,STORET-18,"1,2,3,7,8,9-Hexachlorodibenzo-p-dioxin",Laboratory Holding Time Limit,46,#/100ml,STORET
+21NYDECA_WQX,New York State DEC Division of Water,21NYDECA_WQX-020206-7,21NYDECA_WQX-ONTARIO-02,STORET-18,"1,2,3,7,8,9-Hexachlorodibenzo-p-dioxin",Measurement Uncertainty,43,cfu/100ml,STORET
+21NYDECA_WQX,New York State DEC Division of Water,21NYDECA_WQX-020206-7,21NYDECA_WQX-ONTARIO-02,STORET-18,"1,2,3,7,8,9-Hexachlorodibenzo-p-dioxin",Statistical Uncertainty,44,#/100ml,STORET
+21NYDECA_WQX,New York State DEC Division of Water,21NYDECA_WQX-020206-7,21NYDECA_WQX-ONTARIO-02,STORET-18,"1,2,3,7,8,9-Hexachlorodibenzo-p-dioxin",Systematic Uncertainty,45,cfu/100ml,STORET
+21NYDECA_WQX,New York State DEC Division of Water,21NYDECA_WQX-020206-7,21NYDECA_WQX-ONTARIO-02,STORET-19,"1,2,3,7,8,9-Hexachlorodibenzofuran",Sample Detection Limit,48,#/100ml,STORET
+21NYDECA_WQX,New York State DEC Division of Water,21NYDECA_WQX-020206-7,21NYDECA_WQX-ONTARIO-02,STORET-20,"1,2,3,7,8-Pentachlorodibenzo-p-dioxin",Estimated Quantitation Limit,49,cfu/100ml,STORET
+21NYDECA_WQX,New York State DEC Division of Water,21NYDECA_WQX-020206-7,21NYDECA_WQX-ONTARIO-02,STORET-21,"1,2,3,7,8-Pentachlorodibenzofuran",Contract Detection Limit,50,#/100ml,STORET
+21NYDECA_WQX,New York State DEC Division of Water,21NYDECA_WQX-020206-7,21NYDECA_WQX-ONTARIO-02,STORET-22,Pentachlorodibenzo-p-dioxin,Upper Calibration Limit,51,cfu/100ml,STORET
+21NYDECA_WQX,New York State DEC Division of Water,21NYDECA_WQX-020206-7,21NYDECA_WQX-ONTARIO-02,STORET-23,Pentachlorodibenzofuran,Instrument Detection Level,52,#/100ml,STORET
+21NYDECA_WQX,New York State DEC Division of Water,21NYDECA_WQX-020206-7,21NYDECA_WQX-ONTARIO-02,STORET-24,Tetrachlorodibenzo-p-dioxin,Instrument Detection Level,53,cfu/100ml,STORET
+21NYDECA_WQX,New York State DEC Division of Water,21NYDECA_WQX-020206-7,21NYDECA_WQX-ONTARIO-02,STORET-25,Heptachlorodibenzofuran,Instrument Detection Level,54,#/100ml,STORET
+21NYDECA_WQX,New York State DEC Division of Water,21NYDECA_WQX-020206-7,21NYDECA_WQX-ONTARIO-02,STORET-26,Hexachlorodibenzofuran,Instrument Detection Level,55,cfu/100ml,STORET
+21NYDECA_WQX,New York State DEC Division of Water,21NYDECA_WQX-020206-7,21NYDECA_WQX-ONTARIO-02,STORET-28,"1,2,3,4,7,8-Hexachlorodibenzo-p-dioxin",Instrument Detection Level,57,cfu/100ml,STORET
+21NYDECA_WQX,New York State DEC Division of Water,21NYDECA_WQX-020206-7,21NYDECA_WQX-ONTARIO-02,STORET-29,"1,2,3,4,7,8,9-Heptachlorodibenzofuran",Instrument Detection Level,58,#/100ml,STORET
+21NYDECA_WQX,New York State DEC Division of Water,21NYDECA_WQX-020206-7,21NYDECA_WQX-ONTARIO-02,STORET-30,"1,2,3,4,6,7,8-Heptachlorodibenzofuran",Instrument Detection Level,59,cfu/100ml,STORET
+21NYDECA_WQX,New York State DEC Division of Water,21NYDECA_WQX-020206-7,21NYDECA_WQX-ONTARIO-02,STORET-31,"1,2,3,4,6,7,8-Heptachlorodibenzo-p-dioxin",Instrument Detection Level,60,#/100ml,STORET
+21NYDECA_WQX,New York State DEC Division of Water,21NYDECA_WQX-020206-7,21NYDECA_WQX-ONTARIO-02,STORET-33,"1,2,3,4,6,7,8,9-Octachlorodibenzo-p-dioxin",Instrument Detection Level,62,#/100ml,STORET
+21NYDECA_WQX,New York State DEC Division of Water,21NYDECA_WQX-020206-7,21NYDECA_WQX-ONTARIO-02,STORET-34,"2,3,7,8-Tetrachlorodibenzofuran",Instrument Detection Level,63,cfu/100ml,STORET
+21NYDECA_WQX,New York State DEC Division of Water,21NYDECA_WQX-020206-7,21NYDECA_WQX-ONTARIO-02,STORET-35,"2,3,7,8-Tetrachlorodibenzo-p-dioxin",Instrument Detection Level,67,#/100ml,STORET
+21NYDECA_WQX,New York State DEC Division of Water,21NYDECA_WQX-020206-7,21NYDECA_WQX-ONTARIO-02,STORET-36,"2,3,4,7,8-Pentachlorodibenzofuran",Instrument Detection Level,68,cfu/100ml,STORET
+21NYDECA_WQX,New York State DEC Division of Water,21NYDECA_WQX-020206-7,21NYDECA_WQX-ONTARIO-02,STORET-37,"2,3,4,6,7,8-Hexachlorodibenzofuran",Instrument Detection Level,64,cfu/100ml,STORET
+21NYDECA_WQX,New York State DEC Division of Water,21NYDECA_WQX-020206-7,21NYDECA_WQX-ONTARIO-02,STORET-39,"1,2,3,4,6,7,8,9-Octachlorodibenzofuran",Instrument Detection Level,66,cfu/100ml,STORET
+21NYDECA_WQX,New York State DEC Division of Water,21NYDECA_WQX-020206-7,21NYDECA_WQX-ONTARIO-02,STORET-40,Heptachlorodibenzo-p-dioxin,Instrument Detection Level,69,#/100ml,STORET
+21NYDECA_WQX,New York State DEC Division of Water,21NYDECA_WQX-020610-9,21NYDECA_WQX-ONTARIO-02,STORET-32,Hexachlorodibenzo-p-dioxin,Instrument Detection Level,61,cfu/100ml,STORET
+21NYDECA_WQX,New York State DEC Division of Water,21NYDECA_WQX-0210EN-8,21NYDECA_WQX-ONTARIO-02,STORET-38,Pentachlorobenzene,Instrument Detection Level,65,#/100ml,STORET
+WIDNR_WQX,Wisconsin Department of Natural Resources,WIDNR_WQX-7788475-5,WIDNR_WQX-113086,STORET-5,Fecal Streptococcus Group Bacteria,detectionLimitDesc,39,cfu/100ml,STORET
+WIDNR_WQX,Wisconsin Department of Natural Resources,WIDNR_WQX-7788475-5,WIDNR_WQX-113086,STORET-6,Fecal Coliform,Drinking Water Maximum,29,cfu/100ml,STORET
+WIDNR_WQX,Wisconsin Department of Natural Resources,WIDNR_WQX-7788475-5,WIDNR_WQX-113086,STORET-8,Fecal Coliform,Sample-specific min detect conc,31,cfu/100ml,STORET
+WIDNR_WQX,Wisconsin Department of Natural Resources,WIDNR_WQX-7788480-4,WIDNR_WQX-113086,STORET-9,Cloud cover,Interim Reporting Level,32,#/100ml,STORET
+WIDNR_WQX,Wisconsin Department of Natural Resources,WIDNR_WQX-7788480-4,WIDNR_WQX-113086,STORET-11,Dissolved oxygen (DO),Minimum Reporting Level,34,#/100ml,STORET
+WIDNR_WQX,Wisconsin Department of Natural Resources,WIDNR_WQX-7788480-4,WIDNR_WQX-113086,STORET-13,Dissolved oxygen (DO),Daily detection limit,36,#/100ml,STORET
+WIDNR_WQX,Wisconsin Department of Natural Resources,WIDNR_WQX-7788480-4,WIDNR_WQX-113086,STORET-14,Fecal Streptococcus Group Bacteria,Lower limit of detection,37,cfu/100ml,STORET
+organization,Wisconsin Department of Natural Resources,activityStoret-14,11NPSWRD-BICA_MFG_B,STORET-45,characteristicName,Estimated Quantitation Limit,72,cfu/100ml,STORET
+organization,Wisconsin Department of Natural Resources,activityStoret-14,11NPSWRD-BICA_MFG_B,STORET-46,characteristicName,Sample Detection Limit,73,#/100ml,STORET
+organization,Wisconsin Department of Natural Resources,activityStoret-15,11NPSWRD-BICA_MFG_B,STORET-47,characteristicName,Upper Calibration Limit,70,cfu/100ml,STORET
+organization,Wisconsin Department of Natural Resources,activityStoret-10,11NPSWRD-BICA_MFG_B,STORET-41,characteristicName,Contract Detection Limit,71,#/100ml,STORET
+organization,organizationName,activity-11,organization-siteId,STORET-42,characteristicName,Sample Detection Limit,24,#/100ml,STORET
+organization,organizationName,activity-12,organization-siteId,STORET-43,characteristicName,Instrument Detection Level,25,cfu/100ml,STORET
+organization,organizationName,activity-13,organization-siteId,STORET-44,characteristicName,Method Detection Level,26,#/100ml,STORET
+organization,organizationName,activity-2,organization-siteId,STORET-2,characteristicName,Estimated Detection Level,27,cfu/100ml,STORET
+organization,organizationName,activity-16,organization-siteId2,STORET-48,characteristicName,Specified in workplan,17,cfu/100ml,STORET
+organization,organizationName,activity-16,organization-siteId2,STORET-49,characteristicName,Taxanomic Loss Threshold,18,#/100ml,STORET
+organization,organizationName,activity-16,organization-siteId2,STORET-50,characteristicName,Measurement Uncertainty,19,cfu/100ml,STORET
+organization,organizationName,activity-1,organization-siteId2,STORET-1,characteristicName,Field Holding Time Limit,23,cfu/100ml,STORET
+organization,organizationName,activity-1,organization-siteId2,STORET-1,characteristicName,Laboratory Holding Time Limit,22,#/100ml,STORET
+organization,organizationName,activity-1,organization-siteId2,STORET-1,characteristicName,Statistical Uncertainty,20,#/100ml,STORET
+organization,organizationName,activity-1,organization-siteId2,STORET-1,characteristicName,Systematic Uncertainty,21,cfu/100ml,STORET
+organization,organizationName,activity-3,organization-siteId3,STORET-3,characteristicName,Long Term Method Detection Level,28,#/100ml,STORET
+USGS,Wisconsin Department of Natural Resources,activityBiodata-1,USGS-11421000,BIODATA-42,Count,Instrument Detection Level,74,cfu/100ml,BIODATA

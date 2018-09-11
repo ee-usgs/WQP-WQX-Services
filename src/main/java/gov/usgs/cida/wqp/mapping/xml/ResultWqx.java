@@ -426,7 +426,6 @@ public class ResultWqx extends BaseWqx implements IXmlMapping {
 						WQX_ACTIVITY,
 						WQX_RESULT,
 						WQX_BIOLOGICAL_RESULT,
-						WQX_FREQUENCY_CLASS_INFO,
 						WQX_FREQUENCY_CLASS_INFO_1,
 						WQX_FREQUENCY_CLASS_DESCRIPTOR)));
 		COLUMN_POSITION.put(KEY_FREQUENCY_CLASS_UNIT_1,
@@ -434,7 +433,6 @@ public class ResultWqx extends BaseWqx implements IXmlMapping {
 						WQX_ACTIVITY,
 						WQX_RESULT,
 						WQX_BIOLOGICAL_RESULT,
-						WQX_FREQUENCY_CLASS_INFO,
 						WQX_FREQUENCY_CLASS_INFO_1,
 						WQX_FREQUENCE_CLASS_DESCRIPTOR_UNIT)));
 		COLUMN_POSITION.put(KEY_FREQUENCY_CLASS_LOWER_BOUND_1,
@@ -442,7 +440,6 @@ public class ResultWqx extends BaseWqx implements IXmlMapping {
 						WQX_ACTIVITY,
 						WQX_RESULT,
 						WQX_BIOLOGICAL_RESULT,
-						WQX_FREQUENCY_CLASS_INFO,
 						WQX_FREQUENCY_CLASS_INFO_1,
 						WQX_LOWER_CLASS_BOUND)));
 		COLUMN_POSITION.put(KEY_FREQUENCY_CLASS_UPPER_BOUND_1,
@@ -450,7 +447,6 @@ public class ResultWqx extends BaseWqx implements IXmlMapping {
 						WQX_ACTIVITY,
 						WQX_RESULT,
 						WQX_BIOLOGICAL_RESULT,
-						WQX_FREQUENCY_CLASS_INFO,
 						WQX_FREQUENCY_CLASS_INFO_1,
 						WQX_UPPER_CLASS_BOUND)));
 
@@ -459,7 +455,6 @@ public class ResultWqx extends BaseWqx implements IXmlMapping {
 						WQX_ACTIVITY,
 						WQX_RESULT,
 						WQX_BIOLOGICAL_RESULT,
-						WQX_FREQUENCY_CLASS_INFO,
 						WQX_FREQUENCY_CLASS_INFO_2,
 						WQX_FREQUENCY_CLASS_DESCRIPTOR)));
 		COLUMN_POSITION.put(KEY_FREQUENCY_CLASS_UNIT_2,
@@ -467,7 +462,6 @@ public class ResultWqx extends BaseWqx implements IXmlMapping {
 						WQX_ACTIVITY,
 						WQX_RESULT,
 						WQX_BIOLOGICAL_RESULT,
-						WQX_FREQUENCY_CLASS_INFO,
 						WQX_FREQUENCY_CLASS_INFO_2,
 						WQX_FREQUENCE_CLASS_DESCRIPTOR_UNIT)));
 		COLUMN_POSITION.put(KEY_FREQUENCY_CLASS_LOWER_BOUND_2,
@@ -475,7 +469,6 @@ public class ResultWqx extends BaseWqx implements IXmlMapping {
 						WQX_ACTIVITY,
 						WQX_RESULT,
 						WQX_BIOLOGICAL_RESULT,
-						WQX_FREQUENCY_CLASS_INFO,
 						WQX_FREQUENCY_CLASS_INFO_2,
 						WQX_LOWER_CLASS_BOUND)));
 		COLUMN_POSITION.put(KEY_FREQUENCY_CLASS_UPPER_BOUND_2,
@@ -483,7 +476,6 @@ public class ResultWqx extends BaseWqx implements IXmlMapping {
 						WQX_ACTIVITY,
 						WQX_RESULT,
 						WQX_BIOLOGICAL_RESULT,
-						WQX_FREQUENCY_CLASS_INFO,
 						WQX_FREQUENCY_CLASS_INFO_2,
 						WQX_UPPER_CLASS_BOUND)));
 
@@ -492,7 +484,6 @@ public class ResultWqx extends BaseWqx implements IXmlMapping {
 						WQX_ACTIVITY,
 						WQX_RESULT,
 						WQX_BIOLOGICAL_RESULT,
-						WQX_FREQUENCY_CLASS_INFO,
 						WQX_FREQUENCY_CLASS_INFO_3,
 						WQX_FREQUENCY_CLASS_DESCRIPTOR)));
 		COLUMN_POSITION.put(KEY_FREQUENCY_CLASS_UNIT_3,
@@ -500,7 +491,6 @@ public class ResultWqx extends BaseWqx implements IXmlMapping {
 						WQX_ACTIVITY,
 						WQX_RESULT,
 						WQX_BIOLOGICAL_RESULT,
-						WQX_FREQUENCY_CLASS_INFO,
 						WQX_FREQUENCY_CLASS_INFO_3,
 						WQX_FREQUENCE_CLASS_DESCRIPTOR_UNIT)));
 		COLUMN_POSITION.put(KEY_FREQUENCY_CLASS_LOWER_BOUND_3,
@@ -508,7 +498,6 @@ public class ResultWqx extends BaseWqx implements IXmlMapping {
 						WQX_ACTIVITY,
 						WQX_RESULT,
 						WQX_BIOLOGICAL_RESULT,
-						WQX_FREQUENCY_CLASS_INFO,
 						WQX_FREQUENCY_CLASS_INFO_3,
 						WQX_LOWER_CLASS_BOUND)));
 		COLUMN_POSITION.put(KEY_FREQUENCY_CLASS_UPPER_BOUND_3,
@@ -516,7 +505,6 @@ public class ResultWqx extends BaseWqx implements IXmlMapping {
 						WQX_ACTIVITY,
 						WQX_RESULT,
 						WQX_BIOLOGICAL_RESULT,
-						WQX_FREQUENCY_CLASS_INFO,
 						WQX_FREQUENCY_CLASS_INFO_3,
 						WQX_UPPER_CLASS_BOUND)));
 
