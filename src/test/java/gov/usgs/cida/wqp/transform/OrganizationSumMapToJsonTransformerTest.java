@@ -1,11 +1,7 @@
 package gov.usgs.cida.wqp.transform;
 
 import gov.usgs.cida.wqp.mapping.OrganizationColumn;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-import gov.usgs.cida.wqp.mapping.StationColumn;
 import gov.usgs.cida.wqp.service.ILogService;
-import static gov.usgs.cida.wqp.transform.MonitoringLocMapToJsonTransformerTest.JSON_HEADER;
 import gov.usgs.cida.wqp.util.HttpConstants;
 
 import java.io.ByteArrayOutputStream;
@@ -72,6 +68,15 @@ public class OrganizationSumMapToJsonTransformerTest {
 	map.put("totalMonitoringLocationsSampled", 500); // need the constant for this when it is created 
 	map.put("totalActivities", 25000); // need the constant for this when it is created
 	map.put("yearlySummary", YEARLY_SUMMARY); // need the constant for this when it is created
+	
+	    try {
+		    transformer.writeData(map);
+		    //need to flush the JsonGenerator to get at output. 
+		    transformer.g.flush();
+		    assertEquals(JSON_HEADER.length() + 562, baos.size());    
+	    } catch (IOException e) {
+		    fail(e.getLocalizedMessage());
+	    }
     }
     
     @Test
