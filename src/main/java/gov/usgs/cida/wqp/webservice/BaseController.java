@@ -453,19 +453,19 @@ public abstract class BaseController {
 		case kmz:
 			return NameSpace.STATION_KML;
 		case geojson:
-			return getGeoJsonNameSpace(getProfile());	
+			return getGeoJsonNameSpace();	
 		default:
 			return determineNamespaceFromProfile(getProfile());
 		}
 	}
 	
-	protected NameSpace getGeoJsonNameSpace(Profile currentProfile) {	     
+	protected NameSpace getGeoJsonNameSpace() {	     
 		HashMap<Profile, NameSpace> profileMap = new HashMap<>();
 		profileMap.put(Profile.SIMPLE_STATION, NameSpace.SIMPLE_STATION);
 		profileMap.put(Profile.SUMMARY_STATION, NameSpace.SUMMARY_STATION);
 		profileMap.put(Profile.SUMMARY_ORGANIZATION, NameSpace.SUMMARY_ORGANIZATION);
 
-		NameSpace currentNameSpace = profileMap.get(currentProfile);
+		NameSpace currentNameSpace = profileMap.get(getProfile());
 
 		return currentNameSpace;	
 	}
