@@ -7,21 +7,21 @@
         TO_CHAR(all_time_summary) summary,
         all_time_last_result last_result,
         all_time_site_count site_count,
-        all_time_activit_count activity_count
+        all_time_activity_count activity_count
     </sql>
     
     <sql id="selectCurrentYearSummary">
         TO_CHAR(current_year_summary) organization_summary,
         current_year_last_result last_result,
         current_year_site_count site_count,
-        current_year_activit_count activity_count
+        current_year_activity_count activity_count
     </sql>
     
     <sql id="selectFiveYearSummary">
         TO_CHAR(five_year_summary) organization_summary,
         five_year_last_result last_result,
         five_year_site_count site_count,
-        five_year_activit_count activity_count
+        five_year_activity_count activity_count
     </sql>
     
     <sql id="selectSummaryByYear">
