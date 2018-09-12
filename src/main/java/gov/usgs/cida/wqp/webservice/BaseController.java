@@ -38,11 +38,10 @@ import gov.usgs.cida.wqp.parameter.FilterParameters;
 import gov.usgs.cida.wqp.service.ConfigurationService;
 import gov.usgs.cida.wqp.service.ILogService;
 import gov.usgs.cida.wqp.transform.MapToDelimitedTransformer;
-// removed for testing  --- import gov.usgs.cida.wqp.transform.BaseMapToJsonTransformer;
 import gov.usgs.cida.wqp.transform.MapToKmlTransformer;
 import gov.usgs.cida.wqp.transform.MapToXlsxTransformer;
 import gov.usgs.cida.wqp.transform.MapToXmlTransformer;
-import gov.usgs.cida.wqp.transform.MonitoringLocMapToJsonTransformer; // added for testing
+import gov.usgs.cida.wqp.transform.MonitoringLocSumMapToJsonTransformer;
 import gov.usgs.cida.wqp.transform.OrganizationSumMapToJsonTransformer;
 import gov.usgs.cida.wqp.transform.Transformer;
 import gov.usgs.cida.wqp.util.HttpConstants;
@@ -459,17 +458,16 @@ public abstract class BaseController {
 			return determineNamespaceFromProfile(getProfile());
 		}
 	}
-//TODO FIX TO MAP OR SWITCH	
-	protected NameSpace getGeoJsonNameSpace(Profile theProfile) {
-		NameSpace theNameSpace = null;
-		if (theProfile == Profile.SIMPLE_STATION || theProfile == Profile.STATION) {
-			theNameSpace = NameSpace.SIMPLE_STATION;
-		} else if (theProfile == Profile.SUMMARY_STATION) {
-			theNameSpace = NameSpace.SUMMARY_STATION;
-		} else if (theProfile == Profile.SUMMARY_ORGANIZATION) {
-			theNameSpace = NameSpace.SUMMARY_ORGANIZATION;		    
-		}
-		return theNameSpace;
+	
+	protected NameSpace getGeoJsonNameSpace(Profile currentProfile) {	     
+		HashMap<Profile, NameSpace> profileMap = new HashMap<>();
+		profileMap.put(Profile.SIMPLE_STATION, NameSpace.SIMPLE_STATION);
+		profileMap.put(Profile.SUMMARY_STATION, NameSpace.SUMMARY_STATION);
+		profileMap.put(Profile.SUMMARY_ORGANIZATION, NameSpace.SUMMARY_ORGANIZATION);
+
+		NameSpace currentNameSpace = profileMap.get(currentProfile);
+
+		return currentNameSpace;	
 	}
 
 	protected NameSpace determineNamespaceFromProfile(Profile profile) {
@@ -480,18 +478,13 @@ public abstract class BaseController {
 		}
 	}
 
-	protected Transformer getTransformer(OutputStream responseStream, BigDecimal logId) {
-// TODO add logic to use profile to select correct transformer
-	    Profile testProfile = getProfile();
+	protected Transformer getTransformer(OutputStream responseStream, BigDecimal logId) {		
 		Transformer transformer;
 		switch (getMimeType()) {
 		case json:
-		case geojson:
-// TODO add logic to select between MonitoringLocMapToJson and OrganisationSumMapToJsonTransformer
-// altering following line for testing purposes		    
-//			transformer = new BaseMapToJsonTransformer(responseStream, null, logService, logId, configurationService.getSiteUrlBase());
-    transformer = new OrganizationSumMapToJsonTransformer(responseStream, null, logService, logId, configurationService.getSiteUrlBase());
-		    break;
+		case geojson:	
+			transformer = getCorrectTranformer(responseStream, logId); 
+			break;
 		case xlsx:
 			transformer = new MapToXlsxTransformer(responseStream, getMapping(getProfile()), logService, logId);
 			break;
@@ -511,6 +504,14 @@ public abstract class BaseController {
 			break;
 		}
 		return transformer;
+	}	
+
+	protected Transformer getCorrectTranformer(OutputStream responseStream, BigDecimal logId) {
+		HashMap<Profile, Transformer> profileMap = new HashMap<>();
+		profileMap.put(Profile.SUMMARY_STATION, new MonitoringLocSumMapToJsonTransformer(responseStream, null, logService, logId, configurationService.getSiteUrlBase()));
+		profileMap.put(Profile.SUMMARY_ORGANIZATION, new OrganizationSumMapToJsonTransformer(responseStream, null, logService, logId, configurationService.getSiteUrlBase()));
+
+		return profileMap.get(getProfile());
 	}
 
 	protected abstract Profile determineProfile(FilterParameters filter);

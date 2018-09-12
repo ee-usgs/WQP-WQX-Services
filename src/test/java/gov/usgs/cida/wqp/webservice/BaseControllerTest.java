@@ -891,7 +891,7 @@ public class BaseControllerTest {
 		TestBaseController.setProfile(null);
 		assertNull(testController.determineNamespace());
 	}
-	
+
 	@Test
 	public void getGeoJsonNameSpaceTest() {
 		assertEquals(NameSpace.SUMMARY_STATION, testController.getGeoJsonNameSpace(Profile.SUMMARY_STATION));
@@ -1255,4 +1255,6 @@ public class BaseControllerTest {
 		ConstraintViolation<T> x = ConstraintViolationImpl.forBeanValidation(null, null, null, null, null, null, object, object, null, null, null, object);
 		return Collections.singleton(x);
 	}
+	
+//TODO add a test method for getCorrectTranformer
 }

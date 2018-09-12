@@ -26,7 +26,7 @@ import org.slf4j.LoggerFactory;
 public class MonitoringLocMapToJsonTransformerTest {
 
     public static final String JSON_HEADER = "{\"type\":\"FeatureCollection\",\"features\":[";
-    private static final transient Logger LOG = LoggerFactory.getLogger(MonitoringLocMapToJsonTransformer.class);
+    private static final transient Logger LOG = LoggerFactory.getLogger(MonitoringLocSumMapToJsonTransformer.class);
 
     @Mock
     protected ILogService logService;

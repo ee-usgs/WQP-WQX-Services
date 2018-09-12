@@ -7,9 +7,9 @@ import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.util.Map;
 
-public class MonitoringLocMapToJsonTransformer extends BaseMapToJsonTransformer {    
+public class MonitoringLocSumMapToJsonTransformer extends BaseMapToJsonTransformer {    
     
-    public MonitoringLocMapToJsonTransformer(OutputStream target, Map<String, String> mapping, ILogService logService, BigDecimal logId, String siteUrlBase) {
+    public MonitoringLocSumMapToJsonTransformer(OutputStream target, Map<String, String> mapping, ILogService logService, BigDecimal logId, String siteUrlBase) {
 	super(target, mapping, logService, logId, siteUrlBase);	
     }
     
