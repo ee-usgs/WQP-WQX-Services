@@ -975,7 +975,6 @@ public class BaseControllerTest {
 		assertTrue(t instanceof MapToDelimitedTransformer);
 		assertEquals(MapToDelimitedTransformer.COMMA, ((MapToDelimitedTransformer) t).getDelimiter());
 	}	
-	
 
 	@Test
 	public void determineProfileTest() {
