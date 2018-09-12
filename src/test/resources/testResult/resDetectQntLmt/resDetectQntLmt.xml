@@ -7,7 +7,7 @@
         </OrganizationDescription>
         <Activity>
             <ActivityDescription>
-                <ActivityIdentifier>activityStewards</ActivityIdentifier>
+                <ActivityIdentifier>activityStewards-1</ActivityIdentifier>
                 <MonitoringLocationIdentifier>ARS-IAWC-IAWC225</MonitoringLocationIdentifier>
             </ActivityDescription>
             <Result>
@@ -31,6 +31,12 @@
                     </ResultDetectionQuantitationLimit>
                 </ResultLabInformation>
             </Result>
+        </Activity>
+        <Activity>
+            <ActivityDescription>
+                <ActivityIdentifier>activityStewards-2</ActivityIdentifier>
+                <MonitoringLocationIdentifier>ARS-IAWC-IAWC225</MonitoringLocationIdentifier>
+            </ActivityDescription>
             <Result>
                 <ResultDescription>
                     <ResultIdentifier>STEWARDS-2</ResultIdentifier>
@@ -59,6 +65,12 @@
                     </ResultDetectionQuantitationLimit>
                 </ResultLabInformation>
             </Result>
+        </Activity>
+        <Activity>
+            <ActivityDescription>
+                <ActivityIdentifier>activityStewards-3</ActivityIdentifier>
+                <MonitoringLocationIdentifier>ARS-IAWC-IAWC410</MonitoringLocationIdentifier>
+            </ActivityDescription>
             <Result>
                 <ResultDescription>
                     <ResultIdentifier>STEWARDS-3</ResultIdentifier>
@@ -103,7 +115,7 @@
         </OrganizationDescription>
         <Activity>
             <ActivityDescription>
-                <ActivityIdentifier>activityNwis</ActivityIdentifier>
+                <ActivityIdentifier>activityNwis-1</ActivityIdentifier>
                 <MonitoringLocationIdentifier>USGS-05425700</MonitoringLocationIdentifier>
             </ActivityDescription>
             <Result>
@@ -162,6 +174,12 @@
                     </ResultDetectionQuantitationLimit>
                 </ResultLabInformation>
             </Result>
+        </Activity>
+        <Activity>
+            <ActivityDescription>
+                <ActivityIdentifier>activityNwis-2</ActivityIdentifier>
+                <MonitoringLocationIdentifier>USGS-05425700</MonitoringLocationIdentifier>
+            </ActivityDescription>
             <Result>
                 <ResultDescription>
                     <ResultIdentifier>NWIS-2</ResultIdentifier>
@@ -176,6 +194,12 @@
                     </ResultDetectionQuantitationLimit>
                 </ResultLabInformation>
             </Result>
+        </Activity>
+        <Activity>
+            <ActivityDescription>
+                <ActivityIdentifier>activityNwis-3</ActivityIdentifier>
+                <MonitoringLocationIdentifier>USGS-431925089002701</MonitoringLocationIdentifier>
+            </ActivityDescription>
             <Result>
                 <ResultDescription>
                     <ResultIdentifier>NWIS-3</ResultIdentifier>
@@ -199,7 +223,7 @@
         </OrganizationDescription>
         <Activity>
             <ActivityDescription>
-                <ActivityIdentifier>21NYDECA_WQX-020002</ActivityIdentifier>
+                <ActivityIdentifier>21NYDECA_WQX-020002-6</ActivityIdentifier>
                 <MonitoringLocationIdentifier>21NYDECA_WQX-ONTARIO-02</MonitoringLocationIdentifier>
             </ActivityDescription>
             <Result>
@@ -220,7 +244,7 @@
         </Activity>
         <Activity>
             <ActivityDescription>
-                <ActivityIdentifier>21NYDECA_WQX-020206</ActivityIdentifier>
+                <ActivityIdentifier>21NYDECA_WQX-020206-7</ActivityIdentifier>
                 <MonitoringLocationIdentifier>21NYDECA_WQX-ONTARIO-02</MonitoringLocationIdentifier>
             </ActivityDescription>
             <Result>
@@ -599,7 +623,7 @@
         </Activity>
         <Activity>
             <ActivityDescription>
-                <ActivityIdentifier>21NYDECA_WQX-020610</ActivityIdentifier>
+                <ActivityIdentifier>21NYDECA_WQX-020610-9</ActivityIdentifier>
                 <MonitoringLocationIdentifier>21NYDECA_WQX-ONTARIO-02</MonitoringLocationIdentifier>
             </ActivityDescription>
             <Result>
@@ -620,7 +644,7 @@
         </Activity>
         <Activity>
             <ActivityDescription>
-                <ActivityIdentifier>21NYDECA_WQX-0210EN</ActivityIdentifier>
+                <ActivityIdentifier>21NYDECA_WQX-0210EN-8</ActivityIdentifier>
                 <MonitoringLocationIdentifier>21NYDECA_WQX-ONTARIO-02</MonitoringLocationIdentifier>
             </ActivityDescription>
             <Result>
@@ -647,7 +671,7 @@
         </OrganizationDescription>
         <Activity>
             <ActivityDescription>
-                <ActivityIdentifier>WIDNR_WQX-7788475</ActivityIdentifier>
+                <ActivityIdentifier>WIDNR_WQX-7788475-5</ActivityIdentifier>
                 <MonitoringLocationIdentifier>WIDNR_WQX-113086</MonitoringLocationIdentifier>
             </ActivityDescription>
             <Result>
@@ -698,7 +722,7 @@
         </Activity>
         <Activity>
             <ActivityDescription>
-                <ActivityIdentifier>WIDNR_WQX-7788480</ActivityIdentifier>
+                <ActivityIdentifier>WIDNR_WQX-7788480-4</ActivityIdentifier>
                 <MonitoringLocationIdentifier>WIDNR_WQX-113086</MonitoringLocationIdentifier>
             </ActivityDescription>
             <Result>
@@ -770,7 +794,7 @@
         </OrganizationDescription>
         <Activity>
             <ActivityDescription>
-                <ActivityIdentifier>activityStoret</ActivityIdentifier>
+                <ActivityIdentifier>activityStoret-14</ActivityIdentifier>
                 <MonitoringLocationIdentifier>11NPSWRD-BICA_MFG_B</MonitoringLocationIdentifier>
             </ActivityDescription>
             <Result>
@@ -803,6 +827,12 @@
                     </ResultDetectionQuantitationLimit>
                 </ResultLabInformation>
             </Result>
+        </Activity>
+        <Activity>
+            <ActivityDescription>
+                <ActivityIdentifier>activityStoret-15</ActivityIdentifier>
+                <MonitoringLocationIdentifier>11NPSWRD-BICA_MFG_B</MonitoringLocationIdentifier>
+            </ActivityDescription>
             <Result>
                 <ResultDescription>
                     <ResultIdentifier>STORET-47</ResultIdentifier>
@@ -818,6 +848,12 @@
                     </ResultDetectionQuantitationLimit>
                 </ResultLabInformation>
             </Result>
+        </Activity>
+        <Activity>
+            <ActivityDescription>
+                <ActivityIdentifier>activityStoret-10</ActivityIdentifier>
+                <MonitoringLocationIdentifier>11NPSWRD-BICA_MFG_B</MonitoringLocationIdentifier>
+            </ActivityDescription>
             <Result>
                 <ResultDescription>
                     <ResultIdentifier>STORET-41</ResultIdentifier>
@@ -836,7 +872,7 @@
         </Activity>
         <Activity>
             <ActivityDescription>
-                <ActivityIdentifier>activity</ActivityIdentifier>
+                <ActivityIdentifier>activity-11</ActivityIdentifier>
                 <MonitoringLocationIdentifier>organization-siteId</MonitoringLocationIdentifier>
             </ActivityDescription>
             <Result>
@@ -854,6 +890,12 @@
                     </ResultDetectionQuantitationLimit>
                 </ResultLabInformation>
             </Result>
+        </Activity>
+        <Activity>
+            <ActivityDescription>
+                <ActivityIdentifier>activity-12</ActivityIdentifier>
+                <MonitoringLocationIdentifier>organization-siteId</MonitoringLocationIdentifier>
+            </ActivityDescription>
             <Result>
                 <ResultDescription>
                     <ResultIdentifier>STORET-43</ResultIdentifier>
@@ -869,6 +911,12 @@
                     </ResultDetectionQuantitationLimit>
                 </ResultLabInformation>
             </Result>
+        </Activity>
+        <Activity>
+            <ActivityDescription>
+                <ActivityIdentifier>activity-13</ActivityIdentifier>
+                <MonitoringLocationIdentifier>organization-siteId</MonitoringLocationIdentifier>
+            </ActivityDescription>
             <Result>
                 <ResultDescription>
                     <ResultIdentifier>STORET-44</ResultIdentifier>
@@ -884,6 +932,12 @@
                     </ResultDetectionQuantitationLimit>
                 </ResultLabInformation>
             </Result>
+        </Activity>
+        <Activity>
+            <ActivityDescription>
+                <ActivityIdentifier>activity-2</ActivityIdentifier>
+                <MonitoringLocationIdentifier>organization-siteId</MonitoringLocationIdentifier>
+            </ActivityDescription>
             <Result>
                 <ResultDescription>
                     <ResultIdentifier>STORET-2</ResultIdentifier>
@@ -899,6 +953,12 @@
                     </ResultDetectionQuantitationLimit>
                 </ResultLabInformation>
             </Result>
+        </Activity>
+        <Activity>
+            <ActivityDescription>
+                <ActivityIdentifier>activity-16</ActivityIdentifier>
+                <MonitoringLocationIdentifier>organization-siteId2</MonitoringLocationIdentifier>
+            </ActivityDescription>
             <Result>
                 <ResultDescription>
                     <ResultIdentifier>STORET-48</ResultIdentifier>
@@ -944,6 +1004,12 @@
                     </ResultDetectionQuantitationLimit>
                 </ResultLabInformation>
             </Result>
+        </Activity>
+        <Activity>
+            <ActivityDescription>
+                <ActivityIdentifier>activity-1</ActivityIdentifier>
+                <MonitoringLocationIdentifier>organization-siteId2</MonitoringLocationIdentifier>
+            </ActivityDescription>
             <Result>
                 <ResultDescription>
                     <ResultIdentifier>STORET-1</ResultIdentifier>
@@ -980,6 +1046,12 @@
                     </ResultDetectionQuantitationLimit>
                 </ResultLabInformation>
             </Result>
+        </Activity>
+        <Activity>
+            <ActivityDescription>
+                <ActivityIdentifier>activity-3</ActivityIdentifier>
+                <MonitoringLocationIdentifier>organization-siteId3</MonitoringLocationIdentifier>
+            </ActivityDescription>
             <Result>
                 <ResultDescription>
                     <ResultIdentifier>STORET-3</ResultIdentifier>
@@ -1004,7 +1076,7 @@
         </OrganizationDescription>
         <Activity>
             <ActivityDescription>
-                <ActivityIdentifier>activityBiodata</ActivityIdentifier>
+                <ActivityIdentifier>activityBiodata-1</ActivityIdentifier>
                 <MonitoringLocationIdentifier>USGS-11421000</MonitoringLocationIdentifier>
             </ActivityDescription>
             <Result>

@@ -119,15 +119,31 @@ public class SwaggerParameters {
 				.build();
 	}
 
-	public static Parameter dataProfile() {
+	public static Parameter dataProfileActivity() {
+		return new ParameterBuilder()
+				.name("dataProfile")
+				.description("Data Profile (column set) of the download. For use with the activiies endpoint.")
+				.modelRef(new ModelRef("string"))
+				.parameterType("query")
+				.required(false)
+				.allowableValues(new AllowableListValues(Arrays.asList(
+						Profile.ACTIVITY.toString(), Profile.ACTIVITY_ALL.toString()),
+						"LIST"))
+				.build();
+	}
+
+	public static Parameter dataProfileResult() {
 		return new ParameterBuilder()
 				.name("dataProfile")
 				.description("Data Profile (column set) of the download. For use with the results endpoint.")
 				.modelRef(new ModelRef("string"))
 				.parameterType("query")
 				.required(false)
-				.allowableValues(new AllowableListValues(Arrays.asList(Profile.BIOLOGICAL.toString(), Profile.PC_RESULT.toString(),
-						Profile.NARROW_RESULT.toString(), Profile.ACTIVITY.toString(), Profile.ACTIVITY_ALL.toString()), "LIST"))
+				.allowableValues(new AllowableListValues(Arrays.asList(
+						Profile.BIOLOGICAL.toString(), Profile.PC_RESULT.toString(),
+						Profile.NARROW_RESULT.toString(), Profile.RESULT_BROAD.toString(), Profile.RESULT_PHYS_CHEM.toString(),
+						Profile.RESULT_PRIMARY.toString()),
+						"LIST"))
 				.build();
 	}
 

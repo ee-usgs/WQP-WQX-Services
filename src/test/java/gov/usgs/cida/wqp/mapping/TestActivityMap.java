@@ -28,7 +28,7 @@ public class TestActivityMap {
 	static {
 		BASE_ACTIVITY = new LinkedHashMap<String, Object>();
 		BASE_ACTIVITY.putAll(BASE_STATION);
-		BASE_ACTIVITY.put(KEY_ACTIVITY, "activity");
+		BASE_ACTIVITY.put(KEY_ACTIVITY, "activity-11");
 		BASE_ACTIVITY.put(KEY_SITE_TYPE, "siteType");
 		BASE_ACTIVITY.put(KEY_HUC, "0000");
 		BASE_ACTIVITY.put(KEY_GOVERNMENTAL_UNIT_CODE, "XX:44:555");
@@ -121,7 +121,7 @@ public class TestActivityMap {
 		ACTIVITY_ALL.put(KEY_ACTIVITY_OBJECT_NAME, "actObjectName2");
 		ACTIVITY_ALL.put(KEY_ACTIVITY_OBJECT_TYPE, "actObjectType2");
 		ACTIVITY_ALL.put(KEY_ACTIVITY_FILE_URL, "/organizations/organization/activities/organization-11/files");
-		ACTIVITY_ALL.put(KEY_ACTIVITY_GROUP_URL, null);
+		ACTIVITY_ALL.put(KEY_ACTIVITY_GROUP_URL, "/activityXgroupUrl");
 	}
 
 	private TestActivityMap() {

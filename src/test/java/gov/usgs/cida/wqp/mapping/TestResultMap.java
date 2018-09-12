@@ -147,7 +147,7 @@ public class TestResultMap {
 	static {
 		BASE_NARROW = new LinkedHashMap<String, Object>();
 		BASE_NARROW.putAll(BASE_STATION);
-		BASE_NARROW.put(KEY_ACTIVITY, "activity");
+		BASE_NARROW.put(KEY_ACTIVITY, "activity-11");
 		BASE_NARROW.put(KEY_EVENT_DATE, "1999-12-28");
 		BASE_NARROW.put(KEY_ACTIVITY_START_TIME, "activityStartTime");
 		BASE_NARROW.put(KEY_ACT_START_TIME_ZONE, "actStartTimeZone");
