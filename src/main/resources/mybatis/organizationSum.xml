@@ -4,7 +4,7 @@
 <mapper namespace="summaryOrganization">
 	
     <sql id="selectAllTimeSummary">
-        TO_CHAR(all_time_summary) summary,
+        TO_CHAR(all_time_summary) organization_summary,
         all_time_last_result last_result,
         all_time_site_count site_count,
         all_time_activity_count activity_count
