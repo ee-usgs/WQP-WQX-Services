@@ -4,21 +4,21 @@
 <mapper namespace="summaryOrganization">
 	
     <sql id="selectAllTimeSummary">
-        TO_CHAR(all_time_summary) organization_summary,
+        all_time_summary organization_summary,
         all_time_last_result last_result,
         all_time_site_count site_count,
         all_time_activity_count activity_count
     </sql>
     
     <sql id="selectCurrentYearSummary">
-        TO_CHAR(current_year_summary) organization_summary,
+        current_year_summary organization_summary,
         current_year_last_result last_result,
         current_year_site_count site_count,
         current_year_activity_count activity_count
     </sql>
     
     <sql id="selectFiveYearSummary">
-        TO_CHAR(five_year_summary) organization_summary,
+        five_year_summary organization_summary,
         five_year_last_result last_result,
         five_year_site_count site_count,
         five_year_activity_count activity_count
@@ -63,7 +63,7 @@
 
     organization,
     organization_name,
-    nvl2(organization_wqp_url, #{siteUrlBase, jdbcType=VARCHAR} || organization_url, null) organization_wqp_url,
+    nvl2(organization_url, #{siteUrlBase, jdbcType=VARCHAR} || organization_url, null) organization_wqp_url,
     <include refid="selectSummaryByYear" />
 
     FROM
@@ -77,6 +77,7 @@
         select data_source, count(*) organization_sum_count
           from (select organization_sum.data_source,
                        organization_sum.organization_id
+                      from organization_sum
                   <include refid="summaryYearWhere" />)
              group by rollup(data_source)
     </select>
