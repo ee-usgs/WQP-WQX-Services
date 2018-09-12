@@ -6,6 +6,7 @@ public class HttpConstants {
 	public static final String DEFAULT_ENCODING = "UTF-8";
 
 	public static final String ENDPOINT_ORGANIZATION = "Organization";
+	public static final String ENDPOINT_SUMMARY_ORGANIZATION = "/organization";
 	public static final String ENDPOINT_ACTIVITY = "Activity";
 	public static final String ENDPOINT_ACTIVITY_METRIC = "ActivityMetric";
 	public static final String ENDPOINT_RESULT = "Result";
@@ -24,6 +25,7 @@ public class HttpConstants {
 	public static final String RESULT_SEARCH_ENDPOINT = "/" + ENDPOINT_RESULT + ENDPOINT_SEARCH;
 	public static final String STATION_SEARCH_ENDPOINT = "/" + ENDPOINT_STATION + ENDPOINT_SEARCH;
 	public static final String SIMPLE_STATION_ENDPOINT = "/" + ENDPOINT_SIMPLE_STATION + ENDPOINT_SEARCH;
+	public static final String SUMMARY_ORGANIZATION_ENDPOINT = "/" + ENDPOINT_SUMMARY + ENDPOINT_SUMMARY_ORGANIZATION + ENDPOINT_SEARCH;
 	public static final String SUMMARY_STATION_ENDPOINT = "/" + ENDPOINT_SUMMARY + ENDPOINT_MONITORING_LOCATION + ENDPOINT_SEARCH;
 	public static final String RES_DETECT_QNT_LMT_SEARCH_ENDPOINT = "/" + ENDPOINT_RES_DETECT_QNT_LMT + ENDPOINT_SEARCH;
 	public static final String PROJECT_SEARCH_ENDPOINT = '/' + ENDPOINT_PROJECT + ENDPOINT_SEARCH;

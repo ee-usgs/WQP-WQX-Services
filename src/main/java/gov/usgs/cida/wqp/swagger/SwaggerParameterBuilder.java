@@ -16,6 +16,7 @@ import gov.usgs.cida.wqp.swagger.annotation.FullParameterList;
 import gov.usgs.cida.wqp.swagger.annotation.NoQueryParametersList;
 import gov.usgs.cida.wqp.swagger.annotation.ProfileParameterActivity;
 import gov.usgs.cida.wqp.swagger.annotation.ProfileParameterSummary;
+import gov.usgs.cida.wqp.swagger.annotation.ProfileParameterSummaryOrganization;
 import springfox.documentation.service.Parameter;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.OperationBuilderPlugin;
@@ -38,6 +39,7 @@ public class SwaggerParameterBuilder implements OperationBuilderPlugin {
 		Optional<ProfileParameterActivity> profileParameterActivity = context.findAnnotation(ProfileParameterActivity.class);
 		Optional<ProfileParameterResult> profileParameterResult = context.findAnnotation(ProfileParameterResult.class);
 		Optional<ProfileParameterSummary> profileParameterSummary = context.findAnnotation(ProfileParameterSummary.class);
+		Optional<ProfileParameterSummaryOrganization> profileParameterSummaryOrganization = context.findAnnotation(ProfileParameterSummaryOrganization.class);
 		Optional<PostMapping> postMapping = context.findAnnotation(PostMapping.class);
 
 		if (!noQueryParametersList.isPresent()) {
@@ -97,6 +99,11 @@ public class SwaggerParameterBuilder implements OperationBuilderPlugin {
 			parameters.add(SwaggerParameters.statecode());
 			parameters.add(SwaggerParameters.summaryYears());
 			parameters.add(SwaggerParameters.within());
+		}
+		
+		if (profileParameterSummaryOrganization.isPresent()) {
+			parameters.add(SwaggerParameters.summaryYears());
+			parameters.add(SwaggerParameters.organization());		
 		}
 
 		if (postMapping.isPresent()) {

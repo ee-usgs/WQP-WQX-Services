@@ -11,6 +11,7 @@ public abstract class BaseDao extends SqlSessionDaoSupport {
 	public static final String STATION_NAMESPACE  = "station";
 	public static final String SIMPLE_STATION_NAMESPACE = "simpleStation";
 	public static final String SUMMARY_STATION_NAMESPACE = "summaryStation";
+	public static final String SUMMARY_ORGANIZATION_NAMESPACE = "summaryOrganization";
 	public static final String LOG_NAMESPACE = "logMapper";
 	public static final String RESULT_NAMESPACE = "pcResult";
 	public static final String BIOLOGICAL_RESULT_NAMESPACE = "bioResult";

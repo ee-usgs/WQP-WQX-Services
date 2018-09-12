@@ -9,6 +9,7 @@ import gov.usgs.cida.wqp.dao.NameSpace;
 public enum Profile {
 
 	ORGANIZATION ("organization", "organization", NameSpace.ORGANIZATION),
+	SUMMARY_ORGANIZATION("summaryorganization", "summaryorganization", NameSpace.SUMMARY_ORGANIZATION),
 
 	STATION ("station", "station", NameSpace.STATION),
 	SIMPLE_STATION ("simplestation", "simplestation", NameSpace.SIMPLE_STATION),

@@ -71,5 +71,5 @@
     organization_sum
 
     <include refid="summaryYearWhere" />
-
+    </select>
 </mapper>

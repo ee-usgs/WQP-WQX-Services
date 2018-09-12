@@ -9,6 +9,7 @@ import gov.usgs.cida.wqp.parameter.Parameters;
 public enum NameSpace {
 
 	ORGANIZATION ("organization", null),
+	SUMMARY_ORGANIZATION ("summaryOrganization", null),
 
 	STATION ("station", null),
 	SIMPLE_STATION ("simpleStation", null),
