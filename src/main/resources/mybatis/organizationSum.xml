@@ -63,7 +63,7 @@
 
     organization,
     organization_name,
-    ('https://www.waterqualitydata.us/' || organization_url) organization_wqp_url,
+    nvl2(organization_wqp_url, #{siteUrlBase, jdbcType=VARCHAR} || organization_url, null) organization_wqp_url,
     <include refid="selectSummaryByYear" />
 
     FROM
@@ -72,4 +72,13 @@
 
     <include refid="summaryYearWhere" />
     </select>
+
+	<select id="count" resultType="java.util.LinkedHashMap">
+        select data_source, count(*) organization_sum_count
+          from (select organization_sum.data_source,
+                       organization_sum.organization_id
+                  <include refid="summaryYearWhere" />)
+             group by rollup(data_source)
+    </select>
+	
 </mapper>
