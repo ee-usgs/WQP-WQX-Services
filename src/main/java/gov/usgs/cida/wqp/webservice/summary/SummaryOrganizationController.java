@@ -107,5 +107,10 @@ public class SummaryOrganizationController extends BaseController {
     @Override
     protected IXmlMapping getKmlMapping() {
 	return null;
-    }    
+    }
+	
+	@Override
+    protected void addCustomRequestParams() {
+        getFilter().setSiteUrlBase(configurationService.getSiteUrlBase());
+    }
 }
