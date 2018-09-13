@@ -24,43 +24,43 @@ public class MonitoringLocSumMapToJsonTransformer extends BaseMapToJsonTransform
 		    throw new RuntimeException("Error starting json document", e);
 	    }
     }
-    
+	
     @Override
     protected void writeData(Map<String, Object> resultMap) {
 	    try {
 		    g.writeStartObject();
 
-			g.writeStringField("type", "Feature");
+				g.writeStringField("type", "Feature");
 
-			g.writeObjectFieldStart("geometry");
-			    g.writeStringField("type", "Point");
-			    
-			    g.writeArrayFieldStart("coordinates");
-				g.writeNumber(getValue(resultMap, StationColumn.KEY_LONGITUDE));
-				g.writeNumber(getValue(resultMap, StationColumn.KEY_LATITUDE));
-			    g.writeEndArray();
-			    
-			g.writeEndObject();
+				g.writeObjectFieldStart("geometry");
+					g.writeStringField("type", "Point");
 
-			g.writeObjectFieldStart("properties");
-			    g.writeStringField("ProviderName", getValue(resultMap, StationColumn.KEY_DATA_SOURCE));
-			    g.writeStringField("OrganizationIdentifier", getValue(resultMap, StationColumn.KEY_ORGANIZATION));
-			    g.writeStringField("OrganizationFormalName", getValue(resultMap, StationColumn.KEY_ORGANIZATION_NAME));
-			    g.writeStringField("MonitoringLocationIdentifier", getValue(resultMap, StationColumn.KEY_SITE_ID));
-			    g.writeStringField("MonitoringLocationName", getValue(resultMap, StationColumn.KEY_STATION_NAME));
-			    g.writeStringField("MonitoringLocationTypeName", getValue(resultMap, StationColumn.KEY_MONITORING_LOCATION_TYPE));
-			    g.writeStringField("ResolvedMonitoringLocationTypeName", getValue(resultMap, StationColumn.KEY_SITE_TYPE));
-			    g.writeStringField("HUCEightDigitCode", getValue(resultMap, StationColumn.KEY_HUC_8));
-			    g.writeStringField("siteUrl", siteUrlBase + "/provider/" + getValue(resultMap, StationColumn.KEY_DATA_SOURCE)
-					    + "/" + getValue(resultMap, StationColumn.KEY_ORGANIZATION) + "/" + getValue(resultMap, StationColumn.KEY_SITE_ID) + "/");
-			    g.writeStringField("activityCount", getValue(resultMap, StationColumn.KEY_ACTIVITY_COUNT));
-			    g.writeStringField("resultCount", getValue(resultMap, StationColumn.KEY_RESULT_COUNT));
-			    g.writeStringField("StateName", getValue(resultMap, StationColumn.KEY_STATE_NAME));
-			    g.writeStringField("CountyName", getValue(resultMap, StationColumn.KEY_COUNTY_NAME));                        
+					g.writeArrayFieldStart("coordinates");
+						g.writeNumber(getValue(resultMap, StationColumn.KEY_LONGITUDE));
+						g.writeNumber(getValue(resultMap, StationColumn.KEY_LATITUDE));
+					g.writeEndArray();
 
-			    g.writeFieldName("characteristicGroupResultCount");
-			    g.writeRawValue(getValue(resultMap, getSummaryColumnName(resultMap)));
-			g.writeEndObject();
+				g.writeEndObject();
+
+				g.writeObjectFieldStart("properties");
+					g.writeStringField("ProviderName", getValue(resultMap, StationColumn.KEY_DATA_SOURCE));
+					g.writeStringField("OrganizationIdentifier", getValue(resultMap, StationColumn.KEY_ORGANIZATION));
+					g.writeStringField("OrganizationFormalName", getValue(resultMap, StationColumn.KEY_ORGANIZATION_NAME));
+					g.writeStringField("MonitoringLocationIdentifier", getValue(resultMap, StationColumn.KEY_SITE_ID));
+					g.writeStringField("MonitoringLocationName", getValue(resultMap, StationColumn.KEY_STATION_NAME));
+					g.writeStringField("MonitoringLocationTypeName", getValue(resultMap, StationColumn.KEY_MONITORING_LOCATION_TYPE));
+					g.writeStringField("ResolvedMonitoringLocationTypeName", getValue(resultMap, StationColumn.KEY_SITE_TYPE));
+					g.writeStringField("HUCEightDigitCode", getValue(resultMap, StationColumn.KEY_HUC_8));
+					g.writeStringField("siteUrl", siteUrlBase + "/provider/" + getValue(resultMap, StationColumn.KEY_DATA_SOURCE)
+							+ "/" + getValue(resultMap, StationColumn.KEY_ORGANIZATION) + "/" + getValue(resultMap, StationColumn.KEY_SITE_ID) + "/");
+					g.writeStringField("activityCount", getValue(resultMap, StationColumn.KEY_ACTIVITY_COUNT));
+					g.writeStringField("resultCount", getValue(resultMap, StationColumn.KEY_RESULT_COUNT));
+					g.writeStringField("StateName", getValue(resultMap, StationColumn.KEY_STATE_NAME));
+					g.writeStringField("CountyName", getValue(resultMap, StationColumn.KEY_COUNTY_NAME));                        
+
+					g.writeFieldName("characteristicGroupResultCount");
+					g.writeRawValue(getValue(resultMap, getSummaryColumnName(resultMap)));
+				g.writeEndObject();
 			    
 		    g.writeEndObject();
 	    } catch (IOException e) {

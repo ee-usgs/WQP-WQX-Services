@@ -14,7 +14,7 @@ public class OrganizationSumMapToJsonTransformer extends BaseMapToJsonTransforme
     public OrganizationSumMapToJsonTransformer(OutputStream target, Map<String, String> mapping, ILogService logService, BigDecimal logId, String siteUrlBase) {
 	super(target, mapping, logService, logId, siteUrlBase);	
     }
-    
+
     @Override
     protected void writeHeader() {
 	    try {
@@ -30,21 +30,17 @@ public class OrganizationSumMapToJsonTransformer extends BaseMapToJsonTransforme
     protected void writeData(Map<String, Object> resultMap) {
 	    try {
 		    g.writeStartObject();
-			g.writeStringField("organizationID", getValue(resultMap, OrganizationColumn.KEY_ORGANIZATION));
-			g.writeStringField("organizationFormalName", getValue(resultMap, OrganizationColumn.KEY_ORGANIZATION_NAME));
-			g.writeStringField("organizationWQPUrl", getValue(resultMap, OrganizationColumn.KEY_ORGANIZATION_SUMMARY_WQP_URL));
-			g.writeStringField("lastResultSubmittedDate", getValue(resultMap, OrganizationColumn.KEY_ORGANIZATION_SUMMARY_LAST_RESULT));
-			g.writeStringField("totalMonitoringLocationsSampled", getValue(resultMap, OrganizationColumn.KEY_ORGANIZATION_SUMMARY_SITE_COUNT));
-			g.writeStringField("totalActivities", getValue(resultMap, OrganizationColumn.KEY_ORGANIZATION_SUMMARY_ACTIVITY_COUNT));	
-
 			
-			g.writeFieldName("yearlySummary");
-			    g.writeRawValue(getValue(resultMap, OrganizationColumn.KEY_ORGANIZATION_SUMMARY));
-//			g.writeFieldName("yearlySummary");
-//			g.writeStartArray();
-//			g.writeEndArray();	
-			
+				g.writeStringField("organizationID", getValue(resultMap, OrganizationColumn.KEY_ORGANIZATION));
+				g.writeStringField("organizationFormalName", getValue(resultMap, OrganizationColumn.KEY_ORGANIZATION_NAME));
+				g.writeStringField("organizationWQPUrl", getValue(resultMap, OrganizationColumn.KEY_ORGANIZATION_SUMMARY_WQP_URL));
+				g.writeStringField("lastResultSubmittedDate", getValue(resultMap, OrganizationColumn.KEY_ORGANIZATION_SUMMARY_LAST_RESULT).toString());
+				g.writeStringField("totalMonitoringLocationsSampled", getValue(resultMap, OrganizationColumn.KEY_ORGANIZATION_SUMMARY_SITE_COUNT));
+				g.writeStringField("totalActivities", getValue(resultMap, OrganizationColumn.KEY_ORGANIZATION_SUMMARY_ACTIVITY_COUNT));	
 
+				g.writeFieldName("yearlySummary");
+				g.writeRawValue(getValue(resultMap, OrganizationColumn.KEY_ORGANIZATION_SUMMARY));		
+				
 		    g.writeEndObject();
 	    } catch (IOException e) {
 		    throw new RuntimeException("Error writing station json", e);
