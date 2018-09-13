@@ -5,21 +5,21 @@
 	
     <sql id="selectAllTimeSummary">
         all_time_summary organization_summary,
-        to_char(all_time_last_result, 'yyyy-mm-dd') last_result,
+        all_time_last_result last_result,
         all_time_site_count site_count,
         all_time_activity_count activity_count
     </sql>
     
     <sql id="selectCurrentYearSummary">
         current_year_summary organization_summary,
-        to_char(current_year_last_result, 'yyyy-mm-dd') last_result,
+        current_year_last_result last_result,
         current_year_site_count site_count,
         current_year_activity_count activity_count
     </sql>
     
     <sql id="selectFiveYearSummary">
         five_year_summary organization_summary,
-        to_char(five_year_last_result, 'yyyy-mm-dd') last_result,
+        five_year_last_result last_result,
         five_year_site_count site_count,
         five_year_activity_count activity_count
     </sql>

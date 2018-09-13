@@ -10,6 +10,9 @@ import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.sql.Clob;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -106,6 +109,13 @@ public abstract class Transformer extends OutputStream implements ITransformer {
 				int size = (int) ((Clob) object).length();
 				rtn = ((Clob) object).getSubString(1, size);
 			} catch (SQLException e) {
+				LOG.info(e.getLocalizedMessage());
+			}
+		} else if (object instanceof Timestamp){
+			try {
+				DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+				rtn = df.format(object);
+			} catch (Exception e) {
 				LOG.info(e.getLocalizedMessage());
 			}
 		} else {

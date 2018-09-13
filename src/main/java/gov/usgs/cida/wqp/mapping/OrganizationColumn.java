@@ -35,7 +35,7 @@ public abstract class OrganizationColumn extends BaseColumn {
 	public static final String KEY_COUNTY_CODE_3 = "COUNTY_CODE_3";
 	public static final String KEY_ORGANIZATION_SUMMARY_WQP_URL = "ORGANIZATION_WQP_URL";
 	public static final String KEY_ORGANIZATION_SUMMARY = "ORGANIZATION_SUMMARY";
-	public static final String KEY_ORGANIZATION_SUMMARY_LAST_RESULT = "LAST RESULT";
+	public static final String KEY_ORGANIZATION_SUMMARY_LAST_RESULT = "LAST_RESULT";
 	public static final String KEY_ORGANIZATION_SUMMARY_SITE_COUNT = "SITE_COUNT";
 	public static final String KEY_ORGANIZATION_SUMMARY_ACTIVITY_COUNT = "ACTIVITY_COUNT";
 
