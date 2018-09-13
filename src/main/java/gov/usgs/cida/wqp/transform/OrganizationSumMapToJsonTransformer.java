@@ -33,7 +33,7 @@ public class OrganizationSumMapToJsonTransformer extends BaseMapToJsonTransforme
 			
 				g.writeStringField("organizationID", getValue(resultMap, OrganizationColumn.KEY_ORGANIZATION));
 				g.writeStringField("organizationFormalName", getValue(resultMap, OrganizationColumn.KEY_ORGANIZATION_NAME));
-				g.writeStringField("organizationWQPUrl", getValue(resultMap, OrganizationColumn.KEY_ORGANIZATION_SUMMARY_WQP_URL));
+				g.writeStringField("organizationWQPUrl", siteUrlBase + getValue(resultMap, OrganizationColumn.KEY_ORGANIZATION_SUMMARY_WQP_URL));
 				g.writeStringField("lastResultSubmittedDate", getValue(resultMap, OrganizationColumn.KEY_ORGANIZATION_SUMMARY_LAST_RESULT));
 				g.writeStringField("totalMonitoringLocationsSampled", getValue(resultMap, OrganizationColumn.KEY_ORGANIZATION_SUMMARY_SITE_COUNT));
 				g.writeStringField("totalActivities", getValue(resultMap, OrganizationColumn.KEY_ORGANIZATION_SUMMARY_ACTIVITY_COUNT));	
