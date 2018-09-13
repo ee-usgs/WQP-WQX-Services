@@ -130,7 +130,7 @@ public class MapToXlsxTransformer extends Transformer {
 				if (obj instanceof BigDecimal) {
 					createCell(cellCount, ((BigDecimal) obj).doubleValue());
 				} else {
-					createCell(cellCount, obj.toString());
+					createCell(cellCount, getStringValue(obj));
 				}
 			}
 

@@ -41,7 +41,7 @@ public class BaseMapToJsonTransformer extends Transformer {
 
 	protected String getValue(Map<String, Object> resultMap, String key) {
 		if (resultMap.containsKey(key) && null != resultMap.get(key)) {
-			return encode(resultMap.get(key).toString());
+			return encode(Transformer.getStringValue(resultMap.get(key)));
 		} else {
 			return "";
 		}
