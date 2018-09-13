@@ -8,7 +8,6 @@ import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.util.Map;
 
-
 public class OrganizationSumMapToJsonTransformer extends BaseMapToJsonTransformer {    
     
     public OrganizationSumMapToJsonTransformer(OutputStream target, Map<String, String> mapping, ILogService logService, BigDecimal logId, String siteUrlBase) {
