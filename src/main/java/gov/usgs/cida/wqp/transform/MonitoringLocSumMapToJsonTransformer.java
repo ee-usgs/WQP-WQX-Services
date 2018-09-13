@@ -2,6 +2,7 @@ package gov.usgs.cida.wqp.transform;
 
 import gov.usgs.cida.wqp.mapping.StationColumn;
 import gov.usgs.cida.wqp.service.ILogService;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.math.BigDecimal;

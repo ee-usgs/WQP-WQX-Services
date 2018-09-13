@@ -23,7 +23,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-public class MonitoringLocMapToJsonTransformerTest {
+public class MonitoringLocSumMapToJsonTransformerTest {
 
     public static final String JSON_HEADER = "{\"type\":\"FeatureCollection\",\"features\":[";
     private static final transient Logger LOG = LoggerFactory.getLogger(MonitoringLocSumMapToJsonTransformer.class);
@@ -39,7 +39,7 @@ public class MonitoringLocMapToJsonTransformerTest {
     public void initTest() {
 	    MockitoAnnotations.initMocks(this);
 	    baos = new ByteArrayOutputStream();
-	    transformer = new BaseMapToJsonTransformer(baos, null, logService, logId, siteUrlBase);
+	    transformer = new MonitoringLocSumMapToJsonTransformer(baos, null, logService, logId, siteUrlBase);
     }
 
     @After
