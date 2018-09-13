@@ -24,6 +24,7 @@ import gov.usgs.cida.wqp.mapping.Profile;
 import gov.usgs.cida.wqp.parameter.BoundingBox;
 import gov.usgs.cida.wqp.parameter.Command;
 import gov.usgs.cida.wqp.parameter.ResultIdentifier;
+import gov.usgs.cida.wqp.transform.Transformer;
 
 public abstract class BaseTest {
 
@@ -337,10 +338,10 @@ public abstract class BaseTest {
 	public void assertMapIsAsExpected(Map<String, Object> expectedRow, Map<String, Object> actualRow) {
 		//Doing both left to right and right to left to catch missing/extra on either side.
 		for (String i : expectedRow.keySet()) {
-			assertEquals(i, expectedRow.get(i), actualRow.get(i));
+			assertEquals(i, Transformer.getStringValue(expectedRow.get(i)), Transformer.getStringValue(actualRow.get(i)));
 		}
 		for (String i : actualRow.keySet()) {
-			assertEquals(i, actualRow.get(i), expectedRow.get(i));
+			assertEquals(i, Transformer.getStringValue(actualRow.get(i)), Transformer.getStringValue(expectedRow.get(i)));
 		}
 	}
 

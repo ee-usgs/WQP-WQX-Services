@@ -1,6 +1,7 @@
 package gov.usgs.cida.wqp.transform;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyMap;
@@ -14,6 +15,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.math.BigDecimal;
+import java.sql.Clob;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,6 +31,7 @@ import org.mockito.MockitoAnnotations;
 import gov.usgs.cida.wqp.parameter.FilterParameters;
 import gov.usgs.cida.wqp.service.ILogService;
 import gov.usgs.cida.wqp.util.HttpConstants;
+import oracle.sql.CLOB;
 
 public class TransformerTest {
 
@@ -144,4 +148,24 @@ public class TransformerTest {
 		}
 	}
 
+	@Test
+	public void getStringValueTest() throws SQLException {
+		Object object = null;
+		assertNull(Transformer.getStringValue(object));
+
+		object = "abcdef";
+		assertEquals("abcdef", Transformer.getStringValue(object));
+
+		object = (BigDecimal) null;
+		assertNull(Transformer.getStringValue(object));
+
+		object = BigDecimal.ONE;
+		assertEquals("1", Transformer.getStringValue(object));
+
+		object = (Clob) null;
+		assertNull(Transformer.getStringValue(object));
+//
+//		object = CLOB.createTemporary(null, false, CLOB.DURATION_CALL);
+//		assertEquals("1", Transformer.getStringValue(object));
+	}
 }
