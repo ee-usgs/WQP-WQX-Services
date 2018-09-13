@@ -8,10 +8,16 @@ import gov.usgs.cida.wqp.util.HttpConstants;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.math.BigDecimal;
+import java.sql.Clob;
+import java.sql.SQLException;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public abstract class Transformer extends OutputStream implements ITransformer {
+	private static final Logger LOG = LoggerFactory.getLogger(Transformer.class);
 
 	protected OutputStream target;
 	protected Map<String, String> mapping;
@@ -90,6 +96,22 @@ public abstract class Transformer extends OutputStream implements ITransformer {
 		} catch (IOException e) {
 			throw new RuntimeException("Error ending transformation", e);
 		}
+	}
+
+	public static String getStringValue(Object object) {
+		String rtn = null;
+		if (null == object) {
+		} else if (object instanceof Clob) {
+			try {
+				int size = (int) ((Clob) object).length();
+				rtn = ((Clob) object).getSubString(1, size);
+			} catch (SQLException e) {
+				LOG.info(e.getLocalizedMessage());
+			}
+		} else {
+			rtn = object.toString();
+		}
+		return rtn;
 	}
 
 }

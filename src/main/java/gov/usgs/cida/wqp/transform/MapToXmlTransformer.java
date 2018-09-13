@@ -87,13 +87,13 @@ public class MapToXmlTransformer extends Transformer {
 		Iterator<ColumnProfile> i = columnProfiles.iterator();
 		while (i.hasNext()) {
 			ColumnProfile columnProfile = i.next();
-			String col = columnProfile.getKey();
-			Object obj = map.get(col);
-			if (!columnProfile.getProfiles().contains(profile) || obj==null) {
-				continue;
+			if (columnProfile.getProfiles().contains(profile)) {
+				String col = columnProfile.getKey();
+				String val = encode(getStringValue(map.get(col)));
+				if (null != val) {
+					doNode(sb, col, val);
+				}
 			}
-			String val = encode(obj.toString());
-			doNode(sb, col, val);
 		}
 	}
 
