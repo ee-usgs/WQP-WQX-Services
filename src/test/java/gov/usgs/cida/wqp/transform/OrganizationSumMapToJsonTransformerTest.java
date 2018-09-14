@@ -97,8 +97,7 @@ public class OrganizationSumMapToJsonTransformerTest {
 		    new String(baos.toByteArray(), HttpConstants.DEFAULT_ENCODING));
 	} catch (IOException e) {
 		fail(e.getLocalizedMessage());
-	}
-	    
+	}	    
     }
     
     @Test

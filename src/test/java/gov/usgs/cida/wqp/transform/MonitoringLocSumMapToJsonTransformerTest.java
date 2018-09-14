@@ -78,7 +78,6 @@ public class MonitoringLocSumMapToJsonTransformerTest {
 	    map.put(StationColumn.KEY_COUNTY_NAME, "Dane"); 		
 	    map.put(StationColumn.KEY_SUMMARY_PAST_12_MONTHS, "{\"testKey\":\"testValue\"}"); 
 
-
 	    try {
 		    transformer.writeData(map);
 		    //need to flush the JsonGenerator to get at output. 
@@ -165,6 +164,4 @@ public class MonitoringLocSumMapToJsonTransformerTest {
 		    fail(e.getLocalizedMessage());
 	    }
     }
-
 }
-
