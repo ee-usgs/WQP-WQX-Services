@@ -54,5 +54,4 @@ public class SummaryStationControllerTest {
 		filter.setDataProfile("summarystation");
 		assertEquals(Profile.SUMMARY_STATION, controller.determineProfile(filter));
 	}
-
 }

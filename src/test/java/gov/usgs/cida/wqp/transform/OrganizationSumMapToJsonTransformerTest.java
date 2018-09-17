@@ -62,21 +62,42 @@ public class OrganizationSumMapToJsonTransformerTest {
     public void writeDataTest() {
 	Map<String, Object> map = new HashMap<>();
 	map.put(OrganizationColumn.KEY_ORGANIZATION, "WIDNR_WQX_test");
-	map.put("organizationFormalName", "Wisconsin DNR_test"); // need the constant for this when it is created
-	map.put("organizationWQPUrl", "https://www.waterqualitydata.us/provider/STORET/WIDNR_WQX/"); // need the constant for this when it is created
-	map.put("lastResultSubmittedDate", "2018-06-24"); // need the constant for this when it is created
-	map.put("totalMonitoringLocationsSampled", 500); // need the constant for this when it is created 
-	map.put("totalActivities", 25000); // need the constant for this when it is created
-	map.put("yearlySummary", YEARLY_SUMMARY); // need the constant for this when it is created
+	map.put(OrganizationColumn.KEY_ORGANIZATION_NAME, "Wisconsin DNR_test"); 
+	map.put(OrganizationColumn.KEY_ORGANIZATION_SUMMARY_WQP_URL, "https://www.waterqualitydata.us/provider/STORET/WIDNR_WQX/");  
+	map.put(OrganizationColumn.KEY_ORGANIZATION_SUMMARY_LAST_RESULT,"2018-06-24"); 
+	map.put(OrganizationColumn.KEY_ORGANIZATION_SUMMARY_SITE_COUNT, 500); 
+	map.put(OrganizationColumn.KEY_ORGANIZATION_SUMMARY_ACTIVITY_COUNT, 25000); 
+	map.put(OrganizationColumn.KEY_ORGANIZATION_SUMMARY, YEARLY_SUMMARY_PROVIDER_1);
 	
-	    try {
-		    transformer.writeData(map);
-		    //need to flush the JsonGenerator to get at output. 
-		    transformer.g.flush();
-		    assertEquals(JSON_HEADER.length() + 562, baos.size());    
-	    } catch (IOException e) {
-		    fail(e.getLocalizedMessage());
-	    }
+	try {
+		transformer.writeData(map);
+		//need to flush the JsonGenerator to get at output. 
+		transformer.g.flush();
+		assertEquals(JSON_HEADER.length() + 308, baos.size()); 
+		assertEquals(JSON_HEADER + EXPECTED_JSON_RETURNED_1,
+				    new String(baos.toByteArray(), HttpConstants.DEFAULT_ENCODING)); 
+	} catch (IOException e) {
+		fail(e.getLocalizedMessage());
+	}
+	    
+	map.put(OrganizationColumn.KEY_ORGANIZATION, "WIDNR_WQX_test_2");
+	map.put(OrganizationColumn.KEY_ORGANIZATION_NAME, "Wisconsin DNR_test_2"); 
+	map.put(OrganizationColumn.KEY_ORGANIZATION_SUMMARY_WQP_URL, "https://www.waterqualitydata.us/provider/STORET/WIDNR_WQX/two/");  
+	map.put(OrganizationColumn.KEY_ORGANIZATION_SUMMARY_LAST_RESULT,"2018-06-28"); 
+	map.put(OrganizationColumn.KEY_ORGANIZATION_SUMMARY_SITE_COUNT, 506); 
+	map.put(OrganizationColumn.KEY_ORGANIZATION_SUMMARY_ACTIVITY_COUNT, 25006); 
+	map.put(OrganizationColumn.KEY_ORGANIZATION_SUMMARY, YEARLY_SUMMARY_PROVIDER_2);    
+	
+	try {
+		transformer.writeData(map);
+		//need to flush the JsonGenerator to get at output. 
+		transformer.g.flush();
+		assertEquals(JSON_HEADER.length() + 629, baos.size()); 
+		assertEquals(JSON_HEADER + EXPECTED_JSON_RETURNED_1 + "," + EXPECTED_JSON_RETURNED_2,
+		    new String(baos.toByteArray(), HttpConstants.DEFAULT_ENCODING));
+	} catch (IOException e) {
+		fail(e.getLocalizedMessage());
+	}	    
     }
     
     @Test
@@ -96,72 +117,11 @@ public class OrganizationSumMapToJsonTransformerTest {
 	    }
     }
     
-    public static final String YEARLY_SUMMARY = "[\n" +
-"        {\n" +
-"            \"year\": 2018,\n" +
-"            \"start\": \"01-01-2018\",\n" +
-"            \"end\": \"08-21-2018\",\n" +
-"            \"activityCount\": 50,\n" +
-"            \"resultCount\": 5400,\n" +
-"            \"monitoringLocationsSampled\": 25,\n" +
-"            \"characteristicGroupResultCount\": {\n" +
-"                \"Inorganics, Minor, Non-metals\": 1,\n" +
-"                \"Microbiological\": 6,\n" +
-"                \"Not Assigned\": 3,\n" +
-"                \"Nutrient\": 28,\n" +
-"                \"Organics, Other\": 7,\n" +
-"                \"Physical\": 18\n" +
-"            },\n" +
-"            \"characteristicNameSummary\": [\n" +
-"                {\n" +
-"                    \"characteristicName\": \"Nitrate\",\n" +
-"                    \"characteristicType\": \"Nutrient\",\n" +
-"                    \"activityCount\": 12,\n" +
-"                    \"resultCount\": 23,\n" +
-"                    \"monitoringLocationCount\": 5\n" +
-"                },\n" +
-"                {\n" +
-"                    \"characteristicName\": \"Phosphate\",\n" +
-"                    \"characteristicType\": \"Nutrient\",\n" +
-"                    \"activityCount\": 12,\n" +
-"                    \"resultCount\": 15,\n" +
-"                    \"monitoringLocationCount\": 5\n" +
-"                }\n" +
-"            ]\n" +
-"        },\n" +
-"        {\n" +
-"            \"year\": 2017,\n" +
-"            \"start\": \"2017-01-01\",\n" +
-"            \"end\": \"2017-12-31\",\n" +
-"            \"activityCount\": 150,\n" +
-"            \"resultCount\": 7400,\n" +
-"            \"monitoringLocationsSampled\": 125,\n" +
-"            \"characteristicGroupResultCount\": {\n" +
-"                \"Inorganics, Minor, Non-metals\": 34,\n" +
-"                \"Microbiological\": 12,\n" +
-"                \"Not Assigned\": 6,\n" +
-"                \"Nutrient\": 5500,\n" +
-"                \"Organics, Other\": 12,\n" +
-"                \"Physical\": 18\n" +
-"            },\n" +
-"            \"characteristicNameSummary\": [\n" +
-"                {\n" +
-"                    \"characteristicName\": \"Nitrate\",\n" +
-"                    \"characteristicType\": \"Nutrient\",\n" +
-"                    \"activityCount\": 30,\n" +
-"                    \"resultCount\": 12,\n" +
-"                    \"monitoringLocationCount\": 4\n" +
-"                },\n" +
-"                {\n" +
-"                    \"characteristicName\": \"Phosphate\",\n" +
-"                    \"characteristicType\": \"Nutrient\",\n" +
-"                    \"activityCount\": 15,\n" +
-"                    \"resultCount\": 34,\n" +
-"                    \"monitoringLocationCount\": 15\n" +
-"                }\n" +
-"            ]\n" +
-"        }\n" +
-"    ]";    
-}
+    public static final String YEARLY_SUMMARY_PROVIDER_1 = "{'testKey':'testValue'}"; 
+    
+    public static final String YEARLY_SUMMARY_PROVIDER_2 = "{'testKey_2':'testValue_2'}";
+    
+    public static final String EXPECTED_JSON_RETURNED_1 = "{\"organizationID\":\"WIDNR_WQX_test\",\"organizationFormalName\":\"Wisconsin DNR_test\",\"organizationWQPUrl\":\"https://www.waterqualitydata.us/provider/STORET/WIDNR_WQX/\",\"lastResultSubmittedDate\":\"2018-06-24\",\"totalMonitoringLocationsSampled\":\"500\",\"totalActivities\":\"25000\",\"yearlySummary\":{'testKey':'testValue'}}";    
 
-
+    public static final String EXPECTED_JSON_RETURNED_2 = "{\"organizationID\":\"WIDNR_WQX_test_2\",\"organizationFormalName\":\"Wisconsin DNR_test_2\",\"organizationWQPUrl\":\"https://www.waterqualitydata.us/provider/STORET/WIDNR_WQX/two/\",\"lastResultSubmittedDate\":\"2018-06-28\",\"totalMonitoringLocationsSampled\":\"506\",\"totalActivities\":\"25006\",\"yearlySummary\":{'testKey_2':'testValue_2'}}";  
+}   

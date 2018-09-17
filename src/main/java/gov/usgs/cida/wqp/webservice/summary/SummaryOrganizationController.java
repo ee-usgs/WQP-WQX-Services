@@ -90,7 +90,7 @@ public class SummaryOrganizationController extends BaseController {
     }
 
     @Override 
-    protected Profile determineProfile(FilterParameters filter) {
+    protected Profile determineProfile(FilterParameters filter) {	
 	return determineProfile(Profile.SUMMARY_ORGANIZATION, filter);
     }
 
@@ -109,7 +109,7 @@ public class SummaryOrganizationController extends BaseController {
 	return null;
     }
 	
-	@Override
+    @Override
     protected void addCustomRequestParams() {
         getFilter().setSiteUrlBase(configurationService.getSiteUrlBase());
     }
