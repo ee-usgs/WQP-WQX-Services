@@ -44,16 +44,14 @@ import static uk.co.datumedge.hamcrest.json.SameJSONAs.sameJSONObjectAs;
 @SpringBootTest(webEnvironment=WebEnvironment.MOCK,
 	classes={DBTestConfig.class, Application.class})
 @DatabaseSetup("classpath:/testData/clearAll.xml")
-@DatabaseSetup("classpath:/testData/state.xml")
-@DatabaseSetup("classpath:/testData/county.xml")
-@DatabaseSetup("classpath:/testData/station.xml")
+@DatabaseSetup("classpath:/testData/organizationSum.xml")
 @DbUnitConfiguration(dataSetLoader = ColumnSensingFlatXMLDataSetLoader.class)
 @DirtiesContext(classMode=ClassMode.AFTER_CLASS)
 public class SummaryOrganizationControllerIT extends BaseControllerIntegrationTest {
 
-	protected static final Profile PROFILE = Profile.SUMMARY_STATION;
+	protected static final Profile PROFILE = Profile.SUMMARY_ORGANIZATION;
 	protected static final boolean POSTABLE = true;
-	protected static final String ENDPOINT = HttpConstants.SUMMARY_STATION_ENDPOINT + "?summaryYears=" + SummaryStationStreamingIT.SUMMARY_YEARS_ALL_MONTHS + "&mimeType=";
+	protected static final String ENDPOINT = HttpConstants.SUMMARY_ORGANIZATION_ENDPOINT + "?summaryYears=" + SummaryStationStreamingIT.SUMMARY_YEARS_ALL_MONTHS + "&mimeType=";
 
 	protected static final String TOTAL_SITE_SUM_COUNT = "11";
 	protected static final String BIODATA_SITE_SUM_COUNT = "1";
@@ -85,7 +83,7 @@ public class SummaryOrganizationControllerIT extends BaseControllerIntegrationTe
 	}
 
 	public void postGetCountTest() throws Exception {
-		String urlPrefix = HttpConstants.SUMMARY_STATION_ENDPOINT + "/count?mimeType=";
+		String urlPrefix = HttpConstants.SUMMARY_ORGANIZATION_ENDPOINT + "/count?mimeType=";
 		String compareObject = "{\"" + HttpConstants.HEADER_TOTAL_SITE_COUNT + "\":\"" + TOTAL_SITE_SUM_ONE_YEAR_COUNT
 				+ "\",\"" + HEADER_STORET_SITE_COUNT + "\":\"" + STORET_SITE_SUM_ONE_YEAR_COUNT
 				+ "\",\"" + HEADER_BIODATA_SITE_COUNT + "\":\"" + BIODATA_SITE_SUM_COUNT
