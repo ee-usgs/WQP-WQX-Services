@@ -118,10 +118,11 @@ public class SummaryOrganizationControllerIT extends BaseControllerIntegrationTe
 	public ResultActions unFilteredHeaderCheck(ResultActions resultActions) throws Exception {
 		return resultActions
 				.andExpect(header().string(HttpConstants.HEADER_TOTAL_ORGANIZATION_COUNT, TOTAL_ORG_SUM_COUNT))
+			;
 //				.andExpect(header().string(HEADER_NWIS_ORGANIZATION_COUNT, NWIS_ORG_SUM_COUNT))
 //				.andExpect(header().string(HEADER_STEWARDS_ORGANIZATION_COUNT, STEWARDS_ORG_SUM_COUNT))
-				.andExpect(header().string(HEADER_STORET_ORGANIZATION_COUNT, STORET_ORG_SUM_COUNT))
-;			
+//				.andExpect(header().string(HEADER_STORET_ORGANIZATION_COUNT, STORET_ORG_SUM_COUNT))
+//;			
 //				.andExpect(header().string(HEADER_BIODATA_ORGANIZATION_COUNT, BIODATA_ORG_SUM_COUNT));
 	}
 
