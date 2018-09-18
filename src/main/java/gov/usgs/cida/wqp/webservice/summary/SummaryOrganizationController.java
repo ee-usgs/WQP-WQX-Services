@@ -85,8 +85,8 @@ public class SummaryOrganizationController extends BaseController {
 
     @Override  
     protected String addCountHeaders(HttpServletResponse response, List<Map<String, Object>> counts) {
-	addSiteHeaders(response, counts);
-	return HttpConstants.HEADER_TOTAL_SITE_COUNT;
+	addOrganizationHeaders(response, counts);
+	return HttpConstants.HEADER_TOTAL_ORGANIZATION_COUNT;
     }
 
     @Override 

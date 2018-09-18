@@ -25,6 +25,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 public class SummaryOrganizationStreamingIT extends FilteredDaoTest {
  	private static final Logger LOG = LoggerFactory.getLogger(BaseStationStreamingTest.class);
 	protected NameSpace nameSpace = NameSpace.SUMMARY_ORGANIZATION;
+	
+	public static final String ORG_ID_WIDNR = "WIDNR_WQX_TEST";
+	
+	public static final String SUMMARY_YEARS_12_MONTHS = "1";
+	public static final String SUMMARY_YEARS_60_MONTHS = "5";
+	public static final String SUMMARY_YEARS_ALL_MONTHS = "all";
 
 	@Autowired 
 	IStreamingDao streamingDao;
@@ -32,9 +38,9 @@ public class SummaryOrganizationStreamingIT extends FilteredDaoTest {
 	@Test
 	public void testHarness() {
 	    organizationTest(nameSpace);
-	    sortedAllSummaryTest(nameSpace);
-	    sortedFiveYearsSummaryTest(nameSpace);
-	    sortedOneYearSummaryTest(nameSpace);
+//	    sortedAllSummaryTest(nameSpace);
+//	    sortedFiveYearsSummaryTest(nameSpace);
+//	    sortedOneYearSummaryTest(nameSpace);
 	}
 
     @Override

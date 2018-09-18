@@ -352,4 +352,24 @@
             ]
         }"
     />
+    <organization_sum
+        DATA_SOURCE_ID="2"
+        DATA_SOURCE="STORET"
+        ORGANIZATION_ID="2"
+        ORGANIZATION="WIDNR_WQX_TEST"
+        ORGANIZATION_NAME="Wisconsin Department of Natural Resources_TEST"
+        ORGANIZATION_URL="/provider/STORET/WIDNR_WQX_TEST"
+        ALL_TIME_LAST_RESULT="2016-11-16 06:43:19.769"
+        ALL_TIME_SITE_COUNT="9999"
+        ALL_TIME_ACTIVITY_COUNT="99999"
+        FIVE_YEAR_LAST_RESULT="2016-11-16 06:43:19.769"
+        FIVE_YEAR_SITE_COUNT="999"
+        FIVE_YEAR_ACTIVITY_COUNT="9999"
+        CURRENT_YEAR_LAST_RESULT="2016-11-16 06:43:19.769"
+        CURRENT_YEAR_SITE_COUNT="999"
+        CURRENT_YEAR_ACTIVITY_COUNT="999"
+        ALL_TIME_SUMMARY="{`all_time_summary_organization_test`: `test_value_all`}"
+        CURRENT_YEAR_SUMMARY="{`current_year_summary_organization_test`: `test_value_current`}"
+        FIVE_YEAR_SUMMARY="{`five_year_summary_organization_test`: `test_value_five`}"
+    />
 </dataset>

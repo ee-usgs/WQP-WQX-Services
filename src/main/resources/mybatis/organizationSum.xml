@@ -74,7 +74,7 @@
     </select>
 
 	<select id="count" resultType="java.util.LinkedHashMap">
-        select data_source, count(*) organization_sum_count
+        select data_source, count(*) organization_count
           from (select organization_sum.data_source,
                        organization_sum.organization_id
                       from organization_sum

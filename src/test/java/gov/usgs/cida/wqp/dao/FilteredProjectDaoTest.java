@@ -6,12 +6,6 @@ import java.util.Map;
 import gov.usgs.cida.wqp.parameter.FilterParameters;
 
 public abstract class FilteredProjectDaoTest extends FilteredDaoTest {
-    	public List<Map<String, Object>> multipleParameterOrganizationSumTest(NameSpace nameSpace, int expectedSize) {
-		FilterParameters filter = getNoEffectParameters(nameSpace);
-		
-		filter.setOrganization(getOrganization());	
-		return callDao(nameSpace, expectedSize, filter);
-	}
 
 	public List<Map<String, Object>> multipleParameterStationSumTest(NameSpace nameSpace, int expectedSize) {
 		FilterParameters filter = getNoEffectParameters(nameSpace);
