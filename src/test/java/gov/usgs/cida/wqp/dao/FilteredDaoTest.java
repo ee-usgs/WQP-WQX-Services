@@ -139,6 +139,8 @@ public abstract class FilteredDaoTest extends BaseIT {
 			return Profile.SIMPLE_STATION.toString();
 		case SUMMARY_STATION:
 			return Profile.SUMMARY_STATION.toString();
+		case SUMMARY_ORGANIZATION:
+			return Profile.SUMMARY_STATION.toString();
 		case PROJECT:
 			return Profile.PROJECT.toString();
 		case PROJECT_MONITORING_LOCATION_WEIGHTING:
