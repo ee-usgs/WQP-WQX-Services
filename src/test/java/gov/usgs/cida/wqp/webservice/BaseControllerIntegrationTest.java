@@ -254,6 +254,9 @@ public abstract class BaseControllerIntegrationTest extends BaseIT {
 		assertEquals("", unFilteredGeomHeaderCheck(callMockHead(url, mimeType, getContentDisposition(profile, fileType))).andReturn().getResponse().getContentAsString());
 
 		MvcResult rtn = unFilteredGeomHeaderCheck(callMockGet(url, mimeType, getContentDisposition(profile, fileType))).andReturn();
+		JSONObject testOne = new JSONObject(getCompareFile(profile, fileType, isPostable ? null : "Rest"));
+		JSONObject testTwo = new JSONObject(rtn.getResponse().getContentAsString());
+		
 		assertThat(new JSONObject(getCompareFile(profile, fileType, isPostable ? null : "Rest")), sameJSONObjectAs(new JSONObject(rtn.getResponse().getContentAsString())));
 
 		rtn = noResultHeaderCheck(callMockGet(getNoResultParameters(url), mimeType, getContentDisposition(profile, fileType))).andReturn();
