@@ -19,6 +19,7 @@ import static gov.usgs.cida.wqp.BaseTest.JSON;
 import gov.usgs.cida.wqp.ColumnSensingFlatXMLDataSetLoader;
 import gov.usgs.cida.wqp.dao.summary.SummaryOrganizationStreamingIT;
 import gov.usgs.cida.wqp.mapping.Profile;
+import gov.usgs.cida.wqp.parameter.Parameters;
 import gov.usgs.cida.wqp.springinit.DBTestConfig;
 import static gov.usgs.cida.wqp.swagger.model.OrganizationCountJson.HEADER_BIODATA_ORGANIZATION_COUNT;
 import static gov.usgs.cida.wqp.swagger.model.OrganizationCountJson.HEADER_NWIS_ORGANIZATION_COUNT;
@@ -59,14 +60,14 @@ public class SummaryOrganizationControllerIT extends BaseControllerIntegrationTe
 	protected static final String STEWARDS_ORG_SUM_COUNT = "2";
 	protected static final String STORET_ORG_SUM_COUNT = "6";
 	
-	protected static final String TOTAL_ORG_SUM_ONE_YEAR_COUNT = "9";
-	protected static final String STORET_ORG_SUM_ONE_YEAR_COUNT = "4";
+	protected static final String TOTAL_ORG_SUM_ONE_YEAR_COUNT = "2";
+	protected static final String STORET_ORG_SUM_ONE_YEAR_COUNT = "2";
 	
 	@Test
 	public void testHarness() throws Exception {
-		getAsGeoJsonTest();
+//		getAsGeoJsonTest();
 //		getAsGeoJsonZipTest();
-//		getAllParametersTest();
+		getAllParametersTest();
 //		postGetCountTest();
 	}
 
@@ -121,8 +122,7 @@ public class SummaryOrganizationControllerIT extends BaseControllerIntegrationTe
 			;
 //				.andExpect(header().string(HEADER_NWIS_ORGANIZATION_COUNT, NWIS_ORG_SUM_COUNT))
 //				.andExpect(header().string(HEADER_STEWARDS_ORGANIZATION_COUNT, STEWARDS_ORG_SUM_COUNT))
-//				.andExpect(header().string(HEADER_STORET_ORGANIZATION_COUNT, STORET_ORG_SUM_COUNT))
-//;			
+//				.andExpect(header().string(HEADER_STORET_ORGANIZATION_COUNT, STORET_ORG_SUM_COUNT))			
 //				.andExpect(header().string(HEADER_BIODATA_ORGANIZATION_COUNT, BIODATA_ORG_SUM_COUNT));
 	}
 
@@ -159,15 +159,19 @@ public class SummaryOrganizationControllerIT extends BaseControllerIntegrationTe
 		assertEquals("", filteredHeaderCheck(callMockHead(filteredUrl, mimeType, getContentDisposition(profile, fileType))).andReturn().getResponse().getContentAsString());
 
 		MvcResult rtn = filteredHeaderCheck(callMockGet(filteredUrl, mimeType, getContentDisposition(profile, fileType))).andReturn();
-		assertThat(new JSONObject(getCompareFile(profile, fileType, "Filtered")), sameJSONObjectAs(new JSONObject(rtn.getResponse().getContentAsString())));
+		assertThat(new JSONObject(getCompareFile(profile, fileType, "Filtered")), sameJSONObjectAs(new JSONObject(rtn.getResponse().getContentAsString())).allowingAnyArrayOrdering());
 
 		if (isPostable) {
 			rtn = filteredHeaderCheck(callMockPostJson(url, getSourceFile("summaryPostParameters.json").replace("[DATA_PROFILE]", profile.toString()), mimeType, getContentDisposition(profile, fileType))).andReturn();
-			assertThat(new JSONObject(getCompareFile(profile, fileType, "Filtered")), sameJSONObjectAs(new JSONObject(rtn.getResponse().getContentAsString())));
+			assertThat(new JSONObject(getCompareFile(profile, fileType, "Filtered")), sameJSONObjectAs(new JSONObject(rtn.getResponse().getContentAsString())).allowingAnyArrayOrdering());
 
 			rtn = unFilteredHeaderCheck(callMockPostEmptyForm(url, mimeType, getContentDisposition(profile, fileType))).andReturn();
-			assertThat(new JSONObject(getCompareFile(profile, fileType, null)), sameJSONObjectAs(new JSONObject(rtn.getResponse().getContentAsString())));
+			assertThat(new JSONObject(getCompareFile(profile, fileType, null)), sameJSONObjectAs(new JSONObject(rtn.getResponse().getContentAsString())).allowingAnyArrayOrdering());
 		}
 	}
-
+	
+	@Override
+	protected String getNoResultParameters(String url) {
+		return url + "&" + Parameters.ORGANIZATION.toString() + "=DS";
+	}
 }

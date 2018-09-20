@@ -254,23 +254,21 @@ public abstract class BaseControllerIntegrationTest extends BaseIT {
 		assertEquals("", unFilteredGeomHeaderCheck(callMockHead(url, mimeType, getContentDisposition(profile, fileType))).andReturn().getResponse().getContentAsString());
 
 		MvcResult rtn = unFilteredGeomHeaderCheck(callMockGet(url, mimeType, getContentDisposition(profile, fileType))).andReturn();
-		JSONObject testOne = new JSONObject(getCompareFile(profile, fileType, isPostable ? null : "Rest"));
-		JSONObject testTwo = new JSONObject(rtn.getResponse().getContentAsString());
-		
-		assertThat(new JSONObject(getCompareFile(profile, fileType, isPostable ? null : "Rest")), sameJSONObjectAs(new JSONObject(rtn.getResponse().getContentAsString())));
+			
+		assertThat(new JSONObject(getCompareFile(profile, fileType, isPostable ? null : "Rest")), sameJSONObjectAs(new JSONObject(rtn.getResponse().getContentAsString())).allowingAnyArrayOrdering());
 
 		rtn = noResultHeaderCheck(callMockGet(getNoResultParameters(url), mimeType, getContentDisposition(profile, fileType))).andReturn();
-		assertThat(new JSONObject(getCompareFile(profile, fileType, "NoResult")), sameJSONObjectAs(new JSONObject(rtn.getResponse().getContentAsString())));
+		assertThat(new JSONObject(getCompareFile(profile, fileType, "NoResult")), sameJSONObjectAs(new JSONObject(rtn.getResponse().getContentAsString())).allowingAnyArrayOrdering());
 
 		if (isPostable) {
 			rtn = unFilteredGeomHeaderCheck(callMockPostJson(url, getJson(profile), mimeType, getContentDisposition(profile, fileType))).andReturn();
-			assertThat(new JSONObject(getCompareFile(profile, fileType, null)), sameJSONObjectAs(new JSONObject(rtn.getResponse().getContentAsString())));
+			assertThat(new JSONObject(getCompareFile(profile, fileType, null)), sameJSONObjectAs(new JSONObject(rtn.getResponse().getContentAsString())).allowingAnyArrayOrdering());
 
 			rtn = unFilteredGeomHeaderCheck(callMockPostForm(url, mimeType, getContentDisposition(profile, fileType))).andReturn();
-			assertThat(new JSONObject(getCompareFile(profile, fileType, null)), sameJSONObjectAs(new JSONObject(rtn.getResponse().getContentAsString())));
+			assertThat(new JSONObject(getCompareFile(profile, fileType, null)), sameJSONObjectAs(new JSONObject(rtn.getResponse().getContentAsString())).allowingAnyArrayOrdering());
 
 			rtn = unFilteredGeomHeaderCheck(callMockPostEmptyForm(url, mimeType, getContentDisposition(profile, fileType))).andReturn();
-			assertThat(new JSONObject(getCompareFile(profile, fileType, null)), sameJSONObjectAs(new JSONObject(rtn.getResponse().getContentAsString())));
+			assertThat(new JSONObject(getCompareFile(profile, fileType, null)), sameJSONObjectAs(new JSONObject(rtn.getResponse().getContentAsString())).allowingAnyArrayOrdering());
 		}
 	}
 
@@ -278,20 +276,20 @@ public abstract class BaseControllerIntegrationTest extends BaseIT {
 		assertEquals("", unFilteredGeomHeaderCheck(callMockHead(url, mimeType, getContentDisposition(profile, "zip"))).andReturn().getResponse().getContentAsString());
 
 		MvcResult rtn = unFilteredGeomHeaderCheck(callMockGet(url, mimeType, getContentDisposition(profile, "zip"))).andReturn();
-		assertThat(new JSONObject(getCompareFile(profile, fileType, isPostable ? null : "Rest")), sameJSONObjectAs(new JSONObject(extractZipContent(rtn.getResponse().getContentAsByteArray(), getFileName(profile, fileType)))));
+		assertThat(new JSONObject(getCompareFile(profile, fileType, isPostable ? null : "Rest")), sameJSONObjectAs(new JSONObject(extractZipContent(rtn.getResponse().getContentAsByteArray(), getFileName(profile, fileType)))).allowingAnyArrayOrdering());
 
 		rtn = noResultHeaderCheck(callMockGet(getNoResultParameters(url), mimeType, getContentDisposition(profile, "zip"))).andReturn();
-		assertThat(new JSONObject(getCompareFile(profile, fileType, "NoResult")), sameJSONObjectAs(new JSONObject(extractZipContent(rtn.getResponse().getContentAsByteArray(), getFileName(profile, fileType)))));
+		assertThat(new JSONObject(getCompareFile(profile, fileType, "NoResult")), sameJSONObjectAs(new JSONObject(extractZipContent(rtn.getResponse().getContentAsByteArray(), getFileName(profile, fileType)))).allowingAnyArrayOrdering());
 
 		if (isPostable) {
 			rtn = unFilteredGeomHeaderCheck(callMockPostJson(url, getJson(profile), mimeType, getContentDisposition(profile, "zip"))).andReturn();
-			assertThat(new JSONObject(getCompareFile(profile, fileType, null)), sameJSONObjectAs(new JSONObject(extractZipContent(rtn.getResponse().getContentAsByteArray(), getFileName(profile, fileType)))));
+			assertThat(new JSONObject(getCompareFile(profile, fileType, null)), sameJSONObjectAs(new JSONObject(extractZipContent(rtn.getResponse().getContentAsByteArray(), getFileName(profile, fileType)))).allowingAnyArrayOrdering());
 
 			rtn = unFilteredGeomHeaderCheck(callMockPostForm(url, mimeType, getContentDisposition(profile, "zip"))).andReturn();
-			assertThat(new JSONObject(getCompareFile(profile, fileType, null)), sameJSONObjectAs(new JSONObject(extractZipContent(rtn.getResponse().getContentAsByteArray(), getFileName(profile, fileType)))));
+			assertThat(new JSONObject(getCompareFile(profile, fileType, null)), sameJSONObjectAs(new JSONObject(extractZipContent(rtn.getResponse().getContentAsByteArray(), getFileName(profile, fileType)))).allowingAnyArrayOrdering());
 
 			rtn = unFilteredGeomHeaderCheck(callMockPostEmptyForm(url, mimeType, getContentDisposition(profile, "zip"))).andReturn();
-			assertThat(new JSONObject(getCompareFile(profile, fileType, null)), sameJSONObjectAs(new JSONObject(extractZipContent(rtn.getResponse().getContentAsByteArray(), getFileName(profile, fileType)))));
+			assertThat(new JSONObject(getCompareFile(profile, fileType, null)), sameJSONObjectAs(new JSONObject(extractZipContent(rtn.getResponse().getContentAsByteArray(), getFileName(profile, fileType)))).allowingAnyArrayOrdering());
 		}
 	}
 
