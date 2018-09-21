@@ -51,8 +51,7 @@ import static uk.co.datumedge.hamcrest.json.SameJSONAs.sameJSONObjectAs;
 public class SummaryOrganizationControllerIT extends BaseControllerIntegrationTest {
 
 	protected static final Profile PROFILE = Profile.SUMMARY_ORGANIZATION;
-	protected static final boolean POSTABLE = true;
-//	protected static final String ENDPOINT = HttpConstants.SUMMARY_ORGANIZATION_ENDPOINT + "?summaryYears=" + SummaryOrganizationStreamingIT.SUMMARY_YEARS_ALL_MONTHS + "&organization=" + SummaryOrganizationStreamingIT.ORG_ID_WIDNR + "&mimeType=";
+	protected static final boolean POSTABLE = true;	
 	protected static final String ENDPOINT = HttpConstants.SUMMARY_ORGANIZATION_ENDPOINT + "?summaryYears=" + SummaryOrganizationStreamingIT.SUMMARY_YEARS_ALL_MONTHS + "&mimeType=";
 	protected static final String TOTAL_ORG_SUM_COUNT = "2";
 	protected static final String BIODATA_ORG_SUM_COUNT = "1";
@@ -65,10 +64,9 @@ public class SummaryOrganizationControllerIT extends BaseControllerIntegrationTe
 	
 	@Test
 	public void testHarness() throws Exception {
-//		getAsGeoJsonTest();
-//		getAsGeoJsonZipTest();
-		getAllParametersTest();
-//		postGetCountTest();
+		getAsGeoJsonTest();
+		getAsGeoJsonZipTest();
+		getAllParametersTest();		
 	}
 
 	public void getAsGeoJsonTest() throws Exception {
@@ -81,17 +79,6 @@ public class SummaryOrganizationControllerIT extends BaseControllerIntegrationTe
 
 	public void getAllParametersTest() throws Exception {
 		getAllParametersTest(ENDPOINT + GEOJSON, HttpConstants.MIME_TYPE_GEOJSON, GEOJSON, PROFILE, POSTABLE);
-	}
-
-	public void postGetCountTest() throws Exception {
-		String urlPrefix = HttpConstants.SUMMARY_ORGANIZATION_ENDPOINT + "/count?mimeType=";
-		String compareObject = "{\"" + HttpConstants.HEADER_TOTAL_ORGANIZATION_COUNT + "\":\"" + TOTAL_ORG_SUM_ONE_YEAR_COUNT
-				+ "\",\"" + HEADER_STORET_ORGANIZATION_COUNT + "\":\"" + STORET_ORG_SUM_ONE_YEAR_COUNT
-				+ "\",\"" + HEADER_BIODATA_ORGANIZATION_COUNT + "\":\"" + BIODATA_ORG_SUM_COUNT
-				+ "\",\"" + HEADER_NWIS_ORGANIZATION_COUNT + "\":\"" + NWIS_ORG_SUM_COUNT
-				+ "\",\"" + HEADER_STEWARDS_ORGANIZATION_COUNT + "\":\"" + STEWARDS_ORG_SUM_COUNT
-				+ "\"}";
-		postGetCountTest(urlPrefix, compareObject, PROFILE);
 	}
 
 	@Override
@@ -118,23 +105,13 @@ public class SummaryOrganizationControllerIT extends BaseControllerIntegrationTe
 	@Override
 	public ResultActions unFilteredHeaderCheck(ResultActions resultActions) throws Exception {
 		return resultActions
-				.andExpect(header().string(HttpConstants.HEADER_TOTAL_ORGANIZATION_COUNT, TOTAL_ORG_SUM_COUNT))
-			;
-//				.andExpect(header().string(HEADER_NWIS_ORGANIZATION_COUNT, NWIS_ORG_SUM_COUNT))
-//				.andExpect(header().string(HEADER_STEWARDS_ORGANIZATION_COUNT, STEWARDS_ORG_SUM_COUNT))
-//				.andExpect(header().string(HEADER_STORET_ORGANIZATION_COUNT, STORET_ORG_SUM_COUNT))			
-//				.andExpect(header().string(HEADER_BIODATA_ORGANIZATION_COUNT, BIODATA_ORG_SUM_COUNT));
+				.andExpect(header().string(HttpConstants.HEADER_TOTAL_ORGANIZATION_COUNT, TOTAL_ORG_SUM_COUNT));
 	}
 
 	@Override
 	public ResultActions unFilteredGeomHeaderCheck(ResultActions resultActions) throws Exception {
 		return resultActions
-				.andExpect(header().string(HttpConstants.HEADER_TOTAL_ORGANIZATION_COUNT, TOTAL_ORG_SUM_COUNT))
-			;
-//				.andExpect(header().string(HEADER_NWIS_ORGANIZATION_COUNT, NWIS_ORG_SUM_COUNT))
-//				.andExpect(header().string(HEADER_STEWARDS_ORGANIZATION_COUNT, STEWARDS_ORG_SUM_COUNT))
-//				.andExpect(header().string(HEADER_STORET_ORGANIZATION_COUNT, STORET_ORG_SUM_COUNT))
-//				.andExpect(header().string(HEADER_BIODATA_ORGANIZATION_COUNT, BIODATA_ORG_SUM_COUNT));
+				.andExpect(header().string(HttpConstants.HEADER_TOTAL_ORGANIZATION_COUNT, TOTAL_ORG_SUM_COUNT));
 	}
 
 	@Override
