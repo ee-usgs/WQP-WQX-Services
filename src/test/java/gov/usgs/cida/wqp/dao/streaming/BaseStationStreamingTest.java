@@ -323,7 +323,7 @@ public abstract class BaseStationStreamingTest extends FilteredStationDaoTest {
 	}
 
 	public static void assertRow(Map<String, Object> row, String[] station, int expectedColumnCount) {
-		//The KML does not include data_source, it has a style_url
+	    //The KML does not include data_source, it has a style_url		
 		assertEquals(expectedColumnCount, row.keySet().size());
 		if (row.containsKey(StationColumn.KEY_DATA_SOURCE)) {
 			assertEquals(station[0], row.get(BaseColumn.KEY_DATA_SOURCE));
