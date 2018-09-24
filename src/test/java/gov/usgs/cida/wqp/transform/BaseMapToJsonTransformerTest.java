@@ -1,10 +1,8 @@
 package gov.usgs.cida.wqp.transform;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-import gov.usgs.cida.wqp.mapping.StationColumn;
 import gov.usgs.cida.wqp.service.ILogService;
-import gov.usgs.cida.wqp.util.HttpConstants;
+
 
 import java.io.ByteArrayOutputStream;
 
@@ -24,8 +22,6 @@ import org.slf4j.LoggerFactory;
 
 
 public class BaseMapToJsonTransformerTest {
-
-//	public static final String JSON_HEADER = "{\"type\":\"FeatureCollection\",\"features\":[";
         private static final transient Logger LOG = LoggerFactory.getLogger(BaseMapToJsonTransformer.class);
 
 	@Mock

@@ -29,9 +29,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 @DatabaseSetup("classpath:/testData/organizationSum.xml")
 @DbUnitConfiguration(dataSetLoader = ColumnSensingFlatXMLDataSetLoader.class)
 public class SummaryOrganizationStreamingIT extends FilteredDaoTest {
- 	private static final Logger LOG = LoggerFactory.getLogger(BaseStationStreamingTest.class);
-	
-	public static final String[] STORET_TEST = new String[]{"Storet", "R10ELKHEADMINE", "arsite"};
+ 	private static final Logger LOG = LoggerFactory.getLogger(BaseStationStreamingTest.class);	
 	
 	protected NameSpace nameSpace = NameSpace.SUMMARY_ORGANIZATION;
 	
@@ -42,7 +40,7 @@ public class SummaryOrganizationStreamingIT extends FilteredDaoTest {
 	public static final String ORG_ID_TEST_1 = "R10ELKHEADMINE";
 	public static final String ORG_ID_TEST_2 = "R9VOL";
 	public static final String DATA_SOURCE_TEST = "STORET";
-	
+	public static final String[] STORET_TEST = new String[]{"Storet", ORG_ID_TEST_1, "arsite"};
 	public static final String SUMMARY_YEARS_12_MONTHS = "1";
 	public static final String SUMMARY_YEARS_60_MONTHS = "5";
 	public static final String SUMMARY_YEARS_ALL_MONTHS = "all";

@@ -483,7 +483,7 @@ public abstract class BaseController {
 		switch (getMimeType()) {
 		case json:
 		case geojson:	
-			transformer = getCorrectTranformer(responseStream, logId); 
+			transformer = getJsonTranformer(responseStream, logId); 
 			break;
 		case xlsx:
 			transformer = new MapToXlsxTransformer(responseStream, getMapping(getProfile()), logService, logId);
@@ -506,7 +506,7 @@ public abstract class BaseController {
 		return transformer;
 	}	
 
-	protected Transformer getCorrectTranformer(OutputStream responseStream, BigDecimal logId) {
+	protected Transformer getJsonTranformer(OutputStream responseStream, BigDecimal logId) {
 		Transformer transformer = null;		
 		switch (getProfile()) {
 		    case SUMMARY_STATION: 

@@ -24,7 +24,11 @@ import org.slf4j.LoggerFactory;
 
 public class OrganizationSumMapToJsonTransformerTest {
     
-    public static final String JSON_HEADER = "{\"organization\":[";
+    public static final String JSON_HEADER = "{\"organization\":[";    
+    public static final String YEARLY_SUMMARY_PROVIDER_1 = "{'testKey':'testValue'}";     
+    public static final String YEARLY_SUMMARY_PROVIDER_2 = "{'testKey_2':'testValue_2'}";    
+    public static final String EXPECTED_JSON_RETURNED_1 = "{\"organizationID\":\"WIDNR_WQX_test\",\"organizationFormalName\":\"Wisconsin DNR_test\",\"organizationWQPUrl\":\"https://www.waterqualitydata.us/provider/STORET/WIDNR_WQX/\",\"lastResultSubmittedDate\":\"2018-06-24\",\"totalMonitoringLocationsSampled\":\"500\",\"totalActivities\":\"25000\",\"yearlySummary\":{'testKey':'testValue'}}";    
+    public static final String EXPECTED_JSON_RETURNED_2 = "{\"organizationID\":\"WIDNR_WQX_test_2\",\"organizationFormalName\":\"Wisconsin DNR_test_2\",\"organizationWQPUrl\":\"https://www.waterqualitydata.us/provider/STORET/WIDNR_WQX/two/\",\"lastResultSubmittedDate\":\"2018-06-28\",\"totalMonitoringLocationsSampled\":\"506\",\"totalActivities\":\"25006\",\"yearlySummary\":{'testKey_2':'testValue_2'}}";  
     private static final transient Logger LOG = LoggerFactory.getLogger(OrganizationSumMapToJsonTransformer.class);
     
     @Mock
@@ -115,13 +119,5 @@ public class OrganizationSumMapToJsonTransformerTest {
 	    } catch (IOException e) {
 		    fail(e.getLocalizedMessage());
 	    }
-    }
-    
-    public static final String YEARLY_SUMMARY_PROVIDER_1 = "{'testKey':'testValue'}"; 
-    
-    public static final String YEARLY_SUMMARY_PROVIDER_2 = "{'testKey_2':'testValue_2'}";
-    
-    public static final String EXPECTED_JSON_RETURNED_1 = "{\"organizationID\":\"WIDNR_WQX_test\",\"organizationFormalName\":\"Wisconsin DNR_test\",\"organizationWQPUrl\":\"https://www.waterqualitydata.us/provider/STORET/WIDNR_WQX/\",\"lastResultSubmittedDate\":\"2018-06-24\",\"totalMonitoringLocationsSampled\":\"500\",\"totalActivities\":\"25000\",\"yearlySummary\":{'testKey':'testValue'}}";    
-
-    public static final String EXPECTED_JSON_RETURNED_2 = "{\"organizationID\":\"WIDNR_WQX_test_2\",\"organizationFormalName\":\"Wisconsin DNR_test_2\",\"organizationWQPUrl\":\"https://www.waterqualitydata.us/provider/STORET/WIDNR_WQX/two/\",\"lastResultSubmittedDate\":\"2018-06-28\",\"totalMonitoringLocationsSampled\":\"506\",\"totalActivities\":\"25006\",\"yearlySummary\":{'testKey_2':'testValue_2'}}";  
+    }   
 }   
