@@ -14,6 +14,7 @@ public enum Profile {
 	STATION ("station", "station", NameSpace.STATION),
 	SIMPLE_STATION ("simplestation", "simplestation", NameSpace.SIMPLE_STATION),
 	SUMMARY_STATION ("summarystation","summarystation", NameSpace.SUMMARY_STATION),
+	PERIOD_OF_RECORD ("periodOfRecord", "periodOfRecord", NameSpace.PERIOD_OF_RECORD),
 
 	PROJECT ("project", "project", NameSpace.PROJECT),
 	PROJECT_MONITORING_LOCATION_WEIGHTING ("projectMonitoringLocationWeighting", "projectmonitoringlocationweighting",
