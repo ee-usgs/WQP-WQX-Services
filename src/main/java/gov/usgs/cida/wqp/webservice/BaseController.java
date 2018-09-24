@@ -507,11 +507,17 @@ public abstract class BaseController {
 	}	
 
 	protected Transformer getCorrectTranformer(OutputStream responseStream, BigDecimal logId) {
-		HashMap<Profile, Transformer> profileMap = new HashMap<>();
-		profileMap.put(Profile.SUMMARY_STATION, new MonitoringLocSumMapToJsonTransformer(responseStream, null, logService, logId, configurationService.getSiteUrlBase()));
-		profileMap.put(Profile.SUMMARY_ORGANIZATION, new OrganizationSumMapToJsonTransformer(responseStream, null, logService, logId, configurationService.getSiteUrlBase()));
-
-		return profileMap.get(getProfile());
+		Transformer transformer = null;		
+		switch (getProfile()) {
+		    case SUMMARY_STATION: 
+			transformer = new MonitoringLocSumMapToJsonTransformer(responseStream, null, logService, logId, configurationService.getSiteUrlBase());
+			break;
+		    case SUMMARY_ORGANIZATION:
+			transformer = new OrganizationSumMapToJsonTransformer(responseStream, null, logService, logId, configurationService.getSiteUrlBase());
+			break;
+		}
+	    
+		return transformer;
 	}
 
 	protected abstract Profile determineProfile(FilterParameters filter);
