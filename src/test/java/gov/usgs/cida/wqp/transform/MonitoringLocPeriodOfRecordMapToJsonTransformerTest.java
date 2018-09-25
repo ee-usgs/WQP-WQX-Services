@@ -62,7 +62,31 @@ public class MonitoringLocPeriodOfRecordMapToJsonTransformerTest {
     @Test
     public void writeDataTest() {
 	    Map<String, Object> map = new HashMap<>();
-
+	    map.put(StationColumn.KEY_LONGITUDE, "long");
+	    map.put(StationColumn.KEY_LATITUDE, "lat");
+	    map.put(StationColumn.KEY_DATA_SOURCE, "ds");
+	    map.put(StationColumn.KEY_ORGANIZATION, "org");
+	    map.put(StationColumn.KEY_ORGANIZATION_NAME, "org/name");
+	    map.put(StationColumn.KEY_SITE_ID, "site");
+	    map.put(StationColumn.KEY_STATION_NAME, "station");
+	    map.put(StationColumn.KEY_MONITORING_LOCATION_TYPE, "realType");
+	    map.put(StationColumn.KEY_HUC_8, "huceight");
+	    map.put(StationColumn.KEY_STATE_NAME, "Wisconsin");
+	    map.put(StationColumn.KEY_COUNTY_NAME, "Dane"); 
+	    map.put(StationColumn.KEY_TOTAL_ACTIVITIES, 25);
+	    map.put(StationColumn.KEY_PERIOD_OF_RECORD, "{\"testKey\":\"testValue\"}"); 
+	    
+	    try {
+	    transformer.writeData(map);
+	    //need to flush the JsonGenerator to get at output. 
+	    transformer.g.flush();
+	    assertEquals(JSON_HEADER.length() + 562, baos.size());
+	    assertEquals(JSON_HEADER + "{\"type\":\"Feature\",\"geometry\":{\"type\":\"Point\",\"coordinates\":[long,lat]},\"properties\":{\"ProviderName\":\"ds\",\"OrganizationIdentifier\":\"org\",\"OrganizationFormalName\":\"org/name\",\"MonitoringLocationIdentifier\":\"site\",\"MonitoringLocationName\":\"station\",\"MonitoringLocationTypeName\":\"realType\",\"ResolvedMonitoringLocationTypeName\":\"type\",\"HUCEightDigitCode\":\"huceight\""
+				    + ",\"siteUrl\":\"http://test-url.usgs.gov/provider/ds/org/site/\",\"activityCount\":\"57\",\"resultCount\":\"857\",\"StateName\":\"Wisconsin\",\"CountyName\":\"Dane\",\"characteristicGroupResultCount\":{\"testKey\":\"testValue\"}}}",
+				    new String(baos.toByteArray(), HttpConstants.DEFAULT_ENCODING));
+	    } catch (IOException e) {
+		    fail(e.getLocalizedMessage());
+	    }
     }
      
 

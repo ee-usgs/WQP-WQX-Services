@@ -15,6 +15,7 @@ import com.google.common.base.Optional;
 import gov.usgs.cida.wqp.swagger.annotation.FullParameterList;
 import gov.usgs.cida.wqp.swagger.annotation.NoQueryParametersList;
 import gov.usgs.cida.wqp.swagger.annotation.ProfileParameterActivity;
+import gov.usgs.cida.wqp.swagger.annotation.ProfileParameterPeriodOfRecord;
 import gov.usgs.cida.wqp.swagger.annotation.ProfileParameterSummary;
 import gov.usgs.cida.wqp.swagger.annotation.ProfileParameterSummaryOrganization;
 import springfox.documentation.service.Parameter;
@@ -36,7 +37,7 @@ public class SwaggerParameterBuilder implements OperationBuilderPlugin {
 		List<Parameter> parameters = new ArrayList<>();
 		Optional<NoQueryParametersList> noQueryParametersList = context.findAnnotation(NoQueryParametersList.class);
 		Optional<FullParameterList> fullParameterList = context.findAnnotation(FullParameterList.class);
-		Optional<ProfileParameterActivity> profileParameterActivity = context.findAnnotation(ProfileParameterActivity.class);
+		Optional<ProfileParameterActivity> profileParameterActivity = context.findAnnotation(ProfileParameterActivity.class);		
 		Optional<ProfileParameterResult> profileParameterResult = context.findAnnotation(ProfileParameterResult.class);
 		Optional<ProfileParameterSummary> profileParameterSummary = context.findAnnotation(ProfileParameterSummary.class);
 		Optional<ProfileParameterSummaryOrganization> profileParameterSummaryOrganization = context.findAnnotation(ProfileParameterSummaryOrganization.class);
@@ -99,9 +100,10 @@ public class SwaggerParameterBuilder implements OperationBuilderPlugin {
 			parameters.add(SwaggerParameters.statecode());
 			parameters.add(SwaggerParameters.summaryYears());
 			parameters.add(SwaggerParameters.within());
+			parameters.add(SwaggerParameters.dataProfilePeriodOfRecord());
 		}
 		
-		if (profileParameterSummaryOrganization.isPresent()) {
+		if (profileParameterSummaryOrganization.isPresent())	{
 			parameters.add(SwaggerParameters.summaryYears());
 			parameters.add(SwaggerParameters.organization());		
 		}
