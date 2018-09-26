@@ -31,7 +31,7 @@ public class MonitoringLocSumMapToJsonTransformerTest {
     @Mock
     protected ILogService logService;
     protected BigDecimal logId = new BigDecimal(1);
-    protected BaseMapToJsonTransformer transformer;
+    protected MonitoringLocSumMapToJsonTransformer transformer;
     protected ByteArrayOutputStream baos;
     protected String siteUrlBase = "http://test-url.usgs.gov";   
 

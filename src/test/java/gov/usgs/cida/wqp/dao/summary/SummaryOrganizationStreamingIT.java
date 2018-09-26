@@ -46,18 +46,15 @@ public class SummaryOrganizationStreamingIT extends FilteredDaoTest {
 	public static final String SUMMARY_YEARS_ALL_MONTHS = "all";
 	
 	public static final String TOTAL_ORGANIZATION_SUMMARY_COUNT = "2";
-
+	public static final int EXPECTED_SIZE = 2;
+	
 	@Autowired 
 	IStreamingDao streamingDao;
    
 	@Test
 	public void testHarness() {
-//	    containsOrganizationTest(nameSpace);
-//	    sortedAllSummaryTest(nameSpace);
-//	    sortedFiveYearsSummaryTest(nameSpace);
-//	    sortedOneYearSummaryTest(nameSpace);	
-		
-		siteUrlBaseTest(nameSpace, 2);
+	    containsOrganizationTest(nameSpace);
+		siteUrlBaseTest(nameSpace, EXPECTED_SIZE);		
 	}
 
 	@Override
@@ -84,47 +81,6 @@ public class SummaryOrganizationStreamingIT extends FilteredDaoTest {
 		String[] testOrganizations = {DATA_SOURCE_TEST, ORG_ID_TEST_2};
 		List<Map<String, Object>> results = organizationTest(nameSpace, 2);
 		assertContainsOrganization(results, testOrganizations);
-	}
-
-	public void sortedAllSummaryTest(NameSpace nameSpace) {
-		Integer expectedColumnCount = expectedMapOneYear.keySet().size();
-
-		List<Map<String, Object>> results = 
-				sortedSumTest(
-						SUMMARY_YEARS_12_MONTHS, 
-						nameSpace, 
-						Integer.valueOf(TOTAL_ORGANIZATION_SUMMARY_COUNT));
-		assertRow(results.get(0), STORET_TEST, expectedColumnCount);
-		assertSiteUrlBase(results.get(0));		
-	}
-
-	private void sortedFiveYearsSummaryTest(NameSpace nameSpace) {
-		Integer expectedColumnCount = expectedMapOneYear.keySet().size();
-
-		List<Map<String, Object>> results = 
-				sortedSumTest(
-						SUMMARY_YEARS_60_MONTHS, 
-						nameSpace, 
-						Integer.valueOf(TOTAL_ORGANIZATION_SUMMARY_COUNT));
-		assertRow(results.get(0), STORET_TEST, expectedColumnCount);
-	}
-
-	private void sortedOneYearSummaryTest(NameSpace nameSpace) {
-			Integer expectedColumnCount = expectedMapOneYear.keySet().size();
-
-		List<Map<String, Object>> results = 
-				sortedSumTest(
-						SUMMARY_YEARS_ALL_MONTHS, 
-						nameSpace, 
-						Integer.valueOf(TOTAL_ORGANIZATION_SUMMARY_COUNT));
-		assertRow(results.get(0), STORET_TEST, expectedColumnCount);
-	}
-
-	public List<Map<String, Object>> sortedSumTest(String summaryYears, NameSpace nameSpace, int expectedSize) {
-		FilterParameters filter = new FilterParameters();
-		filter.setSorted("yes");
-		filter.setSummaryYears(summaryYears);
-		return callDao(nameSpace, expectedSize, filter);
 	}
 
 	public static void assertRow(Map<String, Object> row, String[] station, int expectedColumnCount) {	    
