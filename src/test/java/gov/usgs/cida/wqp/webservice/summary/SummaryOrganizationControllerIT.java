@@ -21,9 +21,6 @@ import gov.usgs.cida.wqp.dao.summary.SummaryOrganizationStreamingIT;
 import gov.usgs.cida.wqp.mapping.Profile;
 import gov.usgs.cida.wqp.parameter.Parameters;
 import gov.usgs.cida.wqp.springinit.DBTestConfig;
-import static gov.usgs.cida.wqp.swagger.model.OrganizationCountJson.HEADER_BIODATA_ORGANIZATION_COUNT;
-import static gov.usgs.cida.wqp.swagger.model.OrganizationCountJson.HEADER_NWIS_ORGANIZATION_COUNT;
-import static gov.usgs.cida.wqp.swagger.model.OrganizationCountJson.HEADER_STEWARDS_ORGANIZATION_COUNT;
 import static gov.usgs.cida.wqp.swagger.model.OrganizationCountJson.HEADER_STORET_ORGANIZATION_COUNT;
 import gov.usgs.cida.wqp.util.HttpConstants;
 import gov.usgs.cida.wqp.webservice.BaseControllerIntegrationTest;
@@ -62,6 +59,9 @@ public class SummaryOrganizationControllerIT extends BaseControllerIntegrationTe
 	protected static final String TOTAL_ORG_SUM_ONE_YEAR_COUNT = "2";
 	protected static final String STORET_ORG_SUM_ONE_YEAR_COUNT = "2";
 	
+	protected static final String TEST_MONITORING_LOCACTION_1 = "R10ELKHEADMINE";
+	protected static final String TEST_MONITORING_LOCACTION_2 = "R9VOL";
+		
 	@Test
 	public void testHarness() throws Exception {
 		getAsGeoJsonTest();
@@ -129,9 +129,8 @@ public class SummaryOrganizationControllerIT extends BaseControllerIntegrationTe
 
 	@Override
 	protected void getAllParametersTest(String url, String mimeType, String fileType, Profile profile, boolean isPostable) throws Exception {
-		when(fetchService.fetch(any(String.class), any(URL.class))).thenReturn(getNldiSites());
-		
-		String filteredUrl = HttpConstants.SUMMARY_ORGANIZATION_ENDPOINT + "?summaryYears=" + SummaryOrganizationStreamingIT.SUMMARY_YEARS_12_MONTHS + "&mimeType=" + GEOJSON;
+				
+		String filteredUrl = HttpConstants.SUMMARY_ORGANIZATION_ENDPOINT + "?summaryYears=" + SummaryOrganizationStreamingIT.SUMMARY_YEARS_12_MONTHS + "&mimeType=" + GEOJSON + "&organization=" + TEST_MONITORING_LOCACTION_1 + "&organization=" + TEST_MONITORING_LOCACTION_2;
 
 		assertEquals("", filteredHeaderCheck(callMockHead(filteredUrl, mimeType, getContentDisposition(profile, fileType))).andReturn().getResponse().getContentAsString());
 
