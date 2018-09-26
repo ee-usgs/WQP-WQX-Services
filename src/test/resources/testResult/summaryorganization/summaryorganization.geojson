@@ -7,7 +7,7 @@
 		"totalMonitoringLocationsSampled": "35",
 		"totalActivities": "41",
 		"yearlySummary": [{
-                        "year": 2000,
+				"year": 2000,
 			"start": "2000-01-01",
 			"end": "2000-12-31",
 			"activityCount": 41,
@@ -30,8 +30,8 @@
 				"activityCount": 30,
 				"resultCount": 30,
 				"monitoringLocationCount": 26
-                        }]}, {
-                        "year": 2001,
+						}]}, {
+						"year": 2001,
 			"start": "2001-01-01",
 			"end": "2001-12-31",
 			"activityCount": 41,
@@ -54,8 +54,8 @@
 				"activityCount": 30,
 				"resultCount": 30,
 				"monitoringLocationCount": 26
-                        }]},{
-                        "year": 2002,
+						}]},{
+						"year": 2002,
 			"start": "2002-01-01",
 			"end": "2002-12-31",
 			"activityCount": 41,
@@ -78,7 +78,7 @@
 				"activityCount": 30,
 				"resultCount": 30,
 				"monitoringLocationCount": 26
-                        }]},{
+					}]},{
 			"year": 2003,
 			"start": "2003-01-01",
 			"end": "2003-12-31",
@@ -172,7 +172,7 @@
 		"totalMonitoringLocationsSampled": "2",
 		"totalActivities": "30",
 		"yearlySummary": [{
-                        "year": 2000,
+				"year": 2000,
 			"start": "2000-01-01",
 			"end": "2000-12-31",
 			"activityCount": 41,
@@ -195,8 +195,8 @@
 				"activityCount": 30,
 				"resultCount": 30,
 				"monitoringLocationCount": 26
-                        }]}, {
-                        "year": 2001,
+					}]}, {
+					"year": 2001,
 			"start": "2001-01-01",
 			"end": "2001-12-31",
 			"activityCount": 41,
@@ -219,8 +219,8 @@
 				"activityCount": 30,
 				"resultCount": 30,
 				"monitoringLocationCount": 26
-                        }]},{
-                        "year": 2002,
+					}]},{
+					"year": 2002,
 			"start": "2002-01-01",
 			"end": "2002-12-31",
 			"activityCount": 41,
@@ -243,7 +243,7 @@
 				"activityCount": 30,
 				"resultCount": 30,
 				"monitoringLocationCount": 26
-                        }]},{
+					}]},{
 			"year": 2003,
 			"start": "2003-01-01",
 			"end": "2003-12-31",

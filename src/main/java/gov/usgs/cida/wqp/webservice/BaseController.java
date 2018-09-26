@@ -459,15 +459,22 @@ public abstract class BaseController {
 		}
 	}
 	
-	protected NameSpace getGeoJsonNameSpace() {	     
-		HashMap<Profile, NameSpace> profileMap = new HashMap<>();
-		profileMap.put(Profile.SIMPLE_STATION, NameSpace.SIMPLE_STATION);
-		profileMap.put(Profile.SUMMARY_STATION, NameSpace.SUMMARY_STATION);
-		profileMap.put(Profile.SUMMARY_ORGANIZATION, NameSpace.SUMMARY_ORGANIZATION);
-
-		NameSpace currentNameSpace = profileMap.get(getProfile());
-
-		return currentNameSpace;	
+	protected NameSpace getGeoJsonNameSpace() {
+	    Profile currentProfile = getProfile();
+	    if (currentProfile == null) {
+		return null;
+	    }
+	    
+	    switch(currentProfile) {		    
+		case SIMPLE_STATION:
+		    return NameSpace.SIMPLE_STATION;
+		case SUMMARY_STATION:
+		    return NameSpace.SUMMARY_STATION;
+		case SUMMARY_ORGANIZATION:
+		    return NameSpace.SUMMARY_ORGANIZATION;
+		default:
+		    return determineNamespaceFromProfile(currentProfile);
+	    }	
 	}
 
 	protected NameSpace determineNamespaceFromProfile(Profile profile) {

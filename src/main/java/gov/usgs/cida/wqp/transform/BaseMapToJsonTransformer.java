@@ -10,7 +10,7 @@ import com.fasterxml.jackson.core.JsonGenerator;
 
 import gov.usgs.cida.wqp.service.ILogService;
 
-public class BaseMapToJsonTransformer extends Transformer {
+public abstract class BaseMapToJsonTransformer extends Transformer {
 
 	protected JsonFactory f;
 	protected JsonGenerator g;
@@ -33,12 +33,6 @@ public class BaseMapToJsonTransformer extends Transformer {
 		writeHeader();
 	}
 
-	@Override
-	protected void writeHeader() {}
-
-	@Override
-	protected void writeData(Map<String, Object> resultMap) {}
-
 	protected String getValue(Map<String, Object> resultMap, String key) {
 		if (resultMap.containsKey(key) && null != resultMap.get(key)) {
 			return encode(Transformer.getStringValue(resultMap.get(key)));
@@ -46,13 +40,6 @@ public class BaseMapToJsonTransformer extends Transformer {
 			return "";
 		}
 	}
-	
-	// TODO refactor mapper to work with alias so that this method can be removed            
-	protected String getSummaryColumnName(Map<String, Object> resultMap) {                
-		String summaryColumnName = null;
-		
-		return summaryColumnName;
-	}       
 
 	@Override
 	public String encode(String value) {

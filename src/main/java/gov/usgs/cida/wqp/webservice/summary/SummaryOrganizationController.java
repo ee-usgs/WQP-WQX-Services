@@ -38,79 +38,77 @@ import springfox.documentation.annotations.ApiIgnore;
 	produces={HttpConstants.MIME_TYPE_GEOJSON})
 public class SummaryOrganizationController extends BaseController {
 
-    public SummaryOrganizationController(IStreamingDao inStreamingDao, ICountDao inCountDao, ILogService inLogService, ContentNegotiationStrategy inContentStrategy, Validator inValidator, ConfigurationService configurationService) {
+	public SummaryOrganizationController(IStreamingDao inStreamingDao, ICountDao inCountDao, ILogService inLogService, ContentNegotiationStrategy inContentStrategy, Validator inValidator, ConfigurationService configurationService) {
 	super(inStreamingDao, inCountDao, inLogService, inContentStrategy, inValidator, configurationService);
-    }
-    
-    @ApiOperation(value="Return appropriate request headers (including anticipated record counts).")
-    @ProfileParameterSummaryOrganization
-    @RequestMapping(method=RequestMethod.HEAD)
-    public void summaryOrganizationRequest(HttpServletRequest request, HttpServletResponse response, @ApiIgnore FilterParameters filter) {
-	    doHeadRequest(request, response, filter);
-    }
-    
-    @ApiOperation(value="Return requested data.")
-    @ProfileParameterSummaryOrganization
-    @GetMapping()
-    public void summaryOrganizationGetRequest(HttpServletRequest request, HttpServletResponse response, @ApiIgnore FilterParameters filter) {
-	    doDataRequest(request, response, filter);
-    }
-    
-    @ApiOperation(value="Return requested data. Use when the list of parameter values is too long for a query string.")
-    @PostMapping(consumes=MediaType.APPLICATION_JSON_VALUE)
-    public void summaryOrganizationJsonPostRequest(HttpServletRequest request, HttpServletResponse response,
-		    @RequestParam(value="mimeType", required=false) String mimeType,
-		    @RequestParam(value="zip", required=false) String zip,
-		    @RequestBody @ApiIgnore FilterParameters filter) {
-	    doDataRequest(request, response, filter, mimeType, zip);
-    }
-    
-    @ApiOperation(value="Same as the JSON consumer, but hidden from swagger", hidden=true)
-    @PostMapping(consumes=MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public void summaryOrganizationFormUrlencodedPostRequest(HttpServletRequest request, HttpServletResponse response, @ApiIgnore FilterParameters filter) {
-	    doDataRequest(request, response, filter);
-    }
-    
-    @ApiOperation(value="Return anticipated record counts.")
-    @ApiResponses(value={@ApiResponse(code=200, message="OK", response=StationCountJson.class)})
-    @PostMapping(value="count", produces=MediaType.APPLICATION_JSON_VALUE)
-    public Map<String, String> summaryOrganizationPostCountRequest(HttpServletRequest request, HttpServletResponse response,
-		    @RequestParam(value="mimeType", required=false) String mimeType,
-		    @RequestParam(value="zip", required=false) String zip,
-		    @RequestBody @ApiIgnore FilterParameters filter) {
-	    return doPostCountRequest(request, response, filter, mimeType, zip);
-    }
-    
-    
+	}
 
-    @Override  
-    protected String addCountHeaders(HttpServletResponse response, List<Map<String, Object>> counts) {
+	@ApiOperation(value="Return appropriate request headers (including anticipated record counts).")
+	@ProfileParameterSummaryOrganization
+	@RequestMapping(method=RequestMethod.HEAD)
+	public void summaryOrganizationRequest(HttpServletRequest request, HttpServletResponse response, @ApiIgnore FilterParameters filter) {
+	    doHeadRequest(request, response, filter);
+	}
+
+	@ApiOperation(value="Return requested data.")
+	@ProfileParameterSummaryOrganization
+	@GetMapping()
+	public void summaryOrganizationGetRequest(HttpServletRequest request, HttpServletResponse response, @ApiIgnore FilterParameters filter) {
+		doDataRequest(request, response, filter);
+	}
+
+	@ApiOperation(value="Return requested data. Use when the list of parameter values is too long for a query string.")
+	@PostMapping(consumes=MediaType.APPLICATION_JSON_VALUE)
+	public void summaryOrganizationJsonPostRequest(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam(value="mimeType", required=false) String mimeType,
+			@RequestParam(value="zip", required=false) String zip,
+			@RequestBody @ApiIgnore FilterParameters filter) {
+		doDataRequest(request, response, filter, mimeType, zip);
+	}
+
+	@ApiOperation(value="Same as the JSON consumer, but hidden from swagger", hidden=true)
+	@PostMapping(consumes=MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+public void summaryOrganizationFormUrlencodedPostRequest(HttpServletRequest request, HttpServletResponse response, @ApiIgnore FilterParameters filter) {
+		doDataRequest(request, response, filter);
+	}
+
+	@ApiOperation(value="Return anticipated record counts.")
+	@ApiResponses(value={@ApiResponse(code=200, message="OK", response=StationCountJson.class)})
+	@PostMapping(value="count", produces=MediaType.APPLICATION_JSON_VALUE)
+	public Map<String, String> summaryOrganizationPostCountRequest(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam(value="mimeType", required=false) String mimeType,
+			@RequestParam(value="zip", required=false) String zip,
+			@RequestBody @ApiIgnore FilterParameters filter) {
+		return doPostCountRequest(request, response, filter, mimeType, zip);
+	}
+
+	@Override  
+	protected String addCountHeaders(HttpServletResponse response, List<Map<String, Object>> counts) {
 	addOrganizationHeaders(response, counts);
 	return HttpConstants.HEADER_TOTAL_ORGANIZATION_COUNT;
-    }
+	}
 
-    @Override 
-    protected Profile determineProfile(FilterParameters filter) {	
+	@Override 
+	protected Profile determineProfile(FilterParameters filter) {	
 	return determineProfile(Profile.SUMMARY_ORGANIZATION, filter);
-    }
+	}
 
-    @Override
-    protected Map<String, String> getMapping(Profile profile) {
+	@Override
+	protected Map<String, String> getMapping(Profile profile) {
 	return null;
-    }
+	}
 
-    @Override
-    protected IXmlMapping getXmlMapping() {
+	@Override
+	protected IXmlMapping getXmlMapping() {
 	return null;
-    }
+	}
 
-    @Override
-    protected IXmlMapping getKmlMapping() {
+	@Override
+	protected IXmlMapping getKmlMapping() {
 	return null;
-    }
+	}
 	
-    @Override
-    protected void addCustomRequestParams() {
-        getFilter().setSiteUrlBase(configurationService.getSiteUrlBase());
-    }
+	@Override
+	protected void addCustomRequestParams() {
+		getFilter().setSiteUrlBase(configurationService.getSiteUrlBase());
+	}
 }

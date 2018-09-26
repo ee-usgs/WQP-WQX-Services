@@ -68,9 +68,9 @@ public class OrganizationSumMapToJsonTransformerTest {
 	map.put(OrganizationColumn.KEY_ORGANIZATION, "WIDNR_WQX_test");
 	map.put(OrganizationColumn.KEY_ORGANIZATION_NAME, "Wisconsin DNR_test"); 
 	map.put(OrganizationColumn.KEY_ORGANIZATION_SUMMARY_WQP_URL, "https://www.waterqualitydata.us/provider/STORET/WIDNR_WQX/");  
-	map.put(OrganizationColumn.KEY_ORGANIZATION_SUMMARY_LAST_RESULT,"2018-06-24"); 
-	map.put(OrganizationColumn.KEY_ORGANIZATION_SUMMARY_SITE_COUNT, 500); 
-	map.put(OrganizationColumn.KEY_ORGANIZATION_SUMMARY_ACTIVITY_COUNT, 25000); 
+	map.put(OrganizationColumn.KEY_LAST_RESULT,"2018-06-24"); 
+	map.put(OrganizationColumn.KEY_SITE_COUNT, 500); 
+	map.put(OrganizationColumn.KEY_ACTIVITY_COUNT, 25000); 
 	map.put(OrganizationColumn.KEY_ORGANIZATION_SUMMARY, YEARLY_SUMMARY_PROVIDER_1);
 	
 	try {
@@ -87,9 +87,9 @@ public class OrganizationSumMapToJsonTransformerTest {
 	map.put(OrganizationColumn.KEY_ORGANIZATION, "WIDNR_WQX_test_2");
 	map.put(OrganizationColumn.KEY_ORGANIZATION_NAME, "Wisconsin DNR_test_2"); 
 	map.put(OrganizationColumn.KEY_ORGANIZATION_SUMMARY_WQP_URL, "https://www.waterqualitydata.us/provider/STORET/WIDNR_WQX/two/");  
-	map.put(OrganizationColumn.KEY_ORGANIZATION_SUMMARY_LAST_RESULT,"2018-06-28"); 
-	map.put(OrganizationColumn.KEY_ORGANIZATION_SUMMARY_SITE_COUNT, 506); 
-	map.put(OrganizationColumn.KEY_ORGANIZATION_SUMMARY_ACTIVITY_COUNT, 25006); 
+	map.put(OrganizationColumn.KEY_LAST_RESULT,"2018-06-28"); 
+	map.put(OrganizationColumn.KEY_SITE_COUNT, 506); 
+	map.put(OrganizationColumn.KEY_ACTIVITY_COUNT, 25006); 
 	map.put(OrganizationColumn.KEY_ORGANIZATION_SUMMARY, YEARLY_SUMMARY_PROVIDER_2);    
 	
 	try {

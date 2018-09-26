@@ -22,7 +22,7 @@ import org.slf4j.LoggerFactory;
 
 
 public class BaseMapToJsonTransformerTest {
-        private static final transient Logger LOG = LoggerFactory.getLogger(BaseMapToJsonTransformer.class);
+	private static final transient Logger LOG = LoggerFactory.getLogger(BaseMapToJsonTransformer.class);
 
 	@Mock
 	protected ILogService logService;
@@ -36,12 +36,12 @@ public class BaseMapToJsonTransformerTest {
 		MockitoAnnotations.initMocks(this);
 		baos = new ByteArrayOutputStream();
 		transformer = new BaseMapToJsonTransformer(baos, null, logService, logId, siteUrlBase);
-        }
+	}
 
 	@After
 	public void closeTest() throws IOException {
 		transformer.close();
-	}       
+	}	
 
 	@Test
 	public void getValueTest() {

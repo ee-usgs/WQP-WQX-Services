@@ -14,6 +14,8 @@ public abstract class BaseColumn {
 	public static final String KEY_ACTIVITY_COUNT = "ACTIVITY_COUNT";
 	public static final String KEY_RESULT_COUNT = "RESULT_COUNT";
 	public static final String KEY_LAST_UPDATED = "LAST_UPDATED";
+	public static final String KEY_LAST_RESULT = "LAST_RESULT";
+	public static final String KEY_SITE_COUNT = "SITE_COUNT";	
 
 	//Profile Mapping of the Keys
 	public static final ColumnProfile DATA_SOURCE = new ColumnProfile(KEY_DATA_SOURCE, Profile.STATION, Profile.PC_RESULT, Profile.BIOLOGICAL, Profile.SIMPLE_STATION, Profile.ACTIVITY, Profile.ACTIVITY_ALL,

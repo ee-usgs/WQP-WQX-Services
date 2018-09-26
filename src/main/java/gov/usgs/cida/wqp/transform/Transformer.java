@@ -110,14 +110,7 @@ public abstract class Transformer extends OutputStream implements ITransformer {
 				rtn = ((Clob) object).getSubString(1, size);
 			} catch (SQLException e) {
 				LOG.info(e.getLocalizedMessage());
-			}
-		} else if (object instanceof Timestamp){
-			try {
-				DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-				rtn = df.format(object);
-			} catch (Exception e) {
-				LOG.info(e.getLocalizedMessage());
-			}
+			}		
 		} else {
 			rtn = object.toString();
 		}

@@ -383,7 +383,10 @@ public abstract class FilteredDaoTest extends BaseIT {
 	protected void assertUrl(String columnName, Map<String, Object> row) {
 		Object url = row.get(columnName);
 		if (null != url) {
-			assertTrue(columnName + "is incorrect: " + url, url.toString().startsWith(getSiteUrlBase()));
+		    
+String testValue =  url.toString();
+String testValue_2 = (getSiteUrlBase());
+			assertTrue(columnName + " is incorrect: " + url, url.toString().startsWith(getSiteUrlBase()));
 		}
 	}
 }

@@ -909,7 +909,7 @@ public class BaseControllerTest {
 	}
 	
 	@Test
-	public void  getCorrectTranformerTest() {
+	public void  getJsonTranformerTest() {
 		TestBaseController.setProfile(Profile.SUMMARY_STATION);
 		assertEquals(NameSpace.SUMMARY_STATION, testController.getGeoJsonNameSpace());
 		

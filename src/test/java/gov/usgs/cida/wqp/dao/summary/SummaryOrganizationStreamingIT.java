@@ -52,10 +52,12 @@ public class SummaryOrganizationStreamingIT extends FilteredDaoTest {
    
 	@Test
 	public void testHarness() {
-	    containsOrganizationTest(nameSpace);
-	    sortedAllSummaryTest(nameSpace);
-	    sortedFiveYearsSummaryTest(nameSpace);
-	    sortedOneYearSummaryTest(nameSpace);
+//	    containsOrganizationTest(nameSpace);
+//	    sortedAllSummaryTest(nameSpace);
+//	    sortedFiveYearsSummaryTest(nameSpace);
+//	    sortedOneYearSummaryTest(nameSpace);	
+		
+		siteUrlBaseTest(nameSpace, 2);
 	}
 
 	@Override
@@ -93,6 +95,7 @@ public class SummaryOrganizationStreamingIT extends FilteredDaoTest {
 						nameSpace, 
 						Integer.valueOf(TOTAL_ORGANIZATION_SUMMARY_COUNT));
 		assertRow(results.get(0), STORET_TEST, expectedColumnCount);
+		assertSiteUrlBase(results.get(0));		
 	}
 
 	private void sortedFiveYearsSummaryTest(NameSpace nameSpace) {
@@ -145,7 +148,7 @@ public class SummaryOrganizationStreamingIT extends FilteredDaoTest {
 	}
 
     @Override
-    protected void assertSiteUrlBase(Map<String, Object> row) {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    protected void assertSiteUrlBase(Map<String, Object> row) {	
+	    assertUrl(OrganizationColumn.KEY_ORGANIZATION_SUMMARY_WQP_URL, row);	    
     }
 }
