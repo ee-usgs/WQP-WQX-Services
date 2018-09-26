@@ -39,7 +39,7 @@ public class MonitoringLocSumMapToJsonTransformerTest {
     public void initTest() {
 	    MockitoAnnotations.initMocks(this);
 	    baos = new ByteArrayOutputStream();
-	    transformer = new MonitoringLocPeriodOfRecordMapToJsonTransformer(baos, null, logService, logId, siteUrlBase);
+	    transformer = new MonitoringLocSumMapToJsonTransformer(baos, null, logService, logId, siteUrlBase);
     }
 
     @After
