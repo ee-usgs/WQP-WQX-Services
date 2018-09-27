@@ -35,7 +35,7 @@ import springfox.documentation.annotations.ApiIgnore;
 @Api(tags={SwaggerConfig.SUMMARY_ORGANIZATION_TAG_NAME})
 @RestController
 @RequestMapping(value=HttpConstants.SUMMARY_ORGANIZATION_ENDPOINT,
-	produces={HttpConstants.MIME_TYPE_GEOJSON})
+	produces={HttpConstants.MIME_TYPE_JSON})
 public class SummaryOrganizationController extends BaseController {
 
 	public SummaryOrganizationController(IStreamingDao inStreamingDao, ICountDao inCountDao, ILogService inLogService, ContentNegotiationStrategy inContentStrategy, Validator inValidator, ConfigurationService configurationService) {
