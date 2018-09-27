@@ -13,8 +13,6 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 
 import gov.usgs.cida.wqp.Application;
-import static gov.usgs.cida.wqp.BaseTest.GEOJSON;
-import static gov.usgs.cida.wqp.BaseTest.GEOJSON_AND_ZIP;
 import static gov.usgs.cida.wqp.BaseTest.JSON;
 import gov.usgs.cida.wqp.ColumnSensingFlatXMLDataSetLoader;
 import gov.usgs.cida.wqp.dao.summary.SummaryOrganizationStreamingIT;
@@ -64,21 +62,13 @@ public class SummaryOrganizationControllerIT extends BaseControllerIntegrationTe
 		
 	@Test
 	public void testHarness() throws Exception {
-		getAsGeoJsonTest();
-		getAsGeoJsonZipTest();
+		getAsJsonTest(ENDPOINT + JSON, HttpConstants.MIME_TYPE_JSON, JSON, PROFILE, POSTABLE);
+		getAsJsonZipTest(ENDPOINT + JSON_AND_ZIP, HttpConstants.MIME_TYPE_ZIP, JSON, PROFILE, POSTABLE);
 		getAllParametersTest();		
 	}
 
-	public void getAsGeoJsonTest() throws Exception {
-		getAsJsonTest(ENDPOINT + GEOJSON, HttpConstants.MIME_TYPE_GEOJSON, GEOJSON, PROFILE, POSTABLE);
-	}
-
-	public void getAsGeoJsonZipTest() throws Exception {
-		getAsJsonZipTest(ENDPOINT + GEOJSON_AND_ZIP, HttpConstants.MIME_TYPE_ZIP, GEOJSON, PROFILE, POSTABLE);
-	}
-
 	public void getAllParametersTest() throws Exception {
-		getAllParametersTest(ENDPOINT + GEOJSON, HttpConstants.MIME_TYPE_GEOJSON, GEOJSON, PROFILE, POSTABLE);
+		getAllParametersTest(ENDPOINT + JSON, HttpConstants.MIME_TYPE_JSON, JSON, PROFILE, POSTABLE);
 	}
 
 	@Override
@@ -91,8 +81,8 @@ public class SummaryOrganizationControllerIT extends BaseControllerIntegrationTe
 		assertThat(new JSONObject(rtn.getResponse().getContentAsString()),
 				sameJSONObjectAs(new JSONObject(compareObject)));
 
-		callMockPostJsonBadRequest(urlPrefix+ GEOJSON);
-		callMockPostJsonBadRequest(urlPrefix+ GEOJSON_AND_ZIP);
+		callMockPostJsonBadRequest(urlPrefix+ JSON);
+		callMockPostJsonBadRequest(urlPrefix+ JSON_AND_ZIP);
 	}
 
 	@Override
@@ -130,7 +120,7 @@ public class SummaryOrganizationControllerIT extends BaseControllerIntegrationTe
 	@Override
 	protected void getAllParametersTest(String url, String mimeType, String fileType, Profile profile, boolean isPostable) throws Exception {
 				
-		String filteredUrl = HttpConstants.SUMMARY_ORGANIZATION_ENDPOINT + "?summaryYears=" + SummaryOrganizationStreamingIT.SUMMARY_YEARS_12_MONTHS + "&mimeType=" + GEOJSON + "&organization=" + TEST_MONITORING_LOCACTION_1 + "&organization=" + TEST_MONITORING_LOCACTION_2;
+		String filteredUrl = HttpConstants.SUMMARY_ORGANIZATION_ENDPOINT + "?summaryYears=" + SummaryOrganizationStreamingIT.SUMMARY_YEARS_12_MONTHS + "&mimeType=" + JSON + "&organization=" + TEST_MONITORING_LOCACTION_1 + "&organization=" + TEST_MONITORING_LOCACTION_2;
 
 		assertEquals("", filteredHeaderCheck(callMockHead(filteredUrl, mimeType, getContentDisposition(profile, fileType))).andReturn().getResponse().getContentAsString());
 

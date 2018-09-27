@@ -454,6 +454,8 @@ public abstract class BaseController {
 			return NameSpace.STATION_KML;
 		case geojson:
 			return getGeoJsonNameSpace();	
+		case json:
+			return NameSpace.SUMMARY_ORGANIZATION;
 		default:
 			return determineNamespaceFromProfile(getProfile());
 		}
@@ -469,9 +471,7 @@ public abstract class BaseController {
 		case SIMPLE_STATION:
 		    return NameSpace.SIMPLE_STATION;
 		case SUMMARY_STATION:
-		    return NameSpace.SUMMARY_STATION;
-		case SUMMARY_ORGANIZATION:
-		    return NameSpace.SUMMARY_ORGANIZATION;
+		    return NameSpace.SUMMARY_STATION;		
 		default:
 		    return determineNamespaceFromProfile(currentProfile);
 	    }	
