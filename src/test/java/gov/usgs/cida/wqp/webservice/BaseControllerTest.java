@@ -75,10 +75,11 @@ import gov.usgs.cida.wqp.parameter.FilterParameters;
 import gov.usgs.cida.wqp.service.ConfigurationService;
 import gov.usgs.cida.wqp.service.ILogService;
 import gov.usgs.cida.wqp.transform.MapToDelimitedTransformer;
-import gov.usgs.cida.wqp.transform.MapToJsonTransformer;
 import gov.usgs.cida.wqp.transform.MapToKmlTransformer;
 import gov.usgs.cida.wqp.transform.MapToXlsxTransformer;
 import gov.usgs.cida.wqp.transform.MapToXmlTransformer;
+import gov.usgs.cida.wqp.transform.MonitoringLocSumMapToJsonTransformer;
+import gov.usgs.cida.wqp.transform.OrganizationSumMapToJsonTransformer;
 import gov.usgs.cida.wqp.transform.Transformer;
 import gov.usgs.cida.wqp.util.HttpConstants;
 import gov.usgs.cida.wqp.util.MimeType;
@@ -891,14 +892,32 @@ public class BaseControllerTest {
 		TestBaseController.setProfile(null);
 		assertNull(testController.determineNamespace());
 	}
-	
+
 	@Test
 	public void getGeoJsonNameSpaceTest() {
-		assertEquals(NameSpace.SUMMARY_STATION, testController.getGeoJsonNameSpace(Profile.SUMMARY_STATION));
+		TestBaseController.setProfile(Profile.SUMMARY_STATION);
+		assertEquals(NameSpace.SUMMARY_STATION, testController.getGeoJsonNameSpace());
 		
-		assertEquals(NameSpace.SIMPLE_STATION, testController.getGeoJsonNameSpace(Profile.SIMPLE_STATION));
+		TestBaseController.setProfile(Profile.SIMPLE_STATION);
+		assertEquals(NameSpace.SIMPLE_STATION, testController.getGeoJsonNameSpace());
 		
-		assertNull(testController.getGeoJsonNameSpace(null));
+		TestBaseController.setProfile(Profile.SUMMARY_ORGANIZATION);
+		assertEquals(NameSpace.SIMPLE_STATION, testController.getGeoJsonNameSpace());
+		
+		TestBaseController.setProfile(null);
+		assertNull(testController.getGeoJsonNameSpace());
+	}
+	
+	@Test
+	public void  getJsonTranformerTest() {
+		TestBaseController.setProfile(Profile.SUMMARY_STATION);
+		assertEquals(NameSpace.SUMMARY_STATION, testController.getGeoJsonNameSpace());
+		
+		TestBaseController.setProfile(Profile.SUMMARY_ORGANIZATION);
+		assertEquals(NameSpace.SUMMARY_ORGANIZATION, testController.getGeoJsonNameSpace());
+		
+		TestBaseController.setProfile(null);
+		assertNull(testController.getGeoJsonNameSpace());
 	}
 
 	@Test
@@ -935,16 +954,24 @@ public class BaseControllerTest {
 	@Test
 	public void getTransformerTest() {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		
 		TestBaseController.setMimeType(MimeType.json);
-		assertTrue(testController.getTransformer(baos, null) instanceof MapToJsonTransformer);
+		TestBaseController.setProfile(Profile.SUMMARY_STATION);
+		assertTrue(testController.getTransformer(baos, null) instanceof MonitoringLocSumMapToJsonTransformer);
+		
 		TestBaseController.setMimeType(MimeType.geojson);
-		assertTrue(testController.getTransformer(baos, null) instanceof MapToJsonTransformer);
+		TestBaseController.setProfile(Profile.SUMMARY_ORGANIZATION);
+		assertTrue(testController.getTransformer(baos, null) instanceof OrganizationSumMapToJsonTransformer);
+		
 		TestBaseController.setMimeType(MimeType.xlsx);
 		assertTrue(testController.getTransformer(baos, null) instanceof MapToXlsxTransformer);
+		
 		TestBaseController.setMimeType(MimeType.xml);
 		assertTrue(testController.getTransformer(baos, null) instanceof MapToXmlTransformer);
+		
 		TestBaseController.setMimeType(MimeType.kml);
 		assertTrue(testController.getTransformer(baos, null) instanceof MapToKmlTransformer);
+		
 		TestBaseController.setMimeType(MimeType.kmz);
 		assertTrue(testController.getTransformer(baos, null) instanceof MapToKmlTransformer);
 
@@ -957,7 +984,7 @@ public class BaseControllerTest {
 		t = testController.getTransformer(baos, null);
 		assertTrue(t instanceof MapToDelimitedTransformer);
 		assertEquals(MapToDelimitedTransformer.COMMA, ((MapToDelimitedTransformer) t).getDelimiter());
-	}
+	}	
 
 	@Test
 	public void determineProfileTest() {

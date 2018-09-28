@@ -139,6 +139,8 @@ public abstract class FilteredDaoTest extends BaseIT {
 			return Profile.SIMPLE_STATION.toString();
 		case SUMMARY_STATION:
 			return Profile.SUMMARY_STATION.toString();
+		case SUMMARY_ORGANIZATION:
+			return Profile.SUMMARY_ORGANIZATION.toString();
 		case PROJECT:
 			return Profile.PROJECT.toString();
 		case PROJECT_MONITORING_LOCATION_WEIGHTING:
@@ -381,7 +383,7 @@ public abstract class FilteredDaoTest extends BaseIT {
 	protected void assertUrl(String columnName, Map<String, Object> row) {
 		Object url = row.get(columnName);
 		if (null != url) {
-			assertTrue(columnName + "is incorrect: " + url, url.toString().startsWith(getSiteUrlBase()));
+			assertTrue(columnName + " is incorrect: " + url, url.toString().startsWith(getSiteUrlBase()));
 		}
 	}
 }

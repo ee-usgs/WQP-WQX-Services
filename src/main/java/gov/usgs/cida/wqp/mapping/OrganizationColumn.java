@@ -33,7 +33,8 @@ public abstract class OrganizationColumn extends BaseColumn {
 	public static final String KEY_COUNTRY_CODE_3 = "COUNTRY_CODE_3";
 	public static final String KEY_STATE_CODE_3 = "STATE_CODE_3";
 	public static final String KEY_COUNTY_CODE_3 = "COUNTY_CODE_3";
-
+	public static final String KEY_ORGANIZATION_SUMMARY_WQP_URL = "ORGANIZATION_WQP_URL";
+	public static final String KEY_ORGANIZATION_SUMMARY = "ORGANIZATION_SUMMARY";
 
 	//Profile Mapping of the Keys
 	public static final ColumnProfile ORGANIZATION_DESCRIPTION = new ColumnProfile(KEY_ORGANIZATION_DESCRIPTION, Profile.ORGANIZATION);
@@ -94,4 +95,13 @@ public abstract class OrganizationColumn extends BaseColumn {
 
 	public static final ColumnProfile COUNTY_CODE_3 = new ColumnProfile(KEY_COUNTY_CODE_3, Profile.ORGANIZATION);
 
+	public static final ColumnProfile ORGANIZATION_SUMMARY_WQP_URL = new ColumnProfile(KEY_ORGANIZATION_SUMMARY_WQP_URL, Profile.SUMMARY_ORGANIZATION);
+
+	public static final ColumnProfile ORGANIZATION_SUMMARY = new ColumnProfile(KEY_ORGANIZATION_SUMMARY, Profile.SUMMARY_ORGANIZATION);
+
+	public static final ColumnProfile ORGANIZATION_SUMMARY_LAST_RESULT = new ColumnProfile(KEY_LAST_RESULT, Profile.SUMMARY_ORGANIZATION);
+
+	public static final ColumnProfile ORGANIZATION_SUMMARY_SITE_COUNT = new ColumnProfile(KEY_SITE_COUNT, Profile.SUMMARY_ORGANIZATION);
+
+	public static final ColumnProfile ORGANIZATION_SUMMARY_ACTIVITY_COUNT = new ColumnProfile(KEY_ACTIVITY_COUNT, Profile.SUMMARY_ORGANIZATION);
 }

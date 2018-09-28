@@ -38,10 +38,11 @@ import gov.usgs.cida.wqp.parameter.FilterParameters;
 import gov.usgs.cida.wqp.service.ConfigurationService;
 import gov.usgs.cida.wqp.service.ILogService;
 import gov.usgs.cida.wqp.transform.MapToDelimitedTransformer;
-import gov.usgs.cida.wqp.transform.MapToJsonTransformer;
 import gov.usgs.cida.wqp.transform.MapToKmlTransformer;
 import gov.usgs.cida.wqp.transform.MapToXlsxTransformer;
 import gov.usgs.cida.wqp.transform.MapToXmlTransformer;
+import gov.usgs.cida.wqp.transform.MonitoringLocSumMapToJsonTransformer;
+import gov.usgs.cida.wqp.transform.OrganizationSumMapToJsonTransformer;
 import gov.usgs.cida.wqp.transform.Transformer;
 import gov.usgs.cida.wqp.util.HttpConstants;
 import gov.usgs.cida.wqp.util.MimeType;
@@ -452,20 +453,24 @@ public abstract class BaseController {
 		case kmz:
 			return NameSpace.STATION_KML;
 		case geojson:
-			return getGeoJsonNameSpace(getProfile());	
+			return getGeoJsonNameSpace();		
 		default:
 			return determineNamespaceFromProfile(getProfile());
 		}
 	}
 	
-	protected NameSpace getGeoJsonNameSpace(Profile theProfile) {
-		NameSpace theNameSpace = null;
-		if (theProfile == Profile.SIMPLE_STATION || theProfile == Profile.STATION) {
-			theNameSpace = NameSpace.SIMPLE_STATION;
-		} else if (theProfile == Profile.SUMMARY_STATION) {
-			theNameSpace = NameSpace.SUMMARY_STATION;
-		}
-		return theNameSpace;
+	protected NameSpace getGeoJsonNameSpace() {
+	    Profile currentProfile = getProfile();
+	    if (currentProfile == null) {
+			return null;
+	    }
+	    
+	    switch(currentProfile) {
+		case SUMMARY_STATION:
+		    return NameSpace.SUMMARY_STATION;		
+		default:
+		    return NameSpace.SIMPLE_STATION;
+	    }	
 	}
 
 	protected NameSpace determineNamespaceFromProfile(Profile profile) {
@@ -476,12 +481,12 @@ public abstract class BaseController {
 		}
 	}
 
-	protected Transformer getTransformer(OutputStream responseStream, BigDecimal logId) {
+	protected Transformer getTransformer(OutputStream responseStream, BigDecimal logId) {		
 		Transformer transformer;
 		switch (getMimeType()) {
 		case json:
-		case geojson:
-			transformer = new MapToJsonTransformer(responseStream, null, logService, logId, configurationService.getSiteUrlBase());
+		case geojson:	
+			transformer = getJsonTranformer(responseStream, logId); 
 			break;
 		case xlsx:
 			transformer = new MapToXlsxTransformer(responseStream, getMapping(getProfile()), logService, logId);
@@ -501,6 +506,20 @@ public abstract class BaseController {
 			transformer = new MapToDelimitedTransformer(responseStream, getMapping(getProfile()), logService, logId, MapToDelimitedTransformer.COMMA);
 			break;
 		}
+		return transformer;
+	}	
+
+	protected Transformer getJsonTranformer(OutputStream responseStream, BigDecimal logId) {
+		Transformer transformer = null;		
+		switch (getProfile()) {
+		    case SUMMARY_STATION: 
+			transformer = new MonitoringLocSumMapToJsonTransformer(responseStream, null, logService, logId, configurationService.getSiteUrlBase());
+			break;
+		    case SUMMARY_ORGANIZATION:
+			transformer = new OrganizationSumMapToJsonTransformer(responseStream, null, logService, logId, configurationService.getSiteUrlBase());
+			break;
+		}
+	    
 		return transformer;
 	}
 
