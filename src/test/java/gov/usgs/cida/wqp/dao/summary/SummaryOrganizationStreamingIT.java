@@ -12,6 +12,9 @@ import gov.usgs.cida.wqp.mapping.BaseColumn;
 import gov.usgs.cida.wqp.mapping.OrganizationColumn;
 import gov.usgs.cida.wqp.mapping.TestResultHandler;
 import gov.usgs.cida.wqp.mapping.TestSummaryOrganizationMap;
+import static gov.usgs.cida.wqp.mapping.TestSummaryOrganizationMap.SUMMARY_ORGANIZATION_ALL_YEAR;
+import static gov.usgs.cida.wqp.mapping.TestSummaryOrganizationMap.SUMMARY_ORGANIZATION_CURRENT_YEAR;
+import static gov.usgs.cida.wqp.mapping.TestSummaryOrganizationMap.SUMMARY_ORGANIZATION_FIVE_YEAR;
 import gov.usgs.cida.wqp.parameter.FilterParameters;
 import gov.usgs.cida.wqp.springinit.DBTestConfig;
 import java.util.Arrays;
@@ -99,12 +102,15 @@ public class SummaryOrganizationStreamingIT extends FilteredDaoTest {
 		assertContainsOrganization(results, testOrganizations);
 	}
 
-	public static void assertRow(Map<String, Object> row, String[] station, int expectedColumnCount) {	    
-		assertEquals(expectedColumnCount, row.keySet().size());
-		if (row.containsKey(BaseColumn.KEY_DATA_SOURCE)) {
-			assertEquals(station[0], row.get(BaseColumn.KEY_DATA_SOURCE));
+	public void assertRow(List<Map<String, Object>> results, Map<String, Object> expectedRow) {	 		
+		if (results.get(0).containsKey(OrganizationColumn.KEY_ORGANIZATION)&&results.get(0).get(OrganizationColumn.KEY_ORGANIZATION).toString().equalsIgnoreCase(ORG_ID_TEST_1)) {
+			assertMapIsAsExpected(results.get(0), expectedRow);
+			assertEquals(expectedRow.keySet().size(), results.get(0).keySet().size());	
 		}
-		assertEquals(station[1], row.get(OrganizationColumn.KEY_ORGANIZATION));
+		if (results.get(1).containsKey(OrganizationColumn.KEY_ORGANIZATION)&&results.get(1).get(OrganizationColumn.KEY_ORGANIZATION).toString().equalsIgnoreCase(ORG_ID_TEST_1)) {
+			assertMapIsAsExpected(results.get(1), expectedRow);
+			assertEquals(expectedRow.keySet().size(), results.get(1).keySet().size());	
+		}
 	}
 
 	public void assertContainsOrganization(List<Map<String, Object>> results, String[]...  organizations) {
@@ -123,44 +129,30 @@ public class SummaryOrganizationStreamingIT extends FilteredDaoTest {
 		}	    
 	}
 	
-	public void allYearsSummaryTest(NameSpace nameSpace) {
-		// calculate the number of columns in the test map
-		Integer expectedColumnCount = expectedMapAllYears.keySet().size();
-		
-		// grabs the rows from the CI database, sumTest asserts that number of rows returned from the db matches the expected number of rows (last parameter in method)
+	public void allYearsSummaryTest(NameSpace nameSpace) {			
 		List<Map<String, Object>> results = 
 				sumTest(
 						SUMMARY_YEARS_ALL_MONTHS, 
 						nameSpace, 
-						Integer.valueOf(TOTAL_ORGANIZATION_SUMMARY_COUNT));
-	
-		assertRow(results.get(0), STORET_TEST, expectedColumnCount);
-		assertRow(results.get(1), STORET_TEST_2, expectedColumnCount);
+						Integer.valueOf(TOTAL_ORGANIZATION_SUMMARY_COUNT));			
+		assertRow(results, SUMMARY_ORGANIZATION_ALL_YEAR);	
 	}
 	
 	public void fiveYearsSummaryTest(NameSpace nameSpace) {
-		Integer expectedColumnCount = expectedMapFiveYears.keySet().size();
-		
 		List<Map<String, Object>> results = 
 				sumTest(
 						SUMMARY_YEARS_60_MONTHS, 
 						nameSpace, 
 						Integer.valueOf(TOTAL_ORGANIZATION_SUMMARY_COUNT));
-	
-		assertRow(results.get(0), STORET_TEST, expectedColumnCount);
-		assertRow(results.get(1), STORET_TEST_2, expectedColumnCount);
+		assertRow(results, SUMMARY_ORGANIZATION_FIVE_YEAR);	
 	}
 	
-	public void oneYearSummaryTest(NameSpace nameSpace) {
-		Integer expectedColumnCount = expectedMapOneYear.keySet().size();
-		
+	public void oneYearSummaryTest(NameSpace nameSpace) {		
 		List<Map<String, Object>> results = 
 				sumTest(
 						SUMMARY_YEARS_12_MONTHS, 
 						nameSpace, 
 						Integer.valueOf(TOTAL_ORGANIZATION_SUMMARY_COUNT));
-	
-		assertRow(results.get(0), STORET_TEST, expectedColumnCount);
-		assertRow(results.get(1), STORET_TEST_2, expectedColumnCount);
+		assertRow(results, SUMMARY_ORGANIZATION_CURRENT_YEAR);			
 	}
 }

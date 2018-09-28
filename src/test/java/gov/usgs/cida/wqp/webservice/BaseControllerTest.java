@@ -902,7 +902,7 @@ public class BaseControllerTest {
 		assertEquals(NameSpace.SIMPLE_STATION, testController.getGeoJsonNameSpace());
 		
 		TestBaseController.setProfile(Profile.SUMMARY_ORGANIZATION);
-		assertEquals(NameSpace.SUMMARY_ORGANIZATION, testController.getGeoJsonNameSpace());
+		assertEquals(NameSpace.SIMPLE_STATION, testController.getGeoJsonNameSpace());
 		
 		TestBaseController.setProfile(null);
 		assertNull(testController.getGeoJsonNameSpace());
