@@ -454,9 +454,7 @@ public abstract class BaseController {
 		case kmz:
 			return NameSpace.STATION_KML;
 		case geojson:
-			return getGeoJsonNameSpace();	
-		case json:
-			return NameSpace.SUMMARY_ORGANIZATION;
+			return getGeoJsonNameSpace();		
 		default:
 			return determineNamespaceFromProfile(getProfile());
 		}
@@ -465,18 +463,16 @@ public abstract class BaseController {
 	protected NameSpace getGeoJsonNameSpace() {
 	    Profile currentProfile = getProfile();
 	    if (currentProfile == null) {
-		return null;
+			return null;
 	    }
 	    
-	    switch(currentProfile) {		    
-		case SIMPLE_STATION:
-		    return NameSpace.SIMPLE_STATION;
+	    switch(currentProfile) {
 		case SUMMARY_STATION:
 		    return NameSpace.SUMMARY_STATION;
 		case PERIOD_OF_RECORD:
 			return NameSpace.PERIOD_OF_RECORD;
 		default:
-		    return determineNamespaceFromProfile(currentProfile);
+		    return NameSpace.SIMPLE_STATION;
 	    }	
 	}
 
