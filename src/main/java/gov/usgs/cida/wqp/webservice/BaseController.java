@@ -41,6 +41,7 @@ import gov.usgs.cida.wqp.transform.MapToDelimitedTransformer;
 import gov.usgs.cida.wqp.transform.MapToKmlTransformer;
 import gov.usgs.cida.wqp.transform.MapToXlsxTransformer;
 import gov.usgs.cida.wqp.transform.MapToXmlTransformer;
+import gov.usgs.cida.wqp.transform.MonitoringLocPeriodOfRecordMapToJsonTransformer;
 import gov.usgs.cida.wqp.transform.MonitoringLocSumMapToJsonTransformer;
 import gov.usgs.cida.wqp.transform.OrganizationSumMapToJsonTransformer;
 import gov.usgs.cida.wqp.transform.Transformer;
@@ -471,7 +472,9 @@ public abstract class BaseController {
 		case SIMPLE_STATION:
 		    return NameSpace.SIMPLE_STATION;
 		case SUMMARY_STATION:
-		    return NameSpace.SUMMARY_STATION;		
+		    return NameSpace.SUMMARY_STATION;
+		case PERIOD_OF_RECORD:
+			return NameSpace.PERIOD_OF_RECORD;
 		default:
 		    return determineNamespaceFromProfile(currentProfile);
 	    }	
@@ -522,6 +525,8 @@ public abstract class BaseController {
 		    case SUMMARY_ORGANIZATION:
 			transformer = new OrganizationSumMapToJsonTransformer(responseStream, null, logService, logId, configurationService.getSiteUrlBase());
 			break;
+			case PERIOD_OF_RECORD:
+			transformer = new MonitoringLocPeriodOfRecordMapToJsonTransformer(responseStream, null, logService, logId, configurationService.getSiteUrlBase());	
 		}
 	    
 		return transformer;

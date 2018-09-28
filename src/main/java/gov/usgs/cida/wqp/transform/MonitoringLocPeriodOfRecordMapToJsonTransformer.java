@@ -28,16 +28,19 @@ public class MonitoringLocPeriodOfRecordMapToJsonTransformer extends BaseMapToJs
 	@Override
 	protected void writeData(Map<String, Object> resultMap) {
 		try {
-		g.writeStartObject();
+			g.writeStartObject();
 
 			g.writeStringField("type", "Feature");
 
 			g.writeObjectFieldStart("geometry");
+			
 			g.writeStringField("type", "Point");
 
 			g.writeArrayFieldStart("coordinates");
+			
 			g.writeNumber(getValue(resultMap, StationColumn.KEY_LONGITUDE));
 			g.writeNumber(getValue(resultMap, StationColumn.KEY_LATITUDE));
+			
 			g.writeEndArray();
 
 			g.writeEndObject();
@@ -55,10 +58,12 @@ public class MonitoringLocPeriodOfRecordMapToJsonTransformer extends BaseMapToJs
 					+ "/" + getValue(resultMap, StationColumn.KEY_ORGANIZATION) + "/" + getValue(resultMap, StationColumn.KEY_SITE_ID) + "/");
 			g.writeStringField("StateName", getValue(resultMap, StationColumn.KEY_STATE_NAME));
 			g.writeStringField("CountyName", getValue(resultMap, StationColumn.KEY_COUNTY_NAME)); 
-// need to add			g.writeStringField("lastResultSubmittedDate", getValue(resultMap, ));
-// need to add			g.writeStringField("totalActivities", getValue(resultMap, ));
-// need to add			g.writeStringField("totalActivities", getValue(resultMap, ));	
-
+ 			g.writeStringField("lastResultSubmittedDate", getValue(resultMap, StationColumn.KEY_LAST_SUBMITTED_DATE));
+ 			g.writeStringField("totalActivities", getValue(resultMap, StationColumn.KEY_TOTAL_ACTIVITIES));
+ 				
+			g.writeFieldName("yearlySummary");
+			g.writeRawValue(getValue(resultMap, StationColumn.KEY_PERIOD_OF_RECORD_SUMMARY));
+			
 			g.writeEndObject();	
 			
 			g.writeEndObject();

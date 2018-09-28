@@ -43,8 +43,9 @@ public class StationColumn extends BaseColumn {
 	public static final String KEY_SUMMARY_PAST_60_MONTHS = "SUMMARY_PAST_60_MONTHS";
 	public static final String KEY_SUMMARY_ALL_MONTHS = "SUMMARY_ALL_MONTHS";
 	
+	public static final String KEY_LAST_SUBMITTED_DATE = "LAST_SUBMITTED_DATE";
 	public static final String KEY_TOTAL_ACTIVITIES = "TOTAL_ACTIVITIES";
-	public static final String KEY_PERIOD_OF_RECORD = "PERIOD_OF_RECORD";
+	public static final String KEY_PERIOD_OF_RECORD_SUMMARY = "PERIOD_OF_RECORD";
 
 	//Profile Mapping of the Keys
 	public static final ColumnProfile STATION_NAME = new ColumnProfile(KEY_STATION_NAME, Profile.STATION, Profile.SIMPLE_STATION, Profile.RESULT_PHYS_CHEM, Profile.RESULT_BROAD);
@@ -87,8 +88,9 @@ public class StationColumn extends BaseColumn {
 	public static final ColumnProfile SUMMARY_PAST_60_MONTHS = new ColumnProfile(KEY_SUMMARY_PAST_60_MONTHS, Profile.SUMMARY_STATION);
 	public static final ColumnProfile SUMMARY_ALL_MONTHS = new ColumnProfile(KEY_SUMMARY_ALL_MONTHS, Profile.SUMMARY_STATION);
 	
+	public static final ColumnProfile LAST_SUBMITTED_DATE = new ColumnProfile(KEY_LAST_SUBMITTED_DATE, Profile.PERIOD_OF_RECORD);
 	public static final ColumnProfile TOTAL_ACTIVITIES = new ColumnProfile(KEY_TOTAL_ACTIVITIES, Profile.PERIOD_OF_RECORD);
-	public static final ColumnProfile PERIOD_OF_RECORD = new ColumnProfile(KEY_PERIOD_OF_RECORD, Profile.PERIOD_OF_RECORD);	
+	public static final ColumnProfile PERIOD_OF_RECORD = new ColumnProfile(KEY_PERIOD_OF_RECORD_SUMMARY, Profile.PERIOD_OF_RECORD);	
 
 	private StationColumn() {
 	}

@@ -15,7 +15,6 @@ import com.google.common.base.Optional;
 import gov.usgs.cida.wqp.swagger.annotation.FullParameterList;
 import gov.usgs.cida.wqp.swagger.annotation.NoQueryParametersList;
 import gov.usgs.cida.wqp.swagger.annotation.ProfileParameterActivity;
-import gov.usgs.cida.wqp.swagger.annotation.ProfileParameterPeriodOfRecord;
 import gov.usgs.cida.wqp.swagger.annotation.ProfileParameterSummary;
 import gov.usgs.cida.wqp.swagger.annotation.ProfileParameterSummaryOrganization;
 import springfox.documentation.service.Parameter;
