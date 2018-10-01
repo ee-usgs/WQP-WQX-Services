@@ -513,18 +513,18 @@ public abstract class BaseController {
 	}	
 
 	protected Transformer getJsonTranformer(OutputStream responseStream, BigDecimal logId) {
-		Transformer transformer = null;		
+		Transformer transformer = null;
 		switch (getProfile()) {
-		    case SUMMARY_STATION: 
-			transformer = new MonitoringLocSumMapToJsonTransformer(responseStream, null, logService, logId, configurationService.getSiteUrlBase());
-			break;
-		    case SUMMARY_ORGANIZATION:
+		case SUMMARY_ORGANIZATION:
 			transformer = new OrganizationSumMapToJsonTransformer(responseStream, null, logService, logId, configurationService.getSiteUrlBase());
 			break;
-			case PERIOD_OF_RECORD:
+		case PERIOD_OF_RECORD:
 			transformer = new MonitoringLocPeriodOfRecordMapToJsonTransformer(responseStream, null, logService, logId, configurationService.getSiteUrlBase());	
+		default:
+			transformer = new MonitoringLocSumMapToJsonTransformer(responseStream, null, logService, logId, configurationService.getSiteUrlBase());
+			break;
 		}
-	    
+		
 		return transformer;
 	}
 
