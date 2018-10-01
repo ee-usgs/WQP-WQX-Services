@@ -510,16 +510,16 @@ public abstract class BaseController {
 	}	
 
 	protected Transformer getJsonTranformer(OutputStream responseStream, BigDecimal logId) {
-		Transformer transformer = null;		
+		Transformer transformer = null;
 		switch (getProfile()) {
 			case SUMMARY_ORGANIZATION:
 			transformer = new OrganizationSumMapToJsonTransformer(responseStream, null, logService, logId, configurationService.getSiteUrlBase());
 			break;
-		    default:
+			default:
 			transformer = new MonitoringLocSumMapToJsonTransformer(responseStream, null, logService, logId, configurationService.getSiteUrlBase());
-			break;	
+			break;
 		}
-	    
+		
 		return transformer;
 	}
 
