@@ -3,45 +3,7 @@
 		"organizationID": "R10ELKHEADMINE",
 		"organizationFormalName": "EPA Region 10 Elkhead Mine, Douglas County, OR",
 		"organizationWQPUrl": "https://www.waterqualitydata.us/provider/STORET/R10ELKHEADMINE",
-		"lastResultSubmittedDate": "2005-12-31",
-		"totalMonitoringLocationsSampled": "45",
-		"totalActivities": "70",
-		"yearlySummary": [{
-			"year": 2018,
-			"start": "2018-01-01",
-			"end": "2018-12-31",
-			"activityCount": 2,
-			"resultCount": 22,
-			"monitoringLocationsSampled": 1,
-			"characteristicGroupResultCount": {
-				"Nutrient": 10,
-				"Physical": 12
-			},
-			"characteristicNameSummary": [{
-				"characteristicName": "Ammonia",
-				"characteristicType": "Nutrient",
-				"activityCount": 2,
-				"resultCount": 2,
-				"monitoringLocationCount": 1
-			}, {
-				"characteristicName": "pH",
-				"characteristicType": "Physical",
-				"activityCount": 2,
-				"resultCount": 2,
-				"monitoringLocationCount": 1
-			}, {
-				"characteristicName": "Ammonia as NH3",
-				"characteristicType": "Nutrient",
-				"activityCount": 2,
-				"resultCount": 2,
-				"monitoringLocationCount": 1
-			}]
-		}]
-	}, {
-		"organizationID": "R9VOL",
-		"organizationFormalName": "Volunteer Monitoring Groups in EPA Region 9 (California)",
-		"organizationWQPUrl": "https://www.waterqualitydata.us/provider/STORET/R9VOL",
-		"lastResultSubmittedDate": "2005-12-31",
+		"lastResultSubmittedDate": "2018-12-31",
 		"totalMonitoringLocationsSampled": "45",
 		"totalActivities": "70",
 		"yearlySummary": [{
