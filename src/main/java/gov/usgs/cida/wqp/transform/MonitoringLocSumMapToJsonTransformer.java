@@ -57,9 +57,13 @@ public class MonitoringLocSumMapToJsonTransformer extends BaseMapToJsonTransform
 			g.writeStringField("resultCount", getValue(resultMap, StationColumn.KEY_RESULT_COUNT));
 			g.writeStringField("StateName", getValue(resultMap, StationColumn.KEY_STATE_NAME));
 			g.writeStringField("CountyName", getValue(resultMap, StationColumn.KEY_COUNTY_NAME));                        
-
-			g.writeFieldName("characteristicGroupResultCount");
-			g.writeRawValue(getValue(resultMap, getSummaryColumnName(resultMap)));
+			
+			String summaryColumnName  = getSummaryColumnName(resultMap); 
+			if (summaryColumnName != null) {				
+				g.writeFieldName("characteristicGroupResultCount");
+				g.writeRawValue(getValue(resultMap, summaryColumnName));
+			}
+				
 			g.writeEndObject();
 				
 			g.writeEndObject();
