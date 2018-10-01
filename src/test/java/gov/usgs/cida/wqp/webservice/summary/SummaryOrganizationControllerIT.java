@@ -124,8 +124,7 @@ public class SummaryOrganizationControllerIT extends BaseControllerIntegrationTe
 
 		assertEquals("", filteredHeaderCheck(callMockHead(filteredUrl, mimeType, getContentDisposition(profile, fileType))).andReturn().getResponse().getContentAsString());
 
-		MvcResult rtn = filteredHeaderCheck(callMockGet(filteredUrl, mimeType, getContentDisposition(profile, fileType))).andReturn();
-		
+		MvcResult rtn = filteredHeaderCheck(callMockGet(filteredUrl, mimeType, getContentDisposition(profile, fileType))).andReturn();		
 		assertThat(new JSONObject(getCompareFile(profile, fileType, "Filtered")), sameJSONObjectAs(new JSONObject(rtn.getResponse().getContentAsString())).allowingAnyArrayOrdering());
 
 		if (isPostable) {

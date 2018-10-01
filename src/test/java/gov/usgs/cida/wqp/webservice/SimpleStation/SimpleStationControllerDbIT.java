@@ -119,7 +119,6 @@ public class SimpleStationControllerDbIT extends BaseControllerIntegrationTest {
 		assertEquals("", unFilteredGeomHeaderCheck(callMockHead(url, mimeType, getContentDisposition(PROFILE, fileType))).andReturn().getResponse().getContentAsString());
 
 		MvcResult rtn = unFilteredGeomHeaderCheck(callMockGet(url, mimeType, getContentDisposition(PROFILE, fileType))).andReturn();		
-
 		assertThat(new JSONObject(getCompareFile(PROFILE, fileType, null)), sameJSONObjectAs(new JSONObject(rtn.getResponse().getContentAsString())));
 
 		rtn = noResultHeaderCheck(callMockGet(getNoResultParameters(url), mimeType, getContentDisposition(PROFILE, fileType))).andReturn();
