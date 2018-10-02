@@ -128,7 +128,7 @@ public class SummaryOrganizationControllerIT extends BaseControllerIntegrationTe
 		assertThat(new JSONObject(getCompareFile(profile, fileType, "Filtered")), sameJSONObjectAs(new JSONObject(rtn.getResponse().getContentAsString())).allowingAnyArrayOrdering());
 
 		if (isPostable) {
-			rtn = filteredHeaderCheck(callMockPostJson(url, getSourceFile("summaryPostParameters.json").replace("[DATA_PROFILE]", profile.toString()), mimeType, getContentDisposition(profile, fileType))).andReturn();
+			rtn = filteredHeaderCheck(callMockPostJson(url, getSourceFile("summaryOrganizationPostParameters.json").replace("[DATA_PROFILE]", profile.toString()), mimeType, getContentDisposition(profile, fileType))).andReturn();
 			assertThat(new JSONObject(getCompareFile(profile, fileType, "Filtered")), sameJSONObjectAs(new JSONObject(rtn.getResponse().getContentAsString())).allowingAnyArrayOrdering());
 
 			rtn = unFilteredHeaderCheck(callMockPostEmptyForm(url, mimeType, getContentDisposition(profile, fileType))).andReturn();
