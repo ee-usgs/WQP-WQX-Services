@@ -43,8 +43,8 @@ public class StationColumn extends BaseColumn {
 	public static final String KEY_SUMMARY_PAST_60_MONTHS = "SUMMARY_PAST_60_MONTHS";
 	public static final String KEY_SUMMARY_ALL_MONTHS = "SUMMARY_ALL_MONTHS";
 	
-	public static final String KEY_LAST_SUBMITTED_DATE = "LAST_SUBMITTED_DATE";
-	public static final String KEY_TOTAL_ACTIVITIES = "TOTAL_ACTIVITIES";
+	public static final String KEY_LAST_SUBMITTED_DATE = "LAST_RESULT";
+	public static final String KEY_TOTAL_ACTIVITIES = "ACTIVITY_COUNT";
 	public static final String KEY_PERIOD_OF_RECORD_SUMMARY = "PERIOD_OF_RECORD";
 
 	//Profile Mapping of the Keys

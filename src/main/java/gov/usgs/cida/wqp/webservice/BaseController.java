@@ -520,6 +520,7 @@ public abstract class BaseController {
 			break;
 		case PERIOD_OF_RECORD:
 			transformer = new MonitoringLocPeriodOfRecordMapToJsonTransformer(responseStream, null, logService, logId, configurationService.getSiteUrlBase());	
+			break;
 		default:
 			transformer = new MonitoringLocSumMapToJsonTransformer(responseStream, null, logService, logId, configurationService.getSiteUrlBase());
 			break;
