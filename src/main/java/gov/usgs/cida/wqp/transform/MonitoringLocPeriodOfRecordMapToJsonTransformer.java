@@ -63,7 +63,7 @@ public class MonitoringLocPeriodOfRecordMapToJsonTransformer extends BaseMapToJs
 
 			g.writeFieldName("yearlySummary");
 			g.writeRawValue(getValue(resultMap, StationColumn.KEY_PERIOD_OF_RECORD_SUMMARY));			
-			
+	
 			g.writeEndObject();	
 			
 			g.writeEndObject();

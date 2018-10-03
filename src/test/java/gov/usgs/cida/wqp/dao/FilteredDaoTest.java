@@ -141,6 +141,8 @@ public abstract class FilteredDaoTest extends BaseIT {
 			return Profile.SUMMARY_STATION.toString();
 		case SUMMARY_ORGANIZATION:
 			return Profile.SUMMARY_ORGANIZATION.toString();
+		case PERIOD_OF_RECORD:
+			return Profile.PERIOD_OF_RECORD.toString();
 		case PROJECT:
 			return Profile.PROJECT.toString();
 		case PROJECT_MONITORING_LOCATION_WEIGHTING:
@@ -251,7 +253,7 @@ public abstract class FilteredDaoTest extends BaseIT {
 		filter.setOrganization(getOrganization());
 		return callDao(nameSpace, expectedSize, filter);
 	}
-
+	
 	public List<Map<String, Object>> pcodeTest(NameSpace nameSpace, int expectedSize) {
 		FilterParameters filter = new FilterParameters();
 		filter.setPCode(getPcode());
@@ -270,7 +272,7 @@ public abstract class FilteredDaoTest extends BaseIT {
 		filter.setDataProfile(getDataProfileFromNameSpace(nameSpace));
 		return callDao(nameSpace, expectedSize, filter);
 	}
-
+	
 	public List<Map<String, Object>> providersTest(NameSpace nameSpace, int expectedSize) {
 		FilterParameters filter = new FilterParameters();
 		filter.setProviders(getProviders());

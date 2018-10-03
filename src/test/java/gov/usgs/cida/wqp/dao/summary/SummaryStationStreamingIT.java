@@ -39,23 +39,24 @@ public class SummaryStationStreamingIT extends BaseStationStreamingTest {
 
 	@Test
 	public void testHarness() {
-		bboxTest(nameSpace);
-		countryTest(nameSpace);
-		emptyParameterTest(nameSpace);
-		huc8Test(nameSpace);
-		mimeTypeSummaryTest(nameSpace);
-		nullParameterTest(nameSpace);
-		organizationTest(nameSpace);
-		providersTest(nameSpace);
-		siteIdTest(nameSpace);
-		siteTypeTest(nameSpace);
-		sortedAllSummaryTest(nameSpace);
-		sortedFiveYearsSummaryTest(nameSpace);
-		sortedOneYearSummaryTest(nameSpace);
-		stateTest(nameSpace);
-		withinTest(nameSpace);
-		zipTest(nameSpace, Integer.valueOf(TOTAL_SITE_SUMMARY_COUNT));
+//		bboxTest(nameSpace);
+//		countryTest(nameSpace);
+//		emptyParameterTest(nameSpace);
+//		huc8Test(nameSpace);
+//		mimeTypeSummaryTest(nameSpace);
+//		nullParameterTest(nameSpace);
+//		organizationTest(nameSpace);
+//		providersTest(nameSpace);
+//		siteIdTest(nameSpace);
+//		siteTypeTest(nameSpace);
+//		sortedAllSummaryTest(nameSpace);
+//		sortedFiveYearsSummaryTest(nameSpace);
+//		sortedOneYearSummaryTest(nameSpace);
+//		stateTest(nameSpace);
+//		withinTest(nameSpace);
+//		zipTest(nameSpace, Integer.valueOf(TOTAL_SITE_SUMMARY_COUNT));
 		multipleParameterStationSumTest(nameSpace);
+//		periodOfRecordTest(nameSpace);
 	}
 	
 	@Override
