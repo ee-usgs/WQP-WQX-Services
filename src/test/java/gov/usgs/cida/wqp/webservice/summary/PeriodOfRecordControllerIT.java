@@ -1,36 +1,44 @@
-package gov.usgs.cida.wqp.dao.summary;
-
-import java.util.Map;
-
-import org.junit.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+package gov.usgs.cida.wqp.webservice.summary;
 
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 import gov.usgs.cida.wqp.ColumnSensingFlatXMLDataSetLoader;
-
 import gov.usgs.cida.wqp.dao.NameSpace;
 import gov.usgs.cida.wqp.dao.StreamingDao;
 import gov.usgs.cida.wqp.dao.streaming.BaseStationStreamingTest;
+import static gov.usgs.cida.wqp.dao.streaming.BaseStationStreamingTest.BIODATA_61233184;
+import static gov.usgs.cida.wqp.dao.streaming.BaseStationStreamingTest.NWIS_1353690;
+import static gov.usgs.cida.wqp.dao.streaming.BaseStationStreamingTest.NWIS_1360035;
+import static gov.usgs.cida.wqp.dao.streaming.BaseStationStreamingTest.STEWARDS_36;
+import static gov.usgs.cida.wqp.dao.streaming.BaseStationStreamingTest.STEWARDS_46;
+import static gov.usgs.cida.wqp.dao.streaming.BaseStationStreamingTest.STORET_1043441;
+import static gov.usgs.cida.wqp.dao.streaming.BaseStationStreamingTest.STORET_1383;
+import static gov.usgs.cida.wqp.dao.streaming.BaseStationStreamingTest.STORET_504707;
+import static gov.usgs.cida.wqp.dao.streaming.BaseStationStreamingTest.STORET_777;
+import static gov.usgs.cida.wqp.dao.streaming.BaseStationStreamingTest.STORET_888;
+import static gov.usgs.cida.wqp.dao.streaming.BaseStationStreamingTest.STORET_999;
+import static gov.usgs.cida.wqp.dao.streaming.BaseStationStreamingTest.assertRow;
+import gov.usgs.cida.wqp.mapping.TestPeriodOfRecordMap;
 import gov.usgs.cida.wqp.mapping.TestSummaryStationMap;
 import gov.usgs.cida.wqp.parameter.FilterParameters;
 import gov.usgs.cida.wqp.springinit.DBTestConfig;
 import java.util.List;
+import java.util.Map;
+import org.junit.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest(webEnvironment=WebEnvironment.NONE,
-	classes={DBTestConfig.class, StreamingDao.class})
+
+@SpringBootTest(webEnvironment=SpringBootTest.WebEnvironment.NONE,
+classes={DBTestConfig.class, StreamingDao.class})
 @DatabaseSetup("classpath:/testData/clearAll.xml")
-@DatabaseSetup("classpath:/testData/state.xml")
-@DatabaseSetup("classpath:/testData/county.xml")
 @DatabaseSetup("classpath:/testData/station.xml")
 @DbUnitConfiguration(dataSetLoader = ColumnSensingFlatXMLDataSetLoader.class)
-public class SummaryStationStreamingIT extends BaseStationStreamingTest {
-
-	protected NameSpace nameSpace = NameSpace.SUMMARY_STATION;
-	protected Map<String, Object> expectedMapOneYear = TestSummaryStationMap.SUMMARY_STATION_ONE_YEAR;
-	protected Map<String, Object> expectedMapFiveYears = TestSummaryStationMap.SUMMARY_STATION_FIVE_YEARS;
-	protected Map<String, Object> expectedMapAllYears = TestSummaryStationMap.SUMMARY_STATION_ALL_YEARS;
+public class PeriodOfRecordControllerIT extends BaseStationStreamingTest {
+	
+	protected NameSpace nameSpace = NameSpace.PERIOD_OF_RECORD;
+	protected Map<String, Object> expectedMapOneYear = TestPeriodOfRecordMap.PERIOD_OF_RECORD_ONE_YEAR;
+	protected Map<String, Object> expectedMapFiveYears = TestPeriodOfRecordMap.PERIOD_OF_RECORD_FIVE_YEARS;
+	protected Map<String, Object> expectedMapAllYears = TestPeriodOfRecordMap.PERIOD_OF_RECORD_ALL_YEARS;
 	public static final String SUMMARY_YEARS_12_MONTHS = "1";
 	public static final String SUMMARY_YEARS_60_MONTHS = "5";
 	public static final String SUMMARY_YEARS_ALL_MONTHS = "all";
@@ -39,23 +47,27 @@ public class SummaryStationStreamingIT extends BaseStationStreamingTest {
 
 	@Test
 	public void testHarness() {
-		bboxTest(nameSpace);
-		countryTest(nameSpace);
-		emptyParameterTest(nameSpace);
-		huc8Test(nameSpace);
-		mimeTypeSummaryTest(nameSpace);
-		nullParameterTest(nameSpace);
-		organizationTest(nameSpace);
-		providersTest(nameSpace);
-		siteIdTest(nameSpace);
-		siteTypeTest(nameSpace);
-		sortedAllSummaryTest(nameSpace);
-		sortedFiveYearsSummaryTest(nameSpace);
-		sortedOneYearSummaryTest(nameSpace);
-		stateTest(nameSpace);
-		withinTest(nameSpace);
-		zipTest(nameSpace, Integer.valueOf(TOTAL_SITE_SUMMARY_COUNT));
-		multipleParameterStationSumTest(nameSpace);
+//		bboxTest(nameSpace);
+//		countryTest(nameSpace);
+//		emptyParameterTest(nameSpace);
+//		huc8Test(nameSpace);
+//		mimeTypeSummaryTest(nameSpace);
+//		nullParameterTest(nameSpace);
+//		organizationTest(nameSpace);
+//		providersTest(nameSpace);
+//		siteIdTest(nameSpace);
+//		siteTypeTest(nameSpace);
+
+		sortedAllPeriodOfRecordTest(nameSpace);
+		sortedFiveYearsPeriodOfRecordTest(nameSpace);
+		sortedOneYearPeriodOfRecordTest(nameSpace);
+
+//		stateTest(nameSpace);
+//		withinTest(nameSpace);
+//		zipTest(nameSpace, Integer.valueOf(TOTAL_SITE_SUMMARY_COUNT));
+
+
+//		multipleParameterStationSumTest(nameSpace);
 	}
 	
 	@Override
@@ -174,7 +186,7 @@ public class SummaryStationStreamingIT extends BaseStationStreamingTest {
 	}
 	
 
-	public void sortedAllSummaryTest(NameSpace nameSpace) {
+	public void sortedAllPeriodOfRecordTest(NameSpace nameSpace) {
 		Integer expectedColumnCount = expectedMapAllYears.keySet().size();
 		
 		List<Map<String, Object>> results = 
@@ -196,7 +208,7 @@ public class SummaryStationStreamingIT extends BaseStationStreamingTest {
 		assertRow(results.get(10), BIODATA_61233184, expectedColumnCount);
 	}
 	
-	public void sortedFiveYearsSummaryTest(NameSpace nameSpace) {
+	public void sortedFiveYearsPeriodOfRecordTest(NameSpace nameSpace) {
 		Integer expectedColumnCount = expectedMapFiveYears.keySet().size();
 		
 		List<Map<String, Object>> results = 
@@ -217,7 +229,7 @@ public class SummaryStationStreamingIT extends BaseStationStreamingTest {
 		assertRow(results.get(9), BIODATA_61233184, expectedColumnCount);
 	}
 	
-	public void sortedOneYearSummaryTest(NameSpace nameSpace) {
+	public void sortedOneYearPeriodOfRecordTest(NameSpace nameSpace) {
 		Integer expectedColumnCount = expectedMapOneYear.keySet().size();
 		
 		List<Map<String, Object>> results = 
@@ -275,4 +287,5 @@ public class SummaryStationStreamingIT extends BaseStationStreamingTest {
 			BIODATA_61233184
 		);
 	}
+
 }
