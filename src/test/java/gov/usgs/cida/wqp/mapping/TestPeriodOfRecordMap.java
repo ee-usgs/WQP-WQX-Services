@@ -12,7 +12,6 @@ import static gov.usgs.cida.wqp.mapping.StationColumn.KEY_LAST_SUBMITTED_DATE;
 import static gov.usgs.cida.wqp.mapping.StationColumn.KEY_LATITUDE;
 import static gov.usgs.cida.wqp.mapping.StationColumn.KEY_LONGITUDE;
 import static gov.usgs.cida.wqp.mapping.StationColumn.KEY_MONITORING_LOCATION_TYPE;
-import static gov.usgs.cida.wqp.mapping.StationColumn.KEY_PERIOD_OF_RECORD_SUMMARY;
 import static gov.usgs.cida.wqp.mapping.StationColumn.KEY_SITE_TYPE;
 import static gov.usgs.cida.wqp.mapping.StationColumn.KEY_STATE_NAME;
 import static gov.usgs.cida.wqp.mapping.StationColumn.KEY_STATION_NAME;
@@ -21,6 +20,7 @@ import static gov.usgs.cida.wqp.swagger.model.StationCountJson.STORET;
 import java.math.BigDecimal;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import static gov.usgs.cida.wqp.mapping.StationColumn.KEY_PERIOD_OF_RECORD;
 
 public class TestPeriodOfRecordMap {
 		public static final Map<String, Object> PERIOD_OF_RECORD_ONE_YEAR;
@@ -42,7 +42,7 @@ public class TestPeriodOfRecordMap {
 		PERIOD_OF_RECORD_ONE_YEAR.put(KEY_STATION_NAME, "Wintergreen ln");		
 		PERIOD_OF_RECORD_ONE_YEAR.put(KEY_LAST_SUBMITTED_DATE, "2018-12-31");
 		PERIOD_OF_RECORD_ONE_YEAR.put(KEY_TOTAL_ACTIVITIES, "1");
-		PERIOD_OF_RECORD_ONE_YEAR.put(KEY_PERIOD_OF_RECORD_SUMMARY, "[{\"summary_period_of_record\": \"One Year\"}]");	
+		PERIOD_OF_RECORD_ONE_YEAR.put(KEY_PERIOD_OF_RECORD, "[{\"summary_period_of_record\": \"One Year\"}]");	
 		
 	}
 	
@@ -65,7 +65,7 @@ public class TestPeriodOfRecordMap {
 		PERIOD_OF_RECORD_FIVE_YEARS.put(KEY_STATION_NAME, "Wintergreen ln");		
 		PERIOD_OF_RECORD_FIVE_YEARS.put(KEY_LAST_SUBMITTED_DATE, "2018-12-31");
 		PERIOD_OF_RECORD_FIVE_YEARS.put(KEY_TOTAL_ACTIVITIES, "3");
-		PERIOD_OF_RECORD_FIVE_YEARS.put(KEY_PERIOD_OF_RECORD_SUMMARY, "[{\"summary_period_of_record\": \"Five Years\"}]");
+		PERIOD_OF_RECORD_FIVE_YEARS.put(KEY_PERIOD_OF_RECORD, "[{\"summary_period_of_record\": \"Five Years\"}]");
 	}
 	
 	public static final Map<String, Object> PERIOD_OF_RECORD_ALL_YEARS;
@@ -87,7 +87,7 @@ public class TestPeriodOfRecordMap {
 		PERIOD_OF_RECORD_ALL_YEARS.put(KEY_STATION_NAME, "Wintergreen ln");		
 		PERIOD_OF_RECORD_ALL_YEARS.put(KEY_LAST_SUBMITTED_DATE, "2018-12-31");
 		PERIOD_OF_RECORD_ALL_YEARS.put(KEY_TOTAL_ACTIVITIES, "1444");
-		PERIOD_OF_RECORD_ALL_YEARS.put(KEY_PERIOD_OF_RECORD_SUMMARY, "[{\"summary_period_of_record\": \"All Years\"}]");
+		PERIOD_OF_RECORD_ALL_YEARS.put(KEY_PERIOD_OF_RECORD, "[{\"summary_period_of_record\": \"All Years\"}]");
 	}
 
 	private TestPeriodOfRecordMap() {

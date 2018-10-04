@@ -62,7 +62,7 @@ public class PeriodOfRecordMapToJsonTransformer extends BaseMapToJsonTransformer
  			g.writeStringField("totalActivities", getValue(resultMap, StationColumn.KEY_TOTAL_ACTIVITIES));
 
 			g.writeFieldName("yearlySummary");
-			g.writeRawValue(getValue(resultMap, StationColumn.KEY_PERIOD_OF_RECORD_SUMMARY));			
+			g.writeRawValue(getValue(resultMap, StationColumn.KEY_PERIOD_OF_RECORD));			
 	
 			g.writeEndObject();	
 			

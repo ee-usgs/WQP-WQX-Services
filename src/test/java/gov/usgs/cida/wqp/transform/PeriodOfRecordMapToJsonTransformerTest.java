@@ -78,7 +78,7 @@ public class PeriodOfRecordMapToJsonTransformerTest {
 	    testMap.put(StationColumn.KEY_STATE_NAME, "Wisconsin");
 	    testMap.put(StationColumn.KEY_COUNTY_NAME, "Dane"); 
 	    testMap.put(StationColumn.KEY_LAST_SUBMITTED_DATE, 2018-12-25);
-	    testMap.put(StationColumn.KEY_PERIOD_OF_RECORD_SUMMARY, MOCK_JSON_PERIOD_OF_RECORD_1); 
+	    testMap.put(StationColumn.KEY_PERIOD_OF_RECORD, MOCK_JSON_PERIOD_OF_RECORD_1); 
 	    
 	    try {
 		// feed the test map to the json transformer	
@@ -106,7 +106,7 @@ public class PeriodOfRecordMapToJsonTransformerTest {
 	    testMap.put(StationColumn.KEY_STATE_NAME, "Wisconsin2");
 	    testMap.put(StationColumn.KEY_COUNTY_NAME, "Dane2"); 
 	    testMap.put(StationColumn.KEY_LAST_SUBMITTED_DATE, 22018-12-26);
-	    testMap.put(StationColumn.KEY_PERIOD_OF_RECORD_SUMMARY, MOCK_JSON_PERIOD_OF_RECORD_2); 
+	    testMap.put(StationColumn.KEY_PERIOD_OF_RECORD, MOCK_JSON_PERIOD_OF_RECORD_2); 
 		
 		try {
 			// repeat the process with an additional monitoring location added to the test map
