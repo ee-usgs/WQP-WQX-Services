@@ -78,7 +78,7 @@ import gov.usgs.cida.wqp.transform.MapToDelimitedTransformer;
 import gov.usgs.cida.wqp.transform.MapToKmlTransformer;
 import gov.usgs.cida.wqp.transform.MapToXlsxTransformer;
 import gov.usgs.cida.wqp.transform.MapToXmlTransformer;
-import gov.usgs.cida.wqp.transform.MonitoringLocSumMapToJsonTransformer;
+import gov.usgs.cida.wqp.transform.StationMapToJsonTransformer;
 import gov.usgs.cida.wqp.transform.OrganizationSumMapToJsonTransformer;
 import gov.usgs.cida.wqp.transform.Transformer;
 import gov.usgs.cida.wqp.util.HttpConstants;
@@ -960,7 +960,7 @@ public class BaseControllerTest {
 		
 		TestBaseController.setMimeType(MimeType.json);
 		TestBaseController.setProfile(Profile.SUMMARY_STATION);
-		assertTrue(testController.getTransformer(baos, null) instanceof MonitoringLocSumMapToJsonTransformer);
+		assertTrue(testController.getTransformer(baos, null) instanceof StationMapToJsonTransformer);
 		
 		TestBaseController.setMimeType(MimeType.geojson);
 		TestBaseController.setProfile(Profile.SUMMARY_ORGANIZATION);

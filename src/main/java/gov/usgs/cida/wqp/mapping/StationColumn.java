@@ -28,7 +28,7 @@ public class StationColumn extends BaseColumn {
 	public static final String KEY_VERTICAL_DATUM = "VDATUM_ID_CODE";
 	public static final String KEY_COUNTRY_CODE = "COUNTRY_CODE";
 	public static final String KEY_STATE_CODE = "STATE_FIPS_CODE";
-	public static final String KEY_COUNTY_CODE = "COUNTY_FIPS_CODE";	
+	public static final String KEY_COUNTY_CODE = "COUNTY_FIPS_CODE";
 	public static final String KEY_NAT_AQFR_NAME = "NAT_AQFR_NAME";
 	public static final String KEY_AQFR_NAME = "AQFR_NAME";
 	public static final String KEY_AQFR_TYPE_NAME = "AQFR_TYPE_NAME";
@@ -41,8 +41,7 @@ public class StationColumn extends BaseColumn {
 	public static final String KEY_COUNTY_NAME = "COUNTY_NAME";
 	public static final String KEY_SUMMARY_PAST_12_MONTHS = "SUMMARY_PAST_12_MONTHS";
 	public static final String KEY_SUMMARY_PAST_60_MONTHS = "SUMMARY_PAST_60_MONTHS";
-	public static final String KEY_SUMMARY_ALL_MONTHS = "SUMMARY_ALL_MONTHS";
-	
+	public static final String KEY_SUMMARY_ALL_MONTHS = "SUMMARY_ALL_MONTHS";	
 	public static final String KEY_LAST_SUBMITTED_DATE = "LAST_RESULT";
 	public static final String KEY_TOTAL_ACTIVITIES = "ACTIVITY_COUNT";
 	public static final String KEY_PERIOD_OF_RECORD_SUMMARY = "PERIOD_OF_RECORD";
@@ -86,8 +85,7 @@ public class StationColumn extends BaseColumn {
 	public static final ColumnProfile COUNTY_NAME = new ColumnProfile(KEY_COUNTY_NAME, Profile.SIMPLE_STATION);
 	public static final ColumnProfile SUMMARY_PAST_12_MONTHS = new ColumnProfile(KEY_SUMMARY_PAST_12_MONTHS, Profile.SUMMARY_STATION);
 	public static final ColumnProfile SUMMARY_PAST_60_MONTHS = new ColumnProfile(KEY_SUMMARY_PAST_60_MONTHS, Profile.SUMMARY_STATION);
-	public static final ColumnProfile SUMMARY_ALL_MONTHS = new ColumnProfile(KEY_SUMMARY_ALL_MONTHS, Profile.SUMMARY_STATION);
-	
+	public static final ColumnProfile SUMMARY_ALL_MONTHS = new ColumnProfile(KEY_SUMMARY_ALL_MONTHS, Profile.SUMMARY_STATION);	
 	public static final ColumnProfile LAST_SUBMITTED_DATE = new ColumnProfile(KEY_LAST_SUBMITTED_DATE, Profile.PERIOD_OF_RECORD);
 	public static final ColumnProfile TOTAL_ACTIVITIES = new ColumnProfile(KEY_TOTAL_ACTIVITIES, Profile.PERIOD_OF_RECORD);
 	public static final ColumnProfile PERIOD_OF_RECORD = new ColumnProfile(KEY_PERIOD_OF_RECORD_SUMMARY, Profile.PERIOD_OF_RECORD);	

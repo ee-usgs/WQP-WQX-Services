@@ -7,9 +7,9 @@ import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.util.Map;
 
-public class MonitoringLocPeriodOfRecordMapToJsonTransformer extends BaseMapToJsonTransformer {
+public class PeriodOfRecordMapToJsonTransformer extends BaseMapToJsonTransformer {
     
-    public MonitoringLocPeriodOfRecordMapToJsonTransformer(OutputStream target, Map<String, String> mapping, ILogService logService, BigDecimal logId, String siteUrlBase) {
+    public PeriodOfRecordMapToJsonTransformer(OutputStream target, Map<String, String> mapping, ILogService logService, BigDecimal logId, String siteUrlBase) {
 	super(target, mapping, logService, logId, siteUrlBase);
     }
     

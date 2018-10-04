@@ -23,8 +23,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-public class MonitoringLocPeriodOfRecordMapToJsonTransformerTest {
-	private static final transient Logger LOG = LoggerFactory.getLogger(MonitoringLocSumMapToJsonTransformer.class);
+public class PeriodOfRecordMapToJsonTransformerTest {
+	private static final transient Logger LOG = LoggerFactory.getLogger(StationMapToJsonTransformer.class);
 	
     public static final String JSON_HEADER = "{\"type\":\"FeatureCollection\",\"features\":[";    
 	public static final String MOCK_JSON_PERIOD_OF_RECORD_1 = "[{\"year\":2018,\"start\":\"01-01-2018\",\"end\":\"08-21-2018\",\"activityCount\":50,\"resultCount\":5400,\"monitoringLocationsSampled\":25,\"characteristicGroupResultCount\":{\"Inorganics,Minor,Non-metals\":1,\"Microbiological\":6,\"NotAssigned\":3,\"Nutrient\":28,\"Organics,Other\":7,\"Physical\":18},\"characteristicNameSummary\":[{\"characteristicName\":\"Nitrate\",\"characteristicType\":\"Nutrient\",\"activityCount\":12,\"resultCount\":23,\"monitoringLocationCount\":5},{\"characteristicName\":\"Phosphate\",\"characteristicType\":\"Nutrient\",\"activityCount\":12,\"resultCount\":15,\"monitoringLocationCount\":5}]},{\"year\":2017,\"start\":\"2017-01-01\",\"end\":\"2017-12-31\",\"activityCount\":150,\"resultCount\":7400,\"monitoringLocationsSampled\":125,\"characteristicGroupResultCount\":{\"Inorganics,Minor,Non-metals\":34,\"Microbiological\":12,\"NotAssigned\":6,\"Nutrient\":5500,\"Organics,Other\":12,\"Physical\":18},\"characteristicNameSummary\":[{\"characteristicName\":\"Nitrate\",\"characteristicType\":\"Nutrient\",\"activityCount\":30,\"resultCount\":12,\"monitoringLocationCount\":4},{\"characteristicName\":\"Phosphate\",\"characteristicType\":\"Nutrient\",\"activityCount\":15,\"resultCount\":34,\"monitoringLocationCount\":15}]}]";
@@ -43,7 +43,7 @@ public class MonitoringLocPeriodOfRecordMapToJsonTransformerTest {
     public void initTest() {
 	    MockitoAnnotations.initMocks(this);
 	    baos = new ByteArrayOutputStream();
-	    transformer = new MonitoringLocPeriodOfRecordMapToJsonTransformer(baos, null, logService, logId, siteUrlBase);
+	    transformer = new PeriodOfRecordMapToJsonTransformer(baos, null, logService, logId, siteUrlBase);
     }
 
     @After
