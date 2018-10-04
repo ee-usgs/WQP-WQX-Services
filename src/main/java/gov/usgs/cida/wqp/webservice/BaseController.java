@@ -473,7 +473,7 @@ public abstract class BaseController {
 			return NameSpace.PERIOD_OF_RECORD;
 		default:
 			return NameSpace.SIMPLE_STATION;
-		}	
+		}
 	}
 
 	protected NameSpace determineNamespaceFromProfile(Profile profile) {
