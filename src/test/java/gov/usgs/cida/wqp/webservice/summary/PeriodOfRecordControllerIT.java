@@ -19,7 +19,6 @@ import static gov.usgs.cida.wqp.dao.streaming.BaseStationStreamingTest.STORET_88
 import static gov.usgs.cida.wqp.dao.streaming.BaseStationStreamingTest.STORET_999;
 import static gov.usgs.cida.wqp.dao.streaming.BaseStationStreamingTest.assertRow;
 import gov.usgs.cida.wqp.mapping.TestPeriodOfRecordMap;
-import gov.usgs.cida.wqp.mapping.TestSummaryStationMap;
 import gov.usgs.cida.wqp.parameter.FilterParameters;
 import gov.usgs.cida.wqp.springinit.DBTestConfig;
 import java.util.List;
@@ -39,35 +38,31 @@ public class PeriodOfRecordControllerIT extends BaseStationStreamingTest {
 	protected Map<String, Object> expectedMapOneYear = TestPeriodOfRecordMap.PERIOD_OF_RECORD_ONE_YEAR;
 	protected Map<String, Object> expectedMapFiveYears = TestPeriodOfRecordMap.PERIOD_OF_RECORD_FIVE_YEARS;
 	protected Map<String, Object> expectedMapAllYears = TestPeriodOfRecordMap.PERIOD_OF_RECORD_ALL_YEARS;
-	public static final String SUMMARY_YEARS_12_MONTHS = "1";
-	public static final String SUMMARY_YEARS_60_MONTHS = "5";
-	public static final String SUMMARY_YEARS_ALL_MONTHS = "all";
+	public static final String PERIOD_OF_RECORD_1_YEAR = "1";
+	public static final String PERIOD_OF_RECORD_5_YEARS = "5";
+	public static final String PERIOD_OF_RECORD_ALL_YEARS = "all";
 	
 	public static final String TOTAL_SITE_SUMMARY_COUNT = "11";
 
 	@Test
 	public void testHarness() {
-//		bboxTest(nameSpace);
-//		countryTest(nameSpace);
-//		emptyParameterTest(nameSpace);
-//		huc8Test(nameSpace);
-//		mimeTypeSummaryTest(nameSpace);
-//		nullParameterTest(nameSpace);
-//		organizationTest(nameSpace);
-//		providersTest(nameSpace);
-//		siteIdTest(nameSpace);
-//		siteTypeTest(nameSpace);
-
+		bboxTest(nameSpace);
+		countryTest(nameSpace);
+		emptyParameterTest(nameSpace);
+		huc8Test(nameSpace);
+		mimeTypeSummaryTest(nameSpace);
+		nullParameterTest(nameSpace);
+		organizationTest(nameSpace);
+		providersTest(nameSpace);
+		siteIdTest(nameSpace);
+		siteTypeTest(nameSpace);
 		sortedAllPeriodOfRecordTest(nameSpace);
 		sortedFiveYearsPeriodOfRecordTest(nameSpace);
 		sortedOneYearPeriodOfRecordTest(nameSpace);
-
-//		stateTest(nameSpace);
-//		withinTest(nameSpace);
-//		zipTest(nameSpace, Integer.valueOf(TOTAL_SITE_SUMMARY_COUNT));
-
-
-//		multipleParameterStationSumTest(nameSpace);
+		stateTest(nameSpace);
+		withinTest(nameSpace);
+		zipTest(nameSpace, Integer.valueOf(TOTAL_SITE_SUMMARY_COUNT));
+		multipleParameterPointOfRecordTest(nameSpace);
 	}
 	
 	@Override
@@ -150,20 +145,17 @@ public class PeriodOfRecordControllerIT extends BaseStationStreamingTest {
 				STORET_504707);
 	}
 
-	
-	@Override
-	public void multipleParameterStationSumTest(NameSpace nameSpace) {
-		List<Map<String, Object>> results = multipleParameterStationSumTest(nameSpace, 4);
-		assertContainsStation(results, 
-			BaseStationStreamingTest.NWIS_1353690, 
+	public void multipleParameterPointOfRecordTest(NameSpace nameSpace) {
+		List<Map<String, Object>> results = multipleParameterPointOfRecordTest(nameSpace, 3);
+		assertContainsStation(results, 			
 			BaseStationStreamingTest.STORET_888,
 			BaseStationStreamingTest.STEWARDS_36,
 			BaseStationStreamingTest.STEWARDS_46
 		);
 	}
 	
-	@Override
-	public List<Map<String, Object>> multipleParameterStationSumTest(NameSpace nameSpace, int expectedSize) {
+	
+	public List<Map<String, Object>> multipleParameterPointOfRecordTest(NameSpace nameSpace, int expectedSize) {
 		FilterParameters filter = getNoEffectParameters(nameSpace);
 		
 		filter.setZip(getZip());
@@ -190,8 +182,7 @@ public class PeriodOfRecordControllerIT extends BaseStationStreamingTest {
 		Integer expectedColumnCount = expectedMapAllYears.keySet().size();
 		
 		List<Map<String, Object>> results = 
-				sortedSumTest(
-						SUMMARY_YEARS_ALL_MONTHS, 
+				sortedSumTest(PERIOD_OF_RECORD_ALL_YEARS, 
 						nameSpace, 
 						Integer.valueOf(TOTAL_SITE_SUMMARY_COUNT));
 	
@@ -212,8 +203,7 @@ public class PeriodOfRecordControllerIT extends BaseStationStreamingTest {
 		Integer expectedColumnCount = expectedMapFiveYears.keySet().size();
 		
 		List<Map<String, Object>> results = 
-				sortedSumTest(
-						SUMMARY_YEARS_60_MONTHS, 
+				sortedSumTest(PERIOD_OF_RECORD_5_YEARS, 
 						nameSpace, 
 						10);
 	
@@ -233,8 +223,7 @@ public class PeriodOfRecordControllerIT extends BaseStationStreamingTest {
 		Integer expectedColumnCount = expectedMapOneYear.keySet().size();
 		
 		List<Map<String, Object>> results = 
-				sortedSumTest(
-						SUMMARY_YEARS_12_MONTHS, 
+				sortedSumTest(PERIOD_OF_RECORD_1_YEAR, 
 						nameSpace, 
 						9);
 	
