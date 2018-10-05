@@ -4,19 +4,22 @@
 <mapper namespace="summaryStation">
 	
     <sql id="selectSummaryAllMonths">
-        TO_CHAR(summary_all_months) summary_all_months,
+		TO_CHAR(summary_all_months) monitoring_location_summary,
+    <!--    TO_CHAR(summary_all_months) summary_all_months, -->
         nvl(filter.activity_count,0) activity_count,
         nvl(filter.result_count,0) result_count
     </sql>
     
     <sql id="selectSummary12Months">
-        TO_CHAR(summary_past_12_months) summary_past_12_months,
+		TO_CHAR(summary_past_12_months) monitoring_location_summary,
+    <!--    TO_CHAR(summary_past_12_months) summary_past_12_months, -->
         nvl(filter.activity_count_past_12_months,0) activity_count,
         nvl(filter.result_count_past_12_months,0) result_count
     </sql>
     
     <sql id="selectSummary60Months">
-        TO_CHAR(summary_past_60_months) summary_past_60_months,
+		TO_CHAR(summary_past_60_months) monitoring_location_summary,
+    <!--    TO_CHAR(summary_past_60_months) summary_past_60_months, -->
         nvl(filter.activity_count_past_60_months,0) activity_count,
         nvl(filter.result_count_past_60_months,0) result_count
     </sql>
