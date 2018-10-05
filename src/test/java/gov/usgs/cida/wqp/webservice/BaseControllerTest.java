@@ -187,7 +187,7 @@ public class BaseControllerTest {
 			((ZipOutputStream) out).closeEntry();
 			((ZipOutputStream) out).finish();
 			out.close();
-			ZipInputStream in = new ZipInputStream(new ByteArrayInputStream(((MockHttpServletResponse)response).getContentAsByteArray()));
+			ZipInputStream in = new ZipInputStream(new ByteArrayInputStream(((MockHttpServletResponse) response).getContentAsByteArray()));
 			ZipEntry entry = in.getNextEntry();
 			assertTrue(entry.getName().contentEquals("abc"));
 		} catch (IOException e) {
@@ -461,7 +461,7 @@ public class BaseControllerTest {
 		assertEquals("12", response.getHeader(TestBaseController.TEST_COUNT));
 		verify(logService, times(3)).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(FilterParameters.class));
 		verify(logService, times(3)).logHeadComplete(any(HttpServletResponse.class), isNull());
-		verify(countDao, times(3)).getCounts(any(NameSpace.class), any(FilterParameters.class));	
+		verify(countDao, times(3)).getCounts(any(NameSpace.class), any(FilterParameters.class));
 	}
 
 	@Test
@@ -473,7 +473,7 @@ public class BaseControllerTest {
 
 	@Test
 	public void determineContentType_single() throws HttpMediaTypeNotAcceptableException {
-		when(contentStrategy.resolveMediaTypes(any(NativeWebRequest.class))).thenReturn(Arrays.asList(new MediaType("application","vnd.google-earth.kmz")));
+		when(contentStrategy.resolveMediaTypes(any(NativeWebRequest.class))).thenReturn(Arrays.asList(new MediaType("application", "vnd.google-earth.kmz")));
 		testController.determineContentType(request);
 		assertTrue(TestBaseController.getZipped());
 		assertEquals(MimeType.kmz, TestBaseController.getMimeType());
@@ -482,7 +482,7 @@ public class BaseControllerTest {
 	@Test
 	public void determineContentType_multiple() throws HttpMediaTypeNotAcceptableException {
 		when(contentStrategy.resolveMediaTypes(any(NativeWebRequest.class)))
-			.thenReturn(Arrays.asList(MediaType.APPLICATION_JSON, new MediaType("application","vnd.google-earth.kmz"), MediaType.APPLICATION_XML));
+				.thenReturn(Arrays.asList(MediaType.APPLICATION_JSON, new MediaType("application", "vnd.google-earth.kmz"), MediaType.APPLICATION_XML));
 		testController.determineContentType(request);
 		assertFalse(TestBaseController.getZipped());
 		assertEquals(MimeType.json, TestBaseController.getMimeType());
@@ -653,7 +653,7 @@ public class BaseControllerTest {
 		assertEquals(2, response.getHeaderNames().size());
 		assertTrue(response.getHeaderNames().contains(HttpConstants.HEADER_WARNING));
 		assertEquals("This query will return in excess of 10 results, please refine your query.",
-					response.getHeader(HttpConstants.HEADER_WARNING));
+				response.getHeader(HttpConstants.HEADER_WARNING));
 		assertEquals(400, response.getStatus());
 	}
 
@@ -684,7 +684,7 @@ public class BaseControllerTest {
 	public void doPostCountRequestTest() throws HttpMediaTypeNotAcceptableException {
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		FilterParameters filter = new FilterParameters();
-		filter.setSiteid(Arrays.asList("11NPSWRD-BICA_MFG_B","WIDNR_WQX-10030952"));
+		filter.setSiteid(Arrays.asList("11NPSWRD-BICA_MFG_B", "WIDNR_WQX-10030952"));
 		when(countDao.getCounts(any(NameSpace.class), any(FilterParameters.class))).thenReturn(getRawCounts());
 		when(contentStrategy.resolveMediaTypes(any())).thenReturn(Arrays.asList(MimeType.kml.getMediaType()));
 
@@ -710,7 +710,7 @@ public class BaseControllerTest {
 	public void doPostCountRequestNoMimeZip() throws HttpMediaTypeNotAcceptableException {
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		FilterParameters filter = new FilterParameters();
-		filter.setSiteid(Arrays.asList("11NPSWRD-BICA_MFG_B","WIDNR_WQX-10030952"));
+		filter.setSiteid(Arrays.asList("11NPSWRD-BICA_MFG_B", "WIDNR_WQX-10030952"));
 		when(countDao.getCounts(any(NameSpace.class), any(FilterParameters.class))).thenReturn(getRawCounts());
 		when(contentStrategy.resolveMediaTypes(any())).thenReturn(Arrays.asList(MimeType.kml.getMediaType()));
 
@@ -848,16 +848,20 @@ public class BaseControllerTest {
 
 	@Test
 	public void determineNamespaceTest() {
+		TestBaseController.setMimeType(MimeType.geojson);
+		TestBaseController.setProfile(Profile.PERIOD_OF_RECORD);
+		assertEquals(NameSpace.PERIOD_OF_RECORD, testController.determineNamespace());
+
 		TestBaseController.setMimeType(MimeType.kml);
 		assertEquals(NameSpace.STATION_KML, testController.determineNamespace());
 
 		TestBaseController.setMimeType(MimeType.kmz);
 		assertEquals(NameSpace.STATION_KML, testController.determineNamespace());
-		
+
 		TestBaseController.setMimeType(MimeType.geojson);
 		TestBaseController.setProfile(Profile.SIMPLE_STATION);
 		assertEquals(NameSpace.SIMPLE_STATION, testController.determineNamespace());
-		
+
 		TestBaseController.setProfile(Profile.SUMMARY_STATION);
 		assertEquals(NameSpace.SUMMARY_STATION, testController.determineNamespace());
 
@@ -895,30 +899,36 @@ public class BaseControllerTest {
 
 	@Test
 	public void getGeoJsonNameSpaceTest() {
+		TestBaseController.setProfile(Profile.PERIOD_OF_RECORD);
+		assertEquals(NameSpace.PERIOD_OF_RECORD, testController.getGeoJsonNameSpace());
+		
 		TestBaseController.setProfile(Profile.SUMMARY_STATION);
 		assertEquals(NameSpace.SUMMARY_STATION, testController.getGeoJsonNameSpace());
-		
+
 		TestBaseController.setProfile(Profile.SIMPLE_STATION);
 		assertEquals(NameSpace.SIMPLE_STATION, testController.getGeoJsonNameSpace());
-		
+
 		TestBaseController.setProfile(Profile.SUMMARY_ORGANIZATION);
 		assertEquals(NameSpace.SIMPLE_STATION, testController.getGeoJsonNameSpace());
-		
+
 		TestBaseController.setProfile(null);
 		assertNull(testController.getGeoJsonNameSpace());
 	}
-	
+
 	@Test
-	public void  getJsonTranformerTest() {
+	public void getJsonTranformerTest() {
+		TestBaseController.setProfile(Profile.PERIOD_OF_RECORD);
+		assertEquals(NameSpace.PERIOD_OF_RECORD, testController.getGeoJsonNameSpace());
+		
 		TestBaseController.setProfile(Profile.SUMMARY_STATION);
 		assertEquals(NameSpace.SUMMARY_STATION, testController.getGeoJsonNameSpace());
-		
+
 		TestBaseController.setProfile(Profile.SIMPLE_STATION);
 		assertEquals(NameSpace.SIMPLE_STATION, testController.getGeoJsonNameSpace());
-		
+
 		TestBaseController.setProfile(Profile.SUMMARY_ORGANIZATION);
 		assertEquals(NameSpace.SIMPLE_STATION, testController.getGeoJsonNameSpace());
-		
+
 		TestBaseController.setProfile(null);
 		assertNull(testController.getGeoJsonNameSpace());
 	}
@@ -930,11 +940,13 @@ public class BaseControllerTest {
 		assertEquals(NameSpace.BIOLOGICAL_RESULT, testController.determineNamespaceFromProfile(Profile.BIOLOGICAL));
 
 		assertEquals(NameSpace.RESULT, testController.determineNamespaceFromProfile(Profile.PC_RESULT));
+		
+		assertEquals(NameSpace.PERIOD_OF_RECORD, testController.determineNamespaceFromProfile(Profile.PERIOD_OF_RECORD));
 
 		assertEquals(NameSpace.SIMPLE_STATION, testController.determineNamespaceFromProfile(Profile.SIMPLE_STATION));
 
 		assertEquals(NameSpace.STATION, testController.determineNamespaceFromProfile(Profile.STATION));
-		
+
 		assertEquals(NameSpace.SUMMARY_STATION, testController.determineNamespaceFromProfile(Profile.SUMMARY_STATION));
 
 		assertEquals(NameSpace.ACTIVITY, testController.determineNamespaceFromProfile(Profile.ACTIVITY));
@@ -957,24 +969,24 @@ public class BaseControllerTest {
 	@Test
 	public void getTransformerTest() {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		
+
 		TestBaseController.setMimeType(MimeType.json);
 		TestBaseController.setProfile(Profile.SUMMARY_STATION);
 		assertTrue(testController.getTransformer(baos, null) instanceof StationMapToJsonTransformer);
-		
+
 		TestBaseController.setMimeType(MimeType.geojson);
 		TestBaseController.setProfile(Profile.SUMMARY_ORGANIZATION);
 		assertTrue(testController.getTransformer(baos, null) instanceof OrganizationSumMapToJsonTransformer);
-		
+
 		TestBaseController.setMimeType(MimeType.xlsx);
 		assertTrue(testController.getTransformer(baos, null) instanceof MapToXlsxTransformer);
-		
+
 		TestBaseController.setMimeType(MimeType.xml);
 		assertTrue(testController.getTransformer(baos, null) instanceof MapToXmlTransformer);
-		
+
 		TestBaseController.setMimeType(MimeType.kml);
 		assertTrue(testController.getTransformer(baos, null) instanceof MapToKmlTransformer);
-		
+
 		TestBaseController.setMimeType(MimeType.kmz);
 		assertTrue(testController.getTransformer(baos, null) instanceof MapToKmlTransformer);
 
@@ -987,7 +999,7 @@ public class BaseControllerTest {
 		t = testController.getTransformer(baos, null);
 		assertTrue(t instanceof MapToDelimitedTransformer);
 		assertEquals(MapToDelimitedTransformer.COMMA, ((MapToDelimitedTransformer) t).getDelimiter());
-	}	
+	}
 
 	@Test
 	public void determineProfileTest() {

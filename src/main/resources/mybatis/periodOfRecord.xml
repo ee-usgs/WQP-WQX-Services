@@ -42,13 +42,13 @@
             <include refid="dynamicWhere.baseWhereStationClauses" />
             <choose>
                 <when test="summaryYears == null or summaryYears.equalsIgnoreCase('all')">
-                    and summary_all_months is not null
+                    and all_time_summary is not null
                 </when>
                 <otherwise>
                     <choose>
-                        <when test="summaryYears.equalsIgnoreCase('1')">and summary_past_12_months is not null</when>
-                        <when test="summaryYears.equalsIgnoreCase('5')">and summary_past_60_months is not null</when>
-                        <otherwise>and summary_all_months is not null</otherwise>
+                        <when test="summaryYears.equalsIgnoreCase('1')">and current_year_summary is not null</when>
+                        <when test="summaryYears.equalsIgnoreCase('5')">and five_year_summary is not null</when>
+                        <otherwise>and all_time_summary is not null</otherwise>
                     </choose>
                 </otherwise>
             </choose>
@@ -77,9 +77,9 @@
         <include refid="summaryYearWhere" />
             
         ORDER BY
-        data_source_id,
-        organization,
-        site_id
+        prime.data_source_id,
+        prime.organization,
+        prime.site_id
     </select>
 
     <select id="count" resultType="java.util.LinkedHashMap">
