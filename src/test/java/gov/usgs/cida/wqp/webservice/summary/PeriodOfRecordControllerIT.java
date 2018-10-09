@@ -49,26 +49,26 @@ public class PeriodOfRecordControllerIT extends BaseStationStreamingTest {
 		bboxTest(nameSpace);
 		countryTest(nameSpace);
 		emptyParameterTest(nameSpace);
-		huc8Test(nameSpace);
+		huc8Test(nameSpace);		
 		mimeTypeSummaryTest(nameSpace);
 		nullParameterTest(nameSpace);
-		organizationTest(nameSpace);
+		organizationTest(nameSpace);		
 		providersTest(nameSpace);
 		siteIdTest(nameSpace);
 		siteTypeTest(nameSpace);
 		sortedAllPeriodOfRecordTest(nameSpace);
 		sortedFiveYearsPeriodOfRecordTest(nameSpace);
-		sortedOneYearPeriodOfRecordTest(nameSpace);
+		sortedOneYearPeriodOfRecordTest(nameSpace);			
 		stateTest(nameSpace);
 		withinTest(nameSpace);
-		zipTest(nameSpace, Integer.valueOf(TOTAL_SITE_SUMMARY_COUNT));
+		zipTest(nameSpace, Integer.valueOf(TOTAL_SITE_SUMMARY_COUNT));	
 		multipleParameterPointOfRecordTest(nameSpace);
 	}
 	
 	@Override
 	public void bboxTest(NameSpace nameSpace) {
 		List<Map<String, Object>> results = bboxTest(nameSpace, 8);
-		assertContainsStation(results, STEWARDS_36, STEWARDS_46, NWIS_1353690, NWIS_1360035, STORET_777, STORET_888, STORET_1383, STORET_1043441);
+		assertContainsStation(results, STEWARDS_36, STEWARDS_46, NWIS_1353690, NWIS_1360035, STORET_888, STORET_1383, STORET_777, STORET_1043441);
 	}
 	
 	@Override
@@ -215,7 +215,7 @@ public class PeriodOfRecordControllerIT extends BaseStationStreamingTest {
 		assertRow(results.get(5), STORET_504707, expectedColumnCount);
 		assertRow(results.get(6), STORET_1383, expectedColumnCount);
 		assertStoret888(expectedMapFiveYears, results.get(7));
-		assertRow(results.get(8), STORET_999, expectedColumnCount);
+		assertRow(results.get(8), STORET_777, expectedColumnCount);
 		assertRow(results.get(9), BIODATA_61233184, expectedColumnCount);
 	}
 	
@@ -225,7 +225,7 @@ public class PeriodOfRecordControllerIT extends BaseStationStreamingTest {
 		List<Map<String, Object>> results = 
 				sortedSumTest(PERIOD_OF_RECORD_1_YEAR, 
 						nameSpace, 
-						9);
+						10);
 	
 		assertRow(results.get(0), STEWARDS_36, expectedColumnCount);
 		assertRow(results.get(1), STEWARDS_46, expectedColumnCount);
@@ -235,7 +235,7 @@ public class PeriodOfRecordControllerIT extends BaseStationStreamingTest {
 		assertRow(results.get(5), STORET_504707, expectedColumnCount);
 		assertRow(results.get(6), STORET_1383, expectedColumnCount);
 		assertStoret888(expectedMapOneYear, results.get(7));
-		assertRow(results.get(8), BIODATA_61233184, expectedColumnCount);
+		assertRow(results.get(9), BIODATA_61233184, expectedColumnCount);
 	}
 
 	public List<Map<String, Object>> sortedSumTest(String summaryYears, NameSpace nameSpace, int expectedSize) {
@@ -276,5 +276,4 @@ public class PeriodOfRecordControllerIT extends BaseStationStreamingTest {
 			BIODATA_61233184
 		);
 	}
-
 }
