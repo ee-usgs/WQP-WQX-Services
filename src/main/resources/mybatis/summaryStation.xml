@@ -42,6 +42,12 @@
                 <when test="summaryYears == null or summaryYears.equalsIgnoreCase('all')">
                     and summary_all_months is not null
                 </when>
+				<when test="summaryYears.equalsIgnoreCase('1')">
+                    and summary_past_12_months is not null
+                </when>
+				<when test="summaryYears.equalsIgnoreCase('5')">
+                    and summary_past_60_months is not null
+                </when>				
             </choose>
         </where>
     </sql>
