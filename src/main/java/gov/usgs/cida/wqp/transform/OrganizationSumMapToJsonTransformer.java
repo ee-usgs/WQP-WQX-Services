@@ -41,7 +41,7 @@ public class OrganizationSumMapToJsonTransformer extends BaseMapToJsonTransforme
 
 			g.writeEndObject();
 		} catch (IOException e) {
-			throw new RuntimeException("Error writing station json", e);
+			throw new RuntimeException("Error writing json for Organization Summary", e);
 		}
 	}
 

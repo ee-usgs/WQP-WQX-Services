@@ -53,5 +53,8 @@ public class SummaryStationControllerTest {
 		FilterParameters filter = new FilterParameters();
 		filter.setDataProfile("summarystation");
 		assertEquals(Profile.SUMMARY_STATION, controller.determineProfile(filter));
+		
+		filter.setDataProfile("periodOfRecord");
+		assertEquals(Profile.PERIOD_OF_RECORD, controller.determineProfile(filter));
 	}
 }

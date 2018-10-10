@@ -1,0 +1,223 @@
+{
+    "type": "FeatureCollection",
+    "features": [{
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -93.6982205,
+                41.9607224
+            ]
+        },
+        "properties": {
+            "ProviderName": "STEWARDS",
+            "OrganizationIdentifier": "ARS",
+            "OrganizationFormalName": "USDA Agricultural Research Service",
+            "MonitoringLocationIdentifier": "ARS-IAWC-IAWC225",
+            "MonitoringLocationName": "IAWC225",
+            "MonitoringLocationTypeName": "River/Stream",
+            "ResolvedMonitoringLocationTypeName": "Land",
+            "HUCEightDigitCode": "070801050907",
+            "siteUrl": "https://www.waterqualitydata.us/data/provider/STORET/21VASWCB/21VASWCB-1ABRB015.38/",
+            "StateName": "Delaware",
+            "CountyName": "Jefferson County",
+            "lastResultSubmittedDate": "2018-12-31",
+            "totalActivities": 23,
+            "yearlySummary": [
+                {
+                    "year": 2018,
+                    "start": "01-01-2018",
+                    "end": "08-21-2018",
+                    "activityCount": 50,
+                    "resultCount": 5400,
+                    "monitoringLocationsSampled": 25,
+                    "characteristicGroupResultCount": {
+                        "Inorganics, Minor, Non-metals": 1,
+                        "Microbiological": 6,
+                        "Not Assigned": 3,
+                        "Nutrient": 28,
+                        "Organics, Other": 7,
+                        "Physical": 18
+                    },
+                    "characteristicNameSummary": [
+                        {
+                            "characteristicName": "Nitrate",
+                            "characteristicType": "Nutrient",
+                            "activityCount": 12,
+                            "resultCount": 23,
+                            "monitoringLocationCount": 5
+                        },
+                        {
+                            "characteristicName": "Phosphate",
+                            "characteristicType": "Nutrient",
+                            "activityCount": 12,
+                            "resultCount": 15,
+                            "monitoringLocationCount": 5
+                        }
+                    ]
+                },
+                {
+                    "year": 2017,
+                    "start": "2017-01-01",
+                    "end": "2017-12-31",
+                    "activityCount": 150,
+                    "resultCount": 7400,
+                    "monitoringLocationsSampled": 125,
+                    "characteristicGroupResultCount": {
+                        "Inorganics, Minor, Non-metals": 34,
+                        "Microbiological": 12,
+                        "Not Assigned": 6,
+                        "Nutrient": 5500,
+                        "Organics, Other": 12,
+                        "Physical": 18
+                    },
+                    "characteristicNameSummary": [
+                        {
+                            "characteristicName": "Nitrate",
+                            "characteristicType": "Nutrient",
+                            "activityCount": 30,
+                            "resultCount": 12,
+                            "monitoringLocationCount": 4
+                        },
+                        {
+                            "characteristicName": "Phosphate",
+                            "characteristicType": "Nutrient",
+                            "activityCount": 15,
+                            "resultCount": 34,
+                            "monitoringLocationCount": 15
+                        }
+                    ]
+                }, 
+				{
+					"year": 2016,
+					"start": "2016-01-01",
+                    "end": "2016-12-31",
+                    "activityCount": 150,
+                    "resultCount": 7400,
+                    "monitoringLocationsSampled": 125,
+                    "characteristicGroupResultCount": {
+                        "Inorganics, Minor, Non-metals": 34,
+                        "Microbiological": 12,
+                        "Not Assigned": 6,
+                        "Nutrient": 5500,
+                        "Organics, Other": 12,
+                        "Physical": 18
+                    },
+                    "characteristicNameSummary": [
+                        {
+                            "characteristicName": "Nitrate",
+                            "characteristicType": "Nutrient",
+                            "activityCount": 30,
+                            "resultCount": 12,
+                            "monitoringLocationCount": 4
+                        },
+                        {
+                            "characteristicName": "Phosphate",
+                            "characteristicType": "Nutrient",
+                            "activityCount": 15,
+                            "resultCount": 34,
+                            "monitoringLocationCount": 15
+                        }
+                    ]
+				},
+				{
+					"year": 2015,
+					"start": "2015-01-01",
+                    "end": "2015-12-31",
+                    "activityCount": 150,
+                    "resultCount": 7400,
+                    "monitoringLocationsSampled": 125,
+                    "characteristicGroupResultCount": {
+                        "Inorganics, Minor, Non-metals": 34,
+                        "Microbiological": 12,
+                        "Not Assigned": 6,
+                        "Nutrient": 5500,
+                        "Organics, Other": 12,
+                        "Physical": 18
+                    },
+                    "characteristicNameSummary": [
+                        {
+                            "characteristicName": "Nitrate",
+                            "characteristicType": "Nutrient",
+                            "activityCount": 30,
+                            "resultCount": 12,
+                            "monitoringLocationCount": 4
+                        },
+                        {
+                            "characteristicName": "Phosphate",
+                            "characteristicType": "Nutrient",
+                            "activityCount": 15,
+                            "resultCount": 34,
+                            "monitoringLocationCount": 15
+                        }
+                    ]
+				},
+				{
+					"year": 2014,
+					"start": "2014-01-01",
+                    "end": "2014-12-31",
+                    "activityCount": 150,
+                    "resultCount": 7400,
+                    "monitoringLocationsSampled": 125,
+                    "characteristicGroupResultCount": {
+                        "Inorganics, Minor, Non-metals": 34,
+                        "Microbiological": 12,
+                        "Not Assigned": 6,
+                        "Nutrient": 5500,
+                        "Organics, Other": 12,
+                        "Physical": 18
+                    },
+                    "characteristicNameSummary": [
+                        {
+                            "characteristicName": "Nitrate",
+                            "characteristicType": "Nutrient",
+                            "activityCount": 30,
+                            "resultCount": 12,
+                            "monitoringLocationCount": 4
+                        },
+                        {
+                            "characteristicName": "Phosphate",
+                            "characteristicType": "Nutrient",
+                            "activityCount": 15,
+                            "resultCount": 34,
+                            "monitoringLocationCount": 15
+                        }
+                    ]
+				},
+				{
+					"year": 2013,
+					"start": "2013-01-01",
+                    "end": "2013-12-31",
+                    "activityCount": 150,
+                    "resultCount": 7400,
+                    "monitoringLocationsSampled": 125,
+                    "characteristicGroupResultCount": {
+                        "Inorganics, Minor, Non-metals": 34,
+                        "Microbiological": 12,
+                        "Not Assigned": 6,
+                        "Nutrient": 5500,
+                        "Organics, Other": 12,
+                        "Physical": 18
+                    },
+                    "characteristicNameSummary": [
+                        {
+                            "characteristicName": "Nitrate",
+                            "characteristicType": "Nutrient",
+                            "activityCount": 30,
+                            "resultCount": 12,
+                            "monitoringLocationCount": 4
+                        },
+                        {
+                            "characteristicName": "Phosphate",
+                            "characteristicType": "Nutrient",
+                            "activityCount": 15,
+                            "resultCount": 34,
+                            "monitoringLocationCount": 15
+                        }
+                    ]
+				}
+            ]
+        }
+    }]
+}
+

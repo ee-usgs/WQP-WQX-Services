@@ -8,8 +8,8 @@ import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.util.Map;
 
-public class MonitoringLocSumMapToJsonTransformer extends BaseMapToJsonTransformer {    
-	public MonitoringLocSumMapToJsonTransformer(OutputStream target, Map<String, String> mapping, ILogService logService, BigDecimal logId, String siteUrlBase) {
+public class StationMapToJsonTransformer extends BaseMapToJsonTransformer {    
+	public StationMapToJsonTransformer(OutputStream target, Map<String, String> mapping, ILogService logService, BigDecimal logId, String siteUrlBase) {
 	super(target, mapping, logService, logId, siteUrlBase);	
 	}
 

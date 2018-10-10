@@ -8,7 +8,6 @@ import gov.usgs.cida.wqp.dao.NameSpace;
 import gov.usgs.cida.wqp.dao.StreamingDao;
 import gov.usgs.cida.wqp.dao.intfc.IStreamingDao;
 import gov.usgs.cida.wqp.dao.streaming.BaseStationStreamingTest;
-import gov.usgs.cida.wqp.mapping.BaseColumn;
 import gov.usgs.cida.wqp.mapping.OrganizationColumn;
 import gov.usgs.cida.wqp.mapping.TestResultHandler;
 import gov.usgs.cida.wqp.mapping.TestSummaryOrganizationMap;

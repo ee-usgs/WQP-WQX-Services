@@ -99,11 +99,12 @@ public class SwaggerParameterBuilder implements OperationBuilderPlugin {
 			parameters.add(SwaggerParameters.statecode());
 			parameters.add(SwaggerParameters.summaryYears());
 			parameters.add(SwaggerParameters.within());
+			parameters.add(SwaggerParameters.dataProfilePeriodOfRecord());
 		}
 		
 		if (profileParameterSummaryOrganization.isPresent()) {
 			parameters.add(SwaggerParameters.summaryYears());
-			parameters.add(SwaggerParameters.organization());		
+			parameters.add(SwaggerParameters.organization());
 		}
 
 		if (postMapping.isPresent()) {

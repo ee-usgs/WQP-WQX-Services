@@ -10,9 +10,6 @@ import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.sql.Clob;
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Map;
 import java.util.Map.Entry;
 

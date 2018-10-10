@@ -23,15 +23,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-public class MonitoringLocSumMapToJsonTransformerTest {
+public class StationMapToJsonTransformerTest {
 
     public static final String JSON_HEADER = "{\"type\":\"FeatureCollection\",\"features\":[";
-    private static final transient Logger LOG = LoggerFactory.getLogger(MonitoringLocSumMapToJsonTransformer.class);
+    private static final transient Logger LOG = LoggerFactory.getLogger(StationMapToJsonTransformer.class);
 
     @Mock
     protected ILogService logService;
     protected BigDecimal logId = new BigDecimal(1);
-    protected MonitoringLocSumMapToJsonTransformer transformer;
+    protected StationMapToJsonTransformer transformer;
     protected ByteArrayOutputStream baos;
     protected String siteUrlBase = "http://test-url.usgs.gov";   
 
@@ -39,7 +39,7 @@ public class MonitoringLocSumMapToJsonTransformerTest {
     public void initTest() {
 	    MockitoAnnotations.initMocks(this);
 	    baos = new ByteArrayOutputStream();
-	    transformer = new MonitoringLocSumMapToJsonTransformer(baos, null, logService, logId, siteUrlBase);
+	    transformer = new StationMapToJsonTransformer(baos, null, logService, logId, siteUrlBase);
     }
 
     @After

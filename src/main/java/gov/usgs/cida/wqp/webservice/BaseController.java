@@ -41,7 +41,8 @@ import gov.usgs.cida.wqp.transform.MapToDelimitedTransformer;
 import gov.usgs.cida.wqp.transform.MapToKmlTransformer;
 import gov.usgs.cida.wqp.transform.MapToXlsxTransformer;
 import gov.usgs.cida.wqp.transform.MapToXmlTransformer;
-import gov.usgs.cida.wqp.transform.MonitoringLocSumMapToJsonTransformer;
+import gov.usgs.cida.wqp.transform.PeriodOfRecordMapToJsonTransformer;
+import gov.usgs.cida.wqp.transform.StationMapToJsonTransformer;
 import gov.usgs.cida.wqp.transform.OrganizationSumMapToJsonTransformer;
 import gov.usgs.cida.wqp.transform.Transformer;
 import gov.usgs.cida.wqp.util.HttpConstants;
@@ -460,17 +461,19 @@ public abstract class BaseController {
 	}
 	
 	protected NameSpace getGeoJsonNameSpace() {
-	    Profile currentProfile = getProfile();
-	    if (currentProfile == null) {
+		Profile currentProfile = getProfile();
+		if (currentProfile == null) {
 			return null;
-	    }
-	    
-	    switch(currentProfile) {
+		}
+
+		switch(currentProfile) {
 		case SUMMARY_STATION:
-		    return NameSpace.SUMMARY_STATION;		
+			return NameSpace.SUMMARY_STATION;
+		case PERIOD_OF_RECORD:
+			return NameSpace.PERIOD_OF_RECORD;
 		default:
-		    return NameSpace.SIMPLE_STATION;
-	    }	
+			return NameSpace.SIMPLE_STATION;
+		}
 	}
 
 	protected NameSpace determineNamespaceFromProfile(Profile profile) {
@@ -512,11 +515,14 @@ public abstract class BaseController {
 	protected Transformer getJsonTranformer(OutputStream responseStream, BigDecimal logId) {
 		Transformer transformer = null;
 		switch (getProfile()) {
-			case SUMMARY_ORGANIZATION:
+		case SUMMARY_ORGANIZATION:
 			transformer = new OrganizationSumMapToJsonTransformer(responseStream, null, logService, logId, configurationService.getSiteUrlBase());
 			break;
-			default:
-			transformer = new MonitoringLocSumMapToJsonTransformer(responseStream, null, logService, logId, configurationService.getSiteUrlBase());
+		case PERIOD_OF_RECORD:
+			transformer = new PeriodOfRecordMapToJsonTransformer(responseStream, null, logService, logId, configurationService.getSiteUrlBase());	
+			break;
+		default:
+			transformer = new StationMapToJsonTransformer(responseStream, null, logService, logId, configurationService.getSiteUrlBase());
 			break;
 		}
 		

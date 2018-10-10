@@ -131,6 +131,20 @@ public class SwaggerParameters {
 						"LIST"))
 				.build();
 	}
+	
+	public static Parameter dataProfilePeriodOfRecord() {
+		return new ParameterBuilder()
+			.name("dataProfile")
+			.description("Data Profile (column set) of the download. For use with the monitoring location summary endpoint.")
+			.modelRef(new ModelRef("string"))
+			.parameterType("query")
+			.required(false)
+			.allowableValues(new AllowableListValues(Arrays.asList(
+						Profile.SUMMARY_STATION.toString(),
+						Profile.PERIOD_OF_RECORD.toString()),
+						"LIST"))
+			.build();
+	}
 
 	public static Parameter dataProfileResult() {
 		return new ParameterBuilder()

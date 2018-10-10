@@ -44,6 +44,7 @@ public class SwaggerConfig {
 	public static final String ACTIVITY_TAG_NAME = "Activity";
 	public static final String ACTIVITY_METRIC_TAG_NAME = "Activity Metric";
 	public static final String ACTIVITY_ALL_TAG_NAME = "Activity All";
+	public static final String PERIOD_OF_RECORD_TAG_NAME = "Period of Record";
 	public static final String RES_DETECT_QNT_LMT_TAG_NAME = "Result Detection Quantitation Limit";
 	public static final String RESULT_TAG_NAME = "Result";
 	public static final String SIMPLE_STATION_TAG_NAME = "Simple Station (deprecated)";
@@ -96,6 +97,7 @@ public class SwaggerConfig {
 			.tags(new Tag(ORGANIZATION_TAG_NAME, TAG_DESCRIPTION),
 					new Tag(ACTIVITY_TAG_NAME, TAG_DESCRIPTION),
 					new Tag(ACTIVITY_METRIC_TAG_NAME, TAG_DESCRIPTION),
+					new Tag(PERIOD_OF_RECORD_TAG_NAME,TAG_DESCRIPTION),
 					new Tag(RES_DETECT_QNT_LMT_TAG_NAME, TAG_DESCRIPTION),
 					new Tag(RESULT_TAG_NAME, TAG_DESCRIPTION),
 					new Tag(SIMPLE_STATION_TAG_NAME, TAG_DESCRIPTION),
