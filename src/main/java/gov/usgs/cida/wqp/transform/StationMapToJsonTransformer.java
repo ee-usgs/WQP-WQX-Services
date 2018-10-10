@@ -56,12 +56,11 @@ public class StationMapToJsonTransformer extends BaseMapToJsonTransformer {
 			g.writeStringField("activityCount", getValue(resultMap, StationColumn.KEY_ACTIVITY_COUNT));
 			g.writeStringField("resultCount", getValue(resultMap, StationColumn.KEY_RESULT_COUNT));
 			g.writeStringField("StateName", getValue(resultMap, StationColumn.KEY_STATE_NAME));
-			g.writeStringField("CountyName", getValue(resultMap, StationColumn.KEY_COUNTY_NAME));                        
+			g.writeStringField("CountyName", getValue(resultMap, StationColumn.KEY_COUNTY_NAME));                      
 			
-			String summaryColumnName  = getSummaryColumnName(resultMap); 
-			if (summaryColumnName != null) {				
+			if (resultMap.containsKey(StationColumn.KEY_MONITORING_LOCATION_SUMMARY)) {				
 				g.writeFieldName("characteristicGroupResultCount");
-				g.writeRawValue(getValue(resultMap, summaryColumnName));
+				g.writeRawValue(getValue(resultMap, StationColumn.KEY_MONITORING_LOCATION_SUMMARY));
 			}
 				
 			g.writeEndObject();
@@ -84,18 +83,4 @@ public class StationMapToJsonTransformer extends BaseMapToJsonTransformer {
 		}
 	}
 
-
-// TODO refactor mapper to work with alias so that this method can be removed
-	protected String getSummaryColumnName(Map<String, Object> resultMap) {
-		String summaryColumnName = null;
-		if (resultMap.containsKey(StationColumn.KEY_SUMMARY_PAST_12_MONTHS)) { 
-			summaryColumnName = StationColumn.KEY_SUMMARY_PAST_12_MONTHS;		
-		} else if (resultMap.containsKey(StationColumn.KEY_SUMMARY_PAST_60_MONTHS)) {
-			summaryColumnName = StationColumn.KEY_SUMMARY_PAST_60_MONTHS;				
-		} else if (resultMap.containsKey(StationColumn.KEY_SUMMARY_ALL_MONTHS)) {
-			summaryColumnName = StationColumn.KEY_SUMMARY_ALL_MONTHS;				
-		}
-		return summaryColumnName;
-	} 
-	
 }

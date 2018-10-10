@@ -76,7 +76,7 @@ public class StationMapToJsonTransformerTest {
 	    map.put(StationColumn.KEY_RESULT_COUNT, 857);
 	    map.put(StationColumn.KEY_STATE_NAME, "Wisconsin");
 	    map.put(StationColumn.KEY_COUNTY_NAME, "Dane"); 		
-	    map.put(StationColumn.KEY_SUMMARY_PAST_12_MONTHS, "{\"testKey\":\"testValue\"}"); 
+	    map.put(StationColumn.KEY_MONITORING_LOCATION_SUMMARY, "{\"testKey\":\"testValue\"}"); 
 
 	    try {
 		    transformer.writeData(map);
@@ -104,7 +104,7 @@ public class StationMapToJsonTransformerTest {
 	    map.put(StationColumn.KEY_RESULT_COUNT, 667);
 	    map.put(StationColumn.KEY_STATE_NAME, "Wisconsin");
 	    map.put(StationColumn.KEY_COUNTY_NAME, "Dane");
-	    map.put(StationColumn.KEY_SUMMARY_PAST_12_MONTHS, "{\"testKey2\":\"testValue2\"}"); 
+	    map.put(StationColumn.KEY_MONITORING_LOCATION_SUMMARY, "{\"testKey2\":\"testValue2\"}"); 
 
 	    try {
 		    transformer.writeData(map);
@@ -119,22 +119,7 @@ public class StationMapToJsonTransformerTest {
 	    } catch (IOException e) {
 		    fail(e.getLocalizedMessage());
 	    }
-    }
-
-    @Test public void getSummaryColumnNameTest() {             
-	    Map<String, Object> map = new HashMap<>();
-	    Map<String, Object> mapWithoutSummary = new HashMap<>();
-
-	    map.put(StationColumn.KEY_STATE_NAME, "Wisconsin");
-	    map.put(StationColumn.KEY_COUNTY_NAME, "Dane");
-	    map.put(StationColumn.KEY_SUMMARY_PAST_12_MONTHS, "");
-
-	    mapWithoutSummary.put(StationColumn.KEY_STATE_NAME, "Wisconsin");
-	    mapWithoutSummary.put(StationColumn.KEY_COUNTY_NAME, "Dane"); 
-
-	    assertEquals(transformer.getSummaryColumnName(map), "SUMMARY_PAST_12_MONTHS" );
-	    assertEquals(transformer.getSummaryColumnName(mapWithoutSummary), null);   
-    }       
+    }      
 
     @Test
     public void endTestData() {
