@@ -21,8 +21,6 @@ import java.util.List;
 @SpringBootTest(webEnvironment=WebEnvironment.NONE,
 	classes={DBTestConfig.class, StreamingDao.class})
 @DatabaseSetup("classpath:/testData/clearAll.xml")
-@DatabaseSetup("classpath:/testData/state.xml")
-@DatabaseSetup("classpath:/testData/county.xml")
 @DatabaseSetup("classpath:/testData/station.xml")
 @DbUnitConfiguration(dataSetLoader = ColumnSensingFlatXMLDataSetLoader.class)
 public class SummaryStationStreamingIT extends BaseStationStreamingTest {
@@ -141,9 +139,8 @@ public class SummaryStationStreamingIT extends BaseStationStreamingTest {
 	
 	@Override
 	public void multipleParameterStationSumTest(NameSpace nameSpace) {
-		List<Map<String, Object>> results = multipleParameterStationSumTest(nameSpace, 4);
-		assertContainsStation(results, 
-			BaseStationStreamingTest.NWIS_1353690, 
+		List<Map<String, Object>> results = multipleParameterStationSumTest(nameSpace, 3);
+		assertContainsStation(results,			 
 			BaseStationStreamingTest.STORET_888,
 			BaseStationStreamingTest.STEWARDS_36,
 			BaseStationStreamingTest.STEWARDS_46
