@@ -8,7 +8,7 @@ import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.util.Map;
 
-public class StationMapToJsonTransformer extends BaseMapToJsonTransformer {    
+public class StationMapToJsonTransformer extends BaseMapToJsonTransformer {
 	public StationMapToJsonTransformer(OutputStream target, Map<String, String> mapping, ILogService logService, BigDecimal logId, String siteUrlBase) {
 	super(target, mapping, logService, logId, siteUrlBase);	
 	}
@@ -56,9 +56,9 @@ public class StationMapToJsonTransformer extends BaseMapToJsonTransformer {
 			g.writeStringField("activityCount", getValue(resultMap, StationColumn.KEY_ACTIVITY_COUNT));
 			g.writeStringField("resultCount", getValue(resultMap, StationColumn.KEY_RESULT_COUNT));
 			g.writeStringField("StateName", getValue(resultMap, StationColumn.KEY_STATE_NAME));
-			g.writeStringField("CountyName", getValue(resultMap, StationColumn.KEY_COUNTY_NAME));                      
+			g.writeStringField("CountyName", getValue(resultMap, StationColumn.KEY_COUNTY_NAME));
 			
-			if (resultMap.containsKey(StationColumn.KEY_MONITORING_LOCATION_SUMMARY)) {				
+			if (resultMap.containsKey(StationColumn.KEY_MONITORING_LOCATION_SUMMARY)) {
 				g.writeFieldName("characteristicGroupResultCount");
 				g.writeRawValue(getValue(resultMap, StationColumn.KEY_MONITORING_LOCATION_SUMMARY));
 			}
