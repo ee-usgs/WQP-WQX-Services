@@ -10,12 +10,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - resultPhysChem dataProfile.
 - resultPrimary dataProfile.
 - resultBroad dataProfile.
-- added organization summary
-- added period of record data profile
+- added organization summary.
+- added period of record data profile.
 
 ### Changed
 - Station summary service returns only sites that have summary information.
 - Fixed ActivityFileUrl, ActivityMetricURL, and ActivityAttachedBinaryObject logic errors.
+- Refactored Summary Station mapper to use new format of station_sum table.
 
 ## [0.15.0]
 ### Added
