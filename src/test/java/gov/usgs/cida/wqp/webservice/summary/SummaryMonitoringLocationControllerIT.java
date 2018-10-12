@@ -16,7 +16,7 @@ import gov.usgs.cida.wqp.Application;
 import static gov.usgs.cida.wqp.BaseTest.GEOJSON;
 import static gov.usgs.cida.wqp.BaseTest.GEOJSON_AND_ZIP;
 import gov.usgs.cida.wqp.ColumnSensingFlatXMLDataSetLoader;
-import gov.usgs.cida.wqp.dao.summary.SummaryStationStreamingIT;
+import gov.usgs.cida.wqp.dao.summary.SummaryMonitoringLocationStreamingIT;
 import gov.usgs.cida.wqp.mapping.Profile;
 import gov.usgs.cida.wqp.springinit.DBTestConfig;
 import static gov.usgs.cida.wqp.swagger.model.StationCountJson.HEADER_BIODATA_SITE_COUNT;
@@ -50,7 +50,7 @@ public class SummaryMonitoringLocationControllerIT extends BaseControllerIntegra
 
 	protected static final Profile PROFILE = Profile.SUMMARY_MONITORING_LOCATION;
 	protected static final boolean POSTABLE = true;
-	protected static final String ENDPOINT = HttpConstants.SUMMARY_MONITORING_LOCATION_ENDPOINT + "?summaryYears=" + SummaryStationStreamingIT.SUMMARY_YEARS_ALL_MONTHS + "&mimeType=";
+	protected static final String ENDPOINT = HttpConstants.SUMMARY_MONITORING_LOCATION_ENDPOINT + "?summaryYears=" + SummaryMonitoringLocationStreamingIT.SUMMARY_YEARS_ALL_MONTHS + "&mimeType=";
 
 	protected static final String TOTAL_SITE_SUM_COUNT = "11";
 	protected static final String BIODATA_SITE_SUM_COUNT = "1";
@@ -150,7 +150,7 @@ public class SummaryMonitoringLocationControllerIT extends BaseControllerIntegra
 	protected void getAllParametersTest(String url, String mimeType, String fileType, Profile profile, boolean isPostable) throws Exception {
 		when(fetchService.fetch(any(String.class), any(URL.class))).thenReturn(getNldiSites());
 		
-		String filteredUrl = HttpConstants.SUMMARY_MONITORING_LOCATION_ENDPOINT + "?summaryYears=" + SummaryStationStreamingIT.SUMMARY_YEARS_12_MONTHS + "&mimeType=" + GEOJSON;
+		String filteredUrl = HttpConstants.SUMMARY_MONITORING_LOCATION_ENDPOINT + "?summaryYears=" + SummaryMonitoringLocationStreamingIT.SUMMARY_YEARS_12_MONTHS + "&mimeType=" + GEOJSON;
 
 		assertEquals("", filteredHeaderCheck(callMockHead(filteredUrl, mimeType, getContentDisposition(profile, fileType))).andReturn().getResponse().getContentAsString());
 
