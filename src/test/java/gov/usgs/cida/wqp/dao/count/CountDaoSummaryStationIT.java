@@ -15,8 +15,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest(webEnvironment=SpringBootTest.WebEnvironment.NONE,
 	classes={DBTestConfig.class, CountDao.class})
 @DatabaseSetup("classpath:/testData/clearAll.xml")
-@DatabaseSetup("classpath:/testData/state.xml")
-@DatabaseSetup("classpath:/testData/county.xml")
 @DatabaseSetup("classpath:/testData/station.xml")
 @DbUnitConfiguration(dataSetLoader = ColumnSensingFlatXMLDataSetLoader.class)
 public class CountDaoSummaryStationIT extends BaseStationCountDaoTest {
@@ -42,8 +40,7 @@ public class CountDaoSummaryStationIT extends BaseStationCountDaoTest {
 		siteTypeTest(nameSpace);
 		stateTest(nameSpace);
 		withinTest(nameSpace);
-		multipleParameterStationSumTest(nameSpace);
-		
+		multipleParameterStationSumTest(nameSpace);		
 		allYearsSummaryTest(nameSpace);
 		oneYearSummaryTest(nameSpace);
 		fiveYearsSummaryTest(nameSpace);
