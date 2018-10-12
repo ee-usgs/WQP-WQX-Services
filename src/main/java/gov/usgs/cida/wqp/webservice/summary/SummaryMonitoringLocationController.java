@@ -35,17 +35,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.annotations.ApiIgnore;
 
-@Api(tags={SwaggerConfig.SUMMARY_STATION_TAG_NAME})
+@Api(tags={SwaggerConfig.SUMMARY_MONITORING_LOCATION_TAG_NAME})
 @RestController
-@RequestMapping(value=HttpConstants.SUMMARY_STATION_ENDPOINT,
+@RequestMapping(value=HttpConstants.SUMMARY_MONITORING_LOCATION_ENDPOINT,
 	produces={HttpConstants.MIME_TYPE_GEOJSON})
-public class SummaryStationController extends BaseController {
+public class SummaryMonitoringLocationController extends BaseController {
 	
 	protected final IXmlMapping xmlMapping;
 	protected final IXmlMapping kmlMapping;
 
 	@Autowired
-	public SummaryStationController(
+	public SummaryMonitoringLocationController(
 		IStreamingDao inStreamingDao, 
 		ICountDao inCountDao, 
 		ILogService inLogService,
@@ -122,7 +122,7 @@ public class SummaryStationController extends BaseController {
 
 	@Override
 	protected Profile determineProfile(FilterParameters filter) {
-		return determineProfile(Profile.SUMMARY_STATION, filter);
+		return determineProfile(Profile.SUMMARY_MONITORING_LOCATION, filter);
 	}
 
 }

@@ -862,8 +862,8 @@ public class BaseControllerTest {
 		TestBaseController.setProfile(Profile.SIMPLE_STATION);
 		assertEquals(NameSpace.SIMPLE_STATION, testController.determineNamespace());
 
-		TestBaseController.setProfile(Profile.SUMMARY_STATION);
-		assertEquals(NameSpace.SUMMARY_STATION, testController.determineNamespace());
+		TestBaseController.setProfile(Profile.SUMMARY_MONITORING_LOCATION);
+		assertEquals(NameSpace.SUMMARY_MONITORING_LOCATION, testController.determineNamespace());
 
 		TestBaseController.setMimeType(MimeType.csv);
 		TestBaseController.setProfile(Profile.BIOLOGICAL);
@@ -902,8 +902,8 @@ public class BaseControllerTest {
 		TestBaseController.setProfile(Profile.PERIOD_OF_RECORD);
 		assertEquals(NameSpace.PERIOD_OF_RECORD, testController.getGeoJsonNameSpace());
 		
-		TestBaseController.setProfile(Profile.SUMMARY_STATION);
-		assertEquals(NameSpace.SUMMARY_STATION, testController.getGeoJsonNameSpace());
+		TestBaseController.setProfile(Profile.SUMMARY_MONITORING_LOCATION);
+		assertEquals(NameSpace.SUMMARY_MONITORING_LOCATION, testController.getGeoJsonNameSpace());
 
 		TestBaseController.setProfile(Profile.SIMPLE_STATION);
 		assertEquals(NameSpace.SIMPLE_STATION, testController.getGeoJsonNameSpace());
@@ -920,8 +920,8 @@ public class BaseControllerTest {
 		TestBaseController.setProfile(Profile.PERIOD_OF_RECORD);
 		assertEquals(NameSpace.PERIOD_OF_RECORD, testController.getGeoJsonNameSpace());
 		
-		TestBaseController.setProfile(Profile.SUMMARY_STATION);
-		assertEquals(NameSpace.SUMMARY_STATION, testController.getGeoJsonNameSpace());
+		TestBaseController.setProfile(Profile.SUMMARY_MONITORING_LOCATION);
+		assertEquals(NameSpace.SUMMARY_MONITORING_LOCATION, testController.getGeoJsonNameSpace());
 
 		TestBaseController.setProfile(Profile.SIMPLE_STATION);
 		assertEquals(NameSpace.SIMPLE_STATION, testController.getGeoJsonNameSpace());
@@ -947,7 +947,7 @@ public class BaseControllerTest {
 
 		assertEquals(NameSpace.STATION, testController.determineNamespaceFromProfile(Profile.STATION));
 
-		assertEquals(NameSpace.SUMMARY_STATION, testController.determineNamespaceFromProfile(Profile.SUMMARY_STATION));
+		assertEquals(NameSpace.SUMMARY_MONITORING_LOCATION, testController.determineNamespaceFromProfile(Profile.SUMMARY_MONITORING_LOCATION));
 
 		assertEquals(NameSpace.ACTIVITY, testController.determineNamespaceFromProfile(Profile.ACTIVITY));
 
@@ -971,7 +971,7 @@ public class BaseControllerTest {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
 		TestBaseController.setMimeType(MimeType.json);
-		TestBaseController.setProfile(Profile.SUMMARY_STATION);
+		TestBaseController.setProfile(Profile.SUMMARY_MONITORING_LOCATION);
 		assertTrue(testController.getTransformer(baos, null) instanceof StationMapToJsonTransformer);
 
 		TestBaseController.setMimeType(MimeType.geojson);

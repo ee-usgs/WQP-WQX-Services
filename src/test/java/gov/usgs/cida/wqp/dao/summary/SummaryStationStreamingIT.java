@@ -25,7 +25,7 @@ import java.util.List;
 @DbUnitConfiguration(dataSetLoader = ColumnSensingFlatXMLDataSetLoader.class)
 public class SummaryStationStreamingIT extends BaseStationStreamingTest {
 
-	protected NameSpace nameSpace = NameSpace.SUMMARY_STATION;
+	protected NameSpace nameSpace = NameSpace.SUMMARY_MONITORING_LOCATION;
 	protected Map<String, Object> expectedMapOneYear = TestSummaryStationMap.SUMMARY_STATION_ONE_YEAR;
 	protected Map<String, Object> expectedMapFiveYears = TestSummaryStationMap.SUMMARY_STATION_FIVE_YEARS;
 	protected Map<String, Object> expectedMapAllYears = TestSummaryStationMap.SUMMARY_STATION_ALL_YEARS;
