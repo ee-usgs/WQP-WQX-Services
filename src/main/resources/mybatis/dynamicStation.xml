@@ -51,7 +51,7 @@
 					and dataProfile != null and (dataProfile == 'station' or 
 					dataProfile == 'simplestation' or 
 					dataProfile == 'summarymonitoringlocation' or 
-					dataProfile == 'summaryorganization')">
+					dataProfile == 'periodofrecord')">
 			and (<include refid="dynamicWhere.spatialPresent" />)
 		</if>
 	</sql>

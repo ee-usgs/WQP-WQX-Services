@@ -41,12 +41,6 @@ public class SummaryMonitoringLocationControllerTest {
 	}
 
 	@Test
-	public void getMappingTest() {
-		StationDelimitedTest.assertStationProfile(controller.getMapping(Profile.STATION));
-		StationDelimitedTest.assertSimpleStationProfile(controller.getMapping(Profile.SIMPLE_STATION));
-	}
-
-	@Test
 	public void determineProfileTest() {
 		assertEquals(Profile.SUMMARY_MONITORING_LOCATION, controller.determineProfile(null));
 
