@@ -16,13 +16,13 @@ import org.junit.Test;
 import org.springframework.mock.web.MockHttpServletResponse;
 
 
-public class SummaryStationControllerTest {
-	protected SummaryStationController controller;
+public class SummaryMonitoringLocationControllerTest {
+	protected SummaryMonitoringLocationController controller;
 
 	@Before
 	public void setup() {
-		controller = new SummaryStationController(null, null, null, null, null, null, null, null);
-		SummaryStationController.remove();
+		controller = new SummaryMonitoringLocationController(null, null, null, null, null, null, null, null);
+		SummaryMonitoringLocationController.remove();
 	}
 
 	@Test
@@ -41,18 +41,12 @@ public class SummaryStationControllerTest {
 	}
 
 	@Test
-	public void getMappingTest() {
-		StationDelimitedTest.assertStationProfile(controller.getMapping(Profile.STATION));
-		StationDelimitedTest.assertSimpleStationProfile(controller.getMapping(Profile.SIMPLE_STATION));
-	}
-
-	@Test
 	public void determineProfileTest() {
-		assertEquals(Profile.SUMMARY_STATION, controller.determineProfile(null));
+		assertEquals(Profile.SUMMARY_MONITORING_LOCATION, controller.determineProfile(null));
 
 		FilterParameters filter = new FilterParameters();
-		filter.setDataProfile("summarystation");
-		assertEquals(Profile.SUMMARY_STATION, controller.determineProfile(filter));
+		filter.setDataProfile("summarymonitoringlocation");
+		assertEquals(Profile.SUMMARY_MONITORING_LOCATION, controller.determineProfile(filter));
 		
 		filter.setDataProfile("periodOfRecord");
 		assertEquals(Profile.PERIOD_OF_RECORD, controller.determineProfile(filter));

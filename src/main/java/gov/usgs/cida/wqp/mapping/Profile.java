@@ -13,7 +13,7 @@ public enum Profile {
 
 	STATION ("station", "station", NameSpace.STATION),
 	SIMPLE_STATION ("simplestation", "simplestation", NameSpace.SIMPLE_STATION),
-	SUMMARY_STATION ("summarystation","summarystation", NameSpace.SUMMARY_STATION),
+	SUMMARY_MONITORING_LOCATION ("summaryMonitoringLocation","summarymonitoringlocation", NameSpace.SUMMARY_MONITORING_LOCATION),
 	
 	PERIOD_OF_RECORD ("periodOfRecord", "periodofrecord", NameSpace.PERIOD_OF_RECORD),
 

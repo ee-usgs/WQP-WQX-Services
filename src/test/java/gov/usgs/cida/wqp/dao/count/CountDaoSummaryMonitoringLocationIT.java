@@ -17,9 +17,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 @DatabaseSetup("classpath:/testData/clearAll.xml")
 @DatabaseSetup("classpath:/testData/station.xml")
 @DbUnitConfiguration(dataSetLoader = ColumnSensingFlatXMLDataSetLoader.class)
-public class CountDaoSummaryStationIT extends BaseStationCountDaoTest {
+public class CountDaoSummaryMonitoringLocationIT extends BaseStationCountDaoTest {
 	
-	protected NameSpace nameSpace = NameSpace.SUMMARY_STATION;
+	protected NameSpace nameSpace = NameSpace.SUMMARY_MONITORING_LOCATION;
 	
 	public static final String TOTAL_SITE_SUMMARY_COUNT = "11";
 	public static final String SUMMARY_YEARS_12_MONTHS = "1";

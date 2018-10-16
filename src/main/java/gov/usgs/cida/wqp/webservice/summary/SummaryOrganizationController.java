@@ -16,6 +16,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -94,7 +95,7 @@ public void summaryOrganizationFormUrlencodedPostRequest(HttpServletRequest requ
 
 	@Override
 	protected Map<String, String> getMapping(Profile profile) {
-	return null;
+		return new HashMap<>();
 	}
 
 	@Override

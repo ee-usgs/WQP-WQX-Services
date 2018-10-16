@@ -467,8 +467,8 @@ public abstract class BaseController {
 		}
 
 		switch(currentProfile) {
-		case SUMMARY_STATION:
-			return NameSpace.SUMMARY_STATION;
+		case SUMMARY_MONITORING_LOCATION:
+			return NameSpace.SUMMARY_MONITORING_LOCATION;
 		case PERIOD_OF_RECORD:
 			return NameSpace.PERIOD_OF_RECORD;
 		default:

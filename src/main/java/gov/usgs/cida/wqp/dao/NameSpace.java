@@ -13,7 +13,7 @@ public enum NameSpace {
 
 	STATION ("station", null),
 	SIMPLE_STATION ("simpleStation", null),
-	SUMMARY_STATION ("summaryStation", null),
+	SUMMARY_MONITORING_LOCATION ("summaryMonitoringLocation", null),
 	
 	PERIOD_OF_RECORD("periodOfRecord", null),
 	

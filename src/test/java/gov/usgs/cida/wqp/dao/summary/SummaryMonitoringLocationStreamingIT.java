@@ -13,7 +13,7 @@ import gov.usgs.cida.wqp.ColumnSensingFlatXMLDataSetLoader;
 import gov.usgs.cida.wqp.dao.NameSpace;
 import gov.usgs.cida.wqp.dao.StreamingDao;
 import gov.usgs.cida.wqp.dao.streaming.BaseStationStreamingTest;
-import gov.usgs.cida.wqp.mapping.TestSummaryStationMap;
+import gov.usgs.cida.wqp.mapping.TestSummaryMonitoringLocationMap;
 import gov.usgs.cida.wqp.parameter.FilterParameters;
 import gov.usgs.cida.wqp.springinit.DBTestConfig;
 import java.util.List;
@@ -23,12 +23,12 @@ import java.util.List;
 @DatabaseSetup("classpath:/testData/clearAll.xml")
 @DatabaseSetup("classpath:/testData/station.xml")
 @DbUnitConfiguration(dataSetLoader = ColumnSensingFlatXMLDataSetLoader.class)
-public class SummaryStationStreamingIT extends BaseStationStreamingTest {
+public class SummaryMonitoringLocationStreamingIT extends BaseStationStreamingTest {
 
-	protected NameSpace nameSpace = NameSpace.SUMMARY_STATION;
-	protected Map<String, Object> expectedMapOneYear = TestSummaryStationMap.SUMMARY_STATION_ONE_YEAR;
-	protected Map<String, Object> expectedMapFiveYears = TestSummaryStationMap.SUMMARY_STATION_FIVE_YEARS;
-	protected Map<String, Object> expectedMapAllYears = TestSummaryStationMap.SUMMARY_STATION_ALL_YEARS;
+	protected NameSpace nameSpace = NameSpace.SUMMARY_MONITORING_LOCATION;
+	protected Map<String, Object> expectedMapOneYear = TestSummaryMonitoringLocationMap.SUMMARY_MONITORING_LOCATION_ONE_YEAR;
+	protected Map<String, Object> expectedMapFiveYears = TestSummaryMonitoringLocationMap.SUMMARY_MONITORING_LOCATION_FIVE_YEARS;
+	protected Map<String, Object> expectedMapAllYears = TestSummaryMonitoringLocationMap.SUMMARY_MONITORING_LOCATION_ALL_YEARS;
 	public static final String SUMMARY_YEARS_12_MONTHS = "1";
 	public static final String SUMMARY_YEARS_60_MONTHS = "5";
 	public static final String SUMMARY_YEARS_ALL_MONTHS = "all";

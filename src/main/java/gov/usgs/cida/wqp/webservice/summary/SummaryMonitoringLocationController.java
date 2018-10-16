@@ -17,6 +17,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -35,17 +36,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.annotations.ApiIgnore;
 
-@Api(tags={SwaggerConfig.SUMMARY_STATION_TAG_NAME})
+@Api(tags={SwaggerConfig.SUMMARY_MONITORING_LOCATION_TAG_NAME})
 @RestController
-@RequestMapping(value=HttpConstants.SUMMARY_STATION_ENDPOINT,
+@RequestMapping(value=HttpConstants.SUMMARY_MONITORING_LOCATION_ENDPOINT,
 	produces={HttpConstants.MIME_TYPE_GEOJSON})
-public class SummaryStationController extends BaseController {
+public class SummaryMonitoringLocationController extends BaseController {
 	
 	protected final IXmlMapping xmlMapping;
 	protected final IXmlMapping kmlMapping;
 
 	@Autowired
-	public SummaryStationController(
+	public SummaryMonitoringLocationController(
 		IStreamingDao inStreamingDao, 
 		ICountDao inCountDao, 
 		ILogService inLogService,
@@ -63,20 +64,20 @@ public class SummaryStationController extends BaseController {
 	@ApiOperation(value="Return appropriate request headers (including anticipated record counts).")
 	@ProfileParameterSummary
 	@RequestMapping(method=RequestMethod.HEAD)
-	public void summaryStationHeadRequest(HttpServletRequest request, HttpServletResponse response, @ApiIgnore FilterParameters filter) {
+	public void summaryMonitoringLocationHeadRequest(HttpServletRequest request, HttpServletResponse response, @ApiIgnore FilterParameters filter) {
 		doHeadRequest(request, response, filter);
 	}
 
 	@ApiOperation(value="Return requested data.")
 	@ProfileParameterSummary
 	@GetMapping()
-	public void summaryStationGetRequest(HttpServletRequest request, HttpServletResponse response, @ApiIgnore FilterParameters filter) {
+	public void summaryMonitoringLocationGetRequest(HttpServletRequest request, HttpServletResponse response, @ApiIgnore FilterParameters filter) {
 		doDataRequest(request, response, filter);
 	}
 
 	@ApiOperation(value="Return requested data. Use when the list of parameter values is too long for a query string.")
 	@PostMapping(consumes=MediaType.APPLICATION_JSON_VALUE)
-	public void summaryStationJsonPostRequest(HttpServletRequest request, HttpServletResponse response,
+	public void summaryMonitoringLocationJsonPostRequest(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value="mimeType", required=false) String mimeType,
 			@RequestParam(value="zip", required=false) String zip,
 			@RequestBody @ApiIgnore FilterParameters filter) {
@@ -85,14 +86,14 @@ public class SummaryStationController extends BaseController {
 
 	@ApiOperation(value="Same as the JSON consumer, but hidden from swagger", hidden=true)
 	@PostMapping(consumes=MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-	public void summaryStationFormUrlencodedPostRequest(HttpServletRequest request, HttpServletResponse response, @ApiIgnore FilterParameters filter) {
+	public void summaryMonitoringLocationFormUrlencodedPostRequest(HttpServletRequest request, HttpServletResponse response, @ApiIgnore FilterParameters filter) {
 		doDataRequest(request, response, filter);
 	}
 
 	@ApiOperation(value="Return anticipated record counts.")
 	@ApiResponses(value={@ApiResponse(code=200, message="OK", response=StationCountJson.class)})
 	@PostMapping(value="count", produces=MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, String> summaryStationPostCountRequest(HttpServletRequest request, HttpServletResponse response,
+	public Map<String, String> summaryMonitoringLocationPostCountRequest(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value="mimeType", required=false) String mimeType,
 			@RequestParam(value="zip", required=false) String zip,
 			@RequestBody @ApiIgnore FilterParameters filter) {
@@ -107,7 +108,7 @@ public class SummaryStationController extends BaseController {
 
 	@Override
 	protected Map<String, String> getMapping(Profile profile) {
-		return StationDelimited.getMapping(profile);
+		return new HashMap<>();
 	}
 
 	@Override
@@ -122,7 +123,7 @@ public class SummaryStationController extends BaseController {
 
 	@Override
 	protected Profile determineProfile(FilterParameters filter) {
-		return determineProfile(Profile.SUMMARY_STATION, filter);
+		return determineProfile(Profile.SUMMARY_MONITORING_LOCATION, filter);
 	}
 
 }

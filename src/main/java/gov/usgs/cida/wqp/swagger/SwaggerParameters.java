@@ -140,7 +140,7 @@ public class SwaggerParameters {
 			.parameterType("query")
 			.required(false)
 			.allowableValues(new AllowableListValues(Arrays.asList(
-						Profile.SUMMARY_STATION.toString(),
+						Profile.SUMMARY_MONITORING_LOCATION.toString(),
 						Profile.PERIOD_OF_RECORD.toString()),
 						"LIST"))
 			.build();

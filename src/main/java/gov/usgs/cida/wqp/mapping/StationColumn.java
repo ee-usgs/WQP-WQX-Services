@@ -81,7 +81,7 @@ public class StationColumn extends BaseColumn {
 	public static final ColumnProfile HOLE_DEPTH_UNIT = new ColumnProfile(KEY_HOLE_DEPTH_UNIT, Profile.STATION);
 	public static final ColumnProfile STATE_NAME = new ColumnProfile(KEY_STATE_NAME, Profile.SIMPLE_STATION);
 	public static final ColumnProfile COUNTY_NAME = new ColumnProfile(KEY_COUNTY_NAME, Profile.SIMPLE_STATION);	
-	public static final ColumnProfile MONITORING_LOCATION_SUMMARY=  new ColumnProfile(KEY_MONITORING_LOCATION_SUMMARY, Profile.SUMMARY_STATION);
+	public static final ColumnProfile MONITORING_LOCATION_SUMMARY=  new ColumnProfile(KEY_MONITORING_LOCATION_SUMMARY, Profile.SUMMARY_MONITORING_LOCATION);
 	public static final ColumnProfile LAST_SUBMITTED_DATE = new ColumnProfile(KEY_LAST_SUBMITTED_DATE, Profile.PERIOD_OF_RECORD);
 	public static final ColumnProfile TOTAL_ACTIVITIES = new ColumnProfile(KEY_TOTAL_ACTIVITIES, Profile.PERIOD_OF_RECORD);
 	public static final ColumnProfile PERIOD_OF_RECORD = new ColumnProfile(KEY_PERIOD_OF_RECORD, Profile.PERIOD_OF_RECORD);	
