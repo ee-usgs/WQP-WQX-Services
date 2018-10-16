@@ -69,13 +69,11 @@
         station_type_name,
         huc_8,
         state_name,
-        county_name,
-        <include refid="selectSummaryByYear" />
-			    
-        FROM station_sum prime      
+        county_name
+        FROM station_sum prime
 
-        <include refid="summaryYearWhere" />
-            
+        where 1=0
+
         ORDER BY
         prime.data_source_id,
         prime.organization,
@@ -84,9 +82,9 @@
 
     <select id="count" resultType="java.util.LinkedHashMap">
         select data_source,
-               count(distinct data_source||'-'||station_id) station_count            
+               count(distinct data_source||'-'||station_id) station_count
               from station_sum prime
-              <include refid="summaryYearWhere" />             
+              where 1=0
         group by rollup(data_source)   
     </select>
 	
