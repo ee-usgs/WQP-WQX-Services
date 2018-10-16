@@ -1,32 +1,24 @@
 package gov.usgs.cida.wqp.webservice.summary;
 
+import java.util.List;
+import java.util.Map;
+
+import org.junit.Ignore;
+import org.junit.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DbUnitConfiguration;
+
 import gov.usgs.cida.wqp.ColumnSensingFlatXMLDataSetLoader;
 import gov.usgs.cida.wqp.dao.NameSpace;
 import gov.usgs.cida.wqp.dao.StreamingDao;
 import gov.usgs.cida.wqp.dao.streaming.BaseStationStreamingTest;
-import static gov.usgs.cida.wqp.dao.streaming.BaseStationStreamingTest.BIODATA_61233184;
-import static gov.usgs.cida.wqp.dao.streaming.BaseStationStreamingTest.NWIS_1353690;
-import static gov.usgs.cida.wqp.dao.streaming.BaseStationStreamingTest.NWIS_1360035;
-import static gov.usgs.cida.wqp.dao.streaming.BaseStationStreamingTest.STEWARDS_36;
-import static gov.usgs.cida.wqp.dao.streaming.BaseStationStreamingTest.STEWARDS_46;
-import static gov.usgs.cida.wqp.dao.streaming.BaseStationStreamingTest.STORET_1043441;
-import static gov.usgs.cida.wqp.dao.streaming.BaseStationStreamingTest.STORET_1383;
-import static gov.usgs.cida.wqp.dao.streaming.BaseStationStreamingTest.STORET_504707;
-import static gov.usgs.cida.wqp.dao.streaming.BaseStationStreamingTest.STORET_777;
-import static gov.usgs.cida.wqp.dao.streaming.BaseStationStreamingTest.STORET_888;
-import static gov.usgs.cida.wqp.dao.streaming.BaseStationStreamingTest.STORET_999;
-import static gov.usgs.cida.wqp.dao.streaming.BaseStationStreamingTest.assertRow;
 import gov.usgs.cida.wqp.mapping.TestPeriodOfRecordMap;
 import gov.usgs.cida.wqp.parameter.FilterParameters;
 import gov.usgs.cida.wqp.springinit.DBTestConfig;
-import java.util.List;
-import java.util.Map;
-import org.junit.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
-
+@Ignore
 @SpringBootTest(webEnvironment=SpringBootTest.WebEnvironment.NONE,
 classes={DBTestConfig.class, StreamingDao.class})
 @DatabaseSetup("classpath:/testData/clearAll.xml")
