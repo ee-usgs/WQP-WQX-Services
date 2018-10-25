@@ -486,6 +486,7 @@ public abstract class BaseController {
 
 	protected Transformer getTransformer(OutputStream responseStream, BigDecimal logId) {		
 		Transformer transformer;
+		
 		switch (getMimeType()) {
 		case json:
 		case geojson:	
@@ -518,9 +519,9 @@ public abstract class BaseController {
 		case SUMMARY_ORGANIZATION:
 			transformer = new OrganizationSumMapToJsonTransformer(responseStream, null, logService, logId, configurationService.getSiteUrlBase());
 			break;
-		case PERIOD_OF_RECORD:
-			transformer = new PeriodOfRecordMapToJsonTransformer(responseStream, null, logService, logId, configurationService.getSiteUrlBase());	
-			break;
+//		case PERIOD_OF_RECORD:
+//			transformer = new PeriodOfRecordMapToJsonTransformer(responseStream, null, logService, logId, configurationService.getSiteUrlBase());	
+//			break;
 		default:
 			transformer = new StationMapToJsonTransformer(responseStream, null, logService, logId, configurationService.getSiteUrlBase());
 			break;
