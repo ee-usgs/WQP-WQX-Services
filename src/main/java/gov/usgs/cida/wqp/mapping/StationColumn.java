@@ -43,6 +43,12 @@ public class StationColumn extends BaseColumn {
 	public static final String KEY_LAST_SUBMITTED_DATE = "LAST_RESULT";
 	public static final String KEY_TOTAL_ACTIVITIES = "ACTIVITY_COUNT";
 	public static final String KEY_PERIOD_OF_RECORD = "PERIOD_OF_RECORD";
+	public static final String KEY_MONITORING_LOCATION_TYPE_NAME = "MONITORING_LOCATION_TYPE_NAME";	
+	public static final String KEY_THE_YEAR = "THE_YEAR";
+	public static final String KEY_CHARACTERISTIC_TYPE = "CHARACTERISTIC_TYPE";
+	public static final String KEY_CHARACTERISTIC_NAME = "CHARACTERISTIC_NAME";
+	public static final String KEY_TOTAL_RESULTS = "TOTAL_RESULTS";
+	public static final String KEY_LAST_RESULT_DATE = "LAST_RESULT_DATE";
 
 	//Profile Mapping of the Keys
 	public static final ColumnProfile STATION_NAME = new ColumnProfile(KEY_STATION_NAME, Profile.STATION, Profile.SIMPLE_STATION, Profile.RESULT_PHYS_CHEM, Profile.RESULT_BROAD);
@@ -85,7 +91,15 @@ public class StationColumn extends BaseColumn {
 	public static final ColumnProfile LAST_SUBMITTED_DATE = new ColumnProfile(KEY_LAST_SUBMITTED_DATE, Profile.PERIOD_OF_RECORD);
 	public static final ColumnProfile TOTAL_ACTIVITIES = new ColumnProfile(KEY_TOTAL_ACTIVITIES, Profile.PERIOD_OF_RECORD);
 	public static final ColumnProfile PERIOD_OF_RECORD = new ColumnProfile(KEY_PERIOD_OF_RECORD, Profile.PERIOD_OF_RECORD);	
-
+	
+	public static final ColumnProfile MONITORING_LOCATION_TYPE_NAME = new ColumnProfile(KEY_MONITORING_LOCATION_TYPE_NAME, Profile.PERIOD_OF_RECORD);
+	public static final ColumnProfile STATION_ID = new ColumnProfile(KEY_STATION_ID, Profile.PERIOD_OF_RECORD);
+	public static final ColumnProfile THE_YEAR = new ColumnProfile(KEY_THE_YEAR, Profile.PERIOD_OF_RECORD);
+	public static final ColumnProfile CHARACTERISTIC_TYPE = new ColumnProfile(KEY_CHARACTERISTIC_TYPE, Profile.PERIOD_OF_RECORD);
+	public static final ColumnProfile CHARACTERISTIC_NAME = new ColumnProfile(KEY_CHARACTERISTIC_NAME, Profile.PERIOD_OF_RECORD);	
+	public static final ColumnProfile TOTAL_RESULTS = new ColumnProfile(KEY_TOTAL_RESULTS, Profile.PERIOD_OF_RECORD);	
+	public static final ColumnProfile LAST_RESULT_DATE= new ColumnProfile(KEY_LAST_RESULT_DATE, Profile.PERIOD_OF_RECORD);	
+			
 	private StationColumn() {
 	}
 }

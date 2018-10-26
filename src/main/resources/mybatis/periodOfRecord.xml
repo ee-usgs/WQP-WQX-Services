@@ -58,21 +58,34 @@
     <select id="select" resultType="java.util.LinkedHashMap" fetchSize="500">
 
         SELECT
-        data_source,
-        organization,
-        organization_name,
-        site_id,
-        station_name,
-        site_type,
-        TO_CHAR(prime.geom.sdo_point.y,'FM90.0000000') latitude,
+        prime.organization,
+		prime.station_id,
+		prime.station_type_name,
+		prime.organization_name,
+		prime.site_id,
+		prime.station_name,
+		prime.station_type_name,
+<!-- need the ResolvedMonitoringLocationTypeName -->
+		prime.huc_8,
+<!-- need the MonitoringLocationUrl -->		
+		prime.state_name,
+		prime.county_name,
+		TO_CHAR(prime.geom.sdo_point.y,'FM90.0000000') latitude,
         TO_CHAR(prime.geom.sdo_point.x,'FM990.0000000') longitude,
-        station_type_name,
-        huc_8,
-        state_name,
-        county_name
+		ml_g.data_source_id,
+		ml_g.data_source,
+		ml_g.station_id,
+		ml_g.the_year,
+		ml_g.characteristic_type,
+		ml_g.characteristic_name,
+		ml_g.total_activities,
+		ml_g.total_results,
+		ml_g.last_result_date
+		
         FROM station_sum prime
-
-        where 1=0
+		LEFT JOIN ml_grouping ml_g
+		ON prime.data_source_id = ml_g.data_source_id 
+				AND prime.station_id = ml_g.station_id        
 
         ORDER BY
         prime.data_source_id,
@@ -83,8 +96,7 @@
     <select id="count" resultType="java.util.LinkedHashMap">
         select data_source,
                count(distinct data_source||'-'||station_id) station_count
-              from station_sum prime
-              where 1=0
+              from station_sum prime              
         group by rollup(data_source)   
     </select>
 	
