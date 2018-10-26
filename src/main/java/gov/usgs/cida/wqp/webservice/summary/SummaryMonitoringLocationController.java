@@ -40,7 +40,7 @@ import springfox.documentation.annotations.ApiIgnore;
 @RestController
 @RequestMapping(value=HttpConstants.SUMMARY_MONITORING_LOCATION_ENDPOINT,
 	produces={HttpConstants.MIME_TYPE_GEOJSON,
-			HttpConstants.MIME_TYPE_CSV,})
+			HttpConstants.MIME_TYPE_CSV})
 public class SummaryMonitoringLocationController extends BaseController {
 	
 	protected final IXmlMapping xmlMapping;

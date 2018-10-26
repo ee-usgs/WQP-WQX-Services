@@ -289,6 +289,14 @@ public abstract class BaseWqx {
 	public static final String WQX_RESULT_FILE_URL = "ResultFileUrl";
 
 	public static final String WQX_LAST_UPDATED = "LastUpdated";
+	
+//	public static final String = "";
+//	public static final String = "";
+//	public static final String = "";
+//	public static final String = "";
+//	public static final String = "";
+//	public static final String = "";
+//	public static final String = "";
 
 	protected BaseWqx() {
 	}

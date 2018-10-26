@@ -14,6 +14,7 @@ import static gov.usgs.cida.wqp.mapping.StationColumn.MONITORING_LOCATION_TYPE;
 import static gov.usgs.cida.wqp.mapping.StationColumn.SITE_TYPE;
 import static gov.usgs.cida.wqp.mapping.StationColumn.STATE_NAME;
 import static gov.usgs.cida.wqp.mapping.StationColumn.STATION_NAME;
+import static gov.usgs.cida.wqp.mapping.StationColumn.TOTAL_ACTIVITIES;
 import static gov.usgs.cida.wqp.mapping.delimited.BaseDelimited.getMapping;
 import static gov.usgs.cida.wqp.mapping.xml.BaseWqx.WQX_HUC_8;
 import static gov.usgs.cida.wqp.mapping.xml.BaseWqx.WQX_MONITORING_LOCATION_NAME;
@@ -40,9 +41,9 @@ public class PeriodOfRecordDelimited extends BaseDelimited {
 // from station_sum	
 	public static final String VALUE_MONITORING_LOCATION_TYPE = WQX_MONITORING_LOCATION_TYPE;
 	public static final String VALUE_MONITORING_LOCATION_NAME = WQX_MONITORING_LOCATION_NAME;
-	public static final String VALUE_MONITORING_LOCATION_TYPE_NAME = "MonitoringLocationTypeName";
-	public static final String VALUE_RESOLVED_MONITORING_LOCATION = WQX_RESOLVED_MONITORING_LOCATION;
 	public static final String VALUE_HUC_8 = WQX_HUC_8;
+	public static final String VALUE_RESOLVED_MONITORING_LOCATION = WQX_RESOLVED_MONITORING_LOCATION;
+	public static final String VALUE_MONITORING_LOCATION_TYPE_NAME = "MonitoringLocationTypeName";
 	public static final String VALUE_MONITORING_LOCATION_URL = "MonitoringLocationUrl";
 	public static final String VALUE_STATE_NAME = "StateName";
 	public static final String VALUE_COUNTY_NAME = "CountyName";
@@ -68,14 +69,14 @@ public class PeriodOfRecordDelimited extends BaseDelimited {
 		MAPPINGS.put(LATITUDE, VALUE_MONITORING_LOCATION_LATITUDE);
 		MAPPINGS.put(LONGITUDE, VALUE_MONITORING_LOCATION_LONGITUDE);
 		
-		MAPPINGS.put(,VALUE_MONITORING_LOCATION_TYPE_NAME);
-		MAPPINGS.put(,VALUE_STATION_ID);
-		MAPPINGS.put(,VALUE_THE_YEAR);
-		MAPPINGS.put(,VALUE_CHARACTERISTIC_TYPE);
-		MAPPINGS.put(,VALUE_CHARACTERISTIC_NAME);
-		MAPPINGS.put(TOTAL_ACTIVITIES, VALUE_TOTAL_ACTIVITIES);
-		MAPPINGS.put(,VALUE_TOTAL_RESULTS);
-		MAPPINGS.put(,VALUE_LAST_RESULT_DATE);
+//		MAPPINGS.put(,VALUE_MONITORING_LOCATION_TYPE_NAME);
+//		MAPPINGS.put(,VALUE_STATION_ID);
+//		MAPPINGS.put(,VALUE_THE_YEAR);
+//		MAPPINGS.put(,VALUE_CHARACTERISTIC_TYPE);
+//		MAPPINGS.put(,VALUE_CHARACTERISTIC_NAME);
+//		MAPPINGS.put(TOTAL_ACTIVITIES, VALUE_TOTAL_ACTIVITIES);
+//		MAPPINGS.put(,VALUE_TOTAL_RESULTS);
+//		MAPPINGS.put(,VALUE_LAST_RESULT_DATE);
 	}
 	
 	private PeriodOfRecordDelimited() {
