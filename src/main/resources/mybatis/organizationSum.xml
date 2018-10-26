@@ -2,80 +2,74 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
 
 <mapper namespace="summaryOrganization">
-	
-	<sql id="selectAllTimeSummary">
-		all_time_summary organization_summary,
-		to_char(all_time_last_result, 'YYYY-MM-DD') last_result,
-		all_time_site_count site_count,
-		all_time_activity_count activity_count
-	</sql>
 
-	<sql id="selectCurrentYearSummary">
-		current_year_summary organization_summary,
-		to_char(current_year_last_result, 'YYYY-MM-DD') last_result,
-		current_year_site_count site_count,
-		current_year_activity_count activity_count
-	</sql>
+    <sql id="selectAllTimeSummary">
+        all_time_summary organization_summary,
+        to_char(all_time_last_result, 'YYYY-MM-DD') last_result,
+        all_time_site_count site_count,
+        all_time_activity_count activity_count
+    </sql>
 
-	<sql id="selectFiveYearSummary">
-		five_year_summary organization_summary,
-		to_char(five_year_last_result, 'YYYY-MM-DD') last_result,
-		five_year_site_count site_count,
-		five_year_activity_count activity_count
-	</sql>
+    <sql id="selectCurrentYearSummary">
+        current_year_summary organization_summary,
+        to_char(current_year_last_result, 'YYYY-MM-DD') last_result,
+        current_year_site_count site_count,
+        current_year_activity_count activity_count
+    </sql>
 
-	<sql id="selectSummaryByYear">
-		<choose>
-			<when test="summaryYears == null or summaryYears.equalsIgnoreCase('all')"><include refid="selectAllTimeSummary" /></when>
-			<otherwise>
-				<choose>
-					<when test="summaryYears.equalsIgnoreCase('1')"><include refid="selectCurrentYearSummary" /></when>
-					<when test="summaryYears.equalsIgnoreCase('5')"><include refid="selectFiveYearSummary" /></when>
-					<otherwise><include refid="selectAllTimeSummary" /></otherwise>
-				</choose>
-			</otherwise>
-		</choose>
-	</sql>	
+    <sql id="selectFiveYearSummary">
+        five_year_summary organization_summary,
+        to_char(five_year_last_result, 'YYYY-MM-DD') last_result,
+        five_year_site_count site_count,
+        five_year_activity_count activity_count
+    </sql>
 
-	<sql id="summaryYearWhere">
-		<where>
-			 <if test="organization != null">
-				<include refid="dynamicWhere.organization" />
-			</if>
-				<choose>
-					<when test="summaryYears == null or summaryYears.equalsIgnoreCase('all')">and all_time_summary is not null</when>
-					<otherwise>
-						<choose>
-							<when test="summaryYears.equalsIgnoreCase('1')">and current_year_summary is not null</when>
-							<when test="summaryYears.equalsIgnoreCase('5')">and five_year_summary is not null</when>
-							<otherwise>and all_time_summary is not null</otherwise>
-						</choose>
-					</otherwise>
-				</choose>            
-		</where>
-	</sql>
+    <sql id="selectSummaryByYear">
+        <choose>
+            <when test="summaryYears == null or summaryYears.equalsIgnoreCase('all')"><include refid="selectAllTimeSummary" /></when>
+            <otherwise>
+                <choose>
+                    <when test="summaryYears.equalsIgnoreCase('1')"><include refid="selectCurrentYearSummary" /></when>
+                    <when test="summaryYears.equalsIgnoreCase('5')"><include refid="selectFiveYearSummary" /></when>
+                    <otherwise><include refid="selectAllTimeSummary" /></otherwise>
+                </choose>
+            </otherwise>
+        </choose>
+    </sql>
 
-	<select id="select" resultType="java.util.LinkedHashMap" fetchSize="500">
+    <sql id="summaryYearWhere">
+        <where>
+             <if test="organization != null">
+                <include refid="dynamicWhere.organization" />
+            </if>
+                <choose>
+                    <when test="summaryYears == null or summaryYears.equalsIgnoreCase('all')">and all_time_summary is not null</when>
+                    <otherwise>
+                        <choose>
+                            <when test="summaryYears.equalsIgnoreCase('1')">and current_year_summary is not null</when>
+                            <when test="summaryYears.equalsIgnoreCase('5')">and five_year_summary is not null</when>
+                            <otherwise>and all_time_summary is not null</otherwise>
+                        </choose>
+                    </otherwise>
+                </choose>
+        </where>
+    </sql>
 
-	SELECT
+    <select id="select" resultType="java.util.LinkedHashMap" fetchSize="500">
+        select organization,
+               organization_name,
+               organization_type,
+               nvl2(organization_url, #{siteUrlBase, jdbcType=VARCHAR} || organization_url, null) organization_wqp_url,
+               <include refid="selectSummaryByYear" />
+          from organization_sum prime
+        <include refid="summaryYearWhere" />
+    </select>
 
-	organization,
-	organization_name,
-	nvl2(organization_url, #{siteUrlBase, jdbcType=VARCHAR} || organization_url, null) organization_wqp_url,
-	<include refid="selectSummaryByYear" />
+    <select id="count" resultType="java.util.LinkedHashMap">
+            select data_source, count(*) organization_count
+               from organization_sum prime
+                     <include refid="summaryYearWhere" />
+                 group by rollup(data_source)
+        </select>
 
-	FROM
-
-	organization_sum prime
-
-	<include refid="summaryYearWhere" />
-	</select>
-
-	<select id="count" resultType="java.util.LinkedHashMap">
-			select data_source, count(*) organization_count
-				from organization_sum prime
-					  <include refid="summaryYearWhere" />
-				 group by rollup(data_source)
-		</select>
-	
 </mapper>
