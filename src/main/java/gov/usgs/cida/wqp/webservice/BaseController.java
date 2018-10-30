@@ -43,6 +43,7 @@ import gov.usgs.cida.wqp.transform.MapToXlsxTransformer;
 import gov.usgs.cida.wqp.transform.MapToXmlTransformer;
 import gov.usgs.cida.wqp.transform.StationMapToJsonTransformer;
 import gov.usgs.cida.wqp.transform.OrganizationSumMapToJsonTransformer;
+import gov.usgs.cida.wqp.transform.PeriodOfRecordMapToJsonTransformer;
 import gov.usgs.cida.wqp.transform.Transformer;
 import gov.usgs.cida.wqp.util.HttpConstants;
 import gov.usgs.cida.wqp.util.MimeType;
@@ -468,8 +469,8 @@ public abstract class BaseController {
 		switch(currentProfile) {
 		case SUMMARY_MONITORING_LOCATION:
 			return NameSpace.SUMMARY_MONITORING_LOCATION;
-//		case PERIOD_OF_RECORD:
-//			return NameSpace.PERIOD_OF_RECORD;
+		case PERIOD_OF_RECORD:
+			return NameSpace.PERIOD_OF_RECORD;
 		default:
 			return NameSpace.SIMPLE_STATION;
 		}
@@ -485,7 +486,7 @@ public abstract class BaseController {
 
 	protected Transformer getTransformer(OutputStream responseStream, BigDecimal logId) {		
 		Transformer transformer;
-MimeType debug = getMimeType();		
+	
 		switch (getMimeType()) {
 		case json:
 		case geojson:	
@@ -518,9 +519,9 @@ MimeType debug = getMimeType();
 		case SUMMARY_ORGANIZATION:
 			transformer = new OrganizationSumMapToJsonTransformer(responseStream, null, logService, logId, configurationService.getSiteUrlBase());
 			break;
-//		case PERIOD_OF_RECORD:
-//			transformer = new PeriodOfRecordMapToJsonTransformer(responseStream, null, logService, logId, configurationService.getSiteUrlBase());	
-//			break;
+		case PERIOD_OF_RECORD:
+			transformer = new PeriodOfRecordMapToJsonTransformer(responseStream, null, logService, logId, configurationService.getSiteUrlBase());	
+			break;
 		default:
 			transformer = new StationMapToJsonTransformer(responseStream, null, logService, logId, configurationService.getSiteUrlBase());
 			break;

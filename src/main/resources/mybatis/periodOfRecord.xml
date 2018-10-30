@@ -2,59 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
 
 <mapper namespace="periodOfRecord">
-	<sql id="selectSummaryAllMonths">
- <!--       TO_CHAR(all_time_summary) period_of_record, -->
-		TO_CHAR(prime.summary_all_months) period_of_record,
 		
-       nvl(prime.activity_count,0) activity_count,
-        nvl(prime.result_count,0) result_count<!-- ,
-		to_char(all_time_last_result, 'YYYY-MM-DD') last_result -->
-    </sql>
-    
-    <sql id="selectSummary12Months">
-<!--         TO_CHAR(current_year_summary) period_of_record, -->
-		TO_CHAR(prime.summary_past_12_months) period_of_record,
-
-    <!--    nvl(prime.activity_count_past_12_months,0) activity_count,
-        nvl(prime.result_count_past_12_months,0) result_count,
-		to_char(current_year_last_result, 'YYYY-MM-DD') last_result -->
-    </sql>
-    
-    <sql id="selectSummary60Months">
-<!--        TO_CHAR(five_year_summary) period_of_record, -->
-		TO_CHAR(prime.summary_past_60_months) period_of_record,
-		
-     <!--   nvl(prime.activity_count_past_60_months,0) activity_count,
-        nvl(prime.result_count_past_60_months,0) result_count,
-		to_char(five_year_last_result, 'YYYY-MM-DD') last_result -->
-    </sql>
-    
-    <sql id="selectSummaryByYear">
-        <choose>
-            <when test="summaryYears == null or summaryYears.equalsIgnoreCase('all')"><include refid="selectSummaryAllMonths" /></when>
-            <otherwise>
-                <choose>
-                    <when test="summaryYears.equalsIgnoreCase('1')"><include refid="selectSummary12Months" /></when>
-                    <when test="summaryYears.equalsIgnoreCase('5')"><include refid="selectSummary60Months" /></when>
-                    <otherwise><include refid="selectSummaryAllMonths" /></otherwise>
-                </choose>
-            </otherwise>
-        </choose>
-    </sql>
-	
     <sql id="summaryYearWhere">
         <where>
             <include refid="dynamicWhere.baseWhereStationGeoClauses" />
             <include refid="dynamicWhere.baseWhereStationClauses" />
             <choose>
                 <when test="summaryYears == null or summaryYears.equalsIgnoreCase('all')">
-                    and prime.summary_all_months is not null
+                  <!-- is something needed here -->  
                 </when>
                 <otherwise>
                     <choose>
-                        <when test="summaryYears.equalsIgnoreCase('1')">and prime.summary_past_12_months is not null</when>
-                        <when test="summaryYears.equalsIgnoreCase('5')">and prime.summary_past_60_months is not null</when>
-                        <otherwise>and prime.summary_all_months is not null</otherwise>
+                        <when test="summaryYears.equalsIgnoreCase('1')">and ml_g.years_window=1</when>
+                        <when test="summaryYears.equalsIgnoreCase('5')">and ml_g.years_window=5</when>
+                        <otherwise><!-- is something needed here --></otherwise>
                     </choose>
                 </otherwise>
             </choose>
@@ -63,8 +24,7 @@
 
     <select id="select" resultType="java.util.LinkedHashMap" fetchSize="500">
 
-        SELECT
-		prime.data_source_id,
+        SELECT	
         prime.organization,
 		prime.station_id,
 		prime.station_type_name,
@@ -87,10 +47,8 @@
 		ml_g.characteristic_name,
 		ml_g.total_activities,
 		ml_g.total_results,
-		TO_CHAR(ml_g.last_result_date, 'YYYY-MM-DD') last_result_date,			
-		
-		<include refid="selectSummaryByYear" />
-		
+		TO_CHAR(ml_g.last_result_date, 'YYYY-MM-DD') last_result_date
+				
         FROM station_sum prime
 		LEFT JOIN ml_grouping ml_g
 		ON prime.data_source_id = ml_g.data_source_id 
