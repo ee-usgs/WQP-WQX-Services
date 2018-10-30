@@ -40,29 +40,32 @@ public class StationColumn extends BaseColumn {
 	public static final String KEY_STATE_NAME = "STATE_NAME";
 	public static final String KEY_COUNTY_NAME = "COUNTY_NAME";
 	public static final String KEY_MONITORING_LOCATION_SUMMARY = "MONITORING_LOCATION_SUMMARY";
+	public static final String KEY_MONITORING_LOCATION_URL = "MONITORING_LOCATION_URL";
 	public static final String KEY_LAST_SUBMITTED_DATE = "LAST_RESULT";
-	public static final String KEY_TOTAL_ACTIVITIES = "ACTIVITY_COUNT";
-	public static final String KEY_PERIOD_OF_RECORD = "PERIOD_OF_RECORD";
-	public static final String KEY_MONITORING_LOCATION_TYPE_NAME = "MONITORING_LOCATION_TYPE_NAME";	
+	public static final String KEY_TOTAL_ACTIVITIES = "TOTAL_ACTIVITIES";
+	public static final String KEY_PERIOD_OF_RECORD = "PERIOD_OF_RECORD";	
 	public static final String KEY_THE_YEAR = "THE_YEAR";
 	public static final String KEY_CHARACTERISTIC_TYPE = "CHARACTERISTIC_TYPE";
 	public static final String KEY_CHARACTERISTIC_NAME = "CHARACTERISTIC_NAME";
 	public static final String KEY_TOTAL_RESULTS = "TOTAL_RESULTS";
 	public static final String KEY_LAST_RESULT_DATE = "LAST_RESULT_DATE";
+	
+	
 
 	//Profile Mapping of the Keys
-	public static final ColumnProfile STATION_NAME = new ColumnProfile(KEY_STATION_NAME, Profile.STATION, Profile.SIMPLE_STATION, Profile.RESULT_PHYS_CHEM, Profile.RESULT_BROAD);
+	public static final ColumnProfile STATION_NAME = new ColumnProfile(KEY_STATION_NAME, Profile.STATION, Profile.SIMPLE_STATION, Profile.RESULT_PHYS_CHEM, Profile.RESULT_BROAD, Profile.PERIOD_OF_RECORD);
 	public static final ColumnProfile MONITORING_LOCATION_TYPE = new ColumnProfile(KEY_MONITORING_LOCATION_TYPE, Profile.STATION);
 	public static final ColumnProfile MONITORING_LOCATION_DESCRIPTION = new ColumnProfile(KEY_MONITORING_LOCATION_DESCRIPTION, Profile.STATION);
-	public static final ColumnProfile SITE_TYPE = new ColumnProfile(KEY_SITE_TYPE, Profile.SIMPLE_STATION);
-	public static final ColumnProfile HUC_8 = new ColumnProfile(KEY_HUC_8, Profile.STATION);
+	public static final ColumnProfile MONITORING_LOCATION_URL = new ColumnProfile(KEY_MONITORING_LOCATION_URL, Profile.PERIOD_OF_RECORD);
+	public static final ColumnProfile SITE_TYPE = new ColumnProfile(KEY_SITE_TYPE, Profile.SIMPLE_STATION, Profile.PERIOD_OF_RECORD);
+	public static final ColumnProfile HUC_8 = new ColumnProfile(KEY_HUC_8, Profile.STATION, Profile.PERIOD_OF_RECORD);
 	public static final ColumnProfile HUC_12 = new ColumnProfile(KEY_HUC_12);
 	public static final ColumnProfile DRAIN_AREA_VALUE = new ColumnProfile(KEY_DRAIN_AREA_VALUE, Profile.STATION);
 	public static final ColumnProfile DRAIN_AREA_UNIT = new ColumnProfile(KEY_DRAIN_AREA_UNIT, Profile.STATION);
 	public static final ColumnProfile CONTRIB_DRAIN_AREA_VALUE = new ColumnProfile(KEY_CONTRIB_DRAIN_AREA_VALUE, Profile.STATION);
 	public static final ColumnProfile CONTRIB_DRAIN_AREA_UNIT = new ColumnProfile(KEY_CONTRIB_DRAIN_AREA_UNIT, Profile.STATION);
-	public static final ColumnProfile LATITUDE = new ColumnProfile(KEY_LATITUDE, Profile.STATION, Profile.SIMPLE_STATION);
-	public static final ColumnProfile LONGITUDE = new ColumnProfile(KEY_LONGITUDE, Profile.STATION, Profile.SIMPLE_STATION);
+	public static final ColumnProfile LATITUDE = new ColumnProfile(KEY_LATITUDE, Profile.STATION, Profile.SIMPLE_STATION, Profile.PERIOD_OF_RECORD);
+	public static final ColumnProfile LONGITUDE = new ColumnProfile(KEY_LONGITUDE, Profile.STATION, Profile.SIMPLE_STATION, Profile.PERIOD_OF_RECORD);
 	public static final ColumnProfile SOURCE_MAP_SCALE = new ColumnProfile(KEY_SOURCE_MAP_SCALE, Profile.STATION);
 	public static final ColumnProfile HORIZONTAL_ACCY_VALUE = new ColumnProfile(KEY_HORIZONTAL_ACCY_VALUE, Profile.STATION);
 	public static final ColumnProfile HORIZONTAL_ACCY_UNIT = new ColumnProfile(KEY_HORIZONTAL_ACCY_UNIT, Profile.STATION);
@@ -85,20 +88,20 @@ public class StationColumn extends BaseColumn {
 	public static final ColumnProfile WELL_DEPTH_UNIT = new ColumnProfile(KEY_WELL_DEPTH_UNIT, Profile.STATION);
 	public static final ColumnProfile HOLE_DEPTH_VALUE = new ColumnProfile(KEY_HOLE_DEPTH_VALUE, Profile.STATION);
 	public static final ColumnProfile HOLE_DEPTH_UNIT = new ColumnProfile(KEY_HOLE_DEPTH_UNIT, Profile.STATION);
-	public static final ColumnProfile STATE_NAME = new ColumnProfile(KEY_STATE_NAME, Profile.SIMPLE_STATION);
-	public static final ColumnProfile COUNTY_NAME = new ColumnProfile(KEY_COUNTY_NAME, Profile.SIMPLE_STATION);	
+	public static final ColumnProfile STATE_NAME = new ColumnProfile(KEY_STATE_NAME, Profile.SIMPLE_STATION, Profile.PERIOD_OF_RECORD);
+	public static final ColumnProfile COUNTY_NAME = new ColumnProfile(KEY_COUNTY_NAME, Profile.SIMPLE_STATION, Profile.PERIOD_OF_RECORD);	
 	public static final ColumnProfile MONITORING_LOCATION_SUMMARY=  new ColumnProfile(KEY_MONITORING_LOCATION_SUMMARY, Profile.SUMMARY_MONITORING_LOCATION);
 	public static final ColumnProfile LAST_SUBMITTED_DATE = new ColumnProfile(KEY_LAST_SUBMITTED_DATE, Profile.PERIOD_OF_RECORD);
-	public static final ColumnProfile TOTAL_ACTIVITIES = new ColumnProfile(KEY_TOTAL_ACTIVITIES, Profile.PERIOD_OF_RECORD);
-	public static final ColumnProfile PERIOD_OF_RECORD = new ColumnProfile(KEY_PERIOD_OF_RECORD, Profile.PERIOD_OF_RECORD);	
-	
-	public static final ColumnProfile MONITORING_LOCATION_TYPE_NAME = new ColumnProfile(KEY_MONITORING_LOCATION_TYPE_NAME, Profile.PERIOD_OF_RECORD);
+	public static final ColumnProfile TOTAL_ACTIVITIES = new ColumnProfile(KEY_TOTAL_ACTIVITIES, Profile.PERIOD_OF_RECORD);	
+	public static final ColumnProfile MONITORING_LOCATION_TYPE_NAME = new ColumnProfile(KEY_MONITORING_LOCATION_TYPE, Profile.PERIOD_OF_RECORD);
 	public static final ColumnProfile STATION_ID = new ColumnProfile(KEY_STATION_ID, Profile.PERIOD_OF_RECORD);
 	public static final ColumnProfile THE_YEAR = new ColumnProfile(KEY_THE_YEAR, Profile.PERIOD_OF_RECORD);
 	public static final ColumnProfile CHARACTERISTIC_TYPE = new ColumnProfile(KEY_CHARACTERISTIC_TYPE, Profile.PERIOD_OF_RECORD);
 	public static final ColumnProfile CHARACTERISTIC_NAME = new ColumnProfile(KEY_CHARACTERISTIC_NAME, Profile.PERIOD_OF_RECORD);	
 	public static final ColumnProfile TOTAL_RESULTS = new ColumnProfile(KEY_TOTAL_RESULTS, Profile.PERIOD_OF_RECORD);	
 	public static final ColumnProfile LAST_RESULT_DATE= new ColumnProfile(KEY_LAST_RESULT_DATE, Profile.PERIOD_OF_RECORD);	
+	
+	
 			
 	private StationColumn() {
 	}

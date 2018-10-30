@@ -468,8 +468,8 @@ public abstract class BaseController {
 		switch(currentProfile) {
 		case SUMMARY_MONITORING_LOCATION:
 			return NameSpace.SUMMARY_MONITORING_LOCATION;
-		case PERIOD_OF_RECORD:
-			return NameSpace.PERIOD_OF_RECORD;
+//		case PERIOD_OF_RECORD:
+//			return NameSpace.PERIOD_OF_RECORD;
 		default:
 			return NameSpace.SIMPLE_STATION;
 		}
@@ -485,7 +485,7 @@ public abstract class BaseController {
 
 	protected Transformer getTransformer(OutputStream responseStream, BigDecimal logId) {		
 		Transformer transformer;
-		
+MimeType debug = getMimeType();		
 		switch (getMimeType()) {
 		case json:
 		case geojson:	
