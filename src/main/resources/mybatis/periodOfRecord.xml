@@ -5,20 +5,13 @@
 		
     <sql id="summaryYearWhere">
         <where>
+			ml_g.grouping_id = 4
             <include refid="dynamicWhere.baseWhereStationGeoClauses" />
             <include refid="dynamicWhere.baseWhereStationClauses" />
-            <choose>
-                <when test="summaryYears == null or summaryYears.equalsIgnoreCase('all')">
-                  <!-- is something needed here -->  
-                </when>
-                <otherwise>
-                    <choose>
-                        <when test="summaryYears.equalsIgnoreCase('1')">and ml_g.years_window=1</when>
-                        <when test="summaryYears.equalsIgnoreCase('5')">and ml_g.years_window=5</when>
-                        <otherwise><!-- is something needed here --></otherwise>
-                    </choose>
-                </otherwise>
-            </choose>
+			<if test="summaryYears  !=null">
+				<if test="summaryYears.equalsIgnoreCase('1')">and ml_g.the_year &gt;= to_char(sysdate, 'yyyy')</if>
+				<if test="summaryYears.equalsIgnoreCase('5')">and ml_g.the_year &gt;= to_char(add_months(trunc(sysdate, 'yyyy'), -48), 'yyyy')</if>
+			</if>
         </where>
     </sql>
 
@@ -50,22 +43,23 @@
 		TO_CHAR(ml_g.last_result_date, 'YYYY-MM-DD') last_result_date
 				
         FROM station_sum prime
-		LEFT JOIN ml_grouping ml_g
+		JOIN ml_grouping ml_g
 		ON prime.data_source_id = ml_g.data_source_id 
 				AND prime.station_id = ml_g.station_id   
 		     
 		<include refid="summaryYearWhere" />
-		
-        ORDER BY
-        prime.data_source_id,
-        prime.organization,
-        prime.site_id
+
     </select>
 
     <select id="count" resultType="java.util.LinkedHashMap">
         select data_source,
                count(distinct data_source||'-'||station_id) station_count
-              from station_sum prime              
+              from station_sum prime   
+				JOIN ml_grouping ml_g
+				ON prime.data_source_id = ml_g.data_source_id 
+						AND prime.station_id = ml_g.station_id   
+
+				<include refid="summaryYearWhere" />           
         group by rollup(data_source)   
     </select>
 	

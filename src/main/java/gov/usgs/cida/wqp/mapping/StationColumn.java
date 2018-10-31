@@ -101,8 +101,6 @@ public class StationColumn extends BaseColumn {
 	public static final ColumnProfile TOTAL_RESULTS = new ColumnProfile(KEY_TOTAL_RESULTS, Profile.PERIOD_OF_RECORD);	
 	public static final ColumnProfile LAST_RESULT_DATE= new ColumnProfile(KEY_LAST_RESULT_DATE, Profile.PERIOD_OF_RECORD);	
 	
-	
-			
 	private StationColumn() {
 	}
 }
