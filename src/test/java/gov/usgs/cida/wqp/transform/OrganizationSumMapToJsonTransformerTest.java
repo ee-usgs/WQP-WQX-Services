@@ -100,7 +100,7 @@ public class OrganizationSumMapToJsonTransformerTest {
 			transformer.writeData(map);
 			//need to flush the JsonGenerator to get at output.
 			transformer.g.flush();
-			assertEquals(JSON_HEADER.length() + EXPECTED_JSON_RETURNED_1.length() + + EXPECTED_JSON_RETURNED_2.length() + 1, baos.size());
+			assertEquals(JSON_HEADER.length() + EXPECTED_JSON_RETURNED_1.length() + EXPECTED_JSON_RETURNED_2.length() + 1, baos.size());
 			assertEquals(JSON_HEADER + EXPECTED_JSON_RETURNED_1 + "," + EXPECTED_JSON_RETURNED_2,
 					new String(baos.toByteArray(), HttpConstants.DEFAULT_ENCODING));
 		} catch (IOException e) {
