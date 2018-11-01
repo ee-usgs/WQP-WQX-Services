@@ -48,10 +48,11 @@ import static uk.co.datumedge.hamcrest.json.SameJSONAs.sameJSONObjectAs;
 @DirtiesContext(classMode=ClassMode.AFTER_CLASS)
 public class SummaryMonitoringLocationControllerIT extends BaseControllerIntegrationTest {
 
-	protected static final Profile PROFILE = Profile.SUMMARY_MONITORING_LOCATION;
+	protected static final Profile PROFILE = Profile.SUMMARY_MONITORING_LOCATION;	
 	protected static final boolean POSTABLE = true;
-	protected static final String ENDPOINT = HttpConstants.SUMMARY_MONITORING_LOCATION_ENDPOINT + "?summaryYears=" + SummaryMonitoringLocationStreamingIT.SUMMARY_YEARS_ALL_MONTHS + "&mimeType=";
-
+	protected static final String ENDPOINT = HttpConstants.SUMMARY_MONITORING_LOCATION_ENDPOINT
+			+ "?summaryYears=" + SummaryMonitoringLocationStreamingIT.SUMMARY_YEARS_ALL_MONTHS + "&mimeType=";
+	
 	protected static final String TOTAL_SITE_SUM_COUNT = "11";
 	protected static final String BIODATA_SITE_SUM_COUNT = "1";
 	protected static final String NWIS_SITE_SUM_COUNT = "2";
@@ -66,19 +67,22 @@ public class SummaryMonitoringLocationControllerIT extends BaseControllerIntegra
 		getAsGeoJsonTest();
 		getAsGeoJsonZipTest();
 		getAllParametersTest();
-		postGetCountTest();
+		postGetCountTest();		
 	}
-
+	
 	public void getAsGeoJsonTest() throws Exception {
-		getAsJsonTest(ENDPOINT + GEOJSON, HttpConstants.MIME_TYPE_GEOJSON, GEOJSON, PROFILE, POSTABLE);
+		getAsJsonTest(ENDPOINT + GEOJSON,
+				HttpConstants.MIME_TYPE_GEOJSON, GEOJSON, PROFILE, POSTABLE);
 	}
 
 	public void getAsGeoJsonZipTest() throws Exception {
-		getAsJsonZipTest(ENDPOINT + GEOJSON_AND_ZIP, HttpConstants.MIME_TYPE_ZIP, GEOJSON, PROFILE, POSTABLE);
+		getAsJsonZipTest(ENDPOINT + GEOJSON_AND_ZIP,
+				HttpConstants.MIME_TYPE_ZIP, GEOJSON, PROFILE, POSTABLE);
 	}
 
 	public void getAllParametersTest() throws Exception {
-		getAllParametersTest(ENDPOINT + GEOJSON, HttpConstants.MIME_TYPE_GEOJSON, GEOJSON, PROFILE, POSTABLE);
+		getAllParametersTest(ENDPOINT + GEOJSON,
+				HttpConstants.MIME_TYPE_GEOJSON, GEOJSON, PROFILE, POSTABLE);
 	}
 
 	public void postGetCountTest() throws Exception {
@@ -96,7 +100,9 @@ public class SummaryMonitoringLocationControllerIT extends BaseControllerIntegra
 	public void postGetCountTest(String urlPrefix, String compareObject, Profile profile) throws Exception {
 		when(fetchService.fetch(any(String.class), any(URL.class))).thenReturn(getNldiSites());
 
-		MvcResult rtn = filteredHeaderCheck(callMockPostJson(urlPrefix + JSON, getSourceFile("summaryPostParameters.json").replace("[DATA_PROFILE]", profile.toString()), HttpConstants.MIME_TYPE_JSON, null))
+		MvcResult rtn = filteredHeaderCheck(callMockPostJson(urlPrefix + JSON, 
+				getSourceFile("summaryPostParameters.json")
+						.replace("[DATA_PROFILE]", profile.toString()), HttpConstants.MIME_TYPE_JSON, null))
 			.andReturn();
 
 		assertThat(new JSONObject(rtn.getResponse().getContentAsString()),

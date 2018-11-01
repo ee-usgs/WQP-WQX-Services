@@ -49,18 +49,19 @@
 		     
 		<include refid="summaryYearWhere" />
 
+		ORDER BY prime.organization, prime.station_id, ml_g.the_year
     </select>
-
+	
     <select id="count" resultType="java.util.LinkedHashMap">
-        select data_source,
-               count(distinct data_source||'-'||station_id) station_count
+        select prime.data_source,
+               count(distinct prime.data_source||'-'||prime.station_id) station_count
               from station_sum prime   
 				JOIN ml_grouping ml_g
 				ON prime.data_source_id = ml_g.data_source_id 
 						AND prime.station_id = ml_g.station_id   
 
 				<include refid="summaryYearWhere" />           
-        group by rollup(data_source)   
+        group by rollup(prime.data_source)   
     </select>
 	
 </mapper>

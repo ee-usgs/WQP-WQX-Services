@@ -48,7 +48,7 @@ public class CountDaoSummaryMonitoringLocationIT extends BaseStationCountDaoTest
 	
 	public void bboxTest(NameSpace nameSpace) { 
 		List<Map<String, Object>> counts = bboxTest(nameSpace, 4);
-		assertStationResults(counts, "8", "2", "2", "4", null);
+		assertStationResults(counts, "8", "2", "2", null, null);
 	}
 	
 	public void countryTest(NameSpace nameSpace) {
