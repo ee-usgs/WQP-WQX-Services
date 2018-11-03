@@ -48,6 +48,39 @@ public abstract class BaseStationStreamingTest extends FilteredStationDaoTest {
 	public static final String[] STORET_1043441 = new String[]{STORET, "11NPSWRD-BICA_MFG_B", STORET_SITE};
 	public static final String[] BIODATA_61233184 = new String[]{BIODATA, "USGS-11421000", BIODATA_SITE};
 	public static final String[] BIODATA_433830088977331 = new String[]{BIODATA, "USGS-433830088977331", BIODATA_SITE};
+	
+	public static final String[] STEWARDS_36_2000_CT1 = new String[]{STEWARDS, "ARS-IAWC-IAWC225", "2000", "ct_1", "cn_1"}; 
+	public static final String[] STEWARDS_36_2001_CT1 = new String[]{STEWARDS, "ARS-IAWC-IAWC225", "2001", "ct_1", "cn_1"}; 
+	public static final String[] STEWARDS_36_2002_CT1 = new String[]{STEWARDS, "ARS-IAWC-IAWC225", "2002", "ct_1", "cn_1"}; 
+	public static final String[] STEWARDS_36_2003_CT1 = new String[]{STEWARDS, "ARS-IAWC-IAWC225", "2003", "ct_1", "cn_1"}; 
+	public static final String[] STEWARDS_36_2004_CT1 = new String[]{STEWARDS, "ARS-IAWC-IAWC225", "2004", "ct_1", "cn_1"}; 
+	public static final String[] STEWARDS_36_2005_CT1 = new String[]{STEWARDS, "ARS-IAWC-IAWC225", "2005", "ct_1", "cn_1"}; 
+	public static final String[] STEWARDS_36_2006_CT1 = new String[]{STEWARDS, "ARS-IAWC-IAWC225", "2006", "ct_1", "cn_1"}; 
+	public static final String[] STEWARDS_36_2007_CT1 = new String[]{STEWARDS, "ARS-IAWC-IAWC225", "2007", "ct_1", "cn_1"}; 
+	public static final String[] STEWARDS_36_2008_CT1 = new String[]{STEWARDS, "ARS-IAWC-IAWC225", "2008", "ct_1", "cn_1"}; 
+	
+	public static final String[] NWIS_1353690_2010_CT1 = new String[]{NWIS, "USGS-05425700", "2010", "ct_1", "cn_1"};
+	public static final String[] NWIS_1353690_2011_CT1 = new String[]{NWIS, "USGS-05425700", "2011", "ct_1", "cn_1"};
+	public static final String[] NWIS_1353690_2012_CT1 = new String[]{NWIS, "USGS-05425700", "2012", "ct_1", "cn_1"};
+	public static final String[] NWIS_1353690_2013_CT1 = new String[]{NWIS, "USGS-05425700", "2013", "ct_1", "cn_1"};
+	public static final String[] NWIS_1353690_2014_CT1 = new String[]{NWIS, "USGS-05425700", "2014", "ct_1", "cn_1"};
+	public static final String[] NWIS_1353690_2015_CT1 = new String[]{NWIS, "USGS-05425700", "2015", "ct_1", "cn_1"};
+	public static final String[] NWIS_1353690_2016_CT1 = new String[]{NWIS, "USGS-05425700", "2016", "ct_1", "cn_1"};
+	public static final String[] NWIS_1353690_2017_CT1 = new String[]{NWIS, "USGS-05425700", "2017", "ct_1", "cn_1"};
+	public static final String[] NWIS_1353690_2018_CT1 = new String[]{NWIS, "USGS-05425700", "2018", "ct_1", "cn_1"};
+
+	public static final String[] STORET_504707_1910_CT1 = new String[]{"STORET", "21NYDECA_WQX-ONTARIO-02", "1910", "ct_1", "cn_1"};
+	public static final String[] STORET_504707_1911_CT1 = new String[]{"STORET", "21NYDECA_WQX-ONTARIO-02", "1911", "ct_1", "cn_1"};
+	public static final String[] STORET_504707_1912_CT1 = new String[]{"STORET", "21NYDECA_WQX-ONTARIO-02", "1912", "ct_1", "cn_1"};
+	public static final String[] STORET_504707_1923_CT1 = new String[]{"STORET", "21NYDECA_WQX-ONTARIO-02", "1923", "ct_1", "cn_1"};
+	public static final String[] STORET_504707_1934_CT1 = new String[]{"STORET", "21NYDECA_WQX-ONTARIO-02", "1934", "ct_1", "cn_1"};
+	public static final String[] STORET_504707_1945_CT1 = new String[]{"STORET", "21NYDECA_WQX-ONTARIO-02", "1945", "ct_1", "cn_1"};
+	public static final String[] STORET_504707_1956_CT1 = new String[]{"STORET", "21NYDECA_WQX-ONTARIO-02", "1956", "ct_1", "cn_1"};
+	public static final String[] STORET_504707_1977_CT1 = new String[]{"STORET", "21NYDECA_WQX-ONTARIO-02", "1977", "ct_1", "cn_1"};
+	public static final String[] STORET_504707_1998_CT1 = new String[]{"STORET", "21NYDECA_WQX-ONTARIO-02", "1998", "ct_1", "cn_1"};
+	
+	public static final String[] NWIS_1360035_2017_CT1 = new String[]{NWIS, "USGS-431925089002701", "2017", "ct_1", "cn_1"};
+	public static final String[] NWIS_1360035_2018_CT1 = new String[]{NWIS, "USGS-431925089002701", "2018", "ct_1", "cn_1"};	
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//Station + Station_Sum 
