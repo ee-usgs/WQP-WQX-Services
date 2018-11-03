@@ -63,7 +63,7 @@ public class PeriodOfRecordStreamingIT extends BaseStationStreamingTest {
 
 //		sortedAllSummaryTest(nameSpace);
 //		sortedFiveYearsSummaryTest(nameSpace);
-//		sortedOneYearSummaryTest(nameSpace);
+		sortedOneYearSummaryTest(nameSpace);
 	}
 	
 	@Override
