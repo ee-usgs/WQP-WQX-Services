@@ -14,7 +14,8 @@ import gov.usgs.cida.wqp.ColumnSensingFlatXMLDataSetLoader;
 import gov.usgs.cida.wqp.dao.NameSpace;
 import gov.usgs.cida.wqp.dao.StreamingDao;
 import gov.usgs.cida.wqp.dao.streaming.BaseStationStreamingTest;
-import gov.usgs.cida.wqp.mapping.TestPeriodOfRecordMap_old;
+import gov.usgs.cida.wqp.mapping.TestPeriodOfRecordMap;
+
 import gov.usgs.cida.wqp.parameter.FilterParameters;
 import gov.usgs.cida.wqp.springinit.DBTestConfig;
 
@@ -27,9 +28,9 @@ classes={DBTestConfig.class, StreamingDao.class})
 public class PeriodOfRecordControllerIT_old extends BaseStationStreamingTest {
 	
 	protected NameSpace nameSpace = NameSpace.PERIOD_OF_RECORD;
-	protected Map<String, Object> expectedMapOneYear = TestPeriodOfRecordMap_old.PERIOD_OF_RECORD_ONE_YEAR;
-	protected Map<String, Object> expectedMapFiveYears = TestPeriodOfRecordMap_old.PERIOD_OF_RECORD_FIVE_YEARS;
-	protected Map<String, Object> expectedMapAllYears = TestPeriodOfRecordMap_old.PERIOD_OF_RECORD_ALL_YEARS;
+	protected Map<String, Object> expectedMapOneYear = TestPeriodOfRecordMap.PERIOD_OF_RECORD_ONE_YEAR;
+	protected Map<String, Object> expectedMapFiveYears = TestPeriodOfRecordMap.PERIOD_OF_RECORD_FIVE_YEARS;
+	protected Map<String, Object> expectedMapAllYears = TestPeriodOfRecordMap.PERIOD_OF_RECORD_ALL_YEARS;
 	public static final String PERIOD_OF_RECORD_1_YEAR = "1";
 	public static final String PERIOD_OF_RECORD_5_YEARS = "5";
 	public static final String PERIOD_OF_RECORD_ALL_YEARS = "all";

@@ -5,7 +5,6 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 import gov.usgs.cida.wqp.Application;
 import static gov.usgs.cida.wqp.BaseTest.CSV;
 import gov.usgs.cida.wqp.ColumnSensingFlatXMLDataSetLoader;
-import gov.usgs.cida.wqp.CsvDataSetLoader;
 import gov.usgs.cida.wqp.mapping.Profile;
 import gov.usgs.cida.wqp.parameter.Parameters;
 import gov.usgs.cida.wqp.springinit.DBTestConfig;
