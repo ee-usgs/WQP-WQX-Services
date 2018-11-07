@@ -49,7 +49,7 @@ public class StationColumn extends BaseColumn {
 	public static final String KEY_CHARACTERISTIC_NAME = "CHARACTERISTIC_NAME";
 	public static final String KEY_TOTAL_RESULTS = "TOTAL_RESULTS";
 	public static final String KEY_LAST_RESULT_DATE = "LAST_RESULT_DATE";
-	
+	public static final String KEY_MONITORING_LOCATION_TYPE_NAME = "STATION_TYPE_NAME";
 	
 
 	//Profile Mapping of the Keys

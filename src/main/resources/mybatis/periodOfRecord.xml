@@ -48,8 +48,9 @@
 				AND prime.station_id = ml_g.station_id   
 		     
 		<include refid="summaryYearWhere" />
-
-		ORDER BY prime.organization, prime.station_id, ml_g.the_year
+		<if test="sorted == 'yes'">
+			order by prime.data_source_id, prime.site_id, ml_g.the_year
+		</if>	
     </select>
 	
     <select id="count" resultType="java.util.LinkedHashMap">
