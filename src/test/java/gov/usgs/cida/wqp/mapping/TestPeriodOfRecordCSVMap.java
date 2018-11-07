@@ -14,7 +14,6 @@ import static gov.usgs.cida.wqp.mapping.StationColumn.KEY_HUC_8;
 import static gov.usgs.cida.wqp.mapping.StationColumn.KEY_LAST_RESULT_DATE;
 import static gov.usgs.cida.wqp.mapping.StationColumn.KEY_LATITUDE;
 import static gov.usgs.cida.wqp.mapping.StationColumn.KEY_LONGITUDE;
-import static gov.usgs.cida.wqp.mapping.StationColumn.KEY_MONITORING_LOCATION_TYPE;
 import static gov.usgs.cida.wqp.mapping.StationColumn.KEY_MONITORING_LOCATION_TYPE_NAME;
 import static gov.usgs.cida.wqp.mapping.StationColumn.KEY_MONITORING_LOCATION_URL;
 import static gov.usgs.cida.wqp.mapping.StationColumn.KEY_SITE_TYPE;
@@ -23,6 +22,7 @@ import static gov.usgs.cida.wqp.mapping.StationColumn.KEY_STATION_NAME;
 import static gov.usgs.cida.wqp.mapping.StationColumn.KEY_THE_YEAR;
 import static gov.usgs.cida.wqp.mapping.StationColumn.KEY_TOTAL_ACTIVITIES;
 import static gov.usgs.cida.wqp.mapping.StationColumn.KEY_TOTAL_RESULTS;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -47,7 +47,6 @@ public class TestPeriodOfRecordCSVMap {
 		STEWARDS_36_2000.put(KEY_ORGANIZATION, "ARS");
 		STEWARDS_36_2000.put(KEY_ORGANIZATION_NAME, "Agricultural Research Services");		
 		STEWARDS_36_2000.put(KEY_SITE_ID, "ARS-IAWC-IAWC225");
-		STEWARDS_36_2000.put(KEY_MONITORING_LOCATION_TYPE, "");
 		STEWARDS_36_2000.put(KEY_STATION_NAME, "Buckeye Rd.");
 		STEWARDS_36_2000.put(KEY_MONITORING_LOCATION_TYPE_NAME, "River/Stream");
 		STEWARDS_36_2000.put(KEY_SITE_TYPE, "Land");
@@ -76,7 +75,6 @@ public class TestPeriodOfRecordCSVMap {
 		STORET_504707_1910.put(KEY_ORGANIZATION, "21NYDECA_WQX");
 		STORET_504707_1910.put(KEY_ORGANIZATION_NAME, "Agricultural Research Services");		
 		STORET_504707_1910.put(KEY_SITE_ID, "21NYDECA_WQX-ONTARIO-02");
-		STORET_504707_1910.put(KEY_MONITORING_LOCATION_TYPE, "");
 		STORET_504707_1910.put(KEY_STATION_NAME, "Lake rd.");
 		STORET_504707_1910.put(KEY_MONITORING_LOCATION_TYPE_NAME, "River/Stream");
 		STORET_504707_1910.put(KEY_SITE_TYPE, "Lake, Reservoir, Impoundment");
@@ -105,7 +103,6 @@ public class TestPeriodOfRecordCSVMap {
 		NWIS_1353690_2010.put(KEY_ORGANIZATION, "");
 		NWIS_1353690_2010.put(KEY_ORGANIZATION_NAME, "");		
 		NWIS_1353690_2010.put(KEY_SITE_ID, "");
-		NWIS_1353690_2010.put(KEY_MONITORING_LOCATION_TYPE, "");
 		NWIS_1353690_2010.put(KEY_STATION_NAME, "");
 		NWIS_1353690_2010.put(KEY_MONITORING_LOCATION_TYPE_NAME, "");
 		NWIS_1353690_2010.put(KEY_SITE_TYPE, "");
@@ -124,7 +121,7 @@ public class TestPeriodOfRecordCSVMap {
 		NWIS_1353690_2017.put(KEY_DATA_SOURCE_ID, "2");
 		NWIS_1353690_2017.put(KEY_DATA_SOURCE, "NWIS");
 		NWIS_1353690_2017.put(KEY_STATION_ID, "1353690");
-		NWIS_1353690_2017.put(KEY_THE_YEAR, "2017");
+		NWIS_1353690_2017.put(KEY_THE_YEAR, String.valueOf(LocalDate.now().getYear() - 1));
 		NWIS_1353690_2017.put(KEY_CHARACTERISTIC_TYPE, "ct_1");
 		NWIS_1353690_2017.put(KEY_CHARACTERISTIC_NAME, "cn_1");
 		NWIS_1353690_2017.put(KEY_TOTAL_ACTIVITIES, "10");
@@ -133,7 +130,6 @@ public class TestPeriodOfRecordCSVMap {
 		NWIS_1353690_2017.put(KEY_ORGANIZATION, "USGS-WI");
 		NWIS_1353690_2017.put(KEY_ORGANIZATION_NAME, "Random Org 1");		
 		NWIS_1353690_2017.put(KEY_SITE_ID, "USGS-05425700");
-		NWIS_1353690_2017.put(KEY_MONITORING_LOCATION_TYPE, "");
 		NWIS_1353690_2017.put(KEY_STATION_NAME, "Day lake Rd.");
 		NWIS_1353690_2017.put(KEY_MONITORING_LOCATION_TYPE_NAME, "River/Stream");
 		NWIS_1353690_2017.put(KEY_SITE_TYPE, "Stream");
@@ -152,7 +148,7 @@ public class TestPeriodOfRecordCSVMap {
 		NWIS_1353690_2018.put(KEY_DATA_SOURCE_ID, "2");	
 		NWIS_1353690_2018.put(KEY_DATA_SOURCE, "NWIS");
 		NWIS_1353690_2018.put(KEY_STATION_ID, "1353690");
-		NWIS_1353690_2018.put(KEY_THE_YEAR, "2018");
+		NWIS_1353690_2018.put(KEY_THE_YEAR, String.valueOf(LocalDate.now().getYear()));
 		NWIS_1353690_2018.put(KEY_CHARACTERISTIC_TYPE, "ct_1");
 		NWIS_1353690_2018.put(KEY_CHARACTERISTIC_NAME, "cn_1");
 		NWIS_1353690_2018.put(KEY_TOTAL_ACTIVITIES, "10");
@@ -161,7 +157,6 @@ public class TestPeriodOfRecordCSVMap {
 		NWIS_1353690_2018.put(KEY_ORGANIZATION, "USGS-WI");
 		NWIS_1353690_2018.put(KEY_ORGANIZATION_NAME, "Random Org 1");		
 		NWIS_1353690_2018.put(KEY_SITE_ID, "USGS-05425700");
-		NWIS_1353690_2018.put(KEY_MONITORING_LOCATION_TYPE, "");
 		NWIS_1353690_2018.put(KEY_STATION_NAME, "Day lake Rd.");
 		NWIS_1353690_2018.put(KEY_MONITORING_LOCATION_TYPE_NAME, "River/Stream");
 		NWIS_1353690_2018.put(KEY_SITE_TYPE, "Stream");
@@ -181,7 +176,7 @@ public class TestPeriodOfRecordCSVMap {
 		NWIS_1360035_2017.put(KEY_DATA_SOURCE_ID, "2");
 		NWIS_1360035_2017.put(KEY_DATA_SOURCE, "NWIS");
 		NWIS_1360035_2017.put(KEY_STATION_ID, "1360035");
-		NWIS_1360035_2017.put(KEY_THE_YEAR, "2017");
+		NWIS_1360035_2017.put(KEY_THE_YEAR, String.valueOf(LocalDate.now().getYear() - 1));
 		NWIS_1360035_2017.put(KEY_CHARACTERISTIC_TYPE, "ct_1");
 		NWIS_1360035_2017.put(KEY_CHARACTERISTIC_NAME, "cn_1");
 		NWIS_1360035_2017.put(KEY_TOTAL_ACTIVITIES, "1");
@@ -190,7 +185,6 @@ public class TestPeriodOfRecordCSVMap {
 		NWIS_1360035_2017.put(KEY_ORGANIZATION, "USGS-WI");
 		NWIS_1360035_2017.put(KEY_ORGANIZATION_NAME, "Random Org 2");		
 		NWIS_1360035_2017.put(KEY_SITE_ID, "USGS-431925089002701");
-		NWIS_1360035_2017.put(KEY_MONITORING_LOCATION_TYPE, "");
 		NWIS_1360035_2017.put(KEY_STATION_NAME, "Forest St.");
 		NWIS_1360035_2017.put(KEY_MONITORING_LOCATION_TYPE_NAME, "River/Stream");
 		NWIS_1360035_2017.put(KEY_SITE_TYPE, "Well");
@@ -199,9 +193,9 @@ public class TestPeriodOfRecordCSVMap {
 		NWIS_1360035_2017.put(KEY_COUNTY_NAME, "Franklin County");
 		NWIS_1360035_2017.put(KEY_STATE_NAME, "California");
 		NWIS_1360035_2017.put(KEY_LATITUDE, "43.3236024");
-		NWIS_1360035_2017.put(KEY_LONGITUDE, "-89.0076094");
-		
+		NWIS_1360035_2017.put(KEY_LONGITUDE, "-89.0076094");		
 	}
+	
 	// for sorted tests-monitoring location 1360035 should appear every summary
 	public static final Map<String, Object> NWIS_1360035_2018;	
 	static {
@@ -209,7 +203,7 @@ public class TestPeriodOfRecordCSVMap {
 		NWIS_1360035_2018.put(KEY_DATA_SOURCE_ID, "2");
 		NWIS_1360035_2018.put(KEY_DATA_SOURCE, "NWIS");
 		NWIS_1360035_2018.put(KEY_STATION_ID, "1360035");
-		NWIS_1360035_2018.put(KEY_THE_YEAR, "2018");
+		NWIS_1360035_2018.put(KEY_THE_YEAR, String.valueOf(LocalDate.now().getYear()));
 		NWIS_1360035_2018.put(KEY_CHARACTERISTIC_TYPE, "ct_1");
 		NWIS_1360035_2018.put(KEY_CHARACTERISTIC_NAME, "cn_1");
 		NWIS_1360035_2018.put(KEY_TOTAL_ACTIVITIES, "2");
@@ -218,7 +212,6 @@ public class TestPeriodOfRecordCSVMap {
 		NWIS_1360035_2018.put(KEY_ORGANIZATION, "USGS-WI");
 		NWIS_1360035_2018.put(KEY_ORGANIZATION_NAME, "Random Org 2");		
 		NWIS_1360035_2018.put(KEY_SITE_ID, "USGS-431925089002701");
-		NWIS_1360035_2018.put(KEY_MONITORING_LOCATION_TYPE, "");
 		NWIS_1360035_2018.put(KEY_STATION_NAME, "Forest St.");
 		NWIS_1360035_2018.put(KEY_MONITORING_LOCATION_TYPE_NAME, "River/Stream");
 		NWIS_1360035_2018.put(KEY_SITE_TYPE, "Well");

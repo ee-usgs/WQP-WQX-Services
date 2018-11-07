@@ -15,7 +15,6 @@ import static gov.usgs.cida.wqp.mapping.StationColumn.LAST_RESULT_DATE;
 import static gov.usgs.cida.wqp.mapping.StationColumn.LATITUDE;
 import static gov.usgs.cida.wqp.mapping.StationColumn.LONGITUDE;
 import static gov.usgs.cida.wqp.mapping.StationColumn.MONITORING_LOCATION_TYPE;
-import static gov.usgs.cida.wqp.mapping.StationColumn.MONITORING_LOCATION_TYPE_NAME;
 import static gov.usgs.cida.wqp.mapping.StationColumn.MONITORING_LOCATION_URL;
 import static gov.usgs.cida.wqp.mapping.StationColumn.SITE_TYPE;
 import static gov.usgs.cida.wqp.mapping.StationColumn.STATE_NAME;
@@ -85,9 +84,8 @@ public class PeriodOfRecordDelimited extends BaseDelimited {
 		MAPPINGS.put(ORGANIZATION, VALUE_ORGANIZATION_IDENTIFIER);
 		MAPPINGS.put(ORGANIZATION_NAME, VALUE_ORGANIZATION_FORMAL_NAME);		
 		MAPPINGS.put(SITE_ID, VALUE_MONITORING_LOCATION_IDENTIFIER);
-		MAPPINGS.put(MONITORING_LOCATION_TYPE, VALUE_MONITORING_LOCATION_TYPE);
 		MAPPINGS.put(STATION_NAME, VALUE_MONITORING_LOCATION_NAME);
-		MAPPINGS.put(MONITORING_LOCATION_TYPE_NAME, VALUE_MONITORING_LOCATION_TYPE_NAME);
+		MAPPINGS.put(MONITORING_LOCATION_TYPE, VALUE_MONITORING_LOCATION_TYPE_NAME);
 		MAPPINGS.put(SITE_TYPE, VALUE_RESOLVED_MONITORING_LOCATION);
 		MAPPINGS.put(HUC_8, VALUE_HUC_8);
 		MAPPINGS.put(MONITORING_LOCATION_URL, VALUE_MONITORING_LOCATION_URL);

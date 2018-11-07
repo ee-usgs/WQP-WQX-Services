@@ -57,8 +57,8 @@ public class PeriodOfRecordControllerIT extends BaseControllerIntegrationTest {
 	public void testHarness() throws Exception {
 //		getAsCsvTest();
 //		getAsCsvZipTest();
-// does not return values as expected		getAllParametersTest();
-// does not return values as expected		postGetCountTest();
+		getAllParametersTest();
+//		postGetCountTest();
 	}
 	public void getAsCsvTest() throws Exception {
 		getAsDelimitedTest(ENDPOINT + CSV, HttpConstants.MIME_TYPE_CSV, CSV, PROFILE, POSTABLE);
@@ -68,8 +68,13 @@ public class PeriodOfRecordControllerIT extends BaseControllerIntegrationTest {
 		getAsDelimitedZipTest(ENDPOINT + CSV_AND_ZIP, HttpConstants.MIME_TYPE_ZIP, CSV, PROFILE, POSTABLE);
 	}
 	
-		public void getAllParametersTest() throws Exception {
-		getAllParametersTest(ENDPOINT + CSV, HttpConstants.MIME_TYPE_CSV, CSV, PROFILE, POSTABLE);
+	public void getAllParametersTest() throws Exception {
+		getAllParametersTest(
+				ENDPOINT + CSV, 
+				HttpConstants.MIME_TYPE_CSV,
+				CSV,
+				PROFILE,
+				POSTABLE);
 	}
 
 	public void postGetCountTest() throws Exception {

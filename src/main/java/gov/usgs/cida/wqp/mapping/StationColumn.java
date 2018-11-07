@@ -54,7 +54,7 @@ public class StationColumn extends BaseColumn {
 
 	//Profile Mapping of the Keys
 	public static final ColumnProfile STATION_NAME = new ColumnProfile(KEY_STATION_NAME, Profile.STATION, Profile.SIMPLE_STATION, Profile.RESULT_PHYS_CHEM, Profile.RESULT_BROAD, Profile.PERIOD_OF_RECORD);
-	public static final ColumnProfile MONITORING_LOCATION_TYPE = new ColumnProfile(KEY_MONITORING_LOCATION_TYPE, Profile.STATION);
+	public static final ColumnProfile MONITORING_LOCATION_TYPE = new ColumnProfile(KEY_MONITORING_LOCATION_TYPE, Profile.STATION, Profile.PERIOD_OF_RECORD);
 	public static final ColumnProfile MONITORING_LOCATION_DESCRIPTION = new ColumnProfile(KEY_MONITORING_LOCATION_DESCRIPTION, Profile.STATION);
 	public static final ColumnProfile MONITORING_LOCATION_URL = new ColumnProfile(KEY_MONITORING_LOCATION_URL, Profile.PERIOD_OF_RECORD);
 	public static final ColumnProfile SITE_TYPE = new ColumnProfile(KEY_SITE_TYPE, Profile.SIMPLE_STATION, Profile.PERIOD_OF_RECORD);
@@ -93,7 +93,7 @@ public class StationColumn extends BaseColumn {
 	public static final ColumnProfile MONITORING_LOCATION_SUMMARY=  new ColumnProfile(KEY_MONITORING_LOCATION_SUMMARY, Profile.SUMMARY_MONITORING_LOCATION);
 	public static final ColumnProfile LAST_SUBMITTED_DATE = new ColumnProfile(KEY_LAST_SUBMITTED_DATE, Profile.PERIOD_OF_RECORD);
 	public static final ColumnProfile TOTAL_ACTIVITIES = new ColumnProfile(KEY_TOTAL_ACTIVITIES, Profile.PERIOD_OF_RECORD);	
-	public static final ColumnProfile MONITORING_LOCATION_TYPE_NAME = new ColumnProfile(KEY_MONITORING_LOCATION_TYPE, Profile.PERIOD_OF_RECORD);
+//	public static final ColumnProfile MONITORING_LOCATION_TYPE_NAME = new ColumnProfile(KEY_MONITORING_LOCATION_TYPE, Profile.PERIOD_OF_RECORD);
 	public static final ColumnProfile STATION_ID = new ColumnProfile(KEY_STATION_ID, Profile.PERIOD_OF_RECORD);
 	public static final ColumnProfile THE_YEAR = new ColumnProfile(KEY_THE_YEAR, Profile.PERIOD_OF_RECORD);
 	public static final ColumnProfile CHARACTERISTIC_TYPE = new ColumnProfile(KEY_CHARACTERISTIC_TYPE, Profile.PERIOD_OF_RECORD);
