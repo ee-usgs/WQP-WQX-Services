@@ -1,11 +1,26 @@
 package gov.usgs.cida.wqp.webservice.summary;
 
+import static gov.usgs.cida.wqp.swagger.model.OrganizationCountJson.HEADER_STORET_ORGANIZATION_COUNT;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static uk.co.datumedge.hamcrest.json.SameJSONAs.sameJSONObjectAs;
+
+import java.net.URL;
+
+import org.json.JSONObject;
 import org.junit.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
@@ -13,27 +28,13 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 
 import gov.usgs.cida.wqp.Application;
-import static gov.usgs.cida.wqp.BaseTest.JSON;
 import gov.usgs.cida.wqp.ColumnSensingFlatXMLDataSetLoader;
 import gov.usgs.cida.wqp.dao.summary.SummaryOrganizationStreamingIT;
 import gov.usgs.cida.wqp.mapping.Profile;
 import gov.usgs.cida.wqp.parameter.Parameters;
 import gov.usgs.cida.wqp.springinit.DBTestConfig;
-import static gov.usgs.cida.wqp.swagger.model.OrganizationCountJson.HEADER_STORET_ORGANIZATION_COUNT;
 import gov.usgs.cida.wqp.util.HttpConstants;
 import gov.usgs.cida.wqp.webservice.BaseControllerIntegrationTest;
-import java.net.URL;
-import static org.hamcrest.MatcherAssert.assertThat;
-import org.json.JSONObject;
-import static org.junit.Assert.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MvcResult;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static uk.co.datumedge.hamcrest.json.SameJSONAs.sameJSONObjectAs;
 
 @EnableWebMvc
 @AutoConfigureMockMvc(secure=false)
@@ -53,18 +54,18 @@ public class SummaryOrganizationControllerIT extends BaseControllerIntegrationTe
 	protected static final String NWIS_ORG_SUM_COUNT = "2";
 	protected static final String STEWARDS_ORG_SUM_COUNT = "2";
 	protected static final String STORET_ORG_SUM_COUNT = "6";
-	
+
 	protected static final String TOTAL_ORG_SUM_ONE_YEAR_COUNT = "1";
 	protected static final String STORET_ORG_SUM_ONE_YEAR_COUNT = "1";
-	
+
 	protected static final String TEST_MONITORING_LOCACTION_1 = "R10ELKHEADMINE";
 	protected static final String TEST_MONITORING_LOCACTION_2 = "R9VOL";
-		
+
 	@Test
 	public void testHarness() throws Exception {
 		getAsJsonTest(ENDPOINT + JSON, HttpConstants.MIME_TYPE_JSON, JSON, PROFILE, POSTABLE);
 		getAsJsonZipTest(ENDPOINT + JSON_AND_ZIP, HttpConstants.MIME_TYPE_ZIP, JSON, PROFILE, POSTABLE);
-		getAllParametersTest();		
+		getAllParametersTest();
 	}
 
 	public void getAllParametersTest() throws Exception {
@@ -119,12 +120,12 @@ public class SummaryOrganizationControllerIT extends BaseControllerIntegrationTe
 
 	@Override
 	protected void getAllParametersTest(String url, String mimeType, String fileType, Profile profile, boolean isPostable) throws Exception {
-				
+
 		String filteredUrl = HttpConstants.SUMMARY_ORGANIZATION_ENDPOINT + "?summaryYears=" + SummaryOrganizationStreamingIT.SUMMARY_YEARS_12_MONTHS + "&mimeType=" + JSON + "&organization=" + TEST_MONITORING_LOCACTION_1;
 
 		assertEquals("", filteredHeaderCheck(callMockHead(filteredUrl, mimeType, getContentDisposition(profile, fileType))).andReturn().getResponse().getContentAsString());
 
-		MvcResult rtn = filteredHeaderCheck(callMockGet(filteredUrl, mimeType, getContentDisposition(profile, fileType))).andReturn();		
+		MvcResult rtn = filteredHeaderCheck(callMockGet(filteredUrl, mimeType, getContentDisposition(profile, fileType))).andReturn();
 		assertThat(new JSONObject(getCompareFile(profile, fileType, "Filtered")), sameJSONObjectAs(new JSONObject(rtn.getResponse().getContentAsString())).allowingAnyArrayOrdering());
 
 		if (isPostable) {
@@ -135,7 +136,7 @@ public class SummaryOrganizationControllerIT extends BaseControllerIntegrationTe
 			assertThat(new JSONObject(getCompareFile(profile, fileType, null)), sameJSONObjectAs(new JSONObject(rtn.getResponse().getContentAsString())).allowingAnyArrayOrdering());
 		}
 	}
-	
+
 	@Override
 	protected String getNoResultParameters(String url) {
 		return url + "&" + Parameters.ORGANIZATION.toString() + "=DS";
