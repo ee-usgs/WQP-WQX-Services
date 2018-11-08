@@ -5,6 +5,7 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 import gov.usgs.cida.wqp.Application;
 import static gov.usgs.cida.wqp.BaseTest.CSV;
 import gov.usgs.cida.wqp.ColumnSensingFlatXMLDataSetLoader;
+import gov.usgs.cida.wqp.CsvDataSetLoader;
 import gov.usgs.cida.wqp.mapping.Profile;
 import gov.usgs.cida.wqp.parameter.Parameters;
 import gov.usgs.cida.wqp.springinit.DBTestConfig;
@@ -34,10 +35,12 @@ import static uk.co.datumedge.hamcrest.json.SameJSONAs.sameJSONObjectAs;
 @AutoConfigureMockMvc(secure=false)
 @SpringBootTest(webEnvironment=SpringBootTest.WebEnvironment.MOCK,
 	classes={DBTestConfig.class, Application.class})
-@DatabaseSetup("classpath:/testData/clearAll.xml")
-@DatabaseSetup("classpath:/testData/station.xml")
-@DatabaseSetup("classpath:/testData/ml_grouping.xml")
-@DbUnitConfiguration(dataSetLoader = ColumnSensingFlatXMLDataSetLoader.class)
+//@DatabaseSetup("classpath:/testData/clearAll.xml")
+//@DatabaseSetup("classpath:/testData/station.xml")
+//@DatabaseSetup("classpath:/testData/ml_grouping.xml")
+//@DbUnitConfiguration(dataSetLoader = ColumnSensingFlatXMLDataSetLoader.class)
+@DatabaseSetup("classpath:/testData/csv/")
+@DbUnitConfiguration(dataSetLoader = CsvDataSetLoader.class)
 @DirtiesContext(classMode=DirtiesContext.ClassMode.AFTER_CLASS)
 public class PeriodOfRecordControllerIT extends BaseControllerIntegrationTest {
 	protected static final Profile PROFILE = Profile.PERIOD_OF_RECORD;
@@ -55,9 +58,9 @@ public class PeriodOfRecordControllerIT extends BaseControllerIntegrationTest {
 
 	@Test
 	public void testHarness() throws Exception {
-//		getAsCsvTest();
+		getAsCsvTest();
 //		getAsCsvZipTest();
-		getAllParametersTest();
+//		getAllParametersTest();
 //		postGetCountTest();
 	}
 	public void getAsCsvTest() throws Exception {

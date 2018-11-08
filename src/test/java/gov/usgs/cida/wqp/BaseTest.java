@@ -25,9 +25,11 @@ import gov.usgs.cida.wqp.parameter.BoundingBox;
 import gov.usgs.cida.wqp.parameter.Command;
 import gov.usgs.cida.wqp.parameter.ResultIdentifier;
 import gov.usgs.cida.wqp.transform.Transformer;
+import java.time.LocalDate;
 
 public abstract class BaseTest {
-
+	LocalDate currentDate = LocalDate.now();
+	
 	public String harmonizeXml(String xmlDoc) {
 		return xmlDoc.replace("\r", "").replace("\n", "").replace("\t", "").replaceAll("> *<", "><");
 	}
@@ -39,10 +41,25 @@ public abstract class BaseTest {
 	public String getCompareFile(String file) throws IOException {
 		return new String(FileCopyUtils.copyToByteArray(new ClassPathResource("testResult/" + file).getInputStream()));
 	}
-
+	
+	public String adjustCsvDatesToTimeFromCurrentYear(String csvString) {
+		String adjustedDateString = csvString.replaceAll("\"\\[year\\-0\\]\"", String.valueOf(currentDate.getYear()))
+				.replaceAll("\"\\[year\\-1\\]\"", String.valueOf(currentDate.getYear() - 1))
+				.replaceAll("\"\\[year\\-2\\]\"", String.valueOf(currentDate.getYear() - 2))
+				.replaceAll("\"\\[year\\-3\\]\"", String.valueOf(currentDate.getYear() - 3))
+				.replaceAll("\"\\[year\\-4\\]\"", String.valueOf(currentDate.getYear() - 4))
+				.replaceAll("\"\\[year\\-5\\]\"", String.valueOf(currentDate.getYear() - 5));			
+		
+		return adjustedDateString;
+	}	
+	
 	public String getCompareFile(Profile profile, String fileType, String suffix) throws IOException {
 		String fileName = "testResult/" + profile.toString() + "/" + profile.toString() + (null == suffix ? "" : suffix) + "." + fileType;
-		return new String(FileCopyUtils.copyToByteArray(new ClassPathResource(fileName).getInputStream()));
+		String fileForCompareAsString = new String(FileCopyUtils.copyToByteArray(new ClassPathResource(fileName).getInputStream()));
+		if (fileType.equals("csv")) {
+			fileForCompareAsString = adjustCsvDatesToTimeFromCurrentYear(fileForCompareAsString);
+		}
+		return fileForCompareAsString;
 	}
 
 	public String extractZipContent(byte[] content, String expectedEntryName) throws IOException {
