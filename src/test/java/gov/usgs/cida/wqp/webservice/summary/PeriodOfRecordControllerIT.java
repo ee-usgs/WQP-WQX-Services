@@ -4,7 +4,6 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 import gov.usgs.cida.wqp.Application;
 import static gov.usgs.cida.wqp.BaseTest.CSV;
-import gov.usgs.cida.wqp.ColumnSensingFlatXMLDataSetLoader;
 import gov.usgs.cida.wqp.CsvDataSetLoader;
 import gov.usgs.cida.wqp.mapping.Profile;
 import gov.usgs.cida.wqp.parameter.Parameters;
@@ -14,35 +13,24 @@ import static gov.usgs.cida.wqp.swagger.model.StationCountJson.HEADER_NWIS_SITE_
 import static gov.usgs.cida.wqp.swagger.model.StationCountJson.HEADER_STEWARDS_SITE_COUNT;
 import static gov.usgs.cida.wqp.swagger.model.StationCountJson.HEADER_STORET_SITE_COUNT;
 import gov.usgs.cida.wqp.util.HttpConstants;
-import gov.usgs.cida.wqp.webservice.BaseControllerIntegrationTest;
-import java.net.URL;
-import static org.hamcrest.MatcherAssert.assertThat;
-import org.json.JSONObject;
+import gov.usgs.cida.wqp.webservice.result.BaseResultControllerIT;
 import org.junit.Test;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import static uk.co.datumedge.hamcrest.json.SameJSONAs.sameJSONObjectAs;
 
 
 @EnableWebMvc
 @AutoConfigureMockMvc(secure=false)
 @SpringBootTest(webEnvironment=SpringBootTest.WebEnvironment.MOCK,
 	classes={DBTestConfig.class, Application.class})
-//@DatabaseSetup("classpath:/testData/clearAll.xml")
-//@DatabaseSetup("classpath:/testData/station.xml")
-//@DatabaseSetup("classpath:/testData/ml_grouping.xml")
-//@DbUnitConfiguration(dataSetLoader = ColumnSensingFlatXMLDataSetLoader.class)
 @DatabaseSetup("classpath:/testData/csv/")
 @DbUnitConfiguration(dataSetLoader = CsvDataSetLoader.class)
 @DirtiesContext(classMode=DirtiesContext.ClassMode.AFTER_CLASS)
-public class PeriodOfRecordControllerIT extends BaseControllerIntegrationTest {
+public class PeriodOfRecordControllerIT extends BaseResultControllerIT {
 	protected static final Profile PROFILE = Profile.PERIOD_OF_RECORD;
 	protected static final String TOTAL_SITE_SUM_COUNT = "4";
 	protected static final String BIODATA_SITE_SUM_COUNT = null;
@@ -58,10 +46,10 @@ public class PeriodOfRecordControllerIT extends BaseControllerIntegrationTest {
 
 	@Test
 	public void testHarness() throws Exception {
-		getAsCsvTest();
+//		getAsCsvTest();
 //		getAsCsvZipTest();
-//		getAllParametersTest();
-//		postGetCountTest();
+//		getAllParametersTest(ENDPOINT, PROFILE, POSTABLE);
+		postGetCountTest(PROFILE);
 	}
 	public void getAsCsvTest() throws Exception {
 		getAsDelimitedTest(ENDPOINT + CSV, HttpConstants.MIME_TYPE_CSV, CSV, PROFILE, POSTABLE);
@@ -78,7 +66,7 @@ public class PeriodOfRecordControllerIT extends BaseControllerIntegrationTest {
 				CSV,
 				PROFILE,
 				POSTABLE);
-	}
+	}	
 
 	public void postGetCountTest() throws Exception {
 		String urlPrefix = HttpConstants.SUMMARY_MONITORING_LOCATION_ENDPOINT + "/count?mimeType=";
@@ -89,20 +77,6 @@ public class PeriodOfRecordControllerIT extends BaseControllerIntegrationTest {
 				+ "\",\"" + HEADER_STEWARDS_SITE_COUNT + "\":\"" + STEWARDS_SITE_SUM_COUNT
 				+ "\"}";
 		postGetCountTest(urlPrefix, compareObject, PROFILE);
-	}
-
-	@Override
-	public void postGetCountTest(String urlPrefix, String compareObject, Profile profile) throws Exception {
-		when(fetchService.fetch(any(String.class), any(URL.class))).thenReturn(getNldiSites());
-
-		MvcResult rtn = filteredHeaderCheck(callMockPostJson(urlPrefix + JSON, getSourceFile("summaryPostParameters.json").replace("[DATA_PROFILE]", profile.toString()), HttpConstants.MIME_TYPE_JSON, null))
-			.andReturn();
-
-		assertThat(new JSONObject(rtn.getResponse().getContentAsString()),
-				sameJSONObjectAs(new JSONObject(compareObject)));
-
-		callMockPostJsonBadRequest(urlPrefix+ GEOJSON);
-		callMockPostJsonBadRequest(urlPrefix+ GEOJSON_AND_ZIP);
 	}
 
 	@Override

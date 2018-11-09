@@ -59,6 +59,7 @@ public abstract class BaseTest {
 		if (fileType.equals("csv")) {
 			fileForCompareAsString = adjustCsvDatesToTimeFromCurrentYear(fileForCompareAsString);
 		}
+
 		return fileForCompareAsString;
 	}
 

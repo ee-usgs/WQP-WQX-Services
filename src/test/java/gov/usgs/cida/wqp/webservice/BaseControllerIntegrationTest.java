@@ -102,6 +102,8 @@ public abstract class BaseControllerIntegrationTest extends BaseIT {
 		assertEquals("", unFilteredHeaderCheck(callMockHead(url, mimeType, getContentDisposition(profile, fileType))).andReturn().getResponse().getContentAsString());
 
 		MvcResult rtn = unFilteredHeaderCheck(callMockGet(url, mimeType, getContentDisposition(profile, fileType))).andReturn();
+String debug = getCompareFile(profile, fileType, isPostable ? null : "Rest");
+String debug2 = rtn.getResponse().getContentAsString();
 		assertEquals(getCompareFile(profile, fileType, isPostable ? null : "Rest"), rtn.getResponse().getContentAsString());
 
 		rtn = noResultHeaderCheck(callMockGet(getNoResultParameters(url), mimeType, getContentDisposition(profile, fileType))).andReturn();
@@ -297,8 +299,7 @@ public abstract class BaseControllerIntegrationTest extends BaseIT {
 		when(fetchService.fetch(any(String.class), any(URL.class))).thenReturn(getNldiSites());
 
 		assertEquals("", filteredHeaderCheck(callMockHead(url + getUrlParameters(), mimeType, getContentDisposition(profile, fileType))).andReturn().getResponse().getContentAsString());
-
-		MvcResult rtn = filteredHeaderCheck(callMockGet(url + getUrlParameters(), mimeType, getContentDisposition(profile, fileType))).andReturn();
+		MvcResult rtn = filteredHeaderCheck(callMockGet(url + getUrlParameters(), mimeType, getContentDisposition(profile, fileType))).andReturn();		
 		assertEquals(getCompareFile(profile, fileType, "Filtered"), rtn.getResponse().getContentAsString());
 
 		if (isPostable) {
