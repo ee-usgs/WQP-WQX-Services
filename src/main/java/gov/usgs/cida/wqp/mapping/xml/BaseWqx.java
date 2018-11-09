@@ -289,6 +289,30 @@ public abstract class BaseWqx {
 	public static final String WQX_RESULT_FILE_URL = "ResultFileUrl";
 
 	public static final String WQX_LAST_UPDATED = "LastUpdated";
+	
+	// for biological metric 
+// in list above	
+//	public static final String WQX_ORGANIZATION_IDENTIFIER = "OrganizationIdentifier";
+//  public static final String WQX_MONITORING_LOCATION_IDENTIFIER = "MonitoringLocationIdentifier";	
+//	public static final String WQX_INDEX_ID = "IndexIdentifier";
+//	public static final String WQX_RESOURCE_TITLE = "ResourceTitleName";
+//	public static final String WQX_RESOURCE_CREATOR = "ResourceCreatorName";
+//	public static final String WQX_RESOURCE_SUBJECT = "ResourceSubjectText";
+//	public static final String WQX_RESOURCE_PUBLISHER = "ResourcePublisherName";
+//	public static final String WQX_RESOURCE_DATE = "ResourceDate";
+//	public static final String WQX_RESOURCE_ID = "ResourceIdentifier";
+	
+	public static final String WQX_BIOLOGICAL_HABITAT_INDEX = "BiologicalHabitatIndex";
+	public static final String WQX_INDEX_TYPE = "IndexType";
+	public static final String WQX_INDEX_TYPE_IDENTIFER = "IndexTypeIdentifier";
+	public static final String WQX_INDEX_TYPE_IDENTIFER_CONTEXT = "IndexTypeIdentifierContext";
+	public static final String WQX_INDEX_TYPE_NAME = "IndexTypeName";
+	public static final String WQX_INDEX_TYPE_CITATION = "IndexTypeCitation";
+	public static final String WQX_INDEX_TYPE_SCALE_TEXT = "IndexTypeScaleText";
+	public static final String WQX_INDEX_SCORE_NUMERIC = "IndexScoreNumeric";
+	public static final String INDEX_QUALIFIER_CODE = "IndexQualifierCode";
+	public static final String WQX_INDEX_COMMENT_TEXT = "IndexCommentText";
+	public static final String WQX_INDEX_CALCULATED_DATE = "IndexCalculatedDate";
 
 	protected BaseWqx() {
 	}
