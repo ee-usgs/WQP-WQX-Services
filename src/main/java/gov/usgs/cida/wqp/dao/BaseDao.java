@@ -15,6 +15,7 @@ public abstract class BaseDao extends SqlSessionDaoSupport {
 	public static final String PERIOD_OF_RECORD_NAMESPACE = "periodOfRecord";
 	public static final String LOG_NAMESPACE = "logMapper";
 	public static final String RESULT_NAMESPACE = "pcResult";
+	public static final String BIOLOGICAL_METRIC_NAMESPACE = "biologicalMetric";
 	public static final String BIOLOGICAL_RESULT_NAMESPACE = "bioResult";
 	public static final String STATION_KML_NAMESPACE  = "stationKml";
 	public static final String ACTIVITY_NAMESPACE = "activity";

@@ -132,6 +132,19 @@ public class SwaggerParameters {
 				.build();
 	}
 	
+	public static Parameter dataProfileBiologicalMetric() {
+		return new ParameterBuilder()
+				.name("dataProfile")
+				.description("Data Profile (column set) of the download. For use with the biological metric endpoint.")
+				.modelRef(new ModelRef("string"))
+				.parameterType("query")
+				.required(false)
+				.allowableValues(new AllowableListValues(Arrays.asList(
+					Profile.BIOLOGICAL_METRIC.toString()),
+					"LIST"))
+				.build();
+	}
+	
 	public static Parameter dataProfilePeriodOfRecord() {
 		return new ParameterBuilder()
 			.name("dataProfile")
