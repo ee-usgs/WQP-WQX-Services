@@ -9,6 +9,7 @@ public class HttpConstants {
 	public static final String ENDPOINT_SUMMARY_ORGANIZATION = "/organization";
 	public static final String ENDPOINT_ACTIVITY = "Activity";
 	public static final String ENDPOINT_ACTIVITY_METRIC = "ActivityMetric";
+	public static final String ENDPOINT_BIOLOGICAL_METRIC = "BiologicalMetric";
 	public static final String ENDPOINT_RESULT = "Result";
 	public static final String ENDPOINT_STATION = "Station";
 	public static final String ENDPOINT_PROJECT = "Project";
@@ -22,6 +23,7 @@ public class HttpConstants {
 
 	public static final String ACTIVITY_SEARCH_ENDPOINT = "/" + ENDPOINT_ACTIVITY + ENDPOINT_SEARCH;
 	public static final String ACTIVITY_METRIC_SEARCH_ENDPOINT = "/" + ENDPOINT_ACTIVITY_METRIC + ENDPOINT_SEARCH;
+	public static final String BIOLOGICAL_METRIC__ENDPOINT = "/" + ENDPOINT_BIOLOGICAL_METRIC + ENDPOINT_SEARCH;
 	public static final String RESULT_SEARCH_ENDPOINT = "/" + ENDPOINT_RESULT + ENDPOINT_SEARCH;
 	public static final String STATION_SEARCH_ENDPOINT = "/" + ENDPOINT_STATION + ENDPOINT_SEARCH;
 	public static final String SIMPLE_STATION_ENDPOINT = "/" + ENDPOINT_SIMPLE_STATION + ENDPOINT_SEARCH;
