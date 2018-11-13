@@ -26,22 +26,13 @@ public abstract class BaseDelimited {
 	protected BaseDelimited() {
 	}
 
-	public static Map<String, String> getMapping(
-			
-			Map<ColumnProfile, String> mappings, 
-			Profile profile
-	)
-	{
+	public static Map<String, String> getMapping(Map<ColumnProfile, String> mappings, Profile profile) {
 		Map<String, String> profileMapping = new LinkedHashMap<>();
-		
 		for (ColumnProfile p : mappings.keySet()) {
-			
 			if (p.getProfiles().contains(profile)) {
 				profileMapping.put(p.getKey(), mappings.get(p));
 			}
-			
 		}
-		
 		return profileMapping;
 	}
 
