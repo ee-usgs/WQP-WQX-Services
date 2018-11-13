@@ -19,7 +19,7 @@
 
         SELECT	
         prime.organization,
-		prime.station_id,
+	<!--	prime.station_id,-->
 		prime.station_type_name,
 		prime.organization_name,
 		prime.site_id,
@@ -34,7 +34,7 @@
         TO_CHAR(prime.geom.sdo_point.x,'FM990.0000000') longitude,
 		ml_g.data_source_id,
 		ml_g.data_source,
-		ml_g.station_id,
+	<!--	ml_g.station_id, -->
 		ml_g.the_year,
 		ml_g.characteristic_type,
 		ml_g.characteristic_name,

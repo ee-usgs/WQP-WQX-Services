@@ -13,6 +13,7 @@ import static gov.usgs.cida.wqp.swagger.model.StationCountJson.HEADER_NWIS_SITE_
 import static gov.usgs.cida.wqp.swagger.model.StationCountJson.HEADER_STEWARDS_SITE_COUNT;
 import static gov.usgs.cida.wqp.swagger.model.StationCountJson.HEADER_STORET_SITE_COUNT;
 import gov.usgs.cida.wqp.util.HttpConstants;
+import gov.usgs.cida.wqp.webservice.BaseControllerIntegrationTest;
 import gov.usgs.cida.wqp.webservice.result.BaseResultControllerIT;
 import org.junit.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -30,7 +31,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @DatabaseSetup("classpath:/testData/csv/")
 @DbUnitConfiguration(dataSetLoader = CsvDataSetLoader.class)
 @DirtiesContext(classMode=DirtiesContext.ClassMode.AFTER_CLASS)
-public class PeriodOfRecordControllerIT extends BaseResultControllerIT {
+public class PeriodOfRecordControllerIT extends BaseControllerIntegrationTest {
 	protected static final Profile PROFILE = Profile.PERIOD_OF_RECORD;
 	protected static final String TOTAL_SITE_SUM_COUNT = "4";
 	protected static final String BIODATA_SITE_SUM_COUNT = null;
@@ -48,8 +49,8 @@ public class PeriodOfRecordControllerIT extends BaseResultControllerIT {
 	public void testHarness() throws Exception {
 //		getAsCsvTest();
 //		getAsCsvZipTest();
-//		getAllParametersTest(ENDPOINT, PROFILE, POSTABLE);
-		postGetCountTest(PROFILE);
+		getAllParametersTest();
+//		postGetCountTest();
 	}
 	public void getAsCsvTest() throws Exception {
 		getAsDelimitedTest(ENDPOINT + CSV, HttpConstants.MIME_TYPE_CSV, CSV, PROFILE, POSTABLE);
@@ -60,12 +61,8 @@ public class PeriodOfRecordControllerIT extends BaseResultControllerIT {
 	}
 	
 	public void getAllParametersTest() throws Exception {
-		getAllParametersTest(
-				ENDPOINT + CSV, 
-				HttpConstants.MIME_TYPE_CSV,
-				CSV,
-				PROFILE,
-				POSTABLE);
+		getAllParametersTest(ENDPOINT + CSV, HttpConstants.MIME_TYPE_CSV, CSV,
+				PROFILE, POSTABLE);
 	}	
 
 	public void postGetCountTest() throws Exception {

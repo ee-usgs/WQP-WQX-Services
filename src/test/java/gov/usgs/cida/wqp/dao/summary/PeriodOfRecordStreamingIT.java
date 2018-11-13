@@ -33,7 +33,7 @@ public class PeriodOfRecordStreamingIT extends BaseStationStreamingTest {
 	public static final String PERIOD_OF_RECORD_YEARS_ALL_MONTHS = "all";
 	
 	public static final String TOTAL_SITE_SUMMARY_COUNT = "29";
-	public static final Integer EXPECTED_COLUMN_COUNT = 21;
+	public static final Integer EXPECTED_COLUMN_COUNT = 20;
 
 	@Test
 	public void testHarness() {

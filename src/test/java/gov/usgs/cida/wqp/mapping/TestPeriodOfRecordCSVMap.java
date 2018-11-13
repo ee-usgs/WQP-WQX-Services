@@ -6,7 +6,6 @@ import static gov.usgs.cida.wqp.mapping.BaseColumn.KEY_DATA_SOURCE_ID;
 import static gov.usgs.cida.wqp.mapping.BaseColumn.KEY_ORGANIZATION;
 import static gov.usgs.cida.wqp.mapping.BaseColumn.KEY_ORGANIZATION_NAME;
 import static gov.usgs.cida.wqp.mapping.BaseColumn.KEY_SITE_ID;
-import static gov.usgs.cida.wqp.mapping.BaseColumn.KEY_STATION_ID;
 import static gov.usgs.cida.wqp.mapping.StationColumn.KEY_CHARACTERISTIC_NAME;
 import static gov.usgs.cida.wqp.mapping.StationColumn.KEY_CHARACTERISTIC_TYPE;
 import static gov.usgs.cida.wqp.mapping.StationColumn.KEY_COUNTY_NAME;
@@ -37,7 +36,7 @@ public class TestPeriodOfRecordCSVMap {
 		STEWARDS_36_2000 = new LinkedHashMap<>();
 		STEWARDS_36_2000.put(KEY_DATA_SOURCE_ID, "1");
 		STEWARDS_36_2000.put(KEY_DATA_SOURCE, "STEWARDS");
-		STEWARDS_36_2000.put(KEY_STATION_ID, "36");
+//		STEWARDS_36_2000.put(KEY_STATION_ID, "36");
 		STEWARDS_36_2000.put(KEY_THE_YEAR, "2000");
 		STEWARDS_36_2000.put(KEY_CHARACTERISTIC_TYPE, "ct_1");
 		STEWARDS_36_2000.put(KEY_CHARACTERISTIC_NAME, "cn_1");
@@ -65,7 +64,7 @@ public class TestPeriodOfRecordCSVMap {
 		STORET_504707_1910 = new LinkedHashMap<>();	
 		STORET_504707_1910.put(KEY_DATA_SOURCE_ID, "3");
 		STORET_504707_1910.put(KEY_DATA_SOURCE, "STORET");
-		STORET_504707_1910.put(KEY_STATION_ID, "504707");
+//		STORET_504707_1910.put(KEY_STATION_ID, "504707");
 		STORET_504707_1910.put(KEY_THE_YEAR, "1910");
 		STORET_504707_1910.put(KEY_CHARACTERISTIC_TYPE, "ct_1");
 		STORET_504707_1910.put(KEY_CHARACTERISTIC_NAME, "cn_1");
@@ -93,7 +92,7 @@ public class TestPeriodOfRecordCSVMap {
 		NWIS_1353690_2010 = new LinkedHashMap<>();
 		NWIS_1353690_2010.put(KEY_DATA_SOURCE_ID, "2");
 		NWIS_1353690_2010.put(KEY_DATA_SOURCE, "NWIS");
-		NWIS_1353690_2010.put(KEY_STATION_ID, "1353690");
+//		NWIS_1353690_2010.put(KEY_STATION_ID, "1353690");
 		NWIS_1353690_2010.put(KEY_THE_YEAR, "2010");
 		NWIS_1353690_2010.put(KEY_CHARACTERISTIC_TYPE, "ct_1");
 		NWIS_1353690_2010.put(KEY_CHARACTERISTIC_NAME, "cn_1");
@@ -120,7 +119,7 @@ public class TestPeriodOfRecordCSVMap {
 		NWIS_1353690_2017 = new LinkedHashMap<>();
 		NWIS_1353690_2017.put(KEY_DATA_SOURCE_ID, "2");
 		NWIS_1353690_2017.put(KEY_DATA_SOURCE, "NWIS");
-		NWIS_1353690_2017.put(KEY_STATION_ID, "1353690");
+//		NWIS_1353690_2017.put(KEY_STATION_ID, "1353690");
 		NWIS_1353690_2017.put(KEY_THE_YEAR, String.valueOf(LocalDate.now().getYear() - 1));
 		NWIS_1353690_2017.put(KEY_CHARACTERISTIC_TYPE, "ct_1");
 		NWIS_1353690_2017.put(KEY_CHARACTERISTIC_NAME, "cn_1");
@@ -147,7 +146,7 @@ public class TestPeriodOfRecordCSVMap {
 		NWIS_1353690_2018 = new LinkedHashMap<>();
 		NWIS_1353690_2018.put(KEY_DATA_SOURCE_ID, "2");	
 		NWIS_1353690_2018.put(KEY_DATA_SOURCE, "NWIS");
-		NWIS_1353690_2018.put(KEY_STATION_ID, "1353690");
+//		NWIS_1353690_2018.put(KEY_STATION_ID, "1353690");
 		NWIS_1353690_2018.put(KEY_THE_YEAR, String.valueOf(LocalDate.now().getYear()));
 		NWIS_1353690_2018.put(KEY_CHARACTERISTIC_TYPE, "ct_1");
 		NWIS_1353690_2018.put(KEY_CHARACTERISTIC_NAME, "cn_1");
@@ -175,7 +174,7 @@ public class TestPeriodOfRecordCSVMap {
 		NWIS_1360035_2017 = new LinkedHashMap<>();
 		NWIS_1360035_2017.put(KEY_DATA_SOURCE_ID, "2");
 		NWIS_1360035_2017.put(KEY_DATA_SOURCE, "NWIS");
-		NWIS_1360035_2017.put(KEY_STATION_ID, "1360035");
+//		NWIS_1360035_2017.put(KEY_STATION_ID, "1360035");
 		NWIS_1360035_2017.put(KEY_THE_YEAR, String.valueOf(LocalDate.now().getYear() - 1));
 		NWIS_1360035_2017.put(KEY_CHARACTERISTIC_TYPE, "ct_1");
 		NWIS_1360035_2017.put(KEY_CHARACTERISTIC_NAME, "cn_1");
@@ -202,7 +201,7 @@ public class TestPeriodOfRecordCSVMap {
 		NWIS_1360035_2018 = new LinkedHashMap<>();
 		NWIS_1360035_2018.put(KEY_DATA_SOURCE_ID, "2");
 		NWIS_1360035_2018.put(KEY_DATA_SOURCE, "NWIS");
-		NWIS_1360035_2018.put(KEY_STATION_ID, "1360035");
+//		NWIS_1360035_2018.put(KEY_STATION_ID, "1360035");
 		NWIS_1360035_2018.put(KEY_THE_YEAR, String.valueOf(LocalDate.now().getYear()));
 		NWIS_1360035_2018.put(KEY_CHARACTERISTIC_TYPE, "ct_1");
 		NWIS_1360035_2018.put(KEY_CHARACTERISTIC_NAME, "cn_1");
