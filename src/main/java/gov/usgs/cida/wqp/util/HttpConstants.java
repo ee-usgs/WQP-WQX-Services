@@ -8,7 +8,7 @@ public class HttpConstants {
 	public static final String ENDPOINT_ORGANIZATION = "Organization";
 	public static final String ENDPOINT_SUMMARY_ORGANIZATION = "/organization";
 	public static final String ENDPOINT_ACTIVITY = "Activity";
-	public static final String ENDPOINT_ACTIVITY_METRIC = "ActivityMetric";
+	public static final String ENDPOINT_ACTIVITY_METRIC = "ActivityMetric";	
 	public static final String ENDPOINT_BIOLOGICAL_METRIC = "BiologicalMetric";
 	public static final String ENDPOINT_RESULT = "Result";
 	public static final String ENDPOINT_STATION = "Station";
@@ -17,6 +17,7 @@ public class HttpConstants {
 	public static final String ENDPOINT_SIMPLE_STATION = "simplestation";
 	public static final String ENDPOINT_SEARCH = "/search";
 	public static final String ENDPOINT_SUMMARY = "summary";
+	
 	public static final String ENDPOINT_RES_DETECT_QNT_LMT = "ResultDetectionQuantitationLimit";
 	public static final String ENDPOINT_FILE = "/files";
 	public static final String ENDPOINT_MONITORING_LOCATION = "/monitoringlocation";
@@ -26,7 +27,7 @@ public class HttpConstants {
 	public static final String BIOLOGICAL_METRIC__ENDPOINT = "/" + ENDPOINT_BIOLOGICAL_METRIC + ENDPOINT_SEARCH;
 	public static final String RESULT_SEARCH_ENDPOINT = "/" + ENDPOINT_RESULT + ENDPOINT_SEARCH;
 	public static final String STATION_SEARCH_ENDPOINT = "/" + ENDPOINT_STATION + ENDPOINT_SEARCH;
-	public static final String SIMPLE_STATION_ENDPOINT = "/" + ENDPOINT_SIMPLE_STATION + ENDPOINT_SEARCH;
+	public static final String SIMPLE_STATION_ENDPOINT = "/" + ENDPOINT_SIMPLE_STATION + ENDPOINT_SEARCH;	
 	public static final String SUMMARY_ORGANIZATION_ENDPOINT = "/" + ENDPOINT_SUMMARY + ENDPOINT_SUMMARY_ORGANIZATION + ENDPOINT_SEARCH;
 	public static final String SUMMARY_MONITORING_LOCATION_ENDPOINT = "/" + ENDPOINT_SUMMARY + ENDPOINT_MONITORING_LOCATION + ENDPOINT_SEARCH;
 	public static final String RES_DETECT_QNT_LMT_SEARCH_ENDPOINT = "/" + ENDPOINT_RES_DETECT_QNT_LMT + ENDPOINT_SEARCH;

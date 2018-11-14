@@ -29,7 +29,7 @@ public enum NameSpace {
 
 	ACTIVITY_METRIC ("activityMetric", null),
 	
-	BIOLOGICAL_METRIC("biologicalMetric", null),
+	SUMMARY_BIOLOGICAL_METRIC("summaryBiologicalMetric", null),
 
 	RESULT ("pcResult", Parameters.MIN_RESULTS),
 	BIOLOGICAL_RESULT ("bioResult", Parameters.MIN_RESULTS),

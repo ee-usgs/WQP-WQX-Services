@@ -43,13 +43,13 @@ public class SwaggerConfig {
 	public static final String ORGANIZATION_TAG_NAME = "Organization";
 	public static final String ACTIVITY_TAG_NAME = "Activity";
 	public static final String ACTIVITY_METRIC_TAG_NAME = "Activity Metric";
-	public static final String ACTIVITY_ALL_TAG_NAME = "Activity All";
-	public static final String BIOLOGICAL_METRIC_TAG_NAME = "Biological Metric";
+	public static final String ACTIVITY_ALL_TAG_NAME = "Activity All";	
 	public static final String PERIOD_OF_RECORD_TAG_NAME = "Period of Record";
 	public static final String RES_DETECT_QNT_LMT_TAG_NAME = "Result Detection Quantitation Limit";
 	public static final String RESULT_TAG_NAME = "Result";
 	public static final String SIMPLE_STATION_TAG_NAME = "Simple Station (deprecated)";
 	public static final String STATION_TAG_NAME = "Station";
+	public static final String SUMMARY_BIOLOGICAL_METRIC_TAG_NAME = "Summary Biological Metric";
 	public static final String SUMMARY_ORGANIZATION_TAG_NAME = "Summary Organizaton";
 	public static final String SUMMARY_MONITORING_LOCATION_TAG_NAME = "Summary Monitoring Location";
 	public static final String VERSION_TAG_NAME = "Application Version";
@@ -97,13 +97,13 @@ public class SwaggerConfig {
 					typeResolver.resolve(ProjectCountJson.class))
 			.tags(new Tag(ORGANIZATION_TAG_NAME, TAG_DESCRIPTION),
 					new Tag(ACTIVITY_TAG_NAME, TAG_DESCRIPTION),
-					new Tag(ACTIVITY_METRIC_TAG_NAME, TAG_DESCRIPTION),
-					new Tag(BIOLOGICAL_METRIC_TAG_NAME, TAG_DESCRIPTION),
+					new Tag(ACTIVITY_METRIC_TAG_NAME, TAG_DESCRIPTION),					
 					new Tag(PERIOD_OF_RECORD_TAG_NAME,TAG_DESCRIPTION),
 					new Tag(RES_DETECT_QNT_LMT_TAG_NAME, TAG_DESCRIPTION),
 					new Tag(RESULT_TAG_NAME, TAG_DESCRIPTION),
 					new Tag(SIMPLE_STATION_TAG_NAME, TAG_DESCRIPTION),
 					new Tag(STATION_TAG_NAME, TAG_DESCRIPTION),
+					new Tag(SUMMARY_BIOLOGICAL_METRIC_TAG_NAME, TAG_DESCRIPTION),
 					new Tag(SUMMARY_ORGANIZATION_TAG_NAME, TAG_DESCRIPTION),
 					new Tag(SUMMARY_MONITORING_LOCATION_TAG_NAME, TAG_DESCRIPTION),
 					new Tag(VERSION_TAG_NAME, VERSION_TAG_DESCRIPTION),

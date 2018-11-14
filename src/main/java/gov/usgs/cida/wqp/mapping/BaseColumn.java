@@ -24,7 +24,7 @@ public abstract class BaseColumn {
 
 	public static final ColumnProfile ORGANIZATION = new ColumnProfile(KEY_ORGANIZATION, Profile.STATION, Profile.PC_RESULT, Profile.BIOLOGICAL, Profile.SIMPLE_STATION, Profile.ACTIVITY, Profile.ACTIVITY_ALL,
 			Profile.ACTIVITY_METRIC, Profile.RES_DETECT_QNT_LMT, Profile.NARROW_RESULT, Profile.PROJECT, Profile.PROJECT_MONITORING_LOCATION_WEIGHTING, Profile.ORGANIZATION, Profile.RESULT_PHYS_CHEM,
-			Profile.RESULT_PRIMARY, Profile.RESULT_BROAD, Profile.BIOLOGICAL_METRIC);
+			Profile.RESULT_PRIMARY, Profile.RESULT_BROAD, Profile.SUMMARY_BIOLOGICAL_METRIC);
 
 	public static final ColumnProfile ORGANIZATION_NAME = new ColumnProfile(KEY_ORGANIZATION_NAME, Profile.STATION, Profile.PC_RESULT, Profile.BIOLOGICAL, Profile.SIMPLE_STATION, Profile.ACTIVITY, Profile.ACTIVITY_ALL,
 			Profile.ACTIVITY_METRIC, Profile.RES_DETECT_QNT_LMT, Profile.NARROW_RESULT, Profile.PROJECT, Profile.PROJECT_MONITORING_LOCATION_WEIGHTING, Profile.ORGANIZATION, Profile.RESULT_PHYS_CHEM,
@@ -32,7 +32,7 @@ public abstract class BaseColumn {
 
 	public static final ColumnProfile SITE_ID = new ColumnProfile(KEY_SITE_ID, Profile.STATION, Profile.PC_RESULT, Profile.BIOLOGICAL, Profile.SIMPLE_STATION, Profile.ACTIVITY, Profile.ACTIVITY_ALL,
 			Profile.ACTIVITY_METRIC, Profile.RES_DETECT_QNT_LMT, Profile.NARROW_RESULT, Profile.PROJECT_MONITORING_LOCATION_WEIGHTING, Profile.RESULT_PHYS_CHEM,
-			Profile.RESULT_PRIMARY, Profile.RESULT_BROAD, Profile.BIOLOGICAL_METRIC);
+			Profile.RESULT_PRIMARY, Profile.RESULT_BROAD, Profile.SUMMARY_BIOLOGICAL_METRIC);
 
 	public static final ColumnProfile RESULT_COUNT = new ColumnProfile(KEY_RESULT_COUNT, Profile.ACTIVITY_ALL);
 

@@ -140,7 +140,7 @@ public class SwaggerParameters {
 				.parameterType("query")
 				.required(false)
 				.allowableValues(new AllowableListValues(Arrays.asList(
-					Profile.BIOLOGICAL_METRIC.toString()),
+					Profile.SUMMARY_BIOLOGICAL_METRIC.toString()),
 					"LIST"))
 				.build();
 	}
