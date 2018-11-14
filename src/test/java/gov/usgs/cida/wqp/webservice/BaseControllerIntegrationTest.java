@@ -102,8 +102,7 @@ public abstract class BaseControllerIntegrationTest extends BaseIT {
 		assertEquals("", unFilteredHeaderCheck(callMockHead(url, mimeType, getContentDisposition(profile, fileType))).andReturn().getResponse().getContentAsString());
 
 		MvcResult rtn = unFilteredHeaderCheck(callMockGet(url, mimeType, getContentDisposition(profile, fileType))).andReturn();
-String debug = getCompareFile(profile, fileType, isPostable ? null : "Rest");
-String debug2 = rtn.getResponse().getContentAsString();
+
 		assertEquals(getCompareFile(profile, fileType, isPostable ? null : "Rest"), rtn.getResponse().getContentAsString());
 
 		rtn = noResultHeaderCheck(callMockGet(getNoResultParameters(url), mimeType, getContentDisposition(profile, fileType))).andReturn();

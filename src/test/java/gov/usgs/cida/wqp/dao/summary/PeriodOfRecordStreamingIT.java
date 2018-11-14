@@ -273,9 +273,8 @@ public class PeriodOfRecordStreamingIT extends BaseStationStreamingTest {
 		assertRow(results.get(25), STORET_504707_1945_CT1, EXPECTED_COLUMN_COUNT);
 		assertRow(results.get(26), STORET_504707_1956_CT1, EXPECTED_COLUMN_COUNT);
 		assertRow(results.get(27), STORET_504707_1977_CT1, EXPECTED_COLUMN_COUNT);
-		assertRow(results.get(28), STORET_504707_1998_CT1, EXPECTED_COLUMN_COUNT);
-		
-Map<String, Object> debug = results.get(0);
+		assertRow(results.get(28), STORET_504707_1998_CT1, EXPECTED_COLUMN_COUNT);		
+
 		// test for a sample of records that should appear only in 'all' years
 		// locations (STEWARDS_36_2000, STORET_504707_1910)
 		assertStoret888(expectedMapAllYears.get(0), results.get(0));
@@ -305,7 +304,7 @@ Map<String, Object> debug = results.get(0);
 		assertRow(results.get(4), NWIS_1353690_2018_CT1, EXPECTED_COLUMN_COUNT);
 		assertRow(results.get(5), NWIS_1360035_2017_CT1, EXPECTED_COLUMN_COUNT);
 		assertRow(results.get(6), NWIS_1360035_2018_CT1, EXPECTED_COLUMN_COUNT);
-Map<String, Object> debug = results.get(0);
+
 		// test for a sample of records that should appear in 5 and 'all' years
 		// locations (NWIS_1353690_2017, NWIS_1360035_2017)
 		assertStoret888(expectedMapFiveYears.get(0), results.get(3));
