@@ -299,6 +299,7 @@ String debug2 = rtn.getResponse().getContentAsString();
 		when(fetchService.fetch(any(String.class), any(URL.class))).thenReturn(getNldiSites());
 
 		assertEquals("", filteredHeaderCheck(callMockHead(url + getUrlParameters(), mimeType, getContentDisposition(profile, fileType))).andReturn().getResponse().getContentAsString());
+
 		MvcResult rtn = filteredHeaderCheck(callMockGet(url + getUrlParameters(), mimeType, getContentDisposition(profile, fileType))).andReturn();		
 		assertEquals(getCompareFile(profile, fileType, "Filtered"), rtn.getResponse().getContentAsString());
 
