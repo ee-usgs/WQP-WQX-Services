@@ -113,7 +113,7 @@ public class PeriodOfRecordMapToJsonTransformerTest {
 		    transformer.writeData(testMap);
 		    //need to flush the JsonGenerator to get at output. 
 		    transformer.g.flush();
-	String debugString =  new String(baos.toByteArray(), HttpConstants.DEFAULT_ENCODING);	
+
 		    assertEquals(JSON_HEADER.length() + 3401, baos.size());
 		    assertEquals(JSON_HEADER + MOCK_JSON_WITHOUT_HEADER_2,
 				    new String(baos.toByteArray(), HttpConstants.DEFAULT_ENCODING));

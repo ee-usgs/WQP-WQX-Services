@@ -2,90 +2,65 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
 
 <mapper namespace="periodOfRecord">
-	<sql id="selectSummaryAllMonths">
-        TO_CHAR(all_time_summary) period_of_record,
-        nvl(activity_count,0) activity_count,
-        nvl(result_count,0) result_count,
-		to_char(all_time_last_result, 'YYYY-MM-DD') last_result
-    </sql>
-    
-    <sql id="selectSummary12Months">
-        TO_CHAR(current_year_summary) period_of_record,
-        nvl(activity_count_past_12_months,0) activity_count,
-        nvl(result_count_past_12_months,0) result_count,
-		to_char(current_year_last_result, 'YYYY-MM-DD') last_result
-    </sql>
-    
-    <sql id="selectSummary60Months">
-        TO_CHAR(five_year_summary) period_of_record,
-        nvl(activity_count_past_60_months,0) activity_count,
-        nvl(result_count_past_60_months,0) result_count,
-		to_char(five_year_last_result, 'YYYY-MM-DD') last_result
-    </sql>
-    
-    <sql id="selectSummaryByYear">
-        <choose>
-            <when test="summaryYears == null or summaryYears.equalsIgnoreCase('all')"><include refid="selectSummaryAllMonths" /></when>
-            <otherwise>
-                <choose>
-                    <when test="summaryYears.equalsIgnoreCase('1')"><include refid="selectSummary12Months" /></when>
-                    <when test="summaryYears.equalsIgnoreCase('5')"><include refid="selectSummary60Months" /></when>
-                    <otherwise><include refid="selectSummaryAllMonths" /></otherwise>
-                </choose>
-            </otherwise>
-        </choose>
-    </sql>
-	
+		
     <sql id="summaryYearWhere">
         <where>
+			ml_g.grouping_id = 4
             <include refid="dynamicWhere.baseWhereStationGeoClauses" />
             <include refid="dynamicWhere.baseWhereStationClauses" />
-            <choose>
-                <when test="summaryYears == null or summaryYears.equalsIgnoreCase('all')">
-                    and all_time_summary is not null
-                </when>
-                <otherwise>
-                    <choose>
-                        <when test="summaryYears.equalsIgnoreCase('1')">and current_year_summary is not null</when>
-                        <when test="summaryYears.equalsIgnoreCase('5')">and five_year_summary is not null</when>
-                        <otherwise>and all_time_summary is not null</otherwise>
-                    </choose>
-                </otherwise>
-            </choose>
+			<if test="summaryYears  !=null">
+				<if test="summaryYears.equalsIgnoreCase('1')">and ml_g.the_year &gt;= to_char(sysdate, 'yyyy')</if>
+				<if test="summaryYears.equalsIgnoreCase('5')">and ml_g.the_year &gt;= to_char(add_months(trunc(sysdate, 'yyyy'), -48), 'yyyy')</if>
+			</if>
         </where>
     </sql>
 
     <select id="select" resultType="java.util.LinkedHashMap" fetchSize="500">
 
-        SELECT
-        data_source,
-        organization,
-        organization_name,
-        site_id,
-        station_name,
-        site_type,
-        TO_CHAR(prime.geom.sdo_point.y,'FM90.0000000') latitude,
-        TO_CHAR(prime.geom.sdo_point.x,'FM990.0000000') longitude,
-        station_type_name,
-        huc_8,
-        state_name,
-        county_name
-        FROM station_sum prime
-
-        where 1=0
-
-        ORDER BY
-        prime.data_source_id,
+        SELECT	
         prime.organization,
-        prime.site_id
+		prime.station_type_name,
+		prime.organization_name,
+		prime.site_id,
+		prime.station_name,
+		prime.station_type_name,
+		prime.site_type,
+		prime.huc_8,
+		'https://www.waterqualitydata.us/provider/' || prime.data_source || '/' || prime.organization  || '/' || prime.site_id monitoring_location_url,		
+		prime.state_name,
+		prime.county_name,
+		TO_CHAR(prime.geom.sdo_point.y,'FM90.0000000') latitude,
+        TO_CHAR(prime.geom.sdo_point.x,'FM990.0000000') longitude,
+		ml_g.data_source_id,
+		ml_g.data_source,
+		ml_g.the_year,
+		ml_g.characteristic_type,
+		ml_g.characteristic_name,
+		ml_g.total_activities,
+		ml_g.total_results,
+		TO_CHAR(ml_g.last_result_date, 'YYYY-MM-DD') last_result_date
+				
+        FROM station_sum prime
+		JOIN ml_grouping ml_g
+		ON prime.data_source_id = ml_g.data_source_id 
+				AND prime.station_id = ml_g.station_id   
+		     
+		<include refid="summaryYearWhere" />
+		<if test="sorted == 'yes'">
+			order by prime.data_source_id, prime.site_id, ml_g.the_year
+		</if>	
     </select>
-
+	
     <select id="count" resultType="java.util.LinkedHashMap">
-        select data_source,
-               count(distinct data_source||'-'||station_id) station_count
-              from station_sum prime
-              where 1=0
-        group by rollup(data_source)   
+        select prime.data_source,
+               count(distinct prime.data_source||'-'||prime.station_id) station_count
+              from station_sum prime   
+				JOIN ml_grouping ml_g
+				ON prime.data_source_id = ml_g.data_source_id 
+						AND prime.station_id = ml_g.station_id   
+
+				<include refid="summaryYearWhere" />           
+        group by rollup(prime.data_source)   
     </select>
 	
 </mapper>

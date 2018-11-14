@@ -289,7 +289,19 @@ public abstract class BaseWqx {
 	public static final String WQX_RESULT_FILE_URL = "ResultFileUrl";
 
 	public static final String WQX_LAST_UPDATED = "LastUpdated";
-
+	
+	public static final String WQX_YEAR_SUMMARIZED = "YearSummarized";
+	public static final String WQX_CHARATERISTIC_TYPE = "CharacteristicType";
+	public static final String WQX_CHARATERISTIC_NAME = "CharacteristicName";
+	public static final String WQX_ACTIVITY_COUNT = "ActivityCount";
+	public static final String WQX_LAST_SUBMITTED_DATE= "LastResultSubmittedDate";
+	public static final String WQX_MONITORING_LOCATON_TYPE_NAME = "MonitoringLocationTypeName";
+	public static final String WQX_MONITORING_LOCATION_URL = "MonitoringLocationUrl";
+	public static final String WQX_MONITORING_LOCATION_LATITUDE = "MonitoringLocationLatitude";
+	public static final String WQX_MONITORING_LOCATION_LONGITUDE = "MonitoringLocationLongitude";
+	public static final String WQX_STATE_NAME = "StateName";
+	public static final String WQX_COUNTY_NAME = "CountyName";
+	
 	protected BaseWqx() {
 	}
 
