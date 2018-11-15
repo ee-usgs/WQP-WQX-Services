@@ -41,9 +41,9 @@ import gov.usgs.cida.wqp.transform.MapToDelimitedTransformer;
 import gov.usgs.cida.wqp.transform.MapToKmlTransformer;
 import gov.usgs.cida.wqp.transform.MapToXlsxTransformer;
 import gov.usgs.cida.wqp.transform.MapToXmlTransformer;
-import gov.usgs.cida.wqp.transform.PeriodOfRecordMapToJsonTransformer;
 import gov.usgs.cida.wqp.transform.StationMapToJsonTransformer;
 import gov.usgs.cida.wqp.transform.OrganizationSumMapToJsonTransformer;
+import gov.usgs.cida.wqp.transform.PeriodOfRecordMapToJsonTransformer;
 import gov.usgs.cida.wqp.transform.Transformer;
 import gov.usgs.cida.wqp.util.HttpConstants;
 import gov.usgs.cida.wqp.util.MimeType;
@@ -486,6 +486,7 @@ public abstract class BaseController {
 
 	protected Transformer getTransformer(OutputStream responseStream, BigDecimal logId) {		
 		Transformer transformer;
+	
 		switch (getMimeType()) {
 		case json:
 		case geojson:	

@@ -42,8 +42,7 @@ public class TestPeriodOfRecordMap {
 		PERIOD_OF_RECORD_ONE_YEAR.put(KEY_STATION_NAME, "Wintergreen ln");		
 		PERIOD_OF_RECORD_ONE_YEAR.put(KEY_LAST_SUBMITTED_DATE, "2018-12-31");
 		PERIOD_OF_RECORD_ONE_YEAR.put(KEY_TOTAL_ACTIVITIES, "1");
-		PERIOD_OF_RECORD_ONE_YEAR.put(KEY_PERIOD_OF_RECORD, "[{\"summary_period_of_record\": \"One Year\"}]");	
-		
+		PERIOD_OF_RECORD_ONE_YEAR.put(KEY_PERIOD_OF_RECORD, "[{\"summary_period_of_record\": \"One Year\"}]");			
 	}
 	
 	public static final Map<String, Object> PERIOD_OF_RECORD_FIVE_YEARS;

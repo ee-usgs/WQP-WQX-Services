@@ -288,19 +288,7 @@ public abstract class BaseWqx {
 	public static final String WQX_PROJECT_MONITORING_LOCATION_WEIGHTING_COMMENT_TEXT = "CommentText";
 	public static final String WQX_RESULT_FILE_URL = "ResultFileUrl";
 
-	public static final String WQX_LAST_UPDATED = "LastUpdated";
-	
-	// for biological metric 
-// in list above	
-//	public static final String WQX_ORGANIZATION_IDENTIFIER = "OrganizationIdentifier";
-//  public static final String WQX_MONITORING_LOCATION_IDENTIFIER = "MonitoringLocationIdentifier";	
-//	public static final String WQX_INDEX_ID = "IndexIdentifier";
-//	public static final String WQX_RESOURCE_TITLE = "ResourceTitleName";
-//	public static final String WQX_RESOURCE_CREATOR = "ResourceCreatorName";
-//	public static final String WQX_RESOURCE_SUBJECT = "ResourceSubjectText";
-//	public static final String WQX_RESOURCE_PUBLISHER = "ResourcePublisherName";
-//	public static final String WQX_RESOURCE_DATE = "ResourceDate";
-//	public static final String WQX_RESOURCE_ID = "ResourceIdentifier";
+	public static final String WQX_LAST_UPDATED = "LastUpdated";	
 	
 	public static final String WQX_BIOLOGICAL_HABITAT_INDEX = "BiologicalHabitatIndex";
 	public static final String WQX_INDEX_TYPE = "IndexType";
@@ -313,6 +301,17 @@ public abstract class BaseWqx {
 	public static final String INDEX_QUALIFIER_CODE = "IndexQualifierCode";
 	public static final String WQX_INDEX_COMMENT_TEXT = "IndexCommentText";
 	public static final String WQX_INDEX_CALCULATED_DATE = "IndexCalculatedDate";
+	public static final String WQX_YEAR_SUMMARIZED = "YearSummarized";
+	public static final String WQX_CHARATERISTIC_TYPE = "CharacteristicType";
+	public static final String WQX_CHARATERISTIC_NAME = "CharacteristicName";
+	public static final String WQX_ACTIVITY_COUNT = "ActivityCount";
+	public static final String WQX_LAST_SUBMITTED_DATE= "LastResultSubmittedDate";
+	public static final String WQX_MONITORING_LOCATON_TYPE_NAME = "MonitoringLocationTypeName";
+	public static final String WQX_MONITORING_LOCATION_URL = "MonitoringLocationUrl";
+	public static final String WQX_MONITORING_LOCATION_LATITUDE = "MonitoringLocationLatitude";
+	public static final String WQX_MONITORING_LOCATION_LONGITUDE = "MonitoringLocationLongitude";
+	public static final String WQX_STATE_NAME = "StateName";
+	public static final String WQX_COUNTY_NAME = "CountyName";	
 
 	protected BaseWqx() {
 	}

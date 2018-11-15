@@ -3,7 +3,7 @@ package gov.usgs.cida.wqp.webservice.summary;
 import gov.usgs.cida.wqp.dao.intfc.ICountDao;
 import gov.usgs.cida.wqp.dao.intfc.IStreamingDao;
 import gov.usgs.cida.wqp.mapping.Profile;
-import gov.usgs.cida.wqp.mapping.delimited.StationDelimited;
+import gov.usgs.cida.wqp.mapping.delimited.PeriodOfRecordDelimited;
 import gov.usgs.cida.wqp.mapping.xml.IXmlMapping;
 import gov.usgs.cida.wqp.parameter.FilterParameters;
 import gov.usgs.cida.wqp.service.ConfigurationService;
@@ -17,7 +17,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -39,7 +38,8 @@ import springfox.documentation.annotations.ApiIgnore;
 @Api(tags={SwaggerConfig.SUMMARY_MONITORING_LOCATION_TAG_NAME})
 @RestController
 @RequestMapping(value=HttpConstants.SUMMARY_MONITORING_LOCATION_ENDPOINT,
-	produces={HttpConstants.MIME_TYPE_GEOJSON})
+	produces={HttpConstants.MIME_TYPE_GEOJSON,
+			HttpConstants.MIME_TYPE_CSV})
 public class SummaryMonitoringLocationController extends BaseController {
 	
 	protected final IXmlMapping xmlMapping;
@@ -108,7 +108,7 @@ public class SummaryMonitoringLocationController extends BaseController {
 
 	@Override
 	protected Map<String, String> getMapping(Profile profile) {
-		return new HashMap<>();
+		return PeriodOfRecordDelimited.getMapping(profile);
 	}
 
 	@Override

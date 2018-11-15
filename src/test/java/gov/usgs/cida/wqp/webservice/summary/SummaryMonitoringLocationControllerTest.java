@@ -1,7 +1,6 @@
 package gov.usgs.cida.wqp.webservice.summary;
 
 import gov.usgs.cida.wqp.mapping.Profile;
-import gov.usgs.cida.wqp.mapping.delimited.StationDelimitedTest;
 import gov.usgs.cida.wqp.parameter.FilterParameters;
 import static gov.usgs.cida.wqp.swagger.model.ActivityCountJson.HEADER_NWIS_ACTIVITY_COUNT;
 import static gov.usgs.cida.wqp.swagger.model.ResDetectQntLmtCountJson.HEADER_NWIS_RES_DETECT_QNT_LMT_COUNT;
