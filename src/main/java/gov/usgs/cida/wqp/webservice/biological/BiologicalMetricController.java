@@ -1,14 +1,15 @@
-package gov.usgs.cida.webservice.biological;
+package gov.usgs.cida.wqp.webservice.biological;
 
 import gov.usgs.cida.wqp.dao.intfc.ICountDao;
 import gov.usgs.cida.wqp.dao.intfc.IStreamingDao;
 import gov.usgs.cida.wqp.mapping.Profile;
+import gov.usgs.cida.wqp.mapping.delimited.BiologicalMetricDelimited;
 import gov.usgs.cida.wqp.mapping.xml.IXmlMapping;
 import gov.usgs.cida.wqp.parameter.FilterParameters;
 import gov.usgs.cida.wqp.service.ConfigurationService;
 import gov.usgs.cida.wqp.service.ILogService;
 import gov.usgs.cida.wqp.swagger.SwaggerConfig;
-import gov.usgs.cida.wqp.swagger.annotation.ProfileParameterSummary;
+import gov.usgs.cida.wqp.swagger.annotation.FullParameterList;
 import gov.usgs.cida.wqp.swagger.model.StationCountJson;
 import gov.usgs.cida.wqp.util.HttpConstants;
 import gov.usgs.cida.wqp.webservice.BaseController;
@@ -16,7 +17,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -35,51 +35,43 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.annotations.ApiIgnore;
 
-@Api(tags={SwaggerConfig.SUMMARY_BIOLOGICAL_METRIC_TAG_NAME})
+@Api(tags={SwaggerConfig.BIOLOGICAL_METRIC_TAG_NAME})
 @RestController
-@RequestMapping(value=HttpConstants.BIOLOGICAL_METRIC__ENDPOINT,
-		produces={HttpConstants.MIME_TYPE_TSV, 
+@RequestMapping(value=HttpConstants.BIOLOGICAL_METRIC_ENDPOINT,
+	produces={HttpConstants.MIME_TYPE_TSV, 
 			HttpConstants.MIME_TYPE_CSV,
 			HttpConstants.MIME_TYPE_XLSX,
 			HttpConstants.MIME_TYPE_XML})
 public class BiologicalMetricController extends BaseController {
-	
-	protected final IXmlMapping xmlMapping;
-	protected final IXmlMapping kmlMapping;
-	
+
+	protected final IXmlMapping xmlMapping;	
+
 	@Autowired
-	public BiologicalMetricController(
-			IStreamingDao inStreamingDao,
-			ICountDao inCountDao,
-			ILogService inLogService,
-			@Qualifier("stationWqx") IXmlMapping inXmlMapping,
-			@Qualifier("stationKml") IXmlMapping inKmlMapping,
-			ContentNegotiationStrategy inContentStrategy,
-			Validator inValidator,
-			ConfigurationService configurationService)
-	{
-		super(inStreamingDao, inCountDao, inLogService, inContentStrategy, inValidator, configurationService);
+	public BiologicalMetricController(IStreamingDao inStreamingDao, ICountDao inCountDao, ILogService inLogService,
+			@Qualifier("simpleStationWqxOutbound") IXmlMapping inXmlMapping,	// TODO add correct mapping!!!		
+			ContentNegotiationStrategy contentStrategy,
+			Validator validator, ConfigurationService configurationService) {
+		super(inStreamingDao, inCountDao, inLogService, contentStrategy, validator, configurationService);
 		xmlMapping = inXmlMapping;
-		kmlMapping = inKmlMapping;
 	}
-	
+
 	@ApiOperation(value="Return appropriate request headers (including anticipated record counts).")
-	@ProfileParameterSummary
+	@FullParameterList
 	@RequestMapping(method=RequestMethod.HEAD)
-	public void summaryBiologicalMetricHeadRequest(HttpServletRequest request, HttpServletResponse response, @ApiIgnore FilterParameters filter) {
+	public void biologicalMetricHeadRequest(HttpServletRequest request, HttpServletResponse response, @ApiIgnore FilterParameters filter) {
 		doHeadRequest(request, response, filter);
 	}
 
 	@ApiOperation(value="Return requested data.")
-	@ProfileParameterSummary
+	@FullParameterList
 	@GetMapping()
-	public void summaryBiologicalMetricGetRequest(HttpServletRequest request, HttpServletResponse response, @ApiIgnore FilterParameters filter) {
+	public void biologicalMetricGetRequest(HttpServletRequest request, HttpServletResponse response, @ApiIgnore FilterParameters filter) {
 		doDataRequest(request, response, filter);
 	}
 
 	@ApiOperation(value="Return requested data. Use when the list of parameter values is too long for a query string.")
 	@PostMapping(consumes=MediaType.APPLICATION_JSON_VALUE)
-	public void summaryBiologicalMetricJsonPostRequest(HttpServletRequest request, HttpServletResponse response,
+	public void biologicalMetricJsonPostRequest(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value="mimeType", required=false) String mimeType,
 			@RequestParam(value="zip", required=false) String zip,
 			@RequestBody @ApiIgnore FilterParameters filter) {
@@ -88,14 +80,14 @@ public class BiologicalMetricController extends BaseController {
 
 	@ApiOperation(value="Same as the JSON consumer, but hidden from swagger", hidden=true)
 	@PostMapping(consumes=MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-	public void summaryBiologicalMetricFormUrlencodedPostRequest(HttpServletRequest request, HttpServletResponse response, @ApiIgnore FilterParameters filter) {
+	public void biologicalMetricFormUrlencodedPostRequest(HttpServletRequest request, HttpServletResponse response, @ApiIgnore FilterParameters filter) {
 		doDataRequest(request, response, filter);
 	}
 
 	@ApiOperation(value="Return anticipated record counts.")
 	@ApiResponses(value={@ApiResponse(code=200, message="OK", response=StationCountJson.class)})
 	@PostMapping(value="count", produces=MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, String> summaryBiologicalMetricPostCountRequest(HttpServletRequest request, HttpServletResponse response,
+	public Map<String, String> biologicalMetricPostCountRequest(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value="mimeType", required=false) String mimeType,
 			@RequestParam(value="zip", required=false) String zip,
 			@RequestBody @ApiIgnore FilterParameters filter) {
@@ -108,25 +100,25 @@ public class BiologicalMetricController extends BaseController {
 		return HttpConstants.HEADER_TOTAL_SITE_COUNT;
 	}
 
-
 	@Override
 	protected Map<String, String> getMapping(Profile profile) {
-		return new HashMap<>();
+		return BiologicalMetricDelimited.getMapping(profile);
 	}
 
 	@Override
 	protected IXmlMapping getXmlMapping() {
-		return null;
+		return xmlMapping;
+	}
+
+	@Override
+	protected Profile determineProfile(FilterParameters filter) {
+		return determineProfile(Profile.BIOLOGICAL_METRIC, filter);
 	}
 
 	@Override
 	protected IXmlMapping getKmlMapping() {
 		return null;
 	}
-	
-	@Override
-	protected Profile determineProfile(FilterParameters filter) {
-		return determineProfile(Profile.SUMMARY_BIOLOGICAL_METRIC, filter);
-	}
-	
+
 }
+

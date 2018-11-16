@@ -7,30 +7,31 @@
 	
 	
 	<select id="select" resultType="java.util.LinkedHashMap" fetchSize="500">
-	SELECT
-		data_source_id,
-		data_source,
-		index_identifier,
-		index_type_identifier,
-		index_type_context,
-		index_type_name,
-		resource_title_name,
-		resource_creator_name,
-		resource_subject_text,
-		resource_publisher_name,
-		resource_date,
-		resource_identifier,
-		index_type_scale_text,
-		index_score_numeric,
-		index_qualifier_code,
-		index_comment,
-		index_calculated_date
+	select
+		prime.data_source_id,
+		prime.data_source,
+		prime.index_identifier,
+		prime.index_type_identifier,
+		prime.index_type_context,
+		prime.index_type_name,
+		prime.resource_title_name,
+		prime.resource_creator_name,
+		prime.resource_subject_text,
+		prime.resource_publisher_name,
+		prime.resource_date,
+		prime.resource_identifier,
+		prime.index_type_scale_text,
+		prime.index_score_numeric,
+		prime.index_qualifier_code,
+		prime.index_comment,
+		prime.index_calculated_date
 		
 		
-	FROM BIO_HAB_METRIC
+	from bio_hab_metric prime
 	
-			
-	ORDER BY
+	<include refid="dynamicWhere.baseStationWhere"/>
+				
+	order by
 		data_source_id 
 		
 		

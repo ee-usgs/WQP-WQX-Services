@@ -25,7 +25,7 @@ public enum Profile {
 	ACTIVITY_ALL("activityAll", "activityall", NameSpace.ACTIVITY_ALL),
 	ACTIVITY_METRIC ("activityMetric", "activitymetric", NameSpace.ACTIVITY_METRIC),
 	
-	SUMMARY_BIOLOGICAL_METRIC ("biologicalMetric", "biologicalmetric", NameSpace.SUMMARY_BIOLOGICAL_METRIC),
+	BIOLOGICAL_METRIC ("biologicalMetric", "biologicalmetric", NameSpace.BIOLOGICAL_METRIC),
 
 	BIOLOGICAL ("biological", "biologicalresult", NameSpace.BIOLOGICAL_RESULT),
 	PC_RESULT ("pcresult", "result", NameSpace.RESULT),

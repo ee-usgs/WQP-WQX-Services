@@ -38,7 +38,7 @@ public class SwaggerParameterBuilder implements OperationBuilderPlugin {
 		Optional<NoQueryParametersList> noQueryParametersList = context.findAnnotation(NoQueryParametersList.class);
 		Optional<FullParameterList> fullParameterList = context.findAnnotation(FullParameterList.class);
 		Optional<ProfileParameterActivity> profileParameterActivity = context.findAnnotation(ProfileParameterActivity.class);
-		Optional<ProfileParameterBiologicalMetric> profileParameterBiologicalMetric = context.findAnnotation(ProfileParameterBiologicalMetric.class);
+//		Optional<ProfileParameterBiologicalMetric> profileParameterBiologicalMetric = context.findAnnotation(ProfileParameterBiologicalMetric.class);
 		Optional<ProfileParameterResult> profileParameterResult = context.findAnnotation(ProfileParameterResult.class);
 		Optional<ProfileParameterSummary> profileParameterSummary = context.findAnnotation(ProfileParameterSummary.class);
 		Optional<ProfileParameterSummaryOrganization> profileParameterSummaryOrganization = context.findAnnotation(ProfileParameterSummaryOrganization.class);
@@ -81,10 +81,10 @@ public class SwaggerParameterBuilder implements OperationBuilderPlugin {
 		if (profileParameterActivity.isPresent()) {
 			parameters.add(SwaggerParameters.dataProfileActivity());
 		}
-		
-		if (profileParameterBiologicalMetric.isPresent()) {
-			parameters.add(SwaggerParameters.dataProfileBiologicalMetric());
-		}
+// IS THIS NEEDED?		
+//		if (profileParameterBiologicalMetric.isPresent()) {
+//			parameters.add(SwaggerParameters.dataProfileBiologicalMetric());
+//		}
 
 		if (profileParameterResult.isPresent()) {
 			parameters.add(SwaggerParameters.dataProfileResult());
