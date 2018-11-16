@@ -5,7 +5,7 @@ public class BiologicalMetricColumn extends BaseColumn {
 	
 
 	// NOTE all the database columns are listed here only some are needed.
-	// not sure on which columns match these headers
+	// these are catagory headers
 	//BiologicalHabitatIndex
 	//IndexType
 	//IndexTypeCitation
