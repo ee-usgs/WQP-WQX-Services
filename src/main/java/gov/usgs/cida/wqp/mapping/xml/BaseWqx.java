@@ -290,15 +290,15 @@ public abstract class BaseWqx {
 
 	public static final String WQX_LAST_UPDATED = "LastUpdated";	
 	
-	public static final String WQX_BIOLOGICAL_HABITAT_INDEX = "BiologicalHabitatIndex";
-	public static final String WQX_INDEX_TYPE = "IndexType";
+//	not needed? this is grouping --> public static final String WQX_BIOLOGICAL_HABITAT_INDEX = "BiologicalHabitatIndex";
+//	not needed? this is grouping -->	public static final String WQX_INDEX_TYPE = "IndexType";
 	public static final String WQX_INDEX_TYPE_IDENTIFER = "IndexTypeIdentifier";
 	public static final String WQX_INDEX_TYPE_IDENTIFER_CONTEXT = "IndexTypeIdentifierContext";
 	public static final String WQX_INDEX_TYPE_NAME = "IndexTypeName";
-	public static final String WQX_INDEX_TYPE_CITATION = "IndexTypeCitation";
+//	not needed? this is grouping -->	public static final String WQX_INDEX_TYPE_CITATION = "IndexTypeCitation";
 	public static final String WQX_INDEX_TYPE_SCALE_TEXT = "IndexTypeScaleText";
 	public static final String WQX_INDEX_SCORE_NUMERIC = "IndexScoreNumeric";
-	public static final String INDEX_QUALIFIER_CODE = "IndexQualifierCode";
+	public static final String WQX_INDEX_QUALIFIER_CODE = "IndexQualifierCode";
 	public static final String WQX_INDEX_COMMENT_TEXT = "IndexCommentText";
 	public static final String WQX_INDEX_CALCULATED_DATE = "IndexCalculatedDate";
 	public static final String WQX_YEAR_SUMMARIZED = "YearSummarized";

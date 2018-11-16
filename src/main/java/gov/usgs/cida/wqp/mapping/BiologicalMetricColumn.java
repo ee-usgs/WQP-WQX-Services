@@ -47,8 +47,8 @@ public class BiologicalMetricColumn extends BaseColumn {
 	
 	//Profile Mapping of the Keys
 	public static final ColumnProfile INDEX_IDENTIFIER = new ColumnProfile(KEY_INDEX_IDENTIFIER, Profile.BIOLOGICAL_METRIC);
-	public static final ColumnProfile TYPE_IDENTIFIER = new ColumnProfile(KEY_INDEX_TYPE_IDENTIFIER, Profile.BIOLOGICAL_METRIC);
-	public static final ColumnProfile TYPE_CONTEXT = new ColumnProfile(KEY_INDEX_TYPE_CONTEXT, Profile.BIOLOGICAL_METRIC);		
+	public static final ColumnProfile INDEX_TYPE_IDENTIFIER = new ColumnProfile(KEY_INDEX_TYPE_IDENTIFIER, Profile.BIOLOGICAL_METRIC);
+	public static final ColumnProfile INDEX_TYPE_CONTEXT = new ColumnProfile(KEY_INDEX_TYPE_CONTEXT, Profile.BIOLOGICAL_METRIC);		
 	public static final ColumnProfile INDEX_TYPE_NAME = new ColumnProfile(KEY_INDEX_TYPE_NAME, Profile.BIOLOGICAL_METRIC);		
 	public static final ColumnProfile RESOURCE_TITLE_NAME = new ColumnProfile(KEY_RESOURCE_TITLE_NAME, Profile.BIOLOGICAL_METRIC);		
 	public static final ColumnProfile RESOURCE_CREATOR_NAME = new ColumnProfile(KEY_RESOURCE_CREATOR_NAME, Profile.BIOLOGICAL_METRIC);		

@@ -48,7 +48,7 @@ public class BiologicalMetricController extends BaseController {
 
 	@Autowired
 	public BiologicalMetricController(IStreamingDao inStreamingDao, ICountDao inCountDao, ILogService inLogService,
-			@Qualifier("simpleStationWqxOutbound") IXmlMapping inXmlMapping,	// TODO add correct mapping!!!		
+			@Qualifier("biologicalMetricWqx") IXmlMapping inXmlMapping,	// TODO add correct mapping!!!		
 			ContentNegotiationStrategy contentStrategy,
 			Validator validator, ConfigurationService configurationService) {
 		super(inStreamingDao, inCountDao, inLogService, contentStrategy, validator, configurationService);
