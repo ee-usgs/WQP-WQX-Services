@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
 
-<mapper namespace="biologicalMetric">
-	
+<mapper namespace="biologicalMetric">	
 	
 	
 	<select id="select" resultType="java.util.LinkedHashMap" fetchSize="500">
 	select
 		prime.data_source_id,
 		prime.data_source,
+		prime.site_id,
+		prime.organization,
 		prime.index_identifier,
 		prime.index_type_identifier,
 		prime.index_type_context,
@@ -26,19 +27,29 @@
 		prime.index_calculated_date
 		
 		
-	from bio_hab_metric prime
+	from bio_hab_metric prime 
+		where prime.site_id='NARS_WQX-FW08PA015' 
+<!--		
+		<include refid="dynamicWhere.baseWhereStationClauses" />	
 	
+
 		<if test="siteid != null">
 			<include refid="dynamicWhere.siteId" />
 		</if>
-				
-	order by
-		data_source_id 
-		
-		
+-->		
+
+	<if test="sorted == 'yes'">	
+		order by prime.data_source_id, prime.organization, prime.site_id
+	</if>	
+	
 	</select>
-	 <select id="count" resultType="java.util.LinkedHashMap">
-        select count (*) from <include refid="biologicalMetric.select"/>
+    <sql id="stationCount">
+        select data_source, station_count
+          from (<include refid="dynamicWhere.countBase"/>)
+    </sql>
+
+    <select id="count" resultType="java.util.LinkedHashMap">
+        <include refid="station.stationCount"/>
     </select>
 
     

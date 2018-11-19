@@ -21,8 +21,8 @@ public class BiologicalMetricColumn extends BaseColumn {
 		// not needed HUC
 		// not neededGOVERNMENTAL_UNIT_CODE		
 	public static final String KEY_INDEX_IDENTIFIER = "INDEX_IDENTIFIER"; //IndexIdentifier
-	public static final String KEY_INDEX_TYPE_IDENTIFIER = "TYPE_IDENTIFIER"; //IndexTypeIdentifier
-	public static final String KEY_INDEX_TYPE_CONTEXT = "TYPE_CONTEXT"; //IndexTypeIdentifierContext
+	public static final String KEY_INDEX_TYPE_IDENTIFIER = "INDEX_TYPE_IDENTIFIER"; //IndexTypeIdentifier
+	public static final String KEY_INDEX_TYPE_CONTEXT = "INDEX_TYPE_CONTEXT"; //IndexTypeIdentifierContext
 	public static final String KEY_INDEX_TYPE_NAME = "INDEX_TYPE_NAME"; //IndexTypeName
 	public static final String KEY_RESOURCE_TITLE_NAME = "RESOURCE_TITLE_NAME"; //ResourceTitleName
 	public static final String KEY_RESOURCE_CREATOR_NAME = "RESOURCE_CREATOR_NAME"; //ResourceCreatorName

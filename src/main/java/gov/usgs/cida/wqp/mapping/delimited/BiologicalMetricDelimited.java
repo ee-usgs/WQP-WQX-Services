@@ -1,19 +1,16 @@
 
 package gov.usgs.cida.wqp.mapping.delimited;
 
-import static gov.usgs.cida.wqp.mapping.ActivityMetricColumn.INDEX_IDENTIFIER;
+
 import static gov.usgs.cida.wqp.mapping.BaseColumn.DATA_SOURCE;
 import static gov.usgs.cida.wqp.mapping.BaseColumn.ORGANIZATION;
 import static gov.usgs.cida.wqp.mapping.BaseColumn.SITE_ID;
 import static gov.usgs.cida.wqp.mapping.BiologicalMetricColumn.INDEX_CALCULATED_DATE;
 import static gov.usgs.cida.wqp.mapping.BiologicalMetricColumn.INDEX_COMMENT;
+import static gov.usgs.cida.wqp.mapping.BiologicalMetricColumn.INDEX_IDENTIFIER;
 import static gov.usgs.cida.wqp.mapping.BiologicalMetricColumn.INDEX_QUALIFIER_CODE;
 import static gov.usgs.cida.wqp.mapping.BiologicalMetricColumn.INDEX_SCORE_NUMERIC;
 import static gov.usgs.cida.wqp.mapping.BiologicalMetricColumn.INDEX_TYPE_CONTEXT;
-import gov.usgs.cida.wqp.mapping.ColumnProfile;
-import gov.usgs.cida.wqp.mapping.Profile;
-import java.util.LinkedHashMap;
-import java.util.Map;
 import static gov.usgs.cida.wqp.mapping.BiologicalMetricColumn.INDEX_TYPE_IDENTIFIER;
 import static gov.usgs.cida.wqp.mapping.BiologicalMetricColumn.INDEX_TYPE_NAME;
 import static gov.usgs.cida.wqp.mapping.BiologicalMetricColumn.INDEX_TYPE_SCALE_TEXT;
@@ -39,6 +36,11 @@ import static gov.usgs.cida.wqp.mapping.xml.BaseWqx.WQX_RESOURCE_ID;
 import static gov.usgs.cida.wqp.mapping.xml.BaseWqx.WQX_RESOURCE_PUBLISHER;
 import static gov.usgs.cida.wqp.mapping.xml.BaseWqx.WQX_RESOURCE_SUBJECT;
 import static gov.usgs.cida.wqp.mapping.xml.BaseWqx.WQX_RESOURCE_TITLE;
+import gov.usgs.cida.wqp.mapping.ColumnProfile;
+import gov.usgs.cida.wqp.mapping.Profile;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 
 public class BiologicalMetricDelimited extends BaseDelimited {
 	
@@ -72,7 +74,7 @@ public class BiologicalMetricDelimited extends BaseDelimited {
 		MAPPINGS.put(INDEX_TYPE_CONTEXT, VALUE_INDEX_TYPE_IDENTIFER_CONTEXT);
 		MAPPINGS.put(INDEX_TYPE_NAME, VALUE_INDEX_TYPE_NAME);
 		MAPPINGS.put(RESOURCE_TITLE_NAME, VALUE_RESOURCE_TITLE);
-		MAPPINGS.put(RESOURCE_CREATOR_NAME, WQX_RESOURCE_CREATOR);
+		MAPPINGS.put(RESOURCE_CREATOR_NAME, VALUE_RESOURCE_CREATOR);
 		MAPPINGS.put(RESOURCE_SUBJECT_TEXT, VALUE_RESOURCE_SUBJECT);
 		MAPPINGS.put(RESOURCE_PUBLISHER_NAME, VALUE_RESOURCE_PUBLISHER);
 		MAPPINGS.put(RESOURCE_DATE, VALUE_RESOURCE_DATE);
