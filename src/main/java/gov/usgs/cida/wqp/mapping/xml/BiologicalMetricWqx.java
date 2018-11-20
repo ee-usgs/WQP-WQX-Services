@@ -15,7 +15,7 @@ public class BiologicalMetricWqx extends BaseWqx implements IXmlMapping {
 	
 	public static final Map<String, List<ColumnProfile>> GROUPING = new LinkedHashMap<>();
 
-// TODO finish this mapping!!!
+
 
 	@Override
 	public Map<String, List<String>> getStructure() {

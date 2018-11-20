@@ -25,31 +25,24 @@
 		prime.index_qualifier_code,
 		prime.index_comment,
 		prime.index_calculated_date
-		
-		
-	from bio_hab_metric prime 
-		where prime.site_id='NARS_WQX-FW08PA015' 
-<!--		
-		<include refid="dynamicWhere.baseWhereStationClauses" />	
-	
 
-		<if test="siteid != null">
-			<include refid="dynamicWhere.siteId" />
-		</if>
--->		
+		
+		<include refid="dynamicWhere.biologicMetricBase" />	
+
+
 
 	<if test="sorted == 'yes'">	
 		order by prime.data_source_id, prime.organization, prime.site_id
 	</if>	
 	
 	</select>
-    <sql id="stationCount">
+    <sql id="biologicalMetricCount">
         select data_source, station_count
           from (<include refid="dynamicWhere.countBase"/>)
     </sql>
 
     <select id="count" resultType="java.util.LinkedHashMap">
-        <include refid="station.stationCount"/>
+        <include refid="biologicalMetric.biologicalMetricCount"/>
     </select>
 
     
