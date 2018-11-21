@@ -13,4 +13,5 @@
 	<prj_ml_weighting/>
 	<organization_sum/>
 	<ml_grouping/>
+	<bio_hab_metric/>
 </dataset>
