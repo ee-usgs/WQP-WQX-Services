@@ -20,7 +20,7 @@ public abstract class BaseColumn {
 	//Profile Mapping of the Keys
 	public static final ColumnProfile DATA_SOURCE = new ColumnProfile(KEY_DATA_SOURCE, Profile.STATION, Profile.PC_RESULT, Profile.BIOLOGICAL, Profile.SIMPLE_STATION, Profile.ACTIVITY, Profile.ACTIVITY_ALL,
 			Profile.ACTIVITY_METRIC, Profile.RES_DETECT_QNT_LMT, Profile.NARROW_RESULT, Profile.PROJECT, Profile.PROJECT_MONITORING_LOCATION_WEIGHTING, Profile.ORGANIZATION, Profile.RESULT_PHYS_CHEM,
-			Profile.RESULT_PRIMARY, Profile.RESULT_BROAD, Profile.PERIOD_OF_RECORD);
+			Profile.RESULT_PRIMARY, Profile.RESULT_BROAD, Profile.PERIOD_OF_RECORD, Profile.BIOLOGICAL_METRIC);
 
 	public static final ColumnProfile ORGANIZATION = new ColumnProfile(KEY_ORGANIZATION, Profile.STATION, Profile.PC_RESULT, Profile.BIOLOGICAL, Profile.SIMPLE_STATION, Profile.ACTIVITY, Profile.ACTIVITY_ALL,
 			Profile.ACTIVITY_METRIC, Profile.RES_DETECT_QNT_LMT, Profile.NARROW_RESULT, Profile.PROJECT, Profile.PROJECT_MONITORING_LOCATION_WEIGHTING, Profile.ORGANIZATION, Profile.RESULT_PHYS_CHEM,

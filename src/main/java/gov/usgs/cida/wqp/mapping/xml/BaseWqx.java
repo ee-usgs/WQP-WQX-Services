@@ -287,9 +287,13 @@ public abstract class BaseWqx {
 	public static final String WQX_PROJECT_MONITORING_LOCATION_WEIGHTING_FACTOR_MEASURE = "LocationWeightingFactorMeasure";
 	public static final String WQX_PROJECT_MONITORING_LOCATION_WEIGHTING_COMMENT_TEXT = "CommentText";
 	public static final String WQX_RESULT_FILE_URL = "ResultFileUrl";
-
-	public static final String WQX_LAST_UPDATED = "LastUpdated";		
-
+	
+	// next section added for BiologicalMetric data profile	
+	public static final String WQX_LAST_UPDATED = "LastUpdated";
+	public static final String WQX_INDEX_TYPE =  "IndexType";
+	public static final String WQX_INDEX_CITATION = "IndexTypeCitation";
+	public static final String WQX_BIOLOGICAL_HABITAT_INDEX = "BiologicalHabitatIndex";
+	public static final String WQX_BIOLOGICAL_METRIC = "BiologicalHabitatMetric";
 	public static final String WQX_INDEX_TYPE_IDENTIFER = "IndexTypeIdentifier";
 	public static final String WQX_INDEX_TYPE_IDENTIFER_CONTEXT = "IndexTypeIdentifierContext";
 	public static final String WQX_INDEX_TYPE_NAME = "IndexTypeName";
