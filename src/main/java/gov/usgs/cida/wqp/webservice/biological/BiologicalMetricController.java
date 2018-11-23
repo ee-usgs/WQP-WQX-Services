@@ -37,7 +37,7 @@ import springfox.documentation.annotations.ApiIgnore;
 
 @Api(tags={SwaggerConfig.BIOLOGICAL_METRIC_TAG_NAME})
 @RestController
-@RequestMapping(value=HttpConstants.BIOLOGICAL_METRIC_ENDPOINT,
+@RequestMapping(value=HttpConstants.BIOLOGICAL_METRIC_SEARCH_ENDPOINT,
 	produces={HttpConstants.MIME_TYPE_TSV, 
 			HttpConstants.MIME_TYPE_CSV,
 			HttpConstants.MIME_TYPE_XLSX,
