@@ -62,7 +62,14 @@
 
 	<sql id="baseBiologicMetricWhere">
 		<where>
-			<include refid="dynamicWhere.baseWhereStationGeoClauses" />
+			<if test="bBox != null or within != null">
+				exists (select null from station_sum filter
+						where 
+							prime.station_id = filter.station_id and
+							prime.data_source_id = filter.data_source_id
+							<include refid="dynamicWhere.baseWhereStationGeoClauses" />
+						)
+			</if>
 			<include refid="dynamicWhere.baseWhereStationClauses" />
 			<if test="minactivities != null">
 				and (filter.activity_count >= #{minactivities})

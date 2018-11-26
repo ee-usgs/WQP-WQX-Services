@@ -31,7 +31,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 	classes={DBTestConfig.class, Application.class})
 @DatabaseSetup("classpath:/testData/csv/")
 @DbUnitConfiguration(dataSetLoader = CsvDataSetLoader.class)
-public class BiologicalControllerIT extends BaseControllerIntegrationTest {
+public class BiologicalMetricControllerIT extends BaseControllerIntegrationTest {
 
 	protected static final Profile PROFILE = Profile.BIOLOGICAL_METRIC;
 	protected static final boolean POSTABLE = true;
@@ -55,8 +55,8 @@ public class BiologicalControllerIT extends BaseControllerIntegrationTest {
 //		getAsXmlTest();
 //		getAsXmlZipTest();
 
-		getAllParametersTest();
-//		postGetCountTest();
+//		getAllParametersTest();
+		postGetCountTest();
 	}
 
 	public void getAsCsvTest() throws Exception {
@@ -103,6 +103,7 @@ public class BiologicalControllerIT extends BaseControllerIntegrationTest {
 		postGetCountTest(urlPrefix, compareObject, PROFILE);
 	}
 
+	@Override
 	public ResultActions unFilteredHeaderCheck(ResultActions resultActions) throws Exception {
 		return resultActions
 				.andExpect(header().string(HttpConstants.HEADER_TOTAL_SITE_COUNT, TOTAL_SITE_COUNT))
@@ -112,15 +113,16 @@ public class BiologicalControllerIT extends BaseControllerIntegrationTest {
 				.andExpect(header().string(HEADER_BIODATA_SITE_COUNT, BIODATA_SITE_COUNT));
 	}
 
+	@Override
 	public ResultActions filteredHeaderCheck(ResultActions resultActions) throws Exception {
 		return resultActions
 				.andExpect(header().string(HttpConstants.HEADER_TOTAL_SITE_COUNT, FILTERED_TOTAL_SITE_COUNT))
 				.andExpect(header().string(HEADER_STORET_SITE_COUNT, FILTERED_STORET_SITE_COUNT))
-
 				.andExpect(header().string(HttpConstants.HEADER_TOTAL_ACTIVITY_COUNT, FILTERED_TOTAL_ACTIVITY_COUNT))
 				.andExpect(header().string(HEADER_STORET_ACTIVITY_COUNT, FILTERED_STORET_ACTIVITY_COUNT));
 	}
 
+	@Override
 	public ResultActions noResultHeaderCheck(ResultActions resultActions) throws Exception {
 		return resultActions
 				.andExpect(header().string(HttpConstants.HEADER_TOTAL_SITE_COUNT, "0"));
