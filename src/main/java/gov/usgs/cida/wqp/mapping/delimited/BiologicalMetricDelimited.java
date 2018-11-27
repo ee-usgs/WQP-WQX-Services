@@ -1,7 +1,6 @@
 
 package gov.usgs.cida.wqp.mapping.delimited;
 
-
 import static gov.usgs.cida.wqp.mapping.BaseColumn.DATA_SOURCE;
 import static gov.usgs.cida.wqp.mapping.BaseColumn.ORGANIZATION;
 import static gov.usgs.cida.wqp.mapping.BaseColumn.SITE_ID;
@@ -60,8 +59,7 @@ public class BiologicalMetricDelimited extends BaseDelimited {
 	public static final String VALUE_INDEX_QUALIFIER_CODE = WQX_INDEX_QUALIFIER_CODE;		
 	public static final String VALUE_INDEX_COMMENT_TEXT = WQX_INDEX_COMMENT_TEXT;	
 	public static final String VALUE_INDEX_CALCULATED_DATE = WQX_INDEX_CALCULATED_DATE;		
-	public static final String VALUE_PROVIDER_NAME = WQX_PROVIDER_NAME;		
-	
+	public static final String VALUE_PROVIDER_NAME = WQX_PROVIDER_NAME;	
 	
 	
 	public static final Map<ColumnProfile, String> MAPPINGS;

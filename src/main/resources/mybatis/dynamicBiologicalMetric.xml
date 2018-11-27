@@ -55,7 +55,6 @@
 					on prime.station_id = filter.station_id and
 					prime.data_source_id = filter.data_source_id
 			</otherwise>
-
 		</choose>
 
 	</sql>

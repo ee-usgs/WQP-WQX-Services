@@ -100,6 +100,7 @@ public abstract class BaseTest {
 	//The test data has a case where a biodata site has no geom associated with it. Thus it should not show up in the json formats. 
 	//Look at dynamicWhere.spatialNeeded if you need to add a dataprofile.
 	public static String TOTAL_SITE_COUNT_GEOM = "12";
+	public static String BIOLOGICAL_METRIC_SITE_COUNT_GEOM = "13";
 	public static String BIODATA_SITE_COUNT_GEOM = "1";
 
 	public static String TOTAL_ACTIVITY_COUNT = "23";
