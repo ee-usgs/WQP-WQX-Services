@@ -1,4 +1,4 @@
-package gov.usgs.cida.wqp.webservice.biological;
+package gov.usgs.cida.wqp.webservice.BiologicalMetric;
 
 import gov.usgs.cida.wqp.dao.intfc.ICountDao;
 import gov.usgs.cida.wqp.dao.intfc.IStreamingDao;

@@ -312,7 +312,7 @@ public abstract class BaseWqx {
 	public static final String WQX_MONITORING_LOCATION_LATITUDE = "MonitoringLocationLatitude";
 	public static final String WQX_MONITORING_LOCATION_LONGITUDE = "MonitoringLocationLongitude";
 	public static final String WQX_STATE_NAME = "StateName";
-	public static final String WQX_COUNTY_NAME = "CountyName";	
+	public static final String WQX_COUNTY_NAME = "CountyName";
 
 	protected BaseWqx() {
 	}

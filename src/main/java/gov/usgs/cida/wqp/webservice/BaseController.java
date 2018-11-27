@@ -611,39 +611,48 @@ public abstract class BaseController {
 	}
 
 	public void addSiteHeaders(HttpServletResponse response, List<Map<String, Object>> counts) {
-		addCountHeaders(response, counts, HttpConstants.HEADER_TOTAL_SITE_COUNT, HttpConstants.HEADER_SITE_COUNT, CountColumn.KEY_STATION_COUNT);
+		addCountHeaders(response, counts, HttpConstants.HEADER_TOTAL_SITE_COUNT,
+				HttpConstants.HEADER_SITE_COUNT, CountColumn.KEY_STATION_COUNT);
 	}
 
 	public void addActivityHeaders(HttpServletResponse response, List<Map<String, Object>> counts) {
-		addCountHeaders(response, counts, HttpConstants.HEADER_TOTAL_ACTIVITY_COUNT, HttpConstants.HEADER_ACTIVITY_COUNT, CountColumn.KEY_ACTIVITY_COUNT);
+		addCountHeaders(response, counts, HttpConstants.HEADER_TOTAL_ACTIVITY_COUNT,
+				HttpConstants.HEADER_ACTIVITY_COUNT, CountColumn.KEY_ACTIVITY_COUNT);
 	}
 
 	public void addActivityMetricHeaders(HttpServletResponse response, List<Map<String, Object>> counts) {
-		addCountHeaders(response, counts, HttpConstants.HEADER_TOTAL_ACTIVITY_METRIC_COUNT, HttpConstants.HEADER_ACTIVITY_METRIC_COUNT, CountColumn.KEY_ACTIVITY_METRIC_COUNT);
+		addCountHeaders(response, counts, HttpConstants.HEADER_TOTAL_ACTIVITY_METRIC_COUNT,
+				HttpConstants.HEADER_ACTIVITY_METRIC_COUNT, CountColumn.KEY_ACTIVITY_METRIC_COUNT);
 	}
 	
 	public void addBiologicalMetricHeaders(HttpServletResponse response, List<Map<String, Object>> counts) {
-		addCountHeaders(response, counts, HttpConstants.HEADER_TOTAL_BIOLOGICAL_METRIC_COUNT, HttpConstants.HEADER_BIOLOGICAL_METRIC_COUNT, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT);
+		addCountHeaders(response, counts, HttpConstants.HEADER_TOTAL_BIOLOGICAL_METRIC_COUNT,
+				HttpConstants.HEADER_BIOLOGICAL_METRIC_COUNT, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT);
 	}
 
 
 	public void addResultHeaders(HttpServletResponse response, List<Map<String, Object>> counts) {
-		addCountHeaders(response, counts, HttpConstants.HEADER_TOTAL_RESULT_COUNT, HttpConstants.HEADER_RESULT_COUNT, CountColumn.KEY_RESULT_COUNT);
+		addCountHeaders(response, counts, HttpConstants.HEADER_TOTAL_RESULT_COUNT,
+				HttpConstants.HEADER_RESULT_COUNT, CountColumn.KEY_RESULT_COUNT);
 	}
 
 	public void addResDetectQntLmtHeaders(HttpServletResponse response, List<Map<String, Object>> counts) {
-		addCountHeaders(response, counts, HttpConstants.HEADER_TOTAL_RES_DETECT_QNT_LMT_COUNT, HttpConstants.HEADER_RES_DETECT_QNT_LMT_COUNT, CountColumn.KEY_RES_DETECT_QNT_LMT_COUNT);
+		addCountHeaders(response, counts, HttpConstants.HEADER_TOTAL_RES_DETECT_QNT_LMT_COUNT,
+				HttpConstants.HEADER_RES_DETECT_QNT_LMT_COUNT, CountColumn.KEY_RES_DETECT_QNT_LMT_COUNT);
 	}
 
 	public void addProjectHeaders(HttpServletResponse response, List<Map<String, Object>> counts) {
-		addCountHeaders(response, counts, HttpConstants.HEADER_TOTAL_PROJECT_COUNT, HttpConstants.HEADER_PROJECT_COUNT, CountColumn.KEY_PROJECT_COUNT);
+		addCountHeaders(response, counts, HttpConstants.HEADER_TOTAL_PROJECT_COUNT,
+				HttpConstants.HEADER_PROJECT_COUNT, CountColumn.KEY_PROJECT_COUNT);
 	}
 
 	public void addOrganizationHeaders(HttpServletResponse response, List<Map<String, Object>> counts) {
-		addCountHeaders(response, counts, HttpConstants.HEADER_TOTAL_ORGANIZATION_COUNT, HttpConstants.HEADER_ORGANIZATION_COUNT, CountColumn.KEY_ORGANIZATION_COUNT);
+		addCountHeaders(response, counts, HttpConstants.HEADER_TOTAL_ORGANIZATION_COUNT,
+				HttpConstants.HEADER_ORGANIZATION_COUNT, CountColumn.KEY_ORGANIZATION_COUNT);
 	}
 
 	public void addProjectMonitoringLocationWeightingHeaders(HttpServletResponse response, List<Map<String, Object>> counts) {
-		addCountHeaders(response, counts, HttpConstants.HEADER_TOTAL_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT, HttpConstants.HEADER_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT, CountColumn.KEY_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT);
+		addCountHeaders(response, counts, HttpConstants.HEADER_TOTAL_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT,
+				HttpConstants.HEADER_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT, CountColumn.KEY_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT);
 	}
 }
