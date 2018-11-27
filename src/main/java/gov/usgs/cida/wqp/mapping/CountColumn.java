@@ -9,6 +9,7 @@ public class CountColumn {
 	public static final String KEY_PROJECT_COUNT = "PROJECT_COUNT";
 	public static final String KEY_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT = "PRJ_ML_WEIGHTING_COUNT";
 	public static final String KEY_ORGANIZATION_COUNT = "ORGANIZATION_COUNT";
+	public static final String KEY_BIOLOGICAL_METRIC_COUNT = "BIOLOGICAL_METRIC_COUNT";
 
 	private CountColumn() {
 	}

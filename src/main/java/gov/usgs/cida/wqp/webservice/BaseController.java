@@ -621,6 +621,11 @@ public abstract class BaseController {
 	public void addActivityMetricHeaders(HttpServletResponse response, List<Map<String, Object>> counts) {
 		addCountHeaders(response, counts, HttpConstants.HEADER_TOTAL_ACTIVITY_METRIC_COUNT, HttpConstants.HEADER_ACTIVITY_METRIC_COUNT, CountColumn.KEY_ACTIVITY_METRIC_COUNT);
 	}
+	
+	public void addBiologicalMetricHeaders(HttpServletResponse response, List<Map<String, Object>> counts) {
+		addCountHeaders(response, counts, HttpConstants.HEADER_TOTAL_BIOLOGICAL_METRIC_COUNT, HttpConstants.HEADER_BIOLOGICAL_METRIC_COUNT, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT);
+	}
+
 
 	public void addResultHeaders(HttpServletResponse response, List<Map<String, Object>> counts) {
 		addCountHeaders(response, counts, HttpConstants.HEADER_TOTAL_RESULT_COUNT, HttpConstants.HEADER_RESULT_COUNT, CountColumn.KEY_RESULT_COUNT);

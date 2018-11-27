@@ -10,7 +10,7 @@ import gov.usgs.cida.wqp.service.ConfigurationService;
 import gov.usgs.cida.wqp.service.ILogService;
 import gov.usgs.cida.wqp.swagger.SwaggerConfig;
 import gov.usgs.cida.wqp.swagger.annotation.FullParameterList;
-import gov.usgs.cida.wqp.swagger.model.StationCountJson;
+import gov.usgs.cida.wqp.swagger.model.BiologicalMetricCountJson;
 import gov.usgs.cida.wqp.util.HttpConstants;
 import gov.usgs.cida.wqp.webservice.BaseController;
 import io.swagger.annotations.Api;
@@ -48,7 +48,7 @@ public class BiologicalMetricController extends BaseController {
 
 	@Autowired
 	public BiologicalMetricController(IStreamingDao inStreamingDao, ICountDao inCountDao, ILogService inLogService,
-			@Qualifier("biologicalMetricWqx") IXmlMapping inXmlMapping,	// TODO add correct mapping!!!		
+			@Qualifier("biologicalMetricWqx") IXmlMapping inXmlMapping,	
 			ContentNegotiationStrategy contentStrategy,
 			Validator validator, ConfigurationService configurationService) {
 		super(inStreamingDao, inCountDao, inLogService, contentStrategy, validator, configurationService);
@@ -85,7 +85,7 @@ public class BiologicalMetricController extends BaseController {
 	}
 
 	@ApiOperation(value="Return anticipated record counts.")
-	@ApiResponses(value={@ApiResponse(code=200, message="OK", response=StationCountJson.class)})
+	@ApiResponses(value={@ApiResponse(code=200, message="OK", response=BiologicalMetricCountJson.class)})
 	@PostMapping(value="count", produces=MediaType.APPLICATION_JSON_VALUE)
 	public Map<String, String> biologicalMetricPostCountRequest(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value="mimeType", required=false) String mimeType,
@@ -97,7 +97,8 @@ public class BiologicalMetricController extends BaseController {
 	@Override
 	protected String addCountHeaders(HttpServletResponse response, List<Map<String, Object>> counts) {
 		addSiteHeaders(response, counts);
-		return HttpConstants.HEADER_TOTAL_SITE_COUNT;
+		addBiologicalMetricHeaders(response, counts);
+		return HttpConstants.HEADER_TOTAL_BIOLOGICAL_METRIC_COUNT;
 	}
 
 	@Override

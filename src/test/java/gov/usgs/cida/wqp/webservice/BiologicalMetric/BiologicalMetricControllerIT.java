@@ -11,6 +11,10 @@ import static gov.usgs.cida.wqp.swagger.model.ActivityCountJson.HEADER_BIODATA_A
 import static gov.usgs.cida.wqp.swagger.model.ActivityCountJson.HEADER_NWIS_ACTIVITY_COUNT;
 import static gov.usgs.cida.wqp.swagger.model.ActivityCountJson.HEADER_STEWARDS_ACTIVITY_COUNT;
 import static gov.usgs.cida.wqp.swagger.model.ActivityCountJson.HEADER_STORET_ACTIVITY_COUNT;
+import static gov.usgs.cida.wqp.swagger.model.BiologicalMetricCountJson.HEADER_BIODATA_BIOLOGICAL_METRIC_COUNT;
+import static gov.usgs.cida.wqp.swagger.model.BiologicalMetricCountJson.HEADER_NWIS_BIOLOGICAL_METRIC_COUNT;
+import static gov.usgs.cida.wqp.swagger.model.BiologicalMetricCountJson.HEADER_STEWARDS_BIOLOGICAL_METRIC_COUNT;
+import static gov.usgs.cida.wqp.swagger.model.BiologicalMetricCountJson.HEADER_STORET_BIOLOGICAL_METRIC_COUNT;
 import static gov.usgs.cida.wqp.swagger.model.StationCountJson.HEADER_BIODATA_SITE_COUNT;
 import static gov.usgs.cida.wqp.swagger.model.StationCountJson.HEADER_NWIS_SITE_COUNT;
 import static gov.usgs.cida.wqp.swagger.model.StationCountJson.HEADER_STEWARDS_SITE_COUNT;
@@ -36,26 +40,25 @@ public class BiologicalMetricControllerIT extends BaseControllerIntegrationTest 
 	protected static final Profile PROFILE = Profile.BIOLOGICAL_METRIC;
 	protected static final boolean POSTABLE = true;
 	protected static final String ENDPOINT = HttpConstants.BIOLOGICAL_METRIC_SEARCH_ENDPOINT + "?mimeType=";
-//	protected static final String TOTAL_SITE_SUM_COUNT = "5";
-//	protected static final String BIODATA_SITE_SUM_COUNT = null;
-//	protected static final String NWIS_SITE_SUM_COUNT = "2";
-//	protected static final String STEWARDS_SITE_SUM_COUNT = "1";
-//	protected static final String STORET_SITE_SUM_COUNT = "2";
-//	protected static final String TOTAL_SITE_SUM_ONE_YEAR_COUNT = "1";
-//	protected static final String STORET_SITE_SUM_ONE_YEAR_COUNT = "1";
+	protected static final String TOTAL_BIOLOGICAL_METRIC_COUNT = "13";
+	protected static final String BIODATA_BIOLOGICAL_METRIC_COUNT = "2";
+	protected static final String NWIS_BIOLOGICAL_METRIC_COUNT = "2";
+	protected static final String STEWARDS_BIOLOGICAL_METRIC_COUNT = "2";
+	protected static final String STORET_BIOLOGICAL_METRIC_COUNT = "7";
+	protected static final String FILTERED_TOTAL_BIOLOGICAL_METRIC_COUNT = "1";
+	protected static final String FILTERED_STORET_BIOLOGICAL_METRIC_COUNT = "1";
 
 	@Test
 	public void testHarness() throws Exception {
-//		getAsCsvTest();
-//		getAsCsvZipTest();
-//		getAsTsvTest();
-//		getAsTsvZipTest();
-//		getAsXlsxTest();
-//		getAsXlsxZipTest();
-//		getAsXmlTest();
-//		getAsXmlZipTest();
-
-//		getAllParametersTest();
+		getAsCsvTest();
+		getAsCsvZipTest();
+		getAsTsvTest();
+		getAsTsvZipTest();
+		getAsXlsxTest();
+		getAsXlsxZipTest();
+		getAsXmlTest();
+		getAsXmlZipTest();
+		getAllParametersTest();
 		postGetCountTest();
 	}
 
@@ -98,7 +101,10 @@ public class BiologicalMetricControllerIT extends BaseControllerIntegrationTest 
 	public void postGetCountTest() throws Exception {
 		String urlPrefix = HttpConstants.BIOLOGICAL_METRIC_SEARCH_ENDPOINT + "/count?mimeType=";
 		
-		String compareObject = "{\"" + HttpConstants.HEADER_TOTAL_SITE_COUNT + "\":\"" + FILTERED_TOTAL_SITE_COUNT			
+		String compareObject = "{\"" + HttpConstants.HEADER_TOTAL_SITE_COUNT + "\":\"" + FILTERED_TOTAL_SITE_COUNT
+				+ "\",\"" + HttpConstants.HEADER_TOTAL_BIOLOGICAL_METRIC_COUNT + "\":\"" + FILTERED_TOTAL_BIOLOGICAL_METRIC_COUNT
+				+ "\",\"" + HEADER_STORET_SITE_COUNT + "\":\"" + FILTERED_STORET_SITE_COUNT
+				+ "\",\"" + HEADER_STORET_BIOLOGICAL_METRIC_COUNT + "\":\"" + FILTERED_STORET_BIOLOGICAL_METRIC_COUNT
 				+ "\"}";
 		postGetCountTest(urlPrefix, compareObject, PROFILE);
 	}
@@ -110,7 +116,13 @@ public class BiologicalMetricControllerIT extends BaseControllerIntegrationTest 
 				.andExpect(header().string(HEADER_NWIS_SITE_COUNT, NWIS_SITE_COUNT))
 				.andExpect(header().string(HEADER_STEWARDS_SITE_COUNT, STEWARDS_SITE_COUNT))
 				.andExpect(header().string(HEADER_STORET_SITE_COUNT, STORET_SITE_COUNT))
-				.andExpect(header().string(HEADER_BIODATA_SITE_COUNT, BIODATA_SITE_COUNT));
+				.andExpect(header().string(HEADER_BIODATA_SITE_COUNT, BIODATA_SITE_COUNT))
+		
+				.andExpect(header().string(HttpConstants.HEADER_TOTAL_BIOLOGICAL_METRIC_COUNT, TOTAL_BIOLOGICAL_METRIC_COUNT))
+				.andExpect(header().string(HEADER_NWIS_BIOLOGICAL_METRIC_COUNT, NWIS_BIOLOGICAL_METRIC_COUNT))
+				.andExpect(header().string(HEADER_STEWARDS_BIOLOGICAL_METRIC_COUNT, STEWARDS_BIOLOGICAL_METRIC_COUNT))
+				.andExpect(header().string(HEADER_STORET_BIOLOGICAL_METRIC_COUNT, STORET_BIOLOGICAL_METRIC_COUNT))
+				.andExpect(header().string(HEADER_BIODATA_BIOLOGICAL_METRIC_COUNT, BIODATA_BIOLOGICAL_METRIC_COUNT));
 	}
 
 	@Override
@@ -118,14 +130,15 @@ public class BiologicalMetricControllerIT extends BaseControllerIntegrationTest 
 		return resultActions
 				.andExpect(header().string(HttpConstants.HEADER_TOTAL_SITE_COUNT, FILTERED_TOTAL_SITE_COUNT))
 				.andExpect(header().string(HEADER_STORET_SITE_COUNT, FILTERED_STORET_SITE_COUNT))
-				.andExpect(header().string(HttpConstants.HEADER_TOTAL_ACTIVITY_COUNT, FILTERED_TOTAL_ACTIVITY_COUNT))
-				.andExpect(header().string(HEADER_STORET_ACTIVITY_COUNT, FILTERED_STORET_ACTIVITY_COUNT));
+				.andExpect(header().string(HttpConstants.HEADER_TOTAL_BIOLOGICAL_METRIC_COUNT, FILTERED_TOTAL_BIOLOGICAL_METRIC_COUNT))
+				.andExpect(header().string(HEADER_STORET_BIOLOGICAL_METRIC_COUNT, FILTERED_STORET_BIOLOGICAL_METRIC_COUNT));
 	}
 
 	@Override
 	public ResultActions noResultHeaderCheck(ResultActions resultActions) throws Exception {
 		return resultActions
-				.andExpect(header().string(HttpConstants.HEADER_TOTAL_SITE_COUNT, "0"));
+				.andExpect(header().string(HttpConstants.HEADER_TOTAL_SITE_COUNT, "0"))
+				.andExpect(header().string(HttpConstants.HEADER_TOTAL_BIOLOGICAL_METRIC_COUNT, "0"));
 	}
 
 }

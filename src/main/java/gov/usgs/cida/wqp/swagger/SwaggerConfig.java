@@ -19,6 +19,7 @@ import com.fasterxml.classmate.TypeResolver;
 import gov.usgs.cida.wqp.service.ConfigurationService;
 import gov.usgs.cida.wqp.swagger.model.ActivityCountJson;
 import gov.usgs.cida.wqp.swagger.model.ActivityMetricCountJson;
+import gov.usgs.cida.wqp.swagger.model.BiologicalMetricCountJson;
 import gov.usgs.cida.wqp.swagger.model.OrganizationCountJson;
 import gov.usgs.cida.wqp.swagger.model.PostParms;
 import gov.usgs.cida.wqp.swagger.model.ProjectCountJson;
@@ -92,6 +93,7 @@ public class SwaggerConfig {
 					typeResolver.resolve(StationCountJson.class),
 					typeResolver.resolve(ActivityCountJson.class),
 					typeResolver.resolve(ActivityMetricCountJson.class),
+					typeResolver.resolve(BiologicalMetricCountJson.class),
 					typeResolver.resolve(ResultCountJson.class),
 					typeResolver.resolve(ResDetectQntLmtCountJson.class),
 					typeResolver.resolve(ProjectCountJson.class))
