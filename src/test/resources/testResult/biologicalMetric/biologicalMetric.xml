@@ -6,11 +6,6 @@
 		<OrganizationDescription>
 			<OrganizationIdentifier>ARS</OrganizationIdentifier>
 		</OrganizationDescription>
-		<MonitoringLocation>
-			<MonitoringLocationIdentity>
-				<MonitoringLocationIdentifier>ARS-IAWC-IAWC225</MonitoringLocationIdentifier>
-			</MonitoringLocationIdentity>
-		</MonitoringLocation>
 		<BiologicalHabitatIndex>
 			<IndexIdentifier>RM:OWW04440-0298:040825:RR:BANK_STR</IndexIdentifier>
 			<IndexType>
@@ -23,17 +18,13 @@
 					<ResourcePublisherName>Lewis and Clark Community College</ResourcePublisherName>
 					<ResourceDate>Need 21-JAN-23</ResourceDate>
 					<ResourceIdentifier>PREDATOR 2008</ResourceIdentifier>
-					<IndexScoreNumeric>-0.1323718</IndexScoreNumeric>
-					<IndexCommentText>IndexTypeName=Log sum of Woody Canopy+Mid+Ground layer areal cover proportion used for condition;L_XCMGW=-0.132371831;SOURCE=PhysicalHabitat_Condition</IndexCommentText>
-					<IndexCalculatedDate>31-JUN-2018</IndexCalculatedDate>
 				</IndexTypeCitation>
 			</IndexType>
+			<IndexScoreNumeric>-0.1323718</IndexScoreNumeric>
+			<IndexCommentText>IndexTypeName=Log sum of Woody Canopy+Mid+Ground layer areal cover proportion used for condition;L_XCMGW=-0.132371831;SOURCE=PhysicalHabitat_Condition</IndexCommentText>
+			<IndexCalculatedDate>31-JUN-2018</IndexCalculatedDate>
+			<MonitoringLocationIdentifier>ARS-IAWC-IAWC225</MonitoringLocationIdentifier>
 		</BiologicalHabitatIndex>
-		<MonitoringLocation>
-			<MonitoringLocationIdentity>
-				<MonitoringLocationIdentifier>ARS-IAWC-IAWC410</MonitoringLocationIdentifier>
-			</MonitoringLocationIdentity>
-		</MonitoringLocation>
 		<BiologicalHabitatIndex>
 			<IndexIdentifier>RM:OWW04440-0298:040825:RR:VEG_PROL</IndexIdentifier>
 			<IndexType>
@@ -43,27 +34,23 @@
 				<IndexTypeCitation>
 					<ResourceTitleName>National Rivers and Streams Assessment</ResourceTitleName>
 					<ResourceCreatorName>FDEP Water Quality Standards Program</ResourceCreatorName>
-					<ResourceSubjectText>(SOP) for Determination of Biological Indices, LT 7200,  Stream Condition Index (SCI) Determination</ResourceSubjectText>
 					<ResourcePublisherName>U.S. Environmental Protection Agency. Washington, DC 20460</ResourcePublisherName>
 					<ResourceDate>18-DEC-13</ResourceDate>
 					<ResourceIdentifier>EPA/841/D-13/001</ResourceIdentifier>
-					<IndexTypeScaleText>0-37</IndexTypeScaleText>
-					<IndexScoreNumeric>Medium</IndexScoreNumeric>
-					<IndexCommentText>SOURCE=PhysicalHabitat_Condition</IndexCommentText>
-					<IndexCalculatedDate>12-JAN-1997</IndexCalculatedDate>
+					<ResourceSubjectText>(SOP) for Determination of Biological Indices, LT 7200,  Stream Condition Index (SCI) Determination</ResourceSubjectText>
 				</IndexTypeCitation>
+				<IndexTypeScaleText>0-37</IndexTypeScaleText>
 			</IndexType>
+			<IndexScoreNumeric>Medium</IndexScoreNumeric>
+			<IndexCommentText>SOURCE=PhysicalHabitat_Condition</IndexCommentText>
+			<IndexCalculatedDate>12-JAN-1997</IndexCalculatedDate>
+			<MonitoringLocationIdentifier>ARS-IAWC-IAWC410</MonitoringLocationIdentifier>
 		</BiologicalHabitatIndex>
 	</Organization>
 	<Organization>
 		<OrganizationDescription>
 			<OrganizationIdentifier>USGS-WI</OrganizationIdentifier>
 		</OrganizationDescription>
-		<MonitoringLocation>
-			<MonitoringLocationIdentity>
-				<MonitoringLocationIdentifier>USGS-05425700</MonitoringLocationIdentifier>
-			</MonitoringLocationIdentity>
-		</MonitoringLocation>
 		<BiologicalHabitatIndex>
 			<IndexIdentifier>RM:OWW04440-0298:040825:RR:BANK_STL</IndexIdentifier>
 			<IndexType>
@@ -73,21 +60,17 @@
 				<IndexTypeCitation>
 					<ResourceTitleName>Stream Condition Index</ResourceTitleName>
 					<ResourceCreatorName>FDEP Bureau of Assessment and Restoration</ResourceCreatorName>
-					<ResourceSubjectText>Contains the framework for the Stream Condition Index and summarizes the data and methods used to develop the index based on data collected in 1992-1994.</ResourceSubjectText>
 					<ResourcePublisherName>MDNR, Enviromental Services Program</ResourcePublisherName>
 					<ResourceDate>18-FEB-17</ResourceDate>
 					<ResourceIdentifier>Habitat Score</ResourceIdentifier>
-					<IndexScoreNumeric>Good</IndexScoreNumeric>
-					<IndexCommentText>IndexTypeName=Bed sediment condition</IndexCommentText>
-					<IndexCalculatedDate>25-APR-01</IndexCalculatedDate>
+					<ResourceSubjectText>Contains the framework for the Stream Condition Index and summarizes the data and methods used to develop the index based on data collected in 1992-1994.</ResourceSubjectText>
 				</IndexTypeCitation>
 			</IndexType>
+			<IndexScoreNumeric>Good</IndexScoreNumeric>
+			<IndexCommentText>IndexTypeName=Bed sediment condition</IndexCommentText>
+			<IndexCalculatedDate>25-APR-01</IndexCalculatedDate>
+			<MonitoringLocationIdentifier>USGS-05425700</MonitoringLocationIdentifier>
 		</BiologicalHabitatIndex>
-		<MonitoringLocation>
-			<MonitoringLocationIdentity>
-				<MonitoringLocationIdentifier>USGS-431925089002701</MonitoringLocationIdentifier>
-			</MonitoringLocationIdentity>
-		</MonitoringLocation>
 		<BiologicalHabitatIndex>
 			<IndexIdentifier>RM:OWW04440-0298:040825:RR:CHAN_ALT</IndexIdentifier>
 			<IndexType>
@@ -97,26 +80,22 @@
 				<IndexTypeCitation>
 					<ResourceTitleName>DEP-SOP-001/01 FT 3000 Aquatic Habitat Characterization</ResourceTitleName>
 					<ResourceCreatorName>Leska S. Fore - Statistical Design, Inc.</ResourceCreatorName>
-					<ResourceSubjectText>(SOP) for Determination of Biological Indices, LT 7200, Stream Condition Index (SCI) Determination</ResourceSubjectText>
 					<ResourcePublisherName>Lewis and Clark Community College</ResourcePublisherName>
 					<ResourceDate>22-APR-15</ResourceDate>
 					<ResourceIdentifier>EPA/841/D-13/001</ResourceIdentifier>
-					<IndexScoreNumeric>Fair</IndexScoreNumeric>
-					<IndexCommentText>IndexTypeName=Instream cover condition</IndexCommentText>
-					<IndexCalculatedDate>02-MAY-2016</IndexCalculatedDate>
+					<ResourceSubjectText>(SOP) for Determination of Biological Indices, LT 7200, Stream Condition Index (SCI) Determination</ResourceSubjectText>
 				</IndexTypeCitation>
 			</IndexType>
+			<IndexScoreNumeric>Fair</IndexScoreNumeric>
+			<IndexCommentText>IndexTypeName=Instream cover condition</IndexCommentText>
+			<IndexCalculatedDate>02-MAY-2016</IndexCalculatedDate>
+			<MonitoringLocationIdentifier>USGS-431925089002701</MonitoringLocationIdentifier>
 		</BiologicalHabitatIndex>
 	</Organization>
 	<Organization>
 		<OrganizationDescription>
 			<OrganizationIdentifier>11NPSWRD</OrganizationIdentifier>
 		</OrganizationDescription>
-		<MonitoringLocation>
-			<MonitoringLocationIdentity>
-				<MonitoringLocationIdentifier>11NPSWRD-BICA_MFG_B</MonitoringLocationIdentifier>
-			</MonitoringLocationIdentity>
-		</MonitoringLocation>
 		<BiologicalHabitatIndex>
 			<IndexIdentifier>PHB:OWW04440-0359:1:PCT_POOL</IndexIdentifier>
 			<IndexType>
@@ -125,22 +104,18 @@
 				<IndexTypeName>Log relative bed stability</IndexTypeName>
 				<IndexTypeCitation>
 					<ResourceTitleName>Ecological Assessment Framework</ResourceTitleName>
-					<IndexScoreNumeric>32.1647598</IndexScoreNumeric>
-					<IndexCommentText>IndexTypeName=Fish multimetric index for Plains and Lowlands climatic region;SOURCE=Fish_Condition</IndexCommentText>
-					<IndexCalculatedDate>12-JUL-99</IndexCalculatedDate>
 				</IndexTypeCitation>
 			</IndexType>
+			<IndexScoreNumeric>32.1647598</IndexScoreNumeric>
+			<IndexCommentText>IndexTypeName=Fish multimetric index for Plains and Lowlands climatic region;SOURCE=Fish_Condition</IndexCommentText>
+			<IndexCalculatedDate>12-JUL-99</IndexCalculatedDate>
+			<MonitoringLocationIdentifier>11NPSWRD-BICA_MFG_B</MonitoringLocationIdentifier>
 		</BiologicalHabitatIndex>
 	</Organization>
 	<Organization>
 		<OrganizationDescription>
 			<OrganizationIdentifier>21NYDECA_WQX</OrganizationIdentifier>
 		</OrganizationDescription>
-		<MonitoringLocation>
-			<MonitoringLocationIdentity>
-				<MonitoringLocationIdentifier>21NYDECA_WQX-ONTARIO-02</MonitoringLocationIdentifier>
-			</MonitoringLocationIdentity>
-		</MonitoringLocation>
 		<BiologicalHabitatIndex>
 			<IndexIdentifier>PHB:OWW04440-0359:1:PCT_DRS</IndexIdentifier>
 			<IndexType>
@@ -150,26 +125,22 @@
 				<IndexTypeCitation>
 					<ResourceTitleName>Illinois RiverWatch</ResourceTitleName>
 					<ResourceCreatorName>Jeroen Gerritsen</ResourceCreatorName>
-					<ResourceSubjectText>Sample text</ResourceSubjectText>
 					<ResourcePublisherName>U.S. Environmental Protection Agency. Washington, DC 20460</ResourcePublisherName>
 					<ResourceDate>28-FEB-13</ResourceDate>
 					<ResourceIdentifier>SCI_2007</ResourceIdentifier>
-					<IndexScoreNumeric>Poor</IndexScoreNumeric>
-					<IndexCommentText>IndexTypeName=Fish assemblage condition</IndexCommentText>
-					<IndexCalculatedDate>15-MAY-13</IndexCalculatedDate>
+					<ResourceSubjectText>Sample text</ResourceSubjectText>
 				</IndexTypeCitation>
 			</IndexType>
+			<IndexScoreNumeric>Poor</IndexScoreNumeric>
+			<IndexCommentText>IndexTypeName=Fish assemblage condition</IndexCommentText>
+			<IndexCalculatedDate>15-MAY-13</IndexCalculatedDate>
+			<MonitoringLocationIdentifier>21NYDECA_WQX-ONTARIO-02</MonitoringLocationIdentifier>
 		</BiologicalHabitatIndex>
 	</Organization>
 	<Organization>
 		<OrganizationDescription>
 			<OrganizationIdentifier>WIDNR_WQX</OrganizationIdentifier>
 		</OrganizationDescription>
-		<MonitoringLocation>
-			<MonitoringLocationIdentity>
-				<MonitoringLocationIdentifier>WIDNR_WQX-10030952</MonitoringLocationIdentifier>
-			</MonitoringLocationIdentity>
-		</MonitoringLocation>
 		<BiologicalHabitatIndex>
 			<IndexIdentifier>PHB:OWW04440-0359:1:PCT_SIDE</IndexIdentifier>
 			<IndexType>
@@ -179,21 +150,17 @@
 				<IndexTypeCitation>
 					<ResourceTitleName>Stream Monitoring Manual</ResourceTitleName>
 					<ResourceCreatorName>Michael T. Barbour</ResourceCreatorName>
-					<ResourceSubjectText>This National Rivers and Streams Assessment 2008-2009: A Collaborative Survey (NRSA) presents the results of an unprecedented sampling effort undertaken by the U.S. Environmental Protection Agency and its state and tribal partners. It provides information on the ecological condition of the nations rivers and streams and the key stressors that affect them, both on a national and an ecoregional scale. It also discusses change in water quality conditions in streams sampled for an earlier study, the Wadeable Streams Assessment of 2004.</ResourceSubjectText>
 					<ResourcePublisherName>U.S. Environmental Protection Agency. Washington, DC 20460</ResourcePublisherName>
 					<ResourceDate>15-FEB-18</ResourceDate>
 					<ResourceIdentifier>Biorecon_2008</ResourceIdentifier>
-					<IndexScoreNumeric>good</IndexScoreNumeric>
-					<IndexCommentText>IndexTypeName=NRSA 08/09 Report Results:  Condition estimates using the corrected results and a 1280 STV CCE per 100 ml threshold;ENT_NEEAR_CCE_COND=1:Does not exceed STV of 1280 CCE per 100 ml;SOURCE=Enterococci_Condition</IndexCommentText>
-					<IndexCalculatedDate>30-SEP-27</IndexCalculatedDate>
+					<ResourceSubjectText>This National Rivers and Streams Assessment 2008-2009: A Collaborative Survey (NRSA) presents the results of an unprecedented sampling effort undertaken by the U.S. Environmental Protection Agency and its state and tribal partners. It provides information on the ecological condition of the nations rivers and streams and the key stressors that affect them, both on a national and an ecoregional scale. It also discusses change in water quality conditions in streams sampled for an earlier study, the Wadeable Streams Assessment of 2004.</ResourceSubjectText>
 				</IndexTypeCitation>
 			</IndexType>
+			<IndexScoreNumeric>good</IndexScoreNumeric>
+			<IndexCommentText>IndexTypeName=NRSA 08/09 Report Results:  Condition estimates using the corrected results and a 1280 STV CCE per 100 ml threshold;ENT_NEEAR_CCE_COND=1:Does not exceed STV of 1280 CCE per 100 ml;SOURCE=Enterococci_Condition</IndexCommentText>
+			<IndexCalculatedDate>30-SEP-27</IndexCalculatedDate>
+			<MonitoringLocationIdentifier>WIDNR_WQX-10030952</MonitoringLocationIdentifier>
 		</BiologicalHabitatIndex>
-		<MonitoringLocation>
-			<MonitoringLocationIdentity>
-				<MonitoringLocationIdentifier>WIDNR_WQX-113086</MonitoringLocationIdentifier>
-			</MonitoringLocationIdentity>
-		</MonitoringLocation>
 		<BiologicalHabitatIndex>
 			<IndexIdentifier>RM:OWW04440-0298:040825:RR:FLOWTYPE</IndexIdentifier>
 			<IndexType>
@@ -203,26 +170,22 @@
 				<IndexTypeCitation>
 					<ResourceTitleName>RiverWatch  Manual</ResourceTitleName>
 					<ResourceCreatorName>DEAR Aquatic Ecology</ResourceCreatorName>
-					<ResourceSubjectText>Standard Operating Procedure </ResourceSubjectText>
 					<ResourcePublisherName>U.S. Environmental Protection Agency. Washington, DC 20460</ResourcePublisherName>
 					<ResourceDate>28-FEB-13</ResourceDate>
 					<ResourceIdentifier>PREDATOR 2008</ResourceIdentifier>
-					<IndexScoreNumeric>38.5017834</IndexScoreNumeric>
-					<IndexCommentText>IndexTypeName=Periphyton multimetric index score for Plains and Lowlands;MMI_PERI_PLNLOW=38.50178349;SOURCE=Periphyton_Condition</IndexCommentText>
-					<IndexCalculatedDate>01-JAN-01</IndexCalculatedDate>
+					<ResourceSubjectText>Standard Operating Procedure </ResourceSubjectText>
 				</IndexTypeCitation>
 			</IndexType>
+			<IndexScoreNumeric>38.5017834</IndexScoreNumeric>
+			<IndexCommentText>IndexTypeName=Periphyton multimetric index score for Plains and Lowlands;MMI_PERI_PLNLOW=38.50178349;SOURCE=Periphyton_Condition</IndexCommentText>
+			<IndexCalculatedDate>01-JAN-01</IndexCalculatedDate>
+			<MonitoringLocationIdentifier>WIDNR_WQX-113086</MonitoringLocationIdentifier>
 		</BiologicalHabitatIndex>
 	</Organization>
 	<Organization>
 		<OrganizationDescription>
 			<OrganizationIdentifier>organization</OrganizationIdentifier>
 		</OrganizationDescription>
-		<MonitoringLocation>
-			<MonitoringLocationIdentity>
-				<MonitoringLocationIdentifier>organization-siteId</MonitoringLocationIdentifier>
-			</MonitoringLocationIdentity>
-		</MonitoringLocation>
 		<BiologicalHabitatIndex>
 			<IndexIdentifier>RM:OWW04440-0298:040825:RR:SEDI_DEP</IndexIdentifier>
 			<IndexType>
@@ -232,22 +195,18 @@
 				<IndexTypeCitation>
 					<ResourceTitleName>Idaho Small Stream Ecological Assessment Framework</ResourceTitleName>
 					<ResourceCreatorName>Quality Assurance Section</ResourceCreatorName>
-					<ResourceSubjectText>an ecoregional scale. It also discusses change in water quality conditions in the Wadeable Streams Assessment</ResourceSubjectText>
 					<ResourcePublisherName>MDNR, Enviromental Services Program</ResourcePublisherName>
 					<ResourceDate>17-OCT-10</ResourceDate>
 					<ResourceIdentifier>Habitat Score</ResourceIdentifier>
-					<IndexTypeScaleText>0-12</IndexTypeScaleText>
-					<IndexScoreNumeric>Poor</IndexScoreNumeric>
-					<IndexCommentText>SOURCE=Benthics_Counts</IndexCommentText>
-					<IndexCalculatedDate>10-NOV-2018</IndexCalculatedDate>
+					<ResourceSubjectText>an ecoregional scale. It also discusses change in water quality conditions in the Wadeable Streams Assessment</ResourceSubjectText>
 				</IndexTypeCitation>
+				<IndexTypeScaleText>0-12</IndexTypeScaleText>
 			</IndexType>
+			<IndexScoreNumeric>Poor</IndexScoreNumeric>
+			<IndexCommentText>SOURCE=Benthics_Counts</IndexCommentText>
+			<IndexCalculatedDate>10-NOV-2018</IndexCalculatedDate>
+			<MonitoringLocationIdentifier>organization-siteId</MonitoringLocationIdentifier>
 		</BiologicalHabitatIndex>
-		<MonitoringLocation>
-			<MonitoringLocationIdentity>
-				<MonitoringLocationIdentifier>organization-siteId2</MonitoringLocationIdentifier>
-			</MonitoringLocationIdentity>
-		</MonitoringLocation>
 		<BiologicalHabitatIndex>
 			<IndexIdentifier>RM:OWW04440-0298:040825:RR:CHAN_FLS</IndexIdentifier>
 			<IndexType>
@@ -257,21 +216,17 @@
 				<IndexTypeCitation>
 					<ResourceTitleName>Development of the Stream Condition Index (SCI) </ResourceTitleName>
 					<ResourceCreatorName>U.S. Environmental Protection Agency</ResourceCreatorName>
-					<ResourceSubjectText>Contains the framework for the Stream Condition Index and summarizes the data and methods used to develop the index based on data collected in 1992-1994.</ResourceSubjectText>
 					<ResourcePublisherName>U.S. Environmental Protection Agency. Washington, DC 20460</ResourcePublisherName>
 					<ResourceDate>08-FEB-16</ResourceDate>
 					<ResourceIdentifier>Biorecon_1992</ResourceIdentifier>
-					<IndexScoreNumeric>O/E &lt; 0.9</IndexScoreNumeric>
-					<IndexCommentText>SOURCE=Benthics_Counts</IndexCommentText>
-					<IndexCalculatedDate>18-FEB-16</IndexCalculatedDate>
+					<ResourceSubjectText>Contains the framework for the Stream Condition Index and summarizes the data and methods used to develop the index based on data collected in 1992-1994.</ResourceSubjectText>
 				</IndexTypeCitation>
 			</IndexType>
+			<IndexScoreNumeric>O/E &lt; 0.9</IndexScoreNumeric>
+			<IndexCommentText>SOURCE=Benthics_Counts</IndexCommentText>
+			<IndexCalculatedDate>18-FEB-16</IndexCalculatedDate>
+			<MonitoringLocationIdentifier>organization-siteId2</MonitoringLocationIdentifier>
 		</BiologicalHabitatIndex>
-		<MonitoringLocation>
-			<MonitoringLocationIdentity>
-				<MonitoringLocationIdentifier>organization-siteId3</MonitoringLocationIdentifier>
-			</MonitoringLocationIdentity>
-		</MonitoringLocation>
 		<BiologicalHabitatIndex>
 			<IndexIdentifier>RM:OWW04440-0298:040825:RR:EPIF_SUB</IndexIdentifier>
 			<IndexType>
@@ -281,28 +236,24 @@
 				<IndexTypeCitation>
 					<ResourceTitleName>National Rivers and Streams Assessment </ResourceTitleName>
 					<ResourceCreatorName>Office of Research and Development</ResourceCreatorName>
-					<ResourceSubjectText>(SOP) for Determination of Biological Indices, LT 7200, Stream Condition Index (SCI) Determination</ResourceSubjectText>
 					<ResourcePublisherName>FL Dept of Environmental Protection</ResourcePublisherName>
 					<ResourceDate>28-MAY-14</ResourceDate>
 					<ResourceIdentifier>EPA/841/D-13/001</ResourceIdentifier>
-					<IndexTypeScaleText>0-11</IndexTypeScaleText>
-					<IndexScoreNumeric>Poor</IndexScoreNumeric>
 					<IndexQualifierCode>A</IndexQualifierCode>
-					<IndexCommentText>IndexTypeName=Periphyton assemblage condition</IndexCommentText>
-					<IndexCalculatedDate>22-JUN-15</IndexCalculatedDate>
+					<ResourceSubjectText>(SOP) for Determination of Biological Indices, LT 7200, Stream Condition Index (SCI) Determination</ResourceSubjectText>
 				</IndexTypeCitation>
+				<IndexTypeScaleText>0-11</IndexTypeScaleText>
 			</IndexType>
+			<IndexScoreNumeric>Poor</IndexScoreNumeric>
+			<IndexCommentText>IndexTypeName=Periphyton assemblage condition</IndexCommentText>
+			<IndexCalculatedDate>22-JUN-15</IndexCalculatedDate>
+			<MonitoringLocationIdentifier>organization-siteId3</MonitoringLocationIdentifier>
 		</BiologicalHabitatIndex>
 	</Organization>
 	<Organization>
 		<OrganizationDescription>
 			<OrganizationIdentifier>USGS</OrganizationIdentifier>
 		</OrganizationDescription>
-		<MonitoringLocation>
-			<MonitoringLocationIdentity>
-				<MonitoringLocationIdentifier>USGS-11421000</MonitoringLocationIdentifier>
-			</MonitoringLocationIdentity>
-		</MonitoringLocation>
 		<BiologicalHabitatIndex>
 			<IndexIdentifier>PHB:OWW04440-0359:1:PCT_SLOW</IndexIdentifier>
 			<IndexType>
@@ -312,21 +263,17 @@
 				<IndexTypeCitation>
 					<ResourceTitleName>DEP-SOP-001/01 FT 3000 Aquatic Habitat Characterization</ResourceTitleName>
 					<ResourceCreatorName>Office of Wetlands, Oceans and Watersheds</ResourceCreatorName>
-					<ResourceSubjectText>Model</ResourceSubjectText>
 					<ResourcePublisherName>Lewis and Clark Community College</ResourcePublisherName>
 					<ResourceDate>28-FEB-13</ResourceDate>
 					<ResourceIdentifier>LVI2008_Avg</ResourceIdentifier>
-					<IndexScoreNumeric>-1.5394739</IndexScoreNumeric>
-					<IndexCommentText>IndexTypeName=Log relative bed stability to use in assessing BEDSED_COND</IndexCommentText>
-					<IndexCalculatedDate>07-OCT-16</IndexCalculatedDate>
+					<ResourceSubjectText>Model</ResourceSubjectText>
 				</IndexTypeCitation>
 			</IndexType>
+			<IndexScoreNumeric>-1.5394739</IndexScoreNumeric>
+			<IndexCommentText>IndexTypeName=Log relative bed stability to use in assessing BEDSED_COND</IndexCommentText>
+			<IndexCalculatedDate>07-OCT-16</IndexCalculatedDate>
+			<MonitoringLocationIdentifier>USGS-11421000</MonitoringLocationIdentifier>
 		</BiologicalHabitatIndex>
-		<MonitoringLocation>
-			<MonitoringLocationIdentity>
-				<MonitoringLocationIdentifier>USGS-433830088977331</MonitoringLocationIdentifier>
-			</MonitoringLocationIdentity>
-		</MonitoringLocation>
 		<BiologicalHabitatIndex>
 			<IndexIdentifier>PHB:OWW04440-0359:1:PCT_FAST</IndexIdentifier>
 			<IndexType>
@@ -336,15 +283,16 @@
 				<IndexTypeCitation>
 					<ResourceTitleName>Streams Assessment</ResourceTitleName>
 					<ResourceCreatorName>DEAR Aquatic Ecology</ResourceCreatorName>
-					<ResourceSubjectText>This National Rivers and Streams Assessment 2008-2009: A Collaborative Survey (NRSA) presents the results of an unprecedented sampling effort undertaken by the U.S. Environmental Protection Agency and its state and tribal partners. It provides information on the ecological condition of the nations rivers and streams and the key stressors that affect them, both on a national and an ecoregional scale. It also discusses change in water quality conditions in streams sampled for an earlier study, the Wadeable Streams Assessment of 2004.</ResourceSubjectText>
 					<ResourcePublisherName>U.S. Environmental Protection Agency. Washington, DC 20460</ResourcePublisherName>
 					<ResourceDate>09-NOV-03</ResourceDate>
 					<ResourceIdentifier>SCI_2007</ResourceIdentifier>
-					<IndexScoreNumeric>-0.1976928</IndexScoreNumeric>
-					<IndexCommentText>IndexTypeName=Log sum of non-anthropogenic fish areal cover types used for condition;L_XFC_NAT=-0.19769284;SOURCE=PhysicalHabitat_Condition</IndexCommentText>
-					<IndexCalculatedDate>27-JUN-16</IndexCalculatedDate>
+					<ResourceSubjectText>This National Rivers and Streams Assessment 2008-2009: A Collaborative Survey (NRSA) presents the results of an unprecedented sampling effort undertaken by the U.S. Environmental Protection Agency and its state and tribal partners. It provides information on the ecological condition of the nations rivers and streams and the key stressors that affect them, both on a national and an ecoregional scale. It also discusses change in water quality conditions in streams sampled for an earlier study, the Wadeable Streams Assessment of 2004.</ResourceSubjectText>
 				</IndexTypeCitation>
 			</IndexType>
+			<IndexScoreNumeric>-0.1976928</IndexScoreNumeric>
+			<IndexCommentText>IndexTypeName=Log sum of non-anthropogenic fish areal cover types used for condition;L_XFC_NAT=-0.19769284;SOURCE=PhysicalHabitat_Condition</IndexCommentText>
+			<IndexCalculatedDate>27-JUN-16</IndexCalculatedDate>
+			<MonitoringLocationIdentifier>USGS-433830088977331</MonitoringLocationIdentifier>
 		</BiologicalHabitatIndex>
 	</Organization>
 </WQX>
