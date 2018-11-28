@@ -70,6 +70,7 @@ public class BiologicalMetricWqx extends BaseWqx implements IXmlMapping {
 						WQX_ORGANIZATION,
 						WQX_ORGANIZATION_DESCRIPTION,
 						WQX_ORGANIZATION_IDENTIFIER)));
+		
 		COLUMN_POSITION.put(KEY_ORGANIZATION_NAME,
 				new LinkedList<>(Arrays.asList(
 						WQX_ORGANIZATION,
@@ -149,15 +150,8 @@ public class BiologicalMetricWqx extends BaseWqx implements IXmlMapping {
 						WQX_BIOLOGICAL_HABITAT_INDEX,
 						WQX_INDEX_TYPE,	
 						WQX_INDEX_CITATION,
-						WQX_RESOURCE_SUBJECT)));
-		
-		COLUMN_POSITION.put(KEY_INDEX_QUALIFIER_CODE,
-				new LinkedList<>(Arrays.asList(
-						WQX_ORGANIZATION,
-						WQX_BIOLOGICAL_HABITAT_INDEX,
-						WQX_INDEX_TYPE,
-						WQX_INDEX_CITATION,
-						WQX_INDEX_QUALIFIER_CODE)));
+						WQX_RESOURCE_SUBJECT)));		
+
 		
 		COLUMN_POSITION.put(KEY_INDEX_TYPE_SCALE_TEXT,
 				new LinkedList<>(Arrays.asList(
@@ -172,6 +166,12 @@ public class BiologicalMetricWqx extends BaseWqx implements IXmlMapping {
 						WQX_ORGANIZATION,
 						WQX_BIOLOGICAL_HABITAT_INDEX,
 						WQX_INDEX_SCORE_NUMERIC)));
+		
+		COLUMN_POSITION.put(KEY_INDEX_QUALIFIER_CODE,
+				new LinkedList<>(Arrays.asList(
+						WQX_ORGANIZATION,
+						WQX_BIOLOGICAL_HABITAT_INDEX,						
+						WQX_INDEX_QUALIFIER_CODE)));
 		
 		COLUMN_POSITION.put(KEY_INDEX_COMMENT,
 				new LinkedList<>(Arrays.asList(
@@ -208,11 +208,11 @@ public class BiologicalMetricWqx extends BaseWqx implements IXmlMapping {
 						RESOURCE_CREATOR_NAME,
 						RESOURCE_PUBLISHER_NAME,
 						RESOURCE_DATE,
-						RESOURCE_IDENTIFIER,
-						INDEX_QUALIFIER_CODE,
+						RESOURCE_IDENTIFIER,												
 						RESOURCE_SUBJECT_TEXT,
 						INDEX_TYPE_SCALE_TEXT,
 						INDEX_SCORE_NUMERIC,
+						INDEX_QUALIFIER_CODE,
 						INDEX_COMMENT,
 						INDEX_CALCULATED_DATE,
 						SITE_ID

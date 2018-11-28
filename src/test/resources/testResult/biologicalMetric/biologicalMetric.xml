@@ -239,12 +239,12 @@
 					<ResourcePublisherName>FL Dept of Environmental Protection</ResourcePublisherName>
 					<ResourceDate>28-MAY-14</ResourceDate>
 					<ResourceIdentifier>EPA/841/D-13/001</ResourceIdentifier>
-					<IndexQualifierCode>A</IndexQualifierCode>
 					<ResourceSubjectText>(SOP) for Determination of Biological Indices, LT 7200, Stream Condition Index (SCI) Determination</ResourceSubjectText>
 				</IndexTypeCitation>
 				<IndexTypeScaleText>0-11</IndexTypeScaleText>
 			</IndexType>
 			<IndexScoreNumeric>Poor</IndexScoreNumeric>
+			<IndexQualifierCode>A</IndexQualifierCode>
 			<IndexCommentText>IndexTypeName=Periphyton assemblage condition</IndexCommentText>
 			<IndexCalculatedDate>22-JUN-15</IndexCalculatedDate>
 			<MonitoringLocationIdentifier>organization-siteId3</MonitoringLocationIdentifier>
