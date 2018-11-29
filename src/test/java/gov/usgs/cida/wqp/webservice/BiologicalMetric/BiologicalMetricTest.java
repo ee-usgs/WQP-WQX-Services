@@ -1,7 +1,7 @@
 package gov.usgs.cida.wqp.webservice.BiologicalMetric;
 
 import gov.usgs.cida.wqp.mapping.Profile;
-import gov.usgs.cida.wqp.mapping.delimited.ResultDelimitedTest;
+import gov.usgs.cida.wqp.mapping.delimited.BiologicalMetricDelimitedTest;
 import gov.usgs.cida.wqp.parameter.FilterParameters;
 import static gov.usgs.cida.wqp.swagger.model.StationCountJson.HEADER_NWIS_SITE_COUNT;
 import gov.usgs.cida.wqp.util.HttpConstants;
@@ -32,7 +32,7 @@ public class BiologicalMetricTest {
 
 	@Test
 	public void getMappingTest() {
-		ResultDelimitedTest.assertBiologicalMetricProfile(controller.getMapping(Profile.BIOLOGICAL_METRIC));		
+		BiologicalMetricDelimitedTest.assertBiologicalMetricProfile(controller.getMapping(Profile.BIOLOGICAL_METRIC));		
 	}
 
 	@Test

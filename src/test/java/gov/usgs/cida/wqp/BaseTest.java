@@ -132,6 +132,12 @@ public abstract class BaseTest {
 	public static String STEWARDS_PROJECT_COUNT = "2";
 	public static String STORET_PROJECT_COUNT = "10";
 	public static String BIODATA_PROJECT_COUNT = "1";
+	
+	public static String TOTAL_BIOLOGICAL_METRIC_COUNT = "13";
+	public static String NWIS_BIOLOGICAL_METRIC_COUNT = "2";
+	public static String STEWARDS_BIOLOGICAL_METRIC_COUNT = "2";
+	public static String STORET_BIOLOGICAL_METRIC_COUNT = "7";
+	public static String BIODATA_BIOLOGICAL_METRIC_COUNT = "2";
 
 	public static String TOTAL_PRJ_ML_WEIGHTING_COUNT = "7";
 	public static String NWIS_PRJ_ML_WEIGHTING_COUNT = "2";
