@@ -190,7 +190,7 @@ public class CountDaoBiologicalMetricIT extends BaseCountDaoTest {
 	}
 
 	public void minActivitiesTest() {
-		List<Map<String, Object>> counts = minActivitiesTest(NameSpace.BIOLOGICAL_METRIC, 4);		
+		List<Map<String, Object>> counts = minActivitiesTest(NameSpace.BIOLOGICAL_METRIC, 4);
 		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "7", "1", "1", "5", null);
 	}
 

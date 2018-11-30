@@ -156,7 +156,7 @@ public class BiologicalMetricStreamingIT extends FilteredProjectDaoTest {
 				STORET_ORGANIZATION_SITE_ID3,
 				STORET_WIDNR_WQX_113086,
 				STORET_WIDNR_WQX_10030952,
-				STORET_11NPSWRD_BICA_MFG_B				
+				STORET_11NPSWRD_BICA_MFG_B
 		);
 	}
 
@@ -214,7 +214,7 @@ public class BiologicalMetricStreamingIT extends FilteredProjectDaoTest {
 		assertEquals(STORET_ORGANIZATION_SITE_ID2[1], results.get(9).get(BiologicalMetricColumn.KEY_INDEX_IDENTIFIER).toString());
 		assertEquals(STORET_ORGANIZATION_SITE_ID3[1], results.get(10).get(BiologicalMetricColumn.KEY_INDEX_IDENTIFIER).toString());
 		assertEquals(BIODATA_USGS_11421000[1], results.get(11).get(BiologicalMetricColumn.KEY_INDEX_IDENTIFIER).toString());
-		assertEquals(BIODATA_USGS_433830088977331[1], results.get(12).get(BiologicalMetricColumn.KEY_INDEX_IDENTIFIER).toString());		
+		assertEquals(BIODATA_USGS_433830088977331[1], results.get(12).get(BiologicalMetricColumn.KEY_INDEX_IDENTIFIER).toString());
 	}
 
 	public void zipTest() {
@@ -232,13 +232,13 @@ public class BiologicalMetricStreamingIT extends FilteredProjectDaoTest {
 				STORET_WIDNR_WQX_113086,
 				STORET_WIDNR_WQX_10030952,
 				STORET_11NPSWRD_BICA_MFG_B,
-				NWIS_USGS_05425700				
+				NWIS_USGS_05425700
 		);
 	}
 
 	public void countryTest() {
 		List<Map<String, Object>> results = countryTest(nameSpace, 11);
-		assertContainsBiologicalMetric(results, 
+		assertContainsBiologicalMetric(results,
 				STORET_ORGANIZATION_SITE_ID3,
 				STORET_WIDNR_WQX_113086,
 				STORET_WIDNR_WQX_10030952,
@@ -248,8 +248,8 @@ public class BiologicalMetricStreamingIT extends FilteredProjectDaoTest {
 				STEWARDS_ARS_IAWC_IAWC410,
 				STEWARDS_ARS_IAWC_IAWC225,
 				NWIS_USGS_05425700,
-				NWIS_USGS_431925089002701,			
-				BIODATA_USGS_11421000 				
+				NWIS_USGS_431925089002701,
+				BIODATA_USGS_11421000 
 		);
 	}
 
@@ -258,7 +258,7 @@ public class BiologicalMetricStreamingIT extends FilteredProjectDaoTest {
 		assertContainsBiologicalMetric(results,
 				STORET_ORGANIZATION_SITE_ID3,
 				STORET_WIDNR_WQX_113086,
-				STORET_WIDNR_WQX_10030952,				
+				STORET_WIDNR_WQX_10030952,
 				STORET_11NPSWRD_BICA_MFG_B,
 				STORET_ORGANIZATION_SITE_ID2,
 				STORET_ORGANIZATION_SITE_ID,
@@ -278,7 +278,7 @@ public class BiologicalMetricStreamingIT extends FilteredProjectDaoTest {
 				NWIS_USGS_431925089002701,
 				STORET_WIDNR_WQX_113086,
 				STORET_WIDNR_WQX_10030952,
-				STORET_11NPSWRD_BICA_MFG_B				
+				STORET_11NPSWRD_BICA_MFG_B
 		);
 	}
 
@@ -301,7 +301,7 @@ public class BiologicalMetricStreamingIT extends FilteredProjectDaoTest {
 				STORET_WIDNR_WQX_113086,
 				STORET_WIDNR_WQX_10030952,
 				NWIS_USGS_05425700,
-				NWIS_USGS_431925089002701				
+				NWIS_USGS_431925089002701
 		);
 	}
 
@@ -434,7 +434,7 @@ public class BiologicalMetricStreamingIT extends FilteredProjectDaoTest {
 
 	public void siteTypeTest() {
 		List<Map<String, Object>> results = siteTypeTest(nameSpace, 11);
-		assertContainsBiologicalMetric(results,				
+		assertContainsBiologicalMetric(results,
 				STORET_ORGANIZATION_SITE_ID3,
 				STORET_WIDNR_WQX_113086,
 				STORET_WIDNR_WQX_10030952,
@@ -451,7 +451,7 @@ public class BiologicalMetricStreamingIT extends FilteredProjectDaoTest {
 
 	public void startDateHiTest() {
 		List<Map<String, Object>> results = startDateHiTest(nameSpace, 11);
-		assertContainsBiologicalMetric(results, 
+		assertContainsBiologicalMetric(results,
 				NWIS_USGS_431925089002701,
 				BIODATA_USGS_11421000,
 				NWIS_USGS_05425700,
@@ -462,7 +462,7 @@ public class BiologicalMetricStreamingIT extends FilteredProjectDaoTest {
 				STORET_ORGANIZATION_SITE_ID3,
 				STORET_ORGANIZATION_SITE_ID2,
 				STORET_21NYDECA_WQX_ONTARIO_02,
-				STORET_11NPSWRD_BICA_MFG_B			
+				STORET_11NPSWRD_BICA_MFG_B
 		);
 	}
 
@@ -477,7 +477,7 @@ public class BiologicalMetricStreamingIT extends FilteredProjectDaoTest {
 				STORET_ORGANIZATION_SITE_ID3,
 				BIODATA_USGS_11421000,
 				STEWARDS_ARS_IAWC_IAWC225,
-				STORET_11NPSWRD_BICA_MFG_B				
+				STORET_11NPSWRD_BICA_MFG_B
 		);
 	}
 
@@ -543,7 +543,7 @@ public class BiologicalMetricStreamingIT extends FilteredProjectDaoTest {
 				STORET_ORGANIZATION_SITE_ID,
 				STORET_ORGANIZATION_SITE_ID2,
 				STORET_ORGANIZATION_SITE_ID3,
-				STORET_11NPSWRD_BICA_MFG_B				
+				STORET_11NPSWRD_BICA_MFG_B
 		);
 	}
 
@@ -554,7 +554,7 @@ public class BiologicalMetricStreamingIT extends FilteredProjectDaoTest {
 				STORET_ORGANIZATION_SITE_ID,
 				STORET_ORGANIZATION_SITE_ID3,
 				STORET_ORGANIZATION_SITE_ID2,
-				STORET_11NPSWRD_BICA_MFG_B				
+				STORET_11NPSWRD_BICA_MFG_B
 		);
 	}
 
