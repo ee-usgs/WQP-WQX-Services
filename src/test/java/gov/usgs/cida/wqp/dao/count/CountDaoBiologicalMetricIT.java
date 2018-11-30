@@ -21,53 +21,51 @@ public class CountDaoBiologicalMetricIT extends BaseCountDaoTest {
 
 	@Test
 	public void testHarness() {
-//		activityTest();
-//		analyticalMethodTest();
-//		assemblageTest();
-//		avoidTest();
-//		bboxTest();
-//		characteristicNameTest();
-//		characteristicTypeTest();
-//		countryTest();
-//		countyTest();
-//		emptyParameterTest();
-//		huc2Test();
-//		huc3Test();
-//		huc4Test();
-//		huc5Test();
-//		huc6Test();
-//		huc7Test();
-//		huc8Test();
-//		huc10Test();
-//		huc12Test();
-//		mimeTypeTest();
-//		minActivitiesTest();
-//		minResultsTest();
-//		nldiSitesTest();
-//		nldiUrlTest();
-//		nullParameterTest();
-//		organizationTest();
+		activityTest();
+		analyticalMethodTest();
+		assemblageTest();
+		avoidTest();
+		bboxTest();
+		characteristicNameTest();
+		characteristicTypeTest();
+		countryTest();
+		countyTest();
+		emptyParameterTest();
+		huc2Test();
+		huc3Test();
+		huc4Test();
+		huc5Test();
+		huc6Test();
+		huc7Test();
+		huc8Test();
+		huc10Test();
+		huc12Test();
+		mimeTypeTest();
+		minActivitiesTest();
+		minResultsTest();
+		nldiSitesTest();
+		nldiUrlTest();
+		nullParameterTest();
+		organizationTest();
 		pcodeTest();
 		projectTest();
-//		providersTest();
-//		resultTest();
-//		sampleMediaTest();
-//		siteIdTest();
-//		siteIdLargeListTest();
-//		siteTypeTest();
-//		siteUrlBaseTest();
-//		sortedTest();
-//		startDateHiTest();
-//		startDateLoTest();
-//		stateTest();
-//		subjectTaxonomicNameTest();
-//		withinTest();
-//		zipTest();
-//		multipleParameterStationSumTest();
-//		multipleParameterActivitySumTest();
-//		multipleParameterActivitySumStationSumTest();
-//		multipleParameterResultSumTest();
-//		multipleParameterResultSumStationSumTests();		
+		providersTest();
+		resultTest();
+		sampleMediaTest();
+		siteIdTest();
+		siteIdLargeListTest();
+		siteTypeTest();
+		siteUrlBaseTest();
+		sortedTest();
+		startDateHiTest();
+		startDateLoTest();
+		stateTest();
+		subjectTaxonomicNameTest();
+		withinTest();
+		zipTest();
+		multipleParameterActivitySumTest();
+		multipleParameterActivitySumStationSumTest();		
+		multipleParameterResultSumTest();	
 	}
 
 	public void activityTest() {
@@ -228,12 +226,12 @@ public class CountDaoBiologicalMetricIT extends BaseCountDaoTest {
 
 	public void projectTest() {
 		List<Map<String, Object>> counts = projectTest(NameSpace.BIOLOGICAL_METRIC, 5);
-		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "5", "2", "1", "1", "1");
+		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "9", "2", "2", "4", "1");
 	}
 
 	public void providersTest() {
 		List<Map<String, Object>> counts = providersTest(NameSpace.BIOLOGICAL_METRIC, 4);
-		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "16", "4", "2", "10", null);
+		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "11", "2", "2", "7", null);
 	}
 
 	public void resultTest() {
@@ -243,12 +241,12 @@ public class CountDaoBiologicalMetricIT extends BaseCountDaoTest {
 
 	public void sampleMediaTest() {
 		List<Map<String, Object>> counts = sampleMediaTest(NameSpace.BIOLOGICAL_METRIC, 5);
-		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "6", "1", "1", "3", "1");
+		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "11", "2", "2", "6", "1");
 	}
 
 	public void siteIdTest() {
 		List<Map<String, Object>> counts = siteIdTest(NameSpace.BIOLOGICAL_METRIC, 4);
-		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "3", "1", "1", "1", null);
+		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "9", "2", "2", "5", null);
 	}
 
 	public void siteIdLargeListTest() {
@@ -258,7 +256,7 @@ public class CountDaoBiologicalMetricIT extends BaseCountDaoTest {
 
 	public void siteTypeTest() {
 		List<Map<String, Object>> counts = siteTypeTest(NameSpace.BIOLOGICAL_METRIC, 5);
-		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "6", "1", "1", "3", "1");
+		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "11", "1", "2", "7", "1");
 	}
 
 	public void siteUrlBaseTest() {
@@ -273,27 +271,27 @@ public class CountDaoBiologicalMetricIT extends BaseCountDaoTest {
 
 	public void startDateHiTest() {
 		List<Map<String, Object>> counts = startDateHiTest(NameSpace.BIOLOGICAL_METRIC, 5);
-		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "6", "1", "1", "3", "1");
+		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "11", "2", "2", "6", "1");
 	}
 
 	public void startDateLoTest() {
 		List<Map<String, Object>> counts = startDateLoTest(NameSpace.BIOLOGICAL_METRIC, 5);
-		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "4", "1", "1", "1", "1");
+		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "9", "2", "2", "4", "1");
 	}
 
 	public void stateTest() {
 		List<Map<String, Object>> counts = stateTest(NameSpace.BIOLOGICAL_METRIC, 4);
-		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "5", "1", "1", "3", null);
+		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "10", "2", "2", "6", null);
 	}
 
 	public void subjectTaxonomicNameTest() {
 		List<Map<String, Object>> counts = subjectTaxonomicNameTest(NameSpace.BIOLOGICAL_METRIC, 3);
-		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "2", null, null, "1", "1");
+		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "5", null, null, "4", "1");
 	}
 
 	public void withinTest() {
 		List<Map<String, Object>> counts = withinTest(NameSpace.BIOLOGICAL_METRIC, 4);
-		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "5", "1", "1", "3", null);
+		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "10", "2", "2", "6", null);
 	}
 
 	public void zipTest() {
@@ -341,7 +339,7 @@ public class CountDaoBiologicalMetricIT extends BaseCountDaoTest {
 		filter.setStartDateLo(getStartDateLo());
 		filter.setWithin(getWithin());
 		List<Map<String, Object>> counts = callDao(NameSpace.BIOLOGICAL_METRIC, 2, filter);
-		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "1", null, null, "1", null);
+		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "2", null, null, "2", null);
 	}
 
 	public void multipleParameterResultSumTest() {
@@ -369,7 +367,7 @@ public class CountDaoBiologicalMetricIT extends BaseCountDaoTest {
 		filter.setStartDateLo(getStartDateLo());
 		filter.setSubjectTaxonomicName(getSubjectTaxonomicName());
 		List<Map<String, Object>> counts = callDao(NameSpace.BIOLOGICAL_METRIC, 2, filter);
-		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "1", null, null, "1", null);
+		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "2", null, null, "2", null);
 	}
 
 	public void multipleParameterResultSumActivitySumTests() {
@@ -407,13 +405,4 @@ public class CountDaoBiologicalMetricIT extends BaseCountDaoTest {
 	protected void assertFullDbReturned(List<Map<String, Object>> counts) {
 		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, TOTAL_BIOLOGICAL_METRIC_COUNT, NWIS_BIOLOGICAL_METRIC_COUNT, STEWARDS_BIOLOGICAL_METRIC_COUNT, STORET_BIOLOGICAL_METRIC_COUNT, BIODATA_BIOLOGICAL_METRIC_COUNT);
 	}
-
-	private void multipleParameterStationSumTest() {
-		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-	}
-
-	private void multipleParameterResultSumStationSumTests() {
-		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-	}
-
 }
