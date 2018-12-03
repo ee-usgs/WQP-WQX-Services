@@ -45,7 +45,7 @@ public class SwaggerParameterBuilder implements OperationBuilderPlugin {
 		if (!noQueryParametersList.isPresent()) {
 			parameters.add(SwaggerParameters.mimeType());
 			parameters.add(SwaggerParameters.zip());
-		};
+		}
 
 		if (fullParameterList.isPresent()) {
 			parameters.add(SwaggerParameters.analyticalmethod());
