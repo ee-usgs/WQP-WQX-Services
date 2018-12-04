@@ -32,9 +32,9 @@
                prime.vertical_accuracy_unit,
                prime.elevation_method,
                prime.vdatum_id_code,
-               prime.country_code,
-               prime.state_fips_code,
-               prime.county_fips_code,
+               substring(prime.governmental_unit_code, '[^:]+') country_code,
+               substring(prime.governmental_unit_code, '[^:]+:([0-9]{2}):[^:]+') state_fips_code,
+               substring(prime.governmental_unit_code, '[^:]+:[^:]+:([0-9]{3})') county_fips_code,
                prime.nat_aqfr_name,
                prime.aqfr_name,
                prime.aqfr_type_name,
@@ -52,7 +52,7 @@
 
     <sql id="stationCount">
         select data_source, station_count
-          from (<include refid="dynamicWhere.countBase"/>)
+          from (<include refid="dynamicWhere.countBase"/>) final_result
     </sql>
 
     <select id="count" resultType="java.util.LinkedHashMap">

@@ -12,8 +12,8 @@ import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 import org.apache.tomcat.dbcp.dbcp2.DelegatingConnection;
 
-import oracle.sql.ARRAY;
-import oracle.sql.ArrayDescriptor;
+//import oracle.sql.ARRAY;
+//import oracle.sql.ArrayDescriptor;
 
 public class WqpArrayTypeHandler extends BaseTypeHandler<List<String>> {
 
@@ -29,13 +29,13 @@ public class WqpArrayTypeHandler extends BaseTypeHandler<List<String>> {
 		}
 
 		//drsteini - added to support junit testing
-		if (c.isWrapperFor(oracle.jdbc.OracleConnection.class)) {
-			c = c.unwrap(oracle.jdbc.OracleConnection.class);
-		}
-
-		ArrayDescriptor descriptor = ArrayDescriptor.createDescriptor("TYP_VCTBL", c);
-		Array array = new ARRAY(descriptor, c, parameter.toArray());
-		ps.setArray(i, array);
+//		if (c.isWrapperFor(oracle.jdbc.OracleConnection.class)) {
+//			c = c.unwrap(oracle.jdbc.OracleConnection.class);
+//		}
+//
+//		ArrayDescriptor descriptor = ArrayDescriptor.createDescriptor("TYP_VCTBL", c);
+//		Array array = new ARRAY(descriptor, c, parameter.toArray());
+//		ps.setArray(i, array);
 	}
 
 	@Override

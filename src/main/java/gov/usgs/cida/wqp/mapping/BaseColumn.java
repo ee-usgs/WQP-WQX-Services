@@ -4,7 +4,7 @@ public abstract class BaseColumn {
 
 	//ResultSet Keys
 	public static final String KEY_DATA_SOURCE_ID = "DATA_SOURCE_ID";
-	public static final String KEY_DATA_SOURCE = "DATA_SOURCE";
+	public static final String KEY_DATA_SOURCE = "data_source";
 	public static final String KEY_ORGANIZATION = "ORGANIZATION";
 	public static final String KEY_ORGANIZATION_NAME = "ORGANIZATION_NAME";
 	public static final String KEY_STATION_ID = "STATION_ID";

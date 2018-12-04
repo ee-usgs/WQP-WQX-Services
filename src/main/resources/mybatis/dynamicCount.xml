@@ -39,7 +39,7 @@
                         and (prime.result_count >= #{minresults})
                     </if>
                 </where>
-                       )
+                       ) subquery_result
                     group by rollup(data_source)
             </when>
 
@@ -65,7 +65,7 @@
                     <include refid="dynamicWhere.baseWhereStationClauses" />
                     <include refid="dynamicWhere.baseWhereActivityClauses" />
                 </where>
-                       )
+                       ) subquery_result
                 <where>
                     <if test="minactivities != null">
                         and site_activity_count >= #{minactivities}
@@ -85,9 +85,9 @@
                   from (select prime.data_source,
                                prime.station_id,
                                prime.activity_id,
-                               prime.result_count,
-                               count(distinct prime.activity_id) over (partition by prime.data_source_id, prime.station_id) site_activity_count,
-                               sum(prime.result_count) over (partition by prime.data_source_id, prime.station_id) site_result_count
+                               prime.result_count--,
+<!--                                count(distinct prime.activity_id) over (partition by prime.data_source_id, prime.station_id) site_activity_count, -->
+<!--                                sum(prime.result_count) over (partition by prime.data_source_id, prime.station_id) site_result_count -->
                           from result_sum prime
                 <if test="within != null or bBox != null or
                             (mimeType != null and (mimeType == 'geojson' or mimeType == 'json' or mimeType == 'kml' or mimeType == 'kmz')
@@ -98,7 +98,7 @@
                     <include refid="dynamicWhere.baseWhereStationClauses" />
                     <include refid="dynamicWhere.baseWhereResultClauses" />
                 </where>
-                       )
+                       ) subquery_result
                 <where>
                     <if test="minactivities != null">
                         and site_activity_count >= #{minactivities}
