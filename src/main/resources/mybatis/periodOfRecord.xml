@@ -2,65 +2,65 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
 
 <mapper namespace="periodOfRecord">
-		
+
     <sql id="summaryYearWhere">
         <where>
-			ml_g.grouping_id = 4
+            ml_g.grouping_id = 4
             <include refid="dynamicWhere.baseWhereStationGeoClauses" />
             <include refid="dynamicWhere.baseWhereStationClauses" />
-			<if test="summaryYears  !=null">
-				<if test="summaryYears.equalsIgnoreCase('1')">and ml_g.the_year &gt;= to_char(sysdate, 'yyyy')</if>
-				<if test="summaryYears.equalsIgnoreCase('5')">and ml_g.the_year &gt;= to_char(add_months(trunc(sysdate, 'yyyy'), -48), 'yyyy')</if>
-			</if>
+            <if test="summaryYears  !=null">
+                <if test="summaryYears.equalsIgnoreCase('1')">and ml_g.the_year &gt;= to_char(sysdate, 'yyyy')</if>
+                <if test="summaryYears.equalsIgnoreCase('5')">and ml_g.the_year &gt;= to_char(add_months(trunc(sysdate, 'yyyy'), -48), 'yyyy')</if>
+            </if>
         </where>
     </sql>
 
     <select id="select" resultType="java.util.LinkedHashMap" fetchSize="500">
 
-        SELECT	
+        SELECT
         prime.organization,
-		prime.station_type_name,
-		prime.organization_name,
-		prime.site_id,
-		prime.station_name,
-		prime.station_type_name,
-		prime.site_type,
-		prime.huc_8,
-		'https://www.waterqualitydata.us/provider/' || prime.data_source || '/' || prime.organization  || '/' || prime.site_id monitoring_location_url,		
-		prime.state_name,
-		prime.county_name,
-		TO_CHAR(prime.geom.sdo_point.y,'FM90.0000000') latitude,
-        TO_CHAR(prime.geom.sdo_point.x,'FM990.0000000') longitude,
-		ml_g.data_source_id,
-		ml_g.data_source,
-		ml_g.the_year,
-		ml_g.characteristic_type,
-		ml_g.characteristic_name,
-		ml_g.total_activities,
-		ml_g.total_results,
-		TO_CHAR(ml_g.last_result_date, 'YYYY-MM-DD') last_result_date
-				
+        prime.station_type_name,
+        prime.organization_name,
+        prime.site_id,
+        prime.station_name,
+        prime.station_type_name,
+        prime.site_type,
+        substring(prime.huc, '[0-9]{8}') huc_8,
+        'https://www.waterqualitydata.us/provider/' || prime.data_source || '/' || prime.organization  || '/' || prime.site_id monitoring_location_url,
+        prime.state_name,
+        prime.county_name,
+        TO_CHAR(st_y(prime.geom),'FM90.0000000') latitude,
+        TO_CHAR(st_x(prime.geom),'FM990.0000000') longitude,
+        ml_g.data_source_id,
+        ml_g.data_source,
+        ml_g.the_year,
+        ml_g.characteristic_type,
+        ml_g.characteristic_name,
+        ml_g.total_activities,
+        ml_g.total_results,
+        TO_CHAR(ml_g.last_result_date, 'YYYY-MM-DD') last_result_date
+
         FROM station_sum prime
-		JOIN ml_grouping ml_g
-		ON prime.data_source_id = ml_g.data_source_id 
-				AND prime.station_id = ml_g.station_id   
-		     
-		<include refid="summaryYearWhere" />
-		<if test="sorted == 'yes'">
-			order by prime.data_source_id, prime.site_id, ml_g.the_year
-		</if>	
+        JOIN ml_grouping ml_g
+        ON prime.data_source_id = ml_g.data_source_id
+                AND prime.station_id = ml_g.station_id
+
+        <include refid="summaryYearWhere" />
+        <if test="sorted == 'yes'">
+            order by prime.data_source_id, prime.site_id, ml_g.the_year
+        </if>
     </select>
-	
+    
     <select id="count" resultType="java.util.LinkedHashMap">
         select prime.data_source,
                count(distinct prime.data_source||'-'||prime.station_id) station_count
               from station_sum prime   
-				JOIN ml_grouping ml_g
-				ON prime.data_source_id = ml_g.data_source_id 
-						AND prime.station_id = ml_g.station_id   
+                JOIN ml_grouping ml_g
+                ON prime.data_source_id = ml_g.data_source_id
+                        AND prime.station_id = ml_g.station_id
 
-				<include refid="summaryYearWhere" />           
-        group by rollup(prime.data_source)   
+                <include refid="summaryYearWhere" />
+        group by rollup(prime.data_source)
     </select>
-	
+
 </mapper>

@@ -17,10 +17,10 @@
 
     <sql id="activityLimitWhere">
         <if test="minactivities != null">
-            and (filter.site_activity_count >= #{minactivities})
+            and (filter.site_activity_count >= #{minactivities}::int)
         </if>
         <if test="minresults != null">
-            and (filter.site_result_count >= #{minresults})
+            and (filter.site_result_count >= #{minresults}::int)
         </if>
     </sql>
 

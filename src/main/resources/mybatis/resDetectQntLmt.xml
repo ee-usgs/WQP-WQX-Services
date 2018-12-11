@@ -37,7 +37,7 @@
                        prime.station_id,
                        prime.activity_id,
                        prime.result_id
-                  <include refid="resDetectQntLmtBase"/>)
+                  <include refid="resDetectQntLmtBase"/>) prime
              group by rollup(data_source)
     </select>
 
@@ -73,10 +73,10 @@
                         and result_id = #{result.resultId}
                     </if>
                     <if test="minactivities != null">
-                        and site_activity_count >= #{minactivities}
+                        and site_activity_count >= #{minactivities}::int
                     </if>
                     <if test="minresults != null">
-                        and site_result_count >= #{minresults}
+                        and site_result_count >= #{minresults}::int
                     </if>
                 </where>
             </when>

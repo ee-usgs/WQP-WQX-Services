@@ -35,23 +35,24 @@ public class LogDao extends BaseDao implements ILogDao {
 
 	@Override
 	public BigDecimal addLog(Map<String, Object> parameterMap) {
-		getSqlSession().selectOne(LOG_NAMESPACE + QUERY_INSERT_ID, parameterMap);
-		return (BigDecimal) parameterMap.get(ID);
+		//TODO		getSqlSession().selectOne(LOG_NAMESPACE + QUERY_INSERT_ID, parameterMap);
+		//TODO		return (BigDecimal) parameterMap.get(ID);
+		return BigDecimal.ONE;
 	}
 
 	@Override
 	public void setHeadComplete(Map<String, Object> parameterMap) {
-		getSqlSession().selectOne(LOG_NAMESPACE + QUERY_HEAD_ID, parameterMap);
+		//TODO		getSqlSession().selectOne(LOG_NAMESPACE + QUERY_HEAD_ID, parameterMap);
 	}
 
 	@Override
 	public void setFirstRow(Map<String, Object> parameterMap) {
-		getSqlSession().selectOne(LOG_NAMESPACE + QUERY_FIRST_ROW_ID, parameterMap);
+		//TODO		getSqlSession().selectOne(LOG_NAMESPACE + QUERY_FIRST_ROW_ID, parameterMap);
 	}
 
 	@Override
 	public void setRequestComplete(Map<String, Object> parameterMap) {
-		getSqlSession().selectOne(LOG_NAMESPACE + QUERY_COMPLETE_ID, parameterMap);
+		//TODO		getSqlSession().selectOne(LOG_NAMESPACE + QUERY_COMPLETE_ID, parameterMap);
 	}
 
 }

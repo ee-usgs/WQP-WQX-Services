@@ -93,10 +93,10 @@
             ) prime
             <where>
                 <if test="minactivities != null">
-                    and site_activity_count >= #{minactivities}
+                    and site_activity_count >= #{minactivities}::int
                 </if>
                 <if test="minresults != null">
-                    and site_result_count >= #{minresults}
+                    and site_result_count >= #{minresults}::int
                 </if>
             </where>
         </if>
@@ -112,15 +112,21 @@
 
     <sql id="resultCount">
         select data_source, station_count, activity_count, result_count
-          from (<include refid="dynamicWhere.countBase"/>)
+          from (<include refid="dynamicWhere.countBase"/>) prime
     </sql>
 
     <sql id="resDetectQntLmtUrl">
-        nvl2(prime.res_detect_qnt_lmt_url, #{siteUrlBase,jdbcType=VARCHAR} || prime.res_detect_qnt_lmt_url, null) res_detect_qnt_lmt_url
+        case
+          when prime.res_detect_qnt_lmt_url is null then null
+          else #{siteUrlBase,jdbcType=VARCHAR} || prime.res_detect_qnt_lmt_url
+        end res_detect_qnt_lmt_url
     </sql>
 
     <sql id="labSamplePrepUrl">
-        nvl2(prime.lab_sample_prep_url, #{siteUrlBase,jdbcType=VARCHAR} || prime.lab_sample_prep_url, null) lab_sample_prep_url
+        case
+          when prime.lab_sample_prep_url is null then null
+          else #{siteUrlBase,jdbcType=VARCHAR} || prime.lab_sample_prep_url
+        end lab_sample_prep_url
     </sql>
 
     <sql id="externalResultId">
@@ -130,6 +136,9 @@
     <sql id="resultObjectColumns">
         prime.result_object_name,
         prime.result_object_type,
-        nvl2(prime.result_file_url, #{siteUrlBase,jdbcType=VARCHAR} || prime.result_file_url, null) result_file_url
+        case
+          when prime.result_file_url is null then null
+          else #{siteUrlBase,jdbcType=VARCHAR} || prime.result_file_url
+        end result_file_url
     </sql>
 </mapper>

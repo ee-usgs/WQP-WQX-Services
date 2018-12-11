@@ -77,10 +77,10 @@
         <where>
             <include refid="dynamicWhere.baseWhereOrganizationClauses" />
             <if test="minactivities != null">
-                and (filter.activity_count >= #{minactivities})
+                and (filter.activity_count >= #{minactivities}::int)
             </if>
             <if test="minresults != null">
-                and (filter.result_count >= #{minresults})
+                and (filter.result_count >= #{minresults}::int)
             </if>
         </where>
     </sql>

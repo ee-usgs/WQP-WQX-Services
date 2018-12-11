@@ -43,10 +43,19 @@
                <if test="dataProfile == 'activityAll'">
                    prime.activity_object_name,
                    prime.activity_object_type,
-                   nvl2(prime.activity_file_url, #{siteUrlBase,jdbcType=VARCHAR} || prime.activity_file_url, null) activity_file_url,
-                   nvl2(prime.activity_group_url, #{siteUrlBase,jdbcType=VARCHAR} || prime.activity_group_url, null) activity_group_url,
+                   case
+                     when prime.activity_file_url is null then null
+                     else #{siteUrlBase,jdbcType=VARCHAR} || prime.activity_file_url
+                   end activity_file_url,
+                   case
+                     when prime.activity_group_url is null then null
+                     else #{siteUrlBase,jdbcType=VARCHAR} || prime.activity_group_url
+                   end activity_group_url,
                </if>
-               nvl2(prime.activity_metric_url, #{siteUrlBase,jdbcType=VARCHAR} || prime.activity_metric_url, null) activity_metric_url
+               case
+                 when prime.activity_metric_url is null then null
+                 else #{siteUrlBase,jdbcType=VARCHAR} || prime.activity_metric_url
+               end activity_metric_url
         <include refid="dynamicWhere.activityBase"/>
         <if test="sorted == 'yes'">
             order by prime.data_source_id,
