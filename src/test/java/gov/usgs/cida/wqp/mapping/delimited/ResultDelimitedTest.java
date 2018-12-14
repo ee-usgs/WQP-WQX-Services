@@ -132,5 +132,5 @@ public class ResultDelimitedTest {
 		assertEquals(ResultColumn.KEY_DATA_SOURCE, keys[80]);
 		assertEquals(ResultDelimited.VALUE_DATA_SOURCE, mapping.get(keys[80]));
 	}
-
+	
 }
