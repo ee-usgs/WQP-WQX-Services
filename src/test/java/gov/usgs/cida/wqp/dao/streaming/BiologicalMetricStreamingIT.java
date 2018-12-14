@@ -1,8 +1,25 @@
 package gov.usgs.cida.wqp.dao.streaming;
 
+import static gov.usgs.cida.wqp.swagger.model.StationCountJson.BIODATA;
+import static gov.usgs.cida.wqp.swagger.model.StationCountJson.NWIS;
+import static gov.usgs.cida.wqp.swagger.model.StationCountJson.STEWARDS;
+import static gov.usgs.cida.wqp.swagger.model.StationCountJson.STORET;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
+import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DbUnitConfiguration;
-import static gov.usgs.cida.wqp.BaseTest.TOTAL_BIOLOGICAL_METRIC_COUNT;
+
 import gov.usgs.cida.wqp.CsvDataSetLoader;
 import gov.usgs.cida.wqp.dao.FilteredProjectDaoTest;
 import gov.usgs.cida.wqp.dao.NameSpace;
@@ -12,35 +29,20 @@ import gov.usgs.cida.wqp.mapping.BiologicalMetricColumn;
 import gov.usgs.cida.wqp.mapping.ProjectColumn;
 import gov.usgs.cida.wqp.mapping.TestResultHandler;
 import gov.usgs.cida.wqp.parameter.FilterParameters;
-
 import gov.usgs.cida.wqp.springinit.DBTestConfig;
-import static gov.usgs.cida.wqp.swagger.model.StationCountJson.BIODATA;
-import static gov.usgs.cida.wqp.swagger.model.StationCountJson.NWIS;
-import static gov.usgs.cida.wqp.swagger.model.StationCountJson.STEWARDS;
-import static gov.usgs.cida.wqp.swagger.model.StationCountJson.STORET;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest(webEnvironment=SpringBootTest.WebEnvironment.NONE,
 	classes={DBTestConfig.class, StreamingDao.class})
 @DatabaseSetup("classpath:/testData/csv/")
 @DbUnitConfiguration(dataSetLoader = CsvDataSetLoader.class)
-public class BiologicalMetricStreamingIT extends FilteredProjectDaoTest {	
+public class BiologicalMetricStreamingIT extends FilteredProjectDaoTest {
 	private static final Logger LOG = LoggerFactory.getLogger(ProjectStreamingIT.class);
-	
-	@Autowired 
+
+	@Autowired
 	IStreamingDao streamingDao;
-	
+
 	protected NameSpace nameSpace = NameSpace.BIOLOGICAL_METRIC;
-	
+
 	public static final String [] BIODATA_USGS_11421000 = new String[] {BIODATA, "PHB:OWW04440-0359:1:PCT_SLOW", "USGS"};
 	public static final String [] BIODATA_USGS_433830088977331 = new String[] {BIODATA, "PHB:OWW04440-0359:1:PCT_FAST", "USGS"};
 	public static final String [] STORET_ORGANIZATION_SITE_ID3 = new String[] {STORET, "RM:OWW04440-0298:040825:RR:EPIF_SUB", "organization"};
@@ -49,7 +51,7 @@ public class BiologicalMetricStreamingIT extends FilteredProjectDaoTest {
 	public static final String [] STORET_21NYDECA_WQX_ONTARIO_02 = new String[] {STORET, "PHB:OWW04440-0359:1:PCT_DRS", "21NYDECA_WQX"};
 	public static final String [] STORET_11NPSWRD_BICA_MFG_B = new String[] {STORET, "PHB:OWW04440-0359:1:PCT_POOL", "11NPSWRD"};
 	public static final String [] STORET_ORGANIZATION_SITE_ID2 = new String[] {STORET, "RM:OWW04440-0298:040825:RR:CHAN_FLS", "organization"};
-	public static final String [] STORET_ORGANIZATION_SITE_ID = new String[] {STORET, "RM:OWW04440-0298:040825:RR:SEDI_DEP", "organization"};	
+	public static final String [] STORET_ORGANIZATION_SITE_ID = new String[] {STORET, "RM:OWW04440-0298:040825:RR:SEDI_DEP", "organization"};
 	public static final String [] NWIS_USGS_05425700 = new String[] {NWIS, "RM:OWW04440-0298:040825:RR:BANK_STL", "USGS-WI"};
 	public static final String [] NWIS_USGS_431925089002701 = new String[] {NWIS, "RM:OWW04440-0298:040825:RR:CHAN_ALT", "USGS-WI"};
 	public static final String [] STEWARDS_ARS_IAWC_IAWC410 = new String[] {STEWARDS, "RM:OWW04440-0298:040825:RR:VEG_PROL", "ARS"};
@@ -146,7 +148,7 @@ public class BiologicalMetricStreamingIT extends FilteredProjectDaoTest {
 
 	public void organizationTest() {
 		List<Map<String, Object>> results = organizationTest(nameSpace, 10);
-		assertContainsBiologicalMetric(results, 
+		assertContainsBiologicalMetric(results,
 				STEWARDS_ARS_IAWC_IAWC410,
 				STEWARDS_ARS_IAWC_IAWC225,
 				NWIS_USGS_05425700,
@@ -162,7 +164,7 @@ public class BiologicalMetricStreamingIT extends FilteredProjectDaoTest {
 
 	public void providersTest() {
 		List<Map<String, Object>> results = providersTest(nameSpace, 11);
-		assertContainsBiologicalMetric(results, 
+		assertContainsBiologicalMetric(results,
 				NWIS_USGS_05425700,
 				NWIS_USGS_431925089002701,
 				STEWARDS_ARS_IAWC_IAWC410,
@@ -179,7 +181,7 @@ public class BiologicalMetricStreamingIT extends FilteredProjectDaoTest {
 
 	public void projectTest() {
 		List<Map<String, Object>> results = projectTest(nameSpace, 9);
-		assertContainsBiologicalMetric(results, 
+		assertContainsBiologicalMetric(results,
 				NWIS_USGS_431925089002701,
 				STORET_ORGANIZATION_SITE_ID2,
 				STEWARDS_ARS_IAWC_IAWC225,
@@ -208,11 +210,11 @@ public class BiologicalMetricStreamingIT extends FilteredProjectDaoTest {
 		assertEquals(NWIS_USGS_431925089002701[1], results.get(3).get(BiologicalMetricColumn.KEY_INDEX_IDENTIFIER).toString());
 		assertEquals(STORET_11NPSWRD_BICA_MFG_B[1], results.get(4).get(BiologicalMetricColumn.KEY_INDEX_IDENTIFIER).toString());
 		assertEquals(STORET_21NYDECA_WQX_ONTARIO_02[1], results.get(5).get(BiologicalMetricColumn.KEY_INDEX_IDENTIFIER).toString());
-		assertEquals(STORET_WIDNR_WQX_10030952[1], results.get(6).get(BiologicalMetricColumn.KEY_INDEX_IDENTIFIER).toString());
-		assertEquals(STORET_WIDNR_WQX_113086[1], results.get(7).get(BiologicalMetricColumn.KEY_INDEX_IDENTIFIER).toString());
-		assertEquals(STORET_ORGANIZATION_SITE_ID[1], results.get(8).get(BiologicalMetricColumn.KEY_INDEX_IDENTIFIER).toString());
-		assertEquals(STORET_ORGANIZATION_SITE_ID2[1], results.get(9).get(BiologicalMetricColumn.KEY_INDEX_IDENTIFIER).toString());
-		assertEquals(STORET_ORGANIZATION_SITE_ID3[1], results.get(10).get(BiologicalMetricColumn.KEY_INDEX_IDENTIFIER).toString());
+		assertEquals(STORET_ORGANIZATION_SITE_ID[1], results.get(6).get(BiologicalMetricColumn.KEY_INDEX_IDENTIFIER).toString());
+		assertEquals(STORET_ORGANIZATION_SITE_ID2[1], results.get(7).get(BiologicalMetricColumn.KEY_INDEX_IDENTIFIER).toString());
+		assertEquals(STORET_ORGANIZATION_SITE_ID3[1], results.get(8).get(BiologicalMetricColumn.KEY_INDEX_IDENTIFIER).toString());
+		assertEquals(STORET_WIDNR_WQX_10030952[1], results.get(9).get(BiologicalMetricColumn.KEY_INDEX_IDENTIFIER).toString());
+		assertEquals(STORET_WIDNR_WQX_113086[1], results.get(10).get(BiologicalMetricColumn.KEY_INDEX_IDENTIFIER).toString());
 		assertEquals(BIODATA_USGS_11421000[1], results.get(11).get(BiologicalMetricColumn.KEY_INDEX_IDENTIFIER).toString());
 		assertEquals(BIODATA_USGS_433830088977331[1], results.get(12).get(BiologicalMetricColumn.KEY_INDEX_IDENTIFIER).toString());
 	}
@@ -297,7 +299,7 @@ public class BiologicalMetricStreamingIT extends FilteredProjectDaoTest {
 
 	public void huc4Test() {
 		List<Map<String, Object>> results = huc4Test(nameSpace, 4);
-		assertContainsBiologicalMetric(results, 
+		assertContainsBiologicalMetric(results,
 				STORET_WIDNR_WQX_113086,
 				STORET_WIDNR_WQX_10030952,
 				NWIS_USGS_05425700,
@@ -307,7 +309,7 @@ public class BiologicalMetricStreamingIT extends FilteredProjectDaoTest {
 
 	public void huc5Test() {
 		List<Map<String, Object>> results = huc5Test(nameSpace, 4);
-		assertContainsBiologicalMetric(results, 
+		assertContainsBiologicalMetric(results,
 				STORET_WIDNR_WQX_113086,
 				STORET_WIDNR_WQX_10030952,
 				NWIS_USGS_05425700,
@@ -317,7 +319,7 @@ public class BiologicalMetricStreamingIT extends FilteredProjectDaoTest {
 
 	public void huc6Test() {
 		List<Map<String, Object>> results = huc6Test(nameSpace, 3);
-		assertContainsBiologicalMetric(results, 
+		assertContainsBiologicalMetric(results,
 				NWIS_USGS_05425700,
 				STORET_WIDNR_WQX_113086,
 				STORET_WIDNR_WQX_10030952
@@ -326,7 +328,7 @@ public class BiologicalMetricStreamingIT extends FilteredProjectDaoTest {
 
 	public void huc7Test() {
 		List<Map<String, Object>> results = huc7Test(nameSpace, 3);
-		assertContainsBiologicalMetric(results, 
+		assertContainsBiologicalMetric(results,
 				NWIS_USGS_05425700,
 				STORET_WIDNR_WQX_113086,
 				STORET_WIDNR_WQX_10030952
@@ -335,7 +337,7 @@ public class BiologicalMetricStreamingIT extends FilteredProjectDaoTest {
 
 	public void huc8Test() {
 		List<Map<String, Object>> results = huc8Test(nameSpace, 2);
-		assertContainsBiologicalMetric(results, 
+		assertContainsBiologicalMetric(results,
 				STORET_WIDNR_WQX_113086,
 				STORET_WIDNR_WQX_10030952
 		);
@@ -359,7 +361,7 @@ public class BiologicalMetricStreamingIT extends FilteredProjectDaoTest {
 
 	public void minActivitiesTest() {
 		List<Map<String, Object>> results = minActivitiesTest(nameSpace, 7);
-		assertContainsBiologicalMetric(results, 
+		assertContainsBiologicalMetric(results,
 				NWIS_USGS_05425700,
 				STEWARDS_ARS_IAWC_IAWC225,
 				STORET_WIDNR_WQX_113086,
@@ -372,19 +374,19 @@ public class BiologicalMetricStreamingIT extends FilteredProjectDaoTest {
 
 	public void minResultsTest() {
 		List<Map<String, Object>> results = minResultsTest(nameSpace, 6);
-		assertContainsBiologicalMetric(results, 
+		assertContainsBiologicalMetric(results,
 				NWIS_USGS_05425700,
 				STORET_WIDNR_WQX_113086,
 				STORET_21NYDECA_WQX_ONTARIO_02,
 				STORET_11NPSWRD_BICA_MFG_B,
 				STORET_ORGANIZATION_SITE_ID2,
-				STORET_ORGANIZATION_SITE_ID				
+				STORET_ORGANIZATION_SITE_ID
 		);
 	}
 
 	public void nldiSitesTest() {
 		List<Map<String, Object>> results = nldiSitesTest(nameSpace, 3);
-		assertContainsBiologicalMetric(results, 
+		assertContainsBiologicalMetric(results,
 				STORET_ORGANIZATION_SITE_ID,
 				STORET_ORGANIZATION_SITE_ID2,
 				STORET_WIDNR_WQX_113086
@@ -393,7 +395,7 @@ public class BiologicalMetricStreamingIT extends FilteredProjectDaoTest {
 
 	public void sampleMediaTest() {
 		List<Map<String, Object>> results = sampleMediaTest(nameSpace, 11);
-		assertContainsBiologicalMetric(results, 
+		assertContainsBiologicalMetric(results,
 				BIODATA_USGS_11421000,
 				NWIS_USGS_05425700,
 				NWIS_USGS_431925089002701,
@@ -410,7 +412,7 @@ public class BiologicalMetricStreamingIT extends FilteredProjectDaoTest {
 
 	public void siteIdTest() {
 		List<Map<String, Object>> results = siteIdTest(nameSpace, 9);
-		assertContainsBiologicalMetric(results, 
+		assertContainsBiologicalMetric(results,
 				STORET_ORGANIZATION_SITE_ID,
 				STORET_ORGANIZATION_SITE_ID2,
 				STORET_ORGANIZATION_SITE_ID3,
@@ -425,7 +427,7 @@ public class BiologicalMetricStreamingIT extends FilteredProjectDaoTest {
 
 	public void siteIdLargeListTest() {
 		List<Map<String, Object>> results = siteIdLargeListTest(nameSpace, 3);
-		assertContainsBiologicalMetric(results, 
+		assertContainsBiologicalMetric(results,
 				STORET_ORGANIZATION_SITE_ID,
 				STORET_ORGANIZATION_SITE_ID2,
 				STORET_WIDNR_WQX_113086
@@ -468,7 +470,7 @@ public class BiologicalMetricStreamingIT extends FilteredProjectDaoTest {
 
 	public void startDateLoTest() {
 		List<Map<String, Object>> results = startDateLoTest(nameSpace, 9);
-		assertContainsBiologicalMetric(results, 
+		assertContainsBiologicalMetric(results,
 				NWIS_USGS_05425700,
 				STEWARDS_ARS_IAWC_IAWC410,
 				NWIS_USGS_431925089002701,
@@ -483,7 +485,7 @@ public class BiologicalMetricStreamingIT extends FilteredProjectDaoTest {
 
 	public void stateTest() {
 		List<Map<String, Object>> results = stateTest(nameSpace, 10);
-		assertContainsBiologicalMetric(results, 
+		assertContainsBiologicalMetric(results,
 				STORET_ORGANIZATION_SITE_ID3,
 				STORET_WIDNR_WQX_113086,
 				STORET_WIDNR_WQX_10030952,
@@ -499,7 +501,7 @@ public class BiologicalMetricStreamingIT extends FilteredProjectDaoTest {
 
 	public void withinTest() {
 		List<Map<String, Object>> results = withinTest(nameSpace, 10);
-		assertContainsBiologicalMetric(results, 
+		assertContainsBiologicalMetric(results,
 				STEWARDS_ARS_IAWC_IAWC225,
 				STEWARDS_ARS_IAWC_IAWC410,
 				NWIS_USGS_431925089002701,
