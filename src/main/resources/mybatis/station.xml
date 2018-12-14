@@ -33,7 +33,7 @@
                prime.elevation_method,
                prime.vdatum_id_code,
                substring(prime.governmental_unit_code, '[^:]+') country_code,
-               substring(prime.governmental_unit_code, '[^:]+:([0-9]{2}):[^:]+') state_fips_code,
+               substring(prime.governmental_unit_code, '[^:]+:([0-9]{2}):*[^:]*') state_fips_code,
                substring(prime.governmental_unit_code, '[^:]+:[^:]+:([0-9]{3})') county_fips_code,
                prime.nat_aqfr_name,
                prime.aqfr_name,

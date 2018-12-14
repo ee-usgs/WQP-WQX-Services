@@ -245,65 +245,6 @@
     </Organization>
     <Organization>
         <OrganizationDescription>
-            <OrganizationIdentifier>WIDNR_WQX</OrganizationIdentifier>
-            <OrganizationFormalName>Wisconsin Department of Natural Resources</OrganizationFormalName>
-        </OrganizationDescription>
-        <Activity>
-            <ActivityDescription>
-                <ActivityIdentifier>WIDNR_WQX-7788475-5</ActivityIdentifier>
-                <ActivityMediaName>Water</ActivityMediaName>
-                <ActivityStartDate>1992-07-28</ActivityStartDate>
-                <ProjectIdentifier>Lake-BaselineMonitoringDNR</ProjectIdentifier>
-                <MonitoringLocationIdentifier>WIDNR_WQX-113086</MonitoringLocationIdentifier>
-            </ActivityDescription>
-            <Result>
-                <ResultDescription>
-                    <CharacteristicName>Fecal Coliform</CharacteristicName>
-                </ResultDescription>
-            </Result>
-            <Result>
-                <ResultDescription>
-                    <CharacteristicName>Dissolved oxygen (DO)</CharacteristicName>
-                </ResultDescription>
-            </Result>
-            <Result>
-                <ResultDescription>
-                    <CharacteristicName>Fecal Streptococcus Group Bacteria</CharacteristicName>
-                </ResultDescription>
-            </Result>
-        </Activity>
-        <Activity>
-            <ActivityDescription>
-                <ActivityIdentifier>WIDNR_WQX-7788480-4</ActivityIdentifier>
-                <ActivityMediaName>Water</ActivityMediaName>
-                <ActivityStartDate>1992-07-28</ActivityStartDate>
-                <ProjectIdentifier>WR047</ProjectIdentifier>
-                <MonitoringLocationIdentifier>WIDNR_WQX-113086</MonitoringLocationIdentifier>
-            </ActivityDescription>
-            <Result>
-                <ResultDescription>
-                    <CharacteristicName>Fecal Streptococcus Group Bacteria</CharacteristicName>
-                </ResultDescription>
-            </Result>
-            <Result>
-                <ResultDescription>
-                    <CharacteristicName>Fecal Coliform</CharacteristicName>
-                </ResultDescription>
-            </Result>
-            <Result>
-                <ResultDescription>
-                    <CharacteristicName>Cloud cover</CharacteristicName>
-                </ResultDescription>
-            </Result>
-            <Result>
-                <ResultDescription>
-                    <CharacteristicName>Dissolved oxygen (DO)</CharacteristicName>
-                </ResultDescription>
-            </Result>
-        </Activity>
-    </Organization>
-    <Organization>
-        <OrganizationDescription>
             <OrganizationIdentifier>organization</OrganizationIdentifier>
             <OrganizationFormalName>Wisconsin Department of Natural Resources</OrganizationFormalName>
         </OrganizationDescription>
@@ -757,6 +698,65 @@
                 <BiologicalResultDescription>
                     <SubjectTaxonomicName>sampleTissueTaxonomicName</SubjectTaxonomicName>
                 </BiologicalResultDescription>
+            </Result>
+        </Activity>
+    </Organization>
+    <Organization>
+        <OrganizationDescription>
+            <OrganizationIdentifier>WIDNR_WQX</OrganizationIdentifier>
+            <OrganizationFormalName>Wisconsin Department of Natural Resources</OrganizationFormalName>
+        </OrganizationDescription>
+        <Activity>
+            <ActivityDescription>
+                <ActivityIdentifier>WIDNR_WQX-7788475-5</ActivityIdentifier>
+                <ActivityMediaName>Water</ActivityMediaName>
+                <ActivityStartDate>1992-07-28</ActivityStartDate>
+                <ProjectIdentifier>Lake-BaselineMonitoringDNR</ProjectIdentifier>
+                <MonitoringLocationIdentifier>WIDNR_WQX-113086</MonitoringLocationIdentifier>
+            </ActivityDescription>
+            <Result>
+                <ResultDescription>
+                    <CharacteristicName>Fecal Coliform</CharacteristicName>
+                </ResultDescription>
+            </Result>
+            <Result>
+                <ResultDescription>
+                    <CharacteristicName>Dissolved oxygen (DO)</CharacteristicName>
+                </ResultDescription>
+            </Result>
+            <Result>
+                <ResultDescription>
+                    <CharacteristicName>Fecal Streptococcus Group Bacteria</CharacteristicName>
+                </ResultDescription>
+            </Result>
+        </Activity>
+        <Activity>
+            <ActivityDescription>
+                <ActivityIdentifier>WIDNR_WQX-7788480-4</ActivityIdentifier>
+                <ActivityMediaName>Water</ActivityMediaName>
+                <ActivityStartDate>1992-07-28</ActivityStartDate>
+                <ProjectIdentifier>WR047</ProjectIdentifier>
+                <MonitoringLocationIdentifier>WIDNR_WQX-113086</MonitoringLocationIdentifier>
+            </ActivityDescription>
+            <Result>
+                <ResultDescription>
+                    <CharacteristicName>Fecal Streptococcus Group Bacteria</CharacteristicName>
+                </ResultDescription>
+            </Result>
+            <Result>
+                <ResultDescription>
+                    <CharacteristicName>Fecal Coliform</CharacteristicName>
+                </ResultDescription>
+            </Result>
+            <Result>
+                <ResultDescription>
+                    <CharacteristicName>Cloud cover</CharacteristicName>
+                </ResultDescription>
+            </Result>
+            <Result>
+                <ResultDescription>
+                    <CharacteristicName>Dissolved oxygen (DO)</CharacteristicName>
+                </ResultDescription>
             </Result>
         </Activity>
     </Organization>

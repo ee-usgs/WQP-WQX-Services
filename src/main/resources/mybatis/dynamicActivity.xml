@@ -4,6 +4,7 @@
 <mapper namespace="dynamicWhere">
 
     <sql id="baseWhereActivityClauses">
+        <include refid="dynamicWhere.baseWhereStationClauses" />
         <if test="project != null">
             and (<include refid="dynamicWhere.activityProjects" />)
         </if>
@@ -24,19 +25,6 @@
         </if>
     </sql>
 
-    <sql id="activityJoinStationSum">
-        <if test="bBox != null or within != null">
-            join station_sum secondary
-              on prime.station_id = secondary.station_id and
-                 prime.data_source_id = secondary.data_source_id
-        </if>
-        <where>
-            <include refid="dynamicWhere.baseWhereStationGeoClauses" />
-            <include refid="dynamicWhere.baseWhereStationClauses" />
-            <include refid="dynamicWhere.baseWhereActivityClauses" />
-        </where>
-    </sql>
-
     <sql id="dynamicWhere.activityJoinActivitySum">
         join (
               select prime.data_source_id,
@@ -45,14 +33,7 @@
                      count(*) over (partition by prime.data_source_id, prime.station_id) site_activity_count,
                      sum(prime.result_count) over (partition by prime.data_source_id, prime.station_id) site_result_count
                 from activity_sum prime
-                <if test="bBox != null or within != null">
-                    join station_sum secondary
-                      on prime.station_id = secondary.station_id and
-                         prime.data_source_id = secondary.data_source_id
-                </if>
                 <where>
-                    <include refid="dynamicWhere.baseWhereStationGeoClauses" />
-                    <include refid="dynamicWhere.baseWhereStationClauses" />
                     <include refid="dynamicWhere.baseWhereActivityClauses" />
                 </where>
              ) filter
@@ -63,23 +44,24 @@
 
     <sql id="dynamicWhere.activityJoinResultSum">
         join (
-              select distinct
-                     prime.data_source_id,
-                     prime.station_id,
-                     prime.activity_id,
-                     count(distinct prime.activity_id) over (partition by prime.data_source_id, prime.station_id) site_activity_count,
-                     sum(prime.result_count) over (partition by prime.data_source_id, prime.station_id) site_result_count
-                from result_sum prime
-                <if test="bBox != null or within != null">
-                    join station_sum secondary
-                      on prime.station_id = secondary.station_id and
-                         prime.data_source_id = secondary.data_source_id
-                </if>
-                <where>
-                    <include refid="dynamicWhere.baseWhereStationGeoClauses" />
-                    <include refid="dynamicWhere.baseWhereStationClauses" />
-                    <include refid="dynamicWhere.baseWhereResultClauses" />
-                </where>
+              select data_source_id,
+                     station_id,
+                     activity_id,
+                     count(activity_id) over (partition by data_source_id, station_id) site_activity_count,
+                     sum(result_count) over (partition by data_source_id, station_id) site_result_count
+                from (
+                      select prime.data_source_id,
+                             prime.station_id,
+                             prime.activity_id,
+                             sum(prime.result_count) result_count
+                        from result_sum prime
+                        <where>
+                            <include refid="dynamicWhere.baseWhereResultClauses" />
+                        </where>
+                          group by prime.data_source_id,
+                                   prime.station_id,
+                                   prime.activity_id
+                     ) first
              ) filter
           on prime.data_source_id = filter.data_source_id and
              prime.station_id = filter.station_id and
@@ -90,13 +72,7 @@
         from activity prime
         <choose>
             <when test="analyticalmethod == null and assemblage == null and characteristicName == null and
-                        characteristicType == null and pCode == null and subjectTaxonomicName == null and
-                        minactivities == null and minresults == null">
-                <include refid="dynamicWhere.activityJoinStationSum"/>
-            </when>
-            <when test="analyticalmethod == null and assemblage == null and characteristicName == null and
-                        characteristicType == null and pCode == null and subjectTaxonomicName == null and
-                        (minactivities != null or minresults != null)">
+                        characteristicType == null and pCode == null and subjectTaxonomicName == null">
                 <include refid="dynamicWhere.activityJoinActivitySum"/>
             </when>
             <otherwise>

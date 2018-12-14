@@ -25,19 +25,38 @@
         </if>
     </sql>
 
+    <sql id="resultMinactivities">
+        join (
+              select data_source_id,
+                     station_id,
+                     count(*) site_activity_count
+                from (
+                      select prime.data_source_id,
+                             prime.station_id,
+                             prime.activity_id
+                        from result_sum prime
+                        <where>
+                            <include refid="dynamicWhere.baseWhereResultClauses" />
+                        </where>
+                            group by prime.data_source_id,
+                                     prime.station_id,
+                                     prime.activity_id
+                     ) first
+                         group by data_source_id,
+                                  station_id
+             ) minActivities
+          on prime.data_source_id = minActivities.data_source_id and
+             prime.station_id = minActivities.station_id and
+             minActivities.site_activity_count >= #{minactivities}::int
+    </sql>
+
     <sql id="resultsBase">
         from result prime
-        <if test="bBox != null or within != null">
-            join station_sum secondary
-              on prime.station_id = secondary.station_id and
-                 prime.data_source_id = secondary.data_source_id
+        <if test="minactivities != null">
+            <include refid="dynamicWhere.resultMinactivities"/>
         </if>
         <where>
-            <include refid="dynamicWhere.baseWhereStationClauses" />
             <include refid="dynamicWhere.baseWhereResultClauses" />
-            <if test="bBox != null or within != null">
-                <include refid="dynamicWhere.baseWhereStationGeoClauses" />
-            </if>
         </where>
     </sql>
 

@@ -93,16 +93,22 @@
         sample_media in <foreach item="i" collection="sampleMedia" open="(" separator="," close=")">#{i}</foreach>
     </sql>
 
+<!-- TODO    <sql id="siteId"> -->
+<!-- TODO        prime.site_id in (select /*+ dynamic_sampling(DYN 10) */ distinct column_value -->
+<!-- TODO                            from table(pkg_dynamic_list.get_table(#{siteid, typeHandler=WqpArrayTypeHandler})) -->
+<!-- TODO                         ) -->
+<!-- TODO    </sql> -->
     <sql id="siteId">
-        prime.site_id in (select /*+ dynamic_sampling(DYN 10) */ distinct column_value
-                            from table(pkg_dynamic_list.get_table(#{siteid, typeHandler=WqpArrayTypeHandler}))
-                         )
+        prime.site_id in <foreach item="i" collection="siteid" open="(" separator="," close=")">#{i}</foreach>
     </sql>
 
+<!-- TODO    <sql id="nldiSiteId"> -->
+<!-- TODO        prime.site_id in (select /*+ dynamic_sampling(DYN 10) */ distinct column_value -->
+<!-- TODO                            from table(pkg_dynamic_list.get_table(#{nldiSites, typeHandler=WqpArrayTypeHandler})) -->
+<!-- TODO                         ) -->
+<!-- TODO    </sql> -->
     <sql id="nldiSiteId">
-        prime.site_id in (select /*+ dynamic_sampling(DYN 10) */ distinct column_value
-                            from table(pkg_dynamic_list.get_table(#{nldiSites, typeHandler=WqpArrayTypeHandler}))
-                         )
+         prime.site_id in <foreach item="i" collection="nldiSites" open="(" separator="," close=")">#{i}</foreach>
     </sql>
 
     <sql id="siteType">

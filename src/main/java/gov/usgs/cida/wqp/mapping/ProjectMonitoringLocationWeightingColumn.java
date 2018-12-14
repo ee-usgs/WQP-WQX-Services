@@ -3,22 +3,22 @@ package gov.usgs.cida.wqp.mapping;
 public class ProjectMonitoringLocationWeightingColumn extends BaseColumn {
 	
 	//ResultSet Keys
-	public static final String KEY_PRJMLW_ID = "PRJMLW_ID";
-	public static final String KEY_PRJMLW_VALUE = "MEASURE_VALUE";
-	public static final String KEY_PRJMLW_UNIT = "UNIT_CODE";
-	public static final String KEY_PRJMLW_COMMENT = "COMMENT_TEXT";
-	public static final String KEY_PRJMLW_STATISTICAL_STRATUM = "STATISTICAL_STRATUM";
-	public static final String KEY_PRJMLW_LOCATION_CATEGORY = "LOCATION_CATEGORY";
-	public static final String KEY_PRJMLW_LOCATION_STATUS = "LOCATION_STATUS";
-	public static final String KEY_PRJMLW_REFERENCE_LOCATION_TYPE_CODE = "REF_LOCATION_TYPE_CODE";
-	public static final String KEY_PRJMLW_REFERENCE_LOCATION_START_DATE = "REF_LOCATION_START_DATE";
-	public static final String KEY_PRJMLW_REFERENCE_LOCATION_END_DATE = "REF_LOCATION_END_DATE";
-	public static final String KEY_REFERENCE_LOCATION_CITATION_TITLE = "RESOURCE_TITLE";
-	public static final String KEY_REFERENCE_LOCATION_CITATION_CREATOR = "RESOURCE_CREATOR";
-	public static final String KEY_REFERENCE_LOCATION_CITATION_SUBJECT = "RESOURCE_SUBJECT";
-	public static final String KEY_REFERENCE_LOCATION_CITATION_PUBLISHER = "RESOURCE_PUBLISHER";
-	public static final String KEY_REFERENCE_LOCATION_CITATION_DATE = "RESOURCE_DATE";
-	public static final String KEY_REFERENCE_LOCATION_CITATION_IDENTIFIER = "RESOURCE_IDENTIFIER";
+	public static final String KEY_PRJMLW_ID = "prjmlw_id";
+	public static final String KEY_PRJMLW_VALUE = "measure_value";
+	public static final String KEY_PRJMLW_UNIT = "unit_code";
+	public static final String KEY_PRJMLW_COMMENT = "comment_text";
+	public static final String KEY_PRJMLW_STATISTICAL_STRATUM = "statistical_stratum";
+	public static final String KEY_PRJMLW_LOCATION_CATEGORY = "location_category";
+	public static final String KEY_PRJMLW_LOCATION_STATUS = "location_status";
+	public static final String KEY_PRJMLW_REFERENCE_LOCATION_TYPE_CODE = "ref_location_type_code";
+	public static final String KEY_PRJMLW_REFERENCE_LOCATION_START_DATE = "ref_location_start_date";
+	public static final String KEY_PRJMLW_REFERENCE_LOCATION_END_DATE = "ref_location_end_date";
+	public static final String KEY_REFERENCE_LOCATION_CITATION_TITLE = "resource_title";
+	public static final String KEY_REFERENCE_LOCATION_CITATION_CREATOR = "resource_creator";
+	public static final String KEY_REFERENCE_LOCATION_CITATION_SUBJECT = "resource_subject";
+	public static final String KEY_REFERENCE_LOCATION_CITATION_PUBLISHER = "resource_publisher";
+	public static final String KEY_REFERENCE_LOCATION_CITATION_DATE = "resource_date";
+	public static final String KEY_REFERENCE_LOCATION_CITATION_IDENTIFIER = "resource_identifier";
 	
 	//Profile Mapping of the Keys
 	public static final ColumnProfile PRJMLW_ID = new ColumnProfile(KEY_PRJMLW_ID, Profile.PROJECT_MONITORING_LOCATION_WEIGHTING);

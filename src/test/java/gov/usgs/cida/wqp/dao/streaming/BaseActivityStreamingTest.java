@@ -29,29 +29,29 @@ public abstract class BaseActivityStreamingTest extends FilteredActivityDaoTest 
 
 	public NameSpace nameSpace = NameSpace.ACTIVITY;
 
-	public static final BigDecimal[] STEWARDS_1 = new BigDecimal[]{BigDecimal.ONE, BigDecimal.ONE};
-	public static final BigDecimal[] STEWARDS_2 = new BigDecimal[]{BigDecimal.ONE, BigDecimal.valueOf(2)};
-	public static final BigDecimal[] STEWARDS_3 = new BigDecimal[]{BigDecimal.ONE, BigDecimal.valueOf(3)};
-	public static final BigDecimal[] NWIS_1 = new BigDecimal[]{BigDecimal.valueOf(2), BigDecimal.ONE};
-	public static final BigDecimal[] NWIS_2 = new BigDecimal[]{BigDecimal.valueOf(2), BigDecimal.valueOf(2)};
-	public static final BigDecimal[] NWIS_3 = new BigDecimal[]{BigDecimal.valueOf(2), BigDecimal.valueOf(3)};
-	public static final BigDecimal[] STORET_1 = new BigDecimal[]{BigDecimal.valueOf(3), BigDecimal.ONE};
-	public static final BigDecimal[] STORET_2 = new BigDecimal[]{BigDecimal.valueOf(3), BigDecimal.valueOf(2)};
-	public static final BigDecimal[] STORET_3 = new BigDecimal[]{BigDecimal.valueOf(3), BigDecimal.valueOf(3)};
-	public static final BigDecimal[] STORET_4 = new BigDecimal[]{BigDecimal.valueOf(3), BigDecimal.valueOf(4)};
-	public static final BigDecimal[] STORET_5 = new BigDecimal[]{BigDecimal.valueOf(3), BigDecimal.valueOf(5)};
-	public static final BigDecimal[] STORET_6 = new BigDecimal[]{BigDecimal.valueOf(3), BigDecimal.valueOf(6)};
-	public static final BigDecimal[] STORET_7 = new BigDecimal[]{BigDecimal.valueOf(3), BigDecimal.valueOf(7)};
-	public static final BigDecimal[] STORET_8 = new BigDecimal[]{BigDecimal.valueOf(3), BigDecimal.valueOf(8)};
-	public static final BigDecimal[] STORET_9 = new BigDecimal[]{BigDecimal.valueOf(3), BigDecimal.valueOf(9)};
-	public static final BigDecimal[] STORET_10 = new BigDecimal[]{BigDecimal.valueOf(3), BigDecimal.TEN};
-	public static final BigDecimal[] STORET_11 = new BigDecimal[]{BigDecimal.valueOf(3), BigDecimal.valueOf(11)};
-	public static final BigDecimal[] STORET_12 = new BigDecimal[]{BigDecimal.valueOf(3), BigDecimal.valueOf(12)};
-	public static final BigDecimal[] STORET_13 = new BigDecimal[]{BigDecimal.valueOf(3), BigDecimal.valueOf(13)};
-	public static final BigDecimal[] STORET_14 = new BigDecimal[]{BigDecimal.valueOf(3), BigDecimal.valueOf(14)};
-	public static final BigDecimal[] STORET_15 = new BigDecimal[]{BigDecimal.valueOf(3), BigDecimal.valueOf(15)};
-	public static final BigDecimal[] STORET_16 = new BigDecimal[]{BigDecimal.valueOf(3), BigDecimal.valueOf(16)};
-	public static final BigDecimal[] BIODATA_1 = new BigDecimal[]{BigDecimal.valueOf(4), BigDecimal.ONE};
+	public static final Object[] STEWARDS_1 = new Object[]{STEWARDS_ID, BigDecimal.ONE};
+	public static final Object[] STEWARDS_2 = new Object[]{STEWARDS_ID, BigDecimal.valueOf(2)};
+	public static final Object[] STEWARDS_3 = new Object[]{STEWARDS_ID, BigDecimal.valueOf(3)};
+	public static final Object[] NWIS_1 = new Object[]{NWIS_ID, BigDecimal.ONE};
+	public static final Object[] NWIS_2 = new Object[]{NWIS_ID, BigDecimal.valueOf(2)};
+	public static final Object[] NWIS_3 = new Object[]{NWIS_ID, BigDecimal.valueOf(3)};
+	public static final Object[] STORET_1 = new Object[]{STORET_ID, BigDecimal.ONE};
+	public static final Object[] STORET_2 = new Object[]{STORET_ID, BigDecimal.valueOf(2)};
+	public static final Object[] STORET_3 = new Object[]{STORET_ID, BigDecimal.valueOf(3)};
+	public static final Object[] STORET_4 = new Object[]{STORET_ID, BigDecimal.valueOf(4)};
+	public static final Object[] STORET_5 = new Object[]{STORET_ID, BigDecimal.valueOf(5)};
+	public static final Object[] STORET_6 = new Object[]{STORET_ID, BigDecimal.valueOf(6)};
+	public static final Object[] STORET_7 = new Object[]{STORET_ID, BigDecimal.valueOf(7)};
+	public static final Object[] STORET_8 = new Object[]{STORET_ID, BigDecimal.valueOf(8)};
+	public static final Object[] STORET_9 = new Object[]{STORET_ID, BigDecimal.valueOf(9)};
+	public static final Object[] STORET_10 = new Object[]{STORET_ID, BigDecimal.TEN};
+	public static final Object[] STORET_11 = new Object[]{STORET_ID, BigDecimal.valueOf(11)};
+	public static final Object[] STORET_12 = new Object[]{STORET_ID, BigDecimal.valueOf(12)};
+	public static final Object[] STORET_13 = new Object[]{STORET_ID, BigDecimal.valueOf(13)};
+	public static final Object[] STORET_14 = new Object[]{STORET_ID, BigDecimal.valueOf(14)};
+	public static final Object[] STORET_15 = new Object[]{STORET_ID, BigDecimal.valueOf(15)};
+	public static final Object[] STORET_16 = new Object[]{STORET_ID, BigDecimal.valueOf(16)};
+	public static final Object[] BIODATA_1 = new Object[]{BIODATA_ID, BigDecimal.ONE};
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//Only need Activity (and possibly a lookup table)
@@ -220,15 +220,15 @@ public abstract class BaseActivityStreamingTest extends FilteredActivityDaoTest 
 		assertStoret7(columnCount, results.get(10));
 		assertStoret9(columnCount, results.get(11));
 		assertStoret8(columnCount, results.get(12));
-		assertStoret5(columnCount, results.get(13));
-		assertStoret4(columnCount, results.get(14));
-		assertStoret11(columnCount, results.get(15));
-		assertStoret12(columnCount, results.get(16));
-		assertStoret13(columnCount, results.get(17));
-		assertStoret2(columnCount, results.get(18));
-		assertStoret16(columnCount, results.get(19));
-		assertStoret1(columnCount, results.get(20));
-		assertStoret3(columnCount, results.get(21));
+		assertStoret11(columnCount, results.get(13));
+		assertStoret12(columnCount, results.get(14));
+		assertStoret13(columnCount, results.get(15));
+		assertStoret2(columnCount, results.get(16));
+		assertStoret16(columnCount, results.get(17));
+		assertStoret1(columnCount, results.get(18));
+		assertStoret3(columnCount, results.get(19));
+		assertStoret5(columnCount, results.get(20));
+		assertStoret4(columnCount, results.get(21));
 		assertBiodata1(columnCount, results.get(22));
 	}
 
@@ -321,33 +321,17 @@ public abstract class BaseActivityStreamingTest extends FilteredActivityDaoTest 
 	}
 
 	public void multipleParameterActivityTest() {
-		List<Map<String, Object>> results = multipleParameterActivityTest(nameSpace, 12);
-		assertContainsActivity(results, STEWARDS_1, STEWARDS_3, NWIS_1, STORET_1, STORET_2, STORET_3, STORET_11, STORET_12, STORET_13, STORET_14,
-				STORET_15, STORET_16);
-	}
-
-	public void multipleParameterStationSumTest() {
-		List<Map<String, Object>> results = multipleParameterStationSumTest(nameSpace, 9);
+		List<Map<String, Object>> results = multipleParameterActivityTest(nameSpace, 9);
 		assertContainsActivity(results, STEWARDS_1, STEWARDS_3, NWIS_1, STORET_1, STORET_2, STORET_11, STORET_12, STORET_13, STORET_16);
 	}
 
 	public void multipleParameterActivitySumTest() {
-		List<Map<String, Object>> results = multipleParameterActivitySumTest(nameSpace, 8);
-		assertContainsActivity(results, STORET_1, STORET_2, STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_16);
-	}
-
-	public void multipleParameterActivitySumStationSumTest() {
-		List<Map<String, Object>> results = multipleParameterActivitySumStationSumTest(nameSpace, 6);
+		List<Map<String, Object>> results = multipleParameterActivitySumTest(nameSpace, 6);
 		assertContainsActivity(results, STORET_1, STORET_2, STORET_11, STORET_12, STORET_13, STORET_16);
 	}
 
 	public void multipleParameterResultSumTest() {
-		List<Map<String, Object>> results = multipleParameterResultSumTest(nameSpace, 4);
-		assertContainsActivity(results, STORET_1, STORET_14, STORET_15, STORET_16);
-	}
-
-	public void multipleParameterResultSumStationSumTest() {
-		List<Map<String, Object>> results = multipleParameterResultSumStationSumTest(nameSpace, 2);
+		List<Map<String, Object>> results = multipleParameterResultSumTest(nameSpace, 2);
 		assertContainsActivity(results, STORET_1, STORET_16);
 	}
 
@@ -507,16 +491,16 @@ public abstract class BaseActivityStreamingTest extends FilteredActivityDaoTest 
 		assertEquals("activityBiodata-1", row.get(ActivityColumn.KEY_ACTIVITY));
 	}
 
-	public void assertContainsActivity(List<Map<String, Object>> results, BigDecimal[]...  activityIds) {
+	public void assertContainsActivity(List<Map<String, Object>> results, Object[]...  activityIds) {
 		for (Map<String, Object> result : results) {
 			LOG.debug(ActivityColumn.KEY_DATA_SOURCE_ID + ":" + result.get(ActivityColumn.KEY_DATA_SOURCE_ID) + "/" + ActivityColumn.KEY_ACTIVITY_ID + ":" +  result.get(ActivityColumn.KEY_ACTIVITY_ID));
 		}
 
-		for (BigDecimal[] i : activityIds) {
+		for (Object[] i : activityIds) {
 			boolean isFound = false;
 			for (Map<String, Object> result : results) {
-				if (i[0].compareTo(((BigDecimal) result.get(ActivityColumn.KEY_DATA_SOURCE_ID))) == 0
-						&& i[1].compareTo(((BigDecimal) result.get(ActivityColumn.KEY_ACTIVITY_ID))) == 0) {
+				if (((Integer) i[0]).compareTo(((Integer) result.get(ActivityColumn.KEY_DATA_SOURCE_ID))) == 0
+						&& ((BigDecimal) i[1]).compareTo(((BigDecimal) result.get(ActivityColumn.KEY_ACTIVITY_ID))) == 0) {
 					isFound = true;
 					break;
 				}

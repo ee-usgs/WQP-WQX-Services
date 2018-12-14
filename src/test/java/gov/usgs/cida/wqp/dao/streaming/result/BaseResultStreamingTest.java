@@ -27,64 +27,64 @@ public abstract class BaseResultStreamingTest extends FilteredResultDaoTest {
 	@Autowired 
 	IStreamingDao streamingDao;
 
-	public static final BigDecimal[] STEWARDS_1 = new BigDecimal[]{STEWARDS_ID, BigDecimal.ONE};
-	public static final BigDecimal[] STEWARDS_2 = new BigDecimal[]{STEWARDS_ID, BigDecimal.valueOf(2)};
-	public static final BigDecimal[] STEWARDS_3 = new BigDecimal[]{STEWARDS_ID, BigDecimal.valueOf(3)};
+	public static final Object[] STEWARDS_1 = new Object[]{STEWARDS_ID, BigDecimal.ONE};
+	public static final Object[] STEWARDS_2 = new Object[]{STEWARDS_ID, BigDecimal.valueOf(2)};
+	public static final Object[] STEWARDS_3 = new Object[]{STEWARDS_ID, BigDecimal.valueOf(3)};
 
-	public static final BigDecimal[] NWIS_1 = new BigDecimal[]{NWIS_ID, BigDecimal.ONE};
-	public static final BigDecimal[] NWIS_2 = new BigDecimal[]{NWIS_ID, BigDecimal.valueOf(2)};
-	public static final BigDecimal[] NWIS_3 = new BigDecimal[]{NWIS_ID, BigDecimal.valueOf(3)};
-	public static final BigDecimal[] NWIS_4 = new BigDecimal[]{NWIS_ID, BigDecimal.valueOf(4)};
-	public static final BigDecimal[] NWIS_5 = new BigDecimal[]{NWIS_ID, BigDecimal.valueOf(5)};
+	public static final Object[] NWIS_1 = new Object[]{NWIS_ID, BigDecimal.ONE};
+	public static final Object[] NWIS_2 = new Object[]{NWIS_ID, BigDecimal.valueOf(2)};
+	public static final Object[] NWIS_3 = new Object[]{NWIS_ID, BigDecimal.valueOf(3)};
+	public static final Object[] NWIS_4 = new Object[]{NWIS_ID, BigDecimal.valueOf(4)};
+	public static final Object[] NWIS_5 = new Object[]{NWIS_ID, BigDecimal.valueOf(5)};
 
-	public static final BigDecimal[] STORET_1 = new BigDecimal[]{STORET_ID, BigDecimal.ONE};
-	public static final BigDecimal[] STORET_2 = new BigDecimal[]{STORET_ID, BigDecimal.valueOf(2)};
-	public static final BigDecimal[] STORET_3 = new BigDecimal[]{STORET_ID, BigDecimal.valueOf(3)};
-	public static final BigDecimal[] STORET_5 = new BigDecimal[]{STORET_ID, BigDecimal.valueOf(5)};
-	public static final BigDecimal[] STORET_6 = new BigDecimal[]{STORET_ID, BigDecimal.valueOf(6)};
-	public static final BigDecimal[] STORET_8 = new BigDecimal[]{STORET_ID, BigDecimal.valueOf(8)};
-	public static final BigDecimal[] STORET_9 = new BigDecimal[]{STORET_ID, BigDecimal.valueOf(9)};
-	public static final BigDecimal[] STORET_11 = new BigDecimal[]{STORET_ID, BigDecimal.valueOf(11)};
-	public static final BigDecimal[] STORET_13 = new BigDecimal[]{STORET_ID, BigDecimal.valueOf(13)};
-	public static final BigDecimal[] STORET_14 = new BigDecimal[]{STORET_ID, BigDecimal.valueOf(14)};
-	public static final BigDecimal[] STORET_15 = new BigDecimal[]{STORET_ID, BigDecimal.valueOf(15)};
-	public static final BigDecimal[] STORET_16 = new BigDecimal[]{STORET_ID, BigDecimal.valueOf(16)};
-	public static final BigDecimal[] STORET_17 = new BigDecimal[]{STORET_ID, BigDecimal.valueOf(17)};
-	public static final BigDecimal[] STORET_18 = new BigDecimal[]{STORET_ID, BigDecimal.valueOf(18)};
-	public static final BigDecimal[] STORET_19 = new BigDecimal[]{STORET_ID, BigDecimal.valueOf(19)};
-	public static final BigDecimal[] STORET_20 = new BigDecimal[]{STORET_ID, BigDecimal.valueOf(20)};
-	public static final BigDecimal[] STORET_21 = new BigDecimal[]{STORET_ID, BigDecimal.valueOf(21)};
-	public static final BigDecimal[] STORET_22 = new BigDecimal[]{STORET_ID, BigDecimal.valueOf(22)};
-	public static final BigDecimal[] STORET_23 = new BigDecimal[]{STORET_ID, BigDecimal.valueOf(23)};
-	public static final BigDecimal[] STORET_24 = new BigDecimal[]{STORET_ID, BigDecimal.valueOf(24)};
-	public static final BigDecimal[] STORET_25 = new BigDecimal[]{STORET_ID, BigDecimal.valueOf(25)};
-	public static final BigDecimal[] STORET_26 = new BigDecimal[]{STORET_ID, BigDecimal.valueOf(26)};
-	public static final BigDecimal[] STORET_27 = new BigDecimal[]{STORET_ID, BigDecimal.valueOf(27)};
-	public static final BigDecimal[] STORET_28 = new BigDecimal[]{STORET_ID, BigDecimal.valueOf(28)};
-	public static final BigDecimal[] STORET_29 = new BigDecimal[]{STORET_ID, BigDecimal.valueOf(29)};
-	public static final BigDecimal[] STORET_30 = new BigDecimal[]{STORET_ID, BigDecimal.valueOf(30)};
-	public static final BigDecimal[] STORET_31 = new BigDecimal[]{STORET_ID, BigDecimal.valueOf(31)};
-	public static final BigDecimal[] STORET_32 = new BigDecimal[]{STORET_ID, BigDecimal.valueOf(32)};
-	public static final BigDecimal[] STORET_33 = new BigDecimal[]{STORET_ID, BigDecimal.valueOf(33)};
-	public static final BigDecimal[] STORET_34 = new BigDecimal[]{STORET_ID, BigDecimal.valueOf(34)};
-	public static final BigDecimal[] STORET_35 = new BigDecimal[]{STORET_ID, BigDecimal.valueOf(35)};
-	public static final BigDecimal[] STORET_36 = new BigDecimal[]{STORET_ID, BigDecimal.valueOf(36)};
-	public static final BigDecimal[] STORET_37 = new BigDecimal[]{STORET_ID, BigDecimal.valueOf(37)};
-	public static final BigDecimal[] STORET_38 = new BigDecimal[]{STORET_ID, BigDecimal.valueOf(38)};
-	public static final BigDecimal[] STORET_39 = new BigDecimal[]{STORET_ID, BigDecimal.valueOf(39)};
-	public static final BigDecimal[] STORET_40 = new BigDecimal[]{STORET_ID, BigDecimal.valueOf(40)};
-	public static final BigDecimal[] STORET_41 = new BigDecimal[]{STORET_ID, BigDecimal.valueOf(41)};
-	public static final BigDecimal[] STORET_42 = new BigDecimal[]{STORET_ID, BigDecimal.valueOf(42)};
-	public static final BigDecimal[] STORET_43 = new BigDecimal[]{STORET_ID, BigDecimal.valueOf(43)};
-	public static final BigDecimal[] STORET_44 = new BigDecimal[]{STORET_ID, BigDecimal.valueOf(44)};
-	public static final BigDecimal[] STORET_45 = new BigDecimal[]{STORET_ID, BigDecimal.valueOf(45)};
-	public static final BigDecimal[] STORET_46 = new BigDecimal[]{STORET_ID, BigDecimal.valueOf(46)};
-	public static final BigDecimal[] STORET_47 = new BigDecimal[]{STORET_ID, BigDecimal.valueOf(47)};
-	public static final BigDecimal[] STORET_48 = new BigDecimal[]{STORET_ID, BigDecimal.valueOf(48)};
-	public static final BigDecimal[] STORET_49 = new BigDecimal[]{STORET_ID, BigDecimal.valueOf(49)};
-	public static final BigDecimal[] STORET_50 = new BigDecimal[]{STORET_ID, BigDecimal.valueOf(50)};
+	public static final Object[] STORET_1 = new Object[]{STORET_ID, BigDecimal.ONE};
+	public static final Object[] STORET_2 = new Object[]{STORET_ID, BigDecimal.valueOf(2)};
+	public static final Object[] STORET_3 = new Object[]{STORET_ID, BigDecimal.valueOf(3)};
+	public static final Object[] STORET_5 = new Object[]{STORET_ID, BigDecimal.valueOf(5)};
+	public static final Object[] STORET_6 = new Object[]{STORET_ID, BigDecimal.valueOf(6)};
+	public static final Object[] STORET_8 = new Object[]{STORET_ID, BigDecimal.valueOf(8)};
+	public static final Object[] STORET_9 = new Object[]{STORET_ID, BigDecimal.valueOf(9)};
+	public static final Object[] STORET_11 = new Object[]{STORET_ID, BigDecimal.valueOf(11)};
+	public static final Object[] STORET_13 = new Object[]{STORET_ID, BigDecimal.valueOf(13)};
+	public static final Object[] STORET_14 = new Object[]{STORET_ID, BigDecimal.valueOf(14)};
+	public static final Object[] STORET_15 = new Object[]{STORET_ID, BigDecimal.valueOf(15)};
+	public static final Object[] STORET_16 = new Object[]{STORET_ID, BigDecimal.valueOf(16)};
+	public static final Object[] STORET_17 = new Object[]{STORET_ID, BigDecimal.valueOf(17)};
+	public static final Object[] STORET_18 = new Object[]{STORET_ID, BigDecimal.valueOf(18)};
+	public static final Object[] STORET_19 = new Object[]{STORET_ID, BigDecimal.valueOf(19)};
+	public static final Object[] STORET_20 = new Object[]{STORET_ID, BigDecimal.valueOf(20)};
+	public static final Object[] STORET_21 = new Object[]{STORET_ID, BigDecimal.valueOf(21)};
+	public static final Object[] STORET_22 = new Object[]{STORET_ID, BigDecimal.valueOf(22)};
+	public static final Object[] STORET_23 = new Object[]{STORET_ID, BigDecimal.valueOf(23)};
+	public static final Object[] STORET_24 = new Object[]{STORET_ID, BigDecimal.valueOf(24)};
+	public static final Object[] STORET_25 = new Object[]{STORET_ID, BigDecimal.valueOf(25)};
+	public static final Object[] STORET_26 = new Object[]{STORET_ID, BigDecimal.valueOf(26)};
+	public static final Object[] STORET_27 = new Object[]{STORET_ID, BigDecimal.valueOf(27)};
+	public static final Object[] STORET_28 = new Object[]{STORET_ID, BigDecimal.valueOf(28)};
+	public static final Object[] STORET_29 = new Object[]{STORET_ID, BigDecimal.valueOf(29)};
+	public static final Object[] STORET_30 = new Object[]{STORET_ID, BigDecimal.valueOf(30)};
+	public static final Object[] STORET_31 = new Object[]{STORET_ID, BigDecimal.valueOf(31)};
+	public static final Object[] STORET_32 = new Object[]{STORET_ID, BigDecimal.valueOf(32)};
+	public static final Object[] STORET_33 = new Object[]{STORET_ID, BigDecimal.valueOf(33)};
+	public static final Object[] STORET_34 = new Object[]{STORET_ID, BigDecimal.valueOf(34)};
+	public static final Object[] STORET_35 = new Object[]{STORET_ID, BigDecimal.valueOf(35)};
+	public static final Object[] STORET_36 = new Object[]{STORET_ID, BigDecimal.valueOf(36)};
+	public static final Object[] STORET_37 = new Object[]{STORET_ID, BigDecimal.valueOf(37)};
+	public static final Object[] STORET_38 = new Object[]{STORET_ID, BigDecimal.valueOf(38)};
+	public static final Object[] STORET_39 = new Object[]{STORET_ID, BigDecimal.valueOf(39)};
+	public static final Object[] STORET_40 = new Object[]{STORET_ID, BigDecimal.valueOf(40)};
+	public static final Object[] STORET_41 = new Object[]{STORET_ID, BigDecimal.valueOf(41)};
+	public static final Object[] STORET_42 = new Object[]{STORET_ID, BigDecimal.valueOf(42)};
+	public static final Object[] STORET_43 = new Object[]{STORET_ID, BigDecimal.valueOf(43)};
+	public static final Object[] STORET_44 = new Object[]{STORET_ID, BigDecimal.valueOf(44)};
+	public static final Object[] STORET_45 = new Object[]{STORET_ID, BigDecimal.valueOf(45)};
+	public static final Object[] STORET_46 = new Object[]{STORET_ID, BigDecimal.valueOf(46)};
+	public static final Object[] STORET_47 = new Object[]{STORET_ID, BigDecimal.valueOf(47)};
+	public static final Object[] STORET_48 = new Object[]{STORET_ID, BigDecimal.valueOf(48)};
+	public static final Object[] STORET_49 = new Object[]{STORET_ID, BigDecimal.valueOf(49)};
+	public static final Object[] STORET_50 = new Object[]{STORET_ID, BigDecimal.valueOf(50)};
 
-	public static final BigDecimal[] BIODATA_42 = new BigDecimal[]{BIODATA_ID, BigDecimal.valueOf(42)};
+	public static final Object[] BIODATA_42 = new Object[]{BIODATA_ID, BigDecimal.valueOf(42)};
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//Only need Result (and possibly a lookup table)
@@ -149,26 +149,26 @@ public abstract class BaseResultStreamingTest extends FilteredResultDaoTest {
 		assertRow(results.get(31), STORET_40, expectedColumnCount);
 		assertRow(results.get(32), STORET_32, expectedColumnCount);
 		assertRow(results.get(33), STORET_38, expectedColumnCount);
-		assertRow(results.get(34), STORET_6, expectedColumnCount);
-		assertRow(results.get(35), STORET_13, expectedColumnCount);
-		assertRow(results.get(36), STORET_14, expectedColumnCount);
-		assertRow(results.get(37), STORET_5, expectedColumnCount);
-		assertRow(results.get(38), STORET_8, expectedColumnCount);
-		assertRow(results.get(39), STORET_9, expectedColumnCount);
-		assertRow(results.get(40), STORET_11, expectedColumnCount);
-		assertRow(results.get(41), STORET_45, expectedColumnCount);
-		assertRow(results.get(42), STORET_46, expectedColumnCount);
-		assertRow(results.get(43), STORET_47, expectedColumnCount);
-		assertRow(results.get(44), STORET_41, expectedColumnCount);
-		assertStoret42(expectedMap, results.get(45));
-		assertRow(results.get(46), STORET_43, expectedColumnCount);
-		assertRow(results.get(47), STORET_44, expectedColumnCount);
-		assertRow(results.get(48), STORET_2, expectedColumnCount);
-		assertRow(results.get(49), STORET_48, expectedColumnCount);
-		assertRow(results.get(50), STORET_49, expectedColumnCount);
-		assertRow(results.get(51), STORET_50, expectedColumnCount);
-		assertRow(results.get(52), STORET_1, expectedColumnCount);
-		assertRow(results.get(53), STORET_3, expectedColumnCount);
+		assertRow(results.get(34), STORET_45, expectedColumnCount);
+		assertRow(results.get(35), STORET_46, expectedColumnCount);
+		assertRow(results.get(36), STORET_47, expectedColumnCount);
+		assertRow(results.get(37), STORET_41, expectedColumnCount);
+		assertStoret42(expectedMap, results.get(38));
+		assertRow(results.get(39), STORET_43, expectedColumnCount);
+		assertRow(results.get(40), STORET_44, expectedColumnCount);
+		assertRow(results.get(41), STORET_2, expectedColumnCount);
+		assertRow(results.get(42), STORET_48, expectedColumnCount);
+		assertRow(results.get(43), STORET_49, expectedColumnCount);
+		assertRow(results.get(44), STORET_50, expectedColumnCount);
+		assertRow(results.get(45), STORET_1, expectedColumnCount);
+		assertRow(results.get(46), STORET_3, expectedColumnCount);
+		assertRow(results.get(47), STORET_6, expectedColumnCount);
+		assertRow(results.get(48), STORET_13, expectedColumnCount);
+		assertRow(results.get(49), STORET_14, expectedColumnCount);
+		assertRow(results.get(50), STORET_5, expectedColumnCount);
+		assertRow(results.get(51), STORET_8, expectedColumnCount);
+		assertRow(results.get(52), STORET_9, expectedColumnCount);
+		assertRow(results.get(53), STORET_11, expectedColumnCount);
 		assertRow(results.get(54), BIODATA_42, expectedColumnCount);
 	}
 
@@ -425,17 +425,11 @@ public abstract class BaseResultStreamingTest extends FilteredResultDaoTest {
 
 
 	public void multipleParameterResultTest(NameSpace nameSpace) {
-		List<Map<String, Object>> results = multipleParameterResultTest(nameSpace, 11);
-		assertContainsResult(results, STORET_1, STORET_2, STORET_42, STORET_43, STORET_44, STORET_45, STORET_46, STORET_47, STORET_48, STORET_49,
-				STORET_50);
-	}
-
-	public void multipleParameterResultStationSumTest(NameSpace nameSpace) {
-		List<Map<String, Object>> results = multipleParameterResultStationSumTest(nameSpace, 4);
+		List<Map<String, Object>> results = multipleParameterResultTest(nameSpace, 4);
 		assertContainsResult(results, STORET_1, STORET_48, STORET_49, STORET_50);
 	}
 
-	public static void assertRow(Map<String, Object> row, BigDecimal[] result, int expectedColumnCount) {
+	public static void assertRow(Map<String, Object> row, Object[] result, int expectedColumnCount) {
 		assertEquals(expectedColumnCount, row.keySet().size());
 		assertEquals(result[0], row.get(BaseColumn.KEY_DATA_SOURCE_ID));
 		assertEquals(result[1], row.get(ResultColumn.KEY_RESULT_ID));
@@ -445,16 +439,16 @@ public abstract class BaseResultStreamingTest extends FilteredResultDaoTest {
 		assertMapIsAsExpected(compareRow, resultRow);
 	}
 
-	public void assertContainsResult(List<Map<String, Object>> results, BigDecimal[]...  resultIds) {
+	public void assertContainsResult(List<Map<String, Object>> results, Object[]... resultIds) {
 		for (Map<String, Object> result : results) {
 			LOG.debug(ActivityColumn.KEY_DATA_SOURCE_ID + ":" + result.get(ActivityColumn.KEY_DATA_SOURCE_ID) + "/" + ResultColumn.KEY_RESULT_ID + ":" +  result.get(ResultColumn.KEY_RESULT_ID));
 		}
 
-		for (BigDecimal[] i : resultIds) {
+		for (Object[] i : resultIds) {
 			boolean isFound = false;
 			for (Map<String, Object> result : results) {
-				if (i[0].compareTo(((BigDecimal) result.get(ActivityColumn.KEY_DATA_SOURCE_ID))) == 0
-						&& i[1].compareTo(((BigDecimal) result.get(ResultColumn.KEY_RESULT_ID))) == 0) {
+				if (((Integer) i[0]).compareTo(((Integer) result.get(ActivityColumn.KEY_DATA_SOURCE_ID))) == 0
+						&& ((BigDecimal) i[1]).compareTo(((BigDecimal) result.get(ResultColumn.KEY_RESULT_ID))) == 0) {
 					isFound = true;
 					break;
 				}

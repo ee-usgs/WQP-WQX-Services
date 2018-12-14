@@ -66,9 +66,7 @@ public class CountDaoStationSimpleIT extends BaseStationCountDaoTest {
 		zipTest(nameSpace, includeActivity, includeResults);
 		multipleParameterStationSumTest(nameSpace, includeActivity, includeResults);
 		multipleParameterActivitySumTest(nameSpace, includeActivity, includeResults);
-		multipleParameterActivitySumStationSumTest(nameSpace, includeActivity, includeResults);
 		multipleParameterResultSumTest(nameSpace, includeActivity, includeResults);
-		multipleParameterResultSumStationSumTests(nameSpace, includeActivity, includeResults);
 	}
 
 }

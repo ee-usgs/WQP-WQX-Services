@@ -71,6 +71,7 @@ public class SummaryOrganizationStreamingIT extends FilteredDaoTest {
 	public List<Map<String, Object>> organizationTest(NameSpace nameSpace, int expectedSize) {
 		FilterParameters filter = new FilterParameters();
 		filter.setOrganization(getOrganization());
+		filter.setSiteUrlBase(getSiteUrlBase());
 		return callDao(nameSpace, expectedSize, filter);
 	}
 
@@ -87,6 +88,7 @@ public class SummaryOrganizationStreamingIT extends FilteredDaoTest {
 	public List<Map<String, Object>> sumTest(String summaryYears, NameSpace nameSpace, int expectedSize) {
 		FilterParameters filter = new FilterParameters();
 		filter.setSummaryYears(summaryYears);
+		filter.setSiteUrlBase(getSiteUrlBase());
 		return callDao(nameSpace, expectedSize, filter);
 	}
 

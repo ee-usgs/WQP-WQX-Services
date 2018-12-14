@@ -109,42 +109,6 @@
 	</Organization>
 	<Organization>
 		<OrganizationDescription>
-			<OrganizationIdentifier>WIDNR_WQX</OrganizationIdentifier>
-			<OrganizationFormalName>Wisconsin Department of Natural Resources</OrganizationFormalName>
-		</OrganizationDescription>
-		<MonitoringLocation>
-			<MonitoringLocationIdentity>
-				<MonitoringLocationIdentifier>WIDNR_WQX-10030952</MonitoringLocationIdentifier>
-				<MonitoringLocationName>Crawfish River -- Astico County Park Canoe Launch</MonitoringLocationName>
-				<HUCEightDigitCode>07090001</HUCEightDigitCode>
-			</MonitoringLocationIdentity>
-			<MonitoringLocationGeospatial>
-				<CountryCode>US</CountryCode>
-				<StateCode>55</StateCode>
-				<CountyCode>017</CountyCode>
-			</MonitoringLocationGeospatial>
-		</MonitoringLocation>
-		<MonitoringLocation>
-			<MonitoringLocationIdentity>
-				<MonitoringLocationIdentifier>WIDNR_WQX-113086</MonitoringLocationIdentifier>
-				<MonitoringLocationName>Crawfish River at Old Hwy 73 Bridge</MonitoringLocationName>
-				<MonitoringLocationTypeName>River/Stream</MonitoringLocationTypeName>
-				<MonitoringLocationDescriptionText>STATION FOR STEVEN FIX OF SOUTHERN DISTRICT  (608)275-3280 THIS IS A FIXED AMBIENT MONITORING STATION IN THE UPPER RIVER BASIN. IT IS PAIRED WITH AN EXISTING STORET AND USGS STATION AT MILFORD. IT IS LOCATED BELOW THE CONFLUENCE OF THE NORTH BR</MonitoringLocationDescriptionText>
-				<HUCEightDigitCode>07090001</HUCEightDigitCode>
-			</MonitoringLocationIdentity>
-			<MonitoringLocationGeospatial>
-				<LatitudeMeasure>43.348562</LatitudeMeasure>
-				<LongitudeMeasure>-89.009255</LongitudeMeasure>
-				<HorizontalCollectionMethodName>Unknown</HorizontalCollectionMethodName>
-				<HorizontalCoordinateReferenceSystemDatumName>NAD83</HorizontalCoordinateReferenceSystemDatumName>
-				<CountryCode>US</CountryCode>
-				<StateCode>55</StateCode>
-				<CountyCode>027</CountyCode>
-			</MonitoringLocationGeospatial>
-		</MonitoringLocation>
-	</Organization>
-	<Organization>
-		<OrganizationDescription>
 			<OrganizationIdentifier>organization</OrganizationIdentifier>
 			<OrganizationFormalName>organizationName</OrganizationFormalName>
 		</OrganizationDescription>
@@ -314,6 +278,42 @@
 			</WellInformation>
 		</MonitoringLocation>
 	</Organization>
+    <Organization>
+        <OrganizationDescription>
+            <OrganizationIdentifier>WIDNR_WQX</OrganizationIdentifier>
+            <OrganizationFormalName>Wisconsin Department of Natural Resources</OrganizationFormalName>
+        </OrganizationDescription>
+        <MonitoringLocation>
+            <MonitoringLocationIdentity>
+                <MonitoringLocationIdentifier>WIDNR_WQX-10030952</MonitoringLocationIdentifier>
+                <MonitoringLocationName>Crawfish River -- Astico County Park Canoe Launch</MonitoringLocationName>
+                <HUCEightDigitCode>07090001</HUCEightDigitCode>
+            </MonitoringLocationIdentity>
+            <MonitoringLocationGeospatial>
+                <CountryCode>US</CountryCode>
+                <StateCode>55</StateCode>
+                <CountyCode>017</CountyCode>
+            </MonitoringLocationGeospatial>
+        </MonitoringLocation>
+        <MonitoringLocation>
+            <MonitoringLocationIdentity>
+                <MonitoringLocationIdentifier>WIDNR_WQX-113086</MonitoringLocationIdentifier>
+                <MonitoringLocationName>Crawfish River at Old Hwy 73 Bridge</MonitoringLocationName>
+                <MonitoringLocationTypeName>River/Stream</MonitoringLocationTypeName>
+                <MonitoringLocationDescriptionText>STATION FOR STEVEN FIX OF SOUTHERN DISTRICT  (608)275-3280 THIS IS A FIXED AMBIENT MONITORING STATION IN THE UPPER RIVER BASIN. IT IS PAIRED WITH AN EXISTING STORET AND USGS STATION AT MILFORD. IT IS LOCATED BELOW THE CONFLUENCE OF THE NORTH BR</MonitoringLocationDescriptionText>
+                <HUCEightDigitCode>07090001</HUCEightDigitCode>
+            </MonitoringLocationIdentity>
+            <MonitoringLocationGeospatial>
+                <LatitudeMeasure>43.348562</LatitudeMeasure>
+                <LongitudeMeasure>-89.009255</LongitudeMeasure>
+                <HorizontalCollectionMethodName>Unknown</HorizontalCollectionMethodName>
+                <HorizontalCoordinateReferenceSystemDatumName>NAD83</HorizontalCoordinateReferenceSystemDatumName>
+                <CountryCode>US</CountryCode>
+                <StateCode>55</StateCode>
+                <CountyCode>027</CountyCode>
+            </MonitoringLocationGeospatial>
+        </MonitoringLocation>
+    </Organization>
 	<Organization>
 		<OrganizationDescription>
 			<OrganizationIdentifier>USGS</OrganizationIdentifier>

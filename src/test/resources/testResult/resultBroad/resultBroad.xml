@@ -401,86 +401,6 @@
     </Organization>
     <Organization>
         <OrganizationDescription>
-            <OrganizationIdentifier>WIDNR_WQX</OrganizationIdentifier>
-            <OrganizationFormalName>Wisconsin Department of Natural Resources</OrganizationFormalName>
-        </OrganizationDescription>
-        <Activity>
-            <ActivityDescription>
-                <ActivityIdentifier>WIDNR_WQX-7788475-5</ActivityIdentifier>
-                <ActivityMediaName>Water</ActivityMediaName>
-                <ActivityStartDate>1992-07-28</ActivityStartDate>
-                <ProjectIdentifier>Lake-BaselineMonitoringDNR</ProjectIdentifier>
-                <ProjectName>Lake Baseline</ProjectName>
-                <MonitoringLocationIdentifier>WIDNR_WQX-113086</MonitoringLocationIdentifier>
-            </ActivityDescription>
-            <Result>
-                <ResultDescription>
-                    <ResultIdentifier>STORET-6</ResultIdentifier>
-                    <CharacteristicName>Fecal Coliform</CharacteristicName>
-                </ResultDescription>
-                <ResultAnalyticalMethod>
-                    <MethodUrl>https://www.nemi.gov/methods/method_summary/5587/</MethodUrl>
-                </ResultAnalyticalMethod>
-            </Result>
-            <Result>
-                <ResultDescription>
-                    <ResultIdentifier>STORET-13</ResultIdentifier>
-                    <CharacteristicName>Dissolved oxygen (DO)</CharacteristicName>
-                </ResultDescription>
-            </Result>
-            <Result>
-                <ResultDescription>
-                    <ResultIdentifier>STORET-14</ResultIdentifier>
-                    <CharacteristicName>Fecal Streptococcus Group Bacteria</CharacteristicName>
-                </ResultDescription>
-                <ResultAnalyticalMethod>
-                    <MethodUrl>https://www.nemi.gov/methods/method_summary/5587/</MethodUrl>
-                </ResultAnalyticalMethod>
-            </Result>
-        </Activity>
-        <Activity>
-            <ActivityDescription>
-                <ActivityIdentifier>WIDNR_WQX-7788480-4</ActivityIdentifier>
-                <ActivityMediaName>Water</ActivityMediaName>
-                <ActivityStartDate>1992-07-28</ActivityStartDate>
-                <ProjectIdentifier>WR047</ProjectIdentifier>
-                <ProjectName>WR047</ProjectName>
-                <MonitoringLocationIdentifier>WIDNR_WQX-113086</MonitoringLocationIdentifier>
-            </ActivityDescription>
-            <Result>
-                <ResultDescription>
-                    <ResultIdentifier>STORET-5</ResultIdentifier>
-                    <CharacteristicName>Fecal Streptococcus Group Bacteria</CharacteristicName>
-                </ResultDescription>
-                <ResultAnalyticalMethod>
-                    <MethodUrl>https://www.nemi.gov/methods/method_summary/5587/</MethodUrl>
-                </ResultAnalyticalMethod>
-            </Result>
-            <Result>
-                <ResultDescription>
-                    <ResultIdentifier>STORET-8</ResultIdentifier>
-                    <CharacteristicName>Fecal Coliform</CharacteristicName>
-                </ResultDescription>
-                <ResultAnalyticalMethod>
-                    <MethodUrl>https://www.nemi.gov/methods/method_summary/5587/</MethodUrl>
-                </ResultAnalyticalMethod>
-            </Result>
-            <Result>
-                <ResultDescription>
-                    <ResultIdentifier>STORET-9</ResultIdentifier>
-                    <CharacteristicName>Cloud cover</CharacteristicName>
-                </ResultDescription>
-            </Result>
-            <Result>
-                <ResultDescription>
-                    <ResultIdentifier>STORET-11</ResultIdentifier>
-                    <CharacteristicName>Dissolved oxygen (DO)</CharacteristicName>
-                </ResultDescription>
-            </Result>
-        </Activity>
-    </Organization>
-    <Organization>
-        <OrganizationDescription>
             <OrganizationIdentifier>organization</OrganizationIdentifier>
             <OrganizationFormalName>Wisconsin Department of Natural Resources</OrganizationFormalName>
         </OrganizationDescription>
@@ -997,6 +917,86 @@
                 <ResultAnalyticalMethod>
                     <MethodUrl>https://analyticalMethod</MethodUrl>
                 </ResultAnalyticalMethod>
+            </Result>
+        </Activity>
+    </Organization>
+    <Organization>
+        <OrganizationDescription>
+            <OrganizationIdentifier>WIDNR_WQX</OrganizationIdentifier>
+            <OrganizationFormalName>Wisconsin Department of Natural Resources</OrganizationFormalName>
+        </OrganizationDescription>
+        <Activity>
+            <ActivityDescription>
+                <ActivityIdentifier>WIDNR_WQX-7788475-5</ActivityIdentifier>
+                <ActivityMediaName>Water</ActivityMediaName>
+                <ActivityStartDate>1992-07-28</ActivityStartDate>
+                <ProjectIdentifier>Lake-BaselineMonitoringDNR</ProjectIdentifier>
+                <ProjectName>Lake Baseline</ProjectName>
+                <MonitoringLocationIdentifier>WIDNR_WQX-113086</MonitoringLocationIdentifier>
+            </ActivityDescription>
+            <Result>
+                <ResultDescription>
+                    <ResultIdentifier>STORET-6</ResultIdentifier>
+                    <CharacteristicName>Fecal Coliform</CharacteristicName>
+                </ResultDescription>
+                <ResultAnalyticalMethod>
+                    <MethodUrl>https://www.nemi.gov/methods/method_summary/5587/</MethodUrl>
+                </ResultAnalyticalMethod>
+            </Result>
+            <Result>
+                <ResultDescription>
+                    <ResultIdentifier>STORET-13</ResultIdentifier>
+                    <CharacteristicName>Dissolved oxygen (DO)</CharacteristicName>
+                </ResultDescription>
+            </Result>
+            <Result>
+                <ResultDescription>
+                    <ResultIdentifier>STORET-14</ResultIdentifier>
+                    <CharacteristicName>Fecal Streptococcus Group Bacteria</CharacteristicName>
+                </ResultDescription>
+                <ResultAnalyticalMethod>
+                    <MethodUrl>https://www.nemi.gov/methods/method_summary/5587/</MethodUrl>
+                </ResultAnalyticalMethod>
+            </Result>
+        </Activity>
+        <Activity>
+            <ActivityDescription>
+                <ActivityIdentifier>WIDNR_WQX-7788480-4</ActivityIdentifier>
+                <ActivityMediaName>Water</ActivityMediaName>
+                <ActivityStartDate>1992-07-28</ActivityStartDate>
+                <ProjectIdentifier>WR047</ProjectIdentifier>
+                <ProjectName>WR047</ProjectName>
+                <MonitoringLocationIdentifier>WIDNR_WQX-113086</MonitoringLocationIdentifier>
+            </ActivityDescription>
+            <Result>
+                <ResultDescription>
+                    <ResultIdentifier>STORET-5</ResultIdentifier>
+                    <CharacteristicName>Fecal Streptococcus Group Bacteria</CharacteristicName>
+                </ResultDescription>
+                <ResultAnalyticalMethod>
+                    <MethodUrl>https://www.nemi.gov/methods/method_summary/5587/</MethodUrl>
+                </ResultAnalyticalMethod>
+            </Result>
+            <Result>
+                <ResultDescription>
+                    <ResultIdentifier>STORET-8</ResultIdentifier>
+                    <CharacteristicName>Fecal Coliform</CharacteristicName>
+                </ResultDescription>
+                <ResultAnalyticalMethod>
+                    <MethodUrl>https://www.nemi.gov/methods/method_summary/5587/</MethodUrl>
+                </ResultAnalyticalMethod>
+            </Result>
+            <Result>
+                <ResultDescription>
+                    <ResultIdentifier>STORET-9</ResultIdentifier>
+                    <CharacteristicName>Cloud cover</CharacteristicName>
+                </ResultDescription>
+            </Result>
+            <Result>
+                <ResultDescription>
+                    <ResultIdentifier>STORET-11</ResultIdentifier>
+                    <CharacteristicName>Dissolved oxygen (DO)</CharacteristicName>
+                </ResultDescription>
             </Result>
         </Activity>
     </Organization>

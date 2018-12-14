@@ -76,25 +76,19 @@
     </sql>
 
     <sql id="pre">
-        <if test="minactivities != null or minresults != null">
+        <if test="minresults != null">
             select * from (
         </if>
     </sql>
 
     <sql id="post">
-        <if test="minactivities != null">
-            , count(distinct prime.activity_id) over (partition by prime.data_source_id, prime.station_id) site_activity_count
-        </if>
         <if test="minresults != null">
             , count(*) over (partition by prime.data_source_id, prime.station_id) site_result_count
         </if>
         <include refid="dynamicWhere.resultsBase"/>
-        <if test="minactivities != null or minresults != null">
+        <if test="minresults != null">
             ) prime
             <where>
-                <if test="minactivities != null">
-                    and site_activity_count >= #{minactivities}::int
-                </if>
                 <if test="minresults != null">
                     and site_result_count >= #{minresults}::int
                 </if>

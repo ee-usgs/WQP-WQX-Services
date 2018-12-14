@@ -8,6 +8,8 @@ import java.math.BigDecimal;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import gov.usgs.cida.wqp.BaseTest;
+
 public class TestActivityMap {
 
 	public static final Map<String, Object> BASE_LOCATION_COLUMNS;
@@ -111,7 +113,7 @@ public class TestActivityMap {
 	static {
 		ACTIVITY = new LinkedHashMap<String, Object>();
 		ACTIVITY.putAll(EXTENDED_ACTIVITY);
-		ACTIVITY.put(KEY_ACTIVITY_METRIC_URL, "/activities/organization-11/activitymetrics");
+		ACTIVITY.put(KEY_ACTIVITY_METRIC_URL, BaseTest.getSiteUrlBase() + "/activities/organization-11/activitymetrics");
 	}
 
 	public static final Map<String, Object> ACTIVITY_ALL;
@@ -120,8 +122,8 @@ public class TestActivityMap {
 		ACTIVITY_ALL.putAll(ACTIVITY);
 		ACTIVITY_ALL.put(KEY_ACTIVITY_OBJECT_NAME, "actObjectName2");
 		ACTIVITY_ALL.put(KEY_ACTIVITY_OBJECT_TYPE, "actObjectType2");
-		ACTIVITY_ALL.put(KEY_ACTIVITY_FILE_URL, "/organizations/organization/activities/organization-11/files");
-		ACTIVITY_ALL.put(KEY_ACTIVITY_GROUP_URL, "/activityXgroupUrl");
+		ACTIVITY_ALL.put(KEY_ACTIVITY_FILE_URL, BaseTest.getSiteUrlBase() + "/organizations/organization/activities/organization-11/files");
+		ACTIVITY_ALL.put(KEY_ACTIVITY_GROUP_URL, BaseTest.getSiteUrlBase() + "/activityXgroupUrl");
 	}
 
 	private TestActivityMap() {

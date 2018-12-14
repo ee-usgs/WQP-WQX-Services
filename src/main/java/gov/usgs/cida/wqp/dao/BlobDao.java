@@ -51,7 +51,7 @@ public class BlobDao {
 	public int getResultFiles(ZipOutputStream target, String organization, String activity, ResultIdentifier resultIdentifier) {
 		LOG.trace("Getting file for: organization/{}/activity/{}/result/{}", organization, activity, resultIdentifier.getSingle());
 		StreamingCallbackHandler handler = new StreamingCallbackHandler(target);
-		jdbcTemplate.query("select object_name, object_content from result_object where organization = ? and activity = ? and data_source = ? and result_id = ? order by object_id",
+		jdbcTemplate.query("select object_name, object_content from result_object where organization = ? and activity = ? and data_source = ? and result_id = ?::int order by object_id",
 				new Object[] {organization, activity, resultIdentifier.getDataSource(), resultIdentifier.getResultId()},
 				handler);
 		return handler.getRowCount();

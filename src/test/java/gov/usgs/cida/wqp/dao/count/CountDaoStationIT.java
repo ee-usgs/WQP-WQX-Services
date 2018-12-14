@@ -42,10 +42,10 @@ public class CountDaoStationIT extends BaseStationCountDaoTest {
 		huc10Test(nameSpace, includeActivity, includeResults);
 		huc12Test(nameSpace, includeActivity, includeResults);
 		mimeTypeTest(nameSpace, includeActivity, includeResults);
-		//TODO		minActivitiesTest(nameSpace, includeActivity, includeResults);
-		//TODO		minResultsTest(nameSpace, includeActivity, includeResults);
-		//TODO		nldiSitesTest(nameSpace, includeActivity, includeResults);
-		//TODO		nldiUrlTest(nameSpace, includeActivity, includeResults);
+		minActivitiesTest(nameSpace, includeActivity, includeResults);
+		minResultsTest(nameSpace, includeActivity, includeResults);
+		nldiSitesTest(nameSpace, includeActivity, includeResults);
+		nldiUrlTest(nameSpace, includeActivity, includeResults);
 		nullParameterTest(nameSpace, includeActivity, includeResults);
 		organizationTest(nameSpace, includeActivity, includeResults);
 		pcodeTest(nameSpace, includeActivity, includeResults);
@@ -53,8 +53,8 @@ public class CountDaoStationIT extends BaseStationCountDaoTest {
 		providersTest(nameSpace, includeActivity, includeResults);
 		resultTest(nameSpace, includeActivity, includeResults);
 		sampleMediaTest(nameSpace, includeActivity, includeResults);
-		//TODO		siteIdTest(nameSpace, includeActivity, includeResults);
-		//TODO		siteIdLargeListTest(nameSpace, includeActivity, includeResults);
+		siteIdTest(nameSpace, includeActivity, includeResults);
+		siteIdLargeListTest(nameSpace, includeActivity, includeResults);
 		siteTypeTest(nameSpace, includeActivity, includeResults);
 		siteUrlBaseTest(nameSpace, includeActivity, includeResults);
 		sortedTest(nameSpace, includeActivity, includeResults);
@@ -63,12 +63,10 @@ public class CountDaoStationIT extends BaseStationCountDaoTest {
 		stateTest(nameSpace, includeActivity, includeResults);
 		subjectTaxonomicNameTest(nameSpace, includeActivity, includeResults);
 		withinTest(nameSpace, includeActivity, includeResults);
-		//TODO		zipTest(nameSpace, includeActivity, includeResults);
-		//TODO		multipleParameterStationSumTest(nameSpace, includeActivity, includeResults);
-		//TODO		multipleParameterActivitySumTest(nameSpace, includeActivity, includeResults);
-		//TODO		multipleParameterActivitySumStationSumTest(nameSpace, includeActivity, includeResults);
-		//TODO		multipleParameterResultSumTest(nameSpace, includeActivity, includeResults);
-		//TODO		multipleParameterResultSumStationSumTests(nameSpace, includeActivity, includeResults);
+		zipTest(nameSpace, includeActivity, includeResults);
+		multipleParameterStationSumTest(nameSpace, includeActivity, includeResults);
+		multipleParameterActivitySumTest(nameSpace, includeActivity, includeResults);
+		multipleParameterResultSumTest(nameSpace, includeActivity, includeResults);
 	}
 
 }

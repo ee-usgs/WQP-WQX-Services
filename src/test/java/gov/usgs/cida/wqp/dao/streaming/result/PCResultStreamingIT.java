@@ -69,7 +69,6 @@ public class PCResultStreamingIT extends BaseResultStreamingTest {
 		withinTest(nameSpace);
 		zipTest(nameSpace);
 		multipleParameterResultTest(nameSpace);
-		multipleParameterResultStationSumTest(nameSpace);
 	}
 
 	@Override

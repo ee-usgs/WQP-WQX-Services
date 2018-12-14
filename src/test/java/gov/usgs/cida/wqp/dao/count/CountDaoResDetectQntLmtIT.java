@@ -72,9 +72,7 @@ public class CountDaoResDetectQntLmtIT extends BaseCountDaoTest {
 		zipTest();
 		multipleParameterStationSumTest();
 		multipleParameterActivitySumTest();
-		multipleParameterActivitySumStationSumTest();
 		multipleParameterResultSumTest();
-		multipleParameterResultSumStationSumTests();
 	}
 
 	public void activityTest() {
@@ -298,21 +296,11 @@ public class CountDaoResDetectQntLmtIT extends BaseCountDaoTest {
 
 	public void multipleParameterActivitySumTest() {
 		List<Map<String, Object>> counts = multipleParameterActivitySumTest(nameSpace, includeActivity, includeResults);
-		assertResDetectQntLmtResults(counts, "14", null, null, "14", null);
-	}
-
-	public void multipleParameterActivitySumStationSumTest() {
-		List<Map<String, Object>> counts = multipleParameterActivitySumStationSumTest(nameSpace, includeActivity, includeResults);
 		assertResDetectQntLmtResults(counts, "11", null, null, "11", null);
 	}
 
 	public void multipleParameterResultSumTest() {
 		List<Map<String, Object>> counts = multipleParameterResultSumTest(nameSpace, includeActivity, includeResults);
-		assertResDetectQntLmtResults(counts, "10", null, null, "10", null);
-	}
-
-	public void multipleParameterResultSumStationSumTests() {
-		List<Map<String, Object>> counts = multipleParameterResultSumStationSumTests(nameSpace, includeActivity, includeResults);
 		assertResDetectQntLmtResults(counts, "7", null, null, "7", null);
 	}
 

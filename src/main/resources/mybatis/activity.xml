@@ -69,7 +69,7 @@
 
     <select id="count" resultType="java.util.LinkedHashMap">
         select data_source, station_count, activity_count, result_count
-          from (<include refid="dynamicWhere.countBase"/>)
+          from (<include refid="dynamicWhere.countBase"/>) prime
     </select>
 
 </mapper>

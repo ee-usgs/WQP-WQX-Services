@@ -31,7 +31,6 @@
                     select prime.data_source_id, prime.organization, sum(prime.activity_count) activity_count, sum(prime.result_count) result_count
                       from station_sum prime
                     <where>
-                        <include refid="dynamicWhere.baseWhereStationGeoClauses" />
                         <include refid="dynamicWhere.baseWhereStationClauses" />
                     </where>
                 </when>
@@ -40,29 +39,17 @@
                             characteristicType == null and pCode == null and subjectTaxonomicName == null">
                     select prime.data_source_id, prime.organization, count(*) activity_count, sum(prime.result_count) result_count
                       from activity_sum prime
-                    <if test="bBox != null or within != null">
-                           join station_sum secondary
-                             on prime.station_id = secondary.station_id and
-                                prime.data_source_id = secondary.data_source_id
-                    </if>
                     <where>
-                        <include refid="dynamicWhere.baseWhereStationGeoClauses" />
-                        <include refid="dynamicWhere.baseWhereStationClauses" />
                         <include refid="dynamicWhere.baseWhereActivityClauses" />
                     </where>
                 </when>
 
                 <otherwise>
-                    select prime.data_source_id, prime.organization, count(distinct prime.activity_id) activity_count, sum(prime.result_count) result_count
+                    select prime.data_source_id, prime.organization,
+                           count(distinct prime.activity_id) activity_count,
+                           sum(prime.result_count) result_count
                       from result_sum prime
-                    <if test="bBox != null or within != null">
-                           join station_sum secondary
-                             on prime.station_id = secondary.station_id and
-                                prime.data_source_id = secondary.data_source_id
-                    </if>
                     <where>
-                        <include refid="dynamicWhere.baseWhereStationGeoClauses" />
-                        <include refid="dynamicWhere.baseWhereStationClauses" />
                         <include refid="dynamicWhere.baseWhereResultClauses" />
                     </where>
                 </otherwise>
