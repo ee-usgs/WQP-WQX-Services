@@ -221,12 +221,6 @@
             <artifactId>poi-ooxml</artifactId>
             <version>${poi.version}</version>
         </dependency>
-<!--         <dependency> -->
-<!--             <groupId>org.apache.tomcat</groupId> -->
-<!--             <artifactId>tomcat-dbcp</artifactId> -->
-<!--             <version>9.0.14</version> -->
-<!--             <scope>provided</scope> -->
-<!--         </dependency> -->
         <dependency>
             <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
