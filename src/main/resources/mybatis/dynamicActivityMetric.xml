@@ -8,11 +8,6 @@
         <choose>
             <when test="analyticalmethod == null and assemblage == null and characteristicName == null and
                         characteristicType == null and pCode == null and subjectTaxonomicName == null and
-                        minactivities == null and minresults == null and project == null">
-                <include refid="dynamicWhere.activityJoinStationSum"/>
-            </when>
-            <when test="analyticalmethod == null and assemblage == null and characteristicName == null and
-                        characteristicType == null and pCode == null and subjectTaxonomicName == null and
                         (minactivities != null or minresults != null)">
                 <include refid="dynamicWhere.activityJoinActivitySum"/>
             </when>

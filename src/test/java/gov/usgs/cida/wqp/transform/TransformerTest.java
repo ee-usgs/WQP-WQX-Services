@@ -31,7 +31,6 @@ import org.mockito.MockitoAnnotations;
 import gov.usgs.cida.wqp.parameter.FilterParameters;
 import gov.usgs.cida.wqp.service.ILogService;
 import gov.usgs.cida.wqp.util.HttpConstants;
-import oracle.sql.CLOB;
 
 public class TransformerTest {
 

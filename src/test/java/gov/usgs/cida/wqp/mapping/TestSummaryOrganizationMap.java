@@ -9,6 +9,9 @@ import static gov.usgs.cida.wqp.mapping.OrganizationColumn.KEY_ORGANIZATION_SUMM
 import java.math.BigDecimal;
 import java.util.LinkedHashMap;
 import java.util.Map;
+
+import gov.usgs.cida.wqp.BaseTest;
+
 import static gov.usgs.cida.wqp.mapping.OrganizationColumn.KEY_LAST_RESULT;
 import static gov.usgs.cida.wqp.mapping.OrganizationColumn.KEY_SITE_COUNT;
 
@@ -28,7 +31,7 @@ public class TestSummaryOrganizationMap {
 		SUMMARY_ORGANIZATION_CURRENT_YEAR.put(KEY_ORGANIZATION, "R10ELKHEADMINE");
 		SUMMARY_ORGANIZATION_CURRENT_YEAR.put(KEY_ORGANIZATION_NAME, "EPA Region 10 Elkhead Mine, Douglas County, OR");
 		SUMMARY_ORGANIZATION_CURRENT_YEAR.put(KEY_ORGANIZATION_TYPE, "Federal/US Government");
-		SUMMARY_ORGANIZATION_CURRENT_YEAR.put(KEY_ORGANIZATION_SUMMARY_WQP_URL, "/provider/STORET/R10ELKHEADMINE");
+		SUMMARY_ORGANIZATION_CURRENT_YEAR.put(KEY_ORGANIZATION_SUMMARY_WQP_URL, BaseTest.getSiteUrlBase() + "/provider/STORET/R10ELKHEADMINE");
 	}
 
 	public static final Map<String, Object> SUMMARY_ORGANIZATION_FIVE_YEAR;
@@ -41,7 +44,7 @@ public class TestSummaryOrganizationMap {
 		SUMMARY_ORGANIZATION_FIVE_YEAR.put(KEY_ORGANIZATION, "R10ELKHEADMINE");
 		SUMMARY_ORGANIZATION_FIVE_YEAR.put(KEY_ORGANIZATION_NAME, "EPA Region 10 Elkhead Mine, Douglas County, OR");
 		SUMMARY_ORGANIZATION_FIVE_YEAR.put(KEY_ORGANIZATION_TYPE, "Federal/US Government");
-		SUMMARY_ORGANIZATION_FIVE_YEAR.put(KEY_ORGANIZATION_SUMMARY_WQP_URL, "/provider/STORET/R10ELKHEADMINE");
+		SUMMARY_ORGANIZATION_FIVE_YEAR.put(KEY_ORGANIZATION_SUMMARY_WQP_URL, BaseTest.getSiteUrlBase() + "/provider/STORET/R10ELKHEADMINE");
 
 	}
 
@@ -55,6 +58,6 @@ public class TestSummaryOrganizationMap {
 		SUMMARY_ORGANIZATION_ALL_YEAR.put(KEY_ORGANIZATION, "R10ELKHEADMINE");
 		SUMMARY_ORGANIZATION_ALL_YEAR.put(KEY_ORGANIZATION_NAME, "EPA Region 10 Elkhead Mine, Douglas County, OR");
 		SUMMARY_ORGANIZATION_ALL_YEAR.put(KEY_ORGANIZATION_TYPE, "Federal/US Government");
-		SUMMARY_ORGANIZATION_ALL_YEAR.put(KEY_ORGANIZATION_SUMMARY_WQP_URL, "/provider/STORET/R10ELKHEADMINE");
+		SUMMARY_ORGANIZATION_ALL_YEAR.put(KEY_ORGANIZATION_SUMMARY_WQP_URL, BaseTest.getSiteUrlBase() + "/provider/STORET/R10ELKHEADMINE");
 	}
 }

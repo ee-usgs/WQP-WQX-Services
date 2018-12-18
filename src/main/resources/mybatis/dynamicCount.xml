@@ -3,18 +3,6 @@
 
 <mapper namespace="dynamicWhere">
 
-
-    <sql id="geoJoin">
-            join (select /*+ index_combine(prime) */ data_source_id, station_id
-                    from station_sum prime
-                        <where>
-                            <include refid="dynamicWhere.baseWhereStationGeoClauses" />
-                        </where>
-                 ) station_sum
-              on prime.station_id = station_sum.station_id and
-                 prime.data_source_id = station_sum.data_source_id
-    </sql>
-
     <sql id="countBase">
         <choose>
             <when test="analyticalmethod == null and assemblage == null and characteristicName == null and
@@ -24,22 +12,16 @@
                        count(distinct data_source||'-'||station_id) station_count,
                        sum(activity_count) activity_count,
                        sum(result_count) result_count
-                  from (select prime.data_source,
-                               prime.station_id,
-                               prime.activity_count,
-                               prime.result_count
-                          from station_sum prime
+                  from station_sum prime
                 <where>
-                    <include refid="dynamicWhere.baseWhereStationGeoClauses" />
                     <include refid="dynamicWhere.baseWhereStationClauses" />
                     <if test="minactivities != null">
-                        and (prime.activity_count >= #{minactivities})
+                        and (prime.activity_count >= #{minactivities}::int)
                     </if>
                     <if test="minresults != null">
-                        and (prime.result_count >= #{minresults})
+                        and (prime.result_count >= #{minresults}::int)
                     </if>
                 </where>
-                       )
                     group by rollup(data_source)
             </when>
 
@@ -56,22 +38,16 @@
                                count(*) over (partition by prime.data_source_id, prime.station_id) site_activity_count,
                                sum(prime.result_count) over (partition by prime.data_source_id, prime.station_id) site_result_count
                           from activity_sum prime
-                <if test="within != null or bBox != null or
-                            (mimeType != null and (mimeType == 'geojson' or mimeType == 'json' or mimeType == 'kml' or mimeType == 'kmz')
-                             and dataProfile != null and (dataProfile == 'station' or dataProfile == 'simplestation'))">
-                    <include refid="dynamicWhere.geoJoin"/>
-                </if>
-                <where>
-                    <include refid="dynamicWhere.baseWhereStationClauses" />
-                    <include refid="dynamicWhere.baseWhereActivityClauses" />
-                </where>
-                       )
+                        <where>
+                            <include refid="dynamicWhere.baseWhereActivityClauses" />
+                        </where>
+                       ) subquery_result
                 <where>
                     <if test="minactivities != null">
-                        and site_activity_count >= #{minactivities}
+                        and site_activity_count >= #{minactivities}::int
                     </if>
                     <if test="minresults != null">
-                        and site_result_count >= #{minresults}
+                        and site_result_count >= #{minresults}::int
                     </if>
                 </where>
                     group by rollup(data_source)
@@ -82,29 +58,33 @@
                        count(distinct data_source||'-'||station_id) station_count,
                        count(distinct data_source||'-'||station_id||'-'||activity_id) activity_count,
                        sum(result_count) result_count
-                  from (select prime.data_source,
-                               prime.station_id,
-                               prime.activity_id,
-                               prime.result_count,
-                               count(distinct prime.activity_id) over (partition by prime.data_source_id, prime.station_id) site_activity_count,
-                               sum(prime.result_count) over (partition by prime.data_source_id, prime.station_id) site_result_count
-                          from result_sum prime
-                <if test="within != null or bBox != null or
-                            (mimeType != null and (mimeType == 'geojson' or mimeType == 'json' or mimeType == 'kml' or mimeType == 'kmz')
-                             and dataProfile != null and (dataProfile == 'station' or dataProfile == 'simplestation'))">
-                    <include refid="dynamicWhere.geoJoin"/>
-                </if>
-                <where>
-                    <include refid="dynamicWhere.baseWhereStationClauses" />
-                    <include refid="dynamicWhere.baseWhereResultClauses" />
-                </where>
-                       )
+                       from (
+                             select data_source,
+                                    station_id,
+                                    activity_id,
+                                    result_count,
+                                    count(activity_id) over (partition by data_source, station_id) site_activity_count,
+                                    sum(result_count) over (partition by data_source, station_id) site_result_count
+                               from (
+                                     select prime.data_source,
+                                            prime.station_id,
+                                            prime.activity_id,
+                                            sum(prime.result_count) result_count
+                                       from result_sum prime
+                                      <where>
+                                        <include refid="dynamicWhere.baseWhereResultClauses" />
+                                      </where>
+                                        group by prime.data_source,
+                                                 prime.station_id,
+                                                 prime.activity_id
+                                    ) first
+                            ) subquery_result
                 <where>
                     <if test="minactivities != null">
-                        and site_activity_count >= #{minactivities}
+                        and site_activity_count >= #{minactivities}::int
                     </if>
                     <if test="minresults != null">
-                        and site_result_count >= #{minresults}
+                        and site_result_count >= #{minresults}::int
                     </if>
                 </where>
                     group by rollup(data_source)

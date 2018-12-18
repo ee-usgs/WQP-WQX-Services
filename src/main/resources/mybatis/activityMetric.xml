@@ -41,7 +41,7 @@
           from (select prime.data_source,
                        prime.station_id,
                        prime.activity_id
-                  <include refid="dynamicWhere.activityMetricBase"/>)
+                  <include refid="dynamicWhere.activityMetricBase"/>) prime
              group by rollup(data_source)
     </select>
 

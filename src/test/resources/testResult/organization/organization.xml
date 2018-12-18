@@ -1,107 +1,107 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <WQX xmlns='http://qwwebservices.usgs.gov/schemas/WQX-Outbound/2_0/' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='http://qwwebservices.usgs.gov/schemas/WQX-Outbound/2_0/ http://qwwebservices.usgs.gov/schemas/WQX-Outbound/2_0/index.xsd'>
-	<Organization>
-		<OrganizationDescription>
-			<OrganizationIdentifier>ARS</OrganizationIdentifier>
-			<OrganizationFormalName>Agricultural Research Service</OrganizationFormalName>
-		</OrganizationDescription>
-	</Organization>
-	<Organization>
-		<OrganizationDescription>
-			<OrganizationIdentifier>USGS-WI</OrganizationIdentifier>
-		</OrganizationDescription>
-	</Organization>
-	<Organization>
-		<OrganizationDescription>
-			<OrganizationIdentifier>11NPSWRD</OrganizationIdentifier>
-		</OrganizationDescription>
-	</Organization>
-	<Organization>
-		<OrganizationDescription>
-			<OrganizationIdentifier>21NYDECA_WQX</OrganizationIdentifier>
-			<OrganizationFormalName>New York State DEC Division of Water</OrganizationFormalName>
-			<OrganizationDescriptionText>To protect and conserve the waters of New York State</OrganizationDescriptionText>
-		</OrganizationDescription>
-		<Telephonic>518-555-8180 (Office)</Telephonic>
-		<OrganizationAddress>
-			<AddressTypeName>Location</AddressTypeName>
-			<AddressText>625 Broadway</AddressText>
-			<LocalityName>Albany</LocalityName>
-			<StateCode>NY</StateCode>
-			<PostalCode>12233-3502</PostalCode>
-			<CountryCode>US</CountryCode>
-			<CountyCode>001</CountyCode>
-		</OrganizationAddress>
-	</Organization>
-	<Organization>
-		<OrganizationDescription>
-			<OrganizationIdentifier>NoData</OrganizationIdentifier>
-		</OrganizationDescription>
-	</Organization>
-	<Organization>
-		<OrganizationDescription>
-			<OrganizationIdentifier>WIDNR_WQX</OrganizationIdentifier>
-			<OrganizationFormalName>Wisconsin Department of Natural Resources</OrganizationFormalName>
-			<OrganizationDescriptionText>Wisconsin Department of Natural Resources.</OrganizationDescriptionText>
-			<OrganizationType>DNR</OrganizationType>
-		</OrganizationDescription>
-		<ElectronicAddress>first.last@wisconsin.gov (Email)</ElectronicAddress>
-		<Telephonic>608-555-5234 (Office)</Telephonic>
-		<OrganizationAddress>
-			<AddressTypeName>Mailing</AddressTypeName>
-			<AddressText>101 S Webster St.</AddressText>
-			<SupplementalAddressText>PO BOX 7921</SupplementalAddressText>
-			<LocalityName>Madison</LocalityName>
-			<StateCode>WI</StateCode>
-			<PostalCode>53707-7921</PostalCode>
-			<CountryCode>US</CountryCode>
-			<CountyCode>025</CountyCode>
-		</OrganizationAddress>
-	</Organization>
-	<Organization>
-		<OrganizationDescription>
-			<OrganizationIdentifier>organization</OrganizationIdentifier>
-			<OrganizationFormalName>organizationName</OrganizationFormalName>
-			<OrganizationDescriptionText>organization description</OrganizationDescriptionText>
-			<OrganizationType>organization type</OrganizationType>
-			<TribalCode>tribe name</TribalCode>
-		</OrganizationDescription>
-		<ElectronicAddress>org@epa.gov (Email); https://epa.gov/org (Internet)</ElectronicAddress>
-		<Telephonic>712-555-1234 x1234 (Office); 712-555-5432 (Fax)</Telephonic>
-		<OrganizationAddress>
-			<AddressTypeName>Location</AddressTypeName>
-			<AddressText>123 First Ave</AddressText>
-			<SupplementalAddressText>Suite 1848</SupplementalAddressText>
-			<LocalityName>Anytown</LocalityName>
-			<StateCode>WI</StateCode>
-			<PostalCode>12345-1234</PostalCode>
-			<CountryCode>US</CountryCode>
-			<CountyCode>027</CountyCode>
-		</OrganizationAddress>
-		<OrganizationAddress>
-			<AddressTypeName>Mailing</AddressTypeName>
-			<AddressText>P.O. Box 111</AddressText>
-			<SupplementalAddressText>109 First Ave</SupplementalAddressText>
-			<LocalityName>Nothere</LocalityName>
-			<StateCode>WI</StateCode>
-			<PostalCode>54321-4321</PostalCode>
-			<CountryCode>US</CountryCode>
-			<CountyCode>025</CountyCode>
-		</OrganizationAddress>
-		<OrganizationAddress>
-			<AddressTypeName>Shipping</AddressTypeName>
-			<AddressText>110 Second St</AddressText>
-			<SupplementalAddressText>Dock 3B</SupplementalAddressText>
-			<LocalityName>Truckville</LocalityName>
-			<StateCode>WI</StateCode>
-			<PostalCode>43210-2314</PostalCode>
-			<CountryCode>US</CountryCode>
-			<CountyCode>015</CountyCode>
-		</OrganizationAddress>
-	</Organization>
-	<Organization>
-		<OrganizationDescription>
-			<OrganizationIdentifier>USGS</OrganizationIdentifier>
-		</OrganizationDescription>
-	</Organization>
+    <Organization>
+        <OrganizationDescription>
+            <OrganizationIdentifier>ARS</OrganizationIdentifier>
+            <OrganizationFormalName>Agricultural Research Service</OrganizationFormalName>
+        </OrganizationDescription>
+    </Organization>
+    <Organization>
+        <OrganizationDescription>
+            <OrganizationIdentifier>USGS-WI</OrganizationIdentifier>
+        </OrganizationDescription>
+    </Organization>
+    <Organization>
+        <OrganizationDescription>
+            <OrganizationIdentifier>11NPSWRD</OrganizationIdentifier>
+        </OrganizationDescription>
+    </Organization>
+    <Organization>
+        <OrganizationDescription>
+            <OrganizationIdentifier>21NYDECA_WQX</OrganizationIdentifier>
+            <OrganizationFormalName>New York State DEC Division of Water</OrganizationFormalName>
+            <OrganizationDescriptionText>To protect and conserve the waters of New York State</OrganizationDescriptionText>
+        </OrganizationDescription>
+        <Telephonic>518-555-8180 (Office)</Telephonic>
+        <OrganizationAddress>
+            <AddressTypeName>Location</AddressTypeName>
+            <AddressText>625 Broadway</AddressText>
+            <LocalityName>Albany</LocalityName>
+            <StateCode>NY</StateCode>
+            <PostalCode>12233-3502</PostalCode>
+            <CountryCode>US</CountryCode>
+            <CountyCode>001</CountyCode>
+        </OrganizationAddress>
+    </Organization>
+    <Organization>
+        <OrganizationDescription>
+            <OrganizationIdentifier>NoData</OrganizationIdentifier>
+        </OrganizationDescription>
+    </Organization>
+    <Organization>
+        <OrganizationDescription>
+            <OrganizationIdentifier>organization</OrganizationIdentifier>
+            <OrganizationFormalName>organizationName</OrganizationFormalName>
+            <OrganizationDescriptionText>organization description</OrganizationDescriptionText>
+            <OrganizationType>organization type</OrganizationType>
+            <TribalCode>tribe name</TribalCode>
+        </OrganizationDescription>
+        <ElectronicAddress>org@epa.gov (Email); https://epa.gov/org (Internet)</ElectronicAddress>
+        <Telephonic>712-555-1234 x1234 (Office); 712-555-5432 (Fax)</Telephonic>
+        <OrganizationAddress>
+            <AddressTypeName>Location</AddressTypeName>
+            <AddressText>123 First Ave</AddressText>
+            <SupplementalAddressText>Suite 1848</SupplementalAddressText>
+            <LocalityName>Anytown</LocalityName>
+            <StateCode>WI</StateCode>
+            <PostalCode>12345-1234</PostalCode>
+            <CountryCode>US</CountryCode>
+            <CountyCode>027</CountyCode>
+        </OrganizationAddress>
+        <OrganizationAddress>
+            <AddressTypeName>Mailing</AddressTypeName>
+            <AddressText>P.O. Box 111</AddressText>
+            <SupplementalAddressText>109 First Ave</SupplementalAddressText>
+            <LocalityName>Nothere</LocalityName>
+            <StateCode>WI</StateCode>
+            <PostalCode>54321-4321</PostalCode>
+            <CountryCode>US</CountryCode>
+            <CountyCode>025</CountyCode>
+        </OrganizationAddress>
+        <OrganizationAddress>
+            <AddressTypeName>Shipping</AddressTypeName>
+            <AddressText>110 Second St</AddressText>
+            <SupplementalAddressText>Dock 3B</SupplementalAddressText>
+            <LocalityName>Truckville</LocalityName>
+            <StateCode>WI</StateCode>
+            <PostalCode>43210-2314</PostalCode>
+            <CountryCode>US</CountryCode>
+            <CountyCode>015</CountyCode>
+        </OrganizationAddress>
+    </Organization>
+    <Organization>
+        <OrganizationDescription>
+            <OrganizationIdentifier>WIDNR_WQX</OrganizationIdentifier>
+            <OrganizationFormalName>Wisconsin Department of Natural Resources</OrganizationFormalName>
+            <OrganizationDescriptionText>Wisconsin Department of Natural Resources.</OrganizationDescriptionText>
+            <OrganizationType>DNR</OrganizationType>
+        </OrganizationDescription>
+        <ElectronicAddress>first.last@wisconsin.gov (Email)</ElectronicAddress>
+        <Telephonic>608-555-5234 (Office)</Telephonic>
+        <OrganizationAddress>
+            <AddressTypeName>Mailing</AddressTypeName>
+            <AddressText>101 S Webster St.</AddressText>
+            <SupplementalAddressText>PO BOX 7921</SupplementalAddressText>
+            <LocalityName>Madison</LocalityName>
+            <StateCode>WI</StateCode>
+            <PostalCode>53707-7921</PostalCode>
+            <CountryCode>US</CountryCode>
+            <CountyCode>025</CountyCode>
+        </OrganizationAddress>
+    </Organization>
+    <Organization>
+        <OrganizationDescription>
+            <OrganizationIdentifier>USGS</OrganizationIdentifier>
+        </OrganizationDescription>
+    </Organization>
 </WQX>

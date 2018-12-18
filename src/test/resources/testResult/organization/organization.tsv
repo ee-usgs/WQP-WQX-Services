@@ -4,6 +4,6 @@ USGS-WI																															NWIS
 11NPSWRD																															STORET
 21NYDECA_WQX	New York State DEC Division of Water	To protect and conserve the waters of New York State				518-555-8180 (Office)	Location	625 Broadway		Albany	NY	12233-3502	US	001																	STORET
 NoData																															STORET
-WIDNR_WQX	Wisconsin Department of Natural Resources	Wisconsin Department of Natural Resources.	DNR		first.last@wisconsin.gov (Email)	608-555-5234 (Office)	Mailing	101 S Webster St.	PO BOX 7921	Madison	WI	53707-7921	US	025																	STORET
 organization	organizationName	organization description	organization type	tribe name	org@epa.gov (Email); https://epa.gov/org (Internet)	712-555-1234 x1234 (Office); 712-555-5432 (Fax)	Location	123 First Ave	Suite 1848	Anytown	WI	12345-1234	US	027	Mailing	P.O. Box 111	109 First Ave	Nothere	WI	54321-4321	US	025	Shipping	110 Second St	Dock 3B	Truckville	WI	43210-2314	US	015	STORET
+WIDNR_WQX	Wisconsin Department of Natural Resources	Wisconsin Department of Natural Resources.	DNR		first.last@wisconsin.gov (Email)	608-555-5234 (Office)	Mailing	101 S Webster St.	PO BOX 7921	Madison	WI	53707-7921	US	025																	STORET
 USGS																															BIODATA

@@ -16,14 +16,14 @@
                prime.station_name station_name2,
                prime.station_type_name,
                prime.description_text,
-               prime.huc_8,
+               substring(prime.huc, '[0-9]{8}') huc_8,
                prime.contrib_drain_area_value,
                prime.contrib_drain_area_unit,
                prime.aqfr_type_name,
                prime.aqfr_name,
                prime.well_depth_value,
                prime.well_depth_unit,
-               to_char(prime.geom.sdo_point.x, 'FM990.0000000') || ',' || to_char(prime.geom.sdo_point.y, 'FM90.0000000') coordinates
+               to_char(st_x(prime.geom), 'FM990.0000000') || ',' || to_char(st_y(prime.geom), 'FM90.0000000') coordinates
         <include refid="dynamicWhere.stationsBase"/>
             order by prime.site_id,
                      prime.station_id

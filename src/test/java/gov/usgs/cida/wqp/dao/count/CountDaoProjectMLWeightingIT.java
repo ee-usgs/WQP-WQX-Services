@@ -99,8 +99,8 @@ public class CountDaoProjectMLWeightingIT extends BaseCountDaoTest {
 	}
 
 	public void characteristicNameTest() {
-		List<Map<String, Object>> counts = characteristicNameTest(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, 0);
-		assertResults(counts, CountColumn.KEY_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT, null, null, null, null, null);
+		List<Map<String, Object>> counts = characteristicNameTest(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, 1);
+		assertResults(counts, CountColumn.KEY_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT, "0", null, null, null, null);
 	}
 
 	public void characteristicTypeTest() {

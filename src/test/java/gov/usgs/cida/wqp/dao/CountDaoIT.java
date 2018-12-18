@@ -8,19 +8,17 @@ import static org.junit.Assert.assertTrue;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-import org.springframework.test.context.junit4.SpringRunner;
 
+import gov.usgs.cida.wqp.BaseIT;
 import gov.usgs.cida.wqp.parameter.FilterParameters;
 import gov.usgs.cida.wqp.springinit.DBTestConfig;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment=WebEnvironment.NONE,
 	classes={DBTestConfig.class, CountDao.class})
-public class CountDaoIT {
+public class CountDaoIT extends BaseIT {
 
 	@Autowired
 	CountDao countDao;

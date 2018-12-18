@@ -59,7 +59,10 @@
         select organization,
                organization_name,
                organization_type,
-               nvl2(organization_url, #{siteUrlBase, jdbcType=VARCHAR} || organization_url, null) organization_wqp_url,
+               case
+                 when organization_url is null then null
+                 else #{siteUrlBase, jdbcType=VARCHAR} || organization_url
+               end organization_wqp_url,
                <include refid="selectSummaryByYear" />
           from organization_sum prime
         <include refid="summaryYearWhere" />

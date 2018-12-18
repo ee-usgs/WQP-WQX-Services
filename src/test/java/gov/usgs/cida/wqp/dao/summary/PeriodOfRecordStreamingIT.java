@@ -1,20 +1,21 @@
 package gov.usgs.cida.wqp.dao.summary;
 
+import java.util.List;
+import java.util.Map;
+
+import org.junit.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DbUnitConfiguration;
+
 import gov.usgs.cida.wqp.ColumnSensingFlatXMLDataSetLoader;
 import gov.usgs.cida.wqp.dao.NameSpace;
 import gov.usgs.cida.wqp.dao.StreamingDao;
 import gov.usgs.cida.wqp.dao.streaming.BaseStationStreamingTest;
-import static gov.usgs.cida.wqp.dao.streaming.BaseStationStreamingTest.assertRow;
 import gov.usgs.cida.wqp.mapping.TestPeriodOfRecordCSVMap;
-
 import gov.usgs.cida.wqp.parameter.FilterParameters;
 import gov.usgs.cida.wqp.springinit.DBTestConfig;
-import java.util.List;
-import java.util.Map;
-import org.junit.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest(webEnvironment=SpringBootTest.WebEnvironment.NONE,
 	classes={DBTestConfig.class, StreamingDao.class})

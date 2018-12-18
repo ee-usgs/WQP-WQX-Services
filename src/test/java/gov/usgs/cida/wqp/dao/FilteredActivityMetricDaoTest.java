@@ -51,26 +51,6 @@ public abstract class FilteredActivityMetricDaoTest extends FilteredDaoTest {
 	public List<Map<String, Object>> multipleParameterActivitySumTest(NameSpace nameSpace, int expectedSize) {
 		FilterParameters filter = getNoEffectParameters(nameSpace);
 
-		filter.setCountrycode(getCountry());
-		filter.setCountycode(getCounty());
-		filter.setHuc(getHuc());
-		filter.setMinactivities(getMinActivities());
-		filter.setMinresults(getMinResults());
-		filter.setOrganization(getOrganization());
-		filter.setProject(getProject());
-		filter.setProviders(getProviders());
-		filter.setSiteid(getSiteId());
-		filter.setSiteType(getSiteType());
-		filter.setStatecode(getState());
-		filter.setSampleMedia(getSampleMedia());
-		filter.setStartDateHi(getStartDateHi());
-		filter.setStartDateLo(getStartDateLo());
-		return callDao(nameSpace, expectedSize, filter);
-	}
-
-	public List<Map<String, Object>> multipleParameterActivitySumStationSumTest(NameSpace nameSpace, int expectedSize) {
-		FilterParameters filter = getNoEffectParameters(nameSpace);
-
 		filter.setBBox(getBBox());
 		filter.setCountrycode(getCountry());
 		filter.setCountycode(getCounty());
@@ -93,34 +73,6 @@ public abstract class FilteredActivityMetricDaoTest extends FilteredDaoTest {
 	}
 
 	public List<Map<String, Object>> multipleParameterResultSumTest(NameSpace nameSpace, int expectedSize) {
-		FilterParameters filter = getNoEffectParameters(nameSpace);
-
-		filter.setAnalyticalmethod(getAnalyticalMethod());
-		filter.setCommand(getCommand());
-		filter.setAssemblage(getAssemblage());
-		filter.setCharacteristicName(getCharacteristicName());
-		filter.setCharacteristicType(getCharacteristicType());
-		filter.setCountrycode(getCountry());
-		filter.setCountycode(getCounty());
-		filter.setHuc(getHuc());
-		filter.setMinactivities(getMinActivities());
-		filter.setMinresults(getMinResults());
-		filter.setNldiSites(getNldiSites());
-		filter.setOrganization(getOrganization());
-		filter.setProject(getProject());
-		filter.setProviders(getProviders());
-		filter.setSiteid(getSiteId());
-		filter.setSiteType(getSiteType());
-		filter.setStatecode(getState());
-		filter.setPCode(getPcode());
-		filter.setSampleMedia(getSampleMedia());
-		filter.setStartDateHi(getStartDateHi());
-		filter.setStartDateLo(getStartDateLo());
-		filter.setSubjectTaxonomicName(getSubjectTaxonomicName());
-		return callDao(nameSpace, expectedSize, filter);
-	}
-
-	public List<Map<String, Object>> multipleParameterResultSumStationSumTest(NameSpace nameSpace, int expectedSize) {
 		FilterParameters filter = getNoEffectParameters(nameSpace);
 
 		filter.setAnalyticalmethod(getAnalyticalMethod());

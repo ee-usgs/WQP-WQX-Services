@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html). (Patch version X.Y.0 is implied if not specified.)
 
-## [Unreleased]
+## [1.0]
+### Changed
+- Convert to PostgreSQL.
+
+## [0.20.0]
 ###Added
 - ActivityGroupURL to the activityAll dataProfile.
 - resultPhysChem dataProfile.
@@ -66,7 +70,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - Migrated repository to NWQMC
 
-[Unreleased]: https://github.com/NWQMC/WQP-WQX-Services/compare/wqp-0.15.0...master
+[Unreleased]: https://github.com/NWQMC/WQP-WQX-Services/compare/wqp-0.20.0...master
+[0.20.0]: https://github.com/NWQMC/WQP-WQX-Services/compare/wqp-0.15.0...wqp-0.20.0
 [0.15.0]: https://github.com/NWQMC/WQP-WQX-Services/compare/wqp-0.14.0...wqp-0.15.0
 [0.14.0]: https://github.com/NWQMC/WQP-WQX-Services/compare/wqp-0.13.0...wqp-0.14.0
 [0.13.0]: https://github.com/NWQMC/WQP-WQX-Services/compare/wqp-0.12.0...wqp-0.13.0

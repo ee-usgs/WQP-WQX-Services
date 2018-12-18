@@ -46,6 +46,8 @@ public abstract class FilteredStationDaoTest extends FilteredDaoTest {
 		filter.setStatecode(getState());
 		filter.setWithin(getWithin());
 
+		filter.setMinactivities(getMinActivities());
+		filter.setMinresults(getMinResults());
 		filter.setProject(getProject());
 		filter.setSampleMedia(getSampleMedia());
 		filter.setStartDateHi(getStartDateHi());

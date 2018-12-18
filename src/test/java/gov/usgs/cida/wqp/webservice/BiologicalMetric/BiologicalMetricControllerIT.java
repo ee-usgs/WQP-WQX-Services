@@ -1,16 +1,5 @@
 package gov.usgs.cida.wqp.webservice.BiologicalMetric;
 
-import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.github.springtestdbunit.annotation.DbUnitConfiguration;
-import gov.usgs.cida.wqp.Application;
-import gov.usgs.cida.wqp.CsvDataSetLoader;
-import gov.usgs.cida.wqp.mapping.Profile;
-import gov.usgs.cida.wqp.parameter.Parameters;
-import gov.usgs.cida.wqp.springinit.DBTestConfig;
-import static gov.usgs.cida.wqp.swagger.model.ActivityCountJson.HEADER_BIODATA_ACTIVITY_COUNT;
-import static gov.usgs.cida.wqp.swagger.model.ActivityCountJson.HEADER_NWIS_ACTIVITY_COUNT;
-import static gov.usgs.cida.wqp.swagger.model.ActivityCountJson.HEADER_STEWARDS_ACTIVITY_COUNT;
-import static gov.usgs.cida.wqp.swagger.model.ActivityCountJson.HEADER_STORET_ACTIVITY_COUNT;
 import static gov.usgs.cida.wqp.swagger.model.BiologicalMetricCountJson.HEADER_BIODATA_BIOLOGICAL_METRIC_COUNT;
 import static gov.usgs.cida.wqp.swagger.model.BiologicalMetricCountJson.HEADER_NWIS_BIOLOGICAL_METRIC_COUNT;
 import static gov.usgs.cida.wqp.swagger.model.BiologicalMetricCountJson.HEADER_STEWARDS_BIOLOGICAL_METRIC_COUNT;
@@ -19,15 +8,24 @@ import static gov.usgs.cida.wqp.swagger.model.StationCountJson.HEADER_BIODATA_SI
 import static gov.usgs.cida.wqp.swagger.model.StationCountJson.HEADER_NWIS_SITE_COUNT;
 import static gov.usgs.cida.wqp.swagger.model.StationCountJson.HEADER_STEWARDS_SITE_COUNT;
 import static gov.usgs.cida.wqp.swagger.model.StationCountJson.HEADER_STORET_SITE_COUNT;
-import gov.usgs.cida.wqp.util.HttpConstants;
-import gov.usgs.cida.wqp.webservice.BaseControllerIntegrationTest;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
+
 import org.junit.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.test.web.servlet.ResultActions;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+
+import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.github.springtestdbunit.annotation.DbUnitConfiguration;
+
+import gov.usgs.cida.wqp.Application;
+import gov.usgs.cida.wqp.CsvDataSetLoader;
+import gov.usgs.cida.wqp.mapping.Profile;
+import gov.usgs.cida.wqp.springinit.DBTestConfig;
+import gov.usgs.cida.wqp.util.HttpConstants;
+import gov.usgs.cida.wqp.webservice.BaseControllerIntegrationTest;
 
 @EnableWebMvc
 @AutoConfigureMockMvc(secure=false)

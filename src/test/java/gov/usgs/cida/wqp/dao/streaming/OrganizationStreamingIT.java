@@ -165,10 +165,10 @@ public class OrganizationStreamingIT extends FilteredProjectDaoTest {
 		assertEquals(STORET_11NPSWRD[1], results.get(2).get(OrganizationColumn.KEY_ORGANIZATION).toString());
 		assertEquals(STORET_21NYDECA_WQX[1], results.get(3).get(OrganizationColumn.KEY_ORGANIZATION).toString());
 		assertEquals(STORET_NODATA[1], results.get(4).get(OrganizationColumn.KEY_ORGANIZATION).toString());
-		assertEquals(STORET_WIDNR_WQX[1], results.get(5).get(OrganizationColumn.KEY_ORGANIZATION).toString());
-		assertEquals(STORET_ORGANIZATION[1], results.get(6).get(OrganizationColumn.KEY_ORGANIZATION).toString());
+		assertEquals(STORET_ORGANIZATION[1], results.get(5).get(OrganizationColumn.KEY_ORGANIZATION).toString());
+		assertEquals(STORET_WIDNR_WQX[1], results.get(6).get(OrganizationColumn.KEY_ORGANIZATION).toString());
 		assertEquals(BIODATA_USGS[1], results.get(7).get(OrganizationColumn.KEY_ORGANIZATION).toString());
-		assertMapIsAsExpected(TestOrganizationMap.ORGANIZATION, results.get(6));
+		assertMapIsAsExpected(TestOrganizationMap.ORGANIZATION, results.get(5));
 	}
 
 	public void zipTest() {

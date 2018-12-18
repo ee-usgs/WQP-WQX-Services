@@ -2,12 +2,8 @@ package gov.usgs.cida.wqp.transform;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
-import gov.usgs.cida.wqp.mapping.StationColumn;
-import gov.usgs.cida.wqp.service.ILogService;
-import gov.usgs.cida.wqp.util.HttpConstants;
 
 import java.io.ByteArrayOutputStream;
-
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -19,14 +15,14 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import gov.usgs.cida.wqp.mapping.StationColumn;
+import gov.usgs.cida.wqp.service.ILogService;
+import gov.usgs.cida.wqp.util.HttpConstants;
 
 
 public class StationMapToJsonTransformerTest {
 
 	public static final String JSON_HEADER = "{\"type\":\"FeatureCollection\",\"features\":[";
-	private static final transient Logger LOG = LoggerFactory.getLogger(StationMapToJsonTransformer.class);
 
 	@Mock
 	protected ILogService logService;

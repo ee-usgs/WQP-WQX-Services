@@ -186,10 +186,10 @@ public class SummaryMonitoringLocationStreamingIT extends BaseStationStreamingTe
 		assertRow(results.get(3), NWIS_1360035, expectedColumnCount);
 		assertRow(results.get(4), STORET_1043441, expectedColumnCount);
 		assertRow(results.get(5), STORET_504707, expectedColumnCount);
-		assertRow(results.get(6), STORET_1383, expectedColumnCount);
-		assertStoret888(expectedMapAllYears, results.get(7));
-		assertRow(results.get(8), STORET_777, expectedColumnCount);
-		assertRow(results.get(9), STORET_999, expectedColumnCount);
+		assertStoret888(expectedMapAllYears, results.get(6));
+		assertRow(results.get(7), STORET_777, expectedColumnCount);
+		assertRow(results.get(8), STORET_999, expectedColumnCount);
+		assertRow(results.get(9), STORET_1383, expectedColumnCount);
 		assertRow(results.get(10), BIODATA_61233184, expectedColumnCount);
 	}
 	
@@ -208,9 +208,9 @@ public class SummaryMonitoringLocationStreamingIT extends BaseStationStreamingTe
 		assertRow(results.get(3), NWIS_1360035, expectedColumnCount);
 		assertRow(results.get(4), STORET_1043441, expectedColumnCount);
 		assertRow(results.get(5), STORET_504707, expectedColumnCount);
-		assertRow(results.get(6), STORET_1383, expectedColumnCount);
-		assertStoret888(expectedMapFiveYears, results.get(7));
-		assertRow(results.get(8), STORET_999, expectedColumnCount);
+		assertStoret888(expectedMapFiveYears, results.get(6));
+		assertRow(results.get(7), STORET_999, expectedColumnCount);
+		assertRow(results.get(8), STORET_1383, expectedColumnCount);
 		assertRow(results.get(9), BIODATA_61233184, expectedColumnCount);
 	}
 	
@@ -229,8 +229,8 @@ public class SummaryMonitoringLocationStreamingIT extends BaseStationStreamingTe
 		assertRow(results.get(3), NWIS_1360035, expectedColumnCount);
 		assertRow(results.get(4), STORET_1043441, expectedColumnCount);
 		assertRow(results.get(5), STORET_504707, expectedColumnCount);
-		assertRow(results.get(6), STORET_1383, expectedColumnCount);
-		assertStoret888(expectedMapOneYear, results.get(7));
+		assertStoret888(expectedMapOneYear, results.get(6));
+		assertRow(results.get(7), STORET_1383, expectedColumnCount);
 		assertRow(results.get(8), BIODATA_61233184, expectedColumnCount);
 	}
 

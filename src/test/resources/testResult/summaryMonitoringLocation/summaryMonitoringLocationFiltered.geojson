@@ -150,6 +150,30 @@
 		"type": "Feature",
 		"geometry": {
 			"type": "Point",
+			"coordinates": [-89.8989000, 43.3330000]
+		},
+		"properties": {
+			"ProviderName": "STORET",
+			"OrganizationIdentifier": "organization",
+			"OrganizationFormalName": "organization name",
+			"MonitoringLocationIdentifier": "organization-siteId",
+			"MonitoringLocationName": "Wintergreen ln",
+			"MonitoringLocationTypeName": "River/Stream",
+			"ResolvedMonitoringLocationTypeName": "siteType",
+			"HUCEightDigitCode": "00000000",
+			"siteUrl": "https://www.waterqualitydata.us/provider/STORET/organization/organization-siteId/",
+			"activityCount": "1",
+			"resultCount": "1",
+			"StateName": "Hawaii",
+			"CountyName": "Clay County",
+			"characteristicGroupResultCount": {
+				"characteristicType": 1
+			}
+		}
+	}, {
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
 			"coordinates": [-89.0092550, 43.3485620]
 		},
 		"properties": {
@@ -169,30 +193,6 @@
 			"characteristicGroupResultCount": {
 				"Microbiological": 1,
 				"Physical": 2
-			}
-		}
-	}, {
-		"type": "Feature",
-		"geometry": {
-			"type": "Point",
-			"coordinates": [-89.8989000, 43.3330000]
-		},
-		"properties": {
-			"ProviderName": "STORET",
-			"OrganizationIdentifier": "organization",
-			"OrganizationFormalName": "organization name",
-			"MonitoringLocationIdentifier": "organization-siteId",
-			"MonitoringLocationName": "Wintergreen ln",
-			"MonitoringLocationTypeName": "River/Stream",
-			"ResolvedMonitoringLocationTypeName": "siteType",
-			"HUCEightDigitCode": "00000000",
-			"siteUrl": "https://www.waterqualitydata.us/provider/STORET/organization/organization-siteId/",
-			"activityCount": "1",
-			"resultCount": "1",
-			"StateName": "Hawaii",
-			"CountyName": "Clay County",
-			"characteristicGroupResultCount": {
-				"characteristicType": 1
 			}
 		}
 	}, {

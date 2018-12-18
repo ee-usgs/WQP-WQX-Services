@@ -74,12 +74,9 @@ public class ActivityAllStreamingIT extends BaseActivityStreamingTest {
 		subjectTaxonomicNameTest();
 		withinTest();
 		zipTest();
-		multipleParameterStationSumTest();
 		multipleParameterActivityTest();
 		multipleParameterActivitySumTest();
-		multipleParameterActivitySumStationSumTest();
 		multipleParameterResultSumTest();
-		multipleParameterResultSumStationSumTest();
 	}
 
 	@Override

@@ -1,8 +1,5 @@
 package gov.usgs.cida.wqp.mapping.delimited;
 
-import gov.usgs.cida.wqp.mapping.ColumnProfile;
-import gov.usgs.cida.wqp.mapping.Profile;
-
 import static gov.usgs.cida.wqp.mapping.BaseColumn.DATA_SOURCE;
 import static gov.usgs.cida.wqp.mapping.BaseColumn.ORGANIZATION;
 import static gov.usgs.cida.wqp.mapping.BaseColumn.ORGANIZATION_NAME;
@@ -18,19 +15,16 @@ import static gov.usgs.cida.wqp.mapping.StationColumn.MONITORING_LOCATION_TYPE;
 import static gov.usgs.cida.wqp.mapping.StationColumn.MONITORING_LOCATION_URL;
 import static gov.usgs.cida.wqp.mapping.StationColumn.SITE_TYPE;
 import static gov.usgs.cida.wqp.mapping.StationColumn.STATE_NAME;
-import static gov.usgs.cida.wqp.mapping.StationColumn.STATION_ID;
 import static gov.usgs.cida.wqp.mapping.StationColumn.STATION_NAME;
 import static gov.usgs.cida.wqp.mapping.StationColumn.THE_YEAR;
 import static gov.usgs.cida.wqp.mapping.StationColumn.TOTAL_ACTIVITIES;
 import static gov.usgs.cida.wqp.mapping.StationColumn.TOTAL_RESULTS;
-import static gov.usgs.cida.wqp.mapping.delimited.BaseDelimited.getMapping;
 import static gov.usgs.cida.wqp.mapping.xml.BaseWqx.WQX_ACTIVITY_COUNT;
 import static gov.usgs.cida.wqp.mapping.xml.BaseWqx.WQX_CHARATERISTIC_NAME;
 import static gov.usgs.cida.wqp.mapping.xml.BaseWqx.WQX_CHARATERISTIC_TYPE;
 import static gov.usgs.cida.wqp.mapping.xml.BaseWqx.WQX_COUNTY_NAME;
 import static gov.usgs.cida.wqp.mapping.xml.BaseWqx.WQX_HUC_8;
 import static gov.usgs.cida.wqp.mapping.xml.BaseWqx.WQX_LAST_SUBMITTED_DATE;
-import static gov.usgs.cida.wqp.mapping.xml.BaseWqx.WQX_MONITORING_LOCATION_IDENTIFIER;
 import static gov.usgs.cida.wqp.mapping.xml.BaseWqx.WQX_MONITORING_LOCATION_LATITUDE;
 import static gov.usgs.cida.wqp.mapping.xml.BaseWqx.WQX_MONITORING_LOCATION_LONGITUDE;
 import static gov.usgs.cida.wqp.mapping.xml.BaseWqx.WQX_MONITORING_LOCATION_NAME;
@@ -42,8 +36,12 @@ import static gov.usgs.cida.wqp.mapping.xml.BaseWqx.WQX_RESOLVED_MONITORING_LOCA
 import static gov.usgs.cida.wqp.mapping.xml.BaseWqx.WQX_RESULT_COUNT;
 import static gov.usgs.cida.wqp.mapping.xml.BaseWqx.WQX_STATE_NAME;
 import static gov.usgs.cida.wqp.mapping.xml.BaseWqx.WQX_YEAR_SUMMARIZED;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
+
+import gov.usgs.cida.wqp.mapping.ColumnProfile;
+import gov.usgs.cida.wqp.mapping.Profile;
 
 public class PeriodOfRecordDelimited extends BaseDelimited {
 	//Column Headings for the Keys	

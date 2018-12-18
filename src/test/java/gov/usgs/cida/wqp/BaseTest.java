@@ -8,7 +8,6 @@ import static org.junit.Assert.assertEquals;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
@@ -29,7 +28,7 @@ import java.time.LocalDate;
 
 public abstract class BaseTest {
 	LocalDate currentDate = LocalDate.now();
-	
+
 	public String harmonizeXml(String xmlDoc) {
 		return xmlDoc.replace("\r", "").replace("\n", "").replace("\t", "").replaceAll("> *<", "><");
 	}
@@ -167,10 +166,10 @@ public abstract class BaseTest {
 	public static final String FILTERED_TOTAL_ORGANIZATION_COUNT = "1";
 	public static final String FILTERED_STORET_ORGANIZATION_COUNT = "1";
 
-	public static final BigDecimal STEWARDS_ID = BigDecimal.ONE;
-	public static final BigDecimal NWIS_ID = BigDecimal.valueOf(2);
-	public static final BigDecimal STORET_ID = BigDecimal.valueOf(3);
-	public static final BigDecimal BIODATA_ID = BigDecimal.valueOf(4);
+	public static final Integer STEWARDS_ID = Integer.valueOf(1);
+	public static final Integer NWIS_ID = Integer.valueOf(2);
+	public static final Integer STORET_ID = Integer.valueOf(3);
+	public static final Integer BIODATA_ID = Integer.valueOf(4);
 
 	public static final String AND_ZIP = "&zip=yes";
 	public static final String CSV = "csv";
@@ -328,7 +327,7 @@ public abstract class BaseTest {
 		return Arrays.asList("siteType", "Lake, Reservoir, Impoundment", "Land", "Stream");
 	}
 
-	public String getSiteUrlBase() {
+	public static String getSiteUrlBase() {
 		return "http://siteUrlBase";
 	}
 

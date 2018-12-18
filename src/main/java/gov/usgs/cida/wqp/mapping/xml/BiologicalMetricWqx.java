@@ -36,22 +36,16 @@ import static gov.usgs.cida.wqp.mapping.BiologicalMetricColumn.RESOURCE_IDENTIFI
 import static gov.usgs.cida.wqp.mapping.BiologicalMetricColumn.RESOURCE_PUBLISHER_NAME;
 import static gov.usgs.cida.wqp.mapping.BiologicalMetricColumn.RESOURCE_SUBJECT_TEXT;
 import static gov.usgs.cida.wqp.mapping.BiologicalMetricColumn.RESOURCE_TITLE_NAME;
-import static gov.usgs.cida.wqp.mapping.xml.BaseWqx.ROOT_NODE;
-import static gov.usgs.cida.wqp.mapping.xml.BaseWqx.WQX_MONITORING_LOCATION;
-import static gov.usgs.cida.wqp.mapping.xml.BaseWqx.WQX_MONITORING_LOCATION_IDENTIFIER;
-import static gov.usgs.cida.wqp.mapping.xml.BaseWqx.WQX_MONITORING_LOCATION_IDENTITY;
-import static gov.usgs.cida.wqp.mapping.xml.BaseWqx.WQX_ORGANIZATION;
-import static gov.usgs.cida.wqp.mapping.xml.BaseWqx.WQX_ORGANIZATION_DESCRIPTION;
-import static gov.usgs.cida.wqp.mapping.xml.BaseWqx.WQX_ORGANIZATION_FORMAL_NAME;
-import static gov.usgs.cida.wqp.mapping.xml.BaseWqx.WQX_ORGANIZATION_IDENTIFIER;
-import static gov.usgs.cida.wqp.mapping.xml.BaseWqx.WQX_PROVIDER;
-import gov.usgs.cida.wqp.mapping.ColumnProfile;
+
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+
 import org.springframework.stereotype.Component;
+
+import gov.usgs.cida.wqp.mapping.ColumnProfile;
 
 @Component
 public class BiologicalMetricWqx extends BaseWqx implements IXmlMapping {
