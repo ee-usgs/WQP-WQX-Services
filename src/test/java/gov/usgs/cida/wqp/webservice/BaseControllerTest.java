@@ -14,7 +14,9 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyMap;
+import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.doThrow;
@@ -29,7 +31,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -78,8 +79,8 @@ import gov.usgs.cida.wqp.transform.MapToDelimitedTransformer;
 import gov.usgs.cida.wqp.transform.MapToKmlTransformer;
 import gov.usgs.cida.wqp.transform.MapToXlsxTransformer;
 import gov.usgs.cida.wqp.transform.MapToXmlTransformer;
-import gov.usgs.cida.wqp.transform.StationMapToJsonTransformer;
 import gov.usgs.cida.wqp.transform.OrganizationSumMapToJsonTransformer;
+import gov.usgs.cida.wqp.transform.StationMapToJsonTransformer;
 import gov.usgs.cida.wqp.transform.Transformer;
 import gov.usgs.cida.wqp.util.HttpConstants;
 import gov.usgs.cida.wqp.util.MimeType;
@@ -128,6 +129,7 @@ public class BaseControllerTest {
 		request = new MockHttpServletRequest();
 		TestBaseController.remove();
 		when(validator.validate(any(FilterParameters.class))).thenReturn(Collections.emptySet());
+		when(logService.logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(FilterParameters.class))).thenReturn(null);
 	}
 
 	@After
@@ -300,7 +302,7 @@ public class BaseControllerTest {
 		assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
 		assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
 		verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(FilterParameters.class));
-		verify(logService, never()).logHeadComplete(any(HttpServletResponse.class), any(BigDecimal.class));
+		verify(logService, never()).logHeadComplete(anyList(), anyString(), anyInt());
 		verify(logService).logRequestComplete(isNull(), anyString(), isNull());
 	}
 
@@ -318,7 +320,7 @@ public class BaseControllerTest {
 		assertEquals("xml", filter.getMimeType());
 		assertEquals("yes", filter.getZip());
 		verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(FilterParameters.class));
-		verify(logService).logHeadComplete(any(HttpServletResponse.class), isNull());
+		verify(logService).logHeadComplete(anyList(), anyString(),  isNull());
 		verify(logService).logRequestComplete(isNull(), anyString(), isNull());
 	}
 
@@ -333,7 +335,7 @@ public class BaseControllerTest {
 		assertEquals(HttpStatus.OK.value(), response.getStatus());
 		assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
 		verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(FilterParameters.class));
-		verify(logService).logHeadComplete(any(HttpServletResponse.class), isNull());
+		verify(logService).logHeadComplete(anyList(), anyString(), isNull());
 		verify(logService).logRequestComplete(isNull(), anyString(), isNull());
 	}
 
@@ -347,7 +349,7 @@ public class BaseControllerTest {
 		assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
 		assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
 		verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(FilterParameters.class));
-		verify(logService, never()).logHeadComplete(any(HttpServletResponse.class), any(BigDecimal.class));
+		verify(logService, never()).logHeadComplete(anyList(), anyString(), anyInt());
 		verify(logService).logRequestComplete(isNull(), anyString(), isNull());
 	}
 
@@ -355,7 +357,7 @@ public class BaseControllerTest {
 	public void doCommonSetupTest_NoParms() {
 		FilterParameters filter = new FilterParameters();
 		MockHttpServletResponse response = new MockHttpServletResponse();
-		BigDecimal logId = BigDecimal.ONE;
+		Integer logId = 1;
 		TestBaseController.setLogId(logId);
 
 		assertFalse(testController.doCommonSetup(request, response, null));
@@ -363,7 +365,7 @@ public class BaseControllerTest {
 		assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
 		assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
 		verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), isNull());
-		verify(logService, never()).logHeadComplete(any(HttpServletResponse.class), any(BigDecimal.class));
+		verify(logService, never()).logHeadComplete(anyList(), anyString(), anyInt());
 		verify(countDao, never()).getCounts(any(NameSpace.class), any(FilterParameters.class));
 
 		assertFalse(testController.doCommonSetup(request, response, filter));
@@ -371,7 +373,7 @@ public class BaseControllerTest {
 		assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
 		assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
 		verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(FilterParameters.class));
-		verify(logService, never()).logHeadComplete(any(HttpServletResponse.class), any(BigDecimal.class));
+		verify(logService, never()).logHeadComplete(anyList(), anyString(), anyInt());
 		verify(countDao, never()).getCounts(any(NameSpace.class), any(FilterParameters.class));
 	}
 
@@ -380,7 +382,7 @@ public class BaseControllerTest {
 		FilterParameters filter = new FilterParameters();
 		filter.setMinactivities("a");
 		MockHttpServletResponse response = new MockHttpServletResponse();
-		BigDecimal logId = BigDecimal.ONE;
+		Integer logId = 1;
 		TestBaseController.setLogId(logId);
 		when(validator.validate(filter)).thenReturn(getConstraintViolations(filter));
 
@@ -389,7 +391,7 @@ public class BaseControllerTest {
 		assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
 		assertTrue(response.getHeader(HttpConstants.HEADER_WARNING).startsWith("299 WQP \"Unknown"));
 		verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(FilterParameters.class));
-		verify(logService, never()).logHeadComplete(any(HttpServletResponse.class), any(BigDecimal.class));
+		verify(logService, never()).logHeadComplete(anyList(), anyString(), anyInt());
 		verify(countDao, never()).getCounts(any(NameSpace.class), any(FilterParameters.class));
 	}
 
@@ -401,7 +403,7 @@ public class BaseControllerTest {
 		when(contentStrategy.resolveMediaTypes(any())).thenReturn(Arrays.asList(MimeType.kml.getMediaType()));
 
 		MockHttpServletResponse response = new MockHttpServletResponse();
-		BigDecimal logId = BigDecimal.ONE;
+		Integer logId = 1;
 		TestBaseController.setLogId(logId);
 
 		assertTrue(testController.doCommonSetup(request, response, filter));
@@ -412,7 +414,7 @@ public class BaseControllerTest {
 		assertEquals("attachment; filename=station.kmz", response.getHeader(HttpConstants.HEADER_CONTENT_DISPOSITION));
 		assertEquals("12", response.getHeader(TestBaseController.TEST_COUNT));
 		verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(FilterParameters.class));
-		verify(logService).logHeadComplete(any(HttpServletResponse.class), isNull());
+		verify(logService).logHeadComplete(anyList(), anyString(), isNull());
 		verify(countDao).getCounts(any(NameSpace.class), any(FilterParameters.class));
 	}
 
@@ -423,7 +425,7 @@ public class BaseControllerTest {
 		when(contentStrategy.resolveMediaTypes(any())).thenReturn(Arrays.asList(MimeType.json.getMediaType()));
 		request.setMethod("POST");
 		MockHttpServletResponse response = new MockHttpServletResponse();
-		BigDecimal logId = BigDecimal.ONE;
+		Integer logId = 1;
 		TestBaseController.setLogId(logId);
 
 		assertTrue(testController.doCommonSetup(request, response, filter));
@@ -434,7 +436,7 @@ public class BaseControllerTest {
 		assertEquals("attachment; filename=station.json", response.getHeader(HttpConstants.HEADER_CONTENT_DISPOSITION));
 		assertEquals("12", response.getHeader(TestBaseController.TEST_COUNT));
 		verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(FilterParameters.class));
-		verify(logService).logHeadComplete(any(HttpServletResponse.class), isNull());
+		verify(logService).logHeadComplete(anyList(), anyString(), isNull());
 		verify(countDao).getCounts(any(NameSpace.class), any(FilterParameters.class));
 
 		request.setRequestURI("endpoint/count");
@@ -447,7 +449,7 @@ public class BaseControllerTest {
 		assertNull(response.getHeader(HttpConstants.HEADER_CONTENT_DISPOSITION));
 		assertEquals("12", response.getHeader(TestBaseController.TEST_COUNT));
 		verify(logService, times(2)).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(FilterParameters.class));
-		verify(logService, times(2)).logHeadComplete(any(HttpServletResponse.class), isNull());
+		verify(logService, times(2)).logHeadComplete(anyList(), anyString(), isNull());
 		verify(countDao, times(2)).getCounts(any(NameSpace.class), any(FilterParameters.class));
 
 		request.setMethod("GET");
@@ -460,7 +462,7 @@ public class BaseControllerTest {
 		assertEquals("attachment; filename=station.json", response.getHeader(HttpConstants.HEADER_CONTENT_DISPOSITION));
 		assertEquals("12", response.getHeader(TestBaseController.TEST_COUNT));
 		verify(logService, times(3)).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(FilterParameters.class));
-		verify(logService, times(3)).logHeadComplete(any(HttpServletResponse.class), isNull());
+		verify(logService, times(3)).logHeadComplete(anyList(), anyString(), isNull());
 		verify(countDao, times(3)).getCounts(any(NameSpace.class), any(FilterParameters.class));
 	}
 
@@ -702,7 +704,7 @@ public class BaseControllerTest {
 		assertEquals(HttpStatus.OK.value(), response.getStatus());
 		assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
 		verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(FilterParameters.class));
-		verify(logService).logHeadComplete(any(HttpServletResponse.class), isNull());
+		verify(logService).logHeadComplete(anyList(), anyString(), isNull());
 		verify(logService).logRequestComplete(isNull(), anyString(), isNull());
 	}
 
@@ -728,7 +730,7 @@ public class BaseControllerTest {
 		assertEquals(HttpStatus.OK.value(), response.getStatus());
 		assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
 		verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(FilterParameters.class));
-		verify(logService).logHeadComplete(any(HttpServletResponse.class), isNull());
+		verify(logService).logHeadComplete(anyList(), anyString(), isNull());
 		verify(logService).logRequestComplete(isNull(), anyString(), isNull());
 	}
 
@@ -740,7 +742,7 @@ public class BaseControllerTest {
 		assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
 		assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
 		verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(FilterParameters.class));
-		verify(logService, never()).logHeadComplete(any(HttpServletResponse.class), any(BigDecimal.class));
+		verify(logService, never()).logHeadComplete(anyList(), anyString(), anyInt());
 		verify(logService).logRequestComplete(isNull(), anyString(), anyMap());
 		verify(streamingDao, never()).stream(any(NameSpace.class), any(FilterParameters.class), any(ResultHandler.class));
 	}
@@ -768,7 +770,7 @@ public class BaseControllerTest {
 		}
 
 		verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(FilterParameters.class));
-		verify(logService).logHeadComplete(any(HttpServletResponse.class), isNull());
+		verify(logService).logHeadComplete(anyList(), anyString(), isNull());
 		verify(logService).logRequestComplete(isNull(), anyString(), anyMap());
 		verify(countDao).getCounts(any(NameSpace.class), any(FilterParameters.class));
 		verify(streamingDao).stream(any(NameSpace.class), any(FilterParameters.class), any(ResultHandler.class));
@@ -782,7 +784,7 @@ public class BaseControllerTest {
 		assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
 		assertNull(response.getHeader(HttpConstants.HEADER_WARNING));
 		verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(FilterParameters.class));
-		verify(logService, never()).logHeadComplete(any(HttpServletResponse.class), any(BigDecimal.class));
+		verify(logService, never()).logHeadComplete(anyList(), anyString(), anyInt());
 		verify(logService).logRequestComplete(isNull(), anyString(), anyMap());
 		verify(streamingDao, never()).stream(any(NameSpace.class), any(FilterParameters.class), any(ResultHandler.class));
 	}
@@ -798,7 +800,7 @@ public class BaseControllerTest {
 		assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.value(), response.getStatus());
 		assertNotNull(response.getHeader(HttpConstants.HEADER_FATAL_ERROR));
 		verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(FilterParameters.class));
-		verify(logService).logHeadComplete(any(HttpServletResponse.class), isNull());
+		verify(logService).logHeadComplete(anyList(), anyString(), isNull());
 		verify(logService).logRequestComplete(isNull(), anyString(), anyMap());
 		verify(streamingDao).stream(any(NameSpace.class), any(FilterParameters.class), any(ResultHandler.class));
 	}
@@ -826,7 +828,7 @@ public class BaseControllerTest {
 		}
 
 		verify(logService).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(FilterParameters.class));
-		verify(logService).logHeadComplete(any(HttpServletResponse.class), isNull());
+		verify(logService).logHeadComplete(anyList(), anyString(), isNull());
 		verify(logService).logRequestComplete(isNull(), anyString(), anyMap());
 		verify(countDao).getCounts(any(NameSpace.class), any(FilterParameters.class));
 		verify(streamingDao).stream(any(NameSpace.class), any(FilterParameters.class), any(ResultHandler.class));

@@ -3,80 +3,72 @@
 
 <mapper namespace="dynamicWhere">
 
-	<sql id="biologicMetricBase">
-		<include refid="dynamicWhere.biologicMetricBaseFrom"/>
-		<include refid="dynamicWhere.baseBiologicMetricWhere"/>
-	</sql>
+    <sql id="biologicMetricBase">
+        <include refid="dynamicWhere.biologicMetricBaseFrom"/>
+        <include refid="dynamicWhere.baseBiologicMetricWhere"/>
+    </sql>
 
-	<sql id="biologicMetricBaseFrom">
-		from bio_hab_metric prime
+    <sql id="biologicMetricBaseFrom">
+        from bio_hab_metric prime
 
-		<choose>
-			<when test="analyticalmethod == null and assemblage == null and characteristicName == null and
-						characteristicType == null and pCode == null and project == null and sampleMedia == null and
-						startDateHi == null and startDateLo == null and subjectTaxonomicName == null and
-						minactivities == null and minresults == null">							  
-			</when>
-			
-			<when test="analyticalmethod == null and assemblage == null and characteristicName == null and
-						characteristicType == null and pCode == null and project == null and sampleMedia == null and
-						startDateHi == null and startDateLo == null and subjectTaxonomicName == null">
-				join (
-				select data_source_id, station_id, activity_count, result_count
-				  from station_sum
-						) filter
-				  on prime.station_id = filter.station_id and
-					prime.data_source_id = filter.data_source_id
-			</when>
+        <choose>
+            <when test="analyticalmethod == null and assemblage == null and characteristicName == null and
+                        characteristicType == null and pCode == null and project == null and sampleMedia == null and
+                        startDateHi == null and startDateLo == null and subjectTaxonomicName == null and
+                        minactivities == null and minresults == null">
+            </when>
 
-			<when test="analyticalmethod == null and assemblage == null and characteristicName == null and
-						characteristicType == null and pCode == null and subjectTaxonomicName == null">
-				join (
-				select data_source_id, station_id, count(*) activity_count, sum(result_count) result_count
-				  from activity_sum prime
-				<where>
-					<include refid="dynamicWhere.baseWhereActivityClauses" />
-				</where>
-				group by data_source_id, station_id
-						) filter
-				  on prime.station_id = filter.station_id and
-					prime.data_source_id = filter.data_source_id
-			</when>
+            <when test="analyticalmethod == null and assemblage == null and characteristicName == null and
+                        characteristicType == null and pCode == null and project == null and sampleMedia == null and
+                        startDateHi == null and startDateLo == null and subjectTaxonomicName == null">
+                join (
+                select data_source_id, station_id, activity_count, result_count
+                  from station_sum
+                        ) filter
+                  on prime.station_id = filter.station_id and
+                    prime.data_source_id = filter.data_source_id
+            </when>
 
-			<otherwise>
-				join (
-				select data_source_id, station_id, count(distinct activity_id) activity_count, sum(result_count) result_count
-				  from result_sum prime
-				<where>
-					<include refid="dynamicWhere.baseWhereResultClauses" />
-				</where>
-				group by data_source_id, station_id
-						) filter
-					on prime.station_id = filter.station_id and
-					prime.data_source_id = filter.data_source_id
-			</otherwise>
-		</choose>
+            <when test="analyticalmethod == null and assemblage == null and characteristicName == null and
+                        characteristicType == null and pCode == null and subjectTaxonomicName == null">
+                join (
+                select data_source_id, station_id, count(*) activity_count, sum(result_count) result_count
+                  from activity_sum prime
+                <where>
+                    <include refid="dynamicWhere.baseWhereActivityClauses" />
+                </where>
+                group by data_source_id, station_id
+                        ) filter
+                  on prime.station_id = filter.station_id and
+                    prime.data_source_id = filter.data_source_id
+            </when>
 
-	</sql>
+            <otherwise>
+                join (
+                select data_source_id, station_id, count(distinct activity_id) activity_count, sum(result_count) result_count
+                  from result_sum prime
+                <where>
+                    <include refid="dynamicWhere.baseWhereResultClauses" />
+                </where>
+                group by data_source_id, station_id
+                        ) filter
+                    on prime.station_id = filter.station_id and
+                    prime.data_source_id = filter.data_source_id
+            </otherwise>
+        </choose>
 
-	<sql id="baseBiologicMetricWhere">
-		<where>
-			<if test="bBox != null or within != null">
-				exists (select null from station_sum filter
-						where 
-							prime.station_id = filter.station_id and
-							prime.data_source_id = filter.data_source_id
-							<include refid="dynamicWhere.baseWhereStationGeoClauses" />
-						)
-			</if>
-			<include refid="dynamicWhere.baseWhereStationClauses" />
-			<if test="minactivities != null">
-				and (filter.activity_count >= #{minactivities})
-			</if>
-			<if test="minresults != null">
-				and (filter.result_count >= #{minresults})
-			</if>
-		</where>
-	</sql> 
-	
+    </sql>
+
+    <sql id="baseBiologicMetricWhere">
+        <where>
+            <include refid="dynamicWhere.baseWhereStationClauses" />
+            <if test="minactivities != null">
+                and (filter.activity_count >= #{minactivities}::int)
+            </if>
+            <if test="minresults != null">
+                and (filter.result_count >= #{minresults}::int)
+            </if>
+        </where>
+    </sql>
+
 </mapper>

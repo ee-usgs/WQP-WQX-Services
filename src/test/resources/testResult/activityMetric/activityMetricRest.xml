@@ -1,115 +1,115 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <WQX xmlns='http://qwwebservices.usgs.gov/schemas/WQX-Outbound/2_0/' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='http://qwwebservices.usgs.gov/schemas/WQX-Outbound/2_0/ http://qwwebservices.usgs.gov/schemas/WQX-Outbound/2_0/index.xsd'>
-	<Organization>
-		<OrganizationDescription>
-			<OrganizationIdentifier>WIDNR_WQX</OrganizationIdentifier>
-			<OrganizationFormalName>Wisconsin Department of Natural Resources</OrganizationFormalName>
-		</OrganizationDescription>
-		<Activity>
-			<ActivityDescription>
-				<ActivityIdentifier>WIDNR_WQX-7788475-5</ActivityIdentifier>
-				<MonitoringLocationIdentifier>WIDNR_WQX-113086</MonitoringLocationIdentifier>
-			</ActivityDescription>
-			<ActivityMetric>
-				<ActivityMetricType>
-					<MetricTypeIdentifier>% EPT Individuals</MetricTypeIdentifier>
-					<MetricTypeIdentifierContext>USEPA</MetricTypeIdentifierContext>
-					<MetricTypeName>% EPT Individuals</MetricTypeName>
-				</ActivityMetricType>
-				<MetricValueMeasure>
-					<MeasureValue>15</MeasureValue>
-					<MeasureUnitCode>None</MeasureUnitCode>
-				</MetricValueMeasure>
-				<MetricScoreNumeric>15</MetricScoreNumeric>
-			</ActivityMetric>
-			<ActivityMetric>
-				<ActivityMetricType>
-					<MetricTypeIdentifier>% EPT Taxa</MetricTypeIdentifier>
-					<MetricTypeIdentifierContext>USEPA</MetricTypeIdentifierContext>
-					<MetricTypeName>% EPT Taxa</MetricTypeName>
-				</ActivityMetricType>
-				<MetricValueMeasure>
-					<MeasureValue>24</MeasureValue>
-					<MeasureUnitCode>None</MeasureUnitCode>
-				</MetricValueMeasure>
-				<MetricScoreNumeric>24</MetricScoreNumeric>
-			</ActivityMetric>
-			<ActivityMetric>
-				<ActivityMetricType>
-					<MetricTypeIdentifier>CHI %</MetricTypeIdentifier>
-					<MetricTypeIdentifierContext>WIDNR_WQX</MetricTypeIdentifierContext>
-					<MetricTypeName>PERCENT CHIRONOMIDAE INDIVIDUALS</MetricTypeName>
-					<MetricTypeCitation>
-						<ResourceTitleName>Macroinvertebrate Data Interpretation Guidance Manual. Wisconsin DNR, 2003</ResourceTitleName>
-						<ResourceCreatorName>Lillie, Richard A., Stanley W. Szczytko, Michael A. Miller</ResourceCreatorName>
-						<ResourcePublisherName>Wisconsin DNR</ResourcePublisherName>
-						<ResourceDate>01/01/03</ResourceDate>
-						<ResourceIdentifier>26301684</ResourceIdentifier>
-					</MetricTypeCitation>
-				</ActivityMetricType>
-				<MetricValueMeasure>
-					<MeasureValue>64</MeasureValue>
-					<MeasureUnitCode>None</MeasureUnitCode>
-				</MetricValueMeasure>
-				<MetricScoreNumeric>64</MetricScoreNumeric>
-			</ActivityMetric>
-			<ActivityMetric>
-				<ActivityMetricType>
-					<MetricTypeIdentifier>GATHERER %</MetricTypeIdentifier>
-					<MetricTypeIdentifierContext>WIDNR_WQX</MetricTypeIdentifierContext>
-					<MetricTypeName>PERCENT GATHERERS</MetricTypeName>
-					<MetricTypeCitation>
-						<ResourceTitleName>Macroinvertebrate Data Interpretation Guidance Manual. Wisconsin DNR, 2003</ResourceTitleName>
-						<ResourceCreatorName>Lillie, Richard A., Stanley W. Szczytko, Michael A. Miller</ResourceCreatorName>
-						<ResourcePublisherName>Wisconsin DNR</ResourcePublisherName>
-						<ResourceDate>01/01/03</ResourceDate>
-						<ResourceIdentifier>26301684</ResourceIdentifier>
-					</MetricTypeCitation>
-				</ActivityMetricType>
-				<MetricValueMeasure>
-					<MeasureValue>59</MeasureValue>
-					<MeasureUnitCode>None</MeasureUnitCode>
-				</MetricValueMeasure>
-				<MetricScoreNumeric>59</MetricScoreNumeric>
-			</ActivityMetric>
-			<ActivityMetric>
-				<ActivityMetricType>
-					<MetricTypeIdentifier>MPTV</MetricTypeIdentifier>
-					<MetricTypeIdentifierContext>WIDNR_WQX</MetricTypeIdentifierContext>
-					<MetricTypeName>MEAN POLLUTION TOLERANCE VALUE</MetricTypeName>
-					<MetricTypeCitation>
-						<ResourceTitleName>Extracting additional information from biotic index samples: Great Lakes Entomo</ResourceTitleName>
-						<ResourceCreatorName>Lillie, R.A., and Schlesser, R.A.</ResourceCreatorName>
-						<ResourcePublisherName>Great Lakes Entomologist, v. 27, no. 3, p. 129-136.</ResourcePublisherName>
-						<ResourceDate>01/01/94</ResourceDate>
-						<ResourceIdentifier>26301685</ResourceIdentifier>
-					</MetricTypeCitation>
-				</ActivityMetricType>
-				<MetricValueMeasure>
-					<MeasureValue>5.219</MeasureValue>
-					<MeasureUnitCode>None</MeasureUnitCode>
-				</MetricValueMeasure>
-				<MetricScoreNumeric>5.22</MetricScoreNumeric>
-			</ActivityMetric>
-			<ActivityMetric>
-				<ActivityMetricType>
-					<MetricTypeIdentifier>SHREDDER %</MetricTypeIdentifier>
-					<MetricTypeIdentifierContext>WIDNR_WQX</MetricTypeIdentifierContext>
-					<MetricTypeName>PERCENT SHREDDERS</MetricTypeName>
-					<MetricTypeCitation>
-						<ResourceTitleName>Macroinvertebrate Data Interpretation Guidance Manual. Wisconsin DNR, 2003</ResourceTitleName>
-						<ResourceCreatorName>Lillie, Richard A., Stanley W. Szczytko, Michael A. Miller</ResourceCreatorName>
-						<ResourcePublisherName>Wisconsin DNR</ResourcePublisherName>
-						<ResourceDate>01/01/03</ResourceDate>
-						<ResourceIdentifier>26301684</ResourceIdentifier>
-					</MetricTypeCitation>
-				</ActivityMetricType>
-				<MetricValueMeasure>
-					<MeasureValue>4</MeasureValue>
-					<MeasureUnitCode>None</MeasureUnitCode>
-				</MetricValueMeasure>
-				<MetricScoreNumeric>4</MetricScoreNumeric>
-			</ActivityMetric>
-		</Activity>
-	</Organization>
+    <Organization>
+        <OrganizationDescription>
+            <OrganizationIdentifier>WIDNR_WQX</OrganizationIdentifier>
+            <OrganizationFormalName>Wisconsin Department of Natural Resources</OrganizationFormalName>
+        </OrganizationDescription>
+        <Activity>
+            <ActivityDescription>
+                <ActivityIdentifier>WIDNR_WQX-7788475-5</ActivityIdentifier>
+                <MonitoringLocationIdentifier>WIDNR_WQX-113086</MonitoringLocationIdentifier>
+            </ActivityDescription>
+            <ActivityMetric>
+                <ActivityMetricType>
+                    <MetricTypeIdentifier>CHI %</MetricTypeIdentifier>
+                    <MetricTypeIdentifierContext>WIDNR_WQX</MetricTypeIdentifierContext>
+                    <MetricTypeName>PERCENT CHIRONOMIDAE INDIVIDUALS</MetricTypeName>
+                    <MetricTypeCitation>
+                        <ResourceTitleName>Macroinvertebrate Data Interpretation Guidance Manual. Wisconsin DNR, 2003</ResourceTitleName>
+                        <ResourceCreatorName>Lillie, Richard A., Stanley W. Szczytko, Michael A. Miller</ResourceCreatorName>
+                        <ResourcePublisherName>Wisconsin DNR</ResourcePublisherName>
+                        <ResourceDate>01/01/03</ResourceDate>
+                        <ResourceIdentifier>26301684</ResourceIdentifier>
+                    </MetricTypeCitation>
+                </ActivityMetricType>
+                <MetricValueMeasure>
+                    <MeasureValue>64</MeasureValue>
+                    <MeasureUnitCode>None</MeasureUnitCode>
+                </MetricValueMeasure>
+                <MetricScoreNumeric>64</MetricScoreNumeric>
+            </ActivityMetric>
+            <ActivityMetric>
+                <ActivityMetricType>
+                    <MetricTypeIdentifier>% EPT Individuals</MetricTypeIdentifier>
+                    <MetricTypeIdentifierContext>USEPA</MetricTypeIdentifierContext>
+                    <MetricTypeName>% EPT Individuals</MetricTypeName>
+                </ActivityMetricType>
+                <MetricValueMeasure>
+                    <MeasureValue>15</MeasureValue>
+                    <MeasureUnitCode>None</MeasureUnitCode>
+                </MetricValueMeasure>
+                <MetricScoreNumeric>15</MetricScoreNumeric>
+            </ActivityMetric>
+            <ActivityMetric>
+                <ActivityMetricType>
+                    <MetricTypeIdentifier>% EPT Taxa</MetricTypeIdentifier>
+                    <MetricTypeIdentifierContext>USEPA</MetricTypeIdentifierContext>
+                    <MetricTypeName>% EPT Taxa</MetricTypeName>
+                </ActivityMetricType>
+                <MetricValueMeasure>
+                    <MeasureValue>24</MeasureValue>
+                    <MeasureUnitCode>None</MeasureUnitCode>
+                </MetricValueMeasure>
+                <MetricScoreNumeric>24</MetricScoreNumeric>
+            </ActivityMetric>
+            <ActivityMetric>
+                <ActivityMetricType>
+                    <MetricTypeIdentifier>GATHERER %</MetricTypeIdentifier>
+                    <MetricTypeIdentifierContext>WIDNR_WQX</MetricTypeIdentifierContext>
+                    <MetricTypeName>PERCENT GATHERERS</MetricTypeName>
+                    <MetricTypeCitation>
+                        <ResourceTitleName>Macroinvertebrate Data Interpretation Guidance Manual. Wisconsin DNR, 2003</ResourceTitleName>
+                        <ResourceCreatorName>Lillie, Richard A., Stanley W. Szczytko, Michael A. Miller</ResourceCreatorName>
+                        <ResourcePublisherName>Wisconsin DNR</ResourcePublisherName>
+                        <ResourceDate>01/01/03</ResourceDate>
+                        <ResourceIdentifier>26301684</ResourceIdentifier>
+                    </MetricTypeCitation>
+                </ActivityMetricType>
+                <MetricValueMeasure>
+                    <MeasureValue>59</MeasureValue>
+                    <MeasureUnitCode>None</MeasureUnitCode>
+                </MetricValueMeasure>
+                <MetricScoreNumeric>59</MetricScoreNumeric>
+            </ActivityMetric>
+            <ActivityMetric>
+                <ActivityMetricType>
+                    <MetricTypeIdentifier>MPTV</MetricTypeIdentifier>
+                    <MetricTypeIdentifierContext>WIDNR_WQX</MetricTypeIdentifierContext>
+                    <MetricTypeName>MEAN POLLUTION TOLERANCE VALUE</MetricTypeName>
+                    <MetricTypeCitation>
+                        <ResourceTitleName>Extracting additional information from biotic index samples: Great Lakes Entomo</ResourceTitleName>
+                        <ResourceCreatorName>Lillie, R.A., and Schlesser, R.A.</ResourceCreatorName>
+                        <ResourcePublisherName>Great Lakes Entomologist, v. 27, no. 3, p. 129-136.</ResourcePublisherName>
+                        <ResourceDate>01/01/94</ResourceDate>
+                        <ResourceIdentifier>26301685</ResourceIdentifier>
+                    </MetricTypeCitation>
+                </ActivityMetricType>
+                <MetricValueMeasure>
+                    <MeasureValue>5.219</MeasureValue>
+                    <MeasureUnitCode>None</MeasureUnitCode>
+                </MetricValueMeasure>
+                <MetricScoreNumeric>5.22</MetricScoreNumeric>
+            </ActivityMetric>
+            <ActivityMetric>
+                <ActivityMetricType>
+                    <MetricTypeIdentifier>SHREDDER %</MetricTypeIdentifier>
+                    <MetricTypeIdentifierContext>WIDNR_WQX</MetricTypeIdentifierContext>
+                    <MetricTypeName>PERCENT SHREDDERS</MetricTypeName>
+                    <MetricTypeCitation>
+                        <ResourceTitleName>Macroinvertebrate Data Interpretation Guidance Manual. Wisconsin DNR, 2003</ResourceTitleName>
+                        <ResourceCreatorName>Lillie, Richard A., Stanley W. Szczytko, Michael A. Miller</ResourceCreatorName>
+                        <ResourcePublisherName>Wisconsin DNR</ResourcePublisherName>
+                        <ResourceDate>01/01/03</ResourceDate>
+                        <ResourceIdentifier>26301684</ResourceIdentifier>
+                    </MetricTypeCitation>
+                </ActivityMetricType>
+                <MetricValueMeasure>
+                    <MeasureValue>4</MeasureValue>
+                    <MeasureUnitCode>None</MeasureUnitCode>
+                </MetricValueMeasure>
+                <MetricScoreNumeric>4</MetricScoreNumeric>
+            </ActivityMetric>
+        </Activity>
+    </Organization>
 </WQX>

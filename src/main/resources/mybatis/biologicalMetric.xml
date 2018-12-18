@@ -1,45 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
 
-<mapper namespace="biologicalMetric">	
-	
-	
-	<select id="select" resultType="java.util.LinkedHashMap" fetchSize="500">
-		select
-			prime.data_source_id,
-			prime.data_source,
-			prime.site_id,
-			prime.organization,
-			prime.index_identifier,
-			prime.index_type_identifier,
-			prime.index_type_context,
-			prime.index_type_name,
-			prime.resource_title_name,
-			prime.resource_creator_name,
-			prime.resource_subject_text,
-			prime.resource_publisher_name,
-			prime.resource_date,
-			prime.resource_identifier,
-			prime.index_type_scale_text,
-			prime.index_score_numeric,
-			prime.index_qualifier_code,
-			prime.index_comment,
-			prime.index_calculated_date
-		
-		<include refid="dynamicWhere.biologicMetricBase" />	
+<mapper namespace="biologicalMetric">
 
-		<if test="sorted == 'yes'">	
-			order by prime.data_source_id, prime.organization, prime.site_id
-		</if>	
-	
-	</select>
-	
-	<select id="count" resultType="java.util.LinkedHashMap">
+    <select id="select" resultType="java.util.LinkedHashMap" fetchSize="500">
+        select
+            prime.data_source_id,
+            prime.data_source,
+            prime.site_id,
+            prime.organization,
+            prime.index_identifier,
+            prime.index_type_identifier,
+            prime.index_type_context,
+            prime.index_type_name,
+            prime.resource_title_name,
+            prime.resource_creator_name,
+            prime.resource_subject_text,
+            prime.resource_publisher_name,
+            prime.resource_date,
+            prime.resource_identifier,
+            prime.index_type_scale_text,
+            prime.index_score_numeric,
+            prime.index_qualifier_code,
+            prime.index_comment,
+            prime.index_calculated_date
+
+        <include refid="dynamicWhere.biologicMetricBase" />
+
+        <if test="sorted == 'yes'">
+            order by prime.data_source_id, prime.organization, prime.site_id
+        </if>
+
+    </select>
+
+    <select id="count" resultType="java.util.LinkedHashMap">
         select data_source,
-               count (distinct prime.station_id) as station_count, count(*) as biological_metric_count
+               count (distinct prime.station_id) as site_count, count(*) as biologicalmetric_count
         <include refid="dynamicWhere.biologicMetricBase" />
             group by rollup(data_source)
     </select>
 
-    
 </mapper>

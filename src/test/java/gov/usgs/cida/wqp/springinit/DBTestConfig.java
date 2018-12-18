@@ -2,7 +2,9 @@ package gov.usgs.cida.wqp.springinit;
 
 import java.sql.SQLException;
 
-import org.dbunit.ext.oracle.OracleDataTypeFactory;
+import javax.sql.DataSource;
+
+import org.postgresql.ds.PGSimpleDataSource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -11,7 +13,9 @@ import org.springframework.context.annotation.Import;
 import com.github.springtestdbunit.bean.DatabaseConfigBean;
 import com.github.springtestdbunit.bean.DatabaseDataSourceConnectionFactoryBean;
 
-import oracle.jdbc.pool.OracleDataSource;
+import gov.usgs.cida.wqp.PostgresqlDataTypeFactoryWithJson;
+
+//import oracle.jdbc.pool.OracleDataSource;
 
 @TestConfiguration
 @Import(MybatisConfig.class)
@@ -33,8 +37,8 @@ public class DBTestConfig extends SpringTestConfig {
 	private String datasourcePassword;
 
 	@Bean
-	public OracleDataSource dataSource() throws SQLException {
-		OracleDataSource ds = new OracleDataSource();
+	public DataSource dataSource() throws SQLException {
+		PGSimpleDataSource ds = new PGSimpleDataSource();
 		ds.setURL(datasourceUrl);
 		ds.setUser(datasourceUserUsername);
 		ds.setPassword(datasourceUserPassword);
@@ -42,20 +46,19 @@ public class DBTestConfig extends SpringTestConfig {
 	}
 
 	@Bean
-	public OracleDataSource dbUnitDataSource() throws SQLException {
-		OracleDataSource ds = new OracleDataSource();
+	public DataSource dbUnitDataSource() throws SQLException {
+		PGSimpleDataSource ds = new PGSimpleDataSource();
 		ds.setURL(datasourceUrl);
 		ds.setUser(datasourceUsername);
 		ds.setPassword(datasourcePassword);
 		return ds;
 	}
 
-	//Beans to support DBunit for unit testing with Oracle.
+	//Beans to support DBunit for unit testing with PostgreSQL.
 	@Bean
 	public DatabaseConfigBean dbUnitDatabaseConfig() {
 		DatabaseConfigBean dbUnitDbConfig = new DatabaseConfigBean();
-		dbUnitDbConfig.setDatatypeFactory(new OracleDataTypeFactory());
-		dbUnitDbConfig.setSkipOracleRecyclebinTables(true);
+		dbUnitDbConfig.setDatatypeFactory(new PostgresqlDataTypeFactoryWithJson());
 		dbUnitDbConfig.setQualifiedTableNames(false);
 		return dbUnitDbConfig;
 	}
@@ -65,7 +68,7 @@ public class DBTestConfig extends SpringTestConfig {
 		DatabaseDataSourceConnectionFactoryBean dbUnitDatabaseConnection = new DatabaseDataSourceConnectionFactoryBean();
 		dbUnitDatabaseConnection.setDatabaseConfig(dbUnitDatabaseConfig());
 		dbUnitDatabaseConnection.setDataSource(dbUnitDataSource());
-		dbUnitDatabaseConnection.setSchema("WQP_CORE");
+		dbUnitDatabaseConnection.setSchema("wqp");
 		return dbUnitDatabaseConnection;
 	}
 

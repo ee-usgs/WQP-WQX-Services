@@ -16,7 +16,11 @@
     </sql>
 
     <sql id="bBox">
-        sdo_inside(geom, sdo_geometry(2003, 4269, null, sdo_elem_info_array(1, 1003, 3), sdo_ordinate_array(#{bBox.west}, #{bBox.south}, #{bBox.east}, #{bBox.north}))) = 'TRUE'
+        st_contains(st_setsrid(st_makebox2d(st_pointfromtext('point(' || #{bBox.west} || ' ' || #{bBox.south} || ')', 4269),
+                                            st_pointfromtext('point(' || #{bBox.east} || ' ' || #{bBox.north} || ')', 4269)
+                                           ),
+                               4269),
+                    geom)
     </sql>
 
     <sql id="characteristicName">
@@ -36,26 +40,26 @@
     </sql>
 
     <sql id="countrycode">
-        prime.country_code in 
+        substring(prime.governmental_unit_code, '[^:]+') in 
         <foreach item="i" collection="countrycode" open="(" separator="," close=")">#{i}</foreach>
     </sql>
 
     <sql id="countycode">
-        prime.county_code in <foreach item="i" collection="countycode" open="(" separator="," close=")">#{i}</foreach>
+        substring(prime.governmental_unit_code, '[^:]+:[^:]+:[^:]+') in <foreach item="i" collection="countycode" open="(" separator="," close=")">#{i}</foreach>
     </sql>
 
     <sql id="huc">
         <foreach item="i" collection="huc" separator=" or ">
             <choose>
-                <when test="i.length() == 2">prime.huc_2 = #{i}</when>
-                <when test="i.length() == 3">prime.huc_2 = #{i, typeHandler=WildCardTypeHandler}</when>
-                <when test="i.length() == 4">prime.huc_4 = #{i}</when>
-                <when test="i.length() == 5">prime.huc_4 = #{i, typeHandler=WildCardTypeHandler}</when>
-                <when test="i.length() == 6">prime.huc_6 = #{i}</when>
-                <when test="i.length() == 7">prime.huc_6 = #{i, typeHandler=WildCardTypeHandler}</when>
-                <when test="i.length() == 8">prime.huc_8 = #{i}</when>
-                <when test="i.length() == 10">prime.huc_10 = #{i}</when>
-                <when test="i.length() == 12">prime.huc_12 = #{i}</when>
+                <when test="i.length() == 2">substring(prime.huc, '[0-9]{2}') = #{i}</when>
+                <when test="i.length() == 3">substring(prime.huc, '[0-9]{2}') = #{i, typeHandler=WildCardTypeHandler}</when>
+                <when test="i.length() == 4">substring(prime.huc, '[0-9]{4}') = #{i}</when>
+                <when test="i.length() == 5">substring(prime.huc, '[0-9]{4}') = #{i, typeHandler=WildCardTypeHandler}</when>
+                <when test="i.length() == 6">substring(prime.huc, '[0-9]{6}') = #{i}</when>
+                <when test="i.length() == 7">substring(prime.huc, '[0-9]{6}') = #{i, typeHandler=WildCardTypeHandler}</when>
+                <when test="i.length() == 8">substring(prime.huc, '[0-9]{8}') = #{i}</when>
+                <when test="i.length() == 10">substring(prime.huc, '[0-9]{10}') = #{i}</when>
+                <when test="i.length() == 12">substring(prime.huc, '[0-9]{12}') = #{i}</when>
             </choose>
         </foreach>
     </sql>
@@ -89,16 +93,22 @@
         sample_media in <foreach item="i" collection="sampleMedia" open="(" separator="," close=")">#{i}</foreach>
     </sql>
 
+<!-- TODO    <sql id="siteId"> -->
+<!-- TODO        prime.site_id in (select /*+ dynamic_sampling(DYN 10) */ distinct column_value -->
+<!-- TODO                            from table(pkg_dynamic_list.get_table(#{siteid, typeHandler=WqpArrayTypeHandler})) -->
+<!-- TODO                         ) -->
+<!-- TODO    </sql> -->
     <sql id="siteId">
-        prime.site_id in (select /*+ dynamic_sampling(DYN 10) */ distinct column_value
-                            from table(pkg_dynamic_list.get_table(#{siteid, typeHandler=WqpArrayTypeHandler}))
-                         )
+        prime.site_id in <foreach item="i" collection="siteid" open="(" separator="," close=")">#{i}</foreach>
     </sql>
 
+<!-- TODO    <sql id="nldiSiteId"> -->
+<!-- TODO        prime.site_id in (select /*+ dynamic_sampling(DYN 10) */ distinct column_value -->
+<!-- TODO                            from table(pkg_dynamic_list.get_table(#{nldiSites, typeHandler=WqpArrayTypeHandler})) -->
+<!-- TODO                         ) -->
+<!-- TODO    </sql> -->
     <sql id="nldiSiteId">
-        prime.site_id in (select /*+ dynamic_sampling(DYN 10) */ distinct column_value
-                            from table(pkg_dynamic_list.get_table(#{nldiSites, typeHandler=WqpArrayTypeHandler}))
-                         )
+         prime.site_id in <foreach item="i" collection="nldiSites" open="(" separator="," close=")">#{i}</foreach>
     </sql>
 
     <sql id="siteType">
@@ -125,7 +135,7 @@
     </sql>
 
     <sql id="statecode">
-        prime.state_code in <foreach item="i" collection="statecode" open="(" separator="," close=")">#{i}</foreach>
+        substring(prime.governmental_unit_code, '[^:]+:[^:]+') in <foreach item="i" collection="statecode" open="(" separator="," close=")">#{i}</foreach>
     </sql>
 
     <sql id="subjectTaxonomicName">
@@ -133,7 +143,9 @@
     </sql>
 
     <sql id="within">
-        sdo_within_distance(geom, sdo_geometry(2001, 4269, sdo_point_type(#{long}, #{lat}, null), null, null), 'DISTANCE='||#{within}||' UNIT=MILE') = 'TRUE'
+        st_dwithin(st_transform(geom, 2163),
+                   st_transform(st_pointfromtext('point(' || #{long} || ' ' || #{lat} || ')', 4269), 2163),
+                   #{within}::numeric * 1609.344)
     </sql>
 
 </mapper>

@@ -16,6 +16,8 @@ import java.sql.Timestamp;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import gov.usgs.cida.wqp.BaseTest;
+
 public class TestResultMap {
 
 	private TestResultMap() {}
@@ -102,7 +104,7 @@ public class TestResultMap {
 		RESULT_OBJECT_COLUMNS = new LinkedHashMap<String, Object>();
 		RESULT_OBJECT_COLUMNS.put(KEY_RESULT_OBJECT_NAME, "resultObjectName");
 		RESULT_OBJECT_COLUMNS.put(KEY_RESULT_OBJECT_TYPE, "resultObjectType");
-		RESULT_OBJECT_COLUMNS.put(KEY_RESULT_FILE_URL, "/organizations/organization/activities/activity/results/STORET-42/files");
+		RESULT_OBJECT_COLUMNS.put(KEY_RESULT_FILE_URL, BaseTest.getSiteUrlBase() + "/organizations/organization/activities/activity/results/STORET-42/files");
 	}
 
 	public static final Map<String, Object> RESULT_FREQ_CLASS_COLUMNS;
@@ -161,8 +163,8 @@ public class TestResultMap {
 		EXTENDED_NARROW.putAll(BASE_NARROW);
 		EXTENDED_NARROW.put(KEY_VOLT_NAME, "voltName");
 		EXTENDED_NARROW.put(KEY_ANALYTICAL_METHOD, "https://analyticalMethod");
-		EXTENDED_NARROW.put(KEY_RES_DETECT_QNT_LMT_URL, "/activities/activity/results/STORET-42/resdetectqntlmts");
-		EXTENDED_NARROW.put(KEY_LAB_SAMPLE_PREP_URL, "/labSamplePrepUrl");
+		EXTENDED_NARROW.put(KEY_RES_DETECT_QNT_LMT_URL, BaseTest.getSiteUrlBase() + "/activities/activity/results/STORET-42/resdetectqntlmts");
+		EXTENDED_NARROW.put(KEY_LAB_SAMPLE_PREP_URL, BaseTest.getSiteUrlBase() + "/labSamplePrepUrl");
 	}
 
 	public static final Map<String, Object> NARROW_RESULT;
@@ -197,8 +199,8 @@ public class TestResultMap {
 		RESULT_PHYS_CHEM.put(KEY_RES_MEASURE_UPPER_CONF_LIMIT, "resMeasureUpperConfLimit");
 		RESULT_PHYS_CHEM.put(KEY_RES_MEASURE_LOWER_CONF_LIMIT, "resMeasureLowerConfLimit");
 		RESULT_PHYS_CHEM.put(KEY_METHOD_URL, "https://analyticalMethod");
-		RESULT_PHYS_CHEM.put(KEY_RES_DETECT_QNT_LMT_URL, "/activities/activity/results/STORET-42/resdetectqntlmts");
-		RESULT_PHYS_CHEM.put(KEY_LAB_SAMPLE_PREP_URL, "/labSamplePrepUrl");
+		RESULT_PHYS_CHEM.put(KEY_RES_DETECT_QNT_LMT_URL, BaseTest.getSiteUrlBase() + "/activities/activity/results/STORET-42/resdetectqntlmts");
+		RESULT_PHYS_CHEM.put(KEY_LAB_SAMPLE_PREP_URL, BaseTest.getSiteUrlBase() + "/labSamplePrepUrl");
 		RESULT_PHYS_CHEM.putAll(RESULT_OBJECT_COLUMNS);
 		RESULT_PHYS_CHEM.put(KEY_METHOD_SPECIATION_NAME, "methodSpecificationName");
 		RESULT_PHYS_CHEM.put(KEY_LAST_UPDATED, Timestamp.valueOf("2018-08-20 15:22:33.0"));
@@ -229,8 +231,8 @@ public class TestResultMap {
 		RESULT_BROAD.put(KEY_PROJECT_NAME, "Some Project");
 		RESULT_BROAD.put(KEY_STATION_NAME, "stationName");
 		RESULT_BROAD.put(KEY_METHOD_URL, "https://analyticalMethod");
-		RESULT_BROAD.put(KEY_LAB_SAMPLE_PREP_URL, "/labSamplePrepUrl");
-		RESULT_BROAD.put(KEY_RES_DETECT_QNT_LMT_URL, "/activities/activity/results/STORET-42/resdetectqntlmts");
+		RESULT_BROAD.put(KEY_LAB_SAMPLE_PREP_URL, BaseTest.getSiteUrlBase() + "/labSamplePrepUrl");
+		RESULT_BROAD.put(KEY_RES_DETECT_QNT_LMT_URL, BaseTest.getSiteUrlBase() + "/activities/activity/results/STORET-42/resdetectqntlmts");
 		RESULT_BROAD.putAll(RESULT_OBJECT_COLUMNS);
 		RESULT_BROAD.putAll(RESULT_FREQ_CLASS_COLUMNS);
 		RESULT_BROAD.put(KEY_LAST_UPDATED, Timestamp.valueOf("2018-08-20 15:22:33.0"));

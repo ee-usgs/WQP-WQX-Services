@@ -1,26 +1,28 @@
 package gov.usgs.cida.wqp.webservice.summary;
 
-import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.github.springtestdbunit.annotation.DbUnitConfiguration;
-import gov.usgs.cida.wqp.Application;
-import static gov.usgs.cida.wqp.BaseTest.CSV;
-import gov.usgs.cida.wqp.CsvDataSetLoader;
-import gov.usgs.cida.wqp.mapping.Profile;
-import gov.usgs.cida.wqp.parameter.Parameters;
-import gov.usgs.cida.wqp.springinit.DBTestConfig;
 import static gov.usgs.cida.wqp.swagger.model.StationCountJson.HEADER_BIODATA_SITE_COUNT;
 import static gov.usgs.cida.wqp.swagger.model.StationCountJson.HEADER_NWIS_SITE_COUNT;
 import static gov.usgs.cida.wqp.swagger.model.StationCountJson.HEADER_STEWARDS_SITE_COUNT;
 import static gov.usgs.cida.wqp.swagger.model.StationCountJson.HEADER_STORET_SITE_COUNT;
-import gov.usgs.cida.wqp.util.HttpConstants;
-import gov.usgs.cida.wqp.webservice.BaseControllerIntegrationTest;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
+
 import org.junit.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.ResultActions;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+
+import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.github.springtestdbunit.annotation.DbUnitConfiguration;
+
+import gov.usgs.cida.wqp.Application;
+import gov.usgs.cida.wqp.CsvDataSetLoader;
+import gov.usgs.cida.wqp.mapping.Profile;
+import gov.usgs.cida.wqp.parameter.Parameters;
+import gov.usgs.cida.wqp.springinit.DBTestConfig;
+import gov.usgs.cida.wqp.util.HttpConstants;
+import gov.usgs.cida.wqp.webservice.BaseControllerIntegrationTest;
 
 
 @EnableWebMvc

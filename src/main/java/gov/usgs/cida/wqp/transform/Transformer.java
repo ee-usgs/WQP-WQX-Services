@@ -1,13 +1,8 @@
 package gov.usgs.cida.wqp.transform;
 
 
-import gov.usgs.cida.wqp.service.ILogService;
-import gov.usgs.cida.wqp.transform.intfc.ITransformer;
-import gov.usgs.cida.wqp.util.HttpConstants;
-
 import java.io.IOException;
 import java.io.OutputStream;
-import java.math.BigDecimal;
 import java.sql.Clob;
 import java.sql.SQLException;
 import java.util.Map;
@@ -16,18 +11,22 @@ import java.util.Map.Entry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import gov.usgs.cida.wqp.service.ILogService;
+import gov.usgs.cida.wqp.transform.intfc.ITransformer;
+import gov.usgs.cida.wqp.util.HttpConstants;
+
 public abstract class Transformer extends OutputStream implements ITransformer {
 	private static final Logger LOG = LoggerFactory.getLogger(Transformer.class);
 
 	protected OutputStream target;
 	protected Map<String, String> mapping;
 	protected final ILogService logService;
-	protected final BigDecimal logId;
+	protected final Integer logId;
 
 	/** Is this the first write to the stream. */
 	protected boolean first = true;
 
-	public Transformer(OutputStream target, Map<String, String> mapping, ILogService logService, BigDecimal logId) {
+	public Transformer(OutputStream target, Map<String, String> mapping, ILogService logService, Integer logId) {
 		if (null == target) {
 			throw new RuntimeException("The OutputStream must be provided.");
 		}

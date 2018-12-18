@@ -37,11 +37,11 @@
     </select>
 
     <select id="count" resultType="java.util.LinkedHashMap">
-        select data_source, count(distinct data_source || station_id) station_count, count(distinct data_source || activity_id) activity_count, count(*) activity_metric_count
+        select data_source, count(distinct data_source || station_id) site_count, count(distinct data_source || activity_id) activity_count, count(*) activitymetric_count
           from (select prime.data_source,
                        prime.station_id,
                        prime.activity_id
-                  <include refid="dynamicWhere.activityMetricBase"/>)
+                  <include refid="dynamicWhere.activityMetricBase"/>) prime
              group by rollup(data_source)
     </select>
 

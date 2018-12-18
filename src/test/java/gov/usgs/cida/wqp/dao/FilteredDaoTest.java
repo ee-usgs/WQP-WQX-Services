@@ -320,6 +320,7 @@ public abstract class FilteredDaoTest extends BaseIT {
 	public List<Map<String, Object>> sortedTest(NameSpace nameSpace, int expectedSize) {
 		FilterParameters filter = new FilterParameters();
 		filter.setSorted("yes");
+		filter.setSiteUrlBase(getSiteUrlBase());
 		return callDao(nameSpace, expectedSize, filter);
 	}
 

@@ -43,7 +43,7 @@ public class MapToXlsxTransformer extends Transformer {
 	/** Default output buffer size. */
 	private static final int DEFAULT_BUFFER_SIZE = 1024;
 
-	public MapToXlsxTransformer(OutputStream target, Map<String, String> mapping, ILogService logService, BigDecimal logId) {
+	public MapToXlsxTransformer(OutputStream target, Map<String, String> mapping, ILogService logService, Integer logId) {
 		super(target, mapping, logService, logId);
 		init();
 	}

@@ -2,92 +2,89 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
 
 <mapper namespace="summaryMonitoringLocation">
-	
-	<sql id="selectSummaryAllMonths">
-		TO_CHAR(summary_all_months) monitoring_location_summary,
-		nvl(activity_count,0) activity_count,
-		nvl(result_count,0) result_count
-	</sql>
 
-<sql id="selectSummary12Months">
-		TO_CHAR(summary_past_12_months) monitoring_location_summary,
-		nvl(activity_count_past_12_months,0) activity_count,
-		nvl(result_count_past_12_months,0) result_count
-	</sql>
+    <sql id="selectSummaryAllMonths">
+        summary_all_months monitoring_location_summary,
+        coalesce(activity_count,0) activity_count,
+        coalesce(result_count,0) result_count
+    </sql>
 
-<sql id="selectSummary60Months">
-		TO_CHAR(summary_past_60_months) monitoring_location_summary,
-		nvl(activity_count_past_60_months,0) activity_count,
-		nvl(result_count_past_60_months,0) result_count
-	</sql>
+    <sql id="selectSummary12Months">
+        summary_past_12_months monitoring_location_summary,
+        coalesce(activity_count_past_12_months,0) activity_count,
+        coalesce(result_count_past_12_months,0) result_count
+    </sql>
 
-	<sql id="selectSummaryByYear">
-		<choose>
-			<when test="summaryYears == null or summaryYears.equalsIgnoreCase('all')"><include refid="selectSummaryAllMonths" /></when>
-			<otherwise>
-				<choose>
-					<when test="summaryYears.equalsIgnoreCase('1')"><include refid="selectSummary12Months" /></when>
-					<when test="summaryYears.equalsIgnoreCase('5')"><include refid="selectSummary60Months" /></when>
-					<otherwise><include refid="selectSummaryAllMonths" /></otherwise>
-				</choose>
-			</otherwise>
-		</choose>
+    <sql id="selectSummary60Months">
+        summary_past_60_months monitoring_location_summary,
+        coalesce(activity_count_past_60_months,0) activity_count,
+        coalesce(result_count_past_60_months,0) result_count
+    </sql>
+
+    <sql id="selectSummaryByYear">
+        <choose>
+            <when test="summaryYears == null or summaryYears.equalsIgnoreCase('all')"><include refid="selectSummaryAllMonths" /></when>
+            <otherwise>
+                <choose>
+                    <when test="summaryYears.equalsIgnoreCase('1')"><include refid="selectSummary12Months" /></when>
+                    <when test="summaryYears.equalsIgnoreCase('5')"><include refid="selectSummary60Months" /></when>
+                    <otherwise><include refid="selectSummaryAllMonths" /></otherwise>
+                </choose>
+            </otherwise>
+        </choose>
+    </sql>
+
+    <sql id="summaryYearWhere">
+        <where>
+            <include refid="dynamicWhere.baseWhereStationClauses" />
+            <choose>
+                <when test="summaryYears == null or summaryYears.equalsIgnoreCase('all')">
+                    and summary_all_months is not null
+                </when>
+                <when test="summaryYears.equalsIgnoreCase('1')">
+                    and summary_past_12_months is not null
+                </when>
+                <when test="summaryYears.equalsIgnoreCase('5')">
+                    and summary_past_60_months is not null
+                </when>
+            </choose>
+        </where>
 </sql>
-	
-	<sql id="summaryYearWhere">
-		<where>
-			<include refid="dynamicWhere.baseWhereStationGeoClauses" />
-			<include refid="dynamicWhere.baseWhereStationClauses" />
-			<choose>
-				<when test="summaryYears == null or summaryYears.equalsIgnoreCase('all')">
-					and summary_all_months is not null
-				</when>
-				<when test="summaryYears.equalsIgnoreCase('1')">
-					and summary_past_12_months is not null
-				</when>
-				<when test="summaryYears.equalsIgnoreCase('5')">
-					and summary_past_60_months is not null
-				</when>
-			</choose>
-		</where>
-</sql>
 
-	<select id="select" resultType="java.util.LinkedHashMap" fetchSize="500">
+    <select id="select" resultType="java.util.LinkedHashMap" fetchSize="500">
 
-		SELECT
-		data_source,data_source,
-		organization,
-		organization_name,
-		site_id,
-		station_name,
-		site_type,
-		TO_CHAR(prime.geom.sdo_point.y,'FM90.0000000') latitude,
-		TO_CHAR(prime.geom.sdo_point.x,'FM990.0000000') longitude,
-		station_type_name,
-		huc_8,
-		state_name,
-		county_name,
-			
+        SELECT
+        data_source,data_source,
+        organization,
+        organization_name,
+        site_id,
+        station_name,
+        site_type,
+        TO_CHAR(st_y(prime.geom),'FM90.0000000') latitude,
+        TO_CHAR(st_x(prime.geom),'FM990.0000000') longitude,
+        station_type_name,
+        substring(huc, '[0-9]{8}')huc_8,
+        state_name,
+        county_name,
 
-		<include refid="selectSummaryByYear" />
+        <include refid="selectSummaryByYear" />
 
-		
-		FROM station_sum prime
-		
-		<include refid="summaryYearWhere" />
+        FROM station_sum prime
 
-		ORDER BY
-			data_source_id,
-			organization,
-			site_id
-		</select>
+        <include refid="summaryYearWhere" />
 
-	<select id="count" resultType="java.util.LinkedHashMap">
-		select data_source,
-			   count(distinct data_source||'-'||station_id) station_count
-		from station_sum prime
-			  <include refid="summaryYearWhere" />
-		group by rollup(data_source)
-	</select>
+        ORDER BY
+            data_source_id,
+            organization,
+            site_id
+        </select>
+
+    <select id="count" resultType="java.util.LinkedHashMap">
+        select data_source,
+               count(distinct data_source||'-'||station_id) site_count
+        from station_sum prime
+              <include refid="summaryYearWhere" />
+        group by rollup(data_source)
+    </select>
 
 </mapper>

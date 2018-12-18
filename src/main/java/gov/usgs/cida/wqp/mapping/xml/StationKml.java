@@ -45,8 +45,8 @@ public class StationKml implements IXmlMapping {
 
 	protected ConfigurationService configurationService;
 
-	public static final String KEY_STYLE_URL = "STYLE_URL";
-	public static final String KEY_COORDINATES = "COORDINATES";
+	public static final String KEY_STYLE_URL = "style_url";
+	public static final String KEY_COORDINATES = "coordinates";
 	public static final String KEY_STATION_NAME2 = KEY_STATION_NAME + "2";
 
 	public static final ColumnProfile STYLE_URL = new ColumnProfile(KEY_STYLE_URL, Profile.STATION);

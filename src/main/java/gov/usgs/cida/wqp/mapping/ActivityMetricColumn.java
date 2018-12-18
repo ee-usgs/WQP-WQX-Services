@@ -3,22 +3,22 @@ package gov.usgs.cida.wqp.mapping;
 public class ActivityMetricColumn extends BaseColumn {
 
 	//ResultSet Keys
-	public static final String KEY_METRIC_TYPE_IDENTIFIER = "TYPE_IDENTIFIER";
-	public static final String KEY_METRIC_TYPE_CONTEXT = "IDENTIFIER_CONTEXT";
-	public static final String KEY_METRIC_TYPE_NAME = "TYPE_NAME";
-	public static final String KEY_METRIC_CITATION_TITLE = "RESOURCE_TITLE";
-	public static final String KEY_METRIC_CITATION_CREATOR = "RESOURCE_CREATOR";
-	public static final String KEY_METRIC_CITATION_SUBJECT = "RESOURCE_SUBJECT";
-	public static final String KEY_METRIC_CITATION_PUBLISHER = "RESOURCE_PUBLISHER";
-	public static final String KEY_METRIC_CITATION_DATE = "RESOURCE_DATE";
-	public static final String KEY_METRIC_CITATION_ID = "RESOURCE_IDENTIFIER";
-	public static final String KEY_METRIC_TYPE_SCALE = "TYPE_SCALE";
-	public static final String KEY_FORMULA_DESCRIPTION = "FORMULA_DESCRIPTION";
-	public static final String KEY_ACTIVITY_METRIC_VALUE = "MEASURE_VALUE";
-	public static final String KEY_ACTIVITY_METRIC_UNIT = "UNIT_CODE";
-	public static final String KEY_ACTIVITY_METRIC_SCORE = "SCORE";
-	public static final String KEY_ACTIVITY_METRIC_COMMENT = "COMMENT_TEXT";
-	public static final String KEY_INDEX_IDENTIFIER = "INDEX_IDENTIFIER";
+	public static final String KEY_METRIC_TYPE_IDENTIFIER = "type_identifier";
+	public static final String KEY_METRIC_TYPE_CONTEXT = "identifier_context";
+	public static final String KEY_METRIC_TYPE_NAME = "type_name";
+	public static final String KEY_METRIC_CITATION_TITLE = "resource_title";
+	public static final String KEY_METRIC_CITATION_CREATOR = "resource_creator";
+	public static final String KEY_METRIC_CITATION_SUBJECT = "resource_subject";
+	public static final String KEY_METRIC_CITATION_PUBLISHER = "resource_publisher";
+	public static final String KEY_METRIC_CITATION_DATE = "resource_date";
+	public static final String KEY_METRIC_CITATION_ID = "resource_identifier";
+	public static final String KEY_METRIC_TYPE_SCALE = "type_scale";
+	public static final String KEY_FORMULA_DESCRIPTION = "formula_description";
+	public static final String KEY_ACTIVITY_METRIC_VALUE = "measure_value";
+	public static final String KEY_ACTIVITY_METRIC_UNIT = "unit_code";
+	public static final String KEY_ACTIVITY_METRIC_SCORE = "score";
+	public static final String KEY_ACTIVITY_METRIC_COMMENT = "comment_text";
+	public static final String KEY_INDEX_IDENTIFIER = "index_identifier";
 
 	//Profile Mapping of the Keys
 	public static final ColumnProfile METRIC_TYPE_IDENTIFIER = new ColumnProfile(KEY_METRIC_TYPE_IDENTIFIER, Profile.ACTIVITY_METRIC);

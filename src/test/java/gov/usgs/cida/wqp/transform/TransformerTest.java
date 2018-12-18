@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.ArgumentMatchers.anyMap;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
@@ -31,13 +32,12 @@ import org.mockito.MockitoAnnotations;
 import gov.usgs.cida.wqp.parameter.FilterParameters;
 import gov.usgs.cida.wqp.service.ILogService;
 import gov.usgs.cida.wqp.util.HttpConstants;
-import oracle.sql.CLOB;
 
 public class TransformerTest {
 
 	@Mock
 	protected ILogService logService;
-	protected BigDecimal logId = new BigDecimal(1);
+	protected Integer logId = 1;
 
 	@Before
 	public void initTest() {
@@ -48,7 +48,7 @@ public class TransformerTest {
 		public int initCalled = 0;
 		public int writeHeaderCalled = 0;
 		public int writeDataCalled = 0;
-		public TTransformer(OutputStream target, Map<String, String> mapping, ILogService logService, BigDecimal logId) {
+		public TTransformer(OutputStream target, Map<String, String> mapping, ILogService logService, Integer logId) {
 			super(target, mapping, logService, logId);
 		}
 		@Override
@@ -83,7 +83,7 @@ public class TransformerTest {
 			assertEquals(0, transformer.writeHeaderCalled);
 			assertEquals(0, transformer.writeDataCalled);
 			verify(logService, never()).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(FilterParameters.class));
-			verify(logService, never()).logHeadComplete(any(HttpServletResponse.class), eq(logId));
+			verify(logService, never()).logHeadComplete(anyList(), anyString(), eq(logId));
 			verify(logService, never()).logFirstRowComplete(logId);
 			verify(logService, never()).logRequestComplete(eq(logId), anyString(), anyMap());
 			transformer.close();
@@ -98,7 +98,7 @@ public class TransformerTest {
 			assertEquals(0, transformer.writeHeaderCalled);
 			assertEquals(0, transformer.writeDataCalled);
 			verify(logService, never()).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(FilterParameters.class));
-			verify(logService, never()).logHeadComplete(any(HttpServletResponse.class), eq(logId));
+			verify(logService, never()).logHeadComplete(anyList(), anyString(), eq(logId));
 			verify(logService, never()).logFirstRowComplete(logId);
 			verify(logService, never()).logRequestComplete(eq(logId), anyString(), anyMap());
 			transformer.close();
@@ -117,7 +117,7 @@ public class TransformerTest {
 			assertEquals(0, transformer.writeHeaderCalled);
 			assertEquals(2, transformer.writeDataCalled);
 			verify(logService, never()).logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(FilterParameters.class));
-			verify(logService, never()).logHeadComplete(any(HttpServletResponse.class), eq(logId));
+			verify(logService, never()).logHeadComplete(anyList(), anyString(), eq(logId));
 			verify(logService, times(1)).logFirstRowComplete(logId);
 			verify(logService, never()).logRequestComplete(eq(logId), anyString(), anyMap());
 			transformer.close();

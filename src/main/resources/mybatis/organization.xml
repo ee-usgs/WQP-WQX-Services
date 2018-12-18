@@ -52,7 +52,7 @@
         select data_source, count(*) organization_count
           from (select prime.data_source,
                        prime.organization_id
-                  <include refid="dynamicWhere.organizationBase"/>)
+                  <include refid="dynamicWhere.organizationBase"/>) prime
              group by rollup(data_source)
     </select>
 

@@ -1,14 +1,10 @@
 package gov.usgs.cida.wqp.transform;
 
 import static org.junit.Assert.assertEquals;
-import gov.usgs.cida.wqp.service.ILogService;
-
 
 import java.io.ByteArrayOutputStream;
-
 import java.io.IOException;
 import java.io.OutputStream;
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,11 +14,13 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import gov.usgs.cida.wqp.service.ILogService;
+
 public class BaseMapToJsonTransformerTest {
 	private class BaseMapToJsonTransImpl extends BaseMapToJsonTransformer {
 		public int writeHeaderCalled = 0;
 		public int writeDataCalled = 0;
-		public BaseMapToJsonTransImpl(OutputStream target, Map<String, String> mapping, ILogService logService, BigDecimal logId, String siteUrlBase) {
+		public BaseMapToJsonTransImpl(OutputStream target, Map<String, String> mapping, ILogService logService, Integer logId, String siteUrlBase) {
 			super(target, mapping, logService, logId, siteUrlBase);	
 		}
 		
@@ -38,7 +36,7 @@ public class BaseMapToJsonTransformerTest {
 	
 	@Mock
 	protected ILogService logService;
-	protected BigDecimal logId = new BigDecimal(1);	
+	protected Integer logId = 1;	
 	protected ByteArrayOutputStream baos;
 	protected String siteUrlBase = "http://test-url.usgs.gov";
 	private BaseMapToJsonTransImpl transformer;

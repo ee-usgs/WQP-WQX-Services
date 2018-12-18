@@ -70,11 +70,8 @@ public class CountDaoActivityMetricIT extends BaseCountDaoTest {
 		subjectTaxonomicNameTest();
 		withinTest();
 		zipTest();
-		multipleParameterStationSumTest();
 		multipleParameterActivitySumTest();
-		multipleParameterActivitySumStationSumTest();
 		multipleParameterResultSumTest();
-		multipleParameterResultSumStationSumTests();
 	}
 
 	public void nullParameterTest() {
@@ -295,21 +292,11 @@ public class CountDaoActivityMetricIT extends BaseCountDaoTest {
 
 	public void multipleParameterActivitySumTest() {
 		List<Map<String, Object>> counts = multipleParameterActivitySumTest(nameSpace, includeActivity, includeResults);
-		assertActivityMetricResults(counts, "8", null, null, "8", null);
-	}
-
-	public void multipleParameterActivitySumStationSumTest() {
-		List<Map<String, Object>> counts = multipleParameterActivitySumStationSumTest(nameSpace, includeActivity, includeResults);
 		assertActivityMetricResults(counts, "6", null, null, "6", null);
 	}
 
 	public void multipleParameterResultSumTest() {
 		List<Map<String, Object>> counts = multipleParameterResultSumTest(nameSpace, includeActivity, includeResults);
-		assertActivityMetricResults(counts, "4", null, null, "4", null);
-	}
-
-	public void multipleParameterResultSumStationSumTests() {
-		List<Map<String, Object>> counts = multipleParameterResultSumStationSumTests(nameSpace, includeActivity, includeResults);
 		assertActivityMetricResults(counts, FILTERED_TOTAL_ACTIVITY_COUNT, null, null, FILTERED_STORET_ACTIVITY_COUNT, null);
 	}
 

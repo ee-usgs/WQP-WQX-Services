@@ -40,7 +40,7 @@ public class CountDaoPeriodOfRecordIT extends BaseStationCountDaoTest{
 		siteTypeTest(nameSpace);
 		stateTest(nameSpace);
 		withinTest(nameSpace);
-		multipleParameterStationSumTest(nameSpace);		
+		multipleParameterStationSumTest(nameSpace);
 		allYearsPeriodOfRecordTest(nameSpace);
 		oneYearPeriodOfRecordTest(nameSpace);
 		fiveYearsPeriodOfRecordTest(nameSpace);
@@ -62,8 +62,8 @@ public class CountDaoPeriodOfRecordIT extends BaseStationCountDaoTest{
 	}
 	
 	public void huc8Test(NameSpace nameSpace) {
-		List<Map<String, Object>> counts = huc8Test(nameSpace, 0);
-		assertStationResults(counts, null, null, null, null, null);
+		List<Map<String, Object>> counts = huc8Test(nameSpace, 1);
+		assertStationResults(counts, "0", null, null, null, null);
 	}
 	
 	public void mimeTypeSummaryTest(NameSpace nameSpace) {
@@ -132,8 +132,8 @@ public class CountDaoPeriodOfRecordIT extends BaseStationCountDaoTest{
 	}
 	
 	public void multipleParameterStationSumTest(NameSpace nameSpace) {
-		List<Map<String, Object>> counts = multipleParameterStationSumTest(nameSpace, 0);
-		assertStationResults(counts, null, null, null, null, null);
+		List<Map<String, Object>> counts = multipleParameterStationSumTest(nameSpace, 1);
+		assertStationResults(counts, "0", null, null, null, null);
 	}
 	
 	public List<Map<String, Object>> summaryYearsTest(NameSpace nameSpace, String summaryYears, int expectedSize) {

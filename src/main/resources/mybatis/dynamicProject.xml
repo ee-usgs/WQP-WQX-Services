@@ -25,13 +25,6 @@
                           from project_dim
                                join activity_sum prime
                                  on project_dim.project_dim_value = prime.project_id
-                            <if test="bBox != null or within != null">
-                               join station_sum
-                                 on prime.station_id = station_sum.station_id and
-                                    prime.data_source_id = station_sum.data_source_id
-                            </if>
-                        <include refid="dynamicWhere.baseWhereStationGeoClauses" />
-                        <include refid="dynamicWhere.baseWhereStationClauses" />
                         <include refid="dynamicWhere.baseWhereActivityClauses" />
                        ) secondary
                  where prime.project_identifier = secondary.code_value and
@@ -46,14 +39,6 @@
                           from project_dim
                                join result_sum prime
                                  on project_dim.project_dim_value = prime.project_id
-                            <if test="bBox != null or within != null">
-                               join station_sum
-                                 on prime.station_id = station_sum.station_id and
-                                    prime.data_source_id = station_sum.data_source_id
-                            </if>
-                        <include refid="dynamicWhere.baseWhereStationGeoClauses" />
-                        <include refid="dynamicWhere.baseWhereStationClauses" />
-                        <include refid="dynamicWhere.baseWhereActivityClauses" />
                         <include refid="dynamicWhere.baseWhereResultClauses" />
                        ) secondary
                  where prime.project_identifier = secondary.code_value and

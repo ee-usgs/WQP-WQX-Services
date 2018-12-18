@@ -5,7 +5,6 @@ import static org.junit.Assert.fail;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,7 +34,7 @@ public class OrganizationSumMapToJsonTransformerTest {
 
 	@Mock
 	protected ILogService logService;
-	protected BigDecimal logId = new BigDecimal(1);
+	protected Integer logId = 1;
 	protected BaseMapToJsonTransformer transformer;
 	protected ByteArrayOutputStream baos;
 	protected String siteUrlBase = "http://test-url.usgs.gov";

@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
-        <county  DATA_SOURCE_ID="2" CODE_VALUE="US:06:115" DESCRIPTION="US, California, Yuba County" DESCRIPTION_WO_COUNTRY_STATE="Yuba County"/>    
-        <county  DATA_SOURCE_ID="2" CODE_VALUE="US:30:003" DESCRIPTION="US, Montana, Big Horn County" DESCRIPTION_WO_COUNTRY_STATE="Big Horn County"/>    
-        <county  DATA_SOURCE_ID="4" CODE_VALUE="US:06:115" DESCRIPTION="US, California, Yuba County" DESCRIPTION_WO_COUNTRY_STATE="Yuba County"/>   
-        <county  DATA_SOURCE_ID="3" CODE_VALUE="US:30:003" DESCRIPTION="US, Montana, Big Horn County" DESCRIPTION_WO_COUNTRY_STATE="Big Horn County"/>     
-        <county  DATA_SOURCE_ID="3" CODE_VALUE="US:55:021" DESCRIPTION="US, Wisconsin, Columbia County" DESCRIPTION_WO_COUNTRY_STATE="Columbia County"/>    
-        <county  DATA_SOURCE_ID="2" CODE_VALUE="US:55:021" DESCRIPTION="US, Wisconsin, Columbia County" DESCRIPTION_WO_COUNTRY_STATE="Columbia County"/>    
-        <county  DATA_SOURCE_ID="3" CODE_VALUE="US:55:017" DESCRIPTION="US, Wisconsin, Chippewa County" DESCRIPTION_WO_COUNTRY_STATE="Chippewa County"/>    
-        <county  DATA_SOURCE_ID="3" CODE_VALUE="US:55:027" DESCRIPTION="US, Wisconsin, Dodge County" DESCRIPTION_WO_COUNTRY_STATE="Dodge County"/>    
-        <county  DATA_SOURCE_ID="2" CODE_VALUE="US:55:017" DESCRIPTION="US, Wisconsin, Chippewa County" DESCRIPTION_WO_COUNTRY_STATE="Chippewa County"/>    
-        <county  DATA_SOURCE_ID="2" CODE_VALUE="US:19:015" DESCRIPTION="US, Iowa, Boone County" DESCRIPTION_WO_COUNTRY_STATE="Boone County"/>    
-        <county  DATA_SOURCE_ID="1" CODE_VALUE="US:19:015" DESCRIPTION="US, Iowa, Boone County" DESCRIPTION_WO_COUNTRY_STATE="Boone County"/>    
-        <county  DATA_SOURCE_ID="3" CODE_VALUE="US:06:115" DESCRIPTION="US, California, Yuba County" DESCRIPTION_WO_COUNTRY_STATE="Yuba County"/>    
-        <county  DATA_SOURCE_ID="3" CODE_VALUE="US:19:015" DESCRIPTION="US, Iowa, Boone County" DESCRIPTION_WO_COUNTRY_STATE="Boone County"/>    
-        <county  DATA_SOURCE_ID="2" CODE_VALUE="US:55:027" DESCRIPTION="US, Wisconsin, Dodge County" DESCRIPTION_WO_COUNTRY_STATE="Dodge County"/>      
+        <county  DATA_SOURCE_ID="2" CODE_VALUE="US:06:115" DESCRIPTION="US, California, Yuba County" DESCRIPTION_WO_COUNTRY_STATE="Yuba County"/>
+        <county  DATA_SOURCE_ID="2" CODE_VALUE="US:30:003" DESCRIPTION="US, Montana, Big Horn County" DESCRIPTION_WO_COUNTRY_STATE="Big Horn County"/>
+        <county  DATA_SOURCE_ID="4" CODE_VALUE="US:06:115" DESCRIPTION="US, California, Yuba County" DESCRIPTION_WO_COUNTRY_STATE="Yuba County"/>
+        <county  DATA_SOURCE_ID="3" CODE_VALUE="US:30:003" DESCRIPTION="US, Montana, Big Horn County" DESCRIPTION_WO_COUNTRY_STATE="Big Horn County"/>
+        <county  DATA_SOURCE_ID="3" CODE_VALUE="US:55:021" DESCRIPTION="US, Wisconsin, Columbia County" DESCRIPTION_WO_COUNTRY_STATE="Columbia County"/>
+        <county  DATA_SOURCE_ID="2" CODE_VALUE="US:55:021" DESCRIPTION="US, Wisconsin, Columbia County" DESCRIPTION_WO_COUNTRY_STATE="Columbia County"/>
+        <county  DATA_SOURCE_ID="3" CODE_VALUE="US:55:017" DESCRIPTION="US, Wisconsin, Chippewa County" DESCRIPTION_WO_COUNTRY_STATE="Chippewa County"/>
+        <county  DATA_SOURCE_ID="3" CODE_VALUE="US:55:027" DESCRIPTION="US, Wisconsin, Dodge County" DESCRIPTION_WO_COUNTRY_STATE="Dodge County"/>
+        <county  DATA_SOURCE_ID="2" CODE_VALUE="US:55:017" DESCRIPTION="US, Wisconsin, Chippewa County" DESCRIPTION_WO_COUNTRY_STATE="Chippewa County"/>
+        <county  DATA_SOURCE_ID="2" CODE_VALUE="US:19:015" DESCRIPTION="US, Iowa, Boone County" DESCRIPTION_WO_COUNTRY_STATE="Boone County"/>
+        <county  DATA_SOURCE_ID="1" CODE_VALUE="US:19:015" DESCRIPTION="US, Iowa, Boone County" DESCRIPTION_WO_COUNTRY_STATE="Boone County"/>
+        <county  DATA_SOURCE_ID="3" CODE_VALUE="US:06:115" DESCRIPTION="US, California, Yuba County" DESCRIPTION_WO_COUNTRY_STATE="Yuba County"/>
+        <county  DATA_SOURCE_ID="3" CODE_VALUE="US:19:015" DESCRIPTION="US, Iowa, Boone County" DESCRIPTION_WO_COUNTRY_STATE="Boone County"/>
+        <county  DATA_SOURCE_ID="2" CODE_VALUE="US:55:027" DESCRIPTION="US, Wisconsin, Dodge County" DESCRIPTION_WO_COUNTRY_STATE="Dodge County"/>
 </dataset>

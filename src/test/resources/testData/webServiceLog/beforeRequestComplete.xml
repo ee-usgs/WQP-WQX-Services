@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <web_service_log web_service_log_id="1"
+                     origin="WQP Site"
+                     call_type="GET"
+                     endpoint="/wqp/summary/monitoringlocation/search"
+                     user_agent="Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.4 (KHTML, like Gecko) Chrome/98 Safari/537.4 (StatusCake)"
+                     request_timestamp_utc="1999-12-31 23:59:59.000000000"
+                     head_sent_utc="1999-12-31 23:59:59.010000000"
+                     total_rows_expected="4321"
+                     data_store_counts="[dataStoreCounts]"
+                     first_row_sent_utc="1999-12-31 23:59:59.020000000"
+    />
+</dataset>

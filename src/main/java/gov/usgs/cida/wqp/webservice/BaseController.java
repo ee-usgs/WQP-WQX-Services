@@ -3,7 +3,6 @@ package gov.usgs.cida.wqp.webservice;
 import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,9 +40,9 @@ import gov.usgs.cida.wqp.transform.MapToDelimitedTransformer;
 import gov.usgs.cida.wqp.transform.MapToKmlTransformer;
 import gov.usgs.cida.wqp.transform.MapToXlsxTransformer;
 import gov.usgs.cida.wqp.transform.MapToXmlTransformer;
-import gov.usgs.cida.wqp.transform.StationMapToJsonTransformer;
 import gov.usgs.cida.wqp.transform.OrganizationSumMapToJsonTransformer;
 import gov.usgs.cida.wqp.transform.PeriodOfRecordMapToJsonTransformer;
+import gov.usgs.cida.wqp.transform.StationMapToJsonTransformer;
 import gov.usgs.cida.wqp.transform.Transformer;
 import gov.usgs.cida.wqp.util.HttpConstants;
 import gov.usgs.cida.wqp.util.MimeType;
@@ -61,7 +60,7 @@ public abstract class BaseController {
 	private static ThreadLocal<FilterParameters> filter = new ThreadLocal<>();
 	private static ThreadLocal<MimeType> mimeType = new ThreadLocal<>();
 	private static ThreadLocal<Boolean> zipped = new ThreadLocal<>();
-	private static ThreadLocal<BigDecimal> logId = new ThreadLocal<>();
+	private static ThreadLocal<Integer> logId = new ThreadLocal<>();
 	private static ThreadLocal<Map<String, String>> counts = new ThreadLocal<>();
 	private static ThreadLocal<NameSpace> mybatisNamespace = new ThreadLocal<>();
 	private static ThreadLocal<Profile> profile = new ThreadLocal<>();
@@ -103,10 +102,10 @@ public abstract class BaseController {
 		getFilter().setZip(inZipped ? "yes" : "no");
 		zipped.set(inZipped);
 	}
-	public static BigDecimal getLogId() {
+	public static Integer getLogId() {
 		return logId.get();
 	}
-	public static void setLogId(BigDecimal inLogId) {
+	public static void setLogId(Integer inLogId) {
 		logId.set(inLogId);
 	}
 	public static Map<String, String> getCounts() {
@@ -273,7 +272,7 @@ public abstract class BaseController {
 		}
 		String totalHeader = addCountHeaders(response, counts);
 
-		logService.logHeadComplete(response, getLogId());
+		logService.logHeadComplete(counts, totalHeader, getLogId());
 
 		return checkMaxRows(response, totalHeader);
 	}
@@ -484,7 +483,7 @@ public abstract class BaseController {
 		}
 	}
 
-	protected Transformer getTransformer(OutputStream responseStream, BigDecimal logId) {		
+	protected Transformer getTransformer(OutputStream responseStream, Integer logId) {		
 		Transformer transformer;
 	
 		switch (getMimeType()) {
@@ -513,7 +512,7 @@ public abstract class BaseController {
 		return transformer;
 	}	
 
-	protected Transformer getJsonTranformer(OutputStream responseStream, BigDecimal logId) {
+	protected Transformer getJsonTranformer(OutputStream responseStream, Integer logId) {
 		Transformer transformer = null;
 		switch (getProfile()) {
 		case SUMMARY_ORGANIZATION:

@@ -1,9 +1,18 @@
 package gov.usgs.cida.wqp.transform;
 
-import static gov.usgs.cida.wqp.mapping.xml.StationKml.*;
+import static gov.usgs.cida.wqp.mapping.xml.StationKml.KML_DOCUMENT;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import gov.usgs.cida.wqp.mapping.Profile;
 import gov.usgs.cida.wqp.mapping.xml.IXmlMapping;
@@ -12,21 +21,11 @@ import gov.usgs.cida.wqp.service.ConfigurationService;
 import gov.usgs.cida.wqp.service.ILogService;
 import gov.usgs.cida.wqp.util.HttpConstants;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.math.BigDecimal;
-
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-
 public class MapToKmlTransformerTest {
 
 	@Mock
 	protected ILogService logService;
-	protected BigDecimal logId = new BigDecimal(1);
+	protected Integer logId = 1;
 	protected IXmlMapping fieldMapping;
 	protected MapToKmlTransformer transformer;
 	protected ByteArrayOutputStream baos;
