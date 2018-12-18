@@ -154,15 +154,6 @@ public class SwaggerConfig {
 	public Object uiConfig() {
 		//This is needed in swagger 2 for the "try it" button on head requests - should not be needed with swagger 3
 		//It is needed in all WQP projects!!!
-//		new UiConfiguration(null, "none", "alpha", "schema", new String[] { "get", "post", "head" }, false, true, null);
-//		return UiConfigurationBuilder
-//				.builder()
-//				.validatorUrl(null)
-//				.docExpansion(DocExpansion.NONE)
-//				.tagsSorter(TagsSorter.ALPHA)
-//				.defaultModelRendering(ModelRendering.EXAMPLE)
-//				.supportedSubmitMethods(new String[] { "get", "post", "head" })
-//				.
 		return UiConfigurationBuilder
 				.builder()
 				.deepLinking(true)
@@ -177,7 +168,6 @@ public class SwaggerConfig {
 				.operationsSorter(OperationsSorter.ALPHA)
 				.showExtensions(false)
 				.tagsSorter(TagsSorter.ALPHA)
-//				.supportedSubmitMethods(UiConfiguration.Constants.DEFAULT_SUBMIT_METHODS)
 				.supportedSubmitMethods(new String[] { "get", "post", "head" })
 				.validatorUrl(null)
 				.build();
