@@ -27,7 +27,7 @@ public class SummaryMonitoringLocationControllerTest {
 	@Test
 	public void addCountHeaderTest() {
 		MockHttpServletResponse response = new MockHttpServletResponse();
-		String countHeader = controller.addCountHeaders(response, BaseControllerTest.getRawCounts());
+		String countHeader = controller.addCountHeaders(response, BaseControllerTest.getNwisRawCounts());
 		assertEquals(HttpConstants.HEADER_TOTAL_SITE_COUNT, countHeader);
 		assertEquals(BaseControllerTest.TEST_NWIS_STATION_COUNT, response.getHeaderValue(HEADER_NWIS_SITE_COUNT));
 		assertEquals(BaseControllerTest.TEST_TOTAL_STATION_COUNT, response.getHeaderValue(HttpConstants.HEADER_TOTAL_SITE_COUNT));

@@ -23,7 +23,7 @@ import static gov.usgs.cida.wqp.swagger.model.StationCountJson.HEADER_STORET_SIT
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 
 @EnableWebMvc
-@AutoConfigureMockMvc(secure=false)
+@AutoConfigureMockMvc()
 @SpringBootTest(webEnvironment=WebEnvironment.MOCK,
 	classes={DBTestConfig.class, Application.class})
 @DatabaseSetup("classpath:/testData/csv/")

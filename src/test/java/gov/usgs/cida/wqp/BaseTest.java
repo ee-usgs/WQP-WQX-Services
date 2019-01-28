@@ -42,12 +42,12 @@ public abstract class BaseTest {
 	}
 	
 	public String adjustCsvDatesToTimeFromCurrentYear(String csvString) {
-		String adjustedDateString = csvString.replaceAll("\"\\[year\\-0\\]\"", String.valueOf(currentDate.getYear()))
-				.replaceAll("\"\\[year\\-1\\]\"", String.valueOf(currentDate.getYear() - 1))
-				.replaceAll("\"\\[year\\-2\\]\"", String.valueOf(currentDate.getYear() - 2))
-				.replaceAll("\"\\[year\\-3\\]\"", String.valueOf(currentDate.getYear() - 3))
-				.replaceAll("\"\\[year\\-4\\]\"", String.valueOf(currentDate.getYear() - 4))
-				.replaceAll("\"\\[year\\-5\\]\"", String.valueOf(currentDate.getYear() - 5));			
+		String adjustedDateString = csvString.replaceAll("\\[year\\-0\\]", String.valueOf(currentDate.getYear()))
+				.replaceAll("\\[year\\-1\\]", String.valueOf(currentDate.getYear() - 1))
+				.replaceAll("\\[year\\-2\\]", String.valueOf(currentDate.getYear() - 2))
+				.replaceAll("\\[year\\-3\\]", String.valueOf(currentDate.getYear() - 3))
+				.replaceAll("\\[year\\-4\\]", String.valueOf(currentDate.getYear() - 4))
+				.replaceAll("\\[year\\-5\\]", String.valueOf(currentDate.getYear() - 5));			
 		
 		return adjustedDateString;
 	}	

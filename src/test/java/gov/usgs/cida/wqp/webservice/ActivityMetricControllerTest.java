@@ -30,14 +30,14 @@ public class ActivityMetricControllerTest {
 	@Test
 	public void addCountHeadersTest() {
 		MockHttpServletResponse response = new MockHttpServletResponse();
-		String countHeader = controller.addCountHeaders(response, BaseControllerTest.getRawCounts());
+		String countHeader = controller.addCountHeaders(response, BaseControllerTest.getNwisRawCounts());
 		checkCountheaders(countHeader, response);
 	}
 
 	@Test
 	public void addCountHeadersRestTest() {
 		MockHttpServletResponse response = new MockHttpServletResponse();
-		String countHeader = controller.addCountHeaders(response, BaseControllerTest.getRawCounts());
+		String countHeader = controller.addCountHeaders(response, BaseControllerTest.getNwisRawCounts());
 		checkCountheaders(countHeader, response);
 	}
 

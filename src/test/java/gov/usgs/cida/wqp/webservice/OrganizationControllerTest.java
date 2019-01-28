@@ -31,7 +31,7 @@ public class OrganizationControllerTest {
 	@Test
 	public void addCountHeadersTest() {
 		MockHttpServletResponse response = new MockHttpServletResponse();
-		String countHeader = controller.addCountHeaders(response, BaseControllerTest.getRawCounts());
+		String countHeader = controller.addCountHeaders(response, BaseControllerTest.getNwisRawCounts());
 		assertEquals(HttpConstants.HEADER_TOTAL_ORGANIZATION_COUNT, countHeader);
 		assertEquals(BaseControllerTest.TEST_NWIS_ORGANIZATION_COUNT, response.getHeaderValue(HEADER_NWIS_ORGANIZATION_COUNT));
 		assertEquals(BaseControllerTest.TEST_TOTAL_ORGANIZATION_COUNT, response.getHeaderValue(HttpConstants.HEADER_TOTAL_ORGANIZATION_COUNT));

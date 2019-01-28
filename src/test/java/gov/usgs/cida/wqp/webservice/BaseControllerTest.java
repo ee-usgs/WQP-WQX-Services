@@ -7,6 +7,7 @@ import static gov.usgs.cida.wqp.swagger.model.ResDetectQntLmtCountJson.HEADER_NW
 import static gov.usgs.cida.wqp.swagger.model.ResultCountJson.HEADER_NWIS_RESULT_COUNT;
 import static gov.usgs.cida.wqp.swagger.model.StationCountJson.HEADER_NWIS_SITE_COUNT;
 import static gov.usgs.cida.wqp.swagger.model.StationCountJson.NWIS;
+import static gov.usgs.cida.wqp.swagger.model.StationCountJson.STORET;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -15,8 +16,8 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.anyMap;
 import static org.mockito.ArgumentMatchers.anyList;
+import static org.mockito.ArgumentMatchers.anyMap;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.doThrow;
@@ -94,6 +95,8 @@ public class BaseControllerTest {
 	public static final String TEST_NWIS_RES_DETECT_QNT_LMT_COUNT = "432";
 	public static final String TEST_NWIS_PROJECT_COUNT = "106";
 	public static final String TEST_NWIS_PROJECT_ML_WEIGHTING_COUNT = "1";
+	public static final String TEST_NWIS_ORGANIZATION_COUNT = "1";
+
 	public static final String TEST_TOTAL_STATION_COUNT = "121";
 	public static final String TEST_TOTAL_ACTIVITY_COUNT = "1131";
 	public static final String TEST_TOTAL_ACTIVITY_METRIC_COUNT = "321";
@@ -101,8 +104,16 @@ public class BaseControllerTest {
 	public static final String TEST_TOTAL_RES_DETECT_QNT_LMT_COUNT = "4321";
 	public static final String TEST_TOTAL_PROJECT_COUNT = "1061";
 	public static final String TEST_TOTAL_PROJECT_ML_WEIGHTING_COUNT = "4";
-	public static final String TEST_NWIS_ORGANIZATION_COUNT = "1";
 	public static final String TEST_TOTAL_ORGANIZATION_COUNT = "1";
+
+	public static final String TEST_STORET_STATION_COUNT = "2";
+	public static final String TEST_STORET_ACTIVITY_COUNT = "13";
+	public static final String TEST_STORET_ACTIVITY_METRIC_COUNT = "2";
+	public static final String TEST_STORET_RESULT_COUNT = "59";
+	public static final String TEST_STORET_RES_DETECT_QNT_LMT_COUNT = "32";
+	public static final String TEST_STORET_PROJECT_COUNT = "10";
+	public static final String TEST_STORET_PROJECT_ML_WEIGHTING_COUNT = "2";
+	public static final String TEST_STORET_ORGANIZATION_COUNT = "2";
 
 	@Mock
 	private IStreamingDao streamingDao;
@@ -687,7 +698,7 @@ public class BaseControllerTest {
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		FilterParameters filter = new FilterParameters();
 		filter.setSiteid(Arrays.asList("11NPSWRD-BICA_MFG_B", "WIDNR_WQX-10030952"));
-		when(countDao.getCounts(any(NameSpace.class), any(FilterParameters.class))).thenReturn(getRawCounts());
+		when(countDao.getCounts(any(NameSpace.class), any(FilterParameters.class))).thenReturn(getNwisRawCounts());
 		when(contentStrategy.resolveMediaTypes(any())).thenReturn(Arrays.asList(MimeType.kml.getMediaType()));
 
 		Map<String, String> result = testController.doPostCountRequest(request, response, filter, "kmz", "yes");
@@ -713,7 +724,7 @@ public class BaseControllerTest {
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		FilterParameters filter = new FilterParameters();
 		filter.setSiteid(Arrays.asList("11NPSWRD-BICA_MFG_B", "WIDNR_WQX-10030952"));
-		when(countDao.getCounts(any(NameSpace.class), any(FilterParameters.class))).thenReturn(getRawCounts());
+		when(countDao.getCounts(any(NameSpace.class), any(FilterParameters.class))).thenReturn(getNwisRawCounts());
 		when(contentStrategy.resolveMediaTypes(any())).thenReturn(Arrays.asList(MimeType.kml.getMediaType()));
 
 		Map<String, String> result = testController.doPostCountRequest(request, response, filter, null, null);
@@ -1102,7 +1113,7 @@ public class BaseControllerTest {
 		assertTrue(counts.containsKey("empty-total-header"));
 		assertEquals("0", counts.get("empty-total-header"));
 
-		testController.addCountHeaders(response, getRawCounts(), HttpConstants.HEADER_TOTAL_SITE_COUNT, HttpConstants.HEADER_SITE_COUNT, CountColumn.KEY_STATION_COUNT);
+		testController.addCountHeaders(response, getNwisRawCounts(), HttpConstants.HEADER_TOTAL_SITE_COUNT, HttpConstants.HEADER_SITE_COUNT, CountColumn.KEY_STATION_COUNT);
 
 		empty = response.getHeaderValue("empty-header");
 		assertNull(empty);
@@ -1127,7 +1138,7 @@ public class BaseControllerTest {
 		assertTrue(counts.containsKey(HttpConstants.HEADER_TOTAL_SITE_COUNT));
 		assertEquals(TEST_TOTAL_STATION_COUNT, counts.get(HttpConstants.HEADER_TOTAL_SITE_COUNT));
 
-		testController.addCountHeaders(response, getRawCounts(), HttpConstants.HEADER_TOTAL_RESULT_COUNT, HttpConstants.HEADER_RESULT_COUNT, CountColumn.KEY_RESULT_COUNT);
+		testController.addCountHeaders(response, getNwisRawCounts(), HttpConstants.HEADER_TOTAL_RESULT_COUNT, HttpConstants.HEADER_RESULT_COUNT, CountColumn.KEY_RESULT_COUNT);
 
 		nwisSite = response.getHeaderValue(HEADER_NWIS_SITE_COUNT);
 		assertNotNull(nwisSite);
@@ -1161,7 +1172,7 @@ public class BaseControllerTest {
 	@Test
 	public void addSiteHeadersTest() {
 		MockHttpServletResponse response = new MockHttpServletResponse();
-		testController.addSiteHeaders(response, getRawCounts());
+		testController.addSiteHeaders(response, getNwisRawCounts());
 		assertEquals(TEST_NWIS_STATION_COUNT, response.getHeaderValue(HEADER_NWIS_SITE_COUNT));
 		assertEquals(TEST_TOTAL_STATION_COUNT, response.getHeaderValue(HttpConstants.HEADER_TOTAL_SITE_COUNT));
 		assertNull(response.getHeaderValue(HEADER_NWIS_ACTIVITY_COUNT));
@@ -1179,7 +1190,7 @@ public class BaseControllerTest {
 	@Test
 	public void addActivityHeadersTest() {
 		MockHttpServletResponse response = new MockHttpServletResponse();
-		testController.addActivityHeaders(response, getRawCounts());
+		testController.addActivityHeaders(response, getNwisRawCounts());
 		assertNull(response.getHeaderValue(HEADER_NWIS_SITE_COUNT));
 		assertNull(response.getHeaderValue(HttpConstants.HEADER_TOTAL_SITE_COUNT));
 		assertEquals(TEST_NWIS_ACTIVITY_COUNT, response.getHeaderValue(HEADER_NWIS_ACTIVITY_COUNT));
@@ -1197,7 +1208,7 @@ public class BaseControllerTest {
 	@Test
 	public void addActivityMetricHeadersTest() {
 		MockHttpServletResponse response = new MockHttpServletResponse();
-		testController.addActivityMetricHeaders(response, getRawCounts());
+		testController.addActivityMetricHeaders(response, getNwisRawCounts());
 		assertNull(response.getHeaderValue(HEADER_NWIS_SITE_COUNT));
 		assertNull(response.getHeaderValue(HttpConstants.HEADER_TOTAL_SITE_COUNT));
 		assertNull(response.getHeaderValue(HEADER_NWIS_ACTIVITY_COUNT));
@@ -1215,7 +1226,7 @@ public class BaseControllerTest {
 	@Test
 	public void addResultHeadersTest() {
 		MockHttpServletResponse response = new MockHttpServletResponse();
-		testController.addResultHeaders(response, getRawCounts());
+		testController.addResultHeaders(response, getNwisRawCounts());
 		assertNull(response.getHeaderValue(HEADER_NWIS_SITE_COUNT));
 		assertNull(response.getHeaderValue(HttpConstants.HEADER_TOTAL_SITE_COUNT));
 		assertNull(response.getHeaderValue(HEADER_NWIS_ACTIVITY_COUNT));
@@ -1233,7 +1244,7 @@ public class BaseControllerTest {
 	@Test
 	public void addResDetectQntLmtHeadersTest() {
 		MockHttpServletResponse response = new MockHttpServletResponse();
-		testController.addResDetectQntLmtHeaders(response, getRawCounts());
+		testController.addResDetectQntLmtHeaders(response, getNwisRawCounts());
 		assertNull(response.getHeaderValue(HEADER_NWIS_SITE_COUNT));
 		assertNull(response.getHeaderValue(HttpConstants.HEADER_TOTAL_SITE_COUNT));
 		assertNull(response.getHeaderValue(HEADER_NWIS_ACTIVITY_COUNT));
@@ -1251,7 +1262,7 @@ public class BaseControllerTest {
 	@Test
 	public void addOrganizationHeadersTest() {
 		MockHttpServletResponse response = new MockHttpServletResponse();
-		testController.addOrganizationHeaders(response, getRawCounts());
+		testController.addOrganizationHeaders(response, getNwisRawCounts());
 		assertNull(response.getHeaderValue(HEADER_NWIS_SITE_COUNT));
 		assertNull(response.getHeaderValue(HttpConstants.HEADER_TOTAL_SITE_COUNT));
 		assertNull(response.getHeaderValue(HEADER_NWIS_ACTIVITY_COUNT));
@@ -1266,7 +1277,7 @@ public class BaseControllerTest {
 		assertEquals(TEST_TOTAL_ORGANIZATION_COUNT, response.getHeaderValue(HttpConstants.HEADER_TOTAL_ORGANIZATION_COUNT));
 	}
 
-	public static List<Map<String, Object>> getRawCounts() {
+	public static List<Map<String, Object>> getNwisRawCounts() {
 		List<Map<String, Object>> rawCounts = new ArrayList<>();
 		Map<String, Object> nwisCountRow = new HashMap<>();
 		nwisCountRow.put(BaseColumn.KEY_DATA_SOURCE, NWIS);
@@ -1293,6 +1304,21 @@ public class BaseControllerTest {
 		rawCounts.add(totalCountRow);
 
 		return rawCounts;
+	}
+
+	public static Map<String, Object> getStoretCounts() {
+		Map<String, Object> storetCountRow = new HashMap<>();
+		storetCountRow.put(BaseColumn.KEY_DATA_SOURCE, STORET);
+		storetCountRow.put(CountColumn.KEY_STATION_COUNT, TEST_STORET_STATION_COUNT);
+		storetCountRow.put(CountColumn.KEY_ACTIVITY_COUNT, TEST_STORET_ACTIVITY_COUNT);
+		storetCountRow.put(CountColumn.KEY_ACTIVITY_METRIC_COUNT, TEST_STORET_ACTIVITY_METRIC_COUNT);
+		storetCountRow.put(CountColumn.KEY_RESULT_COUNT, TEST_STORET_RESULT_COUNT);
+		storetCountRow.put(CountColumn.KEY_RES_DETECT_QNT_LMT_COUNT, TEST_STORET_RES_DETECT_QNT_LMT_COUNT);
+		storetCountRow.put(CountColumn.KEY_PROJECT_COUNT, TEST_STORET_PROJECT_COUNT);
+		storetCountRow.put(CountColumn.KEY_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT, TEST_STORET_PROJECT_ML_WEIGHTING_COUNT);
+		storetCountRow.put(CountColumn.KEY_ORGANIZATION_COUNT, TEST_STORET_ORGANIZATION_COUNT);
+		
+		return storetCountRow;
 	}
 
 	public <T> Set<ConstraintViolation<T>> getConstraintViolations(T object) {

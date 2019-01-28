@@ -25,7 +25,8 @@ import gov.usgs.cida.wqp.webservice.BaseControllerTest;
 classes={DBTestConfig.class, LogDao.class})
 public class LogDaoIT extends BaseIT {
 
-	public static final String DATA_COUNTS = "{\"counts\":[{\"NWIS\":{\"project\":106,\"organization\":1,\"activitymetric\":32,\"activity\":113,\"projectmonitoringlocationweighting\":1,\"site\":12,\"resultdetectionquantitationlimit\":432,\"result\":359}}]}";
+	public static final String DATA_COUNTS_SERVICE = "{\"counts\":[{\"NWIS\":{\"project\":106,\"organization\":1,\"activitymetric\":32,\"activity\":113,\"projectmonitoringlocationweighting\":1,\"site\":12,\"resultdetectionquantitationlimit\":432,\"result\":359}}]}";
+	public static final String DATA_COUNTS_IN_DB = "{\"counts\": [{\"NWIS\": {\"site\": 12, \"result\": 359, \"project\": 106, \"activity\": 113, \"organization\": 1, \"activitymetric\": 32, \"resultdetectionquantitationlimit\": 432, \"projectmonitoringlocationweighting\": 1}}]}";
 	public static final String DOWNLOAD_DETAILS = "{\"SILLY_ORG\": 17, \"WIDNR_WQX\": 6}";
 
 	@Autowired
@@ -41,7 +42,7 @@ public class LogDaoIT extends BaseIT {
 		protected void addReplacements(ReplacementDataSet dataSet) {
 			dataSet.addReplacementSubstring("[id]", id.toString());
 			dataSet.addReplacementSubstring("[testTimestamp]", testTimestamp);
-			dataSet.addReplacementSubstring("[dataStoreCounts]", DATA_COUNTS);
+			dataSet.addReplacementSubstring("[dataStoreCounts]", DATA_COUNTS_IN_DB);
 			dataSet.addReplacementSubstring("[downloadDetails]", DOWNLOAD_DETAILS);
 		}
 	}
@@ -80,7 +81,7 @@ public class LogDaoIT extends BaseIT {
 	public void setHeadCompleteTest() {
 		parameterMap.put(LogDao.ID, id);
 		parameterMap.put(LogDao.TOTAL_ROWS_EXPECTED, BaseControllerTest.TEST_TOTAL_RES_DETECT_QNT_LMT_COUNT);
-		parameterMap.put(LogDao.DATA_STORE_COUNTS, DATA_COUNTS);
+		parameterMap.put(LogDao.DATA_STORE_COUNTS, DATA_COUNTS_IN_DB);
 		logDao.setHeadComplete(parameterMap);
 	}
 
