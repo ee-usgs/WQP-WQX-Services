@@ -1,12 +1,14 @@
 package gov.usgs.cida.wqp.service;
 
-import java.math.BigDecimal;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +19,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import gov.usgs.cida.wqp.dao.LogDao;
 import gov.usgs.cida.wqp.dao.intfc.ILogDao;
+import gov.usgs.cida.wqp.mapping.BaseColumn;
 import gov.usgs.cida.wqp.parameter.FilterParameters;
-import gov.usgs.cida.wqp.util.HttpConstants;
 
 @Component
 public class LogService implements ILogService {
 	private static final Logger LOG = LoggerFactory.getLogger(LogService.class);
+
+	public static final String COUNTS_START = "{\"counts\":[";
 
 	private ILogDao logDao;
 
@@ -33,12 +37,12 @@ public class LogService implements ILogService {
 	}
 
 	@Override
-	public BigDecimal logRequest(HttpServletRequest request, HttpServletResponse response) {
+	public Integer logRequest(HttpServletRequest request, HttpServletResponse response) {
 		return logRequest(request, response, new FilterParameters());
 	}
 
 	@Override
-	public BigDecimal logRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter) {
+	public Integer logRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter) {
 		Map<String, Object> parameterMap = new HashMap<String, Object>();
 		parameterMap.put(LogDao.ID, null);
 		if (null != request) {
@@ -48,10 +52,7 @@ public class LogService implements ILogService {
 			String callType = request.getMethod();
 			parameterMap.put(LogDao.CALL_TYPE, callType);
 
-			parameterMap.put(LogDao.END_POINT, request.getRequestURI());
-
-			String queryString = "All filter data is now in the POST_DATA";
-			parameterMap.put(LogDao.QUERY_STRING, queryString);
+			parameterMap.put(LogDao.ENDPOINT, request.getRequestURI());
 
 			parameterMap.put(LogDao.POST_DATA, filter.toJson());
 
@@ -62,67 +63,70 @@ public class LogService implements ILogService {
 	}
 
 	@Override
-	public void logHeadComplete(HttpServletResponse response, BigDecimal logId) {
+	public void logHeadComplete(List<Map<String, Object>> counts, String totalHeader, Integer logId) {
 		Map<String, Object> parameterMap = new HashMap<String, Object>();
-		if (null != response) {
-			Integer totalRowsExpected = 0;
+		parameterMap.put(LogDao.ID, logId);
 
-			StringBuilder endpointCounts = new StringBuilder("<counts>");
-			for (String headerName : response.getHeaderNames()) {
-				if (headerName == null) {
-					continue;
-				}
-				String[] parts = headerName.split(HttpConstants.HEADER_DELIMITER);
-				// boundary condition checks - the only test that matters is the length test 
-				// - you cannot have the two nulls if the split was successful
-				// null == parts  || null == parts[2] 
-				if (3 != parts.length) {
-					continue;
-				}
-				// we only care about Count headers
-				if ( HttpConstants.HEADER_COUNT.contentEquals(parts[2]) ) {
-					// the total header count for the given endpoint
-					if ( HttpConstants.HEADER_TOTAL.contentEquals(parts[0]) ) {
-						totalRowsExpected = Integer.valueOf(response.getHeader(headerName));
-					} else {
-						// all endpoints counts here
-						endpointCounts
-							.append("<"+ parts[0].toLowerCase() +">")
-							.append("<"+ getNodeName(parts[1]) +">")
-							.append(response.getHeader(headerName))
-							.append("</"+ getNodeName(parts[1]) +">")
-							.append("</"+ parts[0].toLowerCase() +">");
-					}
-				}
-			}
-			endpointCounts.append("</counts>");
-
-			parameterMap.put(LogDao.ID, logId);
-			parameterMap.put(LogDao.TOTAL_ROWS_EXPECTED, totalRowsExpected);
-			parameterMap.put(LogDao.DATA_STORE_COUNTS, endpointCounts.toString());
-
-			logDao.setHeadComplete(parameterMap);
+		if (null != counts) {
+			parameterMap.putAll(processCounts(counts, totalHeader));
 		}
+
+		logDao.setHeadComplete(parameterMap);
 	}
 
-	protected static String getNodeName(String headerName) {
-		switch (headerName) {
-		case HttpConstants.HEADER_SITE:
-			return HttpConstants.ENDPOINT_STATION.toLowerCase();
-		default:
-			return headerName.toLowerCase();
+	protected Map<String, Object> processCounts(List<Map<String, Object>> counts, String totalHeader) {
+		Map<String, Object> parameterMap = new HashMap<String, Object>();
+		Integer totalRowsExpected = 0;
+
+		StringBuilder endpointCounts = new StringBuilder(COUNTS_START);
+
+		for (Map<String, Object> countLine : counts) {
+			if (countLine.get(BaseColumn.KEY_DATA_SOURCE) == null) {
+				totalRowsExpected = getTotalRowsExpected(countLine, totalHeader);
+			} else {
+				endpointCounts.append("{\"").append(countLine.get(BaseColumn.KEY_DATA_SOURCE)).append("\":").append("{");
+				for (Entry<String, Object> entry : countLine.entrySet()) {
+					if (!entry.getKey().equalsIgnoreCase(BaseColumn.KEY_DATA_SOURCE)) {
+						endpointCounts.append("\"").append(entry.getKey().replaceAll("_count", "")).append("\":")
+							.append(entry.getValue()).append(",");
+					}
+				}
+				endpointCounts.deleteCharAt(endpointCounts.length()-1).append("},");
+			}
 		}
+
+		if (endpointCounts.length() != COUNTS_START.length()) {
+			endpointCounts.deleteCharAt(endpointCounts.length()-1).append("}");
+		}
+		endpointCounts.append("]}");
+
+		parameterMap.put(LogDao.TOTAL_ROWS_EXPECTED, totalRowsExpected);
+		parameterMap.put(LogDao.DATA_STORE_COUNTS, endpointCounts.toString());
+
+		return parameterMap;
+	}
+
+	protected Integer getTotalRowsExpected(Map<String, Object> countLine, String totalHeader) {
+		Integer totalRowsExpected = 0;
+		if (totalHeader != null) {
+			String key = totalHeader.substring(6).toLowerCase().replaceAll("-", "_");
+			if (countLine.containsKey(key)
+					&& countLine.get(key) != null) {
+				totalRowsExpected = NumberUtils.toInt(countLine.get(key).toString(), 0);
+			}
+		}
+		return totalRowsExpected;
 	}
 
 	@Override
-	public void logFirstRowComplete(BigDecimal logId) {
+	public void logFirstRowComplete(Integer logId) {
 		Map<String, Object> parameterMap = new HashMap<String, Object>();
 		parameterMap.put(LogDao.ID, logId);
 		logDao.setFirstRow(parameterMap);
 	}
 
 	@Override
-	public void logRequestComplete(BigDecimal logId, String httpStatusCode, Map<String, Integer> downloadDetails) {
+	public void logRequestComplete(Integer logId, String httpStatusCode, Map<String, Integer> downloadDetails) {
 		ObjectMapper mapper = new ObjectMapper();
 		String json = "";
 		try {

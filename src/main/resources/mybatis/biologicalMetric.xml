@@ -35,7 +35,7 @@
 
     <select id="count" resultType="java.util.LinkedHashMap">
         select data_source,
-               count (distinct prime.station_id) as station_count, count(*) as biological_metric_count
+               count (distinct prime.station_id) as site_count, count(*) as biologicalmetric_count
         <include refid="dynamicWhere.biologicMetricBase" />
             group by rollup(data_source)
     </select>

@@ -15,7 +15,7 @@ public class PostgresqlDataTypeFactoryWithJson extends PostgresqlDataTypeFactory
 	public DataType createDataType(int sqlType, String sqlTypeName) throws DataTypeException {
 		LOG.debug("createDataType(sqlType={}, sqlTypeName={})", String.valueOf(sqlType), sqlTypeName);
 
-		if (sqlType == Types.OTHER && "json".equals(sqlTypeName)) {
+		if (sqlType == Types.OTHER && ("json".equals(sqlTypeName) || "jsonb".equals(sqlTypeName))) {
 			return new JsonType(); // support PostgreSQL json
 		} else {
 			return super.createDataType(sqlType, sqlTypeName);

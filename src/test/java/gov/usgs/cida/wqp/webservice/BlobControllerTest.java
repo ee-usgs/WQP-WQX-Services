@@ -11,7 +11,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -36,7 +35,7 @@ public class BlobControllerTest extends BaseTest {
 	@Mock
 	ILogService logService;
 	BlobController controller;
-	BigDecimal FIFTY_FIVE = BigDecimal.valueOf(55);
+	Integer FIFTY_FIVE = 55;
 	MockHttpServletRequest request;
 	MockHttpServletResponse response;
 

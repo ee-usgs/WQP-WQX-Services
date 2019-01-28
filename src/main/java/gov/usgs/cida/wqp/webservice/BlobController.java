@@ -2,7 +2,6 @@ package gov.usgs.cida.wqp.webservice;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.zip.ZipOutputStream;
@@ -34,7 +33,7 @@ public class BlobController {
 	protected final BlobDao blobDao;
 	protected final ILogService logService;
 
-	private static ThreadLocal<BigDecimal> logId = new ThreadLocal<>();
+	private static ThreadLocal<Integer> logId = new ThreadLocal<>();
 	private static ThreadLocal<OutputStream> outputStream = new ThreadLocal<>();
 	private static ThreadLocal<ZipOutputStream> zipOutputStream = new ThreadLocal<>();
 
@@ -49,10 +48,10 @@ public class BlobController {
 		logService = inLogService;
 	}
 
-	protected static BigDecimal getLogId() {
+	protected static Integer getLogId() {
 		return logId.get();
 	}
-	protected static void setLogId(BigDecimal inLogId) {
+	protected static void setLogId(Integer inLogId) {
 		logId.set(inLogId);
 	}
 	protected static OutputStream getOutputStream() {

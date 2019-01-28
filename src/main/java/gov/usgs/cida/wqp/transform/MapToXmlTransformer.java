@@ -6,7 +6,6 @@ import static gov.usgs.cida.wqp.mapping.xml.BaseWqx.WQX_FREQUENCY_CLASS_INFO_2;
 import static gov.usgs.cida.wqp.mapping.xml.BaseWqx.WQX_FREQUENCY_CLASS_INFO_3;
 
 import java.io.OutputStream;
-import java.math.BigDecimal;
 import java.util.Deque;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -36,7 +35,7 @@ public class MapToXmlTransformer extends Transformer {
 	protected final String header;
 	protected final Profile profile;
 
-	public MapToXmlTransformer(OutputStream target, IXmlMapping mapping, ILogService logService, BigDecimal logId, Profile profile) {
+	public MapToXmlTransformer(OutputStream target, IXmlMapping mapping, ILogService logService, Integer logId, Profile profile) {
 		super(target, null, logService, logId);
 		fieldMapping = mapping;
 		this.header = XmlConstants.XML_HEADER + fieldMapping.getHeader();

@@ -51,7 +51,7 @@
     </select>
 
     <sql id="stationCount">
-        select data_source, station_count
+        select data_source, site_count
           from (<include refid="dynamicWhere.countBase"/>) final_result
     </sql>
 

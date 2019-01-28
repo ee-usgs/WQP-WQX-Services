@@ -29,10 +29,10 @@
 
     <select id="count" resultType="java.util.LinkedHashMap">
         select data_source,
-               count(distinct data_source || station_id) station_count,
+               count(distinct data_source || station_id) site_count,
                count(distinct data_source || activity_id) activity_count, 
                count(distinct data_source || result_id) result_count,
-               count(*) res_detect_qnt_lmt_count
+               count(*) resultdetectionquantitationlimit_count
           from (select prime.data_source,
                        prime.station_id,
                        prime.activity_id,

@@ -52,7 +52,7 @@
     
     <select id="count" resultType="java.util.LinkedHashMap">
         select prime.data_source,
-               count(distinct prime.data_source||'-'||prime.station_id) station_count
+               count(distinct prime.data_source||'-'||prime.station_id) site_count
               from station_sum prime   
                 JOIN ml_grouping ml_g
                 ON prime.data_source_id = ml_g.data_source_id

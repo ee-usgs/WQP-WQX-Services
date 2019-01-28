@@ -5,7 +5,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
-import gov.usgs.cida.wqp.service.ILogService;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -27,11 +26,13 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import gov.usgs.cida.wqp.service.ILogService;
+
 public class MapToXlsxTransformerTest {
 
 	@Mock
 	protected ILogService logService;
-	protected BigDecimal logId = new BigDecimal(1);
+	protected Integer logId = 1;
 	private int rowCount = 1;
 	protected MapToXlsxTransformer transformer;
 	protected ByteArrayOutputStream baos;

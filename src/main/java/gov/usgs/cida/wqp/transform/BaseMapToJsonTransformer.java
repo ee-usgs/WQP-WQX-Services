@@ -2,7 +2,6 @@ package gov.usgs.cida.wqp.transform;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.math.BigDecimal;
 import java.util.Map;
 
 import com.fasterxml.jackson.core.JsonFactory;
@@ -16,7 +15,7 @@ public abstract class BaseMapToJsonTransformer extends Transformer {
 	protected JsonGenerator g;
 	protected String siteUrlBase;
 
-	public BaseMapToJsonTransformer(OutputStream target, Map<String, String> mapping, ILogService logService, BigDecimal logId, String siteUrlBase) {
+	public BaseMapToJsonTransformer(OutputStream target, Map<String, String> mapping, ILogService logService, Integer logId, String siteUrlBase) {
 		super(target, mapping, logService, logId);
 		this.siteUrlBase = siteUrlBase;
 		init();

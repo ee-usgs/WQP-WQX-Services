@@ -9,7 +9,7 @@
                         characteristicType == null and pCode == null and project == null and sampleMedia == null and
                         startDateHi == null and startDateLo == null and subjectTaxonomicName == null">
                 select data_source,
-                       count(distinct data_source||'-'||station_id) station_count,
+                       count(distinct data_source||'-'||station_id) site_count,
                        sum(activity_count) activity_count,
                        sum(result_count) result_count
                   from station_sum prime
@@ -28,7 +28,7 @@
             <when test="analyticalmethod == null and assemblage == null and characteristicName == null and
                         characteristicType == null and pCode == null and subjectTaxonomicName == null">
                 select data_source,
-                       count(distinct data_source||'-'||station_id) station_count,
+                       count(distinct data_source||'-'||station_id) site_count,
                        count(distinct data_source||'-'||station_id||'-'||activity_id) activity_count,
                        sum(result_count) result_count
                   from (select prime.data_source,
@@ -55,7 +55,7 @@
 
             <otherwise>
                 select data_source,
-                       count(distinct data_source||'-'||station_id) station_count,
+                       count(distinct data_source||'-'||station_id) site_count,
                        count(distinct data_source||'-'||station_id||'-'||activity_id) activity_count,
                        sum(result_count) result_count
                        from (

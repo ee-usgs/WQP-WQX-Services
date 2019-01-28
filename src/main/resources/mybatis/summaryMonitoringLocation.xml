@@ -81,7 +81,7 @@
 
     <select id="count" resultType="java.util.LinkedHashMap">
         select data_source,
-               count(distinct data_source||'-'||station_id) station_count
+               count(distinct data_source||'-'||station_id) site_count
         from station_sum prime
               <include refid="summaryYearWhere" />
         group by rollup(data_source)

@@ -1,12 +1,11 @@
 package gov.usgs.cida.wqp.transform;
 
 import java.io.OutputStream;
-import java.math.BigDecimal;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.apache.commons.text.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.text.StringEscapeUtils;
 
 import gov.usgs.cida.wqp.service.ILogService;
 
@@ -20,7 +19,7 @@ public class MapToDelimitedTransformer extends Transformer {
 
 	protected final String delimiter;
 
-	public MapToDelimitedTransformer(OutputStream target, Map<String, String> mapping, ILogService logService, BigDecimal logId, String delimiter) {
+	public MapToDelimitedTransformer(OutputStream target, Map<String, String> mapping, ILogService logService, Integer logId, String delimiter) {
 		super(target, mapping, logService, logId);
 		this.delimiter = delimiter;
 		init();

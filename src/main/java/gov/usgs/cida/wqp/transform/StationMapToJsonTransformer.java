@@ -1,15 +1,14 @@
 package gov.usgs.cida.wqp.transform;
 
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.Map;
+
 import gov.usgs.cida.wqp.mapping.StationColumn;
 import gov.usgs.cida.wqp.service.ILogService;
 
-import java.io.IOException;
-import java.io.OutputStream;
-import java.math.BigDecimal;
-import java.util.Map;
-
 public class StationMapToJsonTransformer extends BaseMapToJsonTransformer {
-	public StationMapToJsonTransformer(OutputStream target, Map<String, String> mapping, ILogService logService, BigDecimal logId, String siteUrlBase) {
+	public StationMapToJsonTransformer(OutputStream target, Map<String, String> mapping, ILogService logService, Integer logId, String siteUrlBase) {
 	super(target, mapping, logService, logId, siteUrlBase);	
 	}
 
