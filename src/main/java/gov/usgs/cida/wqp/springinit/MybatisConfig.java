@@ -19,7 +19,7 @@ public class MybatisConfig {
 
 	@Autowired
 	DataSource dataSource;
-	public static final String MYBATIS_MAPPERS = "mybatis/*.xml";
+	public static final String MYBATIS_MAPPERS = "classpath*:mybatis/*.xml";
 
 	@Bean
 	public org.apache.ibatis.session.Configuration mybatisConfiguration() {
@@ -47,7 +47,6 @@ public class MybatisConfig {
 
 	private void registerAliases(TypeAliasRegistry registry) {
 		registry.registerAlias("LinkedHashMap", LinkedHashMap.class);
-//TODO		registry.registerAlias("WqpArrayTypeHandler", WqpArrayTypeHandler.class);
 		registry.registerAlias("WildCardTypeHandler", WildCardTypeHandler.class);
 	}
 

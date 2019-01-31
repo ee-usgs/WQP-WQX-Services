@@ -1,7 +1,5 @@
 package gov.usgs.cida.wqp.swagger;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -12,7 +10,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
-import org.yaml.snakeyaml.Yaml;
 
 import com.fasterxml.classmate.TypeResolver;
 
@@ -74,21 +71,9 @@ public class SwaggerConfig {
 	private Environment environment;
 
 	@Bean
-	public SwaggerServices swaggerServices() {
-		SwaggerServices props = new SwaggerServices();
-		Yaml yaml = new Yaml();  
-		try( InputStream in = configurationService.getSwaggerServicesConfigFile().getInputStream()) {
-			props = yaml.loadAs(in, SwaggerServices.class );
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return props;
-	}
-
-	@Bean
 	public Docket qwPortalServicesApi() {
 		Docket docket = new Docket(DocumentationType.SWAGGER_2)
-			.protocols(new HashSet<>(Arrays.asList("https")))
+			.protocols(new HashSet<>(Arrays.asList("http")))
 			.host(configurationService.getSwaggerDisplayHost())
 			.pathProvider(pathProvider())
 			.useDefaultResponseMessages(false)

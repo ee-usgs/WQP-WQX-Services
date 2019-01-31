@@ -1,0 +1,42 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://${wqpDbHost}:${wqpDbPort}/${wqpDbName}
+    username: ${wqpDbUsername}
+    password: ${wqpDbUserPassword}
+
+  profiles:
+    active: default,swagger
+
+server:
+  port: ${serverPort}
+  servlet:
+    context-path: ${serverContextPath}
+
+qwPortalServices:
+  displayHost: ${qwDisplayHost}
+  displayPath: ${qwDisplayPath}
+  displayProtocol: ${qwDisplayProtocol}
+
+swaggerServicesConfigFile: classpath:/swaggerServices.yml
+
+#management.info.git.mode = full
+
+logging.config: classpath:logback-spring.xml
+
+# sample and default values
+
+site.url.base: https://www.waterqualitydata.us
+
+swagger.display.host: localhost:8082
+swagger.display.path: /wqp
+
+# CODES Service server and format
+codes.url: http://localhost:8080/qw_portal_services/codes
+codes.mimeType: json
+codes.timeout.milli: 1000
+
+nldi.timeout.milli: 10000
+
+kml.style.url: https://www.waterqualitydata.us/kml/wqp_styles.kml
+
+max.result.rows: 20000000
