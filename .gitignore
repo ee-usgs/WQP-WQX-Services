@@ -1,10 +1,10 @@
 .classpath
 .project
 .settings
+.env
 *.log*
 /target
 java_pid*
-/.*
 /bin/
 /application-it.yml
 /nb-configuration.xml

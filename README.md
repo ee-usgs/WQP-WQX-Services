@@ -1,16 +1,9 @@
 # Water-Quality-Portal
+Water Quality Portal data streaming service.
 
-This code is responsible for streaming data out of the Water Quality Portal database.
+WORK NEEDED HERE
+sample .yml files; sample .env files; info on database; 
 
-It is designed to execute in a Tomcat container.
+docker network create --subnet=172.25.0.0/16 wqp
 
-See the wqpgateway.properties file for configurable properties.
-
-Security can be enabled by adding the following to the Tomcat's context.xml:
-
-```
-    <Parameter name="spring.profiles.active" value="default,swagger,internal" />
-    <Parameter name="oauthResourceKeyUri" value = "<<url for token_key>>"/>
-    <Parameter name="oauthResourceId" value="wqp"/>
-```
-
+docker run -it -p 127.0.0.1:8080:8080 --env-file ./config.env --network wqp 0722a2973494

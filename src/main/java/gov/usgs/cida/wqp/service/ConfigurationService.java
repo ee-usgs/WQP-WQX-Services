@@ -1,7 +1,6 @@
 package gov.usgs.cida.wqp.service;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,12 +16,6 @@ public class ConfigurationService {
 	private int codesTimeoutMilli;
 	@Value("${nldi.timeout.milli}")
 	private int nldiTimeoutMilli;
-	@Value("${swagger.display.host}")
-	private String swaggerDisplayHost;
-	@Value("${swagger.display.path}")
-	private String swaggerDisplayPath;
-	@Value("file:${swaggerServicesConfigFile}")
-	private Resource swaggweServicesConfigFile;
 	@Value("${max.result.rows}")
 	private Integer maxResultRows;
 	@Value("${site.url.base}")
@@ -41,15 +34,6 @@ public class ConfigurationService {
 	}
 	public int getNldiTimeoutMilli() {
 		return nldiTimeoutMilli;
-	}
-	public String getSwaggerDisplayHost() {
-		return swaggerDisplayHost;
-	}
-	public String getSwaggerDisplayPath() {
-		return swaggerDisplayPath;
-	}
-	public Resource getSwaggerServicesConfigFile() {
-		return swaggweServicesConfigFile;
 	}
 	public Integer getMaxResultRows() {
 		return maxResultRows;

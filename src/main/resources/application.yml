@@ -1,42 +1,52 @@
+
 spring:
   datasource:
-    url: jdbc:postgresql://${wqpDbHost}:${wqpDbPort}/${wqpDbName}
-    username: ${wqpDbUsername}
-    password: ${wqpDbUserPassword}
+    url: jdbc:postgresql://${WQP_DB_HOST}:${WQP_DB_PORT}/${WQP_DB_NAME}
+    username: ${WQP_DB_READ_ONLY_USERNAME}
+    password: ${WQP_DB_READ_ONLY_PASSWORD}
 
   profiles:
     active: default,swagger
 
 server:
-  port: ${serverPort}
+  port: ${SERVER_PORT}
   servlet:
-    context-path: ${serverContextPath}
+    context-path: ${SERVER_CONTEXT_PATH}
 
-qwPortalServices:
-  displayHost: ${qwDisplayHost}
-  displayPath: ${qwDisplayPath}
-  displayProtocol: ${qwDisplayProtocol}
+swagger:
+  display:
+    host: ${SWAGGER_DISPLAY_HOST}
+    path: ${SWAGGER_DISPLAY_PATH}
+    protocol: ${SWAGGER_DISPLAY_PROTOCOL}
+  services:
+    - name: Lookups
+      url: ${SWAGGER_SERVICES_LOOKUPS_URL}/v2/api-docs
+      version: 2.0
+    - name: Core WQP services
+      url: ${SWAGGER_SERVICES_CORE_URL}/v2/api-docs
+      version: 2.0
 
-swaggerServicesConfigFile: classpath:/swaggerServices.yml
+logging:
+  level:
+    root: ${ROOT_LOG_LEVEL}
 
-#management.info.git.mode = full
+site:
+  url:
+    base: ${SITE_URL_BASE}
 
-logging.config: classpath:logback-spring.xml
+codes:
+  url: ${CODES_SERVICE_URL}
+  mimeType: json
+  timeout:
+    milli: ${CODES_TIMEOUT_MILLI}
 
-# sample and default values
+nldi:
+  timeout:
+    milli: ${NLDI_TIMEOUT_MILLI}
 
-site.url.base: https://www.waterqualitydata.us
-
-swagger.display.host: localhost:8082
-swagger.display.path: /wqp
-
-# CODES Service server and format
-codes.url: http://localhost:8080/qw_portal_services/codes
-codes.mimeType: json
-codes.timeout.milli: 1000
-
-nldi.timeout.milli: 10000
-
-kml.style.url: https://www.waterqualitydata.us/kml/wqp_styles.kml
-
-max.result.rows: 20000000
+kml:
+  style:
+    url: ${KML_STYLE_URL}
+max:
+  result:
+    rows: ${MAX_RESULT_ROWS}
