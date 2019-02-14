@@ -26,7 +26,7 @@ import gov.usgs.cida.wqp.webservice.BaseControllerIntegrationTest;
 
 
 @EnableWebMvc
-@AutoConfigureMockMvc(secure=false)
+@AutoConfigureMockMvc()
 @SpringBootTest(webEnvironment=SpringBootTest.WebEnvironment.MOCK,
 	classes={DBTestConfig.class, Application.class})
 @DatabaseSetup("classpath:/testData/csv/")
@@ -68,8 +68,8 @@ public class PeriodOfRecordControllerIT extends BaseControllerIntegrationTest {
 
 	public void postGetCountTest() throws Exception {
 		String urlPrefix = HttpConstants.PERIOD_OF_RECORD_ENDPOINT + "/count?mimeType=";
-		String compareObject = "{\"" + HttpConstants.HEADER_TOTAL_SITE_COUNT + "\":\"" + TOTAL_SITE_SUM_ONE_YEAR_COUNT				
-				+ "\",\"" + HEADER_STORET_SITE_COUNT + "\":\"" + STORET_SITE_SUM_ONE_YEAR_COUNT			
+		String compareObject = "{\"" + HttpConstants.HEADER_TOTAL_SITE_COUNT + "\":\"" + TOTAL_SITE_SUM_ONE_YEAR_COUNT
+				+ "\",\"" + HEADER_STORET_SITE_COUNT + "\":\"" + STORET_SITE_SUM_ONE_YEAR_COUNT
 				+ "\"}";
 				
 		postGetCountTest(urlPrefix, compareObject, PROFILE);

@@ -26,7 +26,7 @@ import gov.usgs.cida.wqp.util.HttpConstants;
 import gov.usgs.cida.wqp.webservice.BaseControllerIntegrationTest;
 
 @EnableWebMvc
-@AutoConfigureMockMvc(secure=false)
+@AutoConfigureMockMvc()
 @SpringBootTest(webEnvironment=WebEnvironment.MOCK,
 	classes={DBTestConfig.class, Application.class})
 @DatabaseSetup("classpath:/testData/csv/")

@@ -12,6 +12,7 @@ import static uk.co.datumedge.hamcrest.json.SameJSONAs.sameJSONObjectAs;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.math.NumberUtils;
@@ -134,6 +135,16 @@ public class LogServiceTest {
 	}
 
 	@Test
+	public void processCountsTest() {
+		List<Map<String, Object>> rawCounts = BaseControllerTest.getNwisRawCounts();
+		rawCounts.add(BaseControllerTest.getStoretCounts());
+		Map<String, Object> pc = service.processCounts(rawCounts, HttpConstants.HEADER_TOTAL_RES_DETECT_QNT_LMT_COUNT);
+		assertEquals(2, pc.size());
+		assertEquals("{\"counts\":[{\"NWIS\":{\"project\":106,\"organization\":1,\"activitymetric\":32,\"activity\":113,\"projectmonitoringlocationweighting\":1,\"site\":12,\"resultdetectionquantitationlimit\":432,\"result\":359}},{\"STORET\":{\"project\":10,\"organization\":2,\"activitymetric\":2,\"activity\":13,\"projectmonitoringlocationweighting\":2,\"site\":2,\"resultdetectionquantitationlimit\":32,\"result\":59}}]}", pc.get(LogDao.DATA_STORE_COUNTS));
+		assertEquals("4321", pc.get(LogDao.TOTAL_ROWS_EXPECTED).toString());
+	}
+
+	@Test
 	public void logHeadCompleteNullTest() {
 		service.logHeadComplete(null, null, null);
 		assertEquals(1, valueCapture.getValue().size());
@@ -147,23 +158,23 @@ public class LogServiceTest {
 		assertEquals(1, valueCapture.getValue().size());
 		assertEquals(FIFTY_FIVE, valueCapture.getValue().get(LogDao.ID));
 
-		service.logHeadComplete(BaseControllerTest.getRawCounts(), null, FIFTY_FIVE);
+		service.logHeadComplete(BaseControllerTest.getNwisRawCounts(), null, FIFTY_FIVE);
 		assertEquals(3, valueCapture.getValue().size());
 		assertEquals(FIFTY_FIVE, valueCapture.getValue().get(LogDao.ID));
 		assertEquals("0", valueCapture.getValue().get(LogDao.TOTAL_ROWS_EXPECTED).toString());
-		assertEquals(LogDaoIT.DATA_COUNTS, valueCapture.getValue().get(LogDao.DATA_STORE_COUNTS));
+		assertEquals(LogDaoIT.DATA_COUNTS_SERVICE, valueCapture.getValue().get(LogDao.DATA_STORE_COUNTS));
 
-		service.logHeadComplete(BaseControllerTest.getRawCounts(), HttpConstants.HEADER_TOTAL_RES_DETECT_QNT_LMT_COUNT, null);
+		service.logHeadComplete(BaseControllerTest.getNwisRawCounts(), HttpConstants.HEADER_TOTAL_RES_DETECT_QNT_LMT_COUNT, null);
 		assertEquals(3, valueCapture.getValue().size());
 		assertNull(valueCapture.getValue().get(LogDao.ID));
 		assertEquals(BaseControllerTest.TEST_TOTAL_RES_DETECT_QNT_LMT_COUNT, valueCapture.getValue().get(LogDao.TOTAL_ROWS_EXPECTED).toString());
-		assertEquals(LogDaoIT.DATA_COUNTS, valueCapture.getValue().get(LogDao.DATA_STORE_COUNTS));
+		assertEquals(LogDaoIT.DATA_COUNTS_SERVICE, valueCapture.getValue().get(LogDao.DATA_STORE_COUNTS));
 
-		service.logHeadComplete(BaseControllerTest.getRawCounts(), null, null);
+		service.logHeadComplete(BaseControllerTest.getNwisRawCounts(), null, null);
 		assertEquals(3, valueCapture.getValue().size());
 		assertNull(valueCapture.getValue().get(LogDao.ID));
 		assertEquals("0", valueCapture.getValue().get(LogDao.TOTAL_ROWS_EXPECTED).toString());
-		assertEquals(LogDaoIT.DATA_COUNTS, valueCapture.getValue().get(LogDao.DATA_STORE_COUNTS));
+		assertEquals(LogDaoIT.DATA_COUNTS_SERVICE, valueCapture.getValue().get(LogDao.DATA_STORE_COUNTS));
 
 		service.logHeadComplete(null, HttpConstants.HEADER_TOTAL_RES_DETECT_QNT_LMT_COUNT, null);
 		assertEquals(1, valueCapture.getValue().size());
@@ -184,11 +195,11 @@ public class LogServiceTest {
 	@Test
 	public void logHeadCompleteTest() {
 		response = setCountHeaders(response);
-		service.logHeadComplete(BaseControllerTest.getRawCounts(), HttpConstants.HEADER_TOTAL_RES_DETECT_QNT_LMT_COUNT, FIFTY_FIVE);
+		service.logHeadComplete(BaseControllerTest.getNwisRawCounts(), HttpConstants.HEADER_TOTAL_RES_DETECT_QNT_LMT_COUNT, FIFTY_FIVE);
 		assertEquals(3, valueCapture.getValue().size());
 		assertEquals(FIFTY_FIVE, valueCapture.getValue().get(LogDao.ID));
 		assertEquals(BaseControllerTest.TEST_TOTAL_RES_DETECT_QNT_LMT_COUNT, valueCapture.getValue().get(LogDao.TOTAL_ROWS_EXPECTED).toString());
-		assertEquals(LogDaoIT.DATA_COUNTS, valueCapture.getValue().get(LogDao.DATA_STORE_COUNTS));
+		assertEquals(LogDaoIT.DATA_COUNTS_SERVICE, valueCapture.getValue().get(LogDao.DATA_STORE_COUNTS));
 		verify(logDao).setHeadComplete(anyMap());
 	}
 
@@ -254,11 +265,11 @@ public class LogServiceTest {
 
 	protected MockHttpServletResponse setCountHeaders(MockHttpServletResponse response) {
 		TestBaseController testController = new TestBaseController(null, null, null, null, null, null);
-		testController.addSiteHeaders(response, BaseControllerTest.getRawCounts());
-		testController.addActivityHeaders(response, BaseControllerTest.getRawCounts());
-		testController.addActivityMetricHeaders(response, BaseControllerTest.getRawCounts());
-		testController.addResultHeaders(response, BaseControllerTest.getRawCounts());
-		testController.addResDetectQntLmtHeaders(response, BaseControllerTest.getRawCounts());
+		testController.addSiteHeaders(response, BaseControllerTest.getNwisRawCounts());
+		testController.addActivityHeaders(response, BaseControllerTest.getNwisRawCounts());
+		testController.addActivityMetricHeaders(response, BaseControllerTest.getNwisRawCounts());
+		testController.addResultHeaders(response, BaseControllerTest.getNwisRawCounts());
+		testController.addResDetectQntLmtHeaders(response, BaseControllerTest.getNwisRawCounts());
 		response.addHeader("abc-def", "not a count");
 		response.addHeader("abc-def-ghi", "also not a count");
 		return response;

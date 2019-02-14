@@ -91,12 +91,12 @@ public class LogService implements ILogService {
 							.append(entry.getValue()).append(",");
 					}
 				}
-				endpointCounts.deleteCharAt(endpointCounts.length()-1).append("},");
+				endpointCounts.deleteCharAt(endpointCounts.length()-1).append("}},");
 			}
 		}
 
 		if (endpointCounts.length() != COUNTS_START.length()) {
-			endpointCounts.deleteCharAt(endpointCounts.length()-1).append("}");
+			endpointCounts.deleteCharAt(endpointCounts.length()-1);
 		}
 		endpointCounts.append("]}");
 

@@ -31,7 +31,7 @@ public class ProjectMLWeightingControllerTest {
 	@Test
 	public void addCountHeadersTest() {
 		MockHttpServletResponse response = new MockHttpServletResponse();
-		String countHeader = controller.addCountHeaders(response, BaseControllerTest.getRawCounts());
+		String countHeader = controller.addCountHeaders(response, BaseControllerTest.getNwisRawCounts());
 		assertEquals(HttpConstants.HEADER_TOTAL_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT, countHeader);
 		assertEquals(BaseControllerTest.TEST_NWIS_PROJECT_ML_WEIGHTING_COUNT, response.getHeaderValue(HEADER_NWIS_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT));
 		assertEquals(BaseControllerTest.TEST_TOTAL_PROJECT_ML_WEIGHTING_COUNT, response.getHeaderValue(HttpConstants.HEADER_TOTAL_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT));

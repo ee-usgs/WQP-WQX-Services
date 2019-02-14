@@ -1,12 +1,16 @@
 .classpath
 .project
 .settings
+.env
 *.log*
 /target
 java_pid*
-/.*
 /bin/
 /application-it.yml
 /nb-configuration.xml
 src/main/webapp
 /nbproject/
+.CHANGELOG.md.html
+/application.yml
+/config.env
+/secrets.env

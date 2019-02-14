@@ -34,6 +34,7 @@ public class MapToXlsxTransformerTest {
 	protected ILogService logService;
 	protected Integer logId = 1;
 	private int rowCount = 1;
+	private Date testDate = new Date(10000);
 	protected MapToXlsxTransformer transformer;
 	protected ByteArrayOutputStream baos;
 	protected Map<String, String> mapping;
@@ -104,8 +105,7 @@ public class MapToXlsxTransformerTest {
 			assertEquals("data1", row1.getCell(0).getStringCellValue());
 			assertEquals("data2", row1.getCell(1).getStringCellValue());
 			assertEquals("1", row1.getCell(2).getStringCellValue());
-			//We don't do dates - this is the ugly default JAVA .toString() format
-			assertEquals("Wed Dec 31 18:00:10 CST 1969", row1.getCell(3).getStringCellValue());
+			assertEquals(testDate.toString(), row1.getCell(3).getStringCellValue());
 			assertNull(row1.getCell(4));
 			assertEquals(29382.2398, row1.getCell(5).getNumericCellValue(), 0);
 		} catch (IOException e) {

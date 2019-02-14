@@ -1,22 +1,19 @@
 package gov.usgs.cida.wqp.swagger;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
-import org.yaml.snakeyaml.Yaml;
 
 import com.fasterxml.classmate.TypeResolver;
 
-import gov.usgs.cida.wqp.service.ConfigurationService;
 import gov.usgs.cida.wqp.swagger.model.ActivityCountJson;
 import gov.usgs.cida.wqp.swagger.model.ActivityMetricCountJson;
 import gov.usgs.cida.wqp.swagger.model.BiologicalMetricCountJson;
@@ -64,8 +61,10 @@ public class SwaggerConfig {
 	public static final String TAG_DESCRIPTION = "Data Download";
 	public static final String FILE_DOWNLOAD_TAG_NAME = "File Download";
 
-	@Autowired
-	private ConfigurationService configurationService;
+	@Value("${swagger.display.host}")
+	private String swaggerDisplayHost;
+	@Value("${swagger.display.path}")
+	private String swaggerDisplayPath;
 
 	@Autowired
 	private TypeResolver typeResolver;
@@ -74,22 +73,10 @@ public class SwaggerConfig {
 	private Environment environment;
 
 	@Bean
-	public SwaggerServices swaggerServices() {
-		SwaggerServices props = new SwaggerServices();
-		Yaml yaml = new Yaml();  
-		try( InputStream in = configurationService.getSwaggerServicesConfigFile().getInputStream()) {
-			props = yaml.loadAs(in, SwaggerServices.class );
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return props;
-	}
-
-	@Bean
 	public Docket qwPortalServicesApi() {
 		Docket docket = new Docket(DocumentationType.SWAGGER_2)
-			.protocols(new HashSet<>(Arrays.asList("https")))
-			.host(configurationService.getSwaggerDisplayHost())
+			.protocols(new HashSet<>(Arrays.asList("http")))
+			.host(swaggerDisplayHost)
 			.pathProvider(pathProvider())
 			.useDefaultResponseMessages(false)
 			.additionalModels(typeResolver.resolve(PostParms.class),
@@ -137,12 +124,12 @@ public class SwaggerConfig {
 	public class ProxyPathProvider extends AbstractPathProvider {
 		@Override
 		protected String applicationPath() {
-			return configurationService.getSwaggerDisplayPath();
+			return swaggerDisplayPath;
 		}
 	
 		@Override
 		protected String getDocumentationPath() {
-			return configurationService.getSwaggerDisplayPath();
+			return swaggerDisplayPath;
 		}
 	}
 

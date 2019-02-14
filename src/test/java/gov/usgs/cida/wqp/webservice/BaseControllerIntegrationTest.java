@@ -46,7 +46,6 @@ public abstract class BaseControllerIntegrationTest extends BaseIT {
 		try {
 			when(codesService.validate(any(Parameters.class), anyString())).thenReturn(true);
 		} catch (WqpException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

@@ -1,7 +1,4 @@
 
-logging:
-  config: classpath:logback-spring.xml
-
 site:
   url:
     base: https://www.waterqualitydata.us

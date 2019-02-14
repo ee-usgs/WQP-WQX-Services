@@ -36,7 +36,7 @@ public class ColumnSensingFlatXMLDataSetLoader extends AbstractDataSetLoader {
 		replacementDataSet.addReplacementSubstring("[year-5]", String.valueOf(currentDate.getYear() - 5));
 
 		replacementDataSet.addReplacementSubstring("[id]", "1");
-		replacementDataSet.addReplacementSubstring("[dataStoreCounts]", LogDaoIT.DATA_COUNTS);
+		replacementDataSet.addReplacementSubstring("[dataStoreCounts]", LogDaoIT.DATA_COUNTS_IN_DB);
 		replacementDataSet.addReplacementSubstring("[downloadDetails]", LogDaoIT.DOWNLOAD_DETAILS);
 		return replacementDataSet;
 	}

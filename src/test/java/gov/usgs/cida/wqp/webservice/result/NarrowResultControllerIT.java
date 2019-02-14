@@ -19,7 +19,7 @@ import gov.usgs.cida.wqp.springinit.DBTestConfig;
 import gov.usgs.cida.wqp.util.HttpConstants;
 
 @EnableWebMvc
-@AutoConfigureMockMvc(secure=false)
+@AutoConfigureMockMvc()
 @SpringBootTest(webEnvironment=WebEnvironment.MOCK,
 	classes={DBTestConfig.class, Application.class})
 @DatabaseSetup("classpath:/testData/csv/")
