@@ -1,6 +1,6 @@
 projectName: "wqp-external"
-applicationName: "WQP-WQX-Services"
-dockerImageName: "WQP-WQX-Services"
+applicationName: "wqp-wqx-services"
+dockerImageName: "wqp-wqx-services"
 containerPort: 8080
 artifactoryPath: "wqp"
 gitlabPath: "wma/docker/wqp"
