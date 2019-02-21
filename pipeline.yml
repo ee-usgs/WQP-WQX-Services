@@ -1,0 +1,12 @@
+projectName: "wqp-external"
+applicationName: "WQP-WQX-Services"
+dockerImageName: "WQP-WQX-Services"
+containerPort: 8080
+artifactoryPath: "WQP-WQX-Services"
+gitlabPath: "wma/docker/wqp"
+gitRepoUrl: "NWQMC/WQP-WQX-Services"
+memory: 768
+rulePriority: 64
+healthCheck: "/wqp/actuator/health"
+contextPath: "/wqp/*"
+deployJobName: "WQP-WQX-Services-container-deploy"
