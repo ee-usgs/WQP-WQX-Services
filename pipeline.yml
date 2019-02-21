@@ -1,12 +1,29 @@
-projectName: "wqp-external"
-applicationName: "wqp-wqx-services"
-dockerImageName: "wqp-wqx-services"
-containerPort: 8080
+# docker image path in artifactory
 artifactoryPath: "wqp"
+# docker image path in gitlab
 gitlabPath: "wma/docker/wqp"
-gitRepoUrl: "NWQMC/WQP-WQX-Services"
-memory: 768
-rulePriority: 64
+# name of the docker image
+dockerImageName: "wqp-wqx-services"
+# type of build
+#repoPath: "NWQMC/qw_portal_services"
+# name of the git repo
+gitRepoUrl: "https://github.com/NWQMC/WQP-WQX-Services.git"
+# Jenkins credential for pushing back to repo
+gitRepoCredentialsId: "Jenkins-GitHub-Read-Write-Token"
+# name of the deploy job to trigger
+deployJobName: "WQP-WQX-Services-deploy"
+# name of the project
+projectName: "wqp-external"
+# maximum amount of RAM for running Docker containers in the service
+memory: 512
+# name of the application or service
+applicationName: "wqp-wqx-services"
+# integer representing the order of precedence of the ALB rule.
+# set to a low priority; services are given higher priority.
+rulePriority: 555
+# port that is exposed by your container
+containerPort: 8080
+# string parameter specifying a path that ALB should use to verify that your application is alive
 healthCheck: "/wqp/actuator/health"
+# string parameter that tells the ALB how to route requests to the containers (e.g. /my-app/*); this forms a listener rule for the load balancer
 contextPath: "/wqp/*"
-deployJobName: "WQP-WQX-Services-container-deploy"
