@@ -20,7 +20,7 @@ memory: 512
 applicationName: "wqp-wqx-services"
 # integer representing the order of precedence of the ALB rule.
 # set to a low priority; services are given higher priority.
-rulePriority: 555
+rulePriority: 302
 # port that is exposed by your container
 containerPort: 8080
 # string parameter specifying a path that ALB should use to verify that your application is alive
