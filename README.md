@@ -1,4 +1,7 @@
 # Water-Quality-Portal
+
+[![Build Status](https://travis-ci.org/NWQMC/WQP-WQX-Services.svg?branch=master)](https://travis-ci.org/NWQMC/WQP-WQX-Services)
+
 Water Quality Portal data streaming service.
 
 WORK NEEDED HERE
