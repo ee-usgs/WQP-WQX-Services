@@ -156,11 +156,11 @@ public abstract class BaseStationStreamingTest extends FilteredStationDaoTest {
 		assertRow(results.get(3), NWIS_1360035, expectedColumnCount);
 		assertRow(results.get(4), STORET_1043441, expectedColumnCount);
 		assertRow(results.get(5), STORET_504707, expectedColumnCount);
-		assertStoret888(expectedMap, results.get(6));
-		assertRow(results.get(7), STORET_777, expectedColumnCount);
-		assertRow(results.get(8), STORET_999, expectedColumnCount);
-		assertRow(results.get(9), STORET_436723, expectedColumnCount);
-		assertRow(results.get(10), STORET_1383, expectedColumnCount);
+		assertRow(results.get(6), STORET_436723, expectedColumnCount);
+		assertRow(results.get(7), STORET_1383, expectedColumnCount);
+		assertStoret888(expectedMap, results.get(8));
+		assertRow(results.get(9), STORET_777, expectedColumnCount);
+		assertRow(results.get(10), STORET_999, expectedColumnCount);
 		assertRow(results.get(11), BIODATA_61233184, expectedColumnCount);
 	}
 

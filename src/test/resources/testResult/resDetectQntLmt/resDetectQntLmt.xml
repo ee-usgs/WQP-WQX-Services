@@ -666,6 +666,129 @@
     </Organization>
     <Organization>
         <OrganizationDescription>
+            <OrganizationIdentifier>WIDNR_WQX</OrganizationIdentifier>
+            <OrganizationFormalName>Wisconsin Department of Natural Resources</OrganizationFormalName>
+        </OrganizationDescription>
+        <Activity>
+            <ActivityDescription>
+                <ActivityIdentifier>WIDNR_WQX-7788475-5</ActivityIdentifier>
+                <MonitoringLocationIdentifier>WIDNR_WQX-113086</MonitoringLocationIdentifier>
+            </ActivityDescription>
+            <Result>
+                <ResultDescription>
+                    <ResultIdentifier>STORET-5</ResultIdentifier>
+                    <CharacteristicName>Fecal Streptococcus Group Bacteria</CharacteristicName>
+                </ResultDescription>
+                <ResultLabInformation>
+                    <ResultDetectionQuantitationLimit>
+                        <DetectionQuantitationLimitTypeName>detectionLimitDesc</DetectionQuantitationLimitTypeName>
+                        <DetectionQuantitationLimitMeasure>
+                            <MeasureValue>39</MeasureValue>
+                            <MeasureUnitCode>cfu/100ml</MeasureUnitCode>
+                        </DetectionQuantitationLimitMeasure>
+                    </ResultDetectionQuantitationLimit>
+                </ResultLabInformation>
+            </Result>
+            <Result>
+                <ResultDescription>
+                    <ResultIdentifier>STORET-6</ResultIdentifier>
+                    <CharacteristicName>Fecal Coliform</CharacteristicName>
+                </ResultDescription>
+                <ResultLabInformation>
+                    <ResultDetectionQuantitationLimit>
+                        <DetectionQuantitationLimitTypeName>Drinking Water Maximum</DetectionQuantitationLimitTypeName>
+                        <DetectionQuantitationLimitMeasure>
+                            <MeasureValue>29</MeasureValue>
+                            <MeasureUnitCode>cfu/100ml</MeasureUnitCode>
+                        </DetectionQuantitationLimitMeasure>
+                    </ResultDetectionQuantitationLimit>
+                </ResultLabInformation>
+            </Result>
+            <Result>
+                <ResultDescription>
+                    <ResultIdentifier>STORET-8</ResultIdentifier>
+                    <CharacteristicName>Fecal Coliform</CharacteristicName>
+                </ResultDescription>
+                <ResultLabInformation>
+                    <ResultDetectionQuantitationLimit>
+                        <DetectionQuantitationLimitTypeName>Sample-specific min detect conc</DetectionQuantitationLimitTypeName>
+                        <DetectionQuantitationLimitMeasure>
+                            <MeasureValue>31</MeasureValue>
+                            <MeasureUnitCode>cfu/100ml</MeasureUnitCode>
+                        </DetectionQuantitationLimitMeasure>
+                    </ResultDetectionQuantitationLimit>
+                </ResultLabInformation>
+            </Result>
+        </Activity>
+        <Activity>
+            <ActivityDescription>
+                <ActivityIdentifier>WIDNR_WQX-7788480-4</ActivityIdentifier>
+                <MonitoringLocationIdentifier>WIDNR_WQX-113086</MonitoringLocationIdentifier>
+            </ActivityDescription>
+            <Result>
+                <ResultDescription>
+                    <ResultIdentifier>STORET-9</ResultIdentifier>
+                    <CharacteristicName>Cloud cover</CharacteristicName>
+                </ResultDescription>
+                <ResultLabInformation>
+                    <ResultDetectionQuantitationLimit>
+                        <DetectionQuantitationLimitTypeName>Interim Reporting Level</DetectionQuantitationLimitTypeName>
+                        <DetectionQuantitationLimitMeasure>
+                            <MeasureValue>32</MeasureValue>
+                            <MeasureUnitCode>#/100ml</MeasureUnitCode>
+                        </DetectionQuantitationLimitMeasure>
+                    </ResultDetectionQuantitationLimit>
+                </ResultLabInformation>
+            </Result>
+            <Result>
+                <ResultDescription>
+                    <ResultIdentifier>STORET-11</ResultIdentifier>
+                    <CharacteristicName>Dissolved oxygen (DO)</CharacteristicName>
+                </ResultDescription>
+                <ResultLabInformation>
+                    <ResultDetectionQuantitationLimit>
+                        <DetectionQuantitationLimitTypeName>Minimum Reporting Level</DetectionQuantitationLimitTypeName>
+                        <DetectionQuantitationLimitMeasure>
+                            <MeasureValue>34</MeasureValue>
+                            <MeasureUnitCode>#/100ml</MeasureUnitCode>
+                        </DetectionQuantitationLimitMeasure>
+                    </ResultDetectionQuantitationLimit>
+                </ResultLabInformation>
+            </Result>
+            <Result>
+                <ResultDescription>
+                    <ResultIdentifier>STORET-13</ResultIdentifier>
+                    <CharacteristicName>Dissolved oxygen (DO)</CharacteristicName>
+                </ResultDescription>
+                <ResultLabInformation>
+                    <ResultDetectionQuantitationLimit>
+                        <DetectionQuantitationLimitTypeName>Daily detection limit</DetectionQuantitationLimitTypeName>
+                        <DetectionQuantitationLimitMeasure>
+                            <MeasureValue>36</MeasureValue>
+                            <MeasureUnitCode>#/100ml</MeasureUnitCode>
+                        </DetectionQuantitationLimitMeasure>
+                    </ResultDetectionQuantitationLimit>
+                </ResultLabInformation>
+            </Result>
+            <Result>
+                <ResultDescription>
+                    <ResultIdentifier>STORET-14</ResultIdentifier>
+                    <CharacteristicName>Fecal Streptococcus Group Bacteria</CharacteristicName>
+                </ResultDescription>
+                <ResultLabInformation>
+                    <ResultDetectionQuantitationLimit>
+                        <DetectionQuantitationLimitTypeName>Lower limit of detection</DetectionQuantitationLimitTypeName>
+                        <DetectionQuantitationLimitMeasure>
+                            <MeasureValue>37</MeasureValue>
+                            <MeasureUnitCode>cfu/100ml</MeasureUnitCode>
+                        </DetectionQuantitationLimitMeasure>
+                    </ResultDetectionQuantitationLimit>
+                </ResultLabInformation>
+            </Result>
+        </Activity>
+    </Organization>
+    <Organization>
+        <OrganizationDescription>
             <OrganizationIdentifier>organization</OrganizationIdentifier>
             <OrganizationFormalName>Wisconsin Department of Natural Resources</OrganizationFormalName>
         </OrganizationDescription>
@@ -940,129 +1063,6 @@
                         <DetectionQuantitationLimitMeasure>
                             <MeasureValue>28</MeasureValue>
                             <MeasureUnitCode>#/100ml</MeasureUnitCode>
-                        </DetectionQuantitationLimitMeasure>
-                    </ResultDetectionQuantitationLimit>
-                </ResultLabInformation>
-            </Result>
-        </Activity>
-    </Organization>
-    <Organization>
-        <OrganizationDescription>
-            <OrganizationIdentifier>WIDNR_WQX</OrganizationIdentifier>
-            <OrganizationFormalName>Wisconsin Department of Natural Resources</OrganizationFormalName>
-        </OrganizationDescription>
-        <Activity>
-            <ActivityDescription>
-                <ActivityIdentifier>WIDNR_WQX-7788475-5</ActivityIdentifier>
-                <MonitoringLocationIdentifier>WIDNR_WQX-113086</MonitoringLocationIdentifier>
-            </ActivityDescription>
-            <Result>
-                <ResultDescription>
-                    <ResultIdentifier>STORET-5</ResultIdentifier>
-                    <CharacteristicName>Fecal Streptococcus Group Bacteria</CharacteristicName>
-                </ResultDescription>
-                <ResultLabInformation>
-                    <ResultDetectionQuantitationLimit>
-                        <DetectionQuantitationLimitTypeName>detectionLimitDesc</DetectionQuantitationLimitTypeName>
-                        <DetectionQuantitationLimitMeasure>
-                            <MeasureValue>39</MeasureValue>
-                            <MeasureUnitCode>cfu/100ml</MeasureUnitCode>
-                        </DetectionQuantitationLimitMeasure>
-                    </ResultDetectionQuantitationLimit>
-                </ResultLabInformation>
-            </Result>
-            <Result>
-                <ResultDescription>
-                    <ResultIdentifier>STORET-6</ResultIdentifier>
-                    <CharacteristicName>Fecal Coliform</CharacteristicName>
-                </ResultDescription>
-                <ResultLabInformation>
-                    <ResultDetectionQuantitationLimit>
-                        <DetectionQuantitationLimitTypeName>Drinking Water Maximum</DetectionQuantitationLimitTypeName>
-                        <DetectionQuantitationLimitMeasure>
-                            <MeasureValue>29</MeasureValue>
-                            <MeasureUnitCode>cfu/100ml</MeasureUnitCode>
-                        </DetectionQuantitationLimitMeasure>
-                    </ResultDetectionQuantitationLimit>
-                </ResultLabInformation>
-            </Result>
-            <Result>
-                <ResultDescription>
-                    <ResultIdentifier>STORET-8</ResultIdentifier>
-                    <CharacteristicName>Fecal Coliform</CharacteristicName>
-                </ResultDescription>
-                <ResultLabInformation>
-                    <ResultDetectionQuantitationLimit>
-                        <DetectionQuantitationLimitTypeName>Sample-specific min detect conc</DetectionQuantitationLimitTypeName>
-                        <DetectionQuantitationLimitMeasure>
-                            <MeasureValue>31</MeasureValue>
-                            <MeasureUnitCode>cfu/100ml</MeasureUnitCode>
-                        </DetectionQuantitationLimitMeasure>
-                    </ResultDetectionQuantitationLimit>
-                </ResultLabInformation>
-            </Result>
-        </Activity>
-        <Activity>
-            <ActivityDescription>
-                <ActivityIdentifier>WIDNR_WQX-7788480-4</ActivityIdentifier>
-                <MonitoringLocationIdentifier>WIDNR_WQX-113086</MonitoringLocationIdentifier>
-            </ActivityDescription>
-            <Result>
-                <ResultDescription>
-                    <ResultIdentifier>STORET-9</ResultIdentifier>
-                    <CharacteristicName>Cloud cover</CharacteristicName>
-                </ResultDescription>
-                <ResultLabInformation>
-                    <ResultDetectionQuantitationLimit>
-                        <DetectionQuantitationLimitTypeName>Interim Reporting Level</DetectionQuantitationLimitTypeName>
-                        <DetectionQuantitationLimitMeasure>
-                            <MeasureValue>32</MeasureValue>
-                            <MeasureUnitCode>#/100ml</MeasureUnitCode>
-                        </DetectionQuantitationLimitMeasure>
-                    </ResultDetectionQuantitationLimit>
-                </ResultLabInformation>
-            </Result>
-            <Result>
-                <ResultDescription>
-                    <ResultIdentifier>STORET-11</ResultIdentifier>
-                    <CharacteristicName>Dissolved oxygen (DO)</CharacteristicName>
-                </ResultDescription>
-                <ResultLabInformation>
-                    <ResultDetectionQuantitationLimit>
-                        <DetectionQuantitationLimitTypeName>Minimum Reporting Level</DetectionQuantitationLimitTypeName>
-                        <DetectionQuantitationLimitMeasure>
-                            <MeasureValue>34</MeasureValue>
-                            <MeasureUnitCode>#/100ml</MeasureUnitCode>
-                        </DetectionQuantitationLimitMeasure>
-                    </ResultDetectionQuantitationLimit>
-                </ResultLabInformation>
-            </Result>
-            <Result>
-                <ResultDescription>
-                    <ResultIdentifier>STORET-13</ResultIdentifier>
-                    <CharacteristicName>Dissolved oxygen (DO)</CharacteristicName>
-                </ResultDescription>
-                <ResultLabInformation>
-                    <ResultDetectionQuantitationLimit>
-                        <DetectionQuantitationLimitTypeName>Daily detection limit</DetectionQuantitationLimitTypeName>
-                        <DetectionQuantitationLimitMeasure>
-                            <MeasureValue>36</MeasureValue>
-                            <MeasureUnitCode>#/100ml</MeasureUnitCode>
-                        </DetectionQuantitationLimitMeasure>
-                    </ResultDetectionQuantitationLimit>
-                </ResultLabInformation>
-            </Result>
-            <Result>
-                <ResultDescription>
-                    <ResultIdentifier>STORET-14</ResultIdentifier>
-                    <CharacteristicName>Fecal Streptococcus Group Bacteria</CharacteristicName>
-                </ResultDescription>
-                <ResultLabInformation>
-                    <ResultDetectionQuantitationLimit>
-                        <DetectionQuantitationLimitTypeName>Lower limit of detection</DetectionQuantitationLimitTypeName>
-                        <DetectionQuantitationLimitMeasure>
-                            <MeasureValue>37</MeasureValue>
-                            <MeasureUnitCode>cfu/100ml</MeasureUnitCode>
                         </DetectionQuantitationLimitMeasure>
                     </ResultDetectionQuantitationLimit>
                 </ResultLabInformation>

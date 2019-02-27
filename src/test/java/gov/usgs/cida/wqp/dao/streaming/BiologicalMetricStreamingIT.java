@@ -210,11 +210,11 @@ public class BiologicalMetricStreamingIT extends FilteredProjectDaoTest {
 		assertEquals(NWIS_USGS_431925089002701[1], results.get(3).get(BiologicalMetricColumn.KEY_INDEX_IDENTIFIER).toString());
 		assertEquals(STORET_11NPSWRD_BICA_MFG_B[1], results.get(4).get(BiologicalMetricColumn.KEY_INDEX_IDENTIFIER).toString());
 		assertEquals(STORET_21NYDECA_WQX_ONTARIO_02[1], results.get(5).get(BiologicalMetricColumn.KEY_INDEX_IDENTIFIER).toString());
-		assertEquals(STORET_ORGANIZATION_SITE_ID[1], results.get(6).get(BiologicalMetricColumn.KEY_INDEX_IDENTIFIER).toString());
-		assertEquals(STORET_ORGANIZATION_SITE_ID2[1], results.get(7).get(BiologicalMetricColumn.KEY_INDEX_IDENTIFIER).toString());
-		assertEquals(STORET_ORGANIZATION_SITE_ID3[1], results.get(8).get(BiologicalMetricColumn.KEY_INDEX_IDENTIFIER).toString());
-		assertEquals(STORET_WIDNR_WQX_10030952[1], results.get(9).get(BiologicalMetricColumn.KEY_INDEX_IDENTIFIER).toString());
-		assertEquals(STORET_WIDNR_WQX_113086[1], results.get(10).get(BiologicalMetricColumn.KEY_INDEX_IDENTIFIER).toString());
+		assertEquals(STORET_WIDNR_WQX_10030952[1], results.get(6).get(BiologicalMetricColumn.KEY_INDEX_IDENTIFIER).toString());
+		assertEquals(STORET_WIDNR_WQX_113086[1], results.get(7).get(BiologicalMetricColumn.KEY_INDEX_IDENTIFIER).toString());
+		assertEquals(STORET_ORGANIZATION_SITE_ID[1], results.get(8).get(BiologicalMetricColumn.KEY_INDEX_IDENTIFIER).toString());
+		assertEquals(STORET_ORGANIZATION_SITE_ID2[1], results.get(9).get(BiologicalMetricColumn.KEY_INDEX_IDENTIFIER).toString());
+		assertEquals(STORET_ORGANIZATION_SITE_ID3[1], results.get(10).get(BiologicalMetricColumn.KEY_INDEX_IDENTIFIER).toString());
 		assertEquals(BIODATA_USGS_11421000[1], results.get(11).get(BiologicalMetricColumn.KEY_INDEX_IDENTIFIER).toString());
 		assertEquals(BIODATA_USGS_433830088977331[1], results.get(12).get(BiologicalMetricColumn.KEY_INDEX_IDENTIFIER).toString());
 	}

@@ -982,6 +982,91 @@
     </Organization>
     <Organization>
         <OrganizationDescription>
+            <OrganizationIdentifier>WIDNR_WQX</OrganizationIdentifier>
+            <OrganizationFormalName>Wisconsin Department of Natural Resources</OrganizationFormalName>
+        </OrganizationDescription>
+        <Activity>
+            <ActivityDescription>
+                <ActivityIdentifier>WIDNR_WQX-7788475-5</ActivityIdentifier>
+                <ActivityTypeCode>Sample-Routine</ActivityTypeCode>
+                <ActivityMediaName>Water</ActivityMediaName>
+                <ActivityStartDate>1992-07-28</ActivityStartDate>
+                <ActivityStartTime>
+                    <Time>15:00:00</Time>
+                    <TimeZoneCode>CDT</TimeZoneCode>
+                </ActivityStartTime>
+                <ActivityDepthHeightMeasure>
+                    <MeasureValue>1</MeasureValue>
+                    <MeasureUnitCode>ft</MeasureUnitCode>
+                </ActivityDepthHeightMeasure>
+                <ProjectIdentifier>Lake-BaselineMonitoringDNR</ProjectIdentifier>
+                <ActivityConductingOrganizationText>WIDNR_WQX</ActivityConductingOrganizationText>
+                <MonitoringLocationIdentifier>WIDNR_WQX-113086</MonitoringLocationIdentifier>
+            </ActivityDescription>
+            <ActivityLocation>
+                <LatitudeMeasure>43.34</LatitudeMeasure>
+                <LongitudeMeasure>-89</LongitudeMeasure>
+                <SourceMapScaleNumeric>24000</SourceMapScaleNumeric>
+                <HorizontalCollectionMethodName>Interpolation-Other</HorizontalCollectionMethodName>
+                <HorizontalCoordinateReferenceSystemDatumName>NAD83</HorizontalCoordinateReferenceSystemDatumName>
+            </ActivityLocation>
+            <SampleDescription>
+                <SampleCollectionMethod>
+                    <MethodIdentifier>GRAB SAMPLE</MethodIdentifier>
+                    <MethodIdentifierContext>WI_DNR</MethodIdentifierContext>
+                    <MethodName>WATER GRAB SAMPLE 2005 Guidelines and Procedures</MethodName>
+                </SampleCollectionMethod>
+                <SampleCollectionEquipmentName>Bucket</SampleCollectionEquipmentName>
+            </SampleDescription>
+            <ActivityAttachedBinaryObject>
+                <BinaryObjectFileName>actObjectName4</BinaryObjectFileName>
+                <BinaryObjectFileTypeCode>actObjectType4</BinaryObjectFileTypeCode>
+                <ActivityFileUrl>https://www.waterqualitydata.us/organizations/WIDNR_WQX/activities/WIDNR_WQX-5/files</ActivityFileUrl>
+            </ActivityAttachedBinaryObject>
+            <ActivityMetricUrl>https://www.waterqualitydata.us/activities/WIDNR_WQX-5/activitymetrics</ActivityMetricUrl>
+        </Activity>
+        <Activity>
+            <ActivityDescription>
+                <ActivityIdentifier>WIDNR_WQX-7788480-4</ActivityIdentifier>
+                <ActivityTypeCode>Field Msr/Obs</ActivityTypeCode>
+                <ActivityMediaName>Water</ActivityMediaName>
+                <ActivityStartDate>1992-07-28</ActivityStartDate>
+                <ActivityStartTime>
+                    <Time>15:00:00</Time>
+                    <TimeZoneCode>CDT</TimeZoneCode>
+                </ActivityStartTime>
+                <ActivityDepthHeightMeasure>
+                    <MeasureValue>1</MeasureValue>
+                    <MeasureUnitCode>ft</MeasureUnitCode>
+                </ActivityDepthHeightMeasure>
+                <ProjectIdentifier>WR047</ProjectIdentifier>
+                <ActivityConductingOrganizationText>WIDNR_WQX</ActivityConductingOrganizationText>
+                <MonitoringLocationIdentifier>WIDNR_WQX-113086</MonitoringLocationIdentifier>
+            </ActivityDescription>
+            <ActivityLocation>
+                <LatitudeMeasure>43.34</LatitudeMeasure>
+                <LongitudeMeasure>-89</LongitudeMeasure>
+                <HorizontalCollectionMethodName>Interpolation-Photo</HorizontalCollectionMethodName>
+                <HorizontalCoordinateReferenceSystemDatumName>NAD83</HorizontalCoordinateReferenceSystemDatumName>
+            </ActivityLocation>
+            <SampleDescription>
+                <SampleCollectionMethod>
+                    <MethodIdentifier>USEPA</MethodIdentifier>
+                    <MethodIdentifierContext>USEPA</MethodIdentifierContext>
+                    <MethodName>USEPA</MethodName>
+                </SampleCollectionMethod>
+                <SampleCollectionEquipmentName>Unknown</SampleCollectionEquipmentName>
+            </SampleDescription>
+            <ActivityAttachedBinaryObject>
+                <BinaryObjectFileName>actObjectName4</BinaryObjectFileName>
+                <BinaryObjectFileTypeCode>actObjectType4</BinaryObjectFileTypeCode>
+                <ActivityFileUrl>https://www.waterqualitydata.us/organizations/WIDNR_WQX/activities/WIDNR_WQX-4/files</ActivityFileUrl>
+            </ActivityAttachedBinaryObject>
+            <ActivityMetricUrl>https://www.waterqualitydata.us/activities/WIDNR_WQX-4/activitymetrics</ActivityMetricUrl>
+        </Activity>
+    </Organization>
+    <Organization>
+        <OrganizationDescription>
             <OrganizationIdentifier>organization</OrganizationIdentifier>
             <OrganizationFormalName>organizationName</OrganizationFormalName>
         </OrganizationDescription>
@@ -1815,91 +1900,6 @@
                     <SampleTransportStorageDescription>actSamTransportStorageDesc</SampleTransportStorageDescription>
                 </SamplePreparation>
             </SampleDescription>
-        </Activity>
-    </Organization>
-    <Organization>
-        <OrganizationDescription>
-            <OrganizationIdentifier>WIDNR_WQX</OrganizationIdentifier>
-            <OrganizationFormalName>Wisconsin Department of Natural Resources</OrganizationFormalName>
-        </OrganizationDescription>
-        <Activity>
-            <ActivityDescription>
-                <ActivityIdentifier>WIDNR_WQX-7788475-5</ActivityIdentifier>
-                <ActivityTypeCode>Sample-Routine</ActivityTypeCode>
-                <ActivityMediaName>Water</ActivityMediaName>
-                <ActivityStartDate>1992-07-28</ActivityStartDate>
-                <ActivityStartTime>
-                    <Time>15:00:00</Time>
-                    <TimeZoneCode>CDT</TimeZoneCode>
-                </ActivityStartTime>
-                <ActivityDepthHeightMeasure>
-                    <MeasureValue>1</MeasureValue>
-                    <MeasureUnitCode>ft</MeasureUnitCode>
-                </ActivityDepthHeightMeasure>
-                <ProjectIdentifier>Lake-BaselineMonitoringDNR</ProjectIdentifier>
-                <ActivityConductingOrganizationText>WIDNR_WQX</ActivityConductingOrganizationText>
-                <MonitoringLocationIdentifier>WIDNR_WQX-113086</MonitoringLocationIdentifier>
-            </ActivityDescription>
-            <ActivityLocation>
-                <LatitudeMeasure>43.34</LatitudeMeasure>
-                <LongitudeMeasure>-89</LongitudeMeasure>
-                <SourceMapScaleNumeric>24000</SourceMapScaleNumeric>
-                <HorizontalCollectionMethodName>Interpolation-Other</HorizontalCollectionMethodName>
-                <HorizontalCoordinateReferenceSystemDatumName>NAD83</HorizontalCoordinateReferenceSystemDatumName>
-            </ActivityLocation>
-            <SampleDescription>
-                <SampleCollectionMethod>
-                    <MethodIdentifier>GRAB SAMPLE</MethodIdentifier>
-                    <MethodIdentifierContext>WI_DNR</MethodIdentifierContext>
-                    <MethodName>WATER GRAB SAMPLE 2005 Guidelines and Procedures</MethodName>
-                </SampleCollectionMethod>
-                <SampleCollectionEquipmentName>Bucket</SampleCollectionEquipmentName>
-            </SampleDescription>
-            <ActivityAttachedBinaryObject>
-                <BinaryObjectFileName>actObjectName4</BinaryObjectFileName>
-                <BinaryObjectFileTypeCode>actObjectType4</BinaryObjectFileTypeCode>
-                <ActivityFileUrl>https://www.waterqualitydata.us/organizations/WIDNR_WQX/activities/WIDNR_WQX-5/files</ActivityFileUrl>
-            </ActivityAttachedBinaryObject>
-            <ActivityMetricUrl>https://www.waterqualitydata.us/activities/WIDNR_WQX-5/activitymetrics</ActivityMetricUrl>
-        </Activity>
-        <Activity>
-            <ActivityDescription>
-                <ActivityIdentifier>WIDNR_WQX-7788480-4</ActivityIdentifier>
-                <ActivityTypeCode>Field Msr/Obs</ActivityTypeCode>
-                <ActivityMediaName>Water</ActivityMediaName>
-                <ActivityStartDate>1992-07-28</ActivityStartDate>
-                <ActivityStartTime>
-                    <Time>15:00:00</Time>
-                    <TimeZoneCode>CDT</TimeZoneCode>
-                </ActivityStartTime>
-                <ActivityDepthHeightMeasure>
-                    <MeasureValue>1</MeasureValue>
-                    <MeasureUnitCode>ft</MeasureUnitCode>
-                </ActivityDepthHeightMeasure>
-                <ProjectIdentifier>WR047</ProjectIdentifier>
-                <ActivityConductingOrganizationText>WIDNR_WQX</ActivityConductingOrganizationText>
-                <MonitoringLocationIdentifier>WIDNR_WQX-113086</MonitoringLocationIdentifier>
-            </ActivityDescription>
-            <ActivityLocation>
-                <LatitudeMeasure>43.34</LatitudeMeasure>
-                <LongitudeMeasure>-89</LongitudeMeasure>
-                <HorizontalCollectionMethodName>Interpolation-Photo</HorizontalCollectionMethodName>
-                <HorizontalCoordinateReferenceSystemDatumName>NAD83</HorizontalCoordinateReferenceSystemDatumName>
-            </ActivityLocation>
-            <SampleDescription>
-                <SampleCollectionMethod>
-                    <MethodIdentifier>USEPA</MethodIdentifier>
-                    <MethodIdentifierContext>USEPA</MethodIdentifierContext>
-                    <MethodName>USEPA</MethodName>
-                </SampleCollectionMethod>
-                <SampleCollectionEquipmentName>Unknown</SampleCollectionEquipmentName>
-            </SampleDescription>
-            <ActivityAttachedBinaryObject>
-                <BinaryObjectFileName>actObjectName4</BinaryObjectFileName>
-                <BinaryObjectFileTypeCode>actObjectType4</BinaryObjectFileTypeCode>
-                <ActivityFileUrl>https://www.waterqualitydata.us/organizations/WIDNR_WQX/activities/WIDNR_WQX-4/files</ActivityFileUrl>
-            </ActivityAttachedBinaryObject>
-            <ActivityMetricUrl>https://www.waterqualitydata.us/activities/WIDNR_WQX-4/activitymetrics</ActivityMetricUrl>
         </Activity>
     </Organization>
     <Organization>
