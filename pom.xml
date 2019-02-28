@@ -147,7 +147,7 @@
                     <showLogs>true</showLogs>
                     <images>
                         <image>
-                            <name>usgswma/wqp-db-testing:ci</name>
+                            <name>usgswma/wqp_db:ci</name>
                             <run>
                                 <ports>
                                     <port>5434:5432</port>
