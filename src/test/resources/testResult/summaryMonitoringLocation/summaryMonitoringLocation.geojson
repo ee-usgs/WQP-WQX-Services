@@ -148,6 +148,31 @@
 		}
 	}, {
 		"geometry": {
+			"coordinates": [-89.009255, 43.348562],
+			"type": "Point"
+		},
+		"type": "Feature",
+		"properties": {
+			"ResolvedMonitoringLocationTypeName": "Stream",
+			"resultCount": "11",
+			"siteUrl": "https://www.waterqualitydata.us/provider/STORET/WIDNR_WQX/WIDNR_WQX-113086/",
+			"MonitoringLocationTypeName": "River/Stream",
+			"StateName": "Massachusetts",
+			"MonitoringLocationName": "East rd.",
+			"OrganizationFormalName": "Agricultural Research Services",
+			"HUCEightDigitCode": "07090001",
+			"CountyName": "Washington County",
+			"OrganizationIdentifier": "WIDNR_WQX",
+			"activityCount": "2",
+			"ProviderName": "STORET",
+			"MonitoringLocationIdentifier": "WIDNR_WQX-113086",
+			"characteristicGroupResultCount": {
+				"Physical": 5,
+				"Microbiological": 6
+			}
+		}
+	}, {
+		"geometry": {
 			"coordinates": [-89.8989, 43.333],
 			"type": "Point"
 		},
@@ -216,31 +241,6 @@
 			"MonitoringLocationIdentifier": "organization-siteId3",
 			"characteristicGroupResultCount": {
 				"characteristicType": 1
-			}
-		}
-	}, {
-		"geometry": {
-			"coordinates": [-89.009255, 43.348562],
-			"type": "Point"
-		},
-		"type": "Feature",
-		"properties": {
-			"ResolvedMonitoringLocationTypeName": "Stream",
-			"resultCount": "11",
-			"siteUrl": "https://www.waterqualitydata.us/provider/STORET/WIDNR_WQX/WIDNR_WQX-113086/",
-			"MonitoringLocationTypeName": "River/Stream",
-			"StateName": "Massachusetts",
-			"MonitoringLocationName": "East rd.",
-			"OrganizationFormalName": "Agricultural Research Services",
-			"HUCEightDigitCode": "07090001",
-			"CountyName": "Washington County",
-			"OrganizationIdentifier": "WIDNR_WQX",
-			"activityCount": "2",
-			"ProviderName": "STORET",
-			"MonitoringLocationIdentifier": "WIDNR_WQX-113086",
-			"characteristicGroupResultCount": {
-				"Physical": 5,
-				"Microbiological": 6
 			}
 		}
 	}, {

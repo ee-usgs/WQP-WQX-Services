@@ -3,7 +3,7 @@
 
     <groupId>gov.usgs.cida.wqp</groupId>
     <artifactId>wqp</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0-snapshot</version>
     <packaging>jar</packaging>
 
     <name>wqpgateway</name>
@@ -57,6 +57,8 @@
         <cida.maven.url>http://internal.cida.usgs.gov/maven</cida.maven.url>
         <additionalparam>-Xdoclint:none</additionalparam>
 
+        <java.version>11</java.version>
+
         <commons-text.version>1.6</commons-text.version>
         <mybatis-spring.version>2.0.0</mybatis-spring.version>
         <mybatis.version>3.5.0</mybatis.version>
@@ -87,11 +89,29 @@
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <configuration>
                     <environmentVariables>
-                        <wqpUrl>${wqpCore.url}</wqpUrl>
-                        <wqpUserUsername>${wqpUser.username}</wqpUserUsername>
-                        <wqpUserPassword>${wqpUser.password}</wqpUserPassword>
-                        <wqpOwnerUsername>${wqpCore.username}</wqpOwnerUsername>
-                        <wqpOwnerPassword>${wqpCore.password}</wqpOwnerPassword>
+                        <WQP_DB_HOST>127.0.0.1</WQP_DB_HOST>
+                        <WQP_DB_PORT>5434</WQP_DB_PORT>
+                        <WQP_DB_NAME>db_name</WQP_DB_NAME>
+                        <WQP_DB_URL>jdbc:postgresql://localhost:5434/db_name</WQP_DB_URL>
+                        <WQP_DB_DATA_OWNER_USERNAME>data_owner</WQP_DB_DATA_OWNER_USERNAME>
+                        <WQP_DB_DATA_OWNER_PASSWORD>changeMe</WQP_DB_DATA_OWNER_PASSWORD>
+                        <WQP_DB_READ_ONLY_USERNAME>read_only</WQP_DB_READ_ONLY_USERNAME>
+                        <WQP_DB_READ_ONLY_PASSWORD>changeMe</WQP_DB_READ_ONLY_PASSWORD>
+                        <SCHEMA_NAME>schema_name</SCHEMA_NAME>
+                        <SWAGGER_SERVICES_LOOKUPS_URL>http://127.0.0.1:8080/qw_portal_services</SWAGGER_SERVICES_LOOKUPS_URL>
+                        <SWAGGER_SERVICES_CORE_URL>http://127.0.0.1:8080/wqp</SWAGGER_SERVICES_CORE_URL>
+                        <SERVER_PORT>8080</SERVER_PORT>
+                        <SERVER_CONTEXT_PATH>/wqp</SERVER_CONTEXT_PATH>
+                        <ROOT_LOG_LEVEL>INFO</ROOT_LOG_LEVEL>
+                        <SITE_URL_BASE>https://www.waterqualitydata.us</SITE_URL_BASE>
+                        <CODES_SERVICE_URL>http://127.0.0.1:8080/qw_portal_services/codes</CODES_SERVICE_URL>
+                        <CODES_TIMEOUT_MILLI>1000</CODES_TIMEOUT_MILLI>
+                        <NLDI_TIMEOUT_MILLI>10000</NLDI_TIMEOUT_MILLI>
+                        <KML_STYLE_URL>https://www.waterqualitydata.us/kml/wqp_styles.kml</KML_STYLE_URL>
+                        <MAX_RESULT_ROWS>20000000</MAX_RESULT_ROWS>
+                        <SWAGGER_DISPLAY_HOST>127.0.0.1:8080</SWAGGER_DISPLAY_HOST>
+                        <SWAGGER_DISPLAY_PATH>/wqp</SWAGGER_DISPLAY_PATH>
+                        <SWAGGER_DISPLAY_PROTOCOL>http</SWAGGER_DISPLAY_PROTOCOL>
                     </environmentVariables>
                 </configuration>
                 <executions>
@@ -102,6 +122,54 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>0.28.0</version>
+                <executions>
+                    <execution>
+                        <id>start</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>start</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>stop</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>stop</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <showLogs>true</showLogs>
+                    <images>
+                        <image>
+                            <name>usgswma/wqp_db:ci</name>
+                            <run>
+                                <ports>
+                                    <port>5434:5432</port>
+                                </ports>
+                                <env>
+                                    <POSTGRES_PASSWORD>changeMe</POSTGRES_PASSWORD>
+                                    <DATABASE_ADDRESS>127.0.0.1</DATABASE_ADDRESS>
+                                    <CONTEXTS>external,ci,noindexes,schemaLoad</CONTEXTS>
+                                    <DATABASE_NAME>db_name</DATABASE_NAME>
+                                    <SCHEMA_NAME>schema_name</SCHEMA_NAME>
+                                    <WQP_DB_DATA_OWNER_USERNAME>data_owner</WQP_DB_DATA_OWNER_USERNAME>
+                                    <WQP_DB_DATA_OWNER_PASSWORD>changeMe</WQP_DB_DATA_OWNER_PASSWORD>
+                                    <WQP_DB_READ_ONLY_USERNAME>read_only</WQP_DB_READ_ONLY_USERNAME>
+                                    <WQP_DB_READ_ONLY_PASSWORD>changeMe</WQP_DB_READ_ONLY_PASSWORD>
+                                </env>
+                                <wait>
+                                    <time>150000</time>
+                                </wait>
+                            </run>
+                        </image>
+                    </images>
+                </configuration>
             </plugin>
         </plugins>
     </build>

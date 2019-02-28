@@ -281,20 +281,20 @@ public class ActivityMetricStreamingIT extends FilteredActivityMetricDaoTest {
 		assertStoret7(results.get(10));
 		assertStoret9(results.get(11));
 		assertStoret8(results.get(12));
-		assertStoret11(results.get(13));
-		assertStoret12(results.get(14));
-		assertStoret13(results.get(15));
-		assertStoret2(results.get(16));
-		assertStoret16(results.get(17));
-		assertStoret1(results.get(18));
-		assertStoret3(results.get(19));
-		assertStoret5C(results.get(20));
-		assertStoret5A(results.get(21));
-		assertStoret5B(results.get(22));
-		assertStoret5D(results.get(23));
-		assertStoret5E(results.get(24));
-		assertStoret5F(results.get(25));
-		assertStoret4(results.get(26));
+		assertStoret5A(results.get(13));
+		assertStoret5B(results.get(14));
+		assertStoret5C(results.get(15));
+		assertStoret5D(results.get(16));
+		assertStoret5E(results.get(17));
+		assertStoret5F(results.get(18));
+		assertStoret4(results.get(19));
+		assertStoret11(results.get(20));
+		assertStoret12(results.get(21));
+		assertStoret13(results.get(22));
+		assertStoret2(results.get(23));
+		assertStoret16(results.get(24));
+		assertStoret1(results.get(25));
+		assertStoret3(results.get(26));
 		assertBiodata1(results.get(27));
 	}
 

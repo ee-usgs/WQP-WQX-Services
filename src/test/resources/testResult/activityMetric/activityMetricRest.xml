@@ -12,25 +12,6 @@
             </ActivityDescription>
             <ActivityMetric>
                 <ActivityMetricType>
-                    <MetricTypeIdentifier>CHI %</MetricTypeIdentifier>
-                    <MetricTypeIdentifierContext>WIDNR_WQX</MetricTypeIdentifierContext>
-                    <MetricTypeName>PERCENT CHIRONOMIDAE INDIVIDUALS</MetricTypeName>
-                    <MetricTypeCitation>
-                        <ResourceTitleName>Macroinvertebrate Data Interpretation Guidance Manual. Wisconsin DNR, 2003</ResourceTitleName>
-                        <ResourceCreatorName>Lillie, Richard A., Stanley W. Szczytko, Michael A. Miller</ResourceCreatorName>
-                        <ResourcePublisherName>Wisconsin DNR</ResourcePublisherName>
-                        <ResourceDate>01/01/03</ResourceDate>
-                        <ResourceIdentifier>26301684</ResourceIdentifier>
-                    </MetricTypeCitation>
-                </ActivityMetricType>
-                <MetricValueMeasure>
-                    <MeasureValue>64</MeasureValue>
-                    <MeasureUnitCode>None</MeasureUnitCode>
-                </MetricValueMeasure>
-                <MetricScoreNumeric>64</MetricScoreNumeric>
-            </ActivityMetric>
-            <ActivityMetric>
-                <ActivityMetricType>
                     <MetricTypeIdentifier>% EPT Individuals</MetricTypeIdentifier>
                     <MetricTypeIdentifierContext>USEPA</MetricTypeIdentifierContext>
                     <MetricTypeName>% EPT Individuals</MetricTypeName>
@@ -52,6 +33,25 @@
                     <MeasureUnitCode>None</MeasureUnitCode>
                 </MetricValueMeasure>
                 <MetricScoreNumeric>24</MetricScoreNumeric>
+            </ActivityMetric>
+            <ActivityMetric>
+                <ActivityMetricType>
+                    <MetricTypeIdentifier>CHI %</MetricTypeIdentifier>
+                    <MetricTypeIdentifierContext>WIDNR_WQX</MetricTypeIdentifierContext>
+                    <MetricTypeName>PERCENT CHIRONOMIDAE INDIVIDUALS</MetricTypeName>
+                    <MetricTypeCitation>
+                        <ResourceTitleName>Macroinvertebrate Data Interpretation Guidance Manual. Wisconsin DNR, 2003</ResourceTitleName>
+                        <ResourceCreatorName>Lillie, Richard A., Stanley W. Szczytko, Michael A. Miller</ResourceCreatorName>
+                        <ResourcePublisherName>Wisconsin DNR</ResourcePublisherName>
+                        <ResourceDate>01/01/03</ResourceDate>
+                        <ResourceIdentifier>26301684</ResourceIdentifier>
+                    </MetricTypeCitation>
+                </ActivityMetricType>
+                <MetricValueMeasure>
+                    <MeasureValue>64</MeasureValue>
+                    <MeasureUnitCode>None</MeasureUnitCode>
+                </MetricValueMeasure>
+                <MetricScoreNumeric>64</MetricScoreNumeric>
             </ActivityMetric>
             <ActivityMetric>
                 <ActivityMetricType>

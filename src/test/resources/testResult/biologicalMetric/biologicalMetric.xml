@@ -137,6 +137,51 @@
     </Organization>
     <Organization>
         <OrganizationDescription>
+            <OrganizationIdentifier>WIDNR_WQX</OrganizationIdentifier>
+        </OrganizationDescription>
+        <BiologicalHabitatIndex>
+            <IndexIdentifier>PHB:OWW04440-0359:1:PCT_SIDE</IndexIdentifier>
+            <IndexType>
+                <IndexTypeIdentifier>ENT_NEEAR_CCE_COND</IndexTypeIdentifier>
+                <IndexTypeIdentifierContext>NARS_WQX</IndexTypeIdentifierContext>
+                <IndexTypeName>Fish assemblage condition</IndexTypeName>
+                <IndexTypeCitation>
+                    <ResourceTitleName>Stream Monitoring Manual</ResourceTitleName>
+                    <ResourceCreatorName>Michael T. Barbour</ResourceCreatorName>
+                    <ResourcePublisherName>U.S. Environmental Protection Agency. Washington, DC 20460</ResourcePublisherName>
+                    <ResourceDate>15-FEB-18</ResourceDate>
+                    <ResourceIdentifier>Biorecon_2008</ResourceIdentifier>
+                    <ResourceSubjectText>This National Rivers and Streams Assessment 2008-2009: A Collaborative Survey (NRSA) presents the results of an unprecedented sampling effort undertaken by the U.S. Environmental Protection Agency and its state and tribal partners. It provides information on the ecological condition of the nations rivers and streams and the key stressors that affect them, both on a national and an ecoregional scale. It also discusses change in water quality conditions in streams sampled for an earlier study, the Wadeable Streams Assessment of 2004.</ResourceSubjectText>
+                </IndexTypeCitation>
+            </IndexType>
+            <IndexScoreNumeric>good</IndexScoreNumeric>
+            <IndexCommentText>IndexTypeName=NRSA 08/09 Report Results:  Condition estimates using the corrected results and a 1280 STV CCE per 100 ml threshold;ENT_NEEAR_CCE_COND=1:Does not exceed STV of 1280 CCE per 100 ml;SOURCE=Enterococci_Condition</IndexCommentText>
+            <IndexCalculatedDate>30-SEP-27</IndexCalculatedDate>
+            <MonitoringLocationIdentifier>WIDNR_WQX-10030952</MonitoringLocationIdentifier>
+        </BiologicalHabitatIndex>
+        <BiologicalHabitatIndex>
+            <IndexIdentifier>RM:OWW04440-0298:040825:RR:FLOWTYPE</IndexIdentifier>
+            <IndexType>
+                <IndexTypeIdentifier>MMI_PERI_PLNLOW</IndexTypeIdentifier>
+                <IndexTypeIdentifierContext>NARS_WQX</IndexTypeIdentifierContext>
+                <IndexTypeName>Periphyton multimetric</IndexTypeName>
+                <IndexTypeCitation>
+                    <ResourceTitleName>RiverWatch  Manual</ResourceTitleName>
+                    <ResourceCreatorName>DEAR Aquatic Ecology</ResourceCreatorName>
+                    <ResourcePublisherName>U.S. Environmental Protection Agency. Washington, DC 20460</ResourcePublisherName>
+                    <ResourceDate>28-FEB-13</ResourceDate>
+                    <ResourceIdentifier>PREDATOR 2008</ResourceIdentifier>
+                    <ResourceSubjectText>Standard Operating Procedure</ResourceSubjectText>
+                </IndexTypeCitation>
+            </IndexType>
+            <IndexScoreNumeric>38.5017834</IndexScoreNumeric>
+            <IndexCommentText>IndexTypeName=Periphyton multimetric index score for Plains and Lowlands;MMI_PERI_PLNLOW=38.50178349;SOURCE=Periphyton_Condition</IndexCommentText>
+            <IndexCalculatedDate>01-JAN-01</IndexCalculatedDate>
+            <MonitoringLocationIdentifier>WIDNR_WQX-113086</MonitoringLocationIdentifier>
+        </BiologicalHabitatIndex>
+    </Organization>
+    <Organization>
+        <OrganizationDescription>
             <OrganizationIdentifier>organization</OrganizationIdentifier>
         </OrganizationDescription>
         <BiologicalHabitatIndex>
@@ -201,51 +246,6 @@
             <IndexCommentText>IndexTypeName=Periphyton assemblage condition</IndexCommentText>
             <IndexCalculatedDate>22-JUN-15</IndexCalculatedDate>
             <MonitoringLocationIdentifier>organization-siteId3</MonitoringLocationIdentifier>
-        </BiologicalHabitatIndex>
-    </Organization>
-    <Organization>
-        <OrganizationDescription>
-            <OrganizationIdentifier>WIDNR_WQX</OrganizationIdentifier>
-        </OrganizationDescription>
-        <BiologicalHabitatIndex>
-            <IndexIdentifier>PHB:OWW04440-0359:1:PCT_SIDE</IndexIdentifier>
-            <IndexType>
-                <IndexTypeIdentifier>ENT_NEEAR_CCE_COND</IndexTypeIdentifier>
-                <IndexTypeIdentifierContext>NARS_WQX</IndexTypeIdentifierContext>
-                <IndexTypeName>Fish assemblage condition</IndexTypeName>
-                <IndexTypeCitation>
-                    <ResourceTitleName>Stream Monitoring Manual</ResourceTitleName>
-                    <ResourceCreatorName>Michael T. Barbour</ResourceCreatorName>
-                    <ResourcePublisherName>U.S. Environmental Protection Agency. Washington, DC 20460</ResourcePublisherName>
-                    <ResourceDate>15-FEB-18</ResourceDate>
-                    <ResourceIdentifier>Biorecon_2008</ResourceIdentifier>
-                    <ResourceSubjectText>This National Rivers and Streams Assessment 2008-2009: A Collaborative Survey (NRSA) presents the results of an unprecedented sampling effort undertaken by the U.S. Environmental Protection Agency and its state and tribal partners. It provides information on the ecological condition of the nations rivers and streams and the key stressors that affect them, both on a national and an ecoregional scale. It also discusses change in water quality conditions in streams sampled for an earlier study, the Wadeable Streams Assessment of 2004.</ResourceSubjectText>
-                </IndexTypeCitation>
-            </IndexType>
-            <IndexScoreNumeric>good</IndexScoreNumeric>
-            <IndexCommentText>IndexTypeName=NRSA 08/09 Report Results:  Condition estimates using the corrected results and a 1280 STV CCE per 100 ml threshold;ENT_NEEAR_CCE_COND=1:Does not exceed STV of 1280 CCE per 100 ml;SOURCE=Enterococci_Condition</IndexCommentText>
-            <IndexCalculatedDate>30-SEP-27</IndexCalculatedDate>
-            <MonitoringLocationIdentifier>WIDNR_WQX-10030952</MonitoringLocationIdentifier>
-        </BiologicalHabitatIndex>
-        <BiologicalHabitatIndex>
-            <IndexIdentifier>RM:OWW04440-0298:040825:RR:FLOWTYPE</IndexIdentifier>
-            <IndexType>
-                <IndexTypeIdentifier>MMI_PERI_PLNLOW</IndexTypeIdentifier>
-                <IndexTypeIdentifierContext>NARS_WQX</IndexTypeIdentifierContext>
-                <IndexTypeName>Periphyton multimetric</IndexTypeName>
-                <IndexTypeCitation>
-                    <ResourceTitleName>RiverWatch  Manual</ResourceTitleName>
-                    <ResourceCreatorName>DEAR Aquatic Ecology</ResourceCreatorName>
-                    <ResourcePublisherName>U.S. Environmental Protection Agency. Washington, DC 20460</ResourcePublisherName>
-                    <ResourceDate>28-FEB-13</ResourceDate>
-                    <ResourceIdentifier>PREDATOR 2008</ResourceIdentifier>
-                    <ResourceSubjectText>Standard Operating Procedure</ResourceSubjectText>
-                </IndexTypeCitation>
-            </IndexType>
-            <IndexScoreNumeric>38.5017834</IndexScoreNumeric>
-            <IndexCommentText>IndexTypeName=Periphyton multimetric index score for Plains and Lowlands;MMI_PERI_PLNLOW=38.50178349;SOURCE=Periphyton_Condition</IndexCommentText>
-            <IndexCalculatedDate>01-JAN-01</IndexCalculatedDate>
-            <MonitoringLocationIdentifier>WIDNR_WQX-113086</MonitoringLocationIdentifier>
         </BiologicalHabitatIndex>
     </Organization>
     <Organization>

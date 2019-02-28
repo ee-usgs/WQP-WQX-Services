@@ -130,6 +130,48 @@
 		"type": "Feature",
 		"geometry": {
 			"type": "Point",
+			"coordinates": [-88.9557000, 43.3262980]
+		},
+		"properties": {
+			"ProviderName": "STORET",
+			"OrganizationIdentifier": "WIDNR_WQX",
+			"OrganizationFormalName": "Wisconsin Department of Natural Resources",
+			"MonitoringLocationIdentifier": "WIDNR_WQX-10030952",
+			"MonitoringLocationName": "Crawfish River -- Astico County Park Canoe Launch",
+			"MonitoringLocationTypeName": "",
+			"ResolvedMonitoringLocationTypeName": "Stream",
+			"HUCEightDigitCode": "07090001",
+			"siteUrl": "https://www.waterqualitydata.us/provider/STORET/WIDNR_WQX/WIDNR_WQX-10030952/",
+			"activityCount": "0",
+			"resultCount": "0",
+			"StateName": "Wisconsin",
+			"CountyName": "Chippewa County"
+		}
+	}, {
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
+			"coordinates": [-89.0092550, 43.3485620]
+		},
+		"properties": {
+			"ProviderName": "STORET",
+			"OrganizationIdentifier": "WIDNR_WQX",
+			"OrganizationFormalName": "Wisconsin Department of Natural Resources",
+			"MonitoringLocationIdentifier": "WIDNR_WQX-113086",
+			"MonitoringLocationName": "Crawfish River at Old Hwy 73 Bridge",
+			"MonitoringLocationTypeName": "River/Stream",
+			"ResolvedMonitoringLocationTypeName": "Stream",
+			"HUCEightDigitCode": "07090001",
+			"siteUrl": "https://www.waterqualitydata.us/provider/STORET/WIDNR_WQX/WIDNR_WQX-113086/",
+			"activityCount": "2",
+			"resultCount": "7",
+			"StateName": "Wisconsin",
+			"CountyName": "Dodge County"
+		}
+	}, {
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
 			"coordinates": [-89.8989000, 43.3330000]
 		},
 		"properties": {
@@ -188,48 +230,6 @@
 			"resultCount": "1",
 			"StateName": "",
 			"CountyName": ""
-		}
-	}, {
-		"type": "Feature",
-		"geometry": {
-			"type": "Point",
-			"coordinates": [-88.9557000, 43.3262980]
-		},
-		"properties": {
-			"ProviderName": "STORET",
-			"OrganizationIdentifier": "WIDNR_WQX",
-			"OrganizationFormalName": "Wisconsin Department of Natural Resources",
-			"MonitoringLocationIdentifier": "WIDNR_WQX-10030952",
-			"MonitoringLocationName": "Crawfish River -- Astico County Park Canoe Launch",
-			"MonitoringLocationTypeName": "",
-			"ResolvedMonitoringLocationTypeName": "Stream",
-			"HUCEightDigitCode": "07090001",
-			"siteUrl": "https://www.waterqualitydata.us/provider/STORET/WIDNR_WQX/WIDNR_WQX-10030952/",
-			"activityCount": "0",
-			"resultCount": "0",
-			"StateName": "Wisconsin",
-			"CountyName": "Chippewa County"
-		}
-	}, {
-		"type": "Feature",
-		"geometry": {
-			"type": "Point",
-			"coordinates": [-89.0092550, 43.3485620]
-		},
-		"properties": {
-			"ProviderName": "STORET",
-			"OrganizationIdentifier": "WIDNR_WQX",
-			"OrganizationFormalName": "Wisconsin Department of Natural Resources",
-			"MonitoringLocationIdentifier": "WIDNR_WQX-113086",
-			"MonitoringLocationName": "Crawfish River at Old Hwy 73 Bridge",
-			"MonitoringLocationTypeName": "River/Stream",
-			"ResolvedMonitoringLocationTypeName": "Stream",
-			"HUCEightDigitCode": "07090001",
-			"siteUrl": "https://www.waterqualitydata.us/provider/STORET/WIDNR_WQX/WIDNR_WQX-113086/",
-			"activityCount": "2",
-			"resultCount": "7",
-			"StateName": "Wisconsin",
-			"CountyName": "Dodge County"
 		}
 	}, {
 		"type": "Feature",

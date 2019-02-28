@@ -40,6 +40,26 @@
     </Organization>
     <Organization>
         <OrganizationDescription>
+            <OrganizationIdentifier>WIDNR_WQX</OrganizationIdentifier>
+            <OrganizationFormalName>Wisconsin Department of Natural Resources</OrganizationFormalName>
+            <OrganizationDescriptionText>Wisconsin Department of Natural Resources.</OrganizationDescriptionText>
+            <OrganizationType>DNR</OrganizationType>
+        </OrganizationDescription>
+        <ElectronicAddress>first.last@wisconsin.gov (Email)</ElectronicAddress>
+        <Telephonic>608-555-5234 (Office)</Telephonic>
+        <OrganizationAddress>
+            <AddressTypeName>Mailing</AddressTypeName>
+            <AddressText>101 S Webster St.</AddressText>
+            <SupplementalAddressText>PO BOX 7921</SupplementalAddressText>
+            <LocalityName>Madison</LocalityName>
+            <StateCode>WI</StateCode>
+            <PostalCode>53707-7921</PostalCode>
+            <CountryCode>US</CountryCode>
+            <CountyCode>025</CountyCode>
+        </OrganizationAddress>
+    </Organization>
+    <Organization>
+        <OrganizationDescription>
             <OrganizationIdentifier>organization</OrganizationIdentifier>
             <OrganizationFormalName>organizationName</OrganizationFormalName>
             <OrganizationDescriptionText>organization description</OrganizationDescriptionText>
@@ -77,26 +97,6 @@
             <PostalCode>43210-2314</PostalCode>
             <CountryCode>US</CountryCode>
             <CountyCode>015</CountyCode>
-        </OrganizationAddress>
-    </Organization>
-    <Organization>
-        <OrganizationDescription>
-            <OrganizationIdentifier>WIDNR_WQX</OrganizationIdentifier>
-            <OrganizationFormalName>Wisconsin Department of Natural Resources</OrganizationFormalName>
-            <OrganizationDescriptionText>Wisconsin Department of Natural Resources.</OrganizationDescriptionText>
-            <OrganizationType>DNR</OrganizationType>
-        </OrganizationDescription>
-        <ElectronicAddress>first.last@wisconsin.gov (Email)</ElectronicAddress>
-        <Telephonic>608-555-5234 (Office)</Telephonic>
-        <OrganizationAddress>
-            <AddressTypeName>Mailing</AddressTypeName>
-            <AddressText>101 S Webster St.</AddressText>
-            <SupplementalAddressText>PO BOX 7921</SupplementalAddressText>
-            <LocalityName>Madison</LocalityName>
-            <StateCode>WI</StateCode>
-            <PostalCode>53707-7921</PostalCode>
-            <CountryCode>US</CountryCode>
-            <CountyCode>025</CountyCode>
         </OrganizationAddress>
     </Organization>
     <Organization>

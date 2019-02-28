@@ -100,6 +100,34 @@
         </Organization>
         <Organization>
             <OrganizationDescription>
+                <OrganizationIdentifier>WIDNR_WQX</OrganizationIdentifier>
+                <OrganizationFormalName>Wisconsin Department of Natural Resources</OrganizationFormalName>
+            </OrganizationDescription>
+            <MonitoringLocation>
+                <MonitoringLocationIdentity>
+                    <MonitoringLocationIdentifier>WIDNR_WQX-10030952</MonitoringLocationIdentifier>
+                    <MonitoringLocationName>Crawfish River -- Astico County Park Canoe Launch</MonitoringLocationName>
+                    <ResolvedMonitoringLocationTypeName>Stream</ResolvedMonitoringLocationTypeName>
+                </MonitoringLocationIdentity>
+                <MonitoringLocationGeospatial>
+                    <LatitudeMeasure>43.3262980</LatitudeMeasure>
+                    <LongitudeMeasure>-88.9557000</LongitudeMeasure>
+                </MonitoringLocationGeospatial>
+            </MonitoringLocation>
+            <MonitoringLocation>
+                <MonitoringLocationIdentity>
+                    <MonitoringLocationIdentifier>WIDNR_WQX-113086</MonitoringLocationIdentifier>
+                    <MonitoringLocationName>Crawfish River at Old Hwy 73 Bridge</MonitoringLocationName>
+                    <ResolvedMonitoringLocationTypeName>Stream</ResolvedMonitoringLocationTypeName>
+                </MonitoringLocationIdentity>
+                <MonitoringLocationGeospatial>
+                    <LatitudeMeasure>43.3485620</LatitudeMeasure>
+                    <LongitudeMeasure>-89.0092550</LongitudeMeasure>
+                </MonitoringLocationGeospatial>
+            </MonitoringLocation>
+        </Organization>
+        <Organization>
+            <OrganizationDescription>
                 <OrganizationIdentifier>organization</OrganizationIdentifier>
                 <OrganizationFormalName>organizationName</OrganizationFormalName>
             </OrganizationDescription>
@@ -134,34 +162,6 @@
                 <MonitoringLocationGeospatial>
                     <LatitudeMeasure>43.3330000</LatitudeMeasure>
                     <LongitudeMeasure>-76.8989000</LongitudeMeasure>
-                </MonitoringLocationGeospatial>
-            </MonitoringLocation>
-        </Organization>
-        <Organization>
-            <OrganizationDescription>
-                <OrganizationIdentifier>WIDNR_WQX</OrganizationIdentifier>
-                <OrganizationFormalName>Wisconsin Department of Natural Resources</OrganizationFormalName>
-            </OrganizationDescription>
-            <MonitoringLocation>
-                <MonitoringLocationIdentity>
-                    <MonitoringLocationIdentifier>WIDNR_WQX-10030952</MonitoringLocationIdentifier>
-                    <MonitoringLocationName>Crawfish River -- Astico County Park Canoe Launch</MonitoringLocationName>
-                    <ResolvedMonitoringLocationTypeName>Stream</ResolvedMonitoringLocationTypeName>
-                </MonitoringLocationIdentity>
-                <MonitoringLocationGeospatial>
-                    <LatitudeMeasure>43.3262980</LatitudeMeasure>
-                    <LongitudeMeasure>-88.9557000</LongitudeMeasure>
-                </MonitoringLocationGeospatial>
-            </MonitoringLocation>
-            <MonitoringLocation>
-                <MonitoringLocationIdentity>
-                    <MonitoringLocationIdentifier>WIDNR_WQX-113086</MonitoringLocationIdentifier>
-                    <MonitoringLocationName>Crawfish River at Old Hwy 73 Bridge</MonitoringLocationName>
-                    <ResolvedMonitoringLocationTypeName>Stream</ResolvedMonitoringLocationTypeName>
-                </MonitoringLocationIdentity>
-                <MonitoringLocationGeospatial>
-                    <LatitudeMeasure>43.3485620</LatitudeMeasure>
-                    <LongitudeMeasure>-89.0092550</LongitudeMeasure>
                 </MonitoringLocationGeospatial>
             </MonitoringLocation>
         </Organization>

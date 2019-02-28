@@ -15,26 +15,27 @@ import com.github.springtestdbunit.bean.DatabaseDataSourceConnectionFactoryBean;
 
 import gov.usgs.cida.wqp.PostgresqlDataTypeFactoryWithJson;
 
-//import oracle.jdbc.pool.OracleDataSource;
-
 @TestConfiguration
 @Import(MybatisConfig.class)
 public class DBTestConfig extends SpringTestConfig {
 
-	@Value("${wqpUrl}")
+	@Value("${WQP_DB_URL}")
 	private String datasourceUrl;
 
-	@Value("${wqpUserUsername}")
+	@Value("${WQP_DB_READ_ONLY_USERNAME}")
 	private String datasourceUserUsername;
 
-	@Value("${wqpUserPassword}")
+	@Value("${WQP_DB_READ_ONLY_PASSWORD}")
 	private String datasourceUserPassword;
 
-	@Value("${wqpOwnerUsername}")
+	@Value("${WQP_DB_DATA_OWNER_USERNAME}")
 	private String datasourceUsername;
 
-	@Value("${wqpOwnerPassword}")
+	@Value("${WQP_DB_DATA_OWNER_PASSWORD}")
 	private String datasourcePassword;
+	
+	@Value("${SCHEMA_NAME}")
+	private String schemaName;
 
 	@Bean
 	public DataSource dataSource() throws SQLException {
@@ -68,7 +69,7 @@ public class DBTestConfig extends SpringTestConfig {
 		DatabaseDataSourceConnectionFactoryBean dbUnitDatabaseConnection = new DatabaseDataSourceConnectionFactoryBean();
 		dbUnitDatabaseConnection.setDatabaseConfig(dbUnitDatabaseConfig());
 		dbUnitDatabaseConnection.setDataSource(dbUnitDataSource());
-		dbUnitDatabaseConnection.setSchema("wqp");
+		dbUnitDatabaseConnection.setSchema(schemaName);
 		return dbUnitDatabaseConnection;
 	}
 

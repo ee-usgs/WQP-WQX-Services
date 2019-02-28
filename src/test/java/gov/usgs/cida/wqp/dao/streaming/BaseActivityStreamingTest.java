@@ -220,15 +220,15 @@ public abstract class BaseActivityStreamingTest extends FilteredActivityDaoTest 
 		assertStoret7(columnCount, results.get(10));
 		assertStoret9(columnCount, results.get(11));
 		assertStoret8(columnCount, results.get(12));
-		assertStoret11(columnCount, results.get(13));
-		assertStoret12(columnCount, results.get(14));
-		assertStoret13(columnCount, results.get(15));
-		assertStoret2(columnCount, results.get(16));
-		assertStoret16(columnCount, results.get(17));
-		assertStoret1(columnCount, results.get(18));
-		assertStoret3(columnCount, results.get(19));
-		assertStoret5(columnCount, results.get(20));
-		assertStoret4(columnCount, results.get(21));
+		assertStoret5(columnCount, results.get(13));
+		assertStoret4(columnCount, results.get(14));
+		assertStoret11(columnCount, results.get(15));
+		assertStoret12(columnCount, results.get(16));
+		assertStoret13(columnCount, results.get(17));
+		assertStoret2(columnCount, results.get(18));
+		assertStoret16(columnCount, results.get(19));
+		assertStoret1(columnCount, results.get(20));
+		assertStoret3(columnCount, results.get(21));
 		assertBiodata1(columnCount, results.get(22));
 	}
 

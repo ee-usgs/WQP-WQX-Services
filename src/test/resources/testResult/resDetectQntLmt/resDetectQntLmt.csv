@@ -45,6 +45,13 @@ USGS-WI,USGS Wisconsin Water Science Center,activityNwis-3,USGS-431925089002701,
 21NYDECA_WQX,New York State DEC Division of Water,21NYDECA_WQX-020206-7,21NYDECA_WQX-ONTARIO-02,STORET-40,Heptachlorodibenzo-p-dioxin,Instrument Detection Level,69,#/100ml,STORET
 21NYDECA_WQX,New York State DEC Division of Water,21NYDECA_WQX-020610-9,21NYDECA_WQX-ONTARIO-02,STORET-32,Hexachlorodibenzo-p-dioxin,Instrument Detection Level,61,cfu/100ml,STORET
 21NYDECA_WQX,New York State DEC Division of Water,21NYDECA_WQX-0210EN-8,21NYDECA_WQX-ONTARIO-02,STORET-38,Pentachlorobenzene,Instrument Detection Level,65,#/100ml,STORET
+WIDNR_WQX,Wisconsin Department of Natural Resources,WIDNR_WQX-7788475-5,WIDNR_WQX-113086,STORET-5,Fecal Streptococcus Group Bacteria,detectionLimitDesc,39,cfu/100ml,STORET
+WIDNR_WQX,Wisconsin Department of Natural Resources,WIDNR_WQX-7788475-5,WIDNR_WQX-113086,STORET-6,Fecal Coliform,Drinking Water Maximum,29,cfu/100ml,STORET
+WIDNR_WQX,Wisconsin Department of Natural Resources,WIDNR_WQX-7788475-5,WIDNR_WQX-113086,STORET-8,Fecal Coliform,Sample-specific min detect conc,31,cfu/100ml,STORET
+WIDNR_WQX,Wisconsin Department of Natural Resources,WIDNR_WQX-7788480-4,WIDNR_WQX-113086,STORET-9,Cloud cover,Interim Reporting Level,32,#/100ml,STORET
+WIDNR_WQX,Wisconsin Department of Natural Resources,WIDNR_WQX-7788480-4,WIDNR_WQX-113086,STORET-11,Dissolved oxygen (DO),Minimum Reporting Level,34,#/100ml,STORET
+WIDNR_WQX,Wisconsin Department of Natural Resources,WIDNR_WQX-7788480-4,WIDNR_WQX-113086,STORET-13,Dissolved oxygen (DO),Daily detection limit,36,#/100ml,STORET
+WIDNR_WQX,Wisconsin Department of Natural Resources,WIDNR_WQX-7788480-4,WIDNR_WQX-113086,STORET-14,Fecal Streptococcus Group Bacteria,Lower limit of detection,37,cfu/100ml,STORET
 organization,Wisconsin Department of Natural Resources,activityStoret-14,11NPSWRD-BICA_MFG_B,STORET-45,characteristicName,Estimated Quantitation Limit,72,cfu/100ml,STORET
 organization,Wisconsin Department of Natural Resources,activityStoret-14,11NPSWRD-BICA_MFG_B,STORET-46,characteristicName,Sample Detection Limit,73,#/100ml,STORET
 organization,Wisconsin Department of Natural Resources,activityStoret-15,11NPSWRD-BICA_MFG_B,STORET-47,characteristicName,Upper Calibration Limit,70,cfu/100ml,STORET
@@ -61,11 +68,4 @@ organization,organizationName,activity-1,organization-siteId2,STORET-1,character
 organization,organizationName,activity-1,organization-siteId2,STORET-1,characteristicName,Statistical Uncertainty,20,#/100ml,STORET
 organization,organizationName,activity-1,organization-siteId2,STORET-1,characteristicName,Systematic Uncertainty,21,cfu/100ml,STORET
 organization,organizationName,activity-3,organization-siteId3,STORET-3,characteristicName,Long Term Method Detection Level,28,#/100ml,STORET
-WIDNR_WQX,Wisconsin Department of Natural Resources,WIDNR_WQX-7788475-5,WIDNR_WQX-113086,STORET-5,Fecal Streptococcus Group Bacteria,detectionLimitDesc,39,cfu/100ml,STORET
-WIDNR_WQX,Wisconsin Department of Natural Resources,WIDNR_WQX-7788475-5,WIDNR_WQX-113086,STORET-6,Fecal Coliform,Drinking Water Maximum,29,cfu/100ml,STORET
-WIDNR_WQX,Wisconsin Department of Natural Resources,WIDNR_WQX-7788475-5,WIDNR_WQX-113086,STORET-8,Fecal Coliform,Sample-specific min detect conc,31,cfu/100ml,STORET
-WIDNR_WQX,Wisconsin Department of Natural Resources,WIDNR_WQX-7788480-4,WIDNR_WQX-113086,STORET-9,Cloud cover,Interim Reporting Level,32,#/100ml,STORET
-WIDNR_WQX,Wisconsin Department of Natural Resources,WIDNR_WQX-7788480-4,WIDNR_WQX-113086,STORET-11,Dissolved oxygen (DO),Minimum Reporting Level,34,#/100ml,STORET
-WIDNR_WQX,Wisconsin Department of Natural Resources,WIDNR_WQX-7788480-4,WIDNR_WQX-113086,STORET-13,Dissolved oxygen (DO),Daily detection limit,36,#/100ml,STORET
-WIDNR_WQX,Wisconsin Department of Natural Resources,WIDNR_WQX-7788480-4,WIDNR_WQX-113086,STORET-14,Fecal Streptococcus Group Bacteria,Lower limit of detection,37,cfu/100ml,STORET
 USGS,Wisconsin Department of Natural Resources,activityBiodata-1,USGS-11421000,BIODATA-42,Count,Instrument Detection Level,74,cfu/100ml,BIODATA
