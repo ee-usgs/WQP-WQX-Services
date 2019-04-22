@@ -38,13 +38,13 @@ This application has numerous environment variables to define the actual runtime
 * **SWAGGER_DISPLAY_PROTOCOL** - The public facing communications protocol of this service. Used to enable Swagger's try it out functionality.
 * **SWAGGER_SERVICES_LOOKUPS_URL** - Base URL for the codes service. Used to locate the Swagger information for the codes service.
 * **SWAGGER_SERVICES_CORE_URL** - Base URL for this service. Used to locate the Swagger information for this service.
-* **WQP_DB_DATA_OWNER_USERNAME** - Role which will own the database objects. Only needed for automated testing.
-* **WQP_DB_DATA_OWNER_PASSWORD** - Password for the **DATA_OWNER** role. Only needed for automated testing.
+* **WQP_SCHEMA_OWNER_USERNAME** - Role which will own the database objects. Only needed for automated testing.
+* **WQP_SCHEMA_OWNER_PASSWORD** - Password for the **WQP_SCHEMA_OWNER_USERNAME** role. Only needed for automated testing.
 * **WQP_DB_HOST** - Host name of the PosgreSQL Database.
 * **WQP_DB_NAME** - Name of the PostgreSQL Database used by the application.
 * **WQP_DB_PORT** - Port the PostgreSQL Database is listening on.
-* **WQP_DB_READ_ONLY_USERNAME** - The limited privilege role used by applications to access this schema.
-* **WQP_DB_READ_ONLY_PASSWORD** - Password for the **READ_ONLY_USER** role.
+* **WQP_READ_ONLY_USERNAME** - The limited privilege role used by applications to access this schema.
+* **WQP_READ_ONLY_PASSWORD** - Password for the **WQP_READ_ONLY_USERNAME** role.
 * **WQP_DB_URL** - URL of the automated test database. See pom.xml for the format. Only needed for automated testing.
 * **WQP_SERVICES_IPV4** - The IP address for the Docker container.
 * **WQP_SERVICES_PORT** - The localhost port on which to expose the Docker container.
