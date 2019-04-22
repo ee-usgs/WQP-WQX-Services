@@ -34,7 +34,7 @@ public class DBTestConfig extends SpringTestConfig {
 	@Value("${WQP_SCHEMA_OWNER_PASSWORD}")
 	private String datasourcePassword;
 	
-	@Value("${SCHEMA_NAME}")
+	@Value("${WQP_SCHEMA_NAME}")
 	private String schemaName;
 
 	@Bean

@@ -97,7 +97,7 @@
                         <WQP_SCHEMA_OWNER_PASSWORD>changeMe</WQP_SCHEMA_OWNER_PASSWORD>
                         <WQP_READ_ONLY_USERNAME>read_only</WQP_READ_ONLY_USERNAME>
                         <WQP_READ_ONLY_PASSWORD>changeMe</WQP_READ_ONLY_PASSWORD>
-                        <SCHEMA_NAME>schema_name</SCHEMA_NAME>
+                        <WQP_SCHEMA_NAME>schema_name</WQP_SCHEMA_NAME>
                         <SWAGGER_SERVICES_LOOKUPS_URL>http://127.0.0.1:8080/qw_portal_services</SWAGGER_SERVICES_LOOKUPS_URL>
                         <SWAGGER_SERVICES_CORE_URL>http://127.0.0.1:8080/wqp</SWAGGER_SERVICES_CORE_URL>
                         <SERVER_PORT>8080</SERVER_PORT>

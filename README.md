@@ -16,7 +16,7 @@ This application has numerous environment variables to define the actual runtime
 
 * Docker Compose: The substitution variables in docker-compose.yml should be defined in a .env file located in the project's root directory. The remaining variables need to be defined in .env files in the secrets/app/ and secrets/common/ directories. Samples of the later are included in the project.
 
-* Command line or IDE: The variables found in the secrets/ samples should be placed into a single application.yml file located in the project's root directory. An addition application-it.yml file is also required in the same location to run unit tests via an IDE. It requires the **WQP_DB_URL**, **WQP_DB_DATA_OWNER_USERNAME**, **WQP_DB_DATA_OWNER_PASSWORD**, **WQP_DB_READ_ONLY_USERNAME**, and **WQP_DB_READ_ONLY_PASSWORD** values.
+* Command line or IDE: The variables found in the secrets/ samples should be placed into a single application.yml file located in the project's root directory. An addition application-it.yml file is also required in the same location to run unit tests via an IDE. It requires the **WQP_DB_URL**, **WQP_SCHEMA_NAME**, **WQP_SCHEMA_OWNER_USERNAME**, **WQP_SCHEMA_OWNER_PASSWORD**, **WQP_READ_ONLY_USERNAME**, and **WQP_READ_ONLY_PASSWORD** values.
 
 * Maven test execution: The pom contains all of the enviroment variable definitions needed. They are all generic values suitable for the automated testing and should not be used in any actual shared environments. ```mvn test``` will run just the unit tests, ```mvn verify``` will additionally run tests against the database. Running the tests in this way is completely self contained and no setup or local database is needed.
 
@@ -43,6 +43,7 @@ This application has numerous environment variables to define the actual runtime
 * **WQP_DB_HOST** - Host name of the PosgreSQL Database.
 * **WQP_DB_NAME** - Name of the PostgreSQL Database used by the application.
 * **WQP_DB_PORT** - Port the PostgreSQL Database is listening on.
+* **WQP_SCHEMA_NAME** - Database schema containing the database objects.
 * **WQP_READ_ONLY_USERNAME** - The limited privilege role used by applications to access this schema.
 * **WQP_READ_ONLY_PASSWORD** - Password for the **WQP_READ_ONLY_USERNAME** role.
 * **WQP_DB_URL** - URL of the automated test database. See pom.xml for the format. Only needed for automated testing.
