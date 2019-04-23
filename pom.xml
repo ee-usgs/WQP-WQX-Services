@@ -93,11 +93,11 @@
                         <WQP_DB_PORT>5434</WQP_DB_PORT>
                         <WQP_DB_NAME>db_name</WQP_DB_NAME>
                         <WQP_DB_URL>jdbc:postgresql://localhost:5434/db_name</WQP_DB_URL>
-                        <WQP_DB_DATA_OWNER_USERNAME>data_owner</WQP_DB_DATA_OWNER_USERNAME>
-                        <WQP_DB_DATA_OWNER_PASSWORD>changeMe</WQP_DB_DATA_OWNER_PASSWORD>
-                        <WQP_DB_READ_ONLY_USERNAME>read_only</WQP_DB_READ_ONLY_USERNAME>
-                        <WQP_DB_READ_ONLY_PASSWORD>changeMe</WQP_DB_READ_ONLY_PASSWORD>
-                        <SCHEMA_NAME>schema_name</SCHEMA_NAME>
+                        <WQP_SCHEMA_OWNER_USERNAME>schema_owner</WQP_SCHEMA_OWNER_USERNAME>
+                        <WQP_SCHEMA_OWNER_PASSWORD>changeMe</WQP_SCHEMA_OWNER_PASSWORD>
+                        <WQP_READ_ONLY_USERNAME>read_only</WQP_READ_ONLY_USERNAME>
+                        <WQP_READ_ONLY_PASSWORD>changeMe</WQP_READ_ONLY_PASSWORD>
+                        <WQP_SCHEMA_NAME>schema_name</WQP_SCHEMA_NAME>
                         <SWAGGER_SERVICES_LOOKUPS_URL>http://127.0.0.1:8080/qw_portal_services</SWAGGER_SERVICES_LOOKUPS_URL>
                         <SWAGGER_SERVICES_CORE_URL>http://127.0.0.1:8080/wqp</SWAGGER_SERVICES_CORE_URL>
                         <SERVER_PORT>8080</SERVER_PORT>
@@ -154,17 +154,20 @@
                                 </ports>
                                 <env>
                                     <POSTGRES_PASSWORD>changeMe</POSTGRES_PASSWORD>
+                                    <POSTGRES_DB>db_name</POSTGRES_DB>
                                     <DATABASE_ADDRESS>127.0.0.1</DATABASE_ADDRESS>
-                                    <CONTEXTS>external,ci,noindexes,schemaLoad</CONTEXTS>
-                                    <DATABASE_NAME>db_name</DATABASE_NAME>
-                                    <SCHEMA_NAME>schema_name</SCHEMA_NAME>
-                                    <WQP_DB_DATA_OWNER_USERNAME>data_owner</WQP_DB_DATA_OWNER_USERNAME>
-                                    <WQP_DB_DATA_OWNER_PASSWORD>changeMe</WQP_DB_DATA_OWNER_PASSWORD>
-                                    <WQP_DB_READ_ONLY_USERNAME>read_only</WQP_DB_READ_ONLY_USERNAME>
-                                    <WQP_DB_READ_ONLY_PASSWORD>changeMe</WQP_DB_READ_ONLY_PASSWORD>
+                                    <CONTEXTS>external,ci,schemaLoad</CONTEXTS>
+                                    <WQP_DATABASE_NAME>db_name</WQP_DATABASE_NAME>
+                                    <WQP_SCHEMA_NAME>schema_name</WQP_SCHEMA_NAME>
+                                    <WQP_DB_OWNER_USERNAME>db_owner</WQP_DB_OWNER_USERNAME>
+                                    <WQP_DB_OWNER_PASSWORD>changeMe</WQP_DB_OWNER_PASSWORD>
+                                    <WQP_SCHEMA_OWNER_USERNAME>schema_owner</WQP_SCHEMA_OWNER_USERNAME>
+                                    <WQP_SCHEMA_OWNER_PASSWORD>changeMe</WQP_SCHEMA_OWNER_PASSWORD>
+                                    <WQP_READ_ONLY_USERNAME>read_only</WQP_READ_ONLY_USERNAME>
+                                    <WQP_READ_ONLY_PASSWORD>changeMe</WQP_READ_ONLY_PASSWORD>
                                 </env>
                                 <wait>
-                                    <time>150000</time>
+                                    <time>60000</time>
                                 </wait>
                             </run>
                         </image>

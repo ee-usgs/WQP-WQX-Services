@@ -22,19 +22,19 @@ public class DBTestConfig extends SpringTestConfig {
 	@Value("${WQP_DB_URL}")
 	private String datasourceUrl;
 
-	@Value("${WQP_DB_READ_ONLY_USERNAME}")
+	@Value("${WQP_READ_ONLY_USERNAME}")
 	private String datasourceUserUsername;
 
-	@Value("${WQP_DB_READ_ONLY_PASSWORD}")
+	@Value("${WQP_READ_ONLY_PASSWORD}")
 	private String datasourceUserPassword;
 
-	@Value("${WQP_DB_DATA_OWNER_USERNAME}")
+	@Value("${WQP_SCHEMA_OWNER_USERNAME}")
 	private String datasourceUsername;
 
-	@Value("${WQP_DB_DATA_OWNER_PASSWORD}")
+	@Value("${WQP_SCHEMA_OWNER_PASSWORD}")
 	private String datasourcePassword;
 	
-	@Value("${SCHEMA_NAME}")
+	@Value("${WQP_SCHEMA_NAME}")
 	private String schemaName;
 
 	@Bean
