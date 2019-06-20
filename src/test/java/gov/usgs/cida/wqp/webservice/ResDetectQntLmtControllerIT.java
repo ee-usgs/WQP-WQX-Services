@@ -47,7 +47,7 @@ public class ResDetectQntLmtControllerIT extends BaseControllerIntegrationTest {
 
 	protected static final Profile PROFILE = Profile.RES_DETECT_QNT_LMT;
 	protected static final boolean POSTABLE = true;
-	protected static final String ENDPOINT = HttpConstants.RES_DETECT_QNT_LMT_SEARCH_ENDPOINT + "?mimeType=";
+	protected static final String ENDPOINT = HttpConstants.RES_DETECT_QNT_LMT_SEARCH_ENDPOINT + "?sorted=yes&mimeType=";
 
 	@Test
 	public void testHarness() throws Exception {

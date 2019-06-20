@@ -29,7 +29,7 @@ public class ResultPhysChemControllerIT extends BaseResultControllerIT {
 
 	protected static final Profile PROFILE = Profile.RESULT_PHYS_CHEM;
 	protected static final boolean POSTABLE = true;
-	protected static final String ENDPOINT = HttpConstants.RESULT_SEARCH_ENDPOINT + "?"
+	protected static final String ENDPOINT = HttpConstants.RESULT_SEARCH_ENDPOINT + "?sorted=yes&"
 			+ Parameters.DATA_PROFILE + "=" + PROFILE + "&mimeType=";
 
 	@Test

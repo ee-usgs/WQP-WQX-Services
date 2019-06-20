@@ -94,7 +94,7 @@ public abstract class BaseControllerIntegrationTest extends BaseIT {
 	}
 
 	protected String getJson(Profile profile) {
-		return "{\"" + Parameters.DATA_PROFILE.toString() + "\":\"" + profile.toString() + "\"}";
+		return "{\"" + Parameters.DATA_PROFILE.toString() + "\":\"" + profile.toString() + "\",\"" + Parameters.SORTED.toString() + "\":\"yes\"}";
 	}
 
 	protected void getAsDelimitedTest(String url, String mimeType, String fileType, Profile profile, boolean isPostable) throws Exception {

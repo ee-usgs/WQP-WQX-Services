@@ -579,7 +579,7 @@ public class BaseControllerTest {
 		TestBaseController.setMimeType(MimeType.csv);
 		//No query parm
 		filter.setSorted("");
-		doMaxRowTrueAsserts(small, "5", "yes", false);
+		doMaxRowTrueAsserts(small, "5", "no", false);
 		//now for a yes
 		filter.setSorted("yes");
 		doMaxRowTrueAsserts(small, "5", "yes", false);
@@ -590,7 +590,7 @@ public class BaseControllerTest {
 		TestBaseController.setMimeType(MimeType.tsv);
 		//No query parm
 		filter.setSorted("");
-		doMaxRowTrueAsserts(small, "5", "yes", false);
+		doMaxRowTrueAsserts(small, "5", "no", false);
 		//now for a yes
 		filter.setSorted("yes");
 		doMaxRowTrueAsserts(small, "5", "yes", false);
@@ -601,7 +601,7 @@ public class BaseControllerTest {
 		TestBaseController.setMimeType(MimeType.xlsx);
 		//No query parm
 		filter.setSorted("");
-		doMaxRowTrueAsserts(small, "5", "yes", false);
+		doMaxRowTrueAsserts(small, "5", "no", false);
 		//now for a yes
 		filter.setSorted("yes");
 		doMaxRowTrueAsserts(small, "5", "yes", false);

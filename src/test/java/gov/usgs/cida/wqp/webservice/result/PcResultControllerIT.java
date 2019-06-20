@@ -28,7 +28,7 @@ public class PcResultControllerIT extends BaseResultControllerIT {
 
 	protected static final Profile PROFILE = Profile.PC_RESULT;
 	protected static final boolean POSTABLE = true;
-	protected static final String ENDPOINT = HttpConstants.RESULT_SEARCH_ENDPOINT + "?mimeType=";
+	protected static final String ENDPOINT = HttpConstants.RESULT_SEARCH_ENDPOINT + "?sorted=yes&mimeType=";
 
 	@Test
 	public void testHarness() throws Exception {

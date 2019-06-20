@@ -40,7 +40,7 @@ public class ActivityMetricControllerIT extends BaseControllerIntegrationTest {
 
 	protected static final Profile PROFILE = Profile.ACTIVITY_METRIC;
 	protected static final boolean POSTABLE = true;
-	protected static final String ENDPOINT = HttpConstants.ACTIVITY_METRIC_SEARCH_ENDPOINT + "?mimeType=";
+	protected static final String ENDPOINT = HttpConstants.ACTIVITY_METRIC_SEARCH_ENDPOINT + "?sorted=yes&mimeType=";
 
 	@Test
 	public void testHarness() throws Exception {

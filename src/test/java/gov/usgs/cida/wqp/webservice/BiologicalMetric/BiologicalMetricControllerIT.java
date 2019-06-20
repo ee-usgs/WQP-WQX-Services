@@ -37,7 +37,7 @@ public class BiologicalMetricControllerIT extends BaseControllerIntegrationTest 
 
 	protected static final Profile PROFILE = Profile.BIOLOGICAL_METRIC;
 	protected static final boolean POSTABLE = true;
-	protected static final String ENDPOINT = HttpConstants.BIOLOGICAL_METRIC_SEARCH_ENDPOINT + "?mimeType=";
+	protected static final String ENDPOINT = HttpConstants.BIOLOGICAL_METRIC_SEARCH_ENDPOINT + "?sorted=yes&mimeType=";
 	protected static final String TOTAL_BIOLOGICAL_METRIC_COUNT = "13";
 	protected static final String BIODATA_BIOLOGICAL_METRIC_COUNT = "2";
 	protected static final String NWIS_BIOLOGICAL_METRIC_COUNT = "2";
