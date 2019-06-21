@@ -40,12 +40,12 @@
     </sql>
 
     <sql id="countrycode">
-        substring(prime.governmental_unit_code, '[^:]+') in 
+        substring(prime.governmental_unit_code, '^[^:]+') in 
         <foreach item="i" collection="countrycode" open="(" separator="," close=")">#{i}</foreach>
     </sql>
 
     <sql id="countycode">
-        substring(prime.governmental_unit_code, '[^:]+:[^:]+:[^:]+') in <foreach item="i" collection="countycode" open="(" separator="," close=")">#{i}</foreach>
+        substring(prime.governmental_unit_code, '^[^:]+:[^:]+:[^:]+$') in <foreach item="i" collection="countycode" open="(" separator="," close=")">#{i}</foreach>
     </sql>
 
     <sql id="huc">
@@ -125,7 +125,7 @@
     </sql>
 
     <sql id="statecode">
-        substring(prime.governmental_unit_code, '[^:]+:[^:]+') in <foreach item="i" collection="statecode" open="(" separator="," close=")">#{i}</foreach>
+        substring(prime.governmental_unit_code, '^[^:]+:[^:]+') in <foreach item="i" collection="statecode" open="(" separator="," close=")">#{i}</foreach>
     </sql>
 
     <sql id="subjectTaxonomicName">

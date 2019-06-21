@@ -43,7 +43,7 @@ public class PeriodOfRecordControllerIT extends BaseControllerIntegrationTest {
 	protected static final String STORET_SITE_SUM_ONE_YEAR_COUNT = "1";
 
 	protected static final boolean POSTABLE = true;
-	protected static final String ENDPOINT = HttpConstants.PERIOD_OF_RECORD_ENDPOINT + "?"
+	protected static final String ENDPOINT = HttpConstants.PERIOD_OF_RECORD_ENDPOINT + "?sorted=yes&"
 			+ Parameters.DATA_PROFILE + "=" + PROFILE + "&mimeType=";
 
 	@Test

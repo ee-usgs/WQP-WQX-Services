@@ -89,6 +89,8 @@ public class ActivityMetricController extends BaseController {
 			@RequestParam(value="zip", required=false) String zip) {
 		FilterParameters filter = new FilterParameters();
 		filter.setActivity(activity);
+		//Small dataset, so sorting shouldn't affect response time, but does make testing repeatable/possible.
+		filter.setSorted("yes");
 		doDataRequest(request, response, filter, mimeType, zip);
 	}
 

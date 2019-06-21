@@ -321,8 +321,8 @@ public abstract class BaseController {
 				filter.setSorted("no");
 				response.addHeader(HttpConstants.HEADER_WARNING, "This query will return in excess of " + configurationService.getMaxResultRows() + " results, the data will not be sorted.");
 			} else {
-				if (null != filter && StringUtils.isBlank(filter.getSorted())) {
-					filter.setSorted("yes");
+				if (StringUtils.isBlank(filter.getSorted())) {
+					filter.setSorted("no");
 				}
 			}
 			return true;

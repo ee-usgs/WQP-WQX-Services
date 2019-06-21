@@ -4,6 +4,8 @@ spring:
     url: jdbc:postgresql://${WQP_DB_HOST}:${WQP_DB_PORT}/${WQP_DB_NAME}
     username: ${WQP_DB_READ_ONLY_USERNAME}
     password: ${WQP_DB_READ_ONLY_PASSWORD}
+    hikari:
+      auto-commit: false
 
   profiles:
     active: default,swagger

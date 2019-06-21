@@ -32,7 +32,7 @@ public class ActivityAllControllerIT extends BaseControllerIntegrationTest {
 
 	protected static final Profile PROFILE = Profile.ACTIVITY_ALL;
 	protected static final boolean POSTABLE = true;
-	protected static final String ENDPOINT = HttpConstants.ACTIVITY_SEARCH_ENDPOINT + "?"
+	protected static final String ENDPOINT = HttpConstants.ACTIVITY_SEARCH_ENDPOINT + "?sorted=yes&"
 			+ Parameters.DATA_PROFILE + "=" + Profile.ACTIVITY_ALL + "&mimeType=";
 
 

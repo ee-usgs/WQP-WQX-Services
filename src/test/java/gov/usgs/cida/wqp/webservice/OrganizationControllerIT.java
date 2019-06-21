@@ -32,7 +32,7 @@ public class OrganizationControllerIT extends BaseControllerIntegrationTest {
 
 	protected static final Profile PROFILE = Profile.ORGANIZATION;
 	protected static final boolean POSTABLE = true;
-	protected static final String ENDPOINT = HttpConstants.ORGANIZATION_SEARCH_ENDPOINT + "?mimeType=";
+	protected static final String ENDPOINT = HttpConstants.ORGANIZATION_SEARCH_ENDPOINT + "?sorted=yes&mimeType=";
 
 	@Test
 	public void testHarness() throws Exception {
