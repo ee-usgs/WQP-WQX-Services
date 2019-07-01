@@ -1,7 +1,7 @@
 .classpath
 .project
 .settings
-.env
+*.env
 *.log*
 /target
 java_pid*
