@@ -3,7 +3,7 @@
 
     <groupId>gov.usgs.cida.wqp</groupId>
     <artifactId>wqp</artifactId>
-    <version>1.0-snapshot</version>
+    <version>1.1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>wqpgateway</name>
@@ -59,7 +59,7 @@
 
         <java.version>11</java.version>
 
-        <commons-text.version>1.6</commons-text.version>
+        <commons-text.version>1.7</commons-text.version>
         <mybatis-spring.version>2.0.0</mybatis-spring.version>
         <mybatis.version>3.5.0</mybatis.version>
         <poi.version>4.1.0</poi.version>
@@ -99,9 +99,9 @@
                         <WQP_READ_ONLY_PASSWORD>changeMe</WQP_READ_ONLY_PASSWORD>
                         <WQP_SCHEMA_NAME>schema_name</WQP_SCHEMA_NAME>
                         <SWAGGER_SERVICES_LOOKUPS_URL>http://127.0.0.1:8080/qw_portal_services</SWAGGER_SERVICES_LOOKUPS_URL>
-                        <SWAGGER_SERVICES_CORE_URL>http://127.0.0.1:8080/wqp</SWAGGER_SERVICES_CORE_URL>
+                        <SWAGGER_SERVICES_CORE_URL>http://127.0.0.1:8080/data</SWAGGER_SERVICES_CORE_URL>
                         <SERVER_PORT>8080</SERVER_PORT>
-                        <SERVER_CONTEXT_PATH>/wqp</SERVER_CONTEXT_PATH>
+                        <SERVER_CONTEXT_PATH>/data</SERVER_CONTEXT_PATH>
                         <ROOT_LOG_LEVEL>INFO</ROOT_LOG_LEVEL>
                         <SITE_URL_BASE>https://www.waterqualitydata.us</SITE_URL_BASE>
                         <CODES_SERVICE_URL>http://127.0.0.1:8080/qw_portal_services/codes</CODES_SERVICE_URL>
@@ -110,7 +110,7 @@
                         <KML_STYLE_URL>https://www.waterqualitydata.us/kml/wqp_styles.kml</KML_STYLE_URL>
                         <MAX_RESULT_ROWS>20000000</MAX_RESULT_ROWS>
                         <SWAGGER_DISPLAY_HOST>127.0.0.1:8080</SWAGGER_DISPLAY_HOST>
-                        <SWAGGER_DISPLAY_PATH>/wqp</SWAGGER_DISPLAY_PATH>
+                        <SWAGGER_DISPLAY_PATH>/data</SWAGGER_DISPLAY_PATH>
                         <SWAGGER_DISPLAY_PROTOCOL>http</SWAGGER_DISPLAY_PROTOCOL>
                     </environmentVariables>
                 </configuration>
@@ -190,7 +190,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.5.RELEASE</version>
+        <version>2.1.6.RELEASE</version>
     </parent>
 
     <dependencies>
@@ -251,7 +251,7 @@
         <dependency>
             <groupId>org.springframework.security.oauth.boot</groupId>
             <artifactId>spring-security-oauth2-autoconfigure</artifactId>
-            <version>2.1.5.RELEASE</version>
+            <version>2.1.6.RELEASE</version>
         </dependency>
 
         <dependency>

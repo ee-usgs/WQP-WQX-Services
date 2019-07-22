@@ -1,7 +1,7 @@
 .classpath
 .project
 .settings
-.env
+*.env
 *.log*
 /target
 java_pid*
@@ -14,4 +14,6 @@ src/main/webapp
 /application.yml
 /config.env
 /secrets.env
+.idea/
+wqp.iml
 /.attach_*
