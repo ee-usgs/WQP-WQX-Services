@@ -9,15 +9,17 @@ import gov.usgs.cida.wqp.parameter.FilterParameters;
 import gov.usgs.cida.wqp.service.ConfigurationService;
 import gov.usgs.cida.wqp.service.ILogService;
 import gov.usgs.cida.wqp.swagger.SwaggerConfig;
+import gov.usgs.cida.wqp.swagger.SwaggerParameters;
 import gov.usgs.cida.wqp.swagger.annotation.FullParameterList;
 import gov.usgs.cida.wqp.swagger.model.ProjectMonitoringLocationWeightingCountJson;
 import gov.usgs.cida.wqp.util.HttpConstants;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponses;
 import io.swagger.annotations.ApiResponse;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -59,35 +61,30 @@ public class ProjectMonitoringLocationWeightingController extends BaseController
 	@ApiOperation(value="Return the project monitoring location weightings associated with the specified project and organization.")
 	@GetMapping(value=HttpConstants.PROJECT_MONITORING_LOCATION_WEIGHTING_REST_ENDPOINT)
 	public void projectMonitoringLocationWeightingRestGet(HttpServletRequest request, HttpServletResponse response,
-			@PathVariable("organization") String organization, @PathVariable("projectIdentifier") String projectIdentifier) throws IOException {
+			@PathVariable("provider") @ApiParam(value=SwaggerParameters.PROVIDER_DESCRIPTION) String provider,
+			@PathVariable("organization") String organization,
+			@PathVariable("projectIdentifier") String projectIdentifier,
+			@RequestParam(value="mimeType", required=false) String mimeType,
+			@RequestParam(value="zip", required=false) String zip) throws IOException {
 		FilterParameters filter = new FilterParameters();
-		List<String> organizationFilter = new ArrayList<>();
-		List<String> projectFilter = new ArrayList<>();
-
-		organizationFilter.add(organization);
-		projectFilter.add(projectIdentifier);
-		filter.setOrganization(organizationFilter);
-		filter.setProject(projectFilter);
-
-		doDataRequest(request, response, filter);
+		filter.setProviders(Arrays.asList(provider));
+		filter.setOrganization(Arrays.asList(organization));
+		filter.setProject(Arrays.asList(projectIdentifier));
+		doDataRequest(request, response, filter, mimeType, zip);
 	}
 
 	@ApiOperation(value="Return appropriate request headers (including anticipated record counts) for the project monitoring location weightings associated with the specified project and organization.")
 	@RequestMapping(value=HttpConstants.PROJECT_MONITORING_LOCATION_WEIGHTING_REST_ENDPOINT, method=RequestMethod.HEAD)
 	public void projectMonitoringLocationWeightingRestHead(HttpServletRequest request, HttpServletResponse response,
+			@PathVariable("provider") @ApiParam(value=SwaggerParameters.PROVIDER_DESCRIPTION) String provider,
 			@PathVariable("organization") String organization, 
 			@PathVariable("projectIdentifier") String projectIdentifier, 
 			@RequestParam(value="mimeType", required=false) String mimeType,
 			@RequestParam(value="zip", required=false) String zip) throws IOException {
 		FilterParameters filter = new FilterParameters();
-		List<String> organizationFilter = new ArrayList<>();
-		List<String> projectFilter = new ArrayList<>();
-
-		organizationFilter.add(organization);
-		projectFilter.add(projectIdentifier);
-		filter.setOrganization(organizationFilter);
-		filter.setProject(projectFilter);
-
+		filter.setProviders(Arrays.asList(provider));
+		filter.setOrganization(Arrays.asList(organization));
+		filter.setProject(Arrays.asList(projectIdentifier));
 		doHeadRequest(request, response, filter, mimeType, zip);
 	}
 

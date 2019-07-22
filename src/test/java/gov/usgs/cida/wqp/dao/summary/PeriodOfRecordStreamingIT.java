@@ -337,6 +337,7 @@ public class PeriodOfRecordStreamingIT extends BaseStationStreamingTest {
 		FilterParameters filter = new FilterParameters();
 		filter.setSorted("yes");
 		filter.setSummaryYears(summaryYears);
+		filter.setSiteUrlBase(getSiteUrlBase());
 		return callDao(nameSpace, expectedSize, filter);
 	}
 	

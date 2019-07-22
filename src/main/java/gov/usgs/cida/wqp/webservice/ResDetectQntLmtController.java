@@ -1,5 +1,6 @@
 package gov.usgs.cida.wqp.webservice;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -26,7 +27,6 @@ import gov.usgs.cida.wqp.mapping.Profile;
 import gov.usgs.cida.wqp.mapping.delimited.ResultDelimited;
 import gov.usgs.cida.wqp.mapping.xml.IXmlMapping;
 import gov.usgs.cida.wqp.parameter.FilterParameters;
-import gov.usgs.cida.wqp.parameter.ResultIdentifier;
 import gov.usgs.cida.wqp.service.ConfigurationService;
 import gov.usgs.cida.wqp.service.ILogService;
 import gov.usgs.cida.wqp.swagger.SwaggerConfig;
@@ -67,13 +67,17 @@ public class ResDetectQntLmtController extends BaseController {
 	@ApiOperation(value="Return appropriate request headers (including anticipated record counts) for the specified result.")
 	@RequestMapping(value=HttpConstants.RES_DETECT_QNT_LMT_REST_ENDPOINT, method=RequestMethod.HEAD)
 	public void resDetectQntLmtHeadRestRequest(HttpServletRequest request, HttpServletResponse response,
+			@PathVariable("provider") @ApiParam(value=SwaggerParameters.PROVIDER_DESCRIPTION) String provider,
+			@PathVariable("organization") @ApiParam(value=SwaggerParameters.ORGANIZATION_DESCRIPTION) String organization,
 			@PathVariable("activity") @ApiParam(value=SwaggerParameters.ACTIVITY_DESCRIPTION) String activity,
-			@PathVariable("result") @ApiParam(value=SwaggerParameters.RESULT_DESCRIPTION) String result,
+			@PathVariable("result") @ApiParam(value=SwaggerParameters.RESULT_DESCRIPTION) String resultId,
 			@RequestParam(value="mimeType", required=false) String mimeType,
 			@RequestParam(value="zip", required=false) String zip) {
 		FilterParameters filter = new FilterParameters();
+		filter.setProviders(Arrays.asList(provider));
+		filter.setOrganization(Arrays.asList(organization));
 		filter.setActivity(activity);
-		filter.setResult(new ResultIdentifier(result));
+		filter.setResultId(resultId);
 		doHeadRequest(request, response, filter, mimeType, zip);
 	}
 
@@ -87,13 +91,17 @@ public class ResDetectQntLmtController extends BaseController {
 	@ApiOperation(value="Return result detection quantitative limit information for the specified result.")
 	@GetMapping(value=HttpConstants.RES_DETECT_QNT_LMT_REST_ENDPOINT)
 	public void resDetectQntLmtGetRestRequest(HttpServletRequest request, HttpServletResponse response,
+			@PathVariable("provider") @ApiParam(value=SwaggerParameters.PROVIDER_DESCRIPTION) String provider,
+			@PathVariable("organization") @ApiParam(value=SwaggerParameters.ORGANIZATION_DESCRIPTION) String organization,
 			@PathVariable("activity") @ApiParam(value=SwaggerParameters.ACTIVITY_DESCRIPTION) String activity,
-			@PathVariable("result") @ApiParam(value=SwaggerParameters.RESULT_DESCRIPTION) String result,
+			@PathVariable("result") @ApiParam(value=SwaggerParameters.RESULT_DESCRIPTION) String resultId,
 			@RequestParam(value="mimeType", required=false) String mimeType,
 			@RequestParam(value="zip", required=false) String zip) {
 		FilterParameters filter = new FilterParameters();
+		filter.setProviders(Arrays.asList(provider));
+		filter.setOrganization(Arrays.asList(organization));
 		filter.setActivity(activity);
-		filter.setResult(new ResultIdentifier(result));
+		filter.setResultId(resultId);
 		doDataRequest(request, response, filter, mimeType, zip);
 	}
 

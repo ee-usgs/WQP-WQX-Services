@@ -149,6 +149,7 @@ public class ResDetectQntLmtStreamingIT extends FilteredResDetectQntLmtDaoTest {
 		pcodeTest();
 		projectTest();
 		providersTest();
+		restTest();
 		resultTest();
 		sampleMediaTest();
 		siteIdTest();
@@ -393,10 +394,22 @@ public class ResDetectQntLmtStreamingIT extends FilteredResDetectQntLmtDaoTest {
 				STORET_65, STORET_66, STORET_67, STORET_68, STORET_69, STORET_70, STORET_71, STORET_72, STORET_73);
 	}
 
-	public void resultTest() {
-		List<Map<String, Object>> results = resultTest(nameSpace, 1);
+	public void restTest() {
+		FilterParameters filter = new FilterParameters();
+		filter.setProviders(getRestProviders());
+		filter.setOrganization(getRestOrganizations());
+		filter.setActivity(getActivity());
+		filter.setResultId(getResult());
+		filter.setDataProfile(getDataProfileFromNameSpace(nameSpace));
+		List<Map<String, Object>> results = callDao(nameSpace, 1, filter);
 		assertContainsResDetectQntLmt(results,
 				STORET_39);
+	}
+
+	public void resultTest() {
+		List<Map<String, Object>> results = resultTest(nameSpace, 2); 
+		assertContainsResDetectQntLmt(results,
+				NWIS_14, STORET_39);
 	}
 
 	public void sampleMediaTest() {

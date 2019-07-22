@@ -14,3 +14,4 @@ src/main/webapp
 /application.yml
 /config.env
 /secrets.env
+/.attach_*

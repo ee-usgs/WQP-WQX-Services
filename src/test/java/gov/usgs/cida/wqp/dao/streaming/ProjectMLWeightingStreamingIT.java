@@ -85,6 +85,7 @@ public class ProjectMLWeightingStreamingIT extends FilteredProjectDaoTest {
 		pcodeTest();
 		projectTest();
 		providersTest();
+		restTest();
 		resultTest();
 		sampleMediaTest();
 		siteIdTest();
@@ -241,6 +242,15 @@ public class ProjectMLWeightingStreamingIT extends FilteredProjectDaoTest {
 	public void providersTest() {
 		List<Map<String, Object>> results = providersTest(nameSpace, 6);
 		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, STORET_PRJMLW3, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2);
+	}
+
+	public void restTest() {
+		FilterParameters filter = new FilterParameters();
+		filter.setProviders(getRestProviders());
+		filter.setOrganization(getRestOrganizations());
+		filter.setProject(getRestProjects());
+		List<Map<String, Object>> results = callDao(nameSpace, 1, filter);
+		assertContainsProjectMLWeightings(results, STORET_PRJMLW1);
 	}
 
 	public void resultTest() {

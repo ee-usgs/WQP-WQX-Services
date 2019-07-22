@@ -1,8 +1,6 @@
 package gov.usgs.cida.wqp.webservice;
 
-import static gov.usgs.cida.wqp.swagger.model.ActivityCountJson.HEADER_STORET_ACTIVITY_COUNT;
-import static gov.usgs.cida.wqp.swagger.model.ActivityMetricCountJson.HEADER_STORET_ACTIVITY_METRIC_COUNT;
-import static gov.usgs.cida.wqp.swagger.model.StationCountJson.HEADER_STORET_SITE_COUNT;
+import static gov.usgs.cida.wqp.swagger.model.ProjectMonitoringLocationWeightingCountJson.HEADER_STORET_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 
 import org.junit.Test;
@@ -27,13 +25,13 @@ import gov.usgs.cida.wqp.util.HttpConstants;
 	classes={DBTestConfig.class, Application.class})
 @DatabaseSetup("classpath:/testData/csv/")
 @DbUnitConfiguration(dataSetLoader = CsvDataSetLoader.class)
-public class ActivityMetricRestfullIT extends BaseControllerIntegrationTest {
+public class ProjectMLWeightingRestfullIT extends BaseControllerIntegrationTest {
 
-	protected static final Profile PROFILE = Profile.ACTIVITY_METRIC;
+	protected static final Profile PROFILE = Profile.PROJECT_MONITORING_LOCATION_WEIGHTING;
 	protected static final boolean POSTABLE = false;
-	protected static final String ENDPOINT = HttpConstants.ACTIVITY_METRIC_REST_ENDPOINT
+	protected static final String ENDPOINT = HttpConstants.PROJECT_MONITORING_LOCATION_WEIGHTING_REST_ENDPOINT
 			.replace("{provider}", getRestProvider()).replace("{organization}", getRestOrganization())
-			.replace("{activity}", getActivity()) + "?mimeType=";
+			.replace("{projectIdentifier}", getRestProject()) + "?mimeType=";
 
 	@Test
 	public void testHarness() throws Exception {
@@ -81,20 +79,14 @@ public class ActivityMetricRestfullIT extends BaseControllerIntegrationTest {
 
 	@Override
 	protected String getNoResultParameters(String url) {
-		return url.replace(getActivity(), "abc");
+		return url.replace(getRestProvider(), "abc");
 	}
 
 	@Override
 	public ResultActions unFilteredHeaderCheck(ResultActions resultActions) throws Exception {
 		return resultActions
-				.andExpect(header().string(HttpConstants.HEADER_TOTAL_SITE_COUNT, "1"))
-				.andExpect(header().string(HEADER_STORET_SITE_COUNT, "1"))
-
-				.andExpect(header().string(HttpConstants.HEADER_TOTAL_ACTIVITY_COUNT, "1"))
-				.andExpect(header().string(HEADER_STORET_ACTIVITY_COUNT, "1"))
-
-				.andExpect(header().string(HttpConstants.HEADER_TOTAL_ACTIVITY_METRIC_COUNT, "6"))
-				.andExpect(header().string(HEADER_STORET_ACTIVITY_METRIC_COUNT, "6"));
+				.andExpect(header().string(HttpConstants.HEADER_TOTAL_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT, "1"))
+				.andExpect(header().string(HEADER_STORET_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT, "1"));
 	}
 
 	@Override
@@ -105,11 +97,7 @@ public class ActivityMetricRestfullIT extends BaseControllerIntegrationTest {
 	@Override
 	public ResultActions noResultHeaderCheck(ResultActions resultActions) throws Exception {
 		return resultActions
-				.andExpect(header().string(HttpConstants.HEADER_TOTAL_SITE_COUNT, "0"))
-
-				.andExpect(header().string(HttpConstants.HEADER_TOTAL_ACTIVITY_COUNT, "0"))
-
-				.andExpect(header().string(HttpConstants.HEADER_TOTAL_ACTIVITY_METRIC_COUNT, "0"));
+				.andExpect(header().string(HttpConstants.HEADER_TOTAL_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT, "0"));
 	}
 
 }

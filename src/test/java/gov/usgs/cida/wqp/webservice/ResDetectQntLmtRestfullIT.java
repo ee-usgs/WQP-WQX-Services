@@ -32,7 +32,9 @@ public class ResDetectQntLmtRestfullIT extends BaseControllerIntegrationTest {
 
 	protected static final Profile PROFILE = Profile.RES_DETECT_QNT_LMT;
 	protected static final boolean POSTABLE = false;
-	protected static final String ENDPOINT = HttpConstants.RES_DETECT_QNT_LMT_REST_ENDPOINT.replace("{activity}", getActivity()).replace("{result}", getResult().getSingle()) + "?mimeType=";
+	protected static final String ENDPOINT = HttpConstants.RES_DETECT_QNT_LMT_REST_ENDPOINT
+			.replace("{provider}", getRestProvider()).replace("{organization}", getRestOrganization())
+			.replace("{activity}", getActivity()).replace("{result}", getResult()) + "?mimeType=";
 
 	@Test
 	public void testHarness() throws Exception {

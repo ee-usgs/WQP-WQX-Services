@@ -23,7 +23,6 @@ import org.springframework.mock.web.MockHttpServletResponse;
 
 import gov.usgs.cida.wqp.BaseTest;
 import gov.usgs.cida.wqp.dao.BlobDao;
-import gov.usgs.cida.wqp.parameter.ResultIdentifier;
 import gov.usgs.cida.wqp.service.ILogService;
 import gov.usgs.cida.wqp.service.LogServiceTest;
 import gov.usgs.cida.wqp.util.HttpConstants;
@@ -77,35 +76,46 @@ public class BlobControllerTest extends BaseTest {
 
 	@Test
 	public void projectTest() throws IOException {
-		controller.projectBlobFilesGetRestRequest(request, response, "organization", "projectIdentifier");
+		controller.projectBlobFilesGetRestRequest(request, response, "provider", "organization", "projectIdentifier");
 		assertTrue(response.containsHeader(HttpConstants.HEADER_CONTENT_DISPOSITION));
 		assertEquals("attachment; filename=" + BlobController.PROJECT_FILE, response.getHeader(HttpConstants.HEADER_CONTENT_DISPOSITION));
 		assertEquals(0, response.getContentLength());
 		verify(logService).logRequest(request, response);
 		verify(logService).logRequestComplete(any(), anyString(), anyMap());
-		verify(blobDao).getProjectFiles(any(ZipOutputStream.class), anyString(), anyString());
+		verify(blobDao).getProjectFiles(any(ZipOutputStream.class), anyString(), anyString(), anyString());
 	}
 
 	@Test
 	public void stationTest() throws IOException {
-		controller.monitoringLocationBlobFilesGetRestRequest(request, response, "organization", "projectIdentifier");
+		controller.monitoringLocationBlobFilesGetRestRequest(request, response, "provider", "organization", "projectIdentifier");
 		assertTrue(response.containsHeader(HttpConstants.HEADER_CONTENT_DISPOSITION));
 		assertEquals("attachment; filename=" + BlobController.MONITORING_LOCATION_FILE, response.getHeader(HttpConstants.HEADER_CONTENT_DISPOSITION));
 		assertEquals(0, response.getContentLength());
 		verify(logService).logRequest(request, response);
 		verify(logService).logRequestComplete(any(), anyString(), anyMap());
-		verify(blobDao).getMonitoringLocationFiles(any(ZipOutputStream.class), anyString(), anyString());
+		verify(blobDao).getMonitoringLocationFiles(any(ZipOutputStream.class), anyString(), anyString(), anyString());
+	}
+
+	@Test
+	public void activityTest() throws IOException {
+		controller.activityBlobFilesGetRestRequest(request, response, "provider", "organization", "activity");
+		assertTrue(response.containsHeader(HttpConstants.HEADER_CONTENT_DISPOSITION));
+		assertEquals("attachment; filename=" + BlobController.ACTIVITY_FILE, response.getHeader(HttpConstants.HEADER_CONTENT_DISPOSITION));
+		assertEquals(0, response.getContentLength());
+		verify(logService).logRequest(request, response);
+		verify(logService).logRequestComplete(any(), anyString(), anyMap());
+		verify(blobDao).getActivityFiles(any(ZipOutputStream.class), anyString(), anyString(), anyString());
 	}
 
 	@Test
 	public void resultTest() throws IOException {
-		controller.resultBlobFilesGetRestRequest(request, response, "organization", "activity", "result");
+		controller.resultBlobFilesGetRestRequest(request, response, "provider", "organization", "activity", "result");
 		assertTrue(response.containsHeader(HttpConstants.HEADER_CONTENT_DISPOSITION));
 		assertEquals("attachment; filename=" + BlobController.RESULT_FILE, response.getHeader(HttpConstants.HEADER_CONTENT_DISPOSITION));
 		assertEquals(0, response.getContentLength());
 		verify(logService).logRequest(request, response);
 		verify(logService).logRequestComplete(any(), anyString(), anyMap());
-		verify(blobDao).getResultFiles(any(ZipOutputStream.class), anyString(), anyString(), any(ResultIdentifier.class));
+		verify(blobDao).getResultFiles(any(ZipOutputStream.class), anyString(), anyString(), anyString(), anyString());
 	}
 
 }

@@ -53,7 +53,6 @@ public class FilterParameters {
 	public static final String REGEX_DATA_PROFILE = String.join("|", Profile.getValues());
 	public static final String REGEX_SUMMARY_YEARS = "1|5|all";
 
-
 	private String activity;
 
 	@Size(min=0, max=IN_CLAUSE_LIMIT, message="The analyticalmethod is not between {min} and {max} occurances")
@@ -105,7 +104,7 @@ public class FilterParameters {
 
 	@Pattern(regexp=REGEX_MIMETYPES, message="The value of mimeType=${validatedValue} must match the format {regexp}")
 	private String mimeType;
-	
+
 	@Pattern(regexp=REGEX_SUMMARY_YEARS, message="The value of summaryYears=${validatedValue} must match the format {regexp}")
 	private String summaryYears;
 
@@ -138,7 +137,7 @@ public class FilterParameters {
 	@Size(min=0, max=IN_CLAUSE_LIMIT, message="The providers is not between {min} and {max} occurances")
 	private List<@Lookup(parameter=Parameters.PROVIDERS) String> providers;
 
-	private ResultIdentifier result;
+	private String resultId;
 
 	@Size(min=0, max=IN_CLAUSE_LIMIT, message="The sampleMedia is not between {min} and {max} occurances")
 	private List<@Lookup(parameter=Parameters.SAMPLE_MEDIA) String> sampleMedia;
@@ -214,8 +213,7 @@ public class FilterParameters {
 	}
 	public void setBBox(BoundingBox bBox) {
 		this.bBox = bBox;
-	}	
-	
+	}
 	@JsonProperty("bBox")
 	public void setBboxFromJson(String bBox) {
 		this.bBox = new BoundingBox(bBox);
@@ -308,7 +306,6 @@ public class FilterParameters {
 	public void setOrganization(List<String> organization) {
 		this.organization = organization;
 	}
-	
 	public List<String> getPCode() {
 		return pCode;
 	}
@@ -327,26 +324,12 @@ public class FilterParameters {
 	public void setProviders(List<String> providers) {
 		this.providers = providers;
 	}
-	
-	
-	public ResultIdentifier getResult() {
-		return result;
+	public String getResultId() {
+		return resultId;
 	}
-	
-	public void setResult(ResultIdentifier result) {
-		this.result = result;
+	public void setResultId(String resultId) {
+		this.resultId = resultId;
 	}
-	
-	@JsonProperty("result")
-	public void setResultFromJson(String result) {
-		this.result = new ResultIdentifier(result);
-	}
-	
-	@JsonProperty("result")
-	public String getResultForJson() {
-		return null == result ? null : result.getSingle();
-	}
-	
 	public List<String> getSampleMedia() {
 		return sampleMedia;
 	}
@@ -450,7 +433,6 @@ public class FilterParameters {
 				&& (null == pCode || pCode.isEmpty())
 				&& (null == project || project.isEmpty())
 				&& (null == providers || providers.isEmpty())
-				&& (null == result || StringUtils.isBlank(result.getSingle()))
 				&& (null == sampleMedia || sampleMedia.isEmpty())
 				&& (null == siteid || siteid.isEmpty())
 				&& (null == siteType || siteType.isEmpty())

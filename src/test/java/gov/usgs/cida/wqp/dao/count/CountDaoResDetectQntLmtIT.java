@@ -14,6 +14,7 @@ import gov.usgs.cida.wqp.CsvDataSetLoader;
 import gov.usgs.cida.wqp.dao.CountDao;
 import gov.usgs.cida.wqp.dao.NameSpace;
 import gov.usgs.cida.wqp.mapping.CountColumn;
+import gov.usgs.cida.wqp.parameter.FilterParameters;
 import gov.usgs.cida.wqp.springinit.DBTestConfig;
 
 @SpringBootTest(webEnvironment=WebEnvironment.NONE,
@@ -57,6 +58,7 @@ public class CountDaoResDetectQntLmtIT extends BaseCountDaoTest {
 		pcodeTest();
 		projectTest();
 		providersTest();
+		restTest();
 		resultTest();
 		sampleMediaTest();
 		siteIdTest();
@@ -221,12 +223,26 @@ public class CountDaoResDetectQntLmtIT extends BaseCountDaoTest {
 		assertResDetectQntLmtResults(counts, "69", "7", "9", "53", null);
 	}
 
-	public void resultTest() {
-		List<Map<String, Object>> counts = resultTest(nameSpace, 2);
+	public void restTest() {
+		FilterParameters filter = new FilterParameters();
+		filter.setProviders(getRestProviders());
+		filter.setOrganization(getRestOrganizations());
+		filter.setActivity(getActivity());
+		filter.setResultId(getResult());
+		filter.setDataProfile(getDataProfileFromNameSpace(nameSpace));
+		List<Map<String, Object>> counts = callDao(nameSpace, 2, filter);
 		assertStationResults(counts, "1", null, null, "1", null);
 		assertActivityResults(counts, "1", null, null, "1", null);
 		assertResultResults(counts, "1", null, null, "1", null);
 		assertResDetectQntLmtResults(counts, "1", null, null, "1", null);
+	}
+
+	public void resultTest() {
+		List<Map<String, Object>> counts = resultTest(nameSpace, 3);
+		assertStationResults(counts, "2", "1", null, "1", null);
+		assertActivityResults(counts, "2", "1", null, "1", null);
+		assertResultResults(counts, "2", "1", null, "1", null);
+		assertResDetectQntLmtResults(counts, "2", "1", null, "1", null);
 	}
 
 	public void sampleMediaTest() {

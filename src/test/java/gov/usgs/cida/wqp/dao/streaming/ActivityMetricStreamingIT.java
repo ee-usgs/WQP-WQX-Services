@@ -107,6 +107,7 @@ public class ActivityMetricStreamingIT extends FilteredActivityMetricDaoTest {
 		pcodeTest();
 		projectTest();
 		providersTest();
+		restTest();
 		resultTest();
 		sampleMediaTest();
 		siteIdTest();
@@ -249,6 +250,16 @@ public class ActivityMetricStreamingIT extends FilteredActivityMetricDaoTest {
 		assertContainsActivityMetric(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_4,
 				STORET_5A, STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F, STORET_6, STORET_7, STORET_8, STORET_9,
 				STORET_10, STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_16);
+	}
+
+	public void restTest() {
+		FilterParameters filter = new FilterParameters();
+		filter.setProviders(getRestProviders());
+		filter.setOrganization(getRestOrganizations());
+		filter.setActivity(getActivity());
+		filter.setDataProfile(getDataProfileFromNameSpace(nameSpace));
+		List<Map<String, Object>> results = callDao(nameSpace, 6, filter);
+		assertContainsActivityMetric(results, STORET_5A, STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F);
 	}
 
 	public void resultTest() {

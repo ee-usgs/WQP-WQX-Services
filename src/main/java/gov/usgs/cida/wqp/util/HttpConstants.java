@@ -36,17 +36,21 @@ public class HttpConstants {
 	public static final String PROJECT_MONITORING_LOCATION_WEIGHTING_SEARCH_ENDPOINT = '/' + ENDPOINT_PROJECT_MONITORING_LOCATION_WEIGHTING + ENDPOINT_SEARCH;
 	public static final String ORGANIZATION_SEARCH_ENDPOINT = "/" + ENDPOINT_ORGANIZATION + ENDPOINT_SEARCH;
 
-	public static final String PROJECT_MONITORING_LOCATION_WEIGHTING_REST_ENDPOINT = "/organizations/{organization}/projects/{projectIdentifier}/projectMonitoringLocationWeightings";
+	public static final String PROVIDER_REST_ENDPOINT = "/providers/{provider}";
+	public static final String ORGANIZATION_REST_ENDPOINT = PROVIDER_REST_ENDPOINT + "/organizations/{organization}";
 
-	public static final String ACTIVITY_REST_ENDPOINT = "/activities/{activity}";
-	public static final String ACTIVITY_METRIC_REST_ENDPOINT = ACTIVITY_REST_ENDPOINT + "/activitymetrics";
-	public static final String RES_DETECT_QNT_LMT_REST_ENDPOINT = ACTIVITY_REST_ENDPOINT + "/results/{result}/resdetectqntlmts";
-
-	public static final String ORGANIZATION_REST_ENDPOINT = "/organizations/{organization}";
+	public static final String PROJECT_MONITORING_LOCATION_WEIGHTING_REST_ENDPOINT = ORGANIZATION_REST_ENDPOINT + "/projects/{projectIdentifier}/projectMonitoringLocationWeightings";
 	public static final String MONITORING_LOCATION_FILE_REST_ENDPOINT = ORGANIZATION_REST_ENDPOINT + "/monitoringlocations/{monitoringLocation}" + ENDPOINT_FILE;
+
+	public static final String ACTIVITY_REST_ENDPOINT = ORGANIZATION_REST_ENDPOINT + "/activities/{activity}";
+	public static final String ACTIVITY_METRIC_REST_ENDPOINT = ACTIVITY_REST_ENDPOINT + "/activitymetrics";
+
 	public static final String PROJECT_FILE_REST_ENDPOINT = ORGANIZATION_REST_ENDPOINT + "/projects/{project}" + ENDPOINT_FILE;
-	public static final String ACTIVITY_FILE_REST_ENDPOINT = ORGANIZATION_REST_ENDPOINT + ACTIVITY_REST_ENDPOINT + ENDPOINT_FILE;
-	public static final String RESULT_FILE_REST_ENDPOINT = ORGANIZATION_REST_ENDPOINT + ACTIVITY_REST_ENDPOINT + "/results/{result}" + ENDPOINT_FILE;
+	public static final String ACTIVITY_FILE_REST_ENDPOINT = ACTIVITY_REST_ENDPOINT + ENDPOINT_FILE;
+
+	public static final String RESULT_REST_ENDPOINT = ACTIVITY_REST_ENDPOINT + "/results/{result}";
+	public static final String RESULT_FILE_REST_ENDPOINT = RESULT_REST_ENDPOINT + ENDPOINT_FILE;
+	public static final String RES_DETECT_QNT_LMT_REST_ENDPOINT = RESULT_REST_ENDPOINT + "/resdetectqntlmts";
 
 	public static final int HEADER_WARNING_DEFAULT_CODE = 299;
 	public static final String HEADER_FATAL_ERROR = "FATAL-ERROR";
