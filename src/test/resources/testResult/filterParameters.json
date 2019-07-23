@@ -17,7 +17,7 @@
 	"organization": ["ARS", "11NPSWRD", "USGS-WI", "WIDNR_WQX", "organization"],
 	"project": ["projectId", "CEAP", "NAWQA", "SACR BioTDB"],
 	"providers": ["NWIS", "STEWARDS", "STORET"],
-	"result": "STORET-5",
+	"resultId": "5",
 	"sampleMedia": ["sampleMedia", "Other", "Sediment", "Water"],
 	"siteid": ["organization-siteId", "organization-siteId2", "organization-siteId3", "11NPSWRD-BICA_MFG_B", "WIDNR_WQX-10030952", "USGS-05425700", "USGS-431925089002701", "ARS-IAWC-IAWC225", "ARS-IAWC-IAWC410"],
 	"siteType": ["siteType", "Lake, Reservoir, Impoundment", "Land", "Stream"],

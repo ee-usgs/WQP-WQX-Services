@@ -6,14 +6,18 @@
     <sql id="activityMetricBase">
         from act_metric prime
         <choose>
-            <when test="analyticalmethod == null and assemblage == null and characteristicName == null and
-                        characteristicType == null and pCode == null and subjectTaxonomicName == null and
-                        (minactivities != null or minresults != null)">
+            <when test="analyticalmethod != null or assemblage != null or characteristicName != null or
+                        characteristicType != null or pCode != null or subjectTaxonomicName != null">
+                <include refid="dynamicWhere.activityJoinResultSum"/>
+            </when>
+            <when test="bBox != null or countrycode != null or countycode != null or command != null or
+                        huc != null or lat != null or long != null or minactivities != null or
+                        minresults != null or nldiSites != null or organization != null or
+                        project != null or providers != null or sampleMedia != null or
+                        siteid != null or siteType != null or startDateHi != null or startDateLo != null or
+                        statecode != null or within != null">
                 <include refid="dynamicWhere.activityJoinActivitySum"/>
             </when>
-            <otherwise>
-                <include refid="dynamicWhere.activityJoinResultSum"/>
-            </otherwise>
         </choose>
         <where>
             <include refid="dynamicWhere.activityLimitWhere"/>

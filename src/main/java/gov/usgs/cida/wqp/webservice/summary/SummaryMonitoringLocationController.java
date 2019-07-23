@@ -126,4 +126,9 @@ public class SummaryMonitoringLocationController extends BaseController {
 		return determineProfile(Profile.SUMMARY_MONITORING_LOCATION, filter);
 	}
 
+	@Override
+	protected void addCustomRequestParams() {
+		getFilter().setSiteUrlBase(configurationService.getSiteUrlBase());
+	}
+
 }

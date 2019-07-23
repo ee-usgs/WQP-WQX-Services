@@ -16,3 +16,4 @@ src/main/webapp
 /secrets.env
 .idea/
 wqp.iml
+/.attach_*

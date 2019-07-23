@@ -59,9 +59,8 @@
                      prime.data_source_id = secondary.data_source_id
                 <where>
                     <include refid="dynamicWhere.baseWhereResultClauses" />
-                    <if test="result != null">
-                        and data_source = #{result.dataSource}
-                        and result_id = #{result.resultId}
+                    <if test="resultId != null">
+                        and result_id = #{resultId}::int
                     </if>
                     <if test="minactivities != null">
                         and site_activity_count >= #{minactivities}::int
@@ -78,9 +77,8 @@
                     <if test="activity != null">
                         and (<include refid="dynamicWhere.activity" />)
                     </if>
-                    <if test="result != null">
-                        and data_source = #{result.dataSource}
-                        and result_id = #{result.resultId}::int
+                    <if test="resultId != null">
+                        and result_id = #{resultId}::int
                     </if>
                 </where>
             </otherwise>

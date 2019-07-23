@@ -139,19 +139,27 @@ public class BlobControllerIT extends BaseIT {
 	}
 
 	protected String buildMonitoringLocationUrl(String organization, String monitoringLocation) {
-		return buildBaseUrl(HttpConstants.MONITORING_LOCATION_FILE_REST_ENDPOINT, organization).replace("{monitoringLocation}", monitoringLocation);
+		return buildBaseUrl(HttpConstants.MONITORING_LOCATION_FILE_REST_ENDPOINT, organization)
+				.replace("{provider}", getRestProvider()).replace("{organization}", getRestOrganization())
+				.replace("{monitoringLocation}", monitoringLocation);
 	}
 
 	protected String buildProjectUrl(String organization, String project) {
-		return buildBaseUrl(HttpConstants.PROJECT_FILE_REST_ENDPOINT, organization).replace("{project}", project);
+		return buildBaseUrl(HttpConstants.PROJECT_FILE_REST_ENDPOINT, organization)
+				.replace("{provider}", getRestProvider()).replace("{organization}", getRestOrganization())
+				.replace("{project}", project);
 	}
 
 	protected String buildActivityUrl(String organization, String activity) {
-		return buildBaseUrl(HttpConstants.ACTIVITY_FILE_REST_ENDPOINT, organization).replace("{activity}", activity);
+		return buildBaseUrl(HttpConstants.ACTIVITY_FILE_REST_ENDPOINT, organization)
+				.replace("{provider}", getRestProvider()).replace("{organization}", getRestOrganization())
+				.replace("{activity}", activity);
 	}
 
 	protected String buildResultUrl(String organization, String activity,  String resultIdentifier) {
-		return buildBaseUrl(HttpConstants.RESULT_FILE_REST_ENDPOINT, organization).replace("{activity}", activity)
+		return buildBaseUrl(HttpConstants.RESULT_FILE_REST_ENDPOINT, organization)
+				.replace("{provider}", getRestProvider()).replace("{organization}", getRestOrganization())
+				.replace("{activity}", activity)
 				.replace("{result}", resultIdentifier);
 	}
 

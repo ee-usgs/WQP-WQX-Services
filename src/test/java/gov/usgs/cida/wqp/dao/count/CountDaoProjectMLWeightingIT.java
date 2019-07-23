@@ -14,6 +14,7 @@ import gov.usgs.cida.wqp.CsvDataSetLoader;
 import gov.usgs.cida.wqp.dao.CountDao;
 import gov.usgs.cida.wqp.dao.NameSpace;
 import gov.usgs.cida.wqp.mapping.CountColumn;
+import gov.usgs.cida.wqp.parameter.FilterParameters;
 import gov.usgs.cida.wqp.springinit.DBTestConfig;
 
 @SpringBootTest(webEnvironment=WebEnvironment.NONE,
@@ -53,6 +54,7 @@ public class CountDaoProjectMLWeightingIT extends BaseCountDaoTest {
 		pcodeTest();
 		projectTest();
 		providersTest();
+		restTest();
 		resultTest();
 		sampleMediaTest();
 		siteIdTest();
@@ -239,6 +241,15 @@ public class CountDaoProjectMLWeightingIT extends BaseCountDaoTest {
 	public void providersTest() {
 		List<Map<String, Object>> counts = providersTest(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, 4);
 		assertResults(counts, CountColumn.KEY_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT, "6", "2", "1", "3", null);
+	}
+
+	public void restTest() {
+		FilterParameters filter = new FilterParameters();
+		filter.setProviders(getRestProviders());
+		filter.setOrganization(getRestOrganizations());
+		filter.setProject(getRestProjects());
+		List<Map<String, Object>> counts = callDao(NameSpace.PROJECT_MONITORING_LOCATION_WEIGHTING, 2, filter);
+		assertResults(counts, CountColumn.KEY_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT, "1", null, null, "1", null);
 	}
 
 	public void resultTest() {

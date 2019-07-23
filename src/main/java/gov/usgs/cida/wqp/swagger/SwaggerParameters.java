@@ -23,6 +23,7 @@ import springfox.documentation.service.Parameter;
 @Component
 public class SwaggerParameters {
 
+	public static final String PROVIDER_DESCRIPTION = "Case-sensitive Provider Identifier.";
 	public static final String MONITORING_LOCATION_DESCRIPTION = "Case-sensitive Monitoring Location (Site ID).";
 	public static final String ORGANIZATION_DESCRIPTION = "Case-sensitive Organization Identifier.";
 	public static final String PROJECT_IDENTIFIER_DESCRIPTION = "Case-sensitive Project Identifier.";

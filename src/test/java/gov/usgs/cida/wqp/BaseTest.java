@@ -10,6 +10,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -22,9 +23,7 @@ import org.springframework.util.FileCopyUtils;
 import gov.usgs.cida.wqp.mapping.Profile;
 import gov.usgs.cida.wqp.parameter.BoundingBox;
 import gov.usgs.cida.wqp.parameter.Command;
-import gov.usgs.cida.wqp.parameter.ResultIdentifier;
 import gov.usgs.cida.wqp.transform.Transformer;
-import java.time.LocalDate;
 
 public abstract class BaseTest {
 	LocalDate currentDate = LocalDate.now();
@@ -302,13 +301,31 @@ public abstract class BaseTest {
 	public List<String> getProject() {
 		return Arrays.asList("projectId", "CEAP", "NAWQA", "SACR BioTDB");
 	}
+	public static String getRestProject() {
+		return "WR047";
+	}
+	public static List<String> getRestProjects() {
+		return Arrays.asList(getRestProject());
+	}
 
 	public List<String> getProviders() {
 		return Arrays.asList(NWIS, STEWARDS, STORET);
 	}
 
-	public static ResultIdentifier getResult() {
-		return new ResultIdentifier("STORET-5");
+	public static String getRestProvider() {
+		return "STORET";
+	}
+	public List<String> getRestProviders() {
+		return Arrays.asList(getRestProvider());
+	}
+	public static String getRestOrganization() {
+		return "WIDNR_WQX";
+	}
+	public List<String> getRestOrganizations() {
+		return Arrays.asList(getRestOrganization());
+	}
+	public static String getResultId() {
+		return "5";
 	}
 
 	public List<String> getSampleMedia() {

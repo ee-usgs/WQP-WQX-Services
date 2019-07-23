@@ -14,6 +14,7 @@ import gov.usgs.cida.wqp.CsvDataSetLoader;
 import gov.usgs.cida.wqp.dao.CountDao;
 import gov.usgs.cida.wqp.dao.NameSpace;
 import gov.usgs.cida.wqp.mapping.CountColumn;
+import gov.usgs.cida.wqp.parameter.FilterParameters;
 import gov.usgs.cida.wqp.springinit.DBTestConfig;
 
 @SpringBootTest(webEnvironment=WebEnvironment.NONE,
@@ -57,6 +58,7 @@ public class CountDaoActivityMetricIT extends BaseCountDaoTest {
 		pcodeTest();
 		projectTest();
 		providersTest();
+		restTest();
 		resultTest();
 		sampleMediaTest();
 		siteIdTest();
@@ -218,6 +220,17 @@ public class CountDaoActivityMetricIT extends BaseCountDaoTest {
 	public void providersTest() {
 		List<Map<String, Object>> counts = providersTest(nameSpace, includeActivity, includeResults);
 		assertActivityMetricResults(counts, "27", "3", "3", "21", null);
+	}
+
+	public void restTest() {
+		FilterParameters filter = new FilterParameters();
+		filter.setProviders(getRestProviders());
+		filter.setOrganization(getRestOrganizations());
+		filter.setActivity(getActivity());
+		List<Map<String, Object>> counts = callDao(nameSpace, 2, filter);
+		assertStationResults(counts, "1", null, null, "1", null);
+		assertActivityResults(counts, "1", null, null, "1", null);
+		assertActivityMetricResults(counts, "6", null, null, "6", null);
 	}
 
 	public void resultTest() {
