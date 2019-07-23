@@ -29,7 +29,7 @@ public class BlobDao {
 	}
 
 	public int getProjectFiles(ZipOutputStream target, String provider, String organization, String projectIdentifier) {
-		LOG.trace("Getting file for: providers/{}/organizations/{}/projects/{}", organization, projectIdentifier);
+		LOG.trace("Getting file for: providers/{}/organizations/{}/projects/{}", provider, organization, projectIdentifier);
 		StreamingCallbackHandler handler = new StreamingCallbackHandler(target);
 		jdbcTemplate.query("select object_name, object_content from project_object where data_source = ? and organization = ? and project_identifier = ? order by object_id",
 				new Object[] {provider, organization, projectIdentifier},
@@ -38,7 +38,7 @@ public class BlobDao {
 	}
 
 	public int getMonitoringLocationFiles(ZipOutputStream target, String provider, String organization, String monitoringLocation) {
-		LOG.trace("Getting file for: providers/{}/organizations/{}/monitoringLocation/{}", organization, monitoringLocation);
+		LOG.trace("Getting file for: providers/{}/organizations/{}/monitoringLocation/{}", provider, organization, monitoringLocation);
 		StreamingCallbackHandler handler = new StreamingCallbackHandler(target);
 		jdbcTemplate.query("select object_name, object_content from station_object where data_source = ? and organization = ? and site_id = ? order by object_id",
 				new Object[] {provider, organization, monitoringLocation},
@@ -47,7 +47,7 @@ public class BlobDao {
 	}
 
 	public int getResultFiles(ZipOutputStream target, String provider, String organization, String activity, String resultId) {
-		LOG.trace("Getting file for: providers/{}/organizations/{}/activities/{}/results/{}", organization, activity, resultId);
+		LOG.trace("Getting file for: providers/{}/organizations/{}/activities/{}/results/{}", provider, organization, activity, resultId);
 		StreamingCallbackHandler handler = new StreamingCallbackHandler(target);
 		jdbcTemplate.query("select object_name, object_content from result_object where data_source = ? and organization = ? and activity = ? and result_id = ?::int order by object_id",
 			new Object[] {provider, organization, activity, resultId},
@@ -56,7 +56,7 @@ public class BlobDao {
 	}
 
 	public int getActivityFiles(ZipOutputStream target, String provider, String organization, String activity) {
-		LOG.trace("Getting file for: providers/{}/organizations/{}/activities/{}", organization, activity);
+		LOG.trace("Getting file for: providers/{}/organizations/{}/activities/{}", provider, organization, activity);
 		StreamingCallbackHandler handler = new StreamingCallbackHandler(target);
 		jdbcTemplate.query("select object_name, object_content from activity_object where data_source = ? and  organization = ? and activity = ? order by object_id",
 				new Object[] {provider, organization, activity},

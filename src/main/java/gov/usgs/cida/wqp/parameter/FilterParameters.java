@@ -433,6 +433,7 @@ public class FilterParameters {
 				&& (null == pCode || pCode.isEmpty())
 				&& (null == project || project.isEmpty())
 				&& (null == providers || providers.isEmpty())
+				&& StringUtils.isBlank(resultId)
 				&& (null == sampleMedia || sampleMedia.isEmpty())
 				&& (null == siteid || siteid.isEmpty())
 				&& (null == siteType || siteType.isEmpty())

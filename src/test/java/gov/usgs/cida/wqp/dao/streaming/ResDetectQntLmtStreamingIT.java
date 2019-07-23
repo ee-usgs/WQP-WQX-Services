@@ -399,7 +399,7 @@ public class ResDetectQntLmtStreamingIT extends FilteredResDetectQntLmtDaoTest {
 		filter.setProviders(getRestProviders());
 		filter.setOrganization(getRestOrganizations());
 		filter.setActivity(getActivity());
-		filter.setResultId(getResult());
+		filter.setResultId(getResultId());
 		filter.setDataProfile(getDataProfileFromNameSpace(nameSpace));
 		List<Map<String, Object>> results = callDao(nameSpace, 1, filter);
 		assertContainsResDetectQntLmt(results,

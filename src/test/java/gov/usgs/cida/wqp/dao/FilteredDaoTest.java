@@ -268,7 +268,7 @@ public abstract class FilteredDaoTest extends BaseIT {
 
 	public List<Map<String, Object>> resultTest(NameSpace nameSpace, int expectedSize) {
 		FilterParameters filter = new FilterParameters();
-		filter.setResultId(getResult());
+		filter.setResultId(getResultId());
 		filter.setDataProfile(getDataProfileFromNameSpace(nameSpace));
 		return callDao(nameSpace, expectedSize, filter);
 	}
@@ -371,7 +371,7 @@ public abstract class FilteredDaoTest extends BaseIT {
 		filter.setMimeType(JSON);
 		filter.setNldiurl(getNldiurl());
 		if (!NameSpace.RES_DETECT_QNT_LMT.equals(nameSpace)) {
-			filter.setResultId(getResult());
+			filter.setResultId(getResultId());
 		}
 		filter.setSiteUrlBase(getSiteUrlBase());
 		filter.setSorted("yes");

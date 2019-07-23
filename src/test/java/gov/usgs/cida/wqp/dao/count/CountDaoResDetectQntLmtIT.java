@@ -228,7 +228,7 @@ public class CountDaoResDetectQntLmtIT extends BaseCountDaoTest {
 		filter.setProviders(getRestProviders());
 		filter.setOrganization(getRestOrganizations());
 		filter.setActivity(getActivity());
-		filter.setResultId(getResult());
+		filter.setResultId(getResultId());
 		filter.setDataProfile(getDataProfileFromNameSpace(nameSpace));
 		List<Map<String, Object>> counts = callDao(nameSpace, 2, filter);
 		assertStationResults(counts, "1", null, null, "1", null);

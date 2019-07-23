@@ -58,7 +58,7 @@ public class FilterParametersTest extends BaseTest {
 		filter.setPCode(getPcode());
 		filter.setProject(getProject());
 		filter.setProviders(getProviders());
-		filter.setResultId(getResult());
+		filter.setResultId(getResultId());
 		filter.setSampleMedia(getSampleMedia());
 		filter.setSiteid(getSiteId());
 		filter.setSiteType(getSiteType());

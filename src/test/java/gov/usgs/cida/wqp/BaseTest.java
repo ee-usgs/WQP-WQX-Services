@@ -324,7 +324,7 @@ public abstract class BaseTest {
 	public List<String> getRestOrganizations() {
 		return Arrays.asList(getRestOrganization());
 	}
-	public static String getResult() {
+	public static String getResultId() {
 		return "5";
 	}
 
