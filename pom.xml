@@ -59,7 +59,7 @@
 
         <java.version>11</java.version>
 
-        <commons-text.version>1.7</commons-text.version>
+        <commons-text.version>1.8</commons-text.version>
         <mybatis-spring.version>2.0.0</mybatis-spring.version>
         <mybatis.version>3.5.0</mybatis.version>
         <poi.version>4.1.0</poi.version>
