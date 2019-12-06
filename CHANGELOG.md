@@ -4,18 +4,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html). (Patch version X.Y.0 is implied if not specified.)
 
-## [Unreleased](https://github.com/NWQMC/ogcproxy/compare/WQP-WQX-Services/compare/wqp-1.1.0...master)
+## [Unreleased](https://github.com/NWQMC/ogcproxy/compare/WQP-WQX-Services/compare/WQP-WQX-Services-1.2.0...master)
+### Added
+-   Automated Database Integration tests
+-   Code Coverage reporting
+
+### Changed
+-   Spring-Boot-Starter > 2.2.0
+
+## [1.2.0](https://github.com/NWQMC/WQP-WQX-Services/compare/WQP-WQX-Services-1.1.0...WQP-WQX-Services-1.2.0)
 ### Changed
 -   Updated Jenkins build and deploy pipeline and configuration to use a new pipeline library
 
-## [1.1.0](https://github.com/NWQMC/WQP-WQX-Services/compare/wqp-1.0.0...wqp-1.1.0)
+## [1.1.0](https://github.com/NWQMC/WQP-WQX-Services/compare/WQP-WQX-Services-1.0.0...WQP-WQX-Services-1.1.0)
 ### Fixed
 -   Fixed problems with queries timing out
 
 ### Changed 
 -   Url mappings where changed to /data
 
-## [1.0.0](https://github.com/NWQMC/WQP-WQX-Services/compare/wqp-0.20.0...wqp-1.0.0)
+## [1.0.0](https://github.com/NWQMC/WQP-WQX-Services/compare/wqp-0.20.0...WQP-WQX-Services-1.0.0)
 ### Changed
 -   Convert to PostgreSQL.
 

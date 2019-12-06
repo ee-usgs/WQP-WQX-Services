@@ -59,13 +59,13 @@
 
         <java.version>11</java.version>
 
-        <commons-text.version>1.8</commons-text.version>
-        <mybatis-spring.version>2.0.0</mybatis-spring.version>
-        <mybatis.version>3.5.0</mybatis.version>
-        <poi.version>4.1.0</poi.version>
-        <springfox.version>2.9.2</springfox.version>
+<!--         <commons-text.version>1.8</commons-text.version> -->
+<!--         <mybatis-spring.version>2.0.0</mybatis-spring.version> -->
+<!--         <mybatis.version>3.5.0</mybatis.version> -->
+<!--         <poi.version>4.1.0</poi.version> -->
+<!--         <springfox.version>2.9.2</springfox.version> -->
 
-        <powermock.version>2.0.2</powermock.version>
+<!--         <powermock.version>2.0.2</powermock.version> -->
     </properties>
 
 <!-- ==================================================================================================================== -->
