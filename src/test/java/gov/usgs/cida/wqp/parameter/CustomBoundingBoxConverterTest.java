@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 public class CustomBoundingBoxConverterTest {
 
-	CustomBoundingBoxConverter converter = new CustomBoundingBoxConverter();
+	private CustomBoundingBoxConverter converter = new CustomBoundingBoxConverter();
 
 	@Test
 	public void emptyStringTest() {

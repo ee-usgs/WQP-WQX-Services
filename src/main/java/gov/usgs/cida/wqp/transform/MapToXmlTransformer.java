@@ -105,7 +105,7 @@ public class MapToXmlTransformer extends Transformer {
 				if ( ! lNode.equalsIgnoreCase(nodes.peek()) ) {
 					closeNodes(sb, lNode);
 				}
-				sb.append("<").append(cleanse_node(node)).append(">");
+				sb.append("<").append(cleanseNode(node)).append(">");
 				nodes.push(node);
 			}
 			lNode = node;
@@ -115,7 +115,7 @@ public class MapToXmlTransformer extends Transformer {
 	}
 
 	/** Small hack to correctly format child nodes that are not controllable by a hard break. */
-	protected String cleanse_node(String node) {
+	protected String cleanseNode(String node) {
 		switch (node) {
 		case WQX_FREQUENCY_CLASS_INFO_1:
 		case WQX_FREQUENCY_CLASS_INFO_2:
@@ -161,7 +161,7 @@ public class MapToXmlTransformer extends Transformer {
 		if (StringUtils.isBlank(rText)) {
 			return "";
 		} else {
-			String rawText = cleanse_node(rText);
+			String rawText = cleanseNode(rText);
 			StringBuilder closingNode = new StringBuilder("</");
 			if (rawText.trim().contains(" ")) {
 				closingNode.append(rawText.trim().substring(0, rawText.trim().indexOf(" ")));

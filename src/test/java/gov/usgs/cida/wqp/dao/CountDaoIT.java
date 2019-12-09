@@ -21,12 +21,12 @@ import gov.usgs.cida.wqp.springinit.DBTestConfig;
 public class CountDaoIT extends BaseIT {
 
 	@Autowired
-	CountDao countDao;
+	private CountDao countDao;
 
-	FilterParameters filter;
-	String one = "1";
-	String five = "5";
-	String twelve = "12";
+	private FilterParameters filter;
+	private String one = "1";
+	private String five = "5";
+	private String twelve = "12";
 
 	@BeforeEach
 	public void setUp() throws Exception {

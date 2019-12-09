@@ -21,6 +21,9 @@ import gov.usgs.cida.wqp.PostgresqlDataTypeFactoryWithJson;
 @Import(MybatisConfig.class)
 public class DBTestConfig extends SpringTestConfig {
 
+	@Value("${WQP_SCHEMA_NAME}")
+	private String schemaName;
+
 	@Bean
 	@Primary
 	@ConfigurationProperties(prefix="spring.datasource")
@@ -46,9 +49,6 @@ public class DBTestConfig extends SpringTestConfig {
 	public DataSource dataSourceWqpCore() {
 		return dataSourcePropertiesWqpCore().initializeDataSourceBuilder().build();
 	}
-
-	@Value("${WQP_SCHEMA_NAME}")
-	private String schemaName;
 
 	//Beans to support DBunit for unit testing with PostgreSQL.
 	@Bean

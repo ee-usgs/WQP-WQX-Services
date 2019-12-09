@@ -178,10 +178,10 @@ public class MapToXmlTransformerTest {
 
 	@Test
 	public void cleanseNodeTest() {
-		assertEquals("abc", transformer.cleanse_node("abc"));
-		assertEquals(WQX_FREQUENCY_CLASS_INFO, transformer.cleanse_node(WQX_FREQUENCY_CLASS_INFO_1));
-		assertEquals(WQX_FREQUENCY_CLASS_INFO, transformer.cleanse_node(WQX_FREQUENCY_CLASS_INFO_2));
-		assertEquals(WQX_FREQUENCY_CLASS_INFO, transformer.cleanse_node(WQX_FREQUENCY_CLASS_INFO_3));
-		assertEquals(WQX_FREQUENCY_CLASS_INFO_3 + "a", transformer.cleanse_node(WQX_FREQUENCY_CLASS_INFO_3 + "a"));
+		assertEquals("abc", transformer.cleanseNode("abc"));
+		assertEquals(WQX_FREQUENCY_CLASS_INFO, transformer.cleanseNode(WQX_FREQUENCY_CLASS_INFO_1));
+		assertEquals(WQX_FREQUENCY_CLASS_INFO, transformer.cleanseNode(WQX_FREQUENCY_CLASS_INFO_2));
+		assertEquals(WQX_FREQUENCY_CLASS_INFO, transformer.cleanseNode(WQX_FREQUENCY_CLASS_INFO_3));
+		assertEquals(WQX_FREQUENCY_CLASS_INFO_3 + "a", transformer.cleanseNode(WQX_FREQUENCY_CLASS_INFO_3 + "a"));
 	}
 }

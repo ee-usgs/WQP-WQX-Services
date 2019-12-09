@@ -37,14 +37,14 @@ import gov.usgs.cida.wqp.webservice.TestBaseController;
 public class LogServiceTest {
 
 	@Mock
-	ILogDao logDao;
-	LogService service;
-	Integer FIFTY_FIVE = 55;
+	private ILogDao logDao;
+	private LogService service;
+	private Integer FIFTY_FIVE = 55;
 	@SuppressWarnings("rawtypes")
-	ArgumentCaptor<Map> valueCapture = ArgumentCaptor.forClass(Map.class);
-	MockHttpServletRequest request;
-	MockHttpServletResponse response;
-	FilterParameters filter;
+	private ArgumentCaptor<Map> valueCapture = ArgumentCaptor.forClass(Map.class);
+	private MockHttpServletRequest request;
+	private MockHttpServletResponse response;
+	private FilterParameters filter;
 
 	public static final int LOG_REQUEST_PARAMETER_COUNT = 6;
 

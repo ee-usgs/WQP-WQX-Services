@@ -30,13 +30,13 @@ import gov.usgs.cida.wqp.util.HttpConstants;
 public class BlobControllerTest extends BaseTest {
 
 	@Mock
-	BlobDao blobDao;
+	private BlobDao blobDao;
 	@Mock
-	ILogService logService;
-	BlobController controller;
-	Integer FIFTY_FIVE = 55;
-	MockHttpServletRequest request;
-	MockHttpServletResponse response;
+	private ILogService logService;
+	private BlobController controller;
+	private Integer FIFTY_FIVE = 55;
+	private MockHttpServletRequest request;
+	private MockHttpServletResponse response;
 
 	@BeforeEach
 	public void setup() {

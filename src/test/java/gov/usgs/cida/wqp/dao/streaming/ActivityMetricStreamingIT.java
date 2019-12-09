@@ -41,9 +41,9 @@ public class ActivityMetricStreamingIT extends FilteredActivityMetricDaoTest {
 	private static final Logger LOG = LoggerFactory.getLogger(ActivityMetricStreamingIT.class);
 
 	@Autowired 
-	IStreamingDao streamingDao;
+	private IStreamingDao streamingDao;
 
-	NameSpace nameSpace = NameSpace.ACTIVITY_METRIC;
+	private NameSpace nameSpace = NameSpace.ACTIVITY_METRIC;
 
 	public static final String[] STEWARDS_1 = new String[]{STEWARDS, "1_1_type_identifier"};
 	public static final String[] STEWARDS_2 = new String[]{STEWARDS, "1_2_type_identifier"};
