@@ -1,7 +1,7 @@
 package gov.usgs.cida.wqp.dao.streaming.result;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.math.BigDecimal;
 import java.util.LinkedList;
@@ -457,7 +457,7 @@ public abstract class BaseResultStreamingTest extends FilteredResultDaoTest {
 				fail(ActivityColumn.KEY_DATA_SOURCE_ID + ":" + i[0] + "/" + ResultColumn.KEY_RESULT_ID + ":" + i[1] + " was not in the result set.");
 			}
 		}
-		assertEquals("Double check expected size", results.size(), resultIds.length);
+		assertEquals(results.size(), resultIds.length, "Double check expected size");
 	}
 
 	@Override

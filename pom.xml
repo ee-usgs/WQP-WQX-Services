@@ -7,13 +7,8 @@
     <packaging>jar</packaging>
 
     <name>wqpgateway</name>
-    <url>http://cida.usgs.gov/</url>
 
     <inceptionYear>2015</inceptionYear>
-    <organization>
-        <name>Center for Integrated Data Analytics</name>
-        <url>http://cida.usgs.gov</url>
-    </organization>
 
     <licenses>
         <license>
@@ -33,39 +28,12 @@
         </license>
     </licenses>
 
-    <developers>
-        <developer>
-            <id>prusso</id>
-            <name>Philip Russo</name>
-            <email>prusso@usgs.gov</email>
-            <organization>Center for Integrated Data Analytics</organization>
-            <organizationUrl>http://cida.usgs.gov</organizationUrl>
-            <timezone>-6</timezone>
-        </developer>
-        <developer>
-            <id>duselman</id>
-            <name>David Uselmann</name>
-            <email>duselmann@usgs.gov</email>
-            <organization>Center for Integrated Data Analytics</organization>
-            <organizationUrl>http://cida.usgs.gov</organizationUrl>
-            <timezone>-6</timezone>
-        </developer>
-    </developers>
-
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <cida.maven.url>http://internal.cida.usgs.gov/maven</cida.maven.url>
         <additionalparam>-Xdoclint:none</additionalparam>
 
         <java.version>11</java.version>
-
-<!--         <commons-text.version>1.8</commons-text.version> -->
-<!--         <mybatis-spring.version>2.0.0</mybatis-spring.version> -->
-<!--         <mybatis.version>3.5.0</mybatis.version> -->
-<!--         <poi.version>4.1.0</poi.version> -->
-<!--         <springfox.version>2.9.2</springfox.version> -->
-
-<!--         <powermock.version>2.0.2</powermock.version> -->
     </properties>
 
 <!-- ==================================================================================================================== -->
@@ -89,15 +57,13 @@
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <configuration>
                     <environmentVariables>
-                        <WQP_DB_HOST>127.0.0.1</WQP_DB_HOST>
-                        <WQP_DB_PORT>5434</WQP_DB_PORT>
-                        <WQP_DB_NAME>db_name</WQP_DB_NAME>
-                        <WQP_DB_URL>jdbc:postgresql://localhost:5434/db_name</WQP_DB_URL>
-                        <WQP_SCHEMA_OWNER_USERNAME>schema_owner</WQP_SCHEMA_OWNER_USERNAME>
+                        <WQP_DATABASE_ADDRESS>${TESTING_DATABASE_ADDRESS}</WQP_DATABASE_ADDRESS>
+                        <WQP_DATABASE_PORT>${TESTING_DATABASE_PORT}</WQP_DATABASE_PORT>
+                        <WQP_DATABASE_NAME>wqp_db</WQP_DATABASE_NAME>
+                        <WQP_SCHEMA_OWNER_USERNAME>wqp_core</WQP_SCHEMA_OWNER_USERNAME>
                         <WQP_SCHEMA_OWNER_PASSWORD>changeMe</WQP_SCHEMA_OWNER_PASSWORD>
-                        <WQP_READ_ONLY_USERNAME>read_only</WQP_READ_ONLY_USERNAME>
-                        <WQP_READ_ONLY_PASSWORD>changeMe</WQP_READ_ONLY_PASSWORD>
-                        <WQP_SCHEMA_NAME>schema_name</WQP_SCHEMA_NAME>
+                        <WQP_DB_READ_ONLY_USERNAME>wqp_user</WQP_DB_READ_ONLY_USERNAME>
+                        <WQP_DB_READ_ONLY_PASSWORD>changeMe</WQP_DB_READ_ONLY_PASSWORD>
                         <SWAGGER_SERVICES_LOOKUPS_URL>http://127.0.0.1:8080/qw_portal_services</SWAGGER_SERVICES_LOOKUPS_URL>
                         <SWAGGER_SERVICES_CORE_URL>http://127.0.0.1:8080/data</SWAGGER_SERVICES_CORE_URL>
                         <SERVER_PORT>8080</SERVER_PORT>
@@ -145,29 +111,22 @@
                 </executions>
                 <configuration>
                     <showLogs>true</showLogs>
+                    <containerNamePattern>%a</containerNamePattern>
                     <images>
                         <image>
                             <name>usgswma/wqp_db:ci</name>
+                            <alias>wqpDatabase</alias>
                             <run>
+                                <network>
+                                    <mode>custom</mode>
+                                    <name>${TESTING_DATABASE_NETWORK}</name>
+                                </network>
                                 <ports>
-                                    <port>5434:5432</port>
+                                    <port>5437:5432</port>
                                 </ports>
-                                <env>
-                                    <POSTGRES_PASSWORD>changeMe</POSTGRES_PASSWORD>
-                                    <POSTGRES_DB>db_name</POSTGRES_DB>
-                                    <DATABASE_ADDRESS>127.0.0.1</DATABASE_ADDRESS>
-                                    <CONTEXTS>external,ci,schemaLoad</CONTEXTS>
-                                    <WQP_DATABASE_NAME>db_name</WQP_DATABASE_NAME>
-                                    <WQP_SCHEMA_NAME>schema_name</WQP_SCHEMA_NAME>
-                                    <WQP_DB_OWNER_USERNAME>db_owner</WQP_DB_OWNER_USERNAME>
-                                    <WQP_DB_OWNER_PASSWORD>changeMe</WQP_DB_OWNER_PASSWORD>
-                                    <WQP_SCHEMA_OWNER_USERNAME>schema_owner</WQP_SCHEMA_OWNER_USERNAME>
-                                    <WQP_SCHEMA_OWNER_PASSWORD>changeMe</WQP_SCHEMA_OWNER_PASSWORD>
-                                    <WQP_READ_ONLY_USERNAME>read_only</WQP_READ_ONLY_USERNAME>
-                                    <WQP_READ_ONLY_PASSWORD>changeMe</WQP_READ_ONLY_PASSWORD>
-                                </env>
                                 <wait>
-                                    <time>60000</time>
+                                    <time>150000</time>
+                                    <log>(?s)PostgreSQL init process complete; ready for start up.*database system is ready to accept connections</log>
                                 </wait>
                             </run>
                         </image>
@@ -190,7 +149,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.9.RELEASE</version>
+        <version>2.2.2.RELEASE</version>
     </parent>
 
     <dependencies>
@@ -213,7 +172,7 @@
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
-            <version>2.1.0</version>
+            <version>2.1.1</version>
         </dependency>
 
         <dependency>
@@ -230,18 +189,13 @@
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
-            <version>${springfox.version}</version>
+            <version>2.9.2</version>
         </dependency>
 
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
-            <version>${springfox.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
+            <version>2.9.2</version>
         </dependency>
 
         <dependency>
@@ -251,7 +205,7 @@
         <dependency>
             <groupId>org.springframework.security.oauth.boot</groupId>
             <artifactId>spring-security-oauth2-autoconfigure</artifactId>
-            <version>2.1.9.RELEASE</version>
+            <version>2.2.2.RELEASE</version>
         </dependency>
 
         <dependency>
@@ -261,20 +215,16 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-text</artifactId>
-            <version>${commons-text.version}</version>
+            <version>1.8</version>
         </dependency>
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>
-            <version>${poi.version}</version>
+            <version>4.1.0</version>
         </dependency>
         <dependency>
             <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish</groupId>
-            <artifactId>javax.el</artifactId>
         </dependency>
 
         <!-- ================================================================== -->
@@ -290,21 +240,16 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.powermock</groupId>
-            <artifactId>powermock-module-junit4</artifactId>
-            <version>${powermock.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.jayway.jsonpath</groupId>
-            <artifactId>json-path-assert</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -326,8 +271,9 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <artifactId>byte-buddy</artifactId>
-            <groupId>net.bytebuddy</groupId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
         </dependency>
     </dependencies>
 </project>

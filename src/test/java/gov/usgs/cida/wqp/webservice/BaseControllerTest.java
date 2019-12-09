@@ -8,12 +8,12 @@ import static gov.usgs.cida.wqp.swagger.model.ResultCountJson.HEADER_NWIS_RESULT
 import static gov.usgs.cida.wqp.swagger.model.StationCountJson.HEADER_NWIS_SITE_COUNT;
 import static gov.usgs.cida.wqp.swagger.model.StationCountJson.NWIS;
 import static gov.usgs.cida.wqp.swagger.model.StationCountJson.STORET;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyList;
@@ -52,12 +52,11 @@ import javax.validation.Validator;
 
 import org.apache.ibatis.session.ResultHandler;
 import org.hibernate.validator.internal.engine.ConstraintViolationImpl;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.powermock.reflect.Whitebox;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -125,25 +124,25 @@ public class BaseControllerTest {
 	private ContentNegotiationStrategy contentStrategy;
 	@Mock
 	private Validator validator;
+	@Mock
+	private ConfigurationService configurationService;
 
 	private TestBaseController testController;
 	private MockHttpServletRequest request;
-	private ConfigurationService configurationService;
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		MockitoAnnotations.initMocks(this);
-		configurationService = new ConfigurationService();
-		Whitebox.setInternalState(configurationService, "maxResultRows", 100);
-		Whitebox.setInternalState(configurationService, "codesUrl", "http://test-url.usgs.gov");
 		testController = new TestBaseController(streamingDao, countDao, logService, contentStrategy, validator, configurationService);
 		request = new MockHttpServletRequest();
 		TestBaseController.remove();
 		when(validator.validate(any(FilterParameters.class))).thenReturn(Collections.emptySet());
 		when(logService.logRequest(any(HttpServletRequest.class), any(HttpServletResponse.class), any(FilterParameters.class))).thenReturn(null);
+		when(configurationService.getMaxResultRows()).thenReturn(100);
+		when(configurationService.getCodesUrl()).thenReturn("http://test-url.usgs.gov");
 	}
 
-	@After
+	@AfterEach
 	public void teardown() {
 		//Need to manually clear out thread locals
 		TestBaseController.remove();
@@ -504,150 +503,149 @@ public class BaseControllerTest {
 	@Test
 	public void checkMaxRowsTest() {
 		FilterParameters filter = new FilterParameters();
-		Whitebox.setInternalState(configurationService, "maxResultRows", 10);
-		TestBaseController small = new TestBaseController(null, null, null, null, null, configurationService);
+		when(configurationService.getMaxResultRows()).thenReturn(10);
 		TestBaseController.setFilter(filter);
 
 		//xml formats ok when less than max & always sorted
 		TestBaseController.setMimeType(MimeType.xml);
 		//No query parm
-		doMaxRowTrueAsserts(small, "5", "yes", false);
+		doMaxRowTrueAsserts("5", "yes", false);
 		//now for a yes
 		filter.setSorted("yes");
-		doMaxRowTrueAsserts(small, "5", "yes", false);
+		doMaxRowTrueAsserts("5", "yes", false);
 		//now for a no
 		filter.setSorted("no");
-		doMaxRowTrueAsserts(small, "5", "yes", false);
+		doMaxRowTrueAsserts("5", "yes", false);
 
 		TestBaseController.setMimeType(MimeType.kml);
 		//No query parm
 		filter.setSorted("");
-		doMaxRowTrueAsserts(small, "5", "yes", false);
+		doMaxRowTrueAsserts("5", "yes", false);
 		//now for a yes
 		filter.setSorted("yes");
-		doMaxRowTrueAsserts(small, "5", "yes", false);
+		doMaxRowTrueAsserts("5", "yes", false);
 		//now for a no
 		filter.setSorted("no");
-		doMaxRowTrueAsserts(small, "5", "yes", false);
+		doMaxRowTrueAsserts("5", "yes", false);
 
 		TestBaseController.setMimeType(MimeType.kmz);
 		//No query parm
 		filter.setSorted("");
-		doMaxRowTrueAsserts(small, "5", "yes", false);
+		doMaxRowTrueAsserts("5", "yes", false);
 		//now for a yes
 		filter.setSorted("yes");
-		doMaxRowTrueAsserts(small, "5", "yes", false);
+		doMaxRowTrueAsserts("5", "yes", false);
 		//now for a no
 		filter.setSorted("no");
-		doMaxRowTrueAsserts(small, "5", "yes", false);
+		doMaxRowTrueAsserts("5", "yes", false);
 
 		//xml formats not ok when greater than max
 		TestBaseController.setMimeType(MimeType.xml);
 		//No query parm
 		filter.setSorted("");
-		doMaxRowFalseAsserts(small, "15");
+		doMaxRowFalseAsserts("15");
 		//now for a yes
 		filter.setSorted("yes");
-		doMaxRowFalseAsserts(small, "15");
+		doMaxRowFalseAsserts("15");
 		//now for a no
 		filter.setSorted("no");
-		doMaxRowFalseAsserts(small, "15");
+		doMaxRowFalseAsserts("15");
 
 		TestBaseController.setMimeType(MimeType.kml);
 		//No query parm
 		filter.setSorted("");
-		doMaxRowFalseAsserts(small, "15");
+		doMaxRowFalseAsserts("15");
 		//now for a yes
 		filter.setSorted("yes");
-		doMaxRowFalseAsserts(small, "15");
+		doMaxRowFalseAsserts("15");
 		//now for a no
 		filter.setSorted("no");
-		doMaxRowFalseAsserts(small, "15");
+		doMaxRowFalseAsserts("15");
 
 		TestBaseController.setMimeType(MimeType.kmz);
 		//No query parm
 		filter.setSorted("");
-		doMaxRowFalseAsserts(small, "15");
+		doMaxRowFalseAsserts("15");
 		//now for a yes
 		filter.setSorted("yes");
-		doMaxRowFalseAsserts(small, "15");
+		doMaxRowFalseAsserts("15");
 		//now for a no
 		filter.setSorted("no");
-		doMaxRowFalseAsserts(small, "15");
+		doMaxRowFalseAsserts("15");
 
 		//other formats less than max always ok & sorting based on given (or lack of) sorted query parameter
 		TestBaseController.setMimeType(MimeType.csv);
 		//No query parm
 		filter.setSorted("");
-		doMaxRowTrueAsserts(small, "5", "no", false);
+		doMaxRowTrueAsserts("5", "no", false);
 		//now for a yes
 		filter.setSorted("yes");
-		doMaxRowTrueAsserts(small, "5", "yes", false);
+		doMaxRowTrueAsserts("5", "yes", false);
 		//now for a no
 		filter.setSorted("no");
-		doMaxRowTrueAsserts(small, "5", "no", false);
+		doMaxRowTrueAsserts("5", "no", false);
 
 		TestBaseController.setMimeType(MimeType.tsv);
 		//No query parm
 		filter.setSorted("");
-		doMaxRowTrueAsserts(small, "5", "no", false);
+		doMaxRowTrueAsserts("5", "no", false);
 		//now for a yes
 		filter.setSorted("yes");
-		doMaxRowTrueAsserts(small, "5", "yes", false);
+		doMaxRowTrueAsserts("5", "yes", false);
 		//now for a no
 		filter.setSorted("no");
-		doMaxRowTrueAsserts(small, "5", "no", false);
+		doMaxRowTrueAsserts("5", "no", false);
 
 		TestBaseController.setMimeType(MimeType.xlsx);
 		//No query parm
 		filter.setSorted("");
-		doMaxRowTrueAsserts(small, "5", "no", false);
+		doMaxRowTrueAsserts("5", "no", false);
 		//now for a yes
 		filter.setSorted("yes");
-		doMaxRowTrueAsserts(small, "5", "yes", false);
+		doMaxRowTrueAsserts("5", "yes", false);
 		//now for a no
 		filter.setSorted("no");
-		doMaxRowTrueAsserts(small, "5", "no", false);
+		doMaxRowTrueAsserts("5", "no", false);
 
 		//other formats are ok, but not sorted when greater than max - and warning header given
 		TestBaseController.setMimeType(MimeType.csv);
 		//No query parm
 		filter.setSorted("");
-		doMaxRowTrueAsserts(small, "15", "no", true);
+		doMaxRowTrueAsserts("15", "no", true);
 		//now for a yes
 		filter.setSorted("yes");
-		doMaxRowTrueAsserts(small, "15", "no", true);
+		doMaxRowTrueAsserts("15", "no", true);
 		//now for a no
 		filter.setSorted("no");
-		doMaxRowTrueAsserts(small, "15", "no", true);
+		doMaxRowTrueAsserts("15", "no", true);
 
 		TestBaseController.setMimeType(MimeType.tsv);
 		//No query parm
 		filter.setSorted("");
-		doMaxRowTrueAsserts(small, "15", "no", true);
+		doMaxRowTrueAsserts("15", "no", true);
 		//now for a yes
 		filter.setSorted("yes");
-		doMaxRowTrueAsserts(small, "15", "no", true);
+		doMaxRowTrueAsserts("15", "no", true);
 		//now for a no
 		filter.setSorted("no");
-		doMaxRowTrueAsserts(small, "15", "no", true);
+		doMaxRowTrueAsserts("15", "no", true);
 
 		TestBaseController.setMimeType(MimeType.xlsx);
 		//No query parm
 		filter.setSorted("");
-		doMaxRowTrueAsserts(small, "15", "no", true);
+		doMaxRowTrueAsserts("15", "no", true);
 		//now for a yes
 		filter.setSorted("yes");
-		doMaxRowTrueAsserts(small, "15", "no", true);
+		doMaxRowTrueAsserts("15", "no", true);
 		//now for a no
 		filter.setSorted("no");
-		doMaxRowTrueAsserts(small, "15", "no", true);
+		doMaxRowTrueAsserts("15", "no", true);
 	}
 
-	public void doMaxRowTrueAsserts(TestBaseController small, String rows, String expectedSort, boolean isHeaderexpected) {
+	public void doMaxRowTrueAsserts(String rows, String expectedSort, boolean isHeaderexpected) {
 		HttpServletResponse response = new MockHttpServletResponse();
 		response.setHeader("total", rows);
-		assertTrue(small.checkMaxRows(response, "total"));
+		assertTrue(testController.checkMaxRows(response, "total"));
 		assertEquals(expectedSort, TestBaseController.getFilter().getSorted());
 		if (isHeaderexpected) {
 			assertEquals(2, response.getHeaderNames().size());
@@ -659,10 +657,10 @@ public class BaseControllerTest {
 		}
 	}
 
-	public void doMaxRowFalseAsserts(TestBaseController small, String rows) {
+	public void doMaxRowFalseAsserts(String rows) {
 		HttpServletResponse response = new MockHttpServletResponse();
 		response.setHeader("total", rows);
-		assertFalse(small.checkMaxRows(response, "total"));
+		assertFalse(testController.checkMaxRows(response, "total"));
 		assertEquals(2, response.getHeaderNames().size());
 		assertTrue(response.getHeaderNames().contains(HttpConstants.HEADER_WARNING));
 		assertEquals("This query will return in excess of 10 results, please refine your query.",

@@ -4,17 +4,17 @@ import gov.usgs.cida.wqp.mapping.Profile;
 import gov.usgs.cida.wqp.parameter.FilterParameters;
 import gov.usgs.cida.wqp.util.HttpConstants;
 import gov.usgs.cida.wqp.webservice.BaseControllerTest;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.mock.web.MockHttpServletResponse;
 
 
 public class SummaryOrganizationControllerTest {	
 	private SummaryOrganizationController summaryOrganizationController; 
     
-	@Before
+	@BeforeEach
 	public void setup() {
 		summaryOrganizationController = new SummaryOrganizationController(null, null, null, null, null, null);
 		SummaryOrganizationController.remove();

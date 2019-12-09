@@ -1,21 +1,21 @@
 package gov.usgs.cida.wqp.mapping.delimited;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Map;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import gov.usgs.cida.wqp.mapping.Profile;
 import gov.usgs.cida.wqp.mapping.ProjectColumn;
 
 public class ProjectDelimitedTest {
-	
+
 	@Test
 	public void projectProfileTest() {
 		assertProjectProfile(ProjectDelimited.getMapping(Profile.PROJECT));
 	}
-	
+
 	public static void assertProjectProfile(Map<String, String> mapping) {
 		assertEquals(10, mapping.size());
 		Object[] keys = mapping.keySet().toArray();

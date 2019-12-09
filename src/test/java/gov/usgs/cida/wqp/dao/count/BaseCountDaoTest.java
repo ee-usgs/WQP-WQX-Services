@@ -4,8 +4,8 @@ import static gov.usgs.cida.wqp.swagger.model.StationCountJson.BIODATA;
 import static gov.usgs.cida.wqp.swagger.model.StationCountJson.NWIS;
 import static gov.usgs.cida.wqp.swagger.model.StationCountJson.STEWARDS;
 import static gov.usgs.cida.wqp.swagger.model.StationCountJson.STORET;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 import java.util.Map;
@@ -703,24 +703,24 @@ public abstract class BaseCountDaoTest extends FilteredStationDaoTest {
 		boolean total = (null == expectedTotal);
 		for (int i = 0 ; i < counts.size() ; i++) {
 			if (null == counts.get(i).get(BaseColumn.KEY_DATA_SOURCE)) {
-				assertEquals("total " + countType + " count", expectedTotal, counts.get(i).get(countType).toString());
+				assertEquals(expectedTotal, counts.get(i).get(countType).toString(), "total " + countType + " count");
 				total = true;
 			} else {
 				switch (counts.get(i).get(BaseColumn.KEY_DATA_SOURCE).toString()) {
 				case NWIS:
-					assertEquals("NWIS " + countType + " count", expectedNwis, counts.get(i).get(countType).toString());
+					assertEquals(expectedNwis, counts.get(i).get(countType).toString(), "NWIS " + countType + " count");
 					nwis = true;
 					break;
 				case STEWARDS:
-					assertEquals("STEWARDS " + countType + " count", expectedStewards, counts.get(i).get(countType).toString());
+					assertEquals(expectedStewards, counts.get(i).get(countType).toString(), "STEWARDS " + countType + " count");
 					stewards = true;
 					break;
 				case STORET:
-					assertEquals("STORET " + countType + " count", expectedStoret, counts.get(i).get(countType).toString());
+					assertEquals(expectedStoret, counts.get(i).get(countType).toString(), "STORET " + countType + " count");
 					storet = true;
 					break;
 				case BIODATA:
-					assertEquals("BIODATA " + countType + " count", expectedBiodata, counts.get(i).get(countType).toString());
+					assertEquals(expectedBiodata, counts.get(i).get(countType).toString(), "BIODATA " + countType + " count");
 					biodata = true;
 					break;
 				default:
@@ -728,11 +728,11 @@ public abstract class BaseCountDaoTest extends FilteredStationDaoTest {
 				}
 			}
 		}
-		assertTrue("Did not get " + countType + " Total", total);
-		assertTrue("Did not get " + countType + " NWIS", nwis);
-		assertTrue("Did not get " + countType + " STEWARDS", stewards);
-		assertTrue("Did not get " + countType + " STORET", storet);
-		assertTrue("Did not get " + countType + " BIODATA", biodata);
+		assertTrue(total, "Did not get " + countType + " Total");
+		assertTrue(nwis, "Did not get " + countType + " NWIS");
+		assertTrue(stewards, "Did not get " + countType + " STEWARDS");
+		assertTrue(storet, "Did not get " + countType + " STORET");
+		assertTrue(biodata, "Did not get " + countType + " BIODATA");
 	}
 
 	protected void assertFullDbReturned(List<Map<String, Object>> counts, boolean includeActivity, boolean includeResults) {

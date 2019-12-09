@@ -2,9 +2,9 @@ package gov.usgs.cida.wqp.validation;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.collection.IsIterableContainingInAnyOrder.containsInAnyOrder;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 import java.util.Map;
@@ -16,8 +16,8 @@ import org.hibernate.validator.constraintvalidation.HibernateConstraintValidator
 import org.hibernate.validator.internal.engine.constraintvalidation.ConstraintValidatorContextImpl;
 import org.hibernate.validator.internal.engine.constraintvalidation.ConstraintViolationCreationContext;
 import org.hibernate.validator.internal.engine.path.PathImpl;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import gov.usgs.cida.wqp.BaseTest;
 import gov.usgs.cida.wqp.parameter.FilterParameters;
@@ -28,7 +28,7 @@ public class PointLocationValidatorTest extends BaseTest {
 
 	PointLocationValidator validator;
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		validator = new PointLocationValidator();
 		context = new ConstraintValidatorContextImpl(null, null, PathImpl.createPathFromString("WOW"), null, null);

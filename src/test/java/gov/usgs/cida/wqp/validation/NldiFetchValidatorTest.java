@@ -2,9 +2,9 @@ package gov.usgs.cida.wqp.validation;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.collection.IsIterableContainingInAnyOrder.containsInAnyOrder;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.never;
@@ -18,34 +18,28 @@ import java.util.ArrayList;
 import javax.validation.ConstraintValidatorContext;
 import javax.validation.ConstraintValidatorContext.ConstraintViolationBuilder;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.powermock.reflect.Whitebox;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import gov.usgs.cida.wqp.BaseTest;
 import gov.usgs.cida.wqp.parameter.FilterParameters;
 import gov.usgs.cida.wqp.service.FetchService;
 import gov.usgs.cida.wqp.service.FetchServiceTest;
 
+@SpringBootTest(classes={NldiFetchValidator.class})
 public class NldiFetchValidatorTest extends BaseTest {
 
-	@Mock
+	@MockBean
 	protected ConstraintValidatorContext context;
-	@Mock
+	@MockBean
 	protected FetchService fetchService;
-	@Mock
+	@MockBean
 	protected ConstraintViolationBuilder cvb;
 
-	NldiFetchValidator validator;
-
-	@Before
-	public void setup() {
-		MockitoAnnotations.initMocks(this);
-		validator = new NldiFetchValidator();
-		Whitebox.setInternalState(validator, "fetchService", fetchService);
-	}
+	@Autowired
+	private NldiFetchValidator validator;
 
 	@Test
 	public void testNullValue() throws IOException {

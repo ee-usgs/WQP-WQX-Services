@@ -6,7 +6,6 @@ import javax.sql.DataSource;
 
 import org.postgresql.ds.PGSimpleDataSource;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 
@@ -15,7 +14,6 @@ import com.github.springtestdbunit.bean.DatabaseDataSourceConnectionFactoryBean;
 
 import gov.usgs.cida.wqp.PostgresqlDataTypeFactoryWithJson;
 
-@TestConfiguration
 @Import(MybatisConfig.class)
 public class DBTestConfig extends SpringTestConfig {
 

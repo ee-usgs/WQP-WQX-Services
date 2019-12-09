@@ -1,7 +1,7 @@
 
 spring:
   datasource:
-    url: jdbc:postgresql://${WQP_DB_HOST}:${WQP_DB_PORT}/${WQP_DB_NAME}
+    url: jdbc:postgresql://${WQP_DATABASE_ADDRESS}:${WQP_DATABASE_PORT}/${WQP_DATABASE_NAME}
     username: ${WQP_DB_READ_ONLY_USERNAME}
     password: ${WQP_DB_READ_ONLY_PASSWORD}
     hikari:

@@ -1,16 +1,16 @@
 package gov.usgs.cida.wqp.transform;
 
 import static gov.usgs.cida.wqp.mapping.xml.StationKml.KML_DOCUMENT;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -31,7 +31,7 @@ public class MapToKmlTransformerTest {
 	protected ByteArrayOutputStream baos;
 	private ConfigurationService configurationService;
 
-	@Before
+	@BeforeEach
 	public void initTest() {
 		MockitoAnnotations.initMocks(this);
 		configurationService = new ConfigurationService();
@@ -40,7 +40,7 @@ public class MapToKmlTransformerTest {
 		transformer = new MapToKmlTransformer(baos, fieldMapping, logService, logId, Profile.STATION);
 	}
 
-	@After
+	@AfterEach
 	public void closeTest() throws IOException {
 		transformer.close();
 	}

@@ -1,7 +1,7 @@
 package gov.usgs.cida.wqp.webservice;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
@@ -16,7 +16,7 @@ import static uk.co.datumedge.hamcrest.json.SameJSONAs.sameJSONObjectAs;
 import java.net.URL;
 
 import org.json.JSONObject;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -41,7 +41,7 @@ public abstract class BaseControllerIntegrationTest extends BaseIT {
 	@Autowired
 	protected FetchService fetchService;
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		try {
 			when(codesService.validate(any(Parameters.class), anyString())).thenReturn(true);

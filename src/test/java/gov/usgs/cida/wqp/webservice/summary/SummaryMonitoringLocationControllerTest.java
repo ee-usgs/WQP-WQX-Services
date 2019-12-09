@@ -1,24 +1,25 @@
 package gov.usgs.cida.wqp.webservice.summary;
 
-import gov.usgs.cida.wqp.mapping.Profile;
-import gov.usgs.cida.wqp.parameter.FilterParameters;
 import static gov.usgs.cida.wqp.swagger.model.ActivityCountJson.HEADER_NWIS_ACTIVITY_COUNT;
 import static gov.usgs.cida.wqp.swagger.model.ResDetectQntLmtCountJson.HEADER_NWIS_RES_DETECT_QNT_LMT_COUNT;
 import static gov.usgs.cida.wqp.swagger.model.ResultCountJson.HEADER_NWIS_RESULT_COUNT;
 import static gov.usgs.cida.wqp.swagger.model.StationCountJson.HEADER_NWIS_SITE_COUNT;
-import gov.usgs.cida.wqp.util.HttpConstants;
-import gov.usgs.cida.wqp.webservice.BaseControllerTest;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.mock.web.MockHttpServletResponse;
 
+import gov.usgs.cida.wqp.mapping.Profile;
+import gov.usgs.cida.wqp.parameter.FilterParameters;
+import gov.usgs.cida.wqp.util.HttpConstants;
+import gov.usgs.cida.wqp.webservice.BaseControllerTest;
 
 public class SummaryMonitoringLocationControllerTest {
 	protected SummaryMonitoringLocationController controller;
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		controller = new SummaryMonitoringLocationController(null, null, null, null, null, null, null, null);
 		SummaryMonitoringLocationController.remove();

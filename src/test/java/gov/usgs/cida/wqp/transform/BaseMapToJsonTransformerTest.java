@@ -1,6 +1,6 @@
 package gov.usgs.cida.wqp.transform;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -8,11 +8,11 @@ import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.Mock;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.MockitoAnnotations;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import gov.usgs.cida.wqp.service.ILogService;
 
@@ -23,7 +23,6 @@ public class BaseMapToJsonTransformerTest {
 		public BaseMapToJsonTransImpl(OutputStream target, Map<String, String> mapping, ILogService logService, Integer logId, String siteUrlBase) {
 			super(target, mapping, logService, logId, siteUrlBase);	
 		}
-		
 		@Override
 		protected void writeHeader() {
 			writeHeaderCalled = writeHeaderCalled + 1;
@@ -31,27 +30,27 @@ public class BaseMapToJsonTransformerTest {
 		@Override
 		protected void writeData(Map<String, Object> resultMap) {
 			writeDataCalled = writeDataCalled + 1;
-		}	
+		}
 	}
-	
-	@Mock
+
+	@MockBean
 	protected ILogService logService;
 	protected Integer logId = 1;	
 	protected ByteArrayOutputStream baos;
 	protected String siteUrlBase = "http://test-url.usgs.gov";
 	private BaseMapToJsonTransImpl transformer;
-	
-	@Before
+
+	@BeforeEach
 	public void initTest() {
 		MockitoAnnotations.initMocks(this);
 		baos = new ByteArrayOutputStream();
 		transformer = new BaseMapToJsonTransImpl(baos, null, logService, logId, siteUrlBase);
 	}
 
-	@After
+	@AfterEach
 	public void closeTest() throws IOException {
 		transformer.close();
-	}	
+	}
 
 	@Test
 	public void getValueTest() {

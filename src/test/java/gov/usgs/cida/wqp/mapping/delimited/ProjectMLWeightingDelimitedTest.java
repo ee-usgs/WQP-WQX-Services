@@ -1,10 +1,11 @@
 package gov.usgs.cida.wqp.mapping.delimited;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Map;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
 import gov.usgs.cida.wqp.mapping.BaseColumn;
 import gov.usgs.cida.wqp.mapping.Profile;
 import gov.usgs.cida.wqp.mapping.ProjectColumn;
@@ -17,7 +18,7 @@ public class ProjectMLWeightingDelimitedTest {
 	public void projectMLWeightingProfileTest() {
 		assertProjectMLWeightingProfile(ProjectMonitoringLocationWeightingDelimited.getMapping(Profile.PROJECT_MONITORING_LOCATION_WEIGHTING));
 	}
-	
+
 	public static void assertProjectMLWeightingProfile(Map<String, String> mapping) {
 		assertEquals(19, mapping.size());
 		Object[] keys = mapping.keySet().toArray();

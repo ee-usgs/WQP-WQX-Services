@@ -4,8 +4,8 @@ import static gov.usgs.cida.wqp.swagger.model.StationCountJson.BIODATA;
 import static gov.usgs.cida.wqp.swagger.model.StationCountJson.NWIS;
 import static gov.usgs.cida.wqp.swagger.model.StationCountJson.STEWARDS;
 import static gov.usgs.cida.wqp.swagger.model.StationCountJson.STORET;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -398,7 +398,7 @@ public abstract class BaseStationStreamingTest extends FilteredStationDaoTest {
 				fail(StationColumn.KEY_DATA_SOURCE + ":" + i[0] + "/" + StationColumn.KEY_SITE_ID + ":" + i[1] + " was not in the result set.");
 			}
 		}
-		assertEquals("Double check result set expected size", stations.length, results.size());
+		assertEquals(stations.length, results.size(), "Double check result set expected size");
 	}
 
 	@Override

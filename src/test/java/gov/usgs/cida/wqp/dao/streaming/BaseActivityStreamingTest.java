@@ -4,8 +4,8 @@ import static gov.usgs.cida.wqp.swagger.model.StationCountJson.BIODATA;
 import static gov.usgs.cida.wqp.swagger.model.StationCountJson.NWIS;
 import static gov.usgs.cida.wqp.swagger.model.StationCountJson.STEWARDS;
 import static gov.usgs.cida.wqp.swagger.model.StationCountJson.STORET;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -509,7 +509,7 @@ public abstract class BaseActivityStreamingTest extends FilteredActivityDaoTest 
 				fail(ActivityColumn.KEY_DATA_SOURCE_ID + ":" + i[0] + "/" + ActivityColumn.KEY_ACTIVITY_ID + ":" + i[1] + " was not in the result set.");
 			}
 		}
-		assertEquals("Double check expected size", results.size(), activityIds.length);
+		assertEquals(results.size(), activityIds.length, "Double check expected size");
 	}
 
 	protected void assertActivityMetricURL(Map<String, Object> row) {

@@ -4,15 +4,15 @@ import static gov.usgs.cida.wqp.swagger.model.StationCountJson.BIODATA;
 import static gov.usgs.cida.wqp.swagger.model.StationCountJson.NWIS;
 import static gov.usgs.cida.wqp.swagger.model.StationCountJson.STEWARDS;
 import static gov.usgs.cida.wqp.swagger.model.StationCountJson.STORET;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
@@ -370,7 +370,7 @@ public class ProjectMLWeightingStreamingIT extends FilteredProjectDaoTest {
 				" was not in the result set. Set: \n\n" + setString);
 			}
 		}
-		assertEquals("Double check result set expected size", prjmlws.length, results.size());
+		assertEquals(prjmlws.length, results.size(), "Double check result set expected size");
 	}
 
 	private void assertProjectMLWeighting(Map<String,Object> row, String[] comparison) {

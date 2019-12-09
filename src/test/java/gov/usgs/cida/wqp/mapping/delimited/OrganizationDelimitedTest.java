@@ -1,13 +1,13 @@
 package gov.usgs.cida.wqp.mapping.delimited;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Map;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import gov.usgs.cida.wqp.mapping.Profile;
 import gov.usgs.cida.wqp.mapping.OrganizationColumn;
+import gov.usgs.cida.wqp.mapping.Profile;
 
 public class OrganizationDelimitedTest {
 
