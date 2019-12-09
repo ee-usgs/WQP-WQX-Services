@@ -4,6 +4,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class WqpExceptionId {
+
+	private static final Logger LOG = LoggerFactory.getLogger(WqpExceptionId.class);
+
+	private final Long exceptionId;
+	private String name;
+
 	//-----------------------------------------
 	// EXCEPTION DEFINITIONS
 	//-----------------------------------------
@@ -19,11 +25,6 @@ public class WqpExceptionId {
 	public static final WqpExceptionId METHOD_PARAM_BOUNDS =
 			new WqpExceptionId("WQPGatewayException WQPUtil Exception: Method Parameter is out of bounds."
 					, 0x06003);
-
-	private static final Logger LOG = LoggerFactory.getLogger(WqpExceptionId.class);
-
-	private final Long exceptionId;
-	private String name;
 
 	private WqpExceptionId( String name, int id ) {
 		LOG.trace(getClass().getName());
