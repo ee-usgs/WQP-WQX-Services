@@ -8,13 +8,13 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
-import springfox.documentation.swagger.web.SwaggerResource;
-import springfox.documentation.swagger.web.SwaggerResourcesProvider;
+//import springfox.documentation.swagger.web.SwaggerResource;
+//import springfox.documentation.swagger.web.SwaggerResourcesProvider;
 
 @Component
 @Primary
 @Profile("swagger")
-public class GatewaySwaggerResourceProvider implements SwaggerResourcesProvider {
+public class GatewaySwaggerResourceProvider { //implements SwaggerResourcesProvider {
 
 	SwaggerServices swaggerServices;
 
@@ -23,23 +23,23 @@ public class GatewaySwaggerResourceProvider implements SwaggerResourcesProvider 
 		this.swaggerServices = swaggerServices;
 	}
 
-	@Override
-	public List<SwaggerResource> get() {
-		List<SwaggerResource> resources = new ArrayList<>();
-
-		swaggerServices.getServices().forEach(service -> {
-			resources.add(buildSwaggerResource(service.getName(), service.getUrl(), service.getVersion()));
-		});
-
-		return resources;
-	}
-
-	private SwaggerResource buildSwaggerResource(String name, String location, String version) {
-		SwaggerResource swaggerResource = new SwaggerResource();
-		swaggerResource.setName(name);
-		swaggerResource.setLocation(location);
-		swaggerResource.setSwaggerVersion(version);
-		return swaggerResource;	
-	}
+//	@Override
+//	public List<SwaggerResource> get() {
+//		List<SwaggerResource> resources = new ArrayList<>();
+//
+//		swaggerServices.getServices().forEach(service -> {
+//			resources.add(buildSwaggerResource(service.getName(), service.getUrl(), service.getVersion()));
+//		});
+//
+//		return resources;
+//	}
+//
+//	private SwaggerResource buildSwaggerResource(String name, String location, String version) {
+//		SwaggerResource swaggerResource = new SwaggerResource();
+//		swaggerResource.setName(name);
+//		swaggerResource.setLocation(location);
+//		swaggerResource.setSwaggerVersion(version);
+//		return swaggerResource;	
+//	}
 
 }

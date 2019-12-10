@@ -34,14 +34,14 @@ import gov.usgs.cida.wqp.swagger.SwaggerParameters;
 import gov.usgs.cida.wqp.swagger.annotation.FullParameterList;
 import gov.usgs.cida.wqp.swagger.model.ResDetectQntLmtCountJson;
 import gov.usgs.cida.wqp.util.HttpConstants;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
-import springfox.documentation.annotations.ApiIgnore;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
-@Api(tags={SwaggerConfig.RES_DETECT_QNT_LMT_TAG_NAME})
+@Tag(name=SwaggerConfig.RES_DETECT_QNT_LMT_TAG_NAME, description=SwaggerConfig.TAG_DESCRIPTION)
 @RestController
 @RequestMapping(produces={HttpConstants.MIME_TYPE_TSV, HttpConstants.MIME_TYPE_CSV, HttpConstants.MIME_TYPE_XLSX, HttpConstants.MIME_TYPE_XML})
 public class ResDetectQntLmtController extends BaseController {
@@ -57,20 +57,20 @@ public class ResDetectQntLmtController extends BaseController {
 		xmlMapping = inXmlMapping;
 	}
 
-	@ApiOperation(value="Return appropriate request headers (including anticipated record counts).")
+	@Operation(description="Return appropriate request headers (including anticipated record counts).")
 	@FullParameterList
 	@RequestMapping(value=HttpConstants.RES_DETECT_QNT_LMT_SEARCH_ENDPOINT, method=RequestMethod.HEAD)
-	public void resDetectQntLmtHeadRequest(HttpServletRequest request, HttpServletResponse response, @ApiIgnore FilterParameters filter) {
+	public void resDetectQntLmtHeadRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter) {
 		doHeadRequest(request, response, filter);
 	}
 
-	@ApiOperation(value="Return appropriate request headers (including anticipated record counts) for the specified result.")
+	@Operation(description="Return appropriate request headers (including anticipated record counts) for the specified result.")
 	@RequestMapping(value=HttpConstants.RES_DETECT_QNT_LMT_REST_ENDPOINT, method=RequestMethod.HEAD)
 	public void resDetectQntLmtHeadRestRequest(HttpServletRequest request, HttpServletResponse response,
-			@PathVariable("provider") @ApiParam(value=SwaggerParameters.PROVIDER_DESCRIPTION) String provider,
-			@PathVariable("organization") @ApiParam(value=SwaggerParameters.ORGANIZATION_DESCRIPTION) String organization,
-			@PathVariable("activity") @ApiParam(value=SwaggerParameters.ACTIVITY_DESCRIPTION) String activity,
-			@PathVariable("result") @ApiParam(value=SwaggerParameters.RESULT_DESCRIPTION) String resultId,
+			@PathVariable("provider") @Parameter(description=SwaggerParameters.PROVIDER_DESCRIPTION) String provider,
+			@PathVariable("organization") @Parameter(description=SwaggerParameters.ORGANIZATION_DESCRIPTION) String organization,
+			@PathVariable("activity") @Parameter(description=SwaggerParameters.ACTIVITY_DESCRIPTION) String activity,
+			@PathVariable("result") @Parameter(description=SwaggerParameters.RESULT_DESCRIPTION) String resultId,
 			@RequestParam(value="mimeType", required=false) String mimeType,
 			@RequestParam(value="zip", required=false) String zip) {
 		FilterParameters filter = new FilterParameters();
@@ -81,20 +81,20 @@ public class ResDetectQntLmtController extends BaseController {
 		doHeadRequest(request, response, filter, mimeType, zip);
 	}
 
-	@ApiOperation(value="Return requested data.")
+	@Operation(description="Return requested data.")
 	@FullParameterList
 	@GetMapping(value=HttpConstants.RES_DETECT_QNT_LMT_SEARCH_ENDPOINT)
-	public void resDetectQntLmtGetRequest(HttpServletRequest request, HttpServletResponse response, @ApiIgnore FilterParameters filter) {
+	public void resDetectQntLmtGetRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter) {
 		doDataRequest(request, response, filter);
 	}
 
-	@ApiOperation(value="Return result detection quantitative limit information for the specified result.")
+	@Operation(description="Return result detection quantitative limit information for the specified result.")
 	@GetMapping(value=HttpConstants.RES_DETECT_QNT_LMT_REST_ENDPOINT)
 	public void resDetectQntLmtGetRestRequest(HttpServletRequest request, HttpServletResponse response,
-			@PathVariable("provider") @ApiParam(value=SwaggerParameters.PROVIDER_DESCRIPTION) String provider,
-			@PathVariable("organization") @ApiParam(value=SwaggerParameters.ORGANIZATION_DESCRIPTION) String organization,
-			@PathVariable("activity") @ApiParam(value=SwaggerParameters.ACTIVITY_DESCRIPTION) String activity,
-			@PathVariable("result") @ApiParam(value=SwaggerParameters.RESULT_DESCRIPTION) String resultId,
+			@PathVariable("provider") @Parameter(description=SwaggerParameters.PROVIDER_DESCRIPTION) String provider,
+			@PathVariable("organization") @Parameter(description=SwaggerParameters.ORGANIZATION_DESCRIPTION) String organization,
+			@PathVariable("activity") @Parameter(description=SwaggerParameters.ACTIVITY_DESCRIPTION) String activity,
+			@PathVariable("result") @Parameter(description=SwaggerParameters.RESULT_DESCRIPTION) String resultId,
 			@RequestParam(value="mimeType", required=false) String mimeType,
 			@RequestParam(value="zip", required=false) String zip) {
 		FilterParameters filter = new FilterParameters();
@@ -105,28 +105,33 @@ public class ResDetectQntLmtController extends BaseController {
 		doDataRequest(request, response, filter, mimeType, zip);
 	}
 
-	@ApiOperation(value="Return requested data. Use when the list of parameter values is too long for a query string.")
+	@Operation(description="Return requested data. Use when the list of parameter values is too long for a query string.")
 	@PostMapping(value=HttpConstants.RES_DETECT_QNT_LMT_SEARCH_ENDPOINT, consumes=MediaType.APPLICATION_JSON_VALUE)
 	public void resDetectQntLmtJsonPostRequest(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value="mimeType", required=false) String mimeType,
 			@RequestParam(value="zip", required=false) String zip,
-			@RequestBody @ApiIgnore FilterParameters filter) {
+			@RequestBody FilterParameters filter) {
 		doDataRequest(request, response, filter, mimeType, zip);
 	}
 
-	@ApiOperation(value="Same as the JSON consumer, but hidden from swagger", hidden=true)
+	@Operation(description="Same as the JSON consumer, but hidden from swagger", hidden=true)
 	@PostMapping(value=HttpConstants.RES_DETECT_QNT_LMT_SEARCH_ENDPOINT, consumes=MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-	public void resDetectQntLmtFormUrlencodedPostRequest(HttpServletRequest request, HttpServletResponse response, @ApiIgnore FilterParameters filter) {
+	public void resDetectQntLmtFormUrlencodedPostRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter) {
 		doDataRequest(request, response, filter);
 	}
 
-	@ApiOperation(value="Return anticipated record counts.")
-	@ApiResponses(value={@ApiResponse(code=200, message="OK", response=ResDetectQntLmtCountJson.class)})
+	@Operation(description="Return anticipated record counts.",
+			responses={
+					@ApiResponse(
+									responseCode="200",
+									description="OK",
+									content=@Content(schema=@Schema(implementation=ResDetectQntLmtCountJson.class)))
+					})
 	@PostMapping(value=HttpConstants.RES_DETECT_QNT_LMT_SEARCH_ENDPOINT + "/count", produces=MediaType.APPLICATION_JSON_VALUE)
 	public Map<String, String> resDetectQntLmtPostCountRequest(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value="mimeType", required=false) String mimeType,
 			@RequestParam(value="zip", required=false) String zip,
-			@RequestBody @ApiIgnore FilterParameters filter) {
+			@RequestBody FilterParameters filter) {
 		return doPostCountRequest(request, response, filter, mimeType, zip);
 	}
 
