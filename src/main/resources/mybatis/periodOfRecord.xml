@@ -5,7 +5,7 @@
 
     <sql id="summaryYearWhere">
         <where>
-            ml_g.grouping_id = 4
+            ml_g.grouping_id = 100
             <include refid="dynamicWhere.baseWhereStationClauses" />
             <if test="summaryYears  !=null">
                 <if test="summaryYears.equalsIgnoreCase('1')">and ml_g.the_year &gt;= extract(year from current_date)</if>
