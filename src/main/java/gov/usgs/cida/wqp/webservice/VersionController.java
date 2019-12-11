@@ -22,6 +22,8 @@ public class VersionController {
 
 	@Value("${site.url.base}")
 	private String serverUrl;
+	@Value("${server.servlet.context-path}")
+	private String serverContextPath;
 
 	@Operation(description="Return the web service version information.",
 			responses= {
@@ -30,7 +32,7 @@ public class VersionController {
 	@NoQueryParametersList
 	@GetMapping(value="version", produces=MediaType.APPLICATION_JSON_VALUE)
 	public RedirectView getVersion() {
-		return new RedirectView(StringUtils.removeEnd(serverUrl, "/") + "/about/info", true, false);
+		return new RedirectView(StringUtils.removeEnd(serverUrl, "/") + serverContextPath + "/about/info", true, false);
 	}
 
 }
