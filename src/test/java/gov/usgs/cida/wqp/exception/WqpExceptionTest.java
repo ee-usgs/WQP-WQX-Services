@@ -13,7 +13,6 @@ public class WqpExceptionTest {
 		public void doSomething() throws WqpException {
 			try {
 				int div = 1/ 0;
-				if (div == 0) return;
 			} catch (Exception e) {
 				throw new WqpException(WqpExceptionId.URL_PARSING_EXCEPTION, Klass.class, "doSomething", "div by zero");
 			}
