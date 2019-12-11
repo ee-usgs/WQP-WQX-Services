@@ -1,5 +1,6 @@
 package gov.usgs.cida.wqp.webservice;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,7 +30,7 @@ public class VersionController {
 	@NoQueryParametersList
 	@GetMapping(value="version", produces=MediaType.APPLICATION_JSON_VALUE)
 	public RedirectView getVersion() {
-		return new RedirectView(serverUrl + "about/info", true, false);
+		return new RedirectView(StringUtils.removeEnd(serverUrl, "/") + "/about/info", true, false);
 	}
 
 }
