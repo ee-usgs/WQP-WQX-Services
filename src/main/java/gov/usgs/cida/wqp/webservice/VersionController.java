@@ -32,7 +32,7 @@ public class VersionController {
 	@NoQueryParametersList
 	@GetMapping(value="version", produces=MediaType.APPLICATION_JSON_VALUE)
 	public RedirectView getVersion() {
-		return new RedirectView(StringUtils.removeEnd(serverUrl, "/") + "/" + serverContextPath + "/about/info", true, false);
+		return new RedirectView(StringUtils.removeEnd(serverUrl, "/") + serverContextPath + "/about/info", true, false);
 	}
 
 }
