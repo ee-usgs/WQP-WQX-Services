@@ -2,8 +2,8 @@
 spring:
   datasource:
     url: jdbc:postgresql://${WQP_DATABASE_ADDRESS}:${WQP_DATABASE_PORT}/${WQP_DATABASE_NAME}
-    username: ${WQP_DB_READ_ONLY_USERNAME}
-    password: ${WQP_DB_READ_ONLY_PASSWORD}
+    username: ${WQP_READ_ONLY_USERNAME}
+    password: ${WQP_READ_ONLY_PASSWORD}
     hikari:
       auto-commit: false
 
