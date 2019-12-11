@@ -34,3 +34,8 @@ management:
     health:
       enabled: true
       show-details: never
+
+server:
+  port: ${SERVER_PORT}
+  servlet:
+    context-path: ${SERVER_CONTEXT_PATH}

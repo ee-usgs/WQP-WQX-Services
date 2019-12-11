@@ -28,3 +28,8 @@ kml:
 max:
   result:
     rows: 20000000
+
+server:
+  port: ${SERVER_PORT}
+  servlet:
+    context-path: ${SERVER_CONTEXT_PATH}
