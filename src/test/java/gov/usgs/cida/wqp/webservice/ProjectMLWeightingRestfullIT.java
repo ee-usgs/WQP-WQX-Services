@@ -3,7 +3,7 @@ package gov.usgs.cida.wqp.webservice;
 import static gov.usgs.cida.wqp.swagger.model.ProjectMonitoringLocationWeightingCountJson.HEADER_STORET_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;

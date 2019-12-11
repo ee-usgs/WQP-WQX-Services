@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Validator;
 
-import gov.usgs.cida.wqp.swagger.annotation.ProfileParameterResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
@@ -30,16 +29,17 @@ import gov.usgs.cida.wqp.service.ConfigurationService;
 import gov.usgs.cida.wqp.service.ILogService;
 import gov.usgs.cida.wqp.swagger.SwaggerConfig;
 import gov.usgs.cida.wqp.swagger.annotation.FullParameterList;
+import gov.usgs.cida.wqp.swagger.annotation.ProfileParameterResult;
 import gov.usgs.cida.wqp.swagger.model.ResultCountJson;
 import gov.usgs.cida.wqp.util.HttpConstants;
 import gov.usgs.cida.wqp.webservice.BaseController;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
-import springfox.documentation.annotations.ApiIgnore;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
-@Api(tags={SwaggerConfig.RESULT_TAG_NAME})
+@Tag(name=SwaggerConfig.RESULT_TAG_NAME, description=SwaggerConfig.TAG_DESCRIPTION)
 @RestController
 @RequestMapping(value=HttpConstants.RESULT_SEARCH_ENDPOINT,
 	produces={HttpConstants.MIME_TYPE_TSV,
@@ -59,47 +59,52 @@ public class ResultController extends BaseController {
 		xmlMapping = inXmlMapping;
 	}
 
-	@ApiOperation(value="Return appropriate request headers (including anticipated record counts).")
+	@Operation(description="Return appropriate request headers (including anticipated record counts).")
 	@FullParameterList
 	@ProfileParameterResult
 	@RequestMapping(method=RequestMethod.HEAD)
-	public void resultHeadRequest(HttpServletRequest request, HttpServletResponse response, @ApiIgnore FilterParameters filter) {
+	public void resultHeadRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter) {
 		doHeadRequest(request, response, filter);
 	}
 
-	@ApiOperation(value="Return requested data.")
+	@Operation(description="Return requested data.")
 	@FullParameterList
 	@ProfileParameterResult
 	@GetMapping()
-	public void resultGetRequest(HttpServletRequest request, HttpServletResponse response, @ApiIgnore FilterParameters filter) {
+	public void resultGetRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter) {
 		doDataRequest(request, response, filter);
 	}
 
-	@ApiOperation(value="Return requested data. Use when the list of parameter values is too long for a query string.")
+	@Operation(description="Return requested data. Use when the list of parameter values is too long for a query string.")
 	@ProfileParameterResult
 	@PostMapping(consumes=MediaType.APPLICATION_JSON_VALUE)
 	public void resultJsonPostRequest(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value="mimeType", required=false) String mimeType,
 			@RequestParam(value="zip", required=false) String zip,
-			@RequestBody @ApiIgnore FilterParameters filter) {
+			@RequestBody FilterParameters filter) {
 		doDataRequest(request, response, filter, mimeType, zip);
 	}
 
-	@ApiOperation(value="Same as the JSON consumer, but hidden from swagger", hidden=true)
+	@Operation(description="Same as the JSON consumer, but hidden from swagger", hidden=true)
 	@ProfileParameterResult
 	@PostMapping(consumes=MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-	public void resultFormUrlencodedPostRequest(HttpServletRequest request, HttpServletResponse response, @ApiIgnore FilterParameters filter) {
+	public void resultFormUrlencodedPostRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter) {
 		doDataRequest(request, response, filter);
 	}
 
-	@ApiOperation(value="Return anticipated record counts.")
-	@ApiResponses(value={@ApiResponse(code=200, message="OK", response=ResultCountJson.class)})
+	@Operation(description="Return anticipated record counts.",
+			responses={
+					@ApiResponse(
+									responseCode="200",
+									description="OK",
+									content=@Content(schema=@Schema(implementation=ResultCountJson.class)))
+					})
 	@ProfileParameterResult
 	@PostMapping(value="count", produces=MediaType.APPLICATION_JSON_VALUE)
 	public Map<String, String> resultPostCountRequest(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value="mimeType", required=false) String mimeType,
 			@RequestParam(value="zip", required=false) String zip,
-			@RequestBody @ApiIgnore FilterParameters filter) {
+			@RequestBody FilterParameters filter) {
 		return doPostCountRequest(request, response, filter, mimeType, zip);
 	}
 

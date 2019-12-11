@@ -1,8 +1,11 @@
 package gov.usgs.cida.wqp.exception;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class WqpExceptionTest {
 
@@ -10,13 +13,12 @@ public class WqpExceptionTest {
 		public void doSomething() throws WqpException {
 			try {
 				int div = 1/ 0;
-				if (div == 0) return;
 			} catch (Exception e) {
 				throw new WqpException(WqpExceptionId.URL_PARSING_EXCEPTION, Klass.class, "doSomething", "div by zero");
-			}			
+			}
 		}
 	}
-	
+
 	@Test
 	public void test() {
 		WqpException ex = null;
@@ -28,19 +30,19 @@ public class WqpExceptionTest {
 			ex = e;
 			trace = e.traceBack();
 		}
-		
+
 		assertNotNull(trace);
 		System.out.println(trace);
 		assertTrue(trace.contains("doSomething"));
 		assertTrue(trace.contains("div by zero"));
-		
+
 		assertEquals(trace, ex.getMessage());
 		assertEquals(trace, ex.toString());
-		
+
 		assertEquals("doSomething", ex.getMethod());
 		assertEquals("div by zero", ex.getMessageOnly());
 		assertEquals(Klass.class.getName(), ex.getClassname());
-		
+
 		assertEquals(null, ex.getPrevious());
 	}
 

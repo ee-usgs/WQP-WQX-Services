@@ -1,7 +1,7 @@
 package gov.usgs.cida.wqp.dao;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.List;
 import java.util.Map;
@@ -386,7 +386,7 @@ public abstract class FilteredDaoTest extends BaseIT {
 	protected void assertUrl(String columnName, Map<String, Object> row) {
 		Object url = row.get(columnName);
 		if (null != url) {
-			assertTrue(columnName + " is incorrect: " + url, url.toString().startsWith(getSiteUrlBase()));
+			assertTrue(url.toString().startsWith(getSiteUrlBase()), columnName + " is incorrect: " + url);
 		}
 	}
 }

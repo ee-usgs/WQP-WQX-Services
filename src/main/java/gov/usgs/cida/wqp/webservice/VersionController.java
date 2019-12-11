@@ -1,24 +1,35 @@
 package gov.usgs.cida.wqp.webservice;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.view.RedirectView;
 
+import gov.usgs.cida.wqp.Version;
 import gov.usgs.cida.wqp.swagger.SwaggerConfig;
 import gov.usgs.cida.wqp.swagger.annotation.NoQueryParametersList;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
-@Api(tags={SwaggerConfig.VERSION_TAG_NAME})
-@Controller
+@Tag(name=SwaggerConfig.VERSION_TAG_NAME, description=SwaggerConfig.VERSION_TAG_DESCRIPTION)
+@RestController
 public class VersionController {
 
-	@ApiOperation(value="Return the web service version information.")
+	@Value("${site.url.base}")
+	private String serverUrl;
+
+	@Operation(description="Return the web service version information.",
+			responses= {
+					@ApiResponse(content=@Content(schema=@Schema(implementation=Version.class)))
+			})
 	@NoQueryParametersList
-	@RequestMapping(value="version", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
-	public String getVersion() {
-		return "redirect:/actuator/info";
+	@GetMapping(value="version", produces=MediaType.APPLICATION_JSON_VALUE)
+	public RedirectView getVersion() {
+		return new RedirectView(serverUrl + "about/info", true, false);
 	}
 
 }

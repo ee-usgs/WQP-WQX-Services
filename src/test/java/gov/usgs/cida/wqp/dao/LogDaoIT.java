@@ -6,8 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.dbunit.dataset.ReplacementDataSet;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
@@ -47,7 +47,7 @@ public class LogDaoIT extends BaseIT {
 		}
 	}
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		parameterMap = new HashMap<>();
 

@@ -1,13 +1,13 @@
 package gov.usgs.cida.wqp.parameter;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class CustomBoundingBoxConverterTest {
 
-	CustomBoundingBoxConverter converter = new CustomBoundingBoxConverter();
+	private CustomBoundingBoxConverter converter = new CustomBoundingBoxConverter();
 
 	@Test
 	public void emptyStringTest() {

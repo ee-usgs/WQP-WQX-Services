@@ -1,13 +1,14 @@
 package gov.usgs.cida.wqp.validation;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import javax.validation.ConstraintValidatorContext;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import gov.usgs.cida.wqp.BaseTest;
 import gov.usgs.cida.wqp.parameter.BoundingBox;
@@ -19,8 +20,9 @@ public class BBoxValidatorTest extends BaseTest {
 
 	protected BBoxValidator validator;
 
-	@Before
+	@BeforeEach
 	public void setup() {
+		MockitoAnnotations.initMocks(this);
 		validator = new BBoxValidator();
 	}
 

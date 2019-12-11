@@ -29,15 +29,14 @@ import gov.usgs.cida.wqp.swagger.SwaggerConfig;
 import gov.usgs.cida.wqp.swagger.annotation.FullParameterList;
 import gov.usgs.cida.wqp.util.HttpConstants;
 import gov.usgs.cida.wqp.webservice.BaseController;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import springfox.documentation.annotations.ApiIgnore;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 /**
  * Endpoints in this controller have been deprecated. Please use those in the StationController.
  *
  */
-@Api(tags={SwaggerConfig.SIMPLE_STATION_TAG_NAME})
+@Tag(name=SwaggerConfig.SIMPLE_STATION_TAG_NAME, description=SwaggerConfig.TAG_DESCRIPTION)
 @RestController
 @RequestMapping(value=HttpConstants.SIMPLE_STATION_ENDPOINT,
 	produces={HttpConstants.MIME_TYPE_XML,
@@ -60,17 +59,17 @@ public class SimpleStationController extends BaseController {
 		LOG.trace(getClass().getName());
 	}
 
-	@ApiOperation(value="Return appropriate request headers (including anticipated record counts).")
+	@Operation(description="Return appropriate request headers (including anticipated record counts).")
 	@FullParameterList
 	@RequestMapping(method=RequestMethod.HEAD)
-	public void simpleStationHeadRequest(HttpServletRequest request, HttpServletResponse response, @ApiIgnore FilterParameters filter) {
+	public void simpleStationHeadRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter) {
 		doHeadRequest(request, response, filter);
 	}
 
-	@ApiOperation(value="Return requested data.")
+	@Operation(description="Return requested data.")
 	@FullParameterList
 	@GetMapping()
-	public void simpleStationGetRequest(HttpServletRequest request, HttpServletResponse response, @ApiIgnore FilterParameters filter) {
+	public void simpleStationGetRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter) {
 		doDataRequest(request, response, filter);
 	}
 

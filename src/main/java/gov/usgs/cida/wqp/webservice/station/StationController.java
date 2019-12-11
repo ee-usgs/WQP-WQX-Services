@@ -32,13 +32,13 @@ import gov.usgs.cida.wqp.swagger.annotation.FullParameterList;
 import gov.usgs.cida.wqp.swagger.model.StationCountJson;
 import gov.usgs.cida.wqp.util.HttpConstants;
 import gov.usgs.cida.wqp.webservice.BaseController;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
-import springfox.documentation.annotations.ApiIgnore;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
-@Api(tags={SwaggerConfig.STATION_TAG_NAME})
+@Tag(name=SwaggerConfig.STATION_TAG_NAME, description=SwaggerConfig.TAG_DESCRIPTION)
 @RestController
 @RequestMapping(value=HttpConstants.STATION_SEARCH_ENDPOINT,
 	produces={HttpConstants.MIME_TYPE_XLSX,
@@ -64,42 +64,47 @@ public class StationController extends BaseController {
 		kmlMapping = inKmlMapping;
 	}
 
-	@ApiOperation(value="Return appropriate request headers (including anticipated record counts).")
+	@Operation(description="Return appropriate request headers (including anticipated record counts).")
 	@FullParameterList
 	@RequestMapping(method=RequestMethod.HEAD)
-	public void stationHeadRequest(HttpServletRequest request, HttpServletResponse response, @ApiIgnore FilterParameters filter) {
+	public void stationHeadRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter) {
 		doHeadRequest(request, response, filter);
 	}
 
-	@ApiOperation(value="Return requested data.")
+	@Operation(description="Return requested data.")
 	@FullParameterList
 	@GetMapping()
-	public void stationGetRequest(HttpServletRequest request, HttpServletResponse response, @ApiIgnore FilterParameters filter) {
+	public void stationGetRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter) {
 		doDataRequest(request, response, filter);
 	}
 
-	@ApiOperation(value="Return requested data. Use when the list of parameter values is too long for a query string.")
+	@Operation(description="Return requested data. Use when the list of parameter values is too long for a query string.")
 	@PostMapping(consumes=MediaType.APPLICATION_JSON_VALUE)
 	public void stationJsonPostRequest(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value="mimeType", required=false) String mimeType,
 			@RequestParam(value="zip", required=false) String zip,
-			@RequestBody @ApiIgnore FilterParameters filter) {
+			@RequestBody FilterParameters filter) {
 		doDataRequest(request, response, filter, mimeType, zip);
 	}
 
-	@ApiOperation(value="Same as the JSON consumer, but hidden from swagger", hidden=true)
+	@Operation(description="Same as the JSON consumer, but hidden from swagger", hidden=true)
 	@PostMapping(consumes=MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-	public void stationFormUrlencodedPostRequest(HttpServletRequest request, HttpServletResponse response, @ApiIgnore FilterParameters filter) {
+	public void stationFormUrlencodedPostRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter) {
 		doDataRequest(request, response, filter);
 	}
 
-	@ApiOperation(value="Return anticipated record counts.")
-	@ApiResponses(value={@ApiResponse(code=200, message="OK", response=StationCountJson.class)})
+	@Operation(description="Return anticipated record counts.",
+			responses={
+					@ApiResponse(
+									responseCode="200",
+									description="OK",
+									content=@Content(schema=@Schema(implementation=StationCountJson.class)))
+					})
 	@PostMapping(value="count", produces=MediaType.APPLICATION_JSON_VALUE)
 	public Map<String, String> stationPostCountRequest(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value="mimeType", required=false) String mimeType,
 			@RequestParam(value="zip", required=false) String zip,
-			@RequestBody @ApiIgnore FilterParameters filter) {
+			@RequestBody FilterParameters filter) {
 		return doPostCountRequest(request, response, filter, mimeType, zip);
 	}
 

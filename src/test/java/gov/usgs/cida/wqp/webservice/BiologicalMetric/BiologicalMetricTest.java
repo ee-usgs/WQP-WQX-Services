@@ -1,21 +1,23 @@
 package gov.usgs.cida.wqp.webservice.BiologicalMetric;
 
+import static gov.usgs.cida.wqp.swagger.model.StationCountJson.HEADER_NWIS_SITE_COUNT;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.mock.web.MockHttpServletResponse;
+
 import gov.usgs.cida.wqp.mapping.Profile;
 import gov.usgs.cida.wqp.mapping.delimited.BiologicalMetricDelimitedTest;
 import gov.usgs.cida.wqp.parameter.FilterParameters;
-import static gov.usgs.cida.wqp.swagger.model.StationCountJson.HEADER_NWIS_SITE_COUNT;
 import gov.usgs.cida.wqp.util.HttpConstants;
 import gov.usgs.cida.wqp.webservice.BaseControllerTest;
-import static org.junit.Assert.assertEquals;
-import org.junit.Before;
-import org.junit.Test;
-import org.springframework.mock.web.MockHttpServletResponse;
 
 public class BiologicalMetricTest {
-	
+
 	protected BiologicalMetricController controller;
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		controller = new BiologicalMetricController(null, null, null, null, null, null, null);
 		BiologicalMetricController.remove();
@@ -43,5 +45,4 @@ public class BiologicalMetricTest {
 		filter.setDataProfile("biological");
 		assertEquals(Profile.BIOLOGICAL, controller.determineProfile(filter));
 	}
-	
 }

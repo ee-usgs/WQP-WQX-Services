@@ -40,19 +40,19 @@ public class SpringConfig implements WebMvcConfigurer {
 	}
 
 	@Autowired
-	CustomStringToArrayConverter customStringToArrayConverter;
+	private CustomStringToArrayConverter customStringToArrayConverter;
 
 	@Autowired
-	CustomStringToListConverter customStringToListConverter;
+	private CustomStringToListConverter customStringToListConverter;
 
 	@Autowired
-	CustomStringArrayToListConverter customStringArrayToListConverter;
+	private CustomStringArrayToListConverter customStringArrayToListConverter;
 
 	@Autowired
-	CustomStringConverter customStringConverter;
+	private CustomStringConverter customStringConverter;
 
 	@Autowired
-	CustomBoundingBoxConverter customBoundingBoxConverter;
+	private CustomBoundingBoxConverter customBoundingBoxConverter;
 
 	@Override
 	public void addFormatters(FormatterRegistry registry) {

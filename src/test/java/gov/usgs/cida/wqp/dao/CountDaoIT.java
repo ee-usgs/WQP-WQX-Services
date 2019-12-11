@@ -1,13 +1,13 @@
 package gov.usgs.cida.wqp.dao;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.apache.commons.lang3.StringUtils;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
@@ -21,14 +21,14 @@ import gov.usgs.cida.wqp.springinit.DBTestConfig;
 public class CountDaoIT extends BaseIT {
 
 	@Autowired
-	CountDao countDao;
+	private CountDao countDao;
 
-	FilterParameters filter;
-	String one = "1";
-	String five = "5";
-	String twelve = "12";
+	private FilterParameters filter;
+	private String one = "1";
+	private String five = "5";
+	private String twelve = "12";
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		filter = new FilterParameters();
 	}

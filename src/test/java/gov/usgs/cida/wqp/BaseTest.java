@@ -3,7 +3,7 @@ package gov.usgs.cida.wqp;
 import static gov.usgs.cida.wqp.swagger.model.StationCountJson.NWIS;
 import static gov.usgs.cida.wqp.swagger.model.StationCountJson.STEWARDS;
 import static gov.usgs.cida.wqp.swagger.model.StationCountJson.STORET;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -379,10 +379,10 @@ public abstract class BaseTest {
 	public void assertMapIsAsExpected(Map<String, Object> expectedRow, Map<String, Object> actualRow) {
 		//Doing both left to right and right to left to catch missing/extra on either side.
 		for (String i : expectedRow.keySet()) {
-			assertEquals(i, Transformer.getStringValue(expectedRow.get(i)), Transformer.getStringValue(actualRow.get(i)));
+			assertEquals(Transformer.getStringValue(expectedRow.get(i)), Transformer.getStringValue(actualRow.get(i)), i);
 		}
 		for (String i : actualRow.keySet()) {
-			assertEquals(i, Transformer.getStringValue(actualRow.get(i)), Transformer.getStringValue(expectedRow.get(i)));
+			assertEquals(Transformer.getStringValue(actualRow.get(i)), Transformer.getStringValue(expectedRow.get(i)), i);
 		}
 	}
 

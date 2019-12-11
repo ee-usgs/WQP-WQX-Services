@@ -2,7 +2,7 @@ package gov.usgs.cida.wqp.validation;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
@@ -18,12 +18,11 @@ import java.util.Set;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import gov.usgs.cida.wqp.exception.WqpException;
 import gov.usgs.cida.wqp.exception.WqpExceptionId;
@@ -36,7 +35,7 @@ import gov.usgs.cida.wqp.service.FetchService;
 import gov.usgs.cida.wqp.service.FetchServiceTest;
 import gov.usgs.cida.wqp.springinit.SpringTestConfig;
 
-@RunWith(SpringRunner.class)
+@SpringBootTest(classes= {Validator.class})
 @Import(SpringTestConfig.class)
 public class FilterParametersValidationTest {
 
@@ -49,7 +48,7 @@ public class FilterParametersValidationTest {
 
 	protected FilterParameters filter;
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		filter = new FilterParameters();
 	}

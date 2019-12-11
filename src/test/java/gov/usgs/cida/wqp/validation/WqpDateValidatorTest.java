@@ -1,13 +1,14 @@
 package gov.usgs.cida.wqp.validation;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.when;
 
 import javax.validation.ConstraintValidatorContext;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
-import org.powermock.reflect.Whitebox;
+import org.mockito.MockitoAnnotations;
 
 import gov.usgs.cida.wqp.BaseTest;
 import gov.usgs.cida.wqp.parameter.FilterParameters;
@@ -16,13 +17,17 @@ public class WqpDateValidatorTest extends BaseTest {
 
 	@Mock
 	protected ConstraintValidatorContext context;
+	@Mock
+	protected WqpDate wqpDate;
 
 	protected WqpDateValidator validator;
 
-	@Before
+	@BeforeEach
 	public void setup() {
+		MockitoAnnotations.initMocks(this);
+		when(wqpDate.formatString()).thenReturn(FilterParameters.FORMAT_DATE);
 		validator = new WqpDateValidator();
-		Whitebox.setInternalState(validator, "formatString", FilterParameters.FORMAT_DATE);
+		validator.initialize(wqpDate);
 	}
 
 	@Test

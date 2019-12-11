@@ -1,23 +1,22 @@
 package gov.usgs.cida.wqp.transform;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import gov.usgs.cida.wqp.mapping.StationColumn;
 import gov.usgs.cida.wqp.service.ILogService;
 import gov.usgs.cida.wqp.util.HttpConstants;
-
 
 public class PeriodOfRecordMapToJsonTransformerTest {
 
@@ -34,14 +33,14 @@ public class PeriodOfRecordMapToJsonTransformerTest {
 	protected ByteArrayOutputStream baos;
 	protected String siteUrlBase = "http://test-url.usgs.gov";   
 
-	@Before
+	@BeforeEach
 	public void initTest() {
 		MockitoAnnotations.initMocks(this);
 		baos = new ByteArrayOutputStream();
 		transformer = new PeriodOfRecordMapToJsonTransformer(baos, null, logService, logId, siteUrlBase);
 	}
 
-	@After
+	@AfterEach
 	public void closeTest() throws IOException {
 		transformer.close();
 	}

@@ -2,9 +2,9 @@ package gov.usgs.cida.wqp.service;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -16,17 +16,19 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.powermock.reflect.Whitebox;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import gov.usgs.cida.wqp.BaseTest;
 import gov.usgs.cida.wqp.validation.NldiFetchValidator;
 
 public class FetchServiceTest extends BaseTest {
 
-	protected FetchService service;
+	@Mock
 	protected ConfigurationService configurationService;
+	protected FetchService service;
 
 	public static final List<String> NLDI_IDENTIFIERS;
 	static {
@@ -45,10 +47,10 @@ public class FetchServiceTest extends BaseTest {
 		NLDI_IDENTIFIERS.add("USGS-431212089314802");
 	}
 
-	@Before
+	@BeforeEach
 	public void setup() {
-		configurationService = new ConfigurationService();
-		Whitebox.setInternalState(configurationService, "nldiTimeoutMilli", 1);
+		MockitoAnnotations.initMocks(this);
+		when(configurationService.getNldiTimeoutMilli()).thenReturn(1);
 		service = new FetchService(configurationService);
 	}
 

@@ -8,7 +8,7 @@ import gov.usgs.cida.wqp.mapping.Profile;
 import gov.usgs.cida.wqp.parameter.Parameters;
 import gov.usgs.cida.wqp.springinit.DBTestConfig;
 import gov.usgs.cida.wqp.util.HttpConstants;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;

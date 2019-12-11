@@ -1,7 +1,7 @@
 package gov.usgs.cida.wqp.validation;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.verify;
@@ -10,34 +10,28 @@ import static org.mockito.Mockito.when;
 import javax.validation.ConstraintValidatorContext;
 import javax.validation.ConstraintValidatorContext.ConstraintViolationBuilder;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.powermock.reflect.Whitebox;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import gov.usgs.cida.wqp.BaseTest;
 import gov.usgs.cida.wqp.exception.WqpException;
 import gov.usgs.cida.wqp.exception.WqpExceptionId;
 import gov.usgs.cida.wqp.service.CodesService;
 
+@SpringBootTest(classes={LookupValidator.class})
 public class LookupValidatorTest extends BaseTest {
 
-	@Mock
+	@MockBean
 	protected ConstraintValidatorContext context;
-	@Mock
+	@MockBean
 	protected CodesService codesService;
-	@Mock
+	@MockBean
 	protected ConstraintViolationBuilder cvb;
 
+	@Autowired
 	protected LookupValidator validator;
-
-	@Before
-	public void setup() {
-		MockitoAnnotations.initMocks(this);
-		validator = new LookupValidator();
-		Whitebox.setInternalState(validator, "codesService", codesService);
-	}
 
 	@Test
 	public void testNullValue() throws WqpException {

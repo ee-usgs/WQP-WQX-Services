@@ -1,9 +1,9 @@
 package gov.usgs.cida.wqp.webservice;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyMap;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -14,8 +14,8 @@ import java.io.IOException;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -30,15 +30,15 @@ import gov.usgs.cida.wqp.util.HttpConstants;
 public class BlobControllerTest extends BaseTest {
 
 	@Mock
-	BlobDao blobDao;
+	private BlobDao blobDao;
 	@Mock
-	ILogService logService;
-	BlobController controller;
-	Integer FIFTY_FIVE = 55;
-	MockHttpServletRequest request;
-	MockHttpServletResponse response;
+	private ILogService logService;
+	private BlobController controller;
+	private Integer FIFTY_FIVE = 55;
+	private MockHttpServletRequest request;
+	private MockHttpServletResponse response;
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		MockitoAnnotations.initMocks(this);
 		controller = new BlobController(blobDao, logService);

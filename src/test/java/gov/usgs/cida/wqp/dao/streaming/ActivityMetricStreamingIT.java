@@ -4,14 +4,14 @@ import static gov.usgs.cida.wqp.swagger.model.StationCountJson.BIODATA;
 import static gov.usgs.cida.wqp.swagger.model.StationCountJson.NWIS;
 import static gov.usgs.cida.wqp.swagger.model.StationCountJson.STEWARDS;
 import static gov.usgs.cida.wqp.swagger.model.StationCountJson.STORET;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,9 +41,9 @@ public class ActivityMetricStreamingIT extends FilteredActivityMetricDaoTest {
 	private static final Logger LOG = LoggerFactory.getLogger(ActivityMetricStreamingIT.class);
 
 	@Autowired 
-	IStreamingDao streamingDao;
+	private IStreamingDao streamingDao;
 
-	NameSpace nameSpace = NameSpace.ACTIVITY_METRIC;
+	private NameSpace nameSpace = NameSpace.ACTIVITY_METRIC;
 
 	public static final String[] STEWARDS_1 = new String[]{STEWARDS, "1_1_type_identifier"};
 	public static final String[] STEWARDS_2 = new String[]{STEWARDS, "1_2_type_identifier"};
@@ -628,7 +628,7 @@ public class ActivityMetricStreamingIT extends FilteredActivityMetricDaoTest {
 				fail(BaseColumn.KEY_DATA_SOURCE + ":" + i[0] + "/" + ActivityMetricColumn.KEY_METRIC_TYPE_IDENTIFIER + ":" + i[1] + " was not in the result set.");
 			}
 		}
-		assertEquals("Double check expected size", activityMetrics.length, results.size());
+		assertEquals(activityMetrics.length, results.size(),"Double check expected size");
 	}
 
 	@Override

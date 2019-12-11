@@ -4,11 +4,11 @@ import static gov.usgs.cida.wqp.swagger.model.ActivityCountJson.HEADER_NWIS_ACTI
 import static gov.usgs.cida.wqp.swagger.model.ResDetectQntLmtCountJson.HEADER_NWIS_RES_DETECT_QNT_LMT_COUNT;
 import static gov.usgs.cida.wqp.swagger.model.ResultCountJson.HEADER_NWIS_RESULT_COUNT;
 import static gov.usgs.cida.wqp.swagger.model.StationCountJson.HEADER_NWIS_SITE_COUNT;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.mock.web.MockHttpServletResponse;
 
 import gov.usgs.cida.wqp.BaseTest;
@@ -22,7 +22,7 @@ public class ResultControllerTest extends BaseTest {
 
 	protected ResultController controller;
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		controller = new ResultController(null, null, null, null, null, null, null);
 		ResultController.remove();

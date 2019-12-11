@@ -23,24 +23,24 @@ import gov.usgs.cida.wqp.swagger.model.ProjectCountJson;
 import gov.usgs.cida.wqp.swagger.model.ResDetectQntLmtCountJson;
 import gov.usgs.cida.wqp.swagger.model.ResultCountJson;
 import gov.usgs.cida.wqp.swagger.model.StationCountJson;
-import springfox.documentation.PathProvider;
-import springfox.documentation.builders.PathSelectors;
-import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.service.ApiKey;
-import springfox.documentation.service.Tag;
-import springfox.documentation.spi.DocumentationType;
-import springfox.documentation.spring.web.paths.AbstractPathProvider;
-import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger.web.DocExpansion;
-import springfox.documentation.swagger.web.ModelRendering;
-import springfox.documentation.swagger.web.OperationsSorter;
-import springfox.documentation.swagger.web.TagsSorter;
-import springfox.documentation.swagger.web.UiConfigurationBuilder;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
+//import springfox.documentation.PathProvider;
+//import springfox.documentation.builders.PathSelectors;
+//import springfox.documentation.builders.RequestHandlerSelectors;
+//import springfox.documentation.service.ApiKey;
+//import springfox.documentation.service.Tag;
+//import springfox.documentation.spi.DocumentationType;
+//import springfox.documentation.spring.web.paths.AbstractPathProvider;
+//import springfox.documentation.spring.web.plugins.Docket;
+//import springfox.documentation.swagger.web.DocExpansion;
+//import springfox.documentation.swagger.web.ModelRendering;
+//import springfox.documentation.swagger.web.OperationsSorter;
+//import springfox.documentation.swagger.web.TagsSorter;
+//import springfox.documentation.swagger.web.UiConfigurationBuilder;
+//import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-@Configuration
-@EnableSwagger2
-@Profile("swagger")
+//@Configuration
+//@EnableSwagger2
+//@Profile("swagger")
 public class SwaggerConfig {
 	public static final String ORGANIZATION_TAG_NAME = "Organization";
 	public static final String ACTIVITY_TAG_NAME = "Activity";
@@ -72,92 +72,92 @@ public class SwaggerConfig {
 	@Autowired
 	private Environment environment;
 
-	@Bean
-	public Docket qwPortalServicesApi() {
-		Docket docket = new Docket(DocumentationType.SWAGGER_2)
-			.protocols(new HashSet<>(Arrays.asList("http")))
-			.host(swaggerDisplayHost)
-			.pathProvider(pathProvider())
-			.useDefaultResponseMessages(false)
-			.additionalModels(typeResolver.resolve(PostParms.class),
-					typeResolver.resolve(OrganizationCountJson.class),
-					typeResolver.resolve(StationCountJson.class),
-					typeResolver.resolve(ActivityCountJson.class),
-					typeResolver.resolve(ActivityMetricCountJson.class),
-					typeResolver.resolve(BiologicalMetricCountJson.class),
-					typeResolver.resolve(ResultCountJson.class),
-					typeResolver.resolve(ResDetectQntLmtCountJson.class),
-					typeResolver.resolve(ProjectCountJson.class))
-			.tags(new Tag(ORGANIZATION_TAG_NAME, TAG_DESCRIPTION),
-					new Tag(ACTIVITY_TAG_NAME, TAG_DESCRIPTION),
-					new Tag(ACTIVITY_METRIC_TAG_NAME, TAG_DESCRIPTION),	
-					new Tag(BIOLOGICAL_METRIC_TAG_NAME, TAG_DESCRIPTION),
-					new Tag(PERIOD_OF_RECORD_TAG_NAME,TAG_DESCRIPTION),
-					new Tag(RES_DETECT_QNT_LMT_TAG_NAME, TAG_DESCRIPTION),
-					new Tag(RESULT_TAG_NAME, TAG_DESCRIPTION),
-					new Tag(SIMPLE_STATION_TAG_NAME, TAG_DESCRIPTION),
-					new Tag(STATION_TAG_NAME, TAG_DESCRIPTION),
-					new Tag(SUMMARY_ORGANIZATION_TAG_NAME, TAG_DESCRIPTION),
-					new Tag(SUMMARY_MONITORING_LOCATION_TAG_NAME, TAG_DESCRIPTION),
-					new Tag(VERSION_TAG_NAME, VERSION_TAG_DESCRIPTION),
-					new Tag(FILE_DOWNLOAD_TAG_NAME, FILE_DOWNLOAD_TAG_NAME)
-				)
-			.select().paths(PathSelectors.any())
-			.apis(RequestHandlerSelectors.basePackage("gov.usgs.cida.wqp"))
-			.build()
-		;
+//	@Bean
+//	public Docket qwPortalServicesApi() {
+//		Docket docket = new Docket(DocumentationType.SWAGGER_2)
+//			.protocols(new HashSet<>(Arrays.asList("http")))
+//			.host(swaggerDisplayHost)
+//			.pathProvider(pathProvider())
+//			.useDefaultResponseMessages(false)
+//			.additionalModels(typeResolver.resolve(PostParms.class),
+//					typeResolver.resolve(OrganizationCountJson.class),
+//					typeResolver.resolve(StationCountJson.class),
+//					typeResolver.resolve(ActivityCountJson.class),
+//					typeResolver.resolve(ActivityMetricCountJson.class),
+//					typeResolver.resolve(BiologicalMetricCountJson.class),
+//					typeResolver.resolve(ResultCountJson.class),
+//					typeResolver.resolve(ResDetectQntLmtCountJson.class),
+//					typeResolver.resolve(ProjectCountJson.class))
+//			.tags(new Tag(ORGANIZATION_TAG_NAME, TAG_DESCRIPTION),
+//					new Tag(ACTIVITY_TAG_NAME, TAG_DESCRIPTION),
+//					new Tag(ACTIVITY_METRIC_TAG_NAME, TAG_DESCRIPTION),	
+//					new Tag(BIOLOGICAL_METRIC_TAG_NAME, TAG_DESCRIPTION),
+//					new Tag(PERIOD_OF_RECORD_TAG_NAME,TAG_DESCRIPTION),
+//					new Tag(RES_DETECT_QNT_LMT_TAG_NAME, TAG_DESCRIPTION),
+//					new Tag(RESULT_TAG_NAME, TAG_DESCRIPTION),
+//					new Tag(SIMPLE_STATION_TAG_NAME, TAG_DESCRIPTION),
+//					new Tag(STATION_TAG_NAME, TAG_DESCRIPTION),
+//					new Tag(SUMMARY_ORGANIZATION_TAG_NAME, TAG_DESCRIPTION),
+//					new Tag(SUMMARY_MONITORING_LOCATION_TAG_NAME, TAG_DESCRIPTION),
+//					new Tag(VERSION_TAG_NAME, VERSION_TAG_DESCRIPTION),
+//					new Tag(FILE_DOWNLOAD_TAG_NAME, FILE_DOWNLOAD_TAG_NAME)
+//				)
+//			.select().paths(PathSelectors.any())
+//			.apis(RequestHandlerSelectors.basePackage("gov.usgs.cida.wqp"))
+//			.build()
+//		;
+//
+//		if (ArrayUtils.contains(environment.getActiveProfiles(), "internal")) {
+//			//Add in the Authorize button for WQP Internal
+//			docket.securitySchemes(Collections.singletonList(apiKey()));
+//		}
+//
+//		return docket;
+//	}
 
-		if (ArrayUtils.contains(environment.getActiveProfiles(), "internal")) {
-			//Add in the Authorize button for WQP Internal
-			docket.securitySchemes(Collections.singletonList(apiKey()));
-		}
+//	@Bean
+//	public PathProvider pathProvider() {
+//		PathProvider rtn = new ProxyPathProvider();
+//		return rtn;
+//	}
 
-		return docket;
-	}
+//	public class ProxyPathProvider extends AbstractPathProvider {
+//		@Override
+//		protected String applicationPath() {
+//			return swaggerDisplayPath;
+//		}
+//	
+//		@Override
+//		protected String getDocumentationPath() {
+//			return swaggerDisplayPath;
+//		}
+//	}
 
-	@Bean
-	public PathProvider pathProvider() {
-		PathProvider rtn = new ProxyPathProvider();
-		return rtn;
-	}
+//	private ApiKey apiKey() {
+//		return new ApiKey("mykey", "Authorization", "header");
+//	}
 
-	public class ProxyPathProvider extends AbstractPathProvider {
-		@Override
-		protected String applicationPath() {
-			return swaggerDisplayPath;
-		}
-	
-		@Override
-		protected String getDocumentationPath() {
-			return swaggerDisplayPath;
-		}
-	}
-
-	private ApiKey apiKey() {
-		return new ApiKey("mykey", "Authorization", "header");
-	}
-
-	@Bean
-	public Object uiConfig() {
-		//This is needed in swagger 2 for the "try it" button on head requests - should not be needed with swagger 3
-		//It is needed in all WQP projects!!!
-		return UiConfigurationBuilder
-				.builder()
-				.deepLinking(true)
-				.displayOperationId(false)
-				.defaultModelsExpandDepth(1)
-				.defaultModelExpandDepth(1)
-				.defaultModelRendering(ModelRendering.EXAMPLE)
-				.displayRequestDuration(false)
-				.docExpansion(DocExpansion.NONE)
-				.filter(false)
-				.maxDisplayedTags(null)
-				.operationsSorter(OperationsSorter.ALPHA)
-				.showExtensions(false)
-				.tagsSorter(TagsSorter.ALPHA)
-				.supportedSubmitMethods(new String[] { "get", "post", "head" })
-				.validatorUrl(null)
-				.build();
-	}
+//	@Bean
+//	public Object uiConfig() {
+//		//This is needed in swagger 2 for the "try it" button on head requests - should not be needed with swagger 3
+//		//It is needed in all WQP projects!!!
+//		return UiConfigurationBuilder
+//				.builder()
+//				.deepLinking(true)
+//				.displayOperationId(false)
+//				.defaultModelsExpandDepth(1)
+//				.defaultModelExpandDepth(1)
+//				.defaultModelRendering(ModelRendering.EXAMPLE)
+//				.displayRequestDuration(false)
+//				.docExpansion(DocExpansion.NONE)
+//				.filter(false)
+//				.maxDisplayedTags(null)
+//				.operationsSorter(OperationsSorter.ALPHA)
+//				.showExtensions(false)
+//				.tagsSorter(TagsSorter.ALPHA)
+//				.supportedSubmitMethods(new String[] { "get", "post", "head" })
+//				.validatorUrl(null)
+//				.build();
+//	}
 
 }

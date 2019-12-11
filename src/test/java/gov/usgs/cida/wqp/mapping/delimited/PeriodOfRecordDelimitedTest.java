@@ -1,10 +1,13 @@
 package gov.usgs.cida.wqp.mapping.delimited;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.Map;
+
+import org.junit.jupiter.api.Test;
+
 import gov.usgs.cida.wqp.mapping.Profile;
 import gov.usgs.cida.wqp.mapping.xml.BaseWqx;
-import java.util.Map;
-import static org.junit.Assert.assertEquals;
-import org.junit.Test;
 
 public class PeriodOfRecordDelimitedTest {
 

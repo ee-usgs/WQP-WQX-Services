@@ -1,10 +1,9 @@
 package gov.usgs.cida.wqp.transform;
 
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -20,9 +19,9 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -39,7 +38,7 @@ public class MapToXlsxTransformerTest {
 	protected ByteArrayOutputStream baos;
 	protected Map<String, String> mapping;
 
-	@Before
+	@BeforeEach
 	public void initTest() {
 		MockitoAnnotations.initMocks(this);
 		baos = new ByteArrayOutputStream();
@@ -53,7 +52,7 @@ public class MapToXlsxTransformerTest {
 		transformer = new MapToXlsxTransformer(baos, mapping, logService, logId);
 	}
 
-	@After
+	@AfterEach
 	public void closeTest() throws IOException {
 		transformer.close();
 	}

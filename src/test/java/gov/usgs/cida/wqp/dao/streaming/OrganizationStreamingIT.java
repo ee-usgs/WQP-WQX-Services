@@ -4,14 +4,14 @@ import static gov.usgs.cida.wqp.swagger.model.StationCountJson.BIODATA;
 import static gov.usgs.cida.wqp.swagger.model.StationCountJson.NWIS;
 import static gov.usgs.cida.wqp.swagger.model.StationCountJson.STEWARDS;
 import static gov.usgs.cida.wqp.swagger.model.StationCountJson.STORET;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -356,7 +356,7 @@ public class OrganizationStreamingIT extends FilteredProjectDaoTest {
 						"/" + ProjectColumn.KEY_ORGANIZATION + ":" + i[1] + " was not in the result set.");
 			}
 		}
-		assertEquals("Double check result set expected size", organizations.length, results.size());
+		assertEquals(organizations.length, results.size(), "Double check result set expected size");
 	}
 
 	@Override

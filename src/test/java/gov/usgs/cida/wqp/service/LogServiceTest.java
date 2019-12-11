@@ -1,8 +1,8 @@
 package gov.usgs.cida.wqp.service;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.ArgumentMatchers.anyMap;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
@@ -18,8 +18,8 @@ import java.util.Map;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -37,18 +37,18 @@ import gov.usgs.cida.wqp.webservice.TestBaseController;
 public class LogServiceTest {
 
 	@Mock
-	ILogDao logDao;
-	LogService service;
-	Integer FIFTY_FIVE = 55;
+	private ILogDao logDao;
+	private LogService service;
+	private Integer FIFTY_FIVE = 55;
 	@SuppressWarnings("rawtypes")
-	ArgumentCaptor<Map> valueCapture = ArgumentCaptor.forClass(Map.class);
-	MockHttpServletRequest request;
-	MockHttpServletResponse response;
-	FilterParameters filter;
+	private ArgumentCaptor<Map> valueCapture = ArgumentCaptor.forClass(Map.class);
+	private MockHttpServletRequest request;
+	private MockHttpServletResponse response;
+	private FilterParameters filter;
 
 	public static final int LOG_REQUEST_PARAMETER_COUNT = 6;
 
-	@Before
+	@BeforeEach
 	@SuppressWarnings("unchecked")
 	public void setup() {
 		MockitoAnnotations.initMocks(this);

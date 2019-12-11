@@ -1,20 +1,22 @@
 package gov.usgs.cida.wqp.mapping.delimited;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.Map;
+
+import org.junit.jupiter.api.Test;
+
 import gov.usgs.cida.wqp.mapping.BaseColumn;
 import gov.usgs.cida.wqp.mapping.BiologicalMetricColumn;
 import gov.usgs.cida.wqp.mapping.Profile;
 
-import java.util.Map;
-import static org.junit.Assert.assertEquals;
-import org.junit.Test;
-
 public class BiologicalMetricDelimitedTest {
-	
+
 	@Test
 	public void BiologicalMetricProfileTest() {
 		assertBiologicalMetricProfile(BiologicalMetricDelimited.getMapping(Profile.BIOLOGICAL_METRIC));
 	}
-	
+
 	public static void assertBiologicalMetricProfile(Map<String, String> mapping) {
 		assertEquals(18, mapping.size());
 		Object[] keys = mapping.keySet().toArray();
@@ -37,5 +39,4 @@ public class BiologicalMetricDelimitedTest {
 		assertEquals(BiologicalMetricColumn.KEY_INDEX_CALCULATED_DATE , keys[16]);
 		assertEquals(BiologicalMetricColumn.KEY_DATA_SOURCE , keys[17]);
 	}
-	
 }

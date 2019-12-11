@@ -33,14 +33,14 @@ import gov.usgs.cida.wqp.swagger.SwaggerParameters;
 import gov.usgs.cida.wqp.swagger.annotation.FullParameterList;
 import gov.usgs.cida.wqp.swagger.model.ActivityMetricCountJson;
 import gov.usgs.cida.wqp.util.HttpConstants;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
-import springfox.documentation.annotations.ApiIgnore;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
-@Api(tags={SwaggerConfig.ACTIVITY_METRIC_TAG_NAME})
+@Tag(name=SwaggerConfig.ACTIVITY_METRIC_TAG_NAME, description=SwaggerConfig.TAG_DESCRIPTION)
 @RestController
 @RequestMapping(produces={HttpConstants.MIME_TYPE_TSV, HttpConstants.MIME_TYPE_CSV, HttpConstants.MIME_TYPE_XLSX, HttpConstants.MIME_TYPE_XML})
 public class ActivityMetricController extends BaseController {
@@ -56,17 +56,17 @@ public class ActivityMetricController extends BaseController {
 		xmlMapping = inXmlMapping;
 	}
 
-	@ApiOperation(value="Return appropriate request headers (including anticipated record counts).")
+	@Operation(description="Return appropriate request headers (including anticipated record counts).")
 	@FullParameterList
 	@RequestMapping(value=HttpConstants.ACTIVITY_METRIC_SEARCH_ENDPOINT, method=RequestMethod.HEAD)
-	public void activityMetricHeadRequest(HttpServletRequest request, HttpServletResponse response, @ApiIgnore FilterParameters filter) {
+	public void activityMetricHeadRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter) {
 		doHeadRequest(request, response, filter);
 	}
 
-	@ApiOperation(value="Return appropriate request headers (including anticipated record counts) for the specified activity.")
+	@Operation(description="Return appropriate request headers (including anticipated record counts) for the specified activity.")
 	@RequestMapping(value=HttpConstants.ACTIVITY_METRIC_REST_ENDPOINT, method=RequestMethod.HEAD)
 	public void activityMetricRestHeadRequest(HttpServletRequest request, HttpServletResponse response,
-			@PathVariable("activity") @ApiParam(value=SwaggerParameters.ACTIVITY_DESCRIPTION) String activity,
+			@PathVariable("activity") @Parameter(description=SwaggerParameters.ACTIVITY_DESCRIPTION) String activity,
 			@RequestParam(value="mimeType", required=false) String mimeType,
 			@RequestParam(value="zip", required=false) String zip) {
 		FilterParameters filter = new FilterParameters();
@@ -74,17 +74,17 @@ public class ActivityMetricController extends BaseController {
 		doHeadRequest(request, response, filter, mimeType, zip);
 	}
 
-	@ApiOperation(value="Return requested data.")
+	@Operation(description="Return requested data.")
 	@FullParameterList
 	@GetMapping(value=HttpConstants.ACTIVITY_METRIC_SEARCH_ENDPOINT)
-	public void activityMetricGetRequest(HttpServletRequest request, HttpServletResponse response, @ApiIgnore FilterParameters filter) {
+	public void activityMetricGetRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter) {
 		doDataRequest(request, response, filter);
 	}
 
-	@ApiOperation(value="Return activity metric information for the specified activity.")
+	@Operation(description="Return activity metric information for the specified activity.")
 	@GetMapping(value=HttpConstants.ACTIVITY_METRIC_REST_ENDPOINT)
 	public void activityMetricGetRestRequest(HttpServletRequest request, HttpServletResponse response,
-			@PathVariable("activity") @ApiParam(value=SwaggerParameters.ACTIVITY_DESCRIPTION) String activity,
+			@PathVariable("activity") @Parameter(description=SwaggerParameters.ACTIVITY_DESCRIPTION) String activity,
 			@RequestParam(value="mimeType", required=false) String mimeType,
 			@RequestParam(value="zip", required=false) String zip) {
 		FilterParameters filter = new FilterParameters();
@@ -94,28 +94,33 @@ public class ActivityMetricController extends BaseController {
 		doDataRequest(request, response, filter, mimeType, zip);
 	}
 
-	@ApiOperation(value="Return requested data. Use when the list of parameter values is too long for a query string.")
+	@Operation(description="Return requested data. Use when the list of parameter values is too long for a query string.")
 	@PostMapping(value=HttpConstants.ACTIVITY_METRIC_SEARCH_ENDPOINT, consumes=MediaType.APPLICATION_JSON_VALUE)
 	public void activityMetricJsonPostRequest(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value="mimeType", required=false) String mimeType,
 			@RequestParam(value="zip", required=false) String zip,
-			@RequestBody @ApiIgnore FilterParameters filter) {
+			@RequestBody FilterParameters filter) {
 		doDataRequest(request, response, filter, mimeType, zip);
 	}
 
-	@ApiOperation(value="Same as the JSON consumer, but hidden from swagger", hidden=true)
+	@Operation(description="Same as the JSON consumer, but hidden from swagger", hidden=true)
 	@PostMapping(value=HttpConstants.ACTIVITY_METRIC_SEARCH_ENDPOINT, consumes=MediaType.APPLICATION_FORM_URLENCODED_VALUE)
 	public void activityMetricFormUrlencodedPostRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter) {
 		doDataRequest(request, response, filter);
 	}
 
-	@ApiOperation(value="Return anticipated record counts.")
-	@ApiResponses(value={@ApiResponse(code=200, message="OK", response=ActivityMetricCountJson.class)})
+	@Operation(description="Return anticipated record counts.",
+	responses={
+			@ApiResponse(
+							responseCode="200",
+							description="OK",
+							content=@Content(schema=@Schema(implementation=ActivityMetricCountJson.class)))
+			})
 	@PostMapping(value=HttpConstants.ACTIVITY_METRIC_SEARCH_ENDPOINT + "/count", produces=MediaType.APPLICATION_JSON_VALUE)
 	public Map<String, String> activityMetricPostCountRequest(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value="mimeType", required=false) String mimeType,
 			@RequestParam(value="zip", required=false) String zip,
-			@RequestBody @ApiIgnore FilterParameters filter) {
+			@RequestBody FilterParameters filter) {
 		return doPostCountRequest(request, response, filter, mimeType, zip);
 	}
 

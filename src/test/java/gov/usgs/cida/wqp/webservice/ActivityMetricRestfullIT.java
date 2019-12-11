@@ -5,7 +5,7 @@ import static gov.usgs.cida.wqp.swagger.model.ActivityMetricCountJson.HEADER_STO
 import static gov.usgs.cida.wqp.swagger.model.StationCountJson.HEADER_STORET_SITE_COUNT;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
