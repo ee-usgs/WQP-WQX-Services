@@ -1,5 +1,6 @@
 package gov.usgs.cida.wqp.service;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,8 @@ public class ConfigurationService {
 	private Integer maxResultRows;
 	@Value("${site.url.base}")
 	private String siteUrlBase;
+	@Value("${server.servlet.context-path}")
+	private String serverContextPath;
 	public String getKmlStyleUrl() {
 		return kmlStyleUrl;
 	}
@@ -40,6 +43,9 @@ public class ConfigurationService {
 	}
 	public String getSiteUrlBase() {
 		return siteUrlBase;
+	}
+	public String getMyUrlBase() {
+		return StringUtils.removeEnd(siteUrlBase, "/") + serverContextPath;
 	}
 
 }

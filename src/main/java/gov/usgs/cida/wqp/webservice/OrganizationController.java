@@ -128,6 +128,6 @@ public class OrganizationController extends BaseController {
 
 	@Override
 	protected void addCustomRequestParams() {
-		getFilter().setSiteUrlBase(configurationService.getSiteUrlBase());
+		getFilter().setSiteUrlBase(configurationService.getMyUrlBase());
 	}
 }

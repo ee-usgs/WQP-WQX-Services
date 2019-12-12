@@ -1,13 +1,13 @@
 package gov.usgs.cida.wqp.webservice;
 
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
 
 import gov.usgs.cida.wqp.Version;
+import gov.usgs.cida.wqp.service.ConfigurationService;
 import gov.usgs.cida.wqp.swagger.SwaggerConfig;
 import gov.usgs.cida.wqp.swagger.annotation.NoQueryParametersList;
 import io.swagger.v3.oas.annotations.Operation;
@@ -20,10 +20,12 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @RestController
 public class VersionController {
 
-	@Value("${site.url.base}")
-	private String serverUrl;
-	@Value("${server.servlet.context-path}")
-	private String serverContextPath;
+	protected final ConfigurationService configurationService;
+
+	@Autowired
+	public VersionController(ConfigurationService configurationService) {
+		this.configurationService = configurationService;
+	}
 
 	@Operation(description="Return the web service version information.",
 			responses= {
@@ -32,7 +34,7 @@ public class VersionController {
 	@NoQueryParametersList
 	@GetMapping(value="version", produces=MediaType.APPLICATION_JSON_VALUE)
 	public RedirectView getVersion() {
-		return new RedirectView(StringUtils.removeEnd(serverUrl, "/") + serverContextPath + "/about/info", true, false);
+		return new RedirectView(configurationService.getMyUrlBase() + "/about/info", true, false);
 	}
 
 }

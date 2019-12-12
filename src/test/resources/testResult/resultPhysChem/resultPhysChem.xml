@@ -657,7 +657,7 @@
                 <AttachedBinaryObject>
                     <BinaryObjectFileName>resultObjectName</BinaryObjectFileName>
                     <BinaryObjectFileTypeCode>resultObjectType</BinaryObjectFileTypeCode>
-                    <ResultFileUrl>https://www.waterqualitydata.us/organizations/organization/activities/activity/results/STORET-42/files</ResultFileUrl>
+                    <ResultFileUrl>https://www.waterqualitydata.us/data/organizations/organization/activities/activity/results/STORET-42/files</ResultFileUrl>
                 </AttachedBinaryObject>
                 <ResultAnalyticalMethod>
                     <MethodIdentifier>analyticalProcedureId</MethodIdentifier>
@@ -671,7 +671,7 @@
                     <AnalysisStartDate>analysisStartDate</AnalysisStartDate>
                     <ResultLaboratoryCommentText>labRemark</ResultLaboratoryCommentText>
                     <ResultDetectionQuantitationLimit>
-                        <ResultDetectionQuantitationLimitUrl>https://www.waterqualitydata.us/activities/activity/results/STORET-42/resdetectqntlmts</ResultDetectionQuantitationLimitUrl>
+                        <ResultDetectionQuantitationLimitUrl>https://www.waterqualitydata.us/data/activities/activity/results/STORET-42/resdetectqntlmts</ResultDetectionQuantitationLimitUrl>
                         <DetectionQuantitationLimitTypeName>detectionLimitDesc</DetectionQuantitationLimitTypeName>
                         <DetectionQuantitationLimitMeasure>
                             <MeasureValue>39</MeasureValue>
@@ -680,7 +680,7 @@
                     </ResultDetectionQuantitationLimit>
                 </ResultLabInformation>
                 <LabSamplePreparation>
-                    <LabSamplePreparationUrl>https://www.waterqualitydata.us/labSamplePrepUrl</LabSamplePreparationUrl>
+                    <LabSamplePreparationUrl>https://www.waterqualitydata.us/data/labSamplePrepUrl</LabSamplePreparationUrl>
                 </LabSamplePreparation>
                 <LastUpdated>2018-08-20 15:22:33.0</LastUpdated>
             </Result>
