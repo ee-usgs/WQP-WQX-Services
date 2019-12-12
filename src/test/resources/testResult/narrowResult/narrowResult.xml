@@ -616,7 +616,7 @@
                     <ResultLaboratoryCommentCode>rlcomCd</ResultLaboratoryCommentCode>
                     <ResultLaboratoryCommentText>labRemark</ResultLaboratoryCommentText>
                     <ResultDetectionQuantitationLimit>
-                        <ResultDetectionQuantitationLimitUrl>https://www.waterqualitydata.us/activities/activity/results/STORET-42/resdetectqntlmts</ResultDetectionQuantitationLimitUrl>
+                        <ResultDetectionQuantitationLimitUrl>https://www.waterqualitydata.us/data/activities/activity/results/STORET-42/resdetectqntlmts</ResultDetectionQuantitationLimitUrl>
                     </ResultDetectionQuantitationLimit>
                     <LaboratoryAccreditationIndicator>resLabAccredYN</LaboratoryAccreditationIndicator>
                     <LaboratoryAccreditationAuthorityName>resLabAccredAuthority</LaboratoryAccreditationAuthorityName>
@@ -624,7 +624,7 @@
                     <TaxonomistAccreditationAuthorityName>resTaxonomistAccredAuthorty</TaxonomistAccreditationAuthorityName>
                 </ResultLabInformation>
                 <LabSamplePreparation>
-                    <LabSamplePreparationUrl>https://www.waterqualitydata.us/labSamplePrepUrl</LabSamplePreparationUrl>
+                    <LabSamplePreparationUrl>https://www.waterqualitydata.us/data/labSamplePrepUrl</LabSamplePreparationUrl>
                 </LabSamplePreparation>
             </Result>
         </Activity>

@@ -740,7 +740,7 @@
                 </SampleCollectionMethod>
                 <SampleCollectionEquipmentName>Bucket</SampleCollectionEquipmentName>
             </SampleDescription>
-            <ActivityMetricUrl>https://www.waterqualitydata.us/activities/11NPSWRD-14/activitymetrics</ActivityMetricUrl>
+            <ActivityMetricUrl>https://www.waterqualitydata.us/data/activities/11NPSWRD-14/activitymetrics</ActivityMetricUrl>
         </Activity>
         <Activity>
             <ActivityDescription>
@@ -846,7 +846,7 @@
                 </SampleCollectionMethod>
                 <SampleCollectionEquipmentName>Box Corer</SampleCollectionEquipmentName>
             </SampleDescription>
-            <ActivityMetricUrl>https://www.waterqualitydata.us/activities/21NYDECA_WQX-6/activitymetrics</ActivityMetricUrl>
+            <ActivityMetricUrl>https://www.waterqualitydata.us/data/activities/21NYDECA_WQX-6/activitymetrics</ActivityMetricUrl>
         </Activity>
         <Activity>
             <ActivityDescription>
@@ -878,7 +878,7 @@
                 </SampleCollectionMethod>
                 <SampleCollectionEquipmentName>Box Corer</SampleCollectionEquipmentName>
             </SampleDescription>
-            <ActivityMetricUrl>https://www.waterqualitydata.us/activities/21NYDECA_WQX-7/activitymetrics</ActivityMetricUrl>
+            <ActivityMetricUrl>https://www.waterqualitydata.us/data/activities/21NYDECA_WQX-7/activitymetrics</ActivityMetricUrl>
         </Activity>
         <Activity>
             <ActivityDescription>
@@ -910,7 +910,7 @@
                 </SampleCollectionMethod>
                 <SampleCollectionEquipmentName>Box Corer</SampleCollectionEquipmentName>
             </SampleDescription>
-            <ActivityMetricUrl>https://www.waterqualitydata.us/activities/21NYDECA_WQX-9/activitymetrics</ActivityMetricUrl>
+            <ActivityMetricUrl>https://www.waterqualitydata.us/data/activities/21NYDECA_WQX-9/activitymetrics</ActivityMetricUrl>
         </Activity>
         <Activity>
             <ActivityDescription>
@@ -942,7 +942,7 @@
                 </SampleCollectionMethod>
                 <SampleCollectionEquipmentName>Box Corer</SampleCollectionEquipmentName>
             </SampleDescription>
-            <ActivityMetricUrl>https://www.waterqualitydata.us/activities/21NYDECA_WQX-8/activitymetrics</ActivityMetricUrl>
+            <ActivityMetricUrl>https://www.waterqualitydata.us/data/activities/21NYDECA_WQX-8/activitymetrics</ActivityMetricUrl>
         </Activity>
     </Organization>
     <Organization>
@@ -983,7 +983,7 @@
                 </SampleCollectionMethod>
                 <SampleCollectionEquipmentName>Bucket</SampleCollectionEquipmentName>
             </SampleDescription>
-            <ActivityMetricUrl>https://www.waterqualitydata.us/activities/WIDNR_WQX-5/activitymetrics</ActivityMetricUrl>
+            <ActivityMetricUrl>https://www.waterqualitydata.us/data/activities/WIDNR_WQX-5/activitymetrics</ActivityMetricUrl>
         </Activity>
         <Activity>
             <ActivityDescription>
@@ -1017,7 +1017,7 @@
                 </SampleCollectionMethod>
                 <SampleCollectionEquipmentName>Unknown</SampleCollectionEquipmentName>
             </SampleDescription>
-            <ActivityMetricUrl>https://www.waterqualitydata.us/activities/WIDNR_WQX-4/activitymetrics</ActivityMetricUrl>
+            <ActivityMetricUrl>https://www.waterqualitydata.us/data/activities/WIDNR_WQX-4/activitymetrics</ActivityMetricUrl>
         </Activity>
     </Organization>
     <Organization>
@@ -1139,7 +1139,7 @@
                     <SampleTransportStorageDescription>actSamTransportStorageDesc</SampleTransportStorageDescription>
                 </SamplePreparation>
             </SampleDescription>
-            <ActivityMetricUrl>https://www.waterqualitydata.us/activities/organization-11/activitymetrics</ActivityMetricUrl>
+            <ActivityMetricUrl>https://www.waterqualitydata.us/data/activities/organization-11/activitymetrics</ActivityMetricUrl>
         </Activity>
         <Activity>
             <ActivityDescription>
@@ -1485,7 +1485,7 @@
                     <SampleTransportStorageDescription>actSamTransportStorageDesc</SampleTransportStorageDescription>
                 </SamplePreparation>
             </SampleDescription>
-            <ActivityMetricUrl>https://www.waterqualitydata.us/activities/organization-2/activitymetrics</ActivityMetricUrl>
+            <ActivityMetricUrl>https://www.waterqualitydata.us/data/activities/organization-2/activitymetrics</ActivityMetricUrl>
         </Activity>
         <Activity>
             <ActivityDescription>
@@ -1716,7 +1716,7 @@
                     <SampleTransportStorageDescription>actSamTransportStorageDesc</SampleTransportStorageDescription>
                 </SamplePreparation>
             </SampleDescription>
-            <ActivityMetricUrl>https://www.waterqualitydata.us/activities/organization-1/activitymetrics</ActivityMetricUrl>
+            <ActivityMetricUrl>https://www.waterqualitydata.us/data/activities/organization-1/activitymetrics</ActivityMetricUrl>
         </Activity>
         <Activity>
             <ActivityDescription>
