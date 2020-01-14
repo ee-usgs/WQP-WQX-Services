@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased](https://github.com/NWQMC/WQP-WQX-Services/compare/WQP-WQX-Services/compare/WQP-WQX-Services-1.4.0...master)
 
-## [1.4.0](https://github.com/NWQMC/ogcproxy/compare/WQP-WQX-Services/compare/WQP-WQX-Services-1.3.0...WQP-WQX-Services-1.4.0)
+## [1.4.0](https://github.com/NWQMC/WQP-WQX-Services/compare/WQP-WQX-Services/compare/WQP-WQX-Services-1.3.0...WQP-WQX-Services-1.4.0)
 ### Changed 
 -   Dockerfile now uses debin-stretch-openjdk-11 which is the latest rather than a specific tagged version
 
