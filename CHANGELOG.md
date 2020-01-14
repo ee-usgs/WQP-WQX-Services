@@ -4,11 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html). (Patch version X.Y.0 is implied if not specified.)
 
-## [Unreleased](https://github.com/NWQMC/ogcproxy/compare/WQP-WQX-Services/compare/WQP-WQX-Services-1.3.0...master)
-### Changed
+## [Unreleased](https://github.com/NWQMC/WQP-WQX-Services/compare/WQP-WQX-Services/compare/WQP-WQX-Services-1.4.0...master)
+
+## [1.4.0](https://github.com/NWQMC/WQP-WQX-Services/compare/WQP-WQX-Services/compare/WQP-WQX-Services-1.3.0...WQP-WQX-Services-1.4.0)
+### Changed 
 -   Dockerfile now uses debin-stretch-openjdk-11 which is the latest rather than a specific tagged version
 
-## [1.3.0](https://github.com/NWQMC/ogcproxy/compare/WQP-WQX-Services/compare/WQP-WQX-Services-1.2.0...WQP-WQX-Services-1.3.0)
+## [1.3.0](https://github.com/NWQMC/WQP-WQX-Services/compare/WQP-WQX-Services/compare/WQP-WQX-Services-1.2.0...WQP-WQX-Services-1.3.0)
 ### Added
 -   Automated Database Integration tests
 -   Code Coverage reporting
