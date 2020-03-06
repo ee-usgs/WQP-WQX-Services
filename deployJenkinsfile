@@ -1,4 +1,4 @@
-@Library(value='iow-ecs-pipeline@service-redirect', changelog=false) _
+@Library(value='iow-ecs-pipeline@service-redirects', changelog=false) _
 
 pipeline {
     agent {
