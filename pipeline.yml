@@ -4,7 +4,7 @@ artifactoryPath: "wqp"
 gitlabPath: "wma/docker/wqp/wqp-wqx-services"
 # name of the docker image
 dockerImageName: "wqp-wqx-services"
-# 
+#
 repoPath: "NWQMC/WQP-WQX-Services.git"
 # name of the git repo
 gitRepoUrl: "https://github.com/NWQMC/WQP-WQX-Services.git"
@@ -20,13 +20,31 @@ memory: 512
 applicationName: "wqp-wqx-services"
 # integer representing the order of precedence of the ALB rule.
 # set to a low priority; services are given higher priority.
-rulePriority: 302
+# rulePriority: 302
 # port that is exposed by your container
 containerPort: 8080
 # string parameter specifying a path that ALB should use to verify that your application is alive
 healthCheck: "/data/about/health"
 # string parameter that tells the ALB how to route requests to the containers (e.g. /my-app/*); this forms a listener rule for the load balancer
-contextPath: "/data/*"
+# contextPath: "/data/*"
 # configuration repository paths
 configRepoPath: "wma/docker/wqp/wqp-wqx-services"
 configCredentialsId: "wma-eto-eb-rsa"
+urlRules:
+  - type: forward
+    conditions:
+      - "/data/*"
+    priority: 303
+  - type: redirect
+    redirectConfig:
+      host: "#{host}"
+      path: "/data/#{path}"
+      query: "#{query}"
+      port: "#{port}"
+      protocol: HTTPS
+      statusCode: HTTP_301
+    conditions:
+      - /Result/*
+      - /Station/*
+      - /Activity/*
+    priority: 302
