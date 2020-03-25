@@ -1,7 +1,7 @@
 # docker image path in artifactory
 artifactoryPath: "wqp"
 # docker image path in gitlab
-gitlabPath: "wma/docker/wqp/wqp-wqx-services"
+# gitlabPath: "wma/docker/wqp/wqp-wqx-services"
 # name of the docker image
 dockerImageName: "wqp-wqx-services"
 #
