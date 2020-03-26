@@ -1,11 +1,7 @@
 # docker image path in artifactory
 artifactoryPath: "wqp"
-# docker image path in gitlab
-# gitlabPath: "wma/docker/wqp/wqp-wqx-services"
 # name of the docker image
 dockerImageName: "wqp-wqx-services"
-#
-repoPath: "NWQMC/WQP-WQX-Services.git"
 # name of the git repo
 gitRepoUrl: "https://github.com/NWQMC/WQP-WQX-Services.git"
 # Jenkins credential for pushing back to repo
