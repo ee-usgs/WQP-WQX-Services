@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
-        <state DATA_SOURCE_ID="2" CODE_VALUE="US:19" DESCRIPTION_WITH_COUNTRY="US, Iowa" DESCRIPTION_WITH_OUT_COUNTRY="Iowa"/>
-        <state DATA_SOURCE_ID="3" CODE_VALUE="US:55" DESCRIPTION_WITH_COUNTRY="US, Wisconsin" DESCRIPTION_WITH_OUT_COUNTRY="Wisconsin"/>
-        <state DATA_SOURCE_ID="2" CODE_VALUE="US:55" DESCRIPTION_WITH_COUNTRY="US, Wisconsin" DESCRIPTION_WITH_OUT_COUNTRY="Wisconsin"/>
-        <state DATA_SOURCE_ID="4" CODE_VALUE="US:30" DESCRIPTION_WITH_COUNTRY="US, Montana" DESCRIPTION_WITH_OUT_COUNTRY="Montana"/>
-        <state DATA_SOURCE_ID="3" CODE_VALUE="US:30" DESCRIPTION_WITH_COUNTRY="US, Montana" DESCRIPTION_WITH_OUT_COUNTRY="Montana"/>
-        <state DATA_SOURCE_ID="4" CODE_VALUE="US:06" DESCRIPTION_WITH_COUNTRY="US, California" DESCRIPTION_WITH_OUT_COUNTRY="California"/>
-        <state DATA_SOURCE_ID="3" CODE_VALUE="US:19" DESCRIPTION_WITH_COUNTRY="US, Iowa" DESCRIPTION_WITH_OUT_COUNTRY="Iowa"/>
-        <state DATA_SOURCE_ID="4" CODE_VALUE="US:19" DESCRIPTION_WITH_COUNTRY="US, Iowa" DESCRIPTION_WITH_OUT_COUNTRY="Iowa"/>
-        <state DATA_SOURCE_ID="1" CODE_VALUE="US:19" DESCRIPTION_WITH_COUNTRY="US, Iowa" DESCRIPTION_WITH_OUT_COUNTRY="Iowa"/>
-        <state DATA_SOURCE_ID="3" CODE_VALUE="US:06" DESCRIPTION_WITH_COUNTRY="US, California" DESCRIPTION_WITH_OUT_COUNTRY="California"/>
-        <state DATA_SOURCE_ID="2" CODE_VALUE="US:30" DESCRIPTION_WITH_COUNTRY="US, Montana" DESCRIPTION_WITH_OUT_COUNTRY="Montana"/>
-        <state DATA_SOURCE_ID="2" CODE_VALUE="US:06" DESCRIPTION_WITH_COUNTRY="US, California" DESCRIPTION_WITH_OUT_COUNTRY="California"/>
-        <state DATA_SOURCE_ID="4" CODE_VALUE="US:55" DESCRIPTION_WITH_COUNTRY="US, Wisconsin" DESCRIPTION_WITH_OUT_COUNTRY="Wisconsin"/>
+    <state data_source_id="2" code_value="US:19" description_with_country="US, Iowa" description_with_out_country="Iowa"/>
+    <state data_source_id="3" code_value="US:55" description_with_country="US, Wisconsin" description_with_out_country="Wisconsin"/>
+    <state data_source_id="2" code_value="US:55" description_with_country="US, Wisconsin" description_with_out_country="Wisconsin"/>
+    <state data_source_id="4" code_value="US:30" description_with_country="US, Montana" description_with_out_country="Montana"/>
+    <state data_source_id="3" code_value="US:30" description_with_country="US, Montana" description_with_out_country="Montana"/>
+    <state data_source_id="4" code_value="US:06" description_with_country="US, California" description_with_out_country="California"/>
+    <state data_source_id="3" code_value="US:19" description_with_country="US, Iowa" description_with_out_country="Iowa"/>
+    <state data_source_id="4" code_value="US:19" description_with_country="US, Iowa" description_with_out_country="Iowa"/>
+    <state data_source_id="1" code_value="US:19" description_with_country="US, Iowa" description_with_out_country="Iowa"/>
+    <state data_source_id="3" code_value="US:06" description_with_country="US, California" description_with_out_country="California"/>
+    <state data_source_id="2" code_value="US:30" description_with_country="US, Montana" description_with_out_country="Montana"/>
+    <state data_source_id="2" code_value="US:06" description_with_country="US, California" description_with_out_country="California"/>
+    <state data_source_id="4" code_value="US:55" description_with_country="US, Wisconsin" description_with_out_country="Wisconsin"/>
 </dataset>

@@ -1,4 +1,4 @@
-"DATA_SOURCE_ID","CODE_VALUE","PROJECT_DIM_VALUE"
+data_source_id,code_value,project_dim_value
 3,"Lake-BaselineMonitoringDNR","Lake-BaselineMonitoringDNR;WT046"
 3,"Lake-BaselineMonitoringDNR","CLMN-573060;Lake-BaselineMonitoringDNR"
 3,"Lake-BaselineMonitoringDNR","Lake-BaselineMonitoringDNR;STORET_LEGACY"

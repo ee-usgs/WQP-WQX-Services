@@ -7,10 +7,17 @@ spring:
       maximumPoolSize: 5
   datasource-dbunit:
     url: jdbc:postgresql://${WQP_DATABASE_ADDRESS}:${WQP_DATABASE_PORT}/${WQP_DATABASE_NAME}
-    username: ${WQP_SCHEMA_OWNER_USERNAME}
-    password: ${WQP_SCHEMA_OWNER_PASSWORD}
+    username: ${SCHEMA_OWNER_USERNAME}
+    password: ${SCHEMA_OWNER_PASSWORD}
     hikari:
       maximumPoolSize: 5
+
+springdoc:
+  version: "@project.version@"
+
+site:
+  swagger:
+    apiDocsUrl: /v3/api-docs
 
 codes:
   service:

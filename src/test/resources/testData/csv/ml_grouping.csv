@@ -1,4 +1,4 @@
-DATA_SOURCE_ID,DATA_SOURCE,STATION_ID,THE_YEAR,CHARACTERISTIC_TYPE,CHARACTERISTIC_NAME,TOTAL_ACTIVITIES,TOTAL_RESULTS,LAST_RESULT_DATE,GROUPING_ID
+data_source_id,data_source,station_id,the_year,characteristic_type,characteristic_name,total_activities,total_results,last_result_date,grouping_id
 1,STEWARDS,36,2000,ct_1,cn_1,1,2,2000-12-31,100
 1,STEWARDS,36,2001,ct_1,cn_1,1,1,2001-12-31,100
 1,STEWARDS,36,2002,ct_1,cn_1,10,100,2002-12-31,100

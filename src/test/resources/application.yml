@@ -1,14 +1,25 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://${WQP_DATABASE_ADDRESS}:${WQP_DATABASE_PORT}/${WQP_DATABASE_NAME}
+    username: ${WQP_READ_ONLY_USERNAME}
+    password: ${WQP_READ_ONLY_PASSWORD}
+    hikari:
+      maximumPoolSize: 5
+  datasource-dbunit:
+    url: jdbc:postgresql://${WQP_DATABASE_ADDRESS}:${WQP_DATABASE_PORT}/${WQP_DATABASE_NAME}
+    username: ${SCHEMA_OWNER_USERNAME}
+    password: ${SCHEMA_OWNER_PASSWORD}
+    hikari:
+      maximumPoolSize: 5
 
 site:
   url:
     base: https://www.waterqualitydata.us
+  swagger:
+    apiDocsUrl: /v3/api-docs
 
-swaggerServicesConfigFile: abc
-
-swagger:
-  display:
-    host: localhost:8443
-    path: /wqp
+springdoc:
+  version: "@project.version@"
 
 codes:
   url: http://localhost:8080/qw_portal_services/codes
@@ -33,3 +44,22 @@ server:
   port: ${SERVER_PORT}
   servlet:
     context-path: ${SERVER_CONTEXT_PATH}
+
+management:
+  endpoints:
+    enabled-by-default: false
+    jmx:
+      exposure:
+        exclude: "*"
+    web:
+      base-path: /about
+      exposure:
+        include:
+        - info
+        - health
+  endpoint:
+    info:
+      enabled: true
+    health:
+      enabled: true
+      show-details: never

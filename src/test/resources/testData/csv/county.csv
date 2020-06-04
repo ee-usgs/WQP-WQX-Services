@@ -1,4 +1,4 @@
-"DATA_SOURCE_ID","CODE_VALUE","DESCRIPTION","DESCRIPTION_WO_COUNTRY_STATE"
+data_source_id,code_value,description,description_wo_country_state
 2,"US:06:115","US, California, Yuba County","Yuba County"
 2,"US:30:003","US, Montana, Big Horn County","Big Horn County"
 4,"US:06:115","US, California, Yuba County","Yuba County"

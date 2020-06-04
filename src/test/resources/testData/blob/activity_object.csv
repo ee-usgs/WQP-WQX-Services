@@ -1,4 +1,4 @@
-"DATA_SOURCE_ID","OBJECT_ID","DATA_SOURCE","ACTIVITY_ID","ORGANIZATION","ACTIVITY","OBJECT_NAME","OBJECT_TYPE","OBJECT_CONTENT"
+data_source_id,object_id,data_source,activity_id,organization,activity,object_name,object_type,object_content
 3,1,"STORET",100,"BR549_WQX","BR549","BR549_one.txt","TXT","An activity text file."
 3,2,"STORET",101,"BR549_WQX","BR549","BR549_two.txt","TXT","A second activity text file."
 3,3,"STORET",102,"BR549_WQX","BR549","BR549_three.txt","TXT","A third activity text file."

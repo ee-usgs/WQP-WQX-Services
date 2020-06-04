@@ -1,1 +1,1 @@
-"WEB_SERVICE_LOG_ID","REQUEST_TIMESTAMP_UTC","HEAD_SENT_UTC","FIRST_ROW_SENT_UTC","REQUEST_COMPLETED_UTC","ORIGIN","CALL_TYPE","ENDPOINT","QUERY_STRING","TOTAL_ROWS_EXPECTED","DATA_STORE_COUNTS","HTTP_STATUS_CODE","POST_DATA"
+web_service_log_id,request_timestamp_utc,head_sent_utc,first_row_sent_utc,request_completed_utc,origin,call_type,endpoint,query_string,total_rows_expected,data_store_counts,http_status_code,post_data
