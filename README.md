@@ -17,7 +17,7 @@ This application has numerous environment variables to define the actual runtime
 
 * Docker Compose: The substitution variables in docker-compose.yml should be defined in a .env file located in the project's root directory. The remaining variables need to be defined in .env files in the secrets/app/ and secrets/common/ directories. Samples of the later are included in the project.
 
-* Command line or IDE: The variables found in the secrets/ samples should be placed into a single application.yml file located in the project's root directory. An addition application-it.yml file is also required in the same location to run unit tests via an IDE. It requires the **WQP_DB_URL**, **WQP_SCHEMA_NAME**, **WQP_SCHEMA_OWNER_USERNAME**, **WQP_SCHEMA_OWNER_PASSWORD**, **WQP_READ_ONLY_USERNAME**, and **WQP_READ_ONLY_PASSWORD** values.
+* Command line or IDE: The variables found in the secrets/ samples should be placed into a single application.yml file located in the project's root directory. An addition application-it.yml file is also required in the same location to run unit tests via an IDE. It requires the **WQP_DB_URL**, **WQP_SCHEMA_NAME**, **SCHEMA_OWNER_USERNAME**, **SCHEMA_OWNER_PASSWORD**, **WQP_READ_ONLY_USERNAME**, and **WQP_READ_ONLY_PASSWORD** values.
 
 * Maven test execution: The pom contains all of the enviroment variable definitions needed. They are all generic values suitable for the automated testing and should not be used in any actual shared environments. ```mvn test``` will run just the unit tests, ```mvn verify``` will additionally run tests against the database. Running the tests in this way is completely self contained and no setup or local database is needed.
 
@@ -39,8 +39,8 @@ This application has numerous environment variables to define the actual runtime
 * **SWAGGER_DISPLAY_PROTOCOL** - The public facing communications protocol of this service. Used to enable Swagger's try it out functionality.
 * **SWAGGER_SERVICES_LOOKUPS_URL** - Base URL for the codes service. Used to locate the Swagger information for the codes service.
 * **SWAGGER_SERVICES_CORE_URL** - Base URL for this service. Used to locate the Swagger information for this service.
-* **WQP_SCHEMA_OWNER_USERNAME** - Role which will own the database objects. Only needed for automated testing.
-* **WQP_SCHEMA_OWNER_PASSWORD** - Password for the **WQP_SCHEMA_OWNER_USERNAME** role. Only needed for automated testing.
+* **SCHEMA_OWNER_USERNAME** - Role which will own the database objects. Only needed for automated testing.
+* **SCHEMA_OWNER_PASSWORD** - Password for the **SCHEMA_OWNER_USERNAME** role. Only needed for automated testing.
 * **WQP_DB_HOST** - Host name of the PosgreSQL Database.
 * **WQP_DB_NAME** - Name of the PostgreSQL Database used by the application.
 * **WQP_DB_PORT** - Port the PostgreSQL Database is listening on.

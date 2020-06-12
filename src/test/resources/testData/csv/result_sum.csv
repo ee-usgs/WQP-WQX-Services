@@ -1,4 +1,4 @@
-DATA_SOURCE_ID,DATA_SOURCE,STATION_ID,SITE_ID,EVENT_DATE,ANALYTICAL_METHOD,P_CODE,CHARACTERISTIC_NAME,CHARACTERISTIC_TYPE,SAMPLE_MEDIA,ORGANIZATION,SITE_TYPE,HUC,GOVERNMENTAL_UNIT_CODE,GEOM,PROJECT_ID,ASSEMBLAGE_SAMPLED_NAME,SAMPLE_TISSUE_TAXONOMIC_NAME,ACTIVITY_ID,RESULT_COUNT
+data_source_id,data_source,station_id,site_id,event_date,analytical_method,p_code,characteristic_name,characteristic_type,sample_media,organization,site_type,huc,governmental_unit_code,geom,project_id,assemblage_sampled_name,sample_tissue_taxonomic_name,activity_id,result_count
 1,STEWARDS,36,ARS-IAWC-IAWC225,1996-06-27,null,null,null,Nutrient,Water,ARS,Land,070801050907,US:19:015,SRID=4269;POINT(-93.6982205 41.9607224),CEAP,null,null,1,1
 1,STEWARDS,36,ARS-IAWC-IAWC225,2015-05-17,null,null,null,Nutrient,sampleMediaStewards,ARS,Land,070801050907,US:19:015,SRID=4269;POINT(-93.6982205 41.9607224),projectIdStewards,null,null,2,1
 1,STEWARDS,46,ARS-IAWC-IAWC410,1996-06-27,null,null,null,null,Water,ARS,Stream,07100004,US:19:015,SRID=4269;POINT(-93.7590729 41.9505493),CEAP,null,null,3,1

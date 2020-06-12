@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>gov.usgs.cida.wqp</groupId>
+    <groupId>gov.usgs.wma.wqp</groupId>
     <artifactId>wqp</artifactId>
     <version>1.6.0-SNAPSHOT</version>
     <packaging>jar</packaging>
@@ -59,8 +59,8 @@
                         <WQP_DATABASE_ADDRESS>${TESTING_DATABASE_ADDRESS}</WQP_DATABASE_ADDRESS>
                         <WQP_DATABASE_PORT>${TESTING_DATABASE_PORT}</WQP_DATABASE_PORT>
                         <WQP_DATABASE_NAME>wqp_db</WQP_DATABASE_NAME>
-                        <WQP_SCHEMA_OWNER_USERNAME>wqp_core</WQP_SCHEMA_OWNER_USERNAME>
-                        <WQP_SCHEMA_OWNER_PASSWORD>changeMe</WQP_SCHEMA_OWNER_PASSWORD>
+                        <SCHEMA_OWNER_USERNAME>wqp_core</SCHEMA_OWNER_USERNAME>
+                        <SCHEMA_OWNER_PASSWORD>changeMe</SCHEMA_OWNER_PASSWORD>
                         <WQP_READ_ONLY_USERNAME>wqp_user</WQP_READ_ONLY_USERNAME>
                         <WQP_READ_ONLY_PASSWORD>changeMe</WQP_READ_ONLY_PASSWORD>
                         <WQP_SCHEMA_NAME>wqp</WQP_SCHEMA_NAME>
@@ -168,7 +168,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.2.6.RELEASE</version>
+        <version>2.3.0.RELEASE</version>
     </parent>
 
     <dependencies>
@@ -191,7 +191,7 @@
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
-            <version>2.1.2</version>
+            <version>2.1.3</version>
         </dependency>
 
         <dependency>
@@ -208,7 +208,7 @@
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-ui</artifactId>
-            <version>1.3.4</version>
+            <version>1.4.0</version>
         </dependency>
 
         <dependency>
@@ -218,7 +218,7 @@
         <dependency>
             <groupId>org.springframework.security.oauth.boot</groupId>
             <artifactId>spring-security-oauth2-autoconfigure</artifactId>
-            <version>2.2.6.RELEASE</version>
+            <version>2.3.0.RELEASE</version>
         </dependency>
 
         <dependency>
@@ -270,6 +270,12 @@
             <artifactId>dbunit</artifactId>
             <version>2.7.0</version>
             <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>junit</groupId>
+                    <artifactId>junit</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>uk.co.datumedge</groupId>

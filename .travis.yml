@@ -11,7 +11,7 @@ jdk:
 install: true
 
 script:
-  - docker network create wqp
+  - docker network create iow
   - |
     docker \
     run \
@@ -19,12 +19,12 @@ script:
     -v /var/run/docker.sock:/var/run/docker.sock \
     -v "$TRAVIS_BUILD_DIR":/usr/src/mymaven \
     -w /usr/src/mymaven \
-    --network=wqp \
+    --network=iow \
     -e TESTING_DATABASE_PORT=5432 \
     -e TESTING_DATABASE_ADDRESS=wqpDatabase \
-    -e TESTING_DATABASE_NETWORK=wqp \
+    -e TESTING_DATABASE_NETWORK=iow \
     maven:3.6.0-jdk-11 mvn clean verify
-  - docker network rm wqp
+  - docker network rm iow
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)

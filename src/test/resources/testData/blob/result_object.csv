@@ -1,4 +1,4 @@
-"DATA_SOURCE_ID","OBJECT_ID","DATA_SOURCE","ORGANIZATION","ACTIVITY_ID","ACTIVITY","RESULT_ID","OBJECT_NAME","OBJECT_TYPE","OBJECT_CONTENT"
+data_source_id,object_id,data_source,organization,activity_id,activity,result_id,object_name,object_type,object_content
 3,1,"STORET","WIDNR_WQX",4,"WIDNR_WQX-7788480-4",4,"WIDNR_WQX-7788480_one.txt",'TXT","This is a small text result file."
 3,2,"STORET","WIDNR_WQX",4,"WIDNR_WQX-7788480-4",4,"WIDNR_WQX-7788480_two.txt",'TXT","This is another small text result file."
 3,3,"STORET","WIDNR_WQX",4,"WIDNR_WQX-7788480-4",4,"WIDNR_WQX-7788480_three.txt",'TXT","This is yet another small text result file."
