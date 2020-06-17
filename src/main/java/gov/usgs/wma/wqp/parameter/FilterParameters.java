@@ -53,6 +53,11 @@ public class FilterParameters {
 	public static final String REGEX_DATA_PROFILE = String.join("|", Profile.getValues());
 	public static final String REGEX_SUMMARY_YEARS = "1|5|all";
 
+	public static final String MIMETYPE_CONST = "mimeType";
+	public static final String ORGANIZATION_CONST = "organization";
+	public static final String SUMMARY_YEARS_CONST = "summaryYears";
+	public static final String ZIP_CONST = "zip";
+
 	private String activity;
 
 	@Size(min=0, max=IN_CLAUSE_LIMIT, message="The analyticalmethod is not between {min} and {max} occurances")

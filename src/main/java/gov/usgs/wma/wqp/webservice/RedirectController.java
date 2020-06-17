@@ -32,13 +32,13 @@ public class RedirectController {
 			})
 	@GetMapping(value="/version")
 	public RedirectView getVersion() {
-		return new RedirectView(configurationService.getMyUrlBase() + "about/info", true, false);
+		return new RedirectView(configurationService.getMyUrlBase() + "/about/info", true, false);
 	}
 
 	@GetMapping(value="/swagger")
 	@Hidden
 	public RedirectView getSwagger() {
-		return new RedirectView(configurationService.getMyUrlBase() + "swagger-ui/index.html?url="
+		return new RedirectView(configurationService.getMyUrlBase() + "/swagger-ui/index.html?url="
 									+ configurationService.getSwaggerApiDocsUrl(), true, true);
 	}
 }

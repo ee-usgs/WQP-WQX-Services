@@ -1,5 +1,10 @@
 package gov.usgs.wma.wqp.openapi;
 
+import java.util.Comparator;
+import java.util.stream.Collectors;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springdoc.core.customizers.OpenApiCustomiser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -80,15 +85,23 @@ public class ConfigOpenApi {
 	@Bean
 	public OpenAPI customOpenAPI() {
 		return new OpenAPI()
-				.addServersItem(new Server().url(configurationService.getSiteUrlBase()))
+				.addServersItem(new Server().url(configurationService.getMyUrlBase()))
 				.components(new Components())
 				.info(new Info()
-						.title("Water Quality Portal Data API")
-						.description("Documentation for the Water Quality Portal Data Download API")
+						.title(configurationService.getDeployName() + " API")
+						.description("Documentation for the " + configurationService.getDeployName() + " API")
 						.version(configurationService.getAppVersion())
 						);
-
 	}
+
+	@Bean
+	public OpenApiCustomiser sortTagsAlphabetically() {
+		return openApi -> openApi.setTags(openApi.getTags()
+				.stream()
+				.sorted(Comparator.comparing(tag -> StringUtils.stripAccents(tag.getName())))
+				.collect(Collectors.toList()));
+	}
+
 //	@Bean
 //	public Docket qwPortalServicesApi() {
 //		Docket docket = new Docket(DocumentationType.SWAGGER_2)
