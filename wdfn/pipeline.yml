@@ -13,13 +13,13 @@ projectName: "iow-allgemein"
 # maximum amount of RAM for running Docker containers in the service
 memory: 512
 # name of the application or service
-applicationName: "wqp-wqx-services"
+applicationName: "data-services"
 # port that is exposed by your container
 containerPort: 8080
 # string parameter specifying a path that ALB should use to verify that your application is alive
 healthCheck: "/data/about/health"
 # configuration repository paths
-configRepoPath: "wma/docker/wdfn/wqp-wqx-services"
+configRepoPath: "wma/docker/wdfn/data-services"
 configCredentialsId: "wma-eto-eb-rsa"
 urlRules:
   - type: forward

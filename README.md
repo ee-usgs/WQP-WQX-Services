@@ -39,7 +39,7 @@ This application has numerous environment variables to define the actual runtime
 * **DATABASE_PORT** - Port the PostgreSQL Database is listening on.
 * **SCHEMA_NAME** - Database schema containing the database objects.
 * **READ_ONLY_USERNAME** - The limited privilege role used by applications to access this schema.
-* **READ_ONLY_PASSWORD** - Password for the **WQP_READ_ONLY_USERNAME** role.
+* **READ_ONLY_PASSWORD** - Password for the **READ_ONLY_USERNAME** role.
 
 ## Docker
 Included is a Docker Compose script to create a container including this project.
