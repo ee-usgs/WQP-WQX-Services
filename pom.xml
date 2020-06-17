@@ -65,6 +65,9 @@
                         <SCHEMA_OWNER_PASSWORD>changeMe</SCHEMA_OWNER_PASSWORD>
                         <READ_ONLY_USERNAME>wqp_user</READ_ONLY_USERNAME>
                         <READ_ONLY_PASSWORD>changeMe</READ_ONLY_PASSWORD>
+                        <WSL_SCHEMA_NAME_DBUNIT>wqp</WSL_SCHEMA_NAME_DBUNIT>
+                        <WSL_SCHEMA_OWNER_USERNAME>wqp_core</WSL_SCHEMA_OWNER_USERNAME>
+                        <WSL_SCHEMA_OWNER_PASSWORD>changeMe</WSL_SCHEMA_OWNER_PASSWORD>
                         <MAX_RESULT_ROWS>20000000</MAX_RESULT_ROWS>
                     </environmentVariables>
                 </configuration>

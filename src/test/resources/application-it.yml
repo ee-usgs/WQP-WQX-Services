@@ -1,27 +1,58 @@
 spring:
   datasource:
-    url: jdbc:postgresql://${WQP_DATABASE_ADDRESS}:${WQP_DATABASE_PORT}/${WQP_DATABASE_NAME}
-    username: ${WQP_READ_ONLY_USERNAME}
-    password: ${WQP_READ_ONLY_PASSWORD}
+    url: jdbc:postgresql://${DATABASE_ADDRESS}:${DATABASE_PORT}/${DATABASE_NAME}?currentSchema=${SCHEMA_NAME}
+    username: ${READ_ONLY_USERNAME}
+    password: ${READ_ONLY_PASSWORD}
     hikari:
       maximumPoolSize: 5
   datasource-dbunit:
-    url: jdbc:postgresql://${WQP_DATABASE_ADDRESS}:${WQP_DATABASE_PORT}/${WQP_DATABASE_NAME}
+    url: jdbc:postgresql://${DATABASE_ADDRESS}:${DATABASE_PORT}/${DATABASE_NAME}
     username: ${SCHEMA_OWNER_USERNAME}
     password: ${SCHEMA_OWNER_PASSWORD}
     hikari:
       maximumPoolSize: 5
+    schemaName: ${SCHEMA_NAME_DBUNIT}
+  datasource-dbunit-wsl:
+    url: jdbc:postgresql://${DATABASE_ADDRESS}:${DATABASE_PORT}/${DATABASE_NAME}?currentSchema=${WSL_SCHEMA_NAME_DBUNIT}
+    username: ${WSL_SCHEMA_OWNER_USERNAME}
+    password: ${WSL_SCHEMA_OWNER_PASSWORD}
+    hikari:
+      maximumPoolSize: 5
+    schemaName: ${WSL_SCHEMA_NAME_DBUNIT}
+
+site:
+  url:
+    base: https://www.waterqualitydata.us
+  swagger:
+    apiDocsUrl: /v3/api-docs
+    deployName: Data
 
 springdoc:
   version: "@project.version@"
 
-site:
-  swagger:
-    apiDocsUrl: /v3/api-docs
-
 codes:
-  service:
-    url: ${CODES_SERVICE_URL}
+  url: http://localhost:8080/qw_portal_services/codes
+  mimeType: json
+  timeout:
+    milli: 1000
+
+nldi:
+  url: https://cida-test.er.usgs.gov/nldi/wqp/USGS-05427880/navigate/UM/wqp
+  timeout:
+    milli: 10000
+
+kml:
+  style:
+    url: https://www.waterqualitydata.us/kml/wqp_styles.kml
+
+max:
+  result:
+    rows: 20000000
+
+server:
+  port: 8080
+  servlet:
+    context-path: /data
 
 management:
   endpoints:
@@ -41,8 +72,3 @@ management:
     health:
       enabled: true
       show-details: never
-
-server:
-  port: ${SERVER_PORT}
-  servlet:
-    context-path: ${SERVER_CONTEXT_PATH}

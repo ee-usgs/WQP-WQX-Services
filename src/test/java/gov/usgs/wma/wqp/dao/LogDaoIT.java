@@ -56,12 +56,18 @@ public class LogDaoIT extends BaseIT {
 	}
 
 	@Test
-	@DatabaseSetup(value="classpath:/testData/webServiceLog/empty.xml")
-	@ExpectedDatabase(value="classpath:/testResult/webServiceLog/afterInsert.xml",
-		assertionMode=DatabaseAssertionMode.NON_STRICT_UNORDERED,
-		modifiers=LogModifier.class,
-		table="web_service_log",
-		query="select web_service_log_id, origin, call_type, endpoint, user_agent, to_char(request_timestamp_utc, 'yyyy-mm-ddThh24:mi') request_timestamp_utc from web_service_log")
+	@DatabaseSetup(
+			connection=DBTestConfig.DBUNIT_CONNECTION_WSL,
+			value="classpath:/testData/webServiceLog/empty.xml"
+			)
+	@ExpectedDatabase(
+			connection=DBTestConfig.DBUNIT_CONNECTION_WSL,
+			value="classpath:/testResult/webServiceLog/afterInsert.xml",
+			assertionMode=DatabaseAssertionMode.NON_STRICT_UNORDERED,
+			modifiers=LogModifier.class,
+			table="web_service_log",
+			query="select web_service_log_id, origin, call_type, endpoint, user_agent, to_char(request_timestamp_utc, 'yyyy-mm-ddThh24:mi') request_timestamp_utc from web_service_log"
+			)
 	public void insertTest() {
 		parameterMap.put(LogDao.ORIGIN, "WQP Site");
 		parameterMap.put(LogDao.CALL_TYPE, "GET");
@@ -72,12 +78,18 @@ public class LogDaoIT extends BaseIT {
 	}
 
 	@Test
-	@DatabaseSetup(value="classpath:/testData/webServiceLog/beforeHead.xml")
-	@ExpectedDatabase(value="classpath:/testResult/webServiceLog/afterHead.xml",
-		assertionMode=DatabaseAssertionMode.NON_STRICT_UNORDERED,
-		modifiers=LogModifier.class,
-		table="web_service_log",
-		query="select web_service_log_id, origin, call_type, endpoint, user_agent, request_timestamp_utc, to_char(head_sent_utc, 'yyyy-mm-ddThh24:mi') head_sent_utc, total_rows_expected, data_store_counts from web_service_log")
+	@DatabaseSetup(
+			connection=DBTestConfig.DBUNIT_CONNECTION_WSL,
+			value="classpath:/testData/webServiceLog/beforeHead.xml"
+			)
+	@ExpectedDatabase(
+			connection=DBTestConfig.DBUNIT_CONNECTION_WSL,
+			value="classpath:/testResult/webServiceLog/afterHead.xml",
+			assertionMode=DatabaseAssertionMode.NON_STRICT_UNORDERED,
+			modifiers=LogModifier.class,
+			table="web_service_log",
+			query="select web_service_log_id, origin, call_type, endpoint, user_agent, request_timestamp_utc, to_char(head_sent_utc, 'yyyy-mm-ddThh24:mi') head_sent_utc, total_rows_expected, data_store_counts from web_service_log"
+			)
 	public void setHeadCompleteTest() {
 		parameterMap.put(LogDao.ID, id);
 		parameterMap.put(LogDao.TOTAL_ROWS_EXPECTED, BaseControllerTest.TEST_TOTAL_RES_DETECT_QNT_LMT_COUNT);
@@ -86,24 +98,36 @@ public class LogDaoIT extends BaseIT {
 	}
 
 	@Test
-	@DatabaseSetup(value="classpath:/testData/webServiceLog/beforeFirstRow.xml")
-	@ExpectedDatabase(value="classpath:/testResult/webServiceLog/afterFirstRow.xml",
-		assertionMode=DatabaseAssertionMode.NON_STRICT_UNORDERED,
-		modifiers=LogModifier.class,
-		table="web_service_log",
-		query="select web_service_log_id, origin, call_type, endpoint, user_agent, request_timestamp_utc, head_sent_utc, total_rows_expected, data_store_counts, to_char(first_row_sent_utc, 'yyyy-mm-ddThh24:mi') first_row_sent_utc from web_service_log")
+	@DatabaseSetup(
+			connection=DBTestConfig.DBUNIT_CONNECTION_WSL,
+			value="classpath:/testData/webServiceLog/beforeFirstRow.xml"
+			)
+	@ExpectedDatabase(
+			connection=DBTestConfig.DBUNIT_CONNECTION_WSL,
+			value="classpath:/testResult/webServiceLog/afterFirstRow.xml",
+			assertionMode=DatabaseAssertionMode.NON_STRICT_UNORDERED,
+			modifiers=LogModifier.class,
+			table="web_service_log",
+			query="select web_service_log_id, origin, call_type, endpoint, user_agent, request_timestamp_utc, head_sent_utc, total_rows_expected, data_store_counts, to_char(first_row_sent_utc, 'yyyy-mm-ddThh24:mi') first_row_sent_utc from web_service_log"
+			)
 	public void setFirstRowTest() {
 		parameterMap.put(LogDao.ID, id);
 		logDao.setFirstRow(parameterMap);
 	}
 
 	@Test
-	@DatabaseSetup(value="classpath:/testData/webServiceLog/beforeRequestComplete.xml")
-	@ExpectedDatabase(value="classpath:/testResult/webServiceLog/afterRequestComplete.xml",
-		assertionMode=DatabaseAssertionMode.NON_STRICT_UNORDERED,
-		modifiers=LogModifier.class,
-		table="web_service_log",
-		query="select web_service_log_id, origin, call_type, endpoint, user_agent, request_timestamp_utc, head_sent_utc, total_rows_expected, data_store_counts, first_row_sent_utc, to_char(request_completed_utc, 'yyyy-mm-ddThh24:mi') request_completed_utc, http_status_code, download_details from web_service_log")
+	@DatabaseSetup(
+			connection=DBTestConfig.DBUNIT_CONNECTION_WSL,
+			value="classpath:/testData/webServiceLog/beforeRequestComplete.xml"
+			)
+	@ExpectedDatabase(
+			connection=DBTestConfig.DBUNIT_CONNECTION_WSL,
+			value="classpath:/testResult/webServiceLog/afterRequestComplete.xml",
+			assertionMode=DatabaseAssertionMode.NON_STRICT_UNORDERED,
+			modifiers=LogModifier.class,
+			table="web_service_log",
+			query="select web_service_log_id, origin, call_type, endpoint, user_agent, request_timestamp_utc, head_sent_utc, total_rows_expected, data_store_counts, first_row_sent_utc, to_char(request_completed_utc, 'yyyy-mm-ddThh24:mi') request_completed_utc, http_status_code, download_details from web_service_log"
+			)
 	public void setRequestCompleteTest() {
 		parameterMap.put(LogDao.ID, id);
 		parameterMap.put(LogDao.HTTP_STATUS_CODE, "200");

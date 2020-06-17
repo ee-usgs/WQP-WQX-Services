@@ -21,8 +21,14 @@ import gov.usgs.wma.wqp.PostgresqlDataTypeFactoryWithJson;
 @Import(MybatisConfig.class)
 public class DBTestConfig extends SpringTestConfig {
 
-	@Value("${WQP_SCHEMA_NAME}")
-	private String schemaName;
+	public static final String DBUNIT_CONNECTION = "dbUnitDatabaseConnection";
+	public static final String DBUNIT_CONNECTION_WSL = "dbUnitDatabaseConnectionWSL";
+
+	@Value("${spring.datasource-dbunit.schemaName}")
+	private String schemaNameDbunit;
+
+	@Value("${spring.datasource-dbunit-wsl.schemaName}")
+	private String schemaNameDbunitWSL;
 
 	@Bean
 	@Primary
@@ -40,17 +46,28 @@ public class DBTestConfig extends SpringTestConfig {
 
 	@Bean
 	@ConfigurationProperties(prefix="spring.datasource-dbunit")
-	public DataSourceProperties dataSourcePropertiesWqpCore() {
+	public DataSourceProperties dataSourcePropertiesDbunit() {
 		return new DataSourceProperties();
 	}
 
 	@Bean
 	@ConfigurationProperties(prefix="spring.datasource-dbunit")
-	public DataSource dataSourceWqpCore() {
-		return dataSourcePropertiesWqpCore().initializeDataSourceBuilder().build();
+	public DataSource dataSourceDbunit() {
+		return dataSourcePropertiesDbunit().initializeDataSourceBuilder().build();
 	}
 
-	//Beans to support DBunit for unit testing with PostgreSQL.
+	@Bean
+	@ConfigurationProperties(prefix="spring.datasource-dbunit-wsl")
+	public DataSourceProperties dataSourcePropertiesDbunitWSL() {
+		return new DataSourceProperties();
+	}
+
+	@Bean
+	@ConfigurationProperties(prefix="spring.datasource-dbunit-wsl")
+	public DataSource dataSourceDbunitWSL() {
+		return dataSourcePropertiesDbunitWSL().initializeDataSourceBuilder().build();
+	}
+
 	@Bean
 	public DatabaseConfigBean dbUnitDatabaseConfig() {
 		DatabaseConfigBean dbUnitDbConfig = new DatabaseConfigBean();
@@ -64,9 +81,26 @@ public class DBTestConfig extends SpringTestConfig {
 	public DatabaseDataSourceConnectionFactoryBean dbUnitDatabaseConnection() throws SQLException {
 		DatabaseDataSourceConnectionFactoryBean dbUnitDatabaseConnection = new DatabaseDataSourceConnectionFactoryBean();
 		dbUnitDatabaseConnection.setDatabaseConfig(dbUnitDatabaseConfig());
-		dbUnitDatabaseConnection.setDataSource(dataSourceWqpCore());
-		dbUnitDatabaseConnection.setSchema(schemaName);
+		dbUnitDatabaseConnection.setDataSource(dataSourceDbunit());
+		dbUnitDatabaseConnection.setSchema(schemaNameDbunit);
 		return dbUnitDatabaseConnection;
 	}
 
+	@Bean
+	public DatabaseConfigBean dbUnitDatabaseConfigWSL() {
+		DatabaseConfigBean dbUnitDbConfig = new DatabaseConfigBean();
+		dbUnitDbConfig.setDatatypeFactory(new PostgresqlDataTypeFactoryWithJson());
+		dbUnitDbConfig.setQualifiedTableNames(false);
+		dbUnitDbConfig.setTableType(new String[] {"TABLE"});
+		return dbUnitDbConfig;
+	}
+
+	@Bean
+	public DatabaseDataSourceConnectionFactoryBean dbUnitDatabaseConnectionWSL() throws SQLException {
+		DatabaseDataSourceConnectionFactoryBean dbUnitDatabaseConnection = new DatabaseDataSourceConnectionFactoryBean();
+		dbUnitDatabaseConnection.setDatabaseConfig(dbUnitDatabaseConfigWSL());
+		dbUnitDatabaseConnection.setDataSource(dataSourceDbunitWSL());
+		dbUnitDatabaseConnection.setSchema(schemaNameDbunitWSL);
+		return dbUnitDatabaseConnection;
+	}
 }

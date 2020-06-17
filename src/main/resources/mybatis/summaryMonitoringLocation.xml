@@ -52,39 +52,36 @@
 </sql>
 
     <select id="select" resultType="java.util.LinkedHashMap" fetchSize="500">
-
-        SELECT
-        data_source,data_source,
-        organization,
-        organization_name,
-        site_id,
-        station_name,
-        site_type,
-        TO_CHAR(st_y(prime.geom),'FM90.0000000') latitude,
-        TO_CHAR(st_x(prime.geom),'FM990.0000000') longitude,
-        station_type_name,
-        substring(huc, '[0-9]{8}')huc_8,
-        state_name,
-        county_name,
+        select data_source,data_source,
+               organization,
+               organization_name,
+               site_id,
+               station_name,
+               site_type,
+               to_char(public.st_y(prime.geom),'FM90.0000000') latitude,
+               to_char(public.st_x(prime.geom),'FM990.0000000') longitude,
+               station_type_name,
+               substring(huc, '[0-9]{8}')huc_8,
+               state_name,
+               county_name,
 
         <include refid="selectSummaryByYear" />
 
-        FROM station_sum prime
+          from station_sum prime
 
         <include refid="summaryYearWhere" />
 
-        ORDER BY
-            data_source_id,
-            organization,
-            site_id
+            order by data_source_id,
+                     organization,
+                     site_id
         </select>
 
     <select id="count" resultType="java.util.LinkedHashMap">
         select data_source,
                count(distinct data_source||'-'||station_id) site_count
-        from station_sum prime
+          from station_sum prime
               <include refid="summaryYearWhere" />
-        group by rollup(data_source)
+            group by rollup(data_source)
     </select>
 
 </mapper>
