@@ -1,0 +1,41 @@
+# docker image path in artifactory
+artifactoryPath: "wqp"
+# name of the docker image
+dockerImageName: "wqp-wqx-services"
+# name of the git repo
+gitRepoUrl: "https://github.com/NWQMC/WQP-WQX-Services.git"
+# Jenkins credential for pushing back to repo
+gitRepoCredentialsId: "Jenkins-GitHub-Read-Write-Token"
+# name of the deploy job to trigger
+deployJobName: "WQP-WQX-Services-deploy-wdfn"
+# name of the project
+projectName: "iow-allgemein"
+# maximum amount of RAM for running Docker containers in the service
+memory: 512
+# name of the application or service
+applicationName: "wqp-wqx-services"
+# port that is exposed by your container
+containerPort: 8080
+# string parameter specifying a path that ALB should use to verify that your application is alive
+healthCheck: "/data/about/health"
+# configuration repository paths
+configRepoPath: "wma/docker/wdfn/wqp-wqx-services"
+configCredentialsId: "wma-eto-eb-rsa"
+urlRules:
+  - type: forward
+    conditions:
+      - "/data/*"
+    priority: 428
+  - type: redirect
+    redirectConfig:
+      host: "#{host}"
+      path: "/data/#{path}"
+      query: "#{query}"
+      port: "#{port}"
+      protocol: HTTPS
+      statusCode: HTTP_301
+    conditions:
+      - /Result/*
+      - /Station/*
+      - /Activity/*
+    priority: 427
