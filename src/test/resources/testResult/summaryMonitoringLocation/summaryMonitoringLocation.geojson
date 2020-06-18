@@ -9,7 +9,7 @@
 		"properties": {
 			"ResolvedMonitoringLocationTypeName": "Land",
 			"resultCount": "11",
-			"siteUrl": "https://www.waterqualitydata.us/provider/STEWARDS/ARS/ARS-IAWC-IAWC225/",
+			"siteUrl": "https://www.waterqualitydata.us/data/provider/STEWARDS/ARS/ARS-IAWC-IAWC225/",
 			"MonitoringLocationTypeName": "River/Stream",
 			"StateName": "Delaware",
 			"MonitoringLocationName": "Buckeye Rd.",
@@ -33,7 +33,7 @@
 		"properties": {
 			"ResolvedMonitoringLocationTypeName": "Stream",
 			"resultCount": "13",
-			"siteUrl": "https://www.waterqualitydata.us/provider/STEWARDS/ARS/ARS-IAWC-IAWC410/",
+			"siteUrl": "https://www.waterqualitydata.us/data/provider/STEWARDS/ARS/ARS-IAWC-IAWC410/",
 			"MonitoringLocationTypeName": "River/Stream",
 			"StateName": "Michigan",
 			"MonitoringLocationName": "North ln",
@@ -57,7 +57,7 @@
 		"properties": {
 			"ResolvedMonitoringLocationTypeName": "Stream",
 			"resultCount": "5",
-			"siteUrl": "https://www.waterqualitydata.us/provider/NWIS/USGS-WI/USGS-05425700/",
+			"siteUrl": "https://www.waterqualitydata.us/data/provider/NWIS/USGS-WI/USGS-05425700/",
 			"MonitoringLocationTypeName": "River/Stream",
 			"StateName": "California",
 			"MonitoringLocationName": "Day lake Rd.",
@@ -81,7 +81,7 @@
 		"properties": {
 			"ResolvedMonitoringLocationTypeName": "Well",
 			"resultCount": "7",
-			"siteUrl": "https://www.waterqualitydata.us/provider/NWIS/USGS-WI/USGS-431925089002701/",
+			"siteUrl": "https://www.waterqualitydata.us/data/provider/NWIS/USGS-WI/USGS-431925089002701/",
 			"MonitoringLocationTypeName": "River/Stream",
 			"StateName": "California",
 			"MonitoringLocationName": "Forest St.",
@@ -105,7 +105,7 @@
 		"properties": {
 			"ResolvedMonitoringLocationTypeName": "Lake, Reservoir, Impoundment",
 			"resultCount": "1",
-			"siteUrl": "https://www.waterqualitydata.us/provider/STORET/11NPSWRD/11NPSWRD-BICA_MFG_B/",
+			"siteUrl": "https://www.waterqualitydata.us/data/provider/STORET/11NPSWRD/11NPSWRD-BICA_MFG_B/",
 			"MonitoringLocationTypeName": "River/Stream",
 			"StateName": "Wisconsin",
 			"MonitoringLocationName": "Jim Creek Road",
@@ -129,7 +129,7 @@
 		"properties": {
 			"ResolvedMonitoringLocationTypeName": "Lake, Reservoir, Impoundment",
 			"resultCount": "26",
-			"siteUrl": "https://www.waterqualitydata.us/provider/STORET/21NYDECA_WQX/21NYDECA_WQX-ONTARIO-02/",
+			"siteUrl": "https://www.waterqualitydata.us/data/provider/STORET/21NYDECA_WQX/21NYDECA_WQX-ONTARIO-02/",
 			"MonitoringLocationTypeName": "River/Stream",
 			"StateName": "Indiana",
 			"MonitoringLocationName": "Lake rd.",
@@ -155,7 +155,7 @@
 		"properties": {
 			"ResolvedMonitoringLocationTypeName": "Stream",
 			"resultCount": "11",
-			"siteUrl": "https://www.waterqualitydata.us/provider/STORET/WIDNR_WQX/WIDNR_WQX-113086/",
+			"siteUrl": "https://www.waterqualitydata.us/data/provider/STORET/WIDNR_WQX/WIDNR_WQX-113086/",
 			"MonitoringLocationTypeName": "River/Stream",
 			"StateName": "Massachusetts",
 			"MonitoringLocationName": "East rd.",
@@ -180,7 +180,7 @@
 		"properties": {
 			"ResolvedMonitoringLocationTypeName": "siteType",
 			"resultCount": "4",
-			"siteUrl": "https://www.waterqualitydata.us/provider/STORET/organization/organization-siteId/",
+			"siteUrl": "https://www.waterqualitydata.us/data/provider/STORET/organization/organization-siteId/",
 			"MonitoringLocationTypeName": "River/Stream",
 			"StateName": "Hawaii",
 			"MonitoringLocationName": "Wintergreen ln",
@@ -204,7 +204,7 @@
 		"properties": {
 			"ResolvedMonitoringLocationTypeName": "siteType",
 			"resultCount": "4",
-			"siteUrl": "https://www.waterqualitydata.us/provider/STORET/organization/organization-siteId2/",
+			"siteUrl": "https://www.waterqualitydata.us/data/provider/STORET/organization/organization-siteId2/",
 			"MonitoringLocationTypeName": "River/Stream",
 			"StateName": "Florida",
 			"MonitoringLocationName": "West Cumberlin Ave.",
@@ -228,7 +228,7 @@
 		"properties": {
 			"ResolvedMonitoringLocationTypeName": "siteType",
 			"resultCount": "1",
-			"siteUrl": "https://www.waterqualitydata.us/provider/STORET/organization/organization-siteId3/",
+			"siteUrl": "https://www.waterqualitydata.us/data/provider/STORET/organization/organization-siteId3/",
 			"MonitoringLocationTypeName": "River/Stream",
 			"StateName": "Michigan",
 			"MonitoringLocationName": "South rd.",
@@ -252,7 +252,7 @@
 		"properties": {
 			"ResolvedMonitoringLocationTypeName": "Stream",
 			"resultCount": "1",
-			"siteUrl": "https://www.waterqualitydata.us/provider/BIODATA/USGS/USGS-11421000/",
+			"siteUrl": "https://www.waterqualitydata.us/data/provider/BIODATA/USGS/USGS-11421000/",
 			"MonitoringLocationTypeName": "River/Stream",
 			"StateName": "Iowa",
 			"MonitoringLocationName": "Snake River Rd.",

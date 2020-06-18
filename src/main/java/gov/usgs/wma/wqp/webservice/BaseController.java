@@ -516,13 +516,13 @@ public abstract class BaseController {
 		Transformer transformer = null;
 		switch (getProfile()) {
 		case SUMMARY_ORGANIZATION:
-			transformer = new OrganizationSumMapToJsonTransformer(responseStream, null, logService, logId, configurationService.getSiteUrlBase());
+			transformer = new OrganizationSumMapToJsonTransformer(responseStream, null, logService, logId, configurationService.getMyUrlBase());
 			break;
 		case PERIOD_OF_RECORD:
-			transformer = new PeriodOfRecordMapToJsonTransformer(responseStream, null, logService, logId, configurationService.getSiteUrlBase());	
+			transformer = new PeriodOfRecordMapToJsonTransformer(responseStream, null, logService, logId, configurationService.getMyUrlBase());	
 			break;
 		default:
-			transformer = new StationMapToJsonTransformer(responseStream, null, logService, logId, configurationService.getSiteUrlBase());
+			transformer = new StationMapToJsonTransformer(responseStream, null, logService, logId, configurationService.getMyUrlBase());
 			break;
 		}
 		

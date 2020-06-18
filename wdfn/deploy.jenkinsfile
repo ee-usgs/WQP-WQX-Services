@@ -16,7 +16,7 @@ pipeline {
         }
         stage('build artifact') {
             steps {
-                serviceDeployPipeline()
+                serviceDeployPipeline('wdfn/pipeline.yml')
             }
         }
     }

@@ -25,6 +25,8 @@ public class ConfigurationService {
 	private String siteUrlBase;
 	@Value("${site.swagger.apiDocsUrl}")
 	private String swaggerApiDocsUrl;
+	@Value("${site.swagger.deployName}")
+	private String deployName;
 	@Value("${server.servlet.context-path}")
 	private String serverContextPath;
 	public String getAppVersion() {
@@ -48,11 +50,11 @@ public class ConfigurationService {
 	public Integer getMaxResultRows() {
 		return maxResultRows;
 	}
-	public String getSiteUrlBase() {
-		return siteUrlBase;
-	}
 	public String getSwaggerApiDocsUrl() {
 		return swaggerApiDocsUrl;
+	}
+	public String getDeployName() {
+		return deployName;
 	}
 	public String getMyUrlBase() {
 		return StringUtils.removeEnd(siteUrlBase, "/") + serverContextPath;

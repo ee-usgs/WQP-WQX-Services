@@ -8,41 +8,48 @@
             ml_g.grouping_id = 100
             <include refid="dynamicWhere.baseWhereStationClauses" />
             <if test="summaryYears  !=null">
-                <if test="summaryYears.equalsIgnoreCase('1')">and ml_g.the_year &gt;= extract(year from current_date)</if>
-                <if test="summaryYears.equalsIgnoreCase('5')">and ml_g.the_year &gt;= extract(year from make_date(extract(year from current_date)::int, 1, 1) - interval '48 months')</if>
+                <if test="summaryYears.equalsIgnoreCase('1')">
+                    and ml_g.the_year &gt;= extract(year from current_date)
+                </if>
+                <if test="summaryYears.equalsIgnoreCase('5')">
+                    and ml_g.the_year &gt;= 
+                            extract(
+                                year
+                                from make_date(extract(year from current_date)::int, 1, 1)
+                                    - interval '48 months'
+                            )
+                </if>
             </if>
         </where>
     </sql>
 
     <select id="select" resultType="java.util.LinkedHashMap" fetchSize="500">
-
-        SELECT
-        prime.organization,
-        prime.station_type_name,
-        prime.organization_name,
-        prime.site_id,
-        prime.station_name,
-        prime.station_type_name,
-        prime.site_type,
-        substring(prime.huc, '[0-9]{8}') huc_8,
-        #{siteUrlBase,jdbcType=VARCHAR} || '/provider/' || prime.data_source || '/' || prime.organization  || '/' || prime.site_id monitoring_location_url,
-        prime.state_name,
-        prime.county_name,
-        TO_CHAR(st_y(prime.geom),'FM90.0000000') latitude,
-        TO_CHAR(st_x(prime.geom),'FM990.0000000') longitude,
-        ml_g.data_source_id,
-        ml_g.data_source,
-        ml_g.the_year,
-        ml_g.characteristic_type,
-        ml_g.characteristic_name,
-        ml_g.total_activities,
-        ml_g.total_results,
-        TO_CHAR(ml_g.last_result_date, 'YYYY-MM-DD') last_result_date
-
-        FROM station_sum prime
-        JOIN ml_grouping ml_g
-        ON prime.data_source_id = ml_g.data_source_id
-                AND prime.station_id = ml_g.station_id
+        select prime.organization,
+               prime.station_type_name,
+               prime.organization_name,
+               prime.site_id,
+               prime.station_name,
+               prime.station_type_name,
+               prime.site_type,
+               substring(prime.huc, '[0-9]{8}') huc_8,
+               #{siteUrlBase,jdbcType=VARCHAR} || '/provider/' || prime.data_source || '/' ||
+                   prime.organization  || '/' || prime.site_id monitoring_location_url,
+               prime.state_name,
+               prime.county_name,
+               to_char(public.st_y(prime.geom),'FM90.0000000') latitude,
+               to_char(public.st_x(prime.geom),'FM990.0000000') longitude,
+               ml_g.data_source_id,
+               ml_g.data_source,
+               ml_g.the_year,
+               ml_g.characteristic_type,
+               ml_g.characteristic_name,
+               ml_g.total_activities,
+               ml_g.total_results,
+               to_char(ml_g.last_result_date, 'YYYY-MM-DD') last_result_date
+          from station_sum prime
+               join ml_grouping ml_g
+                 on prime.data_source_id = ml_g.data_source_id and
+                    prime.station_id = ml_g.station_id
 
         <include refid="summaryYearWhere" />
         <if test="sorted == 'yes'">
@@ -53,13 +60,13 @@
     <select id="count" resultType="java.util.LinkedHashMap">
         select prime.data_source,
                count(distinct prime.data_source||'-'||prime.station_id) site_count
-              from station_sum prime   
-                JOIN ml_grouping ml_g
-                ON prime.data_source_id = ml_g.data_source_id
-                        AND prime.station_id = ml_g.station_id
+         from station_sum prime   
+              join ml_grouping ml_g
+                on prime.data_source_id = ml_g.data_source_id and
+                   prime.station_id = ml_g.station_id
 
-                <include refid="summaryYearWhere" />
-        group by rollup(prime.data_source)
+        <include refid="summaryYearWhere" />
+            group by rollup(prime.data_source)
     </select>
 
 </mapper>

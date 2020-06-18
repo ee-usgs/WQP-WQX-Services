@@ -26,7 +26,7 @@ import gov.usgs.wma.wqp.parameter.Command;
 import gov.usgs.wma.wqp.transform.Transformer;
 
 public abstract class BaseTest {
-	LocalDate currentDate = LocalDate.now();
+	protected LocalDate currentDate = LocalDate.now();
 
 	public String harmonizeXml(String xmlDoc) {
 		return xmlDoc.replace("\r", "").replace("\n", "").replace("\t", "").replaceAll("> *<", "><");

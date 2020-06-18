@@ -16,11 +16,16 @@
     </sql>
 
     <sql id="bBox">
-        st_contains(st_setsrid(st_makebox2d(st_pointfromtext('point(' || #{bBox.west} || ' ' || #{bBox.south} || ')', 4269),
-                                            st_pointfromtext('point(' || #{bBox.east} || ' ' || #{bBox.north} || ')', 4269)
-                                           ),
-                               4269),
-                    geom)
+        public.st_contains(
+            public.st_setsrid(
+                public.st_makebox2d(
+                    public.st_pointfromtext('point(' || #{bBox.west} || ' ' || #{bBox.south} || ')', 4269),
+                    public.st_pointfromtext('point(' || #{bBox.east} || ' ' || #{bBox.north} || ')', 4269)
+                ),
+                4269
+            ),
+            geom
+        )
     </sql>
 
     <sql id="characteristicName">
@@ -133,9 +138,17 @@
     </sql>
 
     <sql id="within">
-        st_dwithin(st_transform(geom, 2163),
-                   st_transform(st_pointfromtext('point(' || #{long} || ' ' || #{lat} || ')', 4269), 2163),
-                   #{within}::numeric * 1609.344)
+        public.st_dwithin(
+            public.st_transform(geom, 2163),
+            public.st_transform(
+                public.st_pointfromtext(
+                    'point(' || #{long} || ' ' || #{lat} || ')',
+                    4269
+                ),
+                2163
+            ),
+            #{within}::numeric * 1609.344
+        )
     </sql>
 
 </mapper>

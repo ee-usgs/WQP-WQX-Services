@@ -23,7 +23,8 @@
                prime.aqfr_name,
                prime.well_depth_value,
                prime.well_depth_unit,
-               to_char(st_x(prime.geom), 'FM990.0000000') || ',' || to_char(st_y(prime.geom), 'FM90.0000000') coordinates
+               to_char(public.st_x(prime.geom), 'FM990.0000000') || ',' ||
+                   to_char(public.st_y(prime.geom), 'FM90.0000000') coordinates
         <include refid="dynamicWhere.stationsBase"/>
             order by prime.site_id,
                      prime.station_id

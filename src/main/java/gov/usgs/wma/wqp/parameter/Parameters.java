@@ -34,7 +34,7 @@ public enum Parameters {
 	START_DATE_LO("startDateLo"),
 	STATE("statecode"),
 	SUBJECT_TAXONOMIC_NAME("subjectTaxonomicName"),
-	SUMMARY_YEARS("summaryYears"),
+	SUMMARY_YEARS(FilterParameters.SUMMARY_YEARS_CONST),
 	WITHIN("within"),
 	ZIP("zip");
 
