@@ -1,6 +1,5 @@
 package gov.usgs.wma.wqp.dao.streaming;
 
-import static gov.usgs.wma.wqp.openapi.model.StationCountJson.BIODATA;
 import static gov.usgs.wma.wqp.openapi.model.StationCountJson.NWIS;
 import static gov.usgs.wma.wqp.openapi.model.StationCountJson.STEWARDS;
 import static gov.usgs.wma.wqp.openapi.model.StationCountJson.STORET;
@@ -43,8 +42,6 @@ public class BiologicalMetricStreamingIT extends FilteredProjectDaoTest {
 
 	protected NameSpace nameSpace = NameSpace.BIOLOGICAL_METRIC;
 
-	public static final String [] BIODATA_USGS_11421000 = new String[] {BIODATA, "PHB:OWW04440-0359:1:PCT_SLOW", "USGS"};
-	public static final String [] BIODATA_USGS_433830088977331 = new String[] {BIODATA, "PHB:OWW04440-0359:1:PCT_FAST", "USGS"};
 	public static final String [] STORET_ORGANIZATION_SITE_ID3 = new String[] {STORET, "RM:OWW04440-0298:040825:RR:EPIF_SUB", "organization"};
 	public static final String [] STORET_WIDNR_WQX_113086 = new String[] {STORET, "RM:OWW04440-0298:040825:RR:FLOWTYPE", "WIDNR_WQX"};
 	public static final String [] STORET_WIDNR_WQX_10030952 = new String[] {STORET, "PHB:OWW04440-0359:1:PCT_SIDE", "WIDNR_WQX"};
@@ -54,6 +51,8 @@ public class BiologicalMetricStreamingIT extends FilteredProjectDaoTest {
 	public static final String [] STORET_ORGANIZATION_SITE_ID = new String[] {STORET, "RM:OWW04440-0298:040825:RR:SEDI_DEP", "organization"};
 	public static final String [] NWIS_USGS_05425700 = new String[] {NWIS, "RM:OWW04440-0298:040825:RR:BANK_STL", "USGS-WI"};
 	public static final String [] NWIS_USGS_431925089002701 = new String[] {NWIS, "RM:OWW04440-0298:040825:RR:CHAN_ALT", "USGS-WI"};
+	public static final String [] NWIS_USGS_11421000 = new String[] {NWIS, "PHB:OWW04440-0359:1:PCT_SLOW", "USGS"};
+	public static final String [] NWIS_USGS_433830088977331 = new String[] {NWIS, "PHB:OWW04440-0359:1:PCT_FAST", "USGS"};
 	public static final String [] STEWARDS_ARS_IAWC_IAWC410 = new String[] {STEWARDS, "RM:OWW04440-0298:040825:RR:VEG_PROL", "ARS"};
 	public static final String [] STEWARDS_ARS_IAWC_IAWC225 = new String[] {STEWARDS, "RM:OWW04440-0298:040825:RR:BANK_STR", "ARS"};
 
@@ -167,8 +166,8 @@ public class BiologicalMetricStreamingIT extends FilteredProjectDaoTest {
 		assertContainsBiologicalMetric(results,
 				NWIS_USGS_05425700,
 				NWIS_USGS_431925089002701,
-				STEWARDS_ARS_IAWC_IAWC410,
-				STEWARDS_ARS_IAWC_IAWC225,
+				NWIS_USGS_11421000,
+				NWIS_USGS_433830088977331,
 				STORET_ORGANIZATION_SITE_ID3,
 				STORET_WIDNR_WQX_113086,
 				STORET_WIDNR_WQX_10030952,
@@ -187,7 +186,7 @@ public class BiologicalMetricStreamingIT extends FilteredProjectDaoTest {
 				STEWARDS_ARS_IAWC_IAWC225,
 				STORET_ORGANIZATION_SITE_ID3,
 				STORET_11NPSWRD_BICA_MFG_B,
-				BIODATA_USGS_11421000,
+				NWIS_USGS_11421000,
 				STEWARDS_ARS_IAWC_IAWC410,
 				NWIS_USGS_05425700,
 				STORET_ORGANIZATION_SITE_ID
@@ -206,17 +205,17 @@ public class BiologicalMetricStreamingIT extends FilteredProjectDaoTest {
 		List<Map<String, Object>> results = sortedTest(nameSpace, Integer.valueOf(TOTAL_BIOLOGICAL_METRIC_COUNT));
 		assertEquals(STEWARDS_ARS_IAWC_IAWC225[1], results.get(0).get(BiologicalMetricColumn.KEY_INDEX_IDENTIFIER).toString());
 		assertEquals(STEWARDS_ARS_IAWC_IAWC410[1], results.get(1).get(BiologicalMetricColumn.KEY_INDEX_IDENTIFIER).toString());
-		assertEquals(NWIS_USGS_05425700[1], results.get(2).get(BiologicalMetricColumn.KEY_INDEX_IDENTIFIER).toString());
-		assertEquals(NWIS_USGS_431925089002701[1], results.get(3).get(BiologicalMetricColumn.KEY_INDEX_IDENTIFIER).toString());
-		assertEquals(STORET_11NPSWRD_BICA_MFG_B[1], results.get(4).get(BiologicalMetricColumn.KEY_INDEX_IDENTIFIER).toString());
-		assertEquals(STORET_21NYDECA_WQX_ONTARIO_02[1], results.get(5).get(BiologicalMetricColumn.KEY_INDEX_IDENTIFIER).toString());
-		assertEquals(STORET_WIDNR_WQX_10030952[1], results.get(6).get(BiologicalMetricColumn.KEY_INDEX_IDENTIFIER).toString());
-		assertEquals(STORET_WIDNR_WQX_113086[1], results.get(7).get(BiologicalMetricColumn.KEY_INDEX_IDENTIFIER).toString());
-		assertEquals(STORET_ORGANIZATION_SITE_ID[1], results.get(8).get(BiologicalMetricColumn.KEY_INDEX_IDENTIFIER).toString());
-		assertEquals(STORET_ORGANIZATION_SITE_ID2[1], results.get(9).get(BiologicalMetricColumn.KEY_INDEX_IDENTIFIER).toString());
-		assertEquals(STORET_ORGANIZATION_SITE_ID3[1], results.get(10).get(BiologicalMetricColumn.KEY_INDEX_IDENTIFIER).toString());
-		assertEquals(BIODATA_USGS_11421000[1], results.get(11).get(BiologicalMetricColumn.KEY_INDEX_IDENTIFIER).toString());
-		assertEquals(BIODATA_USGS_433830088977331[1], results.get(12).get(BiologicalMetricColumn.KEY_INDEX_IDENTIFIER).toString());
+		assertEquals(NWIS_USGS_11421000[1], results.get(2).get(BiologicalMetricColumn.KEY_INDEX_IDENTIFIER).toString());
+		assertEquals(NWIS_USGS_433830088977331[1], results.get(3).get(BiologicalMetricColumn.KEY_INDEX_IDENTIFIER).toString());
+		assertEquals(NWIS_USGS_05425700[1], results.get(4).get(BiologicalMetricColumn.KEY_INDEX_IDENTIFIER).toString());
+		assertEquals(NWIS_USGS_431925089002701[1], results.get(5).get(BiologicalMetricColumn.KEY_INDEX_IDENTIFIER).toString());
+		assertEquals(STORET_11NPSWRD_BICA_MFG_B[1], results.get(6).get(BiologicalMetricColumn.KEY_INDEX_IDENTIFIER).toString());
+		assertEquals(STORET_21NYDECA_WQX_ONTARIO_02[1], results.get(7).get(BiologicalMetricColumn.KEY_INDEX_IDENTIFIER).toString());
+		assertEquals(STORET_WIDNR_WQX_10030952[1], results.get(8).get(BiologicalMetricColumn.KEY_INDEX_IDENTIFIER).toString());
+		assertEquals(STORET_WIDNR_WQX_113086[1], results.get(9).get(BiologicalMetricColumn.KEY_INDEX_IDENTIFIER).toString());
+		assertEquals(STORET_ORGANIZATION_SITE_ID[1], results.get(10).get(BiologicalMetricColumn.KEY_INDEX_IDENTIFIER).toString());
+		assertEquals(STORET_ORGANIZATION_SITE_ID2[1], results.get(11).get(BiologicalMetricColumn.KEY_INDEX_IDENTIFIER).toString());
+		assertEquals(STORET_ORGANIZATION_SITE_ID3[1], results.get(12).get(BiologicalMetricColumn.KEY_INDEX_IDENTIFIER).toString());
 	}
 
 	public void zipTest() {
@@ -251,7 +250,7 @@ public class BiologicalMetricStreamingIT extends FilteredProjectDaoTest {
 				STEWARDS_ARS_IAWC_IAWC225,
 				NWIS_USGS_05425700,
 				NWIS_USGS_431925089002701,
-				BIODATA_USGS_11421000 
+				NWIS_USGS_11421000 
 		);
 	}
 
@@ -396,7 +395,7 @@ public class BiologicalMetricStreamingIT extends FilteredProjectDaoTest {
 	public void sampleMediaTest() {
 		List<Map<String, Object>> results = sampleMediaTest(nameSpace, 11);
 		assertContainsBiologicalMetric(results,
-				BIODATA_USGS_11421000,
+				NWIS_USGS_11421000,
 				NWIS_USGS_05425700,
 				NWIS_USGS_431925089002701,
 				STEWARDS_ARS_IAWC_IAWC410,
@@ -444,7 +443,7 @@ public class BiologicalMetricStreamingIT extends FilteredProjectDaoTest {
 				STORET_11NPSWRD_BICA_MFG_B,
 				STORET_ORGANIZATION_SITE_ID2,
 				STORET_ORGANIZATION_SITE_ID,
-				BIODATA_USGS_11421000,
+				NWIS_USGS_11421000,
 				NWIS_USGS_05425700,
 				STEWARDS_ARS_IAWC_IAWC410,
 				STEWARDS_ARS_IAWC_IAWC225
@@ -455,7 +454,7 @@ public class BiologicalMetricStreamingIT extends FilteredProjectDaoTest {
 		List<Map<String, Object>> results = startDateHiTest(nameSpace, 11);
 		assertContainsBiologicalMetric(results,
 				NWIS_USGS_431925089002701,
-				BIODATA_USGS_11421000,
+				NWIS_USGS_11421000,
 				NWIS_USGS_05425700,
 				STEWARDS_ARS_IAWC_IAWC225,
 				STORET_WIDNR_WQX_113086,
@@ -477,7 +476,7 @@ public class BiologicalMetricStreamingIT extends FilteredProjectDaoTest {
 				STORET_ORGANIZATION_SITE_ID,
 				STORET_ORGANIZATION_SITE_ID2,
 				STORET_ORGANIZATION_SITE_ID3,
-				BIODATA_USGS_11421000,
+				NWIS_USGS_11421000,
 				STEWARDS_ARS_IAWC_IAWC225,
 				STORET_11NPSWRD_BICA_MFG_B
 		);
@@ -534,7 +533,7 @@ public class BiologicalMetricStreamingIT extends FilteredProjectDaoTest {
 				STORET_ORGANIZATION_SITE_ID2,
 				STORET_ORGANIZATION_SITE_ID3,
 				STORET_11NPSWRD_BICA_MFG_B,
-				BIODATA_USGS_11421000,
+				NWIS_USGS_11421000,
 				STORET_ORGANIZATION_SITE_ID
 		);
 	}
@@ -577,7 +576,7 @@ public class BiologicalMetricStreamingIT extends FilteredProjectDaoTest {
 				STORET_ORGANIZATION_SITE_ID2,
 				STORET_ORGANIZATION_SITE_ID3,
 				STORET_11NPSWRD_BICA_MFG_B,
-				BIODATA_USGS_11421000
+				NWIS_USGS_11421000
 		);
 	}
 

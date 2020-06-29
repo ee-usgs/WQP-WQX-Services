@@ -15,7 +15,7 @@
 	"minresults": "3",
 	"nldiurl": "https://cida-test.er.usgs.gov/nldi/wqp/USGS-05427880/navigate/UM/wqp",
 	"organization": ["ARS", "11NPSWRD", "USGS-WI", "WIDNR_WQX", "organization"],
-	"project": ["projectId", "CEAP", "NAWQA", "SACR BioTDB"],
+	"project": ["projectId", "CEAP", "NAWQA", "SACR TDB"],
 	"providers": ["NWIS", "STEWARDS", "STORET"],
 	"resultId": "5",
 	"sampleMedia": ["sampleMedia", "Other", "Sediment", "Water"],

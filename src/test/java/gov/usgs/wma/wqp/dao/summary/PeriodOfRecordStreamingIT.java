@@ -136,11 +136,9 @@ public class PeriodOfRecordStreamingIT extends BaseStationStreamingTest {
 	
 	@Override
 	public void providersTest(NameSpace nameSpace) {
-		List<Map<String, Object>> results = providersTest(nameSpace, 29);
-		assertContainsStation(results, STEWARDS_36_2000_CT1, STEWARDS_36_2001_CT1,
-				STEWARDS_36_2002_CT1, STEWARDS_36_2003_CT1, STEWARDS_36_2004_CT1,
-				STEWARDS_36_2005_CT1, STEWARDS_36_2006_CT1, STEWARDS_36_2007_CT1,
-				STEWARDS_36_2008_CT1, NWIS_1353690_2010_CT1, NWIS_1353690_2011_CT1, 
+		List<Map<String, Object>> results = providersTest(nameSpace, 20);
+		assertContainsStation(results,
+				NWIS_1353690_2010_CT1, NWIS_1353690_2011_CT1, 
 				NWIS_1353690_2012_CT1, NWIS_1353690_2013_CT1, NWIS_1353690_2014_CT1, 
 				NWIS_1353690_2015_CT1, NWIS_1353690_2016_CT1, NWIS_1353690_2017_CT1,
 				NWIS_1353690_2018_CT1, STORET_504707_1910_CT1, STORET_504707_1911_CT1,

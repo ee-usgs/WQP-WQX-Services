@@ -1,8 +1,11 @@
 package gov.usgs.wma.wqp.dao;
 
+import static gov.usgs.wma.wqp.openapi.model.StationCountJson.NWIS;
+import static gov.usgs.wma.wqp.openapi.model.StationCountJson.STORET;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -275,7 +278,7 @@ public abstract class FilteredDaoTest extends BaseIT {
 
 	public List<Map<String, Object>> providersTest(NameSpace nameSpace, int expectedSize) {
 		FilterParameters filter = new FilterParameters();
-		filter.setProviders(getProviders());
+		filter.setProviders(Arrays.asList(NWIS, STORET));
 		return callDao(nameSpace, expectedSize, filter);
 	}
 

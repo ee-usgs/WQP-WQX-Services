@@ -20,11 +20,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 @DbUnitConfiguration(dataSetLoader = ColumnSensingFlatXMLDataSetLoader.class)
 public class CountDaoPeriodOfRecordIT extends BaseStationCountDaoTest{
 	protected NameSpace nameSpace = NameSpace.PERIOD_OF_RECORD;
-	
+
 	public static final String TOTAL_SITE_SUMMARY_COUNT = "4";
-	public static final String SUMMARY_YEARS_12_MONTHS = "1";
-	public static final String SUMMARY_YEARS_60_MONTHS = "5";
-	public static final String SUMMARY_YEARS_ALL_MONTHS = "all";
 
 	@Test
 	public void testHarness() {
@@ -45,70 +42,70 @@ public class CountDaoPeriodOfRecordIT extends BaseStationCountDaoTest{
 		oneYearPeriodOfRecordTest(nameSpace);
 		fiveYearsPeriodOfRecordTest(nameSpace);
 	}
-	
+
 	public void bboxTest(NameSpace nameSpace) { 
 		List<Map<String, Object>> counts = bboxTest(nameSpace, 3);
-		assertStationResults(counts, "3", "2", "1", null, null);
+		assertStationResults(counts, "3", "2", "1", null);
 	}
-	
+
 	public void countryTest(NameSpace nameSpace) {
 		List<Map<String, Object>> counts = countryTest(nameSpace, 3);
-		assertStationResults(counts, "3", "2", "1", null, null);
+		assertStationResults(counts, "3", "2", "1", null);
 	}
-	
+
 	public void emptyParameterTest(NameSpace nameSpace) {
 		List<Map<String, Object>> counts = emptyParameterTest(nameSpace, 4);
-		assertStationResults(counts, TOTAL_SITE_SUMMARY_COUNT, "2", "1", "1", null);
+		assertStationResults(counts, TOTAL_SITE_SUMMARY_COUNT, "2", "1", "1");
 	}
-	
+
 	public void huc8Test(NameSpace nameSpace) {
 		List<Map<String, Object>> counts = huc8Test(nameSpace, 1);
-		assertStationResults(counts, "0", null, null, null, null);
+		assertStationResults(counts, "0", null, null, null);
 	}
-	
+
 	public void mimeTypeSummaryTest(NameSpace nameSpace) {
 		List<Map<String, Object>> counts = mimeTypeJsonTest(nameSpace, 4);
-		assertStationResults(counts, TOTAL_SITE_SUMMARY_COUNT, "2", "1", "1", null);
+		assertStationResults(counts, TOTAL_SITE_SUMMARY_COUNT, "2", "1", "1");
 		
 		counts = mimeTypeGeoJsonTest(nameSpace, 4);
-		assertStationResults(counts, TOTAL_SITE_SUMMARY_COUNT, "2", "1", "1", null);
+		assertStationResults(counts, TOTAL_SITE_SUMMARY_COUNT, "2", "1", "1");
 	}
-	
+
 	public void nullParameterTest(NameSpace nameSpace) {
 		List<Map<String, Object>> counts = nullParameterTest(nameSpace, 4);
-		assertStationResults(counts, TOTAL_SITE_SUMMARY_COUNT, "2", "1", "1", null);
+		assertStationResults(counts, TOTAL_SITE_SUMMARY_COUNT, "2", "1", "1");
 	}
-	
+
 	public void organizationTest(NameSpace nameSpace) {
 		List<Map<String, Object>> counts = organizationTest(nameSpace, 3);
-		assertStationResults(counts, "3", "2", "1", null, null);
+		assertStationResults(counts, "3", "2", "1", null);
 	}
-	
+
 	public void providersTest(NameSpace nameSpace) {
-		List<Map<String, Object>> counts = providersTest(nameSpace, 4);
-		assertStationResults(counts, "4", "2", "1", "1", null);
+		List<Map<String, Object>> counts = providersTest(nameSpace, 3);
+		assertStationResults(counts, "3", "2", null, "1");
 	}
-	
+
 	public void siteIdTest(NameSpace nameSpace) {
 		List<Map<String, Object>> counts = siteIdTest(nameSpace, 3);
-		assertStationResults(counts, "3", "2", "1", null, null);
+		assertStationResults(counts, "3", "2", "1", null);
 	}
-	
+
 	public void siteTypeTest(NameSpace nameSpace) {
 		List<Map<String, Object>> counts = siteTypeTest(nameSpace, 4);
-		assertStationResults(counts, "3", "1", "1", "1", null);
+		assertStationResults(counts, "3", "1", "1", "1");
 	}
-	
+
 	public void stateTest(NameSpace nameSpace) {
 		List<Map<String, Object>> counts = stateTest(nameSpace, 3);
-		assertStationResults(counts, "3", "2", "1", null, null);
+		assertStationResults(counts, "3", "2", "1", null);
 	}
-	
+
 	public void withinTest(NameSpace nameSpace) {
 		List<Map<String, Object>> counts = withinTest(nameSpace, 4);
-		assertStationResults(counts, "4", "2", "1", "1", null);
+		assertStationResults(counts, "4", "2", "1", "1");
 	}
-	
+
 	@Override
 	public List<Map<String, Object>> multipleParameterStationSumTest(NameSpace nameSpace, int expectedSize) {
 		FilterParameters filter = getNoEffectParameters(nameSpace);
@@ -130,31 +127,30 @@ public class CountDaoPeriodOfRecordIT extends BaseStationCountDaoTest{
 
 		return callDao(nameSpace, expectedSize, filter);
 	}
-	
+
 	public void multipleParameterStationSumTest(NameSpace nameSpace) {
 		List<Map<String, Object>> counts = multipleParameterStationSumTest(nameSpace, 1);
-		assertStationResults(counts, "0", null, null, null, null);
+		assertStationResults(counts, "0", null, null, null);
 	}
-	
+
 	public List<Map<String, Object>> summaryYearsTest(NameSpace nameSpace, String summaryYears, int expectedSize) {
 		FilterParameters filter = new FilterParameters();
 		filter.setSummaryYears(summaryYears);
 		return callDao(nameSpace, expectedSize, filter);
 	}
-	
+
 	public void allYearsPeriodOfRecordTest(NameSpace nameSpace) {
-		List<Map<String, Object>> counts = summaryYearsTest(nameSpace, SUMMARY_YEARS_ALL_MONTHS, 4);
-		assertStationResults(counts, TOTAL_SITE_SUMMARY_COUNT, "2", "1", "1", null);
+		List<Map<String, Object>> counts = summaryYearsTest(nameSpace, FilterParameters.SUMMARY_YEARS_ALL_MONTHS, 4);
+		assertStationResults(counts, TOTAL_SITE_SUMMARY_COUNT, "2", "1", "1");
 	}
-	
+
 	public void oneYearPeriodOfRecordTest(NameSpace nameSpace) {
-		List<Map<String, Object>> counts = summaryYearsTest(nameSpace, SUMMARY_YEARS_12_MONTHS, 2);
-		assertStationResults(counts, "2", "2", null, null, null);
+		List<Map<String, Object>> counts = summaryYearsTest(nameSpace, FilterParameters.SUMMARY_YEARS_12_MONTHS, 2);
+		assertStationResults(counts, "2", "2", null, null);
 	}
-	
+
 	public void fiveYearsPeriodOfRecordTest(NameSpace nameSpace) {
-		List<Map<String, Object>> counts = summaryYearsTest(nameSpace, SUMMARY_YEARS_60_MONTHS, 2);
-		assertStationResults(counts, "2", "2", null, null, null);
+		List<Map<String, Object>> counts = summaryYearsTest(nameSpace, FilterParameters.SUMMARY_YEARS_60_MONTHS, 2);
+		assertStationResults(counts, "2", "2", null, null);
 	}
 }
-

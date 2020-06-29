@@ -8,6 +8,7 @@ ARS,USDA Agricultural Research Service,activityStewards-3,ARS-IAWC-IAWC410,STEWA
 ARS,USDA Agricultural Research Service,activityStewards-3,ARS-IAWC-IAWC410,STEWARDS-3,,Laboratory Reporting Level,9,cfu/100ml,STEWARDS
 ARS,USDA Agricultural Research Service,activityStewards-3,ARS-IAWC-IAWC410,STEWARDS-3,,Practical Quantitation Limit,6,#/100ml,STEWARDS
 ARS,USDA Agricultural Research Service,activityStewards-3,ARS-IAWC-IAWC410,STEWARDS-3,,Sample-specific min detect conc,7,cfu/100ml,STEWARDS
+USGS,Wisconsin Department of Natural Resources,activityNwis-4,USGS-11421000,NWIS-42,Count,Instrument Detection Level,74,cfu/100ml,NWIS
 USGS-WI,USGS Wisconsin Water Science Center,activityNwis-1,USGS-05425700,NWIS-1,,Minimum Reporting Level,10,#/100ml,NWIS
 USGS-WI,USGS Wisconsin Water Science Center,activityNwis-1,USGS-05425700,NWIS-4,,Contract Quantitation Limit,11,cfu/100ml,NWIS
 USGS-WI,USGS Wisconsin Water Science Center,activityNwis-1,USGS-05425700,NWIS-4,,Daily detection limit,12,#/100ml,NWIS
@@ -68,4 +69,3 @@ organization,organizationName,activity-1,organization-siteId2,STORET-1,character
 organization,organizationName,activity-1,organization-siteId2,STORET-1,characteristicName,Statistical Uncertainty,20,#/100ml,STORET
 organization,organizationName,activity-1,organization-siteId2,STORET-1,characteristicName,Systematic Uncertainty,21,cfu/100ml,STORET
 organization,organizationName,activity-3,organization-siteId3,STORET-3,characteristicName,Long Term Method Detection Level,28,#/100ml,STORET
-USGS,Wisconsin Department of Natural Resources,activityBiodata-1,USGS-11421000,BIODATA-42,Count,Instrument Detection Level,74,cfu/100ml,BIODATA

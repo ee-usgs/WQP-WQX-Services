@@ -35,6 +35,32 @@
     </Organization>
     <Organization>
         <OrganizationDescription>
+            <OrganizationIdentifier>USGS-CA</OrganizationIdentifier>
+            <OrganizationFormalName>USGS California Water Science Center</OrganizationFormalName>
+        </OrganizationDescription>
+        <Activity>
+            <ActivityDescription>
+                <ActivityIdentifier>activityNwis-4</ActivityIdentifier>
+                <ActivityMediaName>Water</ActivityMediaName>
+                <ActivityStartDate>1996-06-27</ActivityStartDate>
+                <ProjectIdentifier>SACR TDB</ProjectIdentifier>
+                <MonitoringLocationIdentifier>USGS-11421000</MonitoringLocationIdentifier>
+            </ActivityDescription>
+            <BiologicalActivityDescription>
+                <AssemblageSampledName>Fish/Nekton</AssemblageSampledName>
+            </BiologicalActivityDescription>
+            <Result>
+                <ResultDescription>
+                    <CharacteristicName>Count</CharacteristicName>
+                </ResultDescription>
+                <BiologicalResultDescription>
+                    <SubjectTaxonomicName>Acipenser</SubjectTaxonomicName>
+                </BiologicalResultDescription>
+            </Result>
+        </Activity>
+    </Organization>
+    <Organization>
+        <OrganizationDescription>
             <OrganizationIdentifier>USGS-WI</OrganizationIdentifier>
             <OrganizationFormalName>USGS Wisconsin Water Science Center</OrganizationFormalName>
         </OrganizationDescription>
@@ -756,32 +782,6 @@
                 </ResultDescription>
                 <BiologicalResultDescription>
                     <SubjectTaxonomicName>sampleTissueTaxonomicName</SubjectTaxonomicName>
-                </BiologicalResultDescription>
-            </Result>
-        </Activity>
-    </Organization>
-    <Organization>
-        <OrganizationDescription>
-            <OrganizationIdentifier>USGS-CA</OrganizationIdentifier>
-            <OrganizationFormalName>USGS California Water Science Center</OrganizationFormalName>
-        </OrganizationDescription>
-        <Activity>
-            <ActivityDescription>
-                <ActivityIdentifier>activityBiodata-1</ActivityIdentifier>
-                <ActivityMediaName>Water</ActivityMediaName>
-                <ActivityStartDate>1996-06-27</ActivityStartDate>
-                <ProjectIdentifier>SACR BioTDB</ProjectIdentifier>
-                <MonitoringLocationIdentifier>USGS-11421000</MonitoringLocationIdentifier>
-            </ActivityDescription>
-            <BiologicalActivityDescription>
-                <AssemblageSampledName>Fish/Nekton</AssemblageSampledName>
-            </BiologicalActivityDescription>
-            <Result>
-                <ResultDescription>
-                    <CharacteristicName>Count</CharacteristicName>
-                </ResultDescription>
-                <BiologicalResultDescription>
-                    <SubjectTaxonomicName>Acipenser</SubjectTaxonomicName>
                 </BiologicalResultDescription>
             </Result>
         </Activity>

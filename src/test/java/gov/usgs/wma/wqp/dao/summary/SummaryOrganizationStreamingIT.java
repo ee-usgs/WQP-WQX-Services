@@ -40,15 +40,12 @@ public class SummaryOrganizationStreamingIT extends FilteredDaoTest {
 	public static final String DATA_SOURCE_TEST = "STORET";
 	public static final String[] STORET_TEST = new String[]{"Storet", ORG_ID_TEST_1};
 	public static final String[] STORET_TEST_2 = new String[]{"Storet", ORG_ID_TEST_2};
-	public static final String SUMMARY_YEARS_12_MONTHS = "1";
-	public static final String SUMMARY_YEARS_60_MONTHS = "5";
-	public static final String SUMMARY_YEARS_ALL_MONTHS = "all";
 
 	public static final String TOTAL_ORGANIZATION_SUMMARY_COUNT = "2";
 	public static final int EXPECTED_SIZE = 2;	
 
-	@Autowired 
-	IStreamingDao streamingDao;
+	@Autowired
+	protected IStreamingDao streamingDao;
 
 	@Test
 	public void testHarness() {
@@ -79,7 +76,7 @@ public class SummaryOrganizationStreamingIT extends FilteredDaoTest {
 	public List<String> getOrganization() {
 		return Arrays.asList(ORG_ID_TEST_1, ORG_ID_TEST_2);
 	}
-	
+
 	@Override
 	protected void assertSiteUrlBase(Map<String, Object> row) {
 		assertUrl(OrganizationColumn.KEY_ORGANIZATION_SUMMARY_WQP_URL, row);
@@ -128,7 +125,7 @@ public class SummaryOrganizationStreamingIT extends FilteredDaoTest {
 	public void allYearsSummaryTest(NameSpace nameSpace) {
 		List<Map<String, Object>> results =
 				sumTest(
-						SUMMARY_YEARS_ALL_MONTHS,
+						FilterParameters.SUMMARY_YEARS_ALL_MONTHS,
 						nameSpace,
 						Integer.valueOf(TOTAL_ORGANIZATION_SUMMARY_COUNT));
 		assertRow(results, SUMMARY_ORGANIZATION_ALL_YEAR);
@@ -137,7 +134,7 @@ public class SummaryOrganizationStreamingIT extends FilteredDaoTest {
 	public void fiveYearsSummaryTest(NameSpace nameSpace) {
 		List<Map<String, Object>> results =
 				sumTest(
-						SUMMARY_YEARS_60_MONTHS,
+						FilterParameters.SUMMARY_YEARS_60_MONTHS,
 						nameSpace,
 						Integer.valueOf(TOTAL_ORGANIZATION_SUMMARY_COUNT));
 		assertRow(results, SUMMARY_ORGANIZATION_FIVE_YEAR);
@@ -146,7 +143,7 @@ public class SummaryOrganizationStreamingIT extends FilteredDaoTest {
 	public void oneYearSummaryTest(NameSpace nameSpace) {
 		List<Map<String, Object>> results =
 				sumTest(
-						SUMMARY_YEARS_12_MONTHS,
+						FilterParameters.SUMMARY_YEARS_12_MONTHS,
 						nameSpace,
 						Integer.valueOf(TOTAL_ORGANIZATION_SUMMARY_COUNT));
 		assertRow(results, SUMMARY_ORGANIZATION_CURRENT_YEAR);

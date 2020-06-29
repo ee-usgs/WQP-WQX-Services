@@ -44,6 +44,28 @@
     </Organization>
     <Organization>
         <OrganizationDescription>
+            <OrganizationIdentifier>USGS-CA</OrganizationIdentifier>
+            <OrganizationFormalName>USGS California Water Science Center</OrganizationFormalName>
+        </OrganizationDescription>
+        <Activity>
+            <ActivityDescription>
+                <ActivityIdentifier>activityNwis-4</ActivityIdentifier>
+                <ActivityStartDate>1996-06-27</ActivityStartDate>
+                <MonitoringLocationIdentifier>USGS-11421000</MonitoringLocationIdentifier>
+            </ActivityDescription>
+            <Result>
+                <ResultDescription>
+                    <ResultIdentifier>NWIS-42</ResultIdentifier>
+                    <CharacteristicName>Count</CharacteristicName>
+                </ResultDescription>
+                <BiologicalResultDescription>
+                    <SubjectTaxonomicName>Acipenser</SubjectTaxonomicName>
+                </BiologicalResultDescription>
+            </Result>
+        </Activity>
+    </Organization>
+    <Organization>
+        <OrganizationDescription>
             <OrganizationIdentifier>USGS-WI</OrganizationIdentifier>
             <OrganizationFormalName>USGS Wisconsin Water Science Center</OrganizationFormalName>
         </OrganizationDescription>
@@ -772,28 +794,6 @@
                 <ResultAnalyticalMethod>
                     <MethodUrl>https://analyticalMethod</MethodUrl>
                 </ResultAnalyticalMethod>
-            </Result>
-        </Activity>
-    </Organization>
-    <Organization>
-        <OrganizationDescription>
-            <OrganizationIdentifier>USGS-CA</OrganizationIdentifier>
-            <OrganizationFormalName>USGS California Water Science Center</OrganizationFormalName>
-        </OrganizationDescription>
-        <Activity>
-            <ActivityDescription>
-                <ActivityIdentifier>activityBiodata-1</ActivityIdentifier>
-                <ActivityStartDate>1996-06-27</ActivityStartDate>
-                <MonitoringLocationIdentifier>USGS-11421000</MonitoringLocationIdentifier>
-            </ActivityDescription>
-            <Result>
-                <ResultDescription>
-                    <ResultIdentifier>BIODATA-42</ResultIdentifier>
-                    <CharacteristicName>Count</CharacteristicName>
-                </ResultDescription>
-                <BiologicalResultDescription>
-                    <SubjectTaxonomicName>Acipenser</SubjectTaxonomicName>
-                </BiologicalResultDescription>
             </Result>
         </Activity>
     </Organization>

@@ -110,6 +110,33 @@
     </Organization>
     <Organization>
         <OrganizationDescription>
+            <OrganizationIdentifier>USGS</OrganizationIdentifier>
+            <OrganizationFormalName>Wisconsin Department of Natural Resources</OrganizationFormalName>
+        </OrganizationDescription>
+        <Activity>
+            <ActivityDescription>
+                <ActivityIdentifier>activityNwis-4</ActivityIdentifier>
+                <MonitoringLocationIdentifier>USGS-11421000</MonitoringLocationIdentifier>
+            </ActivityDescription>
+            <Result>
+                <ResultDescription>
+                    <ResultIdentifier>NWIS-42</ResultIdentifier>
+                    <CharacteristicName>Count</CharacteristicName>
+                </ResultDescription>
+                <ResultLabInformation>
+                    <ResultDetectionQuantitationLimit>
+                        <DetectionQuantitationLimitTypeName>Instrument Detection Level</DetectionQuantitationLimitTypeName>
+                        <DetectionQuantitationLimitMeasure>
+                            <MeasureValue>74</MeasureValue>
+                            <MeasureUnitCode>cfu/100ml</MeasureUnitCode>
+                        </DetectionQuantitationLimitMeasure>
+                    </ResultDetectionQuantitationLimit>
+                </ResultLabInformation>
+            </Result>
+        </Activity>
+    </Organization>
+    <Organization>
+        <OrganizationDescription>
             <OrganizationIdentifier>USGS-WI</OrganizationIdentifier>
             <OrganizationFormalName>USGS Wisconsin Water Science Center</OrganizationFormalName>
         </OrganizationDescription>
@@ -1063,33 +1090,6 @@
                         <DetectionQuantitationLimitMeasure>
                             <MeasureValue>28</MeasureValue>
                             <MeasureUnitCode>#/100ml</MeasureUnitCode>
-                        </DetectionQuantitationLimitMeasure>
-                    </ResultDetectionQuantitationLimit>
-                </ResultLabInformation>
-            </Result>
-        </Activity>
-    </Organization>
-    <Organization>
-        <OrganizationDescription>
-            <OrganizationIdentifier>USGS</OrganizationIdentifier>
-            <OrganizationFormalName>Wisconsin Department of Natural Resources</OrganizationFormalName>
-        </OrganizationDescription>
-        <Activity>
-            <ActivityDescription>
-                <ActivityIdentifier>activityBiodata-1</ActivityIdentifier>
-                <MonitoringLocationIdentifier>USGS-11421000</MonitoringLocationIdentifier>
-            </ActivityDescription>
-            <Result>
-                <ResultDescription>
-                    <ResultIdentifier>BIODATA-42</ResultIdentifier>
-                    <CharacteristicName>Count</CharacteristicName>
-                </ResultDescription>
-                <ResultLabInformation>
-                    <ResultDetectionQuantitationLimit>
-                        <DetectionQuantitationLimitTypeName>Instrument Detection Level</DetectionQuantitationLimitTypeName>
-                        <DetectionQuantitationLimitMeasure>
-                            <MeasureValue>74</MeasureValue>
-                            <MeasureUnitCode>cfu/100ml</MeasureUnitCode>
                         </DetectionQuantitationLimitMeasure>
                     </ResultDetectionQuantitationLimit>
                 </ResultLabInformation>

@@ -1,6 +1,5 @@
 package gov.usgs.wma.wqp.dao.streaming;
 
-import static gov.usgs.wma.wqp.openapi.model.StationCountJson.BIODATA;
 import static gov.usgs.wma.wqp.openapi.model.StationCountJson.NWIS;
 import static gov.usgs.wma.wqp.openapi.model.StationCountJson.STEWARDS;
 import static gov.usgs.wma.wqp.openapi.model.StationCountJson.STORET;
@@ -114,7 +113,7 @@ public class ResDetectQntLmtStreamingIT extends FilteredResDetectQntLmtDaoTest {
 	public static final String[] STORET_71 = new String[]{STORET, "71"};
 	public static final String[] STORET_72 = new String[]{STORET, "72"};
 	public static final String[] STORET_73 = new String[]{STORET, "73"};
-	public static final String[] BIODATA_74 = new String[]{BIODATA, "74"};
+	public static final String[] NWIS_74 = new String[]{NWIS, "74"};
 
 	public static final int RES_DETECT_QNT_LMT_COLUMN_COUNT = TestResDetectQntLmtMap.RES_DETECT_QNT_LMT.keySet().size();
 
@@ -187,7 +186,7 @@ public class ResDetectQntLmtStreamingIT extends FilteredResDetectQntLmtDaoTest {
 		List<Map<String, Object>> results = assemblageTest(nameSpace, 17);
 		assertContainsResDetectQntLmt(results,
 				STORET_17, STORET_18, STORET_19, STORET_20, STORET_21, STORET_22, STORET_23, STORET_24, STORET_25, STORET_26,
-				STORET_27, STORET_28, STORET_70, STORET_71, STORET_72, STORET_73, BIODATA_74);
+				STORET_27, STORET_28, STORET_70, STORET_71, STORET_72, STORET_73, NWIS_74);
 	}
 
 	public void avoidTest() {
@@ -231,7 +230,7 @@ public class ResDetectQntLmtStreamingIT extends FilteredResDetectQntLmtDaoTest {
 				STEWARDS_1, STEWARDS_2, STEWARDS_3, STEWARDS_4, STEWARDS_5, STEWARDS_6, STEWARDS_7, STEWARDS_8, STEWARDS_9, NWIS_10,
 				NWIS_11, NWIS_12, NWIS_13, NWIS_14, NWIS_15, NWIS_16, STORET_17, STORET_18, STORET_19, STORET_20,
 				STORET_21, STORET_22, STORET_23, STORET_24, STORET_25, STORET_26, STORET_27, STORET_28, STORET_29, STORET_31,
-				STORET_32, STORET_34, STORET_36, STORET_37, STORET_39, STORET_70, STORET_71, STORET_72, STORET_73, BIODATA_74);
+				STORET_32, STORET_34, STORET_36, STORET_37, STORET_39, STORET_70, STORET_71, STORET_72, STORET_73, NWIS_74);
 	}
 
 	public void countyTest() {
@@ -379,19 +378,19 @@ public class ResDetectQntLmtStreamingIT extends FilteredResDetectQntLmtDaoTest {
 		assertContainsResDetectQntLmt(results,
 				STEWARDS_1, STEWARDS_2, STEWARDS_6, STEWARDS_7, STEWARDS_8, STEWARDS_9, NWIS_10, NWIS_11, NWIS_12, NWIS_13,
 				NWIS_14, NWIS_16, STORET_17, STORET_18, STORET_19, STORET_20, STORET_21, STORET_22, STORET_23, STORET_24,
-				STORET_25, STORET_26, STORET_27, STORET_28, STORET_70, STORET_72, STORET_73, BIODATA_74);
+				STORET_25, STORET_26, STORET_27, STORET_28, STORET_70, STORET_72, STORET_73, NWIS_74);
 	}
 
 	public void providersTest() {
-		List<Map<String, Object>> results = providersTest(nameSpace, 69);
+		List<Map<String, Object>> results = providersTest(nameSpace, 61);
 		assertContainsResDetectQntLmt(results,
-				STEWARDS_1, STEWARDS_2, STEWARDS_3, STEWARDS_4, STEWARDS_5, STEWARDS_6, STEWARDS_7, STEWARDS_8, STEWARDS_9, NWIS_10,
-				NWIS_11, NWIS_12, NWIS_13, NWIS_14, NWIS_15, NWIS_16, STORET_17, STORET_18, STORET_19, STORET_20,
-				STORET_21, STORET_22, STORET_23, STORET_24, STORET_25, STORET_26, STORET_27, STORET_28, STORET_29, STORET_31,
-				STORET_32, STORET_34, STORET_36, STORET_37, STORET_39, STORET_40, STORET_41, STORET_42, STORET_43, STORET_44,
-				STORET_45, STORET_46, STORET_47, STORET_48, STORET_49, STORET_50, STORET_51, STORET_52, STORET_53, STORET_54,
-				STORET_55, STORET_56, STORET_57, STORET_58, STORET_59, STORET_60, STORET_61, STORET_62, STORET_63, STORET_64,
-				STORET_65, STORET_66, STORET_67, STORET_68, STORET_69, STORET_70, STORET_71, STORET_72, STORET_73);
+				NWIS_10, NWIS_11, NWIS_12, NWIS_13, NWIS_14, NWIS_15, NWIS_16, NWIS_74, STORET_17, STORET_18,
+				STORET_19, STORET_20, STORET_21, STORET_22, STORET_23, STORET_24, STORET_25, STORET_26, STORET_27, STORET_28,
+				STORET_29, STORET_31, STORET_32, STORET_34, STORET_36, STORET_37, STORET_39, STORET_40, STORET_41, STORET_42,
+				STORET_43, STORET_44, STORET_45, STORET_46, STORET_47, STORET_48, STORET_49, STORET_50, STORET_51, STORET_52,
+				STORET_53, STORET_54, STORET_55, STORET_56, STORET_57, STORET_58, STORET_59, STORET_60, STORET_61, STORET_62,
+				STORET_63, STORET_64, STORET_65, STORET_66, STORET_67, STORET_68, STORET_69, STORET_70, STORET_71, STORET_72,
+				STORET_73);
 	}
 
 	public void restTest() {
@@ -421,7 +420,7 @@ public class ResDetectQntLmtStreamingIT extends FilteredResDetectQntLmtDaoTest {
 				STORET_39, STORET_40, STORET_41, STORET_42, STORET_43, STORET_44, STORET_45, STORET_46, STORET_47, STORET_48,
 				STORET_49, STORET_50, STORET_51, STORET_52, STORET_53, STORET_54, STORET_55, STORET_56, STORET_57, STORET_58,
 				STORET_59, STORET_60, STORET_61, STORET_62, STORET_63, STORET_64, STORET_65, STORET_66, STORET_67, STORET_68,
-				STORET_69, STORET_70, STORET_71, STORET_72, STORET_73, BIODATA_74);
+				STORET_69, STORET_70, STORET_71, STORET_72, STORET_73, NWIS_74);
 	}
 
 	public void siteIdTest() {
@@ -449,7 +448,7 @@ public class ResDetectQntLmtStreamingIT extends FilteredResDetectQntLmtDaoTest {
 				STORET_34, STORET_36, STORET_37, STORET_39, STORET_40, STORET_41, STORET_42, STORET_43, STORET_44, STORET_45,
 				STORET_46, STORET_47, STORET_48, STORET_49, STORET_50, STORET_51, STORET_52, STORET_53, STORET_54, STORET_55,
 				STORET_56, STORET_57, STORET_58, STORET_59, STORET_60, STORET_61, STORET_62, STORET_63, STORET_64, STORET_65,
-				STORET_66, STORET_67, STORET_68, STORET_69, STORET_70, STORET_71, STORET_72, STORET_73, BIODATA_74);
+				STORET_66, STORET_67, STORET_68, STORET_69, STORET_70, STORET_71, STORET_72, STORET_73, NWIS_74);
 	}
 
 	public void siteUrlBaseTest() {
@@ -467,67 +466,67 @@ public class ResDetectQntLmtStreamingIT extends FilteredResDetectQntLmtDaoTest {
 		assertStewards("9", results.get(6));
 		assertStewards("6", results.get(7));
 		assertStewards("7", results.get(8));
-		assertNwis("10", results.get(9));
-		assertNwis("11", results.get(10));
-		assertNwis("12", results.get(11));
-		assertNwis("13", results.get(12));
-		assertNwis("14", results.get(13));
-		assertNwis("15", results.get(14));
-		assertNwis("16", results.get(15));
-		assertStoret("56", results.get(16));
-		assertStoret("40", results.get(17));
-		assertStoret("41", results.get(18));
-		assertStoret("42", results.get(19));
-		assertStoret("47", results.get(20));
-		assertStoret("46", results.get(21));
-		assertStoret("43", results.get(22));
-		assertStoret("44", results.get(23));
-		assertStoret("45", results.get(24));
-		assertStoret("48", results.get(25));
-		assertStoret("49", results.get(26));
-		assertStoret("50", results.get(27));
-		assertStoret("51", results.get(28));
-		assertStoret("52", results.get(29));
-		assertStoret("53", results.get(30));
-		assertStoret("54", results.get(31));
-		assertStoret("55", results.get(32));
-		assertStoret("57", results.get(33));
-		assertStoret("58", results.get(34));
-		assertStoret("59", results.get(35));
-		assertStoret("60", results.get(36));
-		assertStoret("62", results.get(37));
-		assertStoret("63", results.get(38));
-		assertStoret("67", results.get(39));
-		assertStoret("68", results.get(40));
-		assertStoret("64", results.get(41));
-		assertStoret("66", results.get(42));
-		assertStoret("69", results.get(43));
-		assertStoret("61", results.get(44));
-		assertStoret("65", results.get(45));
-		assertStoret39(results.get(46));
-		assertStoret("29", results.get(47));
-		assertStoret("31", results.get(48));
-		assertStoret("32", results.get(49));
-		assertStoret("34", results.get(50));
-		assertStoret("36", results.get(51));
-		assertStoret("37", results.get(52));
-		assertStoret("72", results.get(53));
-		assertStoret("73", results.get(54));
-		assertStoret("70", results.get(55));
-		assertStoret("71", results.get(56));
-		assertStoret("24", results.get(57));
-		assertStoret("25", results.get(58));
-		assertStoret("26", results.get(59));
-		assertStoret("27", results.get(60));
-		assertStoret("17", results.get(61));
-		assertStoret("18", results.get(62));
-		assertStoret("19", results.get(63));
-		assertStoret("23", results.get(64));
-		assertStoret("22", results.get(65));
-		assertStoret("20", results.get(66));
-		assertStoret("21", results.get(67));
-		assertStoret("28", results.get(68));
-		assertBiodata("74", results.get(69));
+		assertNwis("74", results.get(9));
+		assertNwis("10", results.get(10));
+		assertNwis("11", results.get(11));
+		assertNwis("12", results.get(12));
+		assertNwis("13", results.get(13));
+		assertNwis("14", results.get(14));
+		assertNwis("15", results.get(15));
+		assertNwis("16", results.get(16));
+		assertStoret("56", results.get(17));
+		assertStoret("40", results.get(18));
+		assertStoret("41", results.get(19));
+		assertStoret("42", results.get(20));
+		assertStoret("47", results.get(21));
+		assertStoret("46", results.get(22));
+		assertStoret("43", results.get(23));
+		assertStoret("44", results.get(24));
+		assertStoret("45", results.get(25));
+		assertStoret("48", results.get(26));
+		assertStoret("49", results.get(27));
+		assertStoret("50", results.get(28));
+		assertStoret("51", results.get(29));
+		assertStoret("52", results.get(30));
+		assertStoret("53", results.get(31));
+		assertStoret("54", results.get(32));
+		assertStoret("55", results.get(33));
+		assertStoret("57", results.get(34));
+		assertStoret("58", results.get(35));
+		assertStoret("59", results.get(36));
+		assertStoret("60", results.get(37));
+		assertStoret("62", results.get(38));
+		assertStoret("63", results.get(39));
+		assertStoret("67", results.get(40));
+		assertStoret("68", results.get(41));
+		assertStoret("64", results.get(42));
+		assertStoret("66", results.get(43));
+		assertStoret("69", results.get(44));
+		assertStoret("61", results.get(45));
+		assertStoret("65", results.get(46));
+		assertStoret39(results.get(47));
+		assertStoret("29", results.get(48));
+		assertStoret("31", results.get(49));
+		assertStoret("32", results.get(50));
+		assertStoret("34", results.get(51));
+		assertStoret("36", results.get(52));
+		assertStoret("37", results.get(53));
+		assertStoret("72", results.get(54));
+		assertStoret("73", results.get(55));
+		assertStoret("70", results.get(56));
+		assertStoret("71", results.get(57));
+		assertStoret("24", results.get(58));
+		assertStoret("25", results.get(59));
+		assertStoret("26", results.get(60));
+		assertStoret("27", results.get(61));
+		assertStoret("17", results.get(62));
+		assertStoret("18", results.get(63));
+		assertStoret("19", results.get(64));
+		assertStoret("23", results.get(65));
+		assertStoret("22", results.get(66));
+		assertStoret("20", results.get(67));
+		assertStoret("21", results.get(68));
+		assertStoret("28", results.get(69));
 	}
 
 	public void startDateHiTest() {
@@ -539,7 +538,7 @@ public class ResDetectQntLmtStreamingIT extends FilteredResDetectQntLmtDaoTest {
 				STORET_39, STORET_40, STORET_41, STORET_42, STORET_43, STORET_44, STORET_45, STORET_46, STORET_47, STORET_48,
 				STORET_49, STORET_50, STORET_51, STORET_52, STORET_53, STORET_54, STORET_55, STORET_56, STORET_57, STORET_58,
 				STORET_59, STORET_60, STORET_61, STORET_62, STORET_63, STORET_64, STORET_65, STORET_66, STORET_67, STORET_68,
-				STORET_69, STORET_70, STORET_71, STORET_72, STORET_73, BIODATA_74);
+				STORET_69, STORET_70, STORET_71, STORET_72, STORET_73, NWIS_74);
 	}
 
 	public void startDateLoTest() {
@@ -548,7 +547,7 @@ public class ResDetectQntLmtStreamingIT extends FilteredResDetectQntLmtDaoTest {
 				STEWARDS_1, STEWARDS_2, STEWARDS_3, STEWARDS_4, STEWARDS_5, STEWARDS_6, STEWARDS_7, STEWARDS_8, STEWARDS_9, NWIS_10,
 				NWIS_11, NWIS_12, NWIS_13, NWIS_14, NWIS_15, NWIS_16, STORET_17, STORET_18, STORET_19, STORET_20,
 				STORET_21, STORET_22, STORET_23, STORET_24, STORET_25, STORET_26, STORET_27, STORET_28, STORET_70, STORET_71,
-				STORET_72, STORET_73, BIODATA_74);
+				STORET_72, STORET_73, NWIS_74);
 	}
 
 	public void stateTest() {
@@ -564,7 +563,7 @@ public class ResDetectQntLmtStreamingIT extends FilteredResDetectQntLmtDaoTest {
 		List<Map<String, Object>> results = subjectTaxonomicNameTest(nameSpace, 16);
 		assertContainsResDetectQntLmt(results,
 				STORET_17, STORET_18, STORET_19, STORET_20, STORET_21, STORET_22, STORET_23, STORET_24, STORET_25, STORET_26,
-				STORET_27, STORET_28, STORET_70, STORET_72, STORET_73, BIODATA_74);
+				STORET_27, STORET_28, STORET_70, STORET_72, STORET_73, NWIS_74);
 	}
 
 	public void withinTest() {
@@ -622,12 +621,6 @@ public class ResDetectQntLmtStreamingIT extends FilteredResDetectQntLmtDaoTest {
 	public static void assertStoret(String detectionLimit, Map<String, Object> row) {
 		assertEquals(RES_DETECT_QNT_LMT_COLUMN_COUNT, row.keySet().size());
 		assertEquals(STORET, row.get(BaseColumn.KEY_DATA_SOURCE));
-		assertEquals(detectionLimit, row.get(ResultColumn.KEY_DETECTION_LIMIT));
-	}
-
-	public static void assertBiodata(String detectionLimit, Map<String, Object> row) {
-		assertEquals(RES_DETECT_QNT_LMT_COLUMN_COUNT, row.keySet().size());
-		assertEquals(BIODATA, row.get(BaseColumn.KEY_DATA_SOURCE));
 		assertEquals(detectionLimit, row.get(ResultColumn.KEY_DETECTION_LIMIT));
 	}
 

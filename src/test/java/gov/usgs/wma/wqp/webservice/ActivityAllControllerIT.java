@@ -16,7 +16,6 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import static gov.usgs.wma.wqp.openapi.model.ActivityCountJson.*;
-import static gov.usgs.wma.wqp.openapi.model.StationCountJson.HEADER_BIODATA_SITE_COUNT;
 import static gov.usgs.wma.wqp.openapi.model.StationCountJson.HEADER_NWIS_SITE_COUNT;
 import static gov.usgs.wma.wqp.openapi.model.StationCountJson.HEADER_STEWARDS_SITE_COUNT;
 import static gov.usgs.wma.wqp.openapi.model.StationCountJson.HEADER_STORET_SITE_COUNT;
@@ -34,7 +33,6 @@ public class ActivityAllControllerIT extends BaseControllerIntegrationTest {
 	protected static final boolean POSTABLE = true;
 	protected static final String ENDPOINT = HttpConstants.ACTIVITY_SEARCH_ENDPOINT + "?sorted=yes&"
 			+ Parameters.DATA_PROFILE + "=" + Profile.ACTIVITY_ALL + "&mimeType=";
-
 
 	@Test
 	public void testHarness() throws Exception {
@@ -99,16 +97,14 @@ public class ActivityAllControllerIT extends BaseControllerIntegrationTest {
 	public ResultActions unFilteredHeaderCheck(ResultActions resultActions) throws Exception {
 		return resultActions
 				.andExpect(header().string(HttpConstants.HEADER_TOTAL_SITE_COUNT, TOTAL_SITE_COUNT_MINUS_1))
-				.andExpect(header().string(HEADER_NWIS_SITE_COUNT, NWIS_SITE_COUNT))
+				.andExpect(header().string(HEADER_NWIS_SITE_COUNT, NWIS_SITE_COUNT_MINUS_1))
 				.andExpect(header().string(HEADER_STEWARDS_SITE_COUNT, STEWARDS_SITE_COUNT))
 				.andExpect(header().string(HEADER_STORET_SITE_COUNT, STORET_SITE_COUNT_MINUS_1))
-				.andExpect(header().string(HEADER_BIODATA_SITE_COUNT, BIODATA_SITE_COUNT_MINUS_1))
 
 				.andExpect(header().string(HttpConstants.HEADER_TOTAL_ACTIVITY_COUNT, TOTAL_ACTIVITY_COUNT))
 				.andExpect(header().string(HEADER_NWIS_ACTIVITY_COUNT, NWIS_ACTIVITY_COUNT))
 				.andExpect(header().string(HEADER_STEWARDS_ACTIVITY_COUNT, STEWARDS_ACTIVITY_COUNT))
-				.andExpect(header().string(HEADER_STORET_ACTIVITY_COUNT, STORET_ACTIVITY_COUNT))
-				.andExpect(header().string(HEADER_BIODATA_ACTIVITY_COUNT, BIODATA_ACTIVITY_COUNT));
+				.andExpect(header().string(HEADER_STORET_ACTIVITY_COUNT, STORET_ACTIVITY_COUNT));
 	}
 
 	public ResultActions filteredHeaderCheck(ResultActions resultActions) throws Exception {

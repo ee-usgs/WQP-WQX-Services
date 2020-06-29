@@ -8,6 +8,11 @@
     </Organization>
     <Organization>
         <OrganizationDescription>
+            <OrganizationIdentifier>USGS</OrganizationIdentifier>
+        </OrganizationDescription>
+    </Organization>
+    <Organization>
+        <OrganizationDescription>
             <OrganizationIdentifier>USGS-WI</OrganizationIdentifier>
         </OrganizationDescription>
     </Organization>
@@ -98,10 +103,5 @@
             <CountryCode>US</CountryCode>
             <CountyCode>015</CountyCode>
         </OrganizationAddress>
-    </Organization>
-    <Organization>
-        <OrganizationDescription>
-            <OrganizationIdentifier>USGS</OrganizationIdentifier>
-        </OrganizationDescription>
     </Organization>
 </WQX>

@@ -84,70 +84,63 @@ public abstract class BaseTest {
 		}
 	}
 
+	public static int BASE_HEADER_COUNT = 4;
+
 	public static String TOTAL_SITE_COUNT = "13";
-	public static String NWIS_SITE_COUNT = "2";
+	public static String NWIS_SITE_COUNT = "4";
 	public static String STEWARDS_SITE_COUNT = "2";
 	public static String STORET_SITE_COUNT = "7";
-	public static String BIODATA_SITE_COUNT = "2";
 
-	//The test data has a case where both a biodata and a storet site have no activity/result data associated with them. Thus they should not show up in any queries/counts below the station level.
+	//The test data has a case where both a nwis and a storet site have no activity/result data associated with them. Thus they should not show up in any queries/counts below the station level.
 	public static String TOTAL_SITE_COUNT_MINUS_1 = "11";
 	public static String STORET_SITE_COUNT_MINUS_1 = "6";
-	public static String BIODATA_SITE_COUNT_MINUS_1 = "1";
+	public static String NWIS_SITE_COUNT_MINUS_1 = "3";
 
-	//The test data has a case where a biodata site has no geom associated with it. Thus it should not show up in the json formats. 
+	//The test data has a case where a nwis site has no geom associated with it. Thus it should not show up in the json formats. 
 	//Look at dynamicWhere.spatialNeeded if you need to add a dataprofile.
 	public static String TOTAL_SITE_COUNT_GEOM = "12";
 	public static String BIOLOGICAL_METRIC_SITE_COUNT_GEOM = "13";
-	public static String BIODATA_SITE_COUNT_GEOM = "1";
+	public static String NWIS_SITE_COUNT_GEOM = "3";
 
 	public static String TOTAL_ACTIVITY_COUNT = "23";
-	public static String NWIS_ACTIVITY_COUNT = "3";
+	public static String NWIS_ACTIVITY_COUNT = "4";
 	public static String STEWARDS_ACTIVITY_COUNT = "3";
 	public static String STORET_ACTIVITY_COUNT = "16";
-	public static String BIODATA_ACTIVITY_COUNT = "1";
 
 	public static String TOTAL_ACTIVITY_METRIC_COUNT = "28";
-	public static String NWIS_ACTIVITY_METRIC_COUNT = "3";
+	public static String NWIS_ACTIVITY_METRIC_COUNT = "4";
 	public static String STEWARDS_ACTIVITY_METRIC_COUNT = "3";
 	public static String STORET_ACTIVITY_METRIC_COUNT = "21";
-	public static String BIODATA_ACTIVITY_METRIC_COUNT = "1";
 
 	public static String TOTAL_RESULT_COUNT = "55";
-	public static String NWIS_RESULT_COUNT = "5";
+	public static String NWIS_RESULT_COUNT = "6";
 	public static String STEWARDS_RESULT_COUNT = "3";
 	public static String STORET_RESULT_COUNT = "46";
-	public static String BIODATA_RESULT_COUNT = "1";
 
 	public static String TOTAL_RES_DETECT_QNT_LMT_COUNT = "70";
-	public static String NWIS_RES_DETECT_QNT_LMT_COUNT = "7";
+	public static String NWIS_RES_DETECT_QNT_LMT_COUNT = "8";
 	public static String STEWARDS_RES_DETECT_QNT_LMT_COUNT = "9";
 	public static String STORET_RES_DETECT_QNT_LMT_COUNT = "53";
-	public static String BIODATA_RES_DETECT_QNT_LMT_COUNT = "1";
 
 	public static String TOTAL_PROJECT_COUNT = "17";
-	public static String NWIS_PROJECT_COUNT = "4";
+	public static String NWIS_PROJECT_COUNT = "5";
 	public static String STEWARDS_PROJECT_COUNT = "2";
 	public static String STORET_PROJECT_COUNT = "10";
-	public static String BIODATA_PROJECT_COUNT = "1";
 	
 	public static String TOTAL_BIOLOGICAL_METRIC_COUNT = "13";
-	public static String NWIS_BIOLOGICAL_METRIC_COUNT = "2";
+	public static String NWIS_BIOLOGICAL_METRIC_COUNT = "4";
 	public static String STEWARDS_BIOLOGICAL_METRIC_COUNT = "2";
 	public static String STORET_BIOLOGICAL_METRIC_COUNT = "7";
-	public static String BIODATA_BIOLOGICAL_METRIC_COUNT = "2";
 
 	public static String TOTAL_PRJ_ML_WEIGHTING_COUNT = "7";
-	public static String NWIS_PRJ_ML_WEIGHTING_COUNT = "2";
+	public static String NWIS_PRJ_ML_WEIGHTING_COUNT = "3";
 	public static String STEWARDS_PRJ_ML_WEIGHTING_COUNT = "1";
 	public static String STORET_PRJ_ML_WEIGHTING_COUNT = "3";
-	public static String BIODATA_PRJ_ML_WEIGHTING_COUNT = "1";
 
 	public static String TOTAL_ORGANIZATION_COUNT = "8";
-	public static String NWIS_ORGANIZATION_COUNT = "1";
+	public static String NWIS_ORGANIZATION_COUNT = "2";
 	public static String STEWARDS_ORGANIZATION_COUNT = "1";
 	public static String STORET_ORGANIZATION_COUNT = "5";
-	public static String BIODATA_ORGANIZATION_COUNT = "1";
 
 	public static final String FILTERED_STORET_SITE_COUNT = "1";
 	public static final String FILTERED_TOTAL_SITE_COUNT = "1";
@@ -168,7 +161,6 @@ public abstract class BaseTest {
 	public static final Integer STEWARDS_ID = Integer.valueOf(1);
 	public static final Integer NWIS_ID = Integer.valueOf(2);
 	public static final Integer STORET_ID = Integer.valueOf(3);
-	public static final Integer BIODATA_ID = Integer.valueOf(4);
 
 	public static final String AND_ZIP = "&zip=yes";
 	public static final String CSV = "csv";
@@ -299,7 +291,7 @@ public abstract class BaseTest {
 	}
 
 	public List<String> getProject() {
-		return Arrays.asList("projectId", "CEAP", "NAWQA", "SACR BioTDB");
+		return Arrays.asList("projectId", "CEAP", "NAWQA", "SACR TDB");
 	}
 	public static String getRestProject() {
 		return "WR047";

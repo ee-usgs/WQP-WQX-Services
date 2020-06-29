@@ -1,6 +1,5 @@
 package gov.usgs.wma.wqp.dao.streaming;
 
-import static gov.usgs.wma.wqp.openapi.model.StationCountJson.BIODATA;
 import static gov.usgs.wma.wqp.openapi.model.StationCountJson.NWIS;
 import static gov.usgs.wma.wqp.openapi.model.StationCountJson.STEWARDS;
 import static gov.usgs.wma.wqp.openapi.model.StationCountJson.STORET;
@@ -46,13 +45,13 @@ public class OrganizationStreamingIT extends FilteredProjectDaoTest {
 	protected NameSpace nameSpace = NameSpace.ORGANIZATION;
 
 	public static final String [] STEWARDS_ARS = new String[] {STEWARDS, "ARS"};
+	public static final String [] NWIS_USGS = new String[] {NWIS, "USGS"};
 	public static final String [] NWIS_USGS_WI = new String[] {NWIS, "USGS-WI"};
 	public static final String [] STORET_ORGANIZATION = new String[] {STORET, "organization"};
 	public static final String [] STORET_WIDNR_WQX = new String[] {STORET, "WIDNR_WQX"};
 	public static final String [] STORET_21NYDECA_WQX = new String[] {STORET, "21NYDECA_WQX"};
 	public static final String [] STORET_11NPSWRD = new String[] {STORET, "11NPSWRD"};
 	public static final String [] STORET_NODATA = new String[] {STORET, "NoData"};
-	public static final String [] BIODATA_USGS = new String[] {BIODATA, "USGS"};
 
 	@Test
 	public void testHarness() {
@@ -142,12 +141,12 @@ public class OrganizationStreamingIT extends FilteredProjectDaoTest {
 
 	public void providersTest() {
 		List<Map<String, Object>> results = providersTest(nameSpace, 7);
-		assertContainsOrganization(results, STEWARDS_ARS, NWIS_USGS_WI, STORET_ORGANIZATION, STORET_WIDNR_WQX, STORET_21NYDECA_WQX, STORET_11NPSWRD, STORET_NODATA);
+		assertContainsOrganization(results, NWIS_USGS, NWIS_USGS_WI, STORET_ORGANIZATION, STORET_WIDNR_WQX, STORET_21NYDECA_WQX, STORET_11NPSWRD, STORET_NODATA);
 	}
 
 	public void projectTest() {
 		List<Map<String, Object>> results = projectTest(nameSpace, 5);
-		assertContainsOrganization(results, STEWARDS_ARS, NWIS_USGS_WI, STORET_ORGANIZATION, STORET_11NPSWRD, BIODATA_USGS);
+		assertContainsOrganization(results, STEWARDS_ARS, NWIS_USGS, NWIS_USGS_WI, STORET_ORGANIZATION, STORET_11NPSWRD);
 	}
 
 	public void resultTest() {
@@ -161,13 +160,13 @@ public class OrganizationStreamingIT extends FilteredProjectDaoTest {
 	public void sortedTest() {
 		List<Map<String, Object>> results = sortedTest(nameSpace, Integer.valueOf(TOTAL_ORGANIZATION_COUNT));
 		assertEquals(STEWARDS_ARS[1], results.get(0).get(OrganizationColumn.KEY_ORGANIZATION).toString());
-		assertEquals(NWIS_USGS_WI[1], results.get(1).get(OrganizationColumn.KEY_ORGANIZATION).toString());
-		assertEquals(STORET_11NPSWRD[1], results.get(2).get(OrganizationColumn.KEY_ORGANIZATION).toString());
-		assertEquals(STORET_21NYDECA_WQX[1], results.get(3).get(OrganizationColumn.KEY_ORGANIZATION).toString());
-		assertEquals(STORET_NODATA[1], results.get(4).get(OrganizationColumn.KEY_ORGANIZATION).toString());
-		assertEquals(STORET_WIDNR_WQX[1], results.get(5).get(OrganizationColumn.KEY_ORGANIZATION).toString());
-		assertMapIsAsExpected(TestOrganizationMap.ORGANIZATION, results.get(6));
-		assertEquals(BIODATA_USGS[1], results.get(7).get(OrganizationColumn.KEY_ORGANIZATION).toString());
+		assertEquals(NWIS_USGS[1], results.get(1).get(OrganizationColumn.KEY_ORGANIZATION).toString());
+		assertEquals(NWIS_USGS_WI[1], results.get(2).get(OrganizationColumn.KEY_ORGANIZATION).toString());
+		assertEquals(STORET_11NPSWRD[1], results.get(3).get(OrganizationColumn.KEY_ORGANIZATION).toString());
+		assertEquals(STORET_21NYDECA_WQX[1], results.get(4).get(OrganizationColumn.KEY_ORGANIZATION).toString());
+		assertEquals(STORET_NODATA[1], results.get(5).get(OrganizationColumn.KEY_ORGANIZATION).toString());
+		assertEquals(STORET_WIDNR_WQX[1], results.get(6).get(OrganizationColumn.KEY_ORGANIZATION).toString());
+		assertMapIsAsExpected(TestOrganizationMap.ORGANIZATION, results.get(7));
 	}
 
 	public void zipTest() {
@@ -181,7 +180,7 @@ public class OrganizationStreamingIT extends FilteredProjectDaoTest {
 
 	public void countryTest() {
 		List<Map<String, Object>> results = countryTest(nameSpace, 6);
-		assertContainsOrganization(results, STEWARDS_ARS, NWIS_USGS_WI, STORET_ORGANIZATION, STORET_WIDNR_WQX, STORET_11NPSWRD, BIODATA_USGS);
+		assertContainsOrganization(results, STEWARDS_ARS, NWIS_USGS, NWIS_USGS_WI, STORET_ORGANIZATION, STORET_WIDNR_WQX, STORET_11NPSWRD);
 	}
 
 	public void countyTest() {
@@ -251,7 +250,7 @@ public class OrganizationStreamingIT extends FilteredProjectDaoTest {
 
 	public void sampleMediaTest() {
 		List<Map<String, Object>> results = sampleMediaTest(nameSpace, 7);
-		assertContainsOrganization(results, STEWARDS_ARS, NWIS_USGS_WI, STORET_ORGANIZATION, STORET_WIDNR_WQX, STORET_21NYDECA_WQX, STORET_11NPSWRD, BIODATA_USGS);
+		assertContainsOrganization(results, STEWARDS_ARS, NWIS_USGS, NWIS_USGS_WI, STORET_ORGANIZATION, STORET_WIDNR_WQX, STORET_21NYDECA_WQX, STORET_11NPSWRD);
 	}
 
 	public void siteIdTest() {
@@ -266,17 +265,17 @@ public class OrganizationStreamingIT extends FilteredProjectDaoTest {
 
 	public void siteTypeTest() {
 		List<Map<String, Object>> results = siteTypeTest(nameSpace, 7);
-		assertContainsOrganization(results, STEWARDS_ARS, NWIS_USGS_WI, STORET_ORGANIZATION, STORET_WIDNR_WQX, STORET_21NYDECA_WQX, STORET_11NPSWRD, BIODATA_USGS);
+		assertContainsOrganization(results, STEWARDS_ARS, NWIS_USGS, NWIS_USGS_WI, STORET_ORGANIZATION, STORET_WIDNR_WQX, STORET_21NYDECA_WQX, STORET_11NPSWRD);
 	}
 
 	public void startDateHiTest() {
 		List<Map<String, Object>> results = startDateHiTest(nameSpace, 7);
-		assertContainsOrganization(results, STEWARDS_ARS, NWIS_USGS_WI, STORET_ORGANIZATION, STORET_WIDNR_WQX, STORET_21NYDECA_WQX, STORET_11NPSWRD, BIODATA_USGS);
+		assertContainsOrganization(results, STEWARDS_ARS, NWIS_USGS, NWIS_USGS_WI, STORET_ORGANIZATION, STORET_WIDNR_WQX, STORET_21NYDECA_WQX, STORET_11NPSWRD);
 	}
 
 	public void startDateLoTest() {
 		List<Map<String, Object>> results = startDateLoTest(nameSpace, 5);
-		assertContainsOrganization(results, STEWARDS_ARS, NWIS_USGS_WI, STORET_ORGANIZATION, STORET_11NPSWRD, BIODATA_USGS);
+		assertContainsOrganization(results, STEWARDS_ARS, NWIS_USGS, NWIS_USGS_WI, STORET_ORGANIZATION, STORET_11NPSWRD);
 	}
 
 	public void stateTest() {
@@ -296,7 +295,7 @@ public class OrganizationStreamingIT extends FilteredProjectDaoTest {
 
 	public void assemblageTest() {
 		List<Map<String, Object>> results = assemblageTest(nameSpace, 2);
-		assertContainsOrganization(results, STORET_ORGANIZATION, BIODATA_USGS);
+		assertContainsOrganization(results, NWIS_USGS, STORET_ORGANIZATION);
 	}
 
 	public void characteristicNameTest() {
@@ -316,7 +315,7 @@ public class OrganizationStreamingIT extends FilteredProjectDaoTest {
 
 	public void subjectTaxonomicNameTest() {
 		List<Map<String, Object>> results = subjectTaxonomicNameTest(nameSpace, 2);
-		assertContainsOrganization(results, STORET_ORGANIZATION, BIODATA_USGS);
+		assertContainsOrganization(results, NWIS_USGS, STORET_ORGANIZATION);
 	}
 
 	public void multipleParameterTest() {

@@ -353,6 +353,46 @@
     </Organization>
     <Organization>
         <OrganizationDescription>
+            <OrganizationIdentifier>USGS</OrganizationIdentifier>
+            <OrganizationFormalName>Wisconsin Department of Natural Resources</OrganizationFormalName>
+        </OrganizationDescription>
+        <Activity>
+            <ActivityDescription>
+                <ActivityIdentifier>activityNwis-4</ActivityIdentifier>
+                <ActivityTypeCode>Sample-Routine</ActivityTypeCode>
+                <ActivityMediaName>Water</ActivityMediaName>
+                <ActivityStartDate>1996-06-27</ActivityStartDate>
+                <ActivityStartTime>
+                    <Time>15:00:00</Time>
+                    <TimeZoneCode>CDT</TimeZoneCode>
+                </ActivityStartTime>
+                <ActivityDepthHeightMeasure>
+                    <MeasureValue>1</MeasureValue>
+                    <MeasureUnitCode>ft</MeasureUnitCode>
+                </ActivityDepthHeightMeasure>
+                <ProjectIdentifier>SACR TDB</ProjectIdentifier>
+                <ActivityConductingOrganizationText>WIDNR_WQX</ActivityConductingOrganizationText>
+                <MonitoringLocationIdentifier>USGS-11421000</MonitoringLocationIdentifier>
+            </ActivityDescription>
+            <ActivityLocation>
+                <LatitudeMeasure>43.34</LatitudeMeasure>
+                <LongitudeMeasure>-89</LongitudeMeasure>
+                <SourceMapScaleNumeric>24000</SourceMapScaleNumeric>
+                <HorizontalCollectionMethodName>Interpolation-Other</HorizontalCollectionMethodName>
+                <HorizontalCoordinateReferenceSystemDatumName>NAD83</HorizontalCoordinateReferenceSystemDatumName>
+            </ActivityLocation>
+            <SampleDescription>
+                <SampleCollectionMethod>
+                    <MethodIdentifier>GRAB SAMPLE</MethodIdentifier>
+                    <MethodIdentifierContext>WI_DNR</MethodIdentifierContext>
+                    <MethodName>WATER GRAB SAMPLE 2005 Guidelines and Procedures</MethodName>
+                </SampleCollectionMethod>
+                <SampleCollectionEquipmentName>Bucket</SampleCollectionEquipmentName>
+            </SampleDescription>
+        </Activity>
+    </Organization>
+    <Organization>
+        <OrganizationDescription>
             <OrganizationIdentifier>USGS-WI</OrganizationIdentifier>
             <OrganizationFormalName>USGS Wisconsin Water Science Center</OrganizationFormalName>
         </OrganizationDescription>
@@ -1899,46 +1939,6 @@
                     <ThermalPreservativeUsedName>thermalPreservativeName</ThermalPreservativeUsedName>
                     <SampleTransportStorageDescription>actSamTransportStorageDesc</SampleTransportStorageDescription>
                 </SamplePreparation>
-            </SampleDescription>
-        </Activity>
-    </Organization>
-    <Organization>
-        <OrganizationDescription>
-            <OrganizationIdentifier>USGS</OrganizationIdentifier>
-            <OrganizationFormalName>Wisconsin Department of Natural Resources</OrganizationFormalName>
-        </OrganizationDescription>
-        <Activity>
-            <ActivityDescription>
-                <ActivityIdentifier>activityBiodata-1</ActivityIdentifier>
-                <ActivityTypeCode>Sample-Routine</ActivityTypeCode>
-                <ActivityMediaName>Water</ActivityMediaName>
-                <ActivityStartDate>1996-06-27</ActivityStartDate>
-                <ActivityStartTime>
-                    <Time>15:00:00</Time>
-                    <TimeZoneCode>CDT</TimeZoneCode>
-                </ActivityStartTime>
-                <ActivityDepthHeightMeasure>
-                    <MeasureValue>1</MeasureValue>
-                    <MeasureUnitCode>ft</MeasureUnitCode>
-                </ActivityDepthHeightMeasure>
-                <ProjectIdentifier>SACR BioTDB</ProjectIdentifier>
-                <ActivityConductingOrganizationText>WIDNR_WQX</ActivityConductingOrganizationText>
-                <MonitoringLocationIdentifier>USGS-11421000</MonitoringLocationIdentifier>
-            </ActivityDescription>
-            <ActivityLocation>
-                <LatitudeMeasure>43.34</LatitudeMeasure>
-                <LongitudeMeasure>-89</LongitudeMeasure>
-                <SourceMapScaleNumeric>24000</SourceMapScaleNumeric>
-                <HorizontalCollectionMethodName>Interpolation-Other</HorizontalCollectionMethodName>
-                <HorizontalCoordinateReferenceSystemDatumName>NAD83</HorizontalCoordinateReferenceSystemDatumName>
-            </ActivityLocation>
-            <SampleDescription>
-                <SampleCollectionMethod>
-                    <MethodIdentifier>GRAB SAMPLE</MethodIdentifier>
-                    <MethodIdentifierContext>WI_DNR</MethodIdentifierContext>
-                    <MethodName>WATER GRAB SAMPLE 2005 Guidelines and Procedures</MethodName>
-                </SampleCollectionMethod>
-                <SampleCollectionEquipmentName>Bucket</SampleCollectionEquipmentName>
             </SampleDescription>
         </Activity>
     </Organization>

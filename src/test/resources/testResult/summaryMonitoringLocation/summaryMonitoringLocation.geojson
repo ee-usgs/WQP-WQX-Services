@@ -50,6 +50,30 @@
 		}
 	}, {
 		"geometry": {
+			"coordinates": [-121.5249647, 39.1757251],
+			"type": "Point"
+		},
+		"type": "Feature",
+		"properties": {
+			"ResolvedMonitoringLocationTypeName": "Stream",
+			"resultCount": "1",
+			"siteUrl": "https://www.waterqualitydata.us/data/provider/NWIS/USGS/USGS-11421000/",
+			"MonitoringLocationTypeName": "River/Stream",
+			"StateName": "Iowa",
+			"MonitoringLocationName": "Snake River Rd.",
+			"OrganizationFormalName": "United States Geographic Survey-Wisconsin",
+			"HUCEightDigitCode": "18020107",
+			"CountyName": "Iowa",
+			"OrganizationIdentifier": "USGS",
+			"activityCount": "1",
+			"ProviderName": "NWIS",
+			"MonitoringLocationIdentifier": "USGS-11421000",
+			"characteristicGroupResultCount": {
+				"Biological": 5
+			}
+		}
+	}, {
+		"geometry": {
 			"coordinates": [-89.0320546, 43.3466571],
 			"type": "Point"
 		},
@@ -241,30 +265,6 @@
 			"MonitoringLocationIdentifier": "organization-siteId3",
 			"characteristicGroupResultCount": {
 				"characteristicType": 1
-			}
-		}
-	}, {
-		"geometry": {
-			"coordinates": [-121.5249647, 39.1757251],
-			"type": "Point"
-		},
-		"type": "Feature",
-		"properties": {
-			"ResolvedMonitoringLocationTypeName": "Stream",
-			"resultCount": "1",
-			"siteUrl": "https://www.waterqualitydata.us/data/provider/BIODATA/USGS/USGS-11421000/",
-			"MonitoringLocationTypeName": "River/Stream",
-			"StateName": "Iowa",
-			"MonitoringLocationName": "Snake River Rd.",
-			"OrganizationFormalName": "United States Geographic Survey-Wisconsin",
-			"HUCEightDigitCode": "18020107",
-			"CountyName": "Iowa",
-			"OrganizationIdentifier": "USGS",
-			"activityCount": "1",
-			"ProviderName": "BIODATA",
-			"MonitoringLocationIdentifier": "USGS-11421000",
-			"characteristicGroupResultCount": {
-				"Biological": 5
 			}
 		}
 	}]

@@ -1,18 +1,14 @@
 package gov.usgs.wma.wqp.webservice;
 
-import static gov.usgs.wma.wqp.openapi.model.ActivityCountJson.HEADER_BIODATA_ACTIVITY_COUNT;
 import static gov.usgs.wma.wqp.openapi.model.ActivityCountJson.HEADER_NWIS_ACTIVITY_COUNT;
 import static gov.usgs.wma.wqp.openapi.model.ActivityCountJson.HEADER_STEWARDS_ACTIVITY_COUNT;
 import static gov.usgs.wma.wqp.openapi.model.ActivityCountJson.HEADER_STORET_ACTIVITY_COUNT;
-import static gov.usgs.wma.wqp.openapi.model.ResDetectQntLmtCountJson.HEADER_BIODATA_RES_DETECT_QNT_LMT_COUNT;
 import static gov.usgs.wma.wqp.openapi.model.ResDetectQntLmtCountJson.HEADER_NWIS_RES_DETECT_QNT_LMT_COUNT;
 import static gov.usgs.wma.wqp.openapi.model.ResDetectQntLmtCountJson.HEADER_STEWARDS_RES_DETECT_QNT_LMT_COUNT;
 import static gov.usgs.wma.wqp.openapi.model.ResDetectQntLmtCountJson.HEADER_STORET_RES_DETECT_QNT_LMT_COUNT;
-import static gov.usgs.wma.wqp.openapi.model.ResultCountJson.HEADER_BIODATA_RESULT_COUNT;
 import static gov.usgs.wma.wqp.openapi.model.ResultCountJson.HEADER_NWIS_RESULT_COUNT;
 import static gov.usgs.wma.wqp.openapi.model.ResultCountJson.HEADER_STEWARDS_RESULT_COUNT;
 import static gov.usgs.wma.wqp.openapi.model.ResultCountJson.HEADER_STORET_RESULT_COUNT;
-import static gov.usgs.wma.wqp.openapi.model.StationCountJson.HEADER_BIODATA_SITE_COUNT;
 import static gov.usgs.wma.wqp.openapi.model.StationCountJson.HEADER_NWIS_SITE_COUNT;
 import static gov.usgs.wma.wqp.openapi.model.StationCountJson.HEADER_STEWARDS_SITE_COUNT;
 import static gov.usgs.wma.wqp.openapi.model.StationCountJson.HEADER_STORET_SITE_COUNT;
@@ -116,28 +112,24 @@ public class ResDetectQntLmtControllerIT extends BaseControllerIntegrationTest {
 	public ResultActions unFilteredHeaderCheck(ResultActions resultActions) throws Exception {
 		return resultActions
 				.andExpect(header().string(HttpConstants.HEADER_TOTAL_SITE_COUNT, TOTAL_SITE_COUNT_MINUS_1))
-				.andExpect(header().string(HEADER_NWIS_SITE_COUNT, NWIS_SITE_COUNT))
+				.andExpect(header().string(HEADER_NWIS_SITE_COUNT, NWIS_SITE_COUNT_MINUS_1))
 				.andExpect(header().string(HEADER_STEWARDS_SITE_COUNT, STEWARDS_SITE_COUNT))
 				.andExpect(header().string(HEADER_STORET_SITE_COUNT, STORET_SITE_COUNT_MINUS_1))
-				.andExpect(header().string(HEADER_BIODATA_SITE_COUNT, BIODATA_SITE_COUNT_MINUS_1))
 
 				.andExpect(header().string(HttpConstants.HEADER_TOTAL_ACTIVITY_COUNT, TOTAL_ACTIVITY_COUNT))
 				.andExpect(header().string(HEADER_NWIS_ACTIVITY_COUNT, NWIS_ACTIVITY_COUNT))
 				.andExpect(header().string(HEADER_STEWARDS_ACTIVITY_COUNT, STEWARDS_ACTIVITY_COUNT))
 				.andExpect(header().string(HEADER_STORET_ACTIVITY_COUNT, STORET_ACTIVITY_COUNT))
-				.andExpect(header().string(HEADER_BIODATA_ACTIVITY_COUNT, BIODATA_ACTIVITY_COUNT))
 
 				.andExpect(header().string(HttpConstants.HEADER_TOTAL_RESULT_COUNT, TOTAL_RESULT_COUNT))
 				.andExpect(header().string(HEADER_NWIS_RESULT_COUNT, NWIS_RESULT_COUNT))
 				.andExpect(header().string(HEADER_STEWARDS_RESULT_COUNT, STEWARDS_RESULT_COUNT))
 				.andExpect(header().string(HEADER_STORET_RESULT_COUNT, STORET_RESULT_COUNT))
-				.andExpect(header().string(HEADER_BIODATA_RESULT_COUNT, BIODATA_RESULT_COUNT))
 
 				.andExpect(header().string(HttpConstants.HEADER_TOTAL_RES_DETECT_QNT_LMT_COUNT, TOTAL_RES_DETECT_QNT_LMT_COUNT))
 				.andExpect(header().string(HEADER_NWIS_RES_DETECT_QNT_LMT_COUNT, NWIS_RES_DETECT_QNT_LMT_COUNT))
 				.andExpect(header().string(HEADER_STEWARDS_RES_DETECT_QNT_LMT_COUNT, STEWARDS_RES_DETECT_QNT_LMT_COUNT))
-				.andExpect(header().string(HEADER_STORET_RES_DETECT_QNT_LMT_COUNT, STORET_RES_DETECT_QNT_LMT_COUNT))
-				.andExpect(header().string(HEADER_BIODATA_RES_DETECT_QNT_LMT_COUNT, BIODATA_RES_DETECT_QNT_LMT_COUNT));
+				.andExpect(header().string(HEADER_STORET_RES_DETECT_QNT_LMT_COUNT, STORET_RES_DETECT_QNT_LMT_COUNT));
 	}
 
 	public ResultActions filteredHeaderCheck(ResultActions resultActions) throws Exception {

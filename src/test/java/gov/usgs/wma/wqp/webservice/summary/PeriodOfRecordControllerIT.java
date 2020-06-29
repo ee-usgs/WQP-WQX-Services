@@ -1,6 +1,5 @@
 package gov.usgs.wma.wqp.webservice.summary;
 
-import static gov.usgs.wma.wqp.openapi.model.StationCountJson.HEADER_BIODATA_SITE_COUNT;
 import static gov.usgs.wma.wqp.openapi.model.StationCountJson.HEADER_NWIS_SITE_COUNT;
 import static gov.usgs.wma.wqp.openapi.model.StationCountJson.HEADER_STEWARDS_SITE_COUNT;
 import static gov.usgs.wma.wqp.openapi.model.StationCountJson.HEADER_STORET_SITE_COUNT;
@@ -35,7 +34,6 @@ import gov.usgs.wma.wqp.webservice.BaseControllerIntegrationTest;
 public class PeriodOfRecordControllerIT extends BaseControllerIntegrationTest {
 	protected static final Profile PROFILE = Profile.PERIOD_OF_RECORD;
 	protected static final String TOTAL_SITE_SUM_COUNT = "5";
-	protected static final String BIODATA_SITE_SUM_COUNT = null;
 	protected static final String NWIS_SITE_SUM_COUNT = "2";
 	protected static final String STEWARDS_SITE_SUM_COUNT = "1";
 	protected static final String STORET_SITE_SUM_COUNT = "2";
@@ -81,8 +79,7 @@ public class PeriodOfRecordControllerIT extends BaseControllerIntegrationTest {
 				.andExpect(header().string(HttpConstants.HEADER_TOTAL_SITE_COUNT, TOTAL_SITE_SUM_COUNT))
 				.andExpect(header().string(HEADER_NWIS_SITE_COUNT, NWIS_SITE_SUM_COUNT))
 				.andExpect(header().string(HEADER_STEWARDS_SITE_COUNT, STEWARDS_SITE_SUM_COUNT))
-				.andExpect(header().string(HEADER_STORET_SITE_COUNT, STORET_SITE_SUM_COUNT))
-				.andExpect(header().string(HEADER_BIODATA_SITE_COUNT, BIODATA_SITE_SUM_COUNT));
+				.andExpect(header().string(HEADER_STORET_SITE_COUNT, STORET_SITE_SUM_COUNT));
 	}
 
 	@Override
@@ -91,8 +88,7 @@ public class PeriodOfRecordControllerIT extends BaseControllerIntegrationTest {
 				.andExpect(header().string(HttpConstants.HEADER_TOTAL_SITE_COUNT, TOTAL_SITE_SUM_COUNT))
 				.andExpect(header().string(HEADER_NWIS_SITE_COUNT, NWIS_SITE_SUM_COUNT))
 				.andExpect(header().string(HEADER_STEWARDS_SITE_COUNT, STEWARDS_SITE_SUM_COUNT))
-				.andExpect(header().string(HEADER_STORET_SITE_COUNT, STORET_SITE_SUM_COUNT))
-				.andExpect(header().string(HEADER_BIODATA_SITE_COUNT, BIODATA_SITE_SUM_COUNT));
+				.andExpect(header().string(HEADER_STORET_SITE_COUNT, STORET_SITE_SUM_COUNT));
 	}
 
 	@Override

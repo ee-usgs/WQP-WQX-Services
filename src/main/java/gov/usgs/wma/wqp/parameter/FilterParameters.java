@@ -22,7 +22,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import gov.usgs.wma.wqp.mapping.Profile;
 import gov.usgs.wma.wqp.validation.BBox;
 import gov.usgs.wma.wqp.validation.EnumLookup;
 import gov.usgs.wma.wqp.validation.Fetch;
@@ -35,6 +34,11 @@ import gov.usgs.wma.wqp.validation.WqpDate;
 @Fetch(parameter=Parameters.NLDIURL)
 public class FilterParameters {
 	private static final Logger LOG = LoggerFactory.getLogger(FilterParameters.class);
+
+	public static final String SUMMARY_YEARS_12_MONTHS = "1";
+	public static final String SUMMARY_YEARS_60_MONTHS = "5";
+	public static final String SUMMARY_YEARS_ALL_MONTHS = "all";
+	public static final String PIPE = "|";
 
 	public static final String FORMAT_DATE = "MM-dd-yyyy";
 	public static final int IN_CLAUSE_LIMIT = 1000;
@@ -49,20 +53,51 @@ public class FilterParameters {
 	public static final String REGEX_YES_NO = "yes|no";
 	public static final String REGEX_ACEPT_ANYTHING = ".+";
 	public static final String REGEX_HUC_WILDCARD_IN = "\\*";
-	public static final String REGEX_HUC_WILDCARD_OUT = "";
-	public static final String REGEX_DATA_PROFILE = String.join("|", Profile.getValues());
-	public static final String REGEX_SUMMARY_YEARS = "1|5|all";
+	public static final String REGEX_SUMMARY_YEARS = SUMMARY_YEARS_12_MONTHS + PIPE
+			+ SUMMARY_YEARS_60_MONTHS + PIPE + SUMMARY_YEARS_ALL_MONTHS; 
 
+	public static final String ACTIVITY_CONST = "activity";
+	public static final String ANALYTICAL_METHOD_CONST = "analyticalmethod";
+	public static final String ASSEMBLAGE_CONST = "assemblage";
+	public static final String BBOX_CONST = "bBox";
+	public static final String CHARACTERISTIC_NAME_CONST = "characteristicName";
+	public static final String CHARACTERISTIC_TYPE_CONST = "characteristicType";
+	public static final String COUNTRY_CODE_CONST = "countrycode";
+	public static final String COUNTY_CODE_CONST = "countycode";
+	public static final String DATA_PROFILE_CONST = "dataProfile";
+	public static final String HUC_CONST = "huc";
+	public static final String LAT_CONST = "lat";
+	public static final String LONG_CONST = "long";
 	public static final String MIMETYPE_CONST = "mimeType";
+	public static final String MINACTIVITIES_CONST = "minactivities";
+	public static final String MINRESULTS_CONST = "minresults";
+	public static final String MONITORING_LOCATION_CONST = "monitoringLocation";
+	public static final String NLDIURL_CONST = "nldiurl";
 	public static final String ORGANIZATION_CONST = "organization";
+	public static final String P_CODE_CONST = "pCode";
+	public static final String PROJECT_CONST = "project";
+	public static final String PROVIDERS_CONST = "providers";
+	public static final String RESULT_CONST = "result";
+	public static final String SAMPLE_MEDIA_CONST = "sampleMedia";
+	public static final String SITEID_CONST = "siteid";
+	public static final String SITE_TYPE_CONST = "siteType";
+	public static final String SORTED_CONST = "sorted";
+	public static final String START_DATE_HI_CONST = "startDateHi";
+	public static final String START_DATE_LO_CONST = "startDateLo";
+	public static final String STATECODE_CONST = "statecode";
+	public static final String SUBJECT_TAXONOMIC_NAME_CONST = "subjectTaxonomicName";
 	public static final String SUMMARY_YEARS_CONST = "summaryYears";
+	public static final String WITHIN_CONST = "within";
 	public static final String ZIP_CONST = "zip";
 
 	private String activity;
 
 	@Size(min=0, max=IN_CLAUSE_LIMIT, message="The analyticalmethod is not between {min} and {max} occurances")
-	private List<@URL(protocol="https",
-		message="The value of analyticalmethod=${validatedValue} must be a valid HTTPS URL.")
+	private List
+		<@URL(
+			protocol="https",
+			message="The value of analyticalmethod=${validatedValue} must be a valid HTTPS URL."
+		)
 		String> analyticalmethod;
 
 	@Size(min=0, max=IN_CLAUSE_LIMIT, message="The assemblage is not between {min} and {max} occurances")

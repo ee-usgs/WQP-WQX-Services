@@ -12,28 +12,28 @@ public abstract class BaseStationCountDaoTest extends BaseCountDaoTest {
 
 	@Override
 	protected void mimeTypeTest(NameSpace nameSpace, boolean includeActivity, boolean includeResults) {
-		List<Map<String, Object>> counts = mimeTypeJsonTest(nameSpace, 5);
-		assertStationResults(counts, TOTAL_SITE_COUNT_GEOM, NWIS_SITE_COUNT, STEWARDS_SITE_COUNT, STORET_SITE_COUNT, BIODATA_SITE_COUNT_GEOM);
+		List<Map<String, Object>> counts = mimeTypeJsonTest(nameSpace, BASE_HEADER_COUNT);
+		assertStationResults(counts, TOTAL_SITE_COUNT_GEOM, NWIS_SITE_COUNT_GEOM, STEWARDS_SITE_COUNT, STORET_SITE_COUNT);
 
-		counts = mimeTypeGeoJsonTest(nameSpace, 5);
-		assertStationResults(counts, TOTAL_SITE_COUNT_GEOM, NWIS_SITE_COUNT, STEWARDS_SITE_COUNT, STORET_SITE_COUNT, BIODATA_SITE_COUNT_GEOM);
+		counts = mimeTypeGeoJsonTest(nameSpace, BASE_HEADER_COUNT);
+		assertStationResults(counts, TOTAL_SITE_COUNT_GEOM, NWIS_SITE_COUNT_GEOM, STEWARDS_SITE_COUNT, STORET_SITE_COUNT);
 
-		counts = mimeTypeKmlTest(nameSpace, 5);
-		assertStationResults(counts, TOTAL_SITE_COUNT_GEOM, NWIS_SITE_COUNT, STEWARDS_SITE_COUNT, STORET_SITE_COUNT, BIODATA_SITE_COUNT_GEOM);
+		counts = mimeTypeKmlTest(nameSpace, BASE_HEADER_COUNT);
+		assertStationResults(counts, TOTAL_SITE_COUNT_GEOM, NWIS_SITE_COUNT_GEOM, STEWARDS_SITE_COUNT, STORET_SITE_COUNT);
 
-		counts = mimeTypeKmzTest(nameSpace, 5);
-		assertStationResults(counts, TOTAL_SITE_COUNT_GEOM, NWIS_SITE_COUNT, STEWARDS_SITE_COUNT, STORET_SITE_COUNT, BIODATA_SITE_COUNT_GEOM);
+		counts = mimeTypeKmzTest(nameSpace, BASE_HEADER_COUNT);
+		assertStationResults(counts, TOTAL_SITE_COUNT_GEOM, NWIS_SITE_COUNT_GEOM, STEWARDS_SITE_COUNT, STORET_SITE_COUNT);
 
-		counts = mimeTypeCsvTest(nameSpace, 5);
+		counts = mimeTypeCsvTest(nameSpace, BASE_HEADER_COUNT);
 		assertFullDbReturned(counts, includeActivity, includeResults);
 
-		counts = mimeTypeTsvTest(nameSpace, 5);
+		counts = mimeTypeTsvTest(nameSpace, BASE_HEADER_COUNT);
 		assertFullDbReturned(counts, includeActivity, includeResults);
 
-		counts = mimeTypeXmlTest(nameSpace, 5);
+		counts = mimeTypeXmlTest(nameSpace, BASE_HEADER_COUNT);
 		assertFullDbReturned(counts, includeActivity, includeResults);
 
-		counts = mimeTypeXlsxTest(nameSpace, 5);
+		counts = mimeTypeXlsxTest(nameSpace, BASE_HEADER_COUNT);
 		assertFullDbReturned(counts, includeActivity, includeResults);
 	}
 
