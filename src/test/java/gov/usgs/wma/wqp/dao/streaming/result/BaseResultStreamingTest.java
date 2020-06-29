@@ -36,6 +36,7 @@ public abstract class BaseResultStreamingTest extends FilteredResultDaoTest {
 	public static final Object[] NWIS_3 = new Object[]{NWIS_ID, BigDecimal.valueOf(3)};
 	public static final Object[] NWIS_4 = new Object[]{NWIS_ID, BigDecimal.valueOf(4)};
 	public static final Object[] NWIS_5 = new Object[]{NWIS_ID, BigDecimal.valueOf(5)};
+	public static final Object[] NWIS_42 = new Object[]{NWIS_ID, BigDecimal.valueOf(42)};
 
 	public static final Object[] STORET_1 = new Object[]{STORET_ID, BigDecimal.ONE};
 	public static final Object[] STORET_2 = new Object[]{STORET_ID, BigDecimal.valueOf(2)};
@@ -84,8 +85,6 @@ public abstract class BaseResultStreamingTest extends FilteredResultDaoTest {
 	public static final Object[] STORET_49 = new Object[]{STORET_ID, BigDecimal.valueOf(49)};
 	public static final Object[] STORET_50 = new Object[]{STORET_ID, BigDecimal.valueOf(50)};
 
-	public static final Object[] BIODATA_42 = new Object[]{BIODATA_ID, BigDecimal.valueOf(42)};
-
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//Only need Result (and possibly a lookup table)
 
@@ -118,58 +117,58 @@ public abstract class BaseResultStreamingTest extends FilteredResultDaoTest {
 		assertRow(results.get(0), STEWARDS_1, expectedColumnCount);
 		assertRow(results.get(1), STEWARDS_2, expectedColumnCount);
 		assertRow(results.get(2), STEWARDS_3, expectedColumnCount);
-		assertRow(results.get(3), NWIS_1, expectedColumnCount);
-		assertRow(results.get(4), NWIS_4, expectedColumnCount);
-		assertRow(results.get(5), NWIS_5, expectedColumnCount);
-		assertRow(results.get(6), NWIS_2, expectedColumnCount);
-		assertRow(results.get(7), NWIS_3, expectedColumnCount);
-		assertRow(results.get(8), STORET_27, expectedColumnCount);
-		assertRow(results.get(9), STORET_15, expectedColumnCount);
-		assertRow(results.get(10), STORET_16, expectedColumnCount);
-		assertRow(results.get(11), STORET_17, expectedColumnCount);
-		assertRow(results.get(12), STORET_18, expectedColumnCount);
-		assertRow(results.get(13), STORET_19, expectedColumnCount);
-		assertRow(results.get(14), STORET_20, expectedColumnCount);
-		assertRow(results.get(15), STORET_21, expectedColumnCount);
-		assertRow(results.get(16), STORET_22, expectedColumnCount);
-		assertRow(results.get(17), STORET_23, expectedColumnCount);
-		assertRow(results.get(18), STORET_24, expectedColumnCount);
-		assertRow(results.get(19), STORET_25, expectedColumnCount);
-		assertRow(results.get(20), STORET_26, expectedColumnCount);
-		assertRow(results.get(21), STORET_28, expectedColumnCount);
-		assertRow(results.get(22), STORET_29, expectedColumnCount);
-		assertRow(results.get(23), STORET_30, expectedColumnCount);
-		assertRow(results.get(24), STORET_31, expectedColumnCount);
-		assertRow(results.get(25), STORET_33, expectedColumnCount);
-		assertRow(results.get(26), STORET_34, expectedColumnCount);
-		assertRow(results.get(27), STORET_35, expectedColumnCount);
-		assertRow(results.get(28), STORET_36, expectedColumnCount);
-		assertRow(results.get(29), STORET_37, expectedColumnCount);
-		assertRow(results.get(30), STORET_39, expectedColumnCount);
-		assertRow(results.get(31), STORET_40, expectedColumnCount);
-		assertRow(results.get(32), STORET_32, expectedColumnCount);
-		assertRow(results.get(33), STORET_38, expectedColumnCount);
-		assertRow(results.get(34), STORET_6, expectedColumnCount);
-		assertRow(results.get(35), STORET_13, expectedColumnCount);
-		assertRow(results.get(36), STORET_14, expectedColumnCount);
-		assertRow(results.get(37), STORET_5, expectedColumnCount);
-		assertRow(results.get(38), STORET_8, expectedColumnCount);
-		assertRow(results.get(39), STORET_9, expectedColumnCount);
-		assertRow(results.get(40), STORET_11, expectedColumnCount);
-		assertRow(results.get(41), STORET_45, expectedColumnCount);
-		assertRow(results.get(42), STORET_46, expectedColumnCount);
-		assertRow(results.get(43), STORET_47, expectedColumnCount);
-		assertRow(results.get(44), STORET_41, expectedColumnCount);
-		assertStoret42(expectedMap, results.get(45));
-		assertRow(results.get(46), STORET_43, expectedColumnCount);
-		assertRow(results.get(47), STORET_44, expectedColumnCount);
-		assertRow(results.get(48), STORET_2, expectedColumnCount);
-		assertRow(results.get(49), STORET_48, expectedColumnCount);
-		assertRow(results.get(50), STORET_49, expectedColumnCount);
-		assertRow(results.get(51), STORET_50, expectedColumnCount);
-		assertRow(results.get(52), STORET_1, expectedColumnCount);
-		assertRow(results.get(53), STORET_3, expectedColumnCount);
-		assertRow(results.get(54), BIODATA_42, expectedColumnCount);
+		assertRow(results.get(3), NWIS_42, expectedColumnCount);
+		assertRow(results.get(4), NWIS_1, expectedColumnCount);
+		assertRow(results.get(5), NWIS_4, expectedColumnCount);
+		assertRow(results.get(6), NWIS_5, expectedColumnCount);
+		assertRow(results.get(7), NWIS_2, expectedColumnCount);
+		assertRow(results.get(8), NWIS_3, expectedColumnCount);
+		assertRow(results.get(9), STORET_27, expectedColumnCount);
+		assertRow(results.get(10), STORET_15, expectedColumnCount);
+		assertRow(results.get(11), STORET_16, expectedColumnCount);
+		assertRow(results.get(12), STORET_17, expectedColumnCount);
+		assertRow(results.get(13), STORET_18, expectedColumnCount);
+		assertRow(results.get(14), STORET_19, expectedColumnCount);
+		assertRow(results.get(15), STORET_20, expectedColumnCount);
+		assertRow(results.get(16), STORET_21, expectedColumnCount);
+		assertRow(results.get(17), STORET_22, expectedColumnCount);
+		assertRow(results.get(18), STORET_23, expectedColumnCount);
+		assertRow(results.get(19), STORET_24, expectedColumnCount);
+		assertRow(results.get(20), STORET_25, expectedColumnCount);
+		assertRow(results.get(21), STORET_26, expectedColumnCount);
+		assertRow(results.get(22), STORET_28, expectedColumnCount);
+		assertRow(results.get(23), STORET_29, expectedColumnCount);
+		assertRow(results.get(24), STORET_30, expectedColumnCount);
+		assertRow(results.get(25), STORET_31, expectedColumnCount);
+		assertRow(results.get(26), STORET_33, expectedColumnCount);
+		assertRow(results.get(27), STORET_34, expectedColumnCount);
+		assertRow(results.get(28), STORET_35, expectedColumnCount);
+		assertRow(results.get(29), STORET_36, expectedColumnCount);
+		assertRow(results.get(30), STORET_37, expectedColumnCount);
+		assertRow(results.get(31), STORET_39, expectedColumnCount);
+		assertRow(results.get(32), STORET_40, expectedColumnCount);
+		assertRow(results.get(33), STORET_32, expectedColumnCount);
+		assertRow(results.get(34), STORET_38, expectedColumnCount);
+		assertRow(results.get(35), STORET_6, expectedColumnCount);
+		assertRow(results.get(36), STORET_13, expectedColumnCount);
+		assertRow(results.get(37), STORET_14, expectedColumnCount);
+		assertRow(results.get(38), STORET_5, expectedColumnCount);
+		assertRow(results.get(39), STORET_8, expectedColumnCount);
+		assertRow(results.get(40), STORET_9, expectedColumnCount);
+		assertRow(results.get(41), STORET_11, expectedColumnCount);
+		assertRow(results.get(42), STORET_45, expectedColumnCount);
+		assertRow(results.get(43), STORET_46, expectedColumnCount);
+		assertRow(results.get(44), STORET_47, expectedColumnCount);
+		assertRow(results.get(45), STORET_41, expectedColumnCount);
+		assertStoret42(expectedMap, results.get(46));
+		assertRow(results.get(47), STORET_43, expectedColumnCount);
+		assertRow(results.get(48), STORET_44, expectedColumnCount);
+		assertRow(results.get(49), STORET_2, expectedColumnCount);
+		assertRow(results.get(50), STORET_48, expectedColumnCount);
+		assertRow(results.get(51), STORET_49, expectedColumnCount);
+		assertRow(results.get(52), STORET_50, expectedColumnCount);
+		assertRow(results.get(53), STORET_1, expectedColumnCount);
+		assertRow(results.get(54), STORET_3, expectedColumnCount);
 	}
 
 	public void analyticalMethodTest(NameSpace nameSpace) {
@@ -181,7 +180,7 @@ public abstract class BaseResultStreamingTest extends FilteredResultDaoTest {
 	public void assemblageTest(NameSpace nameSpace) {
 		List<Map<String, Object>> results = assemblageTest(nameSpace, 14);
 		assertContainsResult(results, STORET_1, STORET_2, STORET_3, STORET_41, STORET_42, STORET_43, STORET_44, STORET_45, STORET_46, STORET_47,
-				STORET_48, STORET_49, STORET_50, BIODATA_42);
+				STORET_48, STORET_49, STORET_50, NWIS_42);
 	}
 
 	public void avoidTest(NameSpace nameSpace) {
@@ -209,7 +208,7 @@ public abstract class BaseResultStreamingTest extends FilteredResultDaoTest {
 		List<Map<String, Object>> results = countryTest(nameSpace, 29);
 		assertContainsResult(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, NWIS_4, NWIS_5, STORET_1, STORET_2,
 				STORET_3, STORET_5, STORET_6, STORET_8, STORET_9, STORET_11, STORET_13, STORET_14, STORET_41, STORET_42,
-				STORET_43, STORET_44, STORET_45, STORET_46, STORET_47, STORET_48, STORET_49, STORET_50, BIODATA_42);
+				STORET_43, STORET_44, STORET_45, STORET_46, STORET_47, STORET_48, STORET_49, STORET_50, NWIS_42);
 	}
 
 	public void countyTest(NameSpace nameSpace) {
@@ -291,12 +290,12 @@ public abstract class BaseResultStreamingTest extends FilteredResultDaoTest {
 	public void projectTest(NameSpace nameSpace) {
 		List<Map<String, Object>> results = projectTest(nameSpace, 19);
 		assertContainsResult(results, STEWARDS_1, STEWARDS_3, NWIS_1, NWIS_3, NWIS_4, NWIS_5, STORET_1, STORET_2, STORET_3, STORET_42,
-				STORET_43, STORET_44, STORET_45, STORET_46, STORET_47, STORET_48, STORET_49, STORET_50, BIODATA_42);
+				STORET_43, STORET_44, STORET_45, STORET_46, STORET_47, STORET_48, STORET_49, STORET_50, NWIS_42);
 	}
 
 	public void providersTest(NameSpace nameSpace) {
-		List<Map<String, Object>> results = providersTest(nameSpace, 54);
-		assertContainsResult(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, NWIS_4, NWIS_5, STORET_1, STORET_2,
+		List<Map<String, Object>> results = providersTest(nameSpace, 52);
+		assertContainsResult(results, NWIS_1, NWIS_2, NWIS_3, NWIS_4, NWIS_5, NWIS_42, STORET_1, STORET_2,
 				STORET_3, STORET_5, STORET_6, STORET_8, STORET_9, STORET_11, STORET_13, STORET_14, STORET_15, STORET_16,
 				STORET_17, STORET_18, STORET_19, STORET_20, STORET_21, STORET_22, STORET_23, STORET_24, STORET_25, STORET_26,
 				STORET_27, STORET_28, STORET_29, STORET_30, STORET_31, STORET_32, STORET_33, STORET_34, STORET_35, STORET_36,
@@ -315,7 +314,7 @@ public abstract class BaseResultStreamingTest extends FilteredResultDaoTest {
 				STORET_19, STORET_20, STORET_21, STORET_22, STORET_23, STORET_24, STORET_25, STORET_26, STORET_27, STORET_28,
 				STORET_29, STORET_30, STORET_31, STORET_32, STORET_33, STORET_34, STORET_35, STORET_36, STORET_37, STORET_38,
 				STORET_39, STORET_40, STORET_41, STORET_42, STORET_43, STORET_44, STORET_45, STORET_46, STORET_47, STORET_48,
-				STORET_49, STORET_50, BIODATA_42);
+				STORET_49, STORET_50, NWIS_42);
 	}
 
 	public void startDateHiTest(NameSpace nameSpace) {
@@ -325,14 +324,14 @@ public abstract class BaseResultStreamingTest extends FilteredResultDaoTest {
 				STORET_19, STORET_20, STORET_21, STORET_22, STORET_23, STORET_24, STORET_25, STORET_26, STORET_27, STORET_28,
 				STORET_29, STORET_30, STORET_31, STORET_32, STORET_33, STORET_34, STORET_35, STORET_36, STORET_37, STORET_38,
 				STORET_39, STORET_40, STORET_41, STORET_42, STORET_43, STORET_44, STORET_45, STORET_46, STORET_47, STORET_48,
-				STORET_49, STORET_50, BIODATA_42);
+				STORET_49, STORET_50, NWIS_42);
 	}
 
 	public void startDateLoTest(NameSpace nameSpace) {
 		List<Map<String, Object>> results = startDateLoTest(nameSpace, 22);
 		assertContainsResult(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, NWIS_4, NWIS_5, STORET_1, STORET_2,
 				STORET_3, STORET_41, STORET_42, STORET_43, STORET_44, STORET_45, STORET_46, STORET_47, STORET_48, STORET_49,
-				STORET_50, BIODATA_42);
+				STORET_50, NWIS_42);
 	}
 
 	public void siteIdTest(NameSpace nameSpace) {
@@ -384,7 +383,7 @@ public abstract class BaseResultStreamingTest extends FilteredResultDaoTest {
 				STORET_18, STORET_19, STORET_20, STORET_21, STORET_22, STORET_23, STORET_24, STORET_25, STORET_26, STORET_27,
 				STORET_28, STORET_29, STORET_30, STORET_31, STORET_32, STORET_33, STORET_34, STORET_35, STORET_36, STORET_37,
 				STORET_38, STORET_39, STORET_40, STORET_41, STORET_42, STORET_43, STORET_44, STORET_45, STORET_46, STORET_47,
-				STORET_48, STORET_49, STORET_50, BIODATA_42);
+				STORET_48, STORET_49, STORET_50, NWIS_42);
 	}
 
 	public void stateTest(NameSpace nameSpace) {
@@ -397,7 +396,7 @@ public abstract class BaseResultStreamingTest extends FilteredResultDaoTest {
 	public void subjectTaxonomicNameTest(NameSpace nameSpace) {
 		List<Map<String, Object>> results = subjectTaxonomicNameTest(nameSpace, 13);
 		assertContainsResult(results, STORET_1, STORET_2, STORET_3, STORET_42, STORET_43, STORET_44, STORET_45, STORET_46, STORET_47, STORET_48,
-				STORET_49, STORET_50, BIODATA_42);
+				STORET_49, STORET_50, NWIS_42);
 	}
 
 	public void zipTest(NameSpace nameSpace) {

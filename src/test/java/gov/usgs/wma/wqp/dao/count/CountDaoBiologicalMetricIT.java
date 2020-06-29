@@ -69,233 +69,233 @@ public class CountDaoBiologicalMetricIT extends BaseCountDaoTest {
 	}
 
 	public void activityTest() {
-		List<Map<String, Object>> counts = activityTest(NameSpace.BIOLOGICAL_METRIC, 5);
+		List<Map<String, Object>> counts = activityTest(NameSpace.BIOLOGICAL_METRIC, BASE_HEADER_COUNT);
 		assertFullDbReturned(counts);
 	}
 
 	public void analyticalMethodTest() {
 		List<Map<String, Object>> counts = analyticalMethodTest(NameSpace.BIOLOGICAL_METRIC, 3);
-		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "5", "1", null, "4", null);
+		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "5", "1", null, "4");
 	}
 
 	public void assemblageTest() {
 		List<Map<String, Object>> counts = assemblageTest(NameSpace.BIOLOGICAL_METRIC, 3);
-		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "5", null, null, "4", "1");
+		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "5", "1", null, "4");
 	}
 
 	public void avoidTest() {
 		List<Map<String, Object>> counts = avoidTest(NameSpace.BIOLOGICAL_METRIC, 2);
-		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "7", null, null, "7", null);
+		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "7", null, null, "7");
 	}
 
 	public void bboxTest() {
 		List<Map<String, Object>> counts = bboxTest(NameSpace.BIOLOGICAL_METRIC, 4);
-		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "9", "2", "2", "5", null);
+		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "9", "2", "2", "5");
 	}
 
 	public void characteristicNameTest() {
 		List<Map<String, Object>> counts = characteristicNameTest(NameSpace.BIOLOGICAL_METRIC, 2);
-		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "4", null, null, "4", null);
+		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "4", null, null, "4");
 	}
 
 	public void characteristicTypeTest() {
 		List<Map<String, Object>> counts = characteristicTypeTest(NameSpace.BIOLOGICAL_METRIC, 3);
-		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "5", null, "1", "4", null);
+		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "5", null, "1", "4");
 	}
 
 	public void countryTest() {
-		List<Map<String, Object>> counts = countryTest(NameSpace.BIOLOGICAL_METRIC, 5);
-		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "11", "2", "2", "6", "1");
+		List<Map<String, Object>> counts = countryTest(NameSpace.BIOLOGICAL_METRIC, BASE_HEADER_COUNT);
+		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "11", "3", "2", "6");
 	}
 
 	public void countyTest() {
-		List<Map<String, Object>> counts = countyTest(NameSpace.BIOLOGICAL_METRIC, 4);
-		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "10", "2", "2", "6", null);
+		List<Map<String, Object>> counts = countyTest(NameSpace.BIOLOGICAL_METRIC, BASE_HEADER_COUNT);
+		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "10", "2", "2", "6");
 	}
 
 	public void emptyParameterTest() {
-		List<Map<String, Object>> counts = emptyParameterTest(NameSpace.BIOLOGICAL_METRIC, 5);
+		List<Map<String, Object>> counts = emptyParameterTest(NameSpace.BIOLOGICAL_METRIC, BASE_HEADER_COUNT);
 		assertFullDbReturned(counts);
 	}
 
 	public void huc2Test() {
-		List<Map<String, Object>> counts = huc2Test(NameSpace.BIOLOGICAL_METRIC, 4);
-		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "7", "2", "2", "3", null);
+		List<Map<String, Object>> counts = huc2Test(NameSpace.BIOLOGICAL_METRIC, BASE_HEADER_COUNT);
+		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "7", "2", "2", "3");
 	}
 
 	public void huc3Test() {
-		List<Map<String, Object>> counts = huc3Test(NameSpace.BIOLOGICAL_METRIC,  4);
-		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "7", "2", "2", "3", null);
+		List<Map<String, Object>> counts = huc3Test(NameSpace.BIOLOGICAL_METRIC,  BASE_HEADER_COUNT);
+		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "7", "2", "2", "3");
 	}
 
 	public void huc4Test() {
 		List<Map<String, Object>> counts = huc4Test(NameSpace.BIOLOGICAL_METRIC, 3);
-		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "4", "2", null, "2", null);
+		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "4", "2", null, "2");
 	}
 
 	public void huc5Test() {
 		List<Map<String, Object>> counts = huc5Test(NameSpace.BIOLOGICAL_METRIC, 3);
-		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "4", "2", null, "2", null);
+		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "4", "2", null, "2");
 	}
 
 	public void huc6Test() {
 		List<Map<String, Object>> counts = huc6Test(NameSpace.BIOLOGICAL_METRIC, 3);
-		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "3", "1", null, "2", null);
+		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "3", "1", null, "2");
 	}
 
 	public void huc7Test() {
 		List<Map<String, Object>> counts = huc7Test(NameSpace.BIOLOGICAL_METRIC, 3);
-		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "3", "1", null, "2", null);
+		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "3", "1", null, "2");
 	}
 
 	public void huc8Test() {
 		List<Map<String, Object>> counts = huc8Test(NameSpace.BIOLOGICAL_METRIC, 2);
-		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "2", null, null, "2", null);
+		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "2", null, null, "2");
 	}
 
 	public void huc10Test() {
 		List<Map<String, Object>> counts = huc10Test(NameSpace.BIOLOGICAL_METRIC, 2);
-		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "2", null, null, "2", null);
+		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "2", null, null, "2");
 	}
 
 	public void huc12Test() {
 		List<Map<String, Object>> counts = huc12Test(NameSpace.BIOLOGICAL_METRIC, 2);
-		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "2", null, null, "2", null);
+		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "2", null, null, "2");
 	}
 
 	public void mimeTypeTest() {
-		List<Map<String, Object>> counts = mimeTypeJsonTest(NameSpace.BIOLOGICAL_METRIC, 5);
+		List<Map<String, Object>> counts = mimeTypeJsonTest(NameSpace.BIOLOGICAL_METRIC, BASE_HEADER_COUNT);
 		assertFullDbReturned(counts);
 
-		counts = mimeTypeGeoJsonTest(NameSpace.BIOLOGICAL_METRIC, 5);
+		counts = mimeTypeGeoJsonTest(NameSpace.BIOLOGICAL_METRIC, BASE_HEADER_COUNT);
 		assertFullDbReturned(counts);
 
-		counts = mimeTypeKmlTest(NameSpace.BIOLOGICAL_METRIC, 5);
+		counts = mimeTypeKmlTest(NameSpace.BIOLOGICAL_METRIC, BASE_HEADER_COUNT);
 		assertFullDbReturned(counts);
 
-		counts = mimeTypeKmzTest(NameSpace.BIOLOGICAL_METRIC, 5);
+		counts = mimeTypeKmzTest(NameSpace.BIOLOGICAL_METRIC, BASE_HEADER_COUNT);
 		assertFullDbReturned(counts);
 
-		counts = mimeTypeCsvTest(NameSpace.BIOLOGICAL_METRIC, 5);
+		counts = mimeTypeCsvTest(NameSpace.BIOLOGICAL_METRIC, BASE_HEADER_COUNT);
 		assertFullDbReturned(counts);
 
-		counts = mimeTypeTsvTest(NameSpace.BIOLOGICAL_METRIC, 5);
+		counts = mimeTypeTsvTest(NameSpace.BIOLOGICAL_METRIC, BASE_HEADER_COUNT);
 		assertFullDbReturned(counts);
 
-		counts = mimeTypeXmlTest(NameSpace.BIOLOGICAL_METRIC, 5);
+		counts = mimeTypeXmlTest(NameSpace.BIOLOGICAL_METRIC, BASE_HEADER_COUNT);
 		assertFullDbReturned(counts);
 
-		counts = mimeTypeXlsxTest(NameSpace.BIOLOGICAL_METRIC, 5);
+		counts = mimeTypeXlsxTest(NameSpace.BIOLOGICAL_METRIC, BASE_HEADER_COUNT);
 		assertFullDbReturned(counts);
 	}
 
 	public void minActivitiesTest() {
-		List<Map<String, Object>> counts = minActivitiesTest(NameSpace.BIOLOGICAL_METRIC, 4);
-		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "7", "1", "1", "5", null);
+		List<Map<String, Object>> counts = minActivitiesTest(NameSpace.BIOLOGICAL_METRIC, BASE_HEADER_COUNT);
+		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "7", "1", "1", "5");
 	}
 
 	public void minResultsTest() {
 		List<Map<String, Object>> counts = minResultsTest(NameSpace.BIOLOGICAL_METRIC, 3);		
-		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "6", "1", null, "5", null);
+		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "6", "1", null, "5");
 	}
 
 	public void nldiSitesTest() {
 		List<Map<String, Object>> counts = nldiSitesTest(NameSpace.BIOLOGICAL_METRIC, 2);
-		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "3", null, null, "3", null);
+		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "3", null, null, "3");
 	}
 
 	public void nldiUrlTest() {
-		List<Map<String, Object>> counts = nldiUrlTest(NameSpace.BIOLOGICAL_METRIC, 5);
+		List<Map<String, Object>> counts = nldiUrlTest(NameSpace.BIOLOGICAL_METRIC, BASE_HEADER_COUNT);
 		assertFullDbReturned(counts);
 	}
 
 	public void nullParameterTest() {
-		List<Map<String, Object>> counts = nullParameterTest(NameSpace.BIOLOGICAL_METRIC, 5);
+		List<Map<String, Object>> counts = nullParameterTest(NameSpace.BIOLOGICAL_METRIC, BASE_HEADER_COUNT);
 		assertFullDbReturned(counts);
 	}
 
 	public void organizationTest() {
-		List<Map<String, Object>> counts = organizationTest(NameSpace.BIOLOGICAL_METRIC, 4);
-		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "10", "2", "2", "6", null);
+		List<Map<String, Object>> counts = organizationTest(NameSpace.BIOLOGICAL_METRIC, BASE_HEADER_COUNT);
+		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "10", "2", "2", "6");
 	}
 
 	public void pcodeTest() {
 		List<Map<String, Object>> counts = pcodeTest(NameSpace.BIOLOGICAL_METRIC, 3);
-		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "4", "1", null, "3", null);
+		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "4", "1", null, "3");
 	}
 
 	public void projectTest() {
-		List<Map<String, Object>> counts = projectTest(NameSpace.BIOLOGICAL_METRIC, 5);
-		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "9", "2", "2", "4", "1");
+		List<Map<String, Object>> counts = projectTest(NameSpace.BIOLOGICAL_METRIC, BASE_HEADER_COUNT);
+		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "9", "3", "2", "4");
 	}
 
 	public void providersTest() {
-		List<Map<String, Object>> counts = providersTest(NameSpace.BIOLOGICAL_METRIC, 4);
-		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "11", "2", "2", "7", null);
+		List<Map<String, Object>> counts = providersTest(NameSpace.BIOLOGICAL_METRIC, 3);
+		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "11", "4", null, "7");
 	}
 
 	public void resultTest() {
-		List<Map<String, Object>> counts = resultTest(NameSpace.BIOLOGICAL_METRIC, 5);
+		List<Map<String, Object>> counts = resultTest(NameSpace.BIOLOGICAL_METRIC, BASE_HEADER_COUNT);
 		assertFullDbReturned(counts);
 	}
 
 	public void sampleMediaTest() {
-		List<Map<String, Object>> counts = sampleMediaTest(NameSpace.BIOLOGICAL_METRIC, 5);
-		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "11", "2", "2", "6", "1");
+		List<Map<String, Object>> counts = sampleMediaTest(NameSpace.BIOLOGICAL_METRIC, BASE_HEADER_COUNT);
+		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "11", "3", "2", "6");
 	}
 
 	public void siteIdTest() {
-		List<Map<String, Object>> counts = siteIdTest(NameSpace.BIOLOGICAL_METRIC, 4);
-		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "9", "2", "2", "5", null);
+		List<Map<String, Object>> counts = siteIdTest(NameSpace.BIOLOGICAL_METRIC, BASE_HEADER_COUNT);
+		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "9", "2", "2", "5");
 	}
 
 	public void siteIdLargeListTest() {
 		List<Map<String, Object>> counts = siteIdLargeListTest(NameSpace.BIOLOGICAL_METRIC, 2);
-		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "3", null, null, "3", null);
+		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "3", null, null, "3");
 	}
 
 	public void siteTypeTest() {
-		List<Map<String, Object>> counts = siteTypeTest(NameSpace.BIOLOGICAL_METRIC, 5);
-		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "11", "1", "2", "7", "1");
+		List<Map<String, Object>> counts = siteTypeTest(NameSpace.BIOLOGICAL_METRIC, BASE_HEADER_COUNT);
+		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "11", "2", "2", "7");
 	}
 
 	public void siteUrlBaseTest() {
-		List<Map<String, Object>> counts = siteUrlBaseTest(NameSpace.BIOLOGICAL_METRIC, 5);
+		List<Map<String, Object>> counts = siteUrlBaseTest(NameSpace.BIOLOGICAL_METRIC, BASE_HEADER_COUNT);
 		assertFullDbReturned(counts);
 	}
 
 	public void sortedTest() {
-		List<Map<String, Object>> counts = sortedTest(NameSpace.BIOLOGICAL_METRIC, 5);
+		List<Map<String, Object>> counts = sortedTest(NameSpace.BIOLOGICAL_METRIC, BASE_HEADER_COUNT);
 		assertFullDbReturned(counts);
 	}
 
 	public void startDateHiTest() {
-		List<Map<String, Object>> counts = startDateHiTest(NameSpace.BIOLOGICAL_METRIC, 5);
-		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "11", "2", "2", "6", "1");
+		List<Map<String, Object>> counts = startDateHiTest(NameSpace.BIOLOGICAL_METRIC, BASE_HEADER_COUNT);
+		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "11", "3", "2", "6");
 	}
 
 	public void startDateLoTest() {
-		List<Map<String, Object>> counts = startDateLoTest(NameSpace.BIOLOGICAL_METRIC, 5);
-		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "9", "2", "2", "4", "1");
+		List<Map<String, Object>> counts = startDateLoTest(NameSpace.BIOLOGICAL_METRIC, BASE_HEADER_COUNT);
+		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "9", "3", "2", "4");
 	}
 
 	public void stateTest() {
-		List<Map<String, Object>> counts = stateTest(NameSpace.BIOLOGICAL_METRIC, 4);
-		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "10", "2", "2", "6", null);
+		List<Map<String, Object>> counts = stateTest(NameSpace.BIOLOGICAL_METRIC, BASE_HEADER_COUNT);
+		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "10", "2", "2", "6");
 	}
 
 	public void subjectTaxonomicNameTest() {
 		List<Map<String, Object>> counts = subjectTaxonomicNameTest(NameSpace.BIOLOGICAL_METRIC, 3);
-		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "5", null, null, "4", "1");
+		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "5", "1", null, "4");
 	}
 
 	public void withinTest() {
-		List<Map<String, Object>> counts = withinTest(NameSpace.BIOLOGICAL_METRIC, 4);
-		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "10", "2", "2", "6", null);
+		List<Map<String, Object>> counts = withinTest(NameSpace.BIOLOGICAL_METRIC, BASE_HEADER_COUNT);
+		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "10", "2", "2", "6");
 	}
 
 	public void zipTest() {
-		List<Map<String, Object>> counts = zipTest(NameSpace.BIOLOGICAL_METRIC, 5);
+		List<Map<String, Object>> counts = zipTest(NameSpace.BIOLOGICAL_METRIC, BASE_HEADER_COUNT);
 		assertFullDbReturned(counts);
 	}
 
@@ -322,7 +322,7 @@ public class CountDaoBiologicalMetricIT extends BaseCountDaoTest {
 		filter.setStartDateHi(getStartDateHi());
 		filter.setStartDateLo(getStartDateLo());
 		List<Map<String, Object>> counts = callDao(NameSpace.BIOLOGICAL_METRIC, 2, filter);
-		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "1", null, null, "1", null);
+		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "1", null, null, "1");
 	}
 
 	public void multipleParameterActivitySumStationSumTest() {
@@ -339,7 +339,7 @@ public class CountDaoBiologicalMetricIT extends BaseCountDaoTest {
 		filter.setStartDateLo(getStartDateLo());
 		filter.setWithin(getWithin());
 		List<Map<String, Object>> counts = callDao(NameSpace.BIOLOGICAL_METRIC, 2, filter);
-		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "2", null, null, "2", null);
+		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "2", null, null, "2");
 	}
 
 	public void multipleParameterResultSumTest() {
@@ -367,7 +367,7 @@ public class CountDaoBiologicalMetricIT extends BaseCountDaoTest {
 		filter.setStartDateLo(getStartDateLo());
 		filter.setSubjectTaxonomicName(getSubjectTaxonomicName());
 		List<Map<String, Object>> counts = callDao(NameSpace.BIOLOGICAL_METRIC, 2, filter);
-		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "2", null, null, "2", null);
+		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "2", null, null, "2");
 	}
 
 	public void multipleParameterResultSumActivitySumTests() {
@@ -399,10 +399,10 @@ public class CountDaoBiologicalMetricIT extends BaseCountDaoTest {
 		filter.setSubjectTaxonomicName(getSubjectTaxonomicName());
 		filter.setWithin(getWithin());
 		List<Map<String, Object>> counts = callDao(NameSpace.BIOLOGICAL_METRIC, 2, filter);
-		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "1", null, null, "1", null);
+		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, "1", null, null, "1");
 	}
 
 	protected void assertFullDbReturned(List<Map<String, Object>> counts) {
-		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, TOTAL_BIOLOGICAL_METRIC_COUNT, NWIS_BIOLOGICAL_METRIC_COUNT, STEWARDS_BIOLOGICAL_METRIC_COUNT, STORET_BIOLOGICAL_METRIC_COUNT, BIODATA_BIOLOGICAL_METRIC_COUNT);
+		assertResults(counts, CountColumn.KEY_BIOLOGICAL_METRIC_COUNT, TOTAL_BIOLOGICAL_METRIC_COUNT, NWIS_BIOLOGICAL_METRIC_COUNT, STEWARDS_BIOLOGICAL_METRIC_COUNT, STORET_BIOLOGICAL_METRIC_COUNT);
 	}
 }

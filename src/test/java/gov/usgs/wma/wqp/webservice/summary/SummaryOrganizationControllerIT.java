@@ -29,8 +29,8 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 
 import gov.usgs.wma.wqp.Application;
 import gov.usgs.wma.wqp.ColumnSensingFlatXMLDataSetLoader;
-import gov.usgs.wma.wqp.dao.summary.SummaryOrganizationStreamingIT;
 import gov.usgs.wma.wqp.mapping.Profile;
+import gov.usgs.wma.wqp.parameter.FilterParameters;
 import gov.usgs.wma.wqp.parameter.Parameters;
 import gov.usgs.wma.wqp.springinit.DBTestConfig;
 import gov.usgs.wma.wqp.util.HttpConstants;
@@ -48,9 +48,8 @@ public class SummaryOrganizationControllerIT extends BaseControllerIntegrationTe
 
 	protected static final Profile PROFILE = Profile.SUMMARY_ORGANIZATION;
 	protected static final boolean POSTABLE = true;	
-	protected static final String ENDPOINT = HttpConstants.SUMMARY_ORGANIZATION_ENDPOINT + "?summaryYears=" + SummaryOrganizationStreamingIT.SUMMARY_YEARS_ALL_MONTHS + "&mimeType=";
+	protected static final String ENDPOINT = HttpConstants.SUMMARY_ORGANIZATION_ENDPOINT + "?summaryYears=" + FilterParameters.SUMMARY_YEARS_ALL_MONTHS + "&mimeType=";
 	protected static final String TOTAL_ORG_SUM_COUNT = "2";
-	protected static final String BIODATA_ORG_SUM_COUNT = "1";
 	protected static final String NWIS_ORG_SUM_COUNT = "2";
 	protected static final String STEWARDS_ORG_SUM_COUNT = "2";
 	protected static final String STORET_ORG_SUM_COUNT = "6";
@@ -121,7 +120,7 @@ public class SummaryOrganizationControllerIT extends BaseControllerIntegrationTe
 	@Override
 	protected void getAllParametersTest(String url, String mimeType, String fileType, Profile profile, boolean isPostable) throws Exception {
 
-		String filteredUrl = HttpConstants.SUMMARY_ORGANIZATION_ENDPOINT + "?summaryYears=" + SummaryOrganizationStreamingIT.SUMMARY_YEARS_12_MONTHS + "&mimeType=" + JSON + "&organization=" + TEST_MONITORING_LOCACTION_1;
+		String filteredUrl = HttpConstants.SUMMARY_ORGANIZATION_ENDPOINT + "?summaryYears=" + FilterParameters.SUMMARY_YEARS_12_MONTHS + "&mimeType=" + JSON + "&organization=" + TEST_MONITORING_LOCACTION_1;
 
 		assertEquals("", filteredHeaderCheck(callMockHead(filteredUrl, mimeType, getContentDisposition(profile, fileType))).andReturn().getResponse().getContentAsString());
 

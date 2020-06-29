@@ -130,7 +130,7 @@
       <OrganizationFormalName>United States Geological Survey</OrganizationFormalName>
     </OrganizationDescription>
     <Project>
-      <ProjectIdentifier>SACR BioTDB</ProjectIdentifier>
+      <ProjectIdentifier>SACR TDB</ProjectIdentifier>
       <ProjectName>SACR Name</ProjectName>
       <ProjectDescriptionText>SACR Description</ProjectDescriptionText>
       <SamplingDesignTypeCode>B</SamplingDesignTypeCode>

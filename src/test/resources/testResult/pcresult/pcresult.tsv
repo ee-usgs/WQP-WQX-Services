@@ -2,6 +2,7 @@ OrganizationIdentifier	OrganizationFormalName	ActivityIdentifier	ActivityTypeCod
 ARS	USDA Agricultural Research Service	activityStewards-1		Water		1996-06-27													CEAP		ARS-IAWC-IAWC225																																									STEWARDS
 ARS	USDA Agricultural Research Service	activityStewards-2		sampleMediaStewards		2015-05-17													projectIdStewards		ARS-IAWC-IAWC225																																									STEWARDS
 ARS	USDA Agricultural Research Service	activityStewards-3		Water		1996-06-27													CEAP		ARS-IAWC-IAWC410																																									STEWARDS
+USGS-CA	USGS California Water Science Center	activityNwis-4		Water		1996-06-27													SACR TDB		USGS-11421000										Count																		Acipenser													NWIS
 USGS-WI	USGS Wisconsin Water Science Center	activityNwis-1		Water		1996-06-27													NAWQA		USGS-05425700																																									NWIS
 USGS-WI	USGS Wisconsin Water Science Center	activityNwis-1		Water		1996-06-27													NAWQA		USGS-05425700																																									NWIS
 USGS-WI	USGS Wisconsin Water Science Center	activityNwis-1		Water		1996-06-27													NAWQA		USGS-05425700																																									NWIS
@@ -53,4 +54,3 @@ organization	organizationName	activity-16		sampleMedia		1999-12-30													p
 organization	organizationName	activity-16		sampleMedia		1999-12-30													projectId		organization-siteId2										characteristicName														99999				sampleTissueTaxonomicName													STORET
 organization	organizationName	activity-1		sampleMedia		1999-12-31													projectId		organization-siteId2										characteristicName														99999				sampleTissueTaxonomicName													STORET
 organization	organizationName	activity-3		sampleMedia		1999-12-31													projectId		organization-siteId3										characteristicName														99992				sampleTissueTaxonomicName													STORET
-USGS-CA	USGS California Water Science Center	activityBiodata-1		Water		1996-06-27													SACR BioTDB		USGS-11421000										Count																		Acipenser													BIODATA

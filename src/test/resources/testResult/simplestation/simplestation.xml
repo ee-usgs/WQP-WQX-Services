@@ -35,7 +35,28 @@
         <ProviderName>NWIS</ProviderName>
         <Organization>
             <OrganizationDescription>
-                <OrganizationIdentifier>USGS-WI</OrganizationIdentifier>
+                <OrganizationIdentifier>USGS</OrganizationIdentifier>
+            </OrganizationDescription>
+            <MonitoringLocation>
+                <MonitoringLocationIdentity>
+                    <MonitoringLocationIdentifier>USGS-11421000</MonitoringLocationIdentifier>
+                    <ResolvedMonitoringLocationTypeName>Stream</ResolvedMonitoringLocationTypeName>
+                </MonitoringLocationIdentity>
+                <MonitoringLocationGeospatial>
+                    <LatitudeMeasure>39.1757251</LatitudeMeasure>
+                    <LongitudeMeasure>-121.5249647</LongitudeMeasure>
+                </MonitoringLocationGeospatial>
+            </MonitoringLocation>
+            <MonitoringLocation>
+                <MonitoringLocationIdentity>
+                    <MonitoringLocationIdentifier>USGS-433830088977331</MonitoringLocationIdentifier>
+                    <MonitoringLocationName>a well</MonitoringLocationName>
+                    <ResolvedMonitoringLocationTypeName>Well</ResolvedMonitoringLocationTypeName>
+                </MonitoringLocationIdentity>
+            </MonitoringLocation>
+        </Organization>
+        <Organization>
+            <OrganizationDescription><OrganizationIdentifier>USGS-WI</OrganizationIdentifier>
                 <OrganizationFormalName>USGS Wisconsin Water Science Center</OrganizationFormalName>
             </OrganizationDescription>
             <MonitoringLocation>
@@ -163,31 +184,6 @@
                     <LatitudeMeasure>43.3330000</LatitudeMeasure>
                     <LongitudeMeasure>-76.8989000</LongitudeMeasure>
                 </MonitoringLocationGeospatial>
-            </MonitoringLocation>
-        </Organization>
-    </Provider>
-    <Provider>
-        <ProviderName>BIODATA</ProviderName>
-        <Organization>
-            <OrganizationDescription>
-                <OrganizationIdentifier>USGS</OrganizationIdentifier>
-            </OrganizationDescription>
-            <MonitoringLocation>
-                <MonitoringLocationIdentity>
-                    <MonitoringLocationIdentifier>USGS-11421000</MonitoringLocationIdentifier>
-                    <ResolvedMonitoringLocationTypeName>Stream</ResolvedMonitoringLocationTypeName>
-                </MonitoringLocationIdentity>
-                <MonitoringLocationGeospatial>
-                    <LatitudeMeasure>39.1757251</LatitudeMeasure>
-                    <LongitudeMeasure>-121.5249647</LongitudeMeasure>
-                </MonitoringLocationGeospatial>
-            </MonitoringLocation>
-            <MonitoringLocation>
-                <MonitoringLocationIdentity>
-                    <MonitoringLocationIdentifier>USGS-433830088977331</MonitoringLocationIdentifier>
-                    <MonitoringLocationName>a well</MonitoringLocationName>
-                    <ResolvedMonitoringLocationTypeName>Well</ResolvedMonitoringLocationTypeName>
-                </MonitoringLocationIdentity>
             </MonitoringLocation>
         </Organization>
     </Provider>

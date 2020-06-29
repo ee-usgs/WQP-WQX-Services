@@ -1,6 +1,5 @@
 package gov.usgs.wma.wqp.webservice;
 
-import static gov.usgs.wma.wqp.openapi.model.ProjectMonitoringLocationWeightingCountJson.HEADER_BIODATA_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT;
 import static gov.usgs.wma.wqp.openapi.model.ProjectMonitoringLocationWeightingCountJson.HEADER_NWIS_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT;
 import static gov.usgs.wma.wqp.openapi.model.ProjectMonitoringLocationWeightingCountJson.HEADER_STEWARDS_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT;
 import static gov.usgs.wma.wqp.openapi.model.ProjectMonitoringLocationWeightingCountJson.HEADER_STORET_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT;
@@ -29,11 +28,11 @@ import gov.usgs.wma.wqp.util.HttpConstants;
 @DatabaseSetup("classpath:/testData/csv/")
 @DbUnitConfiguration(dataSetLoader = CsvDataSetLoader.class)
 public class ProjectMLWeightingControllerIT extends BaseControllerIntegrationTest {
-	
+
 	protected static final Profile PROFILE = Profile.PROJECT_MONITORING_LOCATION_WEIGHTING;
 	protected static final boolean POSTABLE = true;
 	protected static final String ENDPOINT = HttpConstants.PROJECT_MONITORING_LOCATION_WEIGHTING_SEARCH_ENDPOINT + "?sorted=yes&mimeType=";
-	
+
 	@Test
 	public void testHarness() throws Exception {
 		getAsCsvTest();
@@ -49,11 +48,11 @@ public class ProjectMLWeightingControllerIT extends BaseControllerIntegrationTes
 	public void getAsCsvTest() throws Exception {
 		getAsDelimitedTest(ENDPOINT + CSV, HttpConstants.MIME_TYPE_CSV, CSV, PROFILE, POSTABLE);
 	}
-	
+
 	public void getAsCsvZipTest() throws Exception {
 		getAsDelimitedZipTest(ENDPOINT + CSV_AND_ZIP, HttpConstants.MIME_TYPE_ZIP, CSV, PROFILE, POSTABLE);
 	}
-	
+
 	public void getAsTsvTest() throws Exception {
 		getAsDelimitedTest(ENDPOINT + TSV, HttpConstants.MIME_TYPE_TSV, TSV, PROFILE, POSTABLE);
 	}
@@ -61,7 +60,7 @@ public class ProjectMLWeightingControllerIT extends BaseControllerIntegrationTes
 	public void getAsTsvZipTest() throws Exception {
 		getAsDelimitedZipTest(ENDPOINT + TSV_AND_ZIP, HttpConstants.MIME_TYPE_ZIP, TSV, PROFILE, POSTABLE);
 	}
-	
+
 	public void getAsXlsxTest() throws Exception {
 		getAsXlsxTest(ENDPOINT + XLSX, HttpConstants.MIME_TYPE_XLSX, XLSX, PROFILE, POSTABLE);
 	}
@@ -69,7 +68,7 @@ public class ProjectMLWeightingControllerIT extends BaseControllerIntegrationTes
 	public void getAsXlsxZipTest() throws Exception {
 		getAsXlsxZipTest(ENDPOINT + XLSX_AND_ZIP, HttpConstants.MIME_TYPE_ZIP, XLSX, PROFILE, POSTABLE);
 	}
-	
+
 	public void getAsXmlTest() throws Exception {
 		getAsXmlTest(ENDPOINT + XML, HttpConstants.MIME_TYPE_XML, XML, PROFILE, POSTABLE);
 	}
@@ -77,15 +76,14 @@ public class ProjectMLWeightingControllerIT extends BaseControllerIntegrationTes
 	public void getAsXmlZipTest() throws Exception {
 		getAsXmlZipTest(ENDPOINT + XML_AND_ZIP, HttpConstants.MIME_TYPE_ZIP, XML, PROFILE, POSTABLE);
 	}
-	
+
 	@Override
 	public ResultActions unFilteredHeaderCheck(ResultActions resultActions) throws Exception {
 		return resultActions				
 				.andExpect(header().string(HttpConstants.HEADER_TOTAL_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT, TOTAL_PRJ_ML_WEIGHTING_COUNT))
 				.andExpect(header().string(HEADER_NWIS_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT, NWIS_PRJ_ML_WEIGHTING_COUNT))
 				.andExpect(header().string(HEADER_STEWARDS_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT, STEWARDS_PRJ_ML_WEIGHTING_COUNT))
-				.andExpect(header().string(HEADER_STORET_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT, STORET_PRJ_ML_WEIGHTING_COUNT))
-				.andExpect(header().string(HEADER_BIODATA_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT, BIODATA_PRJ_ML_WEIGHTING_COUNT));
+				.andExpect(header().string(HEADER_STORET_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT, STORET_PRJ_ML_WEIGHTING_COUNT));
 	}
 
 	@Override
@@ -93,11 +91,11 @@ public class ProjectMLWeightingControllerIT extends BaseControllerIntegrationTes
 		return resultActions
 				.andExpect(header().string(HttpConstants.HEADER_TOTAL_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT, FILTERED_TOTAL_PRJ_ML_WEIGHTING_COUNT));
 	}
-	
+
 	@Override
 	public ResultActions noResultHeaderCheck(ResultActions resultActions) throws Exception {
 		return resultActions
 				.andExpect(header().string(HttpConstants.HEADER_TOTAL_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT, "0"));
 	}
-	
+
 }

@@ -1,6 +1,5 @@
 package gov.usgs.wma.wqp.dao.streaming;
 
-import static gov.usgs.wma.wqp.openapi.model.StationCountJson.BIODATA;
 import static gov.usgs.wma.wqp.openapi.model.StationCountJson.NWIS;
 import static gov.usgs.wma.wqp.openapi.model.StationCountJson.STEWARDS;
 import static gov.usgs.wma.wqp.openapi.model.StationCountJson.STORET;
@@ -35,6 +34,7 @@ public abstract class BaseActivityStreamingTest extends FilteredActivityDaoTest 
 	public static final Object[] NWIS_1 = new Object[]{NWIS_ID, BigDecimal.ONE};
 	public static final Object[] NWIS_2 = new Object[]{NWIS_ID, BigDecimal.valueOf(2)};
 	public static final Object[] NWIS_3 = new Object[]{NWIS_ID, BigDecimal.valueOf(3)};
+	public static final Object[] NWIS_4 = new Object[]{NWIS_ID, BigDecimal.valueOf(4)};
 	public static final Object[] STORET_1 = new Object[]{STORET_ID, BigDecimal.ONE};
 	public static final Object[] STORET_2 = new Object[]{STORET_ID, BigDecimal.valueOf(2)};
 	public static final Object[] STORET_3 = new Object[]{STORET_ID, BigDecimal.valueOf(3)};
@@ -51,7 +51,6 @@ public abstract class BaseActivityStreamingTest extends FilteredActivityDaoTest 
 	public static final Object[] STORET_14 = new Object[]{STORET_ID, BigDecimal.valueOf(14)};
 	public static final Object[] STORET_15 = new Object[]{STORET_ID, BigDecimal.valueOf(15)};
 	public static final Object[] STORET_16 = new Object[]{STORET_ID, BigDecimal.valueOf(16)};
-	public static final Object[] BIODATA_1 = new Object[]{BIODATA_ID, BigDecimal.ONE};
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//Only need Activity (and possibly a lookup table)
@@ -68,8 +67,8 @@ public abstract class BaseActivityStreamingTest extends FilteredActivityDaoTest 
 
 	public void countryTest() {
 		List<Map<String, Object>> results = countryTest(nameSpace, 19);
-		assertContainsActivity(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_4,
-				STORET_5, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_16, BIODATA_1);
+		assertContainsActivity(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, NWIS_4, STORET_1, STORET_2, STORET_3, STORET_4,
+				STORET_5, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_16);
 	}
 
 	public void countyTest() {
@@ -161,13 +160,13 @@ public abstract class BaseActivityStreamingTest extends FilteredActivityDaoTest 
 
 	public void projectTest() {
 		List<Map<String, Object>> results = projectTest(nameSpace, 14);
-		assertContainsActivity(results, STEWARDS_1, STEWARDS_3, NWIS_1, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_11, STORET_12, STORET_13,
-				STORET_14, STORET_15, STORET_16, BIODATA_1);
+		assertContainsActivity(results, STEWARDS_1, STEWARDS_3, NWIS_1, NWIS_3, NWIS_4, STORET_1, STORET_2, STORET_3, STORET_11, STORET_12, STORET_13,
+				STORET_14, STORET_15, STORET_16);
 	}
 
 	public void providersTest() {
-		List<Map<String, Object>> results = providersTest(nameSpace, 22);
-		assertContainsActivity(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_4,
+		List<Map<String, Object>> results = providersTest(nameSpace, 20);
+		assertContainsActivity(results, NWIS_1, NWIS_2, NWIS_3, NWIS_4, STORET_1, STORET_2, STORET_3, STORET_4,
 				STORET_5, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14,
 				STORET_15, STORET_16);
 	}
@@ -178,9 +177,8 @@ public abstract class BaseActivityStreamingTest extends FilteredActivityDaoTest 
 
 	public void sampleMediaTest() {
 		List<Map<String, Object>> results = sampleMediaTest(nameSpace, 21);
-		assertContainsActivity(results, STEWARDS_1, STEWARDS_3, NWIS_1, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_4, STORET_5, STORET_6,
-				STORET_7, STORET_8, STORET_9, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_16,
-				BIODATA_1);
+		assertContainsActivity(results, STEWARDS_1, STEWARDS_3, NWIS_1, NWIS_3, NWIS_4, STORET_1, STORET_2, STORET_3, STORET_4, STORET_5, STORET_6,
+				STORET_7, STORET_8, STORET_9, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_16);
 	}
 
 	public void siteIdTest() {
@@ -196,9 +194,9 @@ public abstract class BaseActivityStreamingTest extends FilteredActivityDaoTest 
 
 	public void siteTypeTest() {
 		List<Map<String, Object>> results = siteTypeTest(nameSpace, 22);
-		assertContainsActivity(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, STORET_1, STORET_2, STORET_3, STORET_4, STORET_5,
+		assertContainsActivity(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_4, STORET_1, STORET_2, STORET_3, STORET_4, STORET_5,
 				STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14, STORET_15,
-				STORET_1, BIODATA_1);
+				STORET_1);
 	}
 
 	public void siteUrlBaseTest() {
@@ -210,39 +208,38 @@ public abstract class BaseActivityStreamingTest extends FilteredActivityDaoTest 
 		assertStewards1(columnCount, results.get(0));
 		assertStewards2(columnCount, results.get(1));
 		assertStewards3(columnCount, results.get(2));
-		assertNwis1(columnCount, results.get(3));
-		assertNwis2(columnCount, results.get(4));
-		assertNwis3(columnCount, results.get(5));
-		assertStoret14(columnCount, results.get(6));
-		assertStoret15(columnCount, results.get(7));
-		assertStoret10(columnCount, results.get(8));
-		assertStoret6(columnCount, results.get(9));
-		assertStoret7(columnCount, results.get(10));
-		assertStoret9(columnCount, results.get(11));
-		assertStoret8(columnCount, results.get(12));
-		assertStoret5(columnCount, results.get(13));
-		assertStoret4(columnCount, results.get(14));
-		assertStoret11(columnCount, results.get(15));
-		assertStoret12(columnCount, results.get(16));
-		assertStoret13(columnCount, results.get(17));
-		assertStoret2(columnCount, results.get(18));
-		assertStoret16(columnCount, results.get(19));
-		assertStoret1(columnCount, results.get(20));
-		assertStoret3(columnCount, results.get(21));
-		assertBiodata1(columnCount, results.get(22));
+		assertNwis4(columnCount, results.get(3));
+		assertNwis1(columnCount, results.get(4));
+		assertNwis2(columnCount, results.get(5));
+		assertNwis3(columnCount, results.get(6));
+		assertStoret14(columnCount, results.get(7));
+		assertStoret15(columnCount, results.get(8));
+		assertStoret10(columnCount, results.get(9));
+		assertStoret6(columnCount, results.get(10));
+		assertStoret7(columnCount, results.get(11));
+		assertStoret9(columnCount, results.get(12));
+		assertStoret8(columnCount, results.get(13));
+		assertStoret5(columnCount, results.get(14));
+		assertStoret4(columnCount, results.get(15));
+		assertStoret11(columnCount, results.get(16));
+		assertStoret12(columnCount, results.get(17));
+		assertStoret13(columnCount, results.get(18));
+		assertStoret2(columnCount, results.get(19));
+		assertStoret16(columnCount, results.get(20));
+		assertStoret1(columnCount, results.get(21));
+		assertStoret3(columnCount, results.get(22));
 	}
 
 	public void startDateHiTest() {
 		List<Map<String, Object>> results = startDateHiTest(nameSpace, 21);
-		assertContainsActivity(results, STEWARDS_1, STEWARDS_3, NWIS_1, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_4, STORET_5, STORET_6,
-				STORET_7, STORET_8, STORET_9, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_16,
-				BIODATA_1);
+		assertContainsActivity(results, STEWARDS_1, STEWARDS_3, NWIS_1, NWIS_3, NWIS_4, STORET_1, STORET_2, STORET_3, STORET_4, STORET_5, STORET_6,
+				STORET_7, STORET_8, STORET_9, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_16);
 	}
 
 	public void startDateLoTest() {
 		List<Map<String, Object>> results = startDateLoTest(nameSpace, 17);
-		assertContainsActivity(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_10,
-				STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_1, BIODATA_1);
+		assertContainsActivity(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, NWIS_4, STORET_1, STORET_2, STORET_3, STORET_10,
+				STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_1);
 	}
 
 	public void stateTest() {
@@ -296,7 +293,7 @@ public abstract class BaseActivityStreamingTest extends FilteredActivityDaoTest 
 
 	public void assemblageTest() {
 		List<Map<String, Object>> results = assemblageTest(nameSpace, 11);
-		assertContainsActivity(results, STORET_1, STORET_2, STORET_3, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_16, BIODATA_1);
+		assertContainsActivity(results, NWIS_4, STORET_1, STORET_2, STORET_3, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_16);
 	}
 
 	public void characteristicNameTest() {
@@ -317,7 +314,7 @@ public abstract class BaseActivityStreamingTest extends FilteredActivityDaoTest 
 
 	public void subjectTaxonomicNameTest() {
 		List<Map<String, Object>> results = subjectTaxonomicNameTest(nameSpace, 10);
-		assertContainsActivity(results, STORET_1, STORET_2, STORET_3, STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_16, BIODATA_1);
+		assertContainsActivity(results, NWIS_4, STORET_1, STORET_2, STORET_3, STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_16);
 	}
 
 	public void multipleParameterActivityTest() {
@@ -375,6 +372,13 @@ public abstract class BaseActivityStreamingTest extends FilteredActivityDaoTest 
 		assertEquals(NWIS, row.get(BaseColumn.KEY_DATA_SOURCE));
 		assertEquals(BigDecimal.valueOf(3), row.get(ActivityColumn.KEY_ACTIVITY_ID));
 		assertEquals("activityNwis-3", row.get(ActivityColumn.KEY_ACTIVITY));
+	}
+
+	public static void assertNwis4(int columnCount, Map<String, Object> row) {
+		assertEquals(columnCount, row.keySet().size());
+		assertEquals(NWIS, row.get(BaseColumn.KEY_DATA_SOURCE));
+		assertEquals(BigDecimal.valueOf(4), row.get(ActivityColumn.KEY_ACTIVITY_ID));
+		assertEquals("activityNwis-4", row.get(ActivityColumn.KEY_ACTIVITY));
 	}
 
 	public static void assertStoret1(int columnCount, Map<String, Object> row) {
@@ -482,13 +486,6 @@ public abstract class BaseActivityStreamingTest extends FilteredActivityDaoTest 
 		assertEquals(STORET, row.get(BaseColumn.KEY_DATA_SOURCE));
 		assertEquals(BigDecimal.valueOf(16), row.get(ActivityColumn.KEY_ACTIVITY_ID));
 		assertEquals("activity-16", row.get(ActivityColumn.KEY_ACTIVITY));
-	}
-
-	public static void assertBiodata1(int columnCount, Map<String, Object> row) {
-		assertEquals(columnCount, row.keySet().size());
-		assertEquals(BIODATA, row.get(BaseColumn.KEY_DATA_SOURCE));
-		assertEquals(BigDecimal.ONE, row.get(ActivityColumn.KEY_ACTIVITY_ID));
-		assertEquals("activityBiodata-1", row.get(ActivityColumn.KEY_ACTIVITY));
 	}
 
 	public void assertContainsActivity(List<Map<String, Object>> results, Object[]...  activityIds) {

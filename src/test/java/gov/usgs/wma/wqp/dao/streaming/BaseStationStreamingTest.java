@@ -1,6 +1,5 @@
 package gov.usgs.wma.wqp.dao.streaming;
 
-import static gov.usgs.wma.wqp.openapi.model.StationCountJson.BIODATA;
 import static gov.usgs.wma.wqp.openapi.model.StationCountJson.NWIS;
 import static gov.usgs.wma.wqp.openapi.model.StationCountJson.STEWARDS;
 import static gov.usgs.wma.wqp.openapi.model.StationCountJson.STORET;
@@ -27,18 +26,19 @@ import gov.usgs.wma.wqp.parameter.FilterParameters;
 public abstract class BaseStationStreamingTest extends FilteredStationDaoTest {
 	private static final Logger LOG = LoggerFactory.getLogger(BaseStationStreamingTest.class);
 
-	@Autowired 
-	IStreamingDao streamingDao;
+	@Autowired
+	protected IStreamingDao streamingDao;
 
 	public static final String ARS_SITE = "ARSSite";
 	public static final String NWIS_SITE = "NWISSite";
 	public static final String STORET_SITE = "STORETSite";
-	public static final String BIODATA_SITE = "Unknown";
 
 	public static final String[] STEWARDS_36 = new String[]{STEWARDS, "ARS-IAWC-IAWC225", ARS_SITE};
 	public static final String[] STEWARDS_46 = new String[]{STEWARDS, "ARS-IAWC-IAWC410", ARS_SITE};
 	public static final String[] NWIS_1353690 = new String[]{NWIS, "USGS-05425700", NWIS_SITE};
 	public static final String[] NWIS_1360035 = new String[]{NWIS, "USGS-431925089002701", NWIS_SITE};
+	public static final String[] NWIS_61233184 = new String[]{NWIS, "USGS-11421000", NWIS_SITE};
+	public static final String[] NWIS_433830088977331 = new String[]{NWIS, "USGS-433830088977331", NWIS_SITE};
 	public static final String[] STORET_777 = new String[]{STORET, "organization-siteId2", STORET_SITE};
 	public static final String[] STORET_888 = new String[]{STORET, "organization-siteId", STORET_SITE};
 	public static final String[] STORET_999 = new String[]{STORET, "organization-siteId3", STORET_SITE};
@@ -46,9 +46,7 @@ public abstract class BaseStationStreamingTest extends FilteredStationDaoTest {
 	public static final String[] STORET_436723 = new String[]{STORET, "WIDNR_WQX-10030952", STORET_SITE};
 	public static final String[] STORET_504707 = new String[]{STORET, "21NYDECA_WQX-ONTARIO-02", STORET_SITE};
 	public static final String[] STORET_1043441 = new String[]{STORET, "11NPSWRD-BICA_MFG_B", STORET_SITE};
-	public static final String[] BIODATA_61233184 = new String[]{BIODATA, "USGS-11421000", BIODATA_SITE};
-	public static final String[] BIODATA_433830088977331 = new String[]{BIODATA, "USGS-433830088977331", BIODATA_SITE};
-	
+
 	public static final String[] STEWARDS_36_2000_CT1 = new String[]{STEWARDS, "ARS-IAWC-IAWC225", "2000", "ct_1", "cn_1"}; 
 	public static final String[] STEWARDS_36_2001_CT1 = new String[]{STEWARDS, "ARS-IAWC-IAWC225", "2001", "ct_1", "cn_1"}; 
 	public static final String[] STEWARDS_36_2002_CT1 = new String[]{STEWARDS, "ARS-IAWC-IAWC225", "2002", "ct_1", "cn_1"}; 
@@ -58,7 +56,7 @@ public abstract class BaseStationStreamingTest extends FilteredStationDaoTest {
 	public static final String[] STEWARDS_36_2006_CT1 = new String[]{STEWARDS, "ARS-IAWC-IAWC225", "2006", "ct_1", "cn_1"}; 
 	public static final String[] STEWARDS_36_2007_CT1 = new String[]{STEWARDS, "ARS-IAWC-IAWC225", "2007", "ct_1", "cn_1"}; 
 	public static final String[] STEWARDS_36_2008_CT1 = new String[]{STEWARDS, "ARS-IAWC-IAWC225", "2008", "ct_1", "cn_1"}; 
-	
+
 	public static final String[] NWIS_1353690_2010_CT1 = new String[]{NWIS, "USGS-05425700", "2010", "ct_1", "cn_1"};
 	public static final String[] NWIS_1353690_2011_CT1 = new String[]{NWIS, "USGS-05425700", "2011", "ct_1", "cn_1"};
 	public static final String[] NWIS_1353690_2012_CT1 = new String[]{NWIS, "USGS-05425700", "2012", "ct_1", "cn_1"};
@@ -78,7 +76,7 @@ public abstract class BaseStationStreamingTest extends FilteredStationDaoTest {
 	public static final String[] STORET_504707_1956_CT1 = new String[]{"STORET", "21NYDECA_WQX-ONTARIO-02", "1956", "ct_1", "cn_1"};
 	public static final String[] STORET_504707_1977_CT1 = new String[]{"STORET", "21NYDECA_WQX-ONTARIO-02", "1977", "ct_1", "cn_1"};
 	public static final String[] STORET_504707_1998_CT1 = new String[]{"STORET", "21NYDECA_WQX-ONTARIO-02", "1998", "ct_1", "cn_1"};
-	
+
 	public static final String[] NWIS_1360035_2017_CT1 = new String[]{NWIS, "USGS-431925089002701", "2017", "ct_1", "cn_1"};
 	public static final String[] NWIS_1360035_2018_CT1 = new String[]{NWIS, "USGS-431925089002701", "2018", "ct_1", "cn_1"};	
 
@@ -116,35 +114,35 @@ public abstract class BaseStationStreamingTest extends FilteredStationDaoTest {
 	protected void mimeTypeTest(NameSpace nameSpace) {
 		List<Map<String, Object>> results = mimeTypeJsonTest(nameSpace, Integer.valueOf(TOTAL_SITE_COUNT_GEOM));
 		assertContainsStation(results, STEWARDS_36, STEWARDS_46, NWIS_1353690, NWIS_1360035, STORET_777, STORET_888, STORET_999, STORET_1383, STORET_436723, STORET_504707,
-				STORET_1043441, BIODATA_61233184);
+				STORET_1043441, NWIS_61233184);
 
 		results = mimeTypeGeoJsonTest(nameSpace, Integer.valueOf(TOTAL_SITE_COUNT_GEOM));
 		assertContainsStation(results, STEWARDS_36, STEWARDS_46, NWIS_1353690, NWIS_1360035, STORET_777, STORET_888, STORET_999, STORET_1383, STORET_436723, STORET_504707,
-				STORET_1043441, BIODATA_61233184);
+				STORET_1043441, NWIS_61233184);
 
 		results = mimeTypeKmlTest(nameSpace, Integer.valueOf(TOTAL_SITE_COUNT_GEOM));
 		assertContainsStation(results, STEWARDS_36, STEWARDS_46, NWIS_1353690, NWIS_1360035, STORET_777, STORET_888, STORET_999, STORET_1383, STORET_436723, STORET_504707,
-				STORET_1043441, BIODATA_61233184);
+				STORET_1043441, NWIS_61233184);
 
 		results = mimeTypeKmzTest(nameSpace, Integer.valueOf(TOTAL_SITE_COUNT_GEOM));
 		assertContainsStation(results, STEWARDS_36, STEWARDS_46, NWIS_1353690, NWIS_1360035, STORET_777, STORET_888, STORET_999, STORET_1383, STORET_436723, STORET_504707,
-				STORET_1043441, BIODATA_61233184);
+				STORET_1043441, NWIS_61233184);
 
 		results = mimeTypeCsvTest(nameSpace, Integer.valueOf(TOTAL_SITE_COUNT));
 		assertContainsStation(results, STEWARDS_36, STEWARDS_46, NWIS_1353690, NWIS_1360035, STORET_777, STORET_888, STORET_999, STORET_1383, STORET_436723, STORET_504707,
-				STORET_1043441, BIODATA_61233184, BIODATA_433830088977331);
+				STORET_1043441, NWIS_61233184, NWIS_433830088977331);
 
 		results = mimeTypeTsvTest(nameSpace, Integer.valueOf(TOTAL_SITE_COUNT));
 		assertContainsStation(results, STEWARDS_36, STEWARDS_46, NWIS_1353690, NWIS_1360035, STORET_777, STORET_888, STORET_999, STORET_1383, STORET_436723, STORET_504707,
-				STORET_1043441, BIODATA_61233184, BIODATA_433830088977331);
+				STORET_1043441, NWIS_61233184, NWIS_433830088977331);
 
 		results = mimeTypeXmlTest(nameSpace, Integer.valueOf(TOTAL_SITE_COUNT));
 		assertContainsStation(results, STEWARDS_36, STEWARDS_46, NWIS_1353690, NWIS_1360035, STORET_777, STORET_888, STORET_999, STORET_1383, STORET_436723, STORET_504707,
-				STORET_1043441, BIODATA_61233184, BIODATA_433830088977331);
+				STORET_1043441, NWIS_61233184, NWIS_433830088977331);
 
 		results = mimeTypeXlsxTest(nameSpace, Integer.valueOf(TOTAL_SITE_COUNT));
 		assertContainsStation(results, STEWARDS_36, STEWARDS_46, NWIS_1353690, NWIS_1360035, STORET_777, STORET_888, STORET_999, STORET_1383, STORET_436723, STORET_504707,
-				STORET_1043441, BIODATA_61233184, BIODATA_433830088977331);
+				STORET_1043441, NWIS_61233184, NWIS_433830088977331);
 	}
 
 	public void sortedTest(NameSpace nameSpace, Map<String, Object> expectedMap) {
@@ -152,16 +150,17 @@ public abstract class BaseStationStreamingTest extends FilteredStationDaoTest {
 		List<Map<String, Object>> results = sortedTest(nameSpace, Integer.valueOf(TOTAL_SITE_COUNT));
 		assertRow(results.get(0), STEWARDS_36, expectedColumnCount);
 		assertRow(results.get(1), STEWARDS_46, expectedColumnCount);
-		assertRow(results.get(2), NWIS_1353690, expectedColumnCount);
-		assertRow(results.get(3), NWIS_1360035, expectedColumnCount);
-		assertRow(results.get(4), STORET_1043441, expectedColumnCount);
-		assertRow(results.get(5), STORET_504707, expectedColumnCount);
-		assertRow(results.get(6), STORET_436723, expectedColumnCount);
-		assertRow(results.get(7), STORET_1383, expectedColumnCount);
-		assertStoret888(expectedMap, results.get(8));
-		assertRow(results.get(9), STORET_777, expectedColumnCount);
-		assertRow(results.get(10), STORET_999, expectedColumnCount);
-		assertRow(results.get(11), BIODATA_61233184, expectedColumnCount);
+		assertRow(results.get(2), NWIS_61233184, expectedColumnCount);
+		assertRow(results.get(3), NWIS_433830088977331, expectedColumnCount);
+		assertRow(results.get(4), NWIS_1353690, expectedColumnCount);
+		assertRow(results.get(5), NWIS_1360035, expectedColumnCount);
+		assertRow(results.get(6), STORET_1043441, expectedColumnCount);
+		assertRow(results.get(7), STORET_504707, expectedColumnCount);
+		assertRow(results.get(8), STORET_436723, expectedColumnCount);
+		assertRow(results.get(9), STORET_1383, expectedColumnCount);
+		assertStoret888(expectedMap, results.get(10));
+		assertRow(results.get(11), STORET_777, expectedColumnCount);
+		assertRow(results.get(12), STORET_999, expectedColumnCount);
 	}
 
 	public void avoidTest(NameSpace nameSpace) {
@@ -177,7 +176,7 @@ public abstract class BaseStationStreamingTest extends FilteredStationDaoTest {
 	public void countryTest(NameSpace nameSpace) {
 		List<Map<String, Object>> results = countryTest(nameSpace, 11);
 		assertContainsStation(results, STEWARDS_36, STEWARDS_46, NWIS_1353690, NWIS_1360035, STORET_777, STORET_888, STORET_999, STORET_1383, STORET_436723, STORET_1043441,
-				BIODATA_61233184);
+				NWIS_61233184);
 	}
 
 	public void countyTest(NameSpace nameSpace) {
@@ -242,7 +241,7 @@ public abstract class BaseStationStreamingTest extends FilteredStationDaoTest {
 
 	public void providersTest(NameSpace nameSpace) {
 		List<Map<String, Object>> results = providersTest(nameSpace, 11);
-		assertContainsStation(results, STEWARDS_36, STEWARDS_46, NWIS_1353690, NWIS_1360035, STORET_777, STORET_888, STORET_999, STORET_1383, STORET_436723, STORET_504707,
+		assertContainsStation(results, NWIS_1353690, NWIS_1360035, NWIS_61233184, NWIS_433830088977331, STORET_777, STORET_888, STORET_999, STORET_1383, STORET_436723, STORET_504707,
 				STORET_1043441);
 	}
 
@@ -269,7 +268,7 @@ public abstract class BaseStationStreamingTest extends FilteredStationDaoTest {
 	public void siteTypeTest(NameSpace nameSpace) {
 		List<Map<String, Object>> results = siteTypeTest(nameSpace, 11);
 		assertContainsStation(results, STEWARDS_36, STEWARDS_46, NWIS_1353690, STORET_777, STORET_888, STORET_999, STORET_1383, STORET_436723, STORET_504707, STORET_1043441,
-				BIODATA_61233184);
+				NWIS_61233184);
 	}
 
 	public void stateTest(NameSpace nameSpace) {
@@ -287,24 +286,24 @@ public abstract class BaseStationStreamingTest extends FilteredStationDaoTest {
 
 	public void projectTest(NameSpace nameSpace) {
 		List<Map<String, Object>> results = projectTest(nameSpace, 9);
-		assertContainsStation(results, STEWARDS_36, STEWARDS_46, NWIS_1353690, NWIS_1360035, STORET_777, STORET_888, STORET_999, STORET_1043441, BIODATA_61233184);
+		assertContainsStation(results, STEWARDS_36, STEWARDS_46, NWIS_1353690, NWIS_1360035, NWIS_61233184, STORET_777, STORET_888, STORET_999, STORET_1043441);
 	}
 
 	public void sampleMediaTest(NameSpace nameSpace) {
 		List<Map<String, Object>> results = sampleMediaTest(nameSpace, 11);
 		assertContainsStation(results, STEWARDS_36, STEWARDS_46, NWIS_1353690, NWIS_1360035, STORET_777, STORET_888, STORET_999, STORET_1383, STORET_504707, STORET_1043441,
-				BIODATA_61233184);
+				NWIS_61233184);
 	}
 
 	public void startDateHiTest(NameSpace nameSpace) {
 		List<Map<String, Object>> results = startDateHiTest(nameSpace, 11);
 		assertContainsStation(results, STEWARDS_36, STEWARDS_46, NWIS_1353690, NWIS_1360035, STORET_777, STORET_888, STORET_999, STORET_1383, STORET_504707, STORET_1043441,
-				BIODATA_61233184);
+				NWIS_61233184);
 	}
 
 	public void startDateLoTest(NameSpace nameSpace) {
 		List<Map<String, Object>> results = startDateLoTest(nameSpace, 9);
-		assertContainsStation(results, STEWARDS_36, STEWARDS_46, NWIS_1353690, NWIS_1360035, STORET_777, STORET_888, STORET_999, STORET_1043441, BIODATA_61233184);
+		assertContainsStation(results, STEWARDS_36, STEWARDS_46, NWIS_1353690, NWIS_1360035, STORET_777, STORET_888, STORET_999, STORET_1043441, NWIS_61233184);
 	}
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -317,7 +316,7 @@ public abstract class BaseStationStreamingTest extends FilteredStationDaoTest {
 
 	public void assemblageTest(NameSpace nameSpace) {
 		List<Map<String, Object>> results = assemblageTest(nameSpace, 5);
-		assertContainsStation(results, STORET_777, STORET_888, STORET_999, STORET_1043441, BIODATA_61233184);
+		assertContainsStation(results, STORET_777, STORET_888, STORET_999, STORET_1043441, NWIS_61233184);
 	}
 
 	public void characteristicNameTest(NameSpace nameSpace) {
@@ -337,7 +336,7 @@ public abstract class BaseStationStreamingTest extends FilteredStationDaoTest {
 
 	public void subjectTaxonomicNameTest(NameSpace nameSpace) {
 		List<Map<String, Object>> results = subjectTaxonomicNameTest(nameSpace, 5);
-		assertContainsStation(results, STORET_777, STORET_888, STORET_999, STORET_1043441, BIODATA_61233184);
+		assertContainsStation(results, STORET_777, STORET_888, STORET_999, STORET_1043441, NWIS_61233184);
 	}
 
 	public void multipleParameterStationSumTest(NameSpace nameSpace) {

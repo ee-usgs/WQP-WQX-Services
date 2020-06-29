@@ -1,6 +1,5 @@
 package gov.usgs.wma.wqp.webservice;
 
-import static gov.usgs.wma.wqp.openapi.model.ProjectCountJson.HEADER_BIODATA_PROJECT_COUNT;
 import static gov.usgs.wma.wqp.openapi.model.ProjectCountJson.HEADER_NWIS_PROJECT_COUNT;
 import static gov.usgs.wma.wqp.openapi.model.ProjectCountJson.HEADER_STEWARDS_PROJECT_COUNT;
 import static gov.usgs.wma.wqp.openapi.model.ProjectCountJson.HEADER_STORET_PROJECT_COUNT;
@@ -97,8 +96,7 @@ public class ProjectControllerIT extends BaseControllerIntegrationTest {
 				.andExpect(header().string(HttpConstants.HEADER_TOTAL_PROJECT_COUNT, TOTAL_PROJECT_COUNT))
 				.andExpect(header().string(HEADER_NWIS_PROJECT_COUNT, NWIS_PROJECT_COUNT))
 				.andExpect(header().string(HEADER_STEWARDS_PROJECT_COUNT, STEWARDS_PROJECT_COUNT))
-				.andExpect(header().string(HEADER_STORET_PROJECT_COUNT, STORET_PROJECT_COUNT))
-				.andExpect(header().string(HEADER_BIODATA_PROJECT_COUNT, BIODATA_PROJECT_COUNT));
+				.andExpect(header().string(HEADER_STORET_PROJECT_COUNT, STORET_PROJECT_COUNT));
 	}
 
 	public ResultActions filteredHeaderCheck(ResultActions resultActions) throws Exception {

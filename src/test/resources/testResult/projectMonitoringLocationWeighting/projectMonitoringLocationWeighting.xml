@@ -33,6 +33,37 @@
 	</Organization>
 	<Organization>
 		<OrganizationDescription>
+			<OrganizationIdentifier>USGS</OrganizationIdentifier>
+			<OrganizationFormalName>Wisconsin Department of Natural Resources</OrganizationFormalName>
+		</OrganizationDescription>
+		<Project>
+			<ProjectIdentifier>SACR TDB</ProjectIdentifier>
+			<ProjectMonitoringLocationWeighting>
+				<MonitoringLocationIdentifier>USGS-11421000</MonitoringLocationIdentifier>
+				<LocationWeightingFactorMeasure>
+					<MeasureValue>1</MeasureValue>
+					<MeasureUnitCode>bio-unit</MeasureUnitCode>
+				</LocationWeightingFactorMeasure>
+				<StatisticalStratumText>bio-stratum</StatisticalStratumText>
+				<LocationCategoryName>bio-category</LocationCategoryName>
+				<LocationStatusName>bio-status</LocationStatusName>
+				<ReferenceLocationTypeCode>bio-ref-code</ReferenceLocationTypeCode>
+				<ReferenceLocationStartDate>2018-01-01</ReferenceLocationStartDate>
+				<ReferenceLocationEndDate>2018-01-01</ReferenceLocationEndDate>
+				<ReferenceLocationCitation>
+					<ResourceTitleName>bio_resource_title</ResourceTitleName>
+					<ResourceCreatorName>bio_resource_creator</ResourceCreatorName>
+					<ResourceSubjectText>bio_resource_subject</ResourceSubjectText>
+					<ResourcePublisherName>bio_resource_publisher</ResourcePublisherName>
+					<ResourceDate>2018-01-01</ResourceDate>
+					<ResourceIdentifier>bio_resource_identifier</ResourceIdentifier>
+				</ReferenceLocationCitation>
+				<CommentText>bio-comment</CommentText>
+			</ProjectMonitoringLocationWeighting>
+		</Project>
+	</Organization>
+	<Organization>
+		<OrganizationDescription>
 			<OrganizationIdentifier>USGS-WI</OrganizationIdentifier>
 			<OrganizationFormalName>USGS Wisconsin Water Science Center</OrganizationFormalName>
 		</OrganizationDescription>
@@ -168,37 +199,6 @@
 					<ResourceIdentifier>storet_resource_identifier</ResourceIdentifier>
 				</ReferenceLocationCitation>
 				<CommentText>storet-comment</CommentText>
-			</ProjectMonitoringLocationWeighting>
-		</Project>
-	</Organization>
-	<Organization>
-		<OrganizationDescription>
-			<OrganizationIdentifier>USGS</OrganizationIdentifier>
-			<OrganizationFormalName>Wisconsin Department of Natural Resources</OrganizationFormalName>
-		</OrganizationDescription>
-		<Project>
-			<ProjectIdentifier>SACR BioTDB</ProjectIdentifier>
-			<ProjectMonitoringLocationWeighting>
-				<MonitoringLocationIdentifier>USGS-11421000</MonitoringLocationIdentifier>
-				<LocationWeightingFactorMeasure>
-					<MeasureValue>1</MeasureValue>
-					<MeasureUnitCode>bio-unit</MeasureUnitCode>
-				</LocationWeightingFactorMeasure>
-				<StatisticalStratumText>bio-stratum</StatisticalStratumText>
-				<LocationCategoryName>bio-category</LocationCategoryName>
-				<LocationStatusName>bio-status</LocationStatusName>
-				<ReferenceLocationTypeCode>bio-ref-code</ReferenceLocationTypeCode>
-				<ReferenceLocationStartDate>2018-01-01</ReferenceLocationStartDate>
-				<ReferenceLocationEndDate>2018-01-01</ReferenceLocationEndDate>
-				<ReferenceLocationCitation>
-					<ResourceTitleName>bio_resource_title</ResourceTitleName>
-					<ResourceCreatorName>bio_resource_creator</ResourceCreatorName>
-					<ResourceSubjectText>bio_resource_subject</ResourceSubjectText>
-					<ResourcePublisherName>bio_resource_publisher</ResourcePublisherName>
-					<ResourceDate>2018-01-01</ResourceDate>
-					<ResourceIdentifier>bio_resource_identifier</ResourceIdentifier>
-				</ReferenceLocationCitation>
-				<CommentText>bio-comment</CommentText>
 			</ProjectMonitoringLocationWeighting>
 		</Project>
 	</Organization>

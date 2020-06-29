@@ -1,6 +1,5 @@
 package gov.usgs.wma.wqp.dao.streaming;
 
-import static gov.usgs.wma.wqp.openapi.model.StationCountJson.BIODATA;
 import static gov.usgs.wma.wqp.openapi.model.StationCountJson.NWIS;
 import static gov.usgs.wma.wqp.openapi.model.StationCountJson.STEWARDS;
 import static gov.usgs.wma.wqp.openapi.model.StationCountJson.STORET;
@@ -51,6 +50,7 @@ public class ActivityMetricStreamingIT extends FilteredActivityMetricDaoTest {
 	public static final String[] NWIS_1 = new String[]{NWIS, "2_1_type_identifier"};
 	public static final String[] NWIS_2 = new String[]{NWIS, "2_2_type_identifier"};
 	public static final String[] NWIS_3 = new String[]{NWIS, "2_3_type_identifier"};
+	public static final String[] NWIS_4 = new String[]{NWIS, "2_4_type_identifier"};
 	public static final String[] STORET_1 = new String[]{STORET, "3_1_type_identifier"};
 	public static final String[] STORET_2 = new String[]{STORET, "3_2_type_identifier"};
 	public static final String[] STORET_3 = new String[]{STORET, "3_3_type_identifier"};
@@ -72,7 +72,6 @@ public class ActivityMetricStreamingIT extends FilteredActivityMetricDaoTest {
 	public static final String[] STORET_14 = new String[]{STORET, "3_14_type_identifier"};
 	public static final String[] STORET_15 = new String[]{STORET, "3_15_type_identifier"};
 	public static final String[] STORET_16 = new String[]{STORET, "3_16_type_identifier"};
-	public static final String[] BIODATA_1 = new String[]{BIODATA, "4_1_type_identifier"};
 
 	public static final int ACTIVITY_METRIC_COLUMN_COUNT = TestActivityMetricMap.ACTIVITY_METRIC.keySet().size();
 
@@ -146,7 +145,7 @@ public class ActivityMetricStreamingIT extends FilteredActivityMetricDaoTest {
 		List<Map<String, Object>> results = countryTest(nameSpace, 24);
 		assertContainsActivityMetric(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_4,
 				STORET_5A, STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F, STORET_10, STORET_11, STORET_12, STORET_13,
-				STORET_14, STORET_15, STORET_16, BIODATA_1);
+				STORET_14, STORET_15, STORET_16, NWIS_4);
 	}
 
 	public void countyTest() {
@@ -242,12 +241,12 @@ public class ActivityMetricStreamingIT extends FilteredActivityMetricDaoTest {
 	public void projectTest() {
 		List<Map<String, Object>> results = projectTest(nameSpace, 14);
 		assertContainsActivityMetric(results, STEWARDS_1,  STEWARDS_3, NWIS_1, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_11, STORET_12, STORET_13,
-				STORET_14, STORET_15, STORET_16, BIODATA_1);
+				STORET_14, STORET_15, STORET_16, NWIS_4);
 	}
 
 	public void providersTest() {
-		List<Map<String, Object>> results = providersTest(nameSpace, 27);
-		assertContainsActivityMetric(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_4,
+		List<Map<String, Object>> results = providersTest(nameSpace, 25);
+		assertContainsActivityMetric(results, NWIS_1, NWIS_2, NWIS_3, NWIS_4, STORET_1, STORET_2, STORET_3, STORET_4,
 				STORET_5A, STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F, STORET_6, STORET_7, STORET_8, STORET_9,
 				STORET_10, STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_16);
 	}
@@ -270,7 +269,7 @@ public class ActivityMetricStreamingIT extends FilteredActivityMetricDaoTest {
 		List<Map<String, Object>> results = sampleMediaTest(nameSpace, 26);
 		assertContainsActivityMetric(results, STEWARDS_1, STEWARDS_3, NWIS_1, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_4, STORET_5A, STORET_5B,
 				STORET_5C, STORET_5D, STORET_5E, STORET_5F, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, STORET_11,
-				STORET_12, STORET_13, STORET_14, STORET_15, STORET_16, BIODATA_1);
+				STORET_12, STORET_13, STORET_14, STORET_15, STORET_16, NWIS_4);
 	}
 
 	public void siteUrlBaseTest() {
@@ -282,44 +281,44 @@ public class ActivityMetricStreamingIT extends FilteredActivityMetricDaoTest {
 		assertStewards1(results.get(0));
 		assertStewards2(results.get(1));
 		assertStewards3(results.get(2));
-		assertNwis1(results.get(3));
-		assertNwis2(results.get(4));
-		assertNwis3(results.get(5));
-		assertStoret14(results.get(6));
-		assertStoret15(results.get(7));
-		assertStoret10(results.get(8));
-		assertStoret6(results.get(9));
-		assertStoret7(results.get(10));
-		assertStoret9(results.get(11));
-		assertStoret8(results.get(12));
-		assertStoret5A(results.get(13));
-		assertStoret5B(results.get(14));
-		assertStoret5C(results.get(15));
-		assertStoret5D(results.get(16));
-		assertStoret5E(results.get(17));
-		assertStoret5F(results.get(18));
-		assertStoret4(results.get(19));
-		assertStoret11(results.get(20));
-		assertStoret12(results.get(21));
-		assertStoret13(results.get(22));
-		assertStoret2(results.get(23));
-		assertStoret16(results.get(24));
-		assertStoret1(results.get(25));
-		assertStoret3(results.get(26));
-		assertBiodata1(results.get(27));
+		assertNwis4(results.get(3));
+		assertNwis1(results.get(4));
+		assertNwis2(results.get(5));
+		assertNwis3(results.get(6));
+		assertStoret14(results.get(7));
+		assertStoret15(results.get(8));
+		assertStoret10(results.get(9));
+		assertStoret6(results.get(10));
+		assertStoret7(results.get(11));
+		assertStoret9(results.get(12));
+		assertStoret8(results.get(13));
+		assertStoret5A(results.get(14));
+		assertStoret5B(results.get(15));
+		assertStoret5C(results.get(16));
+		assertStoret5D(results.get(17));
+		assertStoret5E(results.get(18));
+		assertStoret5F(results.get(19));
+		assertStoret4(results.get(20));
+		assertStoret11(results.get(21));
+		assertStoret12(results.get(22));
+		assertStoret13(results.get(23));
+		assertStoret2(results.get(24));
+		assertStoret16(results.get(25));
+		assertStoret1(results.get(26));
+		assertStoret3(results.get(27));
 	}
 
 	public void startDateHiTest() {
 		List<Map<String, Object>> results = startDateHiTest(nameSpace, 26);
 		assertContainsActivityMetric(results, STEWARDS_1, STEWARDS_3, NWIS_1, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_4, STORET_5A, STORET_5B,
 				STORET_5C, STORET_5D, STORET_5E, STORET_5F, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10, STORET_11,
-				STORET_12, STORET_13, STORET_14, STORET_15, STORET_16, BIODATA_1);
+				STORET_12, STORET_13, STORET_14, STORET_15, STORET_16, NWIS_4);
 	}
 
 	public void startDateLoTest() {
 		List<Map<String, Object>> results = startDateLoTest(nameSpace, 17);
 		assertContainsActivityMetric(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, NWIS_3, STORET_1, STORET_2, STORET_3, STORET_10,
-				STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_1, BIODATA_1);
+				STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_1, NWIS_4);
 	}
 
 	public void siteIdTest() {
@@ -338,7 +337,7 @@ public class ActivityMetricStreamingIT extends FilteredActivityMetricDaoTest {
 		List<Map<String, Object>> results = siteTypeTest(nameSpace, 27);
 		assertContainsActivityMetric(results, STEWARDS_1, STEWARDS_2, STEWARDS_3, NWIS_1, NWIS_2, STORET_1, STORET_2, STORET_3, STORET_4, STORET_5A,
 				STORET_5B, STORET_5C, STORET_5D, STORET_5E, STORET_5F, STORET_6, STORET_7, STORET_8, STORET_9, STORET_10,
-				STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_1, BIODATA_1);
+				STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_1, NWIS_4);
 	}
 
 	public void stateTest() {
@@ -397,7 +396,7 @@ public class ActivityMetricStreamingIT extends FilteredActivityMetricDaoTest {
 
 	public void assemblageTest() {
 		List<Map<String, Object>> results = assemblageTest(nameSpace, 11);
-		assertContainsActivityMetric(results, STORET_1, STORET_2, STORET_3, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_16, BIODATA_1);
+		assertContainsActivityMetric(results, STORET_1, STORET_2, STORET_3, STORET_10, STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_16, NWIS_4);
 	}
 
 	public void characteristicNameTest() {
@@ -418,7 +417,7 @@ public class ActivityMetricStreamingIT extends FilteredActivityMetricDaoTest {
 
 	public void subjectTaxonomicNameTest() {
 		List<Map<String, Object>> results = subjectTaxonomicNameTest(nameSpace, 10);
-		assertContainsActivityMetric(results, STORET_1, STORET_2, STORET_3, STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_16, BIODATA_1);
+		assertContainsActivityMetric(results, STORET_1, STORET_2, STORET_3, STORET_11, STORET_12, STORET_13, STORET_14, STORET_15, STORET_16, NWIS_4);
 	}
 
 	public void multipleParameterActivityTest() {
@@ -602,10 +601,10 @@ public class ActivityMetricStreamingIT extends FilteredActivityMetricDaoTest {
 		assertEquals(STORET_16[1], row.get(ActivityMetricColumn.KEY_METRIC_TYPE_IDENTIFIER));
 	}
 
-	public static void assertBiodata1(Map<String, Object> row) {
+	public static void assertNwis4(Map<String, Object> row) {
 		assertEquals(ACTIVITY_METRIC_COLUMN_COUNT, row.keySet().size());
-		assertEquals(BIODATA, row.get(BaseColumn.KEY_DATA_SOURCE));
-		assertEquals(BIODATA_1[1], row.get(ActivityMetricColumn.KEY_METRIC_TYPE_IDENTIFIER));
+		assertEquals(NWIS, row.get(BaseColumn.KEY_DATA_SOURCE));
+		assertEquals(NWIS_4[1], row.get(ActivityMetricColumn.KEY_METRIC_TYPE_IDENTIFIER));
 	}
 
 	public void assertContainsActivityMetric(List<Map<String, Object>> results, String[]...  activityMetrics) {

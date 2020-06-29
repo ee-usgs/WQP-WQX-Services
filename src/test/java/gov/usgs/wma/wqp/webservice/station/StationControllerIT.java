@@ -1,6 +1,5 @@
 package gov.usgs.wma.wqp.webservice.station;
 
-import static gov.usgs.wma.wqp.openapi.model.StationCountJson.HEADER_BIODATA_SITE_COUNT;
 import static gov.usgs.wma.wqp.openapi.model.StationCountJson.HEADER_NWIS_SITE_COUNT;
 import static gov.usgs.wma.wqp.openapi.model.StationCountJson.HEADER_STEWARDS_SITE_COUNT;
 import static gov.usgs.wma.wqp.openapi.model.StationCountJson.HEADER_STORET_SITE_COUNT;
@@ -126,18 +125,16 @@ public class StationControllerIT extends BaseControllerIntegrationTest {
 				.andExpect(header().string(HttpConstants.HEADER_TOTAL_SITE_COUNT, TOTAL_SITE_COUNT))
 				.andExpect(header().string(HEADER_NWIS_SITE_COUNT, NWIS_SITE_COUNT))
 				.andExpect(header().string(HEADER_STEWARDS_SITE_COUNT, STEWARDS_SITE_COUNT))
-				.andExpect(header().string(HEADER_STORET_SITE_COUNT, STORET_SITE_COUNT))
-				.andExpect(header().string(HEADER_BIODATA_SITE_COUNT, BIODATA_SITE_COUNT));
+				.andExpect(header().string(HEADER_STORET_SITE_COUNT, STORET_SITE_COUNT));
 	}
 
 	@Override
 	public ResultActions unFilteredGeomHeaderCheck(ResultActions resultActions) throws Exception {
 		return resultActions
 				.andExpect(header().string(HttpConstants.HEADER_TOTAL_SITE_COUNT, TOTAL_SITE_COUNT_GEOM))
-				.andExpect(header().string(HEADER_NWIS_SITE_COUNT, NWIS_SITE_COUNT))
+				.andExpect(header().string(HEADER_NWIS_SITE_COUNT, NWIS_SITE_COUNT_GEOM))
 				.andExpect(header().string(HEADER_STEWARDS_SITE_COUNT, STEWARDS_SITE_COUNT))
-				.andExpect(header().string(HEADER_STORET_SITE_COUNT, STORET_SITE_COUNT))
-				.andExpect(header().string(HEADER_BIODATA_SITE_COUNT, BIODATA_SITE_COUNT_GEOM));
+				.andExpect(header().string(HEADER_STORET_SITE_COUNT, STORET_SITE_COUNT));
 	}
 
 	public ResultActions filteredHeaderCheck(ResultActions resultActions) throws Exception {

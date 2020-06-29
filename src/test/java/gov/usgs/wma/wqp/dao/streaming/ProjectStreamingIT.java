@@ -1,6 +1,5 @@
 package gov.usgs.wma.wqp.dao.streaming;
 
-import static gov.usgs.wma.wqp.openapi.model.StationCountJson.BIODATA;
 import static gov.usgs.wma.wqp.openapi.model.StationCountJson.NWIS;
 import static gov.usgs.wma.wqp.openapi.model.StationCountJson.STEWARDS;
 import static gov.usgs.wma.wqp.openapi.model.StationCountJson.STORET;
@@ -51,7 +50,7 @@ public class ProjectStreamingIT extends FilteredProjectDaoTest {
 	public static final String [] PROJECT_CEAP_ARS = new String[] {STEWARDS, "CEAP", "ARS"};
 	public static final String [] PROJECT_NAWQA_USGS_SC = new String[] {NWIS, "NAWQA", "USGS-SC"};
 	public static final String [] PROJECT_SOMETHINGELSE_UMC = new String[] {STORET, "SOMETHINGELSE", "UMC"};
-	public static final String [] PROJECT_SACR_BIOTDB_USGS = new String[] {BIODATA, "SACR BioTDB", "USGS"};
+	public static final String [] PROJECT_SACR_TDB_USGS = new String[] {NWIS, "SACR TDB", "USGS"};
 	public static final String [] PROJECT_NORESULTSPROJECT_BLAH = new String[] {STORET, "NoResultsProject", "BLAH"};
 	public static final String [] PROJECT_NORESULTSPROJECT2_BLAH2 = new String[] {NWIS, "NoResultsProject2", "BLAH2"};
 	public static final String [] PROJECT_NAWQA_USGS_WI = new String[] {NWIS, "NAWQA", "USGS-WI"};
@@ -151,16 +150,16 @@ public class ProjectStreamingIT extends FilteredProjectDaoTest {
 	}
 
 	public void providersTest() {
-		List<Map<String, Object>> results = providersTest(nameSpace, 16);
+		List<Map<String, Object>> results = providersTest(nameSpace, 15);
 		assertContainsProject(results, PROJECT_LAKE_BASELINE_21FLVEMD, PROJECT_SAM_MDNR, PROJECT_WR047_21LABCH, PROJECT_PROJECTID_ORGANIZATION,
-				PROJECT_EPABEACH_BLMRW, PROJECT_CEAP_ARS, PROJECT_NAWQA_USGS_SC, PROJECT_SOMETHINGELSE_UMC, PROJECT_NORESULTSPROJECT_BLAH,
+				PROJECT_EPABEACH_BLMRW, PROJECT_NAWQA_USGS_SC, PROJECT_SOMETHINGELSE_UMC, PROJECT_NORESULTSPROJECT_BLAH,
 				PROJECT_NORESULTSPROJECT2_BLAH2, PROJECT_NAWQA_USGS_WI, PROJECT_EPABEACH_ORGANIZATION, PROJECT_WR047_WIDNR_WQX,
-				PROJECT_LAKE_BASELINE_WIDNR_WQX, PROJECT_PROJECTIDNWIS_USGS_WI, PROJECT_PROJECTIDSTEWARDS_ARS);
+				PROJECT_LAKE_BASELINE_WIDNR_WQX, PROJECT_PROJECTIDNWIS_USGS_WI, PROJECT_SACR_TDB_USGS);
 	}
 
 	public void projectTest() {
 		List<Map<String, Object>> results = projectTest(nameSpace, 5);
-		assertContainsProject(results, PROJECT_PROJECTID_ORGANIZATION, PROJECT_CEAP_ARS, PROJECT_NAWQA_USGS_SC, PROJECT_SACR_BIOTDB_USGS,
+		assertContainsProject(results, PROJECT_PROJECTID_ORGANIZATION, PROJECT_CEAP_ARS, PROJECT_NAWQA_USGS_SC, PROJECT_SACR_TDB_USGS,
 				PROJECT_NAWQA_USGS_WI);
 	}
 
@@ -182,7 +181,7 @@ public class ProjectStreamingIT extends FilteredProjectDaoTest {
 		assertEquals(PROJECT_CEAP_ARS[1], results.get(5).get(ProjectColumn.KEY_PROJECT_IDENTIFIER).toString());
 		assertEquals(PROJECT_NAWQA_USGS_SC[1], results.get(6).get(ProjectColumn.KEY_PROJECT_IDENTIFIER).toString());
 		assertEquals(PROJECT_SOMETHINGELSE_UMC[1], results.get(7).get(ProjectColumn.KEY_PROJECT_IDENTIFIER).toString());
-		assertEquals(PROJECT_SACR_BIOTDB_USGS[1], results.get(8).get(ProjectColumn.KEY_PROJECT_IDENTIFIER).toString());
+		assertEquals(PROJECT_SACR_TDB_USGS[1], results.get(8).get(ProjectColumn.KEY_PROJECT_IDENTIFIER).toString());
 		assertEquals(PROJECT_NORESULTSPROJECT_BLAH[1], results.get(9).get(ProjectColumn.KEY_PROJECT_IDENTIFIER).toString());
 		assertEquals(PROJECT_NORESULTSPROJECT2_BLAH2[1], results.get(10).get(ProjectColumn.KEY_PROJECT_IDENTIFIER).toString());
 		assertEquals(PROJECT_NAWQA_USGS_WI[1], results.get(11).get(ProjectColumn.KEY_PROJECT_IDENTIFIER).toString());
@@ -209,7 +208,7 @@ public class ProjectStreamingIT extends FilteredProjectDaoTest {
 	public void countryTest() {
 		List<Map<String, Object>> results = countryTest(nameSpace, 6);
 		assertContainsProject(results, PROJECT_LAKE_BASELINE_WIDNR_WQX, PROJECT_WR047_WIDNR_WQX, PROJECT_PROJECTID_ORGANIZATION,
-				PROJECT_CEAP_ARS, PROJECT_NAWQA_USGS_WI, PROJECT_SACR_BIOTDB_USGS);
+				PROJECT_CEAP_ARS, PROJECT_NAWQA_USGS_WI, PROJECT_SACR_TDB_USGS);
 	}
 
 	public void countyTest() {
@@ -272,13 +271,13 @@ public class ProjectStreamingIT extends FilteredProjectDaoTest {
 	public void minActivitiesTest() {
 		List<Map<String, Object>> results = minActivitiesTest(nameSpace, 6);
 		assertContainsProject(results, PROJECT_NAWQA_USGS_WI, PROJECT_WR047_WIDNR_WQX, PROJECT_PROJECTID_ORGANIZATION, PROJECT_CEAP_ARS,
-				PROJECT_LAKE_BASELINE_WIDNR_WQX, PROJECT_SACR_BIOTDB_USGS);
+				PROJECT_LAKE_BASELINE_WIDNR_WQX, PROJECT_SACR_TDB_USGS);
 	}
 
 	public void minResultsTest() {
 		List<Map<String, Object>> results = minResultsTest(nameSpace, 6);
 		assertContainsProject(results, PROJECT_NAWQA_USGS_WI, PROJECT_WR047_WIDNR_WQX, PROJECT_PROJECTID_ORGANIZATION, PROJECT_CEAP_ARS,
-				PROJECT_LAKE_BASELINE_WIDNR_WQX, PROJECT_SACR_BIOTDB_USGS);
+				PROJECT_LAKE_BASELINE_WIDNR_WQX, PROJECT_SACR_TDB_USGS);
 	}
 
 	public void nldiSitesTest() {
@@ -289,7 +288,7 @@ public class ProjectStreamingIT extends FilteredProjectDaoTest {
 	public void sampleMediaTest() {
 		List<Map<String, Object>> results = sampleMediaTest(nameSpace, 6);
 		assertContainsProject(results, PROJECT_LAKE_BASELINE_WIDNR_WQX, PROJECT_WR047_WIDNR_WQX, PROJECT_PROJECTID_ORGANIZATION,
-				PROJECT_CEAP_ARS, PROJECT_NAWQA_USGS_WI, PROJECT_SACR_BIOTDB_USGS);
+				PROJECT_CEAP_ARS, PROJECT_NAWQA_USGS_WI, PROJECT_SACR_TDB_USGS);
 	}
 
 	public void siteIdTest() {
@@ -305,19 +304,19 @@ public class ProjectStreamingIT extends FilteredProjectDaoTest {
 	public void siteTypeTest() {
 		List<Map<String, Object>> results = siteTypeTest(nameSpace, 6);
 		assertContainsProject(results, PROJECT_LAKE_BASELINE_WIDNR_WQX, PROJECT_WR047_WIDNR_WQX, PROJECT_PROJECTID_ORGANIZATION,
-				PROJECT_CEAP_ARS, PROJECT_NAWQA_USGS_WI, PROJECT_SACR_BIOTDB_USGS);
+				PROJECT_CEAP_ARS, PROJECT_NAWQA_USGS_WI, PROJECT_SACR_TDB_USGS);
 	}
 
 	public void startDateHiTest() {
 		List<Map<String, Object>> results = startDateHiTest(nameSpace, 6);
 		assertContainsProject(results, PROJECT_LAKE_BASELINE_WIDNR_WQX, PROJECT_WR047_WIDNR_WQX, PROJECT_PROJECTID_ORGANIZATION,
-				PROJECT_CEAP_ARS, PROJECT_NAWQA_USGS_WI, PROJECT_SACR_BIOTDB_USGS);
+				PROJECT_CEAP_ARS, PROJECT_NAWQA_USGS_WI, PROJECT_SACR_TDB_USGS);
 	}
 
 	public void startDateLoTest() {
 		List<Map<String, Object>> results = startDateLoTest(nameSpace, 4);
 		assertContainsProject(results, PROJECT_PROJECTID_ORGANIZATION, PROJECT_CEAP_ARS, PROJECT_NAWQA_USGS_WI,
-				PROJECT_SACR_BIOTDB_USGS);
+				PROJECT_SACR_TDB_USGS);
 	}
 
 	public void stateTest() {
@@ -342,7 +341,7 @@ public class ProjectStreamingIT extends FilteredProjectDaoTest {
 
 	public void assemblageTest() {
 		List<Map<String, Object>> results = assemblageTest(nameSpace, 3);
-		assertContainsProject(results, PROJECT_PROJECTID_ORGANIZATION, PROJECT_EPABEACH_ORGANIZATION, PROJECT_SACR_BIOTDB_USGS);
+		assertContainsProject(results, PROJECT_PROJECTID_ORGANIZATION, PROJECT_EPABEACH_ORGANIZATION, PROJECT_SACR_TDB_USGS);
 	}
 
 	public void characteristicNameTest() {
@@ -362,7 +361,7 @@ public class ProjectStreamingIT extends FilteredProjectDaoTest {
 
 	public void subjectTaxonomicNameTest() {
 		List<Map<String, Object>> results = subjectTaxonomicNameTest(nameSpace, 2);
-		assertContainsProject(results, PROJECT_PROJECTID_ORGANIZATION, PROJECT_SACR_BIOTDB_USGS);
+		assertContainsProject(results, PROJECT_PROJECTID_ORGANIZATION, PROJECT_SACR_TDB_USGS);
 	}
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

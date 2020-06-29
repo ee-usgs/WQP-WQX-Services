@@ -42,6 +42,25 @@
 		"type": "Feature",
 		"geometry": {
 			"type": "Point",
+			"coordinates": [-121.5249647, 39.1757251]
+		},
+		"properties": {
+			"ProviderName": "NWIS",
+			"OrganizationIdentifier": "USGS",
+			"OrganizationFormalName": "",
+			"MonitoringLocationIdentifier": "USGS-11421000",
+			"MonitoringLocationName": "",
+			"MonitoringLocationTypeName": "",
+			"ResolvedMonitoringLocationTypeName": "Stream",
+			"HUCEightDigitCode": "18020107",
+			"siteUrl": "https://www.waterqualitydata.us/data/provider/NWIS/USGS/USGS-11421000/",
+			"activityCount": "1",
+			"resultCount": "1"
+		}
+	}, {
+		"type": "Feature",
+		"geometry": {
+			"type": "Point",
 			"coordinates": [-89.0320546, 43.3466571]
 		},
 		"properties": {
@@ -206,25 +225,6 @@
 			"ResolvedMonitoringLocationTypeName": "siteType",
 			"HUCEightDigitCode": "00000000",
 			"siteUrl": "https://www.waterqualitydata.us/data/provider/STORET/organization/organization-siteId3/",
-			"activityCount": "1",
-			"resultCount": "1"
-		}
-	}, {
-		"type": "Feature",
-		"geometry": {
-			"type": "Point",
-			"coordinates": [-121.5249647, 39.1757251]
-		},
-		"properties": {
-			"ProviderName": "BIODATA",
-			"OrganizationIdentifier": "USGS",
-			"OrganizationFormalName": "",
-			"MonitoringLocationIdentifier": "USGS-11421000",
-			"MonitoringLocationName": "",
-			"MonitoringLocationTypeName": "",
-			"ResolvedMonitoringLocationTypeName": "Stream",
-			"HUCEightDigitCode": "18020107",
-			"siteUrl": "https://www.waterqualitydata.us/data/provider/BIODATA/USGS/USGS-11421000/",
 			"activityCount": "1",
 			"resultCount": "1"
 		}

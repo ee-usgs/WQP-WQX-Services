@@ -1,6 +1,5 @@
 package gov.usgs.wma.wqp.webservice.summary;
 
-import static gov.usgs.wma.wqp.openapi.model.StationCountJson.HEADER_BIODATA_SITE_COUNT;
 import static gov.usgs.wma.wqp.openapi.model.StationCountJson.HEADER_NWIS_SITE_COUNT;
 import static gov.usgs.wma.wqp.openapi.model.StationCountJson.HEADER_STEWARDS_SITE_COUNT;
 import static gov.usgs.wma.wqp.openapi.model.StationCountJson.HEADER_STORET_SITE_COUNT;
@@ -32,8 +31,8 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 
 import gov.usgs.wma.wqp.Application;
 import gov.usgs.wma.wqp.ColumnSensingFlatXMLDataSetLoader;
-import gov.usgs.wma.wqp.dao.summary.SummaryMonitoringLocationStreamingIT;
 import gov.usgs.wma.wqp.mapping.Profile;
+import gov.usgs.wma.wqp.parameter.FilterParameters;
 import gov.usgs.wma.wqp.springinit.DBTestConfig;
 import gov.usgs.wma.wqp.util.HttpConstants;
 import gov.usgs.wma.wqp.webservice.BaseControllerIntegrationTest;
@@ -51,11 +50,10 @@ public class SummaryMonitoringLocationControllerIT extends BaseControllerIntegra
 	protected static final Profile PROFILE = Profile.SUMMARY_MONITORING_LOCATION;	
 	protected static final boolean POSTABLE = true;
 	protected static final String ENDPOINT = HttpConstants.SUMMARY_MONITORING_LOCATION_ENDPOINT
-			+ "?summaryYears=" + SummaryMonitoringLocationStreamingIT.SUMMARY_YEARS_ALL_MONTHS + "&mimeType=";
+			+ "?summaryYears=" + FilterParameters.SUMMARY_YEARS_ALL_MONTHS + "&mimeType=";
 
 	protected static final String TOTAL_SITE_SUM_COUNT = "11";
-	protected static final String BIODATA_SITE_SUM_COUNT = "1";
-	protected static final String NWIS_SITE_SUM_COUNT = "2";
+	protected static final String NWIS_SITE_SUM_COUNT = "3";
 	protected static final String STEWARDS_SITE_SUM_COUNT = "2";
 	protected static final String STORET_SITE_SUM_COUNT = "6";
 
@@ -89,7 +87,6 @@ public class SummaryMonitoringLocationControllerIT extends BaseControllerIntegra
 		String urlPrefix = HttpConstants.SUMMARY_MONITORING_LOCATION_ENDPOINT + "/count?mimeType=";
 		String compareObject = "{\"" + HttpConstants.HEADER_TOTAL_SITE_COUNT + "\":\"" + TOTAL_SITE_SUM_ONE_YEAR_COUNT
 				+ "\",\"" + HEADER_STORET_SITE_COUNT + "\":\"" + STORET_SITE_SUM_ONE_YEAR_COUNT
-				+ "\",\"" + HEADER_BIODATA_SITE_COUNT + "\":\"" + BIODATA_SITE_SUM_COUNT
 				+ "\",\"" + HEADER_NWIS_SITE_COUNT + "\":\"" + NWIS_SITE_SUM_COUNT
 				+ "\",\"" + HEADER_STEWARDS_SITE_COUNT + "\":\"" + STEWARDS_SITE_SUM_COUNT
 				+ "\"}";
@@ -125,8 +122,7 @@ public class SummaryMonitoringLocationControllerIT extends BaseControllerIntegra
 				.andExpect(header().string(HttpConstants.HEADER_TOTAL_SITE_COUNT, TOTAL_SITE_SUM_COUNT))
 				.andExpect(header().string(HEADER_NWIS_SITE_COUNT, NWIS_SITE_SUM_COUNT))
 				.andExpect(header().string(HEADER_STEWARDS_SITE_COUNT, STEWARDS_SITE_SUM_COUNT))
-				.andExpect(header().string(HEADER_STORET_SITE_COUNT, STORET_SITE_SUM_COUNT))
-				.andExpect(header().string(HEADER_BIODATA_SITE_COUNT, BIODATA_SITE_SUM_COUNT));
+				.andExpect(header().string(HEADER_STORET_SITE_COUNT, STORET_SITE_SUM_COUNT));
 	}
 
 	@Override
@@ -135,8 +131,7 @@ public class SummaryMonitoringLocationControllerIT extends BaseControllerIntegra
 				.andExpect(header().string(HttpConstants.HEADER_TOTAL_SITE_COUNT, TOTAL_SITE_SUM_COUNT))
 				.andExpect(header().string(HEADER_NWIS_SITE_COUNT, NWIS_SITE_SUM_COUNT))
 				.andExpect(header().string(HEADER_STEWARDS_SITE_COUNT, STEWARDS_SITE_SUM_COUNT))
-				.andExpect(header().string(HEADER_STORET_SITE_COUNT, STORET_SITE_SUM_COUNT))
-				.andExpect(header().string(HEADER_BIODATA_SITE_COUNT, BIODATA_SITE_SUM_COUNT));
+				.andExpect(header().string(HEADER_STORET_SITE_COUNT, STORET_SITE_SUM_COUNT));
 	}
 
 	@Override
@@ -156,7 +151,7 @@ public class SummaryMonitoringLocationControllerIT extends BaseControllerIntegra
 	protected void getAllParametersTest(String url, String mimeType, String fileType, Profile profile, boolean isPostable) throws Exception {
 		when(fetchService.fetch(any(String.class), any(URL.class))).thenReturn(getNldiSites());
 
-		String filteredUrl = HttpConstants.SUMMARY_MONITORING_LOCATION_ENDPOINT + "?summaryYears=" + SummaryMonitoringLocationStreamingIT.SUMMARY_YEARS_12_MONTHS + "&mimeType=" + GEOJSON;
+		String filteredUrl = HttpConstants.SUMMARY_MONITORING_LOCATION_ENDPOINT + "?summaryYears=" + FilterParameters.SUMMARY_YEARS_12_MONTHS + "&mimeType=" + GEOJSON;
 
 		assertEquals("", filteredHeaderCheck(callMockHead(filteredUrl, mimeType, getContentDisposition(profile, fileType))).andReturn().getResponse().getContentAsString());
 

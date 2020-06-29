@@ -1,6 +1,5 @@
 package gov.usgs.wma.wqp.dao.streaming;
 
-import static gov.usgs.wma.wqp.openapi.model.StationCountJson.BIODATA;
 import static gov.usgs.wma.wqp.openapi.model.StationCountJson.NWIS;
 import static gov.usgs.wma.wqp.openapi.model.StationCountJson.STEWARDS;
 import static gov.usgs.wma.wqp.openapi.model.StationCountJson.STORET;
@@ -50,7 +49,7 @@ public class ProjectMLWeightingStreamingIT extends FilteredProjectDaoTest {
 	public static final String[] STORET_PRJMLW1 = new String[]{STORET, "WR047", "WIDNR_WQX-113086"};
 	public static final String[] STORET_PRJMLW2 = new String[]{STORET, "Lake-BaselineMonitoringDNR", "WIDNR_WQX-113086"};
 	public static final String[] STORET_PRJMLW3 = new String[]{STORET, "SAM", "21NYDECA_WQX-ONTARIO-02"};
-	public static final String[] BIODATA_PRJMLW = new String[]{BIODATA, "SACR BioTDB", "USGS-11421000"};
+	public static final String[] NWIS_PRJMLW = new String[]{NWIS, "SACR TDB", "USGS-11421000"};
 
 	public static final int PRJ_ML_WEIGHTING_COLUMN_COUNT = TestProjectMLWeightingMap.PROJECT_MONITORING_LOCATION_WEIGHTING.keySet().size();
 
@@ -115,7 +114,7 @@ public class ProjectMLWeightingStreamingIT extends FilteredProjectDaoTest {
 
 	public void assemblageTest() {
 		List<Map<String, Object>> results = assemblageTest(nameSpace, 1);
-		assertContainsProjectMLWeightings(results, BIODATA_PRJMLW);
+		assertContainsProjectMLWeightings(results, NWIS_PRJMLW);
 	}
 
 	public void avoidTest() {
@@ -138,7 +137,7 @@ public class ProjectMLWeightingStreamingIT extends FilteredProjectDaoTest {
 
 	public void countryTest() {
 		List<Map<String, Object>> results = countryTest(nameSpace, 6);
-		assertContainsProjectMLWeightings(results, STORET_PRJMLW1,  STORET_PRJMLW2, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2, BIODATA_PRJMLW);
+		assertContainsProjectMLWeightings(results, STORET_PRJMLW1,  STORET_PRJMLW2, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2, NWIS_PRJMLW);
 	}
 
 	public void countyTest() {
@@ -208,12 +207,12 @@ public class ProjectMLWeightingStreamingIT extends FilteredProjectDaoTest {
 
 	public void minActivitiesTest() {
 		List<Map<String, Object>> results = minActivitiesTest(nameSpace, 6);
-		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2, BIODATA_PRJMLW);
+		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2, NWIS_PRJMLW);
 	}
 
 	public void minResultsTest() {
 		List<Map<String, Object>> results = minResultsTest(nameSpace, 6);
-		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2, BIODATA_PRJMLW);
+		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2, NWIS_PRJMLW);
 	}
 
 	public void nldiSitesTest() {
@@ -236,12 +235,12 @@ public class ProjectMLWeightingStreamingIT extends FilteredProjectDaoTest {
 
 	public void projectTest() {
 		List<Map<String, Object>> results = projectTest(nameSpace, 4);
-		assertContainsProjectMLWeightings(results, STEWARDS_PRJMLW, BIODATA_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2);
+		assertContainsProjectMLWeightings(results, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2, NWIS_PRJMLW);
 	}
 
 	public void providersTest() {
 		List<Map<String, Object>> results = providersTest(nameSpace, 6);
-		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, STORET_PRJMLW3, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2);
+		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, STORET_PRJMLW3, NWIS_PRJMLW1, NWIS_PRJMLW2, NWIS_PRJMLW);
 	}
 
 	public void restTest() {
@@ -259,7 +258,7 @@ public class ProjectMLWeightingStreamingIT extends FilteredProjectDaoTest {
 
 	public void sampleMediaTest() {
 		List<Map<String, Object>> results = sampleMediaTest(nameSpace, 6);
-		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2, BIODATA_PRJMLW);
+		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2, NWIS_PRJMLW);
 	}
 
 	public void siteIdTest() {
@@ -274,7 +273,7 @@ public class ProjectMLWeightingStreamingIT extends FilteredProjectDaoTest {
 
 	public void siteTypeTest() {
 		List<Map<String, Object>> results = siteTypeTest(nameSpace, 6);
-		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2, BIODATA_PRJMLW);
+		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2, NWIS_PRJMLW);
 	}
 
 	public void siteUrlBaseTest() {
@@ -286,22 +285,22 @@ public class ProjectMLWeightingStreamingIT extends FilteredProjectDaoTest {
 
 		//Validate order of results.
 		assertProjectMLWeighting(results.get(0), STEWARDS_PRJMLW);
-		assertProjectMLWeighting(results.get(1), NWIS_PRJMLW1);
-		assertProjectMLWeighting(results.get(2), NWIS_PRJMLW2);
-		assertProjectMLWeighting(results.get(3), STORET_PRJMLW3);
-		assertProjectMLWeighting(results.get(4), STORET_PRJMLW2);
-		assertProjectMLWeighting(results.get(5), STORET_PRJMLW1);
-		assertProjectMLWeighting(results.get(6), BIODATA_PRJMLW);
+		assertProjectMLWeighting(results.get(1), NWIS_PRJMLW);
+		assertProjectMLWeighting(results.get(2), NWIS_PRJMLW1);
+		assertProjectMLWeighting(results.get(3), NWIS_PRJMLW2);
+		assertProjectMLWeighting(results.get(4), STORET_PRJMLW3);
+		assertProjectMLWeighting(results.get(5), STORET_PRJMLW2);
+		assertProjectMLWeighting(results.get(6), STORET_PRJMLW1);
 	}
 
 	public void startDateHiTest() {
 		List<Map<String, Object>> results = startDateHiTest(nameSpace, 6);
-		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2, BIODATA_PRJMLW);
+		assertContainsProjectMLWeightings(results, STORET_PRJMLW1, STORET_PRJMLW2, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2, NWIS_PRJMLW);
 	}
 
 	public void startDateLoTest() {
 		List<Map<String, Object>> results = startDateLoTest(nameSpace, 4);
-		assertContainsProjectMLWeightings(results, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2, BIODATA_PRJMLW);
+		assertContainsProjectMLWeightings(results, STEWARDS_PRJMLW, NWIS_PRJMLW1, NWIS_PRJMLW2, NWIS_PRJMLW);
 	}
 
 	public void stateTest() {
@@ -311,7 +310,7 @@ public class ProjectMLWeightingStreamingIT extends FilteredProjectDaoTest {
 
 	public void subjectTaxonomicNameTest() {
 		List<Map<String, Object>> results = subjectTaxonomicNameTest(nameSpace, 1);
-		assertContainsProjectMLWeightings(results, BIODATA_PRJMLW);
+		assertContainsProjectMLWeightings(results, NWIS_PRJMLW);
 	}
 
 	public void withinTest() {

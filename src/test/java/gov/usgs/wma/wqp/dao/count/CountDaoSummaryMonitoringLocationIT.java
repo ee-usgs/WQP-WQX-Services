@@ -18,13 +18,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 @DatabaseSetup("classpath:/testData/station.xml")
 @DbUnitConfiguration(dataSetLoader = ColumnSensingFlatXMLDataSetLoader.class)
 public class CountDaoSummaryMonitoringLocationIT extends BaseStationCountDaoTest {
-	
+
 	protected NameSpace nameSpace = NameSpace.SUMMARY_MONITORING_LOCATION;
-	
+
 	public static final String TOTAL_SITE_SUMMARY_COUNT = "11";
-	public static final String SUMMARY_YEARS_12_MONTHS = "1";
-	public static final String SUMMARY_YEARS_60_MONTHS = "5";
-	public static final String SUMMARY_YEARS_ALL_MONTHS = "all";
 
 	@Test
 	public void testHarness() {
@@ -45,74 +42,74 @@ public class CountDaoSummaryMonitoringLocationIT extends BaseStationCountDaoTest
 		oneYearSummaryTest(nameSpace);
 		fiveYearsSummaryTest(nameSpace);
 	}
-	
+
 	public void bboxTest(NameSpace nameSpace) { 
-		List<Map<String, Object>> counts = bboxTest(nameSpace, 4);
-		assertStationResults(counts, "8", "2", "2", "4", null);
+		List<Map<String, Object>> counts = bboxTest(nameSpace, BASE_HEADER_COUNT);
+		assertStationResults(counts, "8", "2", "2", "4");
 	}
-	
+
 	public void countryTest(NameSpace nameSpace) {
-		List<Map<String, Object>> counts = countryTest(nameSpace, 5);
-		assertStationResults(counts, "10", "2", "2", "5", "1");
+		List<Map<String, Object>> counts = countryTest(nameSpace, BASE_HEADER_COUNT);
+		assertStationResults(counts, "10", "3", "2", "5");
 	}
-	
+
 	public void emptyParameterTest(NameSpace nameSpace) {
-		List<Map<String, Object>> counts = emptyParameterTest(nameSpace, 5);
-		assertStationResults(counts, TOTAL_SITE_SUMMARY_COUNT, "2", "2", "6", "1");
+		List<Map<String, Object>> counts = emptyParameterTest(nameSpace, BASE_HEADER_COUNT);
+		assertStationResults(counts, TOTAL_SITE_SUMMARY_COUNT, "3", "2", "6");
 	}
-	
+
 	public void huc8Test(NameSpace nameSpace) {
 		List<Map<String, Object>> counts = huc8Test(nameSpace, 2);
-		assertStationResults(counts, "1", null, null, "1", null);
+		assertStationResults(counts, "1", null, null, "1");
 	}
-	
+
 	public void mimeTypeSummaryTest(NameSpace nameSpace) {
-		List<Map<String, Object>> counts = mimeTypeJsonTest(nameSpace, 5);
-		assertStationResults(counts, TOTAL_SITE_SUMMARY_COUNT, "2", "2", "6", "1");
-		
-		counts = mimeTypeGeoJsonTest(nameSpace, 5);
-		assertStationResults(counts, TOTAL_SITE_SUMMARY_COUNT, "2", "2", "6", "1");
+		List<Map<String, Object>> counts = mimeTypeJsonTest(nameSpace, BASE_HEADER_COUNT);
+		assertStationResults(counts, TOTAL_SITE_SUMMARY_COUNT, "3", "2", "6");
+
+		counts = mimeTypeGeoJsonTest(nameSpace, BASE_HEADER_COUNT);
+		assertStationResults(counts, TOTAL_SITE_SUMMARY_COUNT, "3", "2", "6");
 	}
-	
+
 	public void nullParameterTest(NameSpace nameSpace) {
-		List<Map<String, Object>> counts = nullParameterTest(nameSpace, 5);
-		assertStationResults(counts, TOTAL_SITE_SUMMARY_COUNT, "2", "2", "6", "1");
+		List<Map<String, Object>> counts = nullParameterTest(nameSpace, BASE_HEADER_COUNT);
+		assertStationResults(counts, TOTAL_SITE_SUMMARY_COUNT, "3", "2", "6");
 	}
-	
+
 	public void organizationTest(NameSpace nameSpace) {
-		List<Map<String, Object>> counts = organizationTest(nameSpace, 4);
-		assertStationResults(counts, "9", "2", "2", "5", null);
+		List<Map<String, Object>> counts = organizationTest(nameSpace, BASE_HEADER_COUNT);
+		assertStationResults(counts, "9", "2", "2", "5");
 	}
-	
+
 	public void providersTest(NameSpace nameSpace) {
-		List<Map<String, Object>> counts = providersTest(nameSpace, 4);
-		assertStationResults(counts, "10", "2", "2", "6", null);
+		List<Map<String, Object>> counts = providersTest(nameSpace, 3);
+		assertStationResults(counts, "9", "3", null, "6");
 	}
-	
+
 	public void siteIdTest(NameSpace nameSpace) {
-		List<Map<String, Object>> counts = siteIdTest(nameSpace, 4);
-		assertStationResults(counts, "8", "2", "2", "4", null);
+		List<Map<String, Object>> counts = siteIdTest(nameSpace, BASE_HEADER_COUNT);
+		assertStationResults(counts, "8", "2", "2", "4");
 	}
-	
+
 	public void siteTypeTest(NameSpace nameSpace) {
-		List<Map<String, Object>> counts = siteTypeTest(nameSpace, 5);
-		assertStationResults(counts, "10", "1", "2", "6", "1");
+		List<Map<String, Object>> counts = siteTypeTest(nameSpace, BASE_HEADER_COUNT);
+		assertStationResults(counts, "10", "2", "2", "6");
 	}
-	
+
 	public void stateTest(NameSpace nameSpace) {
-		List<Map<String, Object>> counts = stateTest(nameSpace, 4);
-		assertStationResults(counts, "9", "2", "2", "5", null);
+		List<Map<String, Object>> counts = stateTest(nameSpace, BASE_HEADER_COUNT);
+		assertStationResults(counts, "9", "2", "2", "5");
 	}
-	
+
 	public void withinTest(NameSpace nameSpace) {
-		List<Map<String, Object>> counts = withinTest(nameSpace, 4);
-		assertStationResults(counts, "9", "2", "2", "5", null);
+		List<Map<String, Object>> counts = withinTest(nameSpace, BASE_HEADER_COUNT);
+		assertStationResults(counts, "9", "2", "2", "5");
 	}
-	
+
 	@Override
 	public List<Map<String, Object>> multipleParameterStationSumTest(NameSpace nameSpace, int expectedSize) {
 		FilterParameters filter = getNoEffectParameters(nameSpace);
-		
+
 		filter.setBBox(getBBox());
 		filter.setCountrycode(getCountry());
 		filter.setCountycode(getCounty());
@@ -130,31 +127,30 @@ public class CountDaoSummaryMonitoringLocationIT extends BaseStationCountDaoTest
 
 		return callDao(nameSpace, expectedSize, filter);
 	}
-	
+
 	public void multipleParameterStationSumTest(NameSpace nameSpace) {
 		List<Map<String, Object>> counts = multipleParameterStationSumTest(nameSpace, 3);
-		assertStationResults(counts, "3", null, "2", "1", null);
+		assertStationResults(counts, "3", null, "2", "1");
 	}
-	
+
 	public List<Map<String, Object>> summaryYearsTest(NameSpace nameSpace, String summaryYears, int expectedSize) {
 		FilterParameters filter = new FilterParameters();
 		filter.setSummaryYears(summaryYears);
 		return callDao(nameSpace, expectedSize, filter);
 	}
-	
+
 	public void allYearsSummaryTest(NameSpace nameSpace) {
-		List<Map<String, Object>> counts = summaryYearsTest(nameSpace, SUMMARY_YEARS_ALL_MONTHS, 5);
-		assertStationResults(counts, TOTAL_SITE_SUMMARY_COUNT, "2", "2", "6", "1");
+		List<Map<String, Object>> counts = summaryYearsTest(nameSpace, FilterParameters.SUMMARY_YEARS_ALL_MONTHS, BASE_HEADER_COUNT);
+		assertStationResults(counts, TOTAL_SITE_SUMMARY_COUNT, "3", "2", "6");
 	}
-	
+
 	public void oneYearSummaryTest(NameSpace nameSpace) {
-		List<Map<String, Object>> counts = summaryYearsTest(nameSpace, SUMMARY_YEARS_12_MONTHS, 5);
-		assertStationResults(counts, "9", "2", "2", "4", "1");
+		List<Map<String, Object>> counts = summaryYearsTest(nameSpace, FilterParameters.SUMMARY_YEARS_12_MONTHS, BASE_HEADER_COUNT);
+		assertStationResults(counts, "9", "3", "2", "4");
 	}
-	
+
 	public void fiveYearsSummaryTest(NameSpace nameSpace) {
-		List<Map<String, Object>> counts = summaryYearsTest(nameSpace, SUMMARY_YEARS_60_MONTHS, 5);
-		assertStationResults(counts, "10", "2", "2", "5", "1");
+		List<Map<String, Object>> counts = summaryYearsTest(nameSpace, FilterParameters.SUMMARY_YEARS_60_MONTHS, BASE_HEADER_COUNT);
+		assertStationResults(counts, "10", "3", "2", "5");
 	}
 }
-	

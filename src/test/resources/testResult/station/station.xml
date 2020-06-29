@@ -32,6 +32,34 @@
     </Organization>
     <Organization>
         <OrganizationDescription>
+            <OrganizationIdentifier>USGS</OrganizationIdentifier>
+        </OrganizationDescription>
+        <MonitoringLocation>
+            <MonitoringLocationIdentity>
+                <MonitoringLocationIdentifier>USGS-11421000</MonitoringLocationIdentifier>
+                <HUCEightDigitCode>18020107</HUCEightDigitCode>
+            </MonitoringLocationIdentity>
+            <MonitoringLocationGeospatial>
+                <CountryCode>US</CountryCode>
+                <StateCode>06</StateCode>
+                <CountyCode>115</CountyCode>
+            </MonitoringLocationGeospatial>
+        </MonitoringLocation>
+        <MonitoringLocation>
+            <MonitoringLocationIdentity>
+                <MonitoringLocationIdentifier>USGS-433830088977331</MonitoringLocationIdentifier>
+                <MonitoringLocationName>a well</MonitoringLocationName>
+                <HUCEightDigitCode>10090003</HUCEightDigitCode>
+            </MonitoringLocationIdentity>
+            <MonitoringLocationGeospatial>
+                <CountryCode>CN</CountryCode>
+                <StateCode>55</StateCode>
+                <CountyCode>013</CountyCode>
+            </MonitoringLocationGeospatial>
+        </MonitoringLocation>
+    </Organization>
+    <Organization>
+        <OrganizationDescription>
             <OrganizationIdentifier>USGS-WI</OrganizationIdentifier>
             <OrganizationFormalName>USGS Wisconsin Water Science Center</OrganizationFormalName>
         </OrganizationDescription>
@@ -312,34 +340,6 @@
                     <MeasureUnitCode>holeDepthUnit</MeasureUnitCode>
                 </WellHoleDepthMeasure>
             </WellInformation>
-        </MonitoringLocation>
-    </Organization>
-    <Organization>
-        <OrganizationDescription>
-            <OrganizationIdentifier>USGS</OrganizationIdentifier>
-        </OrganizationDescription>
-        <MonitoringLocation>
-            <MonitoringLocationIdentity>
-                <MonitoringLocationIdentifier>USGS-11421000</MonitoringLocationIdentifier>
-                <HUCEightDigitCode>18020107</HUCEightDigitCode>
-            </MonitoringLocationIdentity>
-            <MonitoringLocationGeospatial>
-                <CountryCode>US</CountryCode>
-                <StateCode>06</StateCode>
-                <CountyCode>115</CountyCode>
-            </MonitoringLocationGeospatial>
-        </MonitoringLocation>
-        <MonitoringLocation>
-            <MonitoringLocationIdentity>
-                <MonitoringLocationIdentifier>USGS-433830088977331</MonitoringLocationIdentifier>
-                <MonitoringLocationName>a well</MonitoringLocationName>
-                <HUCEightDigitCode>10090003</HUCEightDigitCode>
-            </MonitoringLocationIdentity>
-            <MonitoringLocationGeospatial>
-                <CountryCode>CN</CountryCode>
-                <StateCode>55</StateCode>
-                <CountyCode>013</CountyCode>
-            </MonitoringLocationGeospatial>
         </MonitoringLocation>
     </Organization>
 </WQX>

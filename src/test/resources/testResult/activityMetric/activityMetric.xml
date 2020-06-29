@@ -98,6 +98,42 @@
     </Organization>
     <Organization>
         <OrganizationDescription>
+            <OrganizationIdentifier>USGS</OrganizationIdentifier>
+            <OrganizationFormalName>Wisconsin Department of Natural Resources</OrganizationFormalName>
+        </OrganizationDescription>
+        <Activity>
+            <ActivityDescription>
+                <ActivityIdentifier>activityNwis-4</ActivityIdentifier>
+                <MonitoringLocationIdentifier>USGS-11421000</MonitoringLocationIdentifier>
+            </ActivityDescription>
+            <ActivityMetric>
+                <ActivityMetricType>
+                    <MetricTypeIdentifier>2_4_type_identifier</MetricTypeIdentifier>
+                    <MetricTypeIdentifierContext>2_4_identifier_context</MetricTypeIdentifierContext>
+                    <MetricTypeName>2_4_type_name</MetricTypeName>
+                    <MetricTypeCitation>
+                        <ResourceTitleName>2_4_resource_title</ResourceTitleName>
+                        <ResourceCreatorName>2_4_resource_creator</ResourceCreatorName>
+                        <ResourceSubjectText>2_4_resource_subject</ResourceSubjectText>
+                        <ResourcePublisherName>2_4_resource_publisher</ResourcePublisherName>
+                        <ResourceDate>2_4_resource_data</ResourceDate>
+                        <ResourceIdentifier>2_4_resource_identifier</ResourceIdentifier>
+                    </MetricTypeCitation>
+                    <MetricTypeScaleText>2_4_type_scale</MetricTypeScaleText>
+                    <FormulaDescriptionText>2_4_formula_description</FormulaDescriptionText>
+                </ActivityMetricType>
+                <MetricValueMeasure>
+                    <MeasureValue>2_4_measure_value</MeasureValue>
+                    <MeasureUnitCode>2_4_unit_code</MeasureUnitCode>
+                </MetricValueMeasure>
+                <MetricScoreNumeric>2_4_score</MetricScoreNumeric>
+                <MetricCommentText>2_4_comment_text</MetricCommentText>
+                <IndexIdentifier>2_4_index_identifier</IndexIdentifier>
+            </ActivityMetric>
+        </Activity>
+    </Organization>
+    <Organization>
+        <OrganizationDescription>
             <OrganizationIdentifier>USGS-WI</OrganizationIdentifier>
             <OrganizationFormalName>USGS Wisconsin Water Science Center</OrganizationFormalName>
         </OrganizationDescription>
@@ -768,42 +804,6 @@
                 <MetricScoreNumeric>3_3_score</MetricScoreNumeric>
                 <MetricCommentText>3_3_comment_text</MetricCommentText>
                 <IndexIdentifier>3_3_index_identifier</IndexIdentifier>
-            </ActivityMetric>
-        </Activity>
-    </Organization>
-    <Organization>
-        <OrganizationDescription>
-            <OrganizationIdentifier>USGS</OrganizationIdentifier>
-            <OrganizationFormalName>Wisconsin Department of Natural Resources</OrganizationFormalName>
-        </OrganizationDescription>
-        <Activity>
-            <ActivityDescription>
-                <ActivityIdentifier>activityBiodata-1</ActivityIdentifier>
-                <MonitoringLocationIdentifier>USGS-11421000</MonitoringLocationIdentifier>
-            </ActivityDescription>
-            <ActivityMetric>
-                <ActivityMetricType>
-                    <MetricTypeIdentifier>4_1_type_identifier</MetricTypeIdentifier>
-                    <MetricTypeIdentifierContext>4_1_identifier_context</MetricTypeIdentifierContext>
-                    <MetricTypeName>4_1_type_name</MetricTypeName>
-                    <MetricTypeCitation>
-                        <ResourceTitleName>4_1_resource_title</ResourceTitleName>
-                        <ResourceCreatorName>4_1_resource_creator</ResourceCreatorName>
-                        <ResourceSubjectText>4_1_resource_subject</ResourceSubjectText>
-                        <ResourcePublisherName>4_1_resource_publisher</ResourcePublisherName>
-                        <ResourceDate>4_1_resource_data</ResourceDate>
-                        <ResourceIdentifier>4_1_resource_identifier</ResourceIdentifier>
-                    </MetricTypeCitation>
-                    <MetricTypeScaleText>4_1_type_scale</MetricTypeScaleText>
-                    <FormulaDescriptionText>4_1_formula_description</FormulaDescriptionText>
-                </ActivityMetricType>
-                <MetricValueMeasure>
-                    <MeasureValue>4_1_measure_value</MeasureValue>
-                    <MeasureUnitCode>4_1_unit_code</MeasureUnitCode>
-                </MetricValueMeasure>
-                <MetricScoreNumeric>4_1_score</MetricScoreNumeric>
-                <MetricCommentText>4_1_comment_text</MetricCommentText>
-                <IndexIdentifier>4_1_index_identifier</IndexIdentifier>
             </ActivityMetric>
         </Activity>
     </Organization>

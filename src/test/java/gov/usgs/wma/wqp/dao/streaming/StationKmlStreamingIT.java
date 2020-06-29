@@ -83,9 +83,9 @@ public class StationKmlStreamingIT extends BaseStationStreamingTest {
 		assertRow(results.get(2), STEWARDS_36, expectedColumnCount);
 		assertRow(results.get(3), STEWARDS_46, expectedColumnCount);
 		assertRow(results.get(4), NWIS_1353690, expectedColumnCount);
-		assertRow(results.get(5), BIODATA_61233184, expectedColumnCount);
+		assertRow(results.get(5), NWIS_61233184, expectedColumnCount);
 		assertRow(results.get(6), NWIS_1360035, expectedColumnCount);
-		assertRow(results.get(7), BIODATA_433830088977331, expectedColumnCount);
+		assertRow(results.get(7), NWIS_433830088977331, expectedColumnCount);
 		assertRow(results.get(8), STORET_436723, expectedColumnCount);
 		assertRow(results.get(9), STORET_1383, expectedColumnCount);
 		assertStoret888(expectedMap, results.get(10));

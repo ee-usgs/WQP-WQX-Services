@@ -1,6 +1,5 @@
 package gov.usgs.wma.wqp.webservice;
 
-import static gov.usgs.wma.wqp.openapi.model.OrganizationCountJson.HEADER_BIODATA_ORGANIZATION_COUNT;
 import static gov.usgs.wma.wqp.openapi.model.OrganizationCountJson.HEADER_NWIS_ORGANIZATION_COUNT;
 import static gov.usgs.wma.wqp.openapi.model.OrganizationCountJson.HEADER_STEWARDS_ORGANIZATION_COUNT;
 import static gov.usgs.wma.wqp.openapi.model.OrganizationCountJson.HEADER_STORET_ORGANIZATION_COUNT;
@@ -97,8 +96,7 @@ public class OrganizationControllerIT extends BaseControllerIntegrationTest {
 				.andExpect(header().string(HttpConstants.HEADER_TOTAL_ORGANIZATION_COUNT, TOTAL_ORGANIZATION_COUNT))
 				.andExpect(header().string(HEADER_NWIS_ORGANIZATION_COUNT, NWIS_ORGANIZATION_COUNT))
 				.andExpect(header().string(HEADER_STEWARDS_ORGANIZATION_COUNT, STEWARDS_ORGANIZATION_COUNT))
-				.andExpect(header().string(HEADER_STORET_ORGANIZATION_COUNT, STORET_ORGANIZATION_COUNT))
-				.andExpect(header().string(HEADER_BIODATA_ORGANIZATION_COUNT, BIODATA_ORGANIZATION_COUNT));
+				.andExpect(header().string(HEADER_STORET_ORGANIZATION_COUNT, STORET_ORGANIZATION_COUNT));
 	}
 
 	public ResultActions filteredHeaderCheck(ResultActions resultActions) throws Exception {
