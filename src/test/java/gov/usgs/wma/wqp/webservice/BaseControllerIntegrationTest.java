@@ -42,7 +42,7 @@ public abstract class BaseControllerIntegrationTest extends BaseIT {
 	protected FetchService fetchService;
 
 	@BeforeEach
-	public void setup() {
+	public void setUp() {
 		try {
 			when(codesService.validate(any(Parameters.class), anyString())).thenReturn(true);
 		} catch (WqpException e) {

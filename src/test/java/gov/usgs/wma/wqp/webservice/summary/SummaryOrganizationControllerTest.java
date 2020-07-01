@@ -15,7 +15,7 @@ public class SummaryOrganizationControllerTest {
 	private SummaryOrganizationController summaryOrganizationController; 
     
 	@BeforeEach
-	public void setup() {
+	public void setUp() {
 		summaryOrganizationController = new SummaryOrganizationController(null, null, null, null, null, null);
 		SummaryOrganizationController.remove();
 	}	

@@ -22,7 +22,7 @@ public class ActivityMetricControllerTest {
 	protected ActivityMetricController controller;
 
 	@BeforeEach
-	public void setup() {
+	public void setUp() {
 		controller = new ActivityMetricController(null, null, null, null, null, null, null);
 		ActivityMetricController.remove();
 	}

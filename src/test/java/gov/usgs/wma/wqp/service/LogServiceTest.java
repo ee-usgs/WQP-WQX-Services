@@ -50,7 +50,7 @@ public class LogServiceTest {
 
 	@BeforeEach
 	@SuppressWarnings("unchecked")
-	public void setup() {
+	public void setUp() {
 		MockitoAnnotations.initMocks(this);
 		service = new LogService(logDao);
 		request = new MockHttpServletRequest();

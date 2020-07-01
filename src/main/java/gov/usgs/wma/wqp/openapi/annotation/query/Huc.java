@@ -10,16 +10,17 @@ import java.lang.annotation.Target;
 import gov.usgs.wma.wqp.parameter.FilterParameters;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 @Retention(RUNTIME)
 @Target({ METHOD, ANNOTATION_TYPE })
 @Parameter(
+		name = FilterParameters.HUC_CONST,
 		in = ParameterIn.QUERY,
-		name = FilterParameters.MIMETYPE_CONST,
-		description = "",
-		schema = @Schema(type = "string")
+		description = "One or more two-, four-, six-, or eight-digit Hydrologic Units.",
+		array = @ArraySchema(schema = @Schema(type = "string"))
 		)
-public @interface MimeTypeQuery {
+public @interface Huc {
 
 }

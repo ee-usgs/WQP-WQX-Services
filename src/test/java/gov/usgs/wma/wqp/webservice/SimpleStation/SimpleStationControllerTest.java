@@ -22,7 +22,7 @@ public class SimpleStationControllerTest {
 	protected SimpleStationController controller;
 
 	@BeforeEach
-	public void setup() {
+	public void setUp() {
 		controller = new SimpleStationController(null, null, null, null, null, null, null);
 		SimpleStationController.remove();
 	}

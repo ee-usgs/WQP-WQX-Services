@@ -23,7 +23,7 @@ public class StreamingResultHandlerTest {
 	private ResultContext<Object> context;
 
 	@BeforeEach
-	public void setup() {
+	public void setUp() {
 		MockitoAnnotations.initMocks(this);
 		h = new StreamingResultHandler(t);
 	}

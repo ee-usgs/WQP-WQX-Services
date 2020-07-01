@@ -25,13 +25,22 @@ import gov.usgs.wma.wqp.dao.intfc.IStreamingDao;
 import gov.usgs.wma.wqp.mapping.Profile;
 import gov.usgs.wma.wqp.mapping.delimited.ActivityMetricDelimited;
 import gov.usgs.wma.wqp.mapping.xml.IXmlMapping;
+import gov.usgs.wma.wqp.openapi.ConfigOpenApi;
+import gov.usgs.wma.wqp.openapi.annotation.GetOperation;
+import gov.usgs.wma.wqp.openapi.annotation.HeadOperation;
+import gov.usgs.wma.wqp.openapi.annotation.PostCountOperation;
+import gov.usgs.wma.wqp.openapi.annotation.PostOperation;
+import gov.usgs.wma.wqp.openapi.annotation.path.Activity;
+import gov.usgs.wma.wqp.openapi.annotation.path.Organization;
+import gov.usgs.wma.wqp.openapi.annotation.path.Provider;
+import gov.usgs.wma.wqp.openapi.annotation.query.FullParameterList;
+import gov.usgs.wma.wqp.openapi.annotation.query.MimeTypeJson;
+import gov.usgs.wma.wqp.openapi.annotation.query.MimeTypeStd;
+import gov.usgs.wma.wqp.openapi.annotation.query.Zip;
+import gov.usgs.wma.wqp.openapi.model.ActivityMetricCountJson;
 import gov.usgs.wma.wqp.parameter.FilterParameters;
 import gov.usgs.wma.wqp.service.ConfigurationService;
 import gov.usgs.wma.wqp.service.ILogService;
-import gov.usgs.wma.wqp.openapi.ConfigOpenApi;
-import gov.usgs.wma.wqp.openapi.SwaggerParameters;
-import gov.usgs.wma.wqp.openapi.annotation.FullParameterList;
-import gov.usgs.wma.wqp.openapi.model.ActivityMetricCountJson;
 import gov.usgs.wma.wqp.util.HttpConstants;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -42,7 +51,11 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 @Tag(name=ConfigOpenApi.ACTIVITY_METRIC_TAG_NAME, description=ConfigOpenApi.TAG_DESCRIPTION)
 @RestController
-@RequestMapping(produces={HttpConstants.MIME_TYPE_TSV, HttpConstants.MIME_TYPE_CSV, HttpConstants.MIME_TYPE_XLSX, HttpConstants.MIME_TYPE_XML})
+@RequestMapping(produces={
+		HttpConstants.MIME_TYPE_TSV,
+		HttpConstants.MIME_TYPE_CSV,
+		HttpConstants.MIME_TYPE_XLSX,
+		HttpConstants.MIME_TYPE_XML})
 public class ActivityMetricController extends BaseController {
 
 	protected final IXmlMapping xmlMapping;
@@ -56,37 +69,63 @@ public class ActivityMetricController extends BaseController {
 		xmlMapping = inXmlMapping;
 	}
 
-	@Operation(description="Return appropriate request headers (including anticipated record counts).")
+	@HeadOperation
 	@FullParameterList
+	@MimeTypeStd
 	@RequestMapping(value=HttpConstants.ACTIVITY_METRIC_SEARCH_ENDPOINT, method=RequestMethod.HEAD)
-	public void activityMetricHeadRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter) {
+	public void activityMetricHeadRequest(
+			HttpServletRequest request,
+			HttpServletResponse response,
+			@Parameter(hidden=true) FilterParameters filter
+			) {
 		doHeadRequest(request, response, filter);
 	}
 
-	@Operation(description="Return appropriate request headers (including anticipated record counts) for the specified activity.")
+	@HeadOperation
+	@Provider
+	@Organization
+	@Activity
+	@MimeTypeStd
+	@Zip
 	@RequestMapping(value=HttpConstants.ACTIVITY_METRIC_REST_ENDPOINT, method=RequestMethod.HEAD)
-	public void activityMetricRestHeadRequest(HttpServletRequest request, HttpServletResponse response,
-			@PathVariable("activity") @Parameter(description=SwaggerParameters.ACTIVITY_DESCRIPTION) String activity,
-			@RequestParam(value="mimeType", required=false) String mimeType,
-			@RequestParam(value="zip", required=false) String zip) {
+	public void activityMetricRestHeadRequest(
+			HttpServletRequest request,
+			HttpServletResponse response,
+			@Parameter(hidden=true) @PathVariable("activity") String activity,
+			@Parameter(hidden=true) @RequestParam(value="mimeType", required=false) String mimeType,
+			@Parameter(hidden=true) @RequestParam(value="zip", required=false) String zip
+			) {
 		FilterParameters filter = new FilterParameters();
 		filter.setActivity(activity);
 		doHeadRequest(request, response, filter, mimeType, zip);
 	}
 
-	@Operation(description="Return requested data.")
+	@GetOperation
 	@FullParameterList
+	@MimeTypeStd
 	@GetMapping(value=HttpConstants.ACTIVITY_METRIC_SEARCH_ENDPOINT)
-	public void activityMetricGetRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter) {
+	public void activityMetricGetRequest(
+			HttpServletRequest request,
+			HttpServletResponse response,
+			@Parameter(hidden=true) FilterParameters filter
+			) {
 		doDataRequest(request, response, filter);
 	}
 
-	@Operation(description="Return activity metric information for the specified activity.")
+	@GetOperation
+	@Provider
+	@Organization
+	@Activity
+	@MimeTypeStd
+	@Zip
 	@GetMapping(value=HttpConstants.ACTIVITY_METRIC_REST_ENDPOINT)
-	public void activityMetricGetRestRequest(HttpServletRequest request, HttpServletResponse response,
-			@PathVariable("activity") @Parameter(description=SwaggerParameters.ACTIVITY_DESCRIPTION) String activity,
-			@RequestParam(value="mimeType", required=false) String mimeType,
-			@RequestParam(value="zip", required=false) String zip) {
+	public void activityMetricGetRestRequest(
+			HttpServletRequest request,
+			HttpServletResponse response,
+			@Parameter(hidden=true) @PathVariable("activity") String activity,
+			@Parameter(hidden=true) @RequestParam(value="mimeType", required=false) String mimeType,
+			@Parameter(hidden=true) @RequestParam(value="zip", required=false) String zip
+			) {
 		FilterParameters filter = new FilterParameters();
 		filter.setActivity(activity);
 		//Small dataset, so sorting shouldn't affect response time, but does make testing repeatable/possible.
@@ -94,12 +133,17 @@ public class ActivityMetricController extends BaseController {
 		doDataRequest(request, response, filter, mimeType, zip);
 	}
 
-	@Operation(description="Return requested data. Use when the list of parameter values is too long for a query string.")
+	@PostOperation
+	@MimeTypeStd
+	@Zip
 	@PostMapping(value=HttpConstants.ACTIVITY_METRIC_SEARCH_ENDPOINT, consumes=MediaType.APPLICATION_JSON_VALUE)
-	public void activityMetricJsonPostRequest(HttpServletRequest request, HttpServletResponse response,
-			@RequestParam(value="mimeType", required=false) String mimeType,
-			@RequestParam(value="zip", required=false) String zip,
-			@RequestBody FilterParameters filter) {
+	public void activityMetricJsonPostRequest(
+			HttpServletRequest request,
+			HttpServletResponse response,
+			@Parameter(hidden=true) @RequestParam(value="mimeType", required=false) String mimeType,
+			@Parameter(hidden=true) @RequestParam(value="zip", required=false) String zip,
+			@RequestBody FilterParameters filter
+			) {
 		doDataRequest(request, response, filter, mimeType, zip);
 	}
 
@@ -109,18 +153,22 @@ public class ActivityMetricController extends BaseController {
 		doDataRequest(request, response, filter);
 	}
 
-	@Operation(description="Return anticipated record counts.",
-	responses={
-			@ApiResponse(
-							responseCode="200",
-							description="OK",
-							content=@Content(schema=@Schema(implementation=ActivityMetricCountJson.class)))
-			})
+	@PostCountOperation
+	@MimeTypeJson
+	@Zip
+	@ApiResponse(
+			responseCode="200",
+			description="OK",
+			content=@Content(schema=@Schema(implementation=ActivityMetricCountJson.class))
+			)
 	@PostMapping(value=HttpConstants.ACTIVITY_METRIC_SEARCH_ENDPOINT + "/count", produces=MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, String> activityMetricPostCountRequest(HttpServletRequest request, HttpServletResponse response,
-			@RequestParam(value="mimeType", required=false) String mimeType,
-			@RequestParam(value="zip", required=false) String zip,
-			@RequestBody FilterParameters filter) {
+	public Map<String, String> activityMetricPostCountRequest(
+			HttpServletRequest request,
+			HttpServletResponse response,
+			@Parameter(hidden=true) @RequestParam(value="mimeType", required=false) String mimeType,
+			@Parameter(hidden=true) @RequestParam(value="zip", required=false) String zip,
+			@RequestBody FilterParameters filter
+			) {
 		return doPostCountRequest(request, response, filter, mimeType, zip);
 	}
 

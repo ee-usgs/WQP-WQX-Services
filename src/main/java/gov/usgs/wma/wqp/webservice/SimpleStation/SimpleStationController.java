@@ -26,10 +26,14 @@ import gov.usgs.wma.wqp.parameter.FilterParameters;
 import gov.usgs.wma.wqp.service.ConfigurationService;
 import gov.usgs.wma.wqp.service.ILogService;
 import gov.usgs.wma.wqp.openapi.ConfigOpenApi;
-import gov.usgs.wma.wqp.openapi.annotation.FullParameterList;
+import gov.usgs.wma.wqp.openapi.annotation.GetOperation;
+import gov.usgs.wma.wqp.openapi.annotation.HeadOperation;
+import gov.usgs.wma.wqp.openapi.annotation.query.FullParameterList;
+import gov.usgs.wma.wqp.openapi.annotation.query.MimeTypeStd;
 import gov.usgs.wma.wqp.util.HttpConstants;
 import gov.usgs.wma.wqp.webservice.BaseController;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 /**
@@ -59,17 +63,27 @@ public class SimpleStationController extends BaseController {
 		LOG.trace(getClass().getName());
 	}
 
-	@Operation(description="Return appropriate request headers (including anticipated record counts).")
+	@HeadOperation
 	@FullParameterList
+	@MimeTypeStd
 	@RequestMapping(method=RequestMethod.HEAD)
-	public void simpleStationHeadRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter) {
+	public void simpleStationHeadRequest(
+			HttpServletRequest request,
+			HttpServletResponse response,
+			@Parameter(hidden=true) FilterParameters filter
+			) {
 		doHeadRequest(request, response, filter);
 	}
 
-	@Operation(description="Return requested data.")
+	@GetOperation
 	@FullParameterList
+	@MimeTypeStd
 	@GetMapping()
-	public void simpleStationGetRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter) {
+	public void simpleStationGetRequest(
+			HttpServletRequest request,
+			HttpServletResponse response,
+			@Parameter(hidden=true) FilterParameters filter
+			) {
 		doDataRequest(request, response, filter);
 	}
 

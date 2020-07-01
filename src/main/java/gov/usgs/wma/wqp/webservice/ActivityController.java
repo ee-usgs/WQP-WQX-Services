@@ -19,22 +19,31 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
 import gov.usgs.wma.wqp.dao.intfc.ICountDao;
 import gov.usgs.wma.wqp.dao.intfc.IStreamingDao;
 import gov.usgs.wma.wqp.mapping.Profile;
 import gov.usgs.wma.wqp.mapping.delimited.ActivityDelimited;
 import gov.usgs.wma.wqp.mapping.xml.IXmlMapping;
+import gov.usgs.wma.wqp.openapi.ConfigOpenApi;
+import gov.usgs.wma.wqp.openapi.annotation.ActivityCountResponse;
+import gov.usgs.wma.wqp.openapi.annotation.GetOperation;
+import gov.usgs.wma.wqp.openapi.annotation.HeadOperation;
+import gov.usgs.wma.wqp.openapi.annotation.PostCountOperation;
+import gov.usgs.wma.wqp.openapi.annotation.PostOperation;
+import gov.usgs.wma.wqp.openapi.annotation.query.DataProfileActivity;
+import gov.usgs.wma.wqp.openapi.annotation.query.FullParameterList;
+import gov.usgs.wma.wqp.openapi.annotation.query.MimeTypeJson;
+import gov.usgs.wma.wqp.openapi.annotation.query.MimeTypeStd;
+import gov.usgs.wma.wqp.openapi.annotation.query.Zip;
+import gov.usgs.wma.wqp.openapi.model.ActivityCountJson;
 import gov.usgs.wma.wqp.parameter.FilterParameters;
 import gov.usgs.wma.wqp.service.ConfigurationService;
 import gov.usgs.wma.wqp.service.ILogService;
-import gov.usgs.wma.wqp.openapi.ConfigOpenApi;
-import gov.usgs.wma.wqp.openapi.annotation.FullParameterList;
-import gov.usgs.wma.wqp.openapi.annotation.ProfileParameterActivity;
-import gov.usgs.wma.wqp.openapi.model.ActivityCountJson;
 import gov.usgs.wma.wqp.util.HttpConstants;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
@@ -58,52 +67,68 @@ public class ActivityController extends BaseController {
 		xmlMapping = inXmlMapping;
 	}
 
-	@Operation(description="Return appropriate request headers (including anticipated record counts).")
+	@HeadOperation
 	@FullParameterList
-	@ProfileParameterActivity
+	@DataProfileActivity
+	@MimeTypeStd
 	@RequestMapping(method=RequestMethod.HEAD)
-	public void activityHeadRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter) {
+	public void activityHeadRequest(
+			HttpServletRequest request,
+			HttpServletResponse response,
+			@Parameter(hidden=true) FilterParameters filter
+			) {
 		doHeadRequest(request, response, filter);
 	}
 
-	@Operation(description="Return requested data.")
+	@GetOperation
 	@FullParameterList
-	@ProfileParameterActivity
-	@GetMapping()
-	public void activityGetRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter) {
+	@DataProfileActivity
+	@MimeTypeStd
+	@GetMapping
+	public void activityGetRequest(
+			HttpServletRequest request,
+			HttpServletResponse response,
+			@Parameter(hidden=true) FilterParameters filter
+			) {
 		doDataRequest(request, response, filter);
 	}
 
-	@Operation(description="Return requested data. Use when the list of parameter values is too long for a query string.")
-	@ProfileParameterActivity
+	@PostOperation
+	@MimeTypeStd
+	@Zip
 	@PostMapping(consumes=MediaType.APPLICATION_JSON_VALUE)
-	public void activityJsonPostRequest(HttpServletRequest request, HttpServletResponse response,
-			@RequestParam(value="mimeType", required=false) String mimeType,
-			@RequestParam(value="zip", required=false) String zip,
-			@RequestBody FilterParameters filter) {
+	public void activityJsonPostRequest(
+			HttpServletRequest request,
+			HttpServletResponse response,
+			@Parameter(hidden=true) @RequestParam(value="mimeType", required=false) String mimeType,
+			@Parameter(hidden=true) @RequestParam(value="zip", required=false) String zip,
+			@RequestBody FilterParameters filter
+			) {
 		doDataRequest(request, response, filter, mimeType, zip);
 	}
 
 	@Operation(description="Same as the JSON consumer, but hidden from swagger", hidden=true)
-	@ProfileParameterActivity
 	@PostMapping(consumes=MediaType.APPLICATION_FORM_URLENCODED_VALUE)
 	public void activityFormUrlencodedPostRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter) {
 		doDataRequest(request, response, filter);
 	}
 
-	@Operation(description="Return anticipated record counts.",
-			responses={
-					@ApiResponse(
-									responseCode="200",
-									description="OK",
-									content=@Content(schema=@Schema(implementation=ActivityCountJson.class)))
-					})
-	@ProfileParameterActivity
+	@PostCountOperation
+	@ActivityCountResponse
+	@MimeTypeJson
+	@Zip
+	@ApiResponse(
+			responseCode="200",
+			description="OK",
+			content=@Content(schema=@Schema(implementation=ActivityCountJson.class)))
 	@PostMapping(value="count", consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, String> activityPostCountRequest(HttpServletRequest request, HttpServletResponse response,
-			@RequestParam(value="mimeType", required=false) String mimeType,
-			@RequestParam(value="zip", required=false) String zip,
-			@RequestBody FilterParameters filter) {
+	public Map<String, String> activityPostCountRequest(
+			HttpServletRequest request,
+			HttpServletResponse response,
+			@Parameter(hidden=true) @RequestParam(value="mimeType", required=false) String mimeType,
+			@Parameter(hidden=true) @RequestParam(value="zip", required=false) String zip,
+			@RequestBody FilterParameters filter
+			) {
 		return doPostCountRequest(request, response, filter, mimeType, zip);
 	}
 

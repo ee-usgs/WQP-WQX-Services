@@ -24,15 +24,23 @@ import gov.usgs.wma.wqp.dao.intfc.IStreamingDao;
 import gov.usgs.wma.wqp.mapping.Profile;
 import gov.usgs.wma.wqp.mapping.delimited.PeriodOfRecordDelimited;
 import gov.usgs.wma.wqp.mapping.xml.IXmlMapping;
+import gov.usgs.wma.wqp.openapi.ConfigOpenApi;
+import gov.usgs.wma.wqp.openapi.annotation.GetOperation;
+import gov.usgs.wma.wqp.openapi.annotation.HeadOperation;
+import gov.usgs.wma.wqp.openapi.annotation.PostCountOperation;
+import gov.usgs.wma.wqp.openapi.annotation.PostOperation;
+import gov.usgs.wma.wqp.openapi.annotation.query.MimeTypeCsvGeo;
+import gov.usgs.wma.wqp.openapi.annotation.query.MimeTypeJson;
+import gov.usgs.wma.wqp.openapi.annotation.query.SummaryParameterListMonitoringLocation;
+import gov.usgs.wma.wqp.openapi.annotation.query.Zip;
+import gov.usgs.wma.wqp.openapi.model.StationCountJson;
 import gov.usgs.wma.wqp.parameter.FilterParameters;
 import gov.usgs.wma.wqp.service.ConfigurationService;
 import gov.usgs.wma.wqp.service.ILogService;
-import gov.usgs.wma.wqp.openapi.ConfigOpenApi;
-import gov.usgs.wma.wqp.openapi.annotation.ProfileParameterSummary;
-import gov.usgs.wma.wqp.openapi.model.StationCountJson;
 import gov.usgs.wma.wqp.util.HttpConstants;
 import gov.usgs.wma.wqp.webservice.BaseController;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -44,7 +52,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 	produces={HttpConstants.MIME_TYPE_GEOJSON,
 			HttpConstants.MIME_TYPE_CSV})
 public class SummaryMonitoringLocationController extends BaseController {
-	
+
 	protected final IXmlMapping xmlMapping;
 	protected final IXmlMapping kmlMapping;
 
@@ -64,26 +72,39 @@ public class SummaryMonitoringLocationController extends BaseController {
 		kmlMapping = inKmlMapping;
 	}
 
-	@Operation(description="Return appropriate request headers (including anticipated record counts).")
-	@ProfileParameterSummary
+	@HeadOperation
+	@SummaryParameterListMonitoringLocation
 	@RequestMapping(method=RequestMethod.HEAD)
-	public void summaryMonitoringLocationHeadRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter) {
+	public void summaryMonitoringLocationHeadRequest(
+			HttpServletRequest request,
+			HttpServletResponse response,
+			@Parameter(hidden=true) FilterParameters filter
+			) {
 		doHeadRequest(request, response, filter);
 	}
 
-	@Operation(description="Return requested data.")
-	@ProfileParameterSummary
+	@GetOperation
+	@SummaryParameterListMonitoringLocation
 	@GetMapping()
-	public void summaryMonitoringLocationGetRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter) {
+	public void summaryMonitoringLocationGetRequest(
+			HttpServletRequest request,
+			HttpServletResponse response,
+			@Parameter(hidden=true) FilterParameters filter
+			) {
 		doDataRequest(request, response, filter);
 	}
 
-	@Operation(description="Return requested data. Use when the list of parameter values is too long for a query string.")
+	@PostOperation
+	@MimeTypeCsvGeo
+	@Zip
 	@PostMapping(consumes=MediaType.APPLICATION_JSON_VALUE)
-	public void summaryMonitoringLocationJsonPostRequest(HttpServletRequest request, HttpServletResponse response,
-			@RequestParam(value="mimeType", required=false) String mimeType,
-			@RequestParam(value="zip", required=false) String zip,
-			@RequestBody FilterParameters filter) {
+	public void summaryMonitoringLocationJsonPostRequest(
+			HttpServletRequest request,
+			HttpServletResponse response,
+			@Parameter(hidden=true) @RequestParam(value="mimeType", required=false) String mimeType,
+			@Parameter(hidden=true) @RequestParam(value="zip", required=false) String zip,
+			@RequestBody FilterParameters filter
+			) {
 		doDataRequest(request, response, filter, mimeType, zip);
 	}
 
@@ -93,18 +114,21 @@ public class SummaryMonitoringLocationController extends BaseController {
 		doDataRequest(request, response, filter);
 	}
 
-	@Operation(description="Return anticipated record counts.",
-			responses={
-					@ApiResponse(
-									responseCode="200",
-									description="OK",
-									content=@Content(schema=@Schema(implementation=StationCountJson.class)))
-					})
+	@PostCountOperation
+	@MimeTypeJson
+	@Zip
+	@ApiResponse(
+			responseCode="200",
+			description="OK",
+			content=@Content(schema=@Schema(implementation=StationCountJson.class)))
 	@PostMapping(value="count", produces=MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, String> summaryMonitoringLocationPostCountRequest(HttpServletRequest request, HttpServletResponse response,
-			@RequestParam(value="mimeType", required=false) String mimeType,
-			@RequestParam(value="zip", required=false) String zip,
-			@RequestBody FilterParameters filter) {
+	public Map<String, String> summaryMonitoringLocationPostCountRequest(
+			HttpServletRequest request,
+			HttpServletResponse response,
+			@Parameter(hidden=true) @RequestParam(value="mimeType", required=false) String mimeType,
+			@Parameter(hidden=true) @RequestParam(value="zip", required=false) String zip,
+			@RequestBody FilterParameters filter
+			) {
 		return doPostCountRequest(request, response, filter, mimeType, zip);
 	}
 

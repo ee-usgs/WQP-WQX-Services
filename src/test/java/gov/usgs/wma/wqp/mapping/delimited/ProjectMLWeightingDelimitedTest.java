@@ -10,7 +10,7 @@ import gov.usgs.wma.wqp.mapping.BaseColumn;
 import gov.usgs.wma.wqp.mapping.Profile;
 import gov.usgs.wma.wqp.mapping.ProjectColumn;
 import gov.usgs.wma.wqp.mapping.ProjectMonitoringLocationWeightingColumn;
-import gov.usgs.wma.wqp.mapping.StationColumn;;
+import gov.usgs.wma.wqp.mapping.StationColumn;
 
 public class ProjectMLWeightingDelimitedTest {
 

@@ -22,15 +22,23 @@ import gov.usgs.wma.wqp.dao.intfc.ICountDao;
 import gov.usgs.wma.wqp.dao.intfc.IStreamingDao;
 import gov.usgs.wma.wqp.mapping.Profile;
 import gov.usgs.wma.wqp.mapping.xml.IXmlMapping;
+import gov.usgs.wma.wqp.openapi.ConfigOpenApi;
+import gov.usgs.wma.wqp.openapi.annotation.GetOperation;
+import gov.usgs.wma.wqp.openapi.annotation.HeadOperation;
+import gov.usgs.wma.wqp.openapi.annotation.PostCountOperation;
+import gov.usgs.wma.wqp.openapi.annotation.PostOperation;
+import gov.usgs.wma.wqp.openapi.annotation.post.SummaryParametersPostOrganization;
+import gov.usgs.wma.wqp.openapi.annotation.query.MimeTypeJson;
+import gov.usgs.wma.wqp.openapi.annotation.query.SummaryParameterListOrganization;
+import gov.usgs.wma.wqp.openapi.annotation.query.Zip;
+import gov.usgs.wma.wqp.openapi.model.OrganizationCountJson;
 import gov.usgs.wma.wqp.parameter.FilterParameters;
 import gov.usgs.wma.wqp.service.ConfigurationService;
 import gov.usgs.wma.wqp.service.ILogService;
-import gov.usgs.wma.wqp.openapi.ConfigOpenApi;
-import gov.usgs.wma.wqp.openapi.annotation.ProfileParameterSummaryOrganization;
-import gov.usgs.wma.wqp.openapi.model.StationCountJson;
 import gov.usgs.wma.wqp.util.HttpConstants;
 import gov.usgs.wma.wqp.webservice.BaseController;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -42,63 +50,84 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 	produces={HttpConstants.MIME_TYPE_JSON})
 public class SummaryOrganizationController extends BaseController {
 
-	public SummaryOrganizationController(IStreamingDao inStreamingDao, ICountDao inCountDao, ILogService inLogService, ContentNegotiationStrategy inContentStrategy, Validator inValidator, ConfigurationService configurationService) {
+	public SummaryOrganizationController(IStreamingDao inStreamingDao, ICountDao inCountDao, ILogService inLogService,
+			ContentNegotiationStrategy inContentStrategy, Validator inValidator, ConfigurationService configurationService) {
 	super(inStreamingDao, inCountDao, inLogService, inContentStrategy, inValidator, configurationService);
 	}
 
-	@Operation(description="Return appropriate request headers (including anticipated record counts).")
-	@ProfileParameterSummaryOrganization
+	@HeadOperation
+	@SummaryParameterListOrganization
 	@RequestMapping(method=RequestMethod.HEAD)
-	public void summaryOrganizationRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter) {
-	    doHeadRequest(request, response, filter);
+	public void summaryOrganizationRequest(HttpServletRequest request,
+			HttpServletResponse response,
+			@Parameter(hidden=true) FilterParameters filter
+			) {
+		doHeadRequest(request, response, filter);
 	}
 
-	@Operation(description="Return requested data.")
-	@ProfileParameterSummaryOrganization
+	@GetOperation
+	@SummaryParameterListOrganization
 	@GetMapping()
-	public void summaryOrganizationGetRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter) {
+	public void summaryOrganizationGetRequest(HttpServletRequest request,
+			HttpServletResponse response,
+			@Parameter(hidden=true) FilterParameters filter
+			) {
 		doDataRequest(request, response, filter);
 	}
 
-	@Operation(description="Return requested data. Use when the list of parameter values is too long for a query string.")
+	@PostOperation
+	@MimeTypeJson
+	@Zip
+	@SummaryParametersPostOrganization
 	@PostMapping(consumes=MediaType.APPLICATION_JSON_VALUE)
-	public void summaryOrganizationJsonPostRequest(HttpServletRequest request, HttpServletResponse response,
-			@RequestParam(value="mimeType", required=false) String mimeType,
-			@RequestParam(value="zip", required=false) String zip,
-			@RequestBody FilterParameters filter) {
+	public void summaryOrganizationJsonPostRequest(
+			HttpServletRequest request,
+			HttpServletResponse response,
+			@Parameter(hidden=true) @RequestParam(value="mimeType", required=false) String mimeType,
+			@Parameter(hidden=true) @RequestParam(value="zip", required=false) String zip,
+			@Parameter(hidden=true) @RequestBody FilterParameters filter
+			) {
 		doDataRequest(request, response, filter, mimeType, zip);
 	}
 
 	@Operation(description="Same as the JSON consumer, but hidden from swagger", hidden=true)
 	@PostMapping(consumes=MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-public void summaryOrganizationFormUrlencodedPostRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter) {
+	public void summaryOrganizationFormUrlencodedPostRequest(
+			HttpServletRequest request,
+			HttpServletResponse response,
+			@Parameter(hidden=true) FilterParameters filter
+			) {
 		doDataRequest(request, response, filter);
 	}
 
-	@Operation(description="Return anticipated record counts.",
-			responses={
-					@ApiResponse(
-									responseCode="200",
-									description="OK",
-									content=@Content(schema=@Schema(implementation=StationCountJson.class)))
-					})
+	@PostCountOperation
+	@MimeTypeJson
+	@Zip
+	@SummaryParametersPostOrganization
+	@ApiResponse(
+			responseCode="200",
+			description="OK",
+			content=@Content(schema=@Schema(implementation=OrganizationCountJson.class)))
 	@PostMapping(value="count", produces=MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, String> summaryOrganizationPostCountRequest(HttpServletRequest request, HttpServletResponse response,
-			@RequestParam(value="mimeType", required=false) String mimeType,
-			@RequestParam(value="zip", required=false) String zip,
-			@RequestBody FilterParameters filter) {
+	public Map<String, String> summaryOrganizationPostCountRequest(
+			HttpServletRequest request,
+			HttpServletResponse response,
+			@Parameter(hidden=true) @RequestParam(value="mimeType", required=false) String mimeType,
+			@Parameter(hidden=true) @RequestParam(value="zip", required=false) String zip,
+			@Parameter(hidden=true) @RequestBody FilterParameters filter
+			) {
 		return doPostCountRequest(request, response, filter, mimeType, zip);
 	}
 
-	@Override  
+	@Override
 	protected String addCountHeaders(HttpServletResponse response, List<Map<String, Object>> counts) {
-	addOrganizationHeaders(response, counts);
+		addOrganizationHeaders(response, counts);
 	return HttpConstants.HEADER_TOTAL_ORGANIZATION_COUNT;
 	}
 
-	@Override 
-	protected Profile determineProfile(FilterParameters filter) {	
-	return determineProfile(Profile.SUMMARY_ORGANIZATION, filter);
+	@Override
+	protected Profile determineProfile(FilterParameters filter) {
+		return determineProfile(Profile.SUMMARY_ORGANIZATION, filter);
 	}
 
 	@Override
@@ -108,14 +137,14 @@ public void summaryOrganizationFormUrlencodedPostRequest(HttpServletRequest requ
 
 	@Override
 	protected IXmlMapping getXmlMapping() {
-	return null;
+		return null;
 	}
 
 	@Override
 	protected IXmlMapping getKmlMapping() {
-	return null;
+		return null;
 	}
-	
+
 	@Override
 	protected void addCustomRequestParams() {
 		getFilter().setSiteUrlBase(configurationService.getMyUrlBase());

@@ -27,13 +27,23 @@ import gov.usgs.wma.wqp.dao.intfc.IStreamingDao;
 import gov.usgs.wma.wqp.mapping.Profile;
 import gov.usgs.wma.wqp.mapping.delimited.ProjectMonitoringLocationWeightingDelimited;
 import gov.usgs.wma.wqp.mapping.xml.IXmlMapping;
+import gov.usgs.wma.wqp.openapi.ConfigOpenApi;
+import gov.usgs.wma.wqp.openapi.annotation.ActivityCountResponse;
+import gov.usgs.wma.wqp.openapi.annotation.GetOperation;
+import gov.usgs.wma.wqp.openapi.annotation.HeadOperation;
+import gov.usgs.wma.wqp.openapi.annotation.PostCountOperation;
+import gov.usgs.wma.wqp.openapi.annotation.PostOperation;
+import gov.usgs.wma.wqp.openapi.annotation.path.Organization;
+import gov.usgs.wma.wqp.openapi.annotation.path.ProjectIdentifier;
+import gov.usgs.wma.wqp.openapi.annotation.path.Provider;
+import gov.usgs.wma.wqp.openapi.annotation.query.FullParameterList;
+import gov.usgs.wma.wqp.openapi.annotation.query.MimeTypeJson;
+import gov.usgs.wma.wqp.openapi.annotation.query.MimeTypeStd;
+import gov.usgs.wma.wqp.openapi.annotation.query.Zip;
+import gov.usgs.wma.wqp.openapi.model.ProjectMonitoringLocationWeightingCountJson;
 import gov.usgs.wma.wqp.parameter.FilterParameters;
 import gov.usgs.wma.wqp.service.ConfigurationService;
 import gov.usgs.wma.wqp.service.ILogService;
-import gov.usgs.wma.wqp.openapi.ConfigOpenApi;
-import gov.usgs.wma.wqp.openapi.SwaggerParameters;
-import gov.usgs.wma.wqp.openapi.annotation.FullParameterList;
-import gov.usgs.wma.wqp.openapi.model.ProjectMonitoringLocationWeightingCountJson;
 import gov.usgs.wma.wqp.util.HttpConstants;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -45,13 +55,13 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @Tag(name=ConfigOpenApi.PROJECT_MONITORING_LOCATION_WEIGHTING_TAG_NAME, description=ConfigOpenApi.TAG_DESCRIPTION)
 @RestController
 @RequestMapping(produces={HttpConstants.MIME_TYPE_TSV,
-						  HttpConstants.MIME_TYPE_CSV,
-						  HttpConstants.MIME_TYPE_XLSX,
-						  HttpConstants.MIME_TYPE_XML})
+		HttpConstants.MIME_TYPE_CSV,
+		HttpConstants.MIME_TYPE_XLSX,
+		HttpConstants.MIME_TYPE_XML})
 public class ProjectMonitoringLocationWeightingController extends BaseController {
-	
+
 	protected final IXmlMapping xmlMapping;
-	
+
 	@Autowired
 	public ProjectMonitoringLocationWeightingController(IStreamingDao inStreamingDao, ICountDao inCountDao, ILogService inLogService,
 			@Qualifier("projectMonitoringLocationWeightingWqx") IXmlMapping inXmlMapping,
@@ -61,29 +71,34 @@ public class ProjectMonitoringLocationWeightingController extends BaseController
 		xmlMapping = inXmlMapping;
 	}
 
-	@Operation(description="Return the project monitoring location weightings associated with the specified project and organization.")
-	@GetMapping(value=HttpConstants.PROJECT_MONITORING_LOCATION_WEIGHTING_REST_ENDPOINT)
-	public void projectMonitoringLocationWeightingRestGet(HttpServletRequest request, HttpServletResponse response,
-			@PathVariable("provider") @Parameter(description=SwaggerParameters.PROVIDER_DESCRIPTION) String provider,
-			@PathVariable("organization") String organization,
-			@PathVariable("projectIdentifier") String projectIdentifier,
-			@RequestParam(value="mimeType", required=false) String mimeType,
-			@RequestParam(value="zip", required=false) String zip) throws IOException {
-		FilterParameters filter = new FilterParameters();
-		filter.setProviders(Arrays.asList(provider));
-		filter.setOrganization(Arrays.asList(organization));
-		filter.setProject(Arrays.asList(projectIdentifier));
-		doDataRequest(request, response, filter, mimeType, zip);
+	@HeadOperation
+	@FullParameterList
+	@MimeTypeStd
+	@RequestMapping(value=HttpConstants.PROJECT_MONITORING_LOCATION_WEIGHTING_SEARCH_ENDPOINT, method=RequestMethod.HEAD)
+	public void projectMonitoringLocationWeightingHeadRequest(
+			HttpServletRequest request,
+			HttpServletResponse response,
+			@Parameter(hidden=true) FilterParameters filter
+			) {
+		doHeadRequest(request, response, filter);
 	}
 
-	@Operation(description="Return appropriate request headers (including anticipated record counts) for the project monitoring location weightings associated with the specified project and organization.")
+	@HeadOperation
+	@Provider
+	@Organization
+	@ProjectIdentifier
+	@MimeTypeStd
+	@Zip
 	@RequestMapping(value=HttpConstants.PROJECT_MONITORING_LOCATION_WEIGHTING_REST_ENDPOINT, method=RequestMethod.HEAD)
-	public void projectMonitoringLocationWeightingRestHead(HttpServletRequest request, HttpServletResponse response,
-			@PathVariable("provider") @Parameter(description=SwaggerParameters.PROVIDER_DESCRIPTION) String provider,
-			@PathVariable("organization") String organization, 
-			@PathVariable("projectIdentifier") String projectIdentifier, 
-			@RequestParam(value="mimeType", required=false) String mimeType,
-			@RequestParam(value="zip", required=false) String zip) throws IOException {
+	public void projectMonitoringLocationWeightingRestHead(
+			HttpServletRequest request,
+			HttpServletResponse response,
+			@Parameter(hidden=true) @PathVariable("provider") String provider,
+			@Parameter(hidden=true) @PathVariable("organization") String organization, 
+			@Parameter(hidden=true) @PathVariable("projectIdentifier") String projectIdentifier, 
+			@Parameter(hidden=true) @RequestParam(value="mimeType", required=false) String mimeType,
+			@Parameter(hidden=true) @RequestParam(value="zip", required=false) String zip
+			) throws IOException {
 		FilterParameters filter = new FilterParameters();
 		filter.setProviders(Arrays.asList(provider));
 		filter.setOrganization(Arrays.asList(organization));
@@ -91,46 +106,75 @@ public class ProjectMonitoringLocationWeightingController extends BaseController
 		doHeadRequest(request, response, filter, mimeType, zip);
 	}
 
-	@Operation(description="Return appropriate request headers (including anticipated record counts).")
+	@GetOperation
 	@FullParameterList
-	@RequestMapping(value=HttpConstants.PROJECT_MONITORING_LOCATION_WEIGHTING_SEARCH_ENDPOINT, method=RequestMethod.HEAD)
-	public void projectMonitoringLocationWeightingHeadRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter) {
-		doHeadRequest(request, response, filter);
-	}
-	
-	@Operation(description="Return requested data.")
-	@FullParameterList
+	@MimeTypeStd
 	@GetMapping(value=HttpConstants.PROJECT_MONITORING_LOCATION_WEIGHTING_SEARCH_ENDPOINT)
-	public void projectMonitoringLocationWeightingGetRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter) {
+	public void projectMonitoringLocationWeightingGetRequest(
+			HttpServletRequest request,
+			HttpServletResponse response,
+			@Parameter(hidden=true) FilterParameters filter
+			) {
 		doDataRequest(request, response, filter);
 	}
-	
-	@Operation(description="Return requested data. Use when list of parameters is too long for a query string.")
-	@PostMapping(value=HttpConstants.PROJECT_MONITORING_LOCATION_WEIGHTING_SEARCH_ENDPOINT, consumes=MediaType.APPLICATION_JSON_VALUE)
-	public void projectMonitoringLocationWeightingJsonPostRequest(HttpServletRequest request, HttpServletResponse response,
-			@RequestParam(value="mimeType", required=false) String mimeType,
-			@RequestParam(value="zip", required=false) String zip,
-			@RequestBody FilterParameters filter) {
+
+	@GetOperation
+	@Provider
+	@Organization
+	@ProjectIdentifier
+	@MimeTypeStd
+	@Zip
+	@GetMapping(value=HttpConstants.PROJECT_MONITORING_LOCATION_WEIGHTING_REST_ENDPOINT)
+	public void projectMonitoringLocationWeightingRestGet(
+			HttpServletRequest request,
+			HttpServletResponse response,
+			@Parameter(hidden=true) @PathVariable("provider") String provider,
+			@Parameter(hidden=true) @PathVariable("organization") String organization,
+			@Parameter(hidden=true) @PathVariable("projectIdentifier") String projectIdentifier,
+			@Parameter(hidden=true) @RequestParam(value="mimeType", required=false) String mimeType,
+			@Parameter(hidden=true) @RequestParam(value="zip", required=false) String zip
+			) throws IOException {
+		FilterParameters filter = new FilterParameters();
+		filter.setProviders(Arrays.asList(provider));
+		filter.setOrganization(Arrays.asList(organization));
+		filter.setProject(Arrays.asList(projectIdentifier));
 		doDataRequest(request, response, filter, mimeType, zip);
 	}
-	
+
+	@PostOperation
+	@MimeTypeStd
+	@Zip
+	@PostMapping(value=HttpConstants.PROJECT_MONITORING_LOCATION_WEIGHTING_SEARCH_ENDPOINT, consumes=MediaType.APPLICATION_JSON_VALUE)
+	public void projectMonitoringLocationWeightingJsonPostRequest(
+			HttpServletRequest request,
+			HttpServletResponse response,
+			@Parameter(hidden=true) @RequestParam(value="mimeType", required=false) String mimeType,
+			@Parameter(hidden=true) @RequestParam(value="zip", required=false) String zip,
+			@RequestBody FilterParameters filter
+			) {
+		doDataRequest(request, response, filter, mimeType, zip);
+	}
+
 	@Operation(description="Same as the JSON consumer, but hidden from swagger", hidden=true)
 	@PostMapping(value=HttpConstants.PROJECT_MONITORING_LOCATION_WEIGHTING_SEARCH_ENDPOINT, consumes=MediaType.APPLICATION_FORM_URLENCODED_VALUE)
 	public void projectMonitoringLocationWeightingFormUrlencodedPostRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter) {
 		doDataRequest(request, response, filter);
 	}
-	
-	@Operation(description="Return anticipated record counts.",
-			responses={
-					@ApiResponse(
-									responseCode="200",
-									description="OK",
-									content=@Content(schema=@Schema(implementation=ProjectMonitoringLocationWeightingCountJson.class)))
-					})
+
+	@PostCountOperation
+	@ActivityCountResponse
+	@MimeTypeJson
+	@Zip
+	@ApiResponse(
+			responseCode="200",
+			description="OK",
+			content=@Content(schema=@Schema(implementation=ProjectMonitoringLocationWeightingCountJson.class)))
 	@PostMapping(value=HttpConstants.PROJECT_MONITORING_LOCATION_WEIGHTING_SEARCH_ENDPOINT + "/count", consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, String>  projectMonitoringLocationWeightingPostCountRequest(HttpServletRequest request, HttpServletResponse response,
-			@RequestParam(value="mimeType", required=false) String mimeType,
-			@RequestParam(value="zip", required=false) String zip,
+	public Map<String, String>  projectMonitoringLocationWeightingPostCountRequest(
+			HttpServletRequest request,
+			HttpServletResponse response,
+			@Parameter(hidden=true) @RequestParam(value="mimeType", required=false) String mimeType,
+			@Parameter(hidden=true) @RequestParam(value="zip", required=false) String zip,
 			@RequestBody FilterParameters filter) {
 		return doPostCountRequest(request, response, filter, mimeType, zip);
 	}
@@ -139,7 +183,7 @@ public class ProjectMonitoringLocationWeightingController extends BaseController
 		addProjectMonitoringLocationWeightingHeaders(response, counts);
 		return HttpConstants.HEADER_TOTAL_PROJECT_MONITORING_LOCATION_WEIGHTING_COUNT;
 	}
-	
+
 	@Override
 	protected Profile determineProfile(FilterParameters filter) {
 		return determineProfile(Profile.PROJECT_MONITORING_LOCATION_WEIGHTING, filter);
@@ -159,7 +203,7 @@ public class ProjectMonitoringLocationWeightingController extends BaseController
 	protected IXmlMapping getKmlMapping() {
 		return null;
 	}
-	
+
 	@Override
 	protected void addCustomRequestParams() {
 		getFilter().setSiteUrlBase(configurationService.getMyUrlBase());

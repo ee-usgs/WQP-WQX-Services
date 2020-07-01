@@ -25,7 +25,7 @@ public class EnumLookupValidatorTest extends BaseTest {
 	protected EnumLookupValidator validator;
 
 	@BeforeEach
-	public void setup() {
+	public void setUp() {
 		MockitoAnnotations.initMocks(this);
 		validator = new EnumLookupValidator();
 	}
