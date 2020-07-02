@@ -1,6 +1,7 @@
 # Internet Of Water (IOW) Data Service
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/cacec87c86f341959d2da7f17b59c310)](https://app.codacy.com/app/usgs_wma_dev/WQP-WQX-Services?utm_source=github.com&utm_medium=referral&utm_content=NWQMC/WQP-WQX-Services&utm_campaign=Badge_Grade_Settings)
 [![Build Status](https://travis-ci.org/NWQMC/WQP-WQX-Services.svg?branch=master)](https://travis-ci.org/NWQMC/WQP-WQX-Services)
+[![codecov](https://codecov.io/gh/NWQMC/WQP-WQX-Services/branch/master/graph/badge.svg)](https://codecov.io/gh/NWQMC/WQP-WQX-Services)
 
 Water Quality Portal data streaming service.
 
