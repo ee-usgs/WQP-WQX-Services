@@ -4,4 +4,4 @@ ignore:
   # OAuth config -  Internal WQP is on hold and this is not being used
   - "**/OAuth2ResourceServerConfig.java"
   # Classes used exclusively in defining the openapi
-  - "**/openapi"
+  - "**/openapi*"
