@@ -144,10 +144,10 @@ public class BlobControllerIT extends BaseIT {
 				.replace("{monitoringLocation}", monitoringLocation);
 	}
 
-	protected String buildProjectUrl(String organization, String project) {
+	protected String buildProjectUrl(String organization, String projectIdentifier) {
 		return buildBaseUrl(HttpConstants.PROJECT_FILE_REST_ENDPOINT, organization)
 				.replace("{provider}", getRestProvider()).replace("{organization}", getRestOrganization())
-				.replace("{project}", project);
+				.replace("{projectIdentifier}", projectIdentifier);
 	}
 
 	protected String buildActivityUrl(String organization, String activity) {
