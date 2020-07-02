@@ -26,6 +26,7 @@ import gov.usgs.wma.wqp.openapi.annotation.path.Provider;
 import gov.usgs.wma.wqp.openapi.annotation.path.Result;
 import gov.usgs.wma.wqp.service.ILogService;
 import gov.usgs.wma.wqp.util.HttpConstants;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
@@ -75,7 +76,7 @@ public class BlobController {
 		zipOutputStream.remove();
 	}
 
-	@GetOperation
+	@Operation(description=GetOperation.DEFAULT_DESCRIPTION)
 	@Provider
 	@Organization
 	@MonitoringLocation
@@ -93,7 +94,7 @@ public class BlobController {
 		finishResponse(response, organization, downloadDetails);
 	}
 
-	@GetOperation
+	@Operation(description=GetOperation.DEFAULT_DESCRIPTION)
 	@Provider
 	@Organization
 	@ProjectIdentifier
@@ -111,7 +112,7 @@ public class BlobController {
 		finishResponse(response, organization, downloadDetails);
 	}
 
-	@GetOperation
+	@Operation(description=GetOperation.DEFAULT_DESCRIPTION)
 	@Provider
 	@Organization
 	@Activity
@@ -131,7 +132,7 @@ public class BlobController {
 		finishResponse(response, organization, downloadDetails);
 	}
 
-	@GetOperation
+	@Operation(description=GetOperation.DEFAULT_DESCRIPTION)
 	@Provider
 	@Organization
 	@Activity

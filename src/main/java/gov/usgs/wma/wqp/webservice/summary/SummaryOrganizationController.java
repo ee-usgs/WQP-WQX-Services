@@ -10,7 +10,6 @@ import javax.validation.Validator;
 
 import org.springframework.http.MediaType;
 import org.springframework.web.accept.ContentNegotiationStrategy;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +22,7 @@ import gov.usgs.wma.wqp.dao.intfc.IStreamingDao;
 import gov.usgs.wma.wqp.mapping.Profile;
 import gov.usgs.wma.wqp.mapping.xml.IXmlMapping;
 import gov.usgs.wma.wqp.openapi.ConfigOpenApi;
+import gov.usgs.wma.wqp.openapi.annotation.FormUrlPostOperation;
 import gov.usgs.wma.wqp.openapi.annotation.GetOperation;
 import gov.usgs.wma.wqp.openapi.annotation.HeadOperation;
 import gov.usgs.wma.wqp.openapi.annotation.PostCountOperation;
@@ -55,7 +55,7 @@ public class SummaryOrganizationController extends BaseController {
 	super(inStreamingDao, inCountDao, inLogService, inContentStrategy, inValidator, configurationService);
 	}
 
-	@HeadOperation
+	@Operation(description=HeadOperation.DEFAULT_DESCRIPTION)
 	@SummaryParameterListOrganization
 	@RequestMapping(method=RequestMethod.HEAD)
 	public void summaryOrganizationRequest(HttpServletRequest request,
@@ -65,9 +65,9 @@ public class SummaryOrganizationController extends BaseController {
 		doHeadRequest(request, response, filter);
 	}
 
-	@GetOperation
+	@Operation(description=GetOperation.DEFAULT_DESCRIPTION)
 	@SummaryParameterListOrganization
-	@GetMapping()
+	@RequestMapping(method=RequestMethod.GET)
 	public void summaryOrganizationGetRequest(HttpServletRequest request,
 			HttpServletResponse response,
 			@Parameter(hidden=true) FilterParameters filter
@@ -90,8 +90,7 @@ public class SummaryOrganizationController extends BaseController {
 		doDataRequest(request, response, filter, mimeType, zip);
 	}
 
-	@Operation(description="Same as the JSON consumer, but hidden from swagger", hidden=true)
-	@PostMapping(consumes=MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+	@FormUrlPostOperation
 	public void summaryOrganizationFormUrlencodedPostRequest(
 			HttpServletRequest request,
 			HttpServletResponse response,
@@ -100,10 +99,10 @@ public class SummaryOrganizationController extends BaseController {
 		doDataRequest(request, response, filter);
 	}
 
-	@PostCountOperation
+	@Operation(description=PostCountOperation.DEFAULT_DESCRIPTION)
+	@SummaryParametersPostOrganization
 	@MimeTypeJson
 	@Zip
-	@SummaryParametersPostOrganization
 	@ApiResponse(
 			responseCode="200",
 			description="OK",

@@ -1,12 +1,14 @@
 package gov.usgs.wma.wqp.openapi.annotation.query;
 
-import java.lang.annotation.ElementType;
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
+
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.METHOD)
+@Target({ METHOD, ANNOTATION_TYPE })
 @Analyticalmethod
 //@Assemblage
 //@BBox

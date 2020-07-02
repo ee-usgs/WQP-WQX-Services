@@ -18,7 +18,6 @@ import static gov.usgs.wma.wqp.mapping.delimited.StationDelimited.VALUE_MONITORI
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import gov.usgs.wma.wqp.mapping.ColumnProfile;
 import gov.usgs.wma.wqp.mapping.delimited.BaseDelimited;
 
 public class TestBaseDelimited extends BaseDelimited {

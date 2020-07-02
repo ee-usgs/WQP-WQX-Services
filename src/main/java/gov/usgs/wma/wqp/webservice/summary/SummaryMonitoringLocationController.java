@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
 import org.springframework.web.accept.ContentNegotiationStrategy;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,12 +24,13 @@ import gov.usgs.wma.wqp.mapping.Profile;
 import gov.usgs.wma.wqp.mapping.delimited.PeriodOfRecordDelimited;
 import gov.usgs.wma.wqp.mapping.xml.IXmlMapping;
 import gov.usgs.wma.wqp.openapi.ConfigOpenApi;
+import gov.usgs.wma.wqp.openapi.annotation.FormUrlPostOperation;
 import gov.usgs.wma.wqp.openapi.annotation.GetOperation;
 import gov.usgs.wma.wqp.openapi.annotation.HeadOperation;
 import gov.usgs.wma.wqp.openapi.annotation.PostCountOperation;
 import gov.usgs.wma.wqp.openapi.annotation.PostOperation;
+import gov.usgs.wma.wqp.openapi.annotation.post.SummaryParametersPostMonitoringLocation;
 import gov.usgs.wma.wqp.openapi.annotation.query.MimeTypeCsvGeo;
-import gov.usgs.wma.wqp.openapi.annotation.query.MimeTypeJson;
 import gov.usgs.wma.wqp.openapi.annotation.query.SummaryParameterListMonitoringLocation;
 import gov.usgs.wma.wqp.openapi.annotation.query.Zip;
 import gov.usgs.wma.wqp.openapi.model.StationCountJson;
@@ -72,7 +72,7 @@ public class SummaryMonitoringLocationController extends BaseController {
 		kmlMapping = inKmlMapping;
 	}
 
-	@HeadOperation
+	@Operation(description=HeadOperation.DEFAULT_DESCRIPTION)
 	@SummaryParameterListMonitoringLocation
 	@RequestMapping(method=RequestMethod.HEAD)
 	public void summaryMonitoringLocationHeadRequest(
@@ -83,9 +83,9 @@ public class SummaryMonitoringLocationController extends BaseController {
 		doHeadRequest(request, response, filter);
 	}
 
-	@GetOperation
+	@Operation(description=GetOperation.DEFAULT_DESCRIPTION)
 	@SummaryParameterListMonitoringLocation
-	@GetMapping()
+	@RequestMapping(method=RequestMethod.GET)
 	public void summaryMonitoringLocationGetRequest(
 			HttpServletRequest request,
 			HttpServletResponse response,
@@ -94,40 +94,40 @@ public class SummaryMonitoringLocationController extends BaseController {
 		doDataRequest(request, response, filter);
 	}
 
-	@PostOperation
+	@Operation(description=PostOperation.DEFAULT_DESCRIPTION)
 	@MimeTypeCsvGeo
 	@Zip
+	@SummaryParametersPostMonitoringLocation
 	@PostMapping(consumes=MediaType.APPLICATION_JSON_VALUE)
 	public void summaryMonitoringLocationJsonPostRequest(
 			HttpServletRequest request,
 			HttpServletResponse response,
 			@Parameter(hidden=true) @RequestParam(value="mimeType", required=false) String mimeType,
 			@Parameter(hidden=true) @RequestParam(value="zip", required=false) String zip,
-			@RequestBody FilterParameters filter
+			@Parameter(hidden=true) @RequestBody FilterParameters filter
 			) {
 		doDataRequest(request, response, filter, mimeType, zip);
 	}
 
-	@Operation(description="Same as the JSON consumer, but hidden from swagger", hidden=true)
-	@PostMapping(consumes=MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+	@FormUrlPostOperation
 	public void summaryMonitoringLocationFormUrlencodedPostRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter) {
 		doDataRequest(request, response, filter);
 	}
 
 	@PostCountOperation
-	@MimeTypeJson
+	@MimeTypeCsvGeo
 	@Zip
+	@SummaryParametersPostMonitoringLocation
 	@ApiResponse(
 			responseCode="200",
 			description="OK",
 			content=@Content(schema=@Schema(implementation=StationCountJson.class)))
-	@PostMapping(value="count", produces=MediaType.APPLICATION_JSON_VALUE)
 	public Map<String, String> summaryMonitoringLocationPostCountRequest(
 			HttpServletRequest request,
 			HttpServletResponse response,
 			@Parameter(hidden=true) @RequestParam(value="mimeType", required=false) String mimeType,
 			@Parameter(hidden=true) @RequestParam(value="zip", required=false) String zip,
-			@RequestBody FilterParameters filter
+			@Parameter(hidden=true) @RequestBody FilterParameters filter
 			) {
 		return doPostCountRequest(request, response, filter, mimeType, zip);
 	}

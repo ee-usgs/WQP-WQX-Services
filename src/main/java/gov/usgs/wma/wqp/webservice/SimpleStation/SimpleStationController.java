@@ -12,9 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.accept.ContentNegotiationStrategy;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import gov.usgs.wma.wqp.dao.intfc.ICountDao;
@@ -22,17 +20,15 @@ import gov.usgs.wma.wqp.dao.intfc.IStreamingDao;
 import gov.usgs.wma.wqp.mapping.Profile;
 import gov.usgs.wma.wqp.mapping.delimited.StationDelimited;
 import gov.usgs.wma.wqp.mapping.xml.IXmlMapping;
-import gov.usgs.wma.wqp.parameter.FilterParameters;
-import gov.usgs.wma.wqp.service.ConfigurationService;
-import gov.usgs.wma.wqp.service.ILogService;
 import gov.usgs.wma.wqp.openapi.ConfigOpenApi;
 import gov.usgs.wma.wqp.openapi.annotation.GetOperation;
 import gov.usgs.wma.wqp.openapi.annotation.HeadOperation;
 import gov.usgs.wma.wqp.openapi.annotation.query.FullParameterList;
-import gov.usgs.wma.wqp.openapi.annotation.query.MimeTypeStd;
+import gov.usgs.wma.wqp.parameter.FilterParameters;
+import gov.usgs.wma.wqp.service.ConfigurationService;
+import gov.usgs.wma.wqp.service.ILogService;
 import gov.usgs.wma.wqp.util.HttpConstants;
 import gov.usgs.wma.wqp.webservice.BaseController;
-import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
@@ -65,8 +61,6 @@ public class SimpleStationController extends BaseController {
 
 	@HeadOperation
 	@FullParameterList
-	@MimeTypeStd
-	@RequestMapping(method=RequestMethod.HEAD)
 	public void simpleStationHeadRequest(
 			HttpServletRequest request,
 			HttpServletResponse response,
@@ -77,8 +71,6 @@ public class SimpleStationController extends BaseController {
 
 	@GetOperation
 	@FullParameterList
-	@MimeTypeStd
-	@GetMapping()
 	public void simpleStationGetRequest(
 			HttpServletRequest request,
 			HttpServletResponse response,

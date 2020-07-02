@@ -9,13 +9,9 @@ import javax.validation.Validator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.MediaType;
 import org.springframework.web.accept.ContentNegotiationStrategy;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,21 +21,18 @@ import gov.usgs.wma.wqp.mapping.Profile;
 import gov.usgs.wma.wqp.mapping.delimited.BiologicalMetricDelimited;
 import gov.usgs.wma.wqp.mapping.xml.IXmlMapping;
 import gov.usgs.wma.wqp.openapi.ConfigOpenApi;
+import gov.usgs.wma.wqp.openapi.annotation.FormUrlPostOperation;
 import gov.usgs.wma.wqp.openapi.annotation.GetOperation;
 import gov.usgs.wma.wqp.openapi.annotation.HeadOperation;
 import gov.usgs.wma.wqp.openapi.annotation.PostCountOperation;
 import gov.usgs.wma.wqp.openapi.annotation.PostOperation;
 import gov.usgs.wma.wqp.openapi.annotation.query.FullParameterList;
-import gov.usgs.wma.wqp.openapi.annotation.query.MimeTypeJson;
-import gov.usgs.wma.wqp.openapi.annotation.query.MimeTypeStd;
-import gov.usgs.wma.wqp.openapi.annotation.query.Zip;
 import gov.usgs.wma.wqp.openapi.model.BiologicalMetricCountJson;
 import gov.usgs.wma.wqp.parameter.FilterParameters;
 import gov.usgs.wma.wqp.service.ConfigurationService;
 import gov.usgs.wma.wqp.service.ILogService;
 import gov.usgs.wma.wqp.util.HttpConstants;
 import gov.usgs.wma.wqp.webservice.BaseController;
-import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -68,8 +61,6 @@ public class BiologicalMetricController extends BaseController {
 
 	@HeadOperation
 	@FullParameterList
-	@MimeTypeStd
-	@RequestMapping(method=RequestMethod.HEAD)
 	public void biologicalMetricHeadRequest(
 			HttpServletRequest request, 
 			HttpServletResponse response,
@@ -80,8 +71,6 @@ public class BiologicalMetricController extends BaseController {
 
 	@GetOperation
 	@FullParameterList
-	@MimeTypeStd
-	@GetMapping()
 	public void biologicalMetricGetRequest(
 			HttpServletRequest request,
 			HttpServletResponse response,
@@ -91,39 +80,32 @@ public class BiologicalMetricController extends BaseController {
 	}
 
 	@PostOperation
-	@MimeTypeStd
-	@Zip
-	@PostMapping(consumes=MediaType.APPLICATION_JSON_VALUE)
 	public void biologicalMetricJsonPostRequest(
 			HttpServletRequest request,
 			HttpServletResponse response,
 			@Parameter(hidden=true) @RequestParam(value="mimeType", required=false) String mimeType,
 			@Parameter(hidden=true) @RequestParam(value="zip", required=false) String zip,
-			@RequestBody FilterParameters filter
+			@Parameter(hidden=true) @RequestBody FilterParameters filter
 			) {
 		doDataRequest(request, response, filter, mimeType, zip);
 	}
 
-	@Operation(description="Same as the JSON consumer, but hidden from swagger", hidden=true)
-	@PostMapping(consumes=MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+	@FormUrlPostOperation
 	public void biologicalMetricFormUrlencodedPostRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter) {
 		doDataRequest(request, response, filter);
 	}
 
 	@PostCountOperation
-	@MimeTypeJson
-	@Zip
 	@ApiResponse(
 			responseCode="200",
 			description="OK",
 			content=@Content(schema=@Schema(implementation=BiologicalMetricCountJson.class)))
-	@PostMapping(value="count", produces=MediaType.APPLICATION_JSON_VALUE)
 	public Map<String, String> biologicalMetricPostCountRequest(
 			HttpServletRequest request,
 			HttpServletResponse response,
 			@Parameter(hidden=true) @RequestParam(value="mimeType", required=false) String mimeType,
 			@Parameter(hidden=true) @RequestParam(value="zip", required=false) String zip,
-			@RequestBody FilterParameters filter
+			@Parameter(hidden=true) @RequestBody FilterParameters filter
 			) {
 		return doPostCountRequest(request, response, filter, mimeType, zip);
 	}
