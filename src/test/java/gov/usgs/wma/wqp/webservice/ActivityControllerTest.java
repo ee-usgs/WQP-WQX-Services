@@ -21,7 +21,7 @@ public class ActivityControllerTest {
 	protected ActivityController controller;
 
 	@BeforeEach
-	public void setup() {
+	public void setUp() {
 		controller = new ActivityController(null, null, null, null, null, null, null);
 		ActivityController.remove();
 	}

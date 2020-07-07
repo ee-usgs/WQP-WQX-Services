@@ -18,7 +18,7 @@ public class ProjectMLWeightingControllerTest {
 	protected ProjectMonitoringLocationWeightingController controller;
 
 	@BeforeEach
-	public void setup() {
+	public void setUp() {
 		controller = new ProjectMonitoringLocationWeightingController(null, null, null, null, null, null, null);
 	}
 

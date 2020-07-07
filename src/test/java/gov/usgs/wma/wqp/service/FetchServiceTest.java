@@ -48,7 +48,7 @@ public class FetchServiceTest extends BaseTest {
 	}
 
 	@BeforeEach
-	public void setup() {
+	public void setUp() {
 		MockitoAnnotations.initMocks(this);
 		when(configurationService.getNldiTimeoutMilli()).thenReturn(1);
 		service = new FetchService(configurationService);

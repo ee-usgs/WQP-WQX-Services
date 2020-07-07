@@ -15,11 +15,12 @@ import io.swagger.v3.oas.annotations.media.Schema;
 @Retention(RUNTIME)
 @Target({ METHOD, ANNOTATION_TYPE })
 @Parameter(
-		name = FilterParameters.ZIP_CONST,
+		name = FilterParameters.BBOX_CONST,
 		in = ParameterIn.QUERY,
-		description = "Should the data be compressed. Compression often greatly increases throughput, thus expediting the request.",
+		description = "Western-most longitude, Southern-most latitude, Eastern-most longitude, and Northern-most longitude separated by commas,"
+				+ "expressed in decimal degrees, WGS84, and longitudes west of Greenwich are negative. (Example: bBox=-92.8,44.2,-88.9,46.0)",
 		schema = @Schema(type = "string")
 		)
-public @interface ZipQuery {
+public @interface BBox {
 
 }

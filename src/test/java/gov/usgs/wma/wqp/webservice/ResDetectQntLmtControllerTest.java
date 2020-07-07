@@ -20,7 +20,7 @@ public class ResDetectQntLmtControllerTest {
 	protected ResDetectQntLmtController controller;
 
 	@BeforeEach
-	public void setup() {
+	public void setUp() {
 		controller = new ResDetectQntLmtController(null, null, null, null, null, null, null);
 		ResDetectQntLmtController.remove();
 	}

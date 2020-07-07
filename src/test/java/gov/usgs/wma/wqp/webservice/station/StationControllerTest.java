@@ -22,7 +22,7 @@ public class StationControllerTest {
 	protected StationController controller;
 
 	@BeforeEach
-	public void setup() {
+	public void setUp() {
 		controller = new StationController(null, null, null, null, null, null, null, null);
 		StationController.remove();
 	}

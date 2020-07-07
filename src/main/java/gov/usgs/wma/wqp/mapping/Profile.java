@@ -14,7 +14,7 @@ public enum Profile {
 	STATION ("station", "station", NameSpace.STATION),
 	SIMPLE_STATION ("simplestation", "simplestation", NameSpace.SIMPLE_STATION),
 	SUMMARY_MONITORING_LOCATION ("summaryMonitoringLocation","summarymonitoringlocation", NameSpace.SUMMARY_MONITORING_LOCATION),
-	
+
 	PERIOD_OF_RECORD ("periodOfRecord", "periodofrecord", NameSpace.PERIOD_OF_RECORD),
 
 	PROJECT ("project", "project", NameSpace.PROJECT),
@@ -24,7 +24,7 @@ public enum Profile {
 	ACTIVITY ("activity", "activity", NameSpace.ACTIVITY),
 	ACTIVITY_ALL("activityAll", "activityall", NameSpace.ACTIVITY_ALL),
 	ACTIVITY_METRIC ("activityMetric", "activitymetric", NameSpace.ACTIVITY_METRIC),
-	
+
 	BIOLOGICAL_METRIC ("biologicalMetric", "biologicalmetric", NameSpace.BIOLOGICAL_METRIC),
 
 	BIOLOGICAL ("biological", "biologicalresult", NameSpace.BIOLOGICAL_RESULT),

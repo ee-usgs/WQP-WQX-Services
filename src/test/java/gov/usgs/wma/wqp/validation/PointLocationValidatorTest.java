@@ -29,7 +29,7 @@ public class PointLocationValidatorTest extends BaseTest {
 	PointLocationValidator validator;
 
 	@BeforeEach
-	public void setup() {
+	public void setUp() {
 		validator = new PointLocationValidator();
 		context = new ConstraintValidatorContextImpl(null, PathImpl.createPathFromString("WOW"), null, null);
 	}

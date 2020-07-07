@@ -20,7 +20,7 @@ public class SummaryMonitoringLocationControllerTest {
 	protected SummaryMonitoringLocationController controller;
 
 	@BeforeEach
-	public void setup() {
+	public void setUp() {
 		controller = new SummaryMonitoringLocationController(null, null, null, null, null, null, null, null);
 		SummaryMonitoringLocationController.remove();
 	}

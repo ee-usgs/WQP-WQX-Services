@@ -48,7 +48,7 @@ public class LogDaoIT extends BaseIT {
 	}
 
 	@BeforeEach
-	public void setup() {
+	public void setUp() {
 		parameterMap = new HashMap<>();
 
 		id = 1;

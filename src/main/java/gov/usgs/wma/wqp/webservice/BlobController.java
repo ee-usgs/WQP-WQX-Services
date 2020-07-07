@@ -16,9 +16,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import gov.usgs.wma.wqp.dao.BlobDao;
-import gov.usgs.wma.wqp.service.ILogService;
 import gov.usgs.wma.wqp.openapi.ConfigOpenApi;
-import gov.usgs.wma.wqp.openapi.SwaggerParameters;
+import gov.usgs.wma.wqp.openapi.annotation.GetOperation;
+import gov.usgs.wma.wqp.openapi.annotation.path.Activity;
+import gov.usgs.wma.wqp.openapi.annotation.path.MonitoringLocation;
+import gov.usgs.wma.wqp.openapi.annotation.path.Organization;
+import gov.usgs.wma.wqp.openapi.annotation.path.ProjectIdentifier;
+import gov.usgs.wma.wqp.openapi.annotation.path.Provider;
+import gov.usgs.wma.wqp.openapi.annotation.path.Result;
+import gov.usgs.wma.wqp.service.ILogService;
 import gov.usgs.wma.wqp.util.HttpConstants;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -70,49 +76,74 @@ public class BlobController {
 		zipOutputStream.remove();
 	}
 
-	@Operation(description="Return zipped artifact with all files available for the specified organization/monitoringLocation.")
+	@Operation(description=GetOperation.DEFAULT_DESCRIPTION)
+	@Provider
+	@Organization
+	@MonitoringLocation
 	@GetMapping(value=HttpConstants.MONITORING_LOCATION_FILE_REST_ENDPOINT)
-	public void monitoringLocationBlobFilesGetRestRequest(HttpServletRequest request, HttpServletResponse response,
-			@PathVariable("provider") @Parameter(description=SwaggerParameters.PROVIDER_DESCRIPTION) String provider,
-			@PathVariable("organization") @Parameter(description=SwaggerParameters.ORGANIZATION_DESCRIPTION) String organization,
-			@PathVariable("monitoringLocation") @Parameter(description=SwaggerParameters.MONITORING_LOCATION_DESCRIPTION) String monitoringLocation) throws IOException {
+	public void monitoringLocationBlobFilesGetRestRequest(
+			HttpServletRequest request,
+			HttpServletResponse response,
+			@Parameter(hidden=true) @PathVariable("provider") String provider,
+			@Parameter(hidden=true) @PathVariable("organization") String organization,
+			@Parameter(hidden=true) @PathVariable("monitoringLocation") String monitoringLocation
+			) throws IOException {
 		setupResponse(request, response, MONITORING_LOCATION_FILE);
 		Map<String, Integer> downloadDetails = new HashMap<>();
 		downloadDetails.put(organization, blobDao.getMonitoringLocationFiles(getZipOutputStream(), provider, organization, monitoringLocation));
 		finishResponse(response, organization, downloadDetails);
 	}
 
-	@Operation(description="Return zipped artifact with all files available for the specified organization/project.")
+	@Operation(description=GetOperation.DEFAULT_DESCRIPTION)
+	@Provider
+	@Organization
+	@ProjectIdentifier
 	@GetMapping(value=HttpConstants.PROJECT_FILE_REST_ENDPOINT)
-	public void projectBlobFilesGetRestRequest(HttpServletRequest request, HttpServletResponse response,
-			@PathVariable("provider") @Parameter(description=SwaggerParameters.PROVIDER_DESCRIPTION) String provider,
-			@PathVariable("organization") @Parameter(description=SwaggerParameters.ORGANIZATION_DESCRIPTION) String organization,
-			@PathVariable("project") @Parameter(description=SwaggerParameters.PROJECT_IDENTIFIER_DESCRIPTION) String project) throws IOException {
+	public void projectBlobFilesGetRestRequest(
+			HttpServletRequest request,
+			HttpServletResponse response,
+			@Parameter(hidden=true) @PathVariable("provider") String provider,
+			@Parameter(hidden=true) @PathVariable("organization") String organization,
+			@Parameter(hidden=true) @PathVariable("projectIdentifier") String projectIdentifier
+			) throws IOException {
 		setupResponse(request, response, PROJECT_FILE);
 		Map<String, Integer> downloadDetails = new HashMap<>();
-		downloadDetails.put(organization, blobDao.getProjectFiles(getZipOutputStream(), provider, organization, project));
+		downloadDetails.put(organization, blobDao.getProjectFiles(getZipOutputStream(), provider, organization, projectIdentifier));
 		finishResponse(response, organization, downloadDetails);
 	}
 
-	@Operation(description="Return zipped artifact with all files available for the specified organization/activity/result.")
+	@Operation(description=GetOperation.DEFAULT_DESCRIPTION)
+	@Provider
+	@Organization
+	@Activity
+	@Result
 	@GetMapping(value=HttpConstants.RESULT_FILE_REST_ENDPOINT)
-	public void resultBlobFilesGetRestRequest(HttpServletRequest request, HttpServletResponse response,
-			@PathVariable("provider") @Parameter(description=SwaggerParameters.PROVIDER_DESCRIPTION) String provider,
-			@PathVariable("organization") @Parameter(description=SwaggerParameters.ORGANIZATION_DESCRIPTION) String organization,
-			@PathVariable("activity") @Parameter(description=SwaggerParameters.ACTIVITY_DESCRIPTION) String activity,
-			@PathVariable("result") @Parameter(description=SwaggerParameters.RESULT_DESCRIPTION) String resultId) throws IOException {
+	public void resultBlobFilesGetRestRequest(
+			HttpServletRequest request,
+			HttpServletResponse response,
+			@Parameter(hidden=true) @PathVariable("provider") String provider,
+			@Parameter(hidden=true) @PathVariable("organization") String organization,
+			@Parameter(hidden=true) @PathVariable("activity") String activity,
+			@Parameter(hidden=true) @PathVariable("result") String resultId
+			) throws IOException {
 		setupResponse(request, response, RESULT_FILE);
 		Map<String, Integer> downloadDetails = new HashMap<>();
 		downloadDetails.put(organization, blobDao.getResultFiles(getZipOutputStream(), provider, organization, activity, resultId));
 		finishResponse(response, organization, downloadDetails);
 	}
 
-	@Operation(description="Return zipped artifact with all files available for the specified organization/activity.")
+	@Operation(description=GetOperation.DEFAULT_DESCRIPTION)
+	@Provider
+	@Organization
+	@Activity
 	@GetMapping(value=HttpConstants.ACTIVITY_FILE_REST_ENDPOINT)
-	public void activityBlobFilesGetRestRequest(HttpServletRequest request, HttpServletResponse response,
-			@PathVariable("provider") @Parameter(description=SwaggerParameters.PROVIDER_DESCRIPTION) String provider,
-			@PathVariable("organization") @Parameter(description=SwaggerParameters.ORGANIZATION_DESCRIPTION) String organization,
-			@PathVariable("activity") @Parameter(description=SwaggerParameters.ACTIVITY_DESCRIPTION) String activity) throws IOException {
+	public void activityBlobFilesGetRestRequest(
+			HttpServletRequest request,
+			HttpServletResponse response,
+			@Parameter(hidden=true) @PathVariable("provider") String provider,
+			@Parameter(hidden=true) @PathVariable("organization") String organization,
+			@Parameter(hidden=true) @PathVariable("activity") String activity
+			) throws IOException {
 		setupResponse(request, response, ACTIVITY_FILE);
 		Map<String, Integer> downloadDetails = new HashMap<>();
 		downloadDetails.put(organization, blobDao.getActivityFiles(getZipOutputStream(), provider, organization, activity));

@@ -11,11 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
 import org.springframework.web.accept.ContentNegotiationStrategy;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,14 +22,19 @@ import gov.usgs.wma.wqp.dao.intfc.IStreamingDao;
 import gov.usgs.wma.wqp.mapping.Profile;
 import gov.usgs.wma.wqp.mapping.delimited.ProjectDelimited;
 import gov.usgs.wma.wqp.mapping.xml.IXmlMapping;
+import gov.usgs.wma.wqp.openapi.ConfigOpenApi;
+import gov.usgs.wma.wqp.openapi.annotation.FormUrlPostOperation;
+import gov.usgs.wma.wqp.openapi.annotation.GetOperation;
+import gov.usgs.wma.wqp.openapi.annotation.HeadOperation;
+import gov.usgs.wma.wqp.openapi.annotation.PostCountOperation;
+import gov.usgs.wma.wqp.openapi.annotation.PostOperation;
+import gov.usgs.wma.wqp.openapi.annotation.query.FullParameterList;
+import gov.usgs.wma.wqp.openapi.model.ProjectCountJson;
 import gov.usgs.wma.wqp.parameter.FilterParameters;
 import gov.usgs.wma.wqp.service.ConfigurationService;
 import gov.usgs.wma.wqp.service.ILogService;
-import gov.usgs.wma.wqp.openapi.ConfigOpenApi;
-import gov.usgs.wma.wqp.openapi.annotation.FullParameterList;
-import gov.usgs.wma.wqp.openapi.model.ProjectCountJson;
 import gov.usgs.wma.wqp.util.HttpConstants;
-import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -45,9 +48,9 @@ produces={HttpConstants.MIME_TYPE_TSV,
 		HttpConstants.MIME_TYPE_XLSX,
 		HttpConstants.MIME_TYPE_XML})
 public class ProjectController extends BaseController {
-	
+
 	protected final IXmlMapping xmlMapping;
-	
+
 	@Autowired
 	public ProjectController(IStreamingDao inStreamingDao, ICountDao inCountDao, ILogService inLogService,
 			@Qualifier("projectWqx") IXmlMapping inXmlMapping,
@@ -56,51 +59,59 @@ public class ProjectController extends BaseController {
 		super(inStreamingDao, inCountDao, inLogService, inContentStrategy, validator, configurationService);
 		xmlMapping = inXmlMapping;
 	}
-	
-	@Operation(description="Return appropriate request headers (including anticipated record counts).")
+
+	@HeadOperation
 	@FullParameterList
-	@RequestMapping(method=RequestMethod.HEAD)
-	public void projectHeadRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter) {
+	public void projectHeadRequest(
+			HttpServletRequest request,
+			HttpServletResponse response,
+			@Parameter(hidden=true) FilterParameters filter
+			) {
 		doHeadRequest(request, response, filter);
 	}
-	
-	@Operation(description="Return requested data.")
+
+	@GetOperation
 	@FullParameterList
-	@GetMapping()
-	public void projectGetRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter) {
+	public void projectGetRequest(
+			HttpServletRequest request,
+			HttpServletResponse response,
+			@Parameter(hidden=true) FilterParameters filter
+			) {
 		doDataRequest(request, response, filter);
 	}
-	
-	@Operation(description="Return requested data. Use when list of parameters is too long for a query string.")
-	@PostMapping(consumes=MediaType.APPLICATION_JSON_VALUE)
-	public void projectJsonPostRequest(HttpServletRequest request, HttpServletResponse response,
-			@RequestParam(value="mimeType", required=false) String mimeType,
-			@RequestParam(value="zip", required=false) String zip,
-			@RequestBody FilterParameters filter) {
+
+	@PostOperation
+	public void projectJsonPostRequest(
+			HttpServletRequest request,
+			HttpServletResponse response,
+			@Parameter(hidden=true) @RequestParam(value="mimeType", required=false) String mimeType,
+			@Parameter(hidden=true) @RequestParam(value="zip", required=false) String zip,
+			@Parameter(hidden=true) @RequestBody FilterParameters filter
+			) {
 		doDataRequest(request, response, filter, mimeType, zip);
 	}
-	
-	@Operation(description="Same as the JSON consumer, but hidden from swagger", hidden=true)
+
+	@FormUrlPostOperation
 	@PostMapping(consumes=MediaType.APPLICATION_FORM_URLENCODED_VALUE)
 	public void activityFormUrlencodedPostRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter) {
 		doDataRequest(request, response, filter);
 	}
-	
-	@Operation(description="Return anticipated record counts.",
-			responses={
-					@ApiResponse(
-									responseCode="200",
-									description="OK",
-									content=@Content(schema=@Schema(implementation=ProjectCountJson.class)))
-					})
-	@PostMapping(value="count", consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, String> projectPostCountRequest(HttpServletRequest request, HttpServletResponse response,
-			@RequestParam(value="mimeType", required=false) String mimeType,
-			@RequestParam(value="zip", required=false) String zip,
-			@RequestBody FilterParameters filter) {
+
+	@PostCountOperation
+	@ApiResponse(
+			responseCode="200",
+			description="OK",
+			content=@Content(schema=@Schema(implementation=ProjectCountJson.class)))
+	public Map<String, String> projectPostCountRequest(
+			HttpServletRequest request,
+			HttpServletResponse response,
+			@Parameter(hidden=true) @RequestParam(value="mimeType", required=false) String mimeType,
+			@Parameter(hidden=true) @RequestParam(value="zip", required=false) String zip,
+			@Parameter(hidden=true) @RequestBody FilterParameters filter
+			) {
 		return doPostCountRequest(request, response, filter, mimeType, zip);
 	}
-	
+
 	protected String addCountHeaders(HttpServletResponse response, List<Map<String, Object>> counts) {
 		addProjectHeaders(response, counts);
 		return HttpConstants.HEADER_TOTAL_PROJECT_COUNT;
@@ -125,11 +136,9 @@ public class ProjectController extends BaseController {
 	protected IXmlMapping getKmlMapping() {
 		return null;
 	}
-	
+
 	@Override
 	protected void addCustomRequestParams() {
 		getFilter().setSiteUrlBase(configurationService.getMyUrlBase());
 	}
 }
-
-

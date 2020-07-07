@@ -18,7 +18,7 @@ public class ProjectControllerTest {
 	protected ProjectController controller;
 
 	@BeforeEach
-	public void setup() {
+	public void setUp() {
 		controller = new ProjectController(null, null, null, null, null, null, null);
 	}
 

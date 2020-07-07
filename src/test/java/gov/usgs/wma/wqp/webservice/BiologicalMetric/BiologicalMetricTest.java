@@ -18,7 +18,7 @@ public class BiologicalMetricTest {
 	protected BiologicalMetricController controller;
 
 	@BeforeEach
-	public void setup() {
+	public void setUp() {
 		controller = new BiologicalMetricController(null, null, null, null, null, null, null);
 		BiologicalMetricController.remove();
 	}

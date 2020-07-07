@@ -15,11 +15,11 @@ import io.swagger.v3.oas.annotations.media.Schema;
 @Retention(RUNTIME)
 @Target({ METHOD, ANNOTATION_TYPE })
 @Parameter(
+		name = FilterParameters.NLDIURL_CONST,
 		in = ParameterIn.QUERY,
-		name = FilterParameters.SUMMARY_YEARS_CONST,
-		description = "",
+		description = "The navigation query from NLDI for a list of sites to select data from.",
 		schema = @Schema(type = "string")
 		)
-public @interface SummayYearsQuery {
+public @interface Nldiurl {
 
 }

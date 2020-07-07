@@ -1,4 +1,4 @@
-package gov.usgs.wma.wqp.openapi.annotation.query;
+package gov.usgs.wma.wqp.openapi.annotation.path;
 
 import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.METHOD;
@@ -15,11 +15,12 @@ import io.swagger.v3.oas.annotations.media.Schema;
 @Retention(RUNTIME)
 @Target({ METHOD, ANNOTATION_TYPE })
 @Parameter(
-		in = ParameterIn.QUERY,
+		in = ParameterIn.PATH,
 		name = FilterParameters.ORGANIZATION_CONST,
-		description = "",
-		schema = @Schema(type = "string")
-		)
-public @interface OrganizationQuery {
+		description = "Case-sensitive Organization Identifier.",
+		schema = @Schema(type = "string"),
+		required = true
+)
+public @interface Organization {
 
 }

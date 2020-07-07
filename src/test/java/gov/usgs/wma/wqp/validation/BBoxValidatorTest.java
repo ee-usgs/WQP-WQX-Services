@@ -21,7 +21,7 @@ public class BBoxValidatorTest extends BaseTest {
 	protected BBoxValidator validator;
 
 	@BeforeEach
-	public void setup() {
+	public void setUp() {
 		MockitoAnnotations.initMocks(this);
 		validator = new BBoxValidator();
 	}

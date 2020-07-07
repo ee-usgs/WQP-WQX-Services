@@ -38,7 +38,8 @@ public class RedirectController {
 	@GetMapping(value="/swagger")
 	@Hidden
 	public RedirectView getSwagger() {
-		return new RedirectView(configurationService.getMyUrlBase() + "/swagger-ui/index.html?url="
-									+ configurationService.getSwaggerApiDocsUrl(), true, true);
+		return new RedirectView(configurationService.getMyUrlBase()
+				+ "/swagger-ui/index.html?docExpansion=none&url="
+				+ configurationService.getSwaggerApiDocsUrl(), true, true);
 	}
 }

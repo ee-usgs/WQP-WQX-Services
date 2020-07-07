@@ -53,7 +53,7 @@ public class MapToDelimitedTransformer extends Transformer {
 			}
 			String value = getStringValue(result.get(col));
 			if (null != value) {
-				writeToStream(encode(value.toString()));
+				writeToStream(encode(value));
 			}
 		}
 	}

@@ -23,7 +23,7 @@ public class ResultControllerTest extends BaseTest {
 	protected ResultController controller;
 
 	@BeforeEach
-	public void setup() {
+	public void setUp() {
 		controller = new ResultController(null, null, null, null, null, null, null);
 		ResultController.remove();
 	}

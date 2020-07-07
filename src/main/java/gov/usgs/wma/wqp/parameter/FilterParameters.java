@@ -76,6 +76,8 @@ public class FilterParameters {
 	public static final String ORGANIZATION_CONST = "organization";
 	public static final String P_CODE_CONST = "pCode";
 	public static final String PROJECT_CONST = "project";
+	public static final String PROJECT_IDENTIFIER_CONST = "projectIdentifier";
+	public static final String PROVIDER_CONST = "provider";
 	public static final String PROVIDERS_CONST = "providers";
 	public static final String RESULT_CONST = "result";
 	public static final String SAMPLE_MEDIA_CONST = "sampleMedia";

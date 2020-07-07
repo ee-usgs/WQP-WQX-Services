@@ -27,7 +27,7 @@ public class CodesServiceTest extends BaseTest {
 	private static final String BASE_URL = "https://wqp.codes.usgs.gov/codes/";
 
 	@BeforeEach
-	public void setup() {
+	public void setUp() {
 		MockitoAnnotations.initMocks(this);
 	}
 

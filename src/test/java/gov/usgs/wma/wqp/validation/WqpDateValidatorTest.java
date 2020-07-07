@@ -23,7 +23,7 @@ public class WqpDateValidatorTest extends BaseTest {
 	protected WqpDateValidator validator;
 
 	@BeforeEach
-	public void setup() {
+	public void setUp() {
 		MockitoAnnotations.initMocks(this);
 		when(wqpDate.formatString()).thenReturn(FilterParameters.FORMAT_DATE);
 		validator = new WqpDateValidator();

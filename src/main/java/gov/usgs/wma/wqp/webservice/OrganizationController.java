@@ -9,13 +9,9 @@ import javax.validation.Validator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.MediaType;
 import org.springframework.web.accept.ContentNegotiationStrategy;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,14 +20,19 @@ import gov.usgs.wma.wqp.dao.intfc.IStreamingDao;
 import gov.usgs.wma.wqp.mapping.Profile;
 import gov.usgs.wma.wqp.mapping.delimited.OrganizationDelimited;
 import gov.usgs.wma.wqp.mapping.xml.IXmlMapping;
+import gov.usgs.wma.wqp.openapi.ConfigOpenApi;
+import gov.usgs.wma.wqp.openapi.annotation.FormUrlPostOperation;
+import gov.usgs.wma.wqp.openapi.annotation.GetOperation;
+import gov.usgs.wma.wqp.openapi.annotation.HeadOperation;
+import gov.usgs.wma.wqp.openapi.annotation.PostCountOperation;
+import gov.usgs.wma.wqp.openapi.annotation.PostOperation;
+import gov.usgs.wma.wqp.openapi.annotation.query.FullParameterList;
+import gov.usgs.wma.wqp.openapi.model.OrganizationCountJson;
 import gov.usgs.wma.wqp.parameter.FilterParameters;
 import gov.usgs.wma.wqp.service.ConfigurationService;
 import gov.usgs.wma.wqp.service.ILogService;
-import gov.usgs.wma.wqp.openapi.ConfigOpenApi;
-import gov.usgs.wma.wqp.openapi.annotation.FullParameterList;
-import gov.usgs.wma.wqp.openapi.model.OrganizationCountJson;
 import gov.usgs.wma.wqp.util.HttpConstants;
-import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -57,47 +58,54 @@ public class OrganizationController extends BaseController {
 		xmlMapping = inXmlMapping;
 	}
 
-	@Operation(description="Return appropriate request headers (including anticipated record counts).")
+	@HeadOperation
 	@FullParameterList
-	@RequestMapping(method=RequestMethod.HEAD)
-	public void organizationHeadRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter) {
+	public void organizationHeadRequest(
+			HttpServletRequest request,
+			HttpServletResponse response,
+			@Parameter(hidden=true) FilterParameters filter
+			) {
 		doHeadRequest(request, response, filter);
 	}
 
-	@Operation(description="Return requested data.")
+	@GetOperation
 	@FullParameterList
-	@GetMapping()
-	public void organizationGetRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter) {
+	public void organizationGetRequest(
+			HttpServletRequest request,
+			HttpServletResponse response,
+			@Parameter(hidden=true) FilterParameters filter
+			) {
 		doDataRequest(request, response, filter);
 	}
 
-	@Operation(description="Return requested data. Use when list of parameters is too long for a query string.")
-	@PostMapping(consumes=MediaType.APPLICATION_JSON_VALUE)
-	public void organizationJsonPostRequest(HttpServletRequest request, HttpServletResponse response,
-			@RequestParam(value="mimeType", required=false) String mimeType,
-			@RequestParam(value="zip", required=false) String zip,
-			@RequestBody FilterParameters filter) {
+	@PostOperation
+	public void organizationJsonPostRequest(
+			HttpServletRequest request,
+			HttpServletResponse response,
+			@Parameter(hidden=true) @RequestParam(value="mimeType", required=false) String mimeType,
+			@Parameter(hidden=true) @RequestParam(value="zip", required=false) String zip,
+			@Parameter(hidden=true) @RequestBody FilterParameters filter
+			) {
 		doDataRequest(request, response, filter, mimeType, zip);
 	}
 
-	@Operation(description="Same as the JSON consumer, but hidden from swagger", hidden=true)
-	@PostMapping(consumes=MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+	@FormUrlPostOperation
 	public void activityFormUrlencodedPostRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter) {
 		doDataRequest(request, response, filter);
 	}
 
-	@Operation(description="Return anticipated record counts.",
-			responses={
-					@ApiResponse(
-									responseCode="200",
-									description="OK",
-									content=@Content(schema=@Schema(implementation=OrganizationCountJson.class)))
-	})
-	@PostMapping(value="count", consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, String> organizationPostCountRequest(HttpServletRequest request, HttpServletResponse response,
-			@RequestParam(value="mimeType", required=false) String mimeType,
-			@RequestParam(value="zip", required=false) String zip,
-			@RequestBody FilterParameters filter) {
+	@PostCountOperation
+	@ApiResponse(
+			responseCode="200",
+			description="OK",
+			content=@Content(schema=@Schema(implementation=OrganizationCountJson.class)))
+	public Map<String, String> organizationPostCountRequest(
+			HttpServletRequest request,
+			HttpServletResponse response,
+			@Parameter(hidden=true) @RequestParam(value="mimeType", required=false) String mimeType,
+			@Parameter(hidden=true) @RequestParam(value="zip", required=false) String zip,
+			@Parameter(hidden=true) @RequestBody FilterParameters filter
+			) {
 		return doPostCountRequest(request, response, filter, mimeType, zip);
 	}
 

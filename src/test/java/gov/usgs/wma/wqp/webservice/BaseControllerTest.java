@@ -131,7 +131,7 @@ public class BaseControllerTest {
 	private MockHttpServletRequest request;
 
 	@BeforeEach
-	public void setup() {
+	public void setUp() {
 		MockitoAnnotations.initMocks(this);
 		testController = new TestBaseController(streamingDao, countDao, logService, contentStrategy, validator, configurationService);
 		request = new MockHttpServletRequest();

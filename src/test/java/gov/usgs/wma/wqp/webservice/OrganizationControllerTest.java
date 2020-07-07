@@ -18,7 +18,7 @@ public class OrganizationControllerTest {
 	protected OrganizationController controller;
 
 	@BeforeEach
-	public void setup() {
+	public void setUp() {
 		controller = new OrganizationController(null, null, null, null, null, null, null);
 	}
 

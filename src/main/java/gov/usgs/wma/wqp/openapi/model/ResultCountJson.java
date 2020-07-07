@@ -9,17 +9,14 @@ public class ResultCountJson extends ActivityCountJson {
 	public static final String HEADER_NWIS_RESULT_COUNT = NWIS + HttpConstants.HEADER_DELIMITER + HttpConstants.HEADER_RESULT_COUNT;
 	public static final String HEADER_STEWARDS_RESULT_COUNT = STEWARDS + HttpConstants.HEADER_DELIMITER + HttpConstants.HEADER_RESULT_COUNT;
 	public static final String HEADER_STORET_RESULT_COUNT = STORET + HttpConstants.HEADER_DELIMITER + HttpConstants.HEADER_RESULT_COUNT;
-	public static final String HEADER_BIODATA_RESULT_COUNT = BIODATA + HttpConstants.HEADER_DELIMITER + HttpConstants.HEADER_RESULT_COUNT;
 
 	@JsonProperty(HttpConstants.HEADER_TOTAL_RESULT_COUNT)
-	String totalResultCount;
+	public String totalResultCount;
 	@JsonProperty(HEADER_NWIS_RESULT_COUNT)
-	String nwisResultCount;
+	public String nwisResultCount;
 	@JsonProperty(HEADER_STEWARDS_RESULT_COUNT)
-	String stewardsResultCount;
+	public String stewardsResultCount;
 	@JsonProperty(HEADER_STORET_RESULT_COUNT)
-	String storetResultCount;
-	@JsonProperty(HEADER_BIODATA_RESULT_COUNT)
-	String biodataResultCount;
+	public String storetResultCount;
 
 }

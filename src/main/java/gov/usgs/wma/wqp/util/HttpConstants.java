@@ -45,7 +45,7 @@ public class HttpConstants {
 	public static final String ACTIVITY_REST_ENDPOINT = ORGANIZATION_REST_ENDPOINT + "/activities/{activity}";
 	public static final String ACTIVITY_METRIC_REST_ENDPOINT = ACTIVITY_REST_ENDPOINT + "/activitymetrics";
 
-	public static final String PROJECT_FILE_REST_ENDPOINT = ORGANIZATION_REST_ENDPOINT + "/projects/{project}" + ENDPOINT_FILE;
+	public static final String PROJECT_FILE_REST_ENDPOINT = ORGANIZATION_REST_ENDPOINT + "/projects/{projectIdentifier}" + ENDPOINT_FILE;
 	public static final String ACTIVITY_FILE_REST_ENDPOINT = ACTIVITY_REST_ENDPOINT + ENDPOINT_FILE;
 
 	public static final String RESULT_REST_ENDPOINT = ACTIVITY_REST_ENDPOINT + "/results/{result}";

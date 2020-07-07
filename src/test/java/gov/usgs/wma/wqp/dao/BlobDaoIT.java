@@ -93,7 +93,7 @@ public class BlobDaoIT extends BaseIT {
 	@Autowired
 	BlobDao blobDao;
 
-	public void setup() {
+	public void setUp() {
 		response = new ByteArrayOutputStream();
 		target = new ZipOutputStream(response);
 	}
@@ -112,7 +112,7 @@ public class BlobDaoIT extends BaseIT {
 
 	public void singleFileStationTest() {
 		try {
-			setup();
+			setUp();
 			assertEquals(1, blobDao.getMonitoringLocationFiles(target, getRestProvider(), SINGLE_FILE_STATION_ORG, SINGLE_FILE_STATION_STATION));
 			ZipInputStream stream = getStream(response);
 			assertSingleFileStation(stream);
@@ -123,7 +123,7 @@ public class BlobDaoIT extends BaseIT {
 
 	public void threeFileStationTest() {
 		try {
-			setup();
+			setUp();
 			assertEquals(3, blobDao.getMonitoringLocationFiles(target, getRestProvider(), THREE_FILE_STATION_ORG, THREE_FILE_STATION_STATION));
 			ZipInputStream stream = getStream(response);
 			assertThreeFileStation(stream);
@@ -134,7 +134,7 @@ public class BlobDaoIT extends BaseIT {
 
 	public void singleFileProjectTest() {
 		try {
-			setup();
+			setUp();
 			assertEquals(1, blobDao.getProjectFiles(target, getRestProvider(), SINGLE_FILE_PROJECT_ORG, SINGLE_FILE_PROJECT_PROJECT));
 			ZipInputStream stream = getStream(response);
 			assertSingleFileProject(stream);
@@ -145,7 +145,7 @@ public class BlobDaoIT extends BaseIT {
 
 	public void threeFileProjectTest() {
 		try {
-			setup();
+			setUp();
 			assertEquals(3, blobDao.getProjectFiles(target, getRestProvider(), THREE_FILE_PROJECT_ORG, THREE_FILE_PROJECT_PROJECT));
 			ZipInputStream stream = getStream(response);
 			assertThreeFileProject(stream);
@@ -156,7 +156,7 @@ public class BlobDaoIT extends BaseIT {
 
 	public void singleFileResultTest() {
 		try {
-			setup();
+			setUp();
 			assertEquals(1, blobDao.getResultFiles(target, getRestProvider(), SINGLE_FILE_RESULT_ORG, SINGLE_FILE_RESULT_ACTIVITY, SINGLE_FILE_RESULT_RESULT));
 			ZipInputStream stream = getStream(response);
 			assertSingleFileResult(stream);
@@ -167,7 +167,7 @@ public class BlobDaoIT extends BaseIT {
 
 	public void threeFileResultTest() {
 		try {
-			setup();
+			setUp();
 			assertEquals(3, blobDao.getResultFiles(target, getRestProvider(), THREE_FILE_RESULT_ORG, THREE_FILE_RESULT_ACTIVITY, THREE_FILE_RESULT_RESULT));
 			ZipInputStream stream = getStream(response);
 			assertThreeFileResult(stream);
@@ -178,7 +178,7 @@ public class BlobDaoIT extends BaseIT {
 
 	public void singleFileActivityTest() {
 		try {
-			setup();
+			setUp();
 			assertEquals(1, blobDao.getActivityFiles(target, getRestProvider(), SINGLE_FILE_ACTIVITY_ORG, SINGLE_FILE_ACTIVITY_ACTIVITY));
 			ZipInputStream stream = getStream(response);
 			assertSingleFileActivity(stream);
@@ -189,7 +189,7 @@ public class BlobDaoIT extends BaseIT {
 
 	public void threeFileActivityTest() {
 		try {
-			setup();
+			setUp();
 			assertEquals(3, blobDao.getActivityFiles(target, getRestProvider(), THREE_FILE_ACTIVITY_ORG, THREE_FILE_ACTIVITY_ACTIVITY));
 			ZipInputStream stream = getStream(response);
 			assertThreeFileActivity(stream);

@@ -49,7 +49,7 @@ public class FilterParametersValidationTest {
 	protected FilterParameters filter;
 
 	@BeforeEach
-	public void setup() {
+	public void setUp() {
 		filter = new FilterParameters();
 	}
 

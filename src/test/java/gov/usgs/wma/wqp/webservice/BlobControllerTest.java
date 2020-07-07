@@ -39,7 +39,7 @@ public class BlobControllerTest extends BaseTest {
 	private MockHttpServletResponse response;
 
 	@BeforeEach
-	public void setup() {
+	public void setUp() {
 		MockitoAnnotations.initMocks(this);
 		controller = new BlobController(blobDao, logService);
 		request = new MockHttpServletRequest();
