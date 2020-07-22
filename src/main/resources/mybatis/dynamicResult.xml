@@ -50,13 +50,33 @@
              minActivities.site_activity_count >= #{minactivities}::int
     </sql>
 
+    <sql id="dataSourceJoin">
+       join (select data_source_id
+             from data_source
+             where text in <foreach item="i" collection="providers" open="(" separator="," close=")">#{i}</foreach>) data_source
+       on data_source.data_source_id = prime.data_source_id
+    </sql>
+
+    <sql id="projectDimJoin">
+       join (select data_source_id,project_dim_value
+             from project_dim
+             where code_value in <foreach item="i" collection="project" open="(" separator="," close=")">#{i}</foreach>) proj_dim
+         on proj_dim.data_source_id = prime.data_source_id and proj_dim.project_dim_value = prime.project_id
+    </sql>
+
     <sql id="resultsBase">
         from result prime
+        <if test="providers != null">
+           <include refid="dynamicWhere.dataSourceJoin"/>
+        </if>
+        <if test="project != null">
+           <include refid="dynamicWhere.projectDimJoin"/>
+        </if>
         <if test="minactivities != null">
             <include refid="dynamicWhere.resultMinactivities"/>
         </if>
         <where>
-            <include refid="dynamicWhere.baseWhereResultClauses" />
+            <include refid="dynamicWhere.baseWhereResultNoSubqueryClauses" />
         </where>
     </sql>
 

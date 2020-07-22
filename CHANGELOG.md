@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html). (Patch version X.Y.0 is implied if not specified.)
 
 ## [Unreleased](https://github.com/NWQMC/WQP-WQX-Services/compare/WQP-WQX-Services/compare/WQP-WQX-Services-1.6.0...master)
+## Changed
+-  Performance improvement on Result searches when specifying providers or project
 
 ## [1.6.0](https://github.com/NWQMC/WQP-WQX-Services/compare/WQP-WQX-Services/compare/WQP-WQX-Services-1.6.0...master) - 2020-07-13
 ### Added

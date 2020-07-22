@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dynamicWhere">
+    <sql id="baseWhereResultNoSubqueryClauses">
+        <if test="analyticalmethod != null">
+            and (<include refid="dynamicWhere.analyticalmethod" />)
+        </if>
+        <if test="assemblage != null">
+            and (<include refid="dynamicWhere.assemblage" />)
+        </if>
+        <if test="characteristicName != null">
+            and (<include refid="dynamicWhere.characteristicName" />)
+        </if>
+        <if test="characteristicType != null">
+            and (<include refid="dynamicWhere.characteristicType" />)
+        </if>
+        <if test="pCode != null">
+            and (<include refid="dynamicWhere.pCode" />)
+        </if>
+        <if test="subjectTaxonomicName != null">
+            and (<include refid="dynamicWhere.subjectTaxonomicName" />)
+        </if>
+        <if test="bBox != null">
+            and (<include refid="dynamicWhere.bBox" />)
+        </if>
+        <if test="countrycode != null">
+            and (<include refid="dynamicWhere.countrycode" />)
+        </if>
+        <if test="countycode != null">
+            and (<include refid="dynamicWhere.countycode" />)
+        </if>
+        <if test="command != null">
+            and (<include refid="dynamicWhere.commandavoid" />)
+        </if>
+        <if test="huc != null">
+            and (<include refid="dynamicWhere.huc" />)
+        </if>
+        <if test="organization != null">
+            and (<include refid="dynamicWhere.organization" />)
+        </if>
+        <if test="siteid != null">
+            and (<include refid="dynamicWhere.siteId" />)
+        </if>
+        <if test="nldiSites != null">
+            and (<include refid="dynamicWhere.nldiSiteId" />)
+        </if>
+         <if test="siteType != null">
+            and (<include refid="dynamicWhere.siteType" />)
+        </if>
+        <if test="statecode != null">
+            and (<include refid="dynamicWhere.statecode" />)
+        </if>
+        <if test="within != null and lat != null and long != null">
+            and (<include refid="dynamicWhere.within" />)
+        </if>
+        <include refid="dynamicWhere.spatialNeeded" />
+        <if test="sampleMedia != null">
+            and (<include refid="dynamicWhere.sampleMedia" />)
+        </if>
+        <if test="startDateLo != null or startDateHi != null">
+            and (<include refid="dynamicWhere.startDateLoHi" />)
+        </if>
+    </sql>
+
+</mapper>
