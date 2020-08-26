@@ -85,7 +85,7 @@
               join activity_sum sum1
                 on pd.project_dim_value = sum1.project_id
                    and pd.data_source_id=sum1.data_source_id
-                     where code_value in <foreach item="i" collection="project" open="(" separator="," close=")">#{i}</foreach>
+            where code_value in <foreach item="i" collection="project" open="(" separator="," close=")">#{i}</foreach>
           )
     </sql>
 
