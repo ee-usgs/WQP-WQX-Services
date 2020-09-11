@@ -21,9 +21,11 @@
     </sql>
 
     <select id="select" resultType="java.util.LinkedHashMap" fetchSize="500">
+
         <include refid="result.pre"/>
         select <include refid="resultPhysChem.baseColumns"/>
         <include refid="result.post"/>
+
     </select>
 
     <select id="count" resultType="java.util.LinkedHashMap">
