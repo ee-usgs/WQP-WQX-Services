@@ -2,7 +2,6 @@
 <dataset>
     <county data_source_id="2" code_value="US:06:115" description="US, California, Yuba County" description_wo_country_state="Yuba County"/>
     <county data_source_id="2" code_value="US:30:003" description="US, Montana, Big Horn County" description_wo_country_state="Big Horn County"/>
-    <county data_source_id="4" code_value="US:06:115" description="US, California, Yuba County" description_wo_country_state="Yuba County"/>
     <county data_source_id="3" code_value="US:30:003" description="US, Montana, Big Horn County" description_wo_country_state="Big Horn County"/>
     <county data_source_id="3" code_value="US:55:021" description="US, Wisconsin, Columbia County" description_wo_country_state="Columbia County"/>
     <county data_source_id="2" code_value="US:55:021" description="US, Wisconsin, Columbia County" description_wo_country_state="Columbia County"/>
