@@ -51,7 +51,7 @@
     </sql>
 
     <sql id="resultsBase">
-        from result prime
+        from ${resultSelectTable} prime
         <if test="minactivities != null">
             <include refid="dynamicWhere.resultMinactivities"/>
         </if>

@@ -20,7 +20,13 @@ logging:
   level:
     root: ${ROOT_LOG_LEVEL:INFO}
     javax.management.mbeanserver: OFF
-
+    mybatis: DEBUG
+    result: DEBUG
+    resultBroad: DEBUG
+    resultPhysChem: DEBUG
+    resultPrimary: DEBUG
+    dynamicWhere: DEBUG
+    pcResult: DEBUG
 site:
   url:
     base: ${SITE_URL_BASE}

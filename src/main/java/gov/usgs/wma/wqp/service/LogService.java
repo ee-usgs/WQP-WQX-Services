@@ -130,7 +130,15 @@ public class LogService implements ILogService {
 		ObjectMapper mapper = new ObjectMapper();
 		String json = "";
 		try {
-			json = null == downloadDetails ? "{}" : mapper.writeValueAsString(downloadDetails);
+
+			if (null != downloadDetails) {
+				int total = downloadDetails.values().stream().mapToInt(Integer::valueOf).sum();
+				downloadDetails.put("Total", total);
+			} else {
+				downloadDetails.put("Total", 0);
+			}
+			json = mapper.writeValueAsString(downloadDetails);
+
 		} catch (JsonProcessingException e) {
 			//Not sure how this can happen, but is part of the API
 			json = "{\"Error serializing downloadDetails\"}";

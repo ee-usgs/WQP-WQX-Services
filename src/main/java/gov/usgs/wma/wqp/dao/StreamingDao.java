@@ -1,5 +1,6 @@
 package gov.usgs.wma.wqp.dao;
 
+import gov.usgs.wma.wqp.service.ConfigurationService;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;

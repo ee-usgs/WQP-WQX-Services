@@ -36,7 +36,10 @@ public class SpringConfig implements WebMvcConfigurer {
 	private static final Logger LOG = LoggerFactory.getLogger(SpringConfig.class);
 
 	public SpringConfig() {
+
 		LOG.trace(getClass().getName());
+		org.apache.ibatis.logging.LogFactory.useSlf4jLogging();
+		LOG.info("MyBatis now using SLF4J for logging");
 	}
 
 	@Autowired

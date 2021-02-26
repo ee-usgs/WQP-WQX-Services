@@ -18,6 +18,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.ResultHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.HttpMediaTypeNotAcceptableException;
@@ -49,6 +50,10 @@ import gov.usgs.wma.wqp.util.MimeType;
 
 public abstract class BaseController {
 	private static final Logger LOG = LoggerFactory.getLogger(BaseController.class);
+
+
+	@Autowired
+	private ConfigurationService configService;
 
 	protected final IStreamingDao streamingDao;
 	protected final ICountDao countDao;
@@ -260,8 +265,6 @@ public abstract class BaseController {
 
 		addCustomRequestParams();
 
-		List<Map<String, Object>> counts = countDao.getCounts(getMybatisNamespace(), getFilter());
-
 		response.setCharacterEncoding(HttpConstants.DEFAULT_ENCODING);
 		response.addHeader(HttpConstants.HEADER_CONTENT_TYPE, getContentHeader());
 		if (RequestMethod.POST.toString().equalsIgnoreCase(request.getMethod())
@@ -270,11 +273,16 @@ public abstract class BaseController {
 		} else {
 			response.setHeader(HttpConstants.HEADER_CONTENT_DISPOSITION,"attachment; filename=" + getAttachementFileName());
 		}
-		String totalHeader = addCountHeaders(response, counts);
 
-		logService.logHeadComplete(counts, totalHeader, getLogId());
-
-		return checkMaxRows(response, totalHeader);
+		if (configService.getResultCountEnabled()) {
+			List<Map<String, Object>> counts = countDao.getCounts(getMybatisNamespace(), getFilter());
+			String totalHeader = addCountHeaders(response, counts);
+			logService.logHeadComplete(counts, totalHeader, getLogId());
+			return checkMaxRows(response, totalHeader);
+		} else {
+			logService.logHeadComplete(null, "", getLogId());
+			return true;
+		}
 	}
 
 	protected void determineContentType(HttpServletRequest request) {
