@@ -11,7 +11,7 @@ import org.springframework.core.io.Resource;
 
 import com.github.springtestdbunit.dataset.AbstractDataSetLoader;
 
-import gov.usgs.wma.wqp.dao.LogDaoIT;
+import gov.usgs.wma.wqp.dao.LogDaoTest;
 
 public class ColumnSensingFlatXMLDataSetLoader extends AbstractDataSetLoader {
 	LocalDate currentDate = LocalDate.now();
@@ -36,8 +36,8 @@ public class ColumnSensingFlatXMLDataSetLoader extends AbstractDataSetLoader {
 		replacementDataSet.addReplacementSubstring("[year-5]", String.valueOf(currentDate.getYear() - 5));
 
 		replacementDataSet.addReplacementSubstring("[id]", "1");
-		replacementDataSet.addReplacementSubstring("[dataStoreCounts]", LogDaoIT.DATA_COUNTS_IN_DB);
-		replacementDataSet.addReplacementSubstring("[downloadDetails]", LogDaoIT.DOWNLOAD_DETAILS);
+		replacementDataSet.addReplacementSubstring("[dataStoreCounts]", LogDaoTest.DATA_COUNTS_IN_DB);
+		replacementDataSet.addReplacementSubstring("[downloadDetails]", LogDaoTest.DOWNLOAD_DETAILS);
 		return replacementDataSet;
 	}
 }

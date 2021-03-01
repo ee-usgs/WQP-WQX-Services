@@ -27,7 +27,7 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 
 import gov.usgs.wma.wqp.dao.LogDao;
-import gov.usgs.wma.wqp.dao.LogDaoIT;
+import gov.usgs.wma.wqp.dao.LogDaoTest;
 import gov.usgs.wma.wqp.dao.intfc.ILogDao;
 import gov.usgs.wma.wqp.parameter.FilterParameters;
 import gov.usgs.wma.wqp.util.HttpConstants;
@@ -162,19 +162,19 @@ public class LogServiceTest {
 		assertEquals(3, valueCapture.getValue().size());
 		assertEquals(FIFTY_FIVE, valueCapture.getValue().get(LogDao.ID));
 		assertEquals("0", valueCapture.getValue().get(LogDao.TOTAL_ROWS_EXPECTED).toString());
-		assertEquals(LogDaoIT.DATA_COUNTS_SERVICE, valueCapture.getValue().get(LogDao.DATA_STORE_COUNTS));
+		assertEquals(LogDaoTest.DATA_COUNTS_SERVICE, valueCapture.getValue().get(LogDao.DATA_STORE_COUNTS));
 
 		service.logHeadComplete(BaseControllerTest.getNwisRawCounts(), HttpConstants.HEADER_TOTAL_RES_DETECT_QNT_LMT_COUNT, null);
 		assertEquals(3, valueCapture.getValue().size());
 		assertNull(valueCapture.getValue().get(LogDao.ID));
 		assertEquals(BaseControllerTest.TEST_TOTAL_RES_DETECT_QNT_LMT_COUNT, valueCapture.getValue().get(LogDao.TOTAL_ROWS_EXPECTED).toString());
-		assertEquals(LogDaoIT.DATA_COUNTS_SERVICE, valueCapture.getValue().get(LogDao.DATA_STORE_COUNTS));
+		assertEquals(LogDaoTest.DATA_COUNTS_SERVICE, valueCapture.getValue().get(LogDao.DATA_STORE_COUNTS));
 
 		service.logHeadComplete(BaseControllerTest.getNwisRawCounts(), null, null);
 		assertEquals(3, valueCapture.getValue().size());
 		assertNull(valueCapture.getValue().get(LogDao.ID));
 		assertEquals("0", valueCapture.getValue().get(LogDao.TOTAL_ROWS_EXPECTED).toString());
-		assertEquals(LogDaoIT.DATA_COUNTS_SERVICE, valueCapture.getValue().get(LogDao.DATA_STORE_COUNTS));
+		assertEquals(LogDaoTest.DATA_COUNTS_SERVICE, valueCapture.getValue().get(LogDao.DATA_STORE_COUNTS));
 
 		service.logHeadComplete(null, HttpConstants.HEADER_TOTAL_RES_DETECT_QNT_LMT_COUNT, null);
 		assertEquals(1, valueCapture.getValue().size());
@@ -199,7 +199,7 @@ public class LogServiceTest {
 		assertEquals(3, valueCapture.getValue().size());
 		assertEquals(FIFTY_FIVE, valueCapture.getValue().get(LogDao.ID));
 		assertEquals(BaseControllerTest.TEST_TOTAL_RES_DETECT_QNT_LMT_COUNT, valueCapture.getValue().get(LogDao.TOTAL_ROWS_EXPECTED).toString());
-		assertEquals(LogDaoIT.DATA_COUNTS_SERVICE, valueCapture.getValue().get(LogDao.DATA_STORE_COUNTS));
+		assertEquals(LogDaoTest.DATA_COUNTS_SERVICE, valueCapture.getValue().get(LogDao.DATA_STORE_COUNTS));
 		verify(logDao).setHeadComplete(anyMap());
 	}
 
