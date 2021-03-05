@@ -27,6 +27,8 @@ logging:
     resultPrimary: DEBUG
     dynamicWhere: DEBUG
     pcResult: DEBUG
+    com.zaxxer.hikari.HikariConfig: DEBUG
+    com.zaxxer.hikari: TRACE
 site:
   url:
     base: ${SITE_URL_BASE}
