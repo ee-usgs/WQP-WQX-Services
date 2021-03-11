@@ -1,7 +1,7 @@
 {
+    "stage": "complete",
     "endpoint": "/wqp/summary/monitoringlocation/search",
     "userAgent": "Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.4 (KHTML, like Gecko) Chrome/98 Safari/537.4 (StatusCake)",
-    "id": 1,
     "postData": {
         "huc": [
             "010700061301"

@@ -7,6 +7,8 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import javax.annotation.PreDestroy;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,10 +40,10 @@ public class LogDao implements ILogDao {
 	// auto wired, managed by Spring
 	private ObjectMapper mapper;
 
-	public static final String WEB_REQUEST_STARTED = "started";
-	public static final String WEB_REQUEST_HEAD_COMPLETE = "head complete";
-	public static final String WEB_REQUEST_FIRST_ROW = "first row";
-	public static final String WEB_REQUEST_COMPLETED = "complete";
+	public static final String WEB_REQUEST_START = "start";
+	public static final String WEB_REQUEST_HEAD_COMPLETE = "headComplete";
+	public static final String WEB_REQUEST_FIRST_ROW = "firstRow";
+	public static final String WEB_REQUEST_COMPLETE = "complete";
 
 	public static final String ID = "id";
 	public static final String ORIGIN = "origin";
@@ -65,25 +67,24 @@ public class LogDao implements ILogDao {
 		Map<String, Object> parameterMapWithId = new HashMap<String, Object>();
 		parameterMapWithId.putAll(parameterMap);
 		parameterMapWithId.put(ID, id);
-		logRequestParams(WEB_REQUEST_STARTED, parameterMapWithId);
-		ObjectNode json = getRequestJson(id);
-		addTimestamp(json, "started");
+		addRequestParams(WEB_REQUEST_START, parameterMapWithId);
 		return id;
 	}
 
 	@Override
 	public void setHeadComplete(Map<String, Object> parameterMap) {
-		logRequestParams(WEB_REQUEST_HEAD_COMPLETE, parameterMap);
+		addRequestParams(WEB_REQUEST_HEAD_COMPLETE, parameterMap);
 	}
 
 	@Override
 	public void setFirstRow(Map<String, Object> parameterMap) {
-		logRequestParams(WEB_REQUEST_FIRST_ROW, parameterMap);
+		addRequestParams(WEB_REQUEST_FIRST_ROW, parameterMap);
 	}
 
 	@Override
 	public void setRequestComplete(Map<String, Object> parameterMap) {
-		logRequestParams(WEB_REQUEST_COMPLETED, parameterMap);
+		addRequestParams(WEB_REQUEST_COMPLETE, parameterMap);
+		log(parameterMap);
 		removeRequestJson(parameterMap.get(ID));
 	}
 
@@ -104,21 +105,47 @@ public class LogDao implements ILogDao {
 		}
 	}
 
+	// log any requests as they currently are
+	private void log() {
+		for (ObjectNode json : requests.values()) {
+			log(json);
+		}
+	}
+
+	private void log(Map<String, Object> parameterMap) {
+		if(parameterMap != null && parameterMap.get(ID) != null) {
+			log(getRequestJson(parameterMap.get(ID)));
+		}
+	}
+
+	private void log(ObjectNode json) {
+		JsonNode field;
+		if (json != null) {
+			field = json.get(ID);
+			String id = field == null || field.isNull() ? null : field.asText();
+			field = json.get("stage");
+			String stage = field == null || field.isNull() ? null : field.asText();
+			LOG.info(String.format("Web Request|%s|%s|%s", id, stage, json.toString()));
+		}
+	}
+
 	/*
-	 * accumulate request properties as json. log if request is done.
+	 * accumulate request properties as json.
 	 */
-	private void logRequestParams(String stage, Map<String, Object> parameterMap) {
+	private void addRequestParams(String stage, Map<String, Object> parameterMap) {
 		String parms = parameterMap == null ? "[parameters null]" : parameterMap.toString();
 		if (parameterMap == null || parameterMap.get(ID) == null) {
 			LOG.error(String.format("Web Request %s stage received with no id: %s", stage, parms));
 		} else {
+			addStage(stage, parameterMap);
 			addParamsToJson(parameterMap);
-			if(WEB_REQUEST_COMPLETED.equals(stage)) {
-				ObjectNode json = getRequestJson(parameterMap.get(ID));
-				addTimestamp(json, WEB_REQUEST_COMPLETED);
-				LOG.info(String.format("Web Request|%s|%s|%s", parameterMap.get(ID), stage, json.toString()));
-			}
 		}
+	}
+
+	private void addStage(String stage, Map<String, Object> parameterMap) {
+		ObjectNode json = getRequestJson(parameterMap.get(ID));
+		json.put("stage", stage);
+		addTimestamp(json, stage);
 	}
 
 	private void addParamsToJson(Map<String, Object> parameterMap) {
@@ -168,6 +195,12 @@ public class LogDao implements ILogDao {
 	private void addTimestamp(ObjectNode json, String param) {
 		String timestamp =  DateTimeFormatter.ISO_INSTANT.format(Instant.now());
 		json.put(param, timestamp);
+	}
+
+	@PreDestroy
+	public void cleanup() {
+		log();
+		requests.clear();
 	}
 
 }
