@@ -1,0 +1,36 @@
+{
+    "stage": "complete",
+    "endpoint": "/wqp/summary/monitoringlocation/search",
+    "userAgent": "Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.4 (KHTML, like Gecko) Chrome/98 Safari/537.4 (StatusCake)",
+    "postData": {
+        "huc": [
+            "010700061301"
+        ],
+        "mimeType": "geojson",
+        "zip": "no"
+    },
+    "callType": "GET",
+    "origin": "WQP Site",
+    "dataStoreCounts": {
+        "counts": [
+            {
+                "NWIS": {
+                    "site": 12,
+                    "result": 359,
+                    "project": 106,
+                    "activity": 113,
+                    "organization": 1,
+                    "activitymetric": 32,
+                    "resultdetectionquantitationlimit": 432,
+                    "projectmonitoringlocationweighting": 1
+                }
+            }
+        ]
+    },
+    "totalRowsExpected": "4321",
+    "httpStatusCode": "200",
+    "downloadDetails": {
+        "SILLY_ORG": 17,
+        "WIDNR_WQX": 6
+    }
+}
