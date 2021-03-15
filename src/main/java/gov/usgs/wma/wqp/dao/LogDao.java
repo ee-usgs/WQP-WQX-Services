@@ -4,7 +4,6 @@ import java.time.Instant;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.annotation.PreDestroy;
@@ -35,7 +34,7 @@ public class LogDao implements ILogDao {
 	protected static final Logger LOG = LoggerFactory.getLogger(LogDao.class);
 	protected static final AtomicInteger counter = new AtomicInteger(1);
 
-	private Map<Object, ObjectNode> requests = new ConcurrentHashMap<>();
+	private ObjectNode requestProperies;
 
 	// auto wired, managed by Spring
 	private ObjectMapper mapper;
@@ -59,6 +58,7 @@ public class LogDao implements ILogDao {
 	@Autowired
 	public LogDao(ObjectMapper mapper) {
 		this.mapper = mapper;
+		this.requestProperies = mapper.createObjectNode();
 	}
 
 	@Override
@@ -84,37 +84,14 @@ public class LogDao implements ILogDao {
 	@Override
 	public void setRequestComplete(Map<String, Object> parameterMap) {
 		addRequestParams(WEB_REQUEST_COMPLETE, parameterMap);
-		log(parameterMap);
-		removeRequestJson(parameterMap.get(ID));
+		log(requestProperies);
+		requestProperies = null;
 	}
 
-	// return the json representation of the request parameters, this is what will be logged
-	private ObjectNode getRequestJson(Object id) {
-		ObjectNode objectNode = requests.get(id);
-		if (objectNode == null) {
-			requests.put(id, mapper.createObjectNode());
-			objectNode = requests.get(id);
-		}
-		return objectNode;
-	}
-
-	// return the json representation of the request parameters
-	private void removeRequestJson(Object id) {
-		if (id != null) {
-			requests.remove(id);
-		}
-	}
-
-	// log any requests as they currently are
+	// log the request if it has not been already
 	private void log() {
-		for (ObjectNode json : requests.values()) {
-			log(json);
-		}
-	}
-
-	private void log(Map<String, Object> parameterMap) {
-		if(parameterMap != null && parameterMap.get(ID) != null) {
-			log(getRequestJson(parameterMap.get(ID)));
+		if(requestProperies != null) {
+			log(requestProperies);
 		}
 	}
 
@@ -133,35 +110,28 @@ public class LogDao implements ILogDao {
 	 * accumulate request properties as json.
 	 */
 	private void addRequestParams(String stage, Map<String, Object> parameterMap) {
-		String parms = parameterMap == null ? "[parameters null]" : parameterMap.toString();
-		if (parameterMap == null || parameterMap.get(ID) == null) {
-			LOG.error(String.format("Web Request %s stage received with no id: %s", stage, parms));
-		} else {
-			addStage(stage, parameterMap);
-			addParamsToJson(parameterMap);
-		}
+		addStage(stage, parameterMap);
+		addParamsToJson(parameterMap);
 	}
 
 	private void addStage(String stage, Map<String, Object> parameterMap) {
-		ObjectNode json = getRequestJson(parameterMap.get(ID));
-		json.put("stage", stage);
-		addTimestamp(json, stage);
+		requestProperies.put("stage", stage);
+		addTimestamp(requestProperies, stage);
 	}
 
 	private void addParamsToJson(Map<String, Object> parameterMap) {
-		ObjectNode json = getRequestJson(parameterMap.get(ID));
 		for (String param : parameterMap.keySet()) {
 			Object valueObj = parameterMap.get(param);
 			if (valueObj == null) {
-				json.set(param, NullNode.getInstance());
+				requestProperies.set(param, NullNode.getInstance());
 			} else if (valueObj instanceof String) {
-				setJsonStringField(json, param, (String) valueObj);
+				setJsonStringField(requestProperies, param, (String) valueObj);
 			} else if (valueObj instanceof Integer) {
-				json.put(param, (Integer) valueObj);
+				requestProperies.put(param, (Integer) valueObj);
 			} else {
 				String value = String.format("param '%s' type (%s) is unknown : %s", 
 						param, valueObj.getClass().getName(), valueObj.toString());
-				json.put(param, value);
+				requestProperies.put(param, value);
 			}
 		}
 	}
@@ -192,15 +162,14 @@ public class LogDao implements ILogDao {
 		return jsonObj;
 	}
 
-	private void addTimestamp(ObjectNode json, String param) {
+	private void addTimestamp(ObjectNode json, String stage) {
 		String timestamp =  DateTimeFormatter.ISO_INSTANT.format(Instant.now());
-		json.put(param, timestamp);
+		json.put(stage, timestamp);
 	}
 
 	@PreDestroy
 	public void cleanup() {
 		log();
-		requests.clear();
 	}
 
 }
