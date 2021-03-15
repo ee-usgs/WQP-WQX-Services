@@ -236,7 +236,7 @@ public abstract class BaseController {
 		LOG.info("Processing Head: {}", filter.toJson());
 
 		try {
-			doCommonSetup(request, response, filter);
+			doCommonSetup(request, response, filter, true);
 		} finally {
 			logService.logRequestComplete(getLogId(), String.valueOf(response.getStatus()), null);
 			LOG.info("Processing Head complete: {}", filter.toJson());
@@ -244,8 +244,16 @@ public abstract class BaseController {
 		}
 	}
 
+	//Tests currently call this method - perhaps remove and fix tests
 	protected boolean doCommonSetup(HttpServletRequest request, HttpServletResponse response, FilterParameters filter) {
+		return doCommonSetup(request, response, filter, true);
+	}
+
+	protected boolean doCommonSetup(HttpServletRequest request, HttpServletResponse response, FilterParameters filter, boolean includeCounts) {
 		setLogId(logService.logRequest(request, response, filter));
+
+		boolean isPostCountReq = RequestMethod.POST.toString().equalsIgnoreCase(request.getMethod())
+				                     && request.getRequestURI().endsWith("count");
 
 		response.setCharacterEncoding(HttpConstants.DEFAULT_ENCODING);
 		if (!processParameters(filter)) {
@@ -260,21 +268,23 @@ public abstract class BaseController {
 
 		addCustomRequestParams();
 
-		List<Map<String, Object>> counts = countDao.getCounts(getMybatisNamespace(), getFilter());
-
 		response.setCharacterEncoding(HttpConstants.DEFAULT_ENCODING);
 		response.addHeader(HttpConstants.HEADER_CONTENT_TYPE, getContentHeader());
-		if (RequestMethod.POST.toString().equalsIgnoreCase(request.getMethod())
-				&& request.getRequestURI().endsWith("count")) {
+		if (! isPostCountReq) {
 			//skip the content disposition header on POST counts
-		} else {
 			response.setHeader(HttpConstants.HEADER_CONTENT_DISPOSITION,"attachment; filename=" + getAttachementFileName());
 		}
-		String totalHeader = addCountHeaders(response, counts);
 
-		logService.logHeadComplete(counts, totalHeader, getLogId());
-
-		return checkMaxRows(response, totalHeader);
+		if (includeCounts) {
+			List<Map<String, Object>> counts = countDao.getCounts(getMybatisNamespace(), getFilter());
+			String totalHeader = addCountHeaders(response, counts);
+			logService.logHeadComplete(counts, totalHeader, getLogId());
+			return checkMaxRows(response, totalHeader);
+		} else {
+			Map<String, Object> counts = new HashMap();
+			logService.logHeadComplete(List.of(counts), "", getLogId());
+			return true;
+		}
 	}
 
 	protected void determineContentType(HttpServletRequest request) {
@@ -361,7 +371,7 @@ public abstract class BaseController {
 		Map<String, String> counts = null;
 
 		try {
-			doCommonSetup(request, response, filter);
+			doCommonSetup(request, response, filter, true);
 			counts = getCounts();
 		} finally {
 			logService.logRequestComplete(getLogId(), String.valueOf(response.getStatus()), null);
@@ -372,23 +382,35 @@ public abstract class BaseController {
 		return counts;
 	}
 
-	protected void doDataRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter, String mimeType, String zip) {
+	//Default includeCounts=true
+	protected void doDataRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter,
+	                             String mimeType, String zip) {
+		doDataRequest(request, response, filter, mimeType, zip, true);
+	}
+
+	protected void doDataRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter,
+	                             String mimeType, String zip, boolean includeCounts) {
 		if (StringUtils.isNotBlank(mimeType)) {
 			filter.setMimeType(mimeType);
 		}
 		if (StringUtils.isNotBlank(zip)) {
 			filter.setZip(zip);
 		}
-		doDataRequest(request, response, filter);
+		doDataRequest(request, response, filter, includeCounts);
 	}
 
+	//Default includeCounts=true
 	protected void doDataRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter) {
+		doDataRequest(request, response, filter, true);
+	}
+
+	protected void doDataRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter, boolean includeCounts) {
 		LOG.info("Processing Data: {}", filter.toJson());
 		OutputStream responseStream = null;
 		String realHttpStatus = String.valueOf(response.getStatus());
 
 		try {
-			if (doCommonSetup(request, response, filter)) {
+			if (doCommonSetup(request, response, filter, includeCounts)) {
 				responseStream = getOutputStream(response, getZipped(), determineZipEntryName());
 				Transformer transformer = getTransformer(responseStream, getLogId());
 

@@ -77,9 +77,10 @@ public class ResultController extends BaseController {
 	public void resultGetRequest(
 			HttpServletRequest request,
 			HttpServletResponse response,
-			@Parameter(hidden=true) FilterParameters filter
+			@Parameter(hidden=true) FilterParameters filter,
+			@Parameter @RequestParam(value="counts", required=false, defaultValue = "true") boolean includeCounts
 			) {
-		doDataRequest(request, response, filter);
+		doDataRequest(request, response, filter, includeCounts);
 	}
 
 	@PostOperation
@@ -88,14 +89,15 @@ public class ResultController extends BaseController {
 			HttpServletResponse response,
 			@Parameter(hidden=true) @RequestParam(value="mimeType", required=false) String mimeType,
 			@Parameter(hidden=true) @RequestParam(value="zip", required=false) String zip,
-			@Parameter(hidden=true) @RequestBody FilterParameters filter
+			@Parameter(hidden=true) @RequestBody FilterParameters filter,
+			@Parameter @RequestParam(value="counts", required=false, defaultValue = "true") boolean includeCounts
 			) {
-		doDataRequest(request, response, filter, mimeType, zip);
+		doDataRequest(request, response, filter, mimeType, zip, includeCounts);
 	}
 
 	@FormUrlPostOperation
 	public void resultFormUrlencodedPostRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter) {
-		doDataRequest(request, response, filter);
+		doDataRequest(request, response, filter, false);
 	}
 
 	@PostCountOperation
@@ -113,6 +115,7 @@ public class ResultController extends BaseController {
 		return doPostCountRequest(request, response, filter, mimeType, zip);
 	}
 
+	@Override
 	protected String addCountHeaders(HttpServletResponse response, List<Map<String, Object>> counts) {
 		addSiteHeaders(response, counts);
 		addActivityHeaders(response, counts);
