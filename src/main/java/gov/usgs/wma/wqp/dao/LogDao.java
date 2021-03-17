@@ -169,6 +169,7 @@ public class LogDao implements ILogDao {
 
 	@PreDestroy
 	public void cleanup() {
+		System.out.println("Will log from: " + this.toString());
 		log();
 	}
 

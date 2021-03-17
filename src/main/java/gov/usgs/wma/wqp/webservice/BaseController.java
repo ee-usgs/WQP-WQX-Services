@@ -236,7 +236,7 @@ public abstract class BaseController {
 		LOG.info("Processing Head: {}", filter.toJson());
 
 		try {
-			doCommonSetup(request, response, filter, true);
+			doCommonSetup(request, response, filter);
 		} finally {
 			logService.logRequestComplete(getLogId(), String.valueOf(response.getStatus()), null);
 			LOG.info("Processing Head complete: {}", filter.toJson());
@@ -244,16 +244,12 @@ public abstract class BaseController {
 		}
 	}
 
-	//Tests currently call this method - perhaps remove and fix tests
 	protected boolean doCommonSetup(HttpServletRequest request, HttpServletResponse response, FilterParameters filter) {
-		return doCommonSetup(request, response, filter, true);
-	}
-
-	protected boolean doCommonSetup(HttpServletRequest request, HttpServletResponse response, FilterParameters filter, boolean includeCounts) {
 		setLogId(logService.logRequest(request, response, filter));
 
+		boolean includeCounts = Boolean.parseBoolean( (filter.getCounts() != null)?filter.getCounts():"yes" );
 		boolean isPostCountReq = RequestMethod.POST.toString().equalsIgnoreCase(request.getMethod())
-				                     && request.getRequestURI().endsWith("count");
+				                         && request.getRequestURI().endsWith("count");
 
 		response.setCharacterEncoding(HttpConstants.DEFAULT_ENCODING);
 		if (!processParameters(filter)) {
@@ -270,9 +266,9 @@ public abstract class BaseController {
 
 		response.setCharacterEncoding(HttpConstants.DEFAULT_ENCODING);
 		response.addHeader(HttpConstants.HEADER_CONTENT_TYPE, getContentHeader());
-		if (! isPostCountReq) {
+		if (!isPostCountReq) {
 			//skip the content disposition header on POST counts
-			response.setHeader(HttpConstants.HEADER_CONTENT_DISPOSITION,"attachment; filename=" + getAttachementFileName());
+			response.setHeader(HttpConstants.HEADER_CONTENT_DISPOSITION, "attachment; filename=" + getAttachementFileName());
 		}
 
 		if (includeCounts) {
@@ -282,7 +278,7 @@ public abstract class BaseController {
 			return checkMaxRows(response, totalHeader);
 		} else {
 			Map<String, Object> counts = new HashMap();
-			logService.logHeadComplete(List.of(counts), "", getLogId());
+			logService.logHeadComplete(List.of(counts), null, getLogId());
 			return true;
 		}
 	}
@@ -371,7 +367,7 @@ public abstract class BaseController {
 		Map<String, String> counts = null;
 
 		try {
-			doCommonSetup(request, response, filter, true);
+			doCommonSetup(request, response, filter);
 			counts = getCounts();
 		} finally {
 			logService.logRequestComplete(getLogId(), String.valueOf(response.getStatus()), null);
@@ -382,35 +378,23 @@ public abstract class BaseController {
 		return counts;
 	}
 
-	//Default includeCounts=true
-	protected void doDataRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter,
-	                             String mimeType, String zip) {
-		doDataRequest(request, response, filter, mimeType, zip, true);
-	}
-
-	protected void doDataRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter,
-	                             String mimeType, String zip, boolean includeCounts) {
+	protected void doDataRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter, String mimeType, String zip) {
 		if (StringUtils.isNotBlank(mimeType)) {
 			filter.setMimeType(mimeType);
 		}
 		if (StringUtils.isNotBlank(zip)) {
 			filter.setZip(zip);
 		}
-		doDataRequest(request, response, filter, includeCounts);
+		doDataRequest(request, response, filter);
 	}
 
-	//Default includeCounts=true
 	protected void doDataRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter) {
-		doDataRequest(request, response, filter, true);
-	}
-
-	protected void doDataRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter, boolean includeCounts) {
 		LOG.info("Processing Data: {}", filter.toJson());
 		OutputStream responseStream = null;
 		String realHttpStatus = String.valueOf(response.getStatus());
 
 		try {
-			if (doCommonSetup(request, response, filter, includeCounts)) {
+			if (doCommonSetup(request, response, filter)) {
 				responseStream = getOutputStream(response, getZipped(), determineZipEntryName());
 				Transformer transformer = getTransformer(responseStream, getLogId());
 

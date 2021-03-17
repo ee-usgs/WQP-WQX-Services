@@ -14,6 +14,7 @@ import java.lang.annotation.Target;
 @BBox
 @CharacteristicName
 @CharacteristicType
+@Counts
 @Countrycode
 @Countycode
 @Huc

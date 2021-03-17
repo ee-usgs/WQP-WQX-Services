@@ -7,13 +7,12 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
+import gov.usgs.wma.wqp.openapi.annotation.query.*;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import gov.usgs.wma.wqp.openapi.annotation.post.FilterParameters;
-import gov.usgs.wma.wqp.openapi.annotation.query.MimeTypeStd;
-import gov.usgs.wma.wqp.openapi.annotation.query.Zip;
 import io.swagger.v3.oas.annotations.Operation;
 
 @Retention(RUNTIME)
@@ -22,6 +21,7 @@ import io.swagger.v3.oas.annotations.Operation;
 @FilterParameters
 @MimeTypeStd
 @Zip
+@Counts
 @RequestMapping(method=RequestMethod.POST,
 	consumes=MediaType.APPLICATION_JSON_VALUE)
 public @interface PostOperation {

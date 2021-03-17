@@ -11,6 +11,7 @@ public enum Parameters {
 	BBOX("bBox"),
 	CHARACTERISTIC_NAME("characteristicName"),
 	CHARACTERISTIC_TYPE("characteristicType"),
+	COUNTS("counts"),
 	COUNTRY("countrycode"),
 	COUNTY("countycode"),
 	DATA_PROFILE("dataProfile"),

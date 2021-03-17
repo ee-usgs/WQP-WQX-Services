@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Validator;
 
+import gov.usgs.wma.wqp.openapi.annotation.query.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.accept.ContentNegotiationStrategy;
@@ -26,8 +27,6 @@ import gov.usgs.wma.wqp.openapi.annotation.GetOperation;
 import gov.usgs.wma.wqp.openapi.annotation.HeadOperation;
 import gov.usgs.wma.wqp.openapi.annotation.PostCountOperation;
 import gov.usgs.wma.wqp.openapi.annotation.PostOperation;
-import gov.usgs.wma.wqp.openapi.annotation.query.DataProfileResult;
-import gov.usgs.wma.wqp.openapi.annotation.query.FullParameterList;
 import gov.usgs.wma.wqp.openapi.model.ResultCountJson;
 import gov.usgs.wma.wqp.parameter.FilterParameters;
 import gov.usgs.wma.wqp.service.ConfigurationService;
@@ -77,10 +76,9 @@ public class ResultController extends BaseController {
 	public void resultGetRequest(
 			HttpServletRequest request,
 			HttpServletResponse response,
-			@Parameter(hidden=true) FilterParameters filter,
-			@Parameter @RequestParam(value="counts", required=false, defaultValue = "true") boolean includeCounts
+			@Parameter(hidden=true) FilterParameters filter
 			) {
-		doDataRequest(request, response, filter, includeCounts);
+		doDataRequest(request, response, filter);
 	}
 
 	@PostOperation
@@ -89,15 +87,14 @@ public class ResultController extends BaseController {
 			HttpServletResponse response,
 			@Parameter(hidden=true) @RequestParam(value="mimeType", required=false) String mimeType,
 			@Parameter(hidden=true) @RequestParam(value="zip", required=false) String zip,
-			@Parameter(hidden=true) @RequestBody FilterParameters filter,
-			@Parameter @RequestParam(value="counts", required=false, defaultValue = "true") boolean includeCounts
+			@Parameter(hidden=true) @RequestBody FilterParameters filter
 			) {
-		doDataRequest(request, response, filter, mimeType, zip, includeCounts);
+		doDataRequest(request, response, filter, mimeType, zip);
 	}
 
 	@FormUrlPostOperation
 	public void resultFormUrlencodedPostRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter) {
-		doDataRequest(request, response, filter, false);
+		doDataRequest(request, response, filter);
 	}
 
 	@PostCountOperation
@@ -115,7 +112,6 @@ public class ResultController extends BaseController {
 		return doPostCountRequest(request, response, filter, mimeType, zip);
 	}
 
-	@Override
 	protected String addCountHeaders(HttpServletResponse response, List<Map<String, Object>> counts) {
 		addSiteHeaders(response, counts);
 		addActivityHeaders(response, counts);
