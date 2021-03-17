@@ -4,6 +4,7 @@ import java.time.Instant;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.annotation.PreDestroy;
@@ -63,11 +64,13 @@ public class LogDao implements ILogDao {
 
 	@Override
 	public Integer addLog(Map<String, Object> parameterMap) {
+		// The returned id is only used internally by the Log Service and the Controller. When logged,
+		// this request will be assigned a uuid for its identifier.
 		int id = counter.getAndIncrement(); // first time, create id used to identify request
-		Map<String, Object> parameterMapWithId = new HashMap<String, Object>();
-		parameterMapWithId.putAll(parameterMap);
-		parameterMapWithId.put(ID, id);
-		addRequestParams(WEB_REQUEST_START, parameterMapWithId);
+		Map<String, Object> parameterMapWithCount = new HashMap<String, Object>();
+		parameterMapWithCount.putAll(parameterMap);
+		parameterMapWithCount.put("requestCount", id);
+		addRequestParams(WEB_REQUEST_START, parameterMapWithCount);
 		return id;
 	}
 
@@ -98,6 +101,7 @@ public class LogDao implements ILogDao {
 	private void log(ObjectNode json) {
 		JsonNode field;
 		if (json != null) {
+			json.put(ID, UUID.randomUUID().toString());
 			field = json.get(ID);
 			String id = field == null || field.isNull() ? null : field.asText();
 			field = json.get("stage");

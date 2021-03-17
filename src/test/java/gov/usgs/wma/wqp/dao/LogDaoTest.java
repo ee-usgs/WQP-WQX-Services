@@ -11,6 +11,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import ch.qos.logback.classic.Level;
@@ -52,7 +53,7 @@ public class LogDaoTest extends BaseTest {
 	private Map<String, Object> parameterMap;
 	private ListAppender<ILoggingEvent> appender;
 
-	Integer id;
+	Integer requestCount;
 	Instant testTimestamp;
 
 	@BeforeEach
@@ -67,7 +68,7 @@ public class LogDaoTest extends BaseTest {
 			logger.addAppender(appender);
 		}
 
-		id = LogDao.counter.get();
+		requestCount = LogDao.counter.get();
 		testTimestamp = Instant.now();
 	}
 
@@ -90,15 +91,16 @@ public class LogDaoTest extends BaseTest {
 		firstRow();
 		requestComplete();
 		assertTrue(appender.list.size() == 1, "Expected only 1 log entry, got " + appender.list.size());
-		JSONObject logJson = assertLogMessage(id, "complete");
+		JSONObject logJson = assertLogMessage(requestCount, "complete");
 		logJson.remove("id"); // id field was verified above
+		logJson.remove("requestCount"); // field was verified above
 		assertJsonTimestamps(logJson);
 		// now that time stamps have been verified, removed them from json and compare the other fields
 		removeJsonTimestamps(logJson);
 		String expectedJson = getCompareFile("webServiceLog/afterRequestComplete.json");
 		assertThat(logJson, sameJSONObjectAs(new JSONObject(expectedJson)));
-		int nextId = id + 1;
-		assertTrue(LogDao.counter.get() == nextId, "Expected next id to start at " + nextId);
+		int nextRequestCount = requestCount + 1;
+		assertTrue(LogDao.counter.get() == nextRequestCount, "Expected next Request Count to be " + nextRequestCount);
 	}
 
 	@Test
@@ -115,11 +117,11 @@ public class LogDaoTest extends BaseTest {
 				"LogDao cleanup() did not log.");
 		assertFalse(appender.list.size() > 1,
 				"Expected LogDao cleanup() to only log once. Log entries: " + appender.list);
-		assertLogMessage(id, "firstRow");
+		assertLogMessage(requestCount, "firstRow");
 	}
 
 	// verify the log message and return the json logged as a JSONObject
-	private JSONObject assertLogMessage(Integer expectedId, String expectedStage) throws JSONException {
+	private JSONObject assertLogMessage(Integer expectedRequestCount, String expectedStage) throws JSONException {
 		String message = appender.list.get(0).getMessage();
 		assertTrue(message != null && message.trim().length() > 0, "Logging message is empty.");
 		String[] fields = message.split("\\|");
@@ -127,10 +129,14 @@ public class LogDaoTest extends BaseTest {
 				fields.length, message);
 		assertTrue(fields.length == 4, assertMess);
 		assertEquals("Web Request", fields[0]);
-		assertEquals(expectedId.toString(), fields[1]);
+		String id = fields[1];
+		assertTrue(id != null && !id.trim().isEmpty(), "id was blank in log message");
+		UUID uuid = UUID.fromString(id);
+		assertNotNull(uuid);
 		assertEquals(expectedStage, fields[2]);
 		JSONObject logJson = new JSONObject(fields[3]);
-		assertEquals(expectedId, logJson.getInt("id"));
+		assertEquals(id, logJson.getString("id"));
+		assertEquals(expectedRequestCount, logJson.getInt("requestCount"));
 		assertEquals(expectedStage, logJson.getString("stage"));
 		return logJson;
 	}
@@ -141,23 +147,23 @@ public class LogDaoTest extends BaseTest {
 		parameterMap.put(LogDao.ENDPOINT, "/wqp/summary/monitoringlocation/search");
 		parameterMap.put(LogDao.POST_DATA, "{\"huc\":[\"010700061301\"],\"mimeType\":\"geojson\",\"zip\":\"no\"}");
 		parameterMap.put(LogDao.USER_AGENT, "Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.4 (KHTML, like Gecko) Chrome/98 Safari/537.4 (StatusCake)");
-		id = logDao.addLog(parameterMap);
+		requestCount = logDao.addLog(parameterMap);
 	}
 
 	private void headComplete() {
-		parameterMap.put(LogDao.ID, id);
+		parameterMap.put(LogDao.ID, requestCount);
 		parameterMap.put(LogDao.TOTAL_ROWS_EXPECTED, BaseControllerTest.TEST_TOTAL_RES_DETECT_QNT_LMT_COUNT);
 		parameterMap.put(LogDao.DATA_STORE_COUNTS, DATA_COUNTS_IN_DB);
 		logDao.setHeadComplete(parameterMap);
 	}
 
 	private void firstRow() {
-		parameterMap.put(LogDao.ID, id);
+		parameterMap.put(LogDao.ID, requestCount);
 		logDao.setFirstRow(parameterMap);
 	}
 
 	private void requestComplete() {
-		parameterMap.put(LogDao.ID, id);
+		parameterMap.put(LogDao.ID, requestCount);
 		parameterMap.put(LogDao.HTTP_STATUS_CODE, "200");
 		parameterMap.put(LogDao.DOWNLOAD_DETAILS, DOWNLOAD_DETAILS);
 		logDao.setRequestComplete(parameterMap);
