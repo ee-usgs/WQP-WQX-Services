@@ -2,7 +2,6 @@ package gov.usgs.wma.wqp.dao;
 
 import java.time.Instant;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -66,11 +65,8 @@ public class LogDao implements ILogDao {
 	public Integer addLog(Map<String, Object> parameterMap) {
 		// The returned id is only used internally by the Log Service and the Controller. When logged,
 		// this request will be assigned a uuid for its identifier.
-		int id = counter.getAndIncrement(); // first time, create id used to identify request
-		Map<String, Object> parameterMapWithCount = new HashMap<String, Object>();
-		parameterMapWithCount.putAll(parameterMap);
-		parameterMapWithCount.put("requestCount", id);
-		addRequestParams(WEB_REQUEST_START, parameterMapWithCount);
+		int id = counter.getAndIncrement();
+		addRequestParams(WEB_REQUEST_START, parameterMap);
 		return id;
 	}
 
