@@ -97,11 +97,10 @@ public class LogDao implements ILogDao {
 	private void log(ObjectNode json) {
 		JsonNode field;
 		if (json != null) {
-			json.put(ID, UUID.randomUUID().toString());
-			field = json.get(ID);
-			String id = field == null || field.isNull() ? null : field.asText();
+			String id = UUID.randomUUID().toString();
+			json.put(ID, id);
 			field = json.get("stage");
-			String stage = field == null || field.isNull() ? null : field.asText();
+			String stage = (field == null || field.isNull()) ? null : field.asText();
 			LOG.info(String.format("Web Request|%s|%s|%s", id, stage, json.toString()));
 		}
 	}
