@@ -2,8 +2,8 @@ package gov.usgs.wma.wqp.dao;
 
 import java.time.Instant;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.annotation.PreDestroy;
@@ -63,11 +63,10 @@ public class LogDao implements ILogDao {
 
 	@Override
 	public Integer addLog(Map<String, Object> parameterMap) {
-		int id = counter.getAndIncrement(); // first time, create id used to identify request
-		Map<String, Object> parameterMapWithId = new HashMap<String, Object>();
-		parameterMapWithId.putAll(parameterMap);
-		parameterMapWithId.put(ID, id);
-		addRequestParams(WEB_REQUEST_START, parameterMapWithId);
+		// The returned id is only used internally by the Log Service and the Controller. When logged,
+		// this request will be assigned a uuid for its identifier.
+		int id = counter.getAndIncrement();
+		addRequestParams(WEB_REQUEST_START, parameterMap);
 		return id;
 	}
 
@@ -98,10 +97,10 @@ public class LogDao implements ILogDao {
 	private void log(ObjectNode json) {
 		JsonNode field;
 		if (json != null) {
-			field = json.get(ID);
-			String id = field == null || field.isNull() ? null : field.asText();
+			String id = UUID.randomUUID().toString();
+			json.put(ID, id);
 			field = json.get("stage");
-			String stage = field == null || field.isNull() ? null : field.asText();
+			String stage = (field == null || field.isNull()) ? null : field.asText();
 			LOG.info(String.format("Web Request|%s|%s|%s", id, stage, json.toString()));
 		}
 	}
