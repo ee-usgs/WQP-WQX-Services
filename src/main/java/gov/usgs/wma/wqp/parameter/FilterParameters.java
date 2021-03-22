@@ -281,6 +281,9 @@ public class FilterParameters {
 		this.characteristicType = characteristicType;
 	}
 	public String getCounts() { return counts; }
+
+	@JsonIgnore
+	public boolean getCountsBoolean() { return (counts == null || !("no".equals(counts))); }
 	public void setCounts(String counts) {
 		this.counts = counts;
 	}
@@ -469,6 +472,7 @@ public class FilterParameters {
 				&& (null == characteristicName || characteristicName.isEmpty())
 				&& (null == characteristicType || characteristicType.isEmpty())
 				&& (null == command || StringUtils.isBlank(command.getAvoid()))
+				&& (null == counts || counts.isEmpty())
 				&& (null == countrycode || countrycode.isEmpty())
 				&& (null == countycode || countycode.isEmpty())
 				&& StringUtils.isBlank(dataProfile)

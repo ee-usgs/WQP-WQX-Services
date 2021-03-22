@@ -21,7 +21,6 @@ import io.swagger.v3.oas.annotations.Operation;
 @FilterParameters
 @MimeTypeStd
 @Zip
-@Counts
 @RequestMapping(method=RequestMethod.POST,
 	consumes=MediaType.APPLICATION_JSON_VALUE)
 public @interface PostOperation {

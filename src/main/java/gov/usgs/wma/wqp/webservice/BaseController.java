@@ -247,7 +247,6 @@ public abstract class BaseController {
 	protected boolean doCommonSetup(HttpServletRequest request, HttpServletResponse response, FilterParameters filter) {
 		setLogId(logService.logRequest(request, response, filter));
 
-		boolean includeCounts = Boolean.parseBoolean( (filter.getCounts() != null)?filter.getCounts():"yes" );
 		boolean isPostCountReq = RequestMethod.POST.toString().equalsIgnoreCase(request.getMethod())
 				                         && request.getRequestURI().endsWith("count");
 
@@ -271,14 +270,13 @@ public abstract class BaseController {
 			response.setHeader(HttpConstants.HEADER_CONTENT_DISPOSITION, "attachment; filename=" + getAttachementFileName());
 		}
 
-		if (includeCounts) {
+		if (filter.getCountsBoolean()) {
 			List<Map<String, Object>> counts = countDao.getCounts(getMybatisNamespace(), getFilter());
 			String totalHeader = addCountHeaders(response, counts);
 			logService.logHeadComplete(counts, totalHeader, getLogId());
 			return checkMaxRows(response, totalHeader);
 		} else {
-			Map<String, Object> counts = new HashMap();
-			logService.logHeadComplete(List.of(counts), null, getLogId());
+			logService.logHeadComplete(null, null, getLogId());
 			return true;
 		}
 	}
@@ -388,7 +386,6 @@ public abstract class BaseController {
 		doDataRequest(request, response, filter);
 	}
 
-	protected void doDataRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter) {
 		LOG.info("Processing Data: {}", filter.toJson());
 		OutputStream responseStream = null;
 		String realHttpStatus = String.valueOf(response.getStatus());

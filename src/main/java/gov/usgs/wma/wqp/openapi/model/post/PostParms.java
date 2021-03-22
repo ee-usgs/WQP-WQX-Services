@@ -12,6 +12,8 @@ public class PostParms extends MonitoringLocationPost {
 	String[] characteristicName;
 	@JsonProperty("characteristicType")
 	String[] characteristicType;
+	@JsonProperty("counts")
+	String counts;
 	@JsonProperty("minactivities")
 	String minactivities;
 	@JsonProperty("minresults")
