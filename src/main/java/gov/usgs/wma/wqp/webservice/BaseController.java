@@ -386,6 +386,7 @@ public abstract class BaseController {
 		doDataRequest(request, response, filter);
 	}
 
+	protected void doDataRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter) {
 		LOG.info("Processing Data: {}", filter.toJson());
 		OutputStream responseStream = null;
 		String realHttpStatus = String.valueOf(response.getStatus());
