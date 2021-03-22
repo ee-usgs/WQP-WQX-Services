@@ -18,7 +18,6 @@ import io.swagger.v3.oas.annotations.Operation;
 @Operation(description=GetOperation.DEFAULT_DESCRIPTION)
 @MimeTypeStd
 @Zip
-@Counts
 @RequestMapping(method=RequestMethod.GET)
 public @interface GetOperation {
 	public static final String DEFAULT_DESCRIPTION = "Return requested data.";
