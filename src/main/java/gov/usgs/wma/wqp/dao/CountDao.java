@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -15,14 +16,14 @@ import gov.usgs.wma.wqp.dao.intfc.ICountDao;
 import gov.usgs.wma.wqp.parameter.FilterParameters;
 
 @Component
-public class CountDao extends BaseDao implements ICountDao {
+public class CountDao extends SqlSessionDaoSupport implements ICountDao {
 	private static final Logger LOG = LoggerFactory.getLogger(CountDao.class);
 
 	public static final String QUERY_SELECT_ID = ".count";
 
 	@Autowired
 	public CountDao(SqlSessionFactory sqlSessionFactory) {
-		super(sqlSessionFactory);
+		setSqlSessionFactory(sqlSessionFactory);
 	}
 
 	@Override

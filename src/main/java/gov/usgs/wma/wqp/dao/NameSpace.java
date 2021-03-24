@@ -37,10 +37,7 @@ public enum NameSpace {
 	RESULT_PHYS_CHEM ("resultPhysChem", Parameters.MIN_RESULTS),
 	RESULT_PRIMARY("resultPrimary", Parameters.MIN_RESULTS),
 	RESULT_BROAD("resultBroad", Parameters.MIN_RESULTS),
-
-	RES_DETECT_QNT_LMT ("resDetectQntLmt", null),
-
-	LOG_MAPPER ("logMapper", null);
+	RES_DETECT_QNT_LMT ("resDetectQntLmt", null);
 
 	private final String name;
 	//Count queries for activity and result data must have the min_*** parameter with a value of at least one or sites get counted which have no data.
