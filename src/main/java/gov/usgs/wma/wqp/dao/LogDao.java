@@ -48,7 +48,7 @@ public class LogDao implements ILogDao {
 	public static final String ORIGIN = "origin";
 	public static final String CALL_TYPE = "callType";
 	public static final String ENDPOINT = "endpoint";
-	public static final String TOTAL_ROWS_EXPECTED = "totalRowsExpected";
+	public static final String TOTAL_ROWS = "totalRows";
 	public static final String DATA_STORE_COUNTS = "dataStoreCounts";
 	public static final String HTTP_STATUS_CODE = "httpStatusCode";
 	public static final String POST_DATA = "postData";

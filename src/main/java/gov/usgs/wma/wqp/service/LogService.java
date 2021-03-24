@@ -68,13 +68,19 @@ public class LogService implements ILogService {
 		parameterMap.put(LogDao.ID, logId);
 
 		if (null != counts) {
-			parameterMap.putAll(processCounts(counts, totalHeader));
+			parameterMap.putAll(recordHeadCounts(counts, totalHeader));
 		}
 
 		logDao.setHeadComplete(parameterMap);
 	}
 
-	protected Map<String, Object> processCounts(List<Map<String, Object>> counts, String totalHeader) {
+	/**
+	 * Record count info from the header.
+	 * @param counts Map of counts.
+	 * @param totalHeader The name of the header for the total.  Counts are split up in several ways, this indicates what relates to actual rows.
+	 * @return
+	 */
+	protected Map<String, Object> recordHeadCounts(List<Map<String, Object>> counts, String totalHeader) {
 		Map<String, Object> parameterMap = new HashMap<String, Object>();
 		Integer totalRowsExpected = 0;
 
@@ -82,7 +88,7 @@ public class LogService implements ILogService {
 
 		for (Map<String, Object> countLine : counts) {
 			if (countLine.get(BaseColumn.KEY_DATA_SOURCE) == null) {
-				totalRowsExpected = getTotalRowsExpected(countLine, totalHeader);
+				totalRowsExpected = findTotalRowsExpected(countLine, totalHeader);
 			} else {
 				endpointCounts.append("{\"").append(countLine.get(BaseColumn.KEY_DATA_SOURCE)).append("\":").append("{");
 				for (Entry<String, Object> entry : countLine.entrySet()) {
@@ -100,13 +106,20 @@ public class LogService implements ILogService {
 		}
 		endpointCounts.append("]}");
 
-		parameterMap.put(LogDao.TOTAL_ROWS_EXPECTED, totalRowsExpected);
+		parameterMap.put(LogDao.TOTAL_ROWS, totalRowsExpected);
 		parameterMap.put(LogDao.DATA_STORE_COUNTS, endpointCounts.toString());
 
 		return parameterMap;
 	}
 
-	protected Integer getTotalRowsExpected(Map<String, Object> countLine, String totalHeader) {
+	/**
+	 * Find the total rows expected in the count header.
+	 * Only used when header counts are requested.
+	 * @param countLine
+	 * @param totalHeader
+	 * @return
+	 */
+	protected Integer findTotalRowsExpected(Map<String, Object> countLine, String totalHeader) {
 		Integer totalRowsExpected = 0;
 		if (totalHeader != null) {
 			String key = totalHeader.substring(6).toLowerCase().replaceAll("-", "_");
@@ -128,18 +141,31 @@ public class LogService implements ILogService {
 	@Override
 	public void logRequestComplete(Integer logId, String httpStatusCode, Map<String, Integer> downloadDetails) {
 		ObjectMapper mapper = new ObjectMapper();
-		String json = "";
-		try {
-			json = null == downloadDetails ? "{}" : mapper.writeValueAsString(downloadDetails);
-		} catch (JsonProcessingException e) {
-			//Not sure how this can happen, but is part of the API
-			json = "{\"Error serializing downloadDetails\"}";
-			LOG.info(json, e);
+		String json = "{}";
+		Integer totalRows = null;
+
+		if (downloadDetails != null) {
+			try {
+
+				json = mapper.writeValueAsString(downloadDetails);
+				totalRows = downloadDetails.values().stream().reduce(0, (a, b) -> a + b);
+
+			} catch (JsonProcessingException e) {
+				//Not sure how this can happen, but is part of the API
+				json = "{\"Error serializing downloadDetails\"}";
+				LOG.info(json, e);
+			}
 		}
 		Map<String, Object> parameterMap = new HashMap<String, Object>();
 		parameterMap.put(LogDao.ID, logId);
 		parameterMap.put(LogDao.HTTP_STATUS_CODE, httpStatusCode);
 		parameterMap.put(LogDao.DOWNLOAD_DETAILS, json);
+
+		if (totalRows != null) {
+			//If counts were requested, this will just overwrite it.  If its a head-only count request, there will be
+			//no downloadDetails info, so don't overwrite TOTAL_ROWS when totalRows is null.
+			parameterMap.put(LogDao.TOTAL_ROWS, totalRows);
+		}
 		logDao.setRequestComplete(parameterMap);
 	}
 
