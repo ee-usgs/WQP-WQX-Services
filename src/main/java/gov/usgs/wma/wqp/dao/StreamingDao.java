@@ -2,6 +2,7 @@ package gov.usgs.wma.wqp.dao;
 
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -9,13 +10,13 @@ import gov.usgs.wma.wqp.dao.intfc.IStreamingDao;
 import gov.usgs.wma.wqp.parameter.FilterParameters;
 
 @Component
-public class StreamingDao extends BaseDao implements IStreamingDao {
+public class StreamingDao extends SqlSessionDaoSupport implements IStreamingDao {
 
 	public static final String QUERY_SELECT_ID = ".select";
 
 	@Autowired
 	public StreamingDao(SqlSessionFactory sqlSessionFactory) {
-		super(sqlSessionFactory);
+		setSqlSessionFactory(sqlSessionFactory);
 	}
 
 	@Override
