@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Validator;
 
-import gov.usgs.wma.wqp.openapi.annotation.query.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.accept.ContentNegotiationStrategy;
@@ -27,6 +26,8 @@ import gov.usgs.wma.wqp.openapi.annotation.GetOperation;
 import gov.usgs.wma.wqp.openapi.annotation.HeadOperation;
 import gov.usgs.wma.wqp.openapi.annotation.PostCountOperation;
 import gov.usgs.wma.wqp.openapi.annotation.PostOperation;
+import gov.usgs.wma.wqp.openapi.annotation.query.DataProfileResult;
+import gov.usgs.wma.wqp.openapi.annotation.query.FullParameterList;
 import gov.usgs.wma.wqp.openapi.model.ResultCountJson;
 import gov.usgs.wma.wqp.parameter.FilterParameters;
 import gov.usgs.wma.wqp.service.ConfigurationService;

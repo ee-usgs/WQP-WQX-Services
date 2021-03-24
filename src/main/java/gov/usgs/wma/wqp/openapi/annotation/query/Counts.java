@@ -21,8 +21,8 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 		description = "Should counts of records be included in the header. Counting all records before sending them makes the response take significantly longer.  Default 'yes'.",
 		schema = @Schema(type = "string"),
 		examples = {
-				@ExampleObject(name="Yes", description="Include record counts in the response header.", value="yes"),
-				@ExampleObject(name="No", description="Do not include record counts in the response header.", value="no")
+				@ExampleObject(name="yes", description="Include record counts in the response header.", value="yes"),
+				@ExampleObject(name="no", description="Do not include record counts in the response header.", value="no")
 				}
 		)
 public @interface Counts {

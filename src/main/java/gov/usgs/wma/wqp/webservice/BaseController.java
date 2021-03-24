@@ -247,8 +247,9 @@ public abstract class BaseController {
 	protected boolean doCommonSetup(HttpServletRequest request, HttpServletResponse response, FilterParameters filter) {
 		setLogId(logService.logRequest(request, response, filter));
 
-		boolean isPostCountReq = RequestMethod.POST.toString().equalsIgnoreCase(request.getMethod())
-				                         && request.getRequestURI().endsWith("count");
+		boolean isPostCountReq =
+				RequestMethod.POST.toString().equalsIgnoreCase(request.getMethod()) &&
+						(request.getRequestURI().endsWith("count") || request.getRequestURI().endsWith("count/"));
 
 		response.setCharacterEncoding(HttpConstants.DEFAULT_ENCODING);
 		if (!processParameters(filter)) {
