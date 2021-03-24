@@ -145,7 +145,7 @@ public class LogDaoTest extends BaseTest {
 	}
 
 	private void headComplete() {
-		parameterMap.put(LogDao.TOTAL_ROWS_EXPECTED, BaseControllerTest.TEST_TOTAL_RES_DETECT_QNT_LMT_COUNT);
+		parameterMap.put(LogDao.TOTAL_ROWS, BaseControllerTest.TEST_TOTAL_RES_DETECT_QNT_LMT_COUNT);
 		parameterMap.put(LogDao.DATA_STORE_COUNTS, DATA_COUNTS_IN_DB);
 		logDao.setHeadComplete(parameterMap);
 	}

@@ -27,7 +27,7 @@
             }
         ]
     },
-    "totalRowsExpected": "4321",
+    "totalRows": "4321",
     "httpStatusCode": "200",
     "downloadDetails": {
         "SILLY_ORG": 17,

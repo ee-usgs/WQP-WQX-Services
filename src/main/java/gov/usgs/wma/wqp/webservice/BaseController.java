@@ -247,6 +247,10 @@ public abstract class BaseController {
 	protected boolean doCommonSetup(HttpServletRequest request, HttpServletResponse response, FilterParameters filter) {
 		setLogId(logService.logRequest(request, response, filter));
 
+		boolean isPostCountReq =
+				RequestMethod.POST.toString().equalsIgnoreCase(request.getMethod()) &&
+						(request.getRequestURI().endsWith("count") || request.getRequestURI().endsWith("count/"));
+
 		response.setCharacterEncoding(HttpConstants.DEFAULT_ENCODING);
 		if (!processParameters(filter)) {
 			writeWarningHeaders(response);
@@ -260,21 +264,22 @@ public abstract class BaseController {
 
 		addCustomRequestParams();
 
-		List<Map<String, Object>> counts = countDao.getCounts(getMybatisNamespace(), getFilter());
-
 		response.setCharacterEncoding(HttpConstants.DEFAULT_ENCODING);
 		response.addHeader(HttpConstants.HEADER_CONTENT_TYPE, getContentHeader());
-		if (RequestMethod.POST.toString().equalsIgnoreCase(request.getMethod())
-				&& request.getRequestURI().endsWith("count")) {
+		if (!isPostCountReq) {
 			//skip the content disposition header on POST counts
-		} else {
-			response.setHeader(HttpConstants.HEADER_CONTENT_DISPOSITION,"attachment; filename=" + getAttachementFileName());
+			response.setHeader(HttpConstants.HEADER_CONTENT_DISPOSITION, "attachment; filename=" + getAttachementFileName());
 		}
-		String totalHeader = addCountHeaders(response, counts);
 
-		logService.logHeadComplete(counts, totalHeader, getLogId());
-
-		return checkMaxRows(response, totalHeader);
+		if (filter.getCountsBoolean()) {
+			List<Map<String, Object>> counts = countDao.getCounts(getMybatisNamespace(), getFilter());
+			String totalHeader = addCountHeaders(response, counts);
+			logService.logHeadComplete(counts, totalHeader, getLogId());
+			return checkMaxRows(response, totalHeader);
+		} else {
+			logService.logHeadComplete(null, null, getLogId());
+			return true;
+		}
 	}
 
 	protected void determineContentType(HttpServletRequest request) {

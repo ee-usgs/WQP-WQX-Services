@@ -62,6 +62,7 @@ public class FilterParameters {
 	public static final String BBOX_CONST = "bBox";
 	public static final String CHARACTERISTIC_NAME_CONST = "characteristicName";
 	public static final String CHARACTERISTIC_TYPE_CONST = "characteristicType";
+	public static final String COUNTS_CONST = "counts";
 	public static final String COUNTRY_CODE_CONST = "countrycode";
 	public static final String COUNTY_CODE_CONST = "countycode";
 	public static final String DATA_PROFILE_CONST = "dataProfile";
@@ -116,6 +117,9 @@ public class FilterParameters {
 
 	@Size(min=0, max=IN_CLAUSE_LIMIT, message="The characteristicType is not between {min} and {max} occurances")
 	private List<@Lookup(parameter=Parameters.CHARACTERISTIC_TYPE) String> characteristicType;
+
+	@Pattern(regexp=REGEX_YES_NO, message="The value of counts=${validatedValue} must match the format {regexp}")
+	private String counts;
 
 	@Size(min=0, max=IN_CLAUSE_LIMIT, message="The countrycode is not between {min} and {max} occurances")
 	private List<@Pattern(
@@ -275,6 +279,13 @@ public class FilterParameters {
 	}
 	public void setCharacteristicType(List<String> characteristicType) {
 		this.characteristicType = characteristicType;
+	}
+	public String getCounts() { return counts; }
+
+	@JsonIgnore
+	public boolean getCountsBoolean() { return (counts == null || !("no".equalsIgnoreCase(counts.trim()))); }
+	public void setCounts(String counts) {
+		this.counts = counts;
 	}
 	public List<String> getCountrycode() {
 		return countrycode;
@@ -461,6 +472,7 @@ public class FilterParameters {
 				&& (null == characteristicName || characteristicName.isEmpty())
 				&& (null == characteristicType || characteristicType.isEmpty())
 				&& (null == command || StringUtils.isBlank(command.getAvoid()))
+				&& (null == counts || counts.isEmpty())
 				&& (null == countrycode || countrycode.isEmpty())
 				&& (null == countycode || countycode.isEmpty())
 				&& StringUtils.isBlank(dataProfile)
