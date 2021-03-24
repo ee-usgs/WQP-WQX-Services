@@ -283,7 +283,7 @@ public class FilterParameters {
 	public String getCounts() { return counts; }
 
 	@JsonIgnore
-	public boolean getCountsBoolean() { return (counts == null || !("no".equals(counts))); }
+	public boolean getCountsBoolean() { return (counts == null || !("no".equals(counts.trim()))); }
 	public void setCounts(String counts) {
 		this.counts = counts;
 	}
