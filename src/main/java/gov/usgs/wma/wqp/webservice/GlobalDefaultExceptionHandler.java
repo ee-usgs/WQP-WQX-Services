@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.catalina.connector.ClientAbortException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -22,20 +23,28 @@ public class GlobalDefaultExceptionHandler {
 
 	@ExceptionHandler(Exception.class)
 	public void handleUncaughtException(Exception ex, WebRequest request, HttpServletResponse response) throws IOException {
-		if (ex instanceof HttpMediaTypeNotAcceptableException) {
+		if (ex instanceof HttpMediaTypeNotAcceptableException && ! response.isCommitted()) {
 			response.sendError(HttpStatus.NOT_ACCEPTABLE.value());
 		} else if (ex instanceof HttpMessageNotReadableException
 				|| ex instanceof MissingServletRequestParameterException
 				|| ex instanceof HttpMediaTypeNotSupportedException) {
 			int x = ex.getLocalizedMessage().indexOf("\n");
-			response.sendError(HttpStatus.BAD_REQUEST.value(), (x > 0 ? ex.getLocalizedMessage().substring(0, x) : ex.getLocalizedMessage()) );
+
+			if (! response.isCommitted()) {
+				response.sendError(HttpStatus.BAD_REQUEST.value(), (x > 0 ? ex.getLocalizedMessage().substring(0, x) : ex.getLocalizedMessage()));
+			}
+		} else if (ex instanceof ClientAbortException) {
+			LOG.info("Client abort - This is normal and likely means the client dropped their connection");
 		} else {
 			int hashValue = response.hashCode();
 			//Note: we are giving the user a generic message.  
 			//Server logs can be used to troubleshoot problems.
 			String msgText = "Something bad happened. Contact us with Reference Number: " + hashValue;
 			LOG.error(msgText, ex);
-			response.sendError(HttpStatus.INTERNAL_SERVER_ERROR.value(), msgText);
+
+			if (! response.isCommitted()) {
+				response.sendError(HttpStatus.INTERNAL_SERVER_ERROR.value(), msgText);
+			}
 		}
 	}
 
