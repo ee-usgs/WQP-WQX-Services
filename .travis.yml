@@ -23,7 +23,7 @@ script:
     -e TESTING_DATABASE_PORT=5432 \
     -e TESTING_DATABASE_ADDRESS=wqpDatabase \
     -e TESTING_DATABASE_NETWORK=iow \
-    maven:3.6.0-jdk-11 mvn clean verify
+    maven:3.8.1-jdk-11 mvn clean verify
   - docker network rm iow
 
 after_success:
