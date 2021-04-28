@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.catalina.connector.ClientAbortException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -18,24 +19,53 @@ import org.springframework.web.context.request.WebRequest;
 @ControllerAdvice
 public class GlobalDefaultExceptionHandler {
 	private static final Logger LOG = LoggerFactory.getLogger(GlobalDefaultExceptionHandler.class);
-	public static final String ERROR = "Error Encountered";
 
 	@ExceptionHandler(Exception.class)
 	public void handleUncaughtException(Exception ex, WebRequest request, HttpServletResponse response) throws IOException {
 		if (ex instanceof HttpMediaTypeNotAcceptableException) {
-			response.sendError(HttpStatus.NOT_ACCEPTABLE.value());
+
+			sendError(response, HttpStatus.NOT_ACCEPTABLE, null);
+
 		} else if (ex instanceof HttpMessageNotReadableException
 				|| ex instanceof MissingServletRequestParameterException
 				|| ex instanceof HttpMediaTypeNotSupportedException) {
+
 			int x = ex.getLocalizedMessage().indexOf("\n");
-			response.sendError(HttpStatus.BAD_REQUEST.value(), (x > 0 ? ex.getLocalizedMessage().substring(0, x) : ex.getLocalizedMessage()) );
+			sendError(response, HttpStatus.BAD_REQUEST, (x > 0 ? ex.getLocalizedMessage().substring(0, x) : ex.getLocalizedMessage()));
+
+		} else if (ex instanceof ClientAbortException) {
+
+			LOG.info("Client abort - This is normal and likely means the client dropped their connection", ex);
+
 		} else {
+
+			//Generic message + hash code allows us to look up the err in the logs
 			int hashValue = response.hashCode();
-			//Note: we are giving the user a generic message.  
-			//Server logs can be used to troubleshoot problems.
 			String msgText = "Something bad happened. Contact us with Reference Number: " + hashValue;
+
 			LOG.error(msgText, ex);
-			response.sendError(HttpStatus.INTERNAL_SERVER_ERROR.value(), msgText);
+			sendError(response, HttpStatus.INTERNAL_SERVER_ERROR, msgText);
+		}
+	}
+
+	/**
+	 * Send an error message to the user, but only if the response is not already committed.
+	 * @param response
+	 * @param httpStatus
+	 * @param message
+	 */
+	private void sendError(HttpServletResponse response, HttpStatus httpStatus, String message) {
+		if (! response.isCommitted()) {
+			try {
+				if (message != null) {
+					response.sendError(httpStatus.value(), message);
+				} else {
+					response.sendError(httpStatus.value());
+				}
+
+			} catch (IOException e) {
+				//Ignore - nothing we can do
+			}
 		}
 	}
 
