@@ -31,6 +31,20 @@ class FilterParametersUtilTest {
 	}
 
 	@Test
+	void emptyToNullParametersTest() {
+		//Set to all empty lists
+		params.setCountrycode(FilterParametersUtil.nonNullModifiableList(null));
+		params.setStatecode(FilterParametersUtil.nonNullModifiableList(null));
+		params.setCountycode(FilterParametersUtil.nonNullModifiableList(null));
+
+		FilterParametersUtil.emptyToNullParameters(params);
+
+		assertNull(params.getCountrycode());
+		assertNull(params.getStatecode());
+		assertNull(params.getCountycode());
+	}
+
+	@Test
 	void dedupParametersOneCountryOnly() {
 
 		params.setCountrycode(Arrays.asList("US"));

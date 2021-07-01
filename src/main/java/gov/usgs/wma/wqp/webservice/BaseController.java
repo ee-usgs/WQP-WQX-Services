@@ -343,6 +343,7 @@ public abstract class BaseController {
 			LOG.debug("errors: " + filter.getValidationErrors().toString());
 
 			FilterParametersUtil.dedupParameters(filter);
+			FilterParametersUtil.emptyToNullParameters(filter);
 			LOG.debug("de-duplicated Params: {}", filter.toJson());
 
 			setFilter(filter);

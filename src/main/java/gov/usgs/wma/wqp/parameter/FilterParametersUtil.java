@@ -9,6 +9,21 @@ public class FilterParametersUtil {
 
 
 	/**
+	 * Convert some list params from empty lists to null.
+	 * These should match the params affected by dedupParameters.
+	 * Its much easier to test with empty lists, but the way we have our MyBatis
+	 * SQL templates, it assumes that criteria is only skipped if lists are null, not empty.
+	 * Empty lists result in criteria entries with no actual criteria, e.g.: 'state in ()'.
+	 * @param filter
+	 */
+	public static void emptyToNullParameters(FilterParameters filter) {
+		//When all done, update to the new lists (its possible there was no change)
+		//Really these need to be null to count as empty to MyBatis
+		filter.setCountrycode(nonNullModifiableList(filter.getCountrycode()).isEmpty()?null:filter.getCountrycode());
+		filter.setStatecode(nonNullModifiableList(filter.getStatecode()).isEmpty()?null:filter.getStatecode());
+		filter.setCountycode(nonNullModifiableList(filter.getCountycode()).isEmpty()?null:filter.getCountycode());
+	}
+	/**
 	 * Modify a FilterParameter object to remove logical duplicate criteria.
 	 * For instance, if the params contains Country: US and State: US:06,
 	 * remove the country, since the state criteria completely captures this.
