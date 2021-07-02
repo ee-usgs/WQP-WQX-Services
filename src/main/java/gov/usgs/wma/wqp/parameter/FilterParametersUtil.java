@@ -1,12 +1,15 @@
 package gov.usgs.wma.wqp.parameter;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.*;
 
 /**
  * Util class for de-duplicating FilterParameters that are logical duplicate entries.
  */
 public class FilterParametersUtil {
-
+	private static final Logger LOG = LoggerFactory.getLogger(FilterParametersUtil.class);
 
 	/**
 	 * Convert some list params from empty lists to null.
@@ -34,9 +37,11 @@ public class FilterParametersUtil {
 		List<String> states = nonNullModifiableList(filter.getStatecode());
 		List<String> counties = nonNullModifiableList(filter.getCountycode());
 
+		boolean haveGovUnitCriteria = ! countries.isEmpty() || ! states.isEmpty() || ! counties.isEmpty();
+
 
 		if (! countries.isEmpty() && ! (states.isEmpty() && counties.isEmpty())) {
-			//countries AND one or both of states and counties has an entries
+			//We have Countries AND (some states and/or counties)
 
 			boolean otherCriteriaOverlapsCountries = false;	//If true, at least some duplicating criteria was found
 
@@ -53,14 +58,15 @@ public class FilterParametersUtil {
 			}
 
 
-			//Now remove all the country filters if there is some state or county criteria left
+			//Now remove all the Country filters if there are at least some state or county criteria that overlaps a Country
 			if (otherCriteriaOverlapsCountries) {
 				countries.clear();
 			}
 
-		} // else states and counties are empty, so don't modify/dedup countries
+		} // else there are no Contries, OR, states and counties are both empty.  Thus don't modify/dedup WRT Countries.
 
 		if (! states.isEmpty() && ! counties.isEmpty()) {
+			//We have some states AND counties
 
 			boolean otherCriteriaOverlapsStates = false;	//If true, at least some duplicating criteria was found
 
@@ -71,18 +77,32 @@ public class FilterParametersUtil {
 				counties.removeIf(c -> !states.stream().anyMatch(s -> c.startsWith(s)));
 			}
 
-			//Now remove all the state filters if there is some county criteria left
+			//Now remove all the state filters if there were at least some states that overlapped some counties.
 			if (otherCriteriaOverlapsStates) {
 				states.clear();
 			}
 
 		} // else counties are empty, so don't modify/dedup states
 
+		boolean haveResultingGovUnitCriteria = ! countries.isEmpty() || ! states.isEmpty() || ! counties.isEmpty();
 
-		//When all done, update to the new lists (its possible there was no change)
-		filter.setCountrycode(countries);
-		filter.setStatecode(states);
-		filter.setCountycode(counties);
+		//Update the gov unit criteria only if there was initial criteria and there is at least some resulting criteria.
+		//This is to protect against logic errors in this complex code, which might unintentionally remove all gov criteria
+		//and tie up the db fetching all records.
+		if (haveGovUnitCriteria && haveResultingGovUnitCriteria) {
+
+			filter.setCountrycode(countries);
+			filter.setStatecode(states);
+			filter.setCountycode(counties);
+
+		} else if (haveGovUnitCriteria && ! haveResultingGovUnitCriteria) {
+			//Oops, we really botched the logic!
+			LOG.error("The de-dup logic in {} is not working as expected and " +
+					"would have inadvertently removed all gov unit criteria, so the original gov params were kept.  " +
+					"The next log statement contains all the original FilterParameters.",
+					FilterParametersUtil.class.getName());
+			LOG.error("Complete FilterParameter list: " + filter.toJson());
+		}
 
 	}
 
@@ -90,6 +110,8 @@ public class FilterParametersUtil {
 	 * Create a list that is non-null and for-sure modifiable.
 	 * List created via Arrays.asList() are not modifiable, so always need
 	 * to copy values to a new list.
+	 *
+	 * If the list is null, a non-modifiable empty list is returned.
 	 *
 	 * @param list
 	 * @param <T>
