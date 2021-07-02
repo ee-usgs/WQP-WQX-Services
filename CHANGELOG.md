@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 -   Performance improvement on searches when specifying project
 -   Increase work_mem on result queries to reduce timeouts
 -   Services now accept a 'counts' param which can turn off counts in the response header to speed up requests.
+-   New FilterParametersUtil removes redundant gov unit criteria, speeding up some queries by ~1000x.
 
 ## [1.6.0](https://github.com/NWQMC/WQP-WQX-Services/compare/WQP-WQX-Services/compare/WQP-WQX-Services-1.6.0...master) - 2020-07-13
 ### Added

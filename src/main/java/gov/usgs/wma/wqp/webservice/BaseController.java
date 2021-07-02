@@ -3,9 +3,7 @@ package gov.usgs.wma.wqp.webservice;
 import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -14,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 
+import gov.usgs.wma.wqp.parameter.FilterParametersUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.ResultHandler;
 import org.slf4j.Logger;
@@ -339,10 +338,14 @@ public abstract class BaseController {
 		if (null == filter || filter.isEmpty()) {
 			LOG.debug("No parameters");
 		} else {
-			LOG.trace("got parameters");
 			LOG.debug("requestParams: {}", filter.toJson());
 			filter.setValidationErrors(validator.validate(filter));
 			LOG.debug("errors: " + filter.getValidationErrors().toString());
+
+			FilterParametersUtil.dedupParameters(filter);
+			FilterParametersUtil.emptyToNullParameters(filter);
+			LOG.debug("de-duplicated Params: {}", filter.toJson());
+
 			setFilter(filter);
 			rtn = filter.isValid();
 		}
@@ -388,12 +391,15 @@ public abstract class BaseController {
 	}
 
 	protected void doDataRequest(HttpServletRequest request, HttpServletResponse response, FilterParameters filter) {
-		LOG.info("Processing Data: {}", filter.toJson());
+
 		OutputStream responseStream = null;
 		String realHttpStatus = String.valueOf(response.getStatus());
 
 		try {
 			if (doCommonSetup(request, response, filter)) {
+
+				LOG.info("Web Request|{}| Processing Data: {}", getLogId(), filter.toJson());
+
 				responseStream = getOutputStream(response, getZipped(), determineZipEntryName());
 				Transformer transformer = getTransformer(responseStream, getLogId());
 
@@ -401,6 +407,8 @@ public abstract class BaseController {
 				streamingDao.stream(getMybatisNamespace(), getFilter(), handler);
 
 				transformer.end();
+			} else {
+				LOG.error("doCommonSetup failed, so no log id is available");
 			}
 		} catch (Throwable e) {
 			response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
@@ -409,16 +417,16 @@ public abstract class BaseController {
 			//Note: we are giving the user a generic message.  
 			//Server logs can be used to troubleshoot problems.
 			String msgText = "Something bad happened. Contact us with Reference Number: " + hashValue;
-			LOG.error("logId: {}", BaseController.getLogId());
-			LOG.error("status: {}", HttpStatus.INTERNAL_SERVER_ERROR.value());
-			LOG.error(msgText, e);
+			LOG.error("Web Request|{}| status: {}", getLogId(), HttpStatus.INTERNAL_SERVER_ERROR.value());
+			LOG.error("Web Request|" + getLogId() + "| " + msgText, e);
+
 			response.addHeader(HttpConstants.HEADER_FATAL_ERROR, msgText);
 			if (null != responseStream) {
 				try {
 					responseStream.write(msgText.getBytes(HttpConstants.DEFAULT_ENCODING));
 				} catch (IOException e2) {
 					//Just log, cause we obviously can't tell the client
-					LOG.error("Error telling client about exception", e2);
+					LOG.error("Web Request|" + getLogId() + "| Error telling client about exception", e2);
 				}
 			}
 		} finally {
@@ -429,16 +437,15 @@ public abstract class BaseController {
 					}
 				} catch (Throwable e) {
 					//Just log, cause we obviously can't tell the client
-					LOG.error("Error closing zip", e);
+					LOG.error("Web Request|" + getLogId() + "| Error closing zip", e);
 				}
 				try {
 					responseStream.flush();
 				} catch (IOException e) {
 					//Just log, cause we obviously can't tell the client
-					LOG.error("Error flushing response stream", e);
+					LOG.error("Web Request|" + getLogId() + "| Error flushing response stream", e);
 				}
 			}
-			LOG.info("Processing Data complete: {}", filter.toJson());
 			logService.logRequestComplete(getLogId(), realHttpStatus, getDownloadDetails());
 			remove();
 		}
